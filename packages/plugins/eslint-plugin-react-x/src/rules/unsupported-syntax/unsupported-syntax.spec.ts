@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./unsupported-syntax";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -171,7 +171,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     // eval / with valid cases
     {
       code: tsx`

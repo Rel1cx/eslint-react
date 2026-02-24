@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-unused-state";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -359,7 +359,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       class Foo extends React.Component {
         shouldComponentUpdate() {

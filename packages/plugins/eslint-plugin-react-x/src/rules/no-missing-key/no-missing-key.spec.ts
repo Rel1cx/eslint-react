@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-key";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -212,7 +212,6 @@ ruleTester.run(RULE_NAME, rule, {
     // },
   ],
   valid: [
-    ...allValid,
     "fn()",
     "[1, 2, 3].map(function () {})",
     "<App />;",

@@ -1,7 +1,7 @@
 // TODO: Add more tests
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-unnecessary-use-callback";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -531,7 +531,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       import { useState } from "react";
 

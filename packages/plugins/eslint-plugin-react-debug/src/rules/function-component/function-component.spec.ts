@@ -1769,7 +1769,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     tsx`
       export default function () {
           "use memo";

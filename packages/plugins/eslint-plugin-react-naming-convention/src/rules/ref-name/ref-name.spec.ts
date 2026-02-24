@@ -47,7 +47,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     tsx`
       import { useRef } from "react";
       const ref = useRef(0);

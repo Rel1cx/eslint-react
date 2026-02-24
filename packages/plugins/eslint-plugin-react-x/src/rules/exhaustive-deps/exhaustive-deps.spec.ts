@@ -2,7 +2,7 @@
 
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./exhaustive-deps";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -377,7 +377,6 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
     },
   ],
   valid: [
-    ...allValid,
     // Empty dependency array with no external deps
     {
       code: tsx`

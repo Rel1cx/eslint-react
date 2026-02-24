@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./use-memo";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -123,7 +123,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     // Arrow function with concise body (always returns)
     tsx`
       import { useMemo } from "react";

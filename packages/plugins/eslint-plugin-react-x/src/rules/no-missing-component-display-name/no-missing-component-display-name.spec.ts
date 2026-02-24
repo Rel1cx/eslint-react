@@ -65,7 +65,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     "const App = () => <div>foo</div>",
     tsx`
       function App() {

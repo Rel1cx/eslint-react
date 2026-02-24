@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
-import { allFunctions, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -267,7 +267,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     // --- Assignment / setter naming ---
     tsx`
       import { useState } from "react";

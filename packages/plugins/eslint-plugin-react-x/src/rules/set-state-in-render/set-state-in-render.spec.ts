@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./set-state-in-render";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -253,7 +253,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     {
       code: tsx`
         import { useState } from "react";

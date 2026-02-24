@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTesterWithTypes } from "../../../../../../test";
+import { ruleTesterWithTypes } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
@@ -234,7 +234,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />

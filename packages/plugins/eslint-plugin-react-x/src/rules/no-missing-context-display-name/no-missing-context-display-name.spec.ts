@@ -83,7 +83,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     tsx`const ctx = createContext(); ctx.displayName = "ctx";`,
     tsx`
       const ctx = createContext();

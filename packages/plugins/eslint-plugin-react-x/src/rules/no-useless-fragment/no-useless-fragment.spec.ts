@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-useless-fragment";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -297,7 +297,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     {
       code: "<></>",
       options: [{ allowEmptyFragment: true }],

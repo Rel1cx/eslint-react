@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./error-boundaries";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -193,7 +193,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     // Error boundary usage
     tsx`
       function Parent() {

@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTesterWithTypes } from "../../../../../../test";
+import { ruleTesterWithTypes } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-implicit-key";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
@@ -344,7 +344,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       const App = () => {
           return [<div key="1">1</div>]

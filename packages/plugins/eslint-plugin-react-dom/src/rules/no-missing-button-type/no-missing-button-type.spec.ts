@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-button-type";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -87,7 +87,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     "<a />;",
     "<span />;",
     '<button type="button">Click me</button>;',

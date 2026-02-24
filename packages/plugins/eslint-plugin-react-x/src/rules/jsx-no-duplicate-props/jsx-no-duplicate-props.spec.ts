@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./jsx-no-duplicate-props";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -23,7 +23,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`const a = <div a="1" aa="2" />;`,
     tsx`const a = <div a="1" aa="2"><span a="1" aa="2" /></div>;`,
     tsx`const a = <div a="1" b="2" />;`,

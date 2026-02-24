@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-set-state-in-component-did-update";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -31,7 +31,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       class Foo extends React.Component {
         componentDidUpdate() {

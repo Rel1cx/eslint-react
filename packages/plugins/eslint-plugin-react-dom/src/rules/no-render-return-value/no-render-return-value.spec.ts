@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-render-return-value";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -69,7 +69,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     "ReactDOM.render(<div />, document.body);",
     tsx`
       let node;

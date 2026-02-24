@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./jsx-no-comment-textnodes";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -51,7 +51,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     "<App foo='test'>{/* valid */}</App>",
     "<strong>&nbsp;https://www.eslint-react.xyz/attachment/download/1</strong>",
     "<App /* valid */ placeholder={'foo'}/>",

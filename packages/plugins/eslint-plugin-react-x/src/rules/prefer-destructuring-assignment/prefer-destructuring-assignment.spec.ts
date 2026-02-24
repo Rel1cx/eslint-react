@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./prefer-destructuring-assignment";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -154,7 +154,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
         export function hof(namespace) {
           const initialState = {

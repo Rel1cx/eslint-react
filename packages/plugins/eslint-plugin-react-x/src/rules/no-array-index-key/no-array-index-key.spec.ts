@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-array-index-key";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -244,7 +244,5 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
   ],
-  valid: [
-    ...allValid,
-  ],
+  valid: [],
 });

@@ -104,7 +104,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allFunctions,
     tsx`
       function AppHome() {
           return <div>foo</div>

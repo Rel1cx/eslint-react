@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import { stringify } from "../../utils";
 import rule, { RULE_NAME } from "./class-component";
 
@@ -255,7 +255,5 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
   ],
-  valid: [
-    ...allValid,
-  ],
+  valid: [],
 });

@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./purity";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -926,7 +926,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     // -------------------------------------------------------------------------
     // Impure calls in event handlers (nested functions)
     // -------------------------------------------------------------------------

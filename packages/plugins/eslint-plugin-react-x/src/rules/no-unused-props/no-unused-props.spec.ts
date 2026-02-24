@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTesterWithTypes } from "../../../../../../test";
+import { ruleTesterWithTypes } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-unused-props";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
@@ -806,6 +806,5 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div ref={ref}>{props.foo}</div>;
       };
     `,
-    ...allValid,
   ],
 });

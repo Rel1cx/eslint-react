@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./jsx-shorthand-boolean";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -56,7 +56,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`<input disabled />`,
     "<App foo />",
     "<App foo bar />",

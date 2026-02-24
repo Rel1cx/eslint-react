@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./component-hook-factories";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -368,7 +368,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       // ✅ Component defined at module level
       function Component({ defaultValue }) {

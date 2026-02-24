@@ -487,7 +487,7 @@ ruleTester.run(RULE_NAME, rule, {
     ],
   }],
   valid: [
-    // ...allValid,
+    //
     // React components and their props/attributes should be fine
     { code: '<App class="bar" />;' },
     { code: '<App for="bar" />;' },

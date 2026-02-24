@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allValid, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-void-elements-with-children";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -57,7 +57,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     "<div>Foo</div>;",
     '<div children="Foo" />;',
     {

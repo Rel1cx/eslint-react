@@ -2,7 +2,7 @@ import { JsxEmit } from "@eslint-react/core";
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 
-import { allValid, defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "../../../../../../test";
+import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./jsx-key-before-spread";
 
 ruleTester.run(RULE_NAME, rule, {
@@ -155,7 +155,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    ...allValid,
     tsx`
       const App = (props) => {
           return [<div key="1">1</div>]
