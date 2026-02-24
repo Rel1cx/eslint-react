@@ -2,6 +2,81 @@
 title: Changelog
 ---
 
+## v3.0.0-beta.45 (2026-02-24)
+
+### 🪄 Improvements
+
+- Changed the following rules from `problem` to `suggestion` type for better categorization:
+  - `react-x/jsx-dollar`
+  - `react-x/jsx-shorthand-boolean`
+  - `react-x/jsx-shorthand-fragment`
+  - `react-x/no-array-index-key`
+  - `react-x/no-children-count`
+  - `react-x/no-children-for-each`
+  - `react-x/no-children-map`
+  - `react-x/no-children-only`
+  - `react-x/no-children-prop`
+  - `react-x/no-children-to-array`
+  - `react-x/no-class-component`
+  - `react-x/no-clone-element`
+  - `react-x/no-create-ref`
+  - `react-x/no-missing-component-display-name`
+  - `react-x/no-missing-context-display-name`
+  - `react-x/no-unnecessary-use-callback`
+  - `react-x/no-unnecessary-use-memo`
+  - `react-x/no-unused-class-component-members`
+  - `react-x/no-unused-props`
+  - `react-x/no-unused-state`
+  - `react-x/no-useless-fragment`
+  - `react-x/prefer-namespace-import`
+  - `react-naming-convention/prefer-namespace-import`
+
+## v3.0.0-beta.44 (2026-02-24)
+
+### ✨ New
+
+- Added `disable-conflict-eslint-plugin-react-hooks` configuration to `@eslint-react/eslint-plugin` for easier migration from `eslint-plugin-react-hooks`.
+
+## v3.0.0-beta.43 (2026-02-23)
+
+### 🪄 Improvements
+
+- Bumped ESLint plugins and related dependencies to latest versions.
+
+## v3.0.0-beta.42 (2026-02-23)
+
+- Converted React 19 migration rules from auto-fix to suggestions:
+  - `no-context-provider`: Now provides suggestions instead of auto-fixing
+  - `no-forward-ref`: Now provides suggestions instead of auto-fixing
+  - `no-use-context`: Now provides suggestions instead of auto-fixing
+
+This change prevents automatic code modifications that could potentially break existing code, giving developers more control over React 19 migrations.
+
+## v3.0.0-beta.41 (2026-02-23)
+
+### 🪄 Improvements
+
+- Cleaned up "See Also" sections and metadata in rule documentation for better consistency.
+
+## v3.0.0-beta.40 (2026-02-23)
+
+### 🪄 Improvements
+
+- Unified MDX heading structure in rule documentation for better consistency across all rule docs.
+
+## v3.0.0-beta.39 (2026-02-23)
+
+### 🪄 Improvements
+
+- Enhanced `purity` rule with TypeScript type expression support for more accurate detection of impure constructs.
+
+## v3.0.0-beta.38 (2026-02-23)
+
+### 🐞 Fixes
+
+- Removed `static-components` alias from plugin exports.
+- Enabled `immutability` rule in the `all` configuration preset.
+
 ## v3.0.0-beta.37 (2026-02-22)
 
 ### 💥 Breaking Changes
