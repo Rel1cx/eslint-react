@@ -56,3 +56,11 @@ The following table compares all rules from `eslint-plugin-react-hooks` with the
 - Multiple rules separated by `+` indicate that together they provide equivalent functionality
 - Rules marked 🧪 are experimental and their behavior may change in future releases
 - Rules marked ❌ are React Compiler-specific and have no equivalent in ESLint React
+
+## Migration Preset
+
+ESLint React provides a preset to disable conflicting rules from `eslint-plugin-react-hooks`:
+
+- `disable-conflict-eslint-plugin-react-hooks` - Disables all rules from `eslint-plugin-react-hooks` that have equivalents in ESLint React (e.g., `react-hooks/exhaustive-deps`, `react-hooks/rules-of-hooks`, etc.)
+
+This preset is useful when migrating from `eslint-plugin-react-hooks` to ESLint React, as it prevents rule conflicts while you transition your configuration.
