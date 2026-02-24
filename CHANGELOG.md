@@ -41,6 +41,8 @@
 
 ## v3.0.0-beta.42 (2026-02-23)
 
+### 🪄 Improvements
+
 - Converted React 19 migration rules from auto-fix to suggestions:
   - `no-context-provider`: Now provides suggestions instead of auto-fixing
   - `no-forward-ref`: Now provides suggestions instead of auto-fixing
