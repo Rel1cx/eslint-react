@@ -35,25 +35,6 @@ const MUTATING_ARRAY_METHODS = new Set([
   "unshift",
 ]);
 
-/**
- * Get the root identifier of a (possibly nested) member expression.
- * For `a.b.c`, returns the `a` Identifier node.
- * @param node The expression to analyze
- * @returns The root Identifier node, or null if it cannot be determined (e.g. non-identifier root)
- */
-function getRootIdentifier(
-  node: TSESTree.Expression | TSESTree.PrivateIdentifier,
-): TSESTree.Identifier | null {
-  switch (node.type) {
-    case AST.Identifier:
-      return node;
-    case AST.MemberExpression:
-      return getRootIdentifier(node.object);
-    default:
-      return null;
-  }
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -181,7 +162,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
 
         // Find the root identifier (handles `state`, `state.nested`, etc.)
-        const rootId = getRootIdentifier(object);
+        const rootId = ast.getRootIdentifier(object);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
@@ -214,7 +195,7 @@ export function create(context: RuleContext<MessageID, []>) {
        */
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.left.type !== AST.MemberExpression) return;
-        const rootId = getRootIdentifier(node.left);
+        const rootId = ast.getRootIdentifier(node.left);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
