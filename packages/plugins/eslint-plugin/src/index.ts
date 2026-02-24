@@ -5,6 +5,7 @@ import react from "eslint-plugin-react-x";
 
 import * as allConfig from "./configs/all";
 import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
+import * as disableConflictEslintPluginReactHooks from "./configs/disable-conflict-eslint-plugin-react-hooks";
 import * as disableDomConfig from "./configs/disable-dom";
 import * as disableExperimentalConfig from "./configs/disable-experimental";
 import * as disableRscConfig from "./configs/disable-rsc";
@@ -26,6 +27,7 @@ import * as xConfig from "./configs/x";
 type ConfigName =
   | "all"
   | "disable-conflict-eslint-plugin-react"
+  | "disable-conflict-eslint-plugin-react-hooks"
   | "disable-dom"
   | "disable-rsc"
   | "disable-experimental"
@@ -58,6 +60,7 @@ const plugin: CompatiblePlugin & {
   configs: {
     ["all"]: allConfig,
     ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
+    ["disable-conflict-eslint-plugin-react-hooks"]: disableConflictEslintPluginReactHooks,
     ["disable-dom"]: disableDomConfig,
     ["disable-experimental"]: disableExperimentalConfig,
     ["disable-rsc"]: disableRscConfig,

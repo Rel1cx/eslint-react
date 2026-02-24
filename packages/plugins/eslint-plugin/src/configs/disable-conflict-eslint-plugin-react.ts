@@ -48,7 +48,7 @@ const conflictingRules = [
   "react/no-will-update-set-state",
   "react/prop-types",
   "react/void-dom-elements-no-children",
-];
+] as const;
 
 export const name = "@eslint-react/disable-conflict-eslint-plugin-react";
 
