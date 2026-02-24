@@ -125,8 +125,8 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
-  function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
-    const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
+  function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
+    const variable = findVariable(id, context.sourceCode.getScope(id));
     const initNode = getVariableInitializer(variable, 0);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
@@ -138,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return variableNodeParent
       .id
       .elements
-      .findIndex((e) => e?.type === AST.Identifier && e.name === topLevelId.name) === at;
+      .findIndex((e) => e?.type === AST.Identifier && e.name === id.name) === at;
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {

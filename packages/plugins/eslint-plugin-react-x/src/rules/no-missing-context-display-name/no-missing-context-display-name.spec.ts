@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { allFunctions, ruleTester } from "../../../../../../test";
+import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./no-missing-context-display-name";
 
 ruleTester.run(RULE_NAME, rule, {
