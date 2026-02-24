@@ -16,7 +16,7 @@ export type RuleSuggestMessageID = "removeDollarSign";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Prevents unintentional '$' sign before expression.",
     },

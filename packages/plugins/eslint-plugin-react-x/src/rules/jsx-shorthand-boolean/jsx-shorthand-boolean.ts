@@ -32,7 +32,7 @@ const schema = [
 
 export default createRule<Options, MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces shorthand syntax for boolean props.",
     },

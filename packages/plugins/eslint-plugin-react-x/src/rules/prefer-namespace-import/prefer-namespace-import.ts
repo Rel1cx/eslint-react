@@ -13,7 +13,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Enforces importing React via a namespace import.",
     },

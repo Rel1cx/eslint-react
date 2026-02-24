@@ -21,7 +21,7 @@ export type MessageID = "default" | "noUnnecessaryUseMemoInsideUseEffect";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Disallows unnecessary usage of 'useMemo'.",
     },

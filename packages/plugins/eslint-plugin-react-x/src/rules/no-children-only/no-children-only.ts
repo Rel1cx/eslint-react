@@ -11,7 +11,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Disallows the use of 'Children.only' from the 'react' package.",
     },

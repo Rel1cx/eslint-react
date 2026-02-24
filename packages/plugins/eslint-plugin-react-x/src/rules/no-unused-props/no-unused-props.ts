@@ -16,7 +16,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "Warns about component props that are defined but never used.",
     },
