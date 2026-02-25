@@ -16,11 +16,7 @@ const WELL_KNOWN_HOOKS = ["useMDXComponents"];
 function containsUseComments(context: RuleContext, node: TSESTree.Node) {
   return context.sourceCode
     .getCommentsInside(node)
-    .some(
-      ({ value }) =>
-        /use\([\s\S]*?\)/u.test(value)
-        || /use[A-Z0-9]\w*\([\s\S]*?\)/u.test(value),
-    );
+    .some(({ value }) => /use\([\s\S]*?\)/u.test(value) || /use[A-Z0-9]\w*\([\s\S]*?\)/u.test(value));
 }
 
 export default createRule<[], MessageID>({
