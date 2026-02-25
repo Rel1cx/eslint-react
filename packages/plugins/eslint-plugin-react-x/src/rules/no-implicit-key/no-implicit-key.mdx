@@ -37,7 +37,7 @@ It is also proposed to be deprecated in this RFC: [Deprecate spreading key from 
 ```tsx
 import React from "react";
 
-interface Foo = { key?: string; }
+interface Foo { key?: string; }
 
 interface MyComponentProps extends Foo {
   className: string;
@@ -55,7 +55,7 @@ function MyComponent(props: MyComponentProps) {
 ```tsx
 import React from "react";
 
-interface Foo = { key?: string; }
+interface Foo { key?: string; }
 
 interface MyComponentProps extends Foo {
   className: string;

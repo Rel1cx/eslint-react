@@ -27,6 +27,8 @@ react-dom/no-unsafe-target-blank
 
 ## Rule Details
 
+When using `target="_blank"` on links without `rel="noreferrer noopener"`, the opened page can access the `window.opener` property of the original page, which creates a security vulnerability known as tabnabbing.
+
 ## Common Violations
 
 ### Invalid
