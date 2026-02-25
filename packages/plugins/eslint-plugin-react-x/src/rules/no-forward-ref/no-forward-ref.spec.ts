@@ -437,7 +437,7 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "replace",
               output: tsx`
                 import { forwardRef } from 'react'
-                const Component = ({ ref }) => null;
+                const Component = () => null;
               `,
             },
           ],
@@ -465,7 +465,7 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "replace",
               output: tsx`
                 import { forwardRef } from 'react'
-                const Component = ({ ref }) => {
+                const Component = () => {
                   return null;
                 };
               `,
@@ -495,7 +495,7 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "replace",
               output: tsx`
                 import { forwardRef } from 'react'
-                const Component = function ({ ref }) {
+                const Component = function () {
                   return null;
                 };
               `,
@@ -525,7 +525,7 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "replace",
               output: tsx`
                 import { forwardRef } from 'react'
-                const Component = function Component({ ref }) {
+                const Component = function Component() {
                   return null;
                 };
               `,

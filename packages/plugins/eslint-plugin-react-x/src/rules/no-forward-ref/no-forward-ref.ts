@@ -143,9 +143,7 @@ function getComponentPropsFixes(
     const openParen = context.sourceCode.getFirstToken(node, { filter: (t) => t.value === "(" });
     if (openParen == null) return [];
     if (typeArg0 == null || typeArg1 == null) {
-      return [
-        fixer.insertTextAfter(openParen, "{ ref }"),
-      ];
+      return [];
     }
     const typeArg0Text = getText(typeArg0);
     const typeArg1Text = getText(typeArg1);
