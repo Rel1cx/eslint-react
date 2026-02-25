@@ -423,6 +423,184 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // No params — arrow function, no type args
+    {
+      code: tsx`
+        import { forwardRef } from 'react'
+        const Component = forwardRef(() => null);
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = ({ ref }) => null;
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    // No params — arrow function with block body, no type args
+    {
+      code: tsx`
+        import { forwardRef } from 'react'
+        const Component = forwardRef(() => {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = ({ ref }) => {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    // No params — anonymous function expression, no type args
+    {
+      code: tsx`
+        import { forwardRef } from 'react'
+        const Component = forwardRef(function () {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = function ({ ref }) {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    // No params — named function expression, no type args
+    {
+      code: tsx`
+        import { forwardRef } from 'react'
+        const Component = forwardRef(function Component() {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = function Component({ ref }) {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    // No params — arrow function, with type args
+    {
+      code: tsx`
+        import * as React from 'react'
+        const Component = React.forwardRef<HTMLElement, { foo: string }>(() => null);
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import * as React from 'react'
+                const Component = ({ ref }: { foo: string } & { ref?: React.RefObject<HTMLElement | null> }) => null;
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    // No params — named function expression, with type args
+    {
+      code: tsx`
+        import * as React from 'react'
+        interface ComponentProps {
+          foo: string;
+        }
+        const Component = React.forwardRef<HTMLElement, ComponentProps>(function Component() {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import * as React from 'react'
+                interface ComponentProps {
+                  foo: string;
+                }
+                const Component = function Component({ ref }: ComponentProps & { ref?: React.RefObject<HTMLElement | null> }) {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
   ],
   valid: [
     {

@@ -139,9 +139,19 @@ function getComponentPropsFixes(
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
-  // No props, do nothing
   if (arg0 == null) {
-    return [];
+    const openParen = context.sourceCode.getFirstToken(node, { filter: (t) => t.value === "(" });
+    if (openParen == null) return [];
+    if (typeArg0 == null || typeArg1 == null) {
+      return [
+        fixer.insertTextAfter(openParen, "{ ref }"),
+      ];
+    }
+    const typeArg0Text = getText(typeArg0);
+    const typeArg1Text = getText(typeArg1);
+    return [
+      fixer.insertTextAfter(openParen, `{ ref }: ${typeArg1Text} & { ref?: React.RefObject<${typeArg0Text} | null> }`),
+    ];
   }
   // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
