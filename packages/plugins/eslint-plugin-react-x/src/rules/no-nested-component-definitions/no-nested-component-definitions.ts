@@ -66,20 +66,20 @@ export function create(context: RuleContext<MessageID, []>) {
           // Skip anonymous function components to reduce false positives
           if (name == null) continue;
           // Skip components that are directly returned from a render prop
-          if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
+          // if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
           // Check if the component is defined inside a JSX attribute's value
           if (isInsideJSXAttributeValue(component)) {
             // Allow if it's part of a render prop pattern
-            if (!core.isDeclaredInRenderPropLoose(component)) {
-              context.report({
-                messageId: "default",
-                node: component,
-                data: {
-                  name,
-                  suggestion: "Move it to the top level or pass it as a prop.",
-                },
-              });
-            }
+            // if (!core.isDeclaredInRenderPropLoose(component)) {
+            context.report({
+              messageId: "default",
+              node: component,
+              data: {
+                name,
+                suggestion: "Move it to the top level or pass it as a prop.",
+              },
+            });
+            // }
 
             continue;
           }
@@ -97,8 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
             continue;
           }
           // Check for direct nesting inside another function component
-          const enclosingComponent = findEnclosingComponent(component);
-          if (enclosingComponent != null && !core.isDirectValueOfRenderPropertyLoose(enclosingComponent)) {
+          if (findEnclosingComponent(component) != null) {
             context.report({
               messageId: "default",
               node: component,
