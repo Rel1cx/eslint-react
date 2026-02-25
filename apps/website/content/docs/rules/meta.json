@@ -94,7 +94,6 @@
     "web-api-no-leaked-resize-observer",
     "web-api-no-leaked-timeout",
     "---Naming Convention Rules---",
-    "naming-convention-component-name",
     "naming-convention-context-name",
     "naming-convention-id-name",
     "naming-convention-ref-name",

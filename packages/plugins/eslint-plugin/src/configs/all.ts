@@ -98,7 +98,6 @@ export const rules = {
   "@eslint-react/web-api/no-leaked-resize-observer": "warn",
   "@eslint-react/web-api/no-leaked-timeout": "warn",
 
-  "@eslint-react/naming-convention/component-name": "warn",
   "@eslint-react/naming-convention/context-name": "warn",
   "@eslint-react/naming-convention/id-name": "warn",
   "@eslint-react/naming-convention/ref-name": "warn",

@@ -28,7 +28,7 @@ export default defineConfig(
     ],
     rules: {
       // Put rules you want to override here
-      "react-naming-convention/component-name": "warn",
+      "react-naming-convention/context-name": "warn",
     },
   },
 );
