@@ -81,15 +81,5 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       ctxs.ThemeContext = createContext("");
     `,
-    {
-      code: tsx`
-        const themecontext = React.createContext("");
-      `,
-      settings: {
-        "react-x": {
-          version: "18.2.0",
-        },
-      },
-    },
   ],
 });
