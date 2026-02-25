@@ -29,29 +29,6 @@ react-x/no-useless-fragment
 
 A fragment is redundant if it contains only one child or if it is the child of an HTML element and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 
-Moreover, rendering fragments with multiple levels of depth can cause React not to retain the state of components nested within the fragment after [certain re-renders](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b), which may lead to unexpected [state resets](https://react.dev/learn/preserving-and-resetting-state).
-
-## Rule Options
-
-```ts
-type Options = {
-  allowEmptyFragment?: boolean;
-  allowExpressions?: boolean;
-};
-```
-
-### `allowEmptyFragment`
-
-When set to `true`, allows fragments that contain no children.
-
-Default: `false`
-
-### `allowExpressions`
-
-When set to `true`, allows fragments that contain a single expression child.
-
-Default: `true`
-
 ## Common Violations
 
 ### Invalid
@@ -103,58 +80,26 @@ const cat = <>meow</>
 <Fragment key={item.id}>{item.value}</Fragment>
 ```
 
-## Examples with `allowExpressions: false`
+## Rule Options
 
-### Invalid (with `allowExpressions: false`)
-
-```tsx
-<><Foo /></>
-
-<p><>foo</></p>
-
-<></>
-
-<Foo bar={<>baz</>} />
-
-<section>
-  <>
-    <div />
-    <div />
-  </>
-</section>
-
-const cat = <>meow</>
-
-<>{children}</>
-
-<>{props.children}</>
-
-<> {foo}</>
-
-<SomeComponent>
-  <>
-    <div />
-    <div />
-  </>
-</SomeComponent>
+```ts
+type Options = {
+  allowEmptyFragment?: boolean;
+  allowExpressions?: boolean;
+};
 ```
 
-### Valid (with `allowExpressions: false`)
+### `allowEmptyFragment`
 
-```tsx
-{foo}
+When set to `true`, allows fragments that contain no children.
 
-<Foo />
+Default: `false`
 
-<>
-  <Foo />
-  <Bar />
-</>
+### `allowExpressions`
 
-<>foo {bar}</>
+When set to `true`, allows fragments that contain a single expression child.
 
-<Fragment key={item.id}>{item.value}</Fragment>
-```
+Default: `true`
 
 ## Note
 
