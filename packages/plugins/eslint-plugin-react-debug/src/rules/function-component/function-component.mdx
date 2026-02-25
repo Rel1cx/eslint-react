@@ -20,16 +20,12 @@ react-debug/function-component
 ## Rule Details
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <button />;
 }
 ```
 
 ```tsx
-import React from "react";
-
 const MyComponent = () => <button />;
 ```
 
@@ -46,7 +42,7 @@ const MyComponent = React.forwardRef(() => <button />);
 ```
 
 ```tsx
-import React, { useEffect } from "react";
+import React,{ useEffect } from "react";
 
 function MyComponent() {
   useEffect(() => {}}, []);
@@ -54,16 +50,12 @@ function MyComponent() {
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   "use memo";
 }
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   "use no memo";
 }

@@ -34,8 +34,6 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 ### Invalid
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }
@@ -52,8 +50,6 @@ function MyComponent({ items }: MyComponentProps) {
 ### Valid
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }

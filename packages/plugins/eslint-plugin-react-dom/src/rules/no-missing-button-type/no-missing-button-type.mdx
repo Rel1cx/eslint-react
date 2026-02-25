@@ -36,8 +36,6 @@ Allowed button types are `submit`, `button`, or `reset`.
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <button>Click me</button>;
   //     ^^^ Missing 'type' attribute on button component.
@@ -47,8 +45,6 @@ function MyComponent() {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <button type="button">Click me</button>;
 }

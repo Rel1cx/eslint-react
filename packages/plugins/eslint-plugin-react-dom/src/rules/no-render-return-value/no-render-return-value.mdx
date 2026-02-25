@@ -34,7 +34,6 @@ react-dom/no-render-return-value
 ### Invalid
 
 ```tsx
-import React from "react";
 import ReactDOM from "react-dom";
 
 const instance = ReactDOM.render(<div id="app" />, document.body);
@@ -44,7 +43,6 @@ const instance = ReactDOM.render(<div id="app" />, document.body);
 ### Valid
 
 ```tsx
-import React from "react";
 import ReactDOM from "react-dom";
 
 function doSomethingWithInst(inst: HTMLDivElement | null) {

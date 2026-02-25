@@ -30,8 +30,6 @@ This rule reports cases where the attribute contains `allow-scripts` and `allow-
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return (
     <iframe
@@ -45,8 +43,6 @@ function MyComponent() {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }

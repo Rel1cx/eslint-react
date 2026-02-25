@@ -34,8 +34,6 @@ The sandbox attribute enables an extra set of restrictions for the content in th
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <iframe src="https://eslint-react.xyz" />;
   //     ^^^ Missing 'sandbox' attribute on iframe component.
@@ -45,8 +43,6 @@ function MyComponent() {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }

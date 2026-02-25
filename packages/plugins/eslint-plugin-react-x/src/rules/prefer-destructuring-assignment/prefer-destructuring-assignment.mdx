@@ -30,8 +30,6 @@ Destructuring assignment makes it immediately clear which props a component uses
 ### Invalid
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -45,8 +43,6 @@ function MyComponent(props: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -60,8 +56,6 @@ function MyComponent(props: MyComponentProps) {
 ### Valid
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -74,8 +68,6 @@ function MyComponent(props: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -86,8 +78,6 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }

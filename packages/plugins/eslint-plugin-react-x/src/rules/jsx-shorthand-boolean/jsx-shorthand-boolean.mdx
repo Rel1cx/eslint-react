@@ -32,8 +32,6 @@ JSX allows shorthand syntax for boolean props where `disabled={true}` can be sim
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <button disabled={true} />;
   //             ^^^ Omit the `=true` for boolean attributes.
@@ -43,8 +41,6 @@ function MyComponent() {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <button disabled />;
 }

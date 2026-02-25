@@ -38,8 +38,6 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 ### Invalid
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -51,8 +49,6 @@ function MyComponent({ items = [] }: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: Record<string, string>;
 }
@@ -64,8 +60,6 @@ function MyComponent({ items = {} }: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   onClick: () => void;
 }
@@ -77,8 +71,6 @@ function MyComponent({ onClick = () => {} }: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }
@@ -151,8 +143,6 @@ function MyComponent(props: MyComponentProps) {
 ```
 
 ```tsx
-import React from "react";
-
 interface MyComponentProps {
   num: number;
   str: string;
@@ -167,8 +157,6 @@ function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
 
 ```tsx
 "use memo";
-import React from "react";
-
 interface MyComponentProps {
   items: string[];
 }

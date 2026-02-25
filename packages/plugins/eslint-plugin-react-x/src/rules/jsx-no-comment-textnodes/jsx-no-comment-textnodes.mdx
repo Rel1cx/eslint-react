@@ -34,8 +34,6 @@ This could be a mistake during code editing or a misunderstanding of how JSX wor
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent1() {
   return <div>// empty div</div>;
   //          ^^^ Possible misused comment in text node. Comments inside the children section of a tag should be placed inside braces.
@@ -50,8 +48,6 @@ function MyComponent2() {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   return <div>{/* empty div */}</div>;
 }
@@ -62,8 +58,6 @@ function MyComponent() {
 You may want to legitimately output comment start characters (`//` or `/*`) in a JSX text node. In that case, you can do the following:
 
 ```tsx
-import React from "react";
-
 function MyComponent() {
   // 🟢 Good: This is a legitimate use of comment strings in JSX text nodes
   return <div>{"/* This will be output as a text node */"}</div>;

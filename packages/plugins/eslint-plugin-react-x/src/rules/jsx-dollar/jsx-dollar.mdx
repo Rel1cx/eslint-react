@@ -28,8 +28,6 @@ react-x/jsx-dollar
 This can happen when refactoring from a template literal to JSX and forgetting to remove the dollar sign. This results in an unintentional `$` being rendered in the output.
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return `Hello ${user.name}`;
 }
@@ -38,8 +36,6 @@ function MyComponent({ user }) {
 When refactored to JSX, it might look like this:
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return <>Hello ${user.name}</>;
 }
@@ -52,8 +48,6 @@ In this example, the `$` before `{user.name}` is unnecessary and will be rendere
 ### Invalid
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return <div>Hello ${user.name}</div>;
   //                ^ Possible unintentional '$' sign before expression.
@@ -61,8 +55,6 @@ function MyComponent({ user }) {
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return <div>${user.name} is your name</div>;
   //          ^ Possible unintentional '$' sign before expression.
@@ -70,8 +62,6 @@ function MyComponent({ user }) {
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent({ count, total }) {
   return <div>Progress: ${count} / ${total}</div>;
   //                     ^         ^ Possible unintentional '$' sign before expression.
@@ -81,24 +71,18 @@ function MyComponent({ count, total }) {
 ### Valid
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return `Hello ${user.name}`;
 }
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent({ user }) {
   return <div>Hello {user.name}</div>;
 }
 ```
 
 ```tsx
-import React from "react";
-
 function MyComponent({ price }) {
   return <div>${price}</div>;
 }
