@@ -1,3 +1,52 @@
+## v3.0.0-beta.51 (2026-02-25)
+
+### 🐞 Fixes
+
+- Fix MDX documentation formatting issues (#1559)
+
+## v3.0.0-beta.50 (2026-02-25)
+
+### 🪄 Improvements
+
+- Remove React 19 version restriction from `context-name` rule (#1558)
+- Minor docs cleanups
+
+## v3.0.0-beta.49 (2026-02-25)
+
+### 💥 Breaking Changes
+
+- Remove `naming-convention/component-name` rule (#1557)
+
+### 🪄 Improvements
+
+- Minor code improvements
+
+## v3.0.0-beta.48 (2026-02-25)
+
+### 💥 Breaking Changes
+
+- The following unneeded APIs are removed from `@eslint-react/core`: (#1556)
+
+### 🪄 Improvements
+
+- Minor docs fixes
+
+## v3.0.0-beta.47 (2026-02-25)
+
+### 🪄 Improvements
+
+- Standardize rule docs (#1555)
+- Extract `getRootIdentifier` to shared AST utilities
+- Cleanup tests
+- Minor docs improvements
+
+## v3.0.0-beta.46 (2026-02-24)
+
+### 🪄 Improvements
+
+- Update scripts/update-website.ts script to generate the see also sections from docs/rule-relations-table.md (#1553)
+- Update docs/rule-relations-table.md
+
 ## v3.0.0-beta.45 (2026-02-24)
 
 ### 🪄 Improvements
