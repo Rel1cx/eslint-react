@@ -1,5 +1,6 @@
 ---
 title: component-hook-factories
+description: Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
 ---
 
 <Callout type="warning">
@@ -28,9 +29,7 @@ react-x/component-hook-factories
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows higher order functions that define components or hooks inside them. Components and hooks should be defined at the module level.
+## Rule Details
 
 Defining components or hooks inside other functions (factory pattern) creates new instances on every call. React treats each as a completely different component, destroying and recreating the entire component tree, losing all state, and causing performance problems.
 
@@ -44,7 +43,9 @@ When a component or hook is defined inside another function:
 
 Instead, define every component and hook at the top (module) level.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // ❌ Factory function creating components
@@ -79,7 +80,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // ✅ Component defined at module level
@@ -195,4 +196,3 @@ function useData(endpoint) {
 - [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
 - [React Docs: Passing props to a component](https://react.dev/learn/passing-props-to-a-component)
 - [React Docs: `no-component-hook-factories` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories)
-

@@ -1,5 +1,6 @@
 ---
 title: exhaustive-deps
+description: Validates that dependency arrays for React hooks contain all necessary dependencies.
 ---
 
 <Callout type="warning">
@@ -32,15 +33,15 @@ react-x/exhaustive-deps
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Verifies the list of dependencies for Hooks like `useEffect` and similar.
+## Rule Details
 
 React hooks like `useEffect`, `useMemo`, and `useCallback` accept dependency arrays. When a value referenced inside these hooks is not included in the dependency array, React won't re-run the effect or recalculate the value when that dependency changes. This causes stale closures where the hook uses outdated values.
 
+## Common Violations
+
 If you find yourself fighting with this rule, you likely need to restructure your code rather than suppress the warning. See [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies) to learn how.
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import { useEffect } from "react";
@@ -75,7 +76,7 @@ function MyComponent({ onSave, value }) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import { useEffect } from "react";

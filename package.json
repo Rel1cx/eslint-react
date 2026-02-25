@@ -48,7 +48,7 @@
     "update:readme": "tsx ./scripts/update-readme.ts",
     "update:version": "tsx ./scripts/update-version.ts",
     "update:website": "tsx ./scripts/update-website.ts",
-    "verify:rules-docs": "tsx ./scripts/verify-rules-docs.ts"
+    "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.75.1",
