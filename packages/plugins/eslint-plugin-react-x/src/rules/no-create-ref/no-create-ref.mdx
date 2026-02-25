@@ -1,5 +1,6 @@
 ---
 title: no-create-ref
+description: Disallows 'createRef' in function components
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-create-ref
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `createRef` in function components.
+## Rule Details
 
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { createRef } from "react";
@@ -43,7 +44,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React, { useRef } from "react";
@@ -72,4 +73,3 @@ class MyComponent extends React.Component {
 ## Further Reading
 
 - [Legacy React APIs: `createRef`](https://react.dev/reference/react/createRef)
-

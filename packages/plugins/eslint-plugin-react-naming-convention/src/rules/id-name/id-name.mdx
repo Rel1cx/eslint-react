@@ -1,5 +1,6 @@
 ---
 title: id-name
+description: Enforces identifier names assigned from 'useId' calls to be either 'id' or end with 'Id'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -23,11 +24,11 @@ react-naming-convention/id-name
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 const value = useId();
@@ -44,7 +45,7 @@ const foo = useId();
 //    ^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 const id = useId();
@@ -66,4 +67,3 @@ const dialogTitleId = useId();
 ## Further Reading
 
 - [React Docs: `useId`](https://react.dev/reference/react/useId)
-

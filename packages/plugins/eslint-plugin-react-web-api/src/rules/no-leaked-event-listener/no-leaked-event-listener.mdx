@@ -1,5 +1,6 @@
 ---
 title: no-leaked-event-listener
+description: Enforces that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-web-api/no-leaked-event-listener
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`.
+## Rule Details
 
 Adding an event listener without removing it can lead to memory leaks and unexpected behavior because the event listener will continue to exist even after the component or hook is unmounted.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { Component } from "react";
@@ -141,7 +142,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React, { Component } from "react";
@@ -312,4 +313,3 @@ function MyComponent() {
 - [MDN: `EventTarget.removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
 - [React Docs: Subscribing to events](https://react.dev/learn/synchronizing-with-effects#subscribing-to-events)
 - [React Docs: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)
-

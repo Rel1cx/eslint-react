@@ -1,5 +1,6 @@
 ---
 title: no-dangerously-set-innerhtml
+description: Disallows DOM elements from using 'dangerouslySetInnerHTML'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,15 +25,15 @@ react-dom/no-dangerously-set-innerhtml
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows DOM elements from using `dangerouslySetInnerHTML`.
+## Rule Details
 
 This should be used with extreme caution! If the HTML inside isn’t trusted (for example, if it’s based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
 
 Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -50,4 +51,3 @@ function MyComponent() {
 ## Further Reading
 
 - [React Docs: `dangerouslySetInnerHTML`](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html)
-

@@ -1,5 +1,6 @@
 ---
 title: no-nested-component-definitions
+description: Disallows nesting component definitions inside other components
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,9 +25,7 @@ react-x/no-nested-component-definitions
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows nesting component definitions inside other components.
+## Rule Details
 
 Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
 
@@ -39,7 +38,9 @@ When a component is defined inside another component:
 
 Instead, define every component at the top level.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -53,7 +54,7 @@ function Gallery() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // ✅ Declare components at the top level
@@ -76,4 +77,3 @@ When a child component needs data from a parent, [pass it by props](https://reac
 
 - [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
 - [React Docs: `static-components` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)
-

@@ -1,5 +1,6 @@
 ---
 title: jsx-shorthand-fragment
+description: Enforces shorthand syntax for fragment elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,9 +23,7 @@ react-x/jsx-shorthand-fragment
 
 -
 
-## Rule Description
-
-Enforces shorthand syntax for fragment elements.
+## Rule Details
 
 ## Rule Options
 
@@ -33,7 +32,9 @@ This rule has a single integer option with the following values:
 - `1` (default): Always use shorthand syntax for fragments.
 - `-1`: Never use shorthand syntax for fragments.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { Fragment } from "react";
@@ -48,7 +49,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -71,4 +72,3 @@ function MyComponent() {
 ## Further Reading
 
 - [React Docs: `Fragment`](https://react.dev/reference/react/Fragment)
-

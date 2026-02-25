@@ -1,5 +1,6 @@
 ---
 title: immutability
+description: Validates against mutating props, state, and other values that are immutable
 ---
 
 <Callout type="warning">
@@ -30,9 +31,7 @@ react-x/immutability
 
 -
 
-## Rule Description
-
-Validates against mutating props, state, and other values that are immutable.
+## Rule Details
 
 A component's props and state are immutable snapshots. Never mutate them directly. Instead, pass new props down, and use the setter function from `useState` with a freshly created value.
 
@@ -223,7 +222,9 @@ function SortedList() {
 }
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import { useState } from "react";
@@ -261,7 +262,7 @@ function Component(props) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import { useState } from "react";
@@ -309,4 +310,3 @@ function Component() {
 - [React Docs: Updating Objects in State](https://react.dev/learn/updating-objects-in-state)
 - [React Docs: Updating Arrays in State](https://react.dev/learn/updating-arrays-in-state)
 - [React Docs: `immutability` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability)
-

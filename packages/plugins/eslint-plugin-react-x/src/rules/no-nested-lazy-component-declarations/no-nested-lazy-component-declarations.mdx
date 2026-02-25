@@ -1,5 +1,6 @@
 ---
 title: no-nested-lazy-component-declarations
+description: Disallows nesting lazy component declarations inside other components
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,9 +25,7 @@ react-x/no-nested-lazy-component-declarations
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows nesting lazy component declarations inside other components.
+## Rule Details
 
 Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
 
@@ -37,7 +36,9 @@ When a component is defined inside another component:
 - It defeats props memoization and optimization techniques
 - It creates new function references on every render
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import { lazy } from "react";
@@ -50,7 +51,7 @@ function Editor() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import { lazy } from "react";
@@ -73,4 +74,3 @@ function Editor() {
 - [React Docs: `Lazy`](https://react.dev/reference/react/lazy)
   - [My lazy component’s state gets reset unexpectedly](https://react.dev/reference/react/lazy#my-lazy-components-state-gets-reset-unexpectedly)
 - [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
-

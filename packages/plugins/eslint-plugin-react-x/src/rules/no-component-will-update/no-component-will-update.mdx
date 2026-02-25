@@ -1,5 +1,6 @@
 ---
 title: no-component-will-update
+description: Replaces usage of 'componentWillUpdate' with 'UNSAFE_componentWillUpdate'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,13 +29,13 @@ react-x/no-component-will-update
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Replaces usage of `componentWillUpdate` with `UNSAFE_componentWillUpdate`.
+## Rule Details
 
 This API was renamed from `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old name is deprecated. In a future major version of React, only the new name will work.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -46,7 +47,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -66,4 +67,3 @@ class MyComponent extends React.Component {
 ## Further Reading
 
 - [Legacy React APIs: `componentWillUpdate`](https://react.dev/reference/react/Component#componentwillupdate)
-

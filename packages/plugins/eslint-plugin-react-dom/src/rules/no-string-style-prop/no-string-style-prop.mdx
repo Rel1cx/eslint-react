@@ -1,5 +1,6 @@
 ---
 title: no-string-style-prop
+description: Disallows the use of string style prop in JSX. Use an object instead
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,11 +21,11 @@ react-dom/no-string-style-prop
 `recommended`
 `strict`
 
-## Rule Description
+## Rule Details
 
-Disallows the use of string style prop in JSX. Use an object instead.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import React from "react";
@@ -34,7 +35,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -48,4 +49,3 @@ function MyComponent() {
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.spec.ts)
-

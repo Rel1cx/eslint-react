@@ -1,5 +1,6 @@
 ---
 title: is-from-react
+description: Reports all identifiers initialized from React in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise, leave it off.
 ---
 
 **Full Name in `eslint-plugin-react-debug`**
@@ -16,9 +17,7 @@ react-debug/is-from-react
 
 -
 
-## Rule Description
-
-Reports all identifiers initialized from React in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise, leave it off.
+## Rule Details
 
 ```tsx
 import { useState } from "react";
@@ -74,4 +73,3 @@ const toArray = Children.toArray;
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-react/is-from-react.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/is-from-react/is-from-react.spec.ts)
-

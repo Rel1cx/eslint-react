@@ -1,5 +1,6 @@
 ---
 title: no-redundant-should-component-update
+description: Disallows 'shouldComponentUpdate' when extending 'React.PureComponent'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-redundant-should-component-update
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `shouldComponentUpdate` when extending `React.PureComponent`.
+## Rule Details
 
 While having `shouldComponentUpdate` still works, it becomes pointless to extend `React.PureComponent`.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -48,7 +49,7 @@ class MyComponent extends React.PureComponent {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -69,4 +70,3 @@ class MyComponent extends React.Component {
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-redundant-should-component-update/no-redundant-should-component-update.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-redundant-should-component-update/no-redundant-should-component-update.spec.ts)
-

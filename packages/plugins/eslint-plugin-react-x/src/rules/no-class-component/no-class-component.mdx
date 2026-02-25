@@ -1,5 +1,6 @@
 ---
 title: no-class-component
+description: Disallows class components except for error boundaries.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,15 +21,15 @@ react-x/no-class-component
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows class components except for error boundaries.
+## Rule Details
 
 Component is the base class for React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
 
 We recommend defining components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -44,7 +45,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";

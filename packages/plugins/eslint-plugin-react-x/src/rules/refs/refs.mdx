@@ -1,5 +1,6 @@
 ---
 title: refs
+description: Validates correct usage of refs by checking that 'ref.current' is not read or written during render
 ---
 
 <Callout type="warning">
@@ -30,9 +31,7 @@ react-x/refs
 
 -
 
-## Rule Description
-
-Validates correct usage of refs by checking that `ref.current` is not read or written during render.
+## Rule Details
 
 Refs hold values that aren't used for rendering. Unlike state, changing a ref doesn't trigger a re-render. Reading or writing `ref.current` during render breaks React's expectations. Refs might not be initialized when you try to read them, and their values can be stale or inconsistent.
 
@@ -154,7 +153,9 @@ function Component() {
 }
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 function Component() {
@@ -191,7 +192,7 @@ function useMyHook() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 function Component() {
@@ -245,4 +246,3 @@ function Component() {
 - [React Docs: Referencing Values with Refs](https://react.dev/learn/referencing-values-with-refs)
 - [React Docs: `useRef`](https://react.dev/reference/react/useRef)
 - [React Docs: `refs` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs)
-

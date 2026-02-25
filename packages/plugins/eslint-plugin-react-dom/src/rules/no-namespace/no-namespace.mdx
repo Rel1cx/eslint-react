@@ -1,5 +1,6 @@
 ---
 title: no-namespace
+description: Enforces the absence of a 'namespace' in React elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-dom/no-namespace
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces the absence of a `namespace` in React elements.
+## Rule Details
 
 Namespaces, such as `svg:circle`, are not supported in React.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -49,7 +50,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";

@@ -1,5 +1,6 @@
 ---
 title: no-unknown-property
+description: Disallows unknown 'DOM' properties
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,9 +23,7 @@ react-dom/no-unknown-property
 
 -
 
-## Rule Description
-
-Disallows unknown `DOM` properties.
+## Rule Details
 
 In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. Only `data-*` and `aria-*` attributes use hyphens and lowercase letters in JSX.
 
@@ -65,7 +64,9 @@ Now the following code passes:
 const StyledDiv = <div css={{ color: "pink" }}></div>;
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 const Hello = <div class="hello">Hello World</div>;
@@ -75,7 +76,7 @@ const Alphabet = <div abc="something">Alphabet</div>;
 const IconButton = <div aria-foo="bar" />;
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 const Hello = <div className="hello">Hello World</div>;
@@ -101,4 +102,3 @@ const AtomPanel = <atom-panel class="foo"></atom-panel>;
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property/no-unknown-property.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unknown-property/no-unknown-property.spec.ts)
-

@@ -1,5 +1,6 @@
 ---
 title: no-missing-iframe-sandbox
+description: Enforces an explicit 'sandbox' attribute for 'iframe' elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-dom/no-missing-iframe-sandbox
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces an explicit `sandbox` attribute for `iframe` elements.
+## Rule Details
 
 The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using the sandbox attribute is considered a good security practice.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -41,7 +42,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -59,4 +60,3 @@ function MyComponent() {
 ## Further Reading
 
 - [MDN: `iframe` `sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)
-

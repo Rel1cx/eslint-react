@@ -1,5 +1,6 @@
 ---
 title: no-unused-props
+description: Warns about component props that are defined but never used.
 ---
 
 <Callout type="warning">
@@ -26,9 +27,7 @@ react-x/no-unused-props
 
 `strict-type-checked`
 
-## Rule Description
-
-Warns about component props that are defined but never used.
+## Rule Details
 
 Unused props increase maintenance overhead and may mislead consumers of the component into thinking the prop is required or meaningful even when it has no effect.
 
@@ -37,7 +36,9 @@ This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-type
 - doesn't support the legacy propTypes syntax
 - combines the used props of one type definition declared by multiple components
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // 'onClick' is defined in 'ButtonProps' but never used in the 'Button' component.
@@ -63,7 +64,7 @@ function UserProfile({ username }: UserProfileProps) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // All props are used.
@@ -116,4 +117,3 @@ function ProfileAvatar({ theme }: ProfileProps) {
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.spec.ts)
-

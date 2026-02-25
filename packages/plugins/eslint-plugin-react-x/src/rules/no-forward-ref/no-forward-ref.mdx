@@ -1,5 +1,6 @@
 ---
 title: no-forward-ref
+description: Replaces usage of 'forwardRef' with passing 'ref' as a prop
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,15 +29,15 @@ react-x/no-forward-ref
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Replaces usage of `forwardRef` with passing `ref` as a prop.
+## Rule Details
 
 In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
 
 `forwardRef` will be deprecated in a future release. Learn more [here](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { forwardRef } from "react";
@@ -67,7 +68,7 @@ const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(
 );
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -103,4 +104,3 @@ function MyInput({
 
 - [React Docs: `forwardRef`](https://react.dev/reference/react/forwardRef)
 - [React Docs: `ref` as a prop](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop)
-

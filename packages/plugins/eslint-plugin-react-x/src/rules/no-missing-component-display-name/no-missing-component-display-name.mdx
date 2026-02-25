@@ -1,5 +1,6 @@
 ---
 title: no-missing-component-display-name
+description: Enforces that all components have a 'displayName' that can be used in DevTools
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -18,13 +19,13 @@ react-x/no-missing-component-display-name
 
 -
 
-## Rule Description
-
-Enforces that all components have a `displayName` that can be used in DevTools.
+## Rule Details
 
 When defining a React component, if you specify its component name in a way that React can't infer its `displayName`, it will show up as an `anonymous` component in DevTools, which makes debugging more difficult.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -49,7 +50,7 @@ export default () => <div />;
 //             ^^^ Add missing 'displayName' for component.
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -97,4 +98,3 @@ export default function Button() {
 ## Further Reading
 
 - [React Docs: `displayName`](https://react.dev/reference/react/Component#displayname)
-

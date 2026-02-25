@@ -1,5 +1,6 @@
 ---
 title: jsx-shorthand-boolean
+description: Enforces shorthand syntax for boolean props
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,9 +23,7 @@ react-x/jsx-shorthand-boolean
 
 -
 
-## Rule Description
-
-Enforces shorthand syntax for boolean props.
+## Rule Details
 
 ## Rule Options
 
@@ -33,7 +32,9 @@ This rule has a single integer option with the following values:
 - `1` (Default): Always use shorthand syntax for boolean attributes.
 - `-1`: Never use shorthand syntax for boolean attributes.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -44,7 +45,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -62,4 +63,3 @@ function MyComponent() {
 ## Further Reading
 
 - [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
-

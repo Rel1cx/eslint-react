@@ -1,5 +1,6 @@
 ---
 title: error-boundaries
+description: Validates usage of Error Boundaries instead of try/catch for errors in child components.
 ---
 
 <Callout type="warning">
@@ -28,15 +29,15 @@ react-x/error-boundaries
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Validates usage of Error Boundaries instead of try/catch for errors in child components.
+## Rule Details
 
 Try/catch blocks can't catch errors that happen during React's rendering process. Errors thrown in rendering methods or lifecycle hooks bubble up through the component tree. Only [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors.
 
 Similarly, the `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a rejected promise, only Error Boundaries (and Suspense boundaries) can handle these cases. A catch block around `use` would never run.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // ❌ Try/catch won't catch render errors from child components
@@ -63,7 +64,7 @@ function Component({ promise }) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // ✅ Using an Error Boundary to catch rendering errors

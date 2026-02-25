@@ -1,5 +1,6 @@
 ---
 title: no-use-context
+description: Replaces usage of 'useContext' with 'use'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,15 +29,15 @@ react-x/no-use-context
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Replaces usage of `useContext` with `use`.
+## Rule Details
 
 In React 19, `use` is preferred over `useContext` because it is more flexible.
 
 In addition, enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import { useContext } from "react";
@@ -47,7 +48,7 @@ function Button() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import { use } from "react";
@@ -67,4 +68,3 @@ function Button() {
 
 - [React Docs: Blog: New feature `use`](https://react.dev/blog/2024/12/05/react-19#new-feature-use)
 - [React Docs: Reading context with `use`](https://react.dev/reference/react/use#reading-context-with-use)
-

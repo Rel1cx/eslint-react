@@ -1,5 +1,6 @@
 ---
 title: no-hydrate
+description: Replaces usage of 'ReactDOM.hydrate()' with 'hydrateRoot()'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,11 +29,11 @@ react-dom/no-hydrate
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()`.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import Component from "Component";
@@ -41,7 +42,7 @@ import ReactDOM from "react-dom";
 ReactDOM.hydrate(<Component />, document.getElementById("app"));
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import Component from "Component";
@@ -60,4 +61,3 @@ hydrateRoot(document.getElementById("app"), <Component />);
 
 - [React Docs: `hydrate`](https://18.react.dev/reference/react-dom/hydrate)
 - [React Docs: `hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot)
-

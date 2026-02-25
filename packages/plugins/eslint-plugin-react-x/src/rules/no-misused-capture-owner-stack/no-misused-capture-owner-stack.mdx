@@ -1,5 +1,6 @@
 ---
 title: no-misused-capture-owner-stack
+description: Prevents incorrect usage of `captureOwnerStack`.
 ---
 
 <Callout type="warning">
@@ -28,9 +29,7 @@ react-x/no-misused-capture-owner-stack
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Prevents incorrect usage of `captureOwnerStack`.
+## Rule Details
 
 `captureOwnerStack` is only available in development builds of React and must be:
 
@@ -38,7 +37,9 @@ Prevents incorrect usage of `captureOwnerStack`.
 2. Conditionally accessed within an `if (process.env.NODE_ENV !== 'production') { ... }` block to prevent execution in production environments.
 3. Called inside a React-controlled function (**not implemented yet**).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // Failing: Using a named import directly
@@ -60,7 +61,7 @@ const ownerStack = React.captureOwnerStack();
 console.log(ownerStack);
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // Passing: Correct namespace import with environment check

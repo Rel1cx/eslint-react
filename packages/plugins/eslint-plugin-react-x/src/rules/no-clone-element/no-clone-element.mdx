@@ -1,5 +1,6 @@
 ---
 title: no-clone-element
+description: Disallows `cloneElement`.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-clone-element
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `cloneElement`.
+## Rule Details
 
 Using `cloneElement` is uncommon and can lead to fragile code. It also makes it harder to trace data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import { cloneElement } from "react";

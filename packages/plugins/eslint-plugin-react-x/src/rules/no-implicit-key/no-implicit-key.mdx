@@ -1,5 +1,6 @@
 ---
 title: no-implicit-key
+description: Prevents implicitly passing the 'key' prop to components.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -23,15 +24,15 @@ react-x/no-implicit-key
 `recommended-type-checked`
 `strict-type-checked`
 
-## Rule Description
-
-Prevents implicitly passing the 'key' prop to components.
+## Rule Details
 
 This makes it hard to see whether the key was passed correctly to the element or where it came from.
 
 It is also proposed to be deprecated in this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -49,7 +50,7 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -84,4 +85,3 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 
 - [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
 - [React RFC: Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107)
-
