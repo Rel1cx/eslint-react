@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Validate and transform React Client/Server Function definitions.",
+      description: "Validates and transforms React Client/Server Function definitions.",
     },
     fixable: "code",
     messages: {
