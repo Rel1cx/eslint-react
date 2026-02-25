@@ -1,5 +1,6 @@
 ---
 title: no-use-form-state
+description: Replaces usage of 'useFormState' with 'useActionState'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,11 +29,11 @@ react-dom/no-use-form-state
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Replaces usage of `useFormState` with `useActionState`.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import { useFormState } from "react-dom";
@@ -52,7 +53,7 @@ function StatefulForm({}) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import { useActionState } from "react";
@@ -80,4 +81,3 @@ function StatefulForm({}) {
 ## Further Reading
 
 - [React Docs: `useActionState`](https://react.dev/reference/react/useActionState)
-

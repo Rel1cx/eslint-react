@@ -1,5 +1,6 @@
 ---
 title: no-direct-mutation-state
+description: Disallows direct mutation of 'this.state'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,15 +25,15 @@ react-x/no-direct-mutation-state
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows direct mutation of `this.state`.
+## Rule Details
 
 Never mutate `this.state` directly, as calling `setState()` afterward may replace the mutation you made. Treat `this.state` as if it were immutable.
 
 The only place it's acceptable to assign `this.state` is in a class component's `constructor`.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -63,7 +64,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -97,4 +98,3 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/no-direct-mutation-state.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/no-direct-mutation-state.spec.ts)
-

@@ -1,5 +1,6 @@
 ---
 title: jsx-no-comment-textnodes
+description: Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/jsx-no-comment-textnodes
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Prevents comment strings (e.g., beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes.
+## Rule Details
 
 This could be a mistake during code editing or a misunderstanding of how JSX works. Either way, it's probably not what you intended.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -46,7 +47,7 @@ function MyComponent2() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -77,4 +78,3 @@ function MyComponent() {
 ## Further Reading
 
 - [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
-

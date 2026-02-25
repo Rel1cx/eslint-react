@@ -1,5 +1,6 @@
 ---
 title: jsx-uses-react
+description: Marks React variables as used when JSX is present.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,15 +21,15 @@ react-x/jsx-uses-react
 `recommended`
 `strict`
 
-## Rule Description
-
-Marks React variables as used when JSX is present.
+## Rule Details
 
 If you are using the `@jsx` pragma, this rule will mark the designated variable, not the React one.
 
 This rule does nothing when using the [New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) or if the `no-unused-vars` rule is not enabled.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -43,7 +44,7 @@ import React from "react";
 const Hello = <div>Hello</div>;
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -67,4 +68,3 @@ const Hello = <div>Hello</div>;
 
 - [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
 - [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
-

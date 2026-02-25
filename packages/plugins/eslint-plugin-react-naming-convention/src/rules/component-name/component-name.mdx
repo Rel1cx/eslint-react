@@ -1,5 +1,6 @@
 ---
 title: component-name
+description: Enforces naming conventions for components
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,9 +23,7 @@ react-naming-convention/component-name
 
 -
 
-## Rule Description
-
-Enforces naming conventions for components.
+## Rule Details
 
 ## Rule Options
 
@@ -54,7 +53,9 @@ When set to `true`, component names that are entirely uppercase are allowed.
 
 Default: `false`
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -65,7 +66,7 @@ function My_component() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -93,4 +94,3 @@ function API() {
 ## Further Reading
 
 - [React Docs: Component](https://react.dev/learn/your-first-component)
-

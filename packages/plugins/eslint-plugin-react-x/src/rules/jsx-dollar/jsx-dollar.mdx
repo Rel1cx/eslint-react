@@ -1,5 +1,6 @@
 ---
 title: jsx-dollar
+description: Prevents unintentional '$' sign before expression
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,9 +23,7 @@ react-x/jsx-dollar
 
 -
 
-## Rule Description
-
-Prevents unintentional `$` sign before expression.
+## Rule Details
 
 This can happen when refactoring from a template literal to JSX and forgetting to remove the dollar sign. This results in an unintentional `$` being rendered in the output.
 
@@ -48,7 +47,9 @@ function MyComponent({ user }) {
 
 In this example, the `$` before `{user.name}` is unnecessary and will be rendered as part of the output.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -77,7 +78,7 @@ function MyComponent({ count, total }) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -112,4 +113,3 @@ function MyComponent({ price }) {
 
 - [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
 - [MDN: Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
-

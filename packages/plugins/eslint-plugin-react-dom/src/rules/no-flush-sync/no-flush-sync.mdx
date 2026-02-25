@@ -1,5 +1,6 @@
 ---
 title: no-flush-sync
+description: Disallows 'flushSync'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,15 +25,15 @@ react-dom/no-flush-sync
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `flushSync`.
+## Rule Details
 
 `flushSync` can significantly hurt performance and may unexpectedly force pending Suspense boundaries to show their fallback state.
 
 Most of the time, `flushSync` can be avoided, so use `flushSync` as a last resort.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import { flushSync } from "react-dom";
@@ -50,4 +51,3 @@ flushSync(() => {
 ## Further Reading
 
 - [React Docs: `flushSync`](https://react.dev/reference/react-dom/flushSync)
-

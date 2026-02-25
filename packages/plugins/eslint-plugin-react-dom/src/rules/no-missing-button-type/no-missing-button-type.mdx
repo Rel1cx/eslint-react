@@ -1,5 +1,6 @@
 ---
 title: no-missing-button-type
+description: Enforces an explicit 'type' attribute for 'button' elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,15 +25,15 @@ react-dom/no-missing-button-type
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces an explicit `type` attribute for `button` elements.
+## Rule Details
 
 The default `type` of a button is `submit`, which causes the submission of a form when placed inside a `form` element. This is likely not the behavior you want inside a React application.
 
 Allowed button types are `submit`, `button`, or `reset`.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -43,7 +44,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -61,4 +62,3 @@ function MyComponent() {
 ## Further Reading
 
 - [MDN: `button`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#notes)
-

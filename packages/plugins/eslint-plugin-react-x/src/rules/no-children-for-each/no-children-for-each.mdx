@@ -1,5 +1,6 @@
 ---
 title: no-children-for-each
+description: Disallows the use of `Children.forEach` from the `react` package.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-children-for-each
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows the use of `Children.forEach` from the `react` package.
+## Rule Details
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { Children } from "react";

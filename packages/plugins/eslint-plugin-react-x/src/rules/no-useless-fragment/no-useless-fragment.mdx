@@ -1,5 +1,6 @@
 ---
 title: no-useless-fragment
+description: Disallows useless fragment elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,9 +25,7 @@ react-x/no-useless-fragment
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows useless fragment elements.
+## Rule Details
 
 A fragment is redundant if it contains only one child or if it is the child of an HTML element and is not a [keyed fragment](https://react.dev/reference/react/Fragment#caveats).
 
@@ -53,7 +52,9 @@ When set to `true`, allows fragments that contain a single expression child.
 
 Default: `true`
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 <><Foo /></>
@@ -70,7 +71,7 @@ Default: `true`
 </section>
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 {foo}
@@ -104,7 +105,7 @@ const cat = <>meow</>
 
 ## Examples with `allowExpressions: false`
 
-## Triggering Examples
+### Invalid (with `allowExpressions: false`)
 
 ```tsx
 <><Foo /></>
@@ -138,7 +139,7 @@ const cat = <>meow</>
 </SomeComponent>
 ```
 
-## Non Triggering Examples
+### Valid (with `allowExpressions: false`)
 
 ```tsx
 {foo}
@@ -177,4 +178,3 @@ const cat = <>meow</>
 - [React Docs: `Fragment`](https://react.dev/reference/react/Fragment)
 - [React Docs: Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
 - [GitHub Gist: `clemmy/react_state_preservation_behavior`](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)
-

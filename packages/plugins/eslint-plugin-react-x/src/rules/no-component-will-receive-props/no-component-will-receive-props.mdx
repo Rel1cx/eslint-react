@@ -1,5 +1,6 @@
 ---
 title: no-component-will-receive-props
+description: Replaces usage of 'componentWillReceiveProps' with 'UNSAFE_componentWillReceiveProps'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,13 +29,13 @@ react-x/no-component-will-receive-props
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Replaces usage of `componentWillReceiveProps` with `UNSAFE_componentWillReceiveProps`.
+## Rule Details
 
 This API was renamed from `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -46,7 +47,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -66,4 +67,3 @@ class MyComponent extends React.Component {
 ## Further Reading
 
 - [Legacy React APIs: `componentWillReceiveProps`](https://react.dev/reference/react/Component#componentwillreceiveprops)
-

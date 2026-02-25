@@ -1,5 +1,6 @@
 ---
 title: rules-of-hooks
+description: Enforces the Rules of Hooks
 ---
 
 <Callout type="warning">
@@ -32,13 +33,13 @@ react-x/rules-of-hooks
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces the Rules of Hooks.
+## Rule Details
 
 React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // ❌ Hook in condition
@@ -96,7 +97,7 @@ function MyComponent({ promise }) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // ✅ Hooks at top level
@@ -243,4 +244,3 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 - [React Docs: `useEffect`](https://react.dev/reference/react/useEffect)
 - [React Docs: `use`](https://react.dev/reference/react/use)
 - [React Docs: `rules-of-hooks` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/rules-of-hooks)
-

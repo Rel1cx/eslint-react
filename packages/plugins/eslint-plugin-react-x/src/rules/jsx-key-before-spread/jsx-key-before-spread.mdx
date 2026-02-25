@@ -1,5 +1,6 @@
 ---
 title: jsx-key-before-spread
+description: Enforces 'key' prop placement before spread props
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -27,22 +28,22 @@ react-x/jsx-key-before-spread
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces `key` prop placement before spread props.
+## Rule Details
 
 When using the JSX automatic runtime, `key` is a special prop in the JSX transform. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
 
 If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 <div {...props} key="2" />;
 //              ^^^ The 'key' prop must be placed before any spread props when using the new JSX transform.
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 <div key="1" {...props} />;
@@ -60,4 +61,3 @@ If the `key` prop is before any spread props, it is passed as the `key` argument
 - [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
 - [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
 - [TSConfig: jsx](https://www.typescriptlang.org/tsconfig/#jsx)
-

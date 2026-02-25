@@ -1,5 +1,6 @@
 ---
 title: jsx-no-duplicate-props
+description: Disallows duplicate props in JSX elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,17 +21,17 @@ react-x/jsx-no-duplicate-props
 `recommended`
 `strict`
 
-## Rule Description
+## Rule Details
 
-Disallows duplicate props in JSX elements.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 <Hello name="John" name="Doe" />;
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 <Hello name="John" />;
@@ -44,4 +45,3 @@ Disallows duplicate props in JSX elements.
 ## Further Reading
 
 - [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
-

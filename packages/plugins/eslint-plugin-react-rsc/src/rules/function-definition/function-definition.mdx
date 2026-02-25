@@ -1,5 +1,6 @@
 ---
 title: function-definition
+description: Validate and transform React Client/Server Function definitions.
 ---
 
 <Callout type="warning">
@@ -32,15 +33,15 @@ react-rsc/function-definition
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Validate and transform React Client/Server Function definitions.
+## Rule Details
 
 It includes the following checks:
 
 1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 'use server';
@@ -79,7 +80,7 @@ export function Component() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 'use server';

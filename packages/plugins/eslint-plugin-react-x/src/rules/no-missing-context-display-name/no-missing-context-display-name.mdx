@@ -1,5 +1,6 @@
 ---
 title: no-missing-context-display-name
+description: Enforces that all contexts have a 'displayName' that can be used in DevTools
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -22,11 +23,11 @@ react-x/no-missing-context-display-name
 
 -
 
-## Rule Description
+## Rule Details
 
-Enforces that all contexts have a `displayName` that can be used in DevTools.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import React from "react";
@@ -34,7 +35,7 @@ import React from "react";
 const MyContext = React.createContext();
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -52,4 +53,3 @@ MyContext.displayName = "MyContext";
 
 - [React Docs: `displayName`](https://react.dev/reference/react/Component#displayname)
 - [React Docs: Context](https://react.dev/learn/passing-data-deeply-with-context)
-

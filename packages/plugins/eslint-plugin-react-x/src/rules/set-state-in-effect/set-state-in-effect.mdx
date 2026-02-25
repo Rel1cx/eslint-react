@@ -1,5 +1,6 @@
 ---
 title: set-state-in-effect
+description: Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance
 ---
 
 <Callout type="warning">
@@ -28,9 +29,7 @@ react-x/set-state-in-effect
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.
+## Rule Details
 
 Setting state immediately inside an effect forces React to restart the entire render cycle. When you update state in an effect, React must re-render your component, apply changes to the DOM, and then run effects again. This creates an extra render pass that could have been avoided by transforming data directly during render or deriving state from props. Transform data at the top level of your component instead. This code will naturally re-run when props or state change without triggering additional render cycles.
 
@@ -79,7 +78,7 @@ The rule does not flag indirect calls, such as:
   }, []);
   ```
 
-## Non Triggering Examples
+### Valid
 
 The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
 
@@ -221,7 +220,9 @@ function List({ items }) {
 }
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 The following examples are derived from the [React Docs: `set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) and the [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
 
@@ -318,4 +319,3 @@ function List({ items }) {
 - [React Docs: `useEffect`](https://react.dev/reference/react/useEffect)
 - [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - [React Docs: `set-state-in-effect` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect)
-

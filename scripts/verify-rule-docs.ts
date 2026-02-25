@@ -130,12 +130,7 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify the description section matches the rule metadata
     const expectedDescription = rulemeta.description;
-    const descriptionIndex = contentLines.findIndex((line) => line.startsWith("## Rule Description"));
-    if (descriptionIndex === -1) {
-      yield* Effect.logError(ansis.red(`  Missing description line in documentation for rule ${rulename}`));
-      continue;
-    }
-    const providedDescription = contentLines[descriptionIndex + 2]?.trim().replaceAll("`", "'");
+    const providedDescription = contentLines.at(2)?.trim().replace("description: ", "").replaceAll("`", "'");
     if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, ""))) {
       yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);

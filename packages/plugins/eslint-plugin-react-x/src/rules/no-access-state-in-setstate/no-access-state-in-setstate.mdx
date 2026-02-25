@@ -1,5 +1,6 @@
 ---
 title: no-access-state-in-setstate
+description: Disallows accessing 'this.state' inside 'setState' calls
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-access-state-in-setstate
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows accessing `this.state` inside `setState` calls.
+## Rule Details
 
 Using `this.state` inside `setState` calls might result in errors when two state updates are batched, causing references to the old state rather than the current state.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -55,7 +56,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -85,4 +86,3 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.spec.ts)
-

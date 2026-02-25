@@ -1,5 +1,6 @@
 ---
 title: no-missing-key
+description: Disallows missing 'key' on items in list rendering
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-missing-key
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows missing `key` on items in list rendering.
+## Rule Details
 
 React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -48,7 +49,7 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -74,4 +75,3 @@ function MyComponent({ items }: MyComponentProps) {
 ## Further Reading
 
 - [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
-

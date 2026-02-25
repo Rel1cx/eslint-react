@@ -1,5 +1,6 @@
 ---
 title: ref-name
+description: Enforces identifier names assigned from 'useRef' calls to be either 'ref' or end with 'Ref'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -23,11 +24,11 @@ react-naming-convention/ref-name
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 const count = useRef(0);
@@ -44,7 +45,7 @@ const value = useRef(null);
 //    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 const ref = useRef(0);
@@ -71,4 +72,3 @@ const valueRef = useRef(null);
 
 - [React Docs: `useRef`](https://react.dev/reference/react/useRef)
 - [React Docs: Plain Object `.current`](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs#plain-object-current)
-

@@ -1,5 +1,6 @@
 ---
 title: no-set-state-in-component-will-update
+description: Disallows calling 'this.setState' in 'componentWillUpdate' outside functions such as callbacks
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-x/no-set-state-in-component-will-update
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows calling `this.setState` in `componentWillUpdate` outside functions such as callbacks.
+## Rule Details
 
 Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -62,4 +63,3 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 - [Legacy React APIs: `componentWillUpdate`](https://react.dev/reference/react/Component#componentwillupdate)
 - [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)
-

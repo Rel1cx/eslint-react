@@ -1,5 +1,6 @@
 ---
 title: no-unsafe-target-blank
+description: Disallows 'target="_blank"' without 'rel="noreferrer noopener"'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,11 +25,11 @@ react-dom/no-unsafe-target-blank
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Disallows `target="_blank"` without `rel="noreferrer noopener"`.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import React from "react";
@@ -42,7 +43,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -66,4 +67,3 @@ function MyComponent() {
 - [MDN: `target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target)
 - [MDN: `rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
 - [MDN: `Window.opener`](https://developer.mozilla.org/en-US/docs/Web/API/Window/opener)
-

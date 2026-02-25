@@ -1,5 +1,6 @@
 ---
 title: no-void-elements-with-children
+description: Disallows 'children' in void DOM elements
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,15 +25,15 @@ react-dom/no-void-elements-with-children
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `children` in void DOM elements.
+## Rule Details
 
 Self-closing HTML elements (e.g., `<img />`, `<br />`, `<hr />`) are collectively known as void DOM elements. React will give you a warning if you try to give these elements children:
 
 > Invariant Violation: img is a void element tag and must neither have children nor use dangerouslySetInnerHTML.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 <br>Children</br>
@@ -43,7 +44,7 @@ React.createElement('br', { children: 'Children' })
 React.createElement('br', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 <div>Children</div>
@@ -62,4 +63,3 @@ React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ## Further Reading
 
 - [MDN: Void elements](https://developer.mozilla.org/en-US/docs/Glossary/Void_element)
-

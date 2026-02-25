@@ -1,5 +1,6 @@
 ---
 title: prefer-destructuring-assignment
+description: Enforces destructuring assignment for component props and context
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,11 +21,11 @@ react-x/prefer-destructuring-assignment
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Enforces destructuring assignment for component props and context.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import React from "react";
@@ -54,7 +55,7 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -103,4 +104,3 @@ function MyComponent({ items, ...rest }: MyComponentProps) {
 
 - [MDN: Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 - [React Docs: Passing props to a component](https://react.dev/learn/passing-props-to-a-component#step-2-read-props-inside-the-child-component)
-

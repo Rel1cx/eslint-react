@@ -1,5 +1,6 @@
 ---
 title: no-unused-state
+description: Warns about unused class component state.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -20,11 +21,11 @@ react-x/no-unused-state
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
+## Rule Details
 
-Warns about unused class component state.
+## Common Violations
 
-## Triggering Examples
+### Invalid
 
 ```tsx
 import React from "react";
@@ -41,7 +42,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -65,4 +66,3 @@ class MyComponent extends React.Component {
 ## Further Reading
 
 - [Legacy React APIs: `Component`](https://react.dev/reference/react/Component)
-

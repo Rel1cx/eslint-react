@@ -34,48 +34,55 @@ body:
       required: true
 
   - type: textarea
-    id: rule-name-and-message
+    id: rule-docs-template
     attributes:
-      label: Rule Name and Error Message
+      label: Rule Documentation Template
       description: |
-        Suggest a name for the rule, as well as the error message and details that should be displayed when the rule is violated.
-
-        > A lint rule is an automated communication tool that sends messages to developers who have written patterns your rule wishes to prevent. As with all communication, the message is important.
+        Please provide the rule documentation following the standard template structure used in this repository.
+        This will help reviewers understand the rule's purpose, behavior, and edge cases.
       placeholder: |
-        Rule name: [PluginName]/[YourRuleName]
+        ## Rule Details
 
-        Error message: Briefly and clearly describe the problem
+        <!-- Describe what problem this rule solves and why it's important. -->
+        <!-- Explain the React concept or pattern that this rule enforces. -->
 
-        Details: Provide more background information and suggested solutions
-    validations:
-      required: true
+        ## Common Violations
 
-  - type: textarea
-    id: examples
-    attributes:
-      label: Examples
-      description: Provide code examples that should be flagged and code examples that should not be flagged.
-      placeholder: |
-        Code that should be flagged:
+        ### Invalid
+
+        <!-- Code examples that SHOULD be flagged by this rule -->
+
         ```tsx
-        // Problematic code
+        // ❌ Bad: Explain why this is problematic
         ```
 
-        Code that should not be flagged:
+        ### Valid
+
+        <!-- Code examples that should NOT be flagged by this rule -->
+
         ```tsx
-        // Correct code
+        // ✅ Good: Explain the correct pattern
         ```
+
+        ## Troubleshooting
+
+        <!-- Optional: Address common questions or edge cases -->
+
+        ### Why is this pattern problematic?
+
+        ### What are the alternatives?
+
+        ## Resources
+
+        - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/...)
+        <!-- Link to where the rule implementation would live -->
+
+        ## Further Reading
+
+        - [React Docs: ...](https://react.dev/...)
+        <!-- Links to relevant React documentation -->
     validations:
       required: true
-
-  - type: textarea
-    id: docs-references
-    attributes:
-      label: Documentation References
-      description: Provide links to relevant documentation or resources that can help readers understand the context of the rule (e.g., ["Pitfalls" sections in https://react.dev](https://www.google.com/search?q=Pitfall+site:react.dev)).
-      placeholder: "The pattern is mentioned in the official docs: https://react.dev/..."
-    validations:
-      required: false
 
   - type: checkboxes
     id: checklist

@@ -1,5 +1,6 @@
 ---
 title: no-unnecessary-use-prefix
+description: Enforces that a function with the 'use' prefix uses at least one Hook inside it
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -23,9 +24,7 @@ react-x/no-unnecessary-use-prefix
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces that a function with the 'use' prefix uses at least one Hook inside it.
+## Rule Details
 
 If your function doesn’t call any Hooks, avoid the `use` prefix. Instead, write it as a regular function without the `use` prefix. For example, `useSorted` below doesn’t call Hooks, so call it `getSorted` instead:
 
@@ -78,7 +77,9 @@ function useAuth() {
 
 Then components won’t be able to call it conditionally. This will become important when you actually add Hook calls inside. If you don’t plan to use Hooks inside it (now or later), don’t make it a Hook.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 function useSorted(items) {
@@ -93,7 +94,7 @@ function useAuth() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 function getSorted(items) {
@@ -131,4 +132,3 @@ export function useMDXComponents(components) {
 ## Further Reading
 
 - [React Docs: Should all functions called during rendering start with the `use` prefix? (the deep dive)](https://react.dev/learn/reusing-logic-with-custom-hooks#should-all-functions-called-during-rendering-start-with-the-use-prefix)
-

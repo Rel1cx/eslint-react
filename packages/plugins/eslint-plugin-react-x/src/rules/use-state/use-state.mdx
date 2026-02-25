@@ -1,5 +1,6 @@
 ---
 title: use-state
+description: Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function
 ---
 
 <Callout type="warning">
@@ -32,9 +33,7 @@ react-x/use-state
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.
+## Rule Details
 
 This rule covers three concerns:
 
@@ -74,7 +73,9 @@ Primitive wrapper calls (`Boolean(...)`, `String(...)`, `Number(...)`) and React
 
 Default: `true`
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 // ❌ Setter name does not match value name
@@ -121,7 +122,7 @@ function MyComponent() {
 declare function generateTodos(): string[];
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 // ✅ Symmetric camelCase naming
@@ -195,4 +196,3 @@ function Component({ promise }) {
 - [React Docs: `useState`](https://react.dev/reference/react/useState)
 - [React Docs: Avoiding recreating the initial state](https://react.dev/reference/react/useState#avoiding-recreating-the-initial-state)
 - [React Docs: State naming conventions](https://react.dev/learn/state-a-components-memory#meet-your-first-hook)
-

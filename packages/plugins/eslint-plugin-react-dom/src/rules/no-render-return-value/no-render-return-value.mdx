@@ -1,5 +1,6 @@
 ---
 title: no-render-return-value
+description: Disallows the return value of 'ReactDOM.render'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-dom/no-render-return-value
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows the return value of `ReactDOM.render`.
+## Rule Details
 
 `ReactDOM.render()` currently returns a reference to the root React component instance. However, using this return value is legacy and should be avoided because future versions of React may render components asynchronously in some cases. If you need a reference to the root React component instance, the preferred solution is to attach a [callback ref](https://react.dev/learn/manipulating-the-dom-with-refs) to the root element.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -40,7 +41,7 @@ const instance = ReactDOM.render(<div id="app" />, document.body);
 //    ^^^ Do not depend on the return value from '{{objectName}}.render'.
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -61,4 +62,3 @@ ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 ## Further Reading
 
 - [React Docs: `render`](https://18.react.dev/reference/react-dom/render)
-

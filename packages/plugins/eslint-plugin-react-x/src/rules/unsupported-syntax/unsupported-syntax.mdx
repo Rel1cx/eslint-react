@@ -1,5 +1,6 @@
 ---
 title: unsupported-syntax
+description: Validates against syntax that React Compiler does not support
 ---
 
 <Callout type="warning">
@@ -28,9 +29,7 @@ react-x/unsupported-syntax
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Validates against syntax that React Compiler does not support. If you need to, you can still use this syntax outside of React, such as in a standalone utility function.
+## Rule Details
 
 React Compiler needs to statically analyze your code to apply optimizations. Features like `eval`, `with`, and immediately-invoked function expressions (IIFEs) in JSX make it impossible or impractical for the compiler to statically understand what the code does at compile time, so the compiler can't optimize components that use them.
 
@@ -239,7 +238,9 @@ function MyComponent() {
 }
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 function Component({ code }) {
@@ -285,7 +286,7 @@ function MyComponent() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 function Component({ propName, props }) {
@@ -346,4 +347,3 @@ function MyComponent() {
 ## Further Reading
 
 - [React Docs: `unsupported-syntax` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax)
-

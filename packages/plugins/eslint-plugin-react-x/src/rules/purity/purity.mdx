@@ -1,5 +1,6 @@
 ---
 title: purity
+description: Validates that components and hooks are pure by checking that they do not call known-impure functions during render
 ---
 
 <Callout type="warning">
@@ -32,9 +33,7 @@ react-x/purity
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+## Rule Details
 
 React components must be pure functions — given the same props, they should always return the same JSX. When components use functions like `Math.random()` or `Date.now()` during render, they produce different output each time, breaking React's assumptions and causing bugs like hydration mismatches, incorrect memoization, and unpredictable behavior.
 
@@ -156,7 +155,9 @@ function Component() {
 }
 ```
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 function Component() {
@@ -190,7 +191,7 @@ function useTimestamp() {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 function Component() {
@@ -235,4 +236,3 @@ function Component() {
 
 - [React Docs: Keeping Components Pure](https://react.dev/learn/keeping-components-pure)
 - [React Docs: `purity` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/purity)
-

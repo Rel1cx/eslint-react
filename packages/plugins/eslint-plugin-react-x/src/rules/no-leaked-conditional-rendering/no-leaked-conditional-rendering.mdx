@@ -1,5 +1,6 @@
 ---
 title: no-leaked-conditional-rendering
+description: Prevents problematic leaked values from being rendered.
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -23,13 +24,13 @@ react-x/no-leaked-conditional-rendering
 `recommended-type-checked`
 `strict-type-checked`
 
-## Rule Description
-
-Prevents problematic leaked values from being rendered.
+## Rule Details
 
 Using the `&&` operator to render an element conditionally in JSX can cause unexpected values to be rendered or even crash the rendering.
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -86,7 +87,7 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";

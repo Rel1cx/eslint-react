@@ -1,5 +1,6 @@
 ---
 title: no-context-provider
+description: Replaces usage of '<Context.Provider>' with '<Context>'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -28,9 +29,7 @@ react-x/no-context-provider
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Replaces usage of `<Context.Provider>` with `<Context>`.
+## Rule Details
 
 In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`.
 
@@ -38,7 +37,9 @@ In React 19, you can render `<Context>` as a provider instead of `<Context.Provi
   This rule works best in codebases that follow the [`naming-convention/context-name`](./naming-convention-context-name) rule.
 </Callout>
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React from "react";
@@ -53,7 +54,7 @@ function App({ children }) {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React from "react";
@@ -76,4 +77,3 @@ function App({ children }) {
 ## Further Reading
 
 - [React Docs: Blog: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)
-

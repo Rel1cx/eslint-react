@@ -51,7 +51,7 @@
     "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.75.1",
+    "@effect/language-service": "^0.76.0",
     "@effect/platform": "^0.94.5",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",

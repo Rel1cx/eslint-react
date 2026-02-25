@@ -1,5 +1,6 @@
 ---
 title: no-find-dom-node
+description: Disallows 'findDOMNode'
 ---
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
@@ -24,13 +25,13 @@ react-dom/no-find-dom-node
 `strict-typescript`
 `strict-type-checked`
 
-## Rule Description
-
-Disallows `findDOMNode`.
+## Rule Details
 
 This API will be removed in a future major version of React. [See the alternatives](https://react.dev/reference/react-dom/findDOMNode#alternatives).
 
-## Triggering Examples
+## Common Violations
+
+### Invalid
 
 ```tsx
 import React, { Component } from "react";
@@ -50,7 +51,7 @@ class AutoSelectingInput extends Component {
 }
 ```
 
-## Non Triggering Examples
+### Valid
 
 ```tsx
 import React, { Component } from "react";
@@ -77,4 +78,3 @@ class AutoSelectingInput extends Component {
 ## Further Reading
 
 - [React Docs: `findDOMNode`](https://react.dev/reference/react-dom/findDOMNode)
-
