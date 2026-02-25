@@ -2,6 +2,12 @@
 title: Changelog
 ---
 
+## v3.0.0-beta.52 (2026-02-25)
+
+### 🐞 Fixes
+
+- fix(no-forward-ref): handle callback with no params (#1560)
+
 ## v3.0.0-beta.51 (2026-02-25)
 
 ### 🐞 Fixes
