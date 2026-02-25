@@ -135,7 +135,6 @@
 | [isComponentWrapperCallback](functions/isComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
-| [isDeclaredInRenderPropLoose](functions/isDeclaredInRenderPropLoose.md) | Unsafe check whether given node is declared inside a render prop `_ = <Component renderRow={"node"} /> ` ^^^^^^ ` _ = <Component rows={ [{ render: "node" }] } /> ` ^^^^^^ `` |
 | [isFunctionWithLooseComponentName](functions/isFunctionWithLooseComponentName.md) | Check if a function has a loose component name |
 | [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
@@ -155,10 +154,8 @@
 | [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
 | [isRefId](functions/isRefId.md) | - |
 | [isRefLikeName](functions/isRefLikeName.md) | Check if a given name corresponds to a ref name |
-| [isRenderFunctionLoose](functions/isRenderFunctionLoose.md) | Unsafe check whether given node is a render function `const renderRow = () => <div /> ` ^^^^^^^^^^^^` _ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^ `` |
 | [isRenderMethodCallback](functions/isRenderMethodCallback.md) | Check if the given node is a function within a render method of a class component |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
-| [isRenderPropLoose](functions/isRenderPropLoose.md) | Unsafe check whether given JSXAttribute is a render prop `_ = <Component renderRow={() => <div />} /> ` ^^^^^^^^^^^^^^^^^^^^^^^^^ `` |
 | [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function |
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
 | [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
