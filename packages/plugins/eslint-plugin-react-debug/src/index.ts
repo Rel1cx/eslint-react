@@ -1,13 +1,15 @@
-import { getConfigAdapters } from "@eslint-react/shared";
+import type { ESLint, Linter } from "eslint";
 
 import * as allConfig from "./configs/all";
 import { plugin } from "./plugin";
 
-const { toFlatConfig } = getConfigAdapters("react-debug", plugin);
+type ConfigName = "all";
 
-export default {
+const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
   ...plugin,
   configs: {
-    ["all"]: toFlatConfig(allConfig),
+    ["all"]: allConfig,
   },
 };
+
+export default finalPlugin;

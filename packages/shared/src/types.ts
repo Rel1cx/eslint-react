@@ -51,11 +51,6 @@ export type RuleFeature =
   | "TSC" // TypeScript Type Checking
   | "EXP"; // Experimental
 
-/**
- * The numeric policy value for a rule (severity level).
- */
-export type RulePolicy = number;
-
 export type { ReportFixFunction, RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
 /**
@@ -76,49 +71,3 @@ export type RuleSuggest<MessageIds extends string = string> = {
 export interface SettingsConfig {
   [key: string]: unknown;
 }
-
-/*
- * The following types that are intentionally wide/inaccurate, that exist
- * for the purpose of satisfying both `defineConfig()` and `tseslint.config()`.
- * See https://github.com/typescript-eslint/typescript-eslint/issues/10899
- */
-
-/**
- * A rule with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
- * Intentionally wide/inaccurate for compatibility purposes.
- */
-export interface CompatibleRule {
-  meta: Record<string, any>;
-  create: (...args: any[]) => any;
-}
-
-/**
- * A plugin with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
- * Intentionally wide/inaccurate for compatibility purposes.
- */
-export interface CompatiblePlugin {
-  meta: {
-    name: string;
-    version: string;
-  };
-  rules: Record<string, CompatibleRule>;
-}
-
-/**
- * A configuration object with a compatible shape for use with `defineConfig()` and `tseslint.config()`.
- * Intentionally wide/inaccurate for compatibility purposes.
- */
-export interface CompatibleConfig {
-  /** Optional configuration name. */
-  name?: string;
-  /** Rule configurations. */
-  rules?: Record<string, RuleConfig>;
-  /** Shared settings. */
-  settings?: SettingsConfig;
-}
-
-export type CompilationMode =
-  | "infer"
-  | "annotation"
-  | "syntax"
-  | "all";

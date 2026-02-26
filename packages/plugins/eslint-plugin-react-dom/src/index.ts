@@ -1,15 +1,17 @@
-import { getConfigAdapters } from "@eslint-react/shared";
+import type { ESLint, Linter } from "eslint";
 
 import * as recommendedConfig from "./configs/recommended";
 import * as strictConfig from "./configs/strict";
 import { plugin } from "./plugin";
 
-const { toFlatConfig } = getConfigAdapters("react-dom", plugin);
+type ConfigName = "recommended" | "strict";
 
-export default {
+const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
   ...plugin,
   configs: {
-    ["recommended"]: toFlatConfig(recommendedConfig),
-    ["strict"]: toFlatConfig(strictConfig),
+    ["recommended"]: recommendedConfig,
+    ["strict"]: strictConfig,
   },
 };
+
+export default finalPlugin;

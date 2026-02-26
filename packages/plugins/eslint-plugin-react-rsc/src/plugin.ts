@@ -1,10 +1,10 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
 import functionDefinition from "./rules/function-definition/function-definition";
 
-export const plugin: CompatiblePlugin = {
+export const plugin = {
   meta: {
     name,
     version,
@@ -12,4 +12,4 @@ export const plugin: CompatiblePlugin = {
   rules: {
     "function-definition": functionDefinition,
   },
-};
+} as unknown as ESLint.Plugin;

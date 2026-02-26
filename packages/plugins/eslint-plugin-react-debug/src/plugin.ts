@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
@@ -9,7 +9,7 @@ import isFromReact from "./rules/is-from-react/is-from-react";
 import isFromRef from "./rules/is-from-ref/is-from-ref";
 import jsx from "./rules/jsx/jsx";
 
-export const plugin: CompatiblePlugin = {
+export const plugin = {
   meta: {
     name,
     version,
@@ -22,4 +22,4 @@ export const plugin: CompatiblePlugin = {
     ["is-from-ref"]: isFromRef,
     ["jsx"]: jsx,
   },
-};
+} as unknown as ESLint.Plugin;

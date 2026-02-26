@@ -684,16 +684,13 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/type-utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/types':
         specifier: canary
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -710,6 +707,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)
@@ -739,13 +739,10 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -762,6 +759,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)
@@ -788,19 +788,16 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/type-utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/types':
         specifier: canary
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
       string-ts:
         specifier: ^2.3.1
         version: 2.3.1
@@ -820,6 +817,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)
@@ -843,10 +843,7 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -863,6 +860,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)
@@ -892,13 +892,10 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       birecord:
         specifier: ^0.1.1
         version: 0.1.1
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
       ts-pattern:
         specifier: ^5.9.0
         version: 5.9.0
@@ -915,6 +912,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)
@@ -941,19 +941,16 @@ importers:
         version: 8.56.1-alpha.3
       '@typescript-eslint/type-utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/types':
         specifier: canary
         version: 8.56.1-alpha.3
       '@typescript-eslint/utils':
         specifier: canary
-        version: 8.56.1-alpha.3(eslint@10.0.1(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.56.1-alpha.3(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       compare-versions:
         specifier: ^6.1.1
         version: 6.1.1
-      eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
-        version: 10.0.1(jiti@2.6.1)
       string-ts:
         specifier: ^2.3.1
         version: 2.3.1
@@ -976,6 +973,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.2
+        version: 10.0.2(jiti@2.6.1)
       tsdown:
         specifier: 0.20.3
         version: 0.20.3(publint@0.3.17)(typescript@5.9.3)

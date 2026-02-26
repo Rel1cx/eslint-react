@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
@@ -68,7 +68,7 @@ import unsupportedSyntax from "./rules/unsupported-syntax/unsupported-syntax";
 import useMemo from "./rules/use-memo/use-memo";
 import useState from "./rules/use-state/use-state";
 
-export const plugin: CompatiblePlugin = {
+export const plugin = {
   meta: {
     name,
     version,
@@ -140,4 +140,4 @@ export const plugin: CompatiblePlugin = {
     "use-memo": useMemo,
     "use-state": useState,
   },
-};
+} as unknown as ESLint.Plugin;

@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
@@ -21,7 +21,7 @@ import noUseFormState from "./rules/no-use-form-state/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children/no-void-elements-with-children";
 import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
 
-export const plugin: CompatiblePlugin = {
+export const plugin = {
   meta: {
     name,
     version,
@@ -46,4 +46,4 @@ export const plugin: CompatiblePlugin = {
     "no-void-elements-with-children": noVoidElementsWithChildren,
     "prefer-namespace-import": preferNamespaceImport,
   },
-};
+} as unknown as ESLint.Plugin;

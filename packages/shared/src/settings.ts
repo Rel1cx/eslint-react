@@ -10,7 +10,7 @@ import { z } from "zod/v4";
 
 import { getReactVersion } from "./react-version";
 import { type RegExpLike, toRegExp } from "./regexp";
-import type { CompilationMode, RuleContext } from "./types";
+import type { RuleContext } from "./types";
 
 // ===== Schema Definitions =====
 
@@ -81,6 +81,12 @@ export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
  * ESLint React settings type inferred from the React settings schema.
  */
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
+
+export type CompilationMode =
+  | "infer"
+  | "annotation"
+  | "syntax"
+  | "all";
 
 /**
  * Normalized ESLint React settings with processed values

@@ -1,6 +1,6 @@
 import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, type RulePolicy, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
@@ -18,7 +18,8 @@ export type MessageID = "default";
 
 type Options = readonly [
   | unit
-  | RulePolicy,
+  | 1
+  | -1,
 ];
 
 const defaultOptions = [1] as const satisfies Options;
