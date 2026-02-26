@@ -13,13 +13,11 @@ function decodeSettings(settings: unknown): {
 };
 ```
 
-Decodes and validates ESLint React settings, using defaults if invalid
-
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `settings` | `unknown` | The settings object to decode |
+| Parameter | Type |
+| ------ | ------ |
+| `settings` | `unknown` |
 
 ## Returns
 

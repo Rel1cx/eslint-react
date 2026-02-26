@@ -20,9 +20,6 @@ function normalizeSettings(__namedParameters: {
 };
 ```
 
-Normalizes ESLint React settings to a consistent internal format
-Transforms component definitions and resolves version information
-
 ## Parameters
 
 | Parameter | Type | Description |

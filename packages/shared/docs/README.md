@@ -10,7 +10,7 @@
 
 | Interface | Description |
 | ------ | ------ |
-| [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | Normalized ESLint React settings with processed values |
+| [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
 | [SettingsConfig](interfaces/SettingsConfig.md) | A collection of settings. |
@@ -19,9 +19,8 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [CompilationMode](type-aliases/CompilationMode.md) | - |
-| [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | ESLint React settings type inferred from the React settings schema. |
-| [ESLintSettings](type-aliases/ESLintSettings.md) | ESLint settings type inferred from the settings schema. |
+| [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | - |
+| [ESLintSettings](type-aliases/ESLintSettings.md) | - |
 | [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |
 | [ReportFixFunction](type-aliases/ReportFixFunction.md) | - |
 | [RuleContext](type-aliases/RuleContext.md) | Rule context. |
@@ -35,9 +34,8 @@
 
 | Variable | Description |
 | ------ | ------ |
-| [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md) | Default ESLint React settings |
-| [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md) | Default ESLint settings with React settings included |
-| [defineSettings](variables/defineSettings.md) | Helper function for defining typed settings for "react-x" in JavaScript files Provides type checking without runtime transformation |
+| [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md) | - |
+| [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md) | - |
 | [GITHUB\_URL](variables/GITHUB_URL.md) | The GitHub repository for this project. |
 | [IMPURE\_CTORS](variables/IMPURE_CTORS.md) | Known impure global constructors used with `new` |
 | [IMPURE\_FUNCS](variables/IMPURE_FUNCS.md) | Known impure functions |
@@ -66,16 +64,14 @@
 
 | Function | Description |
 | ------ | ------ |
-| [coerceESLintSettings](functions/coerceESLintSettings.md) | Coerces unknown input to ESLintSettings type |
-| [coerceSettings](functions/coerceSettings.md) | Coerces unknown input to ESLintReactSettings type |
-| [decodeESLintSettings](functions/decodeESLintSettings.md) | Decodes and validates ESLint settings, using defaults if invalid |
-| [decodeSettings](functions/decodeSettings.md) | Decodes and validates ESLint React settings, using defaults if invalid |
+| [decodeESLintSettings](functions/decodeESLintSettings.md) | - |
+| [decodeSettings](functions/decodeSettings.md) | - |
 | [defineRuleListener](functions/defineRuleListener.md) | Defines a rule listener by merging multiple visitor objects |
 | [getReactVersion](functions/getReactVersion.md) | Gets the React version from the project's dependencies. |
-| [getSettingsFromContext](functions/getSettingsFromContext.md) | Retrieves normalized ESLint React settings from the rule context Uses caching for performance optimization |
-| [isESLintReactSettings](functions/isESLintReactSettings.md) | Check if the provided settings conform to ESLintReactSettings schema |
-| [isESLintSettings](functions/isESLintSettings.md) | Check if the provided settings conform to ESLintSettings schema |
+| [getSettingsFromContext](functions/getSettingsFromContext.md) | - |
+| [isESLintReactSettings](functions/isESLintReactSettings.md) | - |
+| [isESLintSettings](functions/isESLintSettings.md) | - |
 | [isRegExp](functions/isRegExp.md) | Check whether given string is regexp string |
-| [normalizeSettings](functions/normalizeSettings.md) | Normalizes ESLint React settings to a consistent internal format Transforms component definitions and resolves version information |
+| [normalizeSettings](functions/normalizeSettings.md) | - |
 | [report](functions/report.md) | Creates a report function for the given rule context. |
 | [toRegExp](functions/toRegExp.md) | Convert a string to the `RegExp`. Normal strings (e.g., `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |

@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 import type { unit } from "@eslint-react/eff";
@@ -12,10 +11,7 @@ import { getReactVersion } from "./react-version";
 import { type RegExpLike, toRegExp } from "./regexp";
 import type { RuleContext } from "./types";
 
-// ===== Schema Definitions =====
-
 /**
- * Schema for ESLint React settings configuration
  * @internal
  */
 export const ESLintReactSettingsSchema = z.object({
@@ -61,7 +57,6 @@ export const ESLintReactSettingsSchema = z.object({
 });
 
 /**
- * Schema for ESLint settings
  * @internal
  */
 export const ESLintSettingsSchema = z.optional(
@@ -70,84 +65,37 @@ export const ESLintSettingsSchema = z.optional(
   }),
 );
 
-// ===== Type Definitions =====
-
-/**
- * ESLint settings type inferred from the settings schema.
- */
 export type ESLintSettings = z.infer<typeof ESLintSettingsSchema>;
 
-/**
- * ESLint React settings type inferred from the React settings schema.
- */
 export type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 
-export type CompilationMode =
-  | "infer"
-  | "annotation"
-  | "syntax"
-  | "all";
-
-/**
- * Normalized ESLint React settings with processed values
- */
 export interface ESLintReactSettingsNormalized {
   version: string;
   importSource: string;
-  compilationMode: CompilationMode | "off";
+  compilationMode: ESLintReactSettings["compilationMode"] | "off";
   polymorphicPropName: string | unit;
   additionalStateHooks: RegExpLike;
   additionalEffectHooks: RegExpLike;
 }
 
-// ===== Default Values =====
-
-/**
- * Default ESLint React settings
- */
 export const DEFAULT_ESLINT_REACT_SETTINGS = {
   version: "detect",
   importSource: "react",
   polymorphicPropName: "as",
 } as const satisfies ESLintReactSettings;
 
-/**
- * Default ESLint settings with React settings included
- */
 export const DEFAULT_ESLINT_SETTINGS = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
 } as const satisfies ESLintSettings;
 
-// ===== Utility Functions =====
-
-/**
- * Check if the provided settings conform to ESLintSettings schema
- * @param settings The settings object to validate
- */
 export function isESLintSettings(settings: unknown): settings is ESLintSettings {
   return ESLintSettingsSchema.safeParse(settings).success;
 }
 
-/**
- * Check if the provided settings conform to ESLintReactSettings schema
- * @param settings The settings object to validate
- */
 export function isESLintReactSettings(settings: unknown): settings is ESLintReactSettings {
   return ESLintReactSettingsSchema.safeParse(settings).success;
 }
 
-/**
- * Coerces unknown input to ESLintSettings type
- * @param settings The settings object to coerce
- */
-export const coerceESLintSettings = (settings: unknown): Partial<ESLintSettings> => {
-  return settings as Partial<ESLintSettings>;
-};
-
-/**
- * Decodes and validates ESLint settings, using defaults if invalid
- * @param settings The settings object to decode
- */
 export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
   if (isESLintSettings(settings)) {
     return settings;
@@ -155,18 +103,6 @@ export const decodeESLintSettings = (settings: unknown): ESLintSettings => {
   return DEFAULT_ESLINT_SETTINGS;
 };
 
-/**
- * Coerces unknown input to ESLintReactSettings type
- * @param settings The settings object to coerce
- */
-export const coerceSettings = (settings: unknown): Partial<ESLintReactSettings> => {
-  return settings as Partial<ESLintReactSettings>;
-};
-
-/**
- * Decodes and validates ESLint React settings, using defaults if invalid
- * @param settings The settings object to decode
- */
 export const decodeSettings = (settings: unknown): ESLintReactSettings => {
   if (isESLintReactSettings(settings)) {
     return settings;
@@ -174,10 +110,6 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
   return DEFAULT_ESLINT_REACT_SETTINGS;
 };
 
-/**
- * Normalizes ESLint React settings to a consistent internal format
- * Transforms component definitions and resolves version information
- */
 export const normalizeSettings = ({
   importSource = "react",
   compilationMode,
@@ -200,14 +132,8 @@ export const normalizeSettings = ({
   } as const satisfies ESLintReactSettingsNormalized;
 };
 
-// Cache for storing normalized settings to avoid repeated processing
 const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
-/**
- * Retrieves normalized ESLint React settings from the rule context
- * Uses caching for performance optimization
- * @param context The ESLint rule context
- */
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
   const settings = context.settings;
   return getOrElseUpdate(
@@ -217,13 +143,6 @@ export function getSettingsFromContext(context: RuleContext): ESLintReactSetting
   );
 }
 
-/**
- * Helper function for defining typed settings for "react-x" in JavaScript files
- * Provides type checking without runtime transformation
- */
-export const defineSettings: (settings: ESLintReactSettings) => ESLintReactSettings = identity;
-
-// Type declaration augmentation for TypeScript ESLint
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface SharedConfigurationSettings {
     ["react-x"]?: Partial<ESLintReactSettings>;
