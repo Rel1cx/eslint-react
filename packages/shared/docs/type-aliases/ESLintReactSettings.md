@@ -5,5 +5,3 @@
 ```ts
 type ESLintReactSettings = z.infer<typeof ESLintReactSettingsSchema>;
 ```
-
-ESLint React settings type inferred from the React settings schema.

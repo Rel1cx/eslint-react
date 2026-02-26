@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
-import { type RuleContext, type RuleFeature, coerceSettings, defineRuleListener, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -14,8 +14,6 @@ export const RULE_NAME = "no-array-index-key";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-const REACT_CHILDREN_METHOD = ["forEach", "map"] as const;
 
 export function getIndexParamPosition(methodName: string) {
   switch (methodName) {
@@ -38,31 +36,6 @@ export function getIndexParamPosition(methodName: string) {
   }
 }
 
-// Checks if a method name is 'forEach' or 'map'
-function isReactChildrenMethod(name: string): name is typeof REACT_CHILDREN_METHOD[number] {
-  return REACT_CHILDREN_METHOD.includes(name as never);
-}
-
-// Checks if a CallExpression is `React.Children.map` or `React.Children.forEach`
-function isUsingReactChildren(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource = "react" } = coerceSettings(context.settings);
-  const { callee } = node;
-  if (!("property" in callee) || !("object" in callee) || !("name" in callee.property)) {
-    return false;
-  }
-  if (!isReactChildrenMethod(callee.property.name)) {
-    return false;
-  }
-  const initialScope = context.sourceCode.getScope(node);
-  if (callee.object.type === AST.Identifier && callee.object.name === "Children") {
-    return true;
-  }
-  if (callee.object.type === AST.MemberExpression && "name" in callee.object.object) {
-    return core.isInitializedFromReact(callee.object.object.name, initialScope, importSource);
-  }
-  return false;
-}
-
 // Gets the name of the index parameter from a map-like function's callback
 // e.g., in `data.map((item, index) => ...)` it returns 'index'
 function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | unit {
@@ -80,7 +53,11 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
     return unit;
   }
   // The callback function is the first argument, or the second for `React.Children` methods
-  const callbackArg = node.arguments[isUsingReactChildren(context, node) ? 1 : 0];
+  const callbackArg = node.arguments[
+    core.isChildrenMap(context, callee) || core.isChildrenForEach(context, callee)
+      ? 1
+      : 0
+  ];
   if (callbackArg == null) {
     return unit;
   }

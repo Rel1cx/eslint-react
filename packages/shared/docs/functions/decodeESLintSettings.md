@@ -10,13 +10,11 @@ function decodeESLintSettings(settings: unknown):
   | undefined;
 ```
 
-Decodes and validates ESLint settings, using defaults if invalid
-
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `settings` | `unknown` | The settings object to decode |
+| Parameter | Type |
+| ------ | ------ |
+| `settings` | `unknown` |
 
 ## Returns
 

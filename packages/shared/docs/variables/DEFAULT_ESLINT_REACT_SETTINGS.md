@@ -10,8 +10,6 @@ const DEFAULT_ESLINT_REACT_SETTINGS: {
 };
 ```
 
-Default ESLint React settings
-
 ## Type Declaration
 
 | Name | Type | Default value |
