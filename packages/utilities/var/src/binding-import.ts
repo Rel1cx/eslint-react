@@ -5,7 +5,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 
-import { findVariable } from "./scope";
+import { findVariable } from "./helper";
 
 /**
  * Get the arguments of a require expression

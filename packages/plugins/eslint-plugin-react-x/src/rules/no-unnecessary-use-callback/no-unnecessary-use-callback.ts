@@ -3,7 +3,8 @@ import * as core from "@eslint-react/core";
 import type { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import { findVariable, getChildScopes, getVariableInitializer } from "@eslint-react/var";
+import { findVariable, getVariableInitializer } from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
@@ -100,6 +101,9 @@ export function create(context: RuleContext<MessageID, []>) {
           .otherwise(() => null);
         if (arg0Node == null) return;
 
+        function getChildScopes(scope: Scope): Scope[] {
+          return scope.childScopes.reduce((acc, child) => [...acc, ...getChildScopes(child)], [scope]);
+        }
         const arg0NodeScope = context.sourceCode.getScope(arg0Node);
         const arg0NodeReferences = getChildScopes(arg0NodeScope).flatMap((x) => x.references);
         const isReferencedToComponentScope = arg0NodeReferences.some((x) => x.resolved?.scope.block === component);
