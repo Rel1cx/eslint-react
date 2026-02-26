@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { getVariableInitializerLoose } from "./binding-initializer";
-import { findVariable } from "./scope";
+import { findVariable } from "./helper";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -48,24 +48,24 @@ export function isValueEqual(
       && b.type === AST.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarNode = getVariableInitializerLoose(aVar, 0);
-      const bVarNode = getVariableInitializerLoose(bVar, 0);
-      const aVarNodeParent = aVarNode?.parent;
-      const bVarNodeParent = bVarNode?.parent;
+      const aVarInit = getVariableInitializerLoose(aVar, 0);
+      const bVarInit = getVariableInitializerLoose(bVar, 0);
+      const aVarInitParent = aVarInit?.parent;
+      const bVarInitParent = bVarInit?.parent;
       const aDef = aVar?.defs.at(0);
       const bDef = bVar?.defs.at(0);
       const aDefParentParent = aDef?.parent?.parent;
       const bDefParentParent = bDef?.parent?.parent;
       switch (true) {
-        case aVarNodeParent?.type === AST.CallExpression
-          && bVarNodeParent?.type === AST.CallExpression
-          && ast.isFunction(aVarNode)
-          && ast.isFunction(bVarNode): {
-          if (!ast.isNodeEqual(aVarNodeParent.callee, bVarNodeParent.callee)) {
+        case aVarInitParent?.type === AST.CallExpression
+          && bVarInitParent?.type === AST.CallExpression
+          && ast.isFunction(aVarInit)
+          && ast.isFunction(bVarInit): {
+          if (!ast.isNodeEqual(aVarInitParent.callee, bVarInitParent.callee)) {
             return false;
           }
-          const aParams = aVarNode.params;
-          const bParams = bVarNode.params;
+          const aParams = aVarInit.params;
+          const bParams = bVarInit.params;
           const aPos = aParams.findIndex((x) => ast.isNodeEqual(x, a));
           const bPos = bParams.findIndex((x) => ast.isNodeEqual(x, b));
           return aPos !== -1 && bPos !== -1 && aPos === bPos;

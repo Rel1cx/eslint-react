@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { getVariableInitializer } from "./binding-initializer";
-import { findVariable } from "./scope";
+import { findVariable } from "./helper";
 
 /**
  * Find a property by name in an array of properties
