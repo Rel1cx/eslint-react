@@ -1,6 +1,8 @@
 import type { RuleConfig } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
 
+import { plugin } from "../plugin";
+
 export const name = "react-debug/all";
 
 export const rules = {
@@ -11,6 +13,10 @@ export const rules = {
   "react-debug/is-from-ref": "warn",
   "react-debug/jsx": "warn",
 } as const satisfies Record<string, RuleConfig>;
+
+export const plugins = {
+  "react-debug": plugin,
+};
 
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,

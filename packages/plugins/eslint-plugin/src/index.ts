@@ -1,6 +1,6 @@
 import { name, version } from "../package.json";
 
-import type { CompatibleConfig, CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint, Linter } from "eslint";
 import react from "eslint-plugin-react-x";
 
 import * as allConfig from "./configs/all";
@@ -46,12 +46,12 @@ type ConfigName =
   | "web-api"
   | "x";
 
-const plugin: CompatiblePlugin & {
+const plugin: ESLint.Plugin & {
   /**
    * For more information about each preset, please refer to the documentation.
    * @see https://eslint-react.xyz/docs/presets
    */
-  configs: Record<ConfigName, CompatibleConfig>;
+  configs: Record<ConfigName, Linter.Config>;
 } = {
   meta: {
     name,

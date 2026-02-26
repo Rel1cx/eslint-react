@@ -1,13 +1,15 @@
-import { getConfigAdapters } from "@eslint-react/shared";
+import type { ESLint, Linter } from "eslint";
 
 import * as recommendedConfig from "./configs/recommended";
 import { plugin } from "./plugin";
 
-const { toFlatConfig } = getConfigAdapters("react-web-api", plugin);
+type ConfigName = "recommended";
 
-export default {
+const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
   ...plugin,
   configs: {
-    ["recommended"]: toFlatConfig(recommendedConfig),
+    ["recommended"]: recommendedConfig,
   },
 };
+
+export default finalPlugin;

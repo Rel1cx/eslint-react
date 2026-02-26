@@ -1,37 +1,44 @@
-import { getConfigAdapters } from "@eslint-react/shared";
+import { identity } from "@eslint-react/eff";
+import type { ESLint, Linter } from "eslint";
 
 import * as disableExperimentalConfig from "./configs/disable-experimental";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import * as strictConfig from "./configs/strict";
 import * as strictTypeScriptConfig from "./configs/strict-typescript";
-
 import { plugin } from "./plugin";
 
-const { toFlatConfig } = getConfigAdapters("react-rsc", plugin);
+type ConfigName =
+  | "disable-experimental"
+  | "recommended"
+  | "recommended-typescript"
+  | "strict"
+  | "strict-typescript";
 
-export default {
+const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
   ...plugin,
   configs: {
     /**
      * Disable experimental rules that might be subject to change in the future
      */
-    ["disable-experimental"]: toFlatConfig(disableExperimentalConfig),
+    ["disable-experimental"]: disableExperimentalConfig,
     /**
      * Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects
      */
-    ["recommended"]: toFlatConfig(recommendedConfig),
+    ["recommended"]: recommendedConfig,
     /**
      * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
      */
-    ["recommended-typescript"]: toFlatConfig(recommendedTypeScriptConfig),
+    ["recommended-typescript"]: recommendedTypeScriptConfig,
     /**
      * More strict version of the `recommended` preset
      */
-    ["strict"]: toFlatConfig(strictConfig),
+    ["strict"]: strictConfig,
     /**
      * Same as the `strict` preset but disables rules that can be enforced by TypeScript
      */
-    ["strict-typescript"]: toFlatConfig(strictTypeScriptConfig),
+    ["strict-typescript"]: strictTypeScriptConfig,
   },
 };
+
+export default finalPlugin;

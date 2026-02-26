@@ -1,4 +1,4 @@
-import type { CompatiblePlugin } from "@eslint-react/shared";
+import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
@@ -7,7 +7,7 @@ import noLeakedInterval from "./rules/no-leaked-interval/no-leaked-interval";
 import noLeakedResizeObserver from "./rules/no-leaked-resize-observer/no-leaked-resize-observer";
 import noLeakedTimeout from "./rules/no-leaked-timeout/no-leaked-timeout";
 
-export const plugin: CompatiblePlugin = {
+export const plugin = {
   meta: {
     name,
     version,
@@ -18,4 +18,4 @@ export const plugin: CompatiblePlugin = {
     "no-leaked-resize-observer": noLeakedResizeObserver,
     "no-leaked-timeout": noLeakedTimeout,
   },
-};
+} as unknown as ESLint.Plugin;
