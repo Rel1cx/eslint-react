@@ -2,7 +2,43 @@ import * as ast from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { isClassComponent } from "./component-kind";
+/**
+ * Check if a node is a React class component
+ * @param node The AST node to check
+ * @returns `true` if the node is a class component, `false` otherwise
+ */
+export function isClassComponent(node: TSESTree.Node): node is ast.TSESTreeClass {
+  if ("superClass" in node && node.superClass != null) {
+    const re = /^(?:Pure)?Component$/u;
+    switch (true) {
+      case node.superClass.type === AST.Identifier:
+        return re.test(node.superClass.name);
+      case node.superClass.type === AST.MemberExpression
+        && node.superClass.property.type === AST.Identifier:
+        return re.test(node.superClass.property.name);
+    }
+  }
+  return false;
+}
+
+/**
+ * Check if a node is a React PureComponent
+ * @param node The AST node to check
+ * @returns `true` if the node is a PureComponent, `false` otherwise
+ */
+export function isPureComponent(node: TSESTree.Node) {
+  if ("superClass" in node && node.superClass != null) {
+    const re = /^PureComponent$/u;
+    switch (true) {
+      case node.superClass.type === AST.Identifier:
+        return re.test(node.superClass.name);
+      case node.superClass.type === AST.MemberExpression
+        && node.superClass.property.type === AST.Identifier:
+        return re.test(node.superClass.property.name);
+    }
+  }
+  return false;
+}
 
 /**
  * Create a lifecycle method checker function

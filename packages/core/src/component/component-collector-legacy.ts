@@ -3,8 +3,8 @@ import { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
+import { isClassComponent, isPureComponent } from "./component-detection-legacy";
 import { ComponentFlag } from "./component-flag";
-import { isClassComponent, isPureComponent } from "./component-kind";
 import type { ClassComponentSemanticNode } from "./component-semantic-node";
 
 const idGen = new IdGenerator("class-component:");
