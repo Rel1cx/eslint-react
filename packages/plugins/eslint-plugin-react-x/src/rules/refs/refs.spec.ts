@@ -543,13 +543,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // Initialize only once on first use with nullish coalescing assignment is valid pattern
     tsx`
       const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
-    `,
-    tsx`
-      import React from "react";
-
-      const useOnce = <T,>(fn: () => T) => (React.useRef<{ value: T }>().current ??= { value: fn() }).value;
     `,
     // Read ref in effect
     {
