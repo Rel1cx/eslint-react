@@ -51,7 +51,7 @@
     "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.76.0",
+    "@effect/language-service": "^0.77.0",
     "@effect/platform": "^0.94.5",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",
@@ -60,7 +60,7 @@
     "@rbxts/react": "^17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^25.3.1",
+    "@types/node": "^25.3.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/parser": "canary",
@@ -81,7 +81,7 @@
     "sort-package-json": "^3.6.1",
     "tinyglobby": "^0.2.15",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.21.0-beta.1",
+    "tsdown": "^0.21.0-beta.2",
     "tsl": "^1.0.29",
     "tsx": "^4.21.0",
     "type-fest": "^5.4.4",
@@ -92,7 +92,7 @@
     "typescript-eslint": "canary",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.30.2",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": ">=22.0.0"
   }

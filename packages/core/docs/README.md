@@ -29,7 +29,6 @@
 | ------ | ------ |
 | [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | Hints for component collector |
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
-| [FindEnclosingComponentOrHookFilter](type-aliases/FindEnclosingComponentOrHookFilter.md) | - |
 | [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a React function |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
 | [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
@@ -114,7 +113,7 @@
 
 | Function | Description |
 | ------ | ------ |
-| [findEnclosingComponentOrHook](functions/findEnclosingComponentOrHook.md) | Find the enclosing React component or hook for a given AST node |
+| [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
 | [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
@@ -143,7 +142,6 @@
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
 | [isInitializedFromRef](functions/isInitializedFromRef.md) | Check if the variable with the given name is initialized or derived from a ref |
-| [isInsideComponentOrHook](functions/isInsideComponentOrHook.md) | Check if a given AST node is inside a React component or hook |
 | [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determine if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
 | [isJsxHostElement](functions/isJsxHostElement.md) | Determine if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
 | [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |

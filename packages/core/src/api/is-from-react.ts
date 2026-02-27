@@ -1,5 +1,6 @@
-import { findImportSource } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
+
+import { findImportSource } from "./find-import-source";
 
 /**
  * Check if a variable is initialized from React import

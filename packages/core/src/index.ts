@@ -1,8 +1,7 @@
 export * from "./api";
 export * from "./component";
-export type * from "./function";
-export * from "./hierarchy";
+export * from "./function";
 export * from "./hook";
 export * from "./jsx";
 export * from "./ref";
-export type * from "./semantic";
+export * from "./semantic";
