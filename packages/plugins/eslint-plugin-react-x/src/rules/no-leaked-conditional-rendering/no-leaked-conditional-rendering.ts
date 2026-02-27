@@ -103,9 +103,9 @@ export function create(context: RuleContext<MessageID, []>) {
         // Specifically check for 'NaN', which is a falsy value that gets rendered
         if (ast.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
+            data: { value: context.sourceCode.getText(left) },
             messageId: "default",
             node: left,
-            data: { value: context.sourceCode.getText(left) },
           } as const;
         }
 
@@ -124,9 +124,9 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // If the left side is not valid, report an error
         return {
+          data: { value: context.sourceCode.getText(left) },
           messageId: "default",
           node: left,
-          data: { value: context.sourceCode.getText(left) },
         } as const;
       })
       // Handle ternary expressions. Recursively check both branches

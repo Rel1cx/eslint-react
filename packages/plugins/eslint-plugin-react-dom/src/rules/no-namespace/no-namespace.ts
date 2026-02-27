@@ -34,11 +34,11 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         context.report({
-          messageId: "default",
-          node: node.openingElement.name,
           data: {
             name,
           },
+          messageId: "default",
+          node: node.openingElement.name,
         });
       },
     },

@@ -52,9 +52,9 @@ export function create(context: RuleContext<MessageID, []>) {
           case node.callee.type === AST.Identifier
             && hydrateNames.has(node.callee.name):
             context.report({
+              fix: getFix(context, node),
               messageId: "default",
               node,
-              fix: getFix(context, node),
             });
             return;
           // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
@@ -64,9 +64,9 @@ export function create(context: RuleContext<MessageID, []>) {
             && node.callee.property.name === hydrate
             && reactDomNames.has(node.callee.object.name):
             context.report({
+              fix: getFix(context, node),
               messageId: "default",
               node,
-              fix: getFix(context, node),
             });
             return;
         }

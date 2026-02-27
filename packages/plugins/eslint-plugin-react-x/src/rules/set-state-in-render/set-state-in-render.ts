@@ -191,11 +191,11 @@ export function create(context: RuleContext<MessageID, []>) {
         // Allow setState after an early return (it is conditionally guarded by the early return)
         if (componentHasEarlyReturn.current) return;
         context.report({
-          messageId: "default",
-          node,
           data: {
             name: context.sourceCode.getText(node.callee),
           },
+          messageId: "default",
+          node,
         });
       },
       ReturnStatement(node: TSESTree.ReturnStatement) {

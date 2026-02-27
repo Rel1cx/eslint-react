@@ -52,9 +52,9 @@ export function create(context: RuleContext<MessageID, []>) {
           case node.callee.type === AST.Identifier
             && useFormStateNames.has(node.callee.name):
             context.report({
+              fix: getFix(context, node),
               messageId: "default",
               node,
-              fix: getFix(context, node),
             });
             return;
           // Case 2: Member call like `ReactDOM.useFormState(...)`
@@ -64,9 +64,9 @@ export function create(context: RuleContext<MessageID, []>) {
             && node.callee.property.name === "useFormState"
             && reactDomNames.has(node.callee.object.name):
             context.report({
+              fix: getFix(context, node),
               messageId: "default",
               node,
-              fix: getFix(context, node),
             });
             return;
         }

@@ -65,16 +65,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
       ],
     },
@@ -91,16 +91,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
       ],
     },
@@ -133,16 +133,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "addEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
         {
-          messageId: "unexpectedInlineFunction",
           data: { eventMethodKind: "removeEventListener" },
+          messageId: "unexpectedInlineFunction",
         },
       ],
     },

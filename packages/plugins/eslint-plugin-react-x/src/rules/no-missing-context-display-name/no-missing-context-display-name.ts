@@ -75,8 +75,6 @@ export function create(context: RuleContext<MessageID, []>) {
           // If no `displayName` is found, report an error and provide a fix
           if (!hasDisplayNameAssignment) {
             context.report({
-              messageId: "default",
-              node: id,
               fix(fixer) {
                 // Ensure the fix is applied correctly
                 if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
@@ -96,6 +94,8 @@ export function create(context: RuleContext<MessageID, []>) {
                   ].join(""),
                 );
               },
+              messageId: "default",
+              node: id,
             });
           }
         }

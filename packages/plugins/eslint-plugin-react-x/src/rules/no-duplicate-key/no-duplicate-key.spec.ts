@@ -13,22 +13,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -40,22 +40,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -67,10 +67,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -82,10 +82,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -99,16 +99,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="1"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="a"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -122,22 +122,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="foo"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="bar"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="baz"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -151,22 +151,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="foo"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="bar"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="baz"',
           },
+          messageId: "default",
         },
       ],
     },
@@ -180,16 +180,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             value: 'key="foo"',
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             value: 'key="baz"',
           },
+          messageId: "default",
         },
       ],
     },

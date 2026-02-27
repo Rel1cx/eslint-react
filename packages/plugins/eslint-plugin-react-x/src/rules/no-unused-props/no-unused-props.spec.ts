@@ -19,7 +19,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -27,6 +26,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 3,
         line: 3,
+        messageId: "default",
       }],
     },
     {
@@ -42,7 +42,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -50,6 +49,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 3,
         line: 3,
+        messageId: "default",
       }],
     },
     {
@@ -66,7 +66,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -74,6 +73,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 3,
         line: 3,
+        messageId: "default",
       }],
     },
     {
@@ -89,7 +89,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "hello",
@@ -97,6 +96,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 3,
         line: 3,
+        messageId: "default",
       }],
     },
     {
@@ -108,7 +108,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -116,6 +115,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 47,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -126,7 +126,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 44,
         data: {
           name: "hello",
@@ -134,6 +133,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 49,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -144,7 +144,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 27,
         data: {
           name: "abc",
@@ -152,8 +151,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 30,
         endLine: 1,
         line: 1,
-      }, {
         messageId: "default",
+      }, {
         column: 40,
         data: {
           name: "hello",
@@ -161,6 +160,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 45,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -181,7 +181,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -189,8 +188,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 6,
         endLine: 3,
         line: 3,
-      }, {
         messageId: "default",
+      }, {
         column: 3,
         data: {
           name: "hello",
@@ -198,6 +197,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 8,
         line: 8,
+        messageId: "default",
       }],
     },
     {
@@ -218,7 +218,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -226,8 +225,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 6,
         endLine: 3,
         line: 3,
-      }, {
         messageId: "default",
+      }, {
         column: 3,
         data: {
           name: "hello",
@@ -235,6 +234,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 8,
         line: 8,
+        messageId: "default",
       }],
     },
     {
@@ -255,7 +255,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "abc",
@@ -263,8 +262,8 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 6,
         endLine: 3,
         line: 3,
-      }, {
         messageId: "default",
+      }, {
         column: 3,
         data: {
           name: "hello",
@@ -272,6 +271,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 8,
         endLine: 8,
         line: 8,
+        messageId: "default",
       }],
     },
     {
@@ -282,7 +282,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 48,
         data: {
           name: "hello",
@@ -290,6 +289,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 53,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -301,7 +301,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -309,6 +308,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 47,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -320,7 +320,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -328,6 +327,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 47,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -338,7 +338,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 42,
         data: {
           name: "hello",
@@ -346,6 +345,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 47,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -356,7 +356,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 44,
         data: {
           name: "hello",
@@ -364,6 +363,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 49,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -374,7 +374,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         column: 47,
         data: {
           name: "abc",
@@ -382,6 +381,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 50,
         endLine: 1,
         line: 1,
+        messageId: "default",
       }],
     },
     {
@@ -401,7 +401,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -409,6 +408,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 10,
         endLine: 5,
         line: 5,
+        messageId: "default",
       }],
     },
     {
@@ -428,7 +428,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -436,6 +435,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 10,
         endLine: 5,
         line: 5,
+        messageId: "default",
       }],
     },
     {
@@ -455,7 +455,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -463,6 +462,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 10,
         endLine: 5,
         line: 5,
+        messageId: "default",
       }],
     },
     {
@@ -482,7 +482,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "onClick",
@@ -490,6 +489,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 10,
         endLine: 5,
         line: 5,
+        messageId: "default",
       }],
     },
     {
@@ -504,7 +504,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         });
       `,
       errors: [{
-        messageId: "default",
         column: 3,
         data: {
           name: "foo",
@@ -512,6 +511,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         endColumn: 6,
         endLine: 3,
         line: 3,
+        messageId: "default",
       }],
     },
     // TODO: Should we report unused ref prop?

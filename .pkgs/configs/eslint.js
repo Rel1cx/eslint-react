@@ -87,16 +87,8 @@ const p11tGroups = {
             elementNamePattern: "^(name$|meta$|title$|description$)",
             groupName: "meta",
         },
-        {
-            elementNamePattern: "^(alias$|as$)",
-            groupName: "alias",
-        },
-        {
-            elementNamePattern: "^(node$|messageId$)",
-            groupName: "rules",
-        },
     ],
-    groups: ["id", "type", "meta", "alias", "rules", "unknown"],
+    groups: ["id", "type", "meta", "unknown"],
 };
 export function buildIgnoreConfig(gitignore, extra) {
     return [

@@ -35,11 +35,11 @@ export function create(context: RuleContext<MessageID, []>) {
       "Program:exit"(program) {
         for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
           context.report({
-            messageId: "default",
-            node: component,
             data: {
               json: stringify({ name }),
             },
+            messageId: "default",
+            node: component,
           });
         }
       },

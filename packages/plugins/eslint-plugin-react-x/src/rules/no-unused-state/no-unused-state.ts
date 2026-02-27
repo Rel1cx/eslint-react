@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // WeakMap to store state definition information for each class
   const stateDefs = new WeakMap<
     ast.TSESTreeClass,
-    { node: TSESTree.Node | unit; isUsed: boolean }
+    { isUsed: boolean; node: TSESTree.Node | unit }
   >();
 
   function classEnter(node: ast.TSESTreeClass) {
@@ -70,18 +70,18 @@ export function create(context: RuleContext<MessageID, []>) {
     }
     const id = ast.getClassId(currentClass);
     // Get state definition and usage status for the current class
-    const { node: defNode, isUsed = false } = stateDefs.get(currentClass) ?? {};
+    const { isUsed = false, node: defNode } = stateDefs.get(currentClass) ?? {};
     // If state is not defined or is used, do nothing
     if (defNode == null || isUsed) {
       return;
     }
     // Report an error if state is defined but not used
     context.report({
-      messageId: "default",
-      node: defNode,
       data: {
         className: id != null ? context.sourceCode.getText(id) : "Component",
       },
+      messageId: "default",
+      node: defNode,
     });
   }
 
@@ -99,13 +99,13 @@ export function create(context: RuleContext<MessageID, []>) {
         && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)
       ) {
         const defNode = stateDefs.get(currentClass)?.node;
-        stateDefs.set(currentClass, { node: defNode, isUsed: true });
+        stateDefs.set(currentClass, { isUsed: true, node: defNode });
       }
       return;
     }
     // Detect state definition as a class property (`state = ...`)
     if (ast.getPropertyName(node.key) === "state") {
-      stateDefs.set(currentClass, { node: node.key, isUsed: false });
+      stateDefs.set(currentClass, { isUsed: false, node: node.key });
     }
   }
 
@@ -145,7 +145,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
         // Record the state definition node
         const isUsed = stateDefs.get(currentClass)?.isUsed ?? false;
-        stateDefs.set(currentClass, { node: node.left, isUsed });
+        stateDefs.set(currentClass, { isUsed, node: node.left });
       },
       ClassDeclaration: classEnter,
       "ClassDeclaration:exit": classExit,
@@ -177,7 +177,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
         // Mark state as used
         const defNode = stateDefs.get(currentClass)?.node;
-        stateDefs.set(currentClass, { node: defNode, isUsed: true });
+        stateDefs.set(currentClass, { isUsed: true, node: defNode });
       },
       MethodDefinition: methodEnter,
       "MethodDefinition:exit": methodExit,
@@ -220,7 +220,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
         // Mark state as used
         const defNode = stateDefs.get(currentClass)?.node;
-        stateDefs.set(currentClass, { node: defNode, isUsed: true });
+        stateDefs.set(currentClass, { isUsed: true, node: defNode });
       },
     },
   );

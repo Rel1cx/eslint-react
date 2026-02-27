@@ -112,12 +112,12 @@ export function create(context: RuleContext<MessageID, []>) {
       }
       // Report members that are defined but not used
       context.report({
-        messageId: "default",
-        node: def,
         data: {
           className: id != null ? context.sourceCode.getText(id) : "Component",
           methodName,
         },
+        messageId: "default",
+        node: def,
       });
     }
   }

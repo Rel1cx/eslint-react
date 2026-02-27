@@ -9,8 +9,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br>Foo</br>;`,
       errors: [
         {
-          messageId: "default",
           data: { elementType: "br" },
+          messageId: "default",
         },
       ],
     },
@@ -18,8 +18,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br children="Foo" />;`,
       errors: [
         {
-          messageId: "default",
           data: { elementType: "br" },
+          messageId: "default",
         },
       ],
     },
@@ -27,8 +27,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<img {...props} children="Foo" />;`,
       errors: [
         {
-          messageId: "default",
           data: { elementType: "img" },
+          messageId: "default",
         },
       ],
     },
@@ -36,8 +36,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="img" {...props} children="Foo" />;`,
       errors: [
         {
-          messageId: "default",
           data: { elementType: "img" },
+          messageId: "default",
         },
       ],
       settings: {
@@ -50,8 +50,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<br dangerouslySetInnerHTML={{ __html: "Foo" }} />;`,
       errors: [
         {
-          messageId: "default",
           data: { elementType: "br" },
+          messageId: "default",
         },
       ],
     },

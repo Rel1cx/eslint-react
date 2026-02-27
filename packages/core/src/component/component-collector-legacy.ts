@@ -50,13 +50,13 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
         key,
         kind: "class-component",
         name,
-        node,
         // TODO: Get displayName of class component
         displayName: unit,
         flag,
         hint: 0n,
         // TODO: Get methods of class component
         methods: [],
+        node,
       },
     );
   };

@@ -16,10 +16,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Component",
           },
+          messageId: "component",
         },
       ],
     },
@@ -35,10 +35,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Component",
           },
+          messageId: "component",
         },
       ],
     },
@@ -53,10 +53,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Button",
           },
+          messageId: "component",
         },
       ],
     },
@@ -72,10 +72,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Button",
           },
+          messageId: "component",
         },
       ],
     },
@@ -92,10 +92,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Child",
           },
+          messageId: "component",
         },
       ],
     },
@@ -112,10 +112,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Child",
           },
+          messageId: "component",
         },
       ],
     },
@@ -134,10 +134,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useData",
           },
+          messageId: "hook",
         },
       ],
     },
@@ -157,10 +157,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useData",
           },
+          messageId: "hook",
         },
       ],
     },
@@ -177,10 +177,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useLocalState",
           },
+          messageId: "hook",
         },
       ],
     },
@@ -196,10 +196,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useInner",
           },
+          messageId: "hook",
         },
       ],
     },
@@ -218,16 +218,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Header",
           },
+          messageId: "component",
         },
         {
-          messageId: "component",
           data: {
             name: "Footer",
           },
+          messageId: "component",
         },
       ],
     },
@@ -247,16 +247,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useFeatureData",
           },
+          messageId: "hook",
         },
         {
-          messageId: "component",
           data: {
             name: "FeatureComponent",
           },
+          messageId: "component",
         },
       ],
     },
@@ -275,10 +275,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "DeeplyNested",
           },
+          messageId: "component",
         },
       ],
     },
@@ -300,10 +300,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Button",
           },
+          messageId: "component",
         },
       ],
     },
@@ -322,10 +322,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "hook",
           data: {
             name: "useAuth",
           },
+          messageId: "hook",
         },
       ],
     },
@@ -340,10 +340,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "Inner",
           },
+          messageId: "component",
         },
       ],
     },
@@ -359,10 +359,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "component",
           data: {
             name: "ThemedComponent",
           },
+          messageId: "component",
         },
       ],
     },

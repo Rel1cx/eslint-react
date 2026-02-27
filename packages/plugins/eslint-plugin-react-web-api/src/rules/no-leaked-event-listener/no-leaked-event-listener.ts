@@ -209,9 +209,9 @@ export function create(context: RuleContext<MessageID, []>) {
       return;
     }
     context.report({
+      data: { eventMethodKind: callKind },
       messageId: "unexpectedInlineFunction",
       node: listener,
-      data: { eventMethodKind: callKind },
     });
   }
   return defineRuleListener(
@@ -252,10 +252,10 @@ export function create(context: RuleContext<MessageID, []>) {
             aEntries.push({
               ...opts,
               type,
-              node,
               callee,
               listener,
               method: "addEventListener",
+              node,
               phase: fKind,
             });
           })
@@ -272,10 +272,10 @@ export function create(context: RuleContext<MessageID, []>) {
             rEntries.push({
               ...opts,
               type,
-              node,
               callee,
               listener,
               method: "removeEventListener",
+              node,
               phase: fKind,
             });
           })
@@ -301,11 +301,11 @@ export function create(context: RuleContext<MessageID, []>) {
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "expectedRemoveEventListenerInCleanup",
-                node: aEntry.node,
                 data: {
                   effectMethodKind: "useEffect",
                 },
+                messageId: "expectedRemoveEventListenerInCleanup",
+                node: aEntry.node,
               });
               continue;
             case "mount":

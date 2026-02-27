@@ -29,8 +29,8 @@ process.env["ESLINT_REACT_DEBUG"] === "1"
         `,
         errors: [
           {
-            messageId: "default",
             data: { name: "React.createElement" },
+            messageId: "default",
           },
         ],
       },
@@ -45,8 +45,8 @@ process.env["ESLINT_REACT_DEBUG"] === "1"
         `,
         errors: [
           {
-            messageId: "default",
             data: { name: "Foo" },
+            messageId: "default",
           },
         ],
       },

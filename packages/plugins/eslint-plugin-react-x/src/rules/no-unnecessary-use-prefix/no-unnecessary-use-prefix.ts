@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
-      for (const { id, name, node, hookCalls } of ctx.getAllHooks(program)) {
+      for (const { id, name, hookCalls, node } of ctx.getAllHooks(program)) {
         // If the function calls at least one real hook, it's a valid custom hook, so we skip it
         if (hookCalls.length > 0) {
           continue;
@@ -64,11 +64,11 @@ export function create(context: RuleContext<MessageID, []>) {
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it
         context.report({
-          messageId: "default",
-          node: id ?? node,
           data: {
             name,
           },
+          messageId: "default",
+          node: id ?? node,
         });
       }
     },

@@ -56,10 +56,10 @@ export function create(context: RuleContext<MessageID, []>) {
           node: node.openingElement,
           // Provide suggestions to automatically fix the issue
           suggest: BUTTON_TYPES.map((type): RuleSuggest<MessageID> => ({
-            messageId: "addTypeAttribute",
             data: { type },
             // The fix function inserts the 'type' attribute with a suggested value
             fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
+            messageId: "addTypeAttribute",
           })),
         });
       },

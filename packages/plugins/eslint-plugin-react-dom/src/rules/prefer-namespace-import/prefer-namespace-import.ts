@@ -43,8 +43,6 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!importSources.includes(importSource)) return;
         const hasOtherSpecifiers = node.parent.specifiers.length > 1;
         context.report({
-          messageId: "default",
-          node: hasOtherSpecifiers ? node : node.parent,
           data: { importSource },
           fix(fixer) {
             const importDeclarationText = context.sourceCode.getText(node.parent);
@@ -73,6 +71,8 @@ export function create(context: RuleContext<MessageID, []>) {
               ].join("\n"),
             );
           },
+          messageId: "default",
+          node: hasOtherSpecifiers ? node : node.parent,
         });
       },
     },

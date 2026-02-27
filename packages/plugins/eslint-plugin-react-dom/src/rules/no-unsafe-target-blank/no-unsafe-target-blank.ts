@@ -93,13 +93,13 @@ export function create(context: RuleContext<MessageID, []>) {
             messageId: "default",
             node: node.openingElement,
             suggest: [{
-              messageId: "addRelNoreferrerNoopener",
               fix(fixer) {
                 return fixer.insertTextAfter(
                   node.openingElement.name,
                   ` rel="noreferrer noopener"`,
                 );
               },
+              messageId: "addRelNoreferrerNoopener",
             }],
           });
           return;
@@ -114,10 +114,10 @@ export function create(context: RuleContext<MessageID, []>) {
           messageId: "default",
           node: relProp,
           suggest: [{
-            messageId: "addRelNoreferrerNoopener",
             fix(fixer) {
               return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
             },
+            messageId: "addRelNoreferrerNoopener",
           }],
         });
       },

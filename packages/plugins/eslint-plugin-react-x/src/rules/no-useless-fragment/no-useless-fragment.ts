@@ -78,10 +78,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // Report fragment placed inside a host component (e.g., <div><></></div>)
     if (core.isJsxHostElement(context, node.parent)) {
       context.report({
-        messageId: "default",
-        node,
         data: { reason: "placed inside a host component" },
         fix: getFix(context, node),
+        messageId: "default",
+        node,
       });
     }
 
@@ -90,10 +90,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       // https://github.com/Rel1cx/eslint-react/issues/1265
       if (allowEmptyFragment) return;
       context.report({
-        messageId: "default",
-        node,
         data: { reason: "contains less than two children" },
         fix: getFix(context, node),
+        messageId: "default",
+        node,
       });
       return;
     }
@@ -114,10 +114,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       case !allowExpressions
         && isChildElement: {
         context.report({
-          messageId: "default",
-          node,
           data: { reason: "contains less than two children" },
           fix: getFix(context, node),
+          messageId: "default",
+          node,
         });
         return;
       }
@@ -127,10 +127,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
         && !isChildElement
         && node.children.length === 1: {
         context.report({
-          messageId: "default",
-          node,
           data: { reason: "contains less than two children" },
           fix: getFix(context, node),
+          messageId: "default",
+          node,
         });
         return;
       }
@@ -146,10 +146,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       || (nonPaddingChildren.length === 1 && firstNonPaddingChild?.type !== AST.JSXExpressionContainer)
     ) {
       context.report({
-        messageId: "default",
-        node,
         data: { reason: "contains less than two children" },
         fix: getFix(context, node),
+        messageId: "default",
+        node,
       });
     }
   }

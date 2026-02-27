@@ -73,7 +73,6 @@ export function useComponentCollector(
       key,
       kind: "function-component",
       name,
-      node,
       directives,
       displayName: unit,
       flag: getComponentFlagFromInitPath(initPath),
@@ -83,6 +82,7 @@ export function useComponentCollector(
       isComponentDefinition: isComponentDefinition(context, node, hint),
       isExportDefault,
       isExportDefaultDeclaration,
+      node,
       rets: [],
     } as const satisfies FunctionEntry;
     functionEntries.push(entry);

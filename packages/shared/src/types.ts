@@ -57,12 +57,12 @@ export type { ReportFixFunction, RuleFix, RuleFixer } from "@typescript-eslint/u
  * A suggestion for fixing a reported issue.
  */
 export type RuleSuggest<MessageIds extends string = string> = {
-  /** The message ID for the suggestion. */
-  messageId: MessageIds;
   /** Optional data to pass to the message formatter. */
   data?: Record<string, unknown>;
   /** The fix function to apply the suggestion. */
   fix: tseslint.ReportFixFunction;
+  /** The message ID for the suggestion. */
+  messageId: MessageIds;
 };
 
 /**

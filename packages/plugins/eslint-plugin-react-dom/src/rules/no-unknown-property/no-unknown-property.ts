@@ -157,7 +157,6 @@ const SVGDOM_ATTRIBUTE_NAMES: StringMap = {
  * Map of attributes that are only valid on specific HTML tags
  */
 const ATTRIBUTE_TAGS_MAP: TagsMap = {
-  as: ["link"],
   abbr: ["th", "td"],
   align: [
     "applet",
@@ -176,6 +175,7 @@ const ATTRIBUTE_TAGS_MAP: TagsMap = {
     "tr",
   ], // deprecated, but known
   allowFullScreen: ["iframe", "video"],
+  as: ["link"],
   autoPictureInPicture: ["video"],
   charset: ["meta"],
   checked: ["input"],
@@ -1216,12 +1216,12 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         if (isValidDataAttribute(name)) {
           if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
             context.report({
-              messageId: "dataLowercaseRequired",
-              node,
               data: {
                 name: actualName,
                 lowerCaseName: actualName.toLowerCase(),
               },
+              messageId: "dataLowercaseRequired",
+              node,
             });
           }
           return;
@@ -1247,13 +1247,13 @@ export function create(context: RuleContext<MessageID, Options[]>) {
           // Report if attribute is used on a tag where it's not allowed
           if (!allowedTags.includes(tagName)) {
             context.report({
-              messageId: "invalidPropOnTag",
-              node,
               data: {
                 name: actualName,
                 allowedTags: allowedTags.join(", "),
                 tagName,
               },
+              messageId: "invalidPropOnTag",
+              node,
             });
           }
           return;
@@ -1272,8 +1272,6 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         if (hasStandardNameButIsNotUsed) {
           // Suggest the correct standard name
           context.report({
-            messageId: "unknownPropWithStandardName",
-            node,
             data: {
               name: actualName,
               standardName,
@@ -1281,17 +1279,19 @@ export function create(context: RuleContext<MessageID, Options[]>) {
             fix(fixer) {
               return fixer.replaceText(node.name, standardName);
             },
+            messageId: "unknownPropWithStandardName",
+            node,
           });
           return;
         }
 
         // Report unknown attribute
         context.report({
-          messageId: "unknownProp",
-          node,
           data: {
             name: actualName,
           },
+          messageId: "unknownProp",
+          node,
         });
       },
     },

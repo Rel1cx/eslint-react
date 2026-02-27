@@ -150,9 +150,9 @@ export function create(context: RuleContext<MessageID, []>) {
           .with("disconnect", () => {
             dEntries.push({
               kind: "ResizeObserver",
-              node,
               callee: node.callee,
               method: "disconnect",
+              node,
               observer: object,
               phase: fKind,
             });
@@ -164,10 +164,10 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             oEntries.push({
               kind: "ResizeObserver",
-              node,
               callee: node.callee,
               element,
               method: "observe",
+              node,
               observer: object,
               phase: fKind,
             });
@@ -179,10 +179,10 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             uEntries.push({
               kind: "ResizeObserver",
-              node,
               callee: node.callee,
               element,
               method: "unobserve",
+              node,
               observer: object,
               phase: fKind,
             });

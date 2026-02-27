@@ -40,10 +40,8 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "anonymous", node, displayName, flag, hookCalls } of ctx.getAllComponents(program)) {
+        for (const { name = "anonymous", displayName, flag, hookCalls, node } of ctx.getAllComponents(program)) {
           context.report({
-            messageId: "default",
-            node,
             data: {
               json: stringify({
                 name,
@@ -55,6 +53,8 @@ export function create(context: RuleContext<MessageID, []>) {
                 memo: (flag & core.ComponentFlag.Memo) > 0n,
               }),
             },
+            messageId: "default",
+            node,
           });
         }
       },

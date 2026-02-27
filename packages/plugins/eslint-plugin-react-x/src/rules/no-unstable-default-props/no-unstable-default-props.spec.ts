@@ -7,74 +7,74 @@ const MESSAGE_ID = "default";
 
 const expectedViolations = [
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "object expression",
       propName: "a",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "array expression",
       propName: "b",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "RegExp literal",
       propName: "c",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "arrow function expression",
       propName: "d",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "function expression",
       propName: "e",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "class expression",
       propName: "f",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "new expression",
       propName: "g",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "JSX element",
       propName: "h",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "call expression",
       propName: "i",
     },
+    messageId: MESSAGE_ID,
   },
   {
-    messageId: MESSAGE_ID,
     data: {
       kind: "call expression",
       propName: "j",
     },
+    messageId: MESSAGE_ID,
   },
 ] as const;
 
@@ -87,11 +87,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "array expression",
           propName: "foo",
         },
+        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -101,11 +101,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "new expression",
           propName: "position",
         },
+        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -115,11 +115,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "object expression",
           propName: "foo",
         },
+        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -130,11 +130,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "array expression",
           propName: "foo",
         },
+        messageId: MESSAGE_ID,
       }],
     },
     {
@@ -184,11 +184,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "new expression",
           propName: "position",
         },
+        messageId: MESSAGE_ID,
       }],
       options: [{ safeDefaultProps: ["Vector3"] }],
     },
@@ -202,17 +202,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: MESSAGE_ID,
         data: {
           kind: "object expression",
           propName: "obj",
         },
-      }, {
         messageId: MESSAGE_ID,
+      }, {
         data: {
           kind: "array expression",
           propName: "items",
         },
+        messageId: MESSAGE_ID,
       }],
       options: [{ safeDefaultProps: ["Vector3"] }],
     },

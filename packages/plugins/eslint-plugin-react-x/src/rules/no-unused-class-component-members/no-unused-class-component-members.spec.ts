@@ -16,8 +16,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "getDerivedStateFromProps" },
+          messageId: "default",
         },
       ],
     },
@@ -32,8 +32,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
         },
       ],
     },
@@ -49,12 +49,12 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "handleScroll" },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
         },
       ],
     },
@@ -69,8 +69,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
         },
       ],
     },
@@ -85,8 +85,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "action" },
+          messageId: "default",
         },
       ],
     },
@@ -103,8 +103,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "action" },
+          messageId: "default",
         },
       ],
     },
@@ -121,8 +121,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "action" },
+          messageId: "default",
         },
       ],
     },
@@ -139,8 +139,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "action" },
+          messageId: "default",
         },
       ],
     },
@@ -155,8 +155,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "getInitialState" },
+          messageId: "default",
         },
       ],
     },
@@ -173,8 +173,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "action" },
+          messageId: "default",
         },
       ],
     },
@@ -189,8 +189,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -207,8 +207,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "ClassAssignPropertyInMethodTest", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -223,8 +223,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -239,8 +239,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -255,8 +255,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -271,8 +271,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -287,8 +287,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -303,8 +303,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -319,8 +319,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },
@@ -335,8 +335,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo", methodName: "foo" },
+          messageId: "default",
         },
       ],
     },

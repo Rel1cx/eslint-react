@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const cCollector = core.useComponentCollector(context);
 
   // Collected ref.current accesses with their enclosing function
-  const refAccesses: { node: TSESTree.MemberExpression; isWrite: boolean }[] = [];
+  const refAccesses: { isWrite: boolean; node: TSESTree.MemberExpression }[] = [];
 
   // Identifiers passed to JSX ref props
   const jsxRefIdentifiers = new Set<string>();
@@ -103,11 +103,11 @@ export function create(context: RuleContext<MessageID, []>) {
       MemberExpression(node: TSESTree.MemberExpression) {
         if (!ast.isIdentifier(node.property, "current")) return;
         refAccesses.push({
-          node,
           isWrite: match(node.parent)
             .with({ type: AST.AssignmentExpression }, (p) => p.left === node)
             .with({ type: AST.UpdateExpression }, (p) => p.argument === node)
             .otherwise(() => false),
+          node,
         });
       },
       "Program:exit"(program) {
@@ -120,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         const isCompOrHookFn = (n: TSESTree.Node): n is ast.TSESTreeFunction => ast.isFunction(n) && funcs.has(n);
 
-        for (const { node, isWrite } of refAccesses) {
+        for (const { isWrite, node } of refAccesses) {
           // Inline isRefIdentifier — must be accessing .current on a ref
           const obj = node.object;
           if (obj.type !== AST.Identifier) continue;

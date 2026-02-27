@@ -260,11 +260,11 @@ export function create(context: RuleContext<MessageID, []>) {
                 }
                 if (isArgumentUsingRefValue(context, args0)) return;
                 context.report({
-                  messageId: "default",
-                  node,
                   data: {
                     name: context.sourceCode.getText(node.callee),
                   },
+                  messageId: "default",
+                  node,
                 });
                 return;
               }
@@ -351,11 +351,11 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const [, calls] of setStateInEffectSetup) {
           for (const call of calls) {
             context.report({
-              messageId: "default",
-              node: call,
               data: {
                 name: call.name,
               },
+              messageId: "default",
+              node: call,
             });
           }
         }
@@ -367,11 +367,11 @@ export function create(context: RuleContext<MessageID, []>) {
           const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
           for (const setStateCall of setStateCalls) {
             context.report({
-              messageId: "default",
-              node: setStateCall,
               data: {
                 name: getCallName(setStateCall),
               },
+              messageId: "default",
+              node: setStateCall,
             });
           }
         }
@@ -379,11 +379,11 @@ export function create(context: RuleContext<MessageID, []>) {
           const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
           for (const setStateCall of setStateCalls) {
             context.report({
-              messageId: "default",
-              node: setStateCall,
               data: {
                 name: getCallName(setStateCall),
               },
+              messageId: "default",
+              node: setStateCall,
             });
           }
         }

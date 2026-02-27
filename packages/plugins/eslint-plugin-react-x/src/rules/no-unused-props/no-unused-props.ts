@@ -240,8 +240,8 @@ function reportUnusedProp(
     : declarationNode;
 
   context.report({
+    data: { name: prop.name },
     messageId: "default",
     node: nodeToReport,
-    data: { name: prop.name },
   });
 }

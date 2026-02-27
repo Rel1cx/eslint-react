@@ -100,7 +100,6 @@ const retrieveRuleMeta = Effect.fnUntraced(
 
     return {
       name: RULE_NAME,
-      // eslint-disable-next-line perfectionist/sort-objects
       description,
       features: RULE_FEATURES,
       severities: [getSeverity(rEntry), getSeverity(sEntry)], // [recommended, strict]

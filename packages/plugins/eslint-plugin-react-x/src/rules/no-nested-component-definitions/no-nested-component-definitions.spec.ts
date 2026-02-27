@@ -19,11 +19,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "ChildComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -40,18 +40,18 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "Component",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             name: "Component",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -71,11 +71,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -95,11 +95,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -119,11 +119,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedVariableComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -143,11 +143,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedVariableComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -167,11 +167,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -191,11 +191,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -215,11 +215,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -239,11 +239,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -263,11 +263,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedVariableComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -287,11 +287,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedVariableComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -312,11 +312,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -336,11 +336,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -362,11 +362,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -388,11 +388,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -413,11 +413,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -438,11 +438,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedClassComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -463,11 +463,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedVariableComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -489,11 +489,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedClassComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -517,11 +517,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "NestedUnstableFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -541,11 +541,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "NestedUnstableFunctionComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -565,11 +565,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "SomeFooter",
             suggestion: "Move it to the top level or pass it as a prop.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -599,11 +599,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "UnstableNestedComponent",
             suggestion: "Move it to the top level.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -617,11 +617,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "Header",
             suggestion: "Move it to the top level or pass it as a prop.",
           },
+          messageId: "default",
         },
       ],
     },
@@ -638,11 +638,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "List",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -665,11 +665,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "List",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -687,11 +687,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -709,11 +709,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -733,11 +733,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -757,11 +757,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "UnstableNestedComponent",
           suggestion: "Move it to the top level.",
         },
+        messageId: "default",
       }],
     },
     {
@@ -777,8 +777,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: { name: "MemoizedNestedComponent", suggestion: "Move it to the top level." },
+        messageId: "default",
       }],
     },
     {
@@ -797,8 +797,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: { name: "MemoizedNestedComponent", suggestion: "Move it to the top level." },
+        messageId: "default",
       }],
     },
     {
@@ -819,8 +819,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: { name: "MemoizedNestedFunctionComponent", suggestion: "Move it to the top level." },
+        messageId: "default",
       }],
     },
     {
@@ -841,8 +841,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: { name: "MemoizedNestedFunctionComponent", suggestion: "Move it to the top level." },
+        messageId: "default",
       }],
     },
     {
@@ -854,11 +854,11 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "default",
         data: {
           name: "Header",
           suggestion: "Move it to the top level or pass it as a prop.",
         },
+        messageId: "default",
       }],
     },
   ],

@@ -12,8 +12,8 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addSandboxAttribute",
               data: { value: "" },
+              messageId: "addSandboxAttribute",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -27,8 +27,8 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addSandboxAttribute",
               data: { value: "" },
+              messageId: "addSandboxAttribute",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -42,8 +42,8 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addSandboxAttribute",
               data: { value: "" },
+              messageId: "addSandboxAttribute",
               output: tsx`<PolyComponent sandbox="" as="iframe" />;`,
             },
           ],
@@ -62,8 +62,8 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "missingSandboxAttribute",
           suggestions: [
             {
-              messageId: "addSandboxAttribute",
               data: { value: "" },
+              messageId: "addSandboxAttribute",
               output: tsx`<PolyComponent as="iframe" sandbox="" />;`,
             },
           ],

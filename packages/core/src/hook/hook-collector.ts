@@ -45,11 +45,11 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       key,
       kind: "function",
       name: ast.getFullyQualifiedName(id, getText),
-      node,
       directives: [],
       flag: 0n,
       hint: 0n,
       hookCalls: [],
+      node,
     });
   };
   const onFunctionExit = () => {

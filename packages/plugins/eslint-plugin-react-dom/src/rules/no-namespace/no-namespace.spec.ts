@@ -8,73 +8,73 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<ns:testcomponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "ns:testcomponent",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<ns:testComponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "ns:testComponent",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<ns:test_component />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "ns:test_component",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<ns:TestComponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "ns:TestComponent",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<Ns:testcomponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "Ns:testcomponent",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<Ns:testComponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "Ns:testComponent",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<Ns:test_component />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "Ns:test_component",
         },
+        messageId: "default",
       }],
     },
     {
       code: tsx`<Ns:TestComponent />`,
       errors: [{
-        messageId: "default",
         data: {
           name: "Ns:TestComponent",
         },
+        messageId: "default",
       }],
     },
   ],

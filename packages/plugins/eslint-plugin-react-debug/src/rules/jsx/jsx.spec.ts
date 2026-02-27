@@ -27,7 +27,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               kind: "element",
@@ -39,6 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
               jsxRuntime: "automatic",
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -53,7 +53,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               kind: "element",
@@ -65,6 +64,7 @@ ruleTester.run(RULE_NAME, rule, {
               jsxRuntime: "classic",
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -76,7 +76,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               kind: "element",
@@ -88,6 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
               jsxRuntime: "classic",
             }),
           },
+          messageId: "default",
         },
       ],
     },

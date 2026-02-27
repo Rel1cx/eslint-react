@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function reportNonAsyncFunction(node: TSESTree.Node | unit | null, messageId: MessageID): boolean {
     if (!ast.isFunction(node)) return false;
     if (!node.async) {
-      context.report({ messageId, node, fix: getAsyncFix(node) });
+      context.report({ fix: getAsyncFix(node), messageId, node });
       return true;
     }
     return false;

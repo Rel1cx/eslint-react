@@ -51,12 +51,12 @@ export function create(context: RuleContext<MessageID, []>) {
             messageId: "missingSandboxAttribute",
             node: node.openingElement,
             suggest: [{
-              messageId: "addSandboxAttribute",
               data: { value: "" },
               fix(fixer) {
                 // Suggest adding a 'sandbox' attribute
                 return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
               },
+              messageId: "addSandboxAttribute",
             }],
           });
           return;
@@ -73,7 +73,6 @@ export function create(context: RuleContext<MessageID, []>) {
           node: sandboxValue.node ?? sandboxProp,
           suggest: [
             {
-              messageId: "addSandboxAttribute",
               data: { value: "" },
               fix(fixer) {
                 // Do not try to fix spread attributes
@@ -81,6 +80,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 // Suggest replacing the prop with a valid one
                 return fixer.replaceText(sandboxProp, `sandbox=""`);
               },
+              messageId: "addSandboxAttribute",
             },
           ],
         });

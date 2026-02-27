@@ -40,9 +40,9 @@ export function create(context: RuleContext<MessageID, []>) {
         init: context.sourceCode.getText(refInit),
       });
       context.report({
+        data: { json },
         messageId: "default",
         node,
-        data: { json },
       });
     }
   }

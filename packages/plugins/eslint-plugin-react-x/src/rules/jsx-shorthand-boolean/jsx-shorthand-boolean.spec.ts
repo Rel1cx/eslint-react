@@ -8,48 +8,48 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`<input disabled={true} />`,
       errors: [{
-        messageId: "default",
         data: { message: "Omit attribute value for 'disabled'." },
+        messageId: "default",
       }],
       output: tsx`<input disabled />`,
     },
     {
       code: tsx`<App foo={true} />`,
       errors: [{
-        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
+        messageId: "default",
       }],
       output: tsx`<App foo />`,
     },
     {
       code: tsx`<App foo={true} bar />`,
       errors: [{
-        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
+        messageId: "default",
       }],
       output: tsx`<App foo bar />`,
     },
     {
       code: tsx`<App foo={true} bar={false} />`,
       errors: [{
-        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
+        messageId: "default",
       }],
       output: tsx`<App foo bar={false} />`,
     },
     {
       code: tsx`<App foo={true} bar={false} baz />`,
       errors: [{
-        messageId: "default",
         data: { message: "Omit attribute value for 'foo'." },
+        messageId: "default",
       }],
       output: tsx`<App foo bar={false} baz />`,
     },
     {
       code: tsx`<input disabled />`,
       errors: [{
-        messageId: "default",
         data: { message: "Set attribute value for 'disabled'." },
+        messageId: "default",
       }],
       options: [-1],
       output: tsx`<input disabled={true} />`,

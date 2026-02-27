@@ -42,14 +42,14 @@ export function create(context: RuleContext<MessageID, []>) {
           for (const member of body) {
             if (core.isComponentWillReceiveProps(member)) {
               context.report({
-                messageId: "default",
-                node: member,
                 fix(fixer) {
                   if (!("key" in member)) {
                     return null;
                   }
                   return fixer.replaceText(member.key, "UNSAFE_componentWillReceiveProps");
                 },
+                messageId: "default",
+                node: member,
               });
             }
           }

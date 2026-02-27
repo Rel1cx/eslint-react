@@ -34,16 +34,16 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name, node, hookCalls } of ctx.getAllHooks(program)) {
+        for (const { name, hookCalls, node } of ctx.getAllHooks(program)) {
           context.report({
-            messageId: "default",
-            node,
             data: {
               json: stringify({
                 name,
                 hookCalls: hookCalls.length,
               }),
             },
+            messageId: "default",
+            node,
           });
         }
       },

@@ -63,24 +63,24 @@ export function create(context: RuleContext<MessageID, Options>) {
             && value.expression.type === AST.Literal
             && value.expression.value === true: {
             context.report({
-              messageId: "default",
-              node,
               data: {
                 message: `Omit attribute value for '${propName}'.`,
               },
               fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+              messageId: "default",
+              node,
             });
             break;
           }
           // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
           case policy === -1 && value == null: {
             context.report({
-              messageId: "default",
-              node: node.value ?? node,
               data: {
                 message: `Set attribute value for '${propName}'.`,
               },
               fix: (fixer) => fixer.insertTextAfter(node.name, `={true}`),
+              messageId: "default",
+              node: node.value ?? node,
             });
             break;
           }

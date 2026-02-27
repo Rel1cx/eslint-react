@@ -47,8 +47,6 @@ export function create(context: RuleContext<MessageID, []>) {
       if (child.value === "$" && node.children.length === 2) continue;
       const pos = child.loc.end;
       context.report({
-        messageId: "default",
-        node: child,
         loc: {
           end: {
             column: pos.column,
@@ -59,12 +57,14 @@ export function create(context: RuleContext<MessageID, []>) {
             line: pos.line,
           },
         },
+        messageId: "default",
+        node: child,
         suggest: [
           {
-            messageId: "removeDollarSign",
             fix(fixer) {
               return fixer.removeRange([child.range[1] - 1, child.range[1]]);
             },
+            messageId: "removeDollarSign",
           },
         ],
       });

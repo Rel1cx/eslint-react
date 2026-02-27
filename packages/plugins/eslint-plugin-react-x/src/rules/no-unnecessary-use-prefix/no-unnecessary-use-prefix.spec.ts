@@ -20,10 +20,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useClassnames",
           },
+          messageId: "default",
         },
       ],
     },
@@ -42,10 +42,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useClassnames",
           },
+          messageId: "default",
         },
       ],
     },
@@ -62,10 +62,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useInnerHook",
           },
+          messageId: "default",
         },
       ],
     },
@@ -82,10 +82,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useNestedHook",
           },
+          messageId: "default",
         },
       ],
     },
@@ -101,16 +101,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useNestedHook",
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             name: "useInnerHook",
           },
+          messageId: "default",
         },
       ],
     },
@@ -127,10 +127,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "useNestedHook",
           },
+          messageId: "default",
         },
       ],
     },

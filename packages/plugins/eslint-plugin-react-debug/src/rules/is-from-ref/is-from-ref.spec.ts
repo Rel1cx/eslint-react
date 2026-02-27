@@ -18,49 +18,49 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "myRef",
               init: "React.useRef(42)",
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "value",
               init: "myRef.current",
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "myRef",
               init: "React.useRef(42)",
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "current",
               init: "React.useRef(42)",
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "value",
               init: "myRef.current",
             }),
           },
+          messageId: "default",
         },
       ],
     },

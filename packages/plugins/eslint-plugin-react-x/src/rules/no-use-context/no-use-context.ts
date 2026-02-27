@@ -49,7 +49,6 @@ export function create(context: RuleContext<MessageID, []>) {
           node: node.callee,
           suggest: [
             {
-              messageId: "replace",
               fix(fixer) {
                 switch (node.callee.type) {
                   case AST.Identifier:
@@ -59,6 +58,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 }
                 return null;
               },
+              messageId: "replace",
             },
           ],
         });

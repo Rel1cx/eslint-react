@@ -55,7 +55,6 @@ export function create(context: RuleContext<MessageID, []>) {
           node,
           suggest: [
             {
-              messageId: "replace",
               fix(fixer) {
                 // Ensure the context name is a valid component name before applying the fix
                 if (!core.isComponentNameLoose(contextSelfName)) return null;
@@ -71,6 +70,7 @@ export function create(context: RuleContext<MessageID, []>) {
                   fixer.replaceText(closingElement.name, contextFullName),
                 ];
               },
+              messageId: "replace",
             },
           ],
         });

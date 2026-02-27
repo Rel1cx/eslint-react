@@ -57,8 +57,8 @@ export function create(context: RuleContext<MessageID, []>) {
         const suggest = canFix(context, node)
           ? [
             {
-              messageId: "replace" as const,
               fix: getFix(context, node),
+              messageId: "replace" as const,
             },
           ]
           : [];

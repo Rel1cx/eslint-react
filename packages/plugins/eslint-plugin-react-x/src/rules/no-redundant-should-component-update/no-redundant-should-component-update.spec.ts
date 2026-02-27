@@ -15,8 +15,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -30,8 +30,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -45,8 +45,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -62,8 +62,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Bar" },
+          messageId: "default",
         },
       ],
     },
@@ -79,8 +79,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Bar" },
+          messageId: "default",
         },
       ],
     },
@@ -94,8 +94,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { componentName: "Foo" },
+          messageId: "default",
         },
       ],
     },

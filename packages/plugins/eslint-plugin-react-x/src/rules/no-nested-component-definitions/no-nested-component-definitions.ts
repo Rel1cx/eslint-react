@@ -72,12 +72,12 @@ export function create(context: RuleContext<MessageID, []>) {
             // Allow if it's part of a render prop pattern
             // if (!core.isDeclaredInRenderPropLoose(component)) {
             context.report({
-              messageId: "default",
-              node: component,
               data: {
                 name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
+              messageId: "default",
+              node: component,
             });
             // }
 
@@ -86,12 +86,12 @@ export function create(context: RuleContext<MessageID, []>) {
           // Check if the component is defined inside the props of a `createElement` call
           if (isInsideCreateElementProps(context, component)) {
             context.report({
-              messageId: "default",
-              node: component,
               data: {
                 name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
+              messageId: "default",
+              node: component,
             });
 
             continue;
@@ -99,14 +99,14 @@ export function create(context: RuleContext<MessageID, []>) {
           // Check for direct nesting inside another function component
           if (findEnclosingComponent(component) != null) {
             context.report({
-              messageId: "default",
-              node: component,
               data: {
                 name,
                 suggestion: component.parent.type === AST.Property
                   ? "Move it to the top level or pass it as a prop."
                   : "Move it to the top level.",
               },
+              messageId: "default",
+              node: component,
             });
 
             continue;
@@ -114,12 +114,12 @@ export function create(context: RuleContext<MessageID, []>) {
           // Check if the component is defined inside a class component's render method
           if (isInsideRenderMethod(component)) {
             context.report({
-              messageId: "default",
-              node: component,
               data: {
                 name,
                 suggestion: "Move it to the top level.",
               },
+              messageId: "default",
+              node: component,
             });
           }
         }
@@ -128,14 +128,14 @@ export function create(context: RuleContext<MessageID, []>) {
           // Find if the parent is another component
           if (findEnclosingComponent(component) == null) continue;
           context.report({
-            messageId: "default",
-            node: component,
             data: {
               name,
               suggestion: component.parent.type === AST.Property
                 ? "Move it to the top level or pass it as a prop."
                 : "Move it to the top level.",
             },
+            messageId: "default",
+            node: component,
           });
         }
       },

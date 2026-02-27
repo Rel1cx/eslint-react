@@ -11,8 +11,8 @@ export type TimerKind =
 
 export interface TimerEntry {
   kind: TimerKind;
-  node: TSESTree.CallExpression;
   callee: TSESTree.Node;
+  node: TSESTree.CallExpression;
   phase: ComponentPhaseKind;
   timerId: TSESTree.Node;
 }

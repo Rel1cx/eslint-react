@@ -64,6 +64,7 @@ export default defineConfig(
     },
     rules: {
       "no-console": "off",
+      "perfectionist/sort-objects": "off",
     },
   },
   // Disable ESLint core rules that conflict with TypeScript

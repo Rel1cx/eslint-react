@@ -17,10 +17,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -36,10 +36,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -55,10 +55,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -74,10 +74,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -93,10 +93,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -112,10 +112,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "data[1]",
           },
+          messageId: "default",
         },
       ],
     },
@@ -129,10 +129,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setData",
           },
+          messageId: "default",
         },
       ],
       settings: {
@@ -151,10 +151,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setData",
           },
+          messageId: "default",
         },
       ],
       settings: {
@@ -177,16 +177,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setA",
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             name: "setB",
           },
+          messageId: "default",
         },
       ],
     },
@@ -202,10 +202,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -222,10 +222,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setCount",
           },
+          messageId: "default",
         },
       ],
     },
@@ -244,10 +244,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             name: "setA",
           },
+          messageId: "default",
         },
       ],
     },

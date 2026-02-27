@@ -41,8 +41,6 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function getReportDescriptor(context: RuleContext) {
     return (node: TSESTree.JSXElement | TSESTree.JSXFragment) => ({
-      messageId: "default",
-      node,
       data: {
         json: stringify({
           kind: match(node)
@@ -69,6 +67,8 @@ export function create(context: RuleContext<MessageID, []>) {
             .otherwise(() => "classic"),
         }),
       },
+      messageId: "default",
+      node,
     } as const);
   }
   return defineRuleListener(

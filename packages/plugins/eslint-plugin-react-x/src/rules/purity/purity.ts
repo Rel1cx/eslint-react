@@ -40,12 +40,12 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
   const cExprs: {
-    node: TSESTree.CallExpression;
     func: ast.TSESTreeFunction;
+    node: TSESTree.CallExpression;
   }[] = [];
   const nExprs: {
-    node: TSESTree.NewExpression;
     func: ast.TSESTreeFunction;
+    node: TSESTree.NewExpression;
   }[] = [];
   return defineRuleListener(
     hCollector.visitor,
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        cExprs.push({ node, func });
+        cExprs.push({ func, node });
       },
       NewExpression(node: TSESTree.NewExpression) {
         const expr = ast.getUnderlyingExpression(node.callee);
@@ -70,20 +70,20 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!IMPURE_CTORS.has(expr.name)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        nExprs.push({ node, func });
+        nExprs.push({ func, node });
       },
       "Program:exit"(node) {
         const components = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
         const funcs = [...components, ...hooks];
-        for (const { node, func } of [...cExprs, ...nExprs]) {
+        for (const { func, node } of [...cExprs, ...nExprs]) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
-            messageId: "default",
-            node,
             data: {
               name: context.sourceCode.getText(node),
             },
+            messageId: "default",
+            node,
           });
         }
       },

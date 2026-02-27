@@ -61,8 +61,8 @@ export function create(context: RuleContext<MessageID, []>) {
 function debugReport(context: RuleContext, node: TSESTree.Node, name: string) {
   if (process.env["ESLINT_REACT_DEBUG"] !== "1") return;
   context.report({
+    data: { name },
     messageId: "default",
     node,
-    data: { name },
   });
 }

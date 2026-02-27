@@ -159,8 +159,8 @@ function checkForUsageInsideUseEffect(
   }
 
   return {
+    data: { name: node.parent.id.name },
     messageId: "noUnnecessaryUseMemoInsideUseEffect",
     node,
-    data: { name: node.parent.id.name },
   };
 }

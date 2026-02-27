@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { node, displayName, flag } of ctx.getAllComponents(program)) {
+        for (const { displayName, flag, node } of ctx.getAllComponents(program)) {
           const id = ast.getFunctionId(node);
           // Check if the component is wrapped with `forwardRef` or `memo`
           const isMemoOrForwardRef = (flag & (core.ComponentFlag.ForwardRef | core.ComponentFlag.Memo)) > 0n;

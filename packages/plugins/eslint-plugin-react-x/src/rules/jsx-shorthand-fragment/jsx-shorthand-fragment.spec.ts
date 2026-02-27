@@ -48,8 +48,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { message: "Use 'Fragment' component instead of fragment shorthand syntax." },
+          messageId: "default",
         },
       ],
       options: [-1],

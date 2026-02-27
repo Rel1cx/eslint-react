@@ -15,13 +15,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -34,13 +34,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -58,22 +58,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useToggle",
               hookCalls: 1,
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useSorted",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -93,13 +93,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -119,13 +119,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useClassnames",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -142,22 +142,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",
               hookCalls: 1,
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useInnerHook",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -174,22 +174,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useInnerHook",
               hookCalls: 1,
             }),
           },
+          messageId: "default",
         },
       ],
     },
@@ -206,13 +206,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: {
             json: stringify({
               name: "useNestedHook",
               hookCalls: 0,
             }),
           },
+          messageId: "default",
         },
       ],
     },

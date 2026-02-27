@@ -14,10 +14,10 @@ export interface SemanticNode {
   kind: string;
   /** The name of the node */
   name: unit | string;
-  /** The AST node */
-  node: TSESTree.Node;
   /** The flag of the node */
   flag: bigint;
   /** The hint of the node */
   hint: bigint;
+  /** The AST node */
+  node: TSESTree.Node;
 }

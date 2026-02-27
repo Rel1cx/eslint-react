@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "PureComponent", node: component, flag } of ctx.getAllComponents(program)) {
+        for (const { name = "PureComponent", flag, node: component } of ctx.getAllComponents(program)) {
           if ((flag & core.ComponentFlag.PureComponent) === 0n) {
             continue;
           }
@@ -51,11 +51,11 @@ export function create(context: RuleContext<MessageID, []>) {
           for (const member of body) {
             if (isShouldComponentUpdate(member)) {
               context.report({
-                messageId: "default",
-                node: member,
                 data: {
                   componentName: name,
                 },
+                messageId: "default",
+                node: member,
               });
             }
           }

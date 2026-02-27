@@ -43,14 +43,14 @@ export function create(context: RuleContext<MessageID, []>) {
     const initialScope = context.sourceCode.getScope(node);
     if (!isFromReact(node, initialScope, importSource)) return;
     context.report({
-      messageId: "default",
-      node,
       data: {
         json: stringify({
           name,
           importSource,
         }),
       },
+      messageId: "default",
+      node,
     });
   }
   return defineRuleListener(

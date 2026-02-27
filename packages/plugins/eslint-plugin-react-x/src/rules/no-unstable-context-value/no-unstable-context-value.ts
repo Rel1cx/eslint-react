@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>) {
         getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
       },
       "Program:exit"(program) {
-        for (const { node: component, directives } of ctx.getAllComponents(program)) {
+        for (const { directives, node: component } of ctx.getAllComponents(program)) {
           if (compilationMode === "annotation" && directives.some((d) => d.directive === "use memo")) continue;
           for (const construction of constructions.get(component) ?? []) {
             const { kind, node: constructionNode } = construction;
@@ -79,12 +79,12 @@ export function create(context: RuleContext<MessageID, []>) {
               ? "Consider wrapping it in a useCallback hook."
               : "Consider wrapping it in a useMemo hook.";
             context.report({
-              messageId: "unstableContextValue",
-              node: constructionNode,
               data: {
                 kind: ast.getHumanReadableKind(constructionNode),
                 suggestion,
               },
+              messageId: "unstableContextValue",
+              node: constructionNode,
             });
           }
         }

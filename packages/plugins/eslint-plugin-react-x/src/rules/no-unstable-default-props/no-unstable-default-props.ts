@@ -129,11 +129,11 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
             }
           }
           context.report({
-            messageId: "default",
-            node: right,
             data: {
               kind: ast.getHumanReadableKind(right),
             },
+            messageId: "default",
+            node: right,
           });
         }
       }

@@ -48,12 +48,12 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
   const evalCalls: {
-    node: TSESTree.CallExpression;
     func: ast.TSESTreeFunction;
+    node: TSESTree.CallExpression;
   }[] = [];
   const withStmts: {
-    node: TSESTree.WithStatement;
     func: ast.TSESTreeFunction;
+    node: TSESTree.WithStatement;
   }[] = [];
   return defineRuleListener(
     hCollector.visitor,
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!isEvalCall(node)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        evalCalls.push({ node, func });
+        evalCalls.push({ func, node });
       },
       "JSXElement :function"(node: ast.TSESTreeFunction) {
         if (isIifeCall(node)) {
@@ -85,14 +85,14 @@ export function create(context: RuleContext<MessageID, []>) {
         const components = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
         const funcs = [...components, ...hooks];
-        for (const { node, func } of evalCalls) {
+        for (const { func, node } of evalCalls) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             messageId: "eval",
             node,
           });
         }
-        for (const { node, func } of withStmts) {
+        for (const { func, node } of withStmts) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             messageId: "with",
@@ -103,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>) {
       WithStatement(node: TSESTree.WithStatement) {
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        withStmts.push({ node, func });
+        withStmts.push({ func, node });
       },
     },
   );

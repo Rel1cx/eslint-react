@@ -18,8 +18,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "ClassComputedTemplatePropertyTest" },
+          messageId: "default",
         },
       ],
     },
@@ -35,8 +35,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -53,8 +53,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -70,8 +70,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -87,8 +87,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -106,8 +106,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -125,8 +125,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -144,8 +144,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -161,8 +161,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -180,8 +180,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -197,8 +197,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "ClassAssignPropertyInMethodTest" },
+          messageId: "default",
         },
       ],
     },
@@ -216,8 +216,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "ClassAssignPropertyInMethodTest" },
+          messageId: "default",
         },
       ],
     },
@@ -233,8 +233,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -250,8 +250,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -267,8 +267,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -284,8 +284,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -301,8 +301,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -318,8 +318,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -335,8 +335,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },
@@ -352,8 +352,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "default",
           data: { className: "Foo" },
+          messageId: "default",
         },
       ],
     },

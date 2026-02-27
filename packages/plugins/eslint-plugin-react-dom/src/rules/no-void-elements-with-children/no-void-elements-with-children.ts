@@ -67,11 +67,11 @@ export function create(context: RuleContext<MessageID, []>) {
         // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
         if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
           context.report({
-            messageId: "default",
-            node,
             data: {
               elementType: domElementType,
             },
+            messageId: "default",
+            node,
           });
         }
       },

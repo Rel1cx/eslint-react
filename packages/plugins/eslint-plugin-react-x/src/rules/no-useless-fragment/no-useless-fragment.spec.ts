@@ -11,8 +11,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: null,
@@ -22,8 +22,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       options: [{ allowEmptyFragment: false }],
@@ -34,8 +34,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       options: [{ allowExpressions: false }],
@@ -46,13 +46,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: "<p>moofoo</p>",
@@ -62,8 +62,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       options: [{ allowExpressions: false }],
@@ -74,8 +74,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: "<p>{meow}</p>",
@@ -85,8 +85,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: "<div/>",
@@ -100,8 +100,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -113,8 +113,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
     },
@@ -127,8 +127,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -141,8 +141,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: null,
@@ -152,13 +152,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: "<div>foo</div>",
@@ -168,8 +168,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: '<div>{"a"}{"b"}</div>',
@@ -185,8 +185,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -202,8 +202,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: '<div>{"a"}{"b"}</div>',
@@ -222,13 +222,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -244,8 +244,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
       ],
       output: '<div>a {""}{""} a</div>',
@@ -261,13 +261,13 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXElement,
-          messageId: "default",
           data: { reason: "placed inside a host component" },
+          messageId: "default",
         },
         {
           type: AST.JSXElement,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       output: tsx`
@@ -284,8 +284,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.JSXFragment,
-          messageId: "default",
           data: { reason: "contains less than two children" },
+          messageId: "default",
         },
       ],
       options: [

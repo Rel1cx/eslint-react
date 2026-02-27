@@ -112,8 +112,8 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             sEntries.push({
               kind: "interval",
-              node,
               callee: node.callee,
+              node,
               phase: fEntry.kind,
               timerId: intervalIdNode,
             });
@@ -133,8 +133,8 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             cEntries.push({
               kind: "interval",
-              node,
               callee: node.callee,
+              node,
               phase: fEntry.kind,
               timerId: intervalIdNode,
             });
@@ -151,21 +151,21 @@ export function create(context: RuleContext<MessageID, []>) {
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "expectedClearIntervalInCleanup",
-                node: sEntry.node,
                 data: {
                   kind: "useEffect",
                 },
+                messageId: "expectedClearIntervalInCleanup",
+                node: sEntry.node,
               });
               continue;
             case "mount":
             case "unmount":
               context.report({
-                messageId: "expectedClearIntervalInUnmount",
-                node: sEntry.node,
                 data: {
                   kind: "componentDidMount",
                 },
+                messageId: "expectedClearIntervalInUnmount",
+                node: sEntry.node,
               });
               continue;
           }

@@ -71,8 +71,6 @@ export function create(context: RuleContext<MessageID, Options>) {
           if (hasAttributes) return;
           // Report an error and suggest using shorthand syntax
           context.report({
-            messageId: "default",
-            node,
             data: { message: "Use fragment shorthand syntax instead of 'Fragment' component." },
             fix: (fixer) => {
               const { closingElement, openingElement } = node;
@@ -85,6 +83,8 @@ export function create(context: RuleContext<MessageID, Options>) {
                 fixer.replaceTextRange([closingElement.range[0], closingElement.range[1]], "</>"),
               ];
             },
+            messageId: "default",
+            node,
           });
         },
       }))
@@ -94,8 +94,6 @@ export function create(context: RuleContext<MessageID, Options>) {
         JSXFragment(node: TSESTree.JSXFragment) {
           // Report an error for shorthand syntax and suggest using the longhand component
           context.report({
-            messageId: "default",
-            node,
             data: { message: "Use 'Fragment' component instead of fragment shorthand syntax." },
             fix: (fixer) => {
               const { closingFragment, openingFragment } = node;
@@ -117,6 +115,8 @@ export function create(context: RuleContext<MessageID, Options>) {
                 ),
               ];
             },
+            messageId: "default",
+            node,
           });
         },
       }))

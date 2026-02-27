@@ -69,9 +69,9 @@ export function create(context: RuleContext<MessageID, []>) {
           if (ast.findParentNode(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
           context.report({
+            data: { name },
             messageId: "component",
             node,
-            data: { name },
           });
           reported.add(node);
         }
@@ -80,9 +80,9 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const { name = "unknown", node } of cComponents) {
           if (ast.findParentNode(node, ast.isFunction) == null) continue;
           context.report({
+            data: { name },
             messageId: "component",
             node,
-            data: { name },
           });
         }
 
@@ -91,9 +91,9 @@ export function create(context: RuleContext<MessageID, []>) {
           if (ast.findParentNode(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
           context.report({
+            data: { name },
             messageId: "hook",
             node,
-            data: { name },
           });
           reported.add(node);
         }

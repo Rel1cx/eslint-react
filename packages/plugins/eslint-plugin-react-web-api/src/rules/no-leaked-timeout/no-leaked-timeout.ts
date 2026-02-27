@@ -108,8 +108,8 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             sEntries.push({
               kind: "timeout",
-              node,
               callee: node.callee,
+              node,
               phase: fEntry.kind,
               timerId: timeoutIdNode,
             });
@@ -122,8 +122,8 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             rEntries.push({
               kind: "timeout",
-              node,
               callee: node.callee,
+              node,
               phase: fEntry.kind,
               timerId: timeoutIdNode,
             });
@@ -140,21 +140,21 @@ export function create(context: RuleContext<MessageID, []>) {
             case "setup":
             case "cleanup":
               context.report({
-                messageId: "expectedClearTimeoutInCleanup",
-                node: sEntry.node,
                 data: {
                   kind: "useEffect",
                 },
+                messageId: "expectedClearTimeoutInCleanup",
+                node: sEntry.node,
               });
               continue;
             case "mount":
             case "unmount":
               context.report({
-                messageId: "expectedClearTimeoutInUnmount",
-                node: sEntry.node,
                 data: {
                   kind: "componentDidMount",
                 },
+                messageId: "expectedClearTimeoutInUnmount",
+                node: sEntry.node,
               });
               continue;
           }

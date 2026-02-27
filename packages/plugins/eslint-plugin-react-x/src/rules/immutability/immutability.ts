@@ -65,10 +65,10 @@ export function create(context: RuleContext<MessageID, []>) {
    * report and the enclosing function so we can filter at Program:exit.
    */
   const violations: {
-    messageId: MessageID;
-    node: TSESTree.Node;
     data: Record<string, string>;
     func: ast.TSESTreeFunction;
+    messageId: MessageID;
+    node: TSESTree.Node;
   }[] = [];
 
   // ---------------------------------------------------------------------------
@@ -174,13 +174,13 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!isState && !isProps) return;
 
         violations.push({
-          messageId: "mutatingArrayMethod",
-          node,
           data: {
             name: context.sourceCode.getText(object),
             method: property.name,
           },
           func: enclosingFn,
+          messageId: "mutatingArrayMethod",
+          node,
         });
       },
 
@@ -207,12 +207,12 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!isState && !isProps) return;
 
         violations.push({
-          messageId: "mutatingAssignment",
-          node,
           data: {
             name: context.sourceCode.getText(node.left.object),
           },
           func: enclosingFn,
+          messageId: "mutatingAssignment",
+          node,
         });
       },
 
@@ -229,7 +229,7 @@ export function create(context: RuleContext<MessageID, []>) {
           ...hooks.map((h) => h.node),
         ]);
 
-        for (const { messageId, node, data, func } of violations) {
+        for (const { data, func, messageId, node } of violations) {
           // Walk up the function chain to find a component or hook boundary
           let current: ast.TSESTreeFunction | unit = func;
           let insideComponentOrHook = false;
@@ -243,7 +243,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
           if (!insideComponentOrHook) continue;
 
-          context.report({ messageId, node, data });
+          context.report({ data, messageId, node });
         }
       },
     },
