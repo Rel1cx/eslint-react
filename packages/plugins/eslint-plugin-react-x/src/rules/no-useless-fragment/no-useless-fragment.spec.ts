@@ -370,5 +370,23 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Foo bar={<><Bar/><Baz/></>} />`,
       options: [{ allowExpressions: false }],
     },
+    {
+      code: tsx`
+        import { Fragment, useRef } from "react";
+
+              export function Foo({ children }) {
+                  const ref = useRef();
+                  return (
+                      <div>
+                          {/* ... */}
+                          <Fragment ref={ref}>
+                              {children}
+                          </Fragment>
+                          {/* ... */}
+                      </div>
+                  );
+              }
+      `,
+    },
   ],
 });

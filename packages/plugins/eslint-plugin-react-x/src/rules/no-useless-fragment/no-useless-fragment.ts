@@ -75,11 +75,6 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * Check if a fragment node is useless and should be reported
    */
   function checkNode(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-    // Skip if the fragment has a key prop (indicates it's needed for lists)
-    if (node.type === AST.JSXElement && core.getJsxAttribute(context, node)("key") != null) {
-      return;
-    }
-
     // Report fragment placed inside a host component (e.g., <div><></></div>)
     if (core.isJsxHostElement(context, node.parent)) {
       context.report({
@@ -199,6 +194,8 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       // Check JSX elements that might be fragments
       JSXElement(node) {
         if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
+        if (core.getJsxAttribute(context, node)("key") != null) return;
+        if (core.getJsxAttribute(context, node)("ref") != null) return;
         checkNode(context, node);
       },
       // Check JSX fragments
