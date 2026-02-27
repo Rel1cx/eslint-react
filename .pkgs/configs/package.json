@@ -34,16 +34,16 @@
     "eslint": "^10.0.2",
     "tsl": "^1.0.29",
     "tsl-dx": "^0.8.0",
-    "typedoc": "0.28.16",
+    "typedoc": "0.28.17",
     "typedoc-plugin-markdown": "^4.10.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "eslint": "^10.0.0",
+    "eslint": "^10.0.2",
     "tsl": "^1.0.29",
-    "tsl-dx": "^0.7.0",
-    "typedoc": "0.28.16",
+    "tsl-dx": "^0.8.0",
+    "typedoc": "0.28.17",
     "typedoc-plugin-markdown": "^4.10.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^5.9.3"
