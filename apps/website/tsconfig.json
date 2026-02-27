@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "@tsconfig/node24/tsconfig.json",
+    "@tsconfig/next/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "erasableSyntaxOnly": true,
+    "paths": {
+      "#": ["."],
+      "#/*": ["./*"],
+      "fumadocs-mdx:collections/*": [".source/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "@effect/language-service"
+      }
+    ]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

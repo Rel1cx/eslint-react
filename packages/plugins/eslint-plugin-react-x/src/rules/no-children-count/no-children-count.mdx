@@ -1,0 +1,61 @@
+---
+title: no-children-count
+description: Disallows the use of `Children.count` from the `react` package.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-children-count
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-children-count
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React, { Children } from "react";
+
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  return (
+    <>
+      <h1>Total rows: {Children.count(children)}</h1>
+      ...
+    </>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-count/no-children-count.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-count/no-children-count.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Children`](https://react.dev/reference/react/Children)
+

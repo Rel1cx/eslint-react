@@ -1,0 +1,185 @@
+---
+title: no-leaked-conditional-rendering
+description: Prevents problematic leaked values from being rendered.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-leaked-conditional-rendering
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-leaked-conditional-rendering
+```
+
+**Features**
+
+`💭`
+
+**Presets**
+
+`recommended-type-checked`
+`strict-type-checked`
+
+## Rule Details
+
+Using the `&&` operator to render an element conditionally in JSX can cause unexpected values to be rendered or even crash the rendering.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+interface MyComponentProps {
+  count: number;
+}
+
+function MyComponent({ count }: MyComponentProps) {
+  return <div>{count && <span>There are {count} results</span>}</div>;
+  //           ^^^ Potential leaked value 'count' that might cause unintentionally rendered values or rendering crashes.
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items.length && <List items={items} />}</div>;
+  //           ^^^ Potential leaked value 'items.length' that might cause unintentionally rendered values or rendering crashes.
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items[0] && <List items={items} />}</div>;
+  //           ^^^ Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
+}
+```
+
+```tsx
+interface MyComponentProps {
+  numberA: number;
+  numberB: number;
+}
+
+function MyComponent({ numberA, numberB }: MyComponentProps) {
+  return (
+    <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
+    //    ^^^ Potential leaked value '(numberA || numberB)' that might cause unintentionally rendered values or rendering crashes.
+  );
+}
+```
+
+### Valid
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  customTitle: string;
+}
+
+const defaultTitle = "Default Title";
+
+// An OR condition is considered valid since it's assumed to be a way to render some fallback if the first value is falsy, not to render something conditionally.
+function MyComponent({ customTitle }: MyComponentProps) {
+  return <div>{customTitle || defaultTitle}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>There are {items.length} items</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+  count: number;
+}
+
+function MyComponent({ items, count }: MyComponentProps) {
+  return <div>{!count && "No results found"}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{!!items.length && <List items={items} />}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{Boolean(items.length) && <List items={items} />}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items.length > 0 && <List items={items} />}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items.length ? <List items={items} /> : null}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items.length ? <List items={items} /> : <EmptyList />}</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering.spec.ts)
+
+## Further Reading
+
+- [React Docs: Conditional Rendering](https://react.dev/learn/conditional-rendering)

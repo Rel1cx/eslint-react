@@ -1,0 +1,29 @@
+{
+  "name": "@examples/preact-compat",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "lint": "eslint . --concurrency=auto",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.28.4"
+  },
+  "devDependencies": {
+    "@eslint-react/eslint-plugin": "workspace:*",
+    "@eslint/js": "^10.0.1",
+    "@preact/preset-vite": "^2.10.3",
+    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/strictest": "^2.0.8",
+    "@types/node": "^25.3.2",
+    "eslint": "^10.0.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "canary",
+    "vite": "^7.3.1"
+  }
+}

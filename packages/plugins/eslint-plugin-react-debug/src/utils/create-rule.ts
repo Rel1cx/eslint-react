@@ -1,3 +1,8 @@
-import { createRuleForPlugin } from "@eslint-react/shared";
+import { WEBSITE_URL } from "@eslint-react/shared";
+import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const createRule = createRuleForPlugin("debug");
+function getDocsUrl(ruleName: string) {
+  return `${WEBSITE_URL}/docs/rules/debug-${ruleName}`;
+}
+
+export const createRule = ESLintUtils.RuleCreator(getDocsUrl);

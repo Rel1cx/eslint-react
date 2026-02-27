@@ -1,217 +1,87 @@
-import { entries, fromEntries } from "@eslint-react/tools";
-import type { RulePreset } from "@eslint-react/types";
-import tsParser from "@typescript-eslint/parser";
-import * as reactCore from "eslint-plugin-react-core";
-import * as reactDom from "eslint-plugin-react-dom";
-import * as reactHooksExtra from "eslint-plugin-react-hooks-extra";
-import * as reactNamingConvention from "eslint-plugin-react-naming-convention";
-
 import { name, version } from "../package.json";
-import { padKeysLeft } from "./utils";
 
-const allPreset = {
-  "ensure-forward-ref-using-ref": "warn",
-  "no-access-state-in-setstate": "error",
-  "no-array-index-key": "warn",
-  "no-children-count": "warn",
-  "no-children-for-each": "warn",
-  "no-children-map": "warn",
-  "no-children-only": "warn",
-  "no-children-prop": "warn",
-  "no-children-to-array": "warn",
-  "no-class-component": "warn",
-  "no-clone-element": "warn",
-  "no-comment-textnodes": "warn",
-  "no-complicated-conditional-rendering": "warn",
-  "no-component-will-mount": "error",
-  "no-component-will-receive-props": "error",
-  "no-component-will-update": "error",
-  "no-create-ref": "error",
-  "no-direct-mutation-state": "error",
-  "no-duplicate-key": "error",
-  "no-implicit-key": "error",
-  // "no-leaked-conditional-rendering": "warn",
-  "no-missing-component-display-name": "warn",
-  "no-missing-key": "error",
-  "no-nested-components": "warn",
-  "no-redundant-should-component-update": "error",
-  "no-set-state-in-component-did-mount": "warn",
-  "no-set-state-in-component-did-update": "warn",
-  "no-set-state-in-component-will-update": "warn",
-  "no-string-refs": "error",
-  "no-unsafe-component-will-mount": "warn",
-  "no-unsafe-component-will-receive-props": "warn",
-  "no-unsafe-component-will-update": "warn",
-  "no-unstable-context-value": "error",
-  "no-unstable-default-props": "error",
-  "no-unused-class-component-members": "warn",
-  "no-unused-state": "warn",
-  "no-useless-fragment": "warn",
-  "prefer-destructuring-assignment": "warn",
-  "prefer-shorthand-boolean": "warn",
-  "prefer-shorthand-fragment": "warn",
+import type { ESLint, Linter } from "eslint";
+import react from "eslint-plugin-react-x";
 
-  // eslint-disable-next-line perfectionist/sort-objects
-  "dom/no-children-in-void-dom-elements": "warn",
-  "dom/no-dangerously-set-innerhtml": "warn",
-  "dom/no-dangerously-set-innerhtml-with-children": "error",
-  "dom/no-find-dom-node": "error",
-  "dom/no-missing-button-type": "warn",
-  "dom/no-missing-iframe-sandbox": "warn",
-  "dom/no-namespace": "error",
-  "dom/no-render-return-value": "error",
-  "dom/no-script-url": "warn",
-  "dom/no-unsafe-iframe-sandbox": "warn",
-  "dom/no-unsafe-target-blank": "warn",
+import * as allConfig from "./configs/all";
+import * as disableConflictEslintPluginReact from "./configs/disable-conflict-eslint-plugin-react";
+import * as disableConflictEslintPluginReactHooks from "./configs/disable-conflict-eslint-plugin-react-hooks";
+import * as disableDomConfig from "./configs/disable-dom";
+import * as disableExperimentalConfig from "./configs/disable-experimental";
+import * as disableRscConfig from "./configs/disable-rsc";
+import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
+import * as disableWebApiConfig from "./configs/disable-web-api";
+import * as domConfig from "./configs/dom";
+import * as noDeprecatedConfig from "./configs/no-deprecated";
+import * as offConfig from "./configs/off";
+import * as recommendedConfig from "./configs/recommended";
+import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
+import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
+import * as rscConfig from "./configs/rsc";
+import * as strictConfig from "./configs/strict";
+import * as strictTypeCheckedConfig from "./configs/strict-type-checked";
+import * as strictTypescriptConfig from "./configs/strict-typescript";
+import * as webApiConfig from "./configs/web-api";
+import * as xConfig from "./configs/x";
 
-  "hooks-extra/ensure-custom-hooks-using-other-hooks": "warn",
-  "hooks-extra/ensure-use-callback-has-non-empty-deps": "warn",
-  "hooks-extra/ensure-use-memo-has-non-empty-deps": "warn",
-  "hooks-extra/prefer-use-state-lazy-initialization": "warn",
+type ConfigName =
+  | "all"
+  | "disable-conflict-eslint-plugin-react"
+  | "disable-conflict-eslint-plugin-react-hooks"
+  | "disable-dom"
+  | "disable-rsc"
+  | "disable-experimental"
+  | "disable-type-checked"
+  | "disable-web-api"
+  | "dom"
+  | "rsc"
+  | "no-deprecated"
+  | "off"
+  | "recommended"
+  | "recommended-type-checked"
+  | "recommended-typescript"
+  | "strict"
+  | "strict-type-checked"
+  | "strict-typescript"
+  | "web-api"
+  | "x";
 
-  "naming-convention/component-name": "warn",
-  "naming-convention/filename": "warn",
-  "naming-convention/filename-extension": "warn",
-  "naming-convention/use-state": "warn",
-} as const satisfies RulePreset;
-
-const recommendedPreset = {
-  "ensure-forward-ref-using-ref": "warn",
-  "no-access-state-in-setstate": "error",
-  "no-array-index-key": "warn",
-  "no-children-count": "warn",
-  "no-children-for-each": "warn",
-  "no-children-map": "warn",
-  "no-children-only": "warn",
-  "no-children-prop": "warn",
-  "no-children-to-array": "warn",
-  // "no-class-component": "warn",
-  "no-clone-element": "warn",
-  "no-comment-textnodes": "warn",
-  // "no-complicated-conditional-rendering": "warn",
-  "no-component-will-mount": "error",
-  "no-component-will-receive-props": "error",
-  "no-component-will-update": "error",
-  "no-create-ref": "error",
-  "no-direct-mutation-state": "error",
-  "no-duplicate-key": "error",
-  "no-implicit-key": "error",
-  // "no-leaked-conditional-rendering": "warn",
-  // "no-missing-component-display-name": "warn",
-  "no-missing-key": "error",
-  "no-nested-components": "warn",
-  "no-redundant-should-component-update": "error",
-  "no-set-state-in-component-did-mount": "warn",
-  "no-set-state-in-component-did-update": "warn",
-  "no-set-state-in-component-will-update": "warn",
-  "no-string-refs": "error",
-  "no-unsafe-component-will-mount": "warn",
-  "no-unsafe-component-will-receive-props": "warn",
-  "no-unsafe-component-will-update": "warn",
-  "no-unstable-context-value": "error",
-  "no-unstable-default-props": "error",
-  "no-unused-class-component-members": "warn",
-  "no-unused-state": "warn",
-  "no-useless-fragment": "warn",
-  "prefer-destructuring-assignment": "warn",
-  "prefer-shorthand-boolean": "warn",
-  "prefer-shorthand-fragment": "warn",
-
-  // eslint-disable-next-line perfectionist/sort-objects
-  "dom/no-children-in-void-dom-elements": "warn",
-  "dom/no-dangerously-set-innerhtml": "warn",
-  "dom/no-dangerously-set-innerhtml-with-children": "error",
-  "dom/no-find-dom-node": "error",
-  "dom/no-missing-button-type": "warn",
-  "dom/no-missing-iframe-sandbox": "warn",
-  "dom/no-namespace": "error",
-  "dom/no-render-return-value": "error",
-  "dom/no-script-url": "warn",
-  "dom/no-unsafe-iframe-sandbox": "warn",
-  "dom/no-unsafe-target-blank": "warn",
-} as const satisfies RulePreset;
-
-const recommendedTypeCheckedPreset = {
-  ...recommendedPreset,
-  "no-leaked-conditional-rendering": "warn",
-} as const satisfies RulePreset;
-
-const domPreset = {
-  "dom/no-children-in-void-dom-elements": "warn",
-  "dom/no-dangerously-set-innerhtml": "warn",
-  "dom/no-dangerously-set-innerhtml-with-children": "error",
-  "dom/no-find-dom-node": "error",
-  "dom/no-missing-button-type": "warn",
-  "dom/no-missing-iframe-sandbox": "warn",
-  "dom/no-namespace": "error",
-  "dom/no-script-url": "warn",
-  "dom/no-unsafe-iframe-sandbox": "warn",
-  "dom/no-unsafe-target-blank": "warn",
-} as const satisfies RulePreset;
-
-const debugPreset = {
-  "debug/class-component": "warn",
-  "debug/function-component": "warn",
-  "debug/react-hooks": "warn",
-} as const satisfies RulePreset;
-
-const allPresetEntries = entries(allPreset);
-const offPreset = fromEntries(allPresetEntries.map(([key]) => [key, "off"]));
-const offDomPreset = fromEntries(entries(domPreset).map(([key]) => [key, "off"]));
-
-const legacyConfigPlugins = ["@eslint-react"] as const;
-
-const flatConfigPlugins = {
-  "@eslint-react": reactCore,
-  "@eslint-react/dom": reactDom,
-  "@eslint-react/hooks-extra": reactHooksExtra,
-  "@eslint-react/naming-convention": reactNamingConvention,
-} as const;
-
-function createLegacyConfig<T extends RulePreset>(rules: T, plugins = legacyConfigPlugins) {
-  return {
-    parser: "@typescript-eslint/parser",
-    plugins,
-    rules: padKeysLeft(rules, "@eslint-react/"),
-  } as const;
-}
-
-function createFlatConfig<T extends RulePreset>(rules: T, plugins = flatConfigPlugins) {
-  return {
-    languageOptions: {
-      parser: tsParser,
-    },
-    plugins,
-    rules: padKeysLeft(rules, "@eslint-react/"),
-  } as const;
-}
-
-export default {
+const plugin: ESLint.Plugin & {
+  /**
+   * For more information about each preset, please refer to the documentation.
+   * @see https://eslint-react.xyz/docs/presets
+   */
+  configs: Record<ConfigName, Linter.Config>;
+} = {
   meta: {
     name,
     version,
   },
   configs: {
-    all: createFlatConfig(allPreset),
-    debug: createFlatConfig(debugPreset),
-    dom: createFlatConfig(domPreset),
-    off: createFlatConfig(offPreset),
-    "off-dom": createFlatConfig(offDomPreset),
-    recommended: createFlatConfig(recommendedPreset),
-    "recommended-type-checked": createFlatConfig(recommendedTypeCheckedPreset),
-    // eslint-disable-next-line perfectionist/sort-objects
-    "all-legacy": createLegacyConfig(allPreset),
-    "debug-legacy": createLegacyConfig(debugPreset),
-    "dom-legacy": createLegacyConfig(domPreset),
-    "off-dom-legacy": createLegacyConfig(offDomPreset),
-    "off-legacy": createLegacyConfig(offPreset),
-    "recommended-legacy": createLegacyConfig(recommendedPreset),
-    "recommended-type-checked-legacy": createLegacyConfig(recommendedTypeCheckedPreset),
+    ["all"]: allConfig,
+    ["disable-conflict-eslint-plugin-react"]: disableConflictEslintPluginReact,
+    ["disable-conflict-eslint-plugin-react-hooks"]: disableConflictEslintPluginReactHooks,
+    ["disable-dom"]: disableDomConfig,
+    ["disable-experimental"]: disableExperimentalConfig,
+    ["disable-rsc"]: disableRscConfig,
+    ["disable-type-checked"]: disableTypeCheckedConfig,
+    ["disable-web-api"]: disableWebApiConfig,
+    ["dom"]: domConfig,
+    ["no-deprecated"]: noDeprecatedConfig,
+    ["off"]: offConfig,
+    ["recommended"]: recommendedConfig,
+    ["recommended-type-checked"]: recommendedTypeCheckedConfig,
+    ["recommended-typescript"]: recommendedTypeScriptConfig,
+    ["rsc"]: rscConfig,
+    ["strict"]: strictConfig,
+    ["strict-type-checked"]: strictTypeCheckedConfig,
+    ["strict-typescript"]: strictTypescriptConfig,
+    ["web-api"]: webApiConfig,
+    ["x"]: xConfig,
   },
   rules: {
-    ...reactCore.rules,
-    ...padKeysLeft(reactDom.rules, "dom/"),
-    ...padKeysLeft(reactHooksExtra.rules, "hooks-extra/"),
-    ...padKeysLeft(reactNamingConvention.rules, "naming-convention/"),
+    ...react.rules,
   },
-} as const;
+};
+
+export default plugin;

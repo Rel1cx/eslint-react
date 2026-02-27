@@ -1,0 +1,61 @@
+---
+title: no-children-for-each
+description: Disallows the use of `Children.forEach` from the `react` package.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-children-for-each
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-children-for-each
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React, { Children } from "react";
+
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  const result = [];
+  Children.forEach(children, (child, index) => {
+    result.push(child);
+    result.push(<hr key={index} />);
+  });
+  // ...
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-for-each/no-children-for-each.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-for-each/no-children-for-each.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Children`](https://react.dev/reference/react/Children)
+

@@ -1,0 +1,67 @@
+---
+title: Presets
+---
+
+The following presets are available in `@eslint-react/eslint-plugin`:
+
+## Bare Bones
+
+- `x`\
+  Enable rules for React.
+- `rsc`\
+  Enable rules for React Server Components.
+- `dom`\
+  Enable rules for React DOM.
+- `web-api`\
+  Enable rules for interacting with Web APIs.
+
+## General Purpose
+
+- `recommended`\
+  Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
+  _This preset includes the `x`, `rsc`, `dom`, and `web-api` presets._
+
+- `strict`\
+  Same as the `recommended` preset but enables additional strict rules.
+
+## TypeScript Specialized
+
+- `recommended-typescript`\
+  Same as the `recommended` preset but disables rules that TypeScript can enforce.
+
+- `recommended-type-checked`\
+  Same as the `recommended-typescript` preset but enables additional rules that require type information.
+
+- `strict-typescript`\
+  Same as the `strict` preset but disables rules that TypeScript can enforce.
+
+- `strict-type-checked`\
+  Same as the `strict-typescript` preset but enables additional rules that require type information.
+
+### Category Based
+
+- `no-deprecated`\
+  Enable all rules that disallow deprecated React APIs with "error" severity.
+
+## Other
+
+- `disable-rsc`\
+  Disable rules in the `rsc` preset.
+- `disable-dom`\
+  Disable rules in the `dom` preset.
+- `disable-web-api`\
+  Disable rules in the `web-api` preset.
+- `disable-experimental`\
+  Disable rules that have an "🧪 Experimental" feature flag.
+- `disable-type-checked`\
+  Disable rules that require type information.
+- `disable-conflict-eslint-plugin-react`\
+  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
+- `disable-conflict-eslint-plugin-react-hooks`\
+  Disable rules in `eslint-plugin-react-hooks` that conflict with rules in our plugins.
+- `off`\
+  Disable all rules in this plugin except for debug rules.
+
+## References
+
+- [Removed Presets](/docs/removed#presets)

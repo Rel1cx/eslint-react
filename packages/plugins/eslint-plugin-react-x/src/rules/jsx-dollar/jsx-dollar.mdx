@@ -1,0 +1,99 @@
+---
+title: jsx-dollar
+description: Prevents unintentional '$' sign before expression.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/jsx-dollar
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/jsx-dollar
+```
+
+**Features**
+
+`🔧`
+
+**Presets**
+
+-
+
+## Rule Details
+
+This can happen when refactoring from a template literal to JSX and forgetting to remove the dollar sign. This results in an unintentional `$` being rendered in the output.
+
+```tsx
+function MyComponent({ user }) {
+  return `Hello ${user.name}`;
+}
+```
+
+When refactored to JSX, it might look like this:
+
+```tsx
+function MyComponent({ user }) {
+  return <>Hello ${user.name}</>;
+}
+```
+
+In this example, the `$` before `{user.name}` is unnecessary and will be rendered as part of the output.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent({ user }) {
+  return <div>Hello ${user.name}</div>;
+  //                ^ Possible unintentional '$' sign before expression.
+}
+```
+
+```tsx
+function MyComponent({ user }) {
+  return <div>${user.name} is your name</div>;
+  //          ^ Possible unintentional '$' sign before expression.
+}
+```
+
+```tsx
+function MyComponent({ count, total }) {
+  return <div>Progress: ${count} / ${total}</div>;
+  //                     ^         ^ Possible unintentional '$' sign before expression.
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent({ user }) {
+  return `Hello ${user.name}`;
+}
+```
+
+```tsx
+function MyComponent({ user }) {
+  return <div>Hello {user.name}</div>;
+}
+```
+
+```tsx
+function MyComponent({ price }) {
+  return <div>${price}</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-dollar/jsx-dollar.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-dollar/jsx-dollar.spec.ts)
+
+## Further Reading
+
+- [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)
+- [MDN: Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)

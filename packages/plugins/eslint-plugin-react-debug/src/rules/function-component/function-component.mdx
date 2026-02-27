@@ -1,0 +1,67 @@
+---
+title: function-component
+description: Reports all function components in JSON format. Useful for debugging. This rule should only be used for debugging purposes; otherwise leave it off.
+---
+
+**Full Name in `eslint-plugin-react-debug`**
+
+```plain copy
+react-debug/function-component
+```
+
+**Features**
+
+`🐞`
+
+**Presets**
+
+-
+
+## Rule Details
+
+```tsx
+function MyComponent() {
+  return <button />;
+}
+```
+
+```tsx
+const MyComponent = () => <button />;
+```
+
+```tsx
+import React from "react";
+
+const MyComponent = React.memo(() => <button />);
+```
+
+```tsx
+import React from "react";
+
+const MyComponent = React.forwardRef(() => <button />);
+```
+
+```tsx
+import React,{ useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {}}, []);
+}
+```
+
+```tsx
+function MyComponent() {
+  "use memo";
+}
+```
+
+```tsx
+function MyComponent() {
+  "use no memo";
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug/src/rules/function-component/function-component.spec.ts)

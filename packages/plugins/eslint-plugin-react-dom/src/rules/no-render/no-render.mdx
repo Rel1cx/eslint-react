@@ -1,0 +1,62 @@
+---
+title: no-render
+description: Replaces usage of 'ReactDOM.render()' with 'createRoot(node).render()'.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/dom/no-render
+```
+
+**Full Name in `eslint-plugin-react-dom`**
+
+```plain copy
+react-dom/no-render
+```
+
+**Features**
+
+`🔄`
+
+**Presets**
+
+`dom`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import Component from "Component";
+import ReactDOM from "react-dom";
+
+ReactDOM.render(<Component />, document.getElementById("app"));
+```
+
+### Valid
+
+```tsx
+import Component from "Component";
+import { createRoot } from "react-dom/client";
+
+createRoot(document.getElementById("app")).render(<Component />);
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-render/no-render.spec.ts)
+
+## Further Reading
+
+- [React Docs: `render`](https://18.react.dev/reference/react-dom/render)
+- [React Docs: `createRoot`](https://react.dev/reference/react-dom/client/createRoot)

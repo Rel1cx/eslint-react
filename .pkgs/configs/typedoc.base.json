@@ -1,0 +1,39 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "cleanOutputDir": true,
+  "disableSources": true,
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "excludeInternal": true,
+  "expandObjects": true,
+  "expandParameters": true,
+  "hideGenerator": true,
+  "hidePageHeader": true,
+  "hidePageTitle": false,
+  "indexFormat": "table",
+  "parametersFormat": "table",
+  "interfacePropertiesFormat": "table",
+  "classPropertiesFormat": "table",
+  "typeAliasPropertiesFormat": "table",
+  "enumMembersFormat": "table",
+  "propertyMembersFormat": "table",
+  "typeDeclarationFormat": "table",
+  "jsDocCompatibility": true,
+  "logLevel": "Warn",
+  "name": "Public APIs",
+  "out": "docs",
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-mdn-links"
+  ],
+  "readme": "none",
+  "sort": [
+    "kind",
+    "instance-first",
+    "alphabetical"
+  ],
+  "theme": "default",
+  "useCodeBlocks": true,
+  "useTsLinkResolution": true
+}

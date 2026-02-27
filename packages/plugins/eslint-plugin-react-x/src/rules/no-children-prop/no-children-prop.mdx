@@ -1,0 +1,60 @@
+---
+title: no-children-prop
+description: Disallows passing `children` as a prop.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-children-prop
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-children-prop
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Most of the time, `children` should be actual children, not passed in as a prop.
+
+When using JSX, `children` should be nested between the opening and closing tags. When not using JSX, `children` should be passed as additional arguments to `React.createElement`.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  return <div children={children} />;
+  //          ^^^ Children should always be actual children, not passed in as a prop.
+}
+```
+
+### Valid
+
+```tsx
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  return <div>{children}</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-prop/no-children-prop.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-prop/no-children-prop.spec.ts)

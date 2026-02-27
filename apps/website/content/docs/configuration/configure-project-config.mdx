@@ -1,0 +1,56 @@
+---
+title: "Configure Project Config"
+---
+
+import { JSXConfigTypeTable } from "./configure-project-config";
+
+ESLint React uses your [Project Config](/docs/glossary#project-config) for static analysis. This page details which options are used and how they affect the linting process.
+
+## JSX Transform
+
+ESLint React uses [compiler options](https://www.typescriptlang.org/tsconfig/#compilerOptions) in `tsconfig.json` or `jsconfig.json` to determine the JSX transform the project is using.
+
+The following compiler options are respected:
+
+<JSXConfigTypeTable />
+
+**If nothing is specified, it defaults to [`automatic`](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)**.
+
+Since this part does not perform type checking, there is **almost no performance impact**.
+
+## Type Information
+
+ESLint React uses the Typed Linting API from `typescript-eslint` to retrieve type information for the rules that require it.
+
+The following rules require type information:
+
+- [`react-x/no-implicit-key`](/docs/rules/no-implicit-key)
+- [`react-x/no-leaked-conditional-rendering`](/docs/rules/no-leaked-conditional-rendering)
+- [`react-x/no-unused-props`](/docs/rules/no-unused-props)
+
+<Callout type="warning">
+  Some rules, such as `react-x/no-leaked-conditional-rendering`, work better when certain TypeScript compiler options are enabled. We recommend enabling `strictNullChecks` in your `tsconfig.json` or `jsconfig.json`:
+
+  ```json
+  {
+    "compilerOptions": {
+      "strictNullChecks": true,
+      // ...
+    }
+  }
+  ```
+</Callout>
+
+**The `project` or `projectService` options in `parserOptions` must be set correctly for the rules to work**.
+
+Enabling these rules **will have performance impact**, but they are more powerful than traditional lint rules.
+
+## Resources
+
+For more information, see:
+
+- [TSConfig Reference](https://www.typescriptlang.org/tsconfig#JavaScript-Project-Configuration)
+- [TypeScript ESLint Parser Options](https://typescript-eslint.io/packages/parser)
+  - [`project`](https://typescript-eslint.io/packages/parser/#project)
+  - [`projectService`](https://typescript-eslint.io/packages/parser/#projectservice)
+- [Linting with Type Information](https://typescript-eslint.io/getting-started/typed-linting/)

@@ -1,0 +1,93 @@
+---
+title: no-class-component
+description: Disallows class components except for error boundaries.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-class-component
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-class-component
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Component is the base class for React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
+
+We recommend defining components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {
+  name: string;
+}
+
+class MyComponent extends React.Component<MyComponentProps> {
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+```
+
+### Valid
+
+```tsx
+interface MyComponentProps {
+  name: string;
+}
+
+function MyComponent({ name }: MyComponentProps) {
+  return <h1>Hello, {name}!</h1>;
+}
+```
+
+```tsx
+import React, { Component } from "react";
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+// This is an exception to the rule, as ErrorBoundary is a special case.
+class ErrorBoundary extends Component<ErrorBoundaryProps> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component/no-class-component.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-class-component/no-class-component.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Component`](https://react.dev/reference/react/Component)
+

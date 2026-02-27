@@ -1,0 +1,61 @@
+---
+title: no-dangerously-set-innerhtml-with-children
+description: Disallows DOM elements from using 'dangerouslySetInnerHTML' and 'children' at the same time.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/dom/no-dangerously-set-innerhtml-with-children
+```
+
+**Full Name in `eslint-plugin-react-dom`**
+
+```plain copy
+react-dom/no-dangerously-set-innerhtml-with-children
+```
+
+**Presets**
+
+`dom`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+When using `dangerouslySetInnerHTML`, the content of the DOM element is set from the `__html` property. The content of the DOM element is completely replaced, so the children will not be rendered as expected.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent() {
+  return (
+    <div dangerouslySetInnerHTML={{ __html: "Hello World" }}>
+      <p>Goodbye World</p>
+    </div>
+  );
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children/no-dangerously-set-innerhtml-with-children.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml-with-children/no-dangerously-set-innerhtml-with-children.spec.ts)
+
+## Further Reading
+
+- [React Docs: `dangerouslySetInnerHTML`](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html)

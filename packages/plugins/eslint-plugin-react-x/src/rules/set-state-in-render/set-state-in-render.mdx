@@ -1,0 +1,220 @@
+---
+title: set-state-in-render
+description: Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/set-state-in-render
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/set-state-in-render
+```
+
+**Features**
+
+`🧪`
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Calling `setState` during render unconditionally triggers another render before the current one finishes. This creates an infinite loop that crashes your app.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+// ❌ Unconditional setState directly in render
+function Component({ value }) {
+  const [count, setCount] = useState(0);
+  setCount(value); // Infinite loop!
+  return <div>{count}</div>;
+}
+```
+
+### Valid
+
+```tsx
+// ✅ Derive during render
+function Component({ items }) {
+  const sorted = [...items].sort(); // Just calculate it in render
+  return <ul>{sorted.map(/*...*/)}</ul>;
+}
+```
+
+```tsx
+// ✅ Set state in event handler
+function Component() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+// ✅ Derive from props instead of setting state
+function Component({ user }) {
+  const name = user?.name || '';
+  const email = user?.email || '';
+  return <div>{name}</div>;
+}
+```
+
+```tsx
+// ✅ Conditionally derive state from props and state from previous renders
+function Component({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  const [prevItems, setPrevItems] = useState(items);
+  if (items !== prevItems) { // This condition makes it valid
+    setPrevItems(items);
+    setSelection(null);
+  }
+  // ...
+}
+```
+
+## Troubleshooting
+
+### I want to sync state to a prop
+
+A common problem is trying to "fix" state after it renders. Suppose you want to keep a counter from exceeding a `max` prop:
+
+```tsx
+// ❌ Wrong: clamps during render
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  if (count > max) {
+    setCount(max);
+  }
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+As soon as `count` exceeds `max`, an infinite loop is triggered.
+
+Instead, it's often better to move this logic to the event (the place where the state is first set). For example, you can enforce the maximum at the moment you update state:
+
+```tsx
+// ✅ Clamp when updating
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(current => Math.min(current + 1, max));
+  };
+
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+Now the setter only runs in response to the click, React finishes the render normally, and `count` never crosses `max`.
+
+In rare cases, you may need to adjust state based on information from previous renders. For those, follow the pattern of [setting state conditionally](https://react.dev/reference/react/useState#storing-information-from-previous-renders).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import { useState } from "react";
+
+function Component({ value }) {
+  const [count, setCount] = useState(0);
+  // 🔴 Unconditional setState directly in render
+  setCount(value);
+  return <div>{count}</div>;
+}
+```
+
+### Valid
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+  // ✅ Set state in event handler
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+### Valid (Event Handler)
+
+```tsx
+import { useState } from "react";
+
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+  // ✅ Clamp when updating
+  const increment = () => {
+    setCount(current => Math.min(current + 1, max));
+  };
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+### Valid (Conditional State Update)
+
+```tsx
+import { useState } from "react";
+
+function Component({ items }) {
+  const [isReverse, setIsReverse] = useState(false);
+  const [selection, setSelection] = useState(null);
+
+  // ✅ Conditionally derive state from props and state from previous renders
+  const [prevItems, setPrevItems] = useState(items);
+  if (items !== prevItems) {
+    setPrevItems(items);
+    setSelection(null);
+  }
+  // ...
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-render/set-state-in-render.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-render/set-state-in-render.spec.ts)
+
+## Further Reading
+
+- [React Docs: `useState`](https://react.dev/reference/react/useState)
+- [React Docs: `set-state-in-render` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render)

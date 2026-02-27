@@ -1,1431 +1,164 @@
-@eslint-react/core
-
 # @eslint-react/core
 
-## Table of contents
+## Namespaces
 
-### Interfaces
+| Namespace | Description |
+| ------ | ------ |
+| [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md) | - |
+| [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md) | - |
+| [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md) | - |
+| [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md) | - |
+| [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md) | - |
 
-- [ERClassComponent](interfaces/ERClassComponent.md)
-- [ERFunctionComponent](interfaces/ERFunctionComponent.md)
-- [ERHook](interfaces/ERHook.md)
-- [ERSemanticNode](interfaces/ERSemanticNode.md)
+## Interfaces
 
-### Type Aliases
-
-- [ERClassComponentFlag](README.md#erclasscomponentflag)
-- [ERComponent](README.md#ercomponent)
-- [ERComponentHint](README.md#ercomponenthint)
-- [ERComponentInitPath](README.md#ercomponentinitpath)
-- [ERComponentKind](README.md#ercomponentkind)
-- [ERFunctionComponentFlag](README.md#erfunctioncomponentflag)
-
-### Variables
-
-- [DEFAULT\_COMPONENT\_HINT](README.md#default_component_hint)
-- [ERClassComponentFlag](README.md#erclasscomponentflag-1)
-- [ERComponentHint](README.md#ercomponenthint-1)
-- [ERFunctionComponentFlag](README.md#erfunctioncomponentflag-1)
-- [RE\_COMPONENT\_NAME](README.md#re_component_name)
-- [RE\_HOOK\_NAME](README.md#re_hook_name)
-
-### Functions
-
-- [getComponentInitPath](README.md#getcomponentinitpath)
-- [getComponentNameFromIdentifier](README.md#getcomponentnamefromidentifier)
-- [getFunctionComponentIdentifier](README.md#getfunctioncomponentidentifier)
-- [getParentClassComponent](README.md#getparentclasscomponent)
-- [hasCallInInitPath](README.md#hascallininitpath)
-- [hasNoneOrValidComponentName](README.md#hasnoneorvalidcomponentname)
-- [isChildrenCount](README.md#ischildrencount)
-- [isChildrenCountCall](README.md#ischildrencountcall)
-- [isChildrenForEach](README.md#ischildrenforeach)
-- [isChildrenForEachCall](README.md#ischildrenforeachcall)
-- [isChildrenMap](README.md#ischildrenmap)
-- [isChildrenMapCall](README.md#ischildrenmapcall)
-- [isChildrenOnly](README.md#ischildrenonly)
-- [isChildrenOnlyCall](README.md#ischildrenonlycall)
-- [isChildrenToArray](README.md#ischildrentoarray)
-- [isChildrenToArrayCall](README.md#ischildrentoarraycall)
-- [isClassComponent](README.md#isclasscomponent)
-- [isCloneElement](README.md#iscloneelement)
-- [isCloneElementCall](README.md#iscloneelementcall)
-- [isComponentName](README.md#iscomponentname)
-- [isCreateContext](README.md#iscreatecontext)
-- [isCreateContextCall](README.md#iscreatecontextcall)
-- [isCreateElement](README.md#iscreateelement)
-- [isCreateElementCall](README.md#iscreateelementcall)
-- [isCreateRef](README.md#iscreateref)
-- [isCreateRefCall](README.md#iscreaterefcall)
-- [isForwardRef](README.md#isforwardref)
-- [isForwardRefCall](README.md#isforwardrefcall)
-- [isFunctionOfRenderMethod](README.md#isfunctionofrendermethod)
-- [isInsideReactHook](README.md#isinsidereacthook)
-- [isInsideReactHookCall](README.md#isinsidereacthookcall)
-- [isInsideRenderMethod](README.md#isinsiderendermethod)
-- [isMemo](README.md#ismemo)
-- [isMemoCall](README.md#ismemocall)
-- [isPureComponent](README.md#ispurecomponent)
-- [isReactAPICallWithName](README.md#isreactapicallwithname)
-- [isReactAPIWithName](README.md#isreactapiwithname)
-- [isReactHook](README.md#isreacthook)
-- [isReactHookCall](README.md#isreacthookcall)
-- [isReactHookCallWithName](README.md#isreacthookcallwithname)
-- [isReactHookCallWithNameLoose](README.md#isreacthookcallwithnameloose)
-- [isReactHookName](README.md#isreacthookname)
-- [isUseCallbackCall](README.md#isusecallbackcall)
-- [isUseContextCall](README.md#isusecontextcall)
-- [isUseDebugValueCall](README.md#isusedebugvaluecall)
-- [isUseDeferredValueCall](README.md#isusedeferredvaluecall)
-- [isUseEffectCall](README.md#isuseeffectcall)
-- [isUseIdCall](README.md#isuseidcall)
-- [isUseImperativeHandleCall](README.md#isuseimperativehandlecall)
-- [isUseInsertionEffectCall](README.md#isuseinsertioneffectcall)
-- [isUseLayoutEffectCall](README.md#isuselayouteffectcall)
-- [isUseMemoCall](README.md#isusememocall)
-- [isUseReducerCall](README.md#isusereducercall)
-- [isUseRefCall](README.md#isuserefcall)
-- [isUseStateCall](README.md#isusestatecall)
-- [isUseSyncExternalStoreCall](README.md#isusesyncexternalstorecall)
-- [isUseTransitionCall](README.md#isusetransitioncall)
-- [unsafeIsDeclaredInRenderProp](README.md#unsafeisdeclaredinrenderprop)
-- [unsafeIsRenderFunction](README.md#unsafeisrenderfunction)
-- [unsafeIsRenderProp](README.md#unsafeisrenderprop)
-- [useComponentCollector](README.md#usecomponentcollector)
-- [useComponentCollectorLegacy](README.md#usecomponentcollectorlegacy)
-- [useHookCollector](README.md#usehookcollector)
+| Interface | Description |
+| ------ | ------ |
+| [ClassComponentSemanticNode](interfaces/ClassComponentSemanticNode.md) | Represents a React Class Component |
+| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React Client Function |
+| [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
+| [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST This interface extends SemanticNode and provides additional properties for React hook analysis |
+| [JsxConfig](interfaces/JsxConfig.md) | - |
+| [SemanticFunc](interfaces/SemanticFunc.md) | Represents a semantic function node in the AST This interface extends SemanticNode and provides additional properties for function analysis |
+| [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
+| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a React Server Function |
 
 ## Type Aliases
 
-### ERClassComponentFlag
-
-Ƭ **ERClassComponentFlag**: `bigint`
-
-___
-
-### ERComponent
-
-Ƭ **ERComponent**: [`ERClassComponent`](interfaces/ERClassComponent.md) \| [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)
-
-___
-
-### ERComponentHint
-
-Ƭ **ERComponentHint**: `bigint`
-
-___
-
-### ERComponentInitPath
-
-Ƭ **ERComponentInitPath**: readonly [`TSESTree.FunctionDeclaration`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.VariableDeclaration`, `TSESTree.VariableDeclarator`, `TSESTree.ObjectExpression`, `TSESTree.Property`, `TSESTree.CallExpression`, `TSESTree.CallExpression`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.MethodDefinition`, `TSESTreeFunction`] \| readonly [`TSESTree.ClassDeclaration`, `TSESTree.ClassBody`, `TSESTree.PropertyDefinition`, `TSESTreeFunction`]
-
-___
-
-### ERComponentKind
-
-Ƭ **ERComponentKind**: ``"class"`` \| ``"function"``
-
-___
-
-### ERFunctionComponentFlag
-
-Ƭ **ERFunctionComponentFlag**: `bigint`
+| Type Alias | Description |
+| ------ | ------ |
+| [ComponentDetectionHint](type-aliases/ComponentDetectionHint.md) | Hints for component collector |
+| [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
+| [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a React function |
+| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
+| [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
+| [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 
 ## Variables
 
-### DEFAULT\_COMPONENT\_HINT
-
-• `Const` **DEFAULT\_COMPONENT\_HINT**: `bigint`
-
-___
-
-### ERClassComponentFlag
-
-• **ERClassComponentFlag**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `None` | `bigint` |
-| `PureComponent` | `bigint` |
-
-___
-
-### ERComponentHint
-
-• **ERComponentHint**: `Object`
-
-hints for component collector
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `None` | `0n` |
-| `SkipBooleanLiteral` | `bigint` |
-| `SkipClassMethod` | `bigint` |
-| `SkipClassProperty` | `bigint` |
-| `SkipCreateElement` | `bigint` |
-| `SkipForwardRef` | `bigint` |
-| `SkipMapCallback` | `bigint` |
-| `SkipMemo` | `bigint` |
-| `SkipNullLiteral` | `bigint` |
-| `SkipNumberLiteral` | `bigint` |
-| `SkipObjectMethod` | `bigint` |
-| `SkipStringLiteral` | `bigint` |
-| `SkipUndefinedLiteral` | `bigint` |
-| `StrictArray` | `bigint` |
-| `StrictConditional` | `bigint` |
-| `StrictLogical` | `bigint` |
-
-___
-
-### ERFunctionComponentFlag
-
-• **ERFunctionComponentFlag**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `ForwardRef` | `bigint` |
-| `Memo` | `bigint` |
-| `None` | `bigint` |
-
-___
-
-### RE\_COMPONENT\_NAME
-
-• `Const` **RE\_COMPONENT\_NAME**: `RegExp`
-
-___
-
-### RE\_HOOK\_NAME
-
-• `Const` **RE\_HOOK\_NAME**: `RegExp`
+| Variable | Description |
+| ------ | ------ |
+| [ComponentDetectionHint](variables/ComponentDetectionHint.md) | Hints for component collector |
+| [ComponentFlag](variables/ComponentFlag.md) | Component flag constants |
+| [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
+| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration Skips undefined and boolean literals (common in React) |
+| [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
+| [isCaptureOwnerStackCall](variables/isCaptureOwnerStackCall.md) | - |
+| [isChildrenCount](variables/isChildrenCount.md) | - |
+| [isChildrenCountCall](variables/isChildrenCountCall.md) | - |
+| [isChildrenForEach](variables/isChildrenForEach.md) | - |
+| [isChildrenForEachCall](variables/isChildrenForEachCall.md) | - |
+| [isChildrenMap](variables/isChildrenMap.md) | - |
+| [isChildrenMapCall](variables/isChildrenMapCall.md) | - |
+| [isChildrenOnly](variables/isChildrenOnly.md) | - |
+| [isChildrenOnlyCall](variables/isChildrenOnlyCall.md) | - |
+| [isChildrenToArray](variables/isChildrenToArray.md) | - |
+| [isChildrenToArrayCall](variables/isChildrenToArrayCall.md) | - |
+| [isCloneElement](variables/isCloneElement.md) | - |
+| [isCloneElementCall](variables/isCloneElementCall.md) | - |
+| [isComponentDidCatch](variables/isComponentDidCatch.md) | - |
+| [isComponentDidMount](variables/isComponentDidMount.md) | - |
+| [isComponentDidUpdate](variables/isComponentDidUpdate.md) | - |
+| [isComponentWillMount](variables/isComponentWillMount.md) | - |
+| [isComponentWillReceiveProps](variables/isComponentWillReceiveProps.md) | - |
+| [isComponentWillUnmount](variables/isComponentWillUnmount.md) | - |
+| [isComponentWillUpdate](variables/isComponentWillUpdate.md) | - |
+| [isCreateContext](variables/isCreateContext.md) | - |
+| [isCreateContextCall](variables/isCreateContextCall.md) | - |
+| [isCreateElement](variables/isCreateElement.md) | - |
+| [isCreateElementCall](variables/isCreateElementCall.md) | - |
+| [isCreateRef](variables/isCreateRef.md) | - |
+| [isCreateRefCall](variables/isCreateRefCall.md) | - |
+| [isForwardRef](variables/isForwardRef.md) | - |
+| [isForwardRefCall](variables/isForwardRefCall.md) | - |
+| [isGetChildContext](variables/isGetChildContext.md) | - |
+| [isGetDefaultProps](variables/isGetDefaultProps.md) | - |
+| [isGetDerivedStateFromError](variables/isGetDerivedStateFromError.md) | - |
+| [isGetDerivedStateFromProps](variables/isGetDerivedStateFromProps.md) | - |
+| [isGetInitialState](variables/isGetInitialState.md) | - |
+| [isGetSnapshotBeforeUpdate](variables/isGetSnapshotBeforeUpdate.md) | - |
+| [isLazy](variables/isLazy.md) | - |
+| [isLazyCall](variables/isLazyCall.md) | - |
+| [isMemo](variables/isMemo.md) | - |
+| [isMemoCall](variables/isMemoCall.md) | - |
+| [isRender](variables/isRender.md) | - |
+| [isShouldComponentUpdate](variables/isShouldComponentUpdate.md) | - |
+| [isUnsafeComponentWillMount](variables/isUnsafeComponentWillMount.md) | - |
+| [isUnsafeComponentWillReceiveProps](variables/isUnsafeComponentWillReceiveProps.md) | - |
+| [isUnsafeComponentWillUpdate](variables/isUnsafeComponentWillUpdate.md) | - |
+| [isUseActionStateCall](variables/isUseActionStateCall.md) | - |
+| [isUseCall](variables/isUseCall.md) | - |
+| [isUseCallbackCall](variables/isUseCallbackCall.md) | - |
+| [isUseContextCall](variables/isUseContextCall.md) | - |
+| [isUseDebugValueCall](variables/isUseDebugValueCall.md) | - |
+| [isUseDeferredValueCall](variables/isUseDeferredValueCall.md) | - |
+| [isUseEffectCall](variables/isUseEffectCall.md) | - |
+| [isUseFormStatusCall](variables/isUseFormStatusCall.md) | - |
+| [isUseIdCall](variables/isUseIdCall.md) | - |
+| [isUseImperativeHandleCall](variables/isUseImperativeHandleCall.md) | - |
+| [isUseInsertionEffectCall](variables/isUseInsertionEffectCall.md) | - |
+| [isUseLayoutEffectCall](variables/isUseLayoutEffectCall.md) | - |
+| [isUseMemoCall](variables/isUseMemoCall.md) | - |
+| [isUseOptimisticCall](variables/isUseOptimisticCall.md) | - |
+| [isUseReducerCall](variables/isUseReducerCall.md) | - |
+| [isUseRefCall](variables/isUseRefCall.md) | - |
+| [isUseStateCall](variables/isUseStateCall.md) | - |
+| [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md) | - |
+| [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
+| [JsxDetectionHint](variables/JsxDetectionHint.md) | - |
+| [JsxEmit](variables/JsxEmit.md) | - |
+| [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
 
 ## Functions
 
-### getComponentInitPath
-
-▸ **getComponentInitPath**(`node`): `O.Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTreeFunction` |
-
-#### Returns
-
-`O.Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\>
-
-___
-
-### getComponentNameFromIdentifier
-
-▸ **getComponentNameFromIdentifier**(`node`): `string`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `Identifier`[] |
-
-#### Returns
-
-`string`
-
-___
-
-### getFunctionComponentIdentifier
-
-▸ **getFunctionComponentIdentifier**(`node`, `context`): `O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTreeFunction` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`O.Option`\<`TSESTree.Identifier` \| `TSESTree.Identifier`[]\>
-
-___
-
-### getParentClassComponent
-
-▸ **getParentClassComponent**(`node`, `context`): `O.Option`\<`TSESTreeClass`\>
-
-Get the parent class component of a node up to global scope
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node to start searching from |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-`O.Option`\<`TSESTreeClass`\>
-
-**`Deprecated`**
-
-It will be removed in the future
-
-___
-
-### hasCallInInitPath
-
-▸ **hasCallInInitPath**(`callName`): (`initPath`: `Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\>) => `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `callName` | `string` |
-
-#### Returns
-
-`fn`
-
-▸ (`initPath`): `boolean`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `initPath` | `Option`\<[`ERComponentInitPath`](README.md#ercomponentinitpath)\> |
-
-##### Returns
-
-`boolean`
-
-___
-
-### hasNoneOrValidComponentName
-
-▸ **hasNoneOrValidComponentName**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTreeFunction` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenCount
-
-▸ **isChildrenCount**(`node`, `context`, `pragma?`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenCountCall
-
-▸ **isChildrenCountCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenForEach
-
-▸ **isChildrenForEach**(`node`, `context`, `pragma?`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenForEachCall
-
-▸ **isChildrenForEachCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenMap
-
-▸ **isChildrenMap**(`node`, `context`, `pragma?`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenMapCall
-
-▸ **isChildrenMapCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenOnly
-
-▸ **isChildrenOnly**(`node`, `context`, `pragma?`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenOnlyCall
-
-▸ **isChildrenOnlyCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenToArray
-
-▸ **isChildrenToArray**(`node`, `context`, `pragma?`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma?` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isChildrenToArrayCall
-
-▸ **isChildrenToArrayCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isClassComponent
-
-▸ **isClassComponent**(`node`, `context`): node is TSESTreeClass
-
-Check if a node is a React class component
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-node is TSESTreeClass
-
-___
-
-### isCloneElement
-
-▸ **isCloneElement**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCloneElementCall
-
-▸ **isCloneElementCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isComponentName
-
-▸ **isComponentName**(`name`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateContext
-
-▸ **isCreateContext**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateContextCall
-
-▸ **isCreateContextCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateElement
-
-▸ **isCreateElement**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateElementCall
-
-▸ **isCreateElementCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateRef
-
-▸ **isCreateRef**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isCreateRefCall
-
-▸ **isCreateRefCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isForwardRef
-
-▸ **isForwardRef**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isForwardRefCall
-
-▸ **isForwardRefCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isFunctionOfRenderMethod
-
-▸ **isFunctionOfRenderMethod**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTreeFunction` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isInsideReactHook
-
-▸ **isInsideReactHook**(`node`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isInsideReactHookCall
-
-▸ **isInsideReactHookCall**(`node`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Node` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isInsideRenderMethod
-
-▸ **isInsideRenderMethod**(`node`, `context`): `boolean`
-
-Check whether given node is declared inside class component's render block
-```jsx
-class Component extends React.Component {
-  render() {
-    class NestedClassComponent extends React.Component {
-     render() { return <div />; }
-    }
-    const nestedFunctionComponent = () => <div />;
- }
-}
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node being checked |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |  |
-
-#### Returns
-
-`boolean`
-
-`true` if node is inside class component's render block, `false` if not
-
-**`Deprecated`**
-
-It will be removed in the future
-
-___
-
-### isMemo
-
-▸ **isMemo**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `Identifier` \| `MemberExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isMemoCall
-
-▸ **isMemoCall**(`node`, `context`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isPureComponent
-
-▸ **isPureComponent**(`node`, `context`): `boolean`
-
-Check if a node is a React PureComponent
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isReactAPICallWithName
-
-▸ **isReactAPICallWithName**(`name`): `ReturnType`\<typeof `isCallFromPragma`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isCallFromPragma`\>
-
-▸ **isReactAPICallWithName**(`name`, `member`): `ReturnType`\<typeof `isCallFromPragmaMember`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `member` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isCallFromPragmaMember`\>
-
-___
-
-### isReactAPIWithName
-
-▸ **isReactAPIWithName**(`name`): `ReturnType`\<typeof `isFromPragma`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isFromPragma`\>
-
-▸ **isReactAPIWithName**(`name`, `member`): `ReturnType`\<typeof `isFromPragmaMember`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `member` | `string` |
-
-#### Returns
-
-`ReturnType`\<typeof `isFromPragmaMember`\>
-
-___
-
-### isReactHook
-
-▸ **isReactHook**(`node`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `TSESTreeFunction` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isReactHookCall
-
-▸ **isReactHookCall**(`node`): `boolean`
-
-Check if the given node is a React Hook call by its name.
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `CallExpression` | The node to check. |
-
-#### Returns
-
-`boolean`
-
-`true` if the node is a React Hook call, `false` otherwise.
-
-___
-
-### isReactHookCallWithName
-
-▸ **isReactHookCallWithName**(`name`): (`node`: `CallExpression`, `context`: `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\>, `pragma`: `string`) => `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`fn`
-
-▸ (`node`, `context`, `pragma`): `boolean`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-##### Returns
-
-`boolean`
-
-___
-
-### isReactHookCallWithNameLoose
-
-▸ **isReactHookCallWithNameLoose**(`name`): (`node`: `CallExpression`) => `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`fn`
-
-▸ (`node`): `boolean`
-
-##### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-
-##### Returns
-
-`boolean`
-
-___
-
-### isReactHookName
-
-▸ **isReactHookName**(`name`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseCallbackCall
-
-▸ **isUseCallbackCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseContextCall
-
-▸ **isUseContextCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseDebugValueCall
-
-▸ **isUseDebugValueCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseDeferredValueCall
-
-▸ **isUseDeferredValueCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseEffectCall
-
-▸ **isUseEffectCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseIdCall
-
-▸ **isUseIdCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseImperativeHandleCall
-
-▸ **isUseImperativeHandleCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseInsertionEffectCall
-
-▸ **isUseInsertionEffectCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseLayoutEffectCall
-
-▸ **isUseLayoutEffectCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseMemoCall
-
-▸ **isUseMemoCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseReducerCall
-
-▸ **isUseReducerCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseRefCall
-
-▸ **isUseRefCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseStateCall
-
-▸ **isUseStateCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseSyncExternalStoreCall
-
-▸ **isUseSyncExternalStoreCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### isUseTransitionCall
-
-▸ **isUseTransitionCall**(`node`, `context`, `pragma`): `boolean`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `node` | `CallExpression` |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-| `pragma` | `string` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### unsafeIsDeclaredInRenderProp
-
-▸ **unsafeIsDeclaredInRenderProp**(`node`): `boolean`
-
-Unsafe check whether given node is declared inside a render prop
-```jsx
-_ = <Component renderRow={"node"} />
-`                         ^^^^^^   `
-_ = <Component rows={ [{ render: "node" }] } />
-`                                ^^^^^^       `
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `Node` | The AST node to check |
-
-#### Returns
-
-`boolean`
-
-`true` if component is declared inside a render prop, `false` if not
-
-___
-
-### unsafeIsRenderFunction
-
-▸ **unsafeIsRenderFunction**(`node`, `context`): `boolean`
-
-Unsafe check whether given node is a render function
-```jsx
-const renderRow = () => <div />
-`                 ^^^^^^^^^^^^`
-_ = <Component renderRow={() => <div />} />
-`                         ^^^^^^^^^^^^^   `
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `TSESTreeFunction` | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-`boolean`
-
-`true` if node is a render function, `false` if not
-
-___
-
-### unsafeIsRenderProp
-
-▸ **unsafeIsRenderProp**(`node`, `context`): `boolean`
-
-Unsafe check whether given JSXAttribute is a render prop
-```jsx
-_ = <Component renderRow={() => <div />} />
-`              ^^^^^^^^^^^^^^^^^^^^^^^^^  `
-```
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `node` | `JSXAttribute` | The AST node to check |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | The rule context |
-
-#### Returns
-
-`boolean`
-
-`true` if node is a render prop, `false` if not
-
-___
-
-### useComponentCollector
-
-▸ **useComponentCollector**(`context`, `hint?`, `pragma?`): `Object`
-
-#### Parameters
-
-| Name | Type | Default value |
-| :------ | :------ | :------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> | `undefined` |
-| `hint` | `bigint` | `DEFAULT_COMPONENT_HINT` |
-| `pragma` | `string` | `undefined` |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getCurrentFunction`: () => `Option`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> ; `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERFunctionComponent`](interfaces/ERFunctionComponent.md)\> ; `getCurrentFunctionStack`: () => [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]][]  } |
-| `ctx.getCurrentFunction` | () => `Option`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> |
-| `ctx.getAllComponents` | [object Object] |
-| `ctx.getCurrentComponents` | [object Object] |
-| `ctx.getCurrentFunctionStack` | [object Object] |
-| `listeners` | \{ `:function`: (`node`: `TSESTreeFunction`) => `MutableList`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> = onFunctionEnter; `:function:exit`: () => `undefined` \| [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]] = onFunctionExit; `ArrowFunctionExpression[body.type!='BlockStatement']`: () => `void` ; `AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']`: (`node`: `Node`) => `void` ; `CallExpression:exit`: (`node`: `CallExpression`) => `void` ; `ReturnStatement`: (`node`: `ReturnStatement`) => `void`  } |
-| `listeners.:function` | (`node`: `TSESTreeFunction`) => `MutableList`\<[node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]]\> |
-| `listeners.:function:exit` | () => `undefined` \| [node: TSESTreeFunction, isComponent: boolean, hookCalls: CallExpression[]] |
-| `listeners.ArrowFunctionExpression[body.type!='BlockStatement']` | [object Object] |
-| `listeners.AssignmentExpression[operator='='][left.type='MemberExpression'][left.property.name='displayName']` | [object Object] |
-| `listeners.CallExpression:exit` | [object Object] |
-| `listeners.ReturnStatement` | [object Object] |
-
-___
-
-### useComponentCollectorLegacy
-
-▸ **useComponentCollectorLegacy**(`context`): `Object`
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `context` | `Readonly`\<`RuleContext`\<`string`, readonly `unknown`[]\>\> |
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getAllComponents`: (`_`: `Program`) => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\> ; `getCurrentComponents`: () => `Map`\<`string`, [`ERClassComponent`](interfaces/ERClassComponent.md)\>  } |
-| `ctx.getAllComponents` | [object Object] |
-| `ctx.getCurrentComponents` | [object Object] |
-| `listeners` | \{ `ClassDeclaration`: (`node`: `TSESTreeClass`) => `void` = collect; `ClassExpression`: (`node`: `TSESTreeClass`) => `void` = collect } |
-| `listeners.ClassDeclaration` | (`node`: `TSESTreeClass`) => `void` |
-| `listeners.ClassExpression` | (`node`: `TSESTreeClass`) => `void` |
-
-___
-
-### useHookCollector
-
-▸ **useHookCollector**(): `Object`
-
-#### Returns
-
-`Object`
-
-| Name | Type |
-| :------ | :------ |
-| `ctx` | \{ `getAllHooks`: (`_`: `Program`) => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\> ; `getCurrentHooks`: () => `Map`\<`string`, [`ERHook`](interfaces/ERHook.md)\>  } |
-| `ctx.getAllHooks` | [object Object] |
-| `ctx.getCurrentHooks` | [object Object] |
-| `listeners` | `ESLintUtils.RuleListener` |
+| Function | Description |
+| ------ | ------ |
+| [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
+| [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
+| [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
+| [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
+| [getJsxAttribute](functions/getJsxAttribute.md) | Creates a helper function to find a specific JSX attribute by name Handles direct attributes and spread attributes (variables or object literals) |
+| [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
+| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
+| [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
+| [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
+| [getRefInit](functions/getRefInit.md) | Get the init expression of a ref variable |
+| [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
+| [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
+| [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |
+| [isComponentName](functions/isComponentName.md) | Check if a string matches the strict component name pattern |
+| [isComponentNameLoose](functions/isComponentNameLoose.md) | Check if a string matches the loose component name pattern |
+| [isComponentWillUnmountCallback](functions/isComponentWillUnmountCallback.md) | Check if the given node is a componentWillUnmount callback |
+| [isComponentWrapperCall](functions/isComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
+| [isComponentWrapperCallback](functions/isComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
+| [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
+| [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
+| [isFunctionWithLooseComponentName](functions/isFunctionWithLooseComponentName.md) | Check if a function has a loose component name |
+| [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
+| [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
+| [isHookCallWithName](functions/isHookCallWithName.md) | Check if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
+| [isHookId](functions/isHookId.md) | Checks if the given node is a hook identifier |
+| [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
+| [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
+| [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
+| [isInitializedFromRef](functions/isInitializedFromRef.md) | Check if the variable with the given name is initialized or derived from a ref |
+| [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determine if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
+| [isJsxHostElement](functions/isJsxHostElement.md) | Determine if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
+| [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
+| [isJsxText](functions/isJsxText.md) | Check if a node is a `JSXText` or a `Literal` node |
+| [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
+| [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
+| [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
+| [isRefId](functions/isRefId.md) | - |
+| [isRefLikeName](functions/isRefLikeName.md) | Check if a given name corresponds to a ref name |
+| [isRenderMethodCallback](functions/isRenderMethodCallback.md) | Check if the given node is a function within a render method of a class component |
+| [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
+| [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function |
+| [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
+| [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
+| [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detect useState calls and variations (useCustomState, etc.) using a regex pattern |
+| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolve the static value of a JSX attribute or spread attribute |
+| [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
+| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor object for the rule to collect function components |
+| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class componentss |
+| [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor object for the rule to collect hooks |

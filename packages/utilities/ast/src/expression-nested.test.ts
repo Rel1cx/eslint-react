@@ -1,0 +1,115 @@
+/// <reference types="node" />
+
+import { parseForESLint } from "@typescript-eslint/parser";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import tsx from "dedent";
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+
+import { getFixturesRootDir } from "../../../../test";
+
+import { getNestedReturnStatements } from "./expression-nested";
+import { isFunction } from "./node-is";
+import type { TSESTreeFunction } from "./node-types";
+
+function parse(code: string) {
+  return parseForESLint(code, {
+    disallowAutomaticSingleRunInference: true,
+    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
+  });
+}
+
+describe("get nested return statements from function", () => {
+  it.each([
+    [
+      tsx`
+        function Foo() {
+          return <div />;
+        }
+      `,
+      [{ type: AST.ReturnStatement, argument: { type: AST.JSXElement } }],
+    ],
+    [
+      tsx`
+        function Bar() {
+          return Math.random() > 0.5 ? <div /> : null;
+        }
+      `,
+      [{ type: AST.ReturnStatement, argument: { type: AST.ConditionalExpression } }],
+    ],
+    [
+      tsx`
+        function Bar() {
+          if (Math.random() > 0.5) {
+            return <div />;
+          } else {
+            return null;
+          }
+        }
+      `,
+      [
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal } },
+      ],
+    ],
+    [
+      tsx`
+        function Baz() {
+          if (Math.random() > 0.5) {
+            return <div />;
+          }
+          switch (true) {
+            case Math.random() > 0.5:
+              return <span />;
+            case Math.random() > 0.6:
+              return 0;
+          }
+          return 0n;
+        }
+      `,
+      [
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0 } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0n } },
+      ],
+    ],
+    [
+      tsx`
+        function Baz() {
+          if (Math.random() > 0.5) {
+            return <div />;
+          }
+          function f() {
+            return 0;
+          }
+          return 0n;
+        }
+      `,
+      [
+        { type: AST.ReturnStatement, argument: { type: AST.JSXElement } },
+        { type: AST.ReturnStatement, argument: { type: AST.Literal, value: 0n } },
+      ],
+    ],
+  ])("should return the nested return statements from %s", (code, expected) => {
+    let n: null | TSESTreeFunction = null;
+    const { ast } = parse(code);
+    simpleTraverse(ast, {
+      enter(node) {
+        if (n != null) {
+          return;
+        }
+        if (!isFunction(node)) {
+          return;
+        }
+        const returnStatements = getNestedReturnStatements(node);
+        for (const [index, statement] of returnStatements.entries()) {
+          expect(statement).include(expected[index]);
+        }
+        n = node;
+      },
+    }, true);
+    expect(n).not.eq(null);
+  });
+});

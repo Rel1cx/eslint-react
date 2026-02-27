@@ -1,55 +1,56 @@
 {
   "name": "@eslint-react/ast",
-  "version": "1.5.10-next.2",
-  "description": "ESLint React's TSESTree AST primitive utility module.",
-  "homepage": "https://github.com/rel1cx/eslint-react",
+  "version": "3.0.0-beta.59",
+  "description": "ESLint React's TSESTree AST utility module.",
+  "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
-    "url": "https://github.com/rel1cx/eslint-react/issues"
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rel1cx/eslint-react",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
     "directory": "packages/utilities/ast"
   },
   "license": "MIT",
-  "author": "Eva1ent<let@ik.me>",
+  "author": "Rel1cx",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "./package.json"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown --dts-resolve",
     "lint:publish": "publint",
-    "lint:type": "tsc --noEmit",
+    "lint:ts": "tsl",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-community/eslint-utils": "4.4.0",
-    "@eslint-react/tools": "workspace:*",
-    "@eslint-react/types": "workspace:*",
-    "@typescript-eslint/scope-manager": "^7.7.1",
-    "@typescript-eslint/types": "^7.7.1",
-    "@typescript-eslint/utils": "^7.7.1",
-    "string-ts": "2.1.1"
+    "@eslint-react/eff": "workspace:*",
+    "@typescript-eslint/types": "canary",
+    "@typescript-eslint/typescript-estree": "canary",
+    "@typescript-eslint/utils": "canary",
+    "string-ts": "^2.3.1"
   },
   "devDependencies": {
-    "effect": "3.0.5"
+    "@local/configs": "workspace:*",
+    "tsdown": "^0.21.0-beta.2"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+    "typescript": ">=4.8.4 <6.0.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

@@ -1,0 +1,119 @@
+---
+title: no-unused-props
+description: Warns about component props that are defined but never used.
+---
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-unused-props
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-unused-props
+```
+
+**Features**
+
+`💭` `🧪`
+
+**Presets**
+
+`strict-type-checked`
+
+## Rule Details
+
+Unused props increase maintenance overhead and may mislead consumers of the component into thinking the prop is required or meaningful even when it has no effect.
+
+This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md). In contrast to the original rule, this rule
+
+- doesn't support the legacy propTypes syntax
+- combines the used props of one type definition declared by multiple components
+
+## Common Violations
+
+### Invalid
+
+```tsx
+// 'onClick' is defined in 'ButtonProps' but never used in the 'Button' component.
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
+function Button({ children }: ButtonProps) {
+  return <button type="button">{children}</button>;
+}
+```
+
+```tsx
+// 'avatarUrl' is defined in 'UserProfileProps' but never used in the 'UserProfile' component.
+interface UserProfileProps {
+  username: string;
+  avatarUrl: string;
+}
+
+function UserProfile({ username }: UserProfileProps) {
+  return <div>{username}</div>;
+}
+```
+
+### Valid
+
+```tsx
+// All props are used.
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
+function Button({ children, onClick }: ButtonProps) {
+  return (
+    <button type="button" onClick={onClick}>
+      {children}
+    </button>
+  );
+}
+```
+
+```tsx
+// 'className' is passed to the underlying <p> element with the rest of the props.
+// '...rest' is considered a use of all props that are not destructured.
+interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+function Text({ children, ...rest }: TextProps) {
+  return <p {...rest}>{children}</p>;
+}
+```
+
+```tsx
+// Both components use props from the same type definition.
+interface ProfileProps {
+  userId: string; // Used by ProfilePage
+  theme: "light" | "dark"; // Used by ProfileAvatar
+}
+
+function ProfilePage({ userId }: ProfileProps) {
+  // ...
+  return <div>User ID: {userId}</div>;
+}
+
+function ProfileAvatar({ theme }: ProfileProps) {
+  // ...
+  return <div className={theme}>...</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-props/no-unused-props.spec.ts)

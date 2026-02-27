@@ -1,102 +1,70 @@
-import { getClassIdentifier, NodeType, type TSESTreeClass } from "@eslint-react/ast";
-import { getPragmaFromContext } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/types";
+import * as ast from "@eslint-react/ast";
+import { unit } from "@eslint-react/eff";
+import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
-import { Option as O } from "effect";
-import ShortUniqueId from "short-unique-id";
-import { match, P } from "ts-pattern";
 
-import type { ERClassComponent } from "./component";
-import { ERClassComponentFlag } from "./component-flag";
+import { isClassComponent, isPureComponent } from "./component-detection-legacy";
+import { ComponentFlag } from "./component-flag";
+import type { ClassComponentSemanticNode } from "./component-semantic-node";
 
-const uid = new ShortUniqueId({ length: 10 });
+const idGen = new IdGenerator("class-component:");
 
-/**
- * Check if a node is a React class component
- * @param node The AST node to check
- * @param context The rule context
- */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass {
-  if (!("superClass" in node && node.superClass)) return false;
-  const pragma = getPragmaFromContext(context);
-  const { superClass } = node;
-
-  return match(superClass)
-    .with({ type: NodeType.Identifier, name: P.string }, ({ name }) => /^(Pure)?Component$/u.test(name))
-    .with(
-      {
-        type: NodeType.MemberExpression,
-        object: { name: pragma },
-        property: { name: P.string },
-      },
-      ({ property }) => /^(Pure)?Component$/u.test(property.name),
-    )
-    .otherwise(() => false);
+export declare namespace useComponentCollectorLegacy {
+  type ReturnType = {
+    ctx: {
+      getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
+    };
+    visitor: ESLintUtils.RuleListener;
+  };
 }
 
 /**
- * Check if a node is a React PureComponent
- * @param node The AST node to check
- * @param context The rule context
+ * Get a ctx and visitor object for the rule to collect class componentss
+ * @param context The ESLint rule context
+ * @returns The ctx and visitor of the collector
  */
-export function isPureComponent(node: TSESTree.Node, context: RuleContext) {
-  const pragma = getPragmaFromContext(context);
-
-  const { sourceCode } = context;
-
-  if ("superClass" in node && node.superClass) {
-    const text = sourceCode.getText(node.superClass);
-
-    return new RegExp(`^(${pragma}\\.)?PureComponent$`, "u").test(text);
-  }
-
-  return false;
-}
-
-export function useComponentCollectorLegacy(context: RuleContext) {
-  const components = new Map<string, ERClassComponent>();
+export function useComponentCollectorLegacy(context: RuleContext): useComponentCollectorLegacy.ReturnType {
+  const components = new Map<string, ClassComponentSemanticNode>();
 
   const ctx = {
-    getAllComponents(_: TSESTree.Program): typeof components {
-      return components;
-    },
-    getCurrentComponents() {
-      return new Map(components);
+    getAllComponents(node: TSESTree.Program) {
+      return [...components.values()];
     },
   } as const;
 
-  const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(node, context)) return;
-    const id = getClassIdentifier(node);
-    const key = uid.rnd();
-    const flag = isPureComponent(node, context)
-      ? ERClassComponentFlag.PureComponent
-      : ERClassComponentFlag.None;
+  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const collect = (node: ast.TSESTreeClass) => {
+    if (!isClassComponent(node)) {
+      return;
+    }
+    const id = ast.getClassId(node);
+    const key = idGen.next();
+    const name = id == null ? unit : ast.getFullyQualifiedName(id, getText);
+    const flag = isPureComponent(node)
+      ? ComponentFlag.PureComponent
+      : ComponentFlag.None;
     components.set(
       key,
       {
-        _: key,
         id,
-        kind: "class",
-        name: O.flatMapNullable(id, n => n.name),
-        // TODO: get displayName of class component
-        displayName: O.none(),
+        key,
+        kind: "class-component",
+        name,
+        // TODO: Get displayName of class component
+        displayName: unit,
         flag,
         hint: 0n,
-        // TODO: get methods of class component
+        // TODO: Get methods of class component
         methods: [],
         node,
       },
     );
   };
 
-  const listeners = {
+  const visitor = {
     ClassDeclaration: collect,
     ClassExpression: collect,
   } as const satisfies ESLintUtils.RuleListener;
 
-  return {
-    ctx,
-    listeners,
-  } as const;
+  return { ctx, visitor } as const;
 }

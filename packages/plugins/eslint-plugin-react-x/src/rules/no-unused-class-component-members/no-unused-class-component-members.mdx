@@ -1,0 +1,69 @@
+---
+title: no-unused-class-component-members
+description: Warns about unused class component methods and properties.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-unused-class-component-members
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-unused-class-component-members
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+This rule warns about class component methods and properties that are defined but never used. Removing unused members helps keep the codebase clean and reduces confusion.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+class MyComponent extends React.Component {
+  handleClick() {} // Unused
+  render() {
+    return null;
+  }
+}
+```
+
+### Valid
+
+```tsx
+import React from "react";
+
+class MyComponent extends React.Component {
+  static getDerivedStateFromError(error: React.ErrorInfo) {
+    return { hasError: true };
+  }
+  action() {}
+  componentDidMount() {
+    this.action();
+  }
+  render() {
+    return null;
+  }
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members/no-unused-class-component-members.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-unused-class-component-members/no-unused-class-component-members.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Component`](https://react.dev/reference/react/Component)

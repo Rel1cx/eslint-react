@@ -1,0 +1,84 @@
+import * as ast from "@eslint-react/ast";
+import { dual, type unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+
+export declare namespace isReactAPI {
+  type ReturnType = {
+    (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
+    (
+      context: RuleContext,
+    ): (node: unit | null | TSESTree.Node) => node is TSESTree.MemberExpression | TSESTree.Identifier;
+  };
+}
+
+/**
+ * Check if the node is a React API identifier or member expression
+ * @param api The React API name to check against (e.g., "useState", "React.memo")
+ * @returns A predicate function to check if a node matches the API
+ */
+export function isReactAPI(api: string): isReactAPI.ReturnType {
+  const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is
+    | TSESTree.Identifier
+    | TSESTree.MemberExpression =>
+  {
+    if (node == null) return false;
+    const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+    const name = ast.getFullyQualifiedName(node, getText);
+    if (name === api) return true;
+    if (name.substring(name.indexOf(".") + 1) === api) return true;
+    return false;
+  };
+  return dual(2, func);
+}
+
+export declare namespace isReactAPICall {
+  type ReturnType = {
+    (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression;
+    (context: RuleContext): (node: unit | null | TSESTree.Node) => node is TSESTree.CallExpression;
+  };
+}
+
+/**
+ * Check if the node is a call expression to a specific React API
+ * @param api The React API name to check against
+ * @returns A predicate function to check if a node is a call to the API
+ */
+export function isReactAPICall(api: string): isReactAPICall.ReturnType {
+  const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression => {
+    if (node == null) return false;
+    if (node.type !== AST.CallExpression) return false;
+    return isReactAPI(api)(context, node.callee);
+  };
+  return dual(2, func);
+}
+
+// React API checks
+export const isCaptureOwnerStack = isReactAPI("captureOwnerStack");
+export const isChildrenCount = isReactAPI("Children.count");
+export const isChildrenForEach = isReactAPI("Children.forEach");
+export const isChildrenMap = isReactAPI("Children.map");
+export const isChildrenOnly = isReactAPI("Children.only");
+export const isChildrenToArray = isReactAPI("Children.toArray");
+export const isCloneElement = isReactAPI("cloneElement");
+export const isCreateContext = isReactAPI("createContext");
+export const isCreateElement = isReactAPI("createElement");
+export const isCreateRef = isReactAPI("createRef");
+export const isForwardRef = isReactAPI("forwardRef");
+export const isMemo = isReactAPI("memo");
+export const isLazy = isReactAPI("lazy");
+
+// React API Call checks
+export const isCaptureOwnerStackCall = isReactAPICall("captureOwnerStack");
+export const isChildrenCountCall = isReactAPICall("Children.count");
+export const isChildrenForEachCall = isReactAPICall("Children.forEach");
+export const isChildrenMapCall = isReactAPICall("Children.map");
+export const isChildrenOnlyCall = isReactAPICall("Children.only");
+export const isChildrenToArrayCall = isReactAPICall("Children.toArray");
+export const isCloneElementCall = isReactAPICall("cloneElement");
+export const isCreateContextCall = isReactAPICall("createContext");
+export const isCreateElementCall = isReactAPICall("createElement");
+export const isCreateRefCall = isReactAPICall("createRef");
+export const isForwardRefCall = isReactAPICall("forwardRef");
+export const isMemoCall = isReactAPICall("memo");
+export const isLazyCall = isReactAPICall("lazy");

@@ -1,34 +1,40 @@
-import { type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
-import type { TSESTree } from "@typescript-eslint/types";
-import { Function as F, Option as O } from "effect";
+import type * as ast from "@eslint-react/ast";
+import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE, type RuleContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getFunctionComponentIdentifier } from "./component-id";
+import { getFunctionComponentId } from "./component-id";
 
-export const RE_COMPONENT_NAME = /^[A-Z]/u;
-
-export function getComponentNameFromIdentifier(node: TSESTree.Identifier | TSESTree.Identifier[]) {
-  return Array.isArray(node)
-    ? node.map(n => n.name).join(".")
-    : node.name;
-}
-
+/**
+ * Check if a string matches the strict component name pattern
+ * @param name The name to check
+ */
 export function isComponentName(name: string) {
-  return !!name && RE_COMPONENT_NAME.test(name);
+  return RE_COMPONENT_NAME.test(name);
 }
 
-export function hasNoneOrValidComponentName(node: TSESTreeFunction, context: RuleContext) {
-  return O.match(
-    getFunctionComponentIdentifier(node, context),
-    {
-      onNone: F.constTrue,
-      onSome: id => {
-        const name = Array.isArray(id)
-          ? id.at(-1)?.name
-          : id.name;
+/**
+ * Check if a string matches the loose component name pattern
+ * @param name The name to check
+ */
+export function isComponentNameLoose(name: string) {
+  return RE_COMPONENT_NAME_LOOSE.test(name);
+}
 
-        return !!name && isComponentName(name);
-      },
-    },
-  );
+/**
+ * Check if a function has a loose component name
+ * @param context The rule context
+ * @param fn The function to check
+ * @param allowNone Whether to allow no name
+ * @returns Whether the function has a loose component name
+ */
+export function isFunctionWithLooseComponentName(context: RuleContext, fn: ast.TSESTreeFunction, allowNone = false) {
+  const id = getFunctionComponentId(context, fn);
+  if (id == null) return allowNone;
+  if (id.type === AST.Identifier) {
+    return isComponentNameLoose(id.name);
+  }
+  if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
+    return isComponentNameLoose(id.property.name);
+  }
+  return false;
 }

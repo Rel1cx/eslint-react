@@ -1,0 +1,77 @@
+---
+title: no-array-index-key
+description: Disallows using an item's index in the array as its key.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-array-index-key
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-array-index-key
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+The order of items in list rendering can change over time if an item is inserted, deleted, or the array is reordered. Using indexes as keys often leads to subtle, confusing errors.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+interface MyComponentProps {
+  items: { id: string; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        //              ^^^ Do not use an item's index in the array as its key.
+        <li key={index}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Valid
+
+```tsx
+interface MyComponentProps {
+  items: { id: string; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item) => <li key={item.id}>{item.name}</li>)}
+    </ul>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key/no-array-index-key.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key/no-array-index-key.spec.ts)
+
+## Further Reading
+
+- [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+

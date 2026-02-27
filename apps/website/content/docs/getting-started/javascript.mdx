@@ -1,0 +1,100 @@
+---
+title: JavaScript
+description: Getting started using ESLint React in your JavaScript React project
+---
+
+import { Step, Steps } from "fumadocs-ui/components/steps";
+
+<Callout type="info" title="This instruction requires the following minimum versions:">
+  - Node.js: 20.19.0
+  - ESLint: 9.36.0
+  - TypeScript: 5.0.0
+</Callout>
+
+<Steps>
+  <Step>
+    ## Installation
+
+    ```package-install copy
+    npm install --save-dev globals eslint @eslint/js @eslint-react/eslint-plugin
+    ```
+  </Step>
+
+  <Step>
+    ## Configure ESLint
+
+    ```ts title="eslint.config.ts"
+    import globals from "globals";
+    import eslintJs from "@eslint/js";
+    import eslintReact from "@eslint-react/eslint-plugin";
+    import { defineConfig } from "eslint/config";
+
+    export default defineConfig(
+      {
+        files: ["**/*.js", "**/*.jsx"],
+
+        // Extend recommended rule sets from:
+        // 1. ESLint JS's recommended rules
+        // 2. ESLint React's recommended rules
+        extends: [eslintJs.configs.recommended, eslintReact.configs.recommended],
+
+        // Configure language/parsing options
+        languageOptions: {
+          // Include browser global variables (window, document, etc.)
+          globals: {
+            ...globals.browser,
+          },
+          parserOptions: {
+            ecmaFeatures: {
+              jsx: true, // Enable JSX syntax support
+            },
+          },
+        },
+
+        // Custom rule overrides (modify rule levels or disable rules)
+        rules: {
+          "@eslint-react/no-missing-key": "warn",
+        },
+      },
+    );
+    ```
+  </Step>
+
+  <Step>
+    ## Configure [Project Config](/docs/glossary#project-config) (Optional)
+
+    ```ts title="eslint.config.ts"
+    // @ts-check
+    import tseslint from "typescript-eslint";
+
+    export default [
+      {
+        languageOptions: {
+          parser: tseslint.parser,
+          parserOptions: {
+            projectService: true,
+            tsconfigRootDir: import.meta.dirname,
+          },
+        },
+      },
+    ];
+    ```
+
+    ```jsonc title="jsconfig.json"
+    {
+      "compilerOptions": {
+        // ...other options
+        "jsx": "react-jsx",
+        "strictNullChecks": true // Recommended for better type inference
+      },
+      "include": ["**/*.js", "**/*.jsx"]
+    }
+    ```
+
+    <Callout title="TIP">
+      Once you've correctly configured the project for the files to be linted, ESLint React utilizes the information from the TypeScript compiler to provide better linting results.
+
+      For more information, see the [Configure Project Config](/docs/configuration/configure-project-config) section.
+    </Callout>
+  </Step>
+</Steps>

@@ -1,0 +1,58 @@
+---
+title: no-unsafe-iframe-sandbox
+description: Enforces that the 'sandbox' attribute for 'iframe' elements is not set to unsafe combinations.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/dom/no-unsafe-iframe-sandbox
+```
+
+**Full Name in `eslint-plugin-react-dom`**
+
+```plain copy
+react-dom/no-unsafe-iframe-sandbox
+```
+
+**Presets**
+
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+This rule reports cases where the attribute contains `allow-scripts` and `allow-same-origin` at the same time, as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent() {
+  return (
+    <iframe
+      src="https://eslint-react.xyz"
+      sandbox="allow-scripts allow-same-origin"
+    />
+  );
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/no-unsafe-iframe-sandbox.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/no-unsafe-iframe-sandbox.spec.ts)
+
+## Further Reading
+
+- [MDN: `iframe` `sandbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attributes)

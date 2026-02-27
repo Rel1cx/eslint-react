@@ -1,0 +1,51 @@
+{
+  "name": "@local/configs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Local config bases for use in the workspace",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./eslint": {
+      "types": "./eslint.d.ts",
+      "import": "./eslint.js"
+    },
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsl.config.ts": "./tsl.config.ts",
+    "./typedoc.base.json": "./typedoc.base.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint:publish": "publint",
+    "lint:ts": "tsl"
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "eslint-plugin-de-morgan": "^2.0.0",
+    "eslint-plugin-function": "^0.8.0",
+    "eslint-plugin-function-rule": "^0.8.0",
+    "eslint-plugin-jsdoc": "^62.7.1",
+    "eslint-plugin-perfectionist": "^5.6.0",
+    "eslint-plugin-regexp": "^3.0.0",
+    "eslint-plugin-unicorn": "^63.0.0",
+    "typescript-eslint": "canary"
+  },
+  "devDependencies": {
+    "eslint": "^10.0.2",
+    "tsl": "^1.0.29",
+    "tsl-dx": "^0.8.0",
+    "typedoc": "0.28.16",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typedoc-plugin-mdn-links": "^5.1.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "eslint": "^10.0.0",
+    "tsl": "^1.0.29",
+    "tsl-dx": "^0.7.0",
+    "typedoc": "0.28.16",
+    "typedoc-plugin-markdown": "^4.10.0",
+    "typedoc-plugin-mdn-links": "^5.1.1",
+    "typescript": "^5.9.3"
+  }
+}

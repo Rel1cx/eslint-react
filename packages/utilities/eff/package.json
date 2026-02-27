@@ -1,0 +1,46 @@
+{
+  "name": "@eslint-react/eff",
+  "version": "3.0.0-beta.59",
+  "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/utilities/eff"
+  },
+  "license": "MIT",
+  "author": "Rel1cx",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsdown --dts-resolve",
+    "build:docs": "typedoc",
+    "lint:publish": "publint",
+    "lint:ts": "tsl",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "devDependencies": {
+    "@local/configs": "workspace:*",
+    "tsdown": "^0.21.0-beta.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

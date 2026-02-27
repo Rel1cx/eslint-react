@@ -1,0 +1,87 @@
+---
+title: no-implicit-key
+description: Prevents implicitly passing the 'key' prop to components.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-implicit-key
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-implicit-key
+```
+
+**Features**
+
+`💭` `🧪`
+
+**Presets**
+
+`recommended-type-checked`
+`strict-type-checked`
+
+## Rule Details
+
+This makes it hard to see whether the key was passed correctly to the element or where it came from.
+
+It is also proposed to be deprecated in this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+interface Foo { key?: string; }
+
+interface MyComponentProps extends Foo {
+  className: string;
+  children: React.ReactNode;
+}
+
+function MyComponent(props: MyComponentProps) {
+  return <div {...props} />;
+  //          ^^^ This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
+}
+```
+
+### Valid
+
+```tsx
+import React from "react";
+
+interface Foo { key?: string; }
+
+interface MyComponentProps extends Foo {
+  className: string;
+  children: React.ReactNode;
+}
+
+function MyComponent({ key, ...rest }) {
+  return <div {...rest} />;
+}
+```
+
+```tsx
+import React from "react";
+
+function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+  return <li data-slot="pagination-item" {...props} />;
+  //                                     ^^^ Passing-through React internally defined keys are allowed.
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key/no-implicit-key.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-key/no-implicit-key.spec.ts)
+
+## Further Reading
+
+- [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [React RFC: Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107)

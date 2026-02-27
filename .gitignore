@@ -1,5 +1,6 @@
 # Node.js
 node_modules/
+**/node_modules/**
 
 # Build
 dist/
@@ -17,6 +18,7 @@ coverage/
 .eslintcache
 
 # misc
+/log
 .DS_Store
 *.pem
 
@@ -37,7 +39,9 @@ yarn-error.log*
 
 # vercel
 .vercel
-
 stats.html
 *.config-*.mjs
 /eslint-config.json
+*.bundled_*.mjs
+*.tgz
+eslint-results.sarif

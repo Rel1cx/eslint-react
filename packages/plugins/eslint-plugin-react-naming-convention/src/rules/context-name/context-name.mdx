@@ -1,0 +1,65 @@
+---
+title: context-name
+description: Enforces the context name to be a valid component name with the suffix 'Context'.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/naming-convention/context-name
+```
+
+**Full Name in `eslint-plugin-react-naming-convention`**
+
+```plain copy
+react-naming-convention/context-name
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Enforces that the context has a valid component name with the suffix `Context`.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+const theme = createContext("");
+```
+
+```tsx
+const Theme = createContext("");
+```
+
+```tsx
+const themecontext = createContext("");
+```
+
+```tsx
+const themeContext = createContext("");
+```
+
+### Valid
+
+```tsx
+const ThemeContext = createContext("");
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name/context-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention/src/rules/context-name/context-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: Context](https://react.dev/learn/passing-data-deeply-with-context)
+- [React Docs: `createContext`](https://react.dev/reference/react/createContext)

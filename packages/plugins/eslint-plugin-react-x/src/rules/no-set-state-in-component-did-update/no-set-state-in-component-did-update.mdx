@@ -1,0 +1,65 @@
+---
+title: no-set-state-in-component-did-update
+description: Disallows calling 'this.setState' in 'componentDidUpdate' outside functions such as callbacks.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-set-state-in-component-did-update
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-set-state-in-component-did-update
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+interface MyComponentProps {}
+
+interface MyComponentState {
+  name: string;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  componentDidUpdate() {
+    this.setState({ name: "John" });
+    //   ^^^ Do not call `this.setState` in `componentDidUpdate` outside functions such as callbacks.
+  }
+
+  render() {
+    return <div>Hello {this.state.name}</div>;
+  }
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `componentDidUpdate`](https://react.dev/reference/react/Component#componentdidupdate)
+- [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)

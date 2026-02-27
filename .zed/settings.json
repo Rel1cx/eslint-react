@@ -1,0 +1,39 @@
+{
+  "format_on_save": "on",
+  "formatter": {
+    "external": {
+      "command": "node_modules/.bin/dprint",
+      "arguments": [
+        "fmt",
+        "--stdin",
+        "{buffer_path}"
+      ]
+    }
+  },
+  "soft_wrap": "editor_width",
+  "preferred_line_length": 120,
+  "prettier": {
+    "allowed": false
+  },
+  "file_types": {
+    "Markdown": [
+      "md",
+      "mdx"
+    ]
+  },
+  "languages": {
+    "Markdown": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "node_modules/.bin/dprint",
+          "arguments": [
+            "fmt",
+            "--stdin",
+            "{buffer_path}"
+          ]
+        }
+      }
+    }
+  }
+}

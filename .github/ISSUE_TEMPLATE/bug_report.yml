@@ -1,23 +1,23 @@
 name: 🐞 Bug Report
-title: '[bug] '
+title: "[bug] "
 description: Report a bug
-labels: ['type: bug', 'status: needs triage']
+labels: ["type: bug", "status: needs triage"]
 
 body:
   - type: markdown
     attributes:
       value: |
         ## First of all
-        1. Please search for [existing issues](https://github.com/rel1cx/eslint-react/issues?q=is%3Aissue) about this problem first.
-        2. Make sure `eslint`, `typescript` and all relevant @eslint-react packages are up to date.
-        3. Make sure it's an issue with @eslint-react and not something else you are using.
+        1. Please search for [existing issues](https://github.com/Rel1cx/eslint-react/issues?q=is%3Aissue) about this problem first.
+        2. Make sure `eslint`, `typescript`, and all relevant packages are up to date.
+        3. Make sure it's an issue with eslint-react and not something else you are using.
         4. Remember to follow our community guidelines and be friendly.
 
   - type: textarea
     id: description
     attributes:
       label: Describe the bug
-      description: A clear description of what the bug is. Include screenshots if applicable.
+      description: A clear description of the bug. Include screenshots if applicable.
       placeholder: Bug description
     validations:
       required: true
@@ -26,10 +26,10 @@ body:
     id: reproduction
     attributes:
       label: Reproduction
-      description: A link to a reproduction repo or steps to reproduce the behaviour.
+      description: A link to a reproduction repo or steps to reproduce the behavior.
       placeholder: |
-        Please provide a minimal reproduction or steps to reproduce, see this guide https://stackoverflow.com/help/minimal-reproducible-example
-        Why reproduction is required? see this article https://antfu.me/posts/why-reproductions-are-required
+        Please provide a minimal reproduction or steps to reproduce. See this guide: https://stackoverflow.com/help/minimal-reproducible-example
+        Why is reproduction required? See this article: https://antfu.me/posts/why-reproductions-are-required
 
   - type: textarea
     id: expected-behavior
@@ -41,7 +41,7 @@ body:
     id: info
     attributes:
       label: Platform and versions
-      description: "Please provide the name and version of the JavaScript engine you are using. Also include the version of @eslint-react packages you are using."
+      description: "Please provide the name and version of the JavaScript engine you are using. Also include the versions of the eslint-react packages you are using."
       render: Text
     validations:
       required: true

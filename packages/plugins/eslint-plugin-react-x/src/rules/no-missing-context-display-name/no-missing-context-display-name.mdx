@@ -1,0 +1,57 @@
+---
+title: no-missing-context-display-name
+description: Enforces that all contexts have a 'displayName' that can be used in DevTools.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-missing-context-display-name
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-missing-context-display-name
+```
+
+**Features**
+
+`🔧`
+
+**Presets**
+
+-
+
+## Rule Details
+
+Context `displayName` property is used by React DevTools to identify the context in the component tree. Without it, debugging becomes difficult as contexts appear as "Context" or "Context.Provider" without any distinguishing information.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+const MyContext = React.createContext();
+```
+
+### Valid
+
+```tsx
+import React from "react";
+
+const MyContext = React.createContext();
+MyContext.displayName = "MyContext";
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-context-display-name/no-missing-context-display-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-missing-context-display-name/no-missing-context-display-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: `displayName`](https://react.dev/reference/react/Component#displayname)
+- [React Docs: Context](https://react.dev/learn/passing-data-deeply-with-context)

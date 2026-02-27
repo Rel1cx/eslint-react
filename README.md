@@ -1,125 +1,221 @@
-<p align="center"><img src="./assets/logo.svg" alt="logo" width="150" /></p>
+<p align="center"><img src="https://eslint-react.xyz/logo.svg" alt="logo" width="150" /></p>
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
-[![Size](https://img.shields.io/bundlephobia/minzip/@eslint-react/eslint-plugin?label=gzip&style=flat&colorA=000000&colorB=000000)](https://bundlephobia.com/package/@eslint-react/eslint-plugin)
-[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=000000&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://npmjs.com/package/@eslint-react/eslint-plugin)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.0--beta.2-000000?style=flat)](https://tsdown.dev)
 
-A series of composable ESLint rules for libraries and frameworks that use React as a UI runtime.
+4-7x faster, composable ESLint rules for React and friends.
 
-## Roadmap
+## Table of Contents
 
-- [Milestone 1.5 ↗](https://eslint-react.xyz/roadmap#milestone-15)
-- [Milestone 2.0 ↗](https://eslint-react.xyz/roadmap#milestone-20)
-- [Milestone 2.5 ↗](https://eslint-react.xyz/roadmap#milestone-25-draft)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Public Packages](#public-packages)
+  - [Unified ESLint Plugin](#unified-eslint-plugin)
+  - [Modular ESLint Plugins](#modular-eslint-plugins)
+- [Installation](#installation)
+  - [Install](#install)
+  - [Setup](#setup)
+- [Presets](#presets)
+  - [Bare Bones](#bare-bones)
+  - [General Purpose](#general-purpose)
+  - [TypeScript Specialized](#typescript-specialized)
+  - [Category Based](#category-based)
+  - [Other](#other)
+- [Rules](#rules)
+- [Benchmark](#benchmark)
+- [FAQ](#faq)
+- [Changelog](#changelog)
+- [Roadmap](#roadmap)
+- [Disclaimer](#disclaimer)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-- **Universal** rules for libraries and frameworks that use React as a UI runtime.
-- **Well designed** rule behaviors and sensible defaults.
-- **Maximum flexibility** through minimum configuration options.
+- **Modern**: First-class support for **TypeScript**, **React 19**, and more.
+- **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
+- **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
+- **Context-aware linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
-## Public packages
+## Public Packages
 
-### All-in-one packages
+### Unified ESLint Plugin
 
-- [`@eslint-react/eslint-plugin`](https://www.npmjs.com/package/@eslint-react/eslint-plugin) - The main ESLint plugin package including all rules and config presets in this repository.
+- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
 
-### Individual packages (will be available in 2.0)
+### Modular ESLint Plugins
 
-- `eslint-plugin-react-core` - Core rules (DOM Irrelevant, Render Target Agnostic, Formatting Independent).
-- `eslint-plugin-react-dom` - DOM specific rules for React DOM.
-- `eslint-plugin-react-hooks-extra` - Extra React Hooks rules.
-- `eslint-plugin-react-naming-convention` - Naming convention rules.
+- [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x) - X rules (renderer-agnostic, compatible with x-platform).
+- [`eslint-plugin-react-rsc`](https://npmx.dev/package/eslint-plugin-react-rsc) - Rules for React Server Components.
+- [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
+- [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
+- [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention) - Naming convention rules.
 
-## Supported React versions
+> [!NOTE]\
+> Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
 
-- 18.2.0 or later
+## Installation
 
-## Supported engines
-
-### Node.js
-
-- 18.18.0 or later
-
-### Bun
-
-- 1.0.15 or later
+> [!NOTE]\
+> ESLint React requires the following minimum versions:
+>
+> - Node.js: 20.19.0
+> - ESLint: 9.36.0
+> - TypeScript: 5.0.0
 
 ### Install
 
 ```sh
-# npm
-npm install --save-dev @eslint-react/eslint-plugin
+npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
 ### Setup
 
-Add the plugin to your `eslint.config.js`:
-
 ```js
-// @ts-check
+// eslint.config.js
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
 import eslintReact from "@eslint-react/eslint-plugin";
+import eslintJs from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
+export default defineConfig(
   {
-    files: ["src/**/*.{ts,tsx}"],
-    ...eslintReact.configs.recommended,
+    files: ["**/*.ts", "**/*.tsx"],
+
+    // Extend recommended rule sets from:
+    // 1. ESLint JS's recommended rules
+    // 2. TypeScript ESLint recommended rules
+    // 3. ESLint React's recommended-typescript rules
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+    ],
+
+    // Configure language/parsing options
+    languageOptions: {
+      // Use TypeScript ESLint parser for TypeScript files
+      parser: tseslint.parser,
+      parserOptions: {
+        // Enable project service for better TypeScript integration
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+
+    // Custom rule overrides (modify rule levels or disable rules)
+    rules: {
+      "@eslint-react/no-missing-key": "warn",
+    },
   },
 );
 ```
 
-[Full Installation Guide ↗](https://eslint-react.xyz/docs/installation)
+[Full Installation Guide ↗](https://eslint-react.xyz/docs/getting-started/typescript)
 
 ## Presets
 
-- **recommended**\
-  Enable rules that are recommended by ESLint React.
-- **recommended-type-checked**\
-  Enable rules that are recommended by ESLint React with additional rules that require type information.
-- **dom**\
-  Enable rules that are specific to React DOM.
-- **off-dom**\
-  Disable rules that are specific to React DOM.
-- **all**\
-  Enable all rules in this plugin except for debug rules.
-- **off**\
+### Bare Bones
+
+- `x`\
+  Enable rules for React.
+- `rsc`\
+  Enable rules for React Server Components.
+- `dom`\
+  Enable rules for React DOM.
+- `web-api`\
+  Enable rules for interacting with Web APIs.
+
+### General Purpose
+
+- `recommended`\
+  Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
+  _This preset includes the `x`, `rsc`, `dom`, and `web-api` presets._
+
+- `strict`\
+  Same as the `recommended` preset but enables additional strict rules.
+
+### TypeScript Specialized
+
+- `recommended-typescript`\
+  Same as the `recommended` preset but disables rules that can be enforced by TypeScript.
+
+- `recommended-type-checked`\
+  Same as the `recommended-typescript` preset but enables additional rules that require type information.
+
+- `strict-typescript`\
+  Same as the `strict` preset but disables rules that can be enforced by TypeScript.
+
+- `strict-type-checked`\
+  Same as the `strict-typescript` preset but enables additional rules that require type information.
+
+### Category Based
+
+<!-- TODO: Add hooks and performance presets later -->
+<!-- - `hooks`\ -->
+<!-- Enable all rules related to React Hooks. -->
+<!-- - `performance`\ -->
+<!-- Enable all rules related to React performance optimizations. -->
+
+- `no-deprecated`\
+  Enable all rules that disallow deprecated React APIs with "error" severity.
+
+### Other
+
+- `disable-rsc`\
+  Disable rules in the `rsc` preset.
+- `disable-dom`\
+  Disable rules in the `dom` preset.
+- `disable-web-api`\
+  Disable rules in the `web-api` preset.
+- `disable-experimental`\
+  Disable rules that have an "🧪 Experimental" feature flag.
+- `disable-type-checked`\
+  Disable rules that require type information.
+- `disable-conflict-eslint-plugin-react`\
+  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
+- `off`\
   Disable all rules in this plugin except for debug rules.
 
-[Full Presets List↗](https://eslint-react.xyz/presets/overview)
+[Full Presets List ↗](https://eslint-react.xyz/docs/presets)
 
 ## Rules
 
-[Rules Overview ↗](https://eslint-react.xyz/rules/overview)
+[Rules Overview ↗](https://eslint-react.xyz/docs/rules/overview)
+
+## Benchmark
+
+[Benchmark Results ↗](https://github.com/Rel1cx/eslint-react-benchmark)
+
+## FAQ
+
+[Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
+
+## Changelog
+
+[Changelog ↗](https://www.eslint-react.xyz/docs/changelog)
+
+## Roadmap
+
+- [Milestone 3.0 ↗](https://eslint-react.xyz/docs/roadmap#milestone-30-tbd)
+
+## Disclaimer
+
+This project is not affiliated with Meta Corporation or the [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
+
+This project is, and will remain, 90% of its code written by humans.
 
 ## Contributing
 
-Before you start working on something, it's best to check if there is an existing issue first. It's also a good idea to reach the maintainer and confirm if it makes sense or if someone else is already working on it.
+Contributions are welcome!
 
-Please make sure to read the [Contributing Guide](./.github/CONTRIBUTING.md) before making a pull request.
-
-Thank you to everyone contributing to ESLint React!
+Please follow our [contributing guidelines](.github/CONTRIBUTING.md).
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Inspiration
-
-- [eslint-plugin-solid](https://github.com/solidjs-community/eslint-plugin-solid)
-- [eslint-plugin-functional](https://github.com/eslint-functional/eslint-plugin-functional)
-- [eslint-plugin-perfectionist](https://github.com/azat-io/eslint-plugin-perfectionist)
-- [eslint-plugin-filenames-simple](https://github.com/epaew/eslint-plugin-filenames-simple)
-- [rome/tools](https://github.com/rome/tools)
-- [rust-clippy](https://github.com/rust-lang/rust-clippy)
-
-## Prior art
-
-- [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react)
-- [eslint-plugin-react-hooks](https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks)

@@ -1,15 +1,15 @@
-import { name, version } from "../package.json";
-import classComponent from "./rules/class-component";
-import functionComponent from "./rules/function-component";
-import reactHooks from "./rules/react-hooks";
+import type { ESLint, Linter } from "eslint";
 
-export const meta = {
-  name,
-  version,
-} as const;
+import * as allConfig from "./configs/all";
+import { plugin } from "./plugin";
 
-export const rules = {
-  "class-component": classComponent,
-  "function-component": functionComponent,
-  "react-hooks": reactHooks,
-} as const;
+type ConfigName = "all";
+
+const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
+  ...plugin,
+  configs: {
+    ["all"]: allConfig,
+  },
+};
+
+export default finalPlugin;

@@ -1,0 +1,116 @@
+import type { RuleConfig } from "@eslint-react/shared";
+import reactNamingConvention from "eslint-plugin-react-naming-convention";
+import reactWebApi from "eslint-plugin-react-web-api";
+
+import * as dom from "./dom";
+import * as rsc from "./rsc";
+import * as x from "./x";
+
+export const name = "@eslint-react/all";
+
+export const rules = {
+  "@eslint-react/component-hook-factories": "error",
+  "@eslint-react/error-boundaries": "error",
+  "@eslint-react/exhaustive-deps": "warn",
+  "@eslint-react/immutability": "error",
+  "@eslint-react/jsx-dollar": "warn",
+  "@eslint-react/jsx-key-before-spread": "warn",
+  "@eslint-react/jsx-no-comment-textnodes": "warn",
+  "@eslint-react/jsx-no-duplicate-props": "warn",
+  "@eslint-react/jsx-shorthand-boolean": "warn",
+  "@eslint-react/jsx-shorthand-fragment": "warn",
+  "@eslint-react/jsx-uses-react": "warn",
+  "@eslint-react/jsx-uses-vars": "warn",
+  "@eslint-react/no-access-state-in-setstate": "error",
+  "@eslint-react/no-array-index-key": "warn",
+  "@eslint-react/no-children-count": "warn",
+  "@eslint-react/no-children-for-each": "warn",
+  "@eslint-react/no-children-map": "warn",
+  "@eslint-react/no-children-only": "warn",
+  "@eslint-react/no-children-prop": "warn",
+  "@eslint-react/no-children-to-array": "warn",
+  "@eslint-react/no-class-component": "warn",
+  "@eslint-react/no-clone-element": "warn",
+  "@eslint-react/no-component-will-mount": "error",
+  "@eslint-react/no-component-will-receive-props": "error",
+  "@eslint-react/no-component-will-update": "error",
+  "@eslint-react/no-context-provider": "warn",
+  "@eslint-react/no-create-ref": "error",
+  "@eslint-react/no-direct-mutation-state": "error",
+  "@eslint-react/no-duplicate-key": "error",
+  "@eslint-react/no-forward-ref": "warn",
+  "@eslint-react/no-missing-component-display-name": "warn",
+  "@eslint-react/no-missing-context-display-name": "warn",
+  "@eslint-react/no-missing-key": "error",
+  "@eslint-react/no-misused-capture-owner-stack": "error",
+  "@eslint-react/no-nested-component-definitions": "error",
+  "@eslint-react/no-nested-lazy-component-declarations": "error",
+  "@eslint-react/no-redundant-should-component-update": "error",
+  "@eslint-react/no-set-state-in-component-did-mount": "warn",
+  "@eslint-react/no-set-state-in-component-did-update": "warn",
+  "@eslint-react/no-set-state-in-component-will-update": "warn",
+  "@eslint-react/no-unnecessary-use-callback": "warn",
+  "@eslint-react/no-unnecessary-use-memo": "warn",
+  "@eslint-react/no-unnecessary-use-prefix": "warn",
+  "@eslint-react/no-unsafe-component-will-mount": "warn",
+  "@eslint-react/no-unsafe-component-will-receive-props": "warn",
+  "@eslint-react/no-unsafe-component-will-update": "warn",
+  "@eslint-react/no-unstable-context-value": "warn",
+  "@eslint-react/no-unstable-default-props": "warn",
+  "@eslint-react/no-unused-class-component-members": "warn",
+  "@eslint-react/no-unused-state": "warn",
+  "@eslint-react/no-use-context": "warn",
+  "@eslint-react/no-useless-fragment": "warn",
+  "@eslint-react/prefer-destructuring-assignment": "warn",
+  "@eslint-react/prefer-namespace-import": "warn",
+  "@eslint-react/purity": "warn",
+  "@eslint-react/refs": "error",
+  "@eslint-react/rules-of-hooks": "error",
+  "@eslint-react/set-state-in-effect": "warn",
+  "@eslint-react/set-state-in-render": "error",
+  "@eslint-react/unsupported-syntax": "error",
+  "@eslint-react/use-memo": "error",
+  "@eslint-react/use-state": "warn",
+
+  "@eslint-react/dom/no-dangerously-set-innerhtml": "warn",
+  "@eslint-react/dom/no-dangerously-set-innerhtml-with-children": "error",
+  "@eslint-react/dom/no-find-dom-node": "error",
+  "@eslint-react/dom/no-flush-sync": "error",
+  "@eslint-react/dom/no-hydrate": "error",
+  "@eslint-react/dom/no-missing-button-type": "warn",
+  "@eslint-react/dom/no-missing-iframe-sandbox": "warn",
+  "@eslint-react/dom/no-namespace": "error",
+  "@eslint-react/dom/no-render": "error",
+  "@eslint-react/dom/no-render-return-value": "error",
+  "@eslint-react/dom/no-script-url": "warn",
+  "@eslint-react/dom/no-string-style-prop": "error",
+  "@eslint-react/dom/no-unknown-property": "warn",
+  "@eslint-react/dom/no-unsafe-iframe-sandbox": "warn",
+  "@eslint-react/dom/no-unsafe-target-blank": "warn",
+  "@eslint-react/dom/no-use-form-state": "warn",
+  "@eslint-react/dom/no-void-elements-with-children": "error",
+  "@eslint-react/dom/prefer-namespace-import": "warn",
+
+  "@eslint-react/rsc/function-definition": "error",
+
+  "@eslint-react/web-api/no-leaked-event-listener": "warn",
+  "@eslint-react/web-api/no-leaked-interval": "warn",
+  "@eslint-react/web-api/no-leaked-resize-observer": "warn",
+  "@eslint-react/web-api/no-leaked-timeout": "warn",
+
+  "@eslint-react/naming-convention/context-name": "warn",
+  "@eslint-react/naming-convention/id-name": "warn",
+  "@eslint-react/naming-convention/ref-name": "warn",
+} as const satisfies Record<string, RuleConfig>;
+
+export const plugins = {
+  ...x.plugins,
+  ...rsc.plugins,
+  ...dom.plugins,
+  "@eslint-react/naming-convention": reactNamingConvention,
+  "@eslint-react/web-api": reactWebApi,
+};
+
+export const settings = {
+  ...x.settings,
+};

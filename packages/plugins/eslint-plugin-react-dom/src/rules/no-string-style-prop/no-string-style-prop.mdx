@@ -1,0 +1,49 @@
+---
+title: no-string-style-prop
+description: Disallows the use of string style prop in JSX. Use an object instead.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/dom/no-string-style-prop
+```
+
+**Full Name in `eslint-plugin-react-dom`**
+
+```plain copy
+react-dom/no-string-style-prop
+```
+
+**Presets**
+
+`dom`
+`recommended`
+`strict`
+
+## Rule Details
+
+Using a string value for the `style` prop is not valid in React. The style prop must be an object with camelCased CSS properties. This rule helps catch incorrect string usage that would cause runtime errors.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent() {
+  return <div style="color: red;" />;
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return <div style={{ color: "red" }} />;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.spec.ts)

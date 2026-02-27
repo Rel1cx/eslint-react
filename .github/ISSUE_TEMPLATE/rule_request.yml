@@ -1,0 +1,102 @@
+name: 💬 Rule Request
+title: "[rule] "
+description: Suggest a rule
+labels: ["rule request"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Rule Request
+
+        Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule-writing standards.
+
+        ## References on Rule Design
+        - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
+        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest#when-to-write-or-enable-a-rule)
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: Please describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
+      placeholder: "This rule will solve..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative-solutions
+    attributes:
+      label: Alternative Solutions
+      description: Have you tried to solve the problem by changing the API or introducing a new API? Why aren't these methods sufficient to solve the problem?
+      placeholder: "I've tried..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule-docs-template
+    attributes:
+      label: Rule Documentation Template
+      description: |
+        Please provide the rule documentation following the standard template structure used in this repository.
+        This will help reviewers understand the rule's purpose, behavior, and edge cases.
+      placeholder: |
+        ## Rule Details
+
+        <!-- Describe what problem this rule solves and why it's important. -->
+        <!-- Explain the React concept or pattern that this rule enforces. -->
+
+        ## Common Violations
+
+        ### Invalid
+
+        <!-- Code examples that SHOULD be flagged by this rule -->
+
+        ```tsx
+        // ❌ Bad: Explain why this is problematic
+        ```
+
+        ### Valid
+
+        <!-- Code examples that should NOT be flagged by this rule -->
+
+        ```tsx
+        // ✅ Good: Explain the correct pattern
+        ```
+
+        ## Troubleshooting
+
+        <!-- Optional: Address common questions or edge cases -->
+
+        ### Why is this pattern problematic?
+
+        ### What are the alternatives?
+
+        ## Resources
+
+        - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/...)
+        <!-- Link to where the rule implementation would live -->
+
+        ## Further Reading
+
+        - [React Docs: ...](https://react.dev/...)
+        <!-- Links to relevant React documentation -->
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Evaluation Checklist
+      description: Please check the following items to ensure the rule suggestion is reasonable.
+      options:
+        - label: I have had problems with the pattern I want to forbid
+          required: true
+        - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
+          required: true
+        - label: I have thought very hard about what the corner cases could be and what kinds of patterns this would forbid that are actually okay, and they are acceptable
+          required: true
+        - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
+          required: true
+        - label: I have discussed this rule with team members, and they all find it valuable
+          required: false

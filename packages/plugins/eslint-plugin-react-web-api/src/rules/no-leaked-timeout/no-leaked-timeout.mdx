@@ -1,0 +1,77 @@
+---
+title: no-leaked-timeout
+description: Enforces that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/web-api/no-leaked-timeout
+```
+
+**Full Name in `eslint-plugin-react-web-api`**
+
+```plain copy
+react-web-api/no-leaked-timeout
+```
+
+**Presets**
+
+`web-api`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Scheduling a timeout within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setTimeout` callback executions and may also result in stale values captured by previous renders' effects after each subsequent re-render.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React, { useEffect, useState } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => console.log(count), 1000);
+    //                ^^^ A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
+  }, []);
+
+  return null;
+}
+```
+
+### Valid
+
+```tsx
+import React, { useEffect, useState } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => console.log(count), 1000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return null;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout/no-leaked-timeout.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout/no-leaked-timeout.spec.ts)
+
+## Further Reading
+
+- [MDN: `setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+- [MDN: `clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
+- [React Docs: Synchronizing with effects](https://react.dev/learn/synchronizing-with-effects#putting-it-all-together)

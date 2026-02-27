@@ -1,47 +1,42 @@
-import { getFunctionIdentifier, NodeType, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/types";
-import type { TSESTree } from "@typescript-eslint/types";
-import { Option as O } from "effect";
+import * as ast from "@eslint-react/ast";
+import { unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { isReactHookCallWithNameLoose } from "../hook";
-import { isForwardRefCall, isMemoCall } from "../react-api";
+import { isComponentWrapperCallLoose } from "./component-wrapper";
 
-function isComponentWrapperCall(node: TSESTree.Node, context: RuleContext) {
-  if (node.type !== NodeType.CallExpression) return false;
-
-  return isMemoCall(node, context)
-    || isForwardRefCall(node, context)
-    || isReactHookCallWithNameLoose("useCallback")(node);
-}
-
-export function getFunctionComponentIdentifier(
-  node: TSESTreeFunction,
+/**
+ * Get function component identifier from `const Component = memo(() => {});`
+ * @param context The rule context
+ * @param node The function node to analyze
+ * @returns The function identifier or `unit` if not found
+ */
+export function getFunctionComponentId(
   context: RuleContext,
-): O.Option<TSESTree.Identifier | TSESTree.Identifier[]> {
-  const functionId = getFunctionIdentifier(node);
-  if (O.isSome(functionId)) return functionId;
+  node: ast.TSESTreeFunction,
+): ast.FunctionID {
+  const functionId = ast.getFunctionId(node);
+  if (functionId != null) {
+    return functionId;
+  }
   const { parent } = node;
+  // Get function component identifier from `const Component = memo(() => {});`
   if (
-    parent.type === NodeType.CallExpression
-    && isComponentWrapperCall(parent, context)
-    && parent.parent.type === NodeType.VariableDeclarator
-    && parent.parent.id.type === NodeType.Identifier
-    && parent.parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST.CallExpression
+    && isComponentWrapperCallLoose(context, parent)
+    && parent.parent.type === AST.VariableDeclarator
   ) {
-    return O.some(parent.parent.id);
+    return parent.parent.id;
   }
-
+  // Get function component identifier from `const Component = memo(forwardRef(() => {}));`
   if (
-    parent.type === NodeType.CallExpression
-    && isComponentWrapperCall(parent, context)
-    && parent.parent.type === NodeType.CallExpression
-    && isComponentWrapperCall(parent.parent, context)
-    && parent.parent.parent.type === NodeType.VariableDeclarator
-    && parent.parent.parent.id.type === NodeType.Identifier
-    && parent.parent.parent.parent.type === NodeType.VariableDeclaration
+    parent.type === AST.CallExpression
+    && isComponentWrapperCallLoose(context, parent)
+    && parent.parent.type === AST.CallExpression
+    && isComponentWrapperCallLoose(context, parent.parent)
+    && parent.parent.parent.type === AST.VariableDeclarator
   ) {
-    return O.some(parent.parent.parent.id);
+    return parent.parent.parent.id;
   }
-
-  return O.none();
+  return unit;
 }

@@ -1,0 +1,7 @@
+[aria-roledescription="flowchart-v2"] span.nodeLabel {
+	filter: brightness(0.5);
+}
+
+.bsky-post [class*="embed-module_external"] {
+	display: none;
+}

@@ -1,0 +1,312 @@
+---
+title: immutability
+description: Validates against mutating props, state, and other values that are immutable.
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/immutability
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/immutability
+```
+
+**Features**
+
+`🧪`
+
+**Presets**
+
+-
+
+## Rule Details
+
+A component's props and state are immutable snapshots. Never mutate them directly. Instead, pass new props down, and use the setter function from `useState` with a freshly created value.
+
+Mutations are invisible to React — because the object or array reference hasn't changed, React has no way to know that something changed. As a result, the UI won't re-render, and your app will show stale data.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+// ❌ Array push mutation
+function Component() {
+  const [items, setItems] = useState([1, 2, 3]);
+  const addItem = () => {
+    items.push(4); // Mutating!
+    setItems(items); // Same reference, no re-render
+  };
+}
+```
+
+```tsx
+// ❌ Object property assignment
+function Component() {
+  const [user, setUser] = useState({ name: "Alice" });
+  const updateName = () => {
+    user.name = "Bob"; // Mutating!
+    setUser(user); // Same reference
+  };
+}
+```
+
+```tsx
+// ❌ Sort without spreading
+function Component() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sortItems = () => {
+    setItems(items.sort()); // sort mutates!
+  };
+}
+```
+
+### Valid
+
+```tsx
+// ✅ Create new array
+function Component() {
+  const [items, setItems] = useState([1, 2, 3]);
+  const addItem = () => {
+    setItems([...items, 4]); // New array
+  };
+}
+```
+
+```tsx
+// ✅ Create new object
+function Component() {
+  const [user, setUser] = useState({ name: "Alice" });
+  const updateName = () => {
+    setUser({ ...user, name: "Bob" }); // New object
+  };
+}
+```
+
+```tsx
+// ✅ Spread before sorting
+function Component() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sortItems = () => {
+    setItems([...items].sort()); // New array, then sort
+  };
+}
+```
+
+## Troubleshooting
+
+### I need to add items to an array
+
+Mutating arrays with methods like `push()` won't trigger re-renders:
+
+```tsx
+// ❌ Wrong: Mutating the array
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const addTodo = (id, text) => {
+    todos.push({ id, text });
+    setTodos(todos); // Same array reference!
+  };
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+Create a new array instead:
+
+```tsx
+// ✅ Better: Create a new array
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const addTodo = (id, text) => {
+    setTodos([...todos, { id, text }]);
+    // Or: setTodos((todos) => [...todos, { id: Date.now(), text }])
+  };
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### I need to update nested objects
+
+Mutating nested properties doesn't trigger re-renders:
+
+```tsx
+// ❌ Wrong: Mutating nested object
+function UserProfile() {
+  const [user, setUser] = useState({
+    name: "Alice",
+    settings: {
+      theme: "light",
+      notifications: true,
+    },
+  });
+  const toggleTheme = () => {
+    user.settings.theme = "dark"; // Mutation!
+    setUser(user); // Same object reference
+  };
+}
+```
+
+Spread at each level that needs updating:
+
+```tsx
+// ✅ Better: Create new objects at each level
+function UserProfile() {
+  const [user, setUser] = useState({
+    name: "Alice",
+    settings: {
+      theme: "light",
+      notifications: true,
+    },
+  });
+  const toggleTheme = () => {
+    setUser({
+      ...user,
+      settings: {
+        ...user.settings,
+        theme: "dark",
+      },
+    });
+  };
+}
+```
+
+### I need to sort or reverse a list
+
+`Array.prototype.sort()` and `Array.prototype.reverse()` sort and reverse the array in place, mutating the original:
+
+```tsx
+// ❌ Wrong: sort/reverse mutates the state array
+function SortedList() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sort = () => {
+    setItems(items.sort()); // items is mutated!
+  };
+  return <button onClick={sort}>Sort</button>;
+}
+```
+
+Spread into a new array first:
+
+```tsx
+// ✅ Correct: spread into a new array before sorting
+function SortedList() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sort = () => {
+    setItems([...items].sort());
+  };
+  return <button onClick={sort}>Sort</button>;
+}
+```
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [items, setItems] = useState([1, 2, 3]);
+  const addItem = () => {
+    items.push(4);
+    // ^^^ Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead.
+    setItems(items);
+  };
+  return <div>{items.length}</div>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [user, setUser] = useState({ name: "Alice" });
+  const updateName = () => {
+    user.name = "Bob";
+    // ^^^ Do not mutate 'user' directly. Props and state are immutable — create a new object instead.
+    setUser(user);
+  };
+  return <div>{user.name}</div>;
+}
+```
+
+```tsx
+function Component(props) {
+  props.name = "Bob";
+  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
+  return <div>{props.name}</div>;
+}
+```
+
+### Valid
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [items, setItems] = useState([1, 2, 3]);
+  const addItem = () => {
+    setItems([...items, 4]); // ✅ New array
+  };
+  return <div>{items.length}</div>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [user, setUser] = useState({ name: "Alice" });
+  const updateName = () => {
+    setUser({ ...user, name: "Bob" }); // ✅ New object
+  };
+  return <div>{user.name}</div>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sortItems = () => {
+    setItems([...items].sort()); // ✅ Spread first, then sort
+  };
+  return <div>{items.length}</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/immutability/immutability.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/immutability/immutability.spec.ts)
+
+## Further Reading
+
+- [React Docs: Updating Objects in State](https://react.dev/learn/updating-objects-in-state)
+- [React Docs: Updating Arrays in State](https://react.dev/learn/updating-arrays-in-state)
+- [React Docs: `immutability` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability)

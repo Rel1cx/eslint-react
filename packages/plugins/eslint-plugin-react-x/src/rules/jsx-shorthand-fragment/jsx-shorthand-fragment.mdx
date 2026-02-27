@@ -1,0 +1,74 @@
+---
+title: jsx-shorthand-fragment
+description: Enforces shorthand syntax for fragment elements.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/jsx-shorthand-fragment
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/jsx-shorthand-fragment
+```
+
+**Features**
+
+`🔧` `⚙️`
+
+**Presets**
+
+-
+
+## Rule Details
+
+React fragments can be written using the shorthand syntax `<></>` instead of `<Fragment></Fragment>`. This rule enforces using the shorter syntax when possible.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React, { Fragment } from "react";
+
+function MyComponent() {
+  return (
+    <Fragment>
+      <button />
+      <button />
+    </Fragment>
+  );
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
+}
+```
+
+## Rule Options
+
+This rule has a single integer option with the following values:
+
+- `1` (default): Always use shorthand syntax for fragments.
+- `-1`: Never use shorthand syntax for fragments.
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-fragment/jsx-shorthand-fragment.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-shorthand-fragment/jsx-shorthand-fragment.spec.ts)
+
+## Further Reading
+
+- [React Docs: `Fragment`](https://react.dev/reference/react/Fragment)

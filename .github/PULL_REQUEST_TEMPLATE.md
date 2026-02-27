@@ -1,7 +1,7 @@
 <!--
 Update "[ ]" to "[x]" to check a box
 
-Please make sure to read the Pull Request Guidelines: https://github.com/rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md#pull-request-guidelines
+Please make sure to read the Pull Request Guidelines: https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md#pull-request-guidelines
 -->
 
 ### What kind of change does this PR introduce?
@@ -10,7 +10,11 @@ Please make sure to read the Pull Request Guidelines: https://github.com/rel1cx/
 
 - [ ] Bugfix
 - [ ] Feature
+- [ ] Perf
 - [ ] Docs
+- [ ] Test
+- [ ] Chore
+- [ ] Enhancement
 - [ ] New Binding issue #___
 - [ ] Code style update
 - [ ] Refactor

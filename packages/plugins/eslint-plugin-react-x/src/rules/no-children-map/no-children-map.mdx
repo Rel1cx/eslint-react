@@ -1,0 +1,60 @@
+---
+title: no-children-map
+description: Disallows the use of `Children.map` from the `react` package.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-children-map
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-children-map
+```
+
+**Presets**
+
+`x`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React, { Children } from "react";
+
+interface MyComponentProps {
+  children: React.ReactNode;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  return (
+    <div className="RowList">
+      {Children.map(children, (child) => <div className="Row">{child}</div>)}
+    </div>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-map/no-children-map.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-children-map/no-children-map.spec.ts)
+
+## Further Reading
+
+- [Legacy React APIs: `Children`](https://react.dev/reference/react/Children)
+

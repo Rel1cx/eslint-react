@@ -6,26 +6,32 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
-      - '**'
-  merge_group:
+      - "**"
 env:
-    NODE_OPTIONS: --max_old_space_size=10240
+  NODE_OPTIONS: --max_old_space_size=102400
+permissions:
+  contents: read
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup node
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 21
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
-              id: pnpm-install
-              with:
-                  version: 9
-                  run_install: false
-            - name: Install front-end dependencies and build front-end assets
-              run: pnpm install
-            - name: Test
-              run: pnpm run test
+  test:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Setup node@24
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 24
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Install front-end dependencies
+        run: pnpm install
+      - name: Build front-end assets
+        run: pnpm run build
+      - name: Test on node@22
+        run: pnpm run test
+      - name: Setup node@22
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 22
+      - name: Test on node@22
+        run: pnpm run test

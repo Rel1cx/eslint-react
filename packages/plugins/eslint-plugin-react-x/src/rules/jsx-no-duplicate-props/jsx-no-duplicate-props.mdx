@@ -1,0 +1,49 @@
+---
+title: jsx-no-duplicate-props
+description: Disallows duplicate props in JSX elements.
+---
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/jsx-no-duplicate-props
+```
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/jsx-no-duplicate-props
+```
+
+**Presets**
+
+`x`
+`recommended`
+`strict`
+
+## Rule Details
+
+Passing the same prop twice in a JSX element will cause the second value to overwrite the first. This is usually a mistake and can lead to unexpected behavior.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+<Hello name="John" name="Doe" />;
+```
+
+### Valid
+
+```tsx
+<Hello name="John" />;
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-duplicate-props/jsx-no-duplicate-props.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-no-duplicate-props/jsx-no-duplicate-props.spec.ts)
+
+## Further Reading
+
+- [React Docs: JSX](https://react.dev/learn/writing-markup-with-jsx)

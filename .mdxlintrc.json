@@ -1,0 +1,9 @@
+{
+  "settings": {
+    "rule": "-",
+    "bullet": "-",
+    "emphasis": "_",
+    "printWidth": 120
+  },
+  "plugins": ["remark-gfm", ["remark-frontmatter", ["toml", "yaml"]]]
+}
