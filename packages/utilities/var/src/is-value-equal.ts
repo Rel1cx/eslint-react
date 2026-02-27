@@ -4,8 +4,8 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-import { getVariableInitializerLoose } from "./binding-initializer";
-import { findVariable } from "./helper";
+import { findVariable } from "./find-variable";
+import { getVariableInitializerLoose } from "./get-variable-initializer";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,

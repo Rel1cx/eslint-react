@@ -3,7 +3,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { getVariableInitializer } from "./binding-initializer";
+import { getVariableInitializer } from "./get-variable-initializer";
 
 /**
  * Represents the type classification of an object node

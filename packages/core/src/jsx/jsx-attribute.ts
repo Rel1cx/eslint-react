@@ -1,9 +1,10 @@
+import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableInitializer } from "@eslint-react/var";
+import { findVariable, getVariableInitializer } from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import type { Scope } from "@typescript-eslint/scope-manager";
 import { getJsxAttributeName } from "./jsx-attribute-name";
 
 /**
@@ -36,14 +37,14 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
 
           // Check if the variable resolves to an object with the target property
           if (initNode?.type === AST.ObjectExpression) {
-            return findProperty(name, initNode.properties, scope) != null;
+            return ast.findProperty(initNode.properties, name) != null;
           }
           return false;
         }
 
         // 3. Spread literal: {{...{prop: value}}}
         case AST.ObjectExpression:
-          return findProperty(name, attr.argument.properties, scope) != null;
+          return ast.findProperty(attr.argument.properties, name) != null;
       }
       return false;
     });

@@ -25,3 +25,4 @@ export * from "./node-unwrap";
 export * from "./pattern-process-env-node-env";
 export * from "./pattern-vitest-mock";
 export * from "./property-name";
+export * from "./property-traverse";

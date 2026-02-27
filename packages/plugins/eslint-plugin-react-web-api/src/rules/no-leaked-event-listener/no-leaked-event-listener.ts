@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findProperty, findVariable, getVariableInitializer, isValueEqual } from "@eslint-react/var";
+import { findVariable, getVariableInitializer, isValueEqual } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -92,9 +92,6 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
 }
 
 function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
-  function findProp(properties: TSESTree.ObjectExpression["properties"], propName: string) {
-    return findProperty(propName, properties, initialScope);
-  }
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
@@ -109,7 +106,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        const pCapture = findProp(node.properties, "capture");
+        const pCapture = ast.findProperty(node.properties, "capture");
         const vCapture = match(pCapture)
           .with(P.nullish, () => false)
           .with({ type: AST.Property }, (prop) => {
@@ -122,7 +119,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
             }
           })
           .otherwise(() => false);
-        const pSignal = findProp(node.properties, "signal");
+        const pSignal = ast.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(pSignal.value, initialScope)
           : unit;
