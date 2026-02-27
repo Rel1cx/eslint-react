@@ -1,0 +1,106 @@
+---
+title: unstable-rules-of-props
+description: Enforces the Rules of Props.
+---
+
+<Callout type="warning">
+  This rule is currently in beta and only available in v3.0.0 beta releases.
+</Callout>
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`@eslint-react/eslint-plugin@beta`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/unstable-rules-of-props
+```
+
+**Full Name in [`eslint-plugin-react-x@beta`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/unstable-rules-of-props
+```
+
+**Features**
+
+`🧪`
+
+**Presets**
+
+-
+
+## Rule Details
+
+Props are the primary interface through which components receive data. Passing props incorrectly — using conflicting prop combinations, supplying the wrong shape, or violating React's own contracts for built-in elements — leads to subtle bugs that are often hard to trace at runtime. This rule enforces a set of named checks, each targeting a distinct category of prop misuse.
+
+## Common Violations
+
+### Using Controlled and Uncontrolled Props Together
+
+Mixing both modes on the same element is a mistake. React will silently ignore the `default*` prop and may emit a console warning. The element behaves as controlled, which causes confusing bugs when the developer expects the initial value to be respected.
+
+The following prop pairs must not appear together on the same element:
+
+| Controlled prop | Uncontrolled prop |
+|---|---|
+| `value` | `defaultValue` |
+| `checked` | `defaultChecked` |
+
+#### Invalid
+
+```tsx
+// ❌ 'defaultValue' is ignored because 'value' makes the input controlled.
+<input value={name} defaultValue="World" />;
+```
+
+```tsx
+// ❌ 'defaultChecked' is ignored because 'checked' makes the checkbox controlled.
+<input type="checkbox" checked={isChecked} defaultChecked />;
+```
+
+```tsx
+// ❌ Order does not matter — the pair is still invalid.
+<textarea defaultValue="fallback" value={content} />;
+```
+
+```tsx
+// ❌ Custom components that follow the same pattern are also flagged.
+<MyInput value={val} defaultValue="fallback" />;
+```
+
+#### Valid
+
+```tsx
+// ✅ Controlled input — value is driven by React state.
+<input value={name} onChange={(e) => setName(e.target.value)} />;
+```
+
+```tsx
+// ✅ Uncontrolled input — host element manages the value; initial value is provided.
+<input defaultValue="World" />;
+```
+
+```tsx
+// ✅ Controlled checkbox.
+<input
+  type="checkbox"
+  checked={isChecked}
+  onChange={(e) => setIsChecked(e.target.checked)}
+/>;
+```
+
+```tsx
+// ✅ Uncontrolled checkbox with an initial checked state.
+<input type="checkbox" defaultChecked />;
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unstable-rules-of-props/unstable-rules-of-props.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unstable-rules-of-props/unstable-rules-of-props.spec.ts)
+
+## Further Reading
+
+- [React Docs: Controlled and uncontrolled components](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components)

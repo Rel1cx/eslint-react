@@ -68,6 +68,9 @@ import unsupportedSyntax from "./rules/unsupported-syntax/unsupported-syntax";
 import useMemo from "./rules/use-memo/use-memo";
 import useState from "./rules/use-state/use-state";
 
+// Unstable rules
+import unstableRulesOfProps from "./rules/unstable-rules-of-props/unstable-rules-of-props";
+
 export const plugin = {
   meta: {
     name,
@@ -136,6 +139,7 @@ export const plugin = {
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
+    "unstable-rules-of-props": unstableRulesOfProps,
     "unsupported-syntax": unsupportedSyntax,
     "use-memo": useMemo,
     "use-state": useState,
