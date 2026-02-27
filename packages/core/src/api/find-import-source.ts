@@ -1,16 +1,16 @@
 import * as ast from "@eslint-react/ast";
 import { identity, unit } from "@eslint-react/eff";
+import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 
-import { findVariable } from "./find-variable";
-
 /**
  * Get the arguments of a require expression
  * @param node The node to match
  * @returns The require expression arguments or undefined if the node is not a require expression
+ * @internal
  */
 function getRequireExpressionArguments(node: TSESTree.Node) {
   return match<typeof node, TSESTree.CallExpressionArgument[] | null>(node)

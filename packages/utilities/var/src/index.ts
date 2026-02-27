@@ -1,5 +1,4 @@
 export * from "./find-enclosing-assignment-target";
-export * from "./find-import-source";
 export * from "./find-variable";
 export * from "./get-object-type";
 export * from "./get-variable-initializer";

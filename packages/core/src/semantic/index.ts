@@ -1,2 +1,2 @@
-export type * from "./semantic-func";
-export type * from "./semantic-node";
+export * from "./semantic-func";
+export * from "./semantic-node";
