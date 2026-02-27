@@ -1,3 +1,40 @@
+## v3.0.0-beta.58 (2026-02-26)
+
+### 🐞 Fixes
+
+- Fix `no-useless-fragment` false positive when passing a `ref` to a `Fragment`, closes #1567 (#1568)
+
+## v3.0.0-beta.57 (2026-02-26)
+
+### 🪄 Improvements
+
+- Cleanup shared settings utilities (#1566)
+
+## v3.0.0-beta.56 (2026-02-26)
+
+### 🪄 Improvements
+
+- Remove config adapters and fix plugin default export types, closes #1564 (#1565)
+
+## v3.0.0-beta.55 (2026-02-25)
+
+### 🪄 Improvements
+
+- Refactor refs rule (#1563)
+
+## v3.0.0-beta.54 (2026-02-25)
+
+### 🪄 Improvements
+
+- refactor: inline `getChildScopes` and cleanup var utilities (#1562)
+- docs: remove unnecessary React imports from MDX examples
+
+## v3.0.0-beta.53 (2026-02-25)
+
+### 🐞 Fixes
+
+- fix(no-forward-ref): do not add ref param when type arguments are mismatched (#1561)
+
 ## v3.0.0-beta.52 (2026-02-25)
 
 ### 🐞 Fixes
