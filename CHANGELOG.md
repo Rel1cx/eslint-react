@@ -1,3 +1,17 @@
+## v3.0.0-beta.60
+
+## ✨ New
+
+- feat: no-mixing-controlled-and-uncontrolled (#486)
+- feat: rename no-mixing-controlled-and-uncontrolled to unstable-rules-of-props (#1571)
+
+## v3.0.0-beta.59
+
+### 🪄 Improvements
+
+- refactor(utilities/var): cleanup
+- Update and reorder tsdown config options
+
 ## v3.0.0-beta.58 (2026-02-26)
 
 ### 🐞 Fixes
