@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { or, unit } from "@eslint-react/eff";
+import { or } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { ScopeVariable } from "@typescript-eslint/scope-manager";
@@ -42,7 +42,7 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 
 // #region Helpers
 
-function isNewResizeObserver(node: TSESTree.Node | unit) {
+function isNewResizeObserver(node: TSESTree.Node | null) {
   return node?.type === AST.NewExpression
     && node.callee.type === AST.Identifier
     && node.callee.name === "ResizeObserver";
@@ -216,9 +216,9 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
           const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-          const isDynamic = (node: TSESTree.Node | unit) =>
+          const isDynamic = (node: TSESTree.Node | null) =>
             node?.type === AST.CallExpression || ast.isConditional(node);
-          const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
+          const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
           const hasDynamicallyAdded = oentries
             .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
           if (hasDynamicallyAdded) {
@@ -240,9 +240,9 @@ export function create(context: RuleContext<MessageID, []>) {
 // #endregion
 
 function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   if (
     "init" in def.node
     && def.node.init != null
@@ -250,5 +250,5 @@ function resolve(v: ScopeVariable | null) {
   ) {
     return def.node.init;
   }
-  return unit;
+  return null;
 }

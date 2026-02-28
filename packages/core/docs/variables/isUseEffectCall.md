@@ -3,14 +3,14 @@
 # Variable: isUseEffectCall()
 
 ```ts
-const isUseEffectCall: (...a: [Node]) => boolean;
+const isUseEffectCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

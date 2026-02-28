@@ -1,4 +1,3 @@
-import { unit } from "@eslint-react/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -57,10 +56,10 @@ export type ObjectType =
  * @returns The ObjectType of the node, or undefined if not detected
  */
 export function computeObjectType(
-  node: TSESTree.Node | unit,
+  node: TSESTree.Node | null,
   initialScope: Scope,
-): ObjectType | unit {
-  if (node == null) return unit;
+): ObjectType | null {
+  if (node == null) return null;
   switch (node.type) {
     case AST.JSXElement:
     case AST.JSXFragment:
@@ -82,21 +81,21 @@ export function computeObjectType(
       if ("regex" in node) {
         return { kind: "regexp", node } as const;
       }
-      return unit;
+      return null;
     }
     case AST.Identifier: {
       const variable = initialScope.set.get(node.name);
       const initNode = resolve(variable);
-      if (initNode == null) return unit;
+      if (initNode == null) return null;
       return computeObjectType(initNode, initialScope);
     }
     case AST.MemberExpression: {
-      if (!("object" in node)) return unit;
+      if (!("object" in node)) return null;
       return computeObjectType(node.object, initialScope);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
-      if (!("right" in node)) return unit;
+      if (!("right" in node)) return null;
       return computeObjectType(node.right, initialScope);
     }
     case AST.LogicalExpression: {
@@ -107,7 +106,7 @@ export function computeObjectType(
     }
     case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
-        return unit;
+        return null;
       }
       return computeObjectType(
         node.expressions[node.expressions.length - 1],
@@ -119,27 +118,27 @@ export function computeObjectType(
     }
     default: {
       if (!("expression" in node) || typeof node.expression !== "object") {
-        return unit;
+        return null;
       }
       return computeObjectType(node.expression, initialScope);
     }
   }
 }
 
-function resolve(v: Variable | unit) {
-  if (v == null) return unit;
+function resolve(v: Variable | null) {
+  if (v == null) return null;
   const def = v.defs.at(-1);
-  if (def == null) return unit;
+  if (def == null) return null;
   // For variable declarations, use the init property
   if (def.type === DefinitionType.Variable) {
     return def.node.init;
   }
   if (def.type === DefinitionType.Parameter) {
-    return unit;
+    return null;
   }
   // For import bindings, we can't resolve the value
   if (def.type === DefinitionType.ImportBinding) {
-    return unit;
+    return null;
   }
   // For other types, return the node itself (e.g., function declarations)
   return def.node;

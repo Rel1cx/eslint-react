@@ -3,14 +3,14 @@
 # Variable: isUseReducerCall()
 
 ```ts
-const isUseReducerCall: (...a: [Node]) => boolean;
+const isUseReducerCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

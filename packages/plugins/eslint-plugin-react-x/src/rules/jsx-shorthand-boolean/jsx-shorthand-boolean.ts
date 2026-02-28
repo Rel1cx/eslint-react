@@ -1,5 +1,4 @@
 import * as core from "@eslint-react/core";
-import type { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -17,7 +16,7 @@ export const RULE_FEATURES = [
 export type MessageID = "default";
 
 type Options = readonly [
-  | unit
+  | null
   | 1
   | -1,
 ];

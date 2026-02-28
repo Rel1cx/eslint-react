@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
 import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -57,7 +56,7 @@ export const DEFAULT_JSX_DETECTION_HINT = 0n
  * @param node The AST node to check
  * @returns `true` if the node is a `JSXText` or a `Literal` node
  */
-export function isJsxText(node: TSESTree.Node | null | unit): node is TSESTree.JSXText | TSESTree.Literal {
+export function isJsxText(node: TSESTree.Node | null): node is TSESTree.JSXText | TSESTree.Literal {
   if (node == null) return false;
   return node.type === AST.JSXText || node.type === AST.Literal;
 }
@@ -74,7 +73,7 @@ export function isJsxText(node: TSESTree.Node | null | unit): node is TSESTree.J
  */
 export function isJsxLike(
   code: { getScope: (node: TSESTree.Node) => Scope },
-  node: TSESTree.Node | unit | null,
+  node: TSESTree.Node | null,
   hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
   if (node == null) return false;
@@ -153,7 +152,7 @@ export function isJsxLike(
     }
     case AST.SequenceExpression: {
       // For sequence expressions, only check the last expression
-      const exp = node.expressions.at(-1);
+      const exp = node.expressions.at(-1) ?? null;
       return isJsxLike(code, exp, hint);
     }
     case AST.CallExpression: {
@@ -182,9 +181,9 @@ export function isJsxLike(
       }
       // Resolve variables to their values and check if they're JSX-like
       function resolve(v: ScopeVariable | null) {
-        if (v == null) return unit;
+        if (v == null) return null;
         const def = v.defs.at(0);
-        if (def == null) return unit;
+        if (def == null) return null;
         if (
           "init" in def.node
           && def.node.init != null
@@ -192,7 +191,7 @@ export function isJsxLike(
         ) {
           return def.node.init;
         }
-        return unit;
+        return null;
       }
       return isJsxLike(code, resolve(findVariable(code.getScope(node), name)), hint);
     }

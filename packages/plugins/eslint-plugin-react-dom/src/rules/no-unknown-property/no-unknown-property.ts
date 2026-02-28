@@ -1,4 +1,3 @@
-import type { unit } from "@eslint-react/eff";
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
@@ -1079,7 +1078,7 @@ function tagNameHasDot(node: TSESTree.JSXAttribute): boolean {
  * @param context ESLint context
  * @returns Standard name or undefined
  */
-function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | unit {
+function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | null {
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
     return DOM_ATTRIBUTE_NAMES[name];
   }
@@ -1260,7 +1259,7 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         }
 
         // Check if the attribute name is similar to a standard property name
-        const standardName: string | unit = getStandardName(name, context);
+        const standardName: string | null = getStandardName(name, context);
 
         const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
         const usesStandardName = standardName != null && standardName === name;

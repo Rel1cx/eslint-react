@@ -3,14 +3,14 @@
 # Variable: isUseImperativeHandleCall()
 
 ```ts
-const isUseImperativeHandleCall: (...a: [Node]) => boolean;
+const isUseImperativeHandleCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

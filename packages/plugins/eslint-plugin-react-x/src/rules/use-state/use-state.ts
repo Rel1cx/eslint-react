@@ -1,7 +1,6 @@
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -23,7 +22,7 @@ export type MessageID =
   | "invalidSetterName";
 
 type Options = readonly [
-  | unit
+  | null
   | {
     enforceAssignment?: boolean;
     enforceLazyInitialization?: boolean;

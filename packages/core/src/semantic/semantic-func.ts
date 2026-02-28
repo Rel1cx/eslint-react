@@ -1,5 +1,4 @@
 import type * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "./semantic-node";
@@ -15,9 +14,9 @@ export interface SemanticFunc extends SemanticNode {
   /** The AST node of the function */
   node: ast.TSESTreeFunction;
   /** The name of the function */
-  name: string | unit;
+  name: string | null;
   /** The return type annotation of the function */
-  type: TSESTree.TSTypeAnnotation | unit;
+  type: TSESTree.TSTypeAnnotation | null;
   /** The body of the function */
   body: TSESTree.BlockStatement | TSESTree.Expression;
   /** The directives of the function (e.g., "use strict", "use client", "use server", etc.) */
@@ -25,6 +24,6 @@ export interface SemanticFunc extends SemanticNode {
   /** The parameters of the function */
   parameters: TSESTree.Parameter[];
   /** The type parameters of the function */
-  typeParameters: TSESTree.TSTypeParameterDeclaration | unit;
+  typeParameters: TSESTree.TSTypeParameterDeclaration | null;
 }
 /* eslint-enable perfectionist/sort-interfaces */

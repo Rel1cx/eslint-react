@@ -3,7 +3,7 @@
 # Function: isJsxText()
 
 ```ts
-function isJsxText(node: Node | null | undefined): node is JSXText | Literal;
+function isJsxText(node: Node | null): node is JSXText | Literal;
 ```
 
 Check if a node is a `JSXText` or a `Literal` node
@@ -12,7 +12,7 @@ Check if a node is a `JSXText` or a `Literal` node
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` | The AST node to check |
+| `node` | `Node` \| `null` | The AST node to check |
 
 ## Returns
 

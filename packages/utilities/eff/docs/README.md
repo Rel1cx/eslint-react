@@ -6,7 +6,6 @@
 | ------ | ------ |
 | [NarrowedTo](type-aliases/NarrowedTo.md) | An extension of Extract for type predicates which falls back to the base in order to narrow the `unknown` case. |
 | [Pretty](type-aliases/Pretty.md) | Simplifies a complex type intersection into a flat object type for better readability in IDE tooltips and error messages. |
-| [unit](type-aliases/unit.md) | alias for `undefined`. |
 
 ## Variables
 
@@ -14,7 +13,6 @@
 | ------ | ------ |
 | [compose](variables/compose.md) | Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`. The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`. |
 | [dual](variables/dual.md) | Creates a function that can be used in a data-last (aka `pipe`able) or data-first style. |
-| [unit](variables/unit.md) | alias for `undefined`. |
 
 ## Functions
 

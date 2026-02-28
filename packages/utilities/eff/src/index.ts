@@ -54,16 +54,6 @@
 // #region Helpers
 
 /**
- * alias for `undefined`.
- */
-export type unit = undefined;
-
-/**
- * alias for `undefined`.
- */
-export const unit = undefined;
-
-/**
  * Simplifies a complex type intersection into a flat object type for better readability
  * in IDE tooltips and error messages.
  */

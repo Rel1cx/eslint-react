@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { DefinitionType, type ScopeVariable, Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -231,7 +230,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         for (const { data, func, messageId, node } of violations) {
           // Walk up the function chain to find a component or hook boundary
-          let current: ast.TSESTreeFunction | unit = func;
+          let current: ast.TSESTreeFunction | null = func;
           let insideComponentOrHook = false;
           while (current != null) {
             if (componentAndHookFns.has(current)) {
@@ -251,9 +250,9 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
     return def.node.init;
   }

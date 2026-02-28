@@ -3,14 +3,14 @@
 # Variable: isUseTransitionCall()
 
 ```ts
-const isUseTransitionCall: (...a: [Node]) => boolean;
+const isUseTransitionCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

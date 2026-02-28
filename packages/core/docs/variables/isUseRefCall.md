@@ -3,14 +3,14 @@
 # Variable: isUseRefCall()
 
 ```ts
-const isUseRefCall: (...a: [Node]) => boolean;
+const isUseRefCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

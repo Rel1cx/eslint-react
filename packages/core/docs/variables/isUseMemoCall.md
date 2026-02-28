@@ -3,14 +3,14 @@
 # Variable: isUseMemoCall()
 
 ```ts
-const isUseMemoCall: (...a: [Node]) => boolean;
+const isUseMemoCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

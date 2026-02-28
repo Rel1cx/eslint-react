@@ -1,4 +1,3 @@
-import { unit } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -21,9 +20,9 @@ export function isInitializedFromRef(name: string, initialScope: Scope) {
  * Get the init expression of a ref variable
  * @param name The variable name
  * @param initialScope The initial scope
- * @returns The init expression node if the variable is derived from a ref, or undefined otherwise
+ * @returns The init expression node if the variable is derived from a ref, or null otherwise
  */
-export function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | unit {
+export function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | null {
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
@@ -40,5 +39,5 @@ export function getRefInit(name: string, initialScope: Scope): TSESTree.Expressi
         return init;
     }
   }
-  return unit;
+  return null;
 }

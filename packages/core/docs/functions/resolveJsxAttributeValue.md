@@ -32,12 +32,12 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
   | {
   kind: "element";
   node: JSXElement;
-  toStatic: undefined;
+  toStatic: null;
 }
   | {
   kind: "spreadChild";
   node: JSXEmptyExpression | Expression;
-  toStatic: undefined;
+  toStatic: null;
 }
   | {
   kind: "spreadProps";
@@ -85,12 +85,12 @@ Resolve the static value of a JSX attribute or spread attribute
   \| \{
   `kind`: `"element"`;
   `node`: `JSXElement`;
-  `toStatic`: `undefined`;
+  `toStatic`: `null`;
 \}
   \| \{
   `kind`: `"spreadChild"`;
   `node`: `JSXEmptyExpression` \| `Expression`;
-  `toStatic`: `undefined`;
+  `toStatic`: `null`;
 \}
   \| \{
   `kind`: `"spreadProps"`;

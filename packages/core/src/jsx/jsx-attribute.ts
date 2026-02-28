@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -35,9 +34,9 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
         case AST.Identifier: {
           const variable = findVariable(scope, attr.argument.name);
           function resolve(v: typeof variable) {
-            if (v == null) return unit;
+            if (v == null) return null;
             const def = v.defs.at(0);
-            if (def == null) return unit;
+            if (def == null) return null;
             if (
               "init" in def.node
               && def.node.init != null
@@ -45,7 +44,7 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
             ) {
               return def.node.init;
             }
-            return unit;
+            return null;
           }
           const initNode = resolve(variable);
 

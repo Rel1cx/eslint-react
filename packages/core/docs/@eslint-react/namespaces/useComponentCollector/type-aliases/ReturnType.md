@@ -7,7 +7,7 @@ type ReturnType = {
   ctx: {
      getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
      getCurrentEntries: () => FunctionEntry[];
-     getCurrentEntry: () => FunctionEntry | unit;
+     getCurrentEntry: () => FunctionEntry | null;
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="property-ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `unit`; \} |
+| <a id="property-ctx"></a> `ctx` | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[]; `getCurrentEntries`: () => `FunctionEntry`[]; `getCurrentEntry`: () => `FunctionEntry` \| `null`; \} |
 | `ctx.getAllComponents` | (`node`: `TSESTree.Program`) => [`FunctionComponentSemanticNode`](../../../../interfaces/FunctionComponentSemanticNode.md)[] |
 | `ctx.getCurrentEntries` | () => `FunctionEntry`[] |
-| `ctx.getCurrentEntry` | () => `FunctionEntry` \| `unit` |
+| `ctx.getCurrentEntry` | () => `FunctionEntry` \| `null` |
 | <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

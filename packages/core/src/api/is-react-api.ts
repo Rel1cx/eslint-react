@@ -1,14 +1,14 @@
 import * as ast from "@eslint-react/ast";
-import { dual, type unit } from "@eslint-react/eff";
+import { dual } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {
   type ReturnType = {
-    (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
+    (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
     (
       context: RuleContext,
-    ): (node: unit | null | TSESTree.Node) => node is TSESTree.MemberExpression | TSESTree.Identifier;
+    ): (node: null | TSESTree.Node) => node is TSESTree.MemberExpression | TSESTree.Identifier;
   };
 }
 
@@ -18,7 +18,7 @@ export declare namespace isReactAPI {
  * @returns A predicate function to check if a node matches the API
  */
 export function isReactAPI(api: string): isReactAPI.ReturnType {
-  const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is
+  const func = (context: RuleContext, node: null | TSESTree.Node): node is
     | TSESTree.Identifier
     | TSESTree.MemberExpression =>
   {
@@ -34,8 +34,8 @@ export function isReactAPI(api: string): isReactAPI.ReturnType {
 
 export declare namespace isReactAPICall {
   type ReturnType = {
-    (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression;
-    (context: RuleContext): (node: unit | null | TSESTree.Node) => node is TSESTree.CallExpression;
+    (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
+    (context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
   };
 }
 
@@ -45,7 +45,7 @@ export declare namespace isReactAPICall {
  * @returns A predicate function to check if a node is a call to the API
  */
 export function isReactAPICall(api: string): isReactAPICall.ReturnType {
-  const func = (context: RuleContext, node: unit | null | TSESTree.Node): node is TSESTree.CallExpression => {
+  const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
     if (node.type !== AST.CallExpression) return false;
     return isReactAPI(api)(context, node.callee);

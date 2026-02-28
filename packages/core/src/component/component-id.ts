@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -9,7 +8,7 @@ import { isComponentWrapperCallLoose } from "./component-wrapper";
  * Get function component identifier from `const Component = memo(() => {});`
  * @param context The rule context
  * @param node The function node to analyze
- * @returns The function identifier or `unit` if not found
+ * @returns The function identifier or `null` if not found
  */
 export function getFunctionComponentId(
   context: RuleContext,
@@ -38,5 +37,5 @@ export function getFunctionComponentId(
   ) {
     return parent.parent.parent.id;
   }
-  return unit;
+  return null;
 }

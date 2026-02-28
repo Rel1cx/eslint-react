@@ -1,4 +1,3 @@
-import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -7,7 +6,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
  *
  * @todo Verify correctness and completeness of this function
  * @param node The starting node
- * @returns The enclosing assignment target node, or undefined if not found
+ * @returns The enclosing assignment target node, or null if not found
  */
 export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
   switch (true) {
@@ -27,7 +26,7 @@ export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
     case node.type === AST.BlockStatement
       || node.type === AST.Program
       || node.parent === node:
-      return unit;
+      return null;
 
     // Continue traversing up the AST until we find an identifier
     default:

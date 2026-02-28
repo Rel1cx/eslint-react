@@ -53,7 +53,7 @@ function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction):
   | UnaryExpressionVoid
   | UpdateExpression
   | YieldExpression
-  | undefined;
+  | null;
 ```
 
 Get function component identifier from `const Component = memo(() => {});`
@@ -116,6 +116,6 @@ Get function component identifier from `const Component = memo(() => {});`
   \| `UnaryExpressionVoid`
   \| `UpdateExpression`
   \| `YieldExpression`
-  \| `undefined`
+  \| `null`
 
-The function identifier or `unit` if not found
+The function identifier or `null` if not found

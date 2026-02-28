@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { isValueEqual } from "@eslint-react/var";
 import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
@@ -48,13 +47,13 @@ export type REntry = EventListenerEntry & { method: "removeEventListener" };
 // #region Helpers
 
 const defaultOptions: {
-  capture: boolean | unit;
-  // once: boolean | unit;
-  signal: TSESTree.Node | unit;
+  capture: boolean | null;
+  // once: boolean | null;
+  signal: TSESTree.Node | null;
 } = {
   capture: false,
   // once: false,
-  signal: unit,
+  signal: null,
 };
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
@@ -75,8 +74,8 @@ function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
-function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scope): TSESTree.Node | unit {
-  if (node == null) return unit;
+function getSignalValueExpression(node: TSESTree.Node | null, initialScope: Scope): TSESTree.Node | null {
+  if (node == null) return null;
   switch (node.type) {
     case AST.Identifier: {
       return getSignalValueExpression(resolve(findVariable(initialScope, node)), initialScope);
@@ -84,7 +83,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
     case AST.MemberExpression:
       return node;
     default:
-      return unit;
+      return null;
   }
 }
 
@@ -119,7 +118,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
         const pSignal = ast.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(pSignal.value, initialScope)
-          : unit;
+          : null;
         return { capture: vCapture, signal: vSignal };
       }
       default: {
@@ -319,9 +318,9 @@ export function create(context: RuleContext<MessageID, []>) {
 // #endregion
 
 function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   if (
     "init" in def.node
     && def.node.init != null
@@ -329,5 +328,5 @@ function resolve(v: ScopeVariable | null) {
   ) {
     return def.node.init;
   }
-  return unit;
+  return null;
 }

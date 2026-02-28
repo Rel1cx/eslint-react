@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
 import {
   type ReportFixFunction,
   type RuleContext,
@@ -69,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return null;
   }
 
-  function reportNonAsyncFunction(node: TSESTree.Node | unit | null, messageId: MessageID): boolean {
+  function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID): boolean {
     if (!ast.isFunction(node)) return false;
     if (!node.async) {
       context.report({ fix: getAsyncFix(node), messageId, node });
@@ -163,9 +162,9 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   if (
     "init" in def.node
     && def.node.init != null

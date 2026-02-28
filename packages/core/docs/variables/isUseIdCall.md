@@ -3,14 +3,14 @@
 # Variable: isUseIdCall()
 
 ```ts
-const isUseIdCall: (...a: [Node]) => boolean;
+const isUseIdCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

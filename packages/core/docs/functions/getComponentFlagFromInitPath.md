@@ -3,7 +3,7 @@
 # Function: getComponentFlagFromInitPath()
 
 ```ts
-function getComponentFlagFromInitPath(initPath: FunctionInitPath | undefined): bigint;
+function getComponentFlagFromInitPath(initPath: FunctionInitPath | null): bigint;
 ```
 
 Get component flag from init path
@@ -12,7 +12,7 @@ Get component flag from init path
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `initPath` | `FunctionInitPath` \| `undefined` | The init path of the function component |
+| `initPath` | `FunctionInitPath` \| `null` | The init path of the function component |
 
 ## Returns
 

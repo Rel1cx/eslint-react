@@ -1,6 +1,5 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
-import type { unit } from "@eslint-react/eff";
 import { getOrElseUpdate, identity } from "@eslint-react/eff";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 
@@ -73,7 +72,7 @@ export interface ESLintReactSettingsNormalized {
   version: string;
   importSource: string;
   compilationMode: ESLintReactSettings["compilationMode"] | "off";
-  polymorphicPropName: string | unit;
+  polymorphicPropName: string | null;
   additionalStateHooks: RegExpLike;
   additionalEffectHooks: RegExpLike;
 }

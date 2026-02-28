@@ -3,7 +3,7 @@
 # Function: isUseStateLikeCall()
 
 ```ts
-function isUseStateLikeCall(node: Node | undefined, additionalStateHooks?: RegExpLike): node is CallExpression;
+function isUseStateLikeCall(node: Node | null, additionalStateHooks?: RegExpLike): node is CallExpression;
 ```
 
 Detect useState calls and variations (useCustomState, etc.) using a regex pattern
@@ -12,7 +12,7 @@ Detect useState calls and variations (useCustomState, etc.) using a regex patter
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` \| `undefined` | The AST node to check |
+| `node` | `Node` \| `null` | The AST node to check |
 | `additionalStateHooks` | `RegExpLike` | Regex pattern matching custom hooks that should be treated as state hooks |
 
 ## Returns

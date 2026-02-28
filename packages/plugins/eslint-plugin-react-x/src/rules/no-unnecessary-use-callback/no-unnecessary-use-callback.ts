@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
@@ -123,7 +122,7 @@ export function create(context: RuleContext<MessageID, []>) {
 function checkForUsageInsideUseEffect(
   sourceCode: Readonly<SourceCode>,
   node: TSESTree.CallExpression,
-): ReportDescriptor<MessageID> | unit {
+): ReportDescriptor<MessageID> | null {
   if (!/use\w*Effect/u.test(sourceCode.text)) return;
 
   if (!isVariableDeclarator(node.parent)) {
@@ -162,9 +161,9 @@ function checkForUsageInsideUseEffect(
 }
 
 function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
     return def.node.init;
   }

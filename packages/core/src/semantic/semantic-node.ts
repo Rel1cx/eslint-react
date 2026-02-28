@@ -1,4 +1,3 @@
-import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -7,13 +6,13 @@ import type { TSESTree } from "@typescript-eslint/types";
  */
 export interface SemanticNode {
   /** The identifier of the node */
-  id: unit | TSESTree.Node;
+  id: null | TSESTree.Node;
   /** The unique key of the node */
   key: string;
   /** The kind of the node */
   kind: string;
   /** The name of the node */
-  name: unit | string;
+  name: null | string;
   /** The flag of the node */
   flag: bigint;
   /** The hint of the node */

@@ -5,8 +5,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-import { unit } from "@eslint-react/eff";
-
 const thisBlockTypes = [
   AST.FunctionDeclaration,
   AST.FunctionExpression,
@@ -49,7 +47,7 @@ export function isValueEqual(
       const aVar = findVariable(aScope, a);
       const bVar = findVariable(bScope, b);
       const resolve = (variable: typeof aVar) => {
-        if (variable == null) return unit;
+        if (variable == null) return null;
         const def = variable.defs.at(0);
         if (def != null) {
           switch (true) {
@@ -66,7 +64,7 @@ export function isValueEqual(
           }
         }
         if (def?.type === DefinitionType.Parameter && ast.isFunction(def.node)) return def.node;
-        return unit;
+        return null;
       };
       const aVarInit = resolve(aVar);
       const bVarInit = resolve(bVar);
