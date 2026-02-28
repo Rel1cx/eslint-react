@@ -1,4 +1,3 @@
-import type { unit } from "@eslint-react/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isLiteral } from "./literal-is";
@@ -8,7 +7,7 @@ import { isLiteral } from "./literal-is";
  * @param node The AST node
  * @returns True if the node is a member expression that accesses `process.env.NODE_ENV`, false otherwise
  */
-export function isProcessEnvNodeEnv(node: TSESTree.Node | null | unit): node is TSESTree.MemberExpression {
+export function isProcessEnvNodeEnv(node: TSESTree.Node | null): node is TSESTree.MemberExpression {
   return node != null
     && node.type === AST.MemberExpression
     && node.object.type === AST.MemberExpression
@@ -28,7 +27,7 @@ export function isProcessEnvNodeEnv(node: TSESTree.Node | null | unit): node is 
  * @returns True if the node is a binary expression that compares `process.env.NODE_ENV` with the specified value, false otherwise
  */
 export function isProcessEnvNodeEnvCompare(
-  node: TSESTree.Node | null | unit,
+  node: TSESTree.Node | null,
   operator: "===" | "!==",
   value: "development" | "production",
 ): node is TSESTree.BinaryExpression {

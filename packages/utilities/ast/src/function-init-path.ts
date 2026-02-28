@@ -1,4 +1,3 @@
-import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -79,9 +78,9 @@ export type FunctionInitPath =
  * Determine what kind of component declaration pattern the function belongs to.
  *
  * @param node The function node to analyze
- * @returns The function initialization path or unit if not identifiable
+ * @returns The function initialization path or null if not identifiable
  */
-export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInitPath {
+export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInitPath {
   // Function declaration is the simplest case
   if (node.type === AST.FunctionDeclaration) {
     return [node] as const;
@@ -124,7 +123,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): unit | FunctionInit
   }
 
   // Not a recognized function component initialization pattern
-  return unit;
+  return null;
 }
 
 /**

@@ -4,15 +4,15 @@
 
 ```ts
 type ReturnType = {
-  (context: RuleContext, node: Node | null | undefined): node is Identifier | MemberExpression;
-  (context: RuleContext): (node: Node | null | undefined) => node is Identifier | MemberExpression;
+  (context: RuleContext, node: Node | null): node is Identifier | MemberExpression;
+  (context: RuleContext): (node: Node | null) => node is Identifier | MemberExpression;
 };
 ```
 
 ## Call Signature
 
 ```ts
-(context: RuleContext, node: Node | null | undefined): node is Identifier | MemberExpression;
+(context: RuleContext, node: Node | null): node is Identifier | MemberExpression;
 ```
 
 ### Parameters
@@ -20,7 +20,7 @@ type ReturnType = {
 | Parameter | Type |
 | ------ | ------ |
 | `context` | `RuleContext` |
-| `node` | `Node` \| `null` \| `undefined` |
+| `node` | `Node` \| `null` |
 
 ### Returns
 
@@ -29,7 +29,7 @@ node is Identifier \| MemberExpression
 ## Call Signature
 
 ```ts
-(context: RuleContext): (node: Node | null | undefined) => node is Identifier | MemberExpression;
+(context: RuleContext): (node: Node | null) => node is Identifier | MemberExpression;
 ```
 
 ### Parameters
@@ -41,14 +41,14 @@ node is Identifier \| MemberExpression
 ### Returns
 
 ```ts
-(node: Node | null | undefined): node is Identifier | MemberExpression;
+(node: Node | null): node is Identifier | MemberExpression;
 ```
 
 #### Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` |
+| `node` | `Node` \| `null` |
 
 #### Returns
 

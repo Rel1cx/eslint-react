@@ -1,11 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import { or, unit } from "@eslint-react/eff";
+import { or } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
-import type { ScopeVariable } from "@typescript-eslint/scope-manager";
+import { findEnclosingAssignmentTarget, isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import {
@@ -42,7 +40,7 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 
 // #region Helpers
 
-function isNewResizeObserver(node: TSESTree.Node | unit) {
+function isNewResizeObserver(node: TSESTree.Node | null) {
   return node?.type === AST.NewExpression
     && node.callee.type === AST.Identifier
     && node.callee.name === "ResizeObserver";
@@ -51,9 +49,7 @@ function isNewResizeObserver(node: TSESTree.Node | unit) {
 function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
   switch (true) {
     case node.type === AST.Identifier: {
-      const scope = context.sourceCode.getScope(node);
-      const variable = findVariable(scope, node);
-      const initNode = resolve(variable);
+      const initNode = resolve(context, node);
       return isNewResizeObserver(initNode);
     }
     case node.type === AST.MemberExpression:
@@ -216,9 +212,9 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
           const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-          const isDynamic = (node: TSESTree.Node | unit) =>
+          const isDynamic = (node: TSESTree.Node | null) =>
             node?.type === AST.CallExpression || ast.isConditional(node);
-          const isPhaseNode = (node: TSESTree.Node | unit) => node === phaseNode;
+          const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
           const hasDynamicallyAdded = oentries
             .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
           if (hasDynamicallyAdded) {
@@ -238,17 +234,3 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 // #endregion
-
-function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
-  const def = v.defs.at(0);
-  if (def == null) return unit;
-  if (
-    "init" in def.node
-    && def.node.init != null
-    && !("declarations" in def.node.init)
-  ) {
-    return def.node.init;
-  }
-  return unit;
-}

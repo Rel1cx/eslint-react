@@ -3,14 +3,14 @@
 # Variable: isUseInsertionEffectCall()
 
 ```ts
-const isUseInsertionEffectCall: (...a: [Node]) => boolean;
+const isUseInsertionEffectCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

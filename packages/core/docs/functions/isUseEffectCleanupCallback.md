@@ -3,7 +3,7 @@
 # Function: isUseEffectCleanupCallback()
 
 ```ts
-function isUseEffectCleanupCallback(node: Node | undefined): boolean;
+function isUseEffectCleanupCallback(node: Node | null): boolean;
 ```
 
 Determine if a node is the cleanup function returned by a useEffect-like hook's setup function
@@ -12,7 +12,7 @@ Determine if a node is the cleanup function returned by a useEffect-like hook's 
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` \| `undefined` | The AST node to check |
+| `node` | `Node` \| `null` | The AST node to check |
 
 ## Returns
 

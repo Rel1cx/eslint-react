@@ -4,15 +4,15 @@
 
 ```ts
 type ReturnType = {
-  (context: RuleContext, node: Node | null | undefined): node is CallExpression;
-  (context: RuleContext): (node: Node | null | undefined) => node is CallExpression;
+  (context: RuleContext, node: Node | null): node is CallExpression;
+  (context: RuleContext): (node: Node | null) => node is CallExpression;
 };
 ```
 
 ## Call Signature
 
 ```ts
-(context: RuleContext, node: Node | null | undefined): node is CallExpression;
+(context: RuleContext, node: Node | null): node is CallExpression;
 ```
 
 ### Parameters
@@ -20,7 +20,7 @@ type ReturnType = {
 | Parameter | Type |
 | ------ | ------ |
 | `context` | `RuleContext` |
-| `node` | `Node` \| `null` \| `undefined` |
+| `node` | `Node` \| `null` |
 
 ### Returns
 
@@ -29,7 +29,7 @@ type ReturnType = {
 ## Call Signature
 
 ```ts
-(context: RuleContext): (node: Node | null | undefined) => node is CallExpression;
+(context: RuleContext): (node: Node | null) => node is CallExpression;
 ```
 
 ### Parameters
@@ -41,14 +41,14 @@ type ReturnType = {
 ### Returns
 
 ```ts
-(node: Node | null | undefined): node is CallExpression;
+(node: Node | null): node is CallExpression;
 ```
 
 #### Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` |
+| `node` | `Node` \| `null` |
 
 #### Returns
 

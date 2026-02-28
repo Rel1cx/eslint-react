@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -9,7 +8,7 @@ import { isUseEffectLikeCall } from "./hook-is";
  * Determine if a node is the setup function passed to a useEffect-like hook
  * @param node The AST node to check
  */
-export function isUseEffectSetupCallback(node: TSESTree.Node | unit) {
+export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   // Check if node is the first argument of a CallExpression that is a useEffect-like hook
   return node.parent?.type === AST.CallExpression
@@ -21,7 +20,7 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | unit) {
  * Determine if a node is the cleanup function returned by a useEffect-like hook's setup function
  * @param node The AST node to check
  */
-export function isUseEffectCleanupCallback(node: TSESTree.Node | unit) {
+export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
 
   // Find the return statement returning this node

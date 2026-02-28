@@ -1,6 +1,5 @@
-import { unit } from "@eslint-react/eff";
+import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -53,14 +52,14 @@ export type ObjectType =
 /**
  * Detect the ObjectType of a given node
  * @param node The node to check
- * @param initialScope  The initial scope to check for variable declarations
  * @returns The ObjectType of the node, or undefined if not detected
  */
 export function computeObjectType(
-  node: TSESTree.Node | unit,
-  initialScope: Scope,
-): ObjectType | unit {
-  if (node == null) return unit;
+  context: RuleContext,
+  node: TSESTree.Node | null,
+): ObjectType | null {
+  if (node == null) return null;
+  const initialScope = context.sourceCode.getScope(node);
   switch (node.type) {
     case AST.JSXElement:
     case AST.JSXFragment:
@@ -82,36 +81,35 @@ export function computeObjectType(
       if ("regex" in node) {
         return { kind: "regexp", node } as const;
       }
-      return unit;
+      return null;
     }
     case AST.Identifier: {
-      const variable = initialScope.set.get(node.name);
-      const initNode = resolve(variable);
-      if (initNode == null) return unit;
-      return computeObjectType(initNode, initialScope);
+      const initNode = resolve(context, node, -1);
+      if (initNode == null) return null;
+      return computeObjectType(context, initNode);
     }
     case AST.MemberExpression: {
-      if (!("object" in node)) return unit;
-      return computeObjectType(node.object, initialScope);
+      if (!("object" in node)) return null;
+      return computeObjectType(context, node.object);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
-      if (!("right" in node)) return unit;
-      return computeObjectType(node.right, initialScope);
+      if (!("right" in node)) return null;
+      return computeObjectType(context, node.right);
     }
     case AST.LogicalExpression: {
-      return computeObjectType(node.right, initialScope);
+      return computeObjectType(context, node.right);
     }
     case AST.ConditionalExpression: {
-      return computeObjectType(node.consequent, initialScope) ?? computeObjectType(node.alternate, initialScope);
+      return computeObjectType(context, node.consequent) ?? computeObjectType(context, node.alternate);
     }
     case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
-        return unit;
+        return null;
       }
       return computeObjectType(
-        node.expressions[node.expressions.length - 1],
-        initialScope,
+        context,
+        node.expressions[node.expressions.length - 1] ?? null,
       );
     }
     case AST.CallExpression: {
@@ -119,27 +117,28 @@ export function computeObjectType(
     }
     default: {
       if (!("expression" in node) || typeof node.expression !== "object") {
-        return unit;
+        return null;
       }
-      return computeObjectType(node.expression, initialScope);
+      return computeObjectType(context, node.expression);
     }
   }
 }
 
-function resolve(v: Variable | unit) {
-  if (v == null) return unit;
-  const def = v.defs.at(-1);
-  if (def == null) return unit;
+function resolve(context: RuleContext, node: TSESTree.Identifier, at = 0) {
+  const v = context.sourceCode.getScope(node).set.get(node.name);
+  if (v == null) return null;
+  const def = v.defs.at(at);
+  if (def == null) return null;
   // For variable declarations, use the init property
   if (def.type === DefinitionType.Variable) {
     return def.node.init;
   }
   if (def.type === DefinitionType.Parameter) {
-    return unit;
+    return null;
   }
   // For import bindings, we can't resolve the value
   if (def.type === DefinitionType.ImportBinding) {
-    return unit;
+    return null;
   }
   // For other types, return the node itself (e.g., function declarations)
   return def.node;

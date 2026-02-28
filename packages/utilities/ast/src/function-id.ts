@@ -1,5 +1,4 @@
 /* eslint-disable jsdoc/require-param */
-import { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -56,7 +55,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     case isTypeAssertionExpression(node.parent):
       return getFunctionId(node.parent);
   }
-  return unit;
+  return null;
 }
 
 /**

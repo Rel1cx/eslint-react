@@ -3,7 +3,7 @@
 # Function: getRefInit()
 
 ```ts
-function getRefInit(name: string, initialScope: Scope): Expression | undefined;
+function getRefInit(name: string, initialScope: Scope): Expression | null;
 ```
 
 Get the init expression of a ref variable
@@ -17,6 +17,6 @@ Get the init expression of a ref variable
 
 ## Returns
 
-`Expression` \| `undefined`
+`Expression` \| `null`
 
-The init expression node if the variable is derived from a ref, or undefined otherwise
+The init expression node if the variable is derived from a ref, or null otherwise

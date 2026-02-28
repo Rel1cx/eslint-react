@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { constVoid, getOrElseUpdate, not, unit } from "@eslint-react/eff";
+import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { DefinitionType, type ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -126,8 +126,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
-    const variable = findVariable(context.sourceCode.getScope(id), id);
-    const initNode = resolve(variable);
+    const initNode = resolve(context.sourceCode.getScope(id), id);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
@@ -335,10 +334,9 @@ export function create(context: RuleContext<MessageID, []>) {
       "Program:exit"() {
         const getSetStateCalls = (
           id: string | TSESTree.Identifier,
-          initialScope: Scope.Scope,
+          scope: Scope.Scope,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const variable = findVariable(initialScope, id);
-          const node = resolve(variable);
+          const node = resolve(scope, id);
           switch (node?.type) {
             case AST.ArrowFunctionExpression:
             case AST.FunctionDeclaration:
@@ -393,10 +391,11 @@ export function create(context: RuleContext<MessageID, []>) {
   );
 }
 
-function resolve(v: ScopeVariable | null) {
-  if (v == null) return unit;
+function resolve(scope: Scope.Scope, nameOrNode: string | TSESTree.Identifier) {
+  const v = findVariable(scope, nameOrNode);
+  if (v == null) return null;
   const def = v.defs.at(0);
-  if (def == null) return unit;
+  if (def == null) return null;
   switch (true) {
     case def.type === DefinitionType.FunctionName
       && def.node.type === AST.FunctionDeclaration:
@@ -409,6 +408,6 @@ function resolve(v: ScopeVariable | null) {
       && !("declarations" in def.node.init):
       return def.node.init;
     default:
-      return unit;
+      return null;
   }
 }

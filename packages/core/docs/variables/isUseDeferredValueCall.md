@@ -3,14 +3,14 @@
 # Variable: isUseDeferredValueCall()
 
 ```ts
-const isUseDeferredValueCall: (...a: [Node]) => boolean;
+const isUseDeferredValueCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

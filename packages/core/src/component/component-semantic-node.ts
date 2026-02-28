@@ -1,5 +1,4 @@
 import type * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "../semantic";
@@ -42,7 +41,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
    * The initialization path of the function
    */
   initPath:
-    | unit
+    | null
     | ast.FunctionInitPath;
 
   /**
@@ -64,7 +63,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
    * The display name of the component
    */
   displayName:
-    | unit
+    | null
     | TSESTree.Expression;
 
   /**
@@ -81,7 +80,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
    * The identifier of the component
    */
   id:
-    | unit
+    | null
     | TSESTree.BindingName;
 
   /**
@@ -113,7 +112,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
    * The display name of the component
    */
   displayName:
-    | unit
+    | null
     | TSESTree.Expression;
 }
 

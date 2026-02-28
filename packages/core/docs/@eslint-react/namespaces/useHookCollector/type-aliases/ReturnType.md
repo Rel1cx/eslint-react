@@ -7,7 +7,7 @@ type ReturnType = {
   ctx: {
      getAllHooks: HookSemanticNode[];
      getCurrentEntries: FunctionEntry[];
-     getCurrentEntry: FunctionEntry | undefined;
+     getCurrentEntry: FunctionEntry | null;
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -17,8 +17,8 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="property-ctx"></a> `ctx` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `undefined`; \} |
+| <a id="property-ctx"></a> `ctx` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `null`; \} |
 | `ctx.getAllHooks` | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[] |
 | `ctx.getCurrentEntries` | `FunctionEntry`[] |
-| `ctx.getCurrentEntry` | `FunctionEntry` \| `undefined` |
+| `ctx.getCurrentEntry` | `FunctionEntry` \| `null` |
 | <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
 import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 import type { HookSemanticNode } from "./hook-semantic-node";
@@ -19,7 +18,7 @@ export declare namespace useHookCollector {
     ctx: {
       getAllHooks(node: TSESTree.Program): HookSemanticNode[];
       getCurrentEntries(): FunctionEntry[];
-      getCurrentEntry(): FunctionEntry | unit;
+      getCurrentEntry(): FunctionEntry | null;
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -34,7 +33,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
   const hooks = new Map<string, HookSemanticNode>();
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-  const getCurrentEntry = () => functionEntries.at(-1);
+  const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const id = ast.getFunctionId(node);
     const key = idGen.next();

@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -33,7 +32,7 @@ export declare namespace useComponentCollector {
     ctx: {
       getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
       getCurrentEntries: () => FunctionEntry[];
-      getCurrentEntry: () => FunctionEntry | unit;
+      getCurrentEntry: () => FunctionEntry | null;
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -58,14 +57,14 @@ export function useComponentCollector(
   const components = new Map<string, FunctionComponentSemanticNode>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-  const getCurrentEntry = () => functionEntries.at(-1);
+  const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const key = idGen.next();
     const exp = ast.findParentNode(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? unit : ast.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
     const initPath = ast.getFunctionInitPath(node);
     const directives = ast.getFunctionDirectives(node);
     const entry = {
@@ -74,7 +73,7 @@ export function useComponentCollector(
       kind: "function-component",
       name,
       directives,
-      displayName: unit,
+      displayName: null,
       flag: getComponentFlagFromInitPath(initPath),
       hint,
       hookCalls: [],
@@ -115,7 +114,7 @@ export function useComponentCollector(
       if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
       if (!entry.isComponentDefinition) return;
-      if (!components.has(entry.key) && !isJsxLike(context.sourceCode, body, hint)) return;
+      if (!components.has(entry.key) && !isJsxLike(context, body, hint)) return;
       components.set(entry.key, entry);
     },
     ...collectDisplayName
@@ -125,7 +124,7 @@ export function useComponentCollector(
           if (left.type !== AST.MemberExpression) return;
           const componentName = left.object.type === AST.Identifier
             ? left.object.name
-            : unit;
+            : null;
           const component = [...components.values()].findLast(({ name }) => name != null && name === componentName);
           if (component == null) return;
           component.displayName = right;
@@ -146,7 +145,7 @@ export function useComponentCollector(
       entry.rets.push(node.argument);
       if (!entry.isComponentDefinition) return;
       const { argument } = node;
-      if (!components.has(entry.key) && !isJsxLike(context.sourceCode, argument, hint)) return;
+      if (!components.has(entry.key) && !isJsxLike(context, argument, hint)) return;
       components.set(entry.key, entry);
     },
   } as const satisfies ESLintUtils.RuleListener;

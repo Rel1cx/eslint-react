@@ -3,14 +3,14 @@
 # Variable: isUseActionStateCall()
 
 ```ts
-const isUseActionStateCall: (...a: [Node]) => boolean;
+const isUseActionStateCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

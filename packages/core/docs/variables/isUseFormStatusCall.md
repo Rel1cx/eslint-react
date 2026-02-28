@@ -3,14 +3,14 @@
 # Variable: isUseFormStatusCall()
 
 ```ts
-const isUseFormStatusCall: (...a: [Node]) => boolean;
+const isUseFormStatusCall: (...a: [Node | null]) => boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`a` | \[`Node`\] |
+| ...`a` | \[`Node` \| `null`\] |
 
 ## Returns
 

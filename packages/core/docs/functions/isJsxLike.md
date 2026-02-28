@@ -4,10 +4,8 @@
 
 ```ts
 function isJsxLike(
-   code: {
-  getScope: (node: Node) => Scope;
-}, 
-   node: Node | null | undefined, 
+   context: RuleContext, 
+   node: Node | null, 
    hint?: bigint): boolean;
 ```
 
@@ -18,9 +16,8 @@ Supports configuration through hint flags to customize detection behavior
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `code` | \{ `getScope`: (`node`: `Node`) => `Scope`; \} | `undefined` | The source code with scope lookup capability |
-| `code.getScope` | (`node`: `Node`) => `Scope` | `undefined` | The function to get the scope of a node |
-| `node` | `Node` \| `null` \| `undefined` | `undefined` | The AST node to analyze |
+| `context` | `RuleContext` | `undefined` | The rule context with scope lookup capability |
+| `node` | `Node` \| `null` | `undefined` | The AST node to analyze |
 | `hint` | `bigint` | `DEFAULT_JSX_DETECTION_HINT` | The configuration flags to adjust detection behavior |
 
 ## Returns

@@ -3,7 +3,7 @@
 # Function: findImportSource()
 
 ```ts
-function findImportSource(name: string, initialScope: Scope): string | undefined;
+function findImportSource(name: string, initialScope: Scope): string | null;
 ```
 
 Find the import source of a variable
@@ -17,6 +17,6 @@ Find the import source of a variable
 
 ## Returns
 
-`string` \| `undefined`
+`string` \| `null`
 
-The import source or undefined if not found
+The import source or null if not found

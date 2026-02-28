@@ -1,5 +1,5 @@
 import type * as ast from "@eslint-react/ast";
-import { identity, unit } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -70,7 +70,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
           kind: "element",
           node: node.value,
           toStatic() {
-            return unit;
+            return null;
           },
         } as const satisfies JsxAttributeValue;
       // Case 5: JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
@@ -79,7 +79,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
           kind: "spreadChild",
           node: node.value.expression,
           toStatic() {
-            return unit;
+            return null;
           },
         } as const satisfies JsxAttributeValue;
     }
@@ -95,11 +95,11 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
       kind: "spreadProps",
       node: node.argument,
       toStatic(name?: string) {
-        if (name == null) return unit;
+        if (name == null) return null;
         // If spread object contains the named property, extract its value
         return match(getStaticValue(node.argument, initialScope)?.value)
           .with({ [name]: P.select(P.any) }, identity)
-          .otherwise(() => unit);
+          .otherwise(() => null);
       },
     } as const satisfies JsxAttributeValue;
   }

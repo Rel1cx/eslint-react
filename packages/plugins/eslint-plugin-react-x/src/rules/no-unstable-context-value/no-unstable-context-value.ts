@@ -62,8 +62,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const value = attribute.value;
         if (value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = value.expression;
-        const initialScope = context.sourceCode.getScope(valueExpression);
-        const construction = computeObjectType(valueExpression, initialScope);
+        const construction = computeObjectType(context, valueExpression);
         if (construction == null) return;
         if (core.isHookCall(construction.node)) {
           return;

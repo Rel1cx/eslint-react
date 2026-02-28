@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { identity, unit } from "@eslint-react/eff";
+import { identity } from "@eslint-react/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -9,7 +9,7 @@ import { P, match } from "ts-pattern";
 /**
  * Get the arguments of a require expression
  * @param node The node to match
- * @returns The require expression arguments or undefined if the node is not a require expression
+ * @returns The require expression arguments or null if the node is not a require expression
  * @internal
  */
 function getRequireExpressionArguments(node: TSESTree.Node) {
@@ -41,14 +41,14 @@ function getRequireExpressionArguments(node: TSESTree.Node) {
  * Find the import source of a variable
  * @param name The variable name
  * @param initialScope The initial scope to search
- * @returns The import source or undefined if not found
+ * @returns The import source or null if not found
  */
 export function findImportSource(
   name: string,
   initialScope: Scope,
 ) {
   const latestDef = findVariable(initialScope, name)?.defs.at(-1);
-  if (latestDef == null) return unit;
+  if (latestDef == null) return null;
   const { node, parent } = latestDef;
   if (node.type === AST.VariableDeclarator && node.init != null) {
     const { init } = node;
@@ -64,12 +64,12 @@ export function findImportSource(
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
     if (arg0 == null || !ast.isLiteral(arg0, "string")) {
-      return unit;
+      return null;
     }
     // check for: require('source') or require('source/...')
     return arg0.value;
   }
   // latest definition is an import declaration: import { variable } from 'source'
   if (parent?.type === AST.ImportDeclaration) return parent.source.value;
-  return unit;
+  return null;
 }

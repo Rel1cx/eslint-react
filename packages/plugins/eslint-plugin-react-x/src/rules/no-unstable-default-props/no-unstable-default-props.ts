@@ -114,8 +114,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           const { value } = prop;
           const { right } = value;
-          const initialScope = context.sourceCode.getScope(value);
-          const construction = computeObjectType(value, initialScope);
+          const construction = computeObjectType(context, value);
           if (construction == null) {
             continue;
           }

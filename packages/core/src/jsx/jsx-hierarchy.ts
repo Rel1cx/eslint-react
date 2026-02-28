@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
 import { constTrue } from "@eslint-react/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -10,12 +9,12 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
  * @param node The starting AST node
  * @param test Optional predicate function to test if the attribute meets criteria
  *               Defaults to always returning true (matches any attribute)
- * @returns The first matching JSX attribute node found when traversing upwards, or undefined
+ * @returns The first matching JSX attribute node found when traversing upwards, or null
  */
 export function findParentJsxAttribute(
   node: TSESTree.Node,
   test: (node: TSESTree.JSXAttribute) => boolean = constTrue,
-): TSESTree.JSXAttribute | unit {
+): TSESTree.JSXAttribute | null {
   // Type guard function to verify if a node is a JSXAttribute and passes the test
   const guard = (node: TSESTree.Node): node is TSESTree.JSXAttribute => {
     return node.type === AST.JSXAttribute && test(node);

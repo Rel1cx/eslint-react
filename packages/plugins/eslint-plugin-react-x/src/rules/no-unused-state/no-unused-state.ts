@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { unit } from "@eslint-react/eff";
 import { constFalse, constTrue } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -54,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // WeakMap to store state definition information for each class
   const stateDefs = new WeakMap<
     ast.TSESTreeClass,
-    { isUsed: boolean; node: TSESTree.Node | unit }
+    { isUsed: boolean; node: TSESTree.Node | null }
   >();
 
   function classEnter(node: ast.TSESTreeClass) {

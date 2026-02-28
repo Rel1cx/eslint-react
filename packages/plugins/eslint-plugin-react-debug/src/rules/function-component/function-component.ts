@@ -40,11 +40,11 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "anonymous", displayName, flag, hookCalls, node } of ctx.getAllComponents(program)) {
+        for (const { name, displayName, flag, hookCalls, node } of ctx.getAllComponents(program)) {
           context.report({
             data: {
               json: stringify({
-                name,
+                name: name ?? "anonymous",
                 displayName: displayName == null
                   ? "none"
                   : context.sourceCode.getText(displayName),

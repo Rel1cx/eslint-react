@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -38,19 +37,19 @@ export function getIndexParamPosition(methodName: string) {
 
 // Gets the name of the index parameter from a map-like function's callback
 // e.g., in `data.map((item, index) => ...)` it returns 'index'
-function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | unit {
+function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | null {
   const { callee } = node;
   if (callee.type !== AST.MemberExpression) {
-    return unit;
+    return null;
   }
   if (callee.property.type !== AST.Identifier) {
-    return unit;
+    return null;
   }
   const { name } = callee.property;
   // Determines the position of the index parameter for array methods like 'map', 'forEach', etc
   const indexPosition = getIndexParamPosition(name);
   if (indexPosition === -1) {
-    return unit;
+    return null;
   }
   // The callback function is the first argument, or the second for `React.Children` methods
   const callbackArg = node.arguments[
@@ -59,20 +58,20 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
       : 0
   ];
   if (callbackArg == null) {
-    return unit;
+    return null;
   }
   if (!ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callbackArg)) {
-    return unit;
+    return null;
   }
   const { params } = callbackArg;
   if (params.length < indexPosition + 1) {
-    return unit;
+    return null;
   }
   const param = params.at(indexPosition);
 
   return param != null && "name" in param
     ? param.name
-    : unit;
+    : null;
 }
 
 // Recursively collects all identifiers from a binary expression
@@ -108,7 +107,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   // A stack to keep track of index parameter names from nested map calls
-  const indexParamNames: Array<string | unit> = [];
+  const indexParamNames: Array<string | null> = [];
 
   // Checks if a given node is an identifier that matches a known array index parameter name
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {

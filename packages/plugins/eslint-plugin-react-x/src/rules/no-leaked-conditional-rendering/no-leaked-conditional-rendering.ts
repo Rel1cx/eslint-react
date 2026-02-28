@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { flow, unit } from "@eslint-react/eff";
+import { flow } from "@eslint-react/eff";
 import {
   type RuleContext,
   type RuleFeature,
@@ -74,22 +74,22 @@ export function create(context: RuleContext<MessageID, []>) {
   /**
    * Recursively inspects a node to find potential leaked conditional rendering
    * @param node The AST node to inspect
-   * @returns A report descriptor if a problem is found, otherwise `unit`
+   * @returns A report descriptor if a problem is found, otherwise `null`
    */
   function getReportDescriptor(
     node:
-      | unit
+      | null
       | TSESTree.JSXExpressionContainer
       | TSESTree.JSXExpressionContainer["expression"],
-  ): ReportDescriptor<MessageID> | unit {
+  ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
-    if (node == null) return unit;
+    if (node == null) return null;
     if (ast.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
-    if (ast.isJSX(node)) return unit;
+    if (ast.isJSX(node)) return null;
     if (ast.isTypeExpression(node)) return getReportDescriptor(node.expression);
 
     // Pattern match on the node type to apply specific logic
-    return match<typeof node, ReportDescriptor<MessageID> | unit>(node)
+    return match<typeof node, ReportDescriptor<MessageID> | null>(node)
       // Handle logical '&&' expressions
       .with({ type: AST.LogicalExpression, operator: "&&" }, ({ left, right }) => {
         // If the left side is a negation, it's always a boolean, which is safe
@@ -138,10 +138,10 @@ export function create(context: RuleContext<MessageID, []>) {
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with({ init: P.select({ type: P.not(AST.VariableDeclaration) }) }, getReportDescriptor)
-          .otherwise(() => unit);
+          .otherwise(() => null);
       })
       // For all other node types, assume they are safe
-      .otherwise(() => unit);
+      .otherwise(() => null);
   }
   return defineRuleListener(
     {
