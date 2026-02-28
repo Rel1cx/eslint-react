@@ -20,7 +20,7 @@ export function getPropertyName(node: TSESTree.Node): string | null {
     return String(node.value);
   }
   if (node.type === AST.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.raw;
+    return node.quasis[0]?.value.raw ?? null;
   }
   return null;
 }

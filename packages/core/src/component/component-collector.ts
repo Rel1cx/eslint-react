@@ -114,7 +114,7 @@ export function useComponentCollector(
       if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
       if (!entry.isComponentDefinition) return;
-      if (!components.has(entry.key) && !isJsxLike(context.sourceCode, body, hint)) return;
+      if (!components.has(entry.key) && !isJsxLike(context, body, hint)) return;
       components.set(entry.key, entry);
     },
     ...collectDisplayName
@@ -145,7 +145,7 @@ export function useComponentCollector(
       entry.rets.push(node.argument);
       if (!entry.isComponentDefinition) return;
       const { argument } = node;
-      if (!components.has(entry.key) && !isJsxLike(context.sourceCode, argument, hint)) return;
+      if (!components.has(entry.key) && !isJsxLike(context, argument, hint)) return;
       components.set(entry.key, entry);
     },
   } as const satisfies ESLintUtils.RuleListener;

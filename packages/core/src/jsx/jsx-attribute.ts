@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
+import { resolve } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { getJsxAttributeName } from "./jsx-attribute-name";
 
@@ -32,22 +32,7 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
       switch (attr.argument.type) {
         // 2. Spread variable: {...props}
         case AST.Identifier: {
-          const variable = findVariable(scope, attr.argument.name);
-          function resolve(v: typeof variable) {
-            if (v == null) return null;
-            const def = v.defs.at(0);
-            if (def == null) return null;
-            if (
-              "init" in def.node
-              && def.node.init != null
-              && !("declarations" in def.node.init)
-            ) {
-              return def.node.init;
-            }
-            return null;
-          }
-          const initNode = resolve(variable);
-
+          const initNode = resolve(context, attr.argument);
           // Check if the variable resolves to an object with the target property
           if (initNode?.type === AST.ObjectExpression) {
             return ast.findProperty(initNode.properties, name) != null;

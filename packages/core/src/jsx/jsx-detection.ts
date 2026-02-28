@@ -1,8 +1,8 @@
 import * as ast from "@eslint-react/ast";
-import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
+import type { RuleContext } from "@eslint-react/shared";
+import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 // This is a representation of React Node types for reference
 // type ReactNode =
@@ -65,14 +65,13 @@ export function isJsxText(node: TSESTree.Node | null): node is TSESTree.JSXText 
  * Determine if a node represents JSX-like content based on heuristics
  * Supports configuration through hint flags to customize detection behavior
  *
- * @param code The source code with scope lookup capability
- * @param code.getScope The function to get the scope of a node
+ * @param context The rule context with scope lookup capability
  * @param node The AST node to analyze
  * @param hint The configuration flags to adjust detection behavior
  * @returns boolean Whether the node is considered JSX-like
  */
 export function isJsxLike(
-  code: { getScope: (node: TSESTree.Node) => Scope },
+  context: RuleContext,
   node: TSESTree.Node | null,
   hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
@@ -110,18 +109,18 @@ export function isJsxLike(
       }
       // Requires all elements to be JSX
       if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
-        return node.elements.every((n) => isJsxLike(code, n, hint));
+        return node.elements.every((n) => isJsxLike(context, n, hint));
       }
       // Default: array is JSX-like if any element is JSX-like
-      return node.elements.some((n) => isJsxLike(code, n, hint));
+      return node.elements.some((n) => isJsxLike(context, n, hint));
     }
     case AST.LogicalExpression: {
       // Requires both sides to be JSX
       if (hint & JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx) {
-        return isJsxLike(code, node.left, hint) && isJsxLike(code, node.right, hint);
+        return isJsxLike(context, node.left, hint) && isJsxLike(context, node.right, hint);
       }
       // Default: logical expression is JSX-like if either side is JSX-like
-      return isJsxLike(code, node.left, hint) || isJsxLike(code, node.right, hint);
+      return isJsxLike(context, node.left, hint) || isJsxLike(context, node.right, hint);
     }
     case AST.ConditionalExpression: {
       // Helper function to check if the consequent (then) branch has JSX
@@ -131,16 +130,16 @@ export function isJsxLike(
             return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
           }
           if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
-            return node.consequent.every((n: TSESTree.Expression) => isJsxLike(code, n, hint));
+            return node.consequent.every((n: TSESTree.Expression) => isJsxLike(context, n, hint));
           }
-          return node.consequent.some((n: TSESTree.Expression) => isJsxLike(code, n, hint));
+          return node.consequent.some((n: TSESTree.Expression) => isJsxLike(context, n, hint));
         }
-        return isJsxLike(code, node.consequent, hint);
+        return isJsxLike(context, node.consequent, hint);
       }
 
       // Helper function to check if the alternate (else) branch has JSX
       function rightHasJSX(node: TSESTree.ConditionalExpression) {
-        return isJsxLike(code, node.alternate, hint);
+        return isJsxLike(context, node.alternate, hint);
       }
 
       // Requires both branches to contain JSX
@@ -153,7 +152,7 @@ export function isJsxLike(
     case AST.SequenceExpression: {
       // For sequence expressions, only check the last expression
       const exp = node.expressions.at(-1) ?? null;
-      return isJsxLike(code, exp, hint);
+      return isJsxLike(context, exp, hint);
     }
     case AST.CallExpression: {
       // Skip createElement calls if configured to do so
@@ -170,9 +169,8 @@ export function isJsxLike(
       return false;
     }
     case AST.Identifier: {
-      const { name } = node;
       // Handle 'undefined' identifier according to hint
-      if (name === "undefined") {
+      if (node.name === "undefined") {
         return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
       }
       // Check if this is a JSX tag name
@@ -180,20 +178,7 @@ export function isJsxLike(
         return true;
       }
       // Resolve variables to their values and check if they're JSX-like
-      function resolve(v: ScopeVariable | null) {
-        if (v == null) return null;
-        const def = v.defs.at(0);
-        if (def == null) return null;
-        if (
-          "init" in def.node
-          && def.node.init != null
-          && !("declarations" in def.node.init)
-        ) {
-          return def.node.init;
-        }
-        return null;
-      }
-      return isJsxLike(code, resolve(findVariable(code.getScope(node), name)), hint);
+      return isJsxLike(context, resolve(context, node), hint);
     }
   }
   return false;

@@ -2,9 +2,10 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
+import { resolve } from "@eslint-react/var";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable, isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
+import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
@@ -69,8 +70,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const hasEmptyDeps = match(arg1)
           .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: AST.Identifier }, (n) => {
-            const variable = findVariable(scope, n.name);
-            const initNode = resolve(variable);
+            const initNode = resolve(context, n);
             if (initNode?.type !== AST.ArrayExpression) {
               return false;
             }
@@ -91,12 +91,11 @@ export function create(context: RuleContext<MessageID, []>) {
           })
           .with({ type: AST.FunctionExpression }, identity)
           .with({ type: AST.Identifier }, (n) => {
-            const variable = findVariable(scope, n.name);
-            const variableNode = resolve(variable);
-            if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
+            const initNode = resolve(context, n);
+            if (initNode?.type !== AST.ArrowFunctionExpression && initNode?.type !== AST.FunctionExpression) {
               return null;
             }
-            return variableNode;
+            return initNode;
           })
           .otherwise(() => null);
         if (arg0Node == null) return;
@@ -125,21 +124,21 @@ function checkForUsageInsideUseEffect(
   sourceCode: Readonly<SourceCode>,
   node: TSESTree.CallExpression,
 ): ReportDescriptor<MessageID> | null {
-  if (!/use\w*Effect/u.test(sourceCode.text)) return;
+  if (!/use\w*Effect/u.test(sourceCode.text)) return null;
 
   if (!isVariableDeclarator(node.parent)) {
-    return;
+    return null;
   }
 
   if (!isIdentifier(node.parent.id)) {
-    return;
+    return null;
   }
 
   const references = sourceCode.getDeclaredVariables(node.parent)[0]?.references ?? [];
   const usages = references.filter((ref) => ref.init !== true);
   // Skip if there are no usages of the memoized value, the no-unused-vars rule will catch it
   if (usages.length === 0) {
-    return;
+    return null;
   }
   const effectSet = new Set<TSESTree.Node>();
 
@@ -147,12 +146,12 @@ function checkForUsageInsideUseEffect(
     const effect = ast.findParentNode(usage.identifier, core.isUseEffectLikeCall);
 
     if (effect == null) {
-      return;
+      return null;
     }
 
     effectSet.add(effect);
     if (effectSet.size > 1) {
-      return;
+      return null;
     }
   }
 
@@ -161,14 +160,4 @@ function checkForUsageInsideUseEffect(
     messageId: "noUnnecessaryUseMemoInsideUseEffect",
     node,
   };
-}
-
-function resolve(v: ScopeVariable | null) {
-  if (v == null) return null;
-  const def = v.defs.at(0);
-  if (def == null) return null;
-  if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
-    return def.node.init;
-  }
-  return def.node;
 }

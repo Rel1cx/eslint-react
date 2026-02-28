@@ -1,5 +1,5 @@
+import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -52,14 +52,14 @@ export type ObjectType =
 /**
  * Detect the ObjectType of a given node
  * @param node The node to check
- * @param initialScope  The initial scope to check for variable declarations
  * @returns The ObjectType of the node, or undefined if not detected
  */
 export function computeObjectType(
+  context: RuleContext,
   node: TSESTree.Node | null,
-  initialScope: Scope,
 ): ObjectType | null {
   if (node == null) return null;
+  const initialScope = context.sourceCode.getScope(node);
   switch (node.type) {
     case AST.JSXElement:
     case AST.JSXFragment:
@@ -84,33 +84,32 @@ export function computeObjectType(
       return null;
     }
     case AST.Identifier: {
-      const variable = initialScope.set.get(node.name);
-      const initNode = resolve(variable);
+      const initNode = resolve(context, node, -1);
       if (initNode == null) return null;
-      return computeObjectType(initNode, initialScope);
+      return computeObjectType(context, initNode);
     }
     case AST.MemberExpression: {
       if (!("object" in node)) return null;
-      return computeObjectType(node.object, initialScope);
+      return computeObjectType(context, node.object);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
       if (!("right" in node)) return null;
-      return computeObjectType(node.right, initialScope);
+      return computeObjectType(context, node.right);
     }
     case AST.LogicalExpression: {
-      return computeObjectType(node.right, initialScope);
+      return computeObjectType(context, node.right);
     }
     case AST.ConditionalExpression: {
-      return computeObjectType(node.consequent, initialScope) ?? computeObjectType(node.alternate, initialScope);
+      return computeObjectType(context, node.consequent) ?? computeObjectType(context, node.alternate);
     }
     case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
         return null;
       }
       return computeObjectType(
-        node.expressions[node.expressions.length - 1],
-        initialScope,
+        context,
+        node.expressions[node.expressions.length - 1] ?? null,
       );
     }
     case AST.CallExpression: {
@@ -120,14 +119,15 @@ export function computeObjectType(
       if (!("expression" in node) || typeof node.expression !== "object") {
         return null;
       }
-      return computeObjectType(node.expression, initialScope);
+      return computeObjectType(context, node.expression);
     }
   }
 }
 
-function resolve(v: Variable | null) {
+function resolve(context: RuleContext, node: TSESTree.Identifier, at = 0) {
+  const v = context.sourceCode.getScope(node).set.get(node.name);
   if (v == null) return null;
-  const def = v.defs.at(-1);
+  const def = v.defs.at(at);
   if (def == null) return null;
   // For variable declarations, use the init property
   if (def.type === DefinitionType.Variable) {

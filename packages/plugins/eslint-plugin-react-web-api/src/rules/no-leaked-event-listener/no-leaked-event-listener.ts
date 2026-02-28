@@ -1,11 +1,10 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { isValueEqual } from "@eslint-react/var";
-import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
+import { isValueEqual, resolve } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import {
@@ -74,11 +73,11 @@ function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
-function getSignalValueExpression(node: TSESTree.Node | null, initialScope: Scope): TSESTree.Node | null {
+function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null): TSESTree.Node | null {
   if (node == null) return null;
   switch (node.type) {
     case AST.Identifier: {
-      return getSignalValueExpression(resolve(findVariable(initialScope, node)), initialScope);
+      return getSignalValueExpression(context, resolve(context, node));
     }
     case AST.MemberExpression:
       return node;
@@ -87,14 +86,14 @@ function getSignalValueExpression(node: TSESTree.Node | null, initialScope: Scop
   }
 }
 
-function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope): typeof defaultOptions {
+function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument): typeof defaultOptions {
+  const initialScope = context.sourceCode.getScope(node);
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
-        const variable = findVariable(initialScope, node);
-        const variableNode = resolve(variable);
-        if (variableNode?.type === AST.ObjectExpression) {
-          return getOpts(variableNode);
+        const initNode = resolve(context, node);
+        if (initNode?.type === AST.ObjectExpression) {
+          return getOpts(initNode);
         }
         return defaultOptions;
       }
@@ -117,7 +116,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
           .otherwise(() => false);
         const pSignal = ast.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
-          ? getSignalValueExpression(pSignal.value, initialScope)
+          ? getSignalValueExpression(context, pSignal.value)
           : null;
         return { capture: vCapture, signal: vSignal };
       }
@@ -239,7 +238,7 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             const opts = options == null
               ? defaultOptions
-              : getOptions(options, context.sourceCode.getScope(options));
+              : getOptions(context, options);
             const { callee } = node;
             checkInlineFunction(node, callKind, opts);
             aEntries.push({
@@ -259,7 +258,7 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             const opts = options == null
               ? defaultOptions
-              : getOptions(options, context.sourceCode.getScope(options));
+              : getOptions(context, options);
             const { callee } = node;
             checkInlineFunction(node, callKind, opts);
             rEntries.push({
@@ -316,17 +315,3 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 // #endregion
-
-function resolve(v: ScopeVariable | null) {
-  if (v == null) return null;
-  const def = v.defs.at(0);
-  if (def == null) return null;
-  if (
-    "init" in def.node
-    && def.node.init != null
-    && !("declarations" in def.node.init)
-  ) {
-    return def.node.init;
-  }
-  return null;
-}

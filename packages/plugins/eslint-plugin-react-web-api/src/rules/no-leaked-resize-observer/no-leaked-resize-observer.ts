@@ -1,11 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import { or } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
-import type { ScopeVariable } from "@typescript-eslint/scope-manager";
+import { findEnclosingAssignmentTarget, isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import {
@@ -51,9 +49,7 @@ function isNewResizeObserver(node: TSESTree.Node | null) {
 function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
   switch (true) {
     case node.type === AST.Identifier: {
-      const scope = context.sourceCode.getScope(node);
-      const variable = findVariable(scope, node);
-      const initNode = resolve(variable);
+      const initNode = resolve(context, node);
       return isNewResizeObserver(initNode);
     }
     case node.type === AST.MemberExpression:
@@ -238,17 +234,3 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 // #endregion
-
-function resolve(v: ScopeVariable | null) {
-  if (v == null) return null;
-  const def = v.defs.at(0);
-  if (def == null) return null;
-  if (
-    "init" in def.node
-    && def.node.init != null
-    && !("declarations" in def.node.init)
-  ) {
-    return def.node.init;
-  }
-  return null;
-}
