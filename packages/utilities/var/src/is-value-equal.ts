@@ -1,11 +1,13 @@
 import * as ast from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
+import { unit } from "@eslint-react/eff";
+
 import { findVariable } from "./find-variable";
-import { getVariableInitializerLoose } from "./get-variable-initializer";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -48,8 +50,28 @@ export function isValueEqual(
       && b.type === AST.Identifier: {
       const aVar = findVariable(a, aScope);
       const bVar = findVariable(b, bScope);
-      const aVarInit = getVariableInitializerLoose(aVar, 0);
-      const bVarInit = getVariableInitializerLoose(bVar, 0);
+      const resolve = (variable: typeof aVar) => {
+        if (variable == null) return unit;
+        const def = variable.defs.at(0);
+        if (def != null) {
+          switch (true) {
+            case def.type === DefinitionType.FunctionName
+              && def.node.type === AST.FunctionDeclaration:
+              return def.node;
+            case def.type === DefinitionType.ClassName
+              && def.node.type === AST.ClassDeclaration:
+              return def.node;
+            case "init" in def.node
+              && def.node.init != null
+              && !("declarations" in def.node.init):
+              return def.node.init;
+          }
+        }
+        if (def?.type === DefinitionType.Parameter && ast.isFunction(def.node)) return def.node;
+        return unit;
+      };
+      const aVarInit = resolve(aVar);
+      const bVarInit = resolve(bVar);
       const aVarInitParent = aVarInit?.parent;
       const bVarInitParent = bVarInit?.parent;
       const aDef = aVar?.defs.at(0);
