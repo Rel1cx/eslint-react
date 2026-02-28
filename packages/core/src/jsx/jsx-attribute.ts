@@ -1,10 +1,10 @@
 import * as ast from "@eslint-react/ast";
 import { unit } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
-import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { getJsxAttributeName } from "./jsx-attribute-name";
 
@@ -33,7 +33,7 @@ export function getJsxAttribute(context: RuleContext, node: TSESTree.JSXElement,
       switch (attr.argument.type) {
         // 2. Spread variable: {...props}
         case AST.Identifier: {
-          const variable = findVariable(attr.argument.name, scope);
+          const variable = findVariable(scope, attr.argument.name);
           function resolve(v: typeof variable) {
             if (v == null) return unit;
             const def = v.defs.at(0);

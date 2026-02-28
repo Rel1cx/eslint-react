@@ -8,7 +8,7 @@ import {
   getSettingsFromContext,
   toRegExp,
 } from "@eslint-react/shared";
-import { getObjectType } from "@eslint-react/var";
+import { computeObjectType } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -115,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           const { value } = prop;
           const { right } = value;
           const initialScope = context.sourceCode.getScope(value);
-          const construction = getObjectType(value, initialScope);
+          const construction = computeObjectType(value, initialScope);
           if (construction == null) {
             continue;
           }

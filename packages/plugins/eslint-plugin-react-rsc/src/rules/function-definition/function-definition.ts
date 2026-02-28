@@ -7,9 +7,9 @@ import {
   type RuleFixer,
   defineRuleListener,
 } from "@eslint-react/shared";
-import { findVariable } from "@eslint-react/var";
-import type { Variable } from "@typescript-eslint/scope-manager";
+import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
 
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>) {
     id: TSESTree.Identifier,
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
-    const variable = findVariable(id.name, context.sourceCode.getScope(node));
+    const variable = findVariable(context.sourceCode.getScope(node), id.name);
     const initNode = resolve(variable);
     if (initNode == null || !ast.isFunction(initNode)) return;
     reportNonAsyncFunction(initNode, "file");
@@ -162,7 +162,7 @@ export function create(context: RuleContext<MessageID, []>) {
   );
 }
 
-function resolve(v: Variable | unit) {
+function resolve(v: ScopeVariable | null) {
   if (v == null) return unit;
   const def = v.defs.at(0);
   if (def == null) return unit;

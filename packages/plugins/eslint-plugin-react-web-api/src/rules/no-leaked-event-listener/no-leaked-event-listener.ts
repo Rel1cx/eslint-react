@@ -2,11 +2,11 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findVariable, isValueEqual } from "@eslint-react/var";
-import type { Scope, Variable } from "@typescript-eslint/scope-manager";
+import { isValueEqual } from "@eslint-react/var";
+import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import {
@@ -79,7 +79,7 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   if (node == null) return unit;
   switch (node.type) {
     case AST.Identifier: {
-      return getSignalValueExpression(resolve(findVariable(node, initialScope)), initialScope);
+      return getSignalValueExpression(resolve(findVariable(initialScope, node)), initialScope);
     }
     case AST.MemberExpression:
       return node;
@@ -92,7 +92,7 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
-        const variable = findVariable(node, initialScope);
+        const variable = findVariable(initialScope, node);
         const variableNode = resolve(variable);
         if (variableNode?.type === AST.ObjectExpression) {
           return getOpts(variableNode);
@@ -318,7 +318,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
 // #endregion
 
-function resolve(v: Variable | unit) {
+function resolve(v: ScopeVariable | null) {
   if (v == null) return unit;
   const def = v.defs.at(0);
   if (def == null) return unit;

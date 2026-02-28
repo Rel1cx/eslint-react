@@ -56,7 +56,7 @@ export type ObjectType =
  * @param initialScope  The initial scope to check for variable declarations
  * @returns The ObjectType of the node, or undefined if not detected
  */
-export function getObjectType(
+export function computeObjectType(
   node: TSESTree.Node | unit,
   initialScope: Scope,
 ): ObjectType | unit {
@@ -88,28 +88,28 @@ export function getObjectType(
       const variable = initialScope.set.get(node.name);
       const initNode = resolve(variable);
       if (initNode == null) return unit;
-      return getObjectType(initNode, initialScope);
+      return computeObjectType(initNode, initialScope);
     }
     case AST.MemberExpression: {
       if (!("object" in node)) return unit;
-      return getObjectType(node.object, initialScope);
+      return computeObjectType(node.object, initialScope);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
       if (!("right" in node)) return unit;
-      return getObjectType(node.right, initialScope);
+      return computeObjectType(node.right, initialScope);
     }
     case AST.LogicalExpression: {
-      return getObjectType(node.right, initialScope);
+      return computeObjectType(node.right, initialScope);
     }
     case AST.ConditionalExpression: {
-      return getObjectType(node.consequent, initialScope) ?? getObjectType(node.alternate, initialScope);
+      return computeObjectType(node.consequent, initialScope) ?? computeObjectType(node.alternate, initialScope);
     }
     case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
         return unit;
       }
-      return getObjectType(
+      return computeObjectType(
         node.expressions[node.expressions.length - 1],
         initialScope,
       );
@@ -121,7 +121,7 @@ export function getObjectType(
       if (!("expression" in node) || typeof node.expression !== "object") {
         return unit;
       }
-      return getObjectType(node.expression, initialScope);
+      return computeObjectType(node.expression, initialScope);
     }
   }
 }

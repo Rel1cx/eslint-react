@@ -3,12 +3,10 @@ import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
-import { findVariable } from "@eslint-react/var";
-import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { Scope, Variable } from "@typescript-eslint/scope-manager";
+import type { Scope, ScopeVariable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
@@ -69,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const hasEmptyDeps = match(arg1)
           .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: AST.Identifier }, (n) => {
-            const variable = findVariable(n.name, scope);
+            const variable = findVariable(scope, n.name);
             const initNode = resolve(variable);
             if (initNode?.type !== AST.ArrayExpression) {
               return false;
@@ -92,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>) {
           })
           .with({ type: AST.FunctionExpression }, identity)
           .with({ type: AST.Identifier }, (n) => {
-            const variable = findVariable(n.name, scope);
+            const variable = findVariable(scope, n.name);
             const initNode = resolve(variable);
             if (initNode?.type !== AST.ArrowFunctionExpression && initNode?.type !== AST.FunctionExpression) {
               return null;
@@ -163,7 +161,7 @@ function checkForUsageInsideUseEffect(
   };
 }
 
-function resolve(v: Variable | unit) {
+function resolve(v: ScopeVariable | null) {
   if (v == null) return unit;
   const def = v.defs.at(0);
   if (def == null) return unit;
