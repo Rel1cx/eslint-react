@@ -2,6 +2,7 @@ import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { resolve } from "./resolve";
 
 /**
  * Represents the type classification of an object node
@@ -59,7 +60,6 @@ export function computeObjectType(
   node: TSESTree.Node | null,
 ): ObjectType | null {
   if (node == null) return null;
-  const initialScope = context.sourceCode.getScope(node);
   switch (node.type) {
     case AST.JSXElement:
     case AST.JSXFragment:
@@ -84,7 +84,12 @@ export function computeObjectType(
       return null;
     }
     case AST.Identifier: {
-      const initNode = resolve(context, node, -1);
+      // Parameters are externally supplied values whose type cannot be statically
+      // determined — skip resolution and treat them as unknown.
+      const scope = context.sourceCode.getScope(node);
+      const def = scope.set.get(node.name)?.defs.at(-1);
+      if (def?.type === DefinitionType.Parameter) return null;
+      const initNode = resolve(context, node, -1, true);
       if (initNode == null) return null;
       return computeObjectType(context, initNode);
     }
@@ -122,24 +127,4 @@ export function computeObjectType(
       return computeObjectType(context, node.expression);
     }
   }
-}
-
-function resolve(context: RuleContext, node: TSESTree.Identifier, at = 0) {
-  const v = context.sourceCode.getScope(node).set.get(node.name);
-  if (v == null) return null;
-  const def = v.defs.at(at);
-  if (def == null) return null;
-  // For variable declarations, use the init property
-  if (def.type === DefinitionType.Variable) {
-    return def.node.init;
-  }
-  if (def.type === DefinitionType.Parameter) {
-    return null;
-  }
-  // For import bindings, we can't resolve the value
-  if (def.type === DefinitionType.ImportBinding) {
-    return null;
-  }
-  // For other types, return the node itself (e.g., function declarations)
-  return def.node;
 }
