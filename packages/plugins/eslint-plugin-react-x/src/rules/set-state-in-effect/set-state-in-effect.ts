@@ -2,13 +2,12 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
-import { DefinitionType, type ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import type { Scope } from "@typescript-eslint/utils/ts-eslint";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
+import { resolve } from "@eslint-react/var";
 import { createRule } from "../../utils";
 
 export const RULE_NAME = "set-state-in-effect";
@@ -126,7 +125,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
-    const initNode = resolve(context.sourceCode.getScope(id), id);
+    const initNode = resolve(context, id);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
@@ -333,10 +332,10 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       "Program:exit"() {
         const getSetStateCalls = (
-          id: string | TSESTree.Identifier,
-          scope: Scope.Scope,
+          context: RuleContext,
+          id: TSESTree.Identifier,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const node = resolve(scope, id);
+          const node = resolve(context, id);
           switch (node?.type) {
             case AST.ArrowFunctionExpression:
             case AST.FunctionDeclaration:
@@ -362,8 +361,7 @@ export function create(context: RuleContext<MessageID, []>) {
           if (!("name" in callee)) {
             continue;
           }
-          const { name } = callee;
-          const setStateCalls = getSetStateCalls(name, context.sourceCode.getScope(callee));
+          const setStateCalls = getSetStateCalls(context, callee);
           for (const setStateCall of setStateCalls) {
             context.report({
               data: {
@@ -375,7 +373,7 @@ export function create(context: RuleContext<MessageID, []>) {
           }
         }
         for (const id of setupFnIds) {
-          const setStateCalls = getSetStateCalls(id.name, context.sourceCode.getScope(id));
+          const setStateCalls = getSetStateCalls(context, id);
           for (const setStateCall of setStateCalls) {
             context.report({
               data: {
@@ -389,25 +387,4 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
-}
-
-function resolve(scope: Scope.Scope, nameOrNode: string | TSESTree.Identifier) {
-  const v = findVariable(scope, nameOrNode);
-  if (v == null) return null;
-  const def = v.defs.at(0);
-  if (def == null) return null;
-  switch (true) {
-    case def.type === DefinitionType.FunctionName
-      && def.node.type === AST.FunctionDeclaration:
-      return def.node;
-    case def.type === DefinitionType.ClassName
-      && def.node.type === AST.ClassDeclaration:
-      return def.node;
-    case "init" in def.node
-      && def.node.init != null
-      && !("declarations" in def.node.init):
-      return def.node.init;
-    default:
-      return null;
-  }
 }

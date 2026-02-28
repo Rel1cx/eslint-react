@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@typescript-eslint/typescript-estree": "canary",
     "tsdown": "^0.21.0-beta.2"
   },
   "peerDependencies": {
