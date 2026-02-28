@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
         core.isGetDerivedStateFromProps(node)
         && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)
       ) {
-        const defNode = stateDefs.get(currentClass)?.node;
+        const defNode = stateDefs.get(currentClass)?.node ?? null;
         stateDefs.set(currentClass, { isUsed: true, node: defNode });
       }
       return;
@@ -175,7 +175,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Mark state as used
-        const defNode = stateDefs.get(currentClass)?.node;
+        const defNode = stateDefs.get(currentClass)?.node ?? null;
         stateDefs.set(currentClass, { isUsed: true, node: defNode });
       },
       MethodDefinition: methodEnter,
@@ -218,7 +218,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Mark state as used
-        const defNode = stateDefs.get(currentClass)?.node;
+        const defNode = stateDefs.get(currentClass)?.node ?? null;
         stateDefs.set(currentClass, { isUsed: true, node: defNode });
       },
     },

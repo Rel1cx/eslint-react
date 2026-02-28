@@ -106,7 +106,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       case allowExpressions
         && !isChildElement
         && node.children.length === 1
-        && core.isJsxText(node.children.at(0)): {
+        && core.isJsxText(node.children.at(0) ?? null): {
         return;
       }
 
