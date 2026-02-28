@@ -14,8 +14,8 @@
 - [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Public Packages](#public-packages)
-  - [Unified ESLint Plugin](#unified-eslint-plugin)
   - [Modular ESLint Plugins](#modular-eslint-plugins)
+  - [Unified ESLint Plugin](#unified-eslint-plugin)
 - [Installation](#installation)
   - [Install](#install)
   - [Setup](#setup)
@@ -43,10 +43,6 @@
 
 ## Public Packages
 
-### Unified ESLint Plugin
-
-- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
-
 ### Modular ESLint Plugins
 
 - [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x) - X rules (renderer-agnostic, compatible with x-platform).
@@ -54,6 +50,10 @@
 - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention) - Naming convention rules.
+
+### Unified ESLint Plugin
+
+- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
 
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.

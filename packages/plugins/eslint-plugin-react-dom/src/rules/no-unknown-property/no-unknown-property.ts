@@ -1080,13 +1080,12 @@ function tagNameHasDot(node: TSESTree.JSXAttribute): boolean {
  */
 function getStandardName(name: string, context: RuleContext<MessageID, unknown[]>): string | null {
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
-    return DOM_ATTRIBUTE_NAMES[name];
+    return DOM_ATTRIBUTE_NAMES[name] ?? null;
   }
   if (has(SVGDOM_ATTRIBUTE_NAMES, name)) {
-    return SVGDOM_ATTRIBUTE_NAMES[name];
+    return SVGDOM_ATTRIBUTE_NAMES[name] ?? null;
   }
-  const names = getDOMPropertyNames(context);
-  return names.find((element) => element.toLowerCase() === name.toLowerCase());
+  return getDOMPropertyNames(context).find((element) => element.toLowerCase() === name.toLowerCase()) ?? null;
 }
 
 /**
