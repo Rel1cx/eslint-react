@@ -52,6 +52,7 @@ export type ObjectType =
 
 /**
  * Detect the ObjectType of a given node
+ * @param context The context of the rule
  * @param node The node to check
  * @returns The ObjectType of the node, or undefined if not detected
  */
