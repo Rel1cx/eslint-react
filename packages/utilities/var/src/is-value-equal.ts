@@ -3,11 +3,9 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { unit } from "@eslint-react/eff";
-
-import { findVariable } from "./find-variable";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -48,8 +46,8 @@ export function isValueEqual(
     }
     case a.type === AST.Identifier
       && b.type === AST.Identifier: {
-      const aVar = findVariable(a, aScope);
-      const bVar = findVariable(b, bScope);
+      const aVar = findVariable(aScope, a);
+      const bVar = findVariable(bScope, b);
       const resolve = (variable: typeof aVar) => {
         if (variable == null) return unit;
         const def = variable.defs.at(0);

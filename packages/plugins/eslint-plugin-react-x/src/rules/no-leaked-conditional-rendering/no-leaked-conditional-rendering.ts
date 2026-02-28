@@ -7,12 +7,11 @@ import {
   getSettingsFromContext,
   report,
 } from "@eslint-react/shared";
-import { findVariable } from "@eslint-react/var";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
@@ -135,7 +134,7 @@ export function create(context: RuleContext<MessageID, []>) {
       })
       // Handle identifiers. Try to find their definition and check the initial value
       .with({ type: AST.Identifier }, (n) => {
-        const variable = findVariable(n.name, context.sourceCode.getScope(n));
+        const variable = findVariable(context.sourceCode.getScope(n), n.name);
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with({ init: P.select({ type: P.not(AST.VariableDeclaration) }) }, getReportDescriptor)

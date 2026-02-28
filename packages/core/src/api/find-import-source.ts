@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import { identity, unit } from "@eslint-react/eff";
-import { findVariable } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 
 /**
@@ -47,7 +47,7 @@ export function findImportSource(
   name: string,
   initialScope: Scope,
 ) {
-  const latestDef = findVariable(name, initialScope)?.defs.at(-1);
+  const latestDef = findVariable(initialScope, name)?.defs.at(-1);
   if (latestDef == null) return unit;
   const { node, parent } = latestDef;
   if (node.type === AST.VariableDeclarator && node.init != null) {

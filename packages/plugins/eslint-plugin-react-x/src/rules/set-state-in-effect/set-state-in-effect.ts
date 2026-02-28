@@ -2,11 +2,10 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { constVoid, getOrElseUpdate, not, unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
-import { findVariable } from "@eslint-react/var";
-import { DefinitionType, Variable } from "@typescript-eslint/scope-manager";
+import { DefinitionType, type ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";
 
@@ -127,7 +126,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
-    const variable = findVariable(id, context.sourceCode.getScope(id));
+    const variable = findVariable(context.sourceCode.getScope(id), id);
     const initNode = resolve(variable);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
@@ -338,7 +337,7 @@ export function create(context: RuleContext<MessageID, []>) {
           id: string | TSESTree.Identifier,
           initialScope: Scope.Scope,
         ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const variable = findVariable(id, initialScope);
+          const variable = findVariable(initialScope, id);
           const node = resolve(variable);
           switch (node?.type) {
             case AST.ArrowFunctionExpression:
@@ -394,7 +393,7 @@ export function create(context: RuleContext<MessageID, []>) {
   );
 }
 
-function resolve(v: Variable | unit) {
+function resolve(v: ScopeVariable | null) {
   if (v == null) return unit;
   const def = v.defs.at(0);
   if (def == null) return unit;

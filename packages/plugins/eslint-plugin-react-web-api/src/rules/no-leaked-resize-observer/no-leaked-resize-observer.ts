@@ -1,10 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import { or, unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findEnclosingAssignmentTarget, findVariable, isAssignmentTargetEqual } from "@eslint-react/var";
+import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import {
@@ -51,7 +52,7 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
   switch (true) {
     case node.type === AST.Identifier: {
       const scope = context.sourceCode.getScope(node);
-      const variable = findVariable(node, scope);
+      const variable = findVariable(scope, node);
       const initNode = resolve(variable);
       return isNewResizeObserver(initNode);
     }
