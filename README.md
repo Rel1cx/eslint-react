@@ -154,17 +154,6 @@ export default defineConfig(
 - `strict-type-checked`\
   Same as the `strict-typescript` preset but enables additional rules that require type information.
 
-### Category Based
-
-<!-- TODO: Add hooks and performance presets later -->
-<!-- - `hooks`\ -->
-<!-- Enable all rules related to React Hooks. -->
-<!-- - `performance`\ -->
-<!-- Enable all rules related to React performance optimizations. -->
-
-- `no-deprecated`\
-  Enable all rules that disallow deprecated React APIs with "error" severity.
-
 ### Other
 
 - `disable-rsc`\
