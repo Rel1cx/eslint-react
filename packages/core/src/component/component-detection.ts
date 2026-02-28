@@ -64,7 +64,7 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       return false;
   }
 
-  // 3. Check explicit hints provided by the caller
+  // 3. Apply contextual exclusions via hints
   switch (true) {
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && node.parent.type === AST.Property
@@ -99,8 +99,7 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       break;
   }
 
-  // 4. Check if the function is embedded directly inside JSX (e.g., inline callbacks)
-  // We look for the closest parent that is significant (Function, Class, or JSXContainer)
+  // 4. Exclude inline JSX callbacks (event handlers, render props)
   const significantParent = ast.findParentNode(
     node,
     ast.isOneOf([
