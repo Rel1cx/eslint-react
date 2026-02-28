@@ -2,8 +2,8 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import { findVariable, getVariableInitializer, isValueEqual } from "@eslint-react/var";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { findVariable, isValueEqual } from "@eslint-react/var";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -79,10 +79,20 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   if (node == null) return unit;
   switch (node.type) {
     case AST.Identifier: {
-      return getSignalValueExpression(
-        getVariableInitializer(findVariable(node, initialScope), 0),
-        initialScope,
-      );
+      function resolve(v: Variable | unit) {
+        if (v == null) return unit;
+        const def = v.defs.at(0);
+        if (def == null) return unit;
+        if (
+          "init" in def.node
+          && def.node.init != null
+          && !("declarations" in def.node.init)
+        ) {
+          return def.node.init;
+        }
+        return unit;
+      }
+      return getSignalValueExpression(resolve(findVariable(node, initialScope)), initialScope);
     }
     case AST.MemberExpression:
       return node;
@@ -95,8 +105,21 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
+        function resolve(v: typeof variable) {
+          if (v == null) return unit;
+          const def = v.defs.at(0);
+          if (def == null) return unit;
+          if (
+            "init" in def.node
+            && def.node.init != null
+            && !("declarations" in def.node.init)
+          ) {
+            return def.node.init;
+          }
+          return unit;
+        }
         const variable = findVariable(node, initialScope);
-        const variableNode = getVariableInitializer(variable, 0);
+        const variableNode = resolve(variable);
         if (variableNode?.type === AST.ObjectExpression) {
           return getOpts(variableNode);
         }

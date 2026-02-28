@@ -1,13 +1,7 @@
 import * as ast from "@eslint-react/ast";
-import type { unit } from "@eslint-react/eff";
-import { or } from "@eslint-react/eff";
+import { or, unit } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import {
-  findEnclosingAssignmentTarget,
-  findVariable,
-  getVariableInitializer,
-  isAssignmentTargetEqual,
-} from "@eslint-react/var";
+import { findEnclosingAssignmentTarget, findVariable, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import { P, isMatching, match } from "ts-pattern";
@@ -57,7 +51,20 @@ function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolea
     case node.type === AST.Identifier: {
       const scope = context.sourceCode.getScope(node);
       const variable = findVariable(node, scope);
-      const initNode = getVariableInitializer(variable, 0);
+      function resolve(v: typeof variable) {
+        if (v == null) return unit;
+        const def = v.defs.at(0);
+        if (def == null) return unit;
+        if (
+          "init" in def.node
+          && def.node.init != null
+          && !("declarations" in def.node.init)
+        ) {
+          return def.node.init;
+        }
+        return unit;
+      }
+      const initNode = resolve(variable);
       return isNewResizeObserver(initNode);
     }
     case node.type === AST.MemberExpression:
