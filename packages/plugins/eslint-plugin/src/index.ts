@@ -12,7 +12,6 @@ import * as disableRscConfig from "./configs/disable-rsc";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
 import * as disableWebApiConfig from "./configs/disable-web-api";
 import * as domConfig from "./configs/dom";
-import * as noDeprecatedConfig from "./configs/no-deprecated";
 import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
@@ -35,7 +34,6 @@ type ConfigName =
   | "disable-web-api"
   | "dom"
   | "rsc"
-  | "no-deprecated"
   | "off"
   | "recommended"
   | "recommended-type-checked"
@@ -67,7 +65,6 @@ const plugin: ESLint.Plugin & {
     ["disable-type-checked"]: disableTypeCheckedConfig,
     ["disable-web-api"]: disableWebApiConfig,
     ["dom"]: domConfig,
-    ["no-deprecated"]: noDeprecatedConfig,
     ["off"]: offConfig,
     ["recommended"]: recommendedConfig,
     ["recommended-type-checked"]: recommendedTypeCheckedConfig,
