@@ -5,7 +5,7 @@ import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, SourceCode } from "@typescript-eslint/utils/ts-eslint";
@@ -73,25 +73,6 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.ArrayExpression }, (n) => n.elements.length === 0)
           .with({ type: AST.Identifier }, (n) => {
             const variable = findVariable(n.name, scope);
-            function resolve(v: typeof variable | unit) {
-              if (v == null) return unit;
-              const def = v.defs.at(0);
-              if (def == null) return unit;
-              switch (true) {
-                case def.type === DefinitionType.FunctionName
-                  && def.node.type === AST.FunctionDeclaration:
-                  return def.node;
-                case def.type === DefinitionType.ClassName
-                  && def.node.type === AST.ClassDeclaration:
-                  return def.node;
-                case "init" in def.node
-                  && def.node.init != null
-                  && !("declarations" in def.node.init):
-                  return def.node.init;
-                default:
-                  return unit;
-              }
-            }
             const initNode = resolve(variable);
             if (initNode?.type !== AST.ArrayExpression) {
               return false;
@@ -113,15 +94,6 @@ export function create(context: RuleContext<MessageID, []>) {
           })
           .with({ type: AST.FunctionExpression }, identity)
           .with({ type: AST.Identifier }, (n) => {
-            function resolve(v: typeof variable | unit) {
-              if (v == null) return unit;
-              const def = v.defs.at(0);
-              if (def == null) return unit;
-              if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
-                return def.node.init;
-              }
-              return def.node;
-            }
             const variable = findVariable(n.name, scope);
             const variableNode = resolve(variable);
             if (variableNode?.type !== AST.ArrowFunctionExpression && variableNode?.type !== AST.FunctionExpression) {
@@ -192,4 +164,14 @@ function checkForUsageInsideUseEffect(
     messageId: "noUnnecessaryUseMemoInsideUseEffect",
     node,
   };
+}
+
+function resolve(v: Variable | unit) {
+  if (v == null) return unit;
+  const def = v.defs.at(0);
+  if (def == null) return unit;
+  if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
+    return def.node.init;
+  }
+  return def.node;
 }

@@ -4,6 +4,7 @@ import { unit } from "@eslint-react/eff";
 import { not } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
+import type { Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -52,15 +53,6 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
-    function resolve(v: typeof variable | unit) {
-      if (v == null) return unit;
-      const def = v.defs.at(0);
-      if (def == null) return unit;
-      if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
-        return def.node.init;
-      }
-      return def.node;
-    }
     const variable = findVariable(topLevelId, context.sourceCode.getScope(topLevelId));
     const initNode = resolve(variable);
     if (initNode == null) return false;
@@ -228,4 +220,14 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
+}
+
+function resolve(v: Variable | unit) {
+  if (v == null) return unit;
+  const def = v.defs.at(0);
+  if (def == null) return unit;
+  if ("init" in def.node && def.node.init != null && !("declarations" in def.node.init)) {
+    return def.node.init;
+  }
+  return def.node;
 }

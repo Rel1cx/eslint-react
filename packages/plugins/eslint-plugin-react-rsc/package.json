@@ -47,6 +47,8 @@
     "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/scope-manager": "canary",
+    "@typescript-eslint/type-utils": "canary",
     "@typescript-eslint/types": "canary",
     "@typescript-eslint/utils": "canary",
     "ts-pattern": "^5.9.0"

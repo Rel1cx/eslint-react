@@ -1,6 +1,6 @@
 import { unit } from "@eslint-react/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import type { Scope, Variable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -85,24 +85,6 @@ export function getObjectType(
       return unit;
     }
     case AST.Identifier: {
-      function resolve(v: typeof variable) {
-        if (v == null) return unit;
-        const def = v.defs.at(-1);
-        if (def == null) return unit;
-        // For variable declarations, use the init property
-        if (def.type === DefinitionType.Variable) {
-          return def.node.init;
-        }
-        if (def.type === DefinitionType.Parameter) {
-          return unit;
-        }
-        // For import bindings, we can't resolve the value
-        if (def.type === DefinitionType.ImportBinding) {
-          return unit;
-        }
-        // For other types, return the node itself (e.g., function declarations)
-        return def.node;
-      }
       const variable = initialScope.set.get(node.name);
       const initNode = resolve(variable);
       if (initNode == null) return unit;
@@ -142,4 +124,23 @@ export function getObjectType(
       return getObjectType(node.expression, initialScope);
     }
   }
+}
+
+function resolve(v: Variable | unit) {
+  if (v == null) return unit;
+  const def = v.defs.at(-1);
+  if (def == null) return unit;
+  // For variable declarations, use the init property
+  if (def.type === DefinitionType.Variable) {
+    return def.node.init;
+  }
+  if (def.type === DefinitionType.Parameter) {
+    return unit;
+  }
+  // For import bindings, we can't resolve the value
+  if (def.type === DefinitionType.ImportBinding) {
+    return unit;
+  }
+  // For other types, return the node itself (e.g., function declarations)
+  return def.node;
 }

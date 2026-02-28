@@ -8,6 +8,7 @@ import {
   defineRuleListener,
 } from "@eslint-react/shared";
 import { findVariable } from "@eslint-react/var";
+import type { Variable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -98,19 +99,6 @@ export function create(context: RuleContext<MessageID, []>) {
     id: TSESTree.Identifier,
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
-    function resolve(v: typeof variable) {
-      if (v == null) return unit;
-      const def = v.defs.at(0);
-      if (def == null) return unit;
-      if (
-        "init" in def.node
-        && def.node.init != null
-        && !("declarations" in def.node.init)
-      ) {
-        return def.node.init;
-      }
-      return def.node;
-    }
     const variable = findVariable(id.name, context.sourceCode.getScope(node));
     const initNode = resolve(variable);
     if (initNode == null || !ast.isFunction(initNode)) return;
@@ -172,4 +160,18 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
+}
+
+function resolve(v: Variable | unit) {
+  if (v == null) return unit;
+  const def = v.defs.at(0);
+  if (def == null) return unit;
+  if (
+    "init" in def.node
+    && def.node.init != null
+    && !("declarations" in def.node.init)
+  ) {
+    return def.node.init;
+  }
+  return def.node;
 }

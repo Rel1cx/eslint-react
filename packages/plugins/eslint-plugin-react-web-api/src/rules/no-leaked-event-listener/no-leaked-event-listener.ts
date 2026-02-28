@@ -79,19 +79,6 @@ function getSignalValueExpression(node: TSESTree.Node | unit, initialScope: Scop
   if (node == null) return unit;
   switch (node.type) {
     case AST.Identifier: {
-      function resolve(v: Variable | unit) {
-        if (v == null) return unit;
-        const def = v.defs.at(0);
-        if (def == null) return unit;
-        if (
-          "init" in def.node
-          && def.node.init != null
-          && !("declarations" in def.node.init)
-        ) {
-          return def.node.init;
-        }
-        return unit;
-      }
       return getSignalValueExpression(resolve(findVariable(node, initialScope)), initialScope);
     }
     case AST.MemberExpression:
@@ -105,19 +92,6 @@ function getOptions(node: TSESTree.CallExpressionArgument, initialScope: Scope):
   function getOpts(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
-        function resolve(v: typeof variable) {
-          if (v == null) return unit;
-          const def = v.defs.at(0);
-          if (def == null) return unit;
-          if (
-            "init" in def.node
-            && def.node.init != null
-            && !("declarations" in def.node.init)
-          ) {
-            return def.node.init;
-          }
-          return unit;
-        }
         const variable = findVariable(node, initialScope);
         const variableNode = resolve(variable);
         if (variableNode?.type === AST.ObjectExpression) {
@@ -343,3 +317,17 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 
 // #endregion
+
+function resolve(v: Variable | unit) {
+  if (v == null) return unit;
+  const def = v.defs.at(0);
+  if (def == null) return unit;
+  if (
+    "init" in def.node
+    && def.node.init != null
+    && !("declarations" in def.node.init)
+  ) {
+    return def.node.init;
+  }
+  return unit;
+}
