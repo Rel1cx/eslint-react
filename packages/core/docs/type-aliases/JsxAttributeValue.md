@@ -5,6 +5,11 @@
 ```ts
 type JsxAttributeValue = 
   | {
+  kind: "missing";
+  node: TSESTree.JSXEmptyExpression;
+  toStatic: "{}";
+}
+  | {
   kind: "boolean";
   toStatic: true;
 }
@@ -31,11 +36,13 @@ type JsxAttributeValue =
   | {
   kind: "spreadProps";
   node: TSESTree.JSXSpreadAttribute["argument"];
+  getProperty: unknown;
   toStatic: unknown;
 }
   | {
   kind: "spreadChild";
   node: TSESTree.JSXSpreadChild["expression"];
+  getChildren: unknown;
   toStatic: unknown;
 };
 ```
