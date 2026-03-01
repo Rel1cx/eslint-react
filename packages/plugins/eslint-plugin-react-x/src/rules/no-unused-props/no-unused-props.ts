@@ -37,8 +37,10 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
-      const totalDeclaredProps = new Set<ts.Symbol>();
-      const totalUsedProps = new Set<ts.Symbol>();
+      // Keyed by declaration node to normalize across different ts.Symbol objects
+      // that refer to the same property (e.g. via Omit/Pick mapped types).
+      const totalDeclaredProps = new Map<ts.Declaration, ts.Symbol>();
+      const totalUsedDeclarations = new Set<ts.Declaration>();
 
       for (const component of ctx.getAllComponents(program)) {
         const [props] = component.node.params;
@@ -57,18 +59,23 @@ export function create(context: RuleContext<MessageID, []>) {
         const declaredProps = checker.getTypeAtLocation(tsNode).getProperties();
 
         for (const declaredProp of declaredProps) {
-          totalDeclaredProps.add(declaredProp);
+          const declaration = declaredProp.getDeclarations()?.[0];
+          if (declaration == null) continue;
+
+          if (!totalDeclaredProps.has(declaration)) {
+            totalDeclaredProps.set(declaration, declaredProp);
+          }
 
           if (usedPropKeys.has(declaredProp.name)) {
-            totalUsedProps.add(declaredProp);
+            totalUsedDeclarations.add(declaration);
           }
         }
       }
 
-      const unusedProps = totalDeclaredProps.difference(totalUsedProps);
-
-      for (const unusedProp of unusedProps) {
-        reportUnusedProp(context, services, unusedProp);
+      for (const [declaration, symbol] of totalDeclaredProps.entries()) {
+        if (!totalUsedDeclarations.has(declaration)) {
+          reportUnusedProp(context, services, symbol);
+        }
       }
     },
   });
