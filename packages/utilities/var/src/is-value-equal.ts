@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -14,22 +14,19 @@ const thisBlockTypes = [
 
 /**
  * Determine whether node value equals to another node value
+ * @param context rule context
  * @param a node to compare
  * @param b node to compare
- * @param initialScopes initial scopes of the two nodes
  * @returns `true` if node value equal
  */
 export function isValueEqual(
+  context: RuleContext,
   a: TSESTree.Node,
   b: TSESTree.Node,
-  initialScopes: [
-    aScope: Scope,
-    bScope: Scope,
-  ],
 ): boolean {
   a = ast.isTypeExpression(a) ? ast.getUnderlyingExpression(a) : a;
   b = ast.isTypeExpression(b) ? ast.getUnderlyingExpression(b) : b;
-  const [aScope, bScope] = initialScopes;
+  const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
   switch (true) {
     case a === b: {
       return true;
@@ -107,7 +104,7 @@ export function isValueEqual(
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
       return ast.isNodeEqual(a.property, b.property)
-        && isValueEqual(a.object, b.object, initialScopes);
+        && isValueEqual(context, a.object, b.object);
     }
     case a.type === AST.ThisExpression
       && b.type === AST.ThisExpression: {

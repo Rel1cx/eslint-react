@@ -90,7 +90,7 @@ export function computeObjectType(
       const scope = context.sourceCode.getScope(node);
       const def = scope.set.get(node.name)?.defs.at(-1);
       if (def?.type === DefinitionType.Parameter) return null;
-      const initNode = resolve(context, node, -1, true);
+      const initNode = resolve(context, node, { at: -1, localOnly: true });
       if (initNode == null) return null;
       return computeObjectType(context, initNode);
     }

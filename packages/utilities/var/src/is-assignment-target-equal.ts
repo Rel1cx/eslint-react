@@ -18,8 +18,5 @@ export function isAssignmentTargetEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ) {
-  return ast.isNodeEqual(a, b) || isValueEqual(a, b, [
-    context.sourceCode.getScope(a),
-    context.sourceCode.getScope(b),
-  ]);
+  return ast.isNodeEqual(a, b) || isValueEqual(context, a, b);
 }

@@ -182,10 +182,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
     return isSameObject(aCallee, rCallee)
       && ast.isNodeEqual(aListener, rListener)
-      && isValueEqual(aType, rType, [
-        context.sourceCode.getScope(aType),
-        context.sourceCode.getScope(rType),
-      ])
+      && isValueEqual(context, aType, rType)
       && aCapture === rCapture;
   }
   function checkInlineFunction(

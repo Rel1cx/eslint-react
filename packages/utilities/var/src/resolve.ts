@@ -26,8 +26,9 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  *
  * @param context The ESLint rule context used for scope lookup.
  * @param node The identifier to resolve.
- * @param at Which definition to use when multiple exist (default: `0`; pass `-1` for the last).
- * @param localOnly When `true`, look up the variable only in the node's own scope (faster, but
+ * @param options Optional settings:
+ * - `at`: Index of the definition to resolve (default: `0` for the first definition).
+ * - `localOnly`: If `true`, only consider variables declared in the same scope as the identifier
  *   will miss variables declared in an outer scope). When `false` (default), traverse the scope
  *   chain upward via `findVariable` so that references to outer-scope bindings are resolved
  *   correctly.
@@ -36,9 +37,12 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
 export function resolve(
   context: RuleContext,
   node: TSESTree.Identifier,
-  at = 0,
-  localOnly = false,
+  options?: Partial<{
+    at: number;
+    localOnly: boolean;
+  }>,
 ): TSESTree.Node | null {
+  const { at = 0, localOnly = false } = options ?? {};
   const scope = context.sourceCode.getScope(node);
   const variable = localOnly
     ? scope.set.get(node.name)
