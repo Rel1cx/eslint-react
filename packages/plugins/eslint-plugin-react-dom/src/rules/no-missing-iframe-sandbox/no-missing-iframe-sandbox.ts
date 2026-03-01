@@ -65,7 +65,9 @@ export function create(context: RuleContext<MessageID, []>) {
         // Resolve the value of the 'sandbox' attribute
         const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
         // If the value is a static string, the prop is correctly used
-        if (typeof sandboxValue.toStatic("sandbox") === "string") return;
+        if (typeof sandboxValue.toStatic() === "string") return;
+        // If the value is a spread attribute that includes a 'sandbox' property, we can assume it's correctly used
+        if (sandboxValue.kind === "spreadProps" && typeof sandboxValue.getProperty("sandbox") === "string") return;
 
         // If the value is not a static string (e.g., a variable), report an error
         context.report({

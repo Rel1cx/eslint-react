@@ -74,15 +74,21 @@ export function create(context: RuleContext<MessageID, []>) {
         const targetProp = findAttribute("target");
         if (targetProp == null) return;
 
-        const targetValue = core.resolveJsxAttributeValue(context, targetProp).toStatic("target");
-        if (targetValue !== "_blank") return;
+        const targetValue = core.resolveJsxAttributeValue(context, targetProp);
+        const targetValueString = targetValue.kind === "spreadProps"
+          ? targetValue.getProperty("target")
+          : targetValue.toStatic();
+        if (targetValueString !== "_blank") return;
 
         // Check if href points to an external resource
         const hrefProp = findAttribute("href");
         if (hrefProp == null) return;
 
-        const hrefValue = core.resolveJsxAttributeValue(context, hrefProp).toStatic("href");
-        if (!isExternalLinkLike(hrefValue)) return;
+        const hrefValue = core.resolveJsxAttributeValue(context, hrefProp);
+        const hrefValueString = hrefValue.kind === "spreadProps"
+          ? hrefValue.getProperty("href")
+          : hrefValue.toStatic();
+        if (!isExternalLinkLike(hrefValueString)) return;
 
         // Check if rel prop exists and is secure
         const relProp = findAttribute("rel");
@@ -106,8 +112,11 @@ export function create(context: RuleContext<MessageID, []>) {
         }
 
         // Check if existing rel prop is secure
-        const relValue = core.resolveJsxAttributeValue(context, relProp).toStatic("rel");
-        if (isSafeRel(relValue)) return;
+        const relValue = core.resolveJsxAttributeValue(context, relProp);
+        const relValueString = relValue.kind === "spreadProps"
+          ? relValue.getProperty("rel")
+          : relValue.toStatic();
+        if (isSafeRel(relValueString)) return;
 
         // Existing rel prop is not secure - suggest replacing it
         context.report({

@@ -7,6 +7,7 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
   | {
   kind: "boolean";
   node?: undefined;
+  getChildren?: ;
   toStatic: true;
 }
   | {
@@ -17,6 +18,7 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
      | NumberLiteral
      | RegExpLiteral
      | StringLiteral;
+  getChildren?: ;
   toStatic:   | string
      | number
      | bigint
@@ -25,23 +27,33 @@ function resolveJsxAttributeValue(context: RuleContext, attribute: TSESTreeJSXAt
      | null;
 }
   | {
+  kind: "missing";
+  node: JSXEmptyExpression;
+  getChildren?: ;
+  toStatic: "{}";
+}
+  | {
   kind: "expression";
-  node: JSXEmptyExpression | Expression;
+  node: Expression;
+  getChildren?: ;
   toStatic: unknown;
 }
   | {
   kind: "element";
   node: JSXElement;
+  getChildren?: ;
   toStatic: null;
 }
   | {
   kind: "spreadChild";
   node: JSXEmptyExpression | Expression;
-  toStatic: null;
+  getChildren: null;
+  toStatic: unknown;
 }
   | {
   kind: "spreadProps";
   node: Expression;
+  getProperty: unknown;
   toStatic: unknown;
 };
 ```
@@ -60,6 +72,7 @@ Resolve the static value of a JSX attribute or spread attribute
   \| \{
   `kind`: `"boolean"`;
   `node?`: `undefined`;
+  `getChildren?`: ;
   `toStatic`: `true`;
 \}
   \| \{
@@ -70,6 +83,7 @@ Resolve the static value of a JSX attribute or spread attribute
      \| `NumberLiteral`
      \| `RegExpLiteral`
      \| `StringLiteral`;
+  `getChildren?`: ;
   `toStatic`:   \| `string`
      \| `number`
      \| `bigint`
@@ -78,23 +92,33 @@ Resolve the static value of a JSX attribute or spread attribute
      \| `null`;
 \}
   \| \{
+  `kind`: `"missing"`;
+  `node`: `JSXEmptyExpression`;
+  `getChildren?`: ;
+  `toStatic`: `"{}"`;
+\}
+  \| \{
   `kind`: `"expression"`;
-  `node`: `JSXEmptyExpression` \| `Expression`;
+  `node`: `Expression`;
+  `getChildren?`: ;
   `toStatic`: `unknown`;
 \}
   \| \{
   `kind`: `"element"`;
   `node`: `JSXElement`;
+  `getChildren?`: ;
   `toStatic`: `null`;
 \}
   \| \{
   `kind`: `"spreadChild"`;
   `node`: `JSXEmptyExpression` \| `Expression`;
-  `toStatic`: `null`;
+  `getChildren`: `null`;
+  `toStatic`: `unknown`;
 \}
   \| \{
   `kind`: `"spreadProps"`;
   `node`: `Expression`;
+  `getProperty`: `unknown`;
   `toStatic`: `unknown`;
 \}
 

@@ -1,9 +1,10 @@
 import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+
+import { resolve } from "./resolve";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -41,46 +42,26 @@ export function isValueEqual(
     }
     case a.type === AST.Identifier
       && b.type === AST.Identifier: {
+      const aDefNode = resolve(context, a);
+      const bDefNode = resolve(context, b);
+      const aDefNodeParent = aDefNode?.parent;
+      const bDefNodeParent = bDefNode?.parent;
       const aVar = findVariable(aScope, a);
       const bVar = findVariable(bScope, b);
-      const resolve = (variable: typeof aVar) => {
-        if (variable == null) return null;
-        const def = variable.defs.at(0);
-        if (def != null) {
-          switch (true) {
-            case def.type === DefinitionType.FunctionName
-              && def.node.type === AST.FunctionDeclaration:
-              return def.node;
-            case def.type === DefinitionType.ClassName
-              && def.node.type === AST.ClassDeclaration:
-              return def.node;
-            case "init" in def.node
-              && def.node.init != null
-              && !("declarations" in def.node.init):
-              return def.node.init;
-          }
-        }
-        if (def?.type === DefinitionType.Parameter && ast.isFunction(def.node)) return def.node;
-        return null;
-      };
-      const aVarInit = resolve(aVar);
-      const bVarInit = resolve(bVar);
-      const aVarInitParent = aVarInit?.parent;
-      const bVarInitParent = bVarInit?.parent;
       const aDef = aVar?.defs.at(0);
       const bDef = bVar?.defs.at(0);
       const aDefParentParent = aDef?.parent?.parent;
       const bDefParentParent = bDef?.parent?.parent;
       switch (true) {
-        case aVarInitParent?.type === AST.CallExpression
-          && bVarInitParent?.type === AST.CallExpression
-          && ast.isFunction(aVarInit)
-          && ast.isFunction(bVarInit): {
-          if (!ast.isNodeEqual(aVarInitParent.callee, bVarInitParent.callee)) {
+        case aDefNodeParent?.type === AST.CallExpression
+          && bDefNodeParent?.type === AST.CallExpression
+          && ast.isFunction(aDefNode)
+          && ast.isFunction(bDefNode): {
+          if (!ast.isNodeEqual(aDefNodeParent.callee, bDefNodeParent.callee)) {
             return false;
           }
-          const aParams = aVarInit.params;
-          const bParams = bVarInit.params;
+          const aParams = aDefNode.params;
+          const bParams = bDefNode.params;
           const aPos = aParams.findIndex((x) => ast.isNodeEqual(x, a));
           const bPos = bParams.findIndex((x) => ast.isNodeEqual(x, b));
           return aPos !== -1 && bPos !== -1 && aPos === bPos;

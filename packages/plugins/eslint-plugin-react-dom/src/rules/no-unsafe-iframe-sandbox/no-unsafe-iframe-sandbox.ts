@@ -1,6 +1,7 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
+import { match } from "ts-pattern";
 import { createJsxElementResolver, createRule } from "../../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
@@ -62,10 +63,12 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // 3. Resolve the static value of the 'sandbox' attribute
         const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
-        const sandboxValueStatic = sandboxValue.toStatic("sandbox");
+        const sandboxValueString = sandboxValue.kind === "spreadProps"
+          ? sandboxValue.getProperty("sandbox")
+          : sandboxValue.toStatic();
 
         // 4. Check if the 'sandbox' value has the unsafe combination
-        if (isUnsafeSandboxCombination(sandboxValueStatic)) {
+        if (isUnsafeSandboxCombination(sandboxValueString)) {
           // If it's unsafe, report an error
           context.report({
             messageId: "default",
