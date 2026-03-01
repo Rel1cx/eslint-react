@@ -29,39 +29,44 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+// "defaultValue" to "value"; returns null if not a valid default-prefixed prop.
+function toControlledName(uncontrolledName: string): string | null {
+  const [, head, tail] = /^default([A-Z])(.*)$/.exec(uncontrolledName) ?? [];
+  if (head == null || tail == null) return null;
+  return head.toLowerCase() + tail;
+}
+
 export function create(context: RuleContext<MessageID, []>) {
-  /**
-   * Pairs of [controlled prop, uncontrolled prop] that must not appear together
-   * on the same JSX element.
-   *
-   * - `value`   → controlled;   `defaultValue`   → uncontrolled
-   * - `checked` → controlled;   `defaultChecked` → uncontrolled
-   */
-  const pairs = [
-    ["value", "defaultValue"],
-    ["checked", "defaultChecked"],
-  ] as const;
   return defineRuleListener({
-    JSXOpeningElement(node) {
-      const map = new Map<string, TSESTree.JSXAttribute>();
-      for (const attr of node.attributes) {
-        if (attr.type === AST.JSXSpreadAttribute) continue;
-        const { name } = attr.name;
-        if (typeof name !== "string") continue;
-        map.set(name, attr);
+    JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
+      const attributes = new Map<string, TSESTree.JSXAttribute>();
+
+      for (const attribute of node.attributes) {
+        if (attribute.type === AST.JSXSpreadAttribute) continue;
+
+        const { name: identifier } = attribute.name;
+        // Skip namespaced names.
+        if (typeof identifier !== "string") continue;
+
+        attributes.set(identifier, attribute);
       }
-      // Check for controlled and uncontrolled props
-      for (const [controlled, uncontrolled] of pairs) {
-        if (!map.has(controlled) || !map.has(uncontrolled)) continue;
-        // Report on the uncontrolled prop node since it is the one being
-        // superseded (and therefore misleading) when a controlled prop is
-        // present on the same element.
-        const attr = map.get(uncontrolled);
-        if (attr == null) continue;
+
+      // Report when both controlled and uncontrolled forms coexist.
+      for (const [propName, attrNode] of attributes) {
+        const controlledProp = toControlledName(propName);
+        if (controlledProp == null) continue;
+
+        // No controlled counterpart – fine.
+        if (!attributes.has(controlledProp)) continue;
+
+        // Report on the uncontrolled (default*) attribute.
         context.report({
-          data: { controlled, uncontrolled },
+          node: attrNode,
           messageId: "noControlledAndUncontrolledTogether",
-          node: attr,
+          data: {
+            controlled: controlledProp,
+            uncontrolled: propName,
+          },
         });
       }
     },

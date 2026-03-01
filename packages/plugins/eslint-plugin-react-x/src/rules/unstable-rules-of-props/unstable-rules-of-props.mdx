@@ -43,12 +43,16 @@ This rule covers three concerns:
 
 Mixing both modes on the same element is a mistake. React will silently ignore the `default*` prop and may emit a console warning. The element behaves as controlled, which causes confusing bugs when the developer expects the initial value to be respected.
 
-The following prop pairs must not appear together on the same element:
+Any prop pair of the form `foo` and `defaultFoo` must not appear together on the same element. This includes built-in React pairs as well as custom component props that follow the same convention:
 
 | Controlled prop | Uncontrolled prop |
 |---|---|
 | `value` | `defaultValue` |
 | `checked` | `defaultChecked` |
+| `open` | `defaultOpen` |
+| `page` | `defaultPage` |
+| `selectedItem` | `defaultSelectedItem` |
+| *any `foo`* | *`defaultFoo`* |
 
 #### Invalid
 
@@ -70,6 +74,16 @@ The following prop pairs must not appear together on the same element:
 ```tsx
 // ❌ Custom components that follow the same pattern are also flagged.
 <MyInput value={val} defaultValue="fallback" />;
+```
+
+```tsx
+// ❌ Any foo + defaultFoo pair on a custom component is flagged.
+<Dropdown open={isOpen} defaultOpen={false} />;
+```
+
+```tsx
+// ❌ Multi-word camelCase pairs are also covered.
+<Select selectedItem={item} defaultSelectedItem={null} />;
 ```
 
 #### Valid
@@ -96,6 +110,16 @@ The following prop pairs must not appear together on the same element:
 ```tsx
 // ✅ Uncontrolled checkbox with an initial checked state.
 <input type="checkbox" defaultChecked />;
+```
+
+```tsx
+// ✅ Only the uncontrolled prop is present — fine.
+<Dropdown defaultOpen={false} />;
+```
+
+```tsx
+// ✅ Only the controlled prop is present — fine.
+<Dropdown open={isOpen} onOpenChange={setIsOpen} />;
 ```
 
 ## Resources
