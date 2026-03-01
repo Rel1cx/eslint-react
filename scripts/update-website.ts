@@ -160,7 +160,7 @@ const copyRuleDoc = Effect.fnUntraced(
     const content = yield* fs.readFileString(meta.source, "utf8");
     const contentWithSeeAlsoSection = content + generateSeeAlsoSection(meta, relations);
     yield* fs.writeFileString(meta.destination, contentWithSeeAlsoSection);
-    yield* Effect.log(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
+    yield* Effect.logDebug(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
     return meta;
   },
 );

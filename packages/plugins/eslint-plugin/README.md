@@ -168,6 +168,8 @@ export default defineConfig(
   Disable rules that require type information.
 - `disable-conflict-eslint-plugin-react`\
   Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
+- `disable-conflict-eslint-plugin-react-hooks`\
+  Disable rules in `eslint-plugin-react-hooks` that conflict with rules in our plugins.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
