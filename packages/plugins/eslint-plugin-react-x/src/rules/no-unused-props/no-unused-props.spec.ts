@@ -806,5 +806,49 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div ref={ref}>{props.foo}</div>;
       };
     `,
+    // no false positive when inner component reuses outer Props via Omit (both components present)
+    tsx`
+      type Props = {
+        used: string;
+        alsoUsed: string;
+      };
+
+      type InnerProps = Omit<Props, 'alsoUsed'>;
+
+      function Inner({ used }: InnerProps) {
+        return <div>{used}</div>;
+      }
+
+      export default function Outer({ used, alsoUsed }: Props) {
+        return (
+          <>
+            <Inner used={used} />
+            <span>{alsoUsed}</span>
+          </>
+        );
+      }
+    `,
+    // no false positive when inner component uses Omit of a union type and only accesses a subset
+    tsx`
+      type BaseProps = {
+        foo: string;
+        bar: string;
+        baz: string;
+      };
+
+      type PropsA = BaseProps & { title: string };
+      type PropsB = BaseProps & { title?: never };
+      type Props = PropsA | PropsB;
+
+      function Outer({ title, foo, bar, baz }: Props) {
+        return <div title={title}>{foo}{bar}{baz}</div>;
+      }
+
+      type InnerProps = Omit<Props, 'title' | 'baz'>;
+
+      function Inner({ foo }: InnerProps) {
+        return <div>{foo}</div>;
+      }
+    `,
   ],
 });
