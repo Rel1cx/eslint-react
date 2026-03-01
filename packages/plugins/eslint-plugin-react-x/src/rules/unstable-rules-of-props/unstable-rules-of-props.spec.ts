@@ -50,6 +50,29 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<MyInput value={val} defaultValue="fallback" />;`,
       errors: [{ messageId: "noControlledAndUncontrolledTogether" }],
     },
+    {
+      // Arbitrary foo + defaultFoo pair on a custom component
+      code: tsx`<MySlider min={0} defaultMin={10} />;`,
+      errors: [{ messageId: "noControlledAndUncontrolledTogether" }],
+    },
+    {
+      // Multi-word camelCase pair: open + defaultOpen
+      code: tsx`<Dropdown open={isOpen} defaultOpen={false} />;`,
+      errors: [{ messageId: "noControlledAndUncontrolledTogether" }],
+    },
+    {
+      // Multi-word camelCase pair: selectedItem + defaultSelectedItem
+      code: tsx`<Select selectedItem={item} defaultSelectedItem={null} />;`,
+      errors: [{ messageId: "noControlledAndUncontrolledTogether" }],
+    },
+    {
+      // Multiple arbitrary pairs violated on the same element
+      code: tsx`<MyWidget open={isOpen} defaultOpen={false} page={p} defaultPage={1} />;`,
+      errors: [
+        { messageId: "noControlledAndUncontrolledTogether" },
+        { messageId: "noControlledAndUncontrolledTogether" },
+      ],
+    },
   ],
   valid: [
     // Controlled inputs
@@ -74,6 +97,17 @@ ruleTester.run(RULE_NAME, rule, {
     // Spread attributes are ignored (can't statically determine contents)
     tsx`<input {...props} defaultValue="world" />;`,
     tsx`<input value="hello" {...rest} />;`,
+
+    // Props named "default" alone (no uppercase letter after prefix) are not flagged
+    tsx`<MyComp default="x" />;`,
+
+    // Only defaultFoo without foo — fine
+    tsx`<Dropdown defaultOpen={false} />;`,
+    tsx`<MySlider defaultMin={0} />;`,
+
+    // Only foo without defaultFoo — fine
+    tsx`<Dropdown open={isOpen} />;`,
+    tsx`<MySlider min={0} />;`,
 
     // Sibling elements — each element is checked independently
     tsx`
