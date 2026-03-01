@@ -1,4 +1,4 @@
-import type * as ast from "@eslint-react/ast";
+import * as ast from "@eslint-react/ast";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -10,12 +10,25 @@ import { P, match } from "ts-pattern";
  * Represents possible JSX attribute value types that can be resolved
  */
 export type JsxAttributeValue =
+  | { kind: "missing"; node: TSESTree.JSXEmptyExpression; toStatic(): "{}" } // Missing value (e.g., <Component prop={} />)
   | { kind: "boolean"; toStatic(): true } // Boolean attributes (e.g., disabled)
   | { kind: "element"; node: TSESTree.JSXElement; toStatic(): unknown } // JSX element as value (e.g., <Component element=<JSXElement /> />)
   | { kind: "literal"; node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] } // Literal values
   | { kind: "expression"; node: TSESTree.JSXExpressionContainer["expression"]; toStatic(): unknown } // Expression attributes (e.g., {value}, {...props})
-  | { kind: "spreadProps"; node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(name?: string): unknown } // Spread props (e.g., {...props})
-  | { kind: "spreadChild"; node: TSESTree.JSXSpreadChild["expression"]; toStatic(): unknown }; // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
+  | {
+    // Spread props (e.g., {...props})
+    kind: "spreadProps";
+    node: TSESTree.JSXSpreadAttribute["argument"];
+    toStatic(): unknown;
+    getProperty(name: string): unknown;
+  }
+  | {
+    // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
+    kind: "spreadChild";
+    node: TSESTree.JSXSpreadChild["expression"];
+    toStatic(): unknown;
+    getChildren(at: number): unknown;
+  };
 
 /**
  * Resolve the static value of a JSX attribute or spread attribute
@@ -32,7 +45,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
    * @param node The JSX attribute node
    */
   function handleJsxAttribute(node: TSESTree.JSXAttribute) {
-    // Case 1: Boolean attribute with no value (e.g., disabled)
+    // Boolean attribute with no value (e.g., disabled)
     if (node.value == null) {
       return {
         kind: "boolean",
@@ -42,7 +55,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
       } as const satisfies JsxAttributeValue;
     }
     switch (node.value.type) {
-      // Case 2: Literal value (e.g., className="container")
+      // Literal value (e.g., className="container")
       case AST.Literal: {
         const staticValue = node.value.value;
         return {
@@ -53,9 +66,19 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
           },
         } as const satisfies JsxAttributeValue;
       }
-      // Case 3: Expression container (e.g., className={variable})
       case AST.JSXExpressionContainer: {
         const expr = node.value.expression;
+        if (expr.type === AST.JSXEmptyExpression) {
+          // Missing value (e.g., <Component prop={} />)
+          return {
+            kind: "missing",
+            node: expr,
+            toStatic() {
+              return "{}";
+            },
+          } as const satisfies JsxAttributeValue;
+        }
+        // Expression container (e.g., className={variable})
         return {
           kind: "expression",
           node: expr,
@@ -64,7 +87,7 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
           },
         } as const satisfies JsxAttributeValue;
       }
-      // Case 4: JSX Element as value (e.g., element=<JSXElement />)
+      // JSX Element as value (e.g., element=<JSXElement />)
       case AST.JSXElement:
         return {
           kind: "element",
@@ -73,15 +96,21 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
             return null;
           },
         } as const satisfies JsxAttributeValue;
-      // Case 5: JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
-      case AST.JSXSpreadChild:
+      // JSX spread children (e.g., <div>{...["Hello", " ", "spread", " ", "children"]}</div>)
+      case AST.JSXSpreadChild: {
+        const expr = node.value.expression;
         return {
           kind: "spreadChild",
           node: node.value.expression,
           toStatic() {
+            return getStaticValue(expr, initialScope)?.value;
+          },
+          getChildren(at: number) {
+            // TODO: Implement logic to extract specific child from spread children if it's an array
             return null;
           },
         } as const satisfies JsxAttributeValue;
+      }
     }
   }
 
@@ -94,8 +123,11 @@ export function resolveJsxAttributeValue(context: RuleContext, attribute: ast.TS
     return {
       kind: "spreadProps",
       node: node.argument,
-      toStatic(name?: string) {
-        if (name == null) return null;
+      toStatic() {
+        return getStaticValue(node.argument, initialScope)?.value;
+      },
+      // Helper to extract a specific property value from the spread object
+      getProperty(name: string) {
         // If spread object contains the named property, extract its value
         return match(getStaticValue(node.argument, initialScope)?.value)
           .with({ [name]: P.select(P.any) }, identity)

@@ -46,14 +46,16 @@ export function createJsxElementResolver(context: RuleContext) {
 
       // If the polymorphic prop exists, try to determine its static value
       if (polymorphicProp != null) {
-        const polymorphicPropValue = core.resolveJsxAttributeValue(context, polymorphicProp);
-        const staticValue = polymorphicPropValue.toStatic(polymorphicPropName);
+        const polyPropValue = core.resolveJsxAttributeValue(context, polymorphicProp);
+        const polyPropValueString = polyPropValue.kind === "spreadProps"
+          ? polyPropValue.getProperty(polymorphicPropName)
+          : polyPropValue.toStatic();
 
         // If we have a string value, use it as the DOM element type
-        if (typeof staticValue === "string") {
+        if (typeof polyPropValueString === "string") {
           return {
             ...result,
-            domElementType: staticValue,
+            domElementType: polyPropValueString,
           };
         }
       }
