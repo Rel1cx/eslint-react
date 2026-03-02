@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@stylistic/eslint-plugin": "^5.9.0",
-    "eslint-plugin-de-morgan": "^2.0.0",
+    "eslint-plugin-de-morgan": "^2.1.1",
     "eslint-plugin-function": "^0.9.0",
     "eslint-plugin-function-rule": "^0.9.0",
     "eslint-plugin-jsdoc": "^62.7.1",
