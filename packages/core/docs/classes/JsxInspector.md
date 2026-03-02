@@ -71,11 +71,11 @@ later props win), or `undefined` if not found.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` |
-| `name` | `string` |
-| `initialScope?` | `Scope` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` | The JSX element to search for the attribute. |
+| `name` | `string` | The name of the attribute to find (e.g. `"className"`). |
+| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, |
 
 #### Returns
 
@@ -94,13 +94,15 @@ Get the stringified name of a `JSXAttribute` node
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXAttribute` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXAttribute` | The `JSXAttribute` node to extract the name from. |
 
 #### Returns
 
 `string`
+
+The stringified name of the attribute.
 
 ***
 
@@ -127,15 +129,17 @@ cannot be statically determined.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` |
-| `name` | `string` |
-| `initialScope?` | `Scope` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` | The JSX element to search for the attribute. |
+| `name` | `string` | The name of the attribute to resolve (e.g. `"className"`). |
+| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
 `unknown`
+
+The static value of the attribute, or `undefined` if not found or not statically resolvable.
 
 ***
 
@@ -155,15 +159,17 @@ Returns `undefined` when the attribute is not present.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` |
-| `name` | `string` |
-| `initialScope?` | `Scope` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` | The JSX element to search for the attribute. |
+| `name` | `string` | The name of the attribute to find and resolve (e.g. `"className"`). |
+| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
 [`JsxAttributeValue`](../type-aliases/JsxAttributeValue.md) \| `undefined`
+
+A descriptor of the attribute's value that can be further inspected, or `undefined` if the attribute is not found.
 
 ***
 
@@ -181,9 +187,9 @@ Get the **self name** (last segment) of a JSX element type.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` \| `JSXFragment` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` \| `JSXFragment` | The JSX element or fragment to extract the self name from. |
 
 #### Returns
 
@@ -206,9 +212,9 @@ Get the string representation of a JSX element's type.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` \| `JSXFragment` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` \| `JSXFragment` | The JSX element or fragment to extract the type from. |
 
 #### Returns
 
@@ -229,15 +235,17 @@ Shorthand: check whether an attribute exists on the element.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `JSXElement` |
-| `name` | `string` |
-| `initialScope?` | `Scope` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `JSXElement` | The JSX element to check for the attribute. |
+| `name` | `string` | The name of the attribute to check for (e.g. `"className"`). |
+| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
 `boolean`
+
+`true` if the attribute exists on the element, `false` otherwise.
 
 ***
 
@@ -254,9 +262,9 @@ The check honours the configured `jsxFragmentFactory`.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
 
 #### Returns
 
@@ -275,9 +283,9 @@ name starts with a lowercase letter.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The node to check. |
 
 #### Returns
 
@@ -350,9 +358,9 @@ See [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) for the full set o
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `attribute` | `TSESTreeJSXAttributeLike` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `attribute` | `TSESTreeJSXAttributeLike` | The attribute node to resolve the value of. |
 
 #### Returns
 
@@ -409,6 +417,8 @@ See [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) for the full set o
   `toStatic`: `unknown`;
 \}
 
+A descriptor of the attribute's value that can be further inspected.
+
 ***
 
 ### findParentAttribute()
@@ -422,10 +432,10 @@ Walk **up** the AST from `node` to find the nearest ancestor that is a
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
-| `test` | (`node`: `JSXAttribute`) => `boolean` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` | The starting node for the search. |
+| `test` | (`node`: `JSXAttribute`) => `boolean` | A predicate function to test each ancestor node. |
 
 #### Returns
 
@@ -443,9 +453,9 @@ Create a new `JsxInspector` bound to the given rule context.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `context` | `RuleContext` | The ESLint rule context to bind to this inspector instance. |
 
 #### Returns
 
@@ -463,9 +473,9 @@ Whether the node is a `JSXText` or a `Literal` node.
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `node` | `Node` \| `null` | The node to check. |
 
 #### Returns
 

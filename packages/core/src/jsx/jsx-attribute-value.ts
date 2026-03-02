@@ -12,14 +12,14 @@ export type JsxAttributeValue =
   | {
     // Spread props (e.g., {...props})
     kind: "spreadProps";
+    getProperty(name: string): unknown;
     node: TSESTree.JSXSpreadAttribute["argument"];
     toStatic(): unknown;
-    getProperty(name: string): unknown;
   }
   | {
     // Spread children (e.g., {...["Hello", " ", "spread", " ", "children"]})
     kind: "spreadChild";
+    getChildren(at: number): unknown;
     node: TSESTree.JSXSpreadChild["expression"];
     toStatic(): unknown;
-    getChildren(at: number): unknown;
   };

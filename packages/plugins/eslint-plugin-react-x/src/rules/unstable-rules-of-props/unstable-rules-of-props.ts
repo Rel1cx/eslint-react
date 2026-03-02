@@ -61,12 +61,12 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Report on the uncontrolled (default*) attribute.
         context.report({
-          node: attrNode,
-          messageId: "noControlledAndUncontrolledTogether",
           data: {
             controlled: controlledProp,
             uncontrolled: propName,
           },
+          messageId: "noControlledAndUncontrolledTogether",
+          node: attrNode,
         });
       }
     },

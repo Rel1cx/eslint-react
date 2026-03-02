@@ -49,27 +49,6 @@ export class JsxInspector {
   readonly context: RuleContext;
 
   /**
-   * Lazily resolved & cached JSX configuration (merged from tsconfig +
-   * pragma annotations). Use {@link jsxConfig} to access.
-   */
-  #jsxConfig: Required<JsxConfig> | undefined;
-
-  // ----- construction ------------------------------------------------------
-
-  private constructor(context: RuleContext) {
-    this.context = context;
-  }
-
-  /**
-   * Create a new `JsxInspector` bound to the given rule context.
-   */
-  static from(context: RuleContext): JsxInspector {
-    return new JsxInspector(context);
-  }
-
-  // ----- JSX configuration -------------------------------------------------
-
-  /**
    * Merged JSX configuration (tsconfig compiler options + pragma annotations).
    * The result is lazily computed and cached for the lifetime of this inspector.
    */
@@ -80,60 +59,56 @@ export class JsxInspector {
     });
   }
 
+  // ----- construction ------------------------------------------------------
+
+  /**
+   * Lazily resolved & cached JSX configuration (merged from tsconfig +
+   * pragma annotations). Use {@link jsxConfig} to access.
+   */
+  #jsxConfig: Required<JsxConfig> | undefined;
+
+  private constructor(context: RuleContext) {
+    this.context = context;
+  }
+
+  // ----- JSX configuration -------------------------------------------------
+
+  /**
+   * Walk **up** the AST from `node` to find the nearest ancestor that is a
+   * `JSXAttribute` and passes the optional `test` predicate.
+   * @param node The starting node for the search.
+   * @param test A predicate function to test each ancestor node.
+   */
+  static findParentAttribute(
+    node: TSESTree.Node,
+    test: (node: TSESTree.JSXAttribute) => boolean = () => true,
+  ): TSESTree.JSXAttribute | null {
+    const guard = (n: TSESTree.Node): n is TSESTree.JSXAttribute => {
+      return n.type === AST.JSXAttribute && test(n);
+    };
+    return ast.findParentNode(node, guard);
+  }
+
   // ----- element type ------------------------------------------------------
 
   /**
-   * Get the string representation of a JSX element's type.
-   *
-   * - `<div>` → `"div"`
-   * - `<Foo.Bar>` → `"Foo.Bar"`
-   * - `<React.Fragment>` → `"React.Fragment"`
-   * - `<></>` (JSXFragment) → `""`
+   * Create a new `JsxInspector` bound to the given rule context.
+   * @param context The ESLint rule context to bind to this inspector instance.
    */
-  getElementType(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
-    if (node.type === AST.JSXFragment) {
-      return "";
-    }
-    return stringifyJsx(node.openingElement.name);
+  static from(context: RuleContext): JsxInspector {
+    return new JsxInspector(context);
   }
 
   /**
-   * Get the **self name** (last segment) of a JSX element type.
-   *
-   * - `<Foo.Bar.Baz>` → `"Baz"`
-   * - `<div>` → `"div"`
-   * - `<></>` → `""`
+   * Whether the node is a `JSXText` or a `Literal` node.
+   * @param node The node to check.
    */
-  getElementSelfName(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
-    return this.getElementType(node).split(".").at(-1) ?? "";
+  static isJsxText(node: TSESTree.Node | null): node is TSESTree.JSXText | TSESTree.Literal {
+    if (node == null) return false;
+    return node.type === AST.JSXText || node.type === AST.Literal;
   }
 
   // ----- element predicates ------------------------------------------------
-
-  /**
-   * Whether the node is a **host** (intrinsic / DOM) element – i.e. its tag
-   * name starts with a lowercase letter.
-   */
-  isHostElement(node: TSESTree.Node): node is TSESTree.JSXElement {
-    return node.type === AST.JSXElement
-      && node.openingElement.name.type === AST.JSXIdentifier
-      && /^[a-z]/u.test(node.openingElement.name.name);
-  }
-
-  /**
-   * Whether the node is a React **Fragment** element (either `<Fragment>` /
-   * `<React.Fragment>` or the shorthand `<>` syntax).
-   *
-   * The check honours the configured `jsxFragmentFactory`.
-   */
-  isFragmentElement(node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment {
-    if (node.type === AST.JSXFragment) return true;
-    if (node.type !== AST.JSXElement) return false;
-    const fragment = this.jsxConfig.jsxFragmentFactory.split(".").at(-1) ?? "Fragment";
-    return this.getElementType(node).split(".").at(-1) === fragment;
-  }
-
-  // ----- attribute helpers -------------------------------------------------
 
   /**
    * Find a JSX attribute (or spread attribute containing the property) by name
@@ -141,6 +116,9 @@ export class JsxInspector {
    *
    * Returns the **last** matching attribute (to mirror React's behaviour where
    * later props win), or `undefined` if not found.
+   * @param node The JSX element to search for the attribute.
+   * @param name The name of the attribute to find (e.g. `"className"`).
+   * @param initialScope An optional scope to use for resolving spread attributes. If not provided,
    */
   findAttribute(
     node: TSESTree.JSXElement,
@@ -168,52 +146,16 @@ export class JsxInspector {
   }
 
   /**
-   * Shorthand: check whether an attribute exists on the element.
-   */
-  hasAttribute(node: TSESTree.JSXElement, name: string, initialScope?: Scope): boolean {
-    return this.findAttribute(node, name, initialScope) != null;
-  }
-
-  /**
    * Get the stringified name of a `JSXAttribute` node
    * (e.g. `"className"`, `"aria-label"`, `"xml:space"`).
+   * @param node The `JSXAttribute` node to extract the name from.
+   * @returns The stringified name of the attribute.
    */
   getAttributeName(node: TSESTree.JSXAttribute): string {
     return stringifyJsx(node.name);
   }
 
-  // ----- attribute value resolution ----------------------------------------
-
-  /**
-   * Resolve the *value* of a JSX attribute (or spread attribute) into a
-   * descriptor that can be inspected further.
-   *
-   * See {@link JsxAttributeValue} for the full set of `kind` discriminants.
-   */
-  resolveAttributeValue(attribute: ast.TSESTreeJSXAttributeLike) {
-    const initialScope = this.context.sourceCode.getScope(attribute);
-
-    if (attribute.type === AST.JSXAttribute) {
-      return this.#resolveJsxAttribute(attribute, initialScope);
-    }
-    return this.#resolveJsxSpreadAttribute(attribute, initialScope);
-  }
-
-  /**
-   * **All-in-one helper** – find an attribute by name on an element *and*
-   * resolve its value in a single call.
-   *
-   * Returns `undefined` when the attribute is not present.
-   */
-  getAttributeValue(
-    node: TSESTree.JSXElement,
-    name: string,
-    initialScope?: Scope,
-  ): JsxAttributeValue | undefined {
-    const attr = this.findAttribute(node, name, initialScope);
-    if (attr == null) return undefined;
-    return this.resolveAttributeValue(attr);
-  }
+  // ----- attribute helpers -------------------------------------------------
 
   /**
    * Resolve the static value of an attribute, automatically handling the
@@ -227,6 +169,10 @@ export class JsxInspector {
    *
    * Returns `undefined` when the attribute is not present or its value
    * cannot be statically determined.
+   * @param node The JSX element to search for the attribute.
+   * @param name The name of the attribute to resolve (e.g. `"className"`).
+   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
+   * @returns The static value of the attribute, or `undefined` if not found or not statically resolvable.
    */
   getAttributeStaticValue(
     node: TSESTree.JSXElement,
@@ -242,30 +188,111 @@ export class JsxInspector {
     return resolved.toStatic();
   }
 
+  /**
+   * **All-in-one helper** – find an attribute by name on an element *and*
+   * resolve its value in a single call.
+   *
+   * Returns `undefined` when the attribute is not present.
+   * @param node The JSX element to search for the attribute.
+   * @param name The name of the attribute to find and resolve (e.g. `"className"`).
+   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
+   * @returns A descriptor of the attribute's value that can be further inspected, or `undefined` if the attribute is not found.
+   */
+  getAttributeValue(
+    node: TSESTree.JSXElement,
+    name: string,
+    initialScope?: Scope,
+  ): JsxAttributeValue | undefined {
+    const attr = this.findAttribute(node, name, initialScope);
+    if (attr == null) return undefined;
+    return this.resolveAttributeValue(attr);
+  }
+
+  /**
+   * Get the **self name** (last segment) of a JSX element type.
+   *
+   * - `<Foo.Bar.Baz>` → `"Baz"`
+   * - `<div>` → `"div"`
+   * - `<></>` → `""`
+   * @param node The JSX element or fragment to extract the self name from.
+   */
+  getElementSelfName(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
+    return this.getElementType(node).split(".").at(-1) ?? "";
+  }
+
+  // ----- attribute value resolution ----------------------------------------
+
+  /**
+   * Get the string representation of a JSX element's type.
+   *
+   * - `<div>` → `"div"`
+   * - `<Foo.Bar>` → `"Foo.Bar"`
+   * - `<React.Fragment>` → `"React.Fragment"`
+   * - `<></>` (JSXFragment) → `""`
+   * @param node The JSX element or fragment to extract the type from.
+   */
+  getElementType(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
+    if (node.type === AST.JSXFragment) {
+      return "";
+    }
+    return stringifyJsx(node.openingElement.name);
+  }
+
+  /**
+   * Shorthand: check whether an attribute exists on the element.
+   * @param node The JSX element to check for the attribute.
+   * @param name The name of the attribute to check for (e.g. `"className"`).
+   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
+   * @returns `true` if the attribute exists on the element, `false` otherwise.
+   */
+  hasAttribute(node: TSESTree.JSXElement, name: string, initialScope?: Scope): boolean {
+    return this.findAttribute(node, name, initialScope) != null;
+  }
+
+  /**
+   * Whether the node is a React **Fragment** element (either `<Fragment>` /
+   * `<React.Fragment>` or the shorthand `<>` syntax).
+   *
+   * The check honours the configured `jsxFragmentFactory`.
+   * @param node The node to check.
+   */
+  isFragmentElement(node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment {
+    if (node.type === AST.JSXFragment) return true;
+    if (node.type !== AST.JSXElement) return false;
+    const fragment = this.jsxConfig.jsxFragmentFactory.split(".").at(-1) ?? "Fragment";
+    return this.getElementType(node).split(".").at(-1) === fragment;
+  }
+
   // ----- children / text helpers -------------------------------------------
 
   /**
-   * Whether the node is a `JSXText` or a `Literal` node.
+   * Whether the node is a **host** (intrinsic / DOM) element – i.e. its tag
+   * name starts with a lowercase letter.
+   * @param node The node to check.
    */
-  static isJsxText(node: TSESTree.Node | null): node is TSESTree.JSXText | TSESTree.Literal {
-    if (node == null) return false;
-    return node.type === AST.JSXText || node.type === AST.Literal;
+  isHostElement(node: TSESTree.Node): node is TSESTree.JSXElement {
+    return node.type === AST.JSXElement
+      && node.openingElement.name.type === AST.JSXIdentifier
+      && /^[a-z]/u.test(node.openingElement.name.name);
   }
 
   // ----- traversal helpers -------------------------------------------------
 
   /**
-   * Walk **up** the AST from `node` to find the nearest ancestor that is a
-   * `JSXAttribute` and passes the optional `test` predicate.
+   * Resolve the *value* of a JSX attribute (or spread attribute) into a
+   * descriptor that can be inspected further.
+   *
+   * See {@link JsxAttributeValue} for the full set of `kind` discriminants.
+   * @param attribute The attribute node to resolve the value of.
+   * @returns A descriptor of the attribute's value that can be further inspected.
    */
-  static findParentAttribute(
-    node: TSESTree.Node,
-    test: (node: TSESTree.JSXAttribute) => boolean = () => true,
-  ): TSESTree.JSXAttribute | null {
-    const guard = (n: TSESTree.Node): n is TSESTree.JSXAttribute => {
-      return n.type === AST.JSXAttribute && test(n);
-    };
-    return ast.findParentNode(node, guard);
+  resolveAttributeValue(attribute: ast.TSESTreeJSXAttributeLike) {
+    const initialScope = this.context.sourceCode.getScope(attribute);
+
+    if (attribute.type === AST.JSXAttribute) {
+      return this.#resolveJsxAttribute(attribute, initialScope);
+    }
+    return this.#resolveJsxSpreadAttribute(attribute, initialScope);
   }
 
   // ----- private helpers ---------------------------------------------------
@@ -324,12 +351,12 @@ export class JsxInspector {
         const expr = node.value.expression;
         return {
           kind: "spreadChild",
+          getChildren(_at: number) {
+            return null;
+          },
           node: node.value.expression,
           toStatic() {
             return getStaticValue(expr, initialScope)?.value;
-          },
-          getChildren(_at: number) {
-            return null;
           },
         } as const satisfies JsxAttributeValue;
       }
@@ -342,14 +369,14 @@ export class JsxInspector {
   ) {
     return {
       kind: "spreadProps",
-      node: node.argument,
-      toStatic() {
-        return getStaticValue(node.argument, initialScope)?.value;
-      },
       getProperty(name: string) {
         return match(getStaticValue(node.argument, initialScope)?.value)
           .with({ [name]: P.select(P.any) }, identity)
           .otherwise(() => null);
+      },
+      node: node.argument,
+      toStatic() {
+        return getStaticValue(node.argument, initialScope)?.value;
       },
     } as const satisfies JsxAttributeValue;
   }
