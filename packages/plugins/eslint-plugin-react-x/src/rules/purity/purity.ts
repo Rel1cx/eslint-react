@@ -73,9 +73,9 @@ export function create(context: RuleContext<MessageID, []>) {
         nExprs.push({ func, node });
       },
       "Program:exit"(node) {
-        const components = cCollector.ctx.getAllComponents(node);
+        const comps = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
-        const funcs = [...components, ...hooks];
+        const funcs = [...comps, ...hooks];
         for (const { func, node } of [...cExprs, ...nExprs]) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({

@@ -213,26 +213,17 @@ export function create(context: RuleContext<MessageID, []>) {
           node,
         });
       },
-
-      /**
-       * At the end of the program, filter collected violations to only those
-       * that appear inside a component or hook function, then report them.
-       * @param program The Program node of the entire file.
-       */
-      "Program:exit"(program) {
-        const components = cCollector.ctx.getAllComponents(program);
-        const hooks = hCollector.ctx.getAllHooks(program);
-        const componentAndHookFns = new Set([
-          ...components.map((c) => c.node),
-          ...hooks.map((h) => h.node),
-        ]);
+      "Program:exit"(node) {
+        const comps = cCollector.ctx.getAllComponents(node);
+        const hooks = hCollector.ctx.getAllHooks(node);
+        const funcs = [...comps, ...hooks];
 
         for (const { data, func, messageId, node } of violations) {
           // Walk up the function chain to find a component or hook boundary
           let current: ast.TSESTreeFunction | null = func;
           let insideComponentOrHook = false;
           while (current != null) {
-            if (componentAndHookFns.has(current)) {
+            if (funcs.some((f) => f.node === current)) {
               insideComponentOrHook = true;
               break;
             }
