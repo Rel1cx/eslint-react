@@ -1,11 +1,9 @@
-import * as core from "@eslint-react/core";
+import { JsxEmit, JsxInspector } from "@eslint-react/core";
 import { flow } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../../utils";
-
-const { JsxEmit } = core;
 
 export const RULE_NAME = "jsx";
 
@@ -32,12 +30,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsxConfigFromContext = core.getJsxConfigFromContext(context);
-  const jsxConfigFromAnnotation = core.getJsxConfigFromAnnotation(context);
-  const jsxConfig = {
-    ...jsxConfigFromContext,
-    ...jsxConfigFromAnnotation,
-  };
+  const jsx = JsxInspector.from(context);
+  const jsxConfig = jsx.jsxConfig;
 
   function getReportDescriptor(context: RuleContext) {
     return (node: TSESTree.JSXElement | TSESTree.JSXFragment) => ({
@@ -46,11 +40,11 @@ export function create(context: RuleContext<MessageID, []>) {
           kind: match(node)
             .with(
               { type: AST.JSXElement },
-              (n) => core.isJsxFragmentElement(context, n, jsxConfig) ? "fragment" : "element",
+              (n) => jsx.isFragmentElement(n) ? "fragment" : "element",
             )
             .with({ type: AST.JSXFragment }, () => "fragment")
             .exhaustive(),
-          type: core.getJsxElementType(context, node),
+          type: jsx.getElementType(node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")

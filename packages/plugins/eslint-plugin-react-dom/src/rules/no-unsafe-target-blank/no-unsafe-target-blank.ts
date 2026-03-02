@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -59,6 +59,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
+  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     {
@@ -68,13 +69,13 @@ export function create(context: RuleContext<MessageID, []>) {
         if (domElementType !== "a") return;
 
         // Get access to the component attributes
-        const findAttribute = core.getJsxAttribute(context, node);
+        const findAttribute = (name: string) => jsx.findAttribute(node, name);
 
         // Check if target="_blank" is present
         const targetProp = findAttribute("target");
         if (targetProp == null) return;
 
-        const targetValue = core.resolveJsxAttributeValue(context, targetProp);
+        const targetValue = jsx.resolveAttributeValue(targetProp);
         const targetValueString = targetValue.kind === "spreadProps"
           ? targetValue.getProperty("target")
           : targetValue.toStatic();
@@ -84,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const hrefProp = findAttribute("href");
         if (hrefProp == null) return;
 
-        const hrefValue = core.resolveJsxAttributeValue(context, hrefProp);
+        const hrefValue = jsx.resolveAttributeValue(hrefProp);
         const hrefValueString = hrefValue.kind === "spreadProps"
           ? hrefValue.getProperty("href")
           : hrefValue.toStatic();
@@ -112,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
 
         // Check if existing rel prop is secure
-        const relValue = core.resolveJsxAttributeValue(context, relProp);
+        const relValue = jsx.resolveAttributeValue(relProp);
         const relValueString = relValue.kind === "spreadProps"
           ? relValue.getProperty("rel")
           : relValue.toStatic();

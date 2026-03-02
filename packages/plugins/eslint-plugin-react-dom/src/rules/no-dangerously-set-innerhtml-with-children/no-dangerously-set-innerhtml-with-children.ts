@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -35,7 +35,7 @@ const DSIH = "dangerouslySetInnerHTML";
  */
 function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
   // Any node that is not plain text is considered significant
-  if (!core.isJsxText(node)) {
+  if (!JsxInspector.isJsxText(node)) {
     return true;
   }
   // A JSXText node is insignificant if it's purely whitespace and contains a newline,
@@ -52,14 +52,15 @@ export function create(context: RuleContext<MessageID, []>) {
     return {};
   }
 
+  const jsx = JsxInspector.from(context);
+
   return defineRuleListener(
     {
       JSXElement(node) {
-        const findJsxAttribute = core.getJsxAttribute(context, node);
         // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
-        if (findJsxAttribute(DSIH) == null) return;
+        if (!jsx.hasAttribute(node, DSIH)) return;
         // Check for a 'children' prop or actual child nodes that are not just whitespace
-        const childrenPropOrNode = findJsxAttribute("children") ?? node.children.find(isSignificantChildren);
+        const childrenPropOrNode = jsx.findAttribute(node, "children") ?? node.children.find(isSignificantChildren);
         // If no children are found, the rule passes
         if (childrenPropOrNode == null) return;
         // If both 'dangerouslySetInnerHTML' and children are present, report an error

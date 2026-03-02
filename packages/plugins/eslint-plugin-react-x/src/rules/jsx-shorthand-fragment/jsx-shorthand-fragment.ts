@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -50,12 +50,9 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>) {
   // Get the rule policy from options, default to 1 (enforce shorthand)
   const policy = context.options[0] ?? defaultOptions[0];
-  const jsxConfig = {
-    ...core.getJsxConfigFromContext(context),
-    ...core.getJsxConfigFromAnnotation(context),
-  };
+  const jsx = JsxInspector.from(context);
 
-  const { jsxFragmentFactory } = jsxConfig;
+  const { jsxFragmentFactory } = jsx.jsxConfig;
 
   // Apply logic based on the policy
   return match<number, ReturnType<typeof defineRuleListener>>(policy)
@@ -64,7 +61,7 @@ export function create(context: RuleContext<MessageID, Options>) {
       defineRuleListener({
         JSXElement(node: TSESTree.JSXElement) {
           // Check if the element is a Fragment component
-          if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
+          if (!jsx.isFragmentElement(node)) return;
           // Ignore if the Fragment has attributes (e.g., key)
           const hasAttributes = node.openingElement.attributes.length > 0;
           if (hasAttributes) return;

@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
@@ -40,12 +41,13 @@ export function create(context: RuleContext<MessageID, []>) {
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { ctx, visitor } = core.useComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
+  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     visitor,
     {
       JSXOpeningElement(node) {
-        const fullName = core.getJsxElementType(context, node.parent);
+        const fullName = jsx.getElementType(node.parent);
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;

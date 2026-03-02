@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
@@ -26,10 +26,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
+  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXElement(node) {
-        const childrenProp = core.getJsxAttribute(context, node)("children");
+        const childrenProp = jsx.findAttribute(node, "children");
         if (childrenProp != null) {
           context.report({
             messageId: "default",

@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
@@ -26,10 +26,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
+  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXElement(node) {
-        const name = core.getJsxElementType(context, node);
+        const name = jsx.getElementType(node);
         if (typeof name !== "string" || !name.includes(":")) {
           return;
         }

@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -49,11 +49,12 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>) {
   const policy = context.options[0] ?? defaultOptions[0];
+  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXAttribute(node: TSESTree.JSXAttribute) {
         const { value } = node;
-        const propName = core.getJsxAttributeName(context, node);
+        const propName = jsx.getAttributeName(node);
 
         switch (true) {
           // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
