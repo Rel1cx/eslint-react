@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -16,6 +16,7 @@ import type { TSESTree } from "@typescript-eslint/types";
  */
 export function createJsxElementResolver(context: RuleContext) {
   const { polymorphicPropName } = getSettingsFromContext(context);
+  const jsx = JsxInspector.from(context);
 
   return {
     /**
@@ -26,7 +27,7 @@ export function createJsxElementResolver(context: RuleContext) {
      */
     resolve(node: TSESTree.JSXElement) {
       // Get the element name/type (e.g., 'div', 'Button', etc.)
-      const elementName = core.getJsxElementType(context, node);
+      const elementName = jsx.getElementType(node);
 
       // Create the base result with element types
       const result = {
@@ -42,11 +43,11 @@ export function createJsxElementResolver(context: RuleContext) {
       }
 
       // Look for the polymorphic prop (e.g., 'as', 'component') in the element's attributes
-      const polymorphicProp = core.getJsxAttribute(context, node)(polymorphicPropName);
+      const polymorphicProp = jsx.findAttribute(node, polymorphicPropName);
 
       // If the polymorphic prop exists, try to determine its static value
       if (polymorphicProp != null) {
-        const polyPropValue = core.resolveJsxAttributeValue(context, polymorphicProp);
+        const polyPropValue = jsx.resolveAttributeValue(polymorphicProp);
         const polyPropValueString = polyPropValue.kind === "spreadProps"
           ? polyPropValue.getProperty(polymorphicPropName)
           : polyPropValue.toStatic();

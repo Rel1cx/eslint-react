@@ -52,16 +52,6 @@ export const DEFAULT_JSX_DETECTION_HINT = 0n
   | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue;
 
 /**
- * Check if a node is a `JSXText` or a `Literal` node
- * @param node The AST node to check
- * @returns `true` if the node is a `JSXText` or a `Literal` node
- */
-export function isJsxText(node: TSESTree.Node | null): node is TSESTree.JSXText | TSESTree.Literal {
-  if (node == null) return false;
-  return node.type === AST.JSXText || node.type === AST.Literal;
-}
-
-/**
  * Determine if a node represents JSX-like content based on heuristics
  * Supports configuration through hint flags to customize detection behavior
  *

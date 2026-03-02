@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -66,17 +66,14 @@ export default createRule<Options, MessageID>({
 export function create(context: RuleContext<MessageID, Options>, [option]: Options) {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
 
-  const jsxConfig = {
-    ...core.getJsxConfigFromContext(context),
-    ...core.getJsxConfigFromAnnotation(context),
-  };
+  const jsx = JsxInspector.from(context);
 
   /**
    * Check if a fragment node is useless and should be reported
    */
   function checkNode(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
     // Report fragment placed inside a host component (e.g., <div><></></div>)
-    if (core.isJsxHostElement(context, node.parent)) {
+    if (jsx.isHostElement(node.parent)) {
       context.report({
         data: { reason: "placed inside a host component" },
         fix: getFix(context, node),
@@ -106,7 +103,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       case allowExpressions
         && !isChildElement
         && node.children.length === 1
-        && core.isJsxText(node.children.at(0) ?? null): {
+        && JsxInspector.isJsxText(node.children.at(0) ?? null): {
         return;
       }
 
@@ -175,7 +172,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   function canFix(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
     // Don't fix fragments inside custom components (might require children to be ReactElement)
     if (node.parent.type === AST.JSXElement || node.parent.type === AST.JSXFragment) {
-      return core.isJsxHostElement(context, node.parent);
+      return jsx.isHostElement(node.parent);
     }
 
     // Don't fix empty fragments without a JSX parent
@@ -186,16 +183,18 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // Don't fix fragments with text or expressions outside of JSX context
     return !node
       .children
-      .some((child) => (core.isJsxText(child) && !isWhiteSpace(child)) || ast.is(AST.JSXExpressionContainer)(child));
+      .some((child) =>
+        (JsxInspector.isJsxText(child) && !isWhiteSpace(child)) || ast.is(AST.JSXExpressionContainer)(child)
+      );
   }
 
   return defineRuleListener(
     {
       // Check JSX elements that might be fragments
       JSXElement(node) {
-        if (!core.isJsxFragmentElement(context, node, jsxConfig)) return;
-        if (core.getJsxAttribute(context, node)("key") != null) return;
-        if (core.getJsxAttribute(context, node)("ref") != null) return;
+        if (!jsx.isFragmentElement(node)) return;
+        if (jsx.hasAttribute(node, "key")) return;
+        if (jsx.hasAttribute(node, "ref")) return;
         checkNode(context, node);
       },
       // Check JSX fragments
@@ -219,7 +218,7 @@ function isWhiteSpace(node: TSESTree.JSXText | TSESTree.Literal) {
  * Check if a node is padding spaces (whitespace with line breaks)
  */
 function isPaddingSpaces(node: TSESTree.Node) {
-  return core.isJsxText(node)
+  return JsxInspector.isJsxText(node)
     && isWhiteSpace(node)
     && node.raw.includes("\n");
 }

@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -27,11 +27,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
+  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXAttribute(node) {
         if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
-        const value = core.resolveJsxAttributeValue(context, node).toStatic();
+        const value = jsx.resolveAttributeValue(node).toStatic();
         if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
           context.report({
             messageId: "default",

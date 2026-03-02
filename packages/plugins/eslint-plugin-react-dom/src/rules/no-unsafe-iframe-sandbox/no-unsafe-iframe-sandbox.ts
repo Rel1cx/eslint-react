@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { match } from "ts-pattern";
@@ -46,6 +46,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
+  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     {
@@ -55,14 +56,14 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // 2. Get the 'sandbox' attribute from the 'iframe' element
-        const sandboxProp = core.getJsxAttribute(context, node)("sandbox");
+        const sandboxProp = jsx.findAttribute(node, "sandbox");
         // If there's no 'sandbox' attribute, there's nothing to check
         if (sandboxProp == null) {
           return;
         }
 
         // 3. Resolve the static value of the 'sandbox' attribute
-        const sandboxValue = core.resolveJsxAttributeValue(context, sandboxProp);
+        const sandboxValue = jsx.resolveAttributeValue(sandboxProp);
         const sandboxValueString = sandboxValue.kind === "spreadProps"
           ? sandboxValue.getProperty("sandbox")
           : sandboxValue.toStatic();

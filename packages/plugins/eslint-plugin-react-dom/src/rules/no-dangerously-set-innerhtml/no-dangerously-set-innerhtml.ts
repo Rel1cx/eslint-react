@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
@@ -30,11 +30,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes(DSIH)) return {};
+  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXElement(node) {
         // Check if the element has the 'dangerouslySetInnerHTML' prop
-        const dsihProp = core.getJsxAttribute(context, node)(DSIH);
+        const dsihProp = jsx.findAttribute(node, DSIH);
         // If the prop is not found, do nothing
         if (dsihProp == null) return;
         // If the prop is found, report an error

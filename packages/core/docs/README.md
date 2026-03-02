@@ -10,6 +10,12 @@
 | [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md) | - |
 | [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md) | - |
 
+## Classes
+
+| Class | Description |
+| ------ | ------ |
+| [JsxInspector](classes/JsxInspector.md) | A stateful helper that binds an ESLint `RuleContext` once and exposes ergonomic methods for the most common JSX inspection tasks that rules need. |
+
 ## Interfaces
 
 | Interface | Description |
@@ -114,14 +120,10 @@
 | Function | Description |
 | ------ | ------ |
 | [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
-| [findParentJsxAttribute](functions/findParentJsxAttribute.md) | Traverses up the AST to find a parent JSX attribute node that matches a given test |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
-| [getJsxAttribute](functions/getJsxAttribute.md) | Creates a helper function to find a specific JSX attribute by name Handles direct attributes and spread attributes (variables or object literals) |
-| [getJsxAttributeName](functions/getJsxAttributeName.md) | Get the stringified name of a JSX attribute |
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
-| [getJsxElementType](functions/getJsxElementType.md) | Extracts the element type name from a JSX element or fragment For JSX elements, returns the stringified name (e.g., "div", "Button", "React.Fragment") For JSX fragments, returns an empty string |
 | [getRefInit](functions/getRefInit.md) | Get the init expression of a ref variable |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
@@ -142,10 +144,7 @@
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
 | [isInitializedFromRef](functions/isInitializedFromRef.md) | Check if the variable with the given name is initialized or derived from a ref |
-| [isJsxFragmentElement](functions/isJsxFragmentElement.md) | Determine if a JSX element is a React Fragment Fragments can be imported from React and used like <Fragment> or <React.Fragment> |
-| [isJsxHostElement](functions/isJsxHostElement.md) | Determine if a JSX element is a host element Host elements in React start with lowercase letters (e.g., div, span) |
 | [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
-| [isJsxText](functions/isJsxText.md) | Check if a node is a `JSXText` or a `Literal` node |
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
 | [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
 | [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
@@ -157,8 +156,6 @@
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
 | [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
 | [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detect useState calls and variations (useCustomState, etc.) using a regex pattern |
-| [resolveJsxAttributeValue](functions/resolveJsxAttributeValue.md) | Resolve the static value of a JSX attribute or spread attribute |
-| [stringifyJsx](functions/stringifyJsx.md) | Incomplete but sufficient stringification of JSX nodes for common use cases |
 | [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor object for the rule to collect function components |
 | [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class componentss |
 | [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor object for the rule to collect hooks |

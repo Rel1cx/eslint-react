@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { JsxEmit, JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -29,13 +29,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { jsx } = {
-    ...core.getJsxConfigFromContext(context),
-    ...core.getJsxConfigFromAnnotation(context),
-  };
+  const { jsx } = JsxInspector.from(context).jsxConfig;
 
   // This rule is only applicable for the new JSX transform
-  if (jsx !== core.JsxEmit.ReactJSX && jsx !== core.JsxEmit.ReactJSXDev) return {};
+  if (jsx !== JsxEmit.ReactJSX && jsx !== JsxEmit.ReactJSXDev) return {};
 
   return defineRuleListener(
     {

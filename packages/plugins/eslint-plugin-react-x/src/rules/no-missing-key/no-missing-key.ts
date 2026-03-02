@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -35,11 +36,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(ctx: RuleContext<MessageID, []>) {
+  const jsx = JsxInspector.from(ctx);
   let inChildrenToArray = false;
 
   function check(node: TSESTree.Node): Descriptor | null {
     if (node.type === AST.JSXElement) {
-      return core.getJsxAttribute(ctx, node)("key") == null
+      return !jsx.hasAttribute(node, "key")
         ? { messageId: "default", node }
         : null;
     }
@@ -82,7 +84,7 @@ export function create(ctx: RuleContext<MessageID, []>) {
         if (elements.length === 0) return;
         const scope = ctx.sourceCode.getScope(node);
         for (const el of elements) {
-          if (core.getJsxAttribute(ctx, el, scope)("key") == null) {
+          if (!jsx.hasAttribute(el, "key", scope)) {
             ctx.report({ messageId: "default", node: el });
           }
         }
