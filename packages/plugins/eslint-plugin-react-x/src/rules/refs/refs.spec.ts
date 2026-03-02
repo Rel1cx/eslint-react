@@ -541,6 +541,32 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "readDuringRender",
       }],
     },
+    // Write through TSNonNullExpression during render should report writeDuringRender
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          ref.current! = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write through TSAsExpression during render should report writeDuringRender
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          (ref.current as number) = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -1179,6 +1205,30 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>{ref.current}</div>;
           }
           ref.current = computeExpensiveValue();
+          return <div />;
+        }
+      `,
+    },
+    // Write through TSNonNullExpression in event handler is valid
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<HTMLElement>(null);
+          const handleClick = () => {
+            ref.current! = document.getElementById('foo')!;
+          };
+          return <button onClick={handleClick}>Click</button>;
+        }
+      `,
+    },
+    // Lazy init with TSNonNullExpression in null check
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<ExpensiveThing | null>(null);
+          if ((ref.current as ExpensiveThing | null) === null) {
+            ref.current = createExpensiveThing();
+          }
           return <div />;
         }
       `,

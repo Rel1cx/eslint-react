@@ -43,7 +43,8 @@ export function create(context: RuleContext<MessageID, []>) {
       // Check if the useMemo call result is assigned to a variable.
       // Valid: const x = useMemo(...)
       // Invalid: useMemo(...) — result discarded (side-effect usage)
-      const parent = node.parent;
+      let parent = node.parent;
+      while (ast.isTypeExpression(parent)) parent = parent.parent;
       const isAssigned = parent.type === AST.VariableDeclarator
         || parent.type === AST.AssignmentExpression
         || parent.type === AST.AssignmentPattern

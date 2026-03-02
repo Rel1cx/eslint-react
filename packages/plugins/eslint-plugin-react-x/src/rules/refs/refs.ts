@@ -51,9 +51,11 @@ export function create(context: RuleContext<MessageID, []>) {
    * @returns true if the node is part of a null check test in an if statement
    */
   function isInNullCheckTest(node: TSESTree.MemberExpression): boolean {
-    const { parent } = node;
+    let parent: TSESTree.Node = node.parent;
+    while (ast.isTypeExpression(parent)) parent = parent.parent;
     if (!isMatching({ type: AST.BinaryExpression, operator: P.union("===", "==", "!==", "!=") }, parent)) return false;
-    const otherSide = parent.left === node ? parent.right : parent.left;
+    const isLeftSide = parent.left === node || ast.getUnderlyingExpression(parent.left) === node;
+    const otherSide = isLeftSide ? parent.right : parent.left;
     if (otherSide.type !== AST.Literal || otherSide.value != null) return false;
     return parent.parent.type === AST.IfStatement && parent.parent.test === parent;
   }
@@ -69,17 +71,15 @@ export function create(context: RuleContext<MessageID, []>) {
     const op = test.operator;
     if (op !== "===" && op !== "==" && op !== "!==" && op !== "!=") return false;
     const { left, right } = test;
-    const checkSides = (
-      a: TSESTree.Expression | TSESTree.PrivateIdentifier,
-      b: TSESTree.Expression | TSESTree.PrivateIdentifier,
-    ) =>
-      a.type === AST.MemberExpression
-      && a.object.type === AST.Identifier
-      && a.object.name === refName
-      && a.property.type === AST.Identifier
-      && a.property.name === "current"
-      && b.type === AST.Literal
-      && b.value == null;
+    const checkSides = (a: TSESTree.Node, b: TSESTree.Node) => {
+      a = ast.isTypeExpression(a) ? ast.getUnderlyingExpression(a) : a;
+      return a.type === AST.MemberExpression
+        && a.object.type === AST.Identifier
+        && a.object.name === refName
+        && b.type === AST.Literal
+        && b.value == null
+        && ast.getPropertyName(a.property) === "current";
+    };
     return checkSides(left, right) || checkSides(right, left);
   }
 
@@ -102,10 +102,24 @@ export function create(context: RuleContext<MessageID, []>) {
       MemberExpression(node: TSESTree.MemberExpression) {
         if (!ast.isIdentifier(node.property, "current")) return;
         refAccesses.push({
-          isWrite: match(node.parent)
-            .with({ type: AST.AssignmentExpression }, (p) => p.left === node)
-            .with({ type: AST.UpdateExpression }, (p) => p.argument === node)
-            .otherwise(() => false),
+          isWrite: (() => {
+            let parent: TSESTree.Node = node.parent;
+            while (ast.isTypeExpression(parent)) parent = parent.parent;
+            return match(parent)
+              .with(
+                {
+                  type: AST.AssignmentExpression,
+                },
+                (p) => p.left === node || ast.getUnderlyingExpression(p.left) === node,
+              )
+              .with(
+                {
+                  type: AST.UpdateExpression,
+                },
+                (p) => p.argument === node || ast.getUnderlyingExpression(p.argument) === node,
+              )
+              .otherwise(() => false);
+          })(),
           node,
         });
       },

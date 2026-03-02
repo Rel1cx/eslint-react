@@ -225,5 +225,13 @@ ruleTester.run(RULE_NAME, rule, {
         return <div onClick={handler} />;
       }
     `,
+    tsx`
+      function A() {
+        const x = useMemo(() => {
+            return 1 + 1;
+        }, []) as number;
+        return x;
+      }
+    `,
   ],
 });
