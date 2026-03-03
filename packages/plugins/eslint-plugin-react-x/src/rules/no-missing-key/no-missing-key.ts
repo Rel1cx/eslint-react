@@ -82,9 +82,8 @@ export function create(ctx: RuleContext<MessageID, []>) {
         if (inChildrenToArray) return;
         const elements = node.elements.filter(ast.is(AST.JSXElement));
         if (elements.length === 0) return;
-        const scope = ctx.sourceCode.getScope(node);
         for (const el of elements) {
-          if (!jsx.hasAttribute(el, "key", scope)) {
+          if (!jsx.hasAttribute(el, "key")) {
             ctx.report({ messageId: "default", node: el });
           }
         }

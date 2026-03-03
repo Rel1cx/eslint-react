@@ -42,23 +42,15 @@ export function createJsxElementResolver(context: RuleContext) {
         return result;
       }
 
-      // Look for the polymorphic prop (e.g., 'as', 'component') in the element's attributes
-      const polymorphicProp = jsx.findAttribute(node, polymorphicPropName);
+      // Try to get the value of the polymorphic prop (e.g., 'as' or 'component')
+      const polyPropValue = jsx.getAttributeValue(node, polymorphicPropName)?.toStatic();
 
-      // If the polymorphic prop exists, try to determine its static value
-      if (polymorphicProp != null) {
-        const polyPropValue = jsx.resolveAttributeValue(polymorphicProp);
-        const polyPropValueString = polyPropValue.kind === "spreadProps"
-          ? polyPropValue.getProperty(polymorphicPropName)
-          : polyPropValue.toStatic();
-
-        // If we have a string value, use it as the DOM element type
-        if (typeof polyPropValueString === "string") {
-          return {
-            ...result,
-            domElementType: polyPropValueString,
-          };
-        }
+      // If we have a string value, use it as the DOM element type
+      if (typeof polyPropValue === "string") {
+        return {
+          ...result,
+          domElementType: polyPropValue,
+        };
       }
 
       return result;

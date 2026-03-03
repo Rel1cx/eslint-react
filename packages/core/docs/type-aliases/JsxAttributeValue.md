@@ -7,7 +7,7 @@ type JsxAttributeValue =
   | {
   kind: "missing";
   node: TSESTree.JSXEmptyExpression;
-  toStatic: "{}";
+  toStatic: null;
 }
   | {
   kind: "boolean";
@@ -16,7 +16,7 @@ type JsxAttributeValue =
   | {
   kind: "element";
   node: TSESTree.JSXElement;
-  toStatic: unknown;
+  toStatic: null;
 }
   | {
   kind: "literal";
@@ -37,13 +37,13 @@ type JsxAttributeValue =
   kind: "spreadProps";
   node: TSESTree.JSXSpreadAttribute["argument"];
   getProperty: unknown;
-  toStatic: unknown;
+  toStatic: null;
 }
   | {
   kind: "spreadChild";
   node: TSESTree.JSXSpreadChild["expression"];
   getChildren: unknown;
-  toStatic: unknown;
+  toStatic: null;
 };
 ```
 

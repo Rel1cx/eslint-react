@@ -2,7 +2,6 @@ import * as ast from "@eslint-react/ast";
 import { identity } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
-import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -118,14 +117,11 @@ export class JsxInspector {
    * later props win), or `undefined` if not found.
    * @param node The JSX element to search for the attribute.
    * @param name The name of the attribute to find (e.g. `"className"`).
-   * @param initialScope An optional scope to use for resolving spread attributes. If not provided,
    */
   findAttribute(
     node: TSESTree.JSXElement,
     name: string,
-    initialScope?: Scope,
   ): ast.TSESTreeJSXAttributeLike | undefined {
-    const scope = initialScope ?? this.context.sourceCode.getScope(node);
     return node.openingElement.attributes.findLast((attr) => {
       if (attr.type === AST.JSXAttribute) {
         return stringifyJsx(attr.name) === name;
@@ -171,15 +167,13 @@ export class JsxInspector {
    * cannot be statically determined.
    * @param node The JSX element to search for the attribute.
    * @param name The name of the attribute to resolve (e.g. `"className"`).
-   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
    * @returns The static value of the attribute, or `undefined` if not found or not statically resolvable.
    */
   getAttributeStaticValue(
     node: TSESTree.JSXElement,
     name: string,
-    initialScope?: Scope,
   ): unknown {
-    const attr = this.findAttribute(node, name, initialScope);
+    const attr = this.findAttribute(node, name);
     if (attr == null) return undefined;
     const resolved = this.resolveAttributeValue(attr);
     if (resolved.kind === "spreadProps") {
@@ -195,15 +189,13 @@ export class JsxInspector {
    * Returns `undefined` when the attribute is not present.
    * @param node The JSX element to search for the attribute.
    * @param name The name of the attribute to find and resolve (e.g. `"className"`).
-   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
    * @returns A descriptor of the attribute's value that can be further inspected, or `undefined` if the attribute is not found.
    */
   getAttributeValue(
     node: TSESTree.JSXElement,
     name: string,
-    initialScope?: Scope,
   ): JsxAttributeValue | undefined {
-    const attr = this.findAttribute(node, name, initialScope);
+    const attr = this.findAttribute(node, name);
     if (attr == null) return undefined;
     return this.resolveAttributeValue(attr);
   }
@@ -242,11 +234,10 @@ export class JsxInspector {
    * Shorthand: check whether an attribute exists on the element.
    * @param node The JSX element to check for the attribute.
    * @param name The name of the attribute to check for (e.g. `"className"`).
-   * @param initialScope An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node.
    * @returns `true` if the attribute exists on the element, `false` otherwise.
    */
-  hasAttribute(node: TSESTree.JSXElement, name: string, initialScope?: Scope): boolean {
-    return this.findAttribute(node, name, initialScope) != null;
+  hasAttribute(node: TSESTree.JSXElement, name: string): boolean {
+    return this.findAttribute(node, name) != null;
   }
 
   /**
@@ -287,20 +278,16 @@ export class JsxInspector {
    * @returns A descriptor of the attribute's value that can be further inspected.
    */
   resolveAttributeValue(attribute: ast.TSESTreeJSXAttributeLike) {
-    const initialScope = this.context.sourceCode.getScope(attribute);
-
     if (attribute.type === AST.JSXAttribute) {
-      return this.#resolveJsxAttribute(attribute, initialScope);
+      return this.#resolveJsxAttribute(attribute);
     }
-    return this.#resolveJsxSpreadAttribute(attribute, initialScope);
+    return this.#resolveJsxSpreadAttribute(attribute);
   }
 
   // ----- private helpers ---------------------------------------------------
 
-  #resolveJsxAttribute(
-    node: TSESTree.JSXAttribute,
-    initialScope: Scope,
-  ) {
+  #resolveJsxAttribute(node: TSESTree.JSXAttribute) {
+    const scope = this.context.sourceCode.getScope(node);
     if (node.value == null) {
       return {
         kind: "boolean",
@@ -327,7 +314,7 @@ export class JsxInspector {
             kind: "missing",
             node: expr,
             toStatic() {
-              return "{}";
+              return null;
             },
           } as const satisfies JsxAttributeValue;
         }
@@ -335,7 +322,7 @@ export class JsxInspector {
           kind: "expression",
           node: expr,
           toStatic() {
-            return getStaticValue(expr, initialScope)?.value;
+            return getStaticValue(expr, scope)?.value;
           },
         } as const satisfies JsxAttributeValue;
       }
@@ -351,32 +338,32 @@ export class JsxInspector {
         const expr = node.value.expression;
         return {
           kind: "spreadChild",
-          getChildren(_at: number) {
-            return null;
-          },
           node: node.value.expression,
           toStatic() {
-            return getStaticValue(expr, initialScope)?.value;
+            return null;
+          },
+
+          getChildren(_at: number) {
+            return null;
           },
         } as const satisfies JsxAttributeValue;
       }
     }
   }
 
-  #resolveJsxSpreadAttribute(
-    node: TSESTree.JSXSpreadAttribute,
-    initialScope: Scope,
-  ) {
+  #resolveJsxSpreadAttribute(node: TSESTree.JSXSpreadAttribute) {
+    const scope = this.context.sourceCode.getScope(node);
     return {
       kind: "spreadProps",
-      getProperty(name: string) {
-        return match(getStaticValue(node.argument, initialScope)?.value)
-          .with({ [name]: P.select(P.any) }, identity)
-          .otherwise(() => null);
-      },
       node: node.argument,
       toStatic() {
-        return getStaticValue(node.argument, initialScope)?.value;
+        return null;
+      },
+
+      getProperty(name: string) {
+        return match(getStaticValue(node.argument, scope)?.value)
+          .with({ [name]: P.select(P.any) }, identity)
+          .otherwise(() => null);
       },
     } as const satisfies JsxAttributeValue;
   }

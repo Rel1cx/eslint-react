@@ -57,10 +57,7 @@ The result is lazily computed and cached for the lifetime of this inspector.
 ### findAttribute()
 
 ```ts
-findAttribute(
-   node: JSXElement, 
-   name: string, 
-   initialScope?: Scope): TSESTreeJSXAttributeLike | undefined;
+findAttribute(node: JSXElement, name: string): TSESTreeJSXAttributeLike | undefined;
 ```
 
 Find a JSX attribute (or spread attribute containing the property) by name
@@ -75,7 +72,6 @@ later props win), or `undefined` if not found.
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
 | `name` | `string` | The name of the attribute to find (e.g. `"className"`). |
-| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, |
 
 #### Returns
 
@@ -109,10 +105,7 @@ The stringified name of the attribute.
 ### getAttributeStaticValue()
 
 ```ts
-getAttributeStaticValue(
-   node: JSXElement, 
-   name: string, 
-   initialScope?: Scope): unknown;
+getAttributeStaticValue(node: JSXElement, name: string): unknown;
 ```
 
 Resolve the static value of an attribute, automatically handling the
@@ -133,7 +126,6 @@ cannot be statically determined.
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
 | `name` | `string` | The name of the attribute to resolve (e.g. `"className"`). |
-| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
@@ -146,10 +138,7 @@ The static value of the attribute, or `undefined` if not found or not statically
 ### getAttributeValue()
 
 ```ts
-getAttributeValue(
-   node: JSXElement, 
-   name: string, 
-   initialScope?: Scope): JsxAttributeValue | undefined;
+getAttributeValue(node: JSXElement, name: string): JsxAttributeValue | undefined;
 ```
 
 **All-in-one helper** – find an attribute by name on an element *and*
@@ -163,7 +152,6 @@ Returns `undefined` when the attribute is not present.
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
 | `name` | `string` | The name of the attribute to find and resolve (e.g. `"className"`). |
-| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
@@ -225,10 +213,7 @@ Get the string representation of a JSX element's type.
 ### hasAttribute()
 
 ```ts
-hasAttribute(
-   node: JSXElement, 
-   name: string, 
-   initialScope?: Scope): boolean;
+hasAttribute(node: JSXElement, name: string): boolean;
 ```
 
 Shorthand: check whether an attribute exists on the element.
@@ -239,7 +224,6 @@ Shorthand: check whether an attribute exists on the element.
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to check for the attribute. |
 | `name` | `string` | The name of the attribute to check for (e.g. `"className"`). |
-| `initialScope?` | `Scope` | An optional scope to use for resolving spread attributes. If not provided, the scope will be determined from the context of the attribute node. |
 
 #### Returns
 
@@ -323,7 +307,7 @@ resolveAttributeValue(attribute: TSESTreeJSXAttributeLike):
   kind: "missing";
   node: JSXEmptyExpression;
   getChildren?: ;
-  toStatic: "{}";
+  toStatic: null;
 }
   | {
   kind: "expression";
@@ -341,13 +325,13 @@ resolveAttributeValue(attribute: TSESTreeJSXAttributeLike):
   kind: "spreadChild";
   node: JSXEmptyExpression | Expression;
   getChildren: null;
-  toStatic: unknown;
+  toStatic: null;
 }
   | {
   kind: "spreadProps";
   node: Expression;
   getProperty: unknown;
-  toStatic: unknown;
+  toStatic: null;
 };
 ```
 
@@ -390,7 +374,7 @@ See [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) for the full set o
   `kind`: `"missing"`;
   `node`: `JSXEmptyExpression`;
   `getChildren?`: ;
-  `toStatic`: `"{}"`;
+  `toStatic`: `null`;
 \}
   \| \{
   `kind`: `"expression"`;
@@ -408,13 +392,13 @@ See [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) for the full set o
   `kind`: `"spreadChild"`;
   `node`: `JSXEmptyExpression` \| `Expression`;
   `getChildren`: `null`;
-  `toStatic`: `unknown`;
+  `toStatic`: `null`;
 \}
   \| \{
   `kind`: `"spreadProps"`;
   `node`: `Expression`;
   `getProperty`: `unknown`;
-  `toStatic`: `unknown`;
+  `toStatic`: `null`;
 \}
 
 A descriptor of the attribute's value that can be further inspected.
