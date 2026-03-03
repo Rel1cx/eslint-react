@@ -4,6 +4,7 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
+import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
 
@@ -61,27 +62,14 @@ const getFullRuleName = (meta: RuleMeta): string => {
   // Convert rule name like "class-component" to full name like "react-debug/class-component"
   // or "no-children-prop" to "react-x/no-children-prop"
   // Check if it's a plugin-specific rule (e.g., "dom-no-render" -> "react-dom/no-render")
-  if (meta.name.startsWith("rsc-")) {
-    return `react-rsc/${meta.name.slice(4)}`;
-  }
-  if (meta.name.startsWith("dom-")) {
-    return `react-dom/${meta.name.slice(4)}`;
-  }
-  if (meta.name.startsWith("web-api-")) {
-    return `react-web-api/${meta.name.slice(8)}`;
-  }
-  if (meta.name.startsWith("naming-convention-")) {
-    return `react-naming-convention/${meta.name.slice(18)}`;
-  }
-  if (meta.name.startsWith("debug-")) {
-    return `react-debug/${meta.name.slice(6)}`;
-  }
-
-  // Otherwise it's a react-x rule (either "x-" prefix or no prefix)
-  if (meta.name.startsWith("x-")) {
-    return `react-x/${meta.name.slice(2)}`;
-  }
-  return `react-x/${meta.name}`;
+  return match(meta.name)
+    .with(P.string.startsWith("x-"), () => `react-x/${meta.name.slice(2)}`)
+    .with(P.string.startsWith("rsc-"), () => `react-rsc/${meta.name.slice(4)}`)
+    .with(P.string.startsWith("dom-"), () => `react-dom/${meta.name.slice(4)}`)
+    .with(P.string.startsWith("web-api-"), () => `react-web-api/${meta.name.slice(8)}`)
+    .with(P.string.startsWith("naming-convention-"), () => `react-naming-convention/${meta.name.slice(18)}`)
+    .with(P.string.startsWith("debug-"), () => `react-debug/${meta.name.slice(6)}`)
+    .otherwise(() => `react-x/${meta.name}`);
 };
 
 const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => {
@@ -95,9 +83,7 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
   const items = references.map((ref) => {
     // Convert full rule name to website file name
     // e.g., "react-debug/function-component" -> "debug-function-component" or just "function-component"
-    const targetParts = ref.targetRule.split("/");
-    const targetPlugin = targetParts[0] ?? "";
-    const targetName = targetParts[1] ?? "";
+    const [targetPlugin = "", targetName = ""] = ref.targetRule.split("/");
 
     // Map plugin names to prefixes used in website
     const pluginPrefixMap: Record<string, string> = {
@@ -112,11 +98,10 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
     const prefix = pluginPrefixMap[targetPlugin];
     const targetFileName = prefix && prefix !== "x" ? `${prefix}-${targetName}` : targetName;
 
-    return `- [\`${targetName}\`](./${targetFileName})\\
-  ${ref.description}`;
+    return [`- [\`${ref.targetRule}\`](./${targetFileName})`, `  ${ref.description}.`].join("\n");
   });
 
-  return `\n---\n\n## See Also\n\n${items.join("\n")}\n`;
+  return ["", "---", "", "## See Also", "", ...items].join("\n");
 };
 
 const orderedCategories = [
