@@ -21,14 +21,18 @@ react-x/no-implicit-key
 
 **Presets**
 
-`recommended-type-checked`
-`strict-type-checked`
+-
 
 ## Rule Details
 
 This makes it hard to see whether the key was passed correctly to the element or where it came from.
 
 It is also proposed to be deprecated in this RFC: [Deprecate spreading key from objects](https://github.com/reactjs/rfcs/pull/107#issue-413235149).
+
+The following cases are **allowed** and will not be reported:
+
+1. The `key` property originates from React's own type definitions (e.g. `React.Attributes.key`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
+2. The `key` property's **type** is `React.Key`, even if the property is declared in a user-defined type.
 
 ## Common Violations
 
@@ -37,15 +41,10 @@ It is also proposed to be deprecated in this RFC: [Deprecate spreading key from 
 ```tsx
 import React from "react";
 
-interface Foo { key?: string; }
+declare let someValues: { foo: string; bar: string; key: string };
 
-interface MyComponentProps extends Foo {
-  className: string;
-  children: React.ReactNode;
-}
-
-function MyComponent(props: MyComponentProps) {
-  return <div {...props} />;
+function MyComponent() {
+  return <div {...someValues} />;
   //          ^^^ This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
 }
 ```
@@ -55,15 +54,23 @@ function MyComponent(props: MyComponentProps) {
 ```tsx
 import React from "react";
 
-interface Foo { key?: string; }
+declare let someValues: { id: string; className: string; key: string };
 
-interface MyComponentProps extends Foo {
-  className: string;
-  children: React.ReactNode;
+function MyComponent() {
+  const { key, ...rest } = someValues;
+  //      ^^^ Dropping the 'key' prop from the spread attributes to prevent implicitly passing it to the component.
+  return <div key={key} {...rest} />;
 }
+```
 
-function MyComponent({ key, ...rest }) {
-  return <div {...rest} />;
+```tsx
+import React from "react";
+
+declare let someValues: { id: string; className: string; key: React.Key };
+
+function MyComponent() {
+  return <div {...someValues} data-slot="pagination-item" />;
+  //          ^^^ The 'key' property is typed as React.Key, which is a React-defined type alias. Allowed.
 }
 ```
 
@@ -72,7 +79,7 @@ import React from "react";
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-  //                                     ^^^ Passing-through React internally defined keys are allowed.
+  //                                     ^^^ The 'key' property originates from React.Attributes.key. Allowed.
 }
 ```
 

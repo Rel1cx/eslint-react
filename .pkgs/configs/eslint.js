@@ -172,6 +172,7 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
         "jsdoc/require-returns": "off",
         "jsdoc/require-yields": "warn",
         "jsdoc/tag-lines": "off",
+        "regexp/no-unused-capturing-group": "off",
         "unicorn/template-indent": [
             "warn",
             {

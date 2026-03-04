@@ -189,6 +189,8 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
       "jsdoc/require-yields": "warn",
       "jsdoc/tag-lines": "off",
 
+      "regexp/no-unused-capturing-group": "off",
+
       "unicorn/template-indent": [
         "warn",
         {

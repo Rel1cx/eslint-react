@@ -5,7 +5,7 @@ import { unionConstituents } from "ts-api-utils";
 
 import { createRule, getFullyQualifiedNameEx } from "../../utils";
 
-export const RULE_NAME = "no-implicit-key";
+export const RULE_NAME = "no-implicit-ref";
 
 export const RULE_FEATURES = [
   "TSC",
@@ -14,15 +14,17 @@ export const RULE_FEATURES = [
 
 export type MessageID = "default";
 
+const RE_REACT_REF_TYPE = /react\.(ref|legacyref|refcallback|refobject)$/i;
+
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Prevents implicitly passing the 'key' prop to components.",
+      description: "Prevents implicitly passing the 'ref' prop to components.",
     },
     messages: {
       default:
-        "This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.",
+        "This spread attribute implicitly passes the 'ref' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'ref' prop, use 'ref={value}'.",
     },
     schema: [],
   },
@@ -38,18 +40,17 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       JSXSpreadAttribute(node) {
         for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-          const key = type.getProperty("key");
-          if (key == null) continue;
-          // Allow pass-through of React internally defined keys
-          // For react, react-dom, and @rbxts/react the FQN is "React.Attributes.key"
-          // For preact and preact/compat the FQN is "preact.Attributes.key"
-          // https://github.com/Rel1cx/eslint-react/issues/1472
-          if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
-          // Allow when the key property's type is React.Key (e.g. `{ key: React.Key }`)
-          const keyType = checker.getTypeOfSymbol(key);
-          if (keyType.aliasSymbol != null) {
-            const aliasFqn = checker.getFullyQualifiedName(keyType.aliasSymbol).toLowerCase();
-            if (aliasFqn.endsWith("react.key")) continue;
+          const ref = type.getProperty("ref");
+          if (ref == null) continue;
+          // Allow pass-through of React internally defined refs
+          if (getFullyQualifiedNameEx(checker, ref).toLowerCase().endsWith("attributes.ref")) continue;
+          // Allow when the ref property's type is a React ref type alias
+          // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
+          const refType = checker.getTypeOfSymbol(ref);
+          const typeSymbol = refType.aliasSymbol ?? refType.symbol;
+          if (typeSymbol != null) {
+            const typeFqn = checker.getFullyQualifiedName(typeSymbol);
+            if (RE_REACT_REF_TYPE.test(typeFqn)) continue;
           }
           context.report({
             messageId: "default",

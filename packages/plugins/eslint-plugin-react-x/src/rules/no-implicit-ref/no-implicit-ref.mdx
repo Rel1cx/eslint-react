@@ -1,0 +1,87 @@
+---
+title: no-implicit-ref
+description: Prevents implicitly passing the 'ref' prop to components.
+---
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-implicit-ref
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-implicit-ref
+```
+
+**Features**
+
+`💭` `🧪`
+
+**Presets**
+
+-
+
+## Rule Details
+
+This makes it hard to see whether the ref was passed correctly to the element or where it came from.
+
+The following cases are **allowed** and will not be reported:
+
+1. The `ref` property originates from React's own type definitions (e.g. `React.ClassAttributes.ref`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
+2. The `ref` property's **type** is a React-defined ref type alias, such as `React.Ref`, `React.RefObject`, `React.RefCallback`, or `React.LegacyRef`, even if the property is declared in a user-defined type.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import React from "react";
+
+declare let someValues: { id: string; className: string; ref: null };
+
+function MyComponent() {
+  return <div {...someValues} />;
+  //          ^^^ This spread attribute implicitly passes the 'ref' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'ref' prop, use 'ref={value}'.
+}
+```
+
+### Valid
+
+```tsx
+import React from "react";
+
+declare let someValues: { id: string; className: string; ref: null };
+
+function MyComponent() {
+  const { ref, ...rest } = someValues;
+  //      ^^^ Dropping the 'ref' prop from the spread attributes to prevent implicitly passing it to the component.
+  return <div ref={ref} {...rest} />;
+}
+```
+
+```tsx
+import React from "react";
+
+declare let someValues: { id: string; className: string; ref: React.Ref<HTMLDivElement> };
+
+function MyComponent() {
+  return <div {...someValues} data-slot="pagination-item" />;
+  //          ^^^ The 'ref' property is typed as React.Ref, which is a React-defined type alias. Allowed.
+}
+```
+
+```tsx
+import React from "react";
+
+function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+  return <li data-slot="pagination-item" {...props} />;
+  //                                     ^^^ The 'ref' property originates from React.ClassAttributes.ref. Allowed.
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-ref/no-implicit-ref.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/no-implicit-ref/no-implicit-ref.spec.ts)

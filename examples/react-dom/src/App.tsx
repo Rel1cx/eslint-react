@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
 import logo from "./assets/eslint-react.svg";
 
@@ -24,3 +24,5 @@ function App() {
 }
 
 export default App;
+
+let k: React.Key;
