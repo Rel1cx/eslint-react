@@ -66,6 +66,10 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     tsx`
       import { createContext } from "react";
+      const Context = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
       const ThemeContext = createContext("");
     `,
     tsx`
