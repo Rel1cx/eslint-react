@@ -17,7 +17,6 @@ const conflictingRules = [
   "react/jsx-key",
   "react/jsx-no-comment-textnodes",
   "react/jsx-no-constructed-context-values",
-  "react/jsx-no-duplicate-props",
   "react/jsx-no-leaked-render",
   "react/jsx-no-script-url",
   "react/jsx-no-target-blank",

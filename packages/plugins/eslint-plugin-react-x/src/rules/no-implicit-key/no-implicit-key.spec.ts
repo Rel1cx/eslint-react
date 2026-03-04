@@ -350,6 +350,16 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       };
     `,
     tsx`
+      import React from "react";
+
+      let someValues: { id: string; className: string; key: React.Key } = { id: "test", className: "foo", key: "1" };
+
+      function MyComponent() {
+        return <div {...someValues} data-slot="pagination-item" />;
+        //          ^^^ Passing-through React internally defined keys are allowed.
+      }
+    `,
+    tsx`
       const App = () => {
           return [
                   <div key="1">1</div>,
@@ -716,6 +726,26 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       export function PaginationItem2({ ...props }: ComponentPropsWithoutRef<"li">) {
         return <li data-slot="pagination-item" {...props} />;
+      }
+    `,
+    // Valid: key property typed as React.Key (React-defined type alias)
+    tsx`
+      import React from "react";
+
+      declare let someValues: { id: string; className: string; key: React.Key };
+
+      function MyComponent() {
+        return <div {...someValues} data-slot="pagination-item" />;
+      }
+    `,
+    // Valid: key property typed as Key imported from react
+    tsx`
+      import type { Key } from "react";
+
+      declare let someValues: { id: string; className: string; key: Key };
+
+      function MyComponent() {
+        return <div {...someValues} data-slot="pagination-item" />;
       }
     `,
   ],

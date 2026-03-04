@@ -16,7 +16,6 @@ export const rules = {
   "@eslint-react/jsx-dollar": "warn",
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
-  "@eslint-react/jsx-no-duplicate-props": "warn",
   "@eslint-react/jsx-shorthand-boolean": "warn",
   "@eslint-react/jsx-shorthand-fragment": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",

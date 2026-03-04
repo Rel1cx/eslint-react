@@ -9,7 +9,6 @@ import immutability from "./rules/immutability/immutability";
 import jsxDollar from "./rules/jsx-dollar/jsx-dollar";
 import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread/jsx-key-before-spread";
 import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes/jsx-no-comment-textnodes";
-import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props/jsx-no-duplicate-props";
 import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean/jsx-shorthand-boolean";
 import jsxShorthandFragment from "./rules/jsx-shorthand-fragment/jsx-shorthand-fragment";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate/no-access-state-in-setstate";
@@ -30,7 +29,9 @@ import noCreateRef from "./rules/no-create-ref/no-create-ref";
 import noDirectMutationState from "./rules/no-direct-mutation-state/no-direct-mutation-state";
 import noDuplicateKey from "./rules/no-duplicate-key/no-duplicate-key";
 import noForwardRef from "./rules/no-forward-ref/no-forward-ref";
+import noImplicitChildren from "./rules/no-implicit-children/no-implicit-children";
 import noImplicitKey from "./rules/no-implicit-key/no-implicit-key";
+import noImplicitRef from "./rules/no-implicit-ref/no-implicit-ref";
 import noLeakedConditionalRendering from "./rules/no-leaked-conditional-rendering/no-leaked-conditional-rendering";
 import noMissingComponentDisplayName from "./rules/no-missing-component-display-name/no-missing-component-display-name";
 import noMissingContextDisplayName from "./rules/no-missing-context-display-name/no-missing-context-display-name";
@@ -82,7 +83,6 @@ export const plugin = {
     "jsx-dollar": jsxDollar,
     "jsx-key-before-spread": jsxKeyBeforeSpread,
     "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
-    "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-shorthand-boolean": jsxShorthandBoolean,
     "jsx-shorthand-fragment": jsxShorthandFragment,
     "no-access-state-in-setstate": noAccessStateInSetstate,
@@ -103,7 +103,9 @@ export const plugin = {
     "no-direct-mutation-state": noDirectMutationState,
     "no-duplicate-key": noDuplicateKey,
     "no-forward-ref": noForwardRef,
+    "no-implicit-children": noImplicitChildren,
     "no-implicit-key": noImplicitKey,
+    "no-implicit-ref": noImplicitRef,
     "no-leaked-conditional-rendering": noLeakedConditionalRendering,
     "no-missing-component-display-name": noMissingComponentDisplayName,
     "no-missing-context-display-name": noMissingContextDisplayName,

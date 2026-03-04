@@ -11,7 +11,6 @@ export const rules = {
   "react-x/exhaustive-deps": "warn",
   "react-x/jsx-key-before-spread": "warn",
   "react-x/jsx-no-comment-textnodes": "warn",
-  "react-x/jsx-no-duplicate-props": "warn",
   "react-x/no-access-state-in-setstate": "error",
   "react-x/no-array-index-key": "warn",
   "react-x/no-children-count": "warn",
