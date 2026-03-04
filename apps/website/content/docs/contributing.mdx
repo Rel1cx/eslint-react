@@ -28,7 +28,6 @@ flowchart TB
             %% Utilities Subgraph
             subgraph "Utilities Modules"
                 AST["AST Module"]:::utilities
-                Eff["Eff Module"]:::utilities
                 Var["Var Module"]:::utilities
             end
 
@@ -68,11 +67,9 @@ flowchart TB
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
-    Eff ---|"provides"| Core
     Var ---|"provides"| Core
 
     AST ---|"provides"| X
-    Eff ---|"provides"| X
     Var ---|"provides"| X
 
     %% Aggregation of Plugins
@@ -91,7 +88,6 @@ flowchart TB
     Scripts -->|"CI/CD"| Core
     Scripts -->|"CI/CD"| Shared
     Scripts -->|"CI/CD"| AST
-    Scripts -->|"CI/CD"| Eff
     Scripts -->|"CI/CD"| Var
     Scripts -->|"CI/CD"| X
     Scripts -->|"CI/CD"| RSC
@@ -108,7 +104,6 @@ flowchart TB
     click Core "https://github.com/rel1cx/eslint-react/tree/main/packages/core"
     click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/shared"
     click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/ast"
-    click Eff "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/eff"
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
     click X "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
     click DOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
@@ -137,7 +132,6 @@ This section provides a summary of the packages in the monorepo.
 ### Internal Packages
 
 - **Utilities**
-  - `packages/utilities/eff`: JavaScript and TypeScript utilities (previously some re-exports of the `effect` library)
   - `packages/utilities/ast`: TSESTree AST utility module for static analysis
   - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
 - **Core & Shared**
