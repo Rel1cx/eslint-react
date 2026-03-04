@@ -1,6 +1,126 @@
-## v3.0.0-beta.60
+## v3.0.0-beta.76 (2026-03-05)
 
-## ✨ New
+### 🪄 Improvements
+
+- Fix examples
+- Sort jsx-* rules first in docs generator
+
+## v3.0.0-beta.75 (2026-03-05)
+
+### ✨ New
+
+- feat: add `no-implicit-children` and `no-implicit-ref` rules (#1594)
+
+### 🪄 Improvements
+
+- Bump lucide-react
+
+## v3.0.0-beta.74 (2026-03-05)
+
+### 🪄 Improvements
+
+- Fix purity and cleanup packages (#1593)
+
+## v3.0.0-beta.73 (2026-03-05)
+
+### 💥 Breaking Changes
+
+- refactor: restructure packages and remove deprecated rules for ESLint v10+ (#1592)
+
+## v3.0.0-beta.72 (2026-03-04)
+
+### 🐞 Fixes
+
+- Fix object type compute on `Boolean()` like calls, closes #1587 (#1591)
+
+### 🪄 Improvements
+
+- Refactor rule-name mapping and see-also output
+
+## v3.0.0-beta.71 (2026-03-04)
+
+### 🐞 Fixes
+
+- Fix the migration guide link 404 in the FAQ, closes #1589 (#1590)
+
+### 🪄 Improvements
+
+- Minor code cleanup
+
+## v3.0.0-beta.70 (2026-03-03)
+
+### 🪄 Improvements
+
+- refactor(core): replace jsx submodule functional APIs with `JsxInspector` class (#1585)
+
+## v3.0.0-beta.69 (2026-03-03)
+
+### 🐞 Fixes
+
+- Fix TS type expressions handling in rules, closes #1583 (#1584)
+
+## v3.0.0-beta.68 (2026-03-02)
+
+### ✨ New
+
+- feat(unstable-rules-of-props): support generic foo/defaultFoo prop pairs (#1580)
+
+### 🪄 Improvements
+
+- Cleanup utilities/var/is-value-equal
+
+## v3.0.0-beta.67 (2026-03-01)
+
+### 🪄 Improvements
+
+- Refine JSX attribute value extraction (#1579)
+- Minor docs improvements
+
+## v3.0.0-beta.66 (2026-03-01)
+
+### 🐞 Fixes
+
+- fix(no-unused-props): false positive when using Omit on union props type (#1578)
+
+## v3.0.0-beta.65 (2026-02-28)
+
+### 🪄 Improvements
+
+- refactor: move disable-conflict configs to eslint-plugin-react-x (#1577)
+- Minor docs fixes
+
+## v3.0.0-beta.64 (2026-02-28)
+
+### 🪄 Improvements
+
+- refactor(docs): reorder "Full Name in" sections in rule docs
+- refactor: improve `resolve` function with comprehensive definition types (#1576)
+- Code optimization (#1575)
+- Minor docs improvements
+
+## v3.0.0-beta.63 (2026-02-28)
+
+### 🪄 Improvements
+
+- refactor: use `findVariable` from `@typescript-eslint/utils/ast-utils` (#1573)
+
+## v3.0.0-beta.62 (2026-02-28)
+
+### 🪄 Improvements
+
+- Cleanup
+
+## v3.0.0-beta.61 (2026-02-28)
+
+### 🪄 Improvements
+
+- refactor: inline getVariableInitializer and remove utility function (#1572)
+- Update dependencies and refactor props rule
+- Minor docs improvements
+
+## v3.0.0-beta.60 (2026-02-27)
+
+### ✨ New
 
 - feat: no-mixing-controlled-and-uncontrolled (#486)
 - feat: rename no-mixing-controlled-and-uncontrolled to unstable-rules-of-props (#1571)
