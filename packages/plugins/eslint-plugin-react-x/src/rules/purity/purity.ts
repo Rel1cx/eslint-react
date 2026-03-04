@@ -39,11 +39,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.useHookCollector(context);
   const cCollector = core.useComponentCollector(context);
-  const cExprs: {
+  const cEntries: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;
   }[] = [];
-  const nExprs: {
+  const nEntries: {
     func: ast.TSESTreeFunction;
     node: TSESTree.NewExpression;
   }[] = [];
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
             const func = ast.findParentNode(node, ast.isFunction);
             if (func == null) return;
-            cExprs.push({ func, node });
+            cEntries.push({ func, node });
             break;
           }
           case expr.type === AST.MemberExpression
@@ -69,7 +69,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
             const func = ast.findParentNode(node, ast.isFunction);
             if (func == null) return;
-            cExprs.push({ func, node });
+            cEntries.push({ func, node });
             break;
           }
         }
@@ -80,13 +80,13 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!IMPURE_CTORS.has(expr.name)) return;
         const func = ast.findParentNode(node, ast.isFunction);
         if (func == null) return;
-        nExprs.push({ func, node });
+        nEntries.push({ func, node });
       },
       "Program:exit"(node) {
         const comps = cCollector.ctx.getAllComponents(node);
         const hooks = hCollector.ctx.getAllHooks(node);
         const funcs = [...comps, ...hooks];
-        for (const { func, node } of [...cExprs, ...nExprs]) {
+        for (const { func, node } of [...cEntries, ...nEntries]) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             data: {
