@@ -171,13 +171,21 @@ const generateRuleMetaJson = Effect.fnUntraced(
 
     const pages = orderedCategories.reduce((acc, cat) => {
       const rules = grouped[cat.key];
-      return rules && rules.length > 0
-        ? [
-          ...acc,
-          cat.heading,
-          ...rules.toSorted((a, b) => a.localeCompare(b, "en")),
-        ]
-        : acc;
+      if (!rules || rules.length === 0) return acc;
+
+      // Sort rules with jsx-* rules first
+      const sortedRules = rules.toSorted((a, b) => {
+        return match([a, b])
+          .with([P.string.startsWith("jsx-"), P._], () => -1)
+          .with([P._, P.string.startsWith("jsx-")], () => 1)
+          .otherwise(() => a.localeCompare(b, "en"));
+      });
+
+      return [
+        ...acc,
+        cat.heading,
+        ...sortedRules,
+      ];
     }, ["overview"]);
 
     const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";
