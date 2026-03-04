@@ -12,8 +12,6 @@ import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes/jsx-no-comme
 import jsxNoDuplicateProps from "./rules/jsx-no-duplicate-props/jsx-no-duplicate-props";
 import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean/jsx-shorthand-boolean";
 import jsxShorthandFragment from "./rules/jsx-shorthand-fragment/jsx-shorthand-fragment";
-import jsxUsesReact from "./rules/jsx-uses-react/jsx-uses-react";
-import jsxUsesVars from "./rules/jsx-uses-vars/jsx-uses-vars";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key/no-array-index-key";
 import noChildrenCount from "./rules/no-children-count/no-children-count";
@@ -87,8 +85,6 @@ export const plugin = {
     "jsx-no-duplicate-props": jsxNoDuplicateProps,
     "jsx-shorthand-boolean": jsxShorthandBoolean,
     "jsx-shorthand-fragment": jsxShorthandFragment,
-    "jsx-uses-react": jsxUsesReact,
-    "jsx-uses-vars": jsxUsesVars,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
     "no-children-count": noChildrenCount,

@@ -1,6 +1,6 @@
 import { JsxEmit, JsxInspector } from "@eslint-react/core";
-import { flow } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
+import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 import { createRule, stringify } from "../../utils";

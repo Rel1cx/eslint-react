@@ -3,7 +3,7 @@
 import module from "node:module";
 import path from "node:path";
 
-import { identity } from "@eslint-react/eff";
+import { identity } from "@local/eff";
 import { P, match } from "ts-pattern";
 
 const _require = module.createRequire(process.cwd() + path.sep);

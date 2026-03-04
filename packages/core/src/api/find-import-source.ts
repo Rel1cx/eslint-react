@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { identity } from "@eslint-react/eff";
+import { identity } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";

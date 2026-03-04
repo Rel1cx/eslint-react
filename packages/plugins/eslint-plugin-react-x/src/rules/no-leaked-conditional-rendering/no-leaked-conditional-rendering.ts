@@ -1,5 +1,4 @@
 import * as ast from "@eslint-react/ast";
-import { flow } from "@eslint-react/eff";
 import {
   type RuleContext,
   type RuleFeature,
@@ -7,6 +6,7 @@ import {
   getSettingsFromContext,
   report,
 } from "@eslint-react/shared";
+import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";

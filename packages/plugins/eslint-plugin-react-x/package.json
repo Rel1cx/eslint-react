@@ -45,9 +45,10 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
-    "@eslint-react/eff": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
+    "@eslint-react/cfa": "workspace:*",
+    "@local/eff": "workspace:*",
     "@typescript-eslint/scope-manager": "canary",
     "@typescript-eslint/type-utils": "canary",
     "@typescript-eslint/types": "canary",
@@ -66,8 +67,8 @@
     "tsl-dx": "^0.9.0"
   },
   "peerDependencies": {
-    "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
-    "typescript": ">=4.8.4 <6.0.0"
+    "eslint": "^10.0.0",
+    "typescript": "*"
   },
   "engines": {
     "node": ">=22.0.0"

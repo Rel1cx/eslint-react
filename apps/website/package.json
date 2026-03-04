@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@eslint-react/eff": "workspace:*",
+    "@local/eff": "workspace:*",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "effect": "^3.19.19",

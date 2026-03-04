@@ -8,7 +8,15 @@ export default {
   platform: "node",
   target: "node20",
   dts: true,
-  deps: { neverBundle: ["eslint", "typescript"] },
+  deps: {
+    alwaysBundle: [
+      "@local/eff",
+    ],
+    neverBundle: [
+      "eslint",
+      "typescript",
+    ],
+  },
   treeshake: true,
   minify: false,
   sourcemap: false,

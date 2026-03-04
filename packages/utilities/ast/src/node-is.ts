@@ -1,4 +1,4 @@
-import { or } from "@eslint-react/eff";
+import { or } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";

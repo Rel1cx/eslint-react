@@ -1,5 +1,4 @@
 /* eslint-disable perfectionist/sort-objects */
-import { getOrElseUpdate } from "@eslint-react/eff";
 import {
   RE_ANNOTATION_JSX,
   RE_ANNOTATION_JSX_FRAG,
@@ -7,6 +6,7 @@ import {
   RE_ANNOTATION_JSX_RUNTIME,
   type RuleContext,
 } from "@eslint-react/shared";
+import { getOrElseUpdate } from "@local/eff";
 
 export const JsxEmit = {
   None: 0,

@@ -23,8 +23,6 @@ const conflictingRules = [
   "react/jsx-no-target-blank",
   "react/jsx-no-useless-fragment",
   "react/jsx-pascal-case",
-  "react/jsx-uses-react",
-  "react/jsx-uses-vars",
   "react/no-access-state-in-setstate",
   "react/no-array-index-key",
   "react/no-children-prop",

@@ -1,6 +1,6 @@
 import type * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { dual } from "@eslint-react/eff";
+import { dual } from "@local/eff";
 import birecord from "birecord";
 import { match } from "ts-pattern";
 

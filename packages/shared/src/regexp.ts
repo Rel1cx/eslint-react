@@ -1,4 +1,4 @@
-import { constFalse } from "@eslint-react/eff";
+import { constFalse } from "@local/eff";
 
 import { RE_REGEXP_STR } from "./constants";
 

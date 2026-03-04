@@ -202,11 +202,20 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  .pkgs/eff:
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../configs
+      tsdown:
+        specifier: ^0.21.0-beta.2
+        version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
+
   apps/website:
     dependencies:
-      '@eslint-react/eff':
+      '@local/eff':
         specifier: workspace:*
-        version: link:../../packages/utilities/eff
+        version: link:../../.pkgs/eff
       bsky-react-post:
         specifier: ^0.1.7
         version: 0.1.7(react@19.2.4)(swr@2.4.1(react@19.2.4))
@@ -579,15 +588,15 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../utilities/ast
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -598,7 +607,7 @@ importers:
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
+        specifier: ^10.0.0
         version: 10.0.2(jiti@2.6.1)
       ts-pattern:
         specifier: ^5.9.0
@@ -616,12 +625,12 @@ importers:
 
   packages/plugins/eslint-plugin:
     dependencies:
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -635,7 +644,7 @@ importers:
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
+        specifier: ^10.0.0
         version: 10.0.2(jiti@2.6.1)
       eslint-plugin-react-dom:
         specifier: workspace:*
@@ -674,15 +683,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -726,15 +735,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -778,15 +787,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -833,15 +842,15 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../../utilities/ast
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -885,15 +894,15 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -934,18 +943,21 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../../utilities/ast
+      '@eslint-react/cfa':
+        specifier: workspace:*
+        version: link:../../utilities/cfa
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../../utilities/eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -995,14 +1007,14 @@ importers:
 
   packages/shared:
     dependencies:
-      '@eslint-react/eff':
+      '@local/eff':
         specifier: workspace:*
-        version: link:../utilities/eff
+        version: link:../../.pkgs/eff
       '@typescript-eslint/utils':
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
+        specifier: ^10.0.0
         version: 10.0.2(jiti@2.6.1)
       ts-pattern:
         specifier: ^5.9.0
@@ -1032,9 +1044,9 @@ importers:
 
   packages/utilities/ast:
     dependencies:
-      '@eslint-react/eff':
+      '@local/eff':
         specifier: workspace:*
-        version: link:../eff
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/types':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -1045,7 +1057,7 @@ importers:
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
+        specifier: ^10.0.0
         version: 10.0.2(jiti@2.6.1)
       string-ts:
         specifier: ^2.3.1
@@ -1061,11 +1073,24 @@ importers:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
 
-  packages/utilities/eff:
+  packages/utilities/cfa:
+    dependencies:
+      eslint:
+        specifier: ^10.0.0
+        version: 10.0.2(jiti@2.6.1)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
     devDependencies:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@typescript-eslint/types':
+        specifier: canary
+        version: 8.56.2-alpha.1
+      '@typescript-eslint/typescript-estree':
+        specifier: canary
+        version: 8.56.2-alpha.1(typescript@5.9.3)
       tsdown:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
@@ -1075,12 +1100,12 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../ast
-      '@eslint-react/eff':
-        specifier: workspace:*
-        version: link:../eff
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -1091,7 +1116,7 @@ importers:
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
       eslint:
-        specifier: ^8.57.0 || ^9.0.0 || ^10.0.0
+        specifier: ^10.0.0
         version: 10.0.2(jiti@2.6.1)
       ts-pattern:
         specifier: ^5.9.0
@@ -3560,10 +3585,6 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: ^5.9.3
-
-  '@typescript-eslint/types@8.53.0':
-    resolution: {integrity: sha512-Bmh9KX31Vlxa13+PqPvt4RzKRN1XORYSLlAE+sO1i28NkisGbTtSLFVB3l7PWdHtR3E0mVMuC7JilWJ99m2HxQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/types@8.56.1':
     resolution: {integrity: sha512-dbMkdIUkIkchgGDIv7KLUpa0Mda4IYjo4IAMJUZ+3xNoUXxMsk9YtKpTHSChRS85o+H9ftm51gsK1dZReY9CVw==}
@@ -6971,7 +6992,7 @@ snapshots:
   '@es-joy/jsdoccomment@0.84.0':
     dependencies:
       '@types/estree': 1.0.8
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.56.2-alpha.1
       comment-parser: 1.4.5
       esquery: 1.7.0
       jsdoc-type-pratt-parser: 7.1.1
@@ -8747,7 +8768,7 @@ snapshots:
   '@typescript-eslint/project-service@8.53.0(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/types': 8.56.2-alpha.1
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -8756,7 +8777,7 @@ snapshots:
   '@typescript-eslint/project-service@8.56.1(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.56.1(typescript@5.9.3)
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.56.2-alpha.1
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -8814,8 +8835,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/types@8.53.0': {}
-
   '@typescript-eslint/types@8.56.1': {}
 
   '@typescript-eslint/types@8.56.2-alpha.1': {}
@@ -8824,7 +8843,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/project-service': 8.53.0(typescript@5.9.3)
       '@typescript-eslint/tsconfig-utils': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/types': 8.56.2-alpha.1
       '@typescript-eslint/visitor-keys': 8.53.0
       debug: 4.4.3
       minimatch: 10.2.4
@@ -8839,7 +8858,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/project-service': 8.56.1(typescript@5.9.3)
       '@typescript-eslint/tsconfig-utils': 8.56.1(typescript@5.9.3)
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.56.2-alpha.1
       '@typescript-eslint/visitor-keys': 8.56.1
       debug: 4.4.3
       minimatch: 10.2.4
@@ -8869,7 +8888,7 @@ snapshots:
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.2(jiti@2.6.1))
       '@typescript-eslint/scope-manager': 8.56.2-alpha.1
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.56.2-alpha.1
       '@typescript-eslint/typescript-estree': 8.56.1(typescript@5.9.3)
       eslint: 10.0.2(jiti@2.6.1)
       typescript: 5.9.3
@@ -8889,12 +8908,12 @@ snapshots:
 
   '@typescript-eslint/visitor-keys@8.53.0':
     dependencies:
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/types': 8.56.2-alpha.1
       eslint-visitor-keys: 4.2.1
 
   '@typescript-eslint/visitor-keys@8.56.1':
     dependencies:
-      '@typescript-eslint/types': 8.56.1
+      '@typescript-eslint/types': 8.56.2-alpha.1
       eslint-visitor-keys: 5.0.1
 
   '@typescript-eslint/visitor-keys@8.56.2-alpha.1':

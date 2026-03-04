@@ -1,8 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { identity } from "@eslint-react/eff";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
+import { identity } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
