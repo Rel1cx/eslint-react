@@ -26,6 +26,7 @@ export default defineConfig(
   // Skip ESLint checks for rules ported directly from upstream
   {
     ignores: [
+      "packages/utilities/cfa",
       "packages/plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
       "packages/plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
     ],

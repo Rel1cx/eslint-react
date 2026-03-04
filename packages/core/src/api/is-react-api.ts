@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
-import { dual } from "@eslint-react/eff";
 import type { RuleContext } from "@eslint-react/shared";
+import { dual } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {

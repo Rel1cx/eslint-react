@@ -1,10 +1,10 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { JsxInspector } from "@eslint-react/core";
-import { getOrElseUpdate } from "@eslint-react/eff";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, computeObjectType } from "@eslint-react/var";
+import { getOrElseUpdate } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 

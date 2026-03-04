@@ -54,8 +54,8 @@ Minimum supported versions:
 
 Minimum supported versions:
 
-- [x] Node.js: 20.19.0
-- [x] ESLint: 9.36.0
+- [x] Node.js: 22.0.0
+- [x] ESLint: 10.0.0
 - [x] TypeScript: 5
 
 ### Package Distribution

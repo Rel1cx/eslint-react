@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
-import { getOrElseUpdate, identity } from "@eslint-react/eff";
+import { getOrElseUpdate, identity } from "@local/eff";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 
 import { P, match } from "ts-pattern";

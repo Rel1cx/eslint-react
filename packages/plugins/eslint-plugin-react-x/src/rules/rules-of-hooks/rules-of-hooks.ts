@@ -15,11 +15,10 @@
 // LICENSE file in the root directory of this source tree.
 // -----------------------------------------------------------------------------
 
+import { CodePathAnalyzer } from "@eslint-react/cfa";
 import { type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
-
-import { CodePathAnalyzer } from "./lib";
 
 type CallExpression = TSESTree.CallExpression;
 type CatchClause = TSESTree.CatchClause;

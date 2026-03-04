@@ -11,8 +11,6 @@ export const rules = {
   "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-duplicate-props": "warn",
-  "@eslint-react/jsx-uses-react": "warn",
-  "@eslint-react/jsx-uses-vars": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",

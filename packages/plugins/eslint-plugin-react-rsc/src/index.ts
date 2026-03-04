@@ -1,4 +1,4 @@
-import { identity } from "@eslint-react/eff";
+import { identity } from "@local/eff";
 import type { ESLint, Linter } from "eslint";
 
 import * as disableExperimentalConfig from "./configs/disable-experimental";
