@@ -245,6 +245,30 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const App = ({
+            a = Boolean({}),
+            b = Boolean(['one', 'two']),
+            c = Boolean(/regex/i),
+            d = Boolean(() => {}),
+            e = Boolean(function() {}),
+            f = Boolean(class {}),
+            g = Boolean(new Thing()),
+            h = Boolean(<Thing />),
+            i = Boolean(Symbol('foo')),
+            j = Boolean(unknownFunction()),
+            k = Boolean(window.name)
+        }) => {
+            return null
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
         function MyComponent({ position = new Vector3(0, 0, 0) }) {
           return null
         }

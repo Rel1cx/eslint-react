@@ -40,6 +40,8 @@
 | [IMPURE\_CTORS](variables/IMPURE_CTORS.md) | Known impure global constructors used with `new` |
 | [IMPURE\_FUNCS](variables/IMPURE_FUNCS.md) | Known impure functions |
 | [NPM\_SCOPE](variables/NPM_SCOPE.md) | The NPM scope for this project. |
+| [PURE\_CTORS](variables/PURE_CTORS.md) | Known pure global constructors used with `new` |
+| [PURE\_FUNCS](variables/PURE_FUNCS.md) | Known pure functions |
 | [RE\_ANNOTATION\_JSX](variables/RE_ANNOTATION_JSX.md) | Regular expression for matching a `@jsx` annotation comment. |
 | [RE\_ANNOTATION\_JSX\_FRAG](variables/RE_ANNOTATION_JSX_FRAG.md) | Regular expression for matching a `@jsxFrag` annotation comment. |
 | [RE\_ANNOTATION\_JSX\_IMPORT\_SOURCE](variables/RE_ANNOTATION_JSX_IMPORT_SOURCE.md) | Regular expression for matching a `@jsxImportSource` annotation comment. |
