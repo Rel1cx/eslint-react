@@ -1,3 +1,4 @@
+import { isIdentifier } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -16,11 +17,11 @@ export type ObjectType =
   }
   | {
     kind: "array";
-    node: TSESTree.ArrayExpression;
+    node: TSESTree.ArrayExpression | TSESTree.CallExpression;
   }
   | {
     kind: "plain";
-    node: TSESTree.ObjectExpression;
+    node: TSESTree.ObjectExpression | TSESTree.CallExpression;
   }
   | {
     kind: "class";
@@ -41,13 +42,12 @@ export type ObjectType =
   }
   | {
     kind: "regexp";
-    node: TSESTree.RegExpLiteral;
+    node: TSESTree.RegExpLiteral | TSESTree.CallExpression;
   }
   | {
     kind: "unknown";
     node: TSESTree.Node;
-    // Reason for why the type is unknown
-    reason: "call-expression" | "unsupported-node";
+    reason?: string;
   };
 
 /**
@@ -119,6 +119,21 @@ export function computeObjectType(
       );
     }
     case AST.CallExpression: {
+      switch (true) {
+        case isIdentifier(node.callee, "Boolean"):
+          return null;
+        case isIdentifier(node.callee, "String"):
+          return null;
+        case isIdentifier(node.callee, "Number"):
+          return null;
+        case isIdentifier(node.callee, "Object"):
+          return { kind: "plain", node } as const;
+        case isIdentifier(node.callee, "Array"):
+          return { kind: "array", node } as const;
+        case isIdentifier(node.callee, "RegExp"):
+          return { kind: "regexp", node } as const;
+      }
+
       return { kind: "unknown", node, reason: "call-expression" } as const;
     }
     default: {

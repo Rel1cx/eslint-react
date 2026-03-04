@@ -203,6 +203,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
           function App() {
+            const foo = Boolean({})
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+          function App() {
             const foo = {}
             return <Context.Provider value={foo}></Context.Provider>;
         }
