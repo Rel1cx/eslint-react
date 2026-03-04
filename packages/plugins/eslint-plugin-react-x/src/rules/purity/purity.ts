@@ -52,17 +52,27 @@ export function create(context: RuleContext<MessageID, []>) {
     cCollector.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (node.callee.type !== AST.MemberExpression) return;
         const expr = ast.getUnderlyingExpression(node.callee);
-        if (expr.type !== AST.MemberExpression) return;
-        if (expr.object.type !== AST.Identifier) return;
-        if (expr.property.type !== AST.Identifier) return;
-        const objectName = expr.object.name;
-        const propertyName = expr.property.name;
-        if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
-        const func = ast.findParentNode(node, ast.isFunction);
-        if (func == null) return;
-        cExprs.push({ func, node });
+        switch (true) {
+          case expr.type === AST.Identifier: {
+            if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
+            const func = ast.findParentNode(node, ast.isFunction);
+            if (func == null) return;
+            cExprs.push({ func, node });
+            break;
+          }
+          case expr.type === AST.MemberExpression
+            && expr.object.type === AST.Identifier
+            && expr.property.type === AST.Identifier: {
+            const objectName = expr.object.name;
+            const propertyName = expr.property.name;
+            if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
+            const func = ast.findParentNode(node, ast.isFunction);
+            if (func == null) return;
+            cExprs.push({ func, node });
+            break;
+          }
+        }
       },
       NewExpression(node: TSESTree.NewExpression) {
         const expr = ast.getUnderlyingExpression(node.callee);

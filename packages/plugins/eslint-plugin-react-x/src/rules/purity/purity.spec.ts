@@ -924,6 +924,66 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // -------------------------------------------------------------------------
+    // CallExpression with type expressions wrapping the callee
+    // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression,
+    //  TSSatisfiesExpression, and nested type expressions)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const id = (Math.random as any)();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          (console.log as any)("rendering");
+          return <div>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const t = (Date.now as any)();
+          return <div>{t}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const t = (performance.now satisfies any)();
+          return <div>{t}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const id = (Math.random!)();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // Nested type expressions — getUnderlyingExpression unwraps recursively
+      code: tsx`
+        function Component() {
+          const id = (Math.random as unknown as any)();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1367,60 +1427,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           return React.createElement("div", null, "Content");
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // CallExpression with type expressions wrapping the callee
-    // (The CallExpression handler early-returns when callee.type is not
-    //  MemberExpression, so type-wrapped impure calls are not detected.
-    //  These cases document this current limitation.)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          const id = (Math.random as any)();
-          return <div key={id}>Content</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          (console.log as any)("rendering");
-          return <div>Content</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const t = (Date.now as any)();
-          return <div>{t}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const t = (performance.now satisfies any)();
-          return <div>{t}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const id = (Math.random!)();
-          return <div key={id}>Content</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const id = (Math.random as unknown as any)();
-          return <div key={id}>Content</div>;
         }
       `,
     },

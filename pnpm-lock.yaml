@@ -943,9 +943,6 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../../utilities/ast
-      '@eslint-react/cfa':
-        specifier: workspace:*
-        version: link:../../utilities/cfa
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
@@ -1069,28 +1066,6 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
-      tsdown:
-        specifier: ^0.21.0-beta.2
-        version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
-
-  packages/utilities/cfa:
-    dependencies:
-      eslint:
-        specifier: ^10.0.0
-        version: 10.0.2(jiti@2.6.1)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../../.pkgs/configs
-      '@typescript-eslint/types':
-        specifier: canary
-        version: 8.56.2-alpha.1
-      '@typescript-eslint/typescript-estree':
-        specifier: canary
-        version: 8.56.2-alpha.1(typescript@5.9.3)
       tsdown:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
