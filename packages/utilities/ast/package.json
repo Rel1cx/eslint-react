@@ -36,7 +36,6 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@local/eff": "workspace:*",
     "@typescript-eslint/types": "canary",
     "@typescript-eslint/typescript-estree": "canary",
     "@typescript-eslint/utils": "canary",
@@ -44,6 +43,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "tsdown": "^0.21.0-beta.2"
   },
   "peerDependencies": {

@@ -10,7 +10,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@local/eff": "workspace:*",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "effect": "^3.19.19",
@@ -36,6 +35,7 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "@mdx-js/mdx": "^3.1.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@theguild/remark-mermaid": "^0.3.0",

@@ -56,6 +56,7 @@
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.2",
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "@radix-ui/react-toast": "^1.2.15",
     "@rbxts/react": "^17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
