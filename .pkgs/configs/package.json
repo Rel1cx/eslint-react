@@ -20,7 +20,7 @@
     "lint:ts": "tsl"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "^5.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "eslint-plugin-de-morgan": "^2.1.1",
     "eslint-plugin-function": "^0.9.0",
     "eslint-plugin-function-rule": "^0.9.0",
