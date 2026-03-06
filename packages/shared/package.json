@@ -37,13 +37,13 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@local/eff": "workspace:*",
     "@typescript-eslint/utils": "canary",
     "ts-pattern": "^5.9.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.3.3",
     "@types/picomatch": "^4.0.2",

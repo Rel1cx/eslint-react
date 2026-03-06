@@ -48,7 +48,6 @@
   },
   "dependencies": {
     "@eslint-react/shared": "workspace:*",
-    "@local/eff": "workspace:*",
     "@typescript-eslint/scope-manager": "canary",
     "@typescript-eslint/type-utils": "canary",
     "@typescript-eslint/types": "canary",
@@ -62,6 +61,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "tsdown": "^0.21.0-beta.2"
   },
   "peerDependencies": {

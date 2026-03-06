@@ -44,6 +44,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:.pkgs/eff
       '@radix-ui/react-toast':
         specifier: ^1.2.15
         version: 1.2.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -213,9 +216,6 @@ importers:
 
   apps/website:
     dependencies:
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
       bsky-react-post:
         specifier: ^0.1.7
         version: 0.1.7(react@19.2.4)(swr@2.4.1(react@19.2.4))
@@ -286,6 +286,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1
@@ -594,9 +597,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -619,6 +619,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
       tsdown:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
@@ -628,9 +631,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -671,6 +671,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       tsdown:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
@@ -689,9 +692,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -714,6 +714,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -741,9 +744,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -766,6 +766,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -793,9 +796,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -824,6 +824,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -848,9 +851,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -873,6 +873,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -900,9 +903,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -925,6 +925,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -952,9 +955,6 @@ importers:
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../utilities/var
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -986,6 +986,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.14
@@ -1004,9 +1007,6 @@ importers:
 
   packages/shared:
     dependencies:
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
       '@typescript-eslint/utils':
         specifier: canary
         version: 8.56.2-alpha.1(eslint@10.0.2(jiti@2.6.1))(typescript@5.9.3)
@@ -1026,6 +1026,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -1041,9 +1044,6 @@ importers:
 
   packages/utilities/ast:
     dependencies:
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/types':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -1066,6 +1066,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       tsdown:
         specifier: ^0.21.0-beta.2
         version: 0.21.0-beta.2(publint@0.3.18)(typescript@5.9.3)
@@ -1078,9 +1081,6 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       '@typescript-eslint/scope-manager':
         specifier: canary
         version: 8.56.2-alpha.1
@@ -1103,6 +1103,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       '@typescript-eslint/typescript-estree':
         specifier: canary
         version: 8.56.2-alpha.1(typescript@5.9.3)
