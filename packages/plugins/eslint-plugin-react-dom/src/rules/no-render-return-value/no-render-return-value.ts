@@ -44,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>) {
       // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
       CallExpression(node) {
         switch (true) {
-          // Handles direct calls to 'render' (e.g., from `import { render } from 'react-dom'`)
+          // Handles direct calls to 'render' (ex: from `import { render } from 'react-dom'`)
           case node.callee.type === AST.Identifier
             && renderNames.has(node.callee.name)
             // Check if the return value is being used

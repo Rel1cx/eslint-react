@@ -37,7 +37,7 @@ This makes it hard to see whether the children was passed correctly to the eleme
 
 The following cases are **allowed** and will not be reported:
 
-1. The `children` property originates from React's own type definitions (e.g. `React.DOMAttributes.children`, `React.PropsWithChildren.children`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, `React.PropsWithChildren<T>`, or similar React-provided types.
+1. The `children` property originates from React's own type definitions (ex: `React.DOMAttributes.children`, `React.PropsWithChildren.children`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, `React.PropsWithChildren<T>`, or similar React-provided types.
 2. The `children` property's **type** is a React-defined children type alias, such as `React.ReactNode`, `React.ReactElement`, `React.ReactPortal`, or `JSX.Element`, even if the property is declared in a user-defined type.
 
 ## Common Violations

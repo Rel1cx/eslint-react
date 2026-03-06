@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>) {
       if (callbackArg == null) return;
       if (!ast.isFunction(callbackArg)) return;
 
-      // Arrow functions with a concise body always return a value (e.g. `() => expr`)
+      // Arrow functions with a concise body always return a value (ex: `() => expr`)
       if (callbackArg.type === AST.ArrowFunctionExpression && callbackArg.body.type !== AST.BlockStatement) {
         return;
       }

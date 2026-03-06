@@ -116,7 +116,7 @@ export class JsxInspector {
    * Returns the **last** matching attribute (to mirror React's behaviour where
    * later props win), or `undefined` if not found.
    * @param node The JSX element to search for the attribute.
-   * @param name The name of the attribute to find (e.g. `"className"`).
+   * @param name The name of the attribute to find (ex: `"className"`).
    */
   findAttribute(
     node: TSESTree.JSXElement,
@@ -143,7 +143,7 @@ export class JsxInspector {
 
   /**
    * Get the stringified name of a `JSXAttribute` node
-   * (e.g. `"className"`, `"aria-label"`, `"xml:space"`).
+   * (ex: `"className"`, `"aria-label"`, `"xml:space"`).
    * @param node The `JSXAttribute` node to extract the name from.
    * @returns The stringified name of the attribute.
    */
@@ -166,7 +166,7 @@ export class JsxInspector {
    * Returns `undefined` when the attribute is not present or its value
    * cannot be statically determined.
    * @param node The JSX element to search for the attribute.
-   * @param name The name of the attribute to resolve (e.g. `"className"`).
+   * @param name The name of the attribute to resolve (ex: `"className"`).
    * @returns The static value of the attribute, or `undefined` if not found or not statically resolvable.
    */
   getAttributeStaticValue(
@@ -188,7 +188,7 @@ export class JsxInspector {
    *
    * Returns `undefined` when the attribute is not present.
    * @param node The JSX element to search for the attribute.
-   * @param name The name of the attribute to find and resolve (e.g. `"className"`).
+   * @param name The name of the attribute to find and resolve (ex: `"className"`).
    * @returns A descriptor of the attribute's value that can be further inspected, or `undefined` if the attribute is not found.
    */
   getAttributeValue(
@@ -233,7 +233,7 @@ export class JsxInspector {
   /**
    * Shorthand: check whether an attribute exists on the element.
    * @param node The JSX element to check for the attribute.
-   * @param name The name of the attribute to check for (e.g. `"className"`).
+   * @param name The name of the attribute to check for (ex: `"className"`).
    * @returns `true` if the attribute exists on the element, `false` otherwise.
    */
   hasAttribute(node: TSESTree.JSXElement, name: string): boolean {

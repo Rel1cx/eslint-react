@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // This rule only applies to React 19.0.0 and above
   if (compare(settings.version, "19.0.0", "<")) return {};
 
-  // Keep track of 'react-dom' import names (e.g., 'ReactDOM')
+  // Keep track of 'react-dom' import names (ex: 'ReactDOM')
   const reactDomNames = new Set<string>();
   // Keep track of local names for 'useFormState' import
   const useFormStateNames = new Set<string>();

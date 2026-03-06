@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
       // Keyed by declaration node to normalize across different ts.Symbol objects
-      // that refer to the same property (e.g. via Omit/Pick mapped types).
+      // that refer to the same property (ex: via Omit/Pick mapped types).
       const totalDeclaredProps = new Map<ts.Declaration, ts.Symbol>();
       const totalUsedDeclarations = new Set<ts.Declaration>();
 

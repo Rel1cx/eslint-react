@@ -209,6 +209,23 @@ function Component({ items }) {
 }
 ```
 
+## Options
+
+### Shared Settings
+
+Custom state and effect hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalStateHooks": "(useMyState|useCustomState)",
+      "additionalEffectHooks": "(useMyEffect|useCustomEffect)"
+    }
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/set-state-in-render/set-state-in-render.ts)

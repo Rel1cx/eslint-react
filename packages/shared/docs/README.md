@@ -76,4 +76,4 @@
 | [isRegExp](functions/isRegExp.md) | Check whether given string is regexp string |
 | [normalizeSettings](functions/normalizeSettings.md) | - |
 | [report](functions/report.md) | Creates a report function for the given rule context. |
-| [toRegExp](functions/toRegExp.md) | Convert a string to the `RegExp`. Normal strings (e.g., `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |
+| [toRegExp](functions/toRegExp.md) | Convert a string to the `RegExp`. Normal strings (ex: `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |

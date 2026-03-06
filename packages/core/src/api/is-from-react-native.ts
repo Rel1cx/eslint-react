@@ -6,7 +6,7 @@ import { findImportSource } from "./find-import-source";
  * if a variable is initialized from React Native import
  * @param name The variable name
  * @param initialScope The initial scope
- * @param importSource Alternative import source of React Native (e.g., "react-native-web")
+ * @param importSource Alternative import source of React Native (ex: "react-native-web")
  * @returns True if the variable is initialized from React Native import
  */
 export function isInitializedFromReactNative(

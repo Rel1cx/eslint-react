@@ -37,7 +37,7 @@ This makes it hard to see whether the ref was passed correctly to the element or
 
 The following cases are **allowed** and will not be reported:
 
-1. The `ref` property originates from React's own type definitions (e.g. `React.ClassAttributes.ref`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
+1. The `ref` property originates from React's own type definitions (ex: `React.ClassAttributes.ref`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
 2. The `ref` property's **type** is a React-defined ref type alias, such as `React.Ref`, `React.RefObject`, `React.RefCallback`, or `React.LegacyRef`, even if the property is declared in a user-defined type.
 
 ## Common Violations

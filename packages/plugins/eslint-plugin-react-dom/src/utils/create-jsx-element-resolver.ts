@@ -26,7 +26,7 @@ export function createJsxElementResolver(context: RuleContext) {
      * @returns An object containing the JSX element type and DOM element type
      */
     resolve(node: TSESTree.JSXElement) {
-      // Get the element name/type (e.g., 'div', 'Button', etc.)
+      // Get the element name/type (ex: 'div', 'Button', etc.)
       const elementName = jsx.getElementType(node);
 
       // Create the base result with element types
@@ -42,7 +42,7 @@ export function createJsxElementResolver(context: RuleContext) {
         return result;
       }
 
-      // Try to get the value of the polymorphic prop (e.g., 'as' or 'component')
+      // Try to get the value of the polymorphic prop (ex: 'as' or 'component')
       const polyPropValue = jsx.getAttributeValue(node, polymorphicPropName)?.toStatic();
 
       // If we have a string value, use it as the DOM element type

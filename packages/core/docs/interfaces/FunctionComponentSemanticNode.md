@@ -12,7 +12,7 @@ Represents a React Function Component
 
 | Property | Type | Description | Overrides | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-directives"></a> `directives` | `TSESTreeDirective`[] | The directives used in the function (e.g., "use strict", "use client", etc.) | - | - |
+| <a id="property-directives"></a> `directives` | `TSESTreeDirective`[] | The directives used in the function (ex: "use strict", "use client", etc.) | - | - |
 | <a id="property-displayname"></a> `displayName` | `Expression` \| `null` | The display name of the component | - | - |
 | <a id="property-flag"></a> `flag` | `bigint` | Flags describing the component's characteristics | [`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#property-flag) | - |
 | <a id="property-hint"></a> `hint` | `bigint` | Hint for how the component was detected | [`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#property-hint) | - |

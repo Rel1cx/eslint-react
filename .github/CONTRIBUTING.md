@@ -28,7 +28,7 @@ Welcome to contributing to ESLint React! This guide will help you contribute eff
 # Build packages that are needed for development and publishing
 pnpm run build
 
-# Build packages that are used in the monorepo (e.g., plugins, configs)
+# Build packages that are used in the monorepo (ex: plugins, configs)
 pnpm run build:pkgs
 
 # Build docs for all packages
@@ -65,7 +65,7 @@ pnpm run lint
 - Test files coexist with source files: `src/rules/[rule-name]/[rule-name].spec.ts`.
 - Uses `TypeScript ESLint Rule Tester`.
 - Provides separate test setups for type-aware and non-type-aware rules.
-- Test fixtures support multiple TypeScript configurations (e.g., JSX variants).
+- Test fixtures support multiple TypeScript configurations (ex: JSX variants).
 - Test helpers are located in the `test/` directory.
 
 ### Developing a New Rule

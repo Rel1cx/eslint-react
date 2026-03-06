@@ -1961,7 +1961,7 @@ function getNodeWithoutReactNamespace(
 }
 
 // What's the index of callback that needs to be analyzed for a given Hook?
-// -1 if it's not a Hook we care about (e.g. useState).
+// -1 if it's not a Hook we care about (ex: useState).
 // 0 for useEffect/useMemo/useCallback(fn).
 // 1 for useImperativeHandle(ref, fn).
 // For additionally configured Hooks, assume that they're like useEffect (0).

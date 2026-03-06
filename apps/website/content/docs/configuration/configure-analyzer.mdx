@@ -33,7 +33,7 @@ export default [
 Defines the React version for semantic analysis.
 
 - `detect`: Auto-detects from project dependencies (defaults to `19.2.4` if undetectable)
-- `string`: Explicit version specification (e.g., `"18.3.1"`)
+- `string`: Explicit version specification (ex: `"18.3.1"`)
 
 ### `importSource`
 
@@ -49,7 +49,7 @@ import React from "@pika/react";
 
 Specifies the React Compiler [`compilationMode`](https://react.dev/reference/react-compiler/compilationMode) used in your React Compiler config.
 
-This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as your React Compiler config (e.g., `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
+This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as your React Compiler config (ex: `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
 
 ## Advanced Configuration
 
@@ -108,7 +108,7 @@ export default [
       "react-x": {
         version: "19.2.4",
         importSource: "react",
-        polymorphicPropName: "as", // Define the prop name used for polymorphic components (e.g., <Component as="div">)
+        polymorphicPropName: "as", // Define the prop name used for polymorphic components (ex: <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
       },
     },

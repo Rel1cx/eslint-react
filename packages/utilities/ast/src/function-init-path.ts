@@ -130,7 +130,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
  * Check if a specific function call exists in the function initialization path.
  * Useful for detecting HOCs like React.memo, React.forwardRef, etc.
  *
- * @param callName The name of the call to check for (e.g., "memo", "forwardRef")
+ * @param callName The name of the call to check for (ex: "memo", "forwardRef")
  * @param initPath The function initialization path to search in
  * @returns True if the call exists in the path, false otherwise
  */

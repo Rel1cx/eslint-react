@@ -116,8 +116,7 @@ Update the rule key (prefixed `@eslint-react/`) in every config that includes th
     ```
 - [ ] Create `src/rules/<rule-name>/<rule-name>.spec.ts`
   - Copy tests from the source plugin
-  - Update the import to `from "./<rule-name>/<rule-name>"`
-  - Adjust test helpers if needed (e.g. `allFunctions` vs `allValid`)
+  - Update the import to `from "./<rule-name>/<rule-name>"`(ex:
 - [ ] Create `src/rules/<rule-name>/<rule-name>.mdx`
   - Follow the `use-memo.mdx` style (see template below)
 

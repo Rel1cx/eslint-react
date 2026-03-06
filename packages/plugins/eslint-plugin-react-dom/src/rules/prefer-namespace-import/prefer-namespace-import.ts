@@ -59,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
               );
             }
-            // If there are other specifiers (e.g., named imports),
+            // If there are other specifiers (ex: named imports),
             // remove the default specifier and add a new namespace import declaration
             const specifiers = importDeclarationText
               .slice(importDeclarationText.indexOf("{"), importDeclarationText.indexOf("}") + 1);

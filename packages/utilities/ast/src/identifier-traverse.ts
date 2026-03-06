@@ -7,7 +7,7 @@ import { getUnderlyingExpression } from "./node-unwrap";
  * Get the root identifier of a (possibly nested) member expression.
  * For `a.b.c`, returns the `a` Identifier node.
  * @param node The expression to analyze
- * @returns The root Identifier node, or null if it cannot be determined (e.g. non-identifier root)
+ * @returns The root Identifier node, or null if it cannot be determined (ex: non-identifier root)
  */
 export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateIdentifier): TSESTree.Identifier | null {
   const expr = getUnderlyingExpression(node);
