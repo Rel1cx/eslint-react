@@ -19,7 +19,7 @@ export interface SemanticFunc extends SemanticNode {
   type: TSESTree.TSTypeAnnotation | null;
   /** The body of the function */
   body: TSESTree.BlockStatement | TSESTree.Expression;
-  /** The directives of the function (e.g., "use strict", "use client", "use server", etc.) */
+  /** The directives of the function (ex: "use strict", "use client", "use server", etc.) */
   directives: ast.TSESTreeDirective[];
   /** The parameters of the function */
   parameters: TSESTree.Parameter[];

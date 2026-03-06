@@ -111,7 +111,7 @@ export type TSESTreeTypeAssertionExpression =
   | TSESTree.TSTypeAssertion;
 
 /**
- * Represents a directive expression statement in TSESTree (e.g., "use strict";)
+ * Represents a directive expression statement in TSESTree (ex: "use strict";)
  */
 export type TSESTreeDirective = TSESTree.ExpressionStatement & {
   directive: string;

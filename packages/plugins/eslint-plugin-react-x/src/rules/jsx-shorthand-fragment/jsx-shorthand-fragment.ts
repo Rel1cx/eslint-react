@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, Options>) {
         JSXElement(node: TSESTree.JSXElement) {
           // Check if the element is a Fragment component
           if (!jsx.isFragmentElement(node)) return;
-          // Ignore if the Fragment has attributes (e.g., key)
+          // Ignore if the Fragment has attributes (ex: key)
           const hasAttributes = node.openingElement.attributes.length > 0;
           if (hasAttributes) return;
           // Report an error and suggest using shorthand syntax

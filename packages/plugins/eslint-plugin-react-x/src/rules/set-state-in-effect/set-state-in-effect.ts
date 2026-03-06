@@ -1,13 +1,13 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { resolve } from "@eslint-react/var";
 import { constVoid, getOrElseUpdate, not } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
-import { resolve } from "@eslint-react/var";
 import { createRule } from "../../utils";
 
 export const RULE_NAME = "set-state-in-effect";
@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
-  const { additionalStateHooks } = getSettingsFromContext(context);
+  const { additionalStateHooks, additionalEffectHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const setupFnRef: { current: ast.TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
@@ -84,10 +84,14 @@ export function create(context: RuleContext<MessageID, []>) {
     return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
+  function isUseEffectCall(node: TSESTree.Node) {
+    return core.isUseEffectLikeCall(node, additionalEffectHooks);
+  }
+
   function isUseEffectSetupCallback(node: TSESTree.Node) {
     return node.parent?.type === AST.CallExpression
       && node.parent.callee !== node
-      && core.isUseEffectLikeCall(node.parent);
+      && isUseEffectCall(node.parent);
   }
 
   function getCallName(node: TSESTree.Node) {
@@ -100,7 +104,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function getCallKind(node: TSESTree.CallExpression) {
     return match<TSESTree.CallExpression, CallKind>(node)
       .when(isUseStateCall, () => "useState")
-      .when(core.isUseEffectLikeCall, () => "useEffect")
+      .when(isUseEffectCall, () => "useEffect")
       .when(isSetStateCall, () => "setState")
       .when(isThenCall, () => "then")
       .otherwise(() => "other");
@@ -233,7 +237,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 const args0 = node.arguments.at(0);
                 // setState() without arguments, which is invalid but other tools will report it
                 if (args0 == null) return;
-                // Check if the setState call is using a ref value, which is safe to use in an effect (e.g. `setState(ref.current.scrollTop)`)
+                // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
                 function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
                   const isUsingRefValue = (n: TSESTree.Node): boolean => {
                     switch (n.type) {
@@ -324,7 +328,7 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             // const [state, setState] = useState();
             // useEffect(setState);
-            if (core.isUseEffectLikeCall(node.parent)) {
+            if (isUseEffectCall(node.parent)) {
               getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
             }
           }

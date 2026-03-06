@@ -39,7 +39,7 @@ It is also proposed to be deprecated in this RFC: [Deprecate spreading key from 
 
 The following cases are **allowed** and will not be reported:
 
-1. The `key` property originates from React's own type definitions (e.g. `React.Attributes.key`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
+1. The `key` property originates from React's own type definitions (ex: `React.Attributes.key`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
 2. The `key` property's **type** is `React.Key`, even if the property is declared in a user-defined type.
 
 ## Common Violations

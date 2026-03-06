@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, Options>) {
         const propName = jsx.getAttributeName(node);
 
         switch (true) {
-          // Enforce shorthand syntax for boolean attributes (e.g., `prop` instead of `prop={true}`)
+          // Enforce shorthand syntax for boolean attributes (ex: `prop` instead of `prop={true}`)
           case policy === 1
             && value?.type === AST.JSXExpressionContainer
             && value.expression.type === AST.Literal
@@ -72,7 +72,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             });
             break;
           }
-          // Enforce explicit `={true}` for boolean attributes (e.g., `prop={true}` instead of `prop`)
+          // Enforce explicit `={true}` for boolean attributes (ex: `prop={true}` instead of `prop`)
           case policy === -1 && value == null: {
             context.report({
               data: {

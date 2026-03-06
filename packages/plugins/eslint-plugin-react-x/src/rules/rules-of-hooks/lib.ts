@@ -59,7 +59,7 @@
 /**
  * A minimal AST node type used throughout the code path analyzer.
  * This is intentionally broad to accommodate custom parser node types
- * (e.g. ComponentDeclaration, HookDeclaration from parser-hermes).
+ * (ex: ComponentDeclaration, HookDeclaration from parser-hermes).
  *
  * Using `any` here is deliberate — the code path analyzer must work
  * with nodes from various parsers (including hermes) whose types are
@@ -1761,7 +1761,7 @@ function isForkingByTrueOrFalse(node: ASTNode): boolean {
 /**
  * Gets the boolean value of a given literal node.
  *
- * This is used to detect infinity loops (e.g. `while (true) {}`).
+ * This is used to detect infinity loops (ex: `while (true) {}`).
  * Statements preceded by an infinity loop are unreachable if the loop didn't
  * have any `break` statement.
  */

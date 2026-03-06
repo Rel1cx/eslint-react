@@ -223,7 +223,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (indexParamNames.length === 0) {
           return;
         }
-        // The key's value must be an expression container (e.g., key={...})
+        // The key's value must be an expression container (ex: key={...})
         if (node.value?.type !== AST.JSXExpressionContainer) {
           return;
         }

@@ -17,7 +17,7 @@ if a variable is initialized from React Native import
 | ------ | ------ | ------ | ------ |
 | `name` | `string` | `undefined` | The variable name |
 | `initialScope` | `Scope` | `undefined` | The initial scope |
-| `importSource` | `string` | `"react-native"` | Alternative import source of React Native (e.g., "react-native-web") |
+| `importSource` | `string` | `"react-native"` | Alternative import source of React Native (ex: "react-native-web") |
 
 ## Returns
 

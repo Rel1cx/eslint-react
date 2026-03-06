@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       JSXElement(node) {
-        // This rule only applies to host elements (e.g., <div />, <span />), not custom components
+        // This rule only applies to host elements (ex: <div />, <span />), not custom components
         if (!jsx.isHostElement(node)) {
           return;
         }

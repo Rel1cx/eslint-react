@@ -129,7 +129,12 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify the description section matches the rule metadata
     const expectedDescription = rulemeta.description;
-    const providedDescription = contentLines.at(2)?.trim().replace("description: ", "").replaceAll("`", "'");
+    const providedDescription = contentLines
+      .at(2)
+      ?.trim()
+      .replace("description: ", "")
+      .replaceAll(/^"|"$/gu, "")
+      .replaceAll("`", "'");
     if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, ""))) {
       yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);

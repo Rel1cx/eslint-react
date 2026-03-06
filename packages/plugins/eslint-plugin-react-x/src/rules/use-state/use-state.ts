@@ -1,7 +1,7 @@
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -89,19 +89,16 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>) {
-  // Fast path: skip if `useState` is not present in the file
-  if (!context.sourceCode.text.includes("useState")) return {};
-
   const options = context.options[0] ?? defaultOptions[0];
   const {
     enforceAssignment = true,
     enforceLazyInitialization = true,
     enforceSetterName = true,
   } = options;
-
+  const { additionalStateHooks } = getSettingsFromContext(context);
   return defineRuleListener({
     CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isUseStateCall(node)) return;
+      if (!core.isUseStateLikeCall(node, additionalStateHooks)) return;
 
       // Lazy initialization check
       if (enforceLazyInitialization) {

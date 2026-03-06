@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
           // For preact and preact/compat the FQN is "preact.Attributes.key"
           // https://github.com/Rel1cx/eslint-react/issues/1472
           if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
-          // Allow when the key property's type is React.Key (e.g. `{ key: React.Key }`)
+          // Allow when the key property's type is React.Key (ex: `{ key: React.Key }`)
           const keyType = checker.getTypeOfSymbol(key);
           if (keyType.aliasSymbol != null) {
             const aliasFqn = checker.getFullyQualifiedName(keyType.aliasSymbol).toLowerCase();

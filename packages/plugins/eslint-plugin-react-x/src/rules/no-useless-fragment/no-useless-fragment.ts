@@ -72,7 +72,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * Check if a fragment node is useless and should be reported
    */
   function checkNode(context: RuleContext, node: TSESTree.JSXElement | TSESTree.JSXFragment) {
-    // Report fragment placed inside a host component (e.g., <div><></></div>)
+    // Report fragment placed inside a host component (ex: <div><></></div>)
     if (jsx.isHostElement(node.parent)) {
       context.report({
         data: { reason: "placed inside a host component" },
@@ -82,7 +82,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       });
     }
 
-    // Report empty fragments (e.g., <></>)
+    // Report empty fragments (ex: <></>)
     if (node.children.length === 0) {
       // https://github.com/Rel1cx/eslint-react/issues/1265
       if (allowEmptyFragment) return;
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
     // Handle various fragment cases
     switch (true) {
-      // Allow single text child in attribute value (e.g., content={<>text</>})
+      // Allow single text child in attribute value (ex: content={<>text</>})
       case allowExpressions
         && !isChildElement
         && node.children.length === 1

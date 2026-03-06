@@ -71,7 +71,7 @@ later props win), or `undefined` if not found.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
-| `name` | `string` | The name of the attribute to find (e.g. `"className"`). |
+| `name` | `string` | The name of the attribute to find (ex: `"className"`). |
 
 #### Returns
 
@@ -86,7 +86,7 @@ getAttributeName(node: JSXAttribute): string;
 ```
 
 Get the stringified name of a `JSXAttribute` node
-(e.g. `"className"`, `"aria-label"`, `"xml:space"`).
+(ex: `"className"`, `"aria-label"`, `"xml:space"`).
 
 #### Parameters
 
@@ -125,7 +125,7 @@ cannot be statically determined.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
-| `name` | `string` | The name of the attribute to resolve (e.g. `"className"`). |
+| `name` | `string` | The name of the attribute to resolve (ex: `"className"`). |
 
 #### Returns
 
@@ -151,7 +151,7 @@ Returns `undefined` when the attribute is not present.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to search for the attribute. |
-| `name` | `string` | The name of the attribute to find and resolve (e.g. `"className"`). |
+| `name` | `string` | The name of the attribute to find and resolve (ex: `"className"`). |
 
 #### Returns
 
@@ -223,7 +223,7 @@ Shorthand: check whether an attribute exists on the element.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `node` | `JSXElement` | The JSX element to check for the attribute. |
-| `name` | `string` | The name of the attribute to check for (e.g. `"className"`). |
+| `name` | `string` | The name of the attribute to check for (ex: `"className"`). |
 
 #### Returns
 

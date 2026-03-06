@@ -6,7 +6,7 @@ import type { TSESTreeDirective } from "./node-types";
 /**
  * Get all directive expression statements from the top of a program AST node
  * @param node The program AST node
- * @returns The array of directive string literals (e.g., "use strict")
+ * @returns The array of directive string literals (ex: "use strict")
  */
 export function getFileDirectives(node: TSESTree.Program): TSESTreeDirective[] {
   const directives: TSESTreeDirective[] = [];
@@ -20,7 +20,7 @@ export function getFileDirectives(node: TSESTree.Program): TSESTreeDirective[] {
 /**
  * Check if a directive with the given name exists in the file or function directives
  * @param node The program or function AST node
- * @param name The directive name to check (e.g., "use strict", "use memo", "use no memo")
+ * @param name The directive name to check (ex: "use strict", "use memo", "use no memo")
  * @returns True if the directive exists, false otherwise
  */
 export function isDirectiveInFile(node: TSESTree.Program, name: string): boolean {

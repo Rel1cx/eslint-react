@@ -61,7 +61,7 @@ const loadRuleRelations = Effect.gen(function*() {
 const getFullRuleName = (meta: RuleMeta): string => {
   // Convert rule name like "class-component" to full name like "react-debug/class-component"
   // or "no-children-prop" to "react-x/no-children-prop"
-  // Check if it's a plugin-specific rule (e.g., "dom-no-render" -> "react-dom/no-render")
+  // Check if it's a plugin-specific rule (ex: "dom-no-render" -> "react-dom/no-render")
   return match(meta.name)
     .with(P.string.startsWith("x-"), () => `react-x/${meta.name.slice(2)}`)
     .with(P.string.startsWith("rsc-"), () => `react-rsc/${meta.name.slice(4)}`)

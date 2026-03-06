@@ -111,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>) {
    * position 0 of any ancestor function.
    *
    * Uses scope resolution so that references to `props` inside nested arrow
-   * functions (e.g. event handlers) are correctly traced back to the component
+   * functions (ex: event handlers) are correctly traced back to the component
    * parameter, e.g.:
    *
    *   function Component(props) {        // ← props defined here
