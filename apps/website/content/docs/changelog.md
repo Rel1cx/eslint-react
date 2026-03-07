@@ -2,6 +2,16 @@
 title: Changelog
 ---
 
+## v3.0.0-beta.81 (2026-03-07)
+
+### 🐞 Fixes
+
+- Fix additional `useState` names should only match patterns configured in `additionalStateHooks` (#1601)
+
+### 🪄 Improvements
+
+- Minor docs fixes
+
 ## v3.0.0-beta.80 (2026-03-07)
 
 ### 🪄 Improvements
