@@ -2,6 +2,33 @@
 title: Changelog
 ---
 
+## v3.0.0-beta.80 (2026-03-07)
+
+### 🪄 Improvements
+
+- Bump tsdown target to Node 22
+
+## v3.0.0-beta.79 (2026-03-07)
+
+### 🪄 Improvements
+
+- Bump ESLint to 10.0.3
+
+## v3.0.0-beta.78 (2026-03-06)
+
+### 🪄 Improvements
+
+- Apply `additionalStateHooks` and `additionalEffectHooks` to more rules (#1597)
+- Bump dependencies and update workflows
+
+## v3.0.0-beta.77 (2026-03-06)
+
+### 🪄 Improvements
+
+- Move `@local/eff` to `devDependencies` across workspace (#1596)
+- Add beta and experimental warnings to rule docs
+- Add context-name examples and test
+
 ## v3.0.0-beta.76 (2026-03-05)
 
 ### 🪄 Improvements

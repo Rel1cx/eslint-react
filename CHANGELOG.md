@@ -1,9 +1,3 @@
-## v3.0.0-beta.81 (2026-03-07)
-
-### 🪄 Improvements
-
-- Minor docs fixes
-
 ## v3.0.0-beta.80 (2026-03-07)
 
 ### 🪄 Improvements
