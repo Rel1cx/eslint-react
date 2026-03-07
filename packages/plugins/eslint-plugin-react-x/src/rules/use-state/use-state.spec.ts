@@ -1,6 +1,7 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
+import type { ESLintReactSettings } from "@eslint-react/shared";
 import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./use-state";
 
@@ -11,6 +12,28 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          React.useState(0);
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
+    {
+      code: tsx`
+        import React from "react";
+
+        function Component() {
+          React.useState(0);
 
           return <div />;
         }
@@ -265,6 +288,21 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        function Component() {
+          const prev = usePreviousState(0);
+
+          return <div />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalStateHooks: "/^usePreviousState$/u",
+        },
+      },
+      errors: [{ messageId: "invalidAssignment" }],
+    },
   ],
   valid: [
     // --- Assignment / setter naming ---
@@ -393,5 +431,29 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        function Component() {
+          usePreviousState(0);
+
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+        const prev = usePreviousState(0);
+
+          return <div />;
+        }
+      `,
+    },
   ],
 });
+
+declare module "@typescript-eslint/utils/ts-eslint" {
+  export interface SharedConfigurationSettings {
+    ["react-x"]?: Partial<ESLintReactSettings>;
+  }
+}
