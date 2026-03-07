@@ -61,7 +61,7 @@
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.0.2",
+    "eslint": "^10.0.3",
     "tsdown": "^0.21.0",
     "tsl-dx": "^0.9.0"
   },
