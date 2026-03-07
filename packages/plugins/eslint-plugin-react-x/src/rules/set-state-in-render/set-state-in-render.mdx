@@ -213,14 +213,13 @@ function Component({ items }) {
 
 ### Shared Settings
 
-Custom state and effect hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+Custom state hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
 
 ```json
 {
   "settings": {
     "react-x": {
       "additionalStateHooks": "(useMyState|useCustomState)",
-      "additionalEffectHooks": "(useMyEffect|useCustomEffect)"
     }
   }
 }
