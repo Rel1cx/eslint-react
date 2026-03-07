@@ -102,15 +102,16 @@ export function isUseStateLikeCall(
   if (node.type !== AST.CallExpression) {
     return false;
   }
-  return [/^use\w*State$/u, additionalStateHooks].some((regexp) => {
-    if (node.callee.type === AST.Identifier) {
-      return regexp.test(node.callee.name);
-    }
-    if (node.callee.type === AST.MemberExpression) {
-      return node.callee.property.type === AST.Identifier && regexp.test(node.callee.property.name);
-    }
-    return false;
-  });
+  switch (true) {
+    case node.callee.type === AST.Identifier:
+      return node.callee.name === "useState"
+        || additionalStateHooks.test(node.callee.name);
+    case node.callee.type === AST.MemberExpression
+      && node.callee.property.type === AST.Identifier:
+      return ast.getPropertyName(node.callee.property) === "useState"
+        || additionalStateHooks.test(node.callee.property.name);
+  }
+  return false;
 }
 
 // Utility functions for specific React hooks - each returns a function that checks if a node calls that specific hook
