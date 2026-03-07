@@ -6,7 +6,7 @@ export default {
   format: ["esm"],
   fixedExtension: false,
   platform: "node",
-  target: "node20",
+  target: "node22",
   dts: true,
   deps: {
     alwaysBundle: [
