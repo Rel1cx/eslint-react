@@ -154,9 +154,7 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
   ex: components using `satisfies` were previously not detected:
   ```tsx
   // previously missed — now correctly identified as a component
-  const App = (() => {
-    return <div />;
-  }) satisfies React.FC;
+  const App = (() => <div />) satisfies React.FC;
   ```
 - Remove `static-components` alias from plugin exports (`static-components` = `react-x/no-nested-component-definitions` + `react-x/no-nested-lazy-component-declarations`)
 
