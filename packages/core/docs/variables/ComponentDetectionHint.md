@@ -4,6 +4,7 @@
 
 ```ts
 ComponentDetectionHint: {
+  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: bigint;
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: bigint;
   DoNotIncludeFunctionDefinedAsArrayMapCallback: bigint;
   DoNotIncludeFunctionDefinedInArrayExpression: bigint;
@@ -32,6 +33,7 @@ Hints for component collector
 
 | Name | Type | Default value |
 | ------ | ------ | ------ |
+| <a id="property-donotincludefunctiondefinedasarbitrarycallexpressioncallback"></a> `DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback` | `bigint` | - |
 | <a id="property-donotincludefunctiondefinedasarrayflatmapcallback"></a> `DoNotIncludeFunctionDefinedAsArrayFlatMapCallback` | `bigint` | - |
 | <a id="property-donotincludefunctiondefinedasarraymapcallback"></a> `DoNotIncludeFunctionDefinedAsArrayMapCallback` | `bigint` | - |
 | <a id="property-donotincludefunctiondefinedinarrayexpression"></a> `DoNotIncludeFunctionDefinedInArrayExpression` | `bigint` | - |

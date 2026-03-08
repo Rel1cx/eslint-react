@@ -36,7 +36,8 @@ export function isComponentWrapperCallLoose(context: RuleContext, node: TSESTree
  */
 export function isComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
   if (!ast.isFunction(node)) return false;
-  const parent = node.parent;
+  let parent = node.parent;
+  while (ast.isTypeExpression(parent)) parent = parent.parent;
   if (parent.type !== AST.CallExpression) return false;
   return isComponentWrapperCall(context, parent);
 }
@@ -49,7 +50,8 @@ export function isComponentWrapperCallback(context: RuleContext, node: TSESTree.
  */
 export function isComponentWrapperCallbackLoose(context: RuleContext, node: TSESTree.Node) {
   if (!ast.isFunction(node)) return false;
-  const parent = node.parent;
+  let parent = node.parent;
+  while (ast.isTypeExpression(parent)) parent = parent.parent;
   if (parent.type !== AST.CallExpression) return false;
   return isComponentWrapperCallLoose(context, parent);
 }

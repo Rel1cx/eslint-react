@@ -18,7 +18,9 @@ export function getFunctionComponentId(
   if (functionId != null) {
     return functionId;
   }
-  const { parent } = node;
+  // Traverse up through type expressions (as, satisfies, !, etc.)
+  let parent = node.parent;
+  while (ast.isTypeExpression(parent)) parent = parent.parent;
   // Get function component identifier from `const Component = memo(() => {});`
   if (
     parent.type === AST.CallExpression

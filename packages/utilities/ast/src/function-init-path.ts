@@ -1,6 +1,7 @@
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
+import { isTypeExpression } from "./node-is";
 import type { TSESTreeFunction } from "./node-types";
 
 /**
@@ -86,7 +87,9 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
     return [node] as const;
   }
 
-  const { parent } = node;
+  // Traverse up through type expressions (as, satisfies, !, etc.) to find the semantic parent
+  let parent: TSESTree.Node = node.parent;
+  while (isTypeExpression(parent)) parent = parent.parent;
 
   // Match against various component patterns
   switch (true) {

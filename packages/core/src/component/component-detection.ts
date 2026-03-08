@@ -5,7 +5,6 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../api";
 import { JsxDetectionHint } from "../jsx";
 import { isRenderMethodCallback } from "./component-detection-legacy";
-import { getFunctionComponentId } from "./component-id";
 import { isFunctionWithLooseComponentName } from "./component-name";
 import { isComponentWrapperCallLoose } from "./component-wrapper";
 
@@ -68,48 +67,52 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       return false;
   }
 
-  // 3. Apply contextual exclusions via hints
+  // 3. Traverse up to find the non-type expression parent
+  let parent = node.parent;
+  while (ast.isTypeExpression(parent)) parent = parent.parent;
+
+  // 4. Apply contextual exclusions via hints
   switch (true) {
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
-      && node.parent.type === AST.Property
-      && node.parent.parent.type === AST.ObjectExpression:
+      && parent.type === AST.Property
+      && parent.parent.type === AST.ObjectExpression:
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod) return false;
       break;
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
-      && node.parent.type === AST.MethodDefinition:
+      && parent.type === AST.MethodDefinition:
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassMethod) return false;
       break;
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
-      && node.parent.type === AST.Property:
+      && parent.type === AST.Property:
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassProperty) return false;
       break;
-    case node.parent.type === AST.ArrayPattern:
+    case parent.type === AST.ArrayPattern:
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern) return false;
       break;
-    case node.parent.type === AST.ArrayExpression:
+    case parent.type === AST.ArrayExpression:
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression) return false;
       break;
-    case node.parent.type === AST.CallExpression
-      && node.parent.callee.type === AST.MemberExpression
-      && node.parent.callee.property.type === AST.Identifier
-      && node.parent.callee.property.name === "map":
+    case parent.type === AST.CallExpression
+      && parent.callee.type === AST.MemberExpression
+      && parent.callee.property.type === AST.Identifier
+      && parent.callee.property.name === "map":
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback) return false;
       break;
-    case node.parent.type === AST.CallExpression
-      && node.parent.callee.type === AST.MemberExpression
-      && node.parent.callee.property.type === AST.Identifier
-      && node.parent.callee.property.name === "flatMap":
+    case parent.type === AST.CallExpression
+      && parent.callee.type === AST.MemberExpression
+      && parent.callee.property.type === AST.Identifier
+      && parent.callee.property.name === "flatMap":
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
-    case getFunctionComponentId(context, node) == null
-      && node.parent.type === AST.CallExpression
-      && !isComponentWrapperCallLoose(context, node.parent)
-      && !isCreateElementCall(context, node.parent):
+    case parent.type === AST.CallExpression
+      && ast.getFunctionId(node) == null
+      && !isComponentWrapperCallLoose(context, parent)
+      && !isCreateElementCall(context, parent):
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) return false;
       break;
   }
 
-  // 4. Exclude inline JSX callbacks (event handlers, render props)
+  // 5. Exclude inline JSX callbacks (event handlers, render props)
   const significantParent = ast.findParentNode(
     node,
     ast.isOneOf([
