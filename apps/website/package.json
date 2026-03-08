@@ -30,7 +30,7 @@
     "twoslash": "^0.3.6"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.78.0",
+    "@effect/language-service": "^0.79.0",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint/js": "^10.0.1",

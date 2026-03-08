@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "3.0.0-beta.82",
+  "version": "3.0.0-next.83",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -51,7 +51,7 @@
     "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.78.0",
+    "@effect/language-service": "^0.79.0",
     "@effect/platform": "^0.94.5",
     "@effect/platform-node": "^0.104.1",
     "@eslint/compat": "^2.0.3",
@@ -93,7 +93,7 @@
     "typescript-eslint": "canary",
     "vitest": "^4.0.18"
   },
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@10.31.0",
   "engines": {
     "node": ">=22.0.0"
   }

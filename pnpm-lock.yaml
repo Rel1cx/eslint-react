@@ -30,8 +30,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.78.0
-        version: 0.78.0
+        specifier: ^0.79.0
+        version: 0.79.0
       '@effect/platform':
         specifier: ^0.94.5
         version: 0.94.5(effect@3.19.19)
@@ -272,8 +272,8 @@ importers:
         version: 0.3.6(typescript@5.9.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.78.0
-        version: 0.78.0
+        specifier: ^0.79.0
+        version: 0.79.0
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../packages/plugins/eslint-plugin
@@ -1354,8 +1354,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.78.0':
-    resolution: {integrity: sha512-dEYMhvhKFhikXpXjOlcByRKOU34xFeZbZcOuVTeWTQmjmZ/ZF4K3z0Ku6vL4cWKC8RRIB5di+ix18Y4f9ey5Dg==}
+  '@effect/language-service@0.79.0':
+    resolution: {integrity: sha512-DEmIOsg1GjjP6s9HXH1oJrW+gDmzkhVv9WOZl6to5eNyyCrjz1S2PDqQ7aYrW/HuifhfwI5Bik1pK4pj7Z+lrg==}
     hasBin: true
 
   '@effect/platform-node-shared@0.57.1':
@@ -6966,7 +6966,7 @@ snapshots:
       effect: 3.19.19
       uuid: 11.1.0
 
-  '@effect/language-service@0.78.0': {}
+  '@effect/language-service@0.79.0': {}
 
   '@effect/platform-node-shared@0.57.1(@effect/cluster@0.56.4(@effect/platform@0.94.5(effect@3.19.19))(@effect/rpc@0.73.2(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/workflow@0.16.0(@effect/experimental@0.58.0(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/platform@0.94.5(effect@3.19.19))(@effect/rpc@0.73.2(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(effect@3.19.19))(effect@3.19.19))(@effect/platform@0.94.5(effect@3.19.19))(@effect/rpc@0.73.2(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/sql@0.49.0(@effect/experimental@0.58.0(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(@effect/platform@0.94.5(effect@3.19.19))(effect@3.19.19))(effect@3.19.19)':
     dependencies:
