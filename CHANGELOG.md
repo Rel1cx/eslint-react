@@ -152,7 +152,6 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
   // previously missed — now correctly identified as a component
   const App = (() => <div />) satisfies React.FC;
   ```
-- Remove `static-components` alias from plugin exports (`static-components` = `react-x/no-nested-component-definitions` + `react-x/no-nested-lazy-component-declarations`)
 
 ### 🪄 Improvements
 
