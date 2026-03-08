@@ -1767,6 +1767,173 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // --------------------------------------------------------------------------
+    // Tests for type expression parent traversal (component-detection.ts L70-72)
+    // `while (ast.isTypeExpression(parent)) parent = parent.parent;`
+    // Ensures that TSAsExpression, TSSatisfiesExpression, TSNonNullExpression,
+    // TSTypeAssertion, and TSInstantiationExpression are traversed through
+    // so that contextual exclusion hints in step 4 still apply correctly.
+    // --------------------------------------------------------------------------
+    {
+      // Function component assigned via `as` type assertion
+      code: tsx`
+        const App = (() => {
+          return <div />;
+        }) as React.FC;
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component assigned via `satisfies`
+      code: tsx`
+        const App = (() => {
+          return <div />;
+        }) satisfies React.FC;
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component assigned via `as ... satisfies ...` chained
+      code: tsx`
+        const App = (() => {
+          return <div />;
+        }) as React.FC satisfies React.FC;
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component with TSNonNullExpression then `as`
+      code: tsx`
+        const App = (() => {
+          return <div />;
+        })! as React.FC;
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component inside React.memo wrapped in `as`
+      code: tsx`
+        const App = React.memo((() => {
+          return <div />;
+        }) as React.FC);
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: true,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component inside React.memo wrapped in `satisfies`
+      code: tsx`
+        const App = React.memo((() => {
+          return <div />;
+        }) satisfies React.FC);
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: true,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component inside React.memo wrapped in TSNonNullExpression + `as` + `satisfies`
+      code: tsx`
+        const App = React.memo((() => {
+          return <div />;
+        })! as React.FC satisfies React.FC);
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: true,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      // Function component inside React.forwardRef wrapped in `as`
+      code: tsx`
+        const App = React.forwardRef((() => {
+          return <div />;
+        }) as React.FC);
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: true,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     tsx`
@@ -1813,5 +1980,28 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }) as ActionFUnction satisfies ActionFUnction;
     `,
+    // --------------------------------------------------------------------------
+    // Tests for type expression parent traversal (component-detection.ts L70-72)
+    // Ensures contextual exclusions correctly apply through type expression wrappers
+    // --------------------------------------------------------------------------
+    // Anonymous function in arbitrary call expression wrapped in `as` — excluded by
+    // DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
+    "someFunction((() => null) as any)",
+    "someFunction((() => null) satisfies any)",
+    "someFunction((() => null)! as any satisfies any)",
+    // Anonymous function in .map() wrapped in type expressions — excluded by
+    // DoNotIncludeFunctionDefinedAsArrayMapCallback
+    "items.map((() => <div />) as any)",
+    "items.map((() => <div />) satisfies any)",
+    "items.map((() => <div />)! as any)",
+    // Anonymous function in .flatMap() wrapped in type expressions — excluded by
+    // DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
+    "items.flatMap((() => <div />) as any)",
+    "items.flatMap((() => <div />) satisfies any)",
+    // Anonymous function in array expression wrapped in type expressions — excluded by
+    // DoNotIncludeFunctionDefinedInArrayExpression
+    "[(() => <div />) as any]",
+    "[(() => <div />) satisfies any]",
+    "[(() => <div />)! as any satisfies any]",
   ],
 });
