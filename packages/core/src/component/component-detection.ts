@@ -5,7 +5,9 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../api";
 import { JsxDetectionHint } from "../jsx";
 import { isRenderMethodCallback } from "./component-detection-legacy";
+import { getFunctionComponentId } from "./component-id";
 import { isFunctionWithLooseComponentName } from "./component-name";
+import { isComponentWrapperCallLoose } from "./component-wrapper";
 
 export type ComponentDetectionHint = bigint;
 
@@ -110,6 +112,17 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       AST.ClassBody,
     ]),
   );
+
+  // Exclude anonymous callbacks passed directly to non-component-wrapper call expressions
+  // (e.g., array predicates like .find(), .filter(), .reduce() — not covered by .map()/.flatMap() hints above)
+  if (
+    getFunctionComponentId(context, node) == null
+    && node.parent.type === AST.CallExpression
+    && !isComponentWrapperCallLoose(context, node.parent)
+    && !isCreateElementCall(context, node.parent)
+  ) {
+    return false;
+  }
 
   if (significantParent == null) return true;
   // If the immediate significant parent is a JSX expression, this is likely an event handler or a render prop, not a component definition itself

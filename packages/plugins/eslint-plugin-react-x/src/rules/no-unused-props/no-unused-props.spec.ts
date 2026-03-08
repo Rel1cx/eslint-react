@@ -850,5 +850,27 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div>{foo}</div>;
       }
     `,
+    // no false positive for anonymous callbacks with typed parameters passed to regular function calls.
+    // Without the fix, such callbacks (which return null) are incorrectly treated as components,
+    // causing all unaccessed properties of their parameter type to be flagged as unused.
+    tsx`
+      type BatchRun = {
+        id: string;
+        label: string;
+        status: string;
+      };
+
+      function runAll(runs: BatchRun[], callback: (run: BatchRun) => null | undefined) {
+        runs.forEach(r => callback(r));
+      }
+
+      function Component({ runs }: { runs: BatchRun[] }) {
+        runAll(runs, run => {
+          void run.id;
+          return null;
+        });
+        return <div />;
+      }
+    `,
   ],
 });
