@@ -42,6 +42,9 @@ jobs:
           if git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
             pnpm --filter "./packages/**" publish --provenance --access public
+          elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-rc\.[0-9]\+$";
+          then
+            pnpm --filter "./packages/**" publish --provenance --access public --tag rc --no-git-checks
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-beta\.[0-9]\+$";
           then
             pnpm --filter "./packages/**" publish --provenance --access public --tag beta --no-git-checks
