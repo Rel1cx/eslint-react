@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v3.0.0-beta.83 (2026-03-08)
+
+### 🐞 Fixes
+
+- fix: traverse type expressions in component id, init path, and wrappe… by @Rel1cx in https://github.com/Rel1cx/eslint-react/pull/1603
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-beta.82...v3.0.0-beta.83
+
 ## v3.0.0-beta.82 (2026-03-08)
 
 ### 🐞 Fixes
