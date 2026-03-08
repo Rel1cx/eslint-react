@@ -166,13 +166,29 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 - Bump dependencies and update workflows
 - Bump tsdown target to Node 22
 - Changed the following rules from `problem` to `suggestion` type for better categorization:
-  - `react-x/jsx-dollar`, `react-x/jsx-shorthand-boolean`, `react-x/jsx-shorthand-fragment`
-  - `react-x/no-array-index-key`, `react-x/no-children-count`, `react-x/no-children-for-each`, `react-x/no-children-map`, `react-x/no-children-only`, `react-x/no-children-prop`, `react-x/no-children-to-array`
-  - `react-x/no-class-component`, `react-x/no-clone-element`, `react-x/no-create-ref`
-  - `react-x/no-missing-component-display-name`, `react-x/no-missing-context-display-name`
-  - `react-x/no-unnecessary-use-callback`, `react-x/no-unnecessary-use-memo`
-  - `react-x/no-unused-class-component-members`, `react-x/no-unused-props`, `react-x/no-unused-state`, `react-x/no-useless-fragment`
-  - `react-x/prefer-namespace-import`, `react-naming-convention/prefer-namespace-import`
+  - `react-x/jsx-dollar`
+  - `react-x/jsx-shorthand-boolean`
+  - `react-x/jsx-shorthand-fragment`
+  - `react-x/no-array-index-key`
+  - `react-x/no-children-count`
+  - `react-x/no-children-for-each`
+  - `react-x/no-children-map`
+  - `react-x/no-children-only`
+  - `react-x/no-children-prop`
+  - `react-x/no-children-to-array`
+  - `react-x/no-class-component`
+  - `react-x/no-clone-element`
+  - `react-x/no-create-ref`
+  - `react-x/no-missing-component-display-name`
+  - `react-x/no-missing-context-display-name`
+  - `react-x/no-unnecessary-use-callback`
+  - `react-x/no-unnecessary-use-memo`
+  - `react-x/no-unused-class-component-members`
+  - `react-x/no-unused-props`
+  - `react-x/no-unused-state`
+  - `react-x/no-useless-fragment`
+  - `react-x/prefer-namespace-import`
+  - `react-dom/prefer-namespace-import`
 - Converted React 19 migration rules from auto-fix to suggestions (`no-context-provider`, `no-forward-ref`, `no-use-context`) to prevent automatic code modifications that could break existing code
 - Enhanced `purity` rule with TypeScript type expression support for more accurate detection of impure constructs
 - Improved `resolve` function with comprehensive definition types (#1576)
