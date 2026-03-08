@@ -16,6 +16,7 @@ export type ComponentDetectionHint = bigint;
  */
 export const ComponentDetectionHint = {
   ...JsxDetectionHint,
+  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
   DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
@@ -34,6 +35,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
   | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
   | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
@@ -99,6 +101,12 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       && node.parent.callee.property.name === "flatMap":
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
+    case getFunctionComponentId(context, node) == null
+      && node.parent.type === AST.CallExpression
+      && !isComponentWrapperCallLoose(context, node.parent)
+      && !isCreateElementCall(context, node.parent):
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) return false;
+      break;
   }
 
   // 4. Exclude inline JSX callbacks (event handlers, render props)
@@ -112,17 +120,6 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       AST.ClassBody,
     ]),
   );
-
-  // Exclude anonymous callbacks passed directly to non-component-wrapper call expressions
-  // (e.g., array predicates like .find(), .filter(), .reduce() — not covered by .map()/.flatMap() hints above)
-  if (
-    getFunctionComponentId(context, node) == null
-    && node.parent.type === AST.CallExpression
-    && !isComponentWrapperCallLoose(context, node.parent)
-    && !isCreateElementCall(context, node.parent)
-  ) {
-    return false;
-  }
 
   if (significantParent == null) return true;
   // If the immediate significant parent is a JSX expression, this is likely an event handler or a render prop, not a component definition itself
