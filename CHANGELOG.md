@@ -1,3 +1,11 @@
+## v3.0.0-beta.82 (2026-03-08)
+
+### 🐞 Fixes
+
+- Fix `no-unused-props` false positive for anonymous callbacks passed to call expressions by @gmurphey in https://github.com/Rel1cx/eslint-react/pull/1602
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-beta.81...v3.0.0-beta.82
+
 ## v3.0.0-beta.81 (2026-03-07)
 
 ### 🐞 Fixes
