@@ -5,7 +5,9 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isCreateElementCall } from "../api";
 import { JsxDetectionHint } from "../jsx";
 import { isRenderMethodCallback } from "./component-detection-legacy";
+import { getFunctionComponentId } from "./component-id";
 import { isFunctionWithLooseComponentName } from "./component-name";
+import { isComponentWrapperCallLoose } from "./component-wrapper";
 
 export type ComponentDetectionHint = bigint;
 
@@ -14,6 +16,7 @@ export type ComponentDetectionHint = bigint;
  */
 export const ComponentDetectionHint = {
   ...JsxDetectionHint,
+  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
   DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
@@ -32,6 +35,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
   | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
   | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
@@ -96,6 +100,12 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
       && node.parent.callee.property.type === AST.Identifier
       && node.parent.callee.property.name === "flatMap":
       if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
+      break;
+    case getFunctionComponentId(context, node) == null
+      && node.parent.type === AST.CallExpression
+      && !isComponentWrapperCallLoose(context, node.parent)
+      && !isCreateElementCall(context, node.parent):
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) return false;
       break;
   }
 
