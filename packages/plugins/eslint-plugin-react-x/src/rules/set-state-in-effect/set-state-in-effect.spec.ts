@@ -794,6 +794,75 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // --- Cases covering newly traversed node types (non-ref, should report) ---
+    {
+      name: "setState with conditional expression (non-ref values)",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(flag ? valueA : valueB);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "setState with ref.current inside conditional expression (rule does not detect ref in conditional)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(flag ? ref.current : 0);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "setState with ref value inside computed member expression (rule does not detect ref in computed property)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef("key");
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(lookup[ref.current]);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -975,6 +1044,51 @@ ruleTester.run(RULE_NAME, rule, {
           const el = containerRef.current;
           useEffect(() => {
             setWidth(el.getBoundingClientRect().width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // --- Cases covering newly traversed node types (ref values, should NOT report) ---
+    {
+      name: "setState in async effect is treated as deferred (not reported)",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(async () => {
+            setData(await somePromise);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref.current inside a nested call argument (conditional branch)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef(null);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(Number(flag ? ref.current : 0));
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref value via callee chain (ref.current method called as argument)",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef(null);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(transform(ref.current.getValue()));
           }, []);
           return null;
         }

@@ -282,6 +282,75 @@ ruleTester.run(RULE_NAME, rule, {
         return null;
       }
     `,
+    // --- Cases covering newly traversed node types ---
+    // These previously could have been missed (call/new not detected),
+    // causing a false "default" report. Now correctly detected as having computation.
+    {
+      name: "useMemo with await expression containing a call in async arrow",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ url }) {
+          const data = useMemo(async () => await fetchData(url), [url]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo with tagged template expression containing a call",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ items }) {
+          const query = useMemo(() => sql\`SELECT * FROM \${getTable(items)}\`, [items]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo with call inside computed member expression property",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data, key }) {
+          const value = useMemo(() => data[getKey(key)], [data, key]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo with chained call expression (callee is a call)",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ config }) {
+          const result = useMemo(() => getFactory(config)(), [config]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo with new expression inside callee via member expression",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ opts }) {
+          const formatter = useMemo(() => new Intl.NumberFormat(opts).format, [opts]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "useMemo with call inside import expression source",
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ name }) {
+          const mod = useMemo(() => import(getModulePath(name)), [name]);
+          return null;
+        }
+      `,
+    },
 
     tsx`
       import { useMemo, useState, useEffect } from 'react';
