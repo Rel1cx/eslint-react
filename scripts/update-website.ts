@@ -10,6 +10,7 @@ import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
+const RE_RULE_PREFIX = /^(x|naming-convention|web-api|rsc|dom|debug)-(.+)$/u;
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
 
 interface RuleMeta {
@@ -59,17 +60,9 @@ const loadRuleRelations = Effect.gen(function*() {
 });
 
 const getFullRuleName = (meta: RuleMeta): string => {
-  // Convert rule name like "class-component" to full name like "react-debug/class-component"
-  // or "no-children-prop" to "react-x/no-children-prop"
-  // Check if it's a plugin-specific rule (ex: "dom-no-render" -> "react-dom/no-render")
-  return match(meta.name)
-    .with(P.string.startsWith("x-"), () => `react-x/${meta.name.slice(2)}`)
-    .with(P.string.startsWith("rsc-"), () => `react-rsc/${meta.name.slice(4)}`)
-    .with(P.string.startsWith("dom-"), () => `react-dom/${meta.name.slice(4)}`)
-    .with(P.string.startsWith("web-api-"), () => `react-web-api/${meta.name.slice(8)}`)
-    .with(P.string.startsWith("naming-convention-"), () => `react-naming-convention/${meta.name.slice(18)}`)
-    .with(P.string.startsWith("debug-"), () => `react-debug/${meta.name.slice(6)}`)
-    .otherwise(() => `react-x/${meta.name}`);
+  const [m0, m1, m2] = RE_RULE_PREFIX.exec(meta.name) ?? [];
+  if (m0 == null || m1 == null || m2 == null) return `react-x/${meta.name}`;
+  return `react-${m1}/${m2}`;
 };
 
 const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => {
@@ -84,24 +77,12 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
     // Convert full rule name to website file name
     // e.g., "react-debug/function-component" -> "debug-function-component" or just "function-component"
     const [targetPlugin = "", targetName = ""] = ref.targetRule.split("/");
-
-    // Map plugin names to prefixes used in website
-    const pluginPrefixMap: Record<string, string> = {
-      "react-debug": "debug",
-      "react-dom": "dom",
-      "react-naming-convention": "naming-convention",
-      "react-rsc": "rsc",
-      "react-web-api": "web-api",
-      "react-x": "x",
-    };
-
-    const prefix = pluginPrefixMap[targetPlugin];
-    const targetFileName = prefix && prefix !== "x" ? `${prefix}-${targetName}` : targetName;
-
-    return [`- [\`${ref.targetRule}\`](./${targetFileName})`, `  ${ref.description}.`].join("\n");
+    const prefix = targetPlugin.replace("react-", "");
+    const targetFileName = prefix === "x" ? targetName : `${prefix}-${targetName}`;
+    return [`- [\`${ref.targetRule}\`](./${targetFileName})\\`, `  ${ref.description}.`].join("\n");
   });
 
-  return ["", "---", "", "## See Also", "", ...items].join("\n");
+  return ["", "---", "", "## See Also", "", ...items, ""].join("\n");
 };
 
 const orderedCategories = [
