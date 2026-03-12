@@ -10,7 +10,9 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "noControlledAndUncontrolledTogether";
+export type MessageID =
+  | "noDuplicateProps"
+  | "noControlledAndUncontrolledTogether";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,6 +21,7 @@ export default createRule<[], MessageID>({
       description: "Enforces the Rules of Props.",
     },
     messages: {
+      noDuplicateProps: "Prop `{{prop}}` is specified more than once. Only the last one will take effect.",
       noControlledAndUncontrolledTogether:
         "Prop `{{controlled}}` and `{{uncontrolled}}` should not be used together. Use either controlled or uncontrolled components, not both.",
     },
@@ -36,6 +39,14 @@ function toControlledName(uncontrolledName: string): string | null {
   return head.toLowerCase() + tail;
 }
 
+function getPropName(attribute: TSESTree.JSXAttribute): string {
+  const { name: nameNode } = attribute;
+  if (nameNode.type === AST.JSXNamespacedName) {
+    return `${nameNode.namespace.name}:${nameNode.name.name}`;
+  }
+  return nameNode.name;
+}
+
 export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener({
     JSXOpeningElement(node: TSESTree.JSXOpeningElement) {
@@ -44,15 +55,25 @@ export function create(context: RuleContext<MessageID, []>) {
       for (const attribute of node.attributes) {
         if (attribute.type === AST.JSXSpreadAttribute) continue;
 
-        const { name: identifier } = attribute.name;
-        // Skip namespaced names.
-        if (typeof identifier !== "string") continue;
+        const propName = getPropName(attribute);
 
-        attributes.set(identifier, attribute);
+        // Report duplicate props.
+        if (attributes.has(propName)) {
+          context.report({
+            data: { prop: propName },
+            messageId: "noDuplicateProps",
+            node: attribute,
+          });
+        }
+
+        attributes.set(propName, attribute);
       }
 
       // Report when both controlled and uncontrolled forms coexist.
       for (const [propName, attrNode] of attributes) {
+        // Skip namespaced names for the controlled/uncontrolled check.
+        if (propName.includes(":")) continue;
+
         const controlledProp = toControlledName(propName);
         if (controlledProp == null) continue;
 

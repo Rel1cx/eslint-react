@@ -5,6 +5,61 @@ import rule, { RULE_NAME } from "./unstable-rules-of-props";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
+    // ── noDuplicateProps ────────────────────────────────────────────────
+    {
+      code: tsx`<div id="a" id="b" />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      code: tsx`<div id="a" className="x" id="b" />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      // Triple duplicate – two reports (second and third occurrences)
+      code: tsx`<div id="a" id="b" id="c" />;`,
+      errors: [
+        { messageId: "noDuplicateProps" },
+        { messageId: "noDuplicateProps" },
+      ],
+    },
+    {
+      // Two different props each duplicated
+      code: tsx`<div id="a" className="x" id="b" className="y" />;`,
+      errors: [
+        { messageId: "noDuplicateProps" },
+        { messageId: "noDuplicateProps" },
+      ],
+    },
+    {
+      // Duplicate on a custom component
+      code: tsx`<MyComponent foo="a" foo="b" />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      // Duplicate boolean props
+      code: tsx`<input disabled disabled />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      // Duplicate expression props
+      code: tsx`<div onClick={handleA} onClick={handleB} />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      // Duplicate namespaced props
+      code: tsx`<div on:click={handleA} on:click={handleB} />;`,
+      errors: [{ messageId: "noDuplicateProps" }],
+    },
+    {
+      // Duplicate prop combined with controlled/uncontrolled violation
+      code: tsx`<input value="a" value="b" defaultValue="c" />;`,
+      errors: [
+        { messageId: "noDuplicateProps" },
+        { messageId: "noControlledAndUncontrolledTogether" },
+      ],
+    },
+
+    // ── noControlledAndUncontrolledTogether ──────────────────────────────
     {
       code: tsx`<input value="hello" defaultValue="world" />;`,
       errors: [{ messageId: "noControlledAndUncontrolledTogether" }],
@@ -75,6 +130,26 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // ── noDuplicateProps (valid) ────────────────────────────────────────
+    // No duplicates — all unique props
+    tsx`<div id="a" className="b" />;`,
+    tsx`<MyComponent foo="a" bar="b" baz="c" />;`,
+
+    // Spread attributes are ignored — can't statically determine contents
+    tsx`<div id="a" {...props} />;`,
+
+    // Same prop name on different elements is fine
+    tsx`
+      <div>
+        <span id="a" />
+        <span id="b" />
+      </div>;
+    `,
+
+    // Namespaced props that are not duplicated
+    tsx`<div on:click={handleA} on:focus={handleB} />;`,
+
+    // ── noControlledAndUncontrolledTogether (valid) ──────────────────────
     // Controlled inputs
     tsx`<input value="hello" />;`,
     tsx`<input value={name} onChange={(e) => setName(e.target.value)} />;`,
