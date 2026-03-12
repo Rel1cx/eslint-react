@@ -1,0 +1,109 @@
+---
+title: prefer-set-state-callback
+description: Enforces using the callback form of a 'useState' setter when the update references the corresponding state variable.
+---
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/prefer-set-state-callback
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/prefer-set-state-callback
+```
+
+**Presets**
+
+-
+
+## Rule Details
+
+When a `useState` setter is called with an expression that directly references the corresponding state variable, it may cause stale state bugs. Using the callback form ensures the update is always based on the latest state value.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {/* ^^^^^^^^^^^^^^^^^^^^^^^^ Use the callback form of 'setCount' to ensure the update is based on the latest state. */}
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Toggle() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <button onClick={() => setEnabled(!enabled)}>
+      {/* ^^^^^^^^^^^^^^^^^^^^^^^^^^ Use the callback form of 'setEnabled' to ensure the update is based on the latest state. */}
+      {enabled ? "On" : "Off"}
+    </button>
+  );
+}
+```
+
+### Valid
+
+```tsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount((prev) => prev + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+
+  // Setting a constant value does not reference state
+  return <button onClick={() => setCount(0)}>Reset</button>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+
+  // Already using the callback form
+  return (
+    <button onClick={() => setCount((prev) => prev + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-set-state-callback/prefer-set-state-callback.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/prefer-set-state-callback/prefer-set-state-callback.spec.ts)
+
+## Further Reading
+
+- [React Docs: Updating state based on the previous state](https://react.dev/reference/react/useState#updating-state-based-on-the-previous-state)
