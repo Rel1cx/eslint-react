@@ -237,6 +237,81 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       options: [{ enforceAssignment: false }],
     },
+    // --- Lazy initialization: newly traversed node types ---
+    {
+      name: "call inside await expression in useState initial value",
+      code: tsx`
+        import { useState } from "react";
+
+        async function Component() {
+          const [data, setData] = useState(await fetchData());
+          return null;
+        }
+      `,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+    },
+    {
+      name: "new expression inside conditional expression in useState initial value",
+      code: `import { useState } from "react"; useState(flag ? new Foo() : null)`,
+      errors: [
+        {
+          type: AST.NewExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call inside tagged template expression in useState initial value",
+      code: `import { useState } from "react"; useState(tag\`\${getValue()}\`)`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call inside computed member expression property in useState initial value",
+      code: `import { useState } from "react"; useState(obj[getValue()])`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "chained call expression (callee is a call) in useState initial value",
+      // getFactory()() — the outer call's callee is a CallExpression (no "name"),
+      // so only the inner getFactory() passes the "name" in expr.callee filter.
+      code: `import { useState } from "react"; useState(getFactory()())`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "new expression inside callee member expression in useState initial value",
+      code: `import { useState } from "react"; useState(new Foo().bar)`,
+      errors: [
+        {
+          type: AST.NewExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
     {
       code: `import { useState } from "react"; useState(getValue() + 1)`,
       errors: [
