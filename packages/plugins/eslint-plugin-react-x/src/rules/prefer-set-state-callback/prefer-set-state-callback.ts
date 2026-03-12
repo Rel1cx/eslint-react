@@ -48,6 +48,8 @@ export function create(context: RuleContext<MessageID, []>) {
     return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
+  const pendingCalls: { callerVar: ScopeVariable; node: TSESTree.CallExpression }[] = [];
+
   return defineRuleListener({
     CallExpression(node) {
       // Register useState pairs
@@ -73,33 +75,40 @@ export function create(context: RuleContext<MessageID, []>) {
         return;
       }
 
-      // Check setter calls
+      // Queue potential setter calls for deferred checking at Program:exit,
+      // so that useState pairs declared after the setter call are still detected.
       if (node.callee.type !== AST.Identifier) return;
       const scope = context.sourceCode.getScope(node);
       const callerVar = findVariable(scope, node.callee.name);
-      if (callerVar == null || !setterToStateVar.has(callerVar)) return;
+      if (callerVar != null) {
+        pendingCalls.push({ callerVar, node });
+      }
+    },
+    "Program:exit"() {
+      for (const { callerVar, node } of pendingCalls) {
+        if (!setterToStateVar.has(callerVar)) continue;
+        const stateVar = setterToStateVar.get(callerVar)!;
+        const arg = node.arguments[0];
+        if (arg == null) continue;
 
-      const stateVar = setterToStateVar.get(callerVar)!;
-      const arg = node.arguments[0];
-      if (arg == null) return;
+        // Already using callback form — OK
+        if (ast.isFunction(arg)) continue;
 
-      // Already using callback form — OK
-      if (ast.isFunction(arg)) return;
+        // Check if the argument contains a reference to the state variable
+        const [argStart, argEnd] = arg.range!;
+        const hasStateRef = stateVar.references.some(
+          (ref) =>
+            argStart <= ref.identifier.range![0]
+            && ref.identifier.range![1] <= argEnd,
+        );
 
-      // Check if the argument contains a reference to the state variable
-      const [argStart, argEnd] = arg.range!;
-      const hasStateRef = stateVar.references.some(
-        (ref) =>
-          argStart <= ref.identifier.range![0]
-          && ref.identifier.range![1] <= argEnd,
-      );
-
-      if (hasStateRef) {
-        context.report({
-          data: { name: context.sourceCode.getText(node.callee) },
-          messageId: "default",
-          node,
-        });
+        if (hasStateRef) {
+          context.report({
+            data: { name: context.sourceCode.getText(node.callee) },
+            messageId: "default",
+            node,
+          });
+        }
       }
     },
   });

@@ -214,6 +214,23 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default", data: { name: "setCount" } }],
     },
+    // Setter used before its defining useState (order-independent detection)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const increment = () => {
+            setCount(count + 1);
+          };
+
+          const [count, setCount] = useState(0);
+
+          return <button onClick={increment}>+</button>;
+        }
+      `,
+      errors: [{ messageId: "default", data: { name: "setCount" } }],
+    },
     // Arithmetic — subtraction
     {
       code: tsx`
