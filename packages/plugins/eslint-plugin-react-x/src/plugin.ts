@@ -57,8 +57,8 @@ import noUnusedState from "./rules/no-unused-state/no-unused-state";
 import noUseContext from "./rules/no-use-context/no-use-context";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment/prefer-destructuring-assignment";
-import preferSetStateCallback from "./rules/prefer-set-state-callback/prefer-set-state-callback";
 import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
+import preferSetStateCallback from "./rules/prefer-set-state-callback/prefer-set-state-callback";
 import purity from "./rules/purity/purity";
 import refs from "./rules/refs/refs";
 import rulesOfHooks from "./rules/rules-of-hooks/rules-of-hooks";
@@ -132,8 +132,8 @@ export const plugin = {
     "no-use-context": noUseContext,
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
-    "prefer-set-state-callback": preferSetStateCallback,
     "prefer-namespace-import": preferNamespaceImport,
+    "prefer-set-state-callback": preferSetStateCallback,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,

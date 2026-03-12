@@ -5,6 +5,229 @@ import { ruleTester } from "../../../../../../test";
 import rule, { RULE_NAME } from "./prefer-set-state-callback";
 
 ruleTester.run(RULE_NAME, rule, {
+  invalid: [
+    // Spread object
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [user, setUser] = useState({ name: "John", age: 25 });
+          setUser({ ...user, age: 30 });
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setUser" }, messageId: "default" }],
+    },
+    // Spread array
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setItems] = useState(["a", "b"]);
+          const newItem = "c";
+          setItems([...items, newItem]);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+    },
+    // Arithmetic — addition
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          setCount(count + 1);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // Setter used before its defining useState (order-independent detection)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const increment = () => {
+            setCount(count + 1);
+          };
+
+          const [count, setCount] = useState(0);
+
+          return <button onClick={increment}>+</button>;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // Arithmetic — subtraction
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          setCount(count - 1);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // Negation
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [open, setOpen] = useState(false);
+          setOpen(!open);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setOpen" }, messageId: "default" }],
+    },
+    // Property access
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [user, setUser] = useState({ name: "John", age: 25 });
+          setUser({ name: user.name, age: 30 });
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setUser" }, messageId: "default" }],
+    },
+    // Method call on state
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setItems] = useState([{ id: 1, active: true }]);
+          setItems(items.filter(x => x.active));
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+    },
+    // Concatenation
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setItems] = useState(["a"]);
+          const newItem = "b";
+          setItems(items.concat(newItem));
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+    },
+    // Template literal
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [label, setLabel] = useState("hello");
+          setLabel(\`\${label} updated\`);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setLabel" }, messageId: "default" }],
+    },
+    // Ternary with state ref
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          setCount(count > 0 ? count - 1 : 0);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // Nested state ref
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState({ users: [], count: 0 });
+          setData({ users: data.users, count: data.count + 1 });
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setData" }, messageId: "default" }],
+    },
+    // Multiple state pairs — only the one referencing its own state is flagged
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          const [total, setTotal] = useState(100);
+          setCount(count + 1);
+          setTotal(0);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+    },
+    // Spread array with state ref as trigger
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [ids, setIds] = useState([1, 2]);
+          const newId = 3;
+          setIds([...ids, newId]);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setIds" }, messageId: "default" }],
+    },
+    // additionalStateHooks — custom hook
+    {
+      code: tsx`
+        function Component() {
+          const [count, setCount] = useMyState(0);
+          setCount(count + 1);
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "/^useMyState$/u",
+        },
+      },
+    },
+    // State ref via method call result
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setResult] = useState(["a", "b", "c"]);
+          const target = "b";
+          setResult(items.indexOf(target));
+          return <div />;
+        }
+      `,
+      errors: [{ data: { name: "setResult" }, messageId: "default" }],
+    },
+  ],
   valid: [
     // Callback form with objects
     {
@@ -171,229 +394,6 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-    },
-  ],
-  invalid: [
-    // Spread object
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "John", age: 25 });
-          setUser({ ...user, age: 30 });
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setUser" } }],
-    },
-    // Spread array
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState(["a", "b"]);
-          const newItem = "c";
-          setItems([...items, newItem]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setItems" } }],
-    },
-    // Arithmetic — addition
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          setCount(count + 1);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // Setter used before its defining useState (order-independent detection)
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const increment = () => {
-            setCount(count + 1);
-          };
-
-          const [count, setCount] = useState(0);
-
-          return <button onClick={increment}>+</button>;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // Arithmetic — subtraction
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          setCount(count - 1);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // Negation
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [open, setOpen] = useState(false);
-          setOpen(!open);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setOpen" } }],
-    },
-    // Property access
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "John", age: 25 });
-          setUser({ name: user.name, age: 30 });
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setUser" } }],
-    },
-    // Method call on state
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([{ id: 1, active: true }]);
-          setItems(items.filter(x => x.active));
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setItems" } }],
-    },
-    // Concatenation
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState(["a"]);
-          const newItem = "b";
-          setItems(items.concat(newItem));
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setItems" } }],
-    },
-    // Template literal
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [label, setLabel] = useState("hello");
-          setLabel(\`\${label} updated\`);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setLabel" } }],
-    },
-    // Ternary with state ref
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          setCount(count > 0 ? count - 1 : 0);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // Nested state ref
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState({ users: [], count: 0 });
-          setData({ users: data.users, count: data.count + 1 });
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setData" } }],
-    },
-    // Multiple state pairs — only the one referencing its own state is flagged
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          const [total, setTotal] = useState(100);
-          setCount(count + 1);
-          setTotal(0);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // Spread array with state ref as trigger
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [ids, setIds] = useState([1, 2]);
-          const newId = 3;
-          setIds([...ids, newId]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setIds" } }],
-    },
-    // additionalStateHooks — custom hook
-    {
-      code: tsx`
-        function Component() {
-          const [count, setCount] = useMyState(0);
-          setCount(count + 1);
-          return <div />;
-        }
-      `,
-      settings: {
-        "react-x": {
-          additionalStateHooks: "/^useMyState$/u",
-        },
-      },
-      errors: [{ messageId: "default", data: { name: "setCount" } }],
-    },
-    // State ref via method call result
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setResult] = useState(["a", "b", "c"]);
-          const target = "b";
-          setResult(items.indexOf(target));
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "setResult" } }],
     },
   ],
 });
