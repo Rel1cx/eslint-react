@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
     "react",
@@ -62,7 +62,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "tsdown": "^0.21.1"
+    "tsdown": "^0.21.2"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",

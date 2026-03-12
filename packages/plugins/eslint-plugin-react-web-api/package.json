@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-web-api",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "ESLint React's ESLint plugin for interacting with Web APIs",
   "keywords": [
     "react",
@@ -60,7 +60,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.0.3",
-    "tsdown": "^0.21.1"
+    "tsdown": "^0.21.2"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",
