@@ -1,4 +1,15 @@
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
+import {
+  type RuleContext,
+  type RuleFeature,
+  defineRuleListener,
+  getSettingsFromContext,
+} from "@eslint-react/shared";
+import type { ScopeVariable } from "@typescript-eslint/scope-manager";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
 
@@ -26,6 +37,70 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(_context: RuleContext<MessageID, []>) {
-  return defineRuleListener({});
+export function create(context: RuleContext<MessageID, []>) {
+  const { additionalStateHooks } = getSettingsFromContext(context);
+
+  if (!/use\w*State/u.test(context.sourceCode.text)) return {};
+
+  const setterToStateVar = new Map<ScopeVariable, ScopeVariable>();
+
+  function isUseStateCall(node: TSESTree.Node): boolean {
+    return core.isUseStateLikeCall(node, additionalStateHooks);
+  }
+
+  return defineRuleListener({
+    CallExpression(node) {
+      // Register useState pairs
+      if (isUseStateCall(node)) {
+        const { parent } = node;
+        if (
+          parent.type === AST.VariableDeclarator
+          && parent.id.type === AST.ArrayPattern
+        ) {
+          const [stateEl, setterEl] = parent.id.elements;
+          if (
+            stateEl?.type === AST.Identifier
+            && setterEl?.type === AST.Identifier
+          ) {
+            const scope = context.sourceCode.getScope(node);
+            const stateVar = findVariable(scope, stateEl.name);
+            const setterVar = findVariable(scope, setterEl.name);
+            if (stateVar != null && setterVar != null) {
+              setterToStateVar.set(setterVar, stateVar);
+            }
+          }
+        }
+        return;
+      }
+
+      // Check setter calls
+      if (node.callee.type !== AST.Identifier) return;
+      const scope = context.sourceCode.getScope(node);
+      const callerVar = findVariable(scope, node.callee.name);
+      if (callerVar == null || !setterToStateVar.has(callerVar)) return;
+
+      const stateVar = setterToStateVar.get(callerVar)!;
+      const arg = node.arguments[0];
+      if (arg == null) return;
+
+      // Already using callback form — OK
+      if (ast.isFunction(arg)) return;
+
+      // Check if the argument contains a reference to the state variable
+      const [argStart, argEnd] = arg.range!;
+      const hasStateRef = stateVar.references.some(
+        (ref) =>
+          argStart <= ref.identifier.range![0]
+          && ref.identifier.range![1] <= argEnd,
+      );
+
+      if (hasStateRef) {
+        context.report({
+          data: { name: context.sourceCode.getText(node.callee) },
+          messageId: "default",
+          node,
+        });
+      }
+    },
+  });
 }
