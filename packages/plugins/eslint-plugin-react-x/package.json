@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "3.0.0-rc.0",
+  "version": "3.0.0-rc.1",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -62,7 +62,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.0.3",
-    "tsdown": "^0.21.1",
+    "tsdown": "^0.21.2",
     "tsl-dx": "^0.9.0"
   },
   "peerDependencies": {

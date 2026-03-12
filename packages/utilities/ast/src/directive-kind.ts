@@ -1,3 +1,6 @@
+/**
+ * Known directive kinds in React
+ */
 export type DirectiveKind = "use client" | "use server" | "use memo" | "use no memo";
 
 /**

@@ -33,11 +33,60 @@ react-x/unstable-rules-of-props
 
 ## Rule Details
 
-This rule covers three concerns:
+This rule covers two concerns:
 
-1. Using conflicting prop combinations.
+1. Duplicate props on the same element.
+2. Using conflicting prop combinations (controlled and uncontrolled props together).
 
 ## Common Violations
+
+### Specifying the Same Prop More Than Once
+
+When the same prop appears multiple times on a JSX element, only the last occurrence takes effect. The earlier values are silently discarded, which is almost always a mistake — typically a copy-paste error or a merge conflict leftover.
+
+Spread props are ignored because it may be intentional to override a prop from the spread with an explicit prop.
+
+#### Invalid
+
+```tsx
+// ❌ 'id' is specified twice — only the last value takes effect.
+<div id="a" id="b" />;
+```
+
+```tsx
+// ❌ Duplicate props on a custom component.
+<MyComponent foo="a" foo="b" />;
+```
+
+```tsx
+// ❌ Duplicate boolean props.
+<input disabled disabled />;
+```
+
+```tsx
+// ❌ Duplicate event handlers.
+<div onClick={handleA} onClick={handleB} />;
+```
+
+#### Valid
+
+```tsx
+// ✅ All props are unique.
+<div id="a" className="b" />;
+```
+
+```tsx
+// ✅ Spread attributes are ignored.
+<div id="a" {...props} />;
+```
+
+```tsx
+// ✅ Same prop on different elements is fine.
+<div>
+  <span id="a" />
+  <span id="b" />
+</div>;
+```
 
 ### Using Controlled and Uncontrolled Props Together
 
