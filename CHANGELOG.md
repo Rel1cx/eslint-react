@@ -1,3 +1,16 @@
+## v3.0.0-rc.1 (2026-03-12)
+
+### ✨ New
+
+- `unstable-rules-of-props`: Implement `noDuplicateProps` check — the rule now detects duplicate props on JSX elements. Closes #1605. (#1608)
+
+### 🪄 Improvements
+
+- Added `inlinedDependencies` metadata to packages.
+- Extended nested expression traversal to handle more AST node types. (#1609)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.0...v3.0.0-rc.1
+
 ## v3.0.0-rc.0 (2026-03-08)
 
 > This entry consolidates all changes from v2.13.0 (2026-02-15) through v3.0.0-rc.0 (2026-03-08).
