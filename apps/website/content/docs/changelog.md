@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v3.0.0-rc.2 (2026-03-13)
+
+### ✨ New
+
+- `react-x/prefer-set-state-callback`: New rule that enforces using callback form of `setState` when the new state is computed from the previous state. Closes #1289. (#1610, #1613)
+- `react-x/unstable-rules-of-state`: New experimental rule that consolidates state-related validations including `prefer-set-state-callback`. (#1613)
+
+### 🐞 Fixes
+
+- `react-x/use-memo`: Fixed false positive in arrow functions. Fixes #1611. (#1612)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.1...v3.0.0-rc.2
+
 ## v3.0.0-rc.1 (2026-03-12)
 
 ### ✨ New
