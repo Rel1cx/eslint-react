@@ -1,0 +1,182 @@
+---
+title: unstable-rules-of-state
+description: Enforces the Rules of State.
+---
+
+<Callout type="warning">
+  This rule is currently in rc and only available in v3.0.0 rc releases.
+</Callout>
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`eslint-plugin-react-x@rc`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/unstable-rules-of-state
+```
+
+**Full Name in [`@eslint-react/eslint-plugin@rc`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/unstable-rules-of-state
+```
+
+**Features**
+
+`🧪`
+
+**Presets**
+
+-
+
+## Rule Details
+
+This rule covers one concern:
+
+1. Using the updater function form of a `useState` setter when the update references the corresponding state variable.
+
+## Common Violations
+
+### Referencing State Directly in a Setter Call
+
+When a `useState` setter is called with an expression that directly references the corresponding state variable, it may cause stale state bugs — especially inside event handlers, timeouts, or closures that capture an outdated value. Using the callback form ensures the update is always based on the latest state value.
+
+#### Invalid
+
+```tsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {/*                           ^^^ Use the updater function form of 'setCount' to ensure the update is based on the latest state. */}
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Toggle() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <button onClick={() => setEnabled(!enabled)}>
+      {/*                             ^^^ Use the updater function form of 'setEnabled' to ensure the update is based on the latest state. */}
+      {enabled ? "On" : "Off"}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function UserEditor() {
+  const [user, setUser] = useState({ name: "John", age: 25 });
+
+  // ❌ Spreading state directly — stale state risk.
+  const updateAge = () => setUser({ ...user, age: 30 });
+
+  return <button onClick={updateAge}>Update Age</button>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function ItemList() {
+  const [items, setItems] = useState(["a", "b"]);
+
+  // ❌ Calling a method on state directly — stale state risk.
+  const addItem = () => setItems([...items, "c"]);
+
+  return <button onClick={addItem}>Add</button>;
+}
+```
+
+#### Valid
+
+```tsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  // ✅ Callback form — always gets the latest state.
+  return (
+    <button onClick={() => setCount((prev) => prev + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+
+  // ✅ Setting a constant value does not reference state.
+  return <button onClick={() => setCount(0)}>Reset</button>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+
+  // ✅ Already using the callback form.
+  return (
+    <button onClick={() => setCount((prev) => prev + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [user, setUser] = useState({ name: "John" });
+  const newUserFromApi = { name: "Jane" };
+
+  // ✅ Setting a value that does not reference the state variable.
+  setUser(newUserFromApi);
+
+  return <div />;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(100);
+
+  // ✅ Referencing a *different* state variable is fine.
+  setCount(total);
+
+  return <div />;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unstable-rules-of-state/unstable-rules-of-state.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/unstable-rules-of-state/unstable-rules-of-state.spec.ts)
+
+## Further Reading
+
+- [React Docs: Updating state based on the previous state](https://react.dev/reference/react/useState#updating-state-based-on-the-previous-state)

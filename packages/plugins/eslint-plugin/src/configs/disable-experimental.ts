@@ -16,6 +16,7 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/refs": "off",
   "@eslint-react/set-state-in-render": "off",
   "@eslint-react/unstable-rules-of-props": "off",
+  "@eslint-react/unstable-rules-of-state": "off",
 
   "@eslint-react/rsc/function-definition": "off",
 };

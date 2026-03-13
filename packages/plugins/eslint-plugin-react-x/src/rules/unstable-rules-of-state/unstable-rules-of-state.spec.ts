@@ -2,10 +2,11 @@ import type { ESLintReactSettings } from "@eslint-react/shared";
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../../test";
-import rule, { RULE_NAME } from "./prefer-set-state-callback";
+import rule, { RULE_NAME } from "./unstable-rules-of-state";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
+    // ── noReferenceToState ──────────────────────────────────────────
     // Spread object
     {
       code: tsx`
@@ -17,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setUser" }, messageId: "default" }],
+      errors: [{ data: { name: "setUser" }, messageId: "noReferenceToState" }],
     },
     // Spread array
     {
@@ -31,7 +32,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+      errors: [{ data: { name: "setItems" }, messageId: "noReferenceToState" }],
     },
     // Arithmetic — addition
     {
@@ -44,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
     },
     // Setter used before its defining useState (order-independent detection)
     {
@@ -61,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <button onClick={increment}>+</button>;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
     },
     // Arithmetic — subtraction
     {
@@ -74,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
     },
     // Negation
     {
@@ -87,7 +88,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setOpen" }, messageId: "default" }],
+      errors: [{ data: { name: "setOpen" }, messageId: "noReferenceToState" }],
     },
     // Property access
     {
@@ -100,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setUser" }, messageId: "default" }],
+      errors: [{ data: { name: "setUser" }, messageId: "noReferenceToState" }],
     },
     // Method call on state
     {
@@ -113,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+      errors: [{ data: { name: "setItems" }, messageId: "noReferenceToState" }],
     },
     // Concatenation
     {
@@ -127,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setItems" }, messageId: "default" }],
+      errors: [{ data: { name: "setItems" }, messageId: "noReferenceToState" }],
     },
     // Template literal
     {
@@ -140,7 +141,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setLabel" }, messageId: "default" }],
+      errors: [{ data: { name: "setLabel" }, messageId: "noReferenceToState" }],
     },
     // Ternary with state ref
     {
@@ -153,7 +154,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
     },
     // Nested state ref
     {
@@ -166,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setData" }, messageId: "default" }],
+      errors: [{ data: { name: "setData" }, messageId: "noReferenceToState" }],
     },
     // Multiple state pairs — only the one referencing its own state is flagged
     {
@@ -181,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
     },
     // Spread array with state ref as trigger
     {
@@ -195,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setIds" }, messageId: "default" }],
+      errors: [{ data: { name: "setIds" }, messageId: "noReferenceToState" }],
     },
     // additionalStateHooks — custom hook
     {
@@ -206,7 +207,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setCount" }, messageId: "default" }],
+      errors: [{ data: { name: "setCount" }, messageId: "noReferenceToState" }],
       settings: {
         "react-x": {
           additionalStateHooks: "/^useMyState$/u",
@@ -225,10 +226,11 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ data: { name: "setResult" }, messageId: "default" }],
+      errors: [{ data: { name: "setResult" }, messageId: "noReferenceToState" }],
     },
   ],
   valid: [
+    // ── noReferenceToState (valid) ──────────────────────────────────
     // Callback form with objects
     {
       code: tsx`

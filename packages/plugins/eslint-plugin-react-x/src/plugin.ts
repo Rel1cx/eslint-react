@@ -58,7 +58,6 @@ import noUseContext from "./rules/no-use-context/no-use-context";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
-import preferSetStateCallback from "./rules/prefer-set-state-callback/prefer-set-state-callback";
 import purity from "./rules/purity/purity";
 import refs from "./rules/refs/refs";
 import rulesOfHooks from "./rules/rules-of-hooks/rules-of-hooks";
@@ -70,6 +69,7 @@ import useState from "./rules/use-state/use-state";
 
 // Unstable rules
 import unstableRulesOfProps from "./rules/unstable-rules-of-props/unstable-rules-of-props";
+import unstableRulesOfState from "./rules/unstable-rules-of-state/unstable-rules-of-state";
 
 export const plugin = {
   meta: {
@@ -133,15 +133,17 @@ export const plugin = {
     "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
-    "prefer-set-state-callback": preferSetStateCallback,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,
     "set-state-in-effect": setStateInEffect,
     "set-state-in-render": setStateInRender,
-    "unstable-rules-of-props": unstableRulesOfProps,
     "unsupported-syntax": unsupportedSyntax,
     "use-memo": useMemo,
     "use-state": useState,
+
+    // Unstable rules
+    "unstable-rules-of-props": unstableRulesOfProps,
+    "unstable-rules-of-state": unstableRulesOfState,
   },
 } as unknown as ESLint.Plugin;

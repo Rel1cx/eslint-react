@@ -1,11 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  type RuleContext,
-  type RuleFeature,
-  defineRuleListener,
-  getSettingsFromContext,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -13,22 +8,22 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
 
-export const RULE_NAME = "prefer-set-state-callback";
+export const RULE_NAME = "unstable-rules-of-state";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "EXP",
+] as const satisfies RuleFeature[];
 
-type MessageID = "default";
+export type MessageID = "noReferenceToState";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
-      description:
-        "Enforces using the callback form of a 'useState' setter when the update references the corresponding state variable, to prevent stale state bugs.",
+      description: "Enforces the Rules of State.",
     },
     messages: {
-      default:
-        "Use the callback form of '{{name}}' to ensure the update is based on the latest state.",
+      noReferenceToState: "Do not reference '{{name}}' directly; use the updater function form instead.",
     },
     schema: [],
   },
@@ -39,8 +34,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const { additionalStateHooks } = getSettingsFromContext(context);
-
-  if (!/use\w*State/u.test(context.sourceCode.text)) return {};
 
   const setterToStateVar = new Map<ScopeVariable, ScopeVariable>();
 
@@ -105,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (hasStateRef) {
           context.report({
             data: { name: context.sourceCode.getText(node.callee) },
-            messageId: "default",
+            messageId: "noReferenceToState",
             node,
           });
         }

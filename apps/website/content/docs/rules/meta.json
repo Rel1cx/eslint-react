@@ -64,6 +64,7 @@
     "set-state-in-effect",
     "set-state-in-render",
     "unstable-rules-of-props",
+    "unstable-rules-of-state",
     "unsupported-syntax",
     "use-memo",
     "use-state",
