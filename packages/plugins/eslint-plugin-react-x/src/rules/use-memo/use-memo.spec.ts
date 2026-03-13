@@ -233,5 +233,8 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
+    tsx`
+      const use1 = () => useMemo(() => 1, []);
+    `,
   ],
 });

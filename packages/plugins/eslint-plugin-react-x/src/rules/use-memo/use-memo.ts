@@ -63,7 +63,8 @@ export function create(context: RuleContext<MessageID, []>) {
         || parent.type === AST.UnaryExpression
         || parent.type === AST.MemberExpression
         || parent.type === AST.TaggedTemplateExpression
-        || parent.type === AST.ChainExpression;
+        || parent.type === AST.ChainExpression
+        || parent.type === AST.ArrowFunctionExpression;
 
       if (!isAssigned) {
         context.report({
