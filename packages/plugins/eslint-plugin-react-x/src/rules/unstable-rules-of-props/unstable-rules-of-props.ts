@@ -21,9 +21,9 @@ export default createRule<[], MessageID>({
       description: "Enforces the Rules of Props.",
     },
     messages: {
-      noDuplicateProps: "Prop `{{prop}}` is specified more than once. Only the last one will take effect.",
       noControlledAndUncontrolledTogether:
         "Prop `{{controlled}}` and `{{uncontrolled}}` should not be used together. Use either controlled or uncontrolled components, not both.",
+      noDuplicateProps: "Prop `{{prop}}` is specified more than once. Only the last one will take effect.",
     },
     schema: [],
   },

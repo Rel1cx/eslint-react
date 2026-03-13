@@ -37,6 +37,14 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
 
+  const hint = core.JsxDetectionHint.DoNotIncludeJsxWithNullValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
+
   const { ctx, visitor } = core.useComponentCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
@@ -60,6 +68,8 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const { rets } of ctx.getAllComponents(node)) {
           for (const ret of rets) {
             if (ret == null) continue;
+            // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
+            if (!core.isJsxLike(context, ret, hint)) continue;
             const stmt = ast.findParentNode(ret, ast.is(AST.TryStatement));
             if (stmt != null && !reported.has(stmt)) {
               context.report({

@@ -51,7 +51,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
-  const { additionalStateHooks, additionalEffectHooks } = getSettingsFromContext(context);
+  const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
   const setupFnRef: { current: ast.TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
