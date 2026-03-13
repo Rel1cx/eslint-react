@@ -371,12 +371,12 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
+      errors: [{ messageId: "invalidAssignment" }],
       settings: {
         "react-x": {
           additionalStateHooks: "/^usePreviousState$/u",
         },
       },
-      errors: [{ messageId: "invalidAssignment" }],
     },
   ],
   valid: [

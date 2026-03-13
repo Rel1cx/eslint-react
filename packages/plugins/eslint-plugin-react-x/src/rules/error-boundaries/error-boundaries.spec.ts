@@ -191,6 +191,26 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
+    {
+      code: tsx`
+        export function MyComponent() {
+          let x;
+          try {
+            x = JSON.parse("}");
+            if (x == 47) return null;
+          } catch (e) {
+            x = null;
+          }
+
+          try {
+            return <div>{x}</div>;
+          } catch (e) {
+            return <span />;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
   ],
   valid: [
     // Error boundary usage
@@ -323,6 +343,18 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function Component() {
         return <div />;
+      }
+    `,
+    tsx`
+      export function MyComponent() {
+        let x;
+        try {
+          x = JSON.parse("}");
+          if (x == 47) return null;
+        } catch (e) {
+          x = null;
+        }
+        return <div>{x}</div>;
       }
     `,
   ],
