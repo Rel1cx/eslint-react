@@ -63,7 +63,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.0.3",
     "tsdown": "^0.21.2",
-    "tsl-dx": "^0.9.0"
+    "tsl-dx": "^0.10.1"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",
