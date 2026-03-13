@@ -1,3 +1,11 @@
+## v3.0.0-rc.3 (2026-03-13)
+
+### 🐞 Fixes
+
+- `react-x/error-boundaries`: Fixed false positive by skipping non-JSX-like values in error boundary detection. (#1615)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.2...v3.0.0-rc.3
+
 ## v3.0.0-rc.2 (2026-03-13)
 
 ### ✨ New
