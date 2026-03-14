@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v3.0.0-rc.4 (2026-03-14)
+
+### 🪄 Improvements
+
+- Update README badge links.
+
+### 🧹 Chores
+
+- Bump fumadocs, eslint-plugin-fast-import, and @vitejs/plugin-react.
+- Pin typescript-eslint to stable version ^8.57.0.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.3...v3.0.0-rc.4
+
 ## v3.0.0-rc.3 (2026-03-13)
 
 ### 🐞 Fixes
