@@ -2,51 +2,97 @@
 title: Roadmap
 ---
 
-## Milestone 4.0 (TBD)
-
-### System Requirements
-
-Minimum supported versions:
-
-- [ ] Node.js: 28.x.x
-- [ ] ESLint: 10.x.x
-- [x] TypeScript: 5
-
-### Removed Rules
-
-- [x] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect`
-
-### Removed Plugins
-
-- [x] `eslint-plugin-react-hooks-extra` - No longer needed as all relevant rules have been migrated to `eslint-plugin-react-x` or replaced by [new introduced rules from `eslint-plugin-react-hooks`](https://react.dev/reference/eslint-plugin-react-hooks)
-
-## Milestone 3.0 (TBD)
+## Milestone 4.0 (Beta)
 
 ### System Requirements
 
 Minimum supported versions:
 
 - [x] Node.js: 22.0.0
-- [x] ESLint: 9.36.0
+- [x] ESLint: 10.x.x
+- [x] TypeScript: 5
+
+### New Plugins
+
+- [x] `eslint-plugin-react-jsx` - New dedicated plugin for React Flavored JSX rules
+
+### Relocated Rules (to `eslint-plugin-react-jsx`)
+
+- [x] `react-x/jsx-dollar` -> `react-jsx/dollar` (renamed)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/key-before-spread` (renamed)
+- [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
+- [x] `react-x/jsx-shorthand-boolean` -> `react-jsx/shorthand-boolean` (renamed)
+- [x] `react-x/jsx-shorthand-fragment` -> `react-jsx/shorthand-fragment` (renamed)
+- [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
+- [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
+- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace`
+
+### New Rules
+
+- [x] `react-jsx/no-children-prop-with-children` - Disallows passing `children` as a prop when children are also passed as nested content
+
+### Rule Prefix Changes (in `@eslint-react/eslint-plugin`)
+
+- [x] `@eslint-react/rsc/<rule>` -> `@eslint-react/rsc-<rule>`
+- [x] `@eslint-react/dom/<rule>` -> `@eslint-react/dom-<rule>`
+- [x] `@eslint-react/web-api/<rule>` -> `@eslint-react/web-api-<rule>`
+- [x] `@eslint-react/naming-convention/<rule>` -> `@eslint-react/naming-convention-<rule>`
+- [x] `@eslint-react/debug/<rule>` -> `@eslint-react/debug-<rule>`
+
+## Milestone 3.0 (RC)
+
+### System Requirements
+
+Minimum supported versions:
+
+- [x] Node.js: 22.0.0 (raised from 20.19.0)
+- [x] ESLint: 10.0.0
 - [x] TypeScript: 5
 
 ### New Rules
 
-- [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance\
-      _A fast implementation of [set-state-in-effect](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) that doesn't require React Compiler integration_
-- [x] `react-x/set-state-in-render` - Validates against setting state during render, which can trigger additional renders and potential infinite render loops\
-      _A fast implementation of [set-state-in-render](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render) that doesn't require React Compiler integration_
-- [x] `react-x/static-components` - Validates that components are static, not recreated every render (`no-nested-component-definitions` + `no-nested-lazy-component-declarations`)\
-      _A fast implementation of [static-components](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components) that doesn't require React Compiler integration_
-- [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks\
-      _A fast implementation of [component-hook-factories](https://react.dev/reference/eslint-plugin-react-hooks/lints/component-hook-factories) that doesn't require React Compiler integration_
-- [ ] `react-x/refs` - (Experimental) Validates correct usage of refs by checking that `ref.current` is not read or written during render\
-      _A fast implementation of [refs](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs) that doesn't require React Compiler integration_
-- [ ] `react-x/function-definition` - Validate and transform React function definitions ([Rel1cx/eslint-react#739](https://github.com/Rel1cx/eslint-react/issues/739))
+- [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks
+- [x] `react-x/error-boundaries` - Validates usage of Error Boundaries instead of try/catch for errors in child components
+- [x] `react-x/exhaustive-deps` - Enforces that React hook dependency arrays contain all reactive values used in the callback
+- [x] `react-x/immutability` (Experimental) - Validates against mutating props, state, and other values that are immutable
+- [x] `react-x/no-mixing-controlled-and-uncontrolled` - Validates against mixing controlled and uncontrolled prop patterns
+- [x] `react-x/prefer-set-state-callback` - Enforces using callback form of `setState` when the new state is computed from the previous state
+- [x] `react-x/purity` (Experimental) - Validates that components and hooks are pure
+- [x] `react-x/refs` (Experimental) - Validates correct usage of refs by checking that `ref.current` is not read or written during render
+- [x] `react-x/rules-of-hooks` - Enforces the Rules of Hooks
+- [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect
+- [x] `react-x/set-state-in-render` - Validates against unconditionally setting state during render
+- [x] `react-x/static-components` - Validates that components are static, not recreated every render
+- [x] `react-x/unstable-rules-of-props` (Experimental) - Consolidates state-related validations including `prefer-set-state-callback`
+- [x] `react-x/unstable-rules-of-state` (Experimental) - Consolidates state-related validations
+- [x] `react-x/unsupported-syntax` - Validates against syntax that React Compiler does not support (eval, with, IIFE in JSX)
+- [x] `react-x/use-memo` - Validates that `useMemo` is called with a callback that returns a value
+- [x] `react-x/use-state` - Enforces correct usage of the `useState` hook (moved from `eslint-plugin-react-naming-convention`)
 
-### Deprecated Rules
+### Removed Rules
 
-- [x] `react-hooks-extra/no-direct-set-state-in-use-effect` - Replaced by `react-x/set-state-in-effect`
+- [x] `react-x/jsx-no-duplicate-props` - Removed (LSP and Language Features natively report duplicate JSX props)
+- [x] `react-x/jsx-no-iife` - Consolidated into `unsupported-syntax`
+- [x] `react-x/jsx-no-undef` - Removed (ESLint v10.0.0 now tracks JSX references natively)
+- [x] `react-x/jsx-uses-react` - Removed (ESLint v10.0.0 now handles JSX variable tracking natively)
+- [x] `react-x/jsx-uses-vars` - Removed (ESLint v10.0.0 now handles JSX variable tracking natively)
+- [x] `react-x/no-default-props` - Removed
+- [x] `react-x/no-forbidden-props` - Removed
+- [x] `react-x/no-prop-types` - Removed
+- [x] `react-x/no-string-refs` - Removed
+- [x] `react-x/no-unnecessary-key` - Removed
+- [x] `react-x/no-unnecessary-use-ref` - Removed
+- [x] `react-x/no-useless-forward-ref` - Consolidated into `no-forward-ref`
+- [x] `react-x/prefer-read-only-props` - Consolidated into `immutability`
+- [x] `react-x/prefer-use-state-lazy-initialization` - Consolidated into `use-state`
+- [x] `react-naming-convention/component-name` - Removed
+- [x] `react-naming-convention/filename-extension` - Removed
+- [x] `react-naming-convention/filename` - Removed
+- [x] `react-naming-convention/use-state` - Moved to `react-x/use-state`
+
+### Removed Plugins
+
+- [x] `eslint-plugin-react-hooks-extra` - Migrated to `eslint-plugin-react-x`
 
 ## Milestone 2.0 (2025-09-26)
 
