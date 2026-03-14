@@ -1,6 +1,6 @@
 import type { RuleConfig } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
-import react from "eslint-plugin-react-x";
+import reactX from "eslint-plugin-react-x";
 
 export const name = "@eslint-react/x";
 
@@ -46,7 +46,7 @@ export const rules = {
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
-  "@eslint-react": react,
+  "@eslint-react/x": reactX,
 };
 
 export const settings = {
