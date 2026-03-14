@@ -8,8 +8,6 @@ export const rules = {
   "@eslint-react/component-hook-factories": "error",
   "@eslint-react/error-boundaries": "error",
   "@eslint-react/exhaustive-deps": "warn",
-  "@eslint-react/jsx-key-before-spread": "warn",
-  "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",

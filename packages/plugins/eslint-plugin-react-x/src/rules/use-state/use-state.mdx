@@ -38,7 +38,7 @@ react-x/use-state
 This rule covers three concerns:
 
 1. The return value of `useState` must be destructured into a value and setter pair (ex: `const [count, setCount] = useState(0)`). Bare calls or assignments (ex: `useState(0)` or `const count = useState(0)`) are reported as invalid usage.
-2. The setter must be named symmetrically — `set` followed by the capitalized value name (ex: `count` → `setCount`). The state value must be a plain identifier; destructured patterns (`ObjectPattern`, `ArrayPattern`, etc.) are reported as an invalid assignment form.
+2. The setter must be named symmetrically — `set` followed by the capitalized value name (ex: `count` -> `setCount`). The state value must be a plain identifier; destructured patterns (`ObjectPattern`, `ArrayPattern`, etc.) are reported as an invalid assignment form.
 3. Function calls passed directly as the initial state argument are reported. Wrapping them in an initializer function (ex: `() => getValue()`) avoids re-invoking the function on every render.
 
 > Lazy initialization behavior was previously a standalone `prefer-use-state-lazy-initialization` rule. That rule has been merged into `use-state` and removed.

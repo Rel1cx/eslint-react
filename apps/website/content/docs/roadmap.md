@@ -65,10 +65,12 @@ Minimum supported versions:
 ### Plugins (with ecological niche explanation)
 
 - [x] `eslint-plugin-react-x` - X Rules (renderer-agnostic, compatible with x-platform)
+- [x] `eslint-plugin-react-jsx` - React Flavored JSX rules
+- [x] `eslint-plugin-react-rsc` - Rules for React Server Components
 - [x] `eslint-plugin-react-dom` - DOM Specific rules for React DOM
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
-- [x] ~~`eslint-plugin-react-hooks-extra`~~ - Extra Hooks rules for React (removed in 2.14.0, rules migrated to `eslint-plugin-react-x`)
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
+- [x] ~~`eslint-plugin-react-hooks-extra`~~ - Extra Hooks rules for React (removed in 2.14.0, rules migrated to `eslint-plugin-react-x`)
 - ... (Free to combine with other plugins from the community)
 
 ### Add codemod feature to rules that can be transformed (using auto-fix) safely
@@ -93,7 +95,7 @@ Minimum supported versions:
 
 ### New Rules
 
-- [x] `react-x/jsx-no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
+- [x] `react-jsx/no-comment-textnodes` - Disallow text nodes with comments in JSX (Replaces `no-comment-textnodes`)
 - [x] `react-x/no-context-provider` - Replaces usage of `<Context.Provider>` with `<Context>` (React 19)
 - [x] `react-x/no-forward-ref` - Replaces usage of `forwardRef` with passing `ref` as a prop (React 19)
 - [x] `react-x/no-use-context` - Replaces usage of `useContext` with `use` (React 19)
@@ -106,10 +108,10 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [x] `react-x/avoid-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `react-x/avoid-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
-- [x] `react-x/no-comment-textnodes` - Replaced by `jsx-no-comment-textnodes`
+- [x] `react-x/avoid-shorthand-boolean` - Replaced by `react-jsx/shorthand-boolean`
+- [x] `react-x/avoid-shorthand-fragment` - Replaced by `react-jsx/shorthand-fragment`
+- [x] `react-x/no-comment-textnodes` - Replaced by `react-jsx/no-comment-textnodes`
 - [x] `react-x/prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
-- [x] `react-x/prefer-shorthand-boolean` - Replaced by `jsx-shorthand-boolean`
-- [x] `react-x/prefer-shorthand-fragment` - Replaced by `jsx-shorthand-fragment`
+- [x] `react-x/prefer-shorthand-boolean` - Replaced by `react-jsx/shorthand-boolean`
+- [x] `react-x/prefer-shorthand-fragment` - Replaced by `react-jsx/shorthand-fragment`
 - [x] `react-hooks-extra/no-direct-set-state-in-use-layout-effect` - Merged into `hooks-extra/no-direct-set-state-in-use-effect`

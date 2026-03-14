@@ -164,20 +164,20 @@ A descriptor of the attribute's value that can be further inspected, or `undefin
 ### getElementSelfName()
 
 ```ts
-getElementSelfName(node: JSXElement | JSXFragment): string;
+getElementSelfName(node: TSESTreeJSXElementLike): string;
 ```
 
 Get the **self name** (last segment) of a JSX element type.
 
-- `<Foo.Bar.Baz>` → `"Baz"`
-- `<div>` → `"div"`
-- `<></>` → `""`
+- `<Foo.Bar.Baz>` -> `"Baz"`
+- `<div>` -> `"div"`
+- `<></>` -> `""`
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `JSXElement` \| `JSXFragment` | The JSX element or fragment to extract the self name from. |
+| `node` | `TSESTreeJSXElementLike` | The JSX element or fragment to extract the self name from. |
 
 #### Returns
 
@@ -188,21 +188,21 @@ Get the **self name** (last segment) of a JSX element type.
 ### getElementType()
 
 ```ts
-getElementType(node: JSXElement | JSXFragment): string;
+getElementType(node: TSESTreeJSXElementLike): string;
 ```
 
 Get the string representation of a JSX element's type.
 
-- `<div>` → `"div"`
-- `<Foo.Bar>` → `"Foo.Bar"`
-- `<React.Fragment>` → `"React.Fragment"`
-- `<></>` (JSXFragment) → `""`
+- `<div>` -> `"div"`
+- `<Foo.Bar>` -> `"Foo.Bar"`
+- `<React.Fragment>` -> `"React.Fragment"`
+- `<></>` (JSXFragment) -> `""`
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `JSXElement` \| `JSXFragment` | The JSX element or fragment to extract the type from. |
+| `node` | `TSESTreeJSXElementLike` | The JSX element or fragment to extract the type from. |
 
 #### Returns
 
@@ -236,7 +236,7 @@ Shorthand: check whether an attribute exists on the element.
 ### isFragmentElement()
 
 ```ts
-isFragmentElement(node: Node): node is JSXElement | JSXFragment;
+isFragmentElement(node: Node): node is TSESTreeJSXElementLike;
 ```
 
 Whether the node is a React **Fragment** element (either `<Fragment>` /
@@ -252,7 +252,7 @@ The check honours the configured `jsxFragmentFactory`.
 
 #### Returns
 
-node is JSXElement \| JSXFragment
+`node is TSESTreeJSXElementLike`
 
 ***
 

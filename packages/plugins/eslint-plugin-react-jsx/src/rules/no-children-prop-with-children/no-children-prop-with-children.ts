@@ -1,0 +1,78 @@
+import { JsxInspector } from "@eslint-react/core";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+
+import { createRule, getChildrenContentRange, getPropRemovalRange, hasMeaningfulChildren } from "../../utils";
+
+export const RULE_NAME = "no-children-prop-with-children";
+
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
+
+export type MessageID = "default" | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID =
+  | "removeChildrenProp"
+  | "removeChildrenContent";
+
+export default createRule<[], MessageID>({
+  meta: {
+    type: "problem",
+    docs: {
+      description: "Disallows passing 'children' as a prop when children are also passed as nested content.",
+    },
+    fixable: "code",
+    hasSuggestions: true,
+    messages: {
+      default: "Do not pass 'children' as a prop when the element already has children content.",
+      removeChildrenProp: "Remove the 'children' prop.",
+      removeChildrenContent: "Remove the nested children content.",
+    },
+    schema: [],
+  },
+  name: RULE_NAME,
+  create,
+  defaultOptions: [],
+});
+
+export function create(context: RuleContext<MessageID, []>) {
+  const jsx = JsxInspector.from(context);
+
+  return defineRuleListener({
+    JSXElement(node) {
+      const childrenProp = jsx.findAttribute(node, "children");
+      if (childrenProp == null) return;
+      if (!hasMeaningfulChildren(node)) return;
+
+      // If children comes from a spread attribute we cannot safely remove
+      // just the `children` key from it, so report without suggestions.
+      if (childrenProp.type !== AST.JSXAttribute) {
+        context.report({ messageId: "default", node: childrenProp });
+        return;
+      }
+
+      context.report({
+        messageId: "default",
+        node: childrenProp,
+        suggest: [
+          {
+            messageId: "removeChildrenProp",
+            fix(fixer) {
+              const [start, end] = getPropRemovalRange(context, childrenProp);
+              return fixer.removeRange([start, end]);
+            },
+          },
+          {
+            messageId: "removeChildrenContent",
+            fix(fixer) {
+              const range = getChildrenContentRange(node);
+              if (range == null) return [];
+              return fixer.removeRange(range);
+            },
+          },
+        ],
+      });
+    },
+  });
+}

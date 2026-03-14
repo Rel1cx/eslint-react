@@ -11,7 +11,6 @@ export const rules = {
   "react-dom/no-find-dom-node": "error",
   "react-dom/no-flush-sync": "error",
   "react-dom/no-hydrate": "error",
-  "react-dom/no-namespace": "error",
   "react-dom/no-render": "error",
   "react-dom/no-render-return-value": "error",
   "react-dom/no-script-url": "warn",
