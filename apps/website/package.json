@@ -56,6 +56,6 @@
     "importx": "^0.5.2",
     "postcss": "^8.5.8",
     "typescript": "^5.9.3",
-    "typescript-eslint": "canary"
+    "typescript-eslint": "^8.57.0"
   }
 }
