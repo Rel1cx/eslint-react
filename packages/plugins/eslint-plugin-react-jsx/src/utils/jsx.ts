@@ -103,10 +103,7 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
     const exprText = sourceCode.getText(expression);
 
     // JSX elements and fragments can be placed directly as children
-    if (
-      expression.type === AST.JSXElement
-      || expression.type === AST.JSXFragment
-    ) {
+    if (ast.isJSXElementLike(expression)) {
       return exprText;
     }
 

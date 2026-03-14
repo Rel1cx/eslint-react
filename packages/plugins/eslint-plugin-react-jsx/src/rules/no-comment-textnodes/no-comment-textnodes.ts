@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
   const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal): void => {
     // Ensures the node is a direct child of a JSX element or fragment
-    if (!ast.isOneOf([AST.JSXElement, AST.JSXFragment])(node.parent)) {
+    if (!ast.isJSXElementLike(node.parent)) {
       return;
     }
     if (!hasCommentLike(node)) {

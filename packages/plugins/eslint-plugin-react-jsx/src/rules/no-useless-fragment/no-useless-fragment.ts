@@ -66,10 +66,6 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-// ---------------------------------------------------------------------------
-// Rule implementation
-// ---------------------------------------------------------------------------
-
 export function create(context: RuleContext<MessageID, Options>, [option]: Options) {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
   const jsx = JsxInspector.from(context);
@@ -81,16 +77,13 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * existence (the "contains less than two children" reason).
    * @param node
    */
-  function isContentUseless(
-    node: ast.TSESTreeJSXElementLike,
-  ): boolean {
+  function isContentUseless(node: ast.TSESTreeJSXElementLike) {
     // Empty fragment — useless unless explicitly allowed.
     if (node.children.length === 0) {
       return !allowEmptyFragment;
     }
 
-    const insideJsx = node.parent.type === AST.JSXElement
-      || node.parent.type === AST.JSXFragment;
+    const insideJsx = ast.isJSXElementLike(node.parent);
 
     // When expressions are disallowed, any fragment inside JSX is useless
     // (the wrapper serves no purpose), and a single-child fragment outside
@@ -137,16 +130,11 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * Whether it is safe to auto-fix the fragment by unwrapping it.
    * @param node
    */
-  function isSafeToFix(
-    node: ast.TSESTreeJSXElementLike,
-  ): boolean {
+  function isSafeToFix(node: ast.TSESTreeJSXElementLike) {
     // Inside a JSX parent we can only safely unwrap if the parent is a host
     // (intrinsic / DOM) element.  Custom components might require `children`
     // to be a single ReactElement, so unwrapping could break them.
-    if (
-      node.parent.type === AST.JSXElement
-      || node.parent.type === AST.JSXFragment
-    ) {
+    if (ast.isJSXElementLike(node.parent)) {
       return jsx.isHostElement(node.parent);
     }
 
@@ -171,9 +159,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * trimmed children text.  Returns `null` when the fix is unsafe.
    * @param node
    */
-  function buildFix(
-    node: ast.TSESTreeJSXElementLike,
-  ): ((fixer: RuleFixer) => RuleFix) | null {
+  function buildFix(node: ast.TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
     if (!isSafeToFix(node)) return null;
 
     return (fixer) => {
