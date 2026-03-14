@@ -125,6 +125,8 @@ export default defineConfig(
 
 - `x`\
   Enable rules for React.
+- `jsx`\
+  Enable rules for JSX syntax.
 - `rsc`\
   Enable rules for React Server Components.
 - `dom`\
@@ -157,6 +159,8 @@ export default defineConfig(
 
 ### Other
 
+- `disable-jsx`\
+  Disable rules in the `jsx` preset.
 - `disable-rsc`\
   Disable rules in the `rsc` preset.
 - `disable-dom`\
