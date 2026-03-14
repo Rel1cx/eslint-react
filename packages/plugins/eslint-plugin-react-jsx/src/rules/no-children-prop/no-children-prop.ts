@@ -60,7 +60,6 @@ export function create(context: RuleContext<MessageID, []>) {
         node: childrenProp,
         suggest: [
           {
-            messageId: "moveChildrenToContent",
             fix(fixer) {
               const sourceCode = context.sourceCode;
               const { openingElement } = node;
@@ -105,6 +104,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
               return fixes;
             },
+            messageId: "moveChildrenToContent",
           },
         ],
       });

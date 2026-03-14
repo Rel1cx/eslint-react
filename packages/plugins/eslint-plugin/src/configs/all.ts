@@ -107,8 +107,8 @@ export const plugins = {
   ...jsx.plugins,
   ...rsc.plugins,
   ...dom.plugins,
-  "@eslint-react/web-api": reactWebApi,
   "@eslint-react/naming-convention": reactNamingConvention,
+  "@eslint-react/web-api": reactWebApi,
 };
 
 export const settings = {

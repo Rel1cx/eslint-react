@@ -11,6 +11,7 @@ import type { TSESTree } from "@typescript-eslint/types";
  * Trim leading / trailing whitespace the same way React does when rendering
  * JSX text.  Whitespace that contains a newline is stripped entirely;
  * whitespace that stays on the same line is preserved.
+ * @param text
  */
 export function trimLikeReact(text: string): string {
   const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
@@ -32,6 +33,7 @@ export function trimLikeReact(text: string): string {
  * Whether a JSX child node is whitespace-only text (spaces, tabs, newlines).
  *
  * Returns `false` for any non-text node (elements, expression containers, etc.).
+ * @param node
  */
 export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
@@ -41,6 +43,7 @@ export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
 /**
  * Whether a JSX child node is whitespace-only text that spans at least one
  * line break — i.e. the "padding" that React would trim away when rendering.
+ * @param node
  */
 export function isPaddingSpaces(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
@@ -54,6 +57,8 @@ export function isPaddingSpaces(node: TSESTree.JSXChild): boolean {
 /**
  * Compute the removal range for a JSX attribute, consuming any leading
  * whitespace (spaces, tabs, newlines) so the resulting markup stays clean.
+ * @param context
+ * @param prop
  */
 export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttribute): [start: number, end: number] {
   const { sourceCode } = context;
@@ -76,6 +81,8 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
  * - `children={<>…</>}`      -> `<>…</>`  (JSX fragment, no braces)
  * - `children={expression}`  -> `{expression}`  (wrapped in braces)
  * - `children`               -> `null`  (boolean shorthand, cannot extract)
+ * @param context
+ * @param prop
  */
 export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttribute): string | null {
   const { sourceCode } = context;
@@ -117,6 +124,7 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
 /**
  * Whether a JSX element (or fragment) has meaningful children content —
  * that is, at least one child that is **not** whitespace-only text.
+ * @param node
  */
 export function hasMeaningfulChildren(node: ast.TSESTreeJSXElementLike): boolean {
   if (node.children.length === 0) return false;
@@ -128,6 +136,7 @@ export function hasMeaningfulChildren(node: ast.TSESTreeJSXElementLike): boolean
  * fragment (from the start of the first child to the end of the last child).
  *
  * Returns `null` when there are no children at all.
+ * @param node
  */
 export function getChildrenContentRange(node: ast.TSESTreeJSXElementLike): [start: number, end: number] | null {
   if (node.children.length === 0) return null;
@@ -141,6 +150,8 @@ export function getChildrenContentRange(node: ast.TSESTreeJSXElementLike): [star
  * (everything between the opening and closing tags).
  *
  * Returns `""` for self-closing elements like `<Fragment />`.
+ * @param context
+ * @param node
  */
 export function getChildrenSourceText(context: RuleContext, node: ast.TSESTreeJSXElementLike): string {
   const { sourceCode } = context;

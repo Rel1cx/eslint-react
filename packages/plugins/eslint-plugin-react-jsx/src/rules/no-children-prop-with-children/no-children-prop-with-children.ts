@@ -26,8 +26,8 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Do not pass 'children' as a prop when the element already has children content.",
-      removeChildrenProp: "Remove the 'children' prop.",
       removeChildrenContent: "Remove the nested children content.",
+      removeChildrenProp: "Remove the 'children' prop.",
     },
     schema: [],
   },
@@ -57,19 +57,19 @@ export function create(context: RuleContext<MessageID, []>) {
         node: childrenProp,
         suggest: [
           {
-            messageId: "removeChildrenProp",
             fix(fixer) {
               const [start, end] = getPropRemovalRange(context, childrenProp);
               return fixer.removeRange([start, end]);
             },
+            messageId: "removeChildrenProp",
           },
           {
-            messageId: "removeChildrenContent",
             fix(fixer) {
               const range = getChildrenContentRange(node);
               if (range == null) return [];
               return fixer.removeRange(range);
             },
+            messageId: "removeChildrenContent",
           },
         ],
       });
