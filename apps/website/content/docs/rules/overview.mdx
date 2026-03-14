@@ -21,17 +21,8 @@ full: true
 
 ## X Rules
 
-<Callout type="info">
-  The `jsx-*` rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
-</Callout>
-
 | Rule                                                                               |    ✅    |    🌟     | Description                                                                                                                                                                 | `react`  |
 |:-----------------------------------------------------------------------------------|:-------:|:---------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
-| [`jsx-dollar`](jsx-dollar)                                                         | 0️⃣ 0️⃣ |   `🔧`    | Prevents unintentional `$` sign before expression                                                                                                                           |          |
-| [`jsx-key-before-spread`](jsx-key-before-spread)                                   | 1️⃣ 1️⃣ |   `🧪`    | Enforces `key` prop placement before spread props                                                                                                                           |          |
-| [`jsx-no-comment-textnodes`](jsx-no-comment-textnodes)                             | 1️⃣ 1️⃣ |           | Prevents comment strings (ex: beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes                                               |          |
-| [`jsx-shorthand-boolean`](jsx-shorthand-boolean)                                   | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for boolean props                                                                                                                                 |          |
-| [`jsx-shorthand-fragment`](jsx-shorthand-fragment)                                 | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for fragment elements                                                                                                                             |          |
 | [`component-hook-factories`](component-hook-factories)                             | 2️⃣ 2️⃣ |           | Disallows higher order functions that define components or hooks inside them                                                                                                |          |
 | [`error-boundaries`](error-boundaries)                                             | 2️⃣ 2️⃣ |           | Validates usage of Error Boundaries instead of try/catch for errors in child components                                                                                     |          |
 | [`exhaustive-deps`](exhaustive-deps)                                               | 1️⃣ 1️⃣ | `⚙️` `🔧` | Verifies the list of dependencies for Hooks like `useEffect` and similar                                                                                                    |          |
@@ -42,7 +33,6 @@ full: true
 | [`no-children-for-each`](no-children-for-each)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.forEach` from the `react` package                                                                                                            |          |
 | [`no-children-map`](no-children-map)                                               | 1️⃣ 1️⃣ |           | Disallows the use of `Children.map` from the `react` package                                                                                                                |          |
 | [`no-children-only`](no-children-only)                                             | 1️⃣ 1️⃣ |           | Disallows the use of `Children.only` from the `react` package                                                                                                               |          |
-| [`no-children-prop`](no-children-prop)                                             | 0️⃣ 2️⃣ |           | Disallows passing `children` as a prop                                                                                                                                      |          |
 | [`no-children-to-array`](no-children-to-array)                                     | 1️⃣ 1️⃣ |           | Disallows the use of `Children.toArray` from the `react` package                                                                                                            |          |
 | [`no-class-component`](no-class-component)                                         | 0️⃣ 2️⃣ |           | Disallows class components except for error boundaries                                                                                                                      |          |
 | [`no-clone-element`](no-clone-element)                                             | 1️⃣ 1️⃣ |           | Disallows `cloneElement`                                                                                                                                                    |          |
@@ -80,7 +70,6 @@ full: true
 | [`no-unused-props`](no-unused-props)                                               | 0️⃣ 0️⃣ | `💭` `🧪` | Warns about component props that are defined but never used                                                                                                                 |          |
 | [`no-unused-state`](no-unused-state)                                               | 0️⃣ 1️⃣ |           | Warns about unused class component state                                                                                                                                    |          |
 | [`no-use-context`](no-use-context)                                                 | 1️⃣ 1️⃣ |   `🔄`    | Replaces usage of `useContext` with `use`                                                                                                                                   | >=19.0.0 |
-| [`no-useless-fragment`](no-useless-fragment)                                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                                                                         |          |
 | [`prefer-destructuring-assignment`](prefer-destructuring-assignment)               | 0️⃣ 1️⃣ |           | Enforces destructuring assignment for component props and context                                                                                                           |          |
 | [`prefer-namespace-import`](prefer-namespace-import)                               | 0️⃣ 0️⃣ |   `🔧`    | Enforces importing React via a namespace import                                                                                                                             |          |
 | [`purity`](purity)                                                                 | 1️⃣ 1️⃣ |           | Validates that components and hooks are pure by checking that they do not call known-impure functions during render                                                         |          |
@@ -91,6 +80,24 @@ full: true
 | [`unsupported-syntax`](unsupported-syntax)                                         | 2️⃣ 2️⃣ |           | Validates against syntax that React Compiler does not support                                                                                                               |          |
 | [`use-memo`](use-memo)                                                             | 2️⃣ 2️⃣ |           | Validates that `useMemo` is called with a callback that returns a value                                                                                                     |          |
 | [`use-state`](use-state)                                                           | 1️⃣ 1️⃣ |   `⚙️`    | Enforces correct usage of `useState`, including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function |          |
+
+## JSX Rules
+
+<Callout type="info">
+  JSX rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
+</Callout>
+
+| Rule                                                                               |    ✅    |    🌟     | Description                                                                                                                                                                 | `react`  |
+|:-----------------------------------------------------------------------------------|:-------:|:---------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------:|
+| [`dollar`](jsx-dollar)                                                             | 0️⃣ 0️⃣ |   `🔧`    | Prevents unintentional `$` sign before expression                                                                                                                           |          |
+| [`key-before-spread`](jsx-key-before-spread)                                       | 1️⃣ 1️⃣ |   `🧪`    | Enforces `key` prop placement before spread props                                                                                                                           |          |
+| [`no-children-prop`](jsx-no-children-prop)                                         | 0️⃣ 2️⃣ |   `🔧`    | Disallows passing `children` as a prop                                                                                                                                      |          |
+| [`no-children-prop-with-children`](jsx-no-children-prop-with-children)             | 2️⃣ 2️⃣ |   `🔧`    | Disallows passing `children` as a prop when children are also passed as nested content                                                                                      |          |
+| [`no-comment-textnodes`](jsx-no-comment-textnodes)                                 | 1️⃣ 1️⃣ |           | Prevents comment strings (ex: beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes                                               |          |
+| [`no-namespace`](jsx-no-namespace)                                                 | 2️⃣ 2️⃣ |           | Enforces the absence of a `namespace` in React elements                                                                                                                     |          |
+| [`no-useless-fragment`](jsx-no-useless-fragment)                                   | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                                                                         |          |
+| [`shorthand-boolean`](jsx-shorthand-boolean)                                       | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for boolean props                                                                                                                                 |          |
+| [`shorthand-fragment`](jsx-shorthand-fragment)                                     | 0️⃣ 0️⃣ | `🔧` `⚙️` | Enforces shorthand syntax for fragment elements                                                                                                                             |          |
 
 ## RSC Rules
 
@@ -117,7 +124,6 @@ full: true
 | [`no-hydrate`](dom-no-hydrate)                                                                 | 2️⃣ 2️⃣ |   `🔄`    | Replaces usage of `ReactDOM.hydrate()` with `hydrateRoot()`                                   |  >=18.0.0   |
 | [`no-missing-button-type`](dom-no-missing-button-type)                                         | 0️⃣ 1️⃣ |   `🔧`    | Enforces an explicit `type` attribute for `button` elements                                   |             |
 | [`no-missing-iframe-sandbox`](dom-no-missing-iframe-sandbox)                                   | 0️⃣ 1️⃣ |   `🔧`    | Enforces an explicit `sandbox` attribute for `iframe` elements                                |             |
-| [`no-namespace`](dom-no-namespace)                                                             | 2️⃣ 2️⃣ |           | Enforces the absence of a `namespace` in React elements                                       |             |
 | [`no-render`](dom-no-render)                                                                   | 2️⃣ 2️⃣ |   `🔄`    | Replaces usage of `ReactDOM.render()` with `createRoot(node).render()`                        |  >=18.0.0   |
 | [`no-render-return-value`](dom-no-render-return-value)                                         | 2️⃣ 2️⃣ |           | Disallows the return value of `ReactDOM.render`                                               |             |
 | [`no-script-url`](dom-no-script-url)                                                           | 1️⃣ 1️⃣ |           | Disallows `javascript:` URLs as attribute values                                              |             |

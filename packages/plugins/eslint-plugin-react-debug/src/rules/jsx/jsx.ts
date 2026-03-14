@@ -1,8 +1,10 @@
+import * as ast from "@eslint-react/ast";
 import { JsxEmit, JsxInspector } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { flow } from "@local/eff";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
+
 import { createRule, stringify } from "../../utils";
 
 export const RULE_NAME = "jsx";
@@ -34,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const jsxConfig = jsx.jsxConfig;
 
   function getReportDescriptor(context: RuleContext) {
-    return (node: TSESTree.JSXElement | TSESTree.JSXFragment) => ({
+    return (node: ast.TSESTreeJSXElementLike) => ({
       data: {
         json: stringify({
           kind: match(node)

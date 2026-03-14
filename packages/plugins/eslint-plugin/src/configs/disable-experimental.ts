@@ -4,7 +4,6 @@ export const name = "@eslint-react/disable-experimental";
 
 export const rules: Record<string, RuleConfig> = {
   "@eslint-react/immutability": "off",
-  "@eslint-react/jsx-key-before-spread": "off",
   "@eslint-react/no-duplicate-key": "off",
   "@eslint-react/no-implicit-children": "off",
   "@eslint-react/no-implicit-key": "off",
@@ -18,5 +17,7 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/unstable-rules-of-props": "off",
   "@eslint-react/unstable-rules-of-state": "off",
 
-  "@eslint-react/rsc/function-definition": "off",
+  "@eslint-react/jsx-key-before-spread": "off",
+
+  "@eslint-react/rsc-function-definition": "off",
 };

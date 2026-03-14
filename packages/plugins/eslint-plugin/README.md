@@ -46,6 +46,7 @@
 ### Modular ESLint Plugins
 
 - [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x) - X rules (renderer-agnostic, compatible with x-platform).
+- [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx) - React Flavored JSX rules.
 - [`eslint-plugin-react-rsc`](https://npmx.dev/package/eslint-plugin-react-rsc) - Rules for React Server Components.
 - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
@@ -124,6 +125,8 @@ export default defineConfig(
 
 - `x`\
   Enable rules for React.
+- `jsx`\
+  Enable rules for JSX syntax.
 - `rsc`\
   Enable rules for React Server Components.
 - `dom`\
@@ -156,6 +159,8 @@ export default defineConfig(
 
 ### Other
 
+- `disable-jsx`\
+  Disable rules in the `jsx` preset.
 - `disable-rsc`\
   Disable rules in the `rsc` preset.
 - `disable-dom`\

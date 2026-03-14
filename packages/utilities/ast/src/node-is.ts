@@ -89,6 +89,11 @@ export const isJSXElement = is(AST.JSXElement);
 export const isJSXFragment = is(AST.JSXFragment);
 
 /**
+ * Check if a node is a JSX element or JSX fragment
+ */
+export const isJSXElementLike = or(isJSXElement, isJSXFragment);
+
+/**
  * Check if a node is a JSX tag name expression (identifier, member expression, or namespaced name)
  * @param node The node to check
  * @returns True if the node is a JSX tag name expression

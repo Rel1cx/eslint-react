@@ -4,13 +4,13 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-import { P, match } from "ts-pattern";
+// import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
 
 const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
-const RE_RULE_PREFIX = /^(x|naming-convention|web-api|rsc|dom|debug)-(.+)$/u;
+const RE_RULE_PREFIX = /^(x|jsx|rsc|dom|web-api|naming-convention|debug)-(.+)$/u;
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
 
 interface RuleMeta {
@@ -87,6 +87,7 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
 
 const orderedCategories = [
   { key: "x", heading: "---X Rules---" },
+  { key: "jsx", heading: "---JSX Rules---" },
   { key: "rsc", heading: "---RSC Rules---" },
   { key: "dom", heading: "---DOM Rules---" },
   { key: "web-api", heading: "---Web API Rules---" },
@@ -154,13 +155,8 @@ const generateRuleMetaJson = Effect.fnUntraced(
       const rules = grouped[cat.key];
       if (!rules || rules.length === 0) return acc;
 
-      // Sort rules with jsx-* rules first
-      const sortedRules = rules.toSorted((a, b) => {
-        return match([a, b])
-          .with([P.string.startsWith("jsx-"), P._], () => -1)
-          .with([P._, P.string.startsWith("jsx-")], () => 1)
-          .otherwise(() => a.localeCompare(b, "en"));
-      });
+      // Sort rules alphabetically
+      const sortedRules = rules.toSorted((a, b) => a.localeCompare(b, "en"));
 
       return [
         ...acc,

@@ -203,12 +203,12 @@ export class JsxInspector {
   /**
    * Get the **self name** (last segment) of a JSX element type.
    *
-   * - `<Foo.Bar.Baz>` → `"Baz"`
-   * - `<div>` → `"div"`
-   * - `<></>` → `""`
+   * - `<Foo.Bar.Baz>` -> `"Baz"`
+   * - `<div>` -> `"div"`
+   * - `<></>` -> `""`
    * @param node The JSX element or fragment to extract the self name from.
    */
-  getElementSelfName(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
+  getElementSelfName(node: ast.TSESTreeJSXElementLike): string {
     return this.getElementType(node).split(".").at(-1) ?? "";
   }
 
@@ -217,13 +217,13 @@ export class JsxInspector {
   /**
    * Get the string representation of a JSX element's type.
    *
-   * - `<div>` → `"div"`
-   * - `<Foo.Bar>` → `"Foo.Bar"`
-   * - `<React.Fragment>` → `"React.Fragment"`
-   * - `<></>` (JSXFragment) → `""`
+   * - `<div>` -> `"div"`
+   * - `<Foo.Bar>` -> `"Foo.Bar"`
+   * - `<React.Fragment>` -> `"React.Fragment"`
+   * - `<></>` (JSXFragment) -> `""`
    * @param node The JSX element or fragment to extract the type from.
    */
-  getElementType(node: TSESTree.JSXElement | TSESTree.JSXFragment): string {
+  getElementType(node: ast.TSESTreeJSXElementLike): string {
     if (node.type === AST.JSXFragment) {
       return "";
     }
@@ -247,7 +247,7 @@ export class JsxInspector {
    * The check honours the configured `jsxFragmentFactory`.
    * @param node The node to check.
    */
-  isFragmentElement(node: TSESTree.Node): node is TSESTree.JSXElement | TSESTree.JSXFragment {
+  isFragmentElement(node: TSESTree.Node): node is ast.TSESTreeJSXElementLike {
     if (node.type === AST.JSXFragment) return true;
     if (node.type !== AST.JSXElement) return false;
     const fragment = this.jsxConfig.jsxFragmentFactory.split(".").at(-1) ?? "Fragment";

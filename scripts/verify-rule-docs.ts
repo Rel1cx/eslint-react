@@ -16,6 +16,7 @@ const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
+  { key: "jsx", heading: "JSX Rules" },
   { key: "rsc", heading: "RSC Rules" },
   { key: "dom", heading: "DOM Rules" },
   { key: "web-api", heading: "Web API Rules" },
@@ -52,27 +53,6 @@ const getFeatureIcon = (x: unknown) =>
     .with("EXP", () => "🧪")
     .otherwise(() => "");
 
-// Helper function to get plugin name from rule name based on prefix
-const getPluginNameFromRuleName = (ruleName: string) => {
-  return match(ruleName)
-    .with(P.string.startsWith("dom-"), () => "dom")
-    .with(P.string.startsWith("web-api-"), () => "web-api")
-    .with(P.string.startsWith("naming-convention-"), () => "naming-convention")
-    .with(P.string.startsWith("debug-"), () => "debug")
-    .otherwise(() => "x");
-};
-
-// Helper function to get short rule name (without plugin prefix)
-const getShortRuleName = (fullName: string) => {
-  const plugin = getPluginNameFromRuleName(fullName);
-  if (plugin === "x") return fullName;
-  const prefix = `${plugin}-`;
-  if (fullName.startsWith(prefix)) {
-    return fullName.slice(prefix.length);
-  }
-  return fullName;
-};
-
 // Extract metadata from a rule module (name, description, features, severities)
 const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
@@ -89,13 +69,13 @@ const retrieveRuleMeta = Effect.fnUntraced(
       config0.rules,
       domain === "x"
         ? `@eslint-react/${RULE_NAME}`
-        : `@eslint-react/${domain}/${RULE_NAME}`,
+        : `@eslint-react/${domain}-${RULE_NAME}`,
     );
     const sEntry = Reflect.get(
       config1.rules,
       domain === "x"
         ? `@eslint-react/${RULE_NAME}`
-        : `@eslint-react/${domain}/${RULE_NAME}`,
+        : `@eslint-react/${domain}-${RULE_NAME}`,
     );
 
     return {

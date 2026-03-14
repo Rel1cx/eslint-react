@@ -34,6 +34,7 @@ flowchart TB
             %% ESLint Plugins Subgraph
             subgraph "ESLint Plugins"
                 X["eslint-plugin-react-x"]:::plugins
+                JSX["eslint-plugin-react-jsx"]:::plugins
                 RSC["eslint-plugin-react-rsc"]:::plugins
                 DOM["eslint-plugin-react-dom"]:::plugins
                 WebAPI["eslint-plugin-react-web-api"]:::plugins
@@ -52,6 +53,7 @@ flowchart TB
     %% Relationships
     %% Plugins depend on Core and Shared
     Core -->|"dependency"| X
+    Core -->|"dependency"| JSX
     Core -->|"dependency"| RSC
     Core -->|"dependency"| DOM
     Core -->|"dependency"| WebAPI
@@ -59,6 +61,7 @@ flowchart TB
     Core -->|"dependency"| NamingConvention
 
     Shared -->|"dependency"| X
+    Shared -->|"dependency"| JSX
     Shared -->|"dependency"| RSC
     Shared -->|"dependency"| DOM
     Shared -->|"dependency"| WebAPI
@@ -70,10 +73,21 @@ flowchart TB
     Var ---|"provides"| Core
 
     AST ---|"provides"| X
+    AST ---|"provides"| JSX
+    AST ---|"provides"| RSC
+    AST ---|"provides"| DOM
+    AST ---|"provides"| WebAPI
+    AST ---|"provides"| NamingConvention
     Var ---|"provides"| X
+    Var ---|"provides"| JSX
+    Var ---|"provides"| RSC
+    Var ---|"provides"| DOM
+    Var ---|"provides"| WebAPI
+    Var ---|"provides"| NamingConvention
 
     %% Aggregation of Plugins
     X -->|"aggregated"| Aggregated
+    JSX -->|"aggregated"| Aggregated
     RSC -->|"aggregated"| Aggregated
     DOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
@@ -90,6 +104,7 @@ flowchart TB
     Scripts -->|"CI/CD"| AST
     Scripts -->|"CI/CD"| Var
     Scripts -->|"CI/CD"| X
+    Scripts -->|"CI/CD"| JSX
     Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| DOM
     Scripts -->|"CI/CD"| WebAPI
@@ -106,6 +121,7 @@ flowchart TB
     click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/ast"
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
     click X "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
+    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx"
     click DOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
     click WebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api"
     click NamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention"
@@ -142,6 +158,7 @@ This section provides a summary of the packages in the monorepo.
 
 - **ESLint Plugins**
   - `packages/plugins/eslint-plugin-react-x`: Core React rules
+  - `packages/plugins/eslint-plugin-react-jsx`: React Flavored JSX rules
   - `packages/plugins/eslint-plugin-react-rsc`: React Server Components rules
   - `packages/plugins/eslint-plugin-react-dom`: React DOM rules
   - `packages/plugins/eslint-plugin-react-web-api`: Web API interaction rules

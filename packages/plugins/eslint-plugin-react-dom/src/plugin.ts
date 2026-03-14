@@ -9,7 +9,6 @@ import noFlushSync from "./rules/no-flush-sync/no-flush-sync";
 import noHydrate from "./rules/no-hydrate/no-hydrate";
 import noMissingButtonType from "./rules/no-missing-button-type/no-missing-button-type";
 import noMissingIframeSandbox from "./rules/no-missing-iframe-sandbox/no-missing-iframe-sandbox";
-import noNamespace from "./rules/no-namespace/no-namespace";
 import noRenderReturnValue from "./rules/no-render-return-value/no-render-return-value";
 import noRender from "./rules/no-render/no-render";
 import noScriptUrl from "./rules/no-script-url/no-script-url";
@@ -34,7 +33,6 @@ export const plugin = {
     "no-hydrate": noHydrate,
     "no-missing-button-type": noMissingButtonType,
     "no-missing-iframe-sandbox": noMissingIframeSandbox,
-    "no-namespace": noNamespace,
     "no-render": noRender,
     "no-render-return-value": noRenderReturnValue,
     "no-script-url": noScriptUrl,

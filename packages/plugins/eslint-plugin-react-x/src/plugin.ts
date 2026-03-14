@@ -6,18 +6,12 @@ import componentHookFactories from "./rules/component-hook-factories/component-h
 import errorBoundaries from "./rules/error-boundaries/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps/exhaustive-deps";
 import immutability from "./rules/immutability/immutability";
-import jsxDollar from "./rules/jsx-dollar/jsx-dollar";
-import jsxKeyBeforeSpread from "./rules/jsx-key-before-spread/jsx-key-before-spread";
-import jsxNoCommentTextnodes from "./rules/jsx-no-comment-textnodes/jsx-no-comment-textnodes";
-import jsxShorthandBoolean from "./rules/jsx-shorthand-boolean/jsx-shorthand-boolean";
-import jsxShorthandFragment from "./rules/jsx-shorthand-fragment/jsx-shorthand-fragment";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key/no-array-index-key";
 import noChildrenCount from "./rules/no-children-count/no-children-count";
 import noChildrenForEach from "./rules/no-children-for-each/no-children-for-each";
 import noChildrenMap from "./rules/no-children-map/no-children-map";
 import noChildrenOnly from "./rules/no-children-only/no-children-only";
-import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noChildrenToArray from "./rules/no-children-to-array/no-children-to-array";
 import noClassComponent from "./rules/no-class-component/no-class-component";
 import noCloneElement from "./rules/no-clone-element/no-clone-element";
@@ -55,7 +49,6 @@ import noUnusedClassComponentMembers from "./rules/no-unused-class-component-mem
 import noUnusedProps from "./rules/no-unused-props/no-unused-props";
 import noUnusedState from "./rules/no-unused-state/no-unused-state";
 import noUseContext from "./rules/no-use-context/no-use-context";
-import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment/prefer-destructuring-assignment";
 import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
 import purity from "./rules/purity/purity";
@@ -81,18 +74,12 @@ export const plugin = {
     "error-boundaries": errorBoundaries,
     "exhaustive-deps": exhaustiveDeps,
     immutability: immutability,
-    "jsx-dollar": jsxDollar,
-    "jsx-key-before-spread": jsxKeyBeforeSpread,
-    "jsx-no-comment-textnodes": jsxNoCommentTextnodes,
-    "jsx-shorthand-boolean": jsxShorthandBoolean,
-    "jsx-shorthand-fragment": jsxShorthandFragment,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
     "no-children-count": noChildrenCount,
     "no-children-for-each": noChildrenForEach,
     "no-children-map": noChildrenMap,
     "no-children-only": noChildrenOnly,
-    "no-children-prop": noChildrenProp,
     "no-children-to-array": noChildrenToArray,
     "no-class-component": noClassComponent,
     "no-clone-element": noCloneElement,
@@ -130,7 +117,6 @@ export const plugin = {
     "no-unused-props": noUnusedProps,
     "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
-    "no-useless-fragment": noUselessFragment,
     "prefer-destructuring-assignment": preferDestructuringAssignment,
     "prefer-namespace-import": preferNamespaceImport,
     purity: purity,

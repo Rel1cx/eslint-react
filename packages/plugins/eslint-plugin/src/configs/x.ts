@@ -1,6 +1,6 @@
 import type { RuleConfig } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
-import react from "eslint-plugin-react-x";
+import reactX from "eslint-plugin-react-x";
 
 export const name = "@eslint-react/x";
 
@@ -8,8 +8,6 @@ export const rules = {
   "@eslint-react/component-hook-factories": "error",
   "@eslint-react/error-boundaries": "error",
   "@eslint-react/exhaustive-deps": "warn",
-  "@eslint-react/jsx-key-before-spread": "warn",
-  "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",
   "@eslint-react/no-array-index-key": "warn",
   "@eslint-react/no-children-count": "warn",
@@ -48,7 +46,7 @@ export const rules = {
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {
-  "@eslint-react": react,
+  "@eslint-react/x": reactX,
 };
 
 export const settings = {
