@@ -77,7 +77,13 @@ function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | nu
   if (node == null) return null;
   switch (node.type) {
     case AST.Identifier: {
-      return getSignalValueExpression(context, resolve(context, node));
+      const resolved = resolve(context, node);
+      // If the identifier is a function parameter (resolve returns the containing function),
+      // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
+      if (resolved != null && ast.isFunction(resolved)) {
+        return node;
+      }
+      return getSignalValueExpression(context, resolved);
     }
     case AST.MemberExpression:
       return node;
