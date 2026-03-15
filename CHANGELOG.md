@@ -88,7 +88,23 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 
 If you still need these rules, you can enforce them using the new `eslint-plugin-react-custom` by creating custom rules that implement the desired checks.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.4...v4.0.0-beta.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.0.0-beta.0
+
+## v3.0.0 (2026-03-16)
+
+### 🧹 Chores
+
+- Version Packages.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.5...v3.0.0
+
+## v3.0.0-rc.5 (2026-03-16)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-event-listener`: Recognize function parameter as valid signal. Closes #1622. (#1623)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.4...v3.0.0-rc.5
 
 ## v3.0.0-rc.4 (2026-03-14)
 
