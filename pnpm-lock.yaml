@@ -608,6 +608,61 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
 
+  examples/react-dom-with-custom-rules:
+    dependencies:
+      react:
+        specifier: ^19.2.4
+        version: 19.2.4
+      react-dom:
+        specifier: ^19.2.4
+        version: 19.2.4(react@19.2.4)
+    devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@10.0.3(jiti@2.6.1))
+      '@tsconfig/node24':
+        specifier: ^24.0.4
+        version: 24.0.4
+      '@tsconfig/strictest':
+        specifier: ^2.0.8
+        version: 2.0.8
+      '@tsconfig/vite-react':
+        specifier: ^7.0.2
+        version: 7.0.2
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      '@vitejs/plugin-react':
+        specifier: ^6.0.1
+        version: 6.0.1(vite@8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+      eslint:
+        specifier: ^10.0.3
+        version: 10.0.3(jiti@2.6.1)
+      eslint-plugin-react-custom:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-custom
+      eslint-plugin-react-hooks:
+        specifier: ^7.0.1
+        version: 7.0.1(eslint@10.0.3(jiti@2.6.1))
+      eslint-plugin-react-refresh:
+        specifier: ^0.5.2
+        version: 0.5.2(eslint@10.0.3(jiti@2.6.1))
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      typescript-eslint:
+        specifier: canary
+        version: 8.57.1-alpha.2(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      vite:
+        specifier: ^8.0.0
+        version: 8.0.0(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
+
   packages/core:
     dependencies:
       '@eslint-react/ast':
@@ -699,6 +754,37 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../../.pkgs/eff
+      tsdown:
+        specifier: ^0.21.2
+        version: 0.21.2(publint@0.3.18)(typescript@5.9.3)
+
+  packages/plugins/eslint-plugin-react-custom:
+    dependencies:
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@typescript-eslint/types':
+        specifier: ^8.57.0
+        version: 8.57.0
+      '@typescript-eslint/utils':
+        specifier: ^8.57.0
+        version: 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
+      eslint:
+        specifier: ^10.0.3
+        version: 10.0.3(jiti@2.6.1)
       tsdown:
         specifier: ^0.21.2
         version: 0.21.2(publint@0.3.18)(typescript@5.9.3)

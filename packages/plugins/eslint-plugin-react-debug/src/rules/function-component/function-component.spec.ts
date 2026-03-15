@@ -1999,7 +1999,7 @@ ruleTester.run(RULE_NAME, rule, {
     "items.flatMap((() => <div />) as any)",
     "items.flatMap((() => <div />) satisfies any)",
     // Anonymous function in array expression wrapped in type expressions — excluded by
-    // DoNotIncludeFunctionDefinedInArrayExpression
+    // DoNotIncludeFunctionDefinedAsArrayExpressionElement
     "[(() => <div />) as any]",
     "[(() => <div />) satisfies any]",
     "[(() => <div />)! as any satisfies any]",

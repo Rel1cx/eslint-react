@@ -15,14 +15,17 @@ export type ComponentDetectionHint = bigint;
  */
 export const ComponentDetectionHint = {
   ...JsxDetectionHint,
+
+  DoNotIncludeFunctionDefinedAsClassMethod: 1n << 11n,
+  DoNotIncludeFunctionDefinedAsClassProperty: 1n << 12n,
+  DoNotIncludeFunctionDefinedAsObjectMethod: 1n << 13n,
+
+  DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
+  DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
+
+  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 16n,
+  DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 17n,
   DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
-  DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 17n,
-  DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 16n,
-  DoNotIncludeFunctionDefinedInArrayExpression: 1n << 15n,
-  DoNotIncludeFunctionDefinedInArrayPattern: 1n << 14n,
-  DoNotIncludeFunctionDefinedOnClassMethod: 1n << 12n,
-  DoNotIncludeFunctionDefinedOnClassProperty: 1n << 13n,
-  DoNotIncludeFunctionDefinedOnObjectMethod: 1n << 11n,
 } as const;
 
 /**
@@ -35,10 +38,10 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | ComponentDetectionHint.DoNotIncludeJsxWithStringValue
   | ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
   | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
-  | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
-  | ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
+  | ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
   | ComponentDetectionHint.RequireAllArrayElementsToBeJsx
   | ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
   | ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
@@ -76,21 +79,21 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
       && parent.parent.type === AST.ObjectExpression:
-      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod) return false;
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod) return false;
       break;
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.MethodDefinition:
-      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassMethod) return false;
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassMethod) return false;
       break;
     case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property:
-      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedOnClassProperty) return false;
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
     case parent.type === AST.ArrayPattern:
-      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern) return false;
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement) return false;
       break;
     case parent.type === AST.ArrayExpression:
-      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression) return false;
+      if (hint & ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement) return false;
       break;
     case parent.type === AST.CallExpression
       && parent.callee.type === AST.MemberExpression

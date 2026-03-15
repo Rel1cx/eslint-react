@@ -40,8 +40,8 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
     | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
     | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component and hook definitions in the code

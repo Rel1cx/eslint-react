@@ -34,6 +34,7 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 ### ✨ New
 
+- `eslint-plugin-react-custom`: New plugin to create custom rules with a toolkit that helps identify React patterns.
 - `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
 - `react-jsx/runtime`: New rule that consolidates `key-before-spread` and `no-namespace` into a single JSX runtime rule. It disallows namespace tags and prevents deoptimization caused by placing `key` after spread props in automatic runtime.
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
@@ -63,7 +64,7 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 
 #### Rule prefix changes in `@eslint-react/eslint-plugin`
 
-If you use the unified `@eslint-react/eslint-plugin` package, update the following rule prefixes (slash `\/` → dash `-`):
+If you use the unified `@eslint-react/eslint-plugin` package, update the following rule prefixes (slash `\/` -> dash `-`):
 
 - [ ] Replace `@eslint-react/rsc/<rule>` with `@eslint-react/rsc-<rule>` in your ESLint config.
 - [ ] Replace `@eslint-react/dom/<rule>` with `@eslint-react/dom-<rule>` in your ESLint config.
