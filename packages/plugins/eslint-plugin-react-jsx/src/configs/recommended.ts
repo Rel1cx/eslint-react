@@ -6,10 +6,9 @@ import { plugin } from "../plugin";
 export const name = "react-jsx/recommended";
 
 export const rules = {
-  "react-jsx/key-before-spread": "warn",
   "react-jsx/no-children-prop": "warn",
   "react-jsx/no-comment-textnodes": "warn",
-  "react-jsx/no-namespace": "error",
+  "react-jsx/runtime": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

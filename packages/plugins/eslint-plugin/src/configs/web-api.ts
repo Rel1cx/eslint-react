@@ -12,10 +12,6 @@ export const rules = {
   "@eslint-react/web-api-no-leaked-timeout": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  "@eslint-react/web-api": reactWebApi,
-};
-
 export const settings = {
   ...x.settings,
 };

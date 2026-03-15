@@ -1,0 +1,129 @@
+---
+title: runtime
+description: Enforces JSX runtime related rules including namespace restrictions and deoptimization prevention.
+---
+
+**Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
+
+```plain copy
+react-jsx/runtime
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/jsx-runtime
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+This rule covers two JSX runtime concerns:
+
+1. **no-namespace** — React does not support XML namespaced tags (e.g. `<ns:Component />`). Applies to both classic and automatic runtimes.
+2. **no-deoptimization** — In the automatic runtime (`react-jsx` / `react-jsxdev`), placing `key` after a spread prop forces the compiler to fall back from `_jsx` / `_jsxs` to the slower `createElement` path.
+
+## Common Violations
+
+### Using Namespace Tags
+
+XML namespaced tag names (e.g. `<ns:Component />`) are not supported by React's JSX. Although the JSX specification permits namespaces, React does not implement them. Using a namespaced element will cause a runtime error.
+
+#### Invalid
+
+```tsx
+// ❌ Namespace tag — not supported by React.
+<ns:testcomponent />;
+```
+
+```tsx
+// ❌ PascalCase namespace is also not allowed.
+<Ns:TestComponent />;
+```
+
+```tsx
+// ❌ SVG-style namespace is also not allowed.
+<svg:circle cx="50" cy="50" r="40" />;
+```
+
+#### Valid
+
+```tsx
+// ✅ Plain element — no namespace.
+<testcomponent />;
+```
+
+```tsx
+// ✅ Member expression — not a namespace.
+<object.TestComponent />;
+```
+
+```tsx
+// ✅ PascalCase component.
+<TestComponent />;
+```
+
+### Placing `key` After Spread Props (Deoptimization)
+
+When using the automatic JSX runtime (`react-jsx` / `react-jsxdev`), the `key` prop is treated specially by the compiler. If `key` appears before any spread props, it is passed directly as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. If `key` appears after a spread prop, the compiler falls back to the slower `createElement` call and passes `key` as a regular prop, causing a deoptimization. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
+
+#### Invalid
+
+```tsx
+// ❌ 'key' is after spread — causes deoptimization.
+<div {...props} key="1" />;
+```
+
+```tsx
+// ❌ Multiple elements with the same issue.
+const App = (props) => {
+  return [
+    <div {...props} key="1">1</div>,
+    <div {...props} key="2">2</div>,
+  ];
+};
+```
+
+```tsx
+// ❌ Even with other props in between.
+<div id="test" {...props} key="1" className="foo" />;
+```
+
+#### Valid
+
+```tsx
+// ✅ 'key' is before spread — compiler uses the optimized path.
+<div key="1" {...props} />;
+```
+
+```tsx
+// ✅ No spread props — no deoptimization concern.
+<div key="3" className="" />;
+<div className="" key="3" />;
+```
+
+```tsx
+// ✅ Classic runtime annotation — deoptimization check does not apply.
+/** @jsxRuntime classic */
+<div {...props} key="1" />;
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx/src/rules/runtime/runtime.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx/src/rules/runtime/runtime.spec.ts)
+
+## Further Reading
+
+- [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
+- [Babel Preset React: throwIfNamespace](https://babeljs.io/docs/babel-preset-react#throwifnamespace)
+- [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+- [TSConfig: jsx](https://www.typescriptlang.org/tsconfig/#jsx)

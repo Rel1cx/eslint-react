@@ -16,7 +16,3 @@ export const rules = {
   "@eslint-react/dom-no-use-form-state": "error",
   "@eslint-react/dom-no-void-elements-with-children": "error",
 } as const satisfies Record<string, RuleConfig>;
-
-export const plugins = {
-  "@eslint-react/dom": reactDom,
-};

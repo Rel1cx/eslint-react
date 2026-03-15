@@ -10,19 +10,19 @@ title: Changelog
 
 A new dedicated plugin for React Flavored JSX rules has been introduced. Several rules have been migrated from `eslint-plugin-react-x` and `eslint-plugin-react-dom` to this new package:
 
-| Old Rule (`react-x/`)      | New Rule (`react-jsx/`) | Change             |
-| :------------------------- | :---------------------- | :----------------- |
-| `jsx-dollar`               | `dollar`                | relocated, renamed |
-| `jsx-key-before-spread`    | `key-before-spread`     | relocated, renamed |
-| `jsx-no-comment-textnodes` | `no-comment-textnodes`  | relocated, renamed |
-| `jsx-shorthand-boolean`    | `shorthand-boolean`     | relocated, renamed |
-| `jsx-shorthand-fragment`   | `shorthand-fragment`    | relocated, renamed |
-| `no-children-prop`         | `no-children-prop`      | relocated          |
-| `no-useless-fragment`      | `no-useless-fragment`   | relocated          |
+| Old Rule (`react-x/`)      | New Rule (`react-jsx/`)  | Change             |
+| :------------------------- | :----------------------- | :----------------- |
+| `jsx-dollar`               | `dollar`                 | relocated, renamed |
+| `jsx-key-before-spread`    | `runtime` (consolidated) | relocated, renamed |
+| `jsx-no-comment-textnodes` | `no-comment-textnodes`   | relocated, renamed |
+| `jsx-shorthand-boolean`    | `shorthand-boolean`      | relocated, renamed |
+| `jsx-shorthand-fragment`   | `shorthand-fragment`     | relocated, renamed |
+| `no-children-prop`         | `no-children-prop`       | relocated          |
+| `no-useless-fragment`      | `no-useless-fragment`    | relocated          |
 
-| Old Rule (`react-dom/`) | New Rule (`react-jsx/`) | Change    |
-| :---------------------- | :---------------------- | :-------- |
-| `no-namespace`          | `no-namespace`          | relocated |
+| Old Rule (`react-dom/`) | New Rule (`react-jsx/`)  | Change    |
+| :---------------------- | :----------------------- | :-------- |
+| `no-namespace`          | `runtime` (consolidated) | relocated |
 
 **Rule prefix changes in `@eslint-react/eslint-plugin`**
 
@@ -39,6 +39,7 @@ Rules from individual plugins now use a flattened naming convention when accesse
 ### ✨ New
 
 - `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
+- `react-jsx/runtime`: New rule that consolidates `key-before-spread` and `no-namespace` into a single JSX runtime rule. It disallows namespace tags and prevents deoptimization caused by placing `key` after spread props in automatic runtime.
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
 
 ### 🪄 Improvements
@@ -56,13 +57,13 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 #### ESLint configuration
 
 - [ ] Replace `react-x/jsx-dollar` with `react-jsx/dollar` in your ESLint config.
-- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/key-before-spread` in your ESLint config.
+- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/runtime` in your ESLint config.
 - [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
 - [ ] Replace `react-x/jsx-shorthand-boolean` with `react-jsx/shorthand-boolean` in your ESLint config.
 - [ ] Replace `react-x/jsx-shorthand-fragment` with `react-jsx/shorthand-fragment` in your ESLint config.
 - [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
 - [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment` in your ESLint config.
-- [ ] Replace `react-dom/no-namespace` with `react-jsx/no-namespace` in your ESLint config.
+- [ ] Replace `react-dom/no-namespace` with `react-jsx/runtime` in your ESLint config.
 
 #### Rule prefix changes in `@eslint-react/eslint-plugin`
 

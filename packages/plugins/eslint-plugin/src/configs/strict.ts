@@ -24,10 +24,6 @@ export const rules = {
   "@eslint-react/dom-no-unsafe-target-blank": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  ...recommended.plugins,
-};
-
 export const settings = {
   ...recommended.settings,
 };

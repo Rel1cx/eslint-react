@@ -10,10 +10,6 @@ export const rules = {
   "@eslint-react/no-unused-props": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  ...strictTypeScript.plugins,
-};
-
 export const settings = {
   ...strictTypeScript.settings,
 };

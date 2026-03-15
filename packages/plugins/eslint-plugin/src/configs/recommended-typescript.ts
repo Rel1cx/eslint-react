@@ -10,10 +10,6 @@ export const rules = {
   ...ts.rules,
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  ...recommended.plugins,
-};
-
 export const settings = {
   ...recommended.settings,
 };

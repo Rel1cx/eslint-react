@@ -64,11 +64,11 @@ export const rules = {
   "@eslint-react/use-state": "warn",
 
   "@eslint-react/jsx-dollar": "warn",
-  "@eslint-react/jsx-key-before-spread": "warn",
   "@eslint-react/jsx-no-children-prop": "warn",
   "@eslint-react/jsx-no-children-prop-with-children": "error",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-useless-fragment": "warn",
+  "@eslint-react/jsx-runtime": "error",
   "@eslint-react/jsx-shorthand-boolean": "warn",
   "@eslint-react/jsx-shorthand-fragment": "warn",
 
@@ -101,15 +101,6 @@ export const rules = {
   "@eslint-react/naming-convention-id-name": "warn",
   "@eslint-react/naming-convention-ref-name": "warn",
 } as const satisfies Record<string, RuleConfig>;
-
-export const plugins = {
-  ...x.plugins,
-  ...jsx.plugins,
-  ...rsc.plugins,
-  ...dom.plugins,
-  "@eslint-react/naming-convention": reactNamingConvention,
-  "@eslint-react/web-api": reactWebApi,
-};
 
 export const settings = {
   ...x.settings,

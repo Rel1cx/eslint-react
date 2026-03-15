@@ -45,10 +45,6 @@ export const rules = {
   "@eslint-react/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  "@eslint-react/x": reactX,
-};
-
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,
 };

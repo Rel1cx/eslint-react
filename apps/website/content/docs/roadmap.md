@@ -19,13 +19,13 @@ Minimum supported versions:
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
 - [x] `react-x/jsx-dollar` -> `react-jsx/dollar` (renamed)
-- [x] `react-x/jsx-key-before-spread` -> `react-jsx/key-before-spread` (renamed)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/runtime` (consolidated)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
 - [x] `react-x/jsx-shorthand-boolean` -> `react-jsx/shorthand-boolean` (renamed)
 - [x] `react-x/jsx-shorthand-fragment` -> `react-jsx/shorthand-fragment` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
 - [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
-- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace`
+- [x] `react-dom/no-namespace` -> `react-jsx/runtime` (consolidated)
 
 ### New Rules
 

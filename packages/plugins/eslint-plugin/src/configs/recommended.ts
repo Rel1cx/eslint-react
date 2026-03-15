@@ -21,15 +21,6 @@ export const rules = {
   "@eslint-react/use-state": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  ...x.plugins,
-  ...jsx.plugins,
-  ...rsc.plugins,
-  ...dom.plugins,
-  ...webApi.plugins,
-  "@eslint-react/naming-convention": reactNamingConvention,
-};
-
 export const settings = {
   ...x.settings,
 };
