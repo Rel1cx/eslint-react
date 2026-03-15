@@ -63,7 +63,6 @@ export const rules = {
   "@eslint-react/use-memo": "error",
   "@eslint-react/use-state": "warn",
 
-  "@eslint-react/jsx-dollar": "warn",
   "@eslint-react/jsx-no-children-prop": "warn",
   "@eslint-react/jsx-no-children-prop-with-children": "error",
   "@eslint-react/jsx-no-comment-textnodes": "warn",

@@ -62,7 +62,6 @@
     "use-memo",
     "use-state",
     "---JSX Rules---",
-    "jsx-dollar",
     "jsx-no-children-prop",
     "jsx-no-children-prop-with-children",
     "jsx-no-comment-textnodes",

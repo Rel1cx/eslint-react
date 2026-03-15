@@ -113,6 +113,28 @@ export default defineConfig(
           },
         },
         {
+          name: "jsx-no-dollar-sign-before-expression",
+          make: (context) => ({
+            JSXText(node) {
+              // Check if text ends with $ and has a JSX expression as next sibling
+              if (!node.value.endsWith("$")) return;
+              const { parent } = node;
+              if (parent.type !== "JSXElement" && parent.type !== "JSXFragment") return;
+              const index = parent.children.indexOf(node);
+              const nextSibling = parent.children[index + 1];
+              if (nextSibling?.type !== "JSXExpressionContainer") return;
+              // Skip if there are only two children (the $ and the expression)
+              if (parent.children.length === 2) return;
+              context.report({
+                node,
+                message:
+                  "Unintentional '$' sign before JSX expression. Remove the '$' as it will be rendered as literal text.",
+                fix: (fixer) => fixer.replaceText(node, node.value.slice(0, -1)),
+              });
+            },
+          }),
+        },
+        {
           name: "function-component-definition",
           make: (context, toolkit) => {
             // Customize component detection with ComponentDetectionHint.
@@ -177,6 +199,7 @@ export default defineConfig(
     rules: {
       "react-custom/jsx-boolean-value": "warn",
       "react-custom/jsx-fragment-syntax": "warn",
+      "react-custom/jsx-no-dollar-sign-before-expression": "warn",
       "react-custom/function-component-definition": "error",
     },
   },

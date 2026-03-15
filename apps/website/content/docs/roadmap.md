@@ -18,7 +18,6 @@ Minimum supported versions:
 
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
-- [x] `react-x/jsx-dollar` -> `react-jsx/dollar` (renamed)
 - [x] `react-x/jsx-key-before-spread` -> `react-jsx/runtime` (consolidated)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`

@@ -2,7 +2,6 @@ import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
-import dollar from "./rules/dollar/dollar";
 import noChildrenPropWithChildren from "./rules/no-children-prop-with-children/no-children-prop-with-children";
 import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noCommentTextnodes from "./rules/no-comment-textnodes/no-comment-textnodes";
@@ -15,7 +14,6 @@ export const plugin = {
     version,
   },
   rules: {
-    dollar: dollar,
     "no-children-prop": noChildrenProp,
     "no-children-prop-with-children": noChildrenPropWithChildren,
     "no-comment-textnodes": noCommentTextnodes,

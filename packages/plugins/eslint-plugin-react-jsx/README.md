@@ -28,7 +28,6 @@ export default defineConfig(
     ],
     rules: {
       // Put rules you want to override here
-      "react-jsx/dollar": "warn",
     },
   },
 );

@@ -12,7 +12,6 @@ A new dedicated plugin for React Flavored JSX rules has been introduced. Several
 
 | Old Rule (`react-x/`)      | New Rule (`react-jsx/`)  | Change             |
 | :------------------------- | :----------------------- | :----------------- |
-| `jsx-dollar`               | `dollar`                 | relocated, renamed |
 | `jsx-key-before-spread`    | `runtime` (consolidated) | relocated, renamed |
 | `jsx-no-comment-textnodes` | `no-comment-textnodes`   | relocated, renamed |
 | `no-children-prop`         | `no-children-prop`       | relocated          |
@@ -40,6 +39,7 @@ The following rules have been removed from `eslint-plugin-react-jsx`:
 
 | Rule                             | Replaced by                                                                                                                          |
 | :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
 | `react-x/jsx-shorthand-boolean`  | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
 | `react-x/jsx-shorthand-fragment` | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
 
@@ -64,7 +64,6 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 
 #### ESLint configuration
 
-- [ ] Replace `react-x/jsx-dollar` with `react-jsx/dollar` in your ESLint config.
 - [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/runtime` in your ESLint config.
 - [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
 - [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
@@ -87,7 +86,11 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 
 #### Removed rules
 
-- [ ] `react-jsx/shorthand-boolean` and `react-jsx/shorthand-fragment` have been removed. If you still need these rules, you can enforce them using the new `eslint-plugin-react-custom` by creating custom rules that implement the desired checks.
+- [ ] `react-x/jsx-dollar`
+- [ ] `react-x/jsx-shorthand-boolean`
+- [ ] `react-x/jsx-shorthand-fragment`
+
+If you still need these rules, you can enforce them using the new `eslint-plugin-react-custom` by creating custom rules that implement the desired checks.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.4...v4.0.0-beta.0
 
