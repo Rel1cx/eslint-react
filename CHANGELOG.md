@@ -1,3 +1,11 @@
+## v3.0.0 (2026-03-16)
+
+### 🧹 Chores
+
+- Version Packages.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.5...v3.0.0
+
 ## v3.0.0-rc.5 (2026-03-16)
 
 ### 🐞 Fixes
