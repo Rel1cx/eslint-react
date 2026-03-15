@@ -1224,5 +1224,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
       });
     `,
+    tsx`
+      import { useEffect } from 'foxact/use-abortable-effect';
+
+      function Comp() {
+        useEffect(signal => {
+          window.addEventListener('resize', () => console.log('whoa!'), { signal });
+        }, []);
+      }
+    `,
   ],
 });
