@@ -66,6 +66,53 @@ export default defineConfig(
     plugins: {
       "react-custom": definePlugin([
         {
+          name: "jsx-boolean-value",
+          make: (context) => ({
+            JSXAttribute(node) {
+              const { value } = node;
+              // Skip if the attribute has no value (ex: `<input disabled />`)
+              if (value == null) return;
+              // Skip if the value is not a JSX expression container (ex: `<input disabled="true" />`)
+              if (value.type !== "JSXExpressionContainer") return;
+              // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
+              if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+              // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
+              context.report({
+                node,
+                message: `Omit the \`={true}\` for boolean attribute '${context.sourceCode.getText(node.name)}'.`,
+                fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+              });
+            },
+          }),
+        },
+        {
+          name: "jsx-fragment-syntax",
+          make: (context, toolkit) => {
+            const { jsxFragmentFactory } = {
+              ...toolkit.getJsxConfigFromContext(context),
+              ...toolkit.getJsxConfigFromAnnotation(context),
+            };
+            return {
+              JSXFragment(node) {
+                context.report({
+                  node,
+                  message:
+                    `Use fragment component instead of fragment syntax (ex: <${jsxFragmentFactory}>...</${jsxFragmentFactory}> instead of <>...</>).`,
+                  fix(fixer) {
+                    const src = context.sourceCode;
+                    const opening = `<${jsxFragmentFactory}>`;
+                    const closing = `</${jsxFragmentFactory}>`;
+                    return [
+                      fixer.replaceText(node.openingFragment, opening),
+                      fixer.replaceText(node.closingFragment, closing),
+                    ];
+                  },
+                });
+              },
+            };
+          },
+        },
+        {
           name: "function-component-definition",
           make: (context, toolkit) => {
             // Customize component detection with ComponentDetectionHint.
@@ -128,6 +175,8 @@ export default defineConfig(
       ]),
     },
     rules: {
+      "react-custom/jsx-boolean-value": "warn",
+      "react-custom/jsx-fragment-syntax": "warn",
       "react-custom/function-component-definition": "error",
     },
   },

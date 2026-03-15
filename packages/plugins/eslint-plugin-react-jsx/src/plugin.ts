@@ -8,8 +8,6 @@ import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noCommentTextnodes from "./rules/no-comment-textnodes/no-comment-textnodes";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 import runtime from "./rules/runtime/runtime";
-import shorthandBoolean from "./rules/shorthand-boolean/shorthand-boolean";
-import shorthandFragment from "./rules/shorthand-fragment/shorthand-fragment";
 
 export const plugin = {
   meta: {
@@ -23,7 +21,5 @@ export const plugin = {
     "no-comment-textnodes": noCommentTextnodes,
     "no-useless-fragment": noUselessFragment,
     runtime: runtime,
-    "shorthand-boolean": shorthandBoolean,
-    "shorthand-fragment": shorthandFragment,
   },
 } as unknown as ESLint.Plugin;

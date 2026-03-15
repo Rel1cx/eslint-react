@@ -19,9 +19,9 @@ export default createRule<[], MessageID>({
       description: "Enforces JSX runtime related rules including namespace restrictions and deoptimization prevention.",
     },
     messages: {
-      noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
       noDeoptimization:
         "Placing 'key' after spread props causes deoptimization when using the automatic JSX runtime. Put 'key' before any spread props.",
+      noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
     schema: [],
   },

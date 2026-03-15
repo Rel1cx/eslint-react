@@ -11,8 +11,6 @@ A new dedicated plugin for React Flavored JSX rules has been introduced. Several
 | `jsx-dollar`               | `dollar`                 | relocated, renamed |
 | `jsx-key-before-spread`    | `runtime` (consolidated) | relocated, renamed |
 | `jsx-no-comment-textnodes` | `no-comment-textnodes`   | relocated, renamed |
-| `jsx-shorthand-boolean`    | `shorthand-boolean`      | relocated, renamed |
-| `jsx-shorthand-fragment`   | `shorthand-fragment`     | relocated, renamed |
 | `no-children-prop`         | `no-children-prop`       | relocated          |
 | `no-useless-fragment`      | `no-useless-fragment`    | relocated          |
 
@@ -31,6 +29,15 @@ Rules from individual plugins now use a flattened naming convention when accesse
 - `@eslint-react/web-api/<rule>` -> `@eslint-react/web-api-<rule>`
 - `@eslint-react/naming-convention/<rule>` -> `@eslint-react/naming-convention-<rule>`
 - `@eslint-react/debug/<rule>` -> `@eslint-react/debug-<rule>`
+
+**Removed Rules in `eslint-plugin-react-jsx`**
+
+The following rules have been removed from `eslint-plugin-react-jsx`:
+
+| Rule                             | Replaced by                                                                                                                          |
+| :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-shorthand-boolean`  | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
+| `react-x/jsx-shorthand-fragment` | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
 
 ### ✨ New
 
@@ -56,8 +63,6 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 - [ ] Replace `react-x/jsx-dollar` with `react-jsx/dollar` in your ESLint config.
 - [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/runtime` in your ESLint config.
 - [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
-- [ ] Replace `react-x/jsx-shorthand-boolean` with `react-jsx/shorthand-boolean` in your ESLint config.
-- [ ] Replace `react-x/jsx-shorthand-fragment` with `react-jsx/shorthand-fragment` in your ESLint config.
 - [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
 - [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment` in your ESLint config.
 - [ ] Replace `react-dom/no-namespace` with `react-jsx/runtime` in your ESLint config.
@@ -75,6 +80,10 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 #### Review new rules
 
 - [ ] `react-jsx/no-children-prop-with-children` — new rule that disallows passing `children` as a prop when children are also passed as nested content. Review your codebase for new reports if using presets.
+
+#### Removed rules
+
+- [ ] `react-jsx/shorthand-boolean` and `react-jsx/shorthand-fragment` have been removed. If you still need these rules, you can enforce them using the new `eslint-plugin-react-custom` by creating custom rules that implement the desired checks.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.4...v4.0.0-beta.0
 

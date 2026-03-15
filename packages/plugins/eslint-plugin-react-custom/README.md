@@ -11,10 +11,165 @@ npm install --save-dev eslint-plugin-react-custom
 
 ## Setup
 
+The following example shows how to set up a simple `jsx-boolean-value` rule that enforces shorthand syntax for boolean JSX attributes (ex: `<input disabled />` instead of `<input disabled={true} />`).
+
+```ts
+import js from "@eslint/js";
+import { definePlugin } from "eslint-plugin-react-custom";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+    plugins: {
+      "react-custom": definePlugin([
+        {
+          name: "jsx-boolean-value",
+          make: (context) => ({
+            JSXAttribute(node) {
+              const { value } = node;
+              // Skip if the attribute has no value (ex: `<input disabled />`)
+              if (value == null) return;
+              // Skip if the value is not a JSX expression container (ex: `<input disabled="true" />`)
+              if (value.type !== "JSXExpressionContainer") return;
+              // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
+              if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+              // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
+              context.report({
+                node,
+                message: `Omit the \`={true}\` for boolean attribute '${context.sourceCode.getText(node.name)}'.`,
+                fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+              });
+            },
+          }),
+        },
+      ]),
+    },
+    rules: {
+      // Use the rule defined in the plugin.
+      "react-custom/jsx-boolean-value": "warn",
+    },
+  },
+);
+```
+
+### Incorrect
+
+```tsx
+<input disabled={true} />
+//     ^^^^^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'disabled'.
+
+<Dialog open={true} />
+//     ^^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'open'.
+```
+
+### Correct
+
+```tsx
+<input disabled />
+
+<Dialog open />
+```
+
+## Example
+
+Another example that enforces the use of fragment component (ex: `<Fragment>...</Fragment>` instead of `<>...</>`).
+
+```ts
+import js from "@eslint/js";
+import { definePlugin } from "eslint-plugin-react-custom";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+    plugins: {
+      "react-custom": definePlugin([
+        {
+          name: "jsx-fragment-syntax",
+          make: (context, toolkit) => {
+            const { jsxFragmentFactory } = {
+              ...toolkit.getJsxConfigFromContext(context),
+              ...toolkit.getJsxConfigFromAnnotation(context),
+            };
+            return {
+              JSXFragment(node) {
+                context.report({
+                  node,
+                  message:
+                    `Use fragment component instead of fragment syntax (ex: <${jsxFragmentFactory}>...</${jsxFragmentFactory}> instead of <>...</>).`,
+                  fix(fixer) {
+                    const src = context.sourceCode;
+                    const opening = `<${jsxFragmentFactory}>`;
+                    const closing = `</${jsxFragmentFactory}>`;
+                    return [
+                      fixer.replaceText(node.openingFragment, opening),
+                      fixer.replaceText(node.closingFragment, closing),
+                    ];
+                  },
+                });
+              },
+            };
+          },
+        },
+      ]),
+    },
+    rules: {
+      // Use the rule defined in the plugin.
+      "react-custom/jsx-fragment-syntax": "warn",
+    },
+  },
+);
+```
+
+### Incorrect
+
+```tsx
+function MyComponent() {
+  return (
+    <>
+      <button />
+      <button />
+    </>
+  );
+}
+```
+
+### Correct
+
+```tsx
+import { Fragment } from "react";
+
+function MyComponent() {
+  return (
+    <Fragment>
+      //^^^^^ Use fragment shorthand syntax instead of 'Fragment' component.
+      <button />
+      <button />
+    </Fragment>
+  );
+}
+```
+
+## Advanced Example
+
+A more advanced example that uses the toolkit's `useComponentCollector` and `ComponentDetectionHint` to enforce that all function components are defined with arrow functions.
+
 ```ts
 import js from "@eslint/js";
 import { definePlugin, defineRuleListener } from "eslint-plugin-react-custom";
 import { defineConfig } from "eslint/config";
+
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
@@ -31,9 +186,9 @@ export default defineConfig(
           make: (context, toolkit) => {
             // Customize component detection with ComponentDetectionHint.
             // Here we also treat functions defined on object methods as components,
-            // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
+            // by removing DoNotIncludeFunctionDefinedOnObjectMethod from the default hint.
             const hint = toolkit.DEFAULT_COMPONENT_DETECTION_HINT
-              & ~toolkit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
+              & ~toolkit.ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod;
 
             // Collect all function components detected in the file with the customized hint.
             const { ctx, visitor } = toolkit.useComponentCollector(context, { hint });
@@ -46,33 +201,14 @@ export default defineConfig(
                   context.report({
                     node,
                     message: "Function components must be defined with arrow functions.",
-                    fix(fixer) {
-                      const src = context.sourceCode;
-                      if (node.generator) return null;
-                      const prefix = node.async ? "async " : "";
-                      const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
-                      const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                      const returnType = node.returnType ? src.getText(node.returnType) : "";
-                      const body = src.getText(node.body);
-
-                      // function Foo(params) { ... } -> const Foo = (params) => { ... };
-                      if (node.type === "FunctionDeclaration" && node.id) {
-                        return fixer.replaceText(
-                          node,
-                          `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`,
-                        );
-                      }
-
-                      // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
-                      if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                        return fixer.replaceText(
-                          node.parent,
-                          `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`,
-                        );
-                      }
-
-                      return null;
-                    },
+                    suggest: [
+                      {
+                        desc: "Convert to arrow function.",
+                        fix(fixer) {
+                          // TODO: Implement a fixer that converts the function component to an arrow function.
+                        },
+                      },
+                    ],
                   });
                 }
               },
@@ -82,13 +218,14 @@ export default defineConfig(
       ]),
     },
     rules: {
+      // Use the rule defined in the plugin.
       "react-custom/function-component-definition": "error",
     },
   },
 );
 ```
 
-### Examples of **incorrect** code:
+### Incorrect
 
 ```tsx
 import React from "react";
@@ -98,7 +235,8 @@ function MyComponent() {
   return <div />;
 }
 
-// Components defined as object methods are also considered function components because we removed the default hint that excludes them.
+// Components defined as object methods are also considered function components
+// because we removed the default hint that excludes them.
 const MDXComponents = {
   Callout({ children }: { children: React.ReactNode }) {
     // ^^^ Function components must be defined with arrow functions.
@@ -107,9 +245,11 @@ const MDXComponents = {
 };
 ```
 
-### Examples of **correct** code:
+### Correct
 
 ```tsx
+import React from "react";
+
 const MyComponent = () => <div />;
 
 const MDXComponents = {
@@ -121,4 +261,4 @@ const MDXComponents = {
 
 ## Rules
 
-There are no rules in this plugin. Use the `definePlugin` function to create your own rules for whatever patterns you want to enforce in your codebase.
+There are no built-in rules in this plugin. Use the `definePlugin` function to create your own rules for whatever patterns you want to enforce in your codebase.

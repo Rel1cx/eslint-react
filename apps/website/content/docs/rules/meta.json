@@ -68,8 +68,6 @@
     "jsx-no-comment-textnodes",
     "jsx-no-useless-fragment",
     "jsx-runtime",
-    "jsx-shorthand-boolean",
-    "jsx-shorthand-fragment",
     "---RSC Rules---",
     "rsc-function-definition",
     "---DOM Rules---",

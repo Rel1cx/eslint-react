@@ -1,11 +1,13 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { constVoid, getOrElseUpdate, not } from "@local/eff";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../utils";
@@ -202,6 +204,26 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
+  function isInitializedFromRef(name: string, initialScope: Scope) {
+    for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
+      if (node.type !== AST.VariableDeclarator) continue;
+      const init = node.init;
+      if (init == null) continue;
+      switch (true) {
+        // const identifier = anotherRef.current;
+        case init.type === AST.MemberExpression
+          && init.object.type === AST.Identifier
+          && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
+          return true;
+        // const identifier = useRef();
+        case init.type === AST.CallExpression
+          && isUseRefCall(init):
+          return true;
+      }
+    }
+    return false;
+  }
+
   return defineRuleListener(
     {
       ":function"(node: ast.TSESTreeFunction) {
@@ -242,7 +264,7 @@ export function create(context: RuleContext<MessageID, []>) {
                   const isUsingRefValue = (n: TSESTree.Node): boolean => {
                     switch (n.type) {
                       case AST.Identifier:
-                        return core.isInitializedFromRef(n.name, context.sourceCode.getScope(n));
+                        return isInitializedFromRef(n.name, context.sourceCode.getScope(n));
                       case AST.MemberExpression:
                         return isUsingRefValue(n.object);
                       case AST.CallExpression:

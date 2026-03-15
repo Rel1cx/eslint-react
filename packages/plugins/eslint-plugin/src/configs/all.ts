@@ -69,9 +69,6 @@ export const rules = {
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-useless-fragment": "warn",
   "@eslint-react/jsx-runtime": "error",
-  "@eslint-react/jsx-shorthand-boolean": "warn",
-  "@eslint-react/jsx-shorthand-fragment": "warn",
-
   "@eslint-react/rsc-function-definition": "error",
 
   "@eslint-react/dom-no-dangerously-set-innerhtml": "warn",

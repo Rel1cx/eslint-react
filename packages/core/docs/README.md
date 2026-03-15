@@ -124,7 +124,6 @@
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
-| [getRefInit](functions/getRefInit.md) | Get the init expression of a ref variable |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |
@@ -143,13 +142,10 @@
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
-| [isInitializedFromRef](functions/isInitializedFromRef.md) | Check if the variable with the given name is initialized or derived from a ref |
 | [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
 | [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
 | [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |
-| [isRefId](functions/isRefId.md) | - |
-| [isRefLikeName](functions/isRefLikeName.md) | Check if a given name corresponds to a ref name |
 | [isRenderMethodCallback](functions/isRenderMethodCallback.md) | Check if the given node is a function within a render method of a class component |
 | [isRenderMethodLike](functions/isRenderMethodLike.md) | Check whether given node is a render method of a class component |
 | [isUseEffectCleanupCallback](functions/isUseEffectCleanupCallback.md) | Determine if a node is the cleanup function returned by a useEffect-like hook's setup function |

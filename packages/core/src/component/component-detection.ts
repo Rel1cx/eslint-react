@@ -23,9 +23,9 @@ export const ComponentDetectionHint = {
   DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
+  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 16n,
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 17n,
-  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
 } as const;
 
 /**

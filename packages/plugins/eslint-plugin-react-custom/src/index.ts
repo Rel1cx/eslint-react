@@ -1,13 +1,15 @@
 import * as toolkit from "@eslint-react/core";
 import type { RuleContext, RuleListener } from "@eslint-react/shared";
+import type { Pretty } from "@local/eff";
 import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
 /**
  * The eslint-react toolkit type, re-exported from `@eslint-react/core`.
+ * `JsxInspector` is omitted because it is an unstable API.
  */
-export type Toolkit = typeof toolkit;
+export type Toolkit = Pretty<Omit<typeof toolkit, "JsxInspector">>;
 
 /**
  * Definition for a custom ESLint rule powered by the eslint-react toolkit.
@@ -81,7 +83,8 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
             hasSuggestions: true,
           },
           create(context: RuleContext) {
-            return def.make(context, toolkit);
+            const { JsxInspector: _, ...stableToolkit } = toolkit;
+            return def.make(context, stableToolkit);
           },
         },
       ]),
@@ -100,8 +103,6 @@ declare module "@typescript-eslint/utils/ts-eslint" {
      */
     report(
       descriptor: {
-        readonly node: import("@typescript-eslint/types").TSESTree.Node;
-        readonly message: string;
         readonly data?: Readonly<Record<string, unknown>>;
         readonly fix?:
           | ((
@@ -112,10 +113,15 @@ declare module "@typescript-eslint/utils/ts-eslint" {
             | import("@typescript-eslint/utils/ts-eslint").RuleFix
             | null)
           | null;
+        readonly loc?:
+          | Readonly<import("@typescript-eslint/types").TSESTree.SourceLocation>
+          | Readonly<import("@typescript-eslint/types").TSESTree.Position>;
+        readonly message: string;
+        readonly node: import("@typescript-eslint/types").TSESTree.Node;
         readonly suggest?:
           | readonly {
-            readonly desc: string;
             readonly data?: Readonly<Record<string, unknown>>;
+            readonly desc: string;
             readonly fix: (
               fixer: import("@typescript-eslint/utils/ts-eslint").RuleFixer,
             ) =>
@@ -125,9 +131,6 @@ declare module "@typescript-eslint/utils/ts-eslint" {
               | null;
           }[]
           | null;
-        readonly loc?:
-          | Readonly<import("@typescript-eslint/types").TSESTree.SourceLocation>
-          | Readonly<import("@typescript-eslint/types").TSESTree.Position>;
       },
     ): void;
   }
