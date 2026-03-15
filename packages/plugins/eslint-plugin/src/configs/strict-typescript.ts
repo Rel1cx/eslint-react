@@ -1,6 +1,6 @@
 import type { RuleConfig } from "@eslint-react/shared";
 
-import * as ts from "./recommended-typescript";
+import * as ts from "./_ts";
 import * as strict from "./strict";
 
 export const name = "@eslint-react/strict-typescript";

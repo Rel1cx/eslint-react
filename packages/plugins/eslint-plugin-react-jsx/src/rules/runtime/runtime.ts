@@ -8,14 +8,15 @@ export const RULE_NAME = "runtime";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "noDeoptimization" | "noNamespace";
+export type MessageID =
+  | "noNamespace"
+  | "noDeoptimization";
 
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces JSX runtime specific rules: namespace tags are disallowed, and placing 'key' after spread props causes deoptimization in automatic runtime.",
+      description: "Enforces JSX runtime related rules including namespace restrictions and deoptimization prevention.",
     },
     messages: {
       noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
