@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v3.0.0-rc.5 (2026-03-16)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-event-listener`: Recognize function parameter as valid signal. Closes #1622. (#1623)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0-rc.4...v3.0.0-rc.5
+
 ## v3.0.0-rc.4 (2026-03-14)
 
 ### 🪄 Improvements
