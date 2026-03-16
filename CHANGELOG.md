@@ -33,11 +33,11 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 The following rules have been removed from `eslint-plugin-react-jsx`:
 
-| Rule                             | Replaced by                                                                                                                       |
-| :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`             | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
-| `react-x/jsx-shorthand-boolean`  | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
-| `react-x/jsx-shorthand-fragment` | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
+| Rule                             | Replaced by                                                                                                                    |
+| :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
+| `react-x/jsx-shorthand-boolean`  | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
+| `react-x/jsx-shorthand-fragment` | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
 
 ### ✨ New
 

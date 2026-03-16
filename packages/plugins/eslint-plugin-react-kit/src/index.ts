@@ -6,20 +6,14 @@ import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
+/** The eslint-react core toolkit exposed to custom rules, excluding internal-only APIs. */
 export type Toolkit = Pretty<Omit<typeof toolkit, "JsxInspector">>;
 
+/** A custom rule definition that pairs a rule name with a factory function. */
 export interface CustomRuleDefinition {
-  /**
-   * The name of the rule. Must be unique within the plugin and should follow ESLint's naming conventions (e.g., "my-rule-name").
-   */
+  /** The rule name, used as the second half of the `<plugin>/<name>` rule ID. */
   name: string;
-  /**
-   * Factory function to create the rule listener for this rule.
-   *
-   * @param context - The ESLint rule context.
-   * @param toolkit - The eslint-react core toolkit, providing utilities for analyzing React patterns.
-   * @returns A rule listener object mapping AST node types to visitor functions.
-   */
+  /** Factory called once per file; receives the rule context and the toolkit, and returns an AST visitor. */
   make: (context: RuleContext<string, unknown[]>, toolkit: Toolkit) => RuleListener;
 }
 
@@ -81,7 +75,7 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
  * @returns Merged RuleListener object
  *
  * @example
- * ```typescript
+ * ```ts
  * const listener1 = { Identifier: () => console.log(1) };
  * const listener2 = { Identifier: () => console.log(2) };
  * const merged = defineRuleListener(listener1, listener2);
@@ -104,6 +98,7 @@ export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]):
   return base;
 }
 
+/** Default plugin export containing only package metadata (no rules). */
 export default { meta: { name, version } } as const satisfies ESLint.Plugin;
 
 // Fix mismatch between ESLint's RuleContext and @typescript-eslint/utils' RuleContext, allowing rules to use the `message` or `desc` properties directly in the report descriptor without needing to define a `messageId` and corresponding entry in `meta.messages`.

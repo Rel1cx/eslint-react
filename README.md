@@ -51,11 +51,14 @@
 - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention) - Naming convention rules.
-- [`eslint-plugin-react-kit`](https://npmx.dev/package/eslint-plugin-react-kit) - Create custom rules with a toolkit that helps identify React patterns.
 
 ### Unified ESLint Plugin
 
 - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
+
+### Utility ESLint Plugin
+
+- [`eslint-plugin-react-kit`](https://npmx.dev/package/eslint-plugin-react-kit) - A utility plugin that provides APIs for building custom rules when the above plugins don't meet your specific needs.
 
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.

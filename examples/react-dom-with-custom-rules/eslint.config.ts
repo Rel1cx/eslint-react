@@ -62,7 +62,7 @@ export default defineConfig(
   {
     files: TSCONFIG_APP.include,
     plugins: {
-      "react-custom": definePlugin([
+      "react-kit": definePlugin([
         {
           name: "jsx-boolean-value",
           make: (ctx) => ({
@@ -145,60 +145,57 @@ export default defineConfig(
             const { api, visitor } = kit.getComponentCollector(ctx, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
-            return defineRuleListener(visitor, {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                    suggest: [
-                      {
-                        desc: "Convert to arrow function.",
-                        fix(fixer) {
-                          const src = ctx.sourceCode;
-                          if (node.generator) return null;
-                          const prefix = node.async ? "async " : "";
-                          const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
-                          const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                          const returnType = node.returnType ? src.getText(node.returnType) : "";
-                          const body = src.getText(node.body);
+            return defineRuleListener(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of api.getAllComponents(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                      suggest: [
+                        {
+                          desc: "Convert to arrow function.",
+                          fix(fixer) {
+                            const src = ctx.sourceCode;
+                            if (node.generator) return null;
+                            const prefix = node.async ? "async " : "";
+                            const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                            const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+                            const returnType = node.returnType ? src.getText(node.returnType) : "";
+                            const body = src.getText(node.body);
 
-                          // function Foo(params) { ... } → const Foo = (params) => { ... };
-                          if (node.type === "FunctionDeclaration" && node.id) {
-                            return fixer.replaceText(
-                              node,
-                              `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`,
-                            );
-                          }
+                            // function Foo(params) { ... } → const Foo = (params) => { ... };
+                            if (node.type === "FunctionDeclaration" && node.id) {
+                              // dprint-ignore
+                              return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                            }
 
-                          // { Foo(params) { ... } } → { Foo: (params) => { ... } }
-                          if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                            return fixer.replaceText(
-                              node.parent,
-                              `${
-                                src.getText(node.parent.key)
-                              }: ${prefix}${typeParams}${params}${returnType} => ${body}`,
-                            );
-                          }
+                            // { Foo(params) { ... } } → { Foo: (params) => { ... } }
+                            if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                              // dprint-ignore
+                              return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                            }
 
-                          return null;
+                            return null;
+                          },
                         },
-                      },
-                    ],
-                  });
-                }
+                      ],
+                    });
+                  }
+                },
               },
-            });
+            );
           },
         },
       ]),
     },
     rules: {
-      "react-custom/jsx-boolean-value": "warn",
-      "react-custom/jsx-fragment-syntax": "warn",
-      "react-custom/jsx-no-dollar-sign-before-expression": "warn",
-      "react-custom/function-component-definition": "error",
+      "react-kit/jsx-boolean-value": "warn",
+      "react-kit/jsx-fragment-syntax": "warn",
+      "react-kit/jsx-no-dollar-sign-before-expression": "warn",
+      "react-kit/function-component-definition": "error",
     },
   },
 );

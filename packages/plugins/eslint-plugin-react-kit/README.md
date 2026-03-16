@@ -1,167 +1,28 @@
 # eslint-plugin-react-kit
 
-This plugin provides a powerful API to define your own rules with customizable component detection logic, so you can enforce your team's best practices and coding standards in a way that fits your codebase perfectly.
+ESLint React's ESLint plugin for building custom rules.
 
-## Install
+## Index
+
+- [Index](#index)
+- [Installation](#installation)
+- [Write custom rules inline](#write-custom-rules-inline)
+- [Or import custom rules from modules](#or-import-custom-rules-from-modules)
+- [Define multiple custom plugins with different prefixes](#define-multiple-custom-plugins-with-different-prefixes)
+- [Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions](#example-enforce-function-components-to-be-defined-with-arrow-functions-with-component-detection-hint-customization-and-auto-fix-with-suggestions)
+- [More Examples](#more-examples)
+
+## Installation
 
 ```sh
 # npm
 npm install --save-dev eslint-plugin-react-kit
 ```
 
-## Setup
-
-The following example shows how to set up a simple `jsx-boolean-value` rule that enforces shorthand syntax for boolean JSX attributes (ex: `<input disabled />` instead of `<input disabled={true} />`).
+## Write custom rules inline
 
 ```ts
-import js from "@eslint/js";
-import { definePlugin } from "eslint-plugin-react-kit";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
-
-export default defineConfig(
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-    ],
-    plugins: {
-      "react-kit": definePlugin([
-        {
-          name: "jsx-boolean-value",
-          make: (ctx) => ({
-            JSXAttribute(node) {
-              const { value } = node;
-              // Skip if the attribute has no value (ex: `<input disabled />`)
-              if (value == null) return;
-              // Skip if the value is not a JSX expression container (ex: `<input disabled="true" />`)
-              if (value.type !== "JSXExpressionContainer") return;
-              // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
-              if (value.expression.type !== "Literal" || value.expression.value !== true) return;
-              // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
-              ctx.report({
-                node,
-                message: `Omit the \`={true}\` for boolean attribute '${ctx.sourceCode.getText(node.name)}'.`,
-                fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-              });
-            },
-          }),
-        },
-      ]),
-    },
-    rules: {
-      // Use the rule defined in the plugin.
-      "react-kit/jsx-boolean-value": "warn",
-    },
-  },
-);
-```
-
-### Invalid
-
-```tsx
-<input disabled={true} />
-//     ^^^^^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'disabled'.
-
-<Dialog open={true} />
-//      ^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'open'.
-```
-
-### Valid
-
-```tsx
-<input disabled />
-
-<Dialog open />
-```
-
-## More Examples
-
-An example that enforces the use of fragment component (ex: `<Fragment>...</Fragment>` instead of `<>...</>`).
-
-```ts
-import js from "@eslint/js";
-import { definePlugin } from "eslint-plugin-react-kit";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
-
-export default defineConfig(
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-    ],
-    plugins: {
-      "react-kit": definePlugin([
-        {
-          name: "jsx-fragment-syntax",
-          make: (ctx, kit) => {
-            const { jsxFragmentFactory } = {
-              ...kit.getJsxConfigFromContext(ctx),
-              ...kit.getJsxConfigFromAnnotation(ctx),
-            };
-            return {
-              JSXFragment(node) {
-                const opening = `<${jsxFragmentFactory}>`;
-                const closing = `</${jsxFragmentFactory}>`;
-                ctx.report({
-                  node,
-                  message:
-                    `Use fragment component instead of fragment syntax (ex: '${opening}...${closing}' instead of '<>...</>').`,
-                  fix(fixer) {
-                    return [
-                      fixer.replaceText(node.openingFragment, opening),
-                      fixer.replaceText(node.closingFragment, closing),
-                    ];
-                  },
-                });
-              },
-            };
-          },
-        },
-      ]),
-    },
-    rules: {
-      // Use the rule defined in the plugin.
-      "react-kit/jsx-fragment-syntax": "warn",
-    },
-  },
-);
-```
-
-### Invalid
-
-```tsx
-function MyComponent() {
-  return (
-    <>
-      <button />
-      <button />
-    </>
-  );
-}
-```
-
-### Valid
-
-```tsx
-import { Fragment } from "react";
-
-function MyComponent() {
-  return (
-    <Fragment>
-      <button />
-      <button />
-    </Fragment>
-  );
-}
-```
-
-A more advanced example that uses the toolkit's `getComponentCollector` and `ComponentDetectionHint` to enforce that all function components are defined with arrow functions.
-
-```ts
+// eslint.config.ts
 import js from "@eslint/js";
 import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
 import { defineConfig } from "eslint/config";
@@ -175,18 +36,160 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      "react-kit": definePlugin([
+      local: definePlugin([
+        {
+          name: "no-date-now",
+          make: (ctx) => {
+            return {
+              CallExpression(node) {
+                if (ctx.sourceCode.getText(node.callee) === "Date.now") {
+                  ctx.report({
+                    node,
+                    message: "Don't use 'Date.now'.",
+                  });
+                }
+              },
+            };
+          },
+        },
+      ]),
+    },
+    rules: {
+      "local/no-date-now": "error",
+    },
+  },
+);
+```
+
+## Or import custom rules from modules
+
+```ts
+// no-date-now.ts
+
+import type { Rule } from "eslint";
+import type { CustomRuleDefinition } from "eslint-plugin-react-kit";
+
+export function noDateNow(options?: { enableAutoFix?: boolean; enableSuggest?: boolean }): CustomRuleDefinition {
+  const { enableAutoFix = false, enableSuggest = false } = options ?? {};
+  return (ctx) => {
+    return {
+      CallExpression(node) {
+        if (ctx.sourceCode.getText(node.callee) !== "Date.now") return;
+        function fix(fixer: Rule.RuleFixer) {
+          return fixer.replaceText(node, "Temporal.Now");
+        }
+        ctx.report({
+          node,
+          message: "Avoid using 'Date.now'; Use 'Temporal.Now' instead.",
+          ...enableAutoFix ? { fix } : {},
+          ...enableSuggest ? { suggest: [{ fix, desc: "Replace with 'Temporal.Now'." }] } : {},
+        });
+      },
+    };
+  };
+}
+```
+
+```ts
+// eslint.config.ts
+
+import { definePlugin } from "eslint-plugin-react-kit";
+import { defineConfig } from "eslint/config";
+
+import { noDateNow } from "./no-date-now.ts";
+
+export default defineConfig(
+  {
+    files: ["**/*.ts"],
+    plugins: {
+      local: definePlugin([
+        {
+          name: "no-date-now",
+          make: noDateNow({
+            enableAutoFix: true,
+            enableSuggest: true,
+          }),
+        },
+      ]),
+    },
+  },
+);
+```
+
+## Define multiple custom plugins with different prefixes
+
+```ts
+// eslint.config.ts
+import js from "@eslint/js";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+    plugins: {
+      "local-a": definePlugin([
+        {
+          name: "rule-1",
+          make: (ctx) => {
+            // ...
+          },
+        },
+      ]),
+      "local-b": definePlugin([
+        {
+          name: "rule-2",
+          make: (ctx) => {
+            // ...
+          },
+        },
+      ]),
+    },
+    rules: {
+      "local-a/rule-1": "error",
+      "local-b/rule-2": "error",
+    },
+  },
+);
+```
+
+## Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions
+
+```ts
+// eslint.config.ts
+
+import js from "@eslint/js";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
+    plugins: {
+      local: definePlugin([
         {
           name: "function-component-definition",
+          // The make function is called with the rule context and a toolkit that provides utilities to analyze React-specific code patterns.
           make: (ctx, kit) => {
-            // Customize component detection with ComponentDetectionHint.
+            // The toolkit provides a default hint for component detection,
+            // but you can customize it by using bitwise operations to include or exclude certain patterns.
             // Here we also treat functions defined on object methods as components,
-            // by removing DoNotIncludeFunctionDefinedOnObjectMethod from the default hint.
+            // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
             const hint = kit.DEFAULT_COMPONENT_DETECTION_HINT
-              & ~kit.ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod;
+              & ~kit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
 
             // Collect all function components detected in the file with the customized hint.
-            const { api, visitor } = kit.getComponentCollector(context, { hint });
+            const { api, visitor } = kit.getComponentCollector(ctx, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
             return defineRuleListener(
@@ -202,7 +205,27 @@ export default defineConfig(
                         {
                           desc: "Convert to arrow function.",
                           fix(fixer) {
-                            // TODO: Implement a fixer that converts the function component to an arrow function.
+                            const src = ctx.sourceCode;
+                            if (node.generator) return null;
+                            const prefix = node.async ? "async " : "";
+                            const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                            const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+                            const returnType = node.returnType ? src.getText(node.returnType) : "";
+                            const body = src.getText(node.body);
+
+                            // function Foo(params) { ... } → const Foo = (params) => { ... };
+                            if (node.type === "FunctionDeclaration" && node.id) {
+                              // dprint-ignore
+                              return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                            }
+
+                            // { Foo(params) { ... } } → { Foo: (params) => { ... } }
+                            if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                              // dprint-ignore
+                              return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                            }
+
+                            return null;
                           },
                         },
                       ],
@@ -216,23 +239,29 @@ export default defineConfig(
       ]),
     },
     rules: {
-      // Use the rule defined in the plugin.
-      "react-kit/function-component-definition": "error",
+      "local/function-component-definition": "error",
     },
   },
 );
 ```
 
-### Invalid
+### ❌ Invalid
 
 ```tsx
-import React from "react";
-
+// Function declaration
 function MyComponent() {
-  //     ^^^ Function components must be defined with arrow functions.
-  return <div />;
+  return <div>Hello</div>;
 }
+```
 
+```tsx
+// Function expression
+const MyComponent = function() {
+  return <div>Hello</div>;
+};
+```
+
+```tsx
 // Components defined as object methods are also considered function components
 // because we removed the default hint that excludes them.
 const MDXComponents = {
@@ -243,13 +272,22 @@ const MDXComponents = {
 };
 ```
 
-### Valid
+### ✅ Valid
 
 ```tsx
-import React from "react";
+// Arrow function expression
+const MyComponent = () => {
+  return <div>Hello</div>;
+};
+```
 
-const MyComponent = () => <div />;
+```tsx
+// Arrow function with implicit return
+const MyComponent = () => <div>Hello</div>;
+```
 
+```tsx
+// Object method defined as an arrow function is also valid.
 const MDXComponents = {
   Callout: ({ children }: { children: React.ReactNode }) => {
     return <div>{children}</div>;
@@ -257,6 +295,6 @@ const MDXComponents = {
 };
 ```
 
-## Rules
+## More Examples
 
-There are no built-in rules in this plugin. Use the `definePlugin` function to create your own rules for whatever patterns you want to enforce in your codebase.
+Please check the [Rule Recipes](https://eslint-react.xyz/docs/custom-rules#rule-recipes) in the documentation site.
