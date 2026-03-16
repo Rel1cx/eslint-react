@@ -1,4 +1,4 @@
-import { JsxEmit, JsxInspector } from "@eslint-react/core";
+import { JsxEmit, JsxInspector } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 

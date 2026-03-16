@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../../utils";

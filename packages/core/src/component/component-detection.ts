@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
+import { JsxDetectionHint } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { isCreateElementCall } from "../api";
-import { JsxDetectionHint } from "../jsx";
 import { isRenderMethodCallback } from "./component-detection-legacy";
 import { isFunctionWithLooseComponentName } from "./component-name";
 import { isComponentWrapperCallLoose } from "./component-wrapper";

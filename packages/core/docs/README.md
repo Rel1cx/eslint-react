@@ -10,12 +10,6 @@
 | [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md) | - |
 | [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md) | - |
 
-## Classes
-
-| Class | Description |
-| ------ | ------ |
-| [JsxInspector](classes/JsxInspector.md) | A stateful helper that binds an ESLint `RuleContext` once and exposes ergonomic methods for the most common JSX inspection tasks that rules need. |
-
 ## Interfaces
 
 | Interface | Description |
@@ -24,7 +18,6 @@
 | [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React Client Function |
 | [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
 | [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST This interface extends SemanticNode and provides additional properties for React hook analysis |
-| [JsxConfig](interfaces/JsxConfig.md) | - |
 | [SemanticFunc](interfaces/SemanticFunc.md) | Represents a semantic function node in the AST This interface extends SemanticNode and provides additional properties for function analysis |
 | [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
 | [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a React Server Function |
@@ -37,8 +30,6 @@
 | [ComponentSemanticNode](type-aliases/ComponentSemanticNode.md) | Represents a React Component |
 | [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a React function |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
-| [JsxAttributeValue](type-aliases/JsxAttributeValue.md) | Represents possible JSX attribute value types that can be resolved |
-| [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior |
 
 ## Variables
 
@@ -47,7 +38,6 @@
 | [ComponentDetectionHint](variables/ComponentDetectionHint.md) | Hints for component collector |
 | [ComponentFlag](variables/ComponentFlag.md) | Component flag constants |
 | [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
-| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration Skips undefined and boolean literals (common in React) |
 | [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
 | [isCaptureOwnerStackCall](variables/isCaptureOwnerStackCall.md) | - |
 | [isChildrenCount](variables/isChildrenCount.md) | - |
@@ -111,8 +101,6 @@
 | [isUseStateCall](variables/isUseStateCall.md) | - |
 | [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md) | - |
 | [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
-| [JsxDetectionHint](variables/JsxDetectionHint.md) | - |
-| [JsxEmit](variables/JsxEmit.md) | - |
 | [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
 
 ## Functions
@@ -125,8 +113,6 @@
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
 | [getHookCollector](functions/getHookCollector.md) | Get a api and visitor object for the rule to collect hooks |
-| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
-| [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |
@@ -145,7 +131,6 @@
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |
 | [isInitializedFromReactNative](functions/isInitializedFromReactNative.md) | if a variable is initialized from React Native import |
-| [isJsxLike](functions/isJsxLike.md) | Determine if a node represents JSX-like content based on heuristics Supports configuration through hint flags to customize detection behavior |
 | [isPureComponent](functions/isPureComponent.md) | Check if a node is a React PureComponent |
 | [isReactAPI](functions/isReactAPI.md) | Check if the node is a React API identifier or member expression |
 | [isReactAPICall](functions/isReactAPICall.md) | Check if the node is a call expression to a specific React API |

@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";

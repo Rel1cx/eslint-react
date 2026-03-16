@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { JsxEmit, JsxInspector } from "@eslint-react/core";
+import { JsxEmit, JsxInspector } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";

@@ -7,7 +7,7 @@ import type { ESLint } from "eslint";
 import { name, version } from "../package.json";
 
 /** The eslint-react core toolkit exposed to custom rules, excluding internal-only APIs. */
-export type Toolkit = Pretty<Omit<typeof toolkit, "JsxInspector">>;
+export type Toolkit = Pretty<typeof toolkit>;
 
 /** A custom rule definition that pairs a rule name with a factory function. */
 export interface CustomRuleDefinition {
@@ -59,8 +59,7 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
         hasSuggestions: true,
       },
       create(context: RuleContext<string, unknown[]>) {
-        const { JsxInspector: _, ...stableToolkit } = toolkit;
-        return make(context, stableToolkit);
+        return make(context, toolkit);
       },
     });
   }

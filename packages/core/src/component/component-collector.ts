@@ -1,4 +1,5 @@
 import * as ast from "@eslint-react/ast";
+import { isJsxLike } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -6,7 +7,6 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { isHookCall } from "../hook";
-import { isJsxLike } from "../jsx";
 import {
   type ComponentDetectionHint,
   DEFAULT_COMPONENT_DETECTION_HINT,

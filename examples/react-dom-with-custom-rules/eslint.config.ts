@@ -63,74 +63,6 @@ export default defineConfig(
     files: TSCONFIG_APP.include,
     plugins: {
       "react-kit": definePlugin([
-        {
-          name: "jsx-boolean-value",
-          make: (ctx) => ({
-            JSXAttribute(node) {
-              const { value } = node;
-              // Skip if the attribute has no value (ex: `<input disabled />`)
-              if (value == null) return;
-              // Skip if the value is not a JSX expression container (ex: `<input disabled="true" />`)
-              if (value.type !== "JSXExpressionContainer") return;
-              // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
-              if (value.expression.type !== "Literal" || value.expression.value !== true) return;
-              // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
-              ctx.report({
-                node,
-                message: `Omit the \`={true}\` for boolean attribute '${ctx.sourceCode.getText(node.name)}'.`,
-                fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-              });
-            },
-          }),
-        },
-        {
-          name: "jsx-fragment-syntax",
-          make: (ctx, kit) => {
-            const { jsxFragmentFactory } = {
-              ...kit.getJsxConfigFromContext(ctx),
-              ...kit.getJsxConfigFromAnnotation(ctx),
-            };
-            return {
-              JSXFragment(node) {
-                ctx.report({
-                  node,
-                  message:
-                    `Use fragment component instead of fragment syntax (ex: <${jsxFragmentFactory}>...</${jsxFragmentFactory}> instead of <>...</>).`,
-                  fix(fixer) {
-                    const opening = `<${jsxFragmentFactory}>`;
-                    const closing = `</${jsxFragmentFactory}>`;
-                    return [
-                      fixer.replaceText(node.openingFragment, opening),
-                      fixer.replaceText(node.closingFragment, closing),
-                    ];
-                  },
-                });
-              },
-            };
-          },
-        },
-        {
-          name: "jsx-no-dollar-sign-before-expression",
-          make: (ctx) => ({
-            JSXText(node) {
-              // Check if text ends with $ and has a JSX expression as next sibling
-              if (!node.value.endsWith("$")) return;
-              const { parent } = node;
-              if (parent.type !== "JSXElement" && parent.type !== "JSXFragment") return;
-              const index = parent.children.indexOf(node);
-              const nextSibling = parent.children[index + 1];
-              if (nextSibling?.type !== "JSXExpressionContainer") return;
-              // Skip if there are only two children (the $ and the expression)
-              if (parent.children.length === 2) return;
-              ctx.report({
-                node,
-                message:
-                  "Unintentional '$' sign before JSX expression. Remove the '$' as it will be rendered as literal text.",
-                fix: (fixer) => fixer.replaceText(node, node.value.slice(0, -1)),
-              });
-            },
-          }),
-        },
         // Function Component Definition - Enforce arrow functions for components
         {
           name: "function-component-definition",
@@ -192,9 +124,6 @@ export default defineConfig(
       ]),
     },
     rules: {
-      "react-kit/jsx-boolean-value": "warn",
-      "react-kit/jsx-fragment-syntax": "warn",
-      "react-kit/jsx-no-dollar-sign-before-expression": "warn",
       "react-kit/function-component-definition": "error",
     },
   },

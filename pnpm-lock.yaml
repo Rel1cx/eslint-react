@@ -671,6 +671,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../utilities/ast
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared
@@ -769,6 +772,9 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -821,6 +827,9 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -873,6 +882,9 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -1109,6 +1121,9 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../utilities/jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../shared
@@ -1219,6 +1234,43 @@ importers:
       string-ts:
         specifier: ^2.3.1
         version: 2.3.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
+      tsdown:
+        specifier: ^0.21.4
+        version: 0.21.4(publint@0.3.18)(typescript@5.9.3)
+
+  packages/utilities/jsx:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../var
+      '@typescript-eslint/types':
+        specifier: ^8.57.1
+        version: 8.57.1
+      '@typescript-eslint/utils':
+        specifier: ^8.57.1
+        version: 8.57.1(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      eslint:
+        specifier: ^10.0.0
+        version: 10.0.3(jiti@2.6.1)
+      ts-pattern:
+        specifier: ^5.9.0
+        version: 5.9.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

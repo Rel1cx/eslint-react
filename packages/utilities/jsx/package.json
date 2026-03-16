@@ -1,15 +1,7 @@
 {
-  "name": "eslint-plugin-react-debug",
+  "name": "@eslint-react/jsx",
   "version": "4.0.0-beta.0",
-  "description": "ESLint React's ESLint plugin for debugging related rules.",
-  "keywords": [
-    "react",
-    "debug",
-    "eslint",
-    "eslint-react",
-    "eslint-plugin",
-    "eslint-plugin-react-debug"
-  ],
+  "description": "ESLint React's TSESTree JSX utility module for static analysis of JSX patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -17,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/plugins/eslint-plugin-react-debug"
+    "directory": "packages/utilities/jsx"
   },
   "license": "MIT",
   "author": "Rel1cx",
@@ -38,19 +30,15 @@
     "./package.json"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build": "tsdown --dts-resolve",
     "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
-    "@eslint-react/core": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@eslint-react/jsx": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.57.1",
-    "@typescript-eslint/type-utils": "^8.57.1",
     "@typescript-eslint/types": "^8.57.1",
     "@typescript-eslint/utils": "^8.57.1",
     "ts-pattern": "^5.9.0"
@@ -58,9 +46,6 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^10.0.3",
     "tsdown": "^0.21.4"
   },
   "peerDependencies": {
@@ -69,9 +54,6 @@
   },
   "engines": {
     "node": ">=22.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "inlinedDependencies": {
     "@local/eff": "workspace:*"

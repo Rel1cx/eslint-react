@@ -29,17 +29,18 @@ flowchart TB
             subgraph "Utilities Modules"
                 AST["AST Module"]:::utilities
                 Var["Var Module"]:::utilities
+                JSX["JSX Module"]:::utilities
             end
 
             %% ESLint Plugins Subgraph
             subgraph "ESLint Plugins"
-                X["eslint-plugin-react-x"]:::plugins
-                JSX["eslint-plugin-react-jsx"]:::plugins
-                RSC["eslint-plugin-react-rsc"]:::plugins
-                DOM["eslint-plugin-react-dom"]:::plugins
-                WebAPI["eslint-plugin-react-web-api"]:::plugins
-                NamingConvention["eslint-plugin-react-naming-convention"]:::plugins
-                Aggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
+                ReactX["eslint-plugin-react-x"]:::plugins
+                ReactJSX["eslint-plugin-react-jsx"]:::plugins
+                ReactRSC["eslint-plugin-react-rsc"]:::plugins
+                ReactDOM["eslint-plugin-react-dom"]:::plugins
+                ReactWebAPI["eslint-plugin-react-web-api"]:::plugins
+                ReactNamingConvention["eslint-plugin-react-naming-convention"]:::plugins
+                ReactAggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
             end
         end
 
@@ -52,34 +53,38 @@ flowchart TB
 
     %% Relationships
     %% Plugins depend on Core and Shared
-    Core -->|"dependency"| X
-    Core -->|"dependency"| JSX
-    Core -->|"dependency"| RSC
-    Core -->|"dependency"| DOM
-    Core -->|"dependency"| WebAPI
-    Core -->|"dependency"| NamingConvention
+    Core -->|"dependency"| ReactX
+    Core -->|"dependency"| ReactJSX
+    Core -->|"dependency"| ReactRSC
+    Core -->|"dependency"| ReactDOM
+    Core -->|"dependency"| ReactWebAPI
+    Core -->|"dependency"| ReactNamingConvention
 
-    Shared -->|"dependency"| X
-    Shared -->|"dependency"| JSX
-    Shared -->|"dependency"| RSC
-    Shared -->|"dependency"| DOM
-    Shared -->|"dependency"| WebAPI
-    Shared -->|"dependency"| NamingConvention
+    Shared -->|"dependency"| ReactX
+    Shared -->|"dependency"| ReactJSX
+    Shared -->|"dependency"| ReactRSC
+    Shared -->|"dependency"| ReactDOM
+    Shared -->|"dependency"| ReactWebAPI
+    Shared -->|"dependency"| ReactNamingConvention
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
     Var ---|"provides"| Core
+    JSX ---|"provides"| Core
 
-    AST ---|"provides"| X
-    Var ---|"provides"| X
+    AST ---|"provides"| ReactX
+    Var ---|"provides"| ReactX
+    JSX ---|"provides"| ReactX
+    JSX ---|"provides"| ReactDOM
+    JSX ---|"provides"| ReactJSX
 
     %% Aggregation of Plugins
-    X -->|"aggregated"| Aggregated
-    JSX -->|"aggregated"| Aggregated
-    RSC -->|"aggregated"| Aggregated
-    DOM -->|"aggregated"| Aggregated
-    WebAPI -->|"aggregated"| Aggregated
-    NamingConvention -->|"aggregated"| Aggregated
+    ReactX -->|"aggregated"| ReactAggregated
+    ReactJSX -->|"aggregated"| ReactAggregated
+    ReactRSC -->|"aggregated"| ReactAggregated
+    ReactDOM -->|"aggregated"| ReactAggregated
+    ReactWebAPI -->|"aggregated"| ReactAggregated
+    ReactNamingConvention -->|"aggregated"| ReactAggregated
 
     %% Website Documentation uses Core and Shared docs
     Website -->|"docs"| Core
@@ -90,13 +95,14 @@ flowchart TB
     Scripts -->|"CI/CD"| Shared
     Scripts -->|"CI/CD"| AST
     Scripts -->|"CI/CD"| Var
-    Scripts -->|"CI/CD"| X
     Scripts -->|"CI/CD"| JSX
-    Scripts -->|"CI/CD"| RSC
-    Scripts -->|"CI/CD"| DOM
-    Scripts -->|"CI/CD"| WebAPI
-    Scripts -->|"CI/CD"| NamingConvention
-    Scripts -->|"CI/CD"| Aggregated
+    Scripts -->|"CI/CD"| ReactX
+    Scripts -->|"CI/CD"| ReactJSX
+    Scripts -->|"CI/CD"| ReactRSC
+    Scripts -->|"CI/CD"| ReactDOM
+    Scripts -->|"CI/CD"| ReactWebAPI
+    Scripts -->|"CI/CD"| ReactNamingConvention
+    Scripts -->|"CI/CD"| ReactAggregated
     Scripts -->|"CI/CD"| Tests
 
     %% Click Events
@@ -106,13 +112,14 @@ flowchart TB
     click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/shared"
     click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/ast"
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
-    click X "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
-    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx"
-    click RSC "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc"
-    click DOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
-    click WebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api"
-    click NamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention"
-    click Aggregated "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin"
+    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/jsx"
+    click ReactX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
+    click ReactJSX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx"
+    click ReactRSC "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc"
+    click ReactDOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
+    click ReactWebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api"
+    click ReactNamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention"
+    click ReactAggregated "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin"
     click Scripts "https://github.com/rel1cx/eslint-react/tree/main/scripts"
     click Tests "https://github.com/rel1cx/eslint-react/tree/main/test"
 
@@ -137,6 +144,7 @@ This section provides a summary of the packages in the monorepo.
 - **Utilities**
   - `packages/utilities/ast`: TSESTree AST utility module for static analysis
   - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
+  - `packages/utilities/jsx`: TSESTree JSX utility module for static analysis of JSX patterns
 - **Core & Shared**
   - `packages/core`: Utility module for static analysis of React core APIs and patterns
   - `packages/shared`: Shared constants, types and functions

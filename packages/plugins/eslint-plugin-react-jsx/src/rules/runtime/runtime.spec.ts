@@ -1,4 +1,4 @@
-import { JsxEmit } from "@eslint-react/core";
+import { JsxEmit } from "@eslint-react/jsx";
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 

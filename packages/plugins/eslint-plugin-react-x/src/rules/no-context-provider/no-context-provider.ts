@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { JsxInspector } from "@eslint-react/core";
+import { JsxInspector } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
