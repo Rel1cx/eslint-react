@@ -39,8 +39,6 @@ flowchart TB
                 DOM["eslint-plugin-react-dom"]:::plugins
                 WebAPI["eslint-plugin-react-web-api"]:::plugins
                 NamingConvention["eslint-plugin-react-naming-convention"]:::plugins
-                Debug["eslint-plugin-react-debug"]:::plugins
-                Custom["eslint-plugin-react-custom"]:::plugins
                 Aggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
             end
         end
@@ -60,8 +58,6 @@ flowchart TB
     Core -->|"dependency"| DOM
     Core -->|"dependency"| WebAPI
     Core -->|"dependency"| NamingConvention
-    Core -->|"dependency"| Debug
-    Core -->|"dependency"| Custom
 
     Shared -->|"dependency"| X
     Shared -->|"dependency"| JSX
@@ -69,27 +65,13 @@ flowchart TB
     Shared -->|"dependency"| DOM
     Shared -->|"dependency"| WebAPI
     Shared -->|"dependency"| NamingConvention
-    Shared -->|"dependency"| Debug
-    Shared -->|"dependency"| Custom
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
     Var ---|"provides"| Core
 
     AST ---|"provides"| X
-    AST ---|"provides"| JSX
-    AST ---|"provides"| RSC
-    AST ---|"provides"| DOM
-    AST ---|"provides"| WebAPI
-    AST ---|"provides"| NamingConvention
-    AST ---|"provides"| Debug
     Var ---|"provides"| X
-    Var ---|"provides"| JSX
-    Var ---|"provides"| RSC
-    Var ---|"provides"| DOM
-    Var ---|"provides"| WebAPI
-    Var ---|"provides"| NamingConvention
-    Var ---|"provides"| Debug
 
     %% Aggregation of Plugins
     X -->|"aggregated"| Aggregated
@@ -97,10 +79,7 @@ flowchart TB
     RSC -->|"aggregated"| Aggregated
     DOM -->|"aggregated"| Aggregated
     WebAPI -->|"aggregated"| Aggregated
-
     NamingConvention -->|"aggregated"| Aggregated
-
-    %% Debug and Custom plugins are standalone (not aggregated)
 
     %% Website Documentation uses Core and Shared docs
     Website -->|"docs"| Core
@@ -116,10 +95,7 @@ flowchart TB
     Scripts -->|"CI/CD"| RSC
     Scripts -->|"CI/CD"| DOM
     Scripts -->|"CI/CD"| WebAPI
-
     Scripts -->|"CI/CD"| NamingConvention
-    Scripts -->|"CI/CD"| Debug
-    Scripts -->|"CI/CD"| Custom
     Scripts -->|"CI/CD"| Aggregated
     Scripts -->|"CI/CD"| Tests
 
@@ -132,12 +108,10 @@ flowchart TB
     click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/utilities/var"
     click X "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x"
     click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx"
+    click RSC "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc"
     click DOM "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom"
     click WebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api"
     click NamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention"
-    click Debug "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug"
-    click Custom "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-custom"
-    click RSC "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc"
     click Aggregated "https://github.com/rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin"
     click Scripts "https://github.com/rel1cx/eslint-react/tree/main/scripts"
     click Tests "https://github.com/rel1cx/eslint-react/tree/main/test"
