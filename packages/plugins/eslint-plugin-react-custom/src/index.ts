@@ -25,7 +25,7 @@ export interface CustomRuleDefinition {
    * toolkit, and returns a rule listener (AST visitor).
    *
    * The `toolkit` parameter provides access to all of `@eslint-react/core`,
-   * including utilities like `JsxInspector`, `useComponentCollector`,
+   * including utilities like `useComponentCollector`,
    * `useHookCollector`, `isReactAPI`, and more.
    *
    * @param context - The ESLint rule context.
@@ -54,10 +54,10 @@ export interface CustomRuleDefinition {
  *
  *       return defineRuleListener(visitor, {
  *         "Program:exit"(program) {
- *           for (const component of ctx.getAllComponents(program)) {
- *             if (component.node.type === "ArrowFunctionExpression") continue;
+ *           for (const { node } of ctx.getAllComponents(program)) {
+ *             if (node.type === "ArrowFunctionExpression") continue;
  *             context.report({
- *               node: component.node,
+ *               node,
  *               message: "Function components must be defined with arrow functions.",
  *             });
  *           }
@@ -69,27 +69,20 @@ export interface CustomRuleDefinition {
  * ```
  */
 export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
-  return {
-    meta: {
-      name,
-      version,
-    },
-    rules: Object.fromEntries(
-      rules.map((def) => [
-        def.name,
-        {
-          meta: {
-            fixable: "code",
-            hasSuggestions: true,
-          },
-          create(context: RuleContext) {
-            const { JsxInspector: _, ...stableToolkit } = toolkit;
-            return def.make(context, stableToolkit);
-          },
-        },
-      ]),
-    ) as never,
-  };
+  const pluginRules: ESLint.Plugin["rules"] = {};
+  for (const { name, make } of rules) {
+    Reflect.set(pluginRules, name, {
+      meta: {
+        fixable: "code",
+        hasSuggestions: true,
+      },
+      create(context: RuleContext) {
+        const { JsxInspector: _, ...stableToolkit } = toolkit;
+        return make(context, stableToolkit);
+      },
+    });
+  }
+  return { meta: { name, version }, rules: pluginRules };
 }
 
 export { defineRuleListener } from "@eslint-react/shared";
