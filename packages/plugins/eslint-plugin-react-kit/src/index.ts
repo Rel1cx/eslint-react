@@ -104,6 +104,8 @@ export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]):
   return base;
 }
 
+export default { meta: { name, version } } as const satisfies ESLint.Plugin;
+
 // Fix mismatch between ESLint's RuleContext and @typescript-eslint/utils' RuleContext, allowing rules to use the `message` or `desc` properties directly in the report descriptor without needing to define a `messageId` and corresponding entry in `meta.messages`.
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface RuleContext<MessageIds extends string, Options extends readonly unknown[]> {
