@@ -58,17 +58,17 @@ export default defineConfig(
 );
 ```
 
-### Incorrect
+### Invalid
 
 ```tsx
 <input disabled={true} />
 //     ^^^^^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'disabled'.
 
 <Dialog open={true} />
-//     ^^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'open'.
+//      ^^^^^^^^^^^ Omit the `={true}` for boolean attribute 'open'.
 ```
 
-### Correct
+### Valid
 
 ```tsx
 <input disabled />
@@ -76,9 +76,9 @@ export default defineConfig(
 <Dialog open />
 ```
 
-## Example
+## More Examples
 
-Another example that enforces the use of fragment component (ex: `<Fragment>...</Fragment>` instead of `<>...</>`).
+An example that enforces the use of fragment component (ex: `<Fragment>...</Fragment>` instead of `<>...</>`).
 
 ```ts
 import js from "@eslint/js";
@@ -131,7 +131,7 @@ export default defineConfig(
 );
 ```
 
-### Incorrect
+### Invalid
 
 ```tsx
 function MyComponent() {
@@ -144,7 +144,7 @@ function MyComponent() {
 }
 ```
 
-### Correct
+### Valid
 
 ```tsx
 import { Fragment } from "react";
@@ -152,7 +152,6 @@ import { Fragment } from "react";
 function MyComponent() {
   return (
     <Fragment>
-      //^^^^^ Use fragment shorthand syntax instead of 'Fragment' component.
       <button />
       <button />
     </Fragment>
@@ -160,15 +159,12 @@ function MyComponent() {
 }
 ```
 
-## Advanced Example
-
 A more advanced example that uses the toolkit's `getComponentCollector` and `ComponentDetectionHint` to enforce that all function components are defined with arrow functions.
 
 ```ts
 import js from "@eslint/js";
 import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
 import { defineConfig } from "eslint/config";
-
 import tseslint from "typescript-eslint";
 
 export default defineConfig(
@@ -193,25 +189,28 @@ export default defineConfig(
             const { api, visitor } = kit.getComponentCollector(context, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
-            return defineRuleListener(visitor, {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                    suggest: [
-                      {
-                        desc: "Convert to arrow function.",
-                        fix(fixer) {
-                          // TODO: Implement a fixer that converts the function component to an arrow function.
+            return defineRuleListener(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of api.getAllComponents(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                      suggest: [
+                        {
+                          desc: "Convert to arrow function.",
+                          fix(fixer) {
+                            // TODO: Implement a fixer that converts the function component to an arrow function.
+                          },
                         },
-                      },
-                    ],
-                  });
-                }
+                      ],
+                    });
+                  }
+                },
               },
-            });
+            );
           },
         },
       ]),
@@ -224,7 +223,7 @@ export default defineConfig(
 );
 ```
 
-### Incorrect
+### Invalid
 
 ```tsx
 import React from "react";
@@ -244,7 +243,7 @@ const MDXComponents = {
 };
 ```
 
-### Correct
+### Valid
 
 ```tsx
 import React from "react";

@@ -12,11 +12,18 @@ description: Enforce function components to be defined with arrow functions.
 Copy and paste this into your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
-import { definePlugin } from "eslint-plugin-react-kit";
+import js from "@eslint/js";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-export default [
+export default defineConfig(
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
     plugins: {
       local: definePlugin([
         {
@@ -24,18 +31,20 @@ export default [
           make: (ctx, kit) => {
             const { api, visitor } = kit.getComponentCollector(ctx);
 
-            return {
-              ...visitor,
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                  });
-                }
+            return defineRuleListener(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of api.getAllComponents(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                    });
+                  }
+                },
               },
-            };
+            );
           },
         },
       ]),
@@ -44,7 +53,7 @@ export default [
       "local/function-component-definition": "error",
     },
   },
-];
+]);
 ```
 
 </Tab>
@@ -53,7 +62,7 @@ export default [
 
 ## Examples
 
-### ❌ Incorrect
+### ❌ Invalid
 
 ```tsx
 // Function declaration
@@ -67,7 +76,7 @@ const MyComponent = function() {
 };
 ```
 
-### ✅ Correct
+### ✅ Valid
 
 ```tsx
 // Arrow function
@@ -89,11 +98,11 @@ This rule uses the `getComponentCollector` to identify all React function compon
 
 ## Common Use Cases
 
-| Scenario | Recommendation |
-|:---------|:---------------|
-| Consistent syntax | Enforce arrow functions across all components |
-| Named exports | Allow function declarations for named exports only (customize the rule) |
-| Object methods | Treat object methods as components with custom hint |
+| Scenario          | Recommendation                                                          |
+| :---------------- | :---------------------------------------------------------------------- |
+| Consistent syntax | Enforce arrow functions across all components                           |
+| Named exports     | Allow function declarations for named exports only (customize the rule) |
+| Object methods    | Treat object methods as components with custom hint                     |
 
 ## Customization Ideas
 

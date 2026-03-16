@@ -18,11 +18,18 @@ npm install --save-dev eslint-plugin-react-kit
 Define custom rules directly in your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
+import js from "@eslint/js";
 import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-export default [
+export default defineConfig(
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+    ],
     plugins: {
       local: definePlugin([
         {
@@ -30,17 +37,20 @@ export default [
           make: (ctx, kit) => {
             const { api, visitor } = kit.getComponentCollector(ctx);
 
-            return defineRuleListener(visitor, {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                  });
-                }
+            return defineRuleListener(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of api.getAllComponents(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                    });
+                  }
+                },
               },
-            });
+            );
           },
         },
       ]),
@@ -49,18 +59,18 @@ export default [
       "local/function-component-definition": "error",
     },
   },
-];
+]);
 ```
 
 ## How It Works
 
 The eslint-react toolkit provides several **collectors** that help you analyze React-specific code patterns:
 
-| Collector | Purpose |
-|:----------|:--------|
-| `getComponentCollector` | Collect and analyze React function components |
-| `getComponentCollectorLegacy` | Collect and analyze React class components |
-| `getHookCollector` | Collect and analyze React Hooks |
+| Collector                     | Purpose                                       |
+| :---------------------------- | :-------------------------------------------- |
+| `getComponentCollector`       | Collect and analyze React function components |
+| `getComponentCollectorLegacy` | Collect and analyze React class components    |
+| `getHookCollector`            | Collect and analyze React Hooks               |
 
 ## Rule Structure
 
@@ -77,18 +87,21 @@ import { defineRuleListener } from "eslint-plugin-react-kit";
     const { api, visitor } = kit.getComponentCollector(context);
 
     // Merge collector visitors with your custom visitors
-    return defineRuleListener(visitor, {
-      "Program:exit"(program) {
-        // Access collected data via api
-        for (const { node } of api.getAllComponents(program)) {
-          // Report issues
-          context.report({
-            node,
-            message: "Your error message",
-          });
-        }
+    return defineRuleListener(
+      visitor,
+      {
+        "Program:exit"(program) {
+          // Access collected data via api
+          for (const { node } of api.getAllComponents(program)) {
+            // Report issues
+            context.report({
+              node,
+              message: "Your error message",
+            });
+          }
+        },
       },
-    });
+    );
   },
 }
 ```
