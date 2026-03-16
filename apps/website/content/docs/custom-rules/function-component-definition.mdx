@@ -1,0 +1,102 @@
+---
+title: Function Component Definition
+description: Enforce function components to be defined with arrow functions.
+---
+
+<Tabs items={["Rule", "Examples"]} defaultValue="Rule">
+
+<Tab value="Rule">
+
+## Rule Code
+
+Copy and paste this into your `eslint.config.ts`:
+
+```ts copy filename="eslint.config.ts"
+import { definePlugin } from "eslint-plugin-react-kit";
+
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      local: definePlugin([
+        {
+          name: "function-component-definition",
+          make: (ctx, kit) => {
+            const { api, visitor } = kit.getComponentCollector(ctx);
+
+            return {
+              ...visitor,
+              "Program:exit"(program) {
+                for (const { node } of api.getAllComponents(program)) {
+                  if (node.type === "ArrowFunctionExpression") continue;
+                  ctx.report({
+                    node,
+                    message: "Function components must be defined with arrow functions.",
+                  });
+                }
+              },
+            };
+          },
+        },
+      ]),
+    },
+    rules: {
+      "local/function-component-definition": "error",
+    },
+  },
+];
+```
+
+</Tab>
+
+<Tab value="Examples">
+
+## Examples
+
+### ❌ Incorrect
+
+```tsx
+// Function declaration
+function MyComponent() {
+  return <div>Hello</div>;
+}
+
+// Function expression
+const MyComponent = function() {
+  return <div>Hello</div>;
+};
+```
+
+### ✅ Correct
+
+```tsx
+// Arrow function
+const MyComponent = () => {
+  return <div>Hello</div>;
+};
+
+// Arrow function with implicit return
+const MyComponent = () => <div>Hello</div>;
+```
+
+</Tab>
+
+</Tabs>
+
+## How It Works
+
+This rule uses the `getComponentCollector` to identify all React function components in the file. It then checks if each component is defined using an `ArrowFunctionExpression`. If a component uses a function declaration or expression instead, it reports an error.
+
+## Common Use Cases
+
+| Scenario | Recommendation |
+|:---------|:---------------|
+| Consistent syntax | Enforce arrow functions across all components |
+| Named exports | Allow function declarations for named exports only (customize the rule) |
+| Object methods | Treat object methods as components with custom hint |
+
+## Customization Ideas
+
+- Change the rule to enforce function declarations instead of arrow functions
+- Add auto-fix to convert function declarations to arrow functions
+- Add suggestions to convert function components between different definition styles

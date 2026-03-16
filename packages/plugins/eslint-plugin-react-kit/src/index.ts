@@ -6,28 +6,15 @@ import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
-/**
- * The eslint-react toolkit type, re-exported from `@eslint-react/core`.
- * `JsxInspector` is omitted because it is an unstable API.
- */
 export type Toolkit = Pretty<Omit<typeof toolkit, "JsxInspector">>;
 
-/**
- * Definition for a custom ESLint rule powered by the eslint-react toolkit.
- */
 export interface CustomRuleDefinition {
   /**
-   * The name of the rule.
-   * This will be used as the rule ID within the plugin (e.g. `"react-kit/my-rule"`).
+   * The name of the rule. Must be unique within the plugin and should follow ESLint's naming conventions (e.g., "my-rule-name").
    */
   name: string;
   /**
-   * Factory function that receives the ESLint rule context and the eslint-react
-   * toolkit, and returns a rule listener (AST visitor).
-   *
-   * The `toolkit` parameter provides access to all of `@eslint-react/core`,
-   * including utilities like `getComponentCollector`,
-   * `getHookCollector`, `isReactAPI`, and more.
+   * Factory function to create the rule listener for this rule.
    *
    * @param context - The ESLint rule context.
    * @param toolkit - The eslint-react core toolkit, providing utilities for analyzing React patterns.
@@ -117,7 +104,7 @@ export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]):
   return base;
 }
 
-// The upstream `@typescript-eslint/utils/ts-eslint` module does not include `message` in its `ReportDescriptor` type, unlike ESLint's own type definitions which support both `message` and `messageId`, this is bad for custom rules that don't define a static `meta.messages` map.
+// Fix mismatch between ESLint's RuleContext and @typescript-eslint/utils' RuleContext, allowing rules to use the `message` or `desc` properties directly in the report descriptor without needing to define a `messageId` and corresponding entry in `meta.messages`.
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface RuleContext<MessageIds extends string, Options extends readonly unknown[]> {
     /**

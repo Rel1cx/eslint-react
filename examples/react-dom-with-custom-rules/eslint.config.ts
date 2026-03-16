@@ -1,5 +1,3 @@
-// @ts-check
-
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
@@ -67,7 +65,7 @@ export default defineConfig(
       "react-custom": definePlugin([
         {
           name: "jsx-boolean-value",
-          make: (context) => ({
+          make: (ctx) => ({
             JSXAttribute(node) {
               const { value } = node;
               // Skip if the attribute has no value (ex: `<input disabled />`)
@@ -77,9 +75,9 @@ export default defineConfig(
               // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
               if (value.expression.type !== "Literal" || value.expression.value !== true) return;
               // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
-              context.report({
+              ctx.report({
                 node,
-                message: `Omit the \`={true}\` for boolean attribute '${context.sourceCode.getText(node.name)}'.`,
+                message: `Omit the \`={true}\` for boolean attribute '${ctx.sourceCode.getText(node.name)}'.`,
                 fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
               });
             },
@@ -87,19 +85,18 @@ export default defineConfig(
         },
         {
           name: "jsx-fragment-syntax",
-          make: (context, toolkit) => {
+          make: (ctx, kit) => {
             const { jsxFragmentFactory } = {
-              ...toolkit.getJsxConfigFromContext(context),
-              ...toolkit.getJsxConfigFromAnnotation(context),
+              ...kit.getJsxConfigFromContext(ctx),
+              ...kit.getJsxConfigFromAnnotation(ctx),
             };
             return {
               JSXFragment(node) {
-                context.report({
+                ctx.report({
                   node,
                   message:
                     `Use fragment component instead of fragment syntax (ex: <${jsxFragmentFactory}>...</${jsxFragmentFactory}> instead of <>...</>).`,
                   fix(fixer) {
-                    const src = context.sourceCode;
                     const opening = `<${jsxFragmentFactory}>`;
                     const closing = `</${jsxFragmentFactory}>`;
                     return [
@@ -114,7 +111,7 @@ export default defineConfig(
         },
         {
           name: "jsx-no-dollar-sign-before-expression",
-          make: (context) => ({
+          make: (ctx) => ({
             JSXText(node) {
               // Check if text ends with $ and has a JSX expression as next sibling
               if (!node.value.endsWith("$")) return;
@@ -125,7 +122,7 @@ export default defineConfig(
               if (nextSibling?.type !== "JSXExpressionContainer") return;
               // Skip if there are only two children (the $ and the expression)
               if (parent.children.length === 2) return;
-              context.report({
+              ctx.report({
                 node,
                 message:
                   "Unintentional '$' sign before JSX expression. Remove the '$' as it will be rendered as literal text.",
@@ -134,31 +131,32 @@ export default defineConfig(
             },
           }),
         },
+        // Function Component Definition - Enforce arrow functions for components
         {
           name: "function-component-definition",
-          make: (context, toolkit) => {
+          make: (ctx, kit) => {
             // Customize component detection with ComponentDetectionHint.
             // Here we also treat functions defined on object methods as components,
             // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
-            const hint = toolkit.DEFAULT_COMPONENT_DETECTION_HINT
-              & ~toolkit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
+            const hint = kit.DEFAULT_COMPONENT_DETECTION_HINT
+              & ~kit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
 
             // Collect all function components detected in the file with the customized hint.
-            const { api, visitor } = toolkit.getComponentCollector(context, { hint });
+            const { api, visitor } = kit.getComponentCollector(ctx, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
             return defineRuleListener(visitor, {
               "Program:exit"(program) {
                 for (const { node } of api.getAllComponents(program)) {
                   if (node.type === "ArrowFunctionExpression") continue;
-                  context.report({
+                  ctx.report({
                     node,
                     message: "Function components must be defined with arrow functions.",
                     suggest: [
                       {
                         desc: "Convert to arrow function.",
                         fix(fixer) {
-                          const src = context.sourceCode;
+                          const src = ctx.sourceCode;
                           if (node.generator) return null;
                           const prefix = node.async ? "async " : "";
                           const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
