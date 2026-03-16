@@ -45,13 +45,13 @@
   },
   "dependencies": {
     "@eslint-react/core": "workspace:*",
-    "@typescript-eslint/utils": "^8.57.0"
+    "@typescript-eslint/utils": "^8.57.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.0.3",
-    "tsdown": "^0.21.2"
+    "tsdown": "^0.21.4"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",
