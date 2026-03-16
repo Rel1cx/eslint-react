@@ -14,25 +14,25 @@ description: Build custom ESLint rules for React using the eslint-react toolkit.
 ## Installation
 
 ```bash copy
-npm install --save-dev eslint-plugin-react-custom
+npm install --save-dev eslint-plugin-react-kit
 ```
 
 ## Usage
 
-The `eslint-plugin-react-custom` package provides a `definePlugin` function that allows you to create custom ESLint rules powered by the eslint-react toolkit.
+The `eslint-plugin-react-kit` package provides a `definePlugin` function that allows you to create custom ESLint rules powered by the eslint-react toolkit.
 
 ```ts copy
-import { definePlugin, defineRuleListener } from "eslint-plugin-react-custom";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
 
 const plugin = definePlugin([
   {
     name: "function-component-definition",
     make: (context, toolkit) => {
-      const { ctx, visitor } = toolkit.useComponentCollector(context);
+      const { api, visitor } = toolkit.getComponentCollector(context);
 
       return defineRuleListener(visitor, {
         "Program:exit"(program) {
-          for (const { node } of ctx.getAllComponents(program)) {
+          for (const { node } of api.getAllComponents(program)) {
             if (node.type === "ArrowFunctionExpression") continue;
             context.report({
               node,

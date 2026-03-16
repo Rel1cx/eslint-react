@@ -51,7 +51,7 @@
 - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
 - [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention) - Naming convention rules.
-- [`eslint-plugin-react-custom`](https://npmx.dev/package/eslint-plugin-react-custom) - Create custom rules with a toolkit that helps identify React patterns.
+- [`eslint-plugin-react-kit`](https://npmx.dev/package/eslint-plugin-react-kit) - Create custom rules with a toolkit that helps identify React patterns.
 
 ### Unified ESLint Plugin
 

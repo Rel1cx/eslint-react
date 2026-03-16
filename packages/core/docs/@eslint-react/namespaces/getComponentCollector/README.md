@@ -1,6 +1,6 @@
-[@eslint-react/core](../../../README.md) / useComponentCollector
+[@eslint-react/core](../../../README.md) / getComponentCollector
 
-# useComponentCollector
+# getComponentCollector
 
 ## Type Aliases
 

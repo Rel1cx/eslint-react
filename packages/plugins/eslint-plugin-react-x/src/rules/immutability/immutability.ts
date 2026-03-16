@@ -57,8 +57,8 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const { additionalStateHooks } = getSettingsFromContext(context);
 
-  const hCollector = core.useHookCollector(context);
-  const cCollector = core.useComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
+  const cCollector = core.getComponentCollector(context);
 
   /**
    * Violations accumulated while traversing. Each entry records the node to
@@ -214,8 +214,8 @@ export function create(context: RuleContext<MessageID, []>) {
         });
       },
       "Program:exit"(node) {
-        const comps = cCollector.ctx.getAllComponents(node);
-        const hooks = hCollector.ctx.getAllHooks(node);
+        const comps = cCollector.api.getAllComponents(node);
+        const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
 
         for (const { data, func, messageId, node } of violations) {

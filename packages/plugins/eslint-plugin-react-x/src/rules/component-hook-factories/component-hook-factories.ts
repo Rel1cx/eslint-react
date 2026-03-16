@@ -45,9 +45,9 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component and hook definitions in the code
-  const fCollector = core.useComponentCollector(context, { hint });
-  const cCollector = core.useComponentCollectorLegacy(context);
-  const hCollector = core.useHookCollector(context);
+  const fCollector = core.getComponentCollector(context, { hint });
+  const cCollector = core.getComponentCollectorLegacy(context);
+  const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<ast.TSESTreeFunction>();
@@ -59,9 +59,9 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       "Program:exit"(program) {
         // Gather all function components, class components, and hooks
-        const fComponents = [...fCollector.ctx.getAllComponents(program)];
-        const cComponents = [...cCollector.ctx.getAllComponents(program)];
-        const hooks = [...hCollector.ctx.getAllHooks(program)];
+        const fComponents = [...fCollector.api.getAllComponents(program)];
+        const cComponents = [...cCollector.api.getAllComponents(program)];
+        const hooks = [...hCollector.api.getAllHooks(program)];
 
         // Check function components defined inside any function (not at module level)
         for (const { name, node } of fComponents) {

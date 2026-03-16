@@ -1,6 +1,7 @@
 import * as toolkit from "@eslint-react/core";
-import type { RuleContext, RuleListener } from "@eslint-react/shared";
 import type { Pretty } from "@local/eff";
+import type { TSESTree } from "@typescript-eslint/utils";
+import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
@@ -17,7 +18,7 @@ export type Toolkit = Pretty<Omit<typeof toolkit, "JsxInspector">>;
 export interface CustomRuleDefinition {
   /**
    * The name of the rule.
-   * This will be used as the rule ID within the plugin (e.g. `"react-custom/my-rule"`).
+   * This will be used as the rule ID within the plugin (e.g. `"react-kit/my-rule"`).
    */
   name: string;
   /**
@@ -25,14 +26,14 @@ export interface CustomRuleDefinition {
    * toolkit, and returns a rule listener (AST visitor).
    *
    * The `toolkit` parameter provides access to all of `@eslint-react/core`,
-   * including utilities like `useComponentCollector`,
-   * `useHookCollector`, `isReactAPI`, and more.
+   * including utilities like `getComponentCollector`,
+   * `getHookCollector`, `isReactAPI`, and more.
    *
    * @param context - The ESLint rule context.
    * @param toolkit - The eslint-react core toolkit, providing utilities for analyzing React patterns.
    * @returns A rule listener object mapping AST node types to visitor functions.
    */
-  make: (context: RuleContext, toolkit: Toolkit) => RuleListener;
+  make: (context: RuleContext<string, unknown[]>, toolkit: Toolkit) => RuleListener;
 }
 
 /**
@@ -43,20 +44,20 @@ export interface CustomRuleDefinition {
  *
  * @example
  * ```ts
- * import { definePlugin, defineRuleListener } from "eslint-plugin-react-custom";
+ * import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
  *
  * const plugin = definePlugin([
  *   {
  *     name: "function-component-definition",
- *     make: (context, toolkit) => {
+ *     make: (ctx, kit) => {
  *       // Collect all function components detected in the file
- *       const { ctx, visitor } = toolkit.useComponentCollector(context, { hint });
+ *       const { api, visitor } = kit.getComponentCollector(ctx, { hint });
  *
  *       return defineRuleListener(visitor, {
  *         "Program:exit"(program) {
- *           for (const { node } of ctx.getAllComponents(program)) {
+ *           for (const { node } of api.getAllComponents(program)) {
  *             if (node.type === "ArrowFunctionExpression") continue;
- *             context.report({
+ *             ctx.report({
  *               node,
  *               message: "Function components must be defined with arrow functions.",
  *             });
@@ -76,7 +77,7 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
         fixable: "code",
         hasSuggestions: true,
       },
-      create(context: RuleContext) {
+      create(context: RuleContext<string, unknown[]>) {
         const { JsxInspector: _, ...stableToolkit } = toolkit;
         return make(context, stableToolkit);
       },
@@ -128,28 +129,28 @@ declare module "@typescript-eslint/utils/ts-eslint" {
         readonly data?: Readonly<Record<string, unknown>>;
         readonly fix?:
           | ((
-            fixer: import("@typescript-eslint/utils/ts-eslint").RuleFixer,
+            fixer: RuleFixer,
           ) =>
-            | IterableIterator<import("@typescript-eslint/utils/ts-eslint").RuleFix>
-            | readonly import("@typescript-eslint/utils/ts-eslint").RuleFix[]
-            | import("@typescript-eslint/utils/ts-eslint").RuleFix
+            | IterableIterator<RuleFix>
+            | readonly RuleFix[]
+            | RuleFix
             | null)
           | null;
         readonly loc?:
-          | Readonly<import("@typescript-eslint/types").TSESTree.SourceLocation>
-          | Readonly<import("@typescript-eslint/types").TSESTree.Position>;
+          | Readonly<TSESTree.SourceLocation>
+          | Readonly<TSESTree.Position>;
         readonly message: string;
-        readonly node: import("@typescript-eslint/types").TSESTree.Node;
+        readonly node: TSESTree.Node;
         readonly suggest?:
           | readonly {
             readonly data?: Readonly<Record<string, unknown>>;
             readonly desc: string;
             readonly fix: (
-              fixer: import("@typescript-eslint/utils/ts-eslint").RuleFixer,
+              fixer: RuleFixer,
             ) =>
-              | IterableIterator<import("@typescript-eslint/utils/ts-eslint").RuleFix>
-              | readonly import("@typescript-eslint/utils/ts-eslint").RuleFix[]
-              | import("@typescript-eslint/utils/ts-eslint").RuleFix
+              | IterableIterator<RuleFix>
+              | readonly RuleFix[]
+              | RuleFix
               | null;
           }[]
           | null;

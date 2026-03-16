@@ -644,12 +644,12 @@ importers:
       eslint:
         specifier: ^10.0.3
         version: 10.0.3(jiti@2.6.1)
-      eslint-plugin-react-custom:
-        specifier: workspace:*
-        version: link:../../packages/plugins/eslint-plugin-react-custom
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.0.3(jiti@2.6.1))
+      eslint-plugin-react-kit:
+        specifier: workspace:*
+        version: link:../../packages/plugins/eslint-plugin-react-kit
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.0.3(jiti@2.6.1))
@@ -754,34 +754,6 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../../.pkgs/eff
-      tsdown:
-        specifier: ^0.21.2
-        version: 0.21.2(publint@0.3.18)(typescript@5.9.3)
-
-  packages/plugins/eslint-plugin-react-custom:
-    dependencies:
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@typescript-eslint/types':
-        specifier: ^8.57.0
-        version: 8.57.0
-      '@typescript-eslint/utils':
-        specifier: ^8.57.0
-        version: 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../../.pkgs/configs
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
-      eslint:
-        specifier: ^10.0.3
-        version: 10.0.3(jiti@2.6.1)
       tsdown:
         specifier: ^0.21.2
         version: 0.21.2(publint@0.3.18)(typescript@5.9.3)
@@ -935,6 +907,31 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.0.3
+        version: 10.0.3(jiti@2.6.1)
+      tsdown:
+        specifier: ^0.21.2
+        version: 0.21.2(publint@0.3.18)(typescript@5.9.3)
+
+  packages/plugins/eslint-plugin-react-kit:
+    dependencies:
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@typescript-eslint/utils':
+        specifier: ^8.57.0
+        version: 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../../.pkgs/eff
       eslint:
         specifier: ^10.0.3
         version: 10.0.3(jiti@2.6.1)

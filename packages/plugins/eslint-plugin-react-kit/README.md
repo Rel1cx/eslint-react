@@ -1,4 +1,4 @@
-# eslint-plugin-react-custom
+# eslint-plugin-react-kit
 
 This plugin provides a powerful API to define your own rules with customizable component detection logic, so you can enforce your team's best practices and coding standards in a way that fits your codebase perfectly.
 
@@ -6,7 +6,7 @@ This plugin provides a powerful API to define your own rules with customizable c
 
 ```sh
 # npm
-npm install --save-dev eslint-plugin-react-custom
+npm install --save-dev eslint-plugin-react-kit
 ```
 
 ## Setup
@@ -15,7 +15,7 @@ The following example shows how to set up a simple `jsx-boolean-value` rule that
 
 ```ts
 import js from "@eslint/js";
-import { definePlugin } from "eslint-plugin-react-custom";
+import { definePlugin } from "eslint-plugin-react-kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -27,10 +27,10 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      "react-custom": definePlugin([
+      "react-kit": definePlugin([
         {
           name: "jsx-boolean-value",
-          make: (context) => ({
+          make: (ctx) => ({
             JSXAttribute(node) {
               const { value } = node;
               // Skip if the attribute has no value (ex: `<input disabled />`)
@@ -40,9 +40,9 @@ export default defineConfig(
               // Skip if the value is not a literal `true` (ex: `<input disabled={false} />` or `<input disabled={someVar} />`)
               if (value.expression.type !== "Literal" || value.expression.value !== true) return;
               // Report if the value is a literal `true`, and provide a fixer to remove the `={true}` part.
-              context.report({
+              ctx.report({
                 node,
-                message: `Omit the \`={true}\` for boolean attribute '${context.sourceCode.getText(node.name)}'.`,
+                message: `Omit the \`={true}\` for boolean attribute '${ctx.sourceCode.getText(node.name)}'.`,
                 fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
               });
             },
@@ -52,7 +52,7 @@ export default defineConfig(
     },
     rules: {
       // Use the rule defined in the plugin.
-      "react-custom/jsx-boolean-value": "warn",
+      "react-kit/jsx-boolean-value": "warn",
     },
   },
 );
@@ -82,7 +82,7 @@ Another example that enforces the use of fragment component (ex: `<Fragment>...<
 
 ```ts
 import js from "@eslint/js";
-import { definePlugin } from "eslint-plugin-react-custom";
+import { definePlugin } from "eslint-plugin-react-kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -94,24 +94,23 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      "react-custom": definePlugin([
+      "react-kit": definePlugin([
         {
           name: "jsx-fragment-syntax",
-          make: (context, toolkit) => {
+          make: (ctx, kit) => {
             const { jsxFragmentFactory } = {
-              ...toolkit.getJsxConfigFromContext(context),
-              ...toolkit.getJsxConfigFromAnnotation(context),
+              ...kit.getJsxConfigFromContext(ctx),
+              ...kit.getJsxConfigFromAnnotation(ctx),
             };
             return {
               JSXFragment(node) {
-                context.report({
+                const opening = `<${jsxFragmentFactory}>`;
+                const closing = `</${jsxFragmentFactory}>`;
+                ctx.report({
                   node,
                   message:
-                    `Use fragment component instead of fragment syntax (ex: <${jsxFragmentFactory}>...</${jsxFragmentFactory}> instead of <>...</>).`,
+                    `Use fragment component instead of fragment syntax (ex: '${opening}...${closing}' instead of '<>...</>').`,
                   fix(fixer) {
-                    const src = context.sourceCode;
-                    const opening = `<${jsxFragmentFactory}>`;
-                    const closing = `</${jsxFragmentFactory}>`;
                     return [
                       fixer.replaceText(node.openingFragment, opening),
                       fixer.replaceText(node.closingFragment, closing),
@@ -126,7 +125,7 @@ export default defineConfig(
     },
     rules: {
       // Use the rule defined in the plugin.
-      "react-custom/jsx-fragment-syntax": "warn",
+      "react-kit/jsx-fragment-syntax": "warn",
     },
   },
 );
@@ -163,11 +162,11 @@ function MyComponent() {
 
 ## Advanced Example
 
-A more advanced example that uses the toolkit's `useComponentCollector` and `ComponentDetectionHint` to enforce that all function components are defined with arrow functions.
+A more advanced example that uses the toolkit's `getComponentCollector` and `ComponentDetectionHint` to enforce that all function components are defined with arrow functions.
 
 ```ts
 import js from "@eslint/js";
-import { definePlugin, defineRuleListener } from "eslint-plugin-react-custom";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
 import { defineConfig } from "eslint/config";
 
 import tseslint from "typescript-eslint";
@@ -180,25 +179,25 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      "react-custom": definePlugin([
+      "react-kit": definePlugin([
         {
           name: "function-component-definition",
-          make: (context, toolkit) => {
+          make: (ctx, kit) => {
             // Customize component detection with ComponentDetectionHint.
             // Here we also treat functions defined on object methods as components,
             // by removing DoNotIncludeFunctionDefinedOnObjectMethod from the default hint.
-            const hint = toolkit.DEFAULT_COMPONENT_DETECTION_HINT
-              & ~toolkit.ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod;
+            const hint = kit.DEFAULT_COMPONENT_DETECTION_HINT
+              & ~kit.ComponentDetectionHint.DoNotIncludeFunctionDefinedOnObjectMethod;
 
             // Collect all function components detected in the file with the customized hint.
-            const { ctx, visitor } = toolkit.useComponentCollector(context, { hint });
+            const { api, visitor } = kit.getComponentCollector(context, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
             return defineRuleListener(visitor, {
               "Program:exit"(program) {
-                for (const { node } of ctx.getAllComponents(program)) {
+                for (const { node } of api.getAllComponents(program)) {
                   if (node.type === "ArrowFunctionExpression") continue;
-                  context.report({
+                  ctx.report({
                     node,
                     message: "Function components must be defined with arrow functions.",
                     suggest: [
@@ -219,7 +218,7 @@ export default defineConfig(
     },
     rules: {
       // Use the rule defined in the plugin.
-      "react-custom/function-component-definition": "error",
+      "react-kit/function-component-definition": "error",
     },
   },
 );

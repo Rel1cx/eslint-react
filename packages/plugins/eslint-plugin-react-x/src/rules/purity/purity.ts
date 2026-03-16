@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.useHookCollector(context);
-  const cCollector = core.useComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
+  const cCollector = core.getComponentCollector(context);
   const cEntries: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;
@@ -83,8 +83,8 @@ export function create(context: RuleContext<MessageID, []>) {
         nEntries.push({ func, node });
       },
       "Program:exit"(node) {
-        const comps = cCollector.ctx.getAllComponents(node);
-        const hooks = hCollector.ctx.getAllHooks(node);
+        const comps = cCollector.api.getAllComponents(node);
+        const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const { func, node } of [...cEntries, ...nEntries]) {
           if (!funcs.some((f) => f.node === func)) continue;

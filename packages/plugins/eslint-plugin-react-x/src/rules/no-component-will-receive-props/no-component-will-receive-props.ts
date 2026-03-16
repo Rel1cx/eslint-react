@@ -31,13 +31,13 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `componentWillReceiveProps` is not present in the file
   if (!context.sourceCode.text.includes("componentWillReceiveProps")) return {};
-  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
+  const { api, visitor } = core.getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const { node: component } of ctx.getAllComponents(program)) {
+        for (const { node: component } of api.getAllComponents(program)) {
           const { body } = component.body;
           for (const member of body) {
             if (core.isComponentWillReceiveProps(member)) {

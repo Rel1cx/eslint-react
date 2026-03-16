@@ -23,13 +23,13 @@ interface FunctionEntry extends FunctionComponentSemanticNode {
   isComponentDefinition: boolean;
 }
 
-export declare namespace useComponentCollector {
+export declare namespace getComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
     hint?: ComponentDetectionHint;
   };
   type ReturnType = {
-    ctx: {
+    api: {
       getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | null;
@@ -39,15 +39,15 @@ export declare namespace useComponentCollector {
 }
 
 /**
- * Get a ctx and visitor object for the rule to collect function components
+ * Get a api and visitor object for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
- * @returns The ctx and visitor of the collector
+ * @returns The api and visitor of the collector
  */
-export function useComponentCollector(
+export function getComponentCollector(
   context: RuleContext,
-  options: useComponentCollector.Options = {},
-): useComponentCollector.ReturnType {
+  options: getComponentCollector.Options = {},
+): getComponentCollector.ReturnType {
   const {
     collectDisplayName = false,
     hint = DEFAULT_COMPONENT_DETECTION_HINT,
@@ -94,7 +94,7 @@ export function useComponentCollector(
     return functionEntries.pop();
   };
 
-  const ctx = {
+  const api = {
     getAllComponents(node: TSESTree.Program) {
       return [...components.values()];
     },
@@ -149,5 +149,5 @@ export function useComponentCollector(
       components.set(entry.key, entry);
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, visitor } as const;
+  return { api, visitor } as const;
 }

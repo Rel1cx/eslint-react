@@ -33,15 +33,15 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 The following rules have been removed from `eslint-plugin-react-jsx`:
 
-| Rule                             | Replaced by                                                                                                                          |
-| :------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`             | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
-| `react-x/jsx-shorthand-boolean`  | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
-| `react-x/jsx-shorthand-fragment` | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-custom/README.md) |
+| Rule                             | Replaced by                                                                                                                       |
+| :------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
+| `react-x/jsx-shorthand-boolean`  | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
+| `react-x/jsx-shorthand-fragment` | [`react-custom/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/plugins/eslint-plugin-react-kit/README.md) |
 
 ### ✨ New
 
-- `eslint-plugin-react-custom`: New plugin to create custom rules with a toolkit that helps identify React patterns.
+- `eslint-plugin-react-kit`: New plugin to create custom rules with a toolkit that helps identify React patterns.
 - `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
 - `react-jsx/runtime`: New rule that consolidates `key-before-spread` and `no-namespace` into a single JSX runtime rule. It disallows namespace tags and prevents deoptimization caused by placing `key` after spread props in automatic runtime.
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
@@ -86,7 +86,7 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 - [ ] `react-x/jsx-shorthand-boolean`
 - [ ] `react-x/jsx-shorthand-fragment`
 
-If you still need these rules, you can enforce them using the new `eslint-plugin-react-custom` by creating custom rules that implement the desired checks.
+If you still need these rules, you can enforce them using the new `eslint-plugin-react-kit` by creating custom rules that implement the desired checks.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.0.0-beta.0
 

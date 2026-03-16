@@ -1,4 +1,4 @@
-[@eslint-react/core](../../../../README.md) / [useComponentCollector](../README.md) / Options
+[@eslint-react/core](../../../../README.md) / [getComponentCollector](../README.md) / Options
 
 # Type Alias: Options
 

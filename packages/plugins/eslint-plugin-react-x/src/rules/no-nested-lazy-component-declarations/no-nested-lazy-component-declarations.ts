@@ -31,9 +31,9 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const hint = core.ComponentDetectionHint.None;
   // Collector for function components
-  const collector = core.useComponentCollector(context, { hint });
+  const collector = core.getComponentCollector(context, { hint });
   // Collector for class components
-  const collectorLegacy = core.useComponentCollectorLegacy(context);
+  const collectorLegacy = core.getComponentCollectorLegacy(context);
 
   // A set to store all `React.lazy()` call expressions
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
@@ -53,11 +53,11 @@ export function create(context: RuleContext<MessageID, []>) {
       "Program:exit"(program) {
         // Get all collected function and class components
         const functionComponents = collector
-          .ctx
+          .api
           .getAllComponents(program);
 
         const classComponents = collectorLegacy
-          .ctx
+          .api
           .getAllComponents(program);
 
         // Iterate over each found `React.lazy()` call

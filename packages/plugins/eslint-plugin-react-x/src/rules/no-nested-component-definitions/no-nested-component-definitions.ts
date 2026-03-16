@@ -43,8 +43,8 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
-  const fCollector = core.useComponentCollector(context, { hint });
-  const cCollector = core.useComponentCollectorLegacy(context);
+  const fCollector = core.getComponentCollector(context, { hint });
+  const cCollector = core.getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     fCollector.visitor,
@@ -52,8 +52,8 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       "Program:exit"(program) {
         // Gather all function and class components found by the collectors
-        const fComponents = [...fCollector.ctx.getAllComponents(program)];
-        const cComponents = [...cCollector.ctx.getAllComponents(program)];
+        const fComponents = [...fCollector.api.getAllComponents(program)];
+        const cComponents = [...cCollector.api.getAllComponents(program)];
         // Helper to find the enclosing component of a node
         function findEnclosingComponent(node: TSESTree.Node) {
           return ast.findParentNode(node, (n) => {

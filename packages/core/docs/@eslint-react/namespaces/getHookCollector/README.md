@@ -1,6 +1,6 @@
-[@eslint-react/core](../../../README.md) / useComponentCollectorLegacy
+[@eslint-react/core](../../../README.md) / getHookCollector
 
-# useComponentCollectorLegacy
+# getHookCollector
 
 ## Type Aliases
 

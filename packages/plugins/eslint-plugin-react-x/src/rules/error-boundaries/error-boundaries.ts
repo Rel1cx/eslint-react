@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | core.JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       "Program:exit"(node) {
-        for (const { rets } of ctx.getAllComponents(node)) {
+        for (const { rets } of api.getAllComponents(node)) {
           for (const ret of rets) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614

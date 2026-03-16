@@ -4,11 +4,11 @@
 
 | Namespace | Description |
 | ------ | ------ |
+| [getComponentCollector](@eslint-react/namespaces/getComponentCollector/README.md) | - |
+| [getComponentCollectorLegacy](@eslint-react/namespaces/getComponentCollectorLegacy/README.md) | - |
+| [getHookCollector](@eslint-react/namespaces/getHookCollector/README.md) | - |
 | [isReactAPI](@eslint-react/namespaces/isReactAPI/README.md) | - |
 | [isReactAPICall](@eslint-react/namespaces/isReactAPICall/README.md) | - |
-| [useComponentCollector](@eslint-react/namespaces/useComponentCollector/README.md) | - |
-| [useComponentCollectorLegacy](@eslint-react/namespaces/useComponentCollectorLegacy/README.md) | - |
-| [useHookCollector](@eslint-react/namespaces/useHookCollector/README.md) | - |
 
 ## Classes
 
@@ -120,8 +120,11 @@
 | Function | Description |
 | ------ | ------ |
 | [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
+| [getComponentCollector](functions/getComponentCollector.md) | Get a api and visitor object for the rule to collect function components |
+| [getComponentCollectorLegacy](functions/getComponentCollectorLegacy.md) | Get a api and visitor object for the rule to collect class componentss |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
+| [getHookCollector](functions/getHookCollector.md) | Get a api and visitor object for the rule to collect hooks |
 | [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Get JsxConfig from pragma comments (annotations) in the source code |
 | [getJsxConfigFromContext](functions/getJsxConfigFromContext.md) | Get JsxConfig from the rule context by reading compiler options |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
@@ -152,6 +155,3 @@
 | [isUseEffectLikeCall](functions/isUseEffectLikeCall.md) | Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern |
 | [isUseEffectSetupCallback](functions/isUseEffectSetupCallback.md) | Determine if a node is the setup function passed to a useEffect-like hook |
 | [isUseStateLikeCall](functions/isUseStateLikeCall.md) | Detect useState calls and variations (useCustomState, etc.) using a regex pattern |
-| [useComponentCollector](functions/useComponentCollector.md) | Get a ctx and visitor object for the rule to collect function components |
-| [useComponentCollectorLegacy](functions/useComponentCollectorLegacy.md) | Get a ctx and visitor object for the rule to collect class componentss |
-| [useHookCollector](functions/useHookCollector.md) | Get a ctx and visitor object for the rule to collect hooks |

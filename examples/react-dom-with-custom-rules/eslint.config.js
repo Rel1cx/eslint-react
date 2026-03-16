@@ -2,8 +2,8 @@
 
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
-import { definePlugin, defineRuleListener } from "eslint-plugin-react-custom";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
@@ -60,7 +60,7 @@ export default defineConfig(
       eslintPluginReactRefresh.configs.recommended,
     ],
   },
-  // custom rules powered by eslint-plugin-react-custom
+  // custom rules powered by eslint-plugin-react-kit
   {
     files: TSCONFIG_APP.include,
     plugins: {
@@ -144,12 +144,12 @@ export default defineConfig(
               & ~toolkit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
 
             // Collect all function components detected in the file with the customized hint.
-            const { ctx, visitor } = toolkit.useComponentCollector(context, { hint });
+            const { api, visitor } = toolkit.getComponentCollector(context, { hint });
 
             // Merge two or more visitors into a single visitor by using defineRuleListener.
             return defineRuleListener(visitor, {
               "Program:exit"(program) {
-                for (const { node } of ctx.getAllComponents(program)) {
+                for (const { node } of api.getAllComponents(program)) {
                   if (node.type === "ArrowFunctionExpression") continue;
                   context.report({
                     node,

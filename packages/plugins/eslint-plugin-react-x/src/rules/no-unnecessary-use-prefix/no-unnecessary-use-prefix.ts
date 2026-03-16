@@ -37,11 +37,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useHookCollector(context);
+  const { api, visitor } = core.getHookCollector(context);
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
-      for (const { id, name, hookCalls, node } of ctx.getAllHooks(program)) {
+      for (const { id, name, hookCalls, node } of api.getAllHooks(program)) {
         // If the function calls at least one real hook, it's a valid custom hook, so we skip it
         if (hookCalls.length > 0) {
           continue;

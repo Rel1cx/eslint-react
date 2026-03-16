@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
   const jsx = JsxInspector.from(context);
 
@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
-        const functionEntry = ctx.getCurrentEntry();
+        const functionEntry = api.getCurrentEntry();
         if (functionEntry == null) return;
         if (compilationMode === "annotation" && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
         const attribute = node
@@ -72,7 +72,7 @@ export function create(context: RuleContext<MessageID, []>) {
         getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
       },
       "Program:exit"(program) {
-        for (const { directives, node: component } of ctx.getAllComponents(program)) {
+        for (const { directives, node: component } of api.getAllComponents(program)) {
           if (compilationMode === "annotation" && directives.some((d) => d.directive === "use memo")) continue;
           for (const construction of constructions.get(component) ?? []) {
             const { kind, node: constructionNode } = construction;
