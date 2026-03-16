@@ -85,7 +85,36 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
   return { meta: { name, version }, rules: pluginRules };
 }
 
-export { defineRuleListener } from "@eslint-react/shared";
+/**
+ * Defines a rule listener by merging multiple visitor objects
+ *
+ * @param base Base visitor object (target of merge)
+ * @param rest Additional visitor objects to merge (one or more)
+ * @returns Merged RuleListener object
+ *
+ * @example
+ * ```typescript
+ * const listener1 = { Identifier: () => console.log(1) };
+ * const listener2 = { Identifier: () => console.log(2) };
+ * const merged = defineRuleListener(listener1, listener2);
+ * // When encountering Identifier nodes, outputs 1 then 2
+ * ```
+ */
+export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]): RuleListener {
+  for (const r of rest) {
+    for (const key in r) {
+      const existing = base[key];
+      // tsl-ignore core/strictBooleanExpressions
+      base[key] = existing
+        ? (...args) => {
+          existing(...args);
+          r[key]?.(...args);
+        }
+        : r[key];
+    }
+  }
+  return base;
+}
 
 // The upstream `@typescript-eslint/utils/ts-eslint` module does not include `message` in its `ReportDescriptor` type, unlike ESLint's own type definitions which support both `message` and `messageId`, this is bad for custom rules that don't define a static `meta.messages` map.
 declare module "@typescript-eslint/utils/ts-eslint" {
