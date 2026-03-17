@@ -62,16 +62,6 @@ export default defineConfig(
 ]);
 ```
 
-## How It Works
-
-The eslint-react toolkit provides several **collectors** that help you analyze React-specific code patterns:
-
-| Collector                     | Purpose                                       |
-| :---------------------------- | :-------------------------------------------- |
-| `getComponentCollector`       | Collect and analyze React function components |
-| `getComponentCollectorLegacy` | Collect and analyze React class components    |
-| `getHookCollector`            | Collect and analyze React Hooks               |
-
 ## Rule Structure
 
 Each custom rule follows this structure:
@@ -82,9 +72,9 @@ import { defineRuleListener } from "eslint-plugin-react-kit";
 {
   name: "rule-name",
   // Rule logic using collectors
-  make: (context, kit) => {
+  make: (ctx, kit) => {
     // Initialize collectors
-    const { api, visitor } = kit.getComponentCollector(context);
+    const { api, visitor } = kit.getComponentCollector(ctx);
 
     // Merge collector visitors with your custom visitors
     return defineRuleListener(
@@ -94,7 +84,7 @@ import { defineRuleListener } from "eslint-plugin-react-kit";
           // Access collected data via api
           for (const { node } of api.getAllComponents(program)) {
             // Report issues
-            context.report({
+            ctx.report({
               node,
               message: "Your error message",
             });
