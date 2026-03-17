@@ -19,7 +19,7 @@ Define custom rules directly in your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import eslintReactKit, { merge } from "@eslint-react/kit";
+import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -29,7 +29,7 @@ export default defineConfig(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
-      eslintReactKit(
+      defineReactConfig(
         {
           name: "function-component-definition",
           make: (ctx, kit) => {
@@ -59,12 +59,11 @@ export default defineConfig(
 
 ## Rule Structure
 
-Each custom rule follows this structure:
+Each custom rule is an object with `name`, optional `meta`, and a `make` function:
 
 ```ts copy
 import { merge } from "@eslint-react/kit";
 
-// Each custom rule is an object: { name, meta?, make }
 {
   name: "rule-name",
   make: (ctx, kit) => {
@@ -89,6 +88,123 @@ import { merge } from "@eslint-react/kit";
   },
 }
 ```
+
+## Toolkit Reference
+
+The `kit` object is passed as the second argument to `make`. It exposes four domains:
+
+### `kit.collect` — Semantic Collectors
+
+| Method                      | Description                                                                             |
+| :-------------------------- | :-------------------------------------------------------------------------------------- |
+| `components(ctx, options?)` | Detects function components. Options: `{ hint?: bigint, collectDisplayName?: boolean }` |
+| `hooks(ctx)`                | Detects custom hook definitions.                                                        |
+
+Each collector returns `{ query, visitor }`. The `visitor` must be merged into your rule listener via `merge()`. After traversal, `query.all(program)` yields all detected semantic nodes.
+
+Both collectors also expose `query.current()` and `query.currentStack()` for accessing traversal context during the AST walk.
+
+### `kit.is` — Predicates
+
+All predicates live under a single unified `kit.is` namespace.
+
+**Component:**
+
+| Predicate                   | Description                                             |
+| :-------------------------- | :------------------------------------------------------ |
+| `componentDefinition`       | Whether a function node is a component definition.      |
+| `componentName`             | Strict PascalCase component name check.                 |
+| `componentNameLoose`        | Loose component name check.                             |
+| `componentWrapperCall`      | Whether a node is a `memo(…)` or `forwardRef(…)` call.  |
+| `componentWrapperCallLoose` | Like above, but also matches `useCallback(…)`.          |
+| `componentWrapperCallback`  | Whether a function is the callback passed to a wrapper. |
+
+**Hook — general:**
+
+| Predicate                  | Description                                                  |
+| :------------------------- | :----------------------------------------------------------- |
+| `hook`                     | Whether a function node is a hook (by name).                 |
+| `hookCall`                 | Whether a node is a hook call.                               |
+| `hookName`                 | Whether a string matches the `use[A-Z]` convention.          |
+| `useEffectLikeCall`        | Whether a node is a `useEffect`/`useLayoutEffect`-like call. |
+| `useStateLikeCall`         | Whether a node is a `useState`-like call.                    |
+| `useEffectSetupCallback`   | Whether a node is a useEffect setup function.                |
+| `useEffectCleanupCallback` | Whether a node is a useEffect cleanup function.              |
+
+**Hook — built-in call predicates:**
+
+Each takes a `TSESTree.Node | null` and returns `true` if the node is a call to that specific hook:
+
+`useCall` · `useActionStateCall` · `useCallbackCall` · `useContextCall` · `useDebugValueCall` · `useDeferredValueCall` · `useEffectCall` · `useFormStatusCall` · `useIdCall` · `useImperativeHandleCall` · `useInsertionEffectCall` · `useLayoutEffectCall` · `useMemoCall` · `useOptimisticCall` · `useReducerCall` · `useRefCall` · `useStateCall` · `useSyncExternalStoreCall` · `useTransitionCall`
+
+```ts
+CallExpression(node) {
+  if (kit.is.useStateCall(node)) {
+    // node is a useState(...) call
+  }
+}
+```
+
+**React API — factories:**
+
+| Predicate      | Description                                              |
+| :------------- | :------------------------------------------------------- |
+| `reactAPI`     | Factory: creates a predicate for a React API identifier. |
+| `reactAPICall` | Factory: creates a predicate for a React API call.       |
+
+**React API — pre-built identifier predicates** (support both data-first and data-last):
+
+`captureOwnerStack` · `childrenCount` · `childrenForEach` · `childrenMap` · `childrenOnly` · `childrenToArray` · `cloneElement` · `createContext` · `createElement` · `forwardRef` · `memo` · `lazy`
+
+**React API — pre-built call predicates:**
+
+`captureOwnerStackCall` · `childrenCountCall` · `childrenForEachCall` · `childrenMapCall` · `childrenOnlyCall` · `childrenToArrayCall` · `cloneElementCall` · `createContextCall` · `createElementCall` · `forwardRefCall` · `memoCall` · `lazyCall`
+
+```ts
+// data-first
+kit.is.memo(ctx, node);
+kit.is.memoCall(ctx, node);
+
+// data-last (useful in filter/find)
+nodes.filter(kit.is.memoCall(ctx));
+
+// factory for any API name
+const isCreateRefCall = kit.is.reactAPICall("createRef");
+isCreateRefCall(ctx, node);
+```
+
+**Import source:**
+
+| Predicate                    | Description                                          |
+| :--------------------------- | :--------------------------------------------------- |
+| `initializedFromReact`       | Whether a variable comes from a React import.        |
+| `initializedFromReactNative` | Whether a variable comes from a React Native import. |
+
+### `kit.hint` & `kit.flag` — Bit-Flags
+
+`kit.hint.component` provides flags to customize what the component collector considers a "component". `kit.hint.defaultComponent` is the default hint used when none is specified. Combine with `|` and remove with `& ~`:
+
+```ts
+// Also treat object methods as components
+const hint = kit.hint.defaultComponent
+  & ~kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
+
+const { query, visitor } = kit.collect.components(ctx, { hint });
+```
+
+`kit.flag.component` provides flags indicating component characteristics:
+
+```ts
+for (const component of query.all(program)) {
+  if (component.flag & kit.flag.component.Memo) {
+    // This component is wrapped in React.memo
+  }
+}
+```
+
+### `kit.builtinHookNames`
+
+A readonly array of all React built-in hook names (`"use"`, `"useState"`, `"useEffect"`, …). Useful for building custom validation logic against the full list.
 
 ## Rule Recipes
 

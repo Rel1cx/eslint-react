@@ -164,7 +164,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
-        const enclosingFn = ast.findParentNode(node, ast.isFunction);
+        const enclosingFn = ast.findParent(node, ast.isFunction);
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
@@ -197,7 +197,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
-        const enclosingFn = ast.findParentNode(node, ast.isFunction);
+        const enclosingFn = ast.findParent(node, ast.isFunction);
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
@@ -227,7 +227,7 @@ export function create(context: RuleContext<MessageID, []>) {
               insideComponentOrHook = true;
               break;
             }
-            current = ast.findParentNode(current, ast.isFunction);
+            current = ast.findParent(current, ast.isFunction);
           }
 
           if (!insideComponentOrHook) continue;

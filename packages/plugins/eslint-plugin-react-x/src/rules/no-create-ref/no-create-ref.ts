@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node) {
-        if (core.isCreateRefCall(context, node) && ast.findParentNode(node, core.isClassComponent) == null) {
+        if (core.isCreateRefCall(context, node) && ast.findParent(node, core.isClassComponent) == null) {
           context.report({ messageId: "default", node });
         }
       },

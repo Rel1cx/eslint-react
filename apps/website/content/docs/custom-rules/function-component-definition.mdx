@@ -13,7 +13,7 @@ Copy and paste this into your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import eslintReactKit, { merge } from "@eslint-react/kit";
+import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -23,7 +23,7 @@ export default defineConfig(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
-      eslintReactKit(
+      defineReactConfig(
         {
           name: "function-component-definition",
           make: (ctx, kit) => {
@@ -104,3 +104,5 @@ This rule uses `kit.collect.components` to identify all React function component
 - Change the rule to enforce function declarations instead of arrow functions
 - Add auto-fix to convert function declarations to arrow functions
 - Add suggestions to convert function components between different definition styles
+- Check whether a component is wrapped in `memo` or `forwardRef` using `kit.flag.component.Memo` / `kit.flag.component.ForwardRef`
+- Exclude memoized components by inspecting `component.flag & kit.flag.component.Memo`

@@ -24,13 +24,13 @@ export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
 
   // Find the return statement returning this node
-  const returnStatement = ast.findParentNode(node, ast.is(AST.ReturnStatement));
+  const returnStatement = ast.findParent(node, ast.is(AST.ReturnStatement));
 
   // Find the enclosing function of the node
-  const enclosingFunction = ast.findParentNode(node, ast.isFunction);
+  const enclosingFunction = ast.findParent(node, ast.isFunction);
 
   // Find the enclosing function of the return statement
-  const enclosingFunctionOfReturn = ast.findParentNode(returnStatement, ast.isFunction);
+  const enclosingFunctionOfReturn = ast.findParent(returnStatement, ast.isFunction);
 
   // Verify the node and the return statement belong to the same function scope
   if (enclosingFunction !== enclosingFunctionOfReturn) return false;

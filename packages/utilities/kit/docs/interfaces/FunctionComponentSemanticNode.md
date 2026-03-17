@@ -1,4 +1,4 @@
-[@eslint-react/core](../README.md) / FunctionComponentSemanticNode
+[@eslint-react/kit](../README.md) / FunctionComponentSemanticNode
 
 # Interface: FunctionComponentSemanticNode
 

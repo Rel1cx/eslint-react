@@ -1,191 +1,332 @@
 # @eslint-react/kit
 
-ESLint React's ESLint plugin for building custom rules.
+ESLint React's toolkit for building custom React lint rules — inline, right inside your `eslint.config.ts`.
 
 ## Index
 
-- [Index](#index)
 - [Installation](#installation)
-- [Write custom rules inline](#write-custom-rules-inline)
-- [Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions](#example-enforce-function-components-to-be-defined-with-arrow-functions-with-component-detection-hint-customization-and-auto-fix-with-suggestions)
+- [Quick Start](#quick-start)
+- [API Reference](#api-reference)
+  - [`defineConfig` (default export)](#defineconfig-default-export)
+  - [`merge`](#merge)
+  - [`Kit` — the toolkit object](#kit--the-toolkit-object)
+    - [`kit.collect`](#kitcollect) — Semantic collectors
+    - [`kit.is`](#kitis) — Predicates
+    - [`kit.hint`](#kithint) — Detection hint bit-flags
+    - [`kit.flag`](#kitflag) — Component characteristic flags
+    <!--- [`kit.builtinHookNames`](#kitbuiltinhooknames) — Hook name list-->
+  - [Semantic Node Types](#semantic-node-types)
+- [Examples](#examples)
+  - [Simple: Ban `Date.now`](#simple-ban-datenow)
+  - [Hooks: Warn on custom hooks with no hook calls](#hooks-warn-on-custom-hooks-with-no-hook-calls)
+  - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
 - [More Examples](#more-examples)
 
 ## Installation
 
 ```sh
-# npm
 npm install --save-dev @eslint-react/kit
 ```
 
-## Write custom rules inline
+## Quick Start
 
 ```ts
 // eslint.config.ts
-import eslintReactKit from "@eslint-react/kit";
-import eslintJs from "@eslint/js";
+import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
 
-export default defineConfig(
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      eslintJs.configs.recommended,
-      tseslint.configs.recommended,
-      eslintReactKit(
-        {
-          name: "no-date-now",
-          make: (ctx) => {
-            return {
-              CallExpression(node) {
-                if (ctx.sourceCode.getText(node.callee) === "Date.now") {
+export default defineConfig({
+  files: ["**/*.{ts,tsx}"],
+  extends: [
+    defineReactConfig(
+      {
+        name: "function-component-definition",
+        make: (ctx, kit) => {
+          const { query, visitor } = kit.collect.components(ctx);
+
+          return merge(
+            visitor,
+            {
+              "Program:exit"(program) {
+                for (const { node } of query.all(program)) {
+                  if (node.type === "ArrowFunctionExpression") continue;
                   ctx.report({
                     node,
-                    message: "Don't use 'Date.now'.",
+                    message: "Function components must be defined with arrow functions.",
                   });
                 }
               },
-            };
-          },
+            },
+          );
         },
-      ),
-    ],
-  },
-);
+      },
+    ),
+  ],
+});
 ```
 
-## Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions
+## API Reference
+
+### `defineConfig` (default export)
 
 ```ts
-// eslint.config.ts
-import eslintReactKit, { merge } from "@eslint-react/kit";
-import eslintJs from "@eslint/js";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
+import { defineConfig as defineReactConfig } from "@eslint-react/kit";
 
-export default defineConfig(
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      eslintJs.configs.recommended,
-      tseslint.configs.recommended,
-      eslintReactKit(
-        {
-          name: "function-component-definition",
-          meta: {
-            fixable: "code",
-            hasSuggestions: true,
-          },
-          // Use `kit` parameter to access detection hints
-          make: (ctx, kit) => {
-            // Customize component detection:
-            // Also treat functions defined on object methods as components,
-            // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
-            const hint = kit.hint.defaultComponent
-              & ~kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
-
-            // Create a collector with the customized hint.
-            const { query, visitor } = kit.collect.components(ctx, { hint });
-
-            // Merge the collector's visitor with inspection logic.
-            return merge(
-              visitor,
-              {
-                "Program:exit"(program) {
-                  for (const { node } of query.all(program)) {
-                    if (node.type === "ArrowFunctionExpression") continue;
-                    ctx.report({
-                      node,
-                      message: "Function components must be defined with arrow functions.",
-                      suggest: [
-                        {
-                          desc: "Convert to arrow function.",
-                          fix(fixer) {
-                            const src = ctx.sourceCode;
-                            if (node.generator) return null;
-                            const prefix = node.async ? "async " : "";
-                            const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
-                            const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                            const returnType = node.returnType ? src.getText(node.returnType) : "";
-                            const body = src.getText(node.body);
-
-                            // function Foo(params) { ... } → const Foo = (params) => { ... };
-                            if (node.type === "FunctionDeclaration" && node.id) {
-                              // dprint-ignore
-                              return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
-                            }
-
-                            // { Foo(params) { ... } } → { Foo: (params) => { ... } }
-                            if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                              // dprint-ignore
-                              return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
-                            }
-
-                            return null;
-                          },
-                        },
-                      ],
-                    });
-                  }
-                },
-              },
-            );
-          },
-        },
-      ),
-    ],
-  },
-);
+defineReactConfig(...rules: RuleDefinition[]): Linter.Config
 ```
 
-### ❌ Invalid
+Creates an ESLint flat-config object from one or more custom rule definitions. Rules are registered under the `@eslint-react/kit` plugin namespace and enabled at `"error"` severity by default.
 
-```tsx
-// Function declaration
-function MyComponent() {
-  return <div>Hello</div>;
+**`RuleDefinition`:**
+
+| Field  | Type                         | Description                                                                      |
+| ------ | ---------------------------- | -------------------------------------------------------------------------------- |
+| `name` | `string`                     | Unique rule name. Used as `@eslint-react/kit/<name>` in config.                  |
+| `make` | `(ctx, kit) => RuleListener` | Rule factory. Receives the ESLint rule context and the structured `Kit` toolkit. |
+
+### `merge`
+
+```ts
+import { merge } from "@eslint-react/kit";
+
+merge(...listeners: RuleListener[]): RuleListener
+```
+
+Merges multiple `RuleListener` (visitor) objects into a single listener. When two or more listeners define the same visitor key, the handlers are chained and execute in order.
+
+This is essential for combining a collector's `visitor` with your own inspection logic.
+
+### Kit — the toolkit object
+
+The second argument to `make` is a structured `Kit` object:
+
+```
+kit
+├── collect            -> Semantic collectors (components, hooks)
+├── is                 -> All predicates (component, hook, React API, import source)
+├── hint               -> Detection hint bit-flags
+├── flag               -> Component characteristic bit-flags
+└── builtinHookNames   -> Readonly list of React built-in hook names
+```
+
+---
+
+#### `kit.collect`
+
+Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
+
+| Method                      | Returns                                               | Description                                                                             |
+| --------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `components(ctx, options?)` | `CollectorWithContext<FunctionComponentSemanticNode>` | Detects function components. Options: `{ hint?: bigint, collectDisplayName?: boolean }` |
+| `hooks(ctx)`                | `CollectorWithContext<HookSemanticNode>`              | Detects custom hook definitions.                                                        |
+
+**`CollectorWithContext`** extends `Collector` with contextual queries:
+
+| Query                  | Description                                                       |
+| ---------------------- | ----------------------------------------------------------------- |
+| `query.all(program)`   | All collected semantic nodes in the file.                         |
+| `query.current()`      | The function entry the traversal is currently inside (or `null`). |
+| `query.currentStack()` | The full stack of function entries during traversal.              |
+
+---
+
+#### `kit.is`
+
+All predicates live under `kit.is` — organized into four sub-sections.
+
+##### Component
+
+| Predicate                   | Signature                      | Description                                             |
+| --------------------------- | ------------------------------ | ------------------------------------------------------- |
+| `componentDefinition`       | `(ctx, node, hint) -> boolean` | Whether a function node is a component definition.      |
+| `componentName`             | `(name) -> boolean`            | Strict PascalCase component name check.                 |
+| `componentNameLoose`        | `(name) -> boolean`            | Loose component name check.                             |
+| `componentWrapperCall`      | `(ctx, node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call.  |
+| `componentWrapperCallLoose` | `(ctx, node) -> boolean`       | Like above, but also matches `useCallback(…)`.          |
+| `componentWrapperCallback`  | `(ctx, node) -> boolean`       | Whether a function is the callback passed to a wrapper. |
+
+##### Hook
+
+General hook predicates:
+
+| Predicate                  | Signature                             | Description                                                  |
+| -------------------------- | ------------------------------------- | ------------------------------------------------------------ |
+| `hook`                     | `(node) -> boolean`                   | Whether a function node is a hook (by name).                 |
+| `hookCall`                 | `(node) -> boolean`                   | Whether a node is a hook call.                               |
+| `hookName`                 | `(name) -> boolean`                   | Whether a string matches the `use[A-Z]` convention.          |
+| `useEffectLikeCall`        | `(node, additionalHooks?) -> boolean` | Whether a node is a `useEffect`/`useLayoutEffect`-like call. |
+| `useStateLikeCall`         | `(node, additionalHooks?) -> boolean` | Whether a node is a `useState`-like call.                    |
+| `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
+| `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
+
+##### React API
+
+Factory functions:
+
+| Predicate      | Signature                             | Description                                              |
+| -------------- | ------------------------------------- | -------------------------------------------------------- |
+| `reactAPI`     | `(apiName) -> (ctx, node) -> boolean` | Factory: creates a predicate for a React API identifier. |
+| `reactAPICall` | `(apiName) -> (ctx, node) -> boolean` | Factory: creates a predicate for a React API call.       |
+
+Pre-built identifier predicates — each supports both data-first `(ctx, node)` and data-last `(ctx)` calling conventions:
+
+`captureOwnerStack`, `childrenCount`, `childrenForEach`, `childrenMap`, `childrenOnly`, `childrenToArray`, `cloneElement`, `createContext`, `createElement`, `forwardRef`, `memo`, `lazy`
+
+Pre-built call predicates:
+
+`captureOwnerStackCall`, `childrenCountCall`, `childrenForEachCall`, `childrenMapCall`, `childrenOnlyCall`, `childrenToArrayCall`, `cloneElementCall`, `createContextCall`, `createElementCall`, `forwardRefCall`, `memoCall`, `lazyCall`
+
+```ts
+// data-first
+kit.is.memo(ctx, node);
+kit.is.memoCall(ctx, node);
+
+// data-last (useful in filter/find)
+nodes.filter(kit.is.memoCall(ctx));
+```
+
+##### Import source
+
+| Predicate                    | Signature                                 | Description                                          |
+| ---------------------------- | ----------------------------------------- | ---------------------------------------------------- |
+| `initializedFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
+| `initializedFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
+
+---
+
+#### `kit.hint`
+
+Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`|`) and remove with bitwise AND-NOT (`& ~`).
+
+```ts
+// The default hint used when none is specified
+kit.hint.defaultComponent;
+
+// All available flags
+kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
+kit.hint.component.DoNotIncludeFunctionDefinedAsClassMethod;
+kit.hint.component.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+kit.hint.component.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
+// … and more (inherits all JsxDetectionHint flags)
+```
+
+**Customization example:**
+
+```ts
+// Also treat object methods as components (remove the exclusion flag)
+const hint = kit.hint.defaultComponent
+  & ~kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
+
+const { query, visitor } = kit.collect.components(ctx, { hint });
+```
+
+---
+
+#### `kit.flag`
+
+Bit-flags indicating component characteristics. Check with bitwise AND (`&`).
+
+```ts
+kit.flag.component.None; // 0n — no flags
+kit.flag.component.Memo; // wrapped in React.memo
+kit.flag.component.ForwardRef; // wrapped in React.forwardRef
+```
+
+**Usage:**
+
+```ts
+for (const component of query.all(program)) {
+  if (component.flag & kit.flag.component.Memo) {
+    // This component is memoized
+  }
 }
 ```
 
-```tsx
-// Function expression
-const MyComponent = function() {
-  return <div>Hello</div>;
-};
+---
+
+### Semantic Node Types
+
+The following types are re-exported for annotation purposes — no need to depend on `@eslint-react/core` directly:
+
+```ts
+import type { FunctionComponentSemanticNode, HookSemanticNode, SemanticNode } from "@eslint-react/kit";
 ```
 
-```tsx
-// Components defined as object methods are also considered function components
-// because we removed the default hint that excludes them.
-const MDXComponents = {
-  Callout({ children }: { children: React.ReactNode }) {
-    // ^^^ Function components must be defined with arrow functions.
-    return <div>{children}</div>;
+## Examples
+
+### Simple: Ban `Date.now`
+
+```ts
+defineReactConfig({
+  name: "no-date-now",
+  make: (ctx) => ({
+    CallExpression(node) {
+      if (ctx.sourceCode.getText(node.callee) === "Date.now") {
+        ctx.report({ node, message: "Don't use 'Date.now'." });
+      }
+    },
+  }),
+});
+```
+
+### Hooks: Warn on custom hooks doesn't call other hooks
+
+This is a simplified kit reimplementation of the built-in
+[`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
+
+```ts
+defineReactConfig({
+  name: "no-unnecessary-use-prefix",
+  make: (ctx, kit) => {
+    const { query, visitor } = kit.collect.hooks(ctx);
+
+    return merge(visitor, {
+      "Program:exit"(program) {
+        for (const { node, hookCalls } of query.all(program)) {
+          if (hookCalls.length === 0) {
+            ctx.report({
+              node,
+              message: "A custom hook should use at least one hook, otherwise it's just a regular function.",
+            });
+          }
+        }
+      },
+    });
   },
-};
+});
 ```
 
-### ✅ Valid
+### Multiple Collectors: No component/hook factories
 
-```tsx
-// Arrow function expression
-const MyComponent = () => {
-  return <div>Hello</div>;
-};
-```
+Disallow defining components or hooks inside other functions (factory pattern).
+This is a simplified kit reimplementation of the built-in
+[`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
-```tsx
-// Arrow function with implicit return
-const MyComponent = () => <div>Hello</div>;
-```
+```ts
+defineReactConfig({
+  name: "component-hook-factories",
+  make: (ctx, kit) => {
+    const fc = kit.collect.components(ctx);
+    const hk = kit.collect.hooks(ctx);
 
-```tsx
-// Object method defined as an arrow function is also valid.
-const MDXComponents = {
-  Callout: ({ children }: { children: React.ReactNode }) => {
-    return <div>{children}</div>;
+    return merge(
+      fc.visitor,
+      hk.visitor,
+      {
+        "Program:exit"(program) {
+          for (const { kind, name, node } of [...fc.query.all(program), ...hk.query.all(program)]) {
+            if (name == null) continue;
+            if (kit.find.parent(node, kit.is.function) == null) continue;
+            ctx.report({
+              node,
+              message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
+            });
+          }
+        },
+      },
+    );
   },
-};
+});
 ```
 
 ## More Examples

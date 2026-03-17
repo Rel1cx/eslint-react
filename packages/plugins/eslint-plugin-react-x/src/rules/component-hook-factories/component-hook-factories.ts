@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Check function components defined inside any function (not at module level)
         for (const { name, node } of fComponents) {
           if (name == null) continue;
-          if (ast.findParentNode(node, ast.isFunction) == null) continue;
+          if (ast.findParent(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
           context.report({
             data: { name },
@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Check class components defined inside any function (not at module level)
         for (const { name = "unknown", node } of cComponents) {
-          if (ast.findParentNode(node, ast.isFunction) == null) continue;
+          if (ast.findParent(node, ast.isFunction) == null) continue;
           context.report({
             data: { name },
             messageId: "component",
@@ -88,7 +88,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Check hooks defined inside any function (not at module level)
         for (const { name, node } of hooks) {
-          if (ast.findParentNode(node, ast.isFunction) == null) continue;
+          if (ast.findParent(node, ast.isFunction) == null) continue;
           if (reported.has(node)) continue;
           context.report({
             data: { name },

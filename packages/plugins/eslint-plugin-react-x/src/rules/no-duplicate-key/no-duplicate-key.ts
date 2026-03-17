@@ -77,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           // Case 2: Elements created by an array's .map() call
           default: {
-            const call = ast.findParentNode(
+            const call = ast.findParent(
               jsxElement,
               (n): n is TSESTree.CallExpression => (
                 n.type === AST.CallExpression
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 && n.callee.property.name === "map"
               ),
             );
-            const iter = ast.findParentNode(jsxElement, (n) => n === call || ast.isFunction(n));
+            const iter = ast.findParent(jsxElement, (n) => n === call || ast.isFunction(n));
             if (!ast.isFunction(iter)) return;
             const arg0 = call?.arguments[0];
             if (call == null || arg0 == null) return;

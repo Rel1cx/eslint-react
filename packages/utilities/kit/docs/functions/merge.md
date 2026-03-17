@@ -24,11 +24,33 @@ collector's visitor with your own inspection logic.
 
 A single merged RuleListener.
 
-## Example
+## Examples
 
 ```ts
-const collectorVisitor = { Identifier: () => console.log("collect") };
-const inspectVisitor   = { Identifier: () => console.log("inspect") };
-const merged = merge(collectorVisitor, inspectVisitor);
-// When encountering Identifier nodes, outputs "collect" then "inspect"
+const { query, visitor } = kit.collect.components(ctx);
+
+return merge(
+  visitor,
+  {
+    "Program:exit"(program) {
+      for (const component of query.all(program)) {
+        // inspect components
+      }
+    },
+  },
+);
+```
+
+```ts
+// Merging a component collector and a hook collector
+const fc = kit.collect.components(ctx);
+const hk = kit.collect.hooks(ctx);
+
+return merge(fc.visitor, hk.visitor, {
+  "Program:exit"(program) {
+    const components = fc.query.all(program);
+    const hooks = hk.query.all(program);
+    // analyze everything together
+  },
+});
 ```

@@ -92,8 +92,8 @@ export function isValueEqual(
       if (aScope.block === bScope.block) {
         return true;
       }
-      const aFunction = ast.findParentNode(a, ast.isOneOf(thisBlockTypes));
-      const bFunction = ast.findParentNode(b, ast.isOneOf(thisBlockTypes));
+      const aFunction = ast.findParent(a, ast.isOneOf(thisBlockTypes));
+      const bFunction = ast.findParent(b, ast.isOneOf(thisBlockTypes));
       return aFunction === bFunction;
     }
     default: {

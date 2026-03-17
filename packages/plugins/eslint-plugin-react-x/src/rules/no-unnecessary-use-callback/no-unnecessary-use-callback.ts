@@ -141,7 +141,7 @@ function checkForUsageInsideUseEffect(
   const effectSet = new Set<TSESTree.Node>();
 
   for (const usage of usages) {
-    const effect = ast.findParentNode(usage.identifier, core.isUseEffectLikeCall);
+    const effect = ast.findParent(usage.identifier, core.isUseEffectLikeCall);
 
     if (effect == null) {
       return null;

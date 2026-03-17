@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function getFunctionKind(node: ast.TSESTreeFunction) {
-    const parent = ast.findParentNode(node, not(ast.isTypeExpression)) ?? node.parent;
+    const parent = ast.findParent(node, not(ast.isTypeExpression)) ?? node.parent;
     switch (true) {
       case node.async:
       case parent.type === AST.CallExpression
@@ -255,7 +255,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 break;
               case entry.node === setupFunction:
               case entry.kind === "immediate"
-                && ast.findParentNode(entry.node, ast.isFunction) === setupFunction: {
+                && ast.findParent(entry.node, ast.isFunction) === setupFunction: {
                 const args0 = node.arguments.at(0);
                 // setState() without arguments, which is invalid but other tools will report it
                 if (args0 == null) return;
@@ -293,7 +293,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 return;
               }
               default: {
-                const init = ast.findParentNode(node, isHookDecl)?.init;
+                const init = ast.findParent(node, isHookDecl)?.init;
                 if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
                 else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
               }
@@ -328,7 +328,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!core.isUseMemoCall(parent)) {
               break;
             }
-            const init = ast.findParentNode(parent, isHookDecl)?.init;
+            const init = ast.findParent(parent, isHookDecl)?.init;
             if (init != null) {
               getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
             }
@@ -342,7 +342,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (core.isUseCallbackCall(node.parent)) {
-              const init = ast.findParentNode(node.parent, isHookDecl)?.init;
+              const init = ast.findParent(node.parent, isHookDecl)?.init;
               if (init != null) {
                 getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
               }

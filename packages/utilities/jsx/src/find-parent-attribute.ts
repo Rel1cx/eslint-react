@@ -1,4 +1,4 @@
-import { findParentNode } from "@eslint-react/ast";
+import { findParent } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -32,5 +32,5 @@ export function findParentAttribute(
   const guard = (n: TSESTree.Node): n is TSESTree.JSXAttribute => {
     return n.type === AST.JSXAttribute && test(n);
   };
-  return findParentNode(node, guard);
+  return findParent(node, guard);
 }

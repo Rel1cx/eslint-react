@@ -153,7 +153,7 @@ export function create(context: RuleContext<MessageID, []>) {
     if (isComponentOrHookLikeFunction(node)) {
       return "component";
     }
-    const parent = ast.findParentNode(node, not(ast.isTypeExpression)) ?? node.parent;
+    const parent = ast.findParent(node, not(ast.isTypeExpression)) ?? node.parent;
     if (parent.type === AST.CallExpression && parent.callee !== node) {
       return "callback";
     }

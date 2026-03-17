@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
         switch (true) {
           case expr.type === AST.Identifier: {
             if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
-            const func = ast.findParentNode(node, ast.isFunction);
+            const func = ast.findParent(node, ast.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
             const objectName = expr.object.name;
             const propertyName = expr.property.name;
             if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
-            const func = ast.findParentNode(node, ast.isFunction);
+            const func = ast.findParent(node, ast.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const expr = ast.getUnderlyingExpression(node.callee);
         if (expr.type !== AST.Identifier) return;
         if (!IMPURE_CTORS.has(expr.name)) return;
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
       },

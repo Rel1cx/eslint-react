@@ -116,7 +116,7 @@ export function isComponentDefinition(context: RuleContext, node: ast.TSESTreeFu
   }
 
   // 5. Exclude inline JSX callbacks (event handlers, render props)
-  const significantParent = ast.findParentNode(
+  const significantParent = ast.findParent(
     node,
     ast.isOneOf([
       AST.JSXExpressionContainer,

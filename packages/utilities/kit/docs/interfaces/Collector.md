@@ -7,11 +7,15 @@ The return type of a collector — a query API paired with an AST visitor.
 The `visitor` must be merged into the rule's listener (via [merge](../functions/merge.md))
 so the collector can traverse the AST and populate its query results.
 
+## Extended by
+
+- [`CollectorWithContext`](CollectorWithContext.md)
+
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `T` |
+| Type Parameter | Description |
+| ------ | ------ |
+| `T` | The semantic node type yielded by the collector. |
 
 ## Properties
 

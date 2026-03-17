@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node: TSESTree.CallExpression) {
         if (!isEvalCall(node)) return;
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         evalCalls.push({ func, node });
       },
@@ -101,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       WithStatement(node: TSESTree.WithStatement) {
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         withStmts.push({ func, node });
       },

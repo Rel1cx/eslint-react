@@ -170,12 +170,12 @@ export function create(context: RuleContext<MessageID, []>) {
           }
 
           // Find the enclosing component or hook function
-          const boundary = ast.findParentNode(node, isCompOrHookFn);
+          const boundary = ast.findParent(node, isCompOrHookFn);
 
           // Not inside a component or hook - could be a ref used in a non-React function, which is fine
           if (boundary == null) continue;
 
-          if (ast.findParentNode(node, ast.isFunction) !== boundary) continue;
+          if (ast.findParent(node, ast.isFunction) !== boundary) continue;
 
           //
           // Standard:

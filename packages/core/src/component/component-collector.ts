@@ -17,7 +17,7 @@ import { getFunctionComponentId } from "./component-id";
 import { isFunctionWithLooseComponentName } from "./component-name";
 import type { FunctionComponentSemanticNode } from "./component-semantic-node";
 
-const idGen = new IdGenerator("function-component:");
+const idGen = new IdGenerator("component:");
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isComponentDefinition: boolean;
@@ -60,7 +60,7 @@ export function getComponentCollector(
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const key = idGen.next();
-    const exp = ast.findParentNode(node, (n) => n.type === AST.ExportDefaultDeclaration);
+    const exp = ast.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
@@ -70,7 +70,7 @@ export function getComponentCollector(
     const entry = {
       id: getFunctionComponentId(context, node),
       key,
-      kind: "function-component",
+      kind: "component",
       name,
       directives,
       displayName: null,

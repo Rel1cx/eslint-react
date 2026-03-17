@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node) {
         if (!core.isUseCall(node)) return;
-        const stmt = ast.findParentNode(node, ast.is(AST.TryStatement));
+        const stmt = ast.findParent(node, ast.is(AST.TryStatement));
         if (stmt != null && !reported.has(stmt)) {
           context.report({
             messageId: "tryCatchWithUse",
@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
             if (!isJsxLike(context, ret, hint)) continue;
-            const stmt = ast.findParentNode(ret, ast.is(AST.TryStatement));
+            const stmt = ast.findParent(ret, ast.is(AST.TryStatement));
             if (stmt != null && !reported.has(stmt)) {
               context.report({
                 messageId: "tryCatchWithJsx",

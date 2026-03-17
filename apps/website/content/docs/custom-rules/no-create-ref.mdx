@@ -13,7 +13,7 @@ Copy and paste this into your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import eslintReactKit from "@eslint-react/kit";
+import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -23,7 +23,7 @@ export default defineConfig(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
-      eslintReactKit(
+      defineReactConfig(
         {
           name: "no-create-ref",
           make: (ctx, kit) => {
@@ -92,10 +92,10 @@ function MyComponent() {
 
 This rule uses `kit.is.reactAPICall("createRef")` to create a predicate that identifies calls to `React.createRef()` (including bare `createRef()` imports). Unlike collector-based rules, this rule works as a simple AST visitor — it checks every `CallExpression` node directly, with no need for a collector or `merge`.
 
-This demonstrates how `kit.is.reactAPICall` is a factory: you pass the API name (e.g. `"createRef"`, `"memo"`, `"forwardRef"`) and get back a predicate function that handles all import styles (namespace import, named import, etc.).
+`kit.is.reactAPICall` is a factory: you pass any React API name and get back a predicate that handles all import styles (namespace import, named import, etc.). For common APIs, pre-built predicates are also available directly on `kit.is` — for example `kit.is.memoCall`, `kit.is.forwardRefCall`, `kit.is.createElementCall`.
 
 ## Customization Ideas
 
-- Extend to also ban `React.createRef` as an identifier reference (not just calls)
+- Extend to also ban `React.createRef` as an identifier reference (not just calls), using `kit.is.reactAPI("createRef")`
 - Add auto-fix to convert `createRef()` to `useRef(null)` inside function components
-- Ban other legacy APIs like `React.createElement` using the same pattern
+- Ban other legacy APIs like `createElement` using the pre-built `kit.is.createElementCall` predicate

@@ -5,11 +5,15 @@
 | Interface | Description |
 | ------ | ------ |
 | [Collector](interfaces/Collector.md) | The return type of a collector — a query API paired with an AST visitor. |
-| [Kit](interfaces/Kit.md) | A structured core passed as the second argument to a rule's `make` function. Members are organized by domain rather than presented as a flat namespace. |
+| [CollectorWithContext](interfaces/CollectorWithContext.md) | An extended collector that also provides access to the current traversal context. Useful for rules that need to inspect which component or hook the traversal is currently inside. |
+| [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
+| [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST This interface extends SemanticNode and provides additional properties for React hook analysis |
+| [Kit](interfaces/Kit.md) | - |
+| [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
 
 ## Functions
 
 | Function | Description |
 | ------ | ------ |
-| [default](functions/default.md) | Creates an ESLint flat-config object from one or more custom rule definitions. |
+| [defineConfig](functions/defineConfig.md) | Creates an ESLint flat-config object from one or more custom rule definitions. |
 | [merge](functions/merge.md) | Merges multiple RuleListener (visitor) objects into a single listener. |

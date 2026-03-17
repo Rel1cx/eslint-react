@@ -42,7 +42,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     hooks.set(key, {
       id,
       key,
-      kind: "function",
+      kind: "hook",
       name: ast.getFullyQualifiedName(id, getText),
       directives: [],
       flag: 0n,
