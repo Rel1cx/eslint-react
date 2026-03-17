@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/jsx";
+import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
@@ -26,23 +26,22 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXElement(node) {
         // This rule only applies to host elements (ex: <div />, <span />), not custom components
-        if (!jsx.isHostElement(node)) {
+        if (!isHostElement(node)) {
           return;
         }
 
         // Find the 'style' prop on the element
-        const styleProp = jsx.findAttribute(node, "style");
+        const styleProp = findAttribute(context, node, "style");
         if (styleProp == null) {
           return;
         }
 
         // Resolve the static value of the 'style' prop
-        const styleValue = jsx.resolveAttributeValue(styleProp);
+        const styleValue = resolveAttributeValue(context, styleProp);
         const staticValue = styleValue.toStatic();
 
         // If the resolved value is a string, report an error

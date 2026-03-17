@@ -1,8 +1,8 @@
-import { JsxInspector } from "@eslint-react/jsx";
+import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { createRule, getChildrenContentRange, getPropRemovalRange, hasMeaningfulChildren } from "../../utils";
+import { createRule, getChildrenContentRange, getPropRemovalRange } from "../../utils";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
@@ -37,13 +37,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsx = JsxInspector.from(context);
-
   return defineRuleListener({
     JSXElement(node) {
-      const childrenProp = jsx.findAttribute(node, "children");
+      const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;
-      if (!hasMeaningfulChildren(node)) return;
+      if (!hasChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove
       // just the `children` key from it, so report without suggestions.

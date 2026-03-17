@@ -1,5 +1,12 @@
 import * as ast from "@eslint-react/ast";
-import { JsxInspector } from "@eslint-react/jsx";
+import {
+  getChildren,
+  getJsxConfig,
+  hasAnyAttribute,
+  isFragmentElement,
+  isHostElement,
+  isWhitespaceText,
+} from "@eslint-react/jsx";
 import {
   type RuleContext,
   type RuleFeature,
@@ -10,7 +17,7 @@ import {
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createRule, getChildrenSourceText, isPaddingSpaces, isWhitespaceText, trimLikeReact } from "../../utils";
+import { createRule, getChildrenSourceText, trimLikeReact } from "../../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 
@@ -68,7 +75,7 @@ export default createRule<Options, MessageID>({
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options) {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
-  const jsx = JsxInspector.from(context);
+  const jsxConfig = getJsxConfig(context);
 
   // ----- detection helpers -------------------------------------------------
 
@@ -104,9 +111,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
     // Filter out padding spaces (whitespace with line breaks that React
     // would trim away) and inspect the remaining meaningful children.
-    const meaningful = node.children.filter(
-      (child) => !isPaddingSpaces(child),
-    );
+    const meaningful = getChildren(node);
 
     // No meaningful content at all.
     if (meaningful.length === 0) return true;
@@ -135,7 +140,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // (intrinsic / DOM) element.  Custom components might require `children`
     // to be a single ReactElement, so unwrapping could break them.
     if (ast.isJSXElementLike(node.parent)) {
-      return jsx.isHostElement(node.parent);
+      return isHostElement(node.parent);
     }
 
     // Outside of JSX context (e.g. `return <></>`) an empty fragment cannot
@@ -181,7 +186,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   function checkNode(node: ast.TSESTreeJSXElementLike) {
     // A fragment inside a host component is always redundant — the host
     // element already accepts an arbitrary number of children.
-    if (jsx.isHostElement(node.parent)) {
+    if (isHostElement(node.parent)) {
       context.report({
         data: { reason: "placed inside a host component" },
         fix: buildFix(node),
@@ -203,9 +208,8 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
   return defineRuleListener({
     JSXElement(node) {
-      if (!jsx.isFragmentElement(node)) return;
-      if (jsx.hasAttribute(node, "key")) return;
-      if (jsx.hasAttribute(node, "ref")) return;
+      if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
+      if (hasAnyAttribute(context, node, ["key", "ref"])) return;
       checkNode(node);
     },
     JSXFragment(node) {

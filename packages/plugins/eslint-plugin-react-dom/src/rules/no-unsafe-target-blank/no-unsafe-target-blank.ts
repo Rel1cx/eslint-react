@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/jsx";
+import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -59,7 +59,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
-  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     {
@@ -68,31 +67,16 @@ export function create(context: RuleContext<MessageID, []>) {
         const { domElementType } = resolver.resolve(node);
         if (domElementType !== "a") return;
 
-        // Get access to the component attributes
-        const findAttribute = (name: string) => jsx.findAttribute(node, name);
-
         // Check if target="_blank" is present
-        const targetProp = findAttribute("target");
-        if (targetProp == null) return;
-
-        const targetValue = jsx.resolveAttributeValue(targetProp);
-        const targetValueString = targetValue.kind === "spreadProps"
-          ? targetValue.getProperty("target")
-          : targetValue.toStatic();
+        const targetValueString = getAttributeStaticValue(context, node, "target");
         if (targetValueString !== "_blank") return;
 
         // Check if href points to an external resource
-        const hrefProp = findAttribute("href");
-        if (hrefProp == null) return;
-
-        const hrefValue = jsx.resolveAttributeValue(hrefProp);
-        const hrefValueString = hrefValue.kind === "spreadProps"
-          ? hrefValue.getProperty("href")
-          : hrefValue.toStatic();
+        const hrefValueString = getAttributeStaticValue(context, node, "href");
         if (!isExternalLinkLike(hrefValueString)) return;
 
         // Check if rel prop exists and is secure
-        const relProp = findAttribute("rel");
+        const relProp = findAttribute(context, node, "rel");
 
         // No rel prop case - suggest adding one
         if (relProp == null) {
@@ -113,10 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
 
         // Check if existing rel prop is secure
-        const relValue = jsx.resolveAttributeValue(relProp);
-        const relValueString = relValue.kind === "spreadProps"
-          ? relValue.getProperty("rel")
-          : relValue.toStatic();
+        const relValueString = getAttributeStaticValue(context, node, "rel");
         if (isSafeRel(relValueString)) return;
 
         // Existing rel prop is not secure - suggest replacing it

@@ -1,4 +1,4 @@
-import { JsxEmit, JsxInspector } from "@eslint-react/jsx";
+import { JsxEmit, getElementType, getJsxConfig } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -31,14 +31,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsxInspector = JsxInspector.from(context);
-  const { jsx } = jsxInspector.jsxConfig;
+  const { jsx } = getJsxConfig(context);
 
   const isAutomaticRuntime = jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev;
 
   return defineRuleListener({
     JSXElement(node) {
-      const name = jsxInspector.getElementType(node);
+      const name = getElementType(node);
       if (typeof name !== "string" || !name.includes(":")) {
         return;
       }

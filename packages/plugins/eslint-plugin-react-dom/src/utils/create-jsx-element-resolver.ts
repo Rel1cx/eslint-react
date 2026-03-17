@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getElementType } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -16,8 +16,6 @@ import type { TSESTree } from "@typescript-eslint/types";
  */
 export function createJsxElementResolver(context: RuleContext) {
   const { polymorphicPropName } = getSettingsFromContext(context);
-  const jsx = JsxInspector.from(context);
-
   return {
     /**
      * Resolves the JSX element to determine its type and the underlying DOM element type
@@ -27,7 +25,7 @@ export function createJsxElementResolver(context: RuleContext) {
      */
     resolve(node: TSESTree.JSXElement) {
       // Get the element name/type (ex: 'div', 'Button', etc.)
-      const elementName = jsx.getElementType(node);
+      const elementName = getElementType(node);
 
       // Create the base result with element types
       const result = {
@@ -43,7 +41,7 @@ export function createJsxElementResolver(context: RuleContext) {
       }
 
       // Try to get the value of the polymorphic prop (ex: 'as' or 'component')
-      const polyPropValue = jsx.getAttributeValue(node, polymorphicPropName)?.toStatic();
+      const polyPropValue = getAttributeStaticValue(context, node, polymorphicPropName);
 
       // If we have a string value, use it as the DOM element type
       if (typeof polyPropValue === "string") {

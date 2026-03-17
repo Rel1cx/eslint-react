@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { JsxInspector } from "@eslint-react/jsx";
+import { findParentAttribute } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -151,7 +151,7 @@ export function create(context: RuleContext<MessageID, []>) {
  */
 function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
   return node.parent.type === AST.JSXAttribute
-    || JsxInspector.findParentAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
+    || findParentAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
 }
 
 /**

@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { JsxInspector } from "@eslint-react/jsx";
+import { getElementType } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
@@ -38,12 +38,11 @@ export function create(context: RuleContext<MessageID, []>) {
   const { version } = getSettingsFromContext(context);
   // This rule only applies to React 19 and later
   if (compare(version, "19.0.0", "<")) return {};
-  const jsx = JsxInspector.from(context);
   return defineRuleListener(
     {
       JSXElement(node) {
         // Get the full name of the JSX element: "Foo.MyContext.Provider"
-        const fullName = jsx.getElementType(node);
+        const fullName = getElementType(node);
         const parts = fullName.split(".");
         const selfName = parts.pop();
         const contextFullName = parts.join(".");

@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/jsx";
+import { findAttribute } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -34,11 +34,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsx = JsxInspector.from(context);
-
   return defineRuleListener({
     JSXElement(node) {
-      const childrenProp = jsx.findAttribute(node, "children");
+      const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;
 
       // Only handle direct JSXAttribute nodes (not spread props)

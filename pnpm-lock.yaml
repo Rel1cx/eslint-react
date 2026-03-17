@@ -1278,9 +1278,6 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../../.pkgs/configs
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../../.pkgs/eff
       tsdown:
         specifier: ^0.21.4
         version: 0.21.4(publint@0.3.18)(typescript@5.9.3)

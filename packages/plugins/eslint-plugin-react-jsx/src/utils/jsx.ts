@@ -26,31 +26,6 @@ export function trimLikeReact(text: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// Child-node predicates (single JSXChild)
-// ---------------------------------------------------------------------------
-
-/**
- * Whether a JSX child node is whitespace-only text (spaces, tabs, newlines).
- *
- * Returns `false` for any non-text node (elements, expression containers, etc.).
- * @param node
- */
-export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXText) return false;
-  return node.raw.trim() === "";
-}
-
-/**
- * Whether a JSX child node is whitespace-only text that spans at least one
- * line break — i.e. the "padding" that React would trim away when rendering.
- * @param node
- */
-export function isPaddingSpaces(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXText) return false;
-  return node.raw.trim() === "" && node.raw.includes("\n");
-}
-
-// ---------------------------------------------------------------------------
 // Attribute helpers (single JSXAttribute + source text)
 // ---------------------------------------------------------------------------
 
@@ -117,16 +92,6 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
 // ---------------------------------------------------------------------------
 // Element helpers (JSXElement | JSXFragment)
 // ---------------------------------------------------------------------------
-
-/**
- * Whether a JSX element (or fragment) has meaningful children content —
- * that is, at least one child that is **not** whitespace-only text.
- * @param node
- */
-export function hasMeaningfulChildren(node: ast.TSESTreeJSXElementLike): boolean {
-  if (node.children.length === 0) return false;
-  return !node.children.every(isWhitespaceText);
-}
 
 /**
  * Compute the range covering **all** children content of a JSX element or
