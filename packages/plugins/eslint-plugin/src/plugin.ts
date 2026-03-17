@@ -6,7 +6,7 @@ import reactJsxPlugin from "eslint-plugin-react-jsx";
 import reactNamingConventionPlugin from "eslint-plugin-react-naming-convention";
 import reactRscPlugin from "eslint-plugin-react-rsc";
 import reactWebApiPlugin from "eslint-plugin-react-web-api";
-import reactPlugin from "eslint-plugin-react-x";
+import reactXPlugin from "eslint-plugin-react-x";
 
 import { padKeysLeft } from "./utils/pad-keys-left";
 
@@ -16,8 +16,8 @@ const plugin: ESLint.Plugin = {
     version,
   },
   rules: {
-    ...reactPlugin.rules,
-    ...padKeysLeft(reactPlugin.rules, "x-"),
+    ...reactXPlugin.rules,
+    ...padKeysLeft(reactXPlugin.rules, "x-"),
     ...padKeysLeft(reactJsxPlugin.rules, "jsx-"),
     ...padKeysLeft(reactRscPlugin.rules, "rsc-"),
     ...padKeysLeft(reactDomPlugin.rules, "dom-"),

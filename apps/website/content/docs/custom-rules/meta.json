@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "---Rule Recipes---",
-    "function-component-definition"
+    "function-component-definition",
+    "no-create-ref"
   ]
 }

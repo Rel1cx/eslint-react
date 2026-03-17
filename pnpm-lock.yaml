@@ -99,24 +99,6 @@ importers:
       eslint-plugin-fast-import:
         specifier: ^2.0.0
         version: 2.0.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
-      eslint-plugin-react-dom:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-dom
-      eslint-plugin-react-jsx:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-jsx
-      eslint-plugin-react-naming-convention:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-naming-convention
-      eslint-plugin-react-rsc:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-rsc
-      eslint-plugin-react-web-api:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-web-api
-      eslint-plugin-react-x:
-        specifier: workspace:*
-        version: link:packages/plugins/eslint-plugin-react-x
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0

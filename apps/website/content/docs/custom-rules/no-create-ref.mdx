@@ -1,0 +1,101 @@
+---
+title: No createRef
+description: Disallow React.createRef() in favor of useRef.
+---
+
+<Tabs items={["Rule", "Examples"]} defaultValue="Rule">
+
+<Tab value="Rule">
+
+## Rule Code
+
+Copy and paste this into your `eslint.config.ts`:
+
+```ts copy filename="eslint.config.ts"
+import eslintJs from "@eslint/js";
+import eslintReactKit from "@eslint-react/kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReactKit(
+        {
+          name: "no-create-ref",
+          make: (ctx, kit) => {
+            const isCreateRefCall = kit.is.reactAPICall("createRef");
+
+            return {
+              CallExpression(node) {
+                if (isCreateRefCall(ctx, node)) {
+                  ctx.report({
+                    node,
+                    message: "Don't use 'createRef'. Use the 'useRef' hook instead.",
+                  });
+                }
+              },
+            };
+          },
+        },
+      ),
+    ],
+  },
+);
+```
+
+</Tab>
+
+<Tab value="Examples">
+
+## Examples
+
+### ❌ Invalid
+
+```tsx
+import React from "react";
+
+class MyComponent extends React.Component {
+  ref = React.createRef<HTMLDivElement>();
+
+  render() {
+    return <div ref={this.ref}>Hello</div>;
+  }
+}
+```
+
+```tsx
+import { createRef } from "react";
+
+const ref = createRef<HTMLInputElement>();
+```
+
+### ✅ Valid
+
+```tsx
+import { useRef } from "react";
+
+function MyComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+  return <div ref={ref}>Hello</div>;
+}
+```
+
+</Tab>
+
+</Tabs>
+
+## How It Works
+
+This rule uses `kit.is.reactAPICall("createRef")` to create a predicate that identifies calls to `React.createRef()` (including bare `createRef()` imports). Unlike collector-based rules, this rule works as a simple AST visitor — it checks every `CallExpression` node directly, with no need for a collector or `merge`.
+
+This demonstrates how `kit.is.reactAPICall` is a factory: you pass the API name (e.g. `"createRef"`, `"memo"`, `"forwardRef"`) and get back a predicate function that handles all import styles (namespace import, named import, etc.).
+
+## Customization Ideas
+
+- Extend to also ban `React.createRef` as an identifier reference (not just calls)
+- Add auto-fix to convert `createRef()` to `useRef(null)` inside function components
+- Ban other legacy APIs like `React.createElement` using the same pattern

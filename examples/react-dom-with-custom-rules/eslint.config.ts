@@ -1,5 +1,5 @@
 import eslintReact from "@eslint-react/eslint-plugin";
-import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
@@ -64,60 +64,67 @@ export default defineConfig(
     extends: [
       eslintReactKit(
         // Function Component Definition - Enforce arrow functions for components
-        ["function-component-definition", (ctx, kit) => {
-          // Customize component detection with ComponentDetectionHint.
-          // Here we also treat functions defined on object methods as components,
-          // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
-          const hint = kit.DEFAULT_COMPONENT_DETECTION_HINT
-            & ~kit.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod;
+        {
+          name: "function-component-definition",
+          meta: {
+            fixable: "code",
+            hasSuggestions: true,
+          },
+          make: (ctx, kit) => {
+            // Customize component detection with hint flags.
+            // Also treat functions defined on object methods as components,
+            // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
+            const hint = kit.hint.defaultComponent
+              & ~kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
 
-          // Collect all function components detected in the file with the customized hint.
-          const { api, visitor } = kit.getComponentCollector(ctx, { hint });
+            // Create a collector with the customized hint.
+            const { query, visitor } = kit.collect.components(ctx, { hint });
 
-          // Merge two or more visitors into a single visitor by using defineRuleListener.
-          return defineRuleListener(
-            visitor,
-            {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                    suggest: [
-                      {
-                        desc: "Convert to arrow function.",
-                        fix(fixer) {
-                          const src = ctx.sourceCode;
-                          if (node.generator) return null;
-                          const prefix = node.async ? "async " : "";
-                          const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
-                          const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                          const returnType = node.returnType ? src.getText(node.returnType) : "";
-                          const body = src.getText(node.body);
+            // Merge the collector's visitor with inspection logic.
+            return merge(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of query.all(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                      suggest: [
+                        {
+                          desc: "Convert to arrow function.",
+                          fix(fixer) {
+                            const src = ctx.sourceCode;
+                            if (node.generator) return null;
+                            const prefix = node.async ? "async " : "";
+                            const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                            const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+                            const returnType = node.returnType ? src.getText(node.returnType) : "";
+                            const body = src.getText(node.body);
 
-                          // function Foo(params) { ... } → const Foo = (params) => { ... };
-                          if (node.type === "FunctionDeclaration" && node.id) {
-                            // dprint-ignore
-                            return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
-                          }
+                            // function Foo(params) { ... } → const Foo = (params) => { ... };
+                            if (node.type === "FunctionDeclaration" && node.id) {
+                              // dprint-ignore
+                              return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                            }
 
-                          // { Foo(params) { ... } } → { Foo: (params) => { ... } }
-                          if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                            // dprint-ignore
-                            return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
-                          }
+                            // { Foo(params) { ... } } → { Foo: (params) => { ... } }
+                            if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                              // dprint-ignore
+                              return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                            }
 
-                          return null;
+                            return null;
+                          },
                         },
-                      },
-                    ],
-                  });
-                }
+                      ],
+                    });
+                  }
+                },
               },
-            },
-          );
-        }],
+            );
+          },
+        },
       ),
     ],
   },

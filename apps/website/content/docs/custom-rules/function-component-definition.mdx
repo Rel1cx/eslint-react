@@ -13,7 +13,7 @@ Copy and paste this into your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -24,24 +24,27 @@ export default defineConfig(
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
       eslintReactKit(
-        ["function-component-definition", (ctx, kit) => {
-          const { api, visitor } = kit.getComponentCollector(ctx);
+        {
+          name: "function-component-definition",
+          make: (ctx, kit) => {
+            const { query, visitor } = kit.collect.components(ctx);
 
-          return defineRuleListener(
-            visitor,
-            {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                  });
-                }
+            return merge(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of query.all(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                    });
+                  }
+                },
               },
-            },
-          );
-        }],
+            );
+          },
+        },
       ),
     ],
   },
@@ -86,7 +89,7 @@ const MyComponent = () => <div>Hello</div>;
 
 ## How It Works
 
-This rule uses the `getComponentCollector` to identify all React function components in the file. It then checks if each component is defined using an `ArrowFunctionExpression`. If a component uses a function declaration or expression instead, it reports an error.
+This rule uses `kit.collect.components` to identify all React function components in the file. It then checks if each component is defined using an `ArrowFunctionExpression`. If a component uses a function declaration or expression instead, it reports an error.
 
 ## Common Use Cases
 

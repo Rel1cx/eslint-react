@@ -19,7 +19,7 @@ Define custom rules directly in your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -30,24 +30,27 @@ export default defineConfig(
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
       eslintReactKit(
-        ["function-component-definition", (ctx, kit) => {
-          const { api, visitor } = kit.getComponentCollector(ctx);
+        {
+          name: "function-component-definition",
+          make: (ctx, kit) => {
+            const { query, visitor } = kit.collect.components(ctx);
 
-          return defineRuleListener(
-            visitor,
-            {
-              "Program:exit"(program) {
-                for (const { node } of api.getAllComponents(program)) {
-                  if (node.type === "ArrowFunctionExpression") continue;
-                  ctx.report({
-                    node,
-                    message: "Function components must be defined with arrow functions.",
-                  });
-                }
+            return merge(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of query.all(program)) {
+                    if (node.type === "ArrowFunctionExpression") continue;
+                    ctx.report({
+                      node,
+                      message: "Function components must be defined with arrow functions.",
+                    });
+                  }
+                },
               },
-            },
-          );
-        }],
+            );
+          },
+        },
       ),
     ],
   },
@@ -59,23 +62,22 @@ export default defineConfig(
 Each custom rule follows this structure:
 
 ```ts copy
-import { defineRuleListener } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
 
-// Each custom rule is a tuple: [name, make]
-[
-  "rule-name",
-  (ctx, kit) => {
-    // Initialize collectors
-    const { api, visitor } = kit.getComponentCollector(ctx);
+// Each custom rule is an object: { name, meta?, make }
+{
+  name: "rule-name",
+  make: (ctx, kit) => {
+    // Create a collector — returns { query, visitor }
+    const { query, visitor } = kit.collect.components(ctx);
 
-    // Merge collector visitors with your custom visitors
-    return defineRuleListener(
+    // Merge the collector's visitor with your inspection visitor
+    return merge(
       visitor,
       {
         "Program:exit"(program) {
-          // Access collected data via api
-          for (const { node } of api.getAllComponents(program)) {
-            // Report issues
+          // Access collected semantic nodes via query
+          for (const { node } of query.all(program)) {
             ctx.report({
               node,
               message: "Your error message",
@@ -85,7 +87,7 @@ import { defineRuleListener } from "@eslint-react/kit";
       },
     );
   },
-]
+}
 ```
 
 ## Rule Recipes
@@ -93,6 +95,7 @@ import { defineRuleListener } from "@eslint-react/kit";
 Browse our collection of copy-paste ready rule recipes:
 
 - [Function Component Definition](./function-component-definition) - Enforce arrow functions for components
+- [No createRef](./no-create-ref) - Disallow `React.createRef()` in favor of `useRef`
 
 ## Resources
 
