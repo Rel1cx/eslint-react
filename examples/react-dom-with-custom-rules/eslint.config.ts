@@ -62,7 +62,7 @@ export default defineConfig(
   {
     files: TSCONFIG_APP.include,
     plugins: {
-      "react-kit": definePlugin([
+      local: definePlugin(
         // Function Component Definition - Enforce arrow functions for components
         {
           name: "function-component-definition",
@@ -121,10 +121,10 @@ export default defineConfig(
             );
           },
         },
-      ]),
+      ),
     },
     rules: {
-      "react-kit/function-component-definition": "error",
+      "local/function-component-definition": "error",
     },
   },
 );

@@ -36,7 +36,7 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      local: definePlugin([
+      local: definePlugin(
         {
           name: "no-date-now",
           make: (ctx) => {
@@ -52,7 +52,7 @@ export default defineConfig(
             };
           },
         },
-      ]),
+      ),
     },
     rules: {
       "local/no-date-now": "error",
@@ -102,7 +102,7 @@ export default defineConfig(
   {
     files: ["**/*.ts"],
     plugins: {
-      local: definePlugin([
+      local: definePlugin(
         {
           name: "no-date-now",
           make: noDateNow({
@@ -110,7 +110,7 @@ export default defineConfig(
             enableSuggest: true,
           }),
         },
-      ]),
+      ),
     },
   },
 );
@@ -133,22 +133,22 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      "local-a": definePlugin([
+      "local-a": definePlugin(
         {
           name: "rule-1",
           make: (ctx) => {
             // ...
           },
         },
-      ]),
-      "local-b": definePlugin([
+      ),
+      "local-b": definePlugin(
         {
           name: "rule-2",
           make: (ctx) => {
             // ...
           },
         },
-      ]),
+      ),
     },
     rules: {
       "local-a/rule-1": "error",
@@ -176,7 +176,7 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      local: definePlugin([
+      local: definePlugin(
         {
           name: "function-component-definition",
           // The make function is called with the rule context and a toolkit that provides utilities to analyze React-specific code patterns.
@@ -236,7 +236,7 @@ export default defineConfig(
             );
           },
         },
-      ]),
+      ),
     },
     rules: {
       "local/function-component-definition": "error",

@@ -50,10 +50,10 @@ export interface CustomRuleDefinition {
  * ]);
  * ```
  */
-export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
-  const pluginRules: ESLint.Plugin["rules"] = {};
+export function definePlugin(...rules: CustomRuleDefinition[]): ESLint.Plugin {
+  const finalRules: ESLint.Plugin["rules"] = {};
   for (const { name, make } of rules) {
-    Reflect.set(pluginRules, name, {
+    Reflect.set(finalRules, name, {
       meta: {
         fixable: "code",
         hasSuggestions: true,
@@ -63,7 +63,7 @@ export function definePlugin(rules: CustomRuleDefinition[]): ESLint.Plugin {
       },
     });
   }
-  return { meta: { name, version }, rules: pluginRules };
+  return { meta: { name, version }, rules: finalRules };
 }
 
 /**

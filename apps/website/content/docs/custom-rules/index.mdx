@@ -31,7 +31,7 @@ export default defineConfig(
       tseslint.configs.recommended,
     ],
     plugins: {
-      local: definePlugin([
+      local: definePlugin(
         {
           name: "function-component-definition",
           make: (ctx, kit) => {
@@ -53,7 +53,7 @@ export default defineConfig(
             );
           },
         },
-      ]),
+      ),
     },
     rules: {
       "local/function-component-definition": "error",
