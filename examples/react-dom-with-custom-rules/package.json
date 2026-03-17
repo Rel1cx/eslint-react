@@ -24,7 +24,7 @@
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.0.3",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-kit": "workspace:*",
+    "@eslint-react/kit": "workspace:*",
     "eslint-plugin-react-refresh": "^0.5.2",
     "jiti": "^2.6.1",
     "typescript": "^5.9.3",

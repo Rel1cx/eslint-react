@@ -4,13 +4,13 @@ description: Build custom ESLint rules for React using the eslint-react toolkit.
 ---
 
 <Callout type="info">
-  This plugin is for advanced use cases where you need to build custom ESLint rules tailored to your project's specific requirements.
+  This utility module is for advanced use cases where you need to build custom ESLint rules tailored to your project's specific requirements.
 </Callout>
 
 ## Installation
 
 ```bash copy
-npm install --save-dev eslint-plugin-react-kit
+npm install --save-dev @eslint-react/kit
 ```
 
 ## Quick Start
@@ -18,8 +18,8 @@ npm install --save-dev eslint-plugin-react-kit
 Define custom rules directly in your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
-import js from "@eslint/js";
-import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+import eslintJs from "@eslint/js";
+import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -27,39 +27,31 @@ export default defineConfig(
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
-      js.configs.recommended,
+      eslintJs.configs.recommended,
       tseslint.configs.recommended,
-    ],
-    plugins: {
-      local: definePlugin(
-        {
-          name: "function-component-definition",
-          make: (ctx, kit) => {
-            const { api, visitor } = kit.getComponentCollector(ctx);
+      eslintReactKit(
+        ["function-component-definition", (ctx, kit) => {
+          const { api, visitor } = kit.getComponentCollector(ctx);
 
-            return defineRuleListener(
-              visitor,
-              {
-                "Program:exit"(program) {
-                  for (const { node } of api.getAllComponents(program)) {
-                    if (node.type === "ArrowFunctionExpression") continue;
-                    ctx.report({
-                      node,
-                      message: "Function components must be defined with arrow functions.",
-                    });
-                  }
-                },
+          return defineRuleListener(
+            visitor,
+            {
+              "Program:exit"(program) {
+                for (const { node } of api.getAllComponents(program)) {
+                  if (node.type === "ArrowFunctionExpression") continue;
+                  ctx.report({
+                    node,
+                    message: "Function components must be defined with arrow functions.",
+                  });
+                }
               },
-            );
-          },
-        },
+            },
+          );
+        }],
       ),
-    },
-    rules: {
-      "local/function-component-definition": "error",
-    },
+    ],
   },
-]);
+);
 ```
 
 ## Rule Structure
@@ -67,12 +59,12 @@ export default defineConfig(
 Each custom rule follows this structure:
 
 ```ts copy
-import { defineRuleListener } from "eslint-plugin-react-kit";
+import { defineRuleListener } from "@eslint-react/kit";
 
-{
-  name: "rule-name",
-  // Rule logic using collectors
-  make: (ctx, kit) => {
+// Each custom rule is a tuple: [name, make]
+[
+  "rule-name",
+  (ctx, kit) => {
     // Initialize collectors
     const { api, visitor } = kit.getComponentCollector(ctx);
 
@@ -93,7 +85,7 @@ import { defineRuleListener } from "eslint-plugin-react-kit";
       },
     );
   },
-}
+]
 ```
 
 ## Rule Recipes

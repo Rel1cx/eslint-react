@@ -56,10 +56,6 @@
 
 - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
 
-### Utility ESLint Plugin
-
-- [`eslint-plugin-react-kit`](https://npmx.dev/package/eslint-plugin-react-kit) - A utility plugin that provides APIs for building custom rules when the above plugins don't meet your specific needs.
-
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
 

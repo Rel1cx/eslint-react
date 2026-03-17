@@ -2,68 +2,87 @@ import * as toolkit from "@eslint-react/core";
 import type { Pretty } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { ESLint } from "eslint";
+import type { Linter, Rule } from "eslint";
 
-import { name, version } from "../package.json";
+import pkg from "../package.json";
 
-/** The eslint-react core toolkit exposed to custom rules, excluding internal-only APIs. */
-export type Toolkit = Pretty<typeof toolkit>;
+type Toolkit = Pretty<typeof toolkit>;
 
-/** A custom rule definition that pairs a rule name with a factory function. */
-export interface CustomRuleDefinition {
-  /** The rule name, used as the second half of the `<plugin>/<name>` rule ID. */
-  name: string;
-  /** Factory called once per file; receives the rule context and the toolkit, and returns an AST visitor. */
-  make: (context: RuleContext<string, unknown[]>, toolkit: Toolkit) => RuleListener;
-}
+type CustomRuleDefinition = [
+  name: string,
+  make: (context: RuleContext<string, unknown[]>, toolkit: Toolkit) => RuleListener,
+];
 
 /**
- * Define a custom ESLint plugin with rules powered by the eslint-react toolkit.
+ * Defines an ESLint config with custom rules.
  *
- * @param rules - Array of custom rule definitions.
- * @returns An ESLint plugin object with the defined rules.
+ * @param rules One or more custom rule definitions to include in the config.
+ * @returns An ESLint flat config object with the custom rules registered and enabled.
  *
  * @example
  * ```ts
- * import { definePlugin, defineRuleListener } from "eslint-plugin-react-kit";
+ * import eslintJs from "@eslint/js";
+ * import eslintReact from "@eslint-react/eslint-plugin";
+ * import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+ * import { defineConfig } from "eslint/config";
+ * import tseslint from "typescript-eslint";
  *
- * const plugin = definePlugin([
+ * export default defineConfig(
  *   {
- *     name: "function-component-definition",
- *     make: (ctx, kit) => {
- *       // Collect all function components detected in the file
- *       const { api, visitor } = kit.getComponentCollector(ctx, { hint });
+ *     extends: [
+ *       eslintJs.configs.recommended,
+ *       tseslint.configs.recommended,
+ *       eslintReact.configs["recommended-typescript"],
+ *       eslintReactKit(
+ *         ["function-component-definition", (ctx, kit) => {
+ *           const { api, visitor } = kit.getComponentCollector(ctx);
  *
- *       return defineRuleListener(visitor, {
- *         "Program:exit"(program) {
- *           for (const { node } of api.getAllComponents(program)) {
- *             if (node.type === "ArrowFunctionExpression") continue;
- *             ctx.report({
- *               node,
- *               message: "Function components must be defined with arrow functions.",
- *             });
- *           }
- *         },
- *       });
- *     },
+ *           return defineRuleListener(
+ *             visitor,
+ *             {
+ *               "Program:exit"(program) {
+ *                 for (const { node } of api.getAllComponents(program)) {
+ *                   if (node.type === "ArrowFunctionExpression") continue;
+ *                   ctx.report({
+ *                     node,
+ *                     message: "Function components must be defined with arrow functions.",
+ *                   });
+ *                 }
+ *               },
+ *             },
+ *           );
+ *         }],
+ *       ),
+ *     ],
  *   },
- * ]);
+ * );
  * ```
  */
-export function definePlugin(...rules: CustomRuleDefinition[]): ESLint.Plugin {
-  const finalRules: ESLint.Plugin["rules"] = {};
-  for (const { name, make } of rules) {
-    Reflect.set(finalRules, name, {
-      meta: {
-        fixable: "code",
-        hasSuggestions: true,
+export default function defineConfig(...rules: CustomRuleDefinition[]): Linter.Config {
+  return {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: rules.reduce<Linter.Config["rules"] & {}>((acc, [name]) => {
+      acc[`${pkg.name}/${name}`] = "error";
+      return acc;
+    }, {}),
+    plugins: {
+      [pkg.name]: {
+        meta: { name: pkg.name, version: pkg.version },
+        rules: rules.reduce<Record<string, Rule.RuleModule>>((acc, [name, make]) => {
+          Reflect.set(acc, name, {
+            meta: {
+              fixable: "code",
+              hasSuggestions: true,
+            },
+            create(context: RuleContext<string, unknown[]>) {
+              return make(context, toolkit);
+            },
+          });
+          return acc;
+        }, {}),
       },
-      create(context: RuleContext<string, unknown[]>) {
-        return make(context, toolkit);
-      },
-    });
-  }
-  return { meta: { name, version }, rules: finalRules };
+    },
+  };
 }
 
 /**
@@ -96,9 +115,6 @@ export function defineRuleListener(base: RuleListener, ...rest: RuleListener[]):
   }
   return base;
 }
-
-/** Default plugin export containing only package metadata (no rules). */
-export default { meta: { name, version } } as const satisfies ESLint.Plugin;
 
 // Fix mismatch between ESLint's RuleContext and @typescript-eslint/utils' RuleContext, allowing rules to use the `message` or `desc` properties directly in the report descriptor without needing to define a `messageId` and corresponding entry in `meta.messages`.
 declare module "@typescript-eslint/utils/ts-eslint" {

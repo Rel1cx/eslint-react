@@ -1,71 +1,75 @@
-import eslintReact from "@eslint-react/eslint-plugin";
-import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+# @eslint-react/kit
+
+ESLint React's ESLint plugin for building custom rules.
+
+## Index
+
+- [Index](#index)
+- [Installation](#installation)
+- [Write custom rules inline](#write-custom-rules-inline)
+- [Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions](#example-enforce-function-components-to-be-defined-with-arrow-functions-with-component-detection-hint-customization-and-auto-fix-with-suggestions)
+- [More Examples](#more-examples)
+
+## Installation
+
+```sh
+# npm
+npm install --save-dev @eslint-react/kit
+```
+
+## Write custom rules inline
+
+```ts
+// eslint.config.ts
+import eslintReactKit from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
-import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
-import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
-
-const GLOB_TS = ["**/*.ts", "**/*.tsx"];
-
 export default defineConfig(
   {
-    files: GLOB_TS,
+    files: ["**/*.{ts,tsx}"],
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
-    ],
-  },
-  // base configuration for browser environment source files
-  {
-    files: TSCONFIG_APP.include,
-    extends: [
-      tseslint.configs.recommendedTypeChecked,
-    ],
-    languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        project: "./tsconfig.app.json",
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-  // base configuration for node environment source files (*.config.ts, etc.)
-  {
-    files: TSCONFIG_NODE.include,
-    ignores: TSCONFIG_NODE.exclude,
-    extends: [tseslint.configs.disableTypeChecked],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.node.json",
-        projectService: false,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    rules: {
-      "no-console": "off",
-    },
-  },
-  // react specific configurations
-  {
-    files: TSCONFIG_APP.include,
-    extends: [
-      eslintReact.configs["strict-type-checked"],
-      eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
-      eslintPluginReactRefresh.configs.recommended,
-    ],
-  },
-  // custom rules powered by @eslint-react/kit
-  {
-    files: TSCONFIG_APP.include,
-    extends: [
       eslintReactKit(
-        // Function Component Definition - Enforce arrow functions for components
+        ["no-date-now", (ctx) => {
+          return {
+            CallExpression(node) {
+              if (ctx.sourceCode.getText(node.callee) === "Date.now") {
+                ctx.report({
+                  node,
+                  message: "Don't use 'Date.now'.",
+                });
+              }
+            },
+          };
+        }],
+      ),
+    ],
+  },
+);
+```
+
+## Example: Enforce function components to be defined with arrow functions with component detection hint customization and auto-fix with suggestions
+
+```ts
+// eslint.config.ts
+import eslintReactKit, { defineRuleListener } from "@eslint-react/kit";
+import eslintJs from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReactKit(
         ["function-component-definition", (ctx, kit) => {
-          // Customize component detection with ComponentDetectionHint.
+          // The toolkit provides a default hint for component detection,
+          // but you can customize it by using bitwise operations to include or exclude certain patterns.
           // Here we also treat functions defined on object methods as components,
           // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
           const hint = kit.DEFAULT_COMPONENT_DETECTION_HINT
@@ -122,3 +126,58 @@ export default defineConfig(
     ],
   },
 );
+```
+
+### ❌ Invalid
+
+```tsx
+// Function declaration
+function MyComponent() {
+  return <div>Hello</div>;
+}
+```
+
+```tsx
+// Function expression
+const MyComponent = function() {
+  return <div>Hello</div>;
+};
+```
+
+```tsx
+// Components defined as object methods are also considered function components
+// because we removed the default hint that excludes them.
+const MDXComponents = {
+  Callout({ children }: { children: React.ReactNode }) {
+    // ^^^ Function components must be defined with arrow functions.
+    return <div>{children}</div>;
+  },
+};
+```
+
+### ✅ Valid
+
+```tsx
+// Arrow function expression
+const MyComponent = () => {
+  return <div>Hello</div>;
+};
+```
+
+```tsx
+// Arrow function with implicit return
+const MyComponent = () => <div>Hello</div>;
+```
+
+```tsx
+// Object method defined as an arrow function is also valid.
+const MDXComponents = {
+  Callout: ({ children }: { children: React.ReactNode }) => {
+    return <div>{children}</div>;
+  },
+};
+```
+
+## More Examples
+
+Please check the [Rule Recipes](https://eslint-react.xyz/docs/custom-rules#rule-recipes) in the documentation site.

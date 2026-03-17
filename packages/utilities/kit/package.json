@@ -1,14 +1,12 @@
 {
-  "name": "eslint-plugin-react-kit",
+  "name": "@eslint-react/kit",
   "version": "4.0.0-beta.0",
-  "description": "ESLint React's ESLint plugin for building custom rules.",
+  "description": "ESLint React's utility module for building custom rules.",
   "keywords": [
     "react",
-    "dom",
     "eslint",
     "eslint-react",
-    "eslint-plugin",
-    "eslint-plugin-react-kit"
+    "@eslint-react/kit"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -17,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/plugins/eslint-plugin-react-kit"
+    "directory": "packages/utilities/kit"
   },
   "license": "MIT",
   "author": "Rel1cx",
