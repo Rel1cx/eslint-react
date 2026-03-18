@@ -17,12 +17,6 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  "eslint.rules.customizations": [
-    {
-      "rule": "@eslint-react/debug/*",
-      "severity": "info"
-    }
-  ],
   "eslint.validate": [
     "javascript",
     "javascriptreact",

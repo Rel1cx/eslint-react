@@ -35,5 +35,18 @@
         }
       }
     }
+  },
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "workingDirectory": {
+          "mode": "auto",
+          "changeProcessCWD": true
+        },
+        "experimental": {
+          "useFlatConfig": false
+        }
+      }
+    }
   }
 }

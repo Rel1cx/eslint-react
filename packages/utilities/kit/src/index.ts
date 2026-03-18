@@ -1,3 +1,5 @@
+/* eslint-disable perfectionist/sort-object-types */
+/* eslint-disable perfectionist/sort-objects */
 import { type TSESTreeFunction, findParent, isFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/utils";
