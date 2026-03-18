@@ -136,14 +136,14 @@ All predicates live under `kit.is` — organized into four sub-sections.
 
 ##### Component
 
-| Predicate                   | Signature                      | Description                                             |
-| --------------------------- | ------------------------------ | ------------------------------------------------------- |
-| `componentDefinition`       | `(ctx, node, hint) -> boolean` | Whether a function node is a component definition.      |
-| `componentName`             | `(name) -> boolean`            | Strict PascalCase component name check.                 |
-| `componentNameLoose`        | `(name) -> boolean`            | Loose component name check.                             |
-| `componentWrapperCall`      | `(ctx, node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call.  |
-| `componentWrapperCallLoose` | `(ctx, node) -> boolean`       | Like above, but also matches `useCallback(…)`.          |
-| `componentWrapperCallback`  | `(ctx, node) -> boolean`       | Whether a function is the callback passed to a wrapper. |
+| Predicate                   | Signature                 | Description                                                             |
+| --------------------------- | ------------------------- | ----------------------------------------------------------------------- |
+| `componentDefinition`       | `(node, hint) -> boolean` | Whether a function node is a component definition. (ctx pre-bound)      |
+| `componentName`             | `(name) -> boolean`       | Strict PascalCase component name check.                                 |
+| `componentNameLoose`        | `(name) -> boolean`       | Loose component name check.                                             |
+| `componentWrapperCall`      | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (ctx pre-bound)  |
+| `componentWrapperCallLoose` | `(node) -> boolean`       | Like above, but also matches `useCallback(…)`. (ctx pre-bound)          |
+| `componentWrapperCallback`  | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (ctx pre-bound) |
 
 ##### Hook
 
@@ -161,28 +161,34 @@ General hook predicates:
 
 ##### React API
 
-Factory functions:
+Factory functions (ctx pre-bound):
 
-| Predicate      | Signature                             | Description                                              |
-| -------------- | ------------------------------------- | -------------------------------------------------------- |
-| `reactAPI`     | `(apiName) -> (ctx, node) -> boolean` | Factory: creates a predicate for a React API identifier. |
-| `reactAPICall` | `(apiName) -> (ctx, node) -> boolean` | Factory: creates a predicate for a React API call.       |
+| Predicate      | Signature                        | Description                                                              |
+| -------------- | -------------------------------- | ------------------------------------------------------------------------ |
+| `reactAPI`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (ctx pre-bound) |
+| `reactAPICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (ctx pre-bound)       |
 
-Pre-built identifier predicates — each supports both data-first `(ctx, node)` and data-last `(ctx)` calling conventions:
+Pre-built identifier predicates (ctx pre-bound):
 
 `captureOwnerStack`, `childrenCount`, `childrenForEach`, `childrenMap`, `childrenOnly`, `childrenToArray`, `cloneElement`, `createContext`, `createElement`, `forwardRef`, `memo`, `lazy`
 
-Pre-built call predicates:
+Pre-built call predicates (ctx pre-bound):
 
 `captureOwnerStackCall`, `childrenCountCall`, `childrenForEachCall`, `childrenMapCall`, `childrenOnlyCall`, `childrenToArrayCall`, `cloneElementCall`, `createContextCall`, `createElementCall`, `forwardRefCall`, `memoCall`, `lazyCall`
 
-```ts
-// data-first
-kit.is.memo(ctx, node);
-kit.is.memoCall(ctx, node);
+All React API predicates and factories have `ctx` pre-bound — no need to pass the rule context manually:
 
-// data-last (useful in filter/find)
-nodes.filter(kit.is.memoCall(ctx));
+```ts
+// Direct check
+kit.is.memo(node);
+kit.is.memoCall(node);
+
+// Useful in filter/find
+nodes.filter(kit.is.memoCall);
+
+// Factory for any API name
+const isCreateRefCall = kit.is.reactAPICall("createRef");
+isCreateRefCall(node);
 ```
 
 ##### Import source
@@ -314,7 +320,9 @@ defineReactConfig({
       hk.visitor,
       {
         "Program:exit"(program) {
-          for (const { kind, name, node } of [...fc.query.all(program), ...hk.query.all(program)]) {
+          const comps = fc.query.all(program);
+          const hooks = hk.query.all(program);
+          for (const { name, node, kind } of [...comps, ...hooks]) {
             if (name == null) continue;
             if (kit.find.parent(node, kit.is.function) == null) continue;
             ctx.report({

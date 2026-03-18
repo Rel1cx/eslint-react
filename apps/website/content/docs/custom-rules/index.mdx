@@ -110,14 +110,14 @@ All predicates live under a single unified `kit.is` namespace.
 
 **Component:**
 
-| Predicate                   | Description                                             |
-| :-------------------------- | :------------------------------------------------------ |
-| `componentDefinition`       | Whether a function node is a component definition.      |
-| `componentName`             | Strict PascalCase component name check.                 |
-| `componentNameLoose`        | Loose component name check.                             |
-| `componentWrapperCall`      | Whether a node is a `memo(…)` or `forwardRef(…)` call.  |
-| `componentWrapperCallLoose` | Like above, but also matches `useCallback(…)`.          |
-| `componentWrapperCallback`  | Whether a function is the callback passed to a wrapper. |
+| Predicate                   | Description                                                          |
+| :-------------------------- | :------------------------------------------------------------------- |
+| `componentDefinition`       | Whether a function node is a component definition. (ctx pre-bound)   |
+| `componentName`             | Strict PascalCase component name check.                              |
+| `componentNameLoose`        | Loose component name check.                                          |
+| `componentWrapperCall`      | Whether a node is a `memo(…)` or `forwardRef(…)` call. (ctx pre-bound) |
+| `componentWrapperCallLoose` | Like above, but also matches `useCallback(…)`. (ctx pre-bound)      |
+| `componentWrapperCallback`  | Whether a function is the callback passed to a wrapper. (ctx pre-bound) |
 
 **Hook — general:**
 
@@ -145,32 +145,34 @@ CallExpression(node) {
 }
 ```
 
-**React API — factories:**
+**React API — factories** (ctx pre-bound):
 
-| Predicate      | Description                                              |
-| :------------- | :------------------------------------------------------- |
-| `reactAPI`     | Factory: creates a predicate for a React API identifier. |
-| `reactAPICall` | Factory: creates a predicate for a React API call.       |
+| Predicate      | Description                                                                     |
+| :------------- | :------------------------------------------------------------------------------ |
+| `reactAPI`     | Factory: creates a predicate for a React API identifier. (ctx pre-bound)        |
+| `reactAPICall` | Factory: creates a predicate for a React API call. (ctx pre-bound)              |
 
-**React API — pre-built identifier predicates** (support both data-first and data-last):
+**React API — pre-built identifier predicates** (ctx pre-bound):
 
 `captureOwnerStack` · `childrenCount` · `childrenForEach` · `childrenMap` · `childrenOnly` · `childrenToArray` · `cloneElement` · `createContext` · `createElement` · `forwardRef` · `memo` · `lazy`
 
-**React API — pre-built call predicates:**
+**React API — pre-built call predicates** (ctx pre-bound):
 
 `captureOwnerStackCall` · `childrenCountCall` · `childrenForEachCall` · `childrenMapCall` · `childrenOnlyCall` · `childrenToArrayCall` · `cloneElementCall` · `createContextCall` · `createElementCall` · `forwardRefCall` · `memoCall` · `lazyCall`
 
+All React API predicates and factories have `ctx` pre-bound — no need to pass the rule context manually:
+
 ```ts
-// data-first
-kit.is.memo(ctx, node);
-kit.is.memoCall(ctx, node);
+// Direct check
+kit.is.memo(node);
+kit.is.memoCall(node);
 
-// data-last (useful in filter/find)
-nodes.filter(kit.is.memoCall(ctx));
+// Useful in filter/find
+nodes.filter(kit.is.memoCall);
 
-// factory for any API name
+// Factory for any API name
 const isCreateRefCall = kit.is.reactAPICall("createRef");
-isCreateRefCall(ctx, node);
+isCreateRefCall(node);
 ```
 
 **Import source:**
@@ -202,16 +204,15 @@ for (const component of query.all(program)) {
 }
 ```
 
-### `kit.builtinHookNames`
+<!--### `kit.builtinHookNames`
 
-A readonly array of all React built-in hook names (`"use"`, `"useState"`, `"useEffect"`, …). Useful for building custom validation logic against the full list.
+A readonly array of all React built-in hook names (`"use"`, `"useState"`, `"useEffect"`, …). Useful for building custom validation logic against the full list.-->
 
 ## Rule Recipes
 
 Browse our collection of copy-paste ready rule recipes:
 
 - [Function Component Definition](./function-component-definition) - Enforce arrow functions for components
-- [No createRef](./no-create-ref) - Disallow `React.createRef()` in favor of `useRef`
 
 ## Resources
 

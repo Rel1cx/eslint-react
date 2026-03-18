@@ -63,38 +63,6 @@ export default defineConfig(
     files: TSCONFIG_APP.include,
     extends: [
       defineReactConfig(
-        // Simple: Ban `Date.now`
-        {
-          name: "no-date-now",
-          make: (ctx) => ({
-            CallExpression(node) {
-              if (ctx.sourceCode.getText(node.callee) === "Date.now") {
-                ctx.report({ node, message: "Don't use 'Date.now'." });
-              }
-            },
-          }),
-        },
-        // Quick Start: Enforce max 100 lines per component
-        {
-          name: "no-large-components",
-          make: (ctx, kit) => {
-            const { query, visitor } = kit.collect.components(ctx);
-
-            return merge(visitor, {
-              "Program:exit"(program) {
-                for (const { node, name } of query.all(program)) {
-                  const lines = node.loc.end.line - node.loc.start.line;
-                  if (lines > 100) {
-                    ctx.report({
-                      node,
-                      message: `Component "${name}" is ${lines} lines. Keep it under 100.`,
-                    });
-                  }
-                }
-              },
-            });
-          },
-        },
         // Components: Enforce arrow function definitions
         {
           name: "function-component-definition",
