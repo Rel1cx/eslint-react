@@ -15,10 +15,10 @@ ESLint React's toolkit for building custom React lint rules — inline, right in
     - [`kit.hint`](#kithint) — Detection hint bit-flags
     - [`kit.flag`](#kitflag) — Component characteristic flags
     <!--- [`kit.builtinHookNames`](#kitbuiltinhooknames) — Hook name list-->
-  - [Semantic Node Types](#semantic-node-types)
 - [Examples](#examples)
   - [Simple: Ban `Date.now`](#simple-ban-datenow)
-  - [Hooks: Warn on custom hooks with no hook calls](#hooks-warn-on-custom-hooks-with-no-hook-calls)
+  - [Component: Max component per file](#component-max-componoent-per-file)
+  - [Hooks: Warn on custom hooks doesn't call other hooks](#hooks-warn-on-custom-hooks-doesnt-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
 - [More Examples](#more-examples)
 
@@ -122,11 +122,9 @@ Collector factories create a `{ query, visitor }` pair. The `visitor` must be me
 
 **`CollectorWithContext`** extends `Collector` with contextual queries:
 
-| Query                  | Description                                                       |
-| ---------------------- | ----------------------------------------------------------------- |
-| `query.all(program)`   | All collected semantic nodes in the file.                         |
-| `query.current()`      | The function entry the traversal is currently inside (or `null`). |
-| `query.currentStack()` | The full stack of function entries during traversal.              |
+| Query                | Description                               |
+| -------------------- | ----------------------------------------- |
+| `query.all(program)` | All collected semantic nodes in the file. |
 
 ---
 
@@ -248,16 +246,6 @@ for (const component of query.all(program)) {
 }
 ```
 
----
-
-### Semantic Node Types
-
-The following types are re-exported for annotation purposes — no need to depend on `@eslint-react/core` directly:
-
-```ts
-import type { FunctionComponentSemanticNode, HookSemanticNode, SemanticNode } from "@eslint-react/kit";
-```
-
 ## Examples
 
 ### Simple: Ban `Date.now`
@@ -272,6 +260,31 @@ defineReactConfig({
       }
     },
   }),
+});
+```
+
+### Component: Max componoent per file
+
+```ts
+defineReactConfig({
+  name: "max-component-per-file",
+  make: (ctx, kit) => {
+    const MAX = 1;
+    const { query, visitor } = kit.collect.components(ctx);
+
+    return merge(visitor, {
+      "Program:exit"(program) {
+        const comps = [...query.all(program)];
+        if (comps.length <= MAX) return;
+        for (const { node, name } of comps.slice(MAX)) {
+          ctx.report({
+            node,
+            message: `There are ${comps.length} component definitions in this file. Maximum allowed is ${MAX}.`,
+          });
+        }
+      },
+    });
+  },
 });
 ```
 

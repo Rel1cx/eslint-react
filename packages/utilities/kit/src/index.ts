@@ -223,8 +223,6 @@ function createKit(ctx: RuleContext<string, unknown[]>): Kit {
   };
 }
 
-export type { FunctionComponentSemanticNode, HookSemanticNode, SemanticNode } from "@eslint-react/core";
-
 interface RuleDefinition {
   name: string;
   make(ctx: RuleContext<string, unknown[]>, kit: Kit): RuleListener;
