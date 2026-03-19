@@ -1,7 +1,8 @@
 ---
-title: Introduction
-description: Build custom ESLint rules for React using the eslint-react toolkit.
+title: Configure Project Rules
 ---
+
+Configure project rules using `@eslint-react/kit`.
 
 <Callout type="info">
   This utility module is for advanced use cases where you need to build custom ESLint rules tailored to your project's specific requirements.
@@ -56,48 +57,6 @@ export default defineConfig(
   },
 );
 ```
-
-## Rule Structure
-
-Each custom rule is an object with `name`, and a `make` function:
-
-```ts copy
-import { merge } from "@eslint-react/kit";
-
-{
-  name: "rule-name",
-  make: (ctx, kit) => {
-    // Create a collector — returns { query, visitor }
-    const { query, visitor } = kit.collect.components(ctx);
-
-    // Merge the collector's visitor with your inspection visitor
-    return merge(
-      visitor,
-      {
-        "Program:exit"(program) {
-          // Access collected semantic nodes via query
-          for (const { node } of query.all(program)) {
-            ctx.report({
-              node,
-              message: "Your error message",
-            });
-          }
-        },
-      },
-    );
-  },
-}
-```
-
-## API Reference
-
-See the full [API Reference](./api-reference/rule-context) for the `ctx` and `kit` objects.
-
-## Rule Recipes
-
-Browse our collection of copy-paste ready rule recipes:
-
-- [Function Component Definition](./rule-recipes/function-component-definition) - Enforce arrow functions for components
 
 ## Resources
 

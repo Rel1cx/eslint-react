@@ -2,7 +2,7 @@
   "title": "Configuration",
   "pages": [
     "configure-analyzer",
-    "configure-project-config",
-    "configure-custom-rules"
+    "configure-project-rules",
+    "configure-project-config"
   ]
 }
