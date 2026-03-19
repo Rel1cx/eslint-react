@@ -226,7 +226,7 @@ Custom effect hooks can also be configured via shared ESLint settings, which app
 {
   "settings": {
     "react-x": {
-      "additionalEffectHooks": "(useMyEffect|useCustomEffect)"
+      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u"
     }
   }
 }
