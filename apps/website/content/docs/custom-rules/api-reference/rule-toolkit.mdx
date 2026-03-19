@@ -14,8 +14,6 @@ The `kit` object is passed as the second argument to `make`. It exposes four dom
 
 Each collector returns `{ query, visitor }`. The `visitor` must be merged into your rule listener via `merge()`. After traversal, `query.all(program)` yields all detected semantic nodes.
 
-Both collectors also expose `query.current()` and `query.currentStack()` for accessing traversal context during the AST walk.
-
 ## `kit.is` — Predicates
 
 All predicates live under a single unified `kit.is` namespace.
@@ -40,8 +38,8 @@ All predicates live under a single unified `kit.is` namespace.
 | `hookName`                 | Whether a string matches the `use[A-Z]` convention.          |
 | `useEffectLikeCall`        | Whether a node is a `useEffect`/`useLayoutEffect`-like call. |
 | `useStateLikeCall`         | Whether a node is a `useState`-like call.                    |
-| `useEffectSetupCallback`   | Whether a node is a useEffect setup function.                |
-| `useEffectCleanupCallback` | Whether a node is a useEffect cleanup function.              |
+| `useEffectSetupCallback`   | Whether a node is a `useEffect` setup function.                |
+| `useEffectCleanupCallback` | Whether a node is a `useEffect` cleanup function.              |
 
 **Hook — built-in call predicates:**
 
