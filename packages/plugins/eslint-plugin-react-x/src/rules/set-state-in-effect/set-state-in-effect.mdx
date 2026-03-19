@@ -318,8 +318,8 @@ Custom state and effect hooks can also be configured via shared ESLint settings,
 {
   "settings": {
     "react-x": {
-      "additionalStateHooks": "(useMyState|useCustomState)",
-      "additionalEffectHooks": "(useMyEffect|useCustomEffect)"
+      "additionalStateHooks": "/^(useMyState|useCustomState)$/u",
+      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u",
     }
   }
 }

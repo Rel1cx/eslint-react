@@ -73,7 +73,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       settings: {
         "react-x": {
-          additionalStateHooks: "/^(useSta1|useSta2)$/",
+          additionalStateHooks: "/^(useSta1|useSta2)$/u",
         },
       },
     },
