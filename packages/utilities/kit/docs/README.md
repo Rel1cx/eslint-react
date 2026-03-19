@@ -6,7 +6,8 @@
 | ------ | ------ |
 | [Collector](interfaces/Collector.md) | - |
 | [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
-| [Kit](interfaces/Kit.md) | - |
+| [RuleContext](interfaces/RuleContext.md) | - |
+| [RuleToolkit](interfaces/RuleToolkit.md) | - |
 
 ## Functions
 

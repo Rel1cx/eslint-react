@@ -1,14 +1,14 @@
-[@eslint-react/kit](../README.md) / Kit
+[@eslint-react/kit](../README.md) / RuleToolkit
 
-# Interface: Kit
+# Interface: RuleToolkit
 
 ## Properties
 
 | Property | Modifier | Type | Description |
 | ------ | ------ | ------ | ------ |
-| <a id="property-collect"></a> `collect` | `public` | \{ `components`: (`ctx`: `RuleContext`\<`string`, `unknown`[]\>, `options?`: \{ `collectDisplayName?`: `boolean`; `hint?`: `bigint`; \}) => [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`, `FunctionComponentSemanticNode`\>; `hooks`: (`ctx`: `RuleContext`\<`string`, `unknown`[]\>) => [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`, \{ `key`: `string`; `node`: `Node`; \}\>; \} | - |
-| `collect.components` | `public` | (`ctx`: `RuleContext`\<`string`, `unknown`[]\>, `options?`: \{ `collectDisplayName?`: `boolean`; `hint?`: `bigint`; \}) => [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`, `FunctionComponentSemanticNode`\> | - |
-| `collect.hooks` | `public` | (`ctx`: `RuleContext`\<`string`, `unknown`[]\>) => [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`, \{ `key`: `string`; `node`: `Node`; \}\> | - |
+| <a id="property-collect"></a> `collect` | `public` | \{ `components`: (`ctx`: [`RuleContext`](RuleContext.md)\<`string`, `unknown`[]\>, `options?`: \{ `collectDisplayName?`: `boolean`; `hint?`: `bigint`; \}) => [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`, `FunctionComponentSemanticNode`\>; `hooks`: (`ctx`: [`RuleContext`](RuleContext.md)\<`string`, `unknown`[]\>) => [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`, \{ `key`: `string`; `node`: `Node`; \}\>; \} | - |
+| `collect.components` | `public` | (`ctx`: [`RuleContext`](RuleContext.md)\<`string`, `unknown`[]\>, `options?`: \{ `collectDisplayName?`: `boolean`; `hint?`: `bigint`; \}) => [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`, `FunctionComponentSemanticNode`\> | - |
+| `collect.hooks` | `public` | (`ctx`: [`RuleContext`](RuleContext.md)\<`string`, `unknown`[]\>) => [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`, \{ `key`: `string`; `node`: `Node`; \}\> | - |
 | <a id="property-find"></a> `find` | `public` | \{ `parent`: \{ \<`A`\> (`node`: `Node` \| `null`, `test`: (`n`: `Node`) => `n is A`): `A` \| `null`; (`node`: `Node` \| `null`, `test`: (`node`: `Node`) => `boolean`): `Node` \| `null`; \}; \} | - |
 | `find.parent` | `public` | \{ \<`A`\> (`node`: `Node` \| `null`, `test`: (`n`: `Node`) => `n is A`): `A` \| `null`; (`node`: `Node` \| `null`, `test`: (`node`: `Node`) => `boolean`): `Node` \| `null`; \} | - |
 | <a id="property-flag"></a> `flag` | `public` | \{ `component`: \{ `CreateElement`: `bigint`; `ForwardRef`: `bigint`; `Memo`: `bigint`; `None`: `bigint`; `PureComponent`: `bigint`; \}; \} | - |

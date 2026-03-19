@@ -49,7 +49,9 @@ function hooks(
   };
 }
 
-export interface Kit {
+export type { RuleContext };
+
+export interface RuleToolkit {
   is: {
     function: typeof isFunction;
     componentDefinition: (node: TSESTreeFunction, hint: bigint) => boolean;
@@ -135,7 +137,7 @@ export interface Kit {
   };
 }
 
-function createKit(ctx: RuleContext<string, unknown[]>): Kit {
+function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
   return {
     is: {
       function: isFunction,
@@ -225,7 +227,7 @@ function createKit(ctx: RuleContext<string, unknown[]>): Kit {
 
 interface RuleDefinition {
   name: string;
-  make(ctx: RuleContext<string, unknown[]>, kit: Kit): RuleListener;
+  make(ctx: RuleContext<string, unknown[]>, kit: RuleToolkit): RuleListener;
 }
 
 export function defineConfig(...rules: RuleDefinition[]): Linter.Config {
