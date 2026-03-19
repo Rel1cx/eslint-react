@@ -352,4 +352,4 @@ defineReactConfig({
 
 ## More Examples
 
-Please check the [Rule Recipes](https://eslint-react.xyz/docs/custom-rules#rule-recipes) in the documentation site.
+Please check the [Rule Recipes](https://eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.
