@@ -1,7 +1,5 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-
-import { toString } from "./to-string";
+import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 /**
  * Get the string representation of a JSX element's type.
@@ -14,11 +12,27 @@ import { toString } from "./to-string";
  * @param node - A `JSXElement` or `JSXFragment` node.
  * @returns The fully-qualified element type string.
  */
-export function getElementType(node: TSESTreeJSXElementLike): string {
+export function getElementFullType(node: TSESTreeJSXElementLike): string {
   if (node.type === AST.JSXFragment) {
     return "";
   }
-  return toString(node.openingElement.name);
+  function getQualifiedName(
+    node:
+      | TSESTree.JSXIdentifier
+      | TSESTree.JSXNamespacedName
+      | TSESTree.JSXMemberExpression,
+  ): string {
+    if (node.type === AST.JSXIdentifier) {
+      return node.name;
+    }
+
+    if (node.type === AST.JSXNamespacedName) {
+      return node.namespace.name + ":" + node.name.name;
+    }
+
+    return (getQualifiedName(node.object) + "." + getQualifiedName(node.property));
+  }
+  return getQualifiedName(node.openingElement.name);
 }
 
 /**
@@ -31,6 +45,6 @@ export function getElementType(node: TSESTreeJSXElementLike): string {
  * @param node - A `JSXElement` or `JSXFragment` node.
  * @returns The last segment of the element type, or `""` for fragments.
  */
-export function getElementSelfName(node: TSESTreeJSXElementLike): string {
-  return getElementType(node).split(".").at(-1) ?? "";
+export function getElementSelfType(node: TSESTreeJSXElementLike): string {
+  return getElementFullType(node).split(".").at(-1) ?? "";
 }

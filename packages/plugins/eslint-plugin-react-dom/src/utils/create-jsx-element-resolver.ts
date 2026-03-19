@@ -1,4 +1,4 @@
-import { getAttributeStaticValue, getElementType } from "@eslint-react/jsx";
+import { getAttributeStaticValue, getElementFullType } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -25,7 +25,7 @@ export function createJsxElementResolver(context: RuleContext) {
      */
     resolve(node: TSESTree.JSXElement) {
       // Get the element name/type (ex: 'div', 'Button', etc.)
-      const elementName = getElementType(node);
+      const elementName = getElementFullType(node);
 
       // Create the base result with element types
       const result = {

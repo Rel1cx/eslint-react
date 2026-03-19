@@ -1,7 +1,5 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { toString } from "./to-string";
-
 /**
  * Get the stringified name of a `JSXAttribute` node.
  *
@@ -25,5 +23,8 @@ import { toString } from "./to-string";
  * ```
  */
 export function getAttributeName(node: TSESTree.JSXAttribute): string {
-  return toString(node.name);
+  if (node.name.type === "JSXIdentifier") {
+    return node.name.name;
+  }
+  return node.name.namespace.name + ":" + node.name.name.name;
 }

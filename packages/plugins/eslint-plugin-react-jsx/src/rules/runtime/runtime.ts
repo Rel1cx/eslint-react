@@ -1,4 +1,4 @@
-import { JsxEmit, getElementType, getJsxConfig } from "@eslint-react/jsx";
+import { JsxEmit, getElementFullType, getJsxConfig } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return defineRuleListener({
     JSXElement(node) {
-      const name = getElementType(node);
+      const name = getElementFullType(node);
       if (typeof name !== "string" || !name.includes(":")) {
         return;
       }

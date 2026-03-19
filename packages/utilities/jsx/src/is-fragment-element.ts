@@ -2,7 +2,7 @@ import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { getElementType } from "./get-element-type";
+import { getElementFullType } from "./get-element-type";
 
 /**
  * Check whether a node is a React **Fragment** element.
@@ -39,5 +39,5 @@ export function isFragmentElement(
   if (node.type !== AST.JSXElement) return false;
 
   const fragment = jsxFragmentFactory.split(".").at(-1) ?? "Fragment";
-  return getElementType(node).split(".").at(-1) === fragment;
+  return getElementFullType(node).split(".").at(-1) === fragment;
 }

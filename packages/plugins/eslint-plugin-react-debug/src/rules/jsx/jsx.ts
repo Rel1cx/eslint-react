@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { JsxEmit, getElementType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
+import { JsxEmit, getElementFullType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
             )
             .with({ type: AST.JSXFragment }, () => "fragment")
             .exhaustive(),
-          type: getElementType(node),
+          type: getElementFullType(node),
           jsx: match(jsxConfig.jsx)
             .with(JsxEmit.None, () => "none")
             .with(JsxEmit.ReactJSX, () => "react-jsx")

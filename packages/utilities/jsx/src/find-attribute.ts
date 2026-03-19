@@ -5,7 +5,7 @@ import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { toString } from "./to-string";
+import { getAttributeName } from "./get-attribute-name";
 
 /**
  * Find a JSX attribute (or spread attribute containing the property) by name
@@ -40,7 +40,7 @@ export function findAttribute(
 ): TSESTreeJSXAttributeLike | undefined {
   return element.openingElement.attributes.findLast((attr) => {
     if (attr.type === AST.JSXAttribute) {
-      return toString(attr.name) === name;
+      return getAttributeName(attr) === name;
     }
 
     // --- JSXSpreadAttribute ---

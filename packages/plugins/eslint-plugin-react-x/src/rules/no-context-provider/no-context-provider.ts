@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { getElementType } from "@eslint-react/jsx";
+import { getElementFullType } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       JSXElement(node) {
         // Get the full name of the JSX element: "Foo.MyContext.Provider"
-        const fullName = getElementType(node);
+        const fullName = getElementFullType(node);
         const parts = fullName.split(".");
         const selfName = parts.pop();
         const contextFullName = parts.join(".");

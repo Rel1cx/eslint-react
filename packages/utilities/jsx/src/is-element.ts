@@ -2,7 +2,7 @@ import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { getElementType } from "./get-element-type";
+import { getElementFullType } from "./get-element-type";
 
 /**
  * A test that determines whether a JSX element matches.
@@ -62,7 +62,7 @@ export function isElement(
   // No test — simply confirm that it is a JSX element / fragment.
   if (test == null) return true;
 
-  const elementType = getElementType(node);
+  const elementType = getElementFullType(node);
 
   if (typeof test === "string") {
     return elementType === test;

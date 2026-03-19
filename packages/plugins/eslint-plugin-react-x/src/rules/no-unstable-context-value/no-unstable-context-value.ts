@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { getElementType } from "@eslint-react/jsx";
+import { getElementFullType } from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, computeObjectType } from "@eslint-react/var";
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       JSXOpeningElement(node) {
-        const fullName = getElementType(node.parent);
+        const fullName = getElementFullType(node.parent);
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
