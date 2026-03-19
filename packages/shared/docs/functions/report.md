@@ -18,16 +18,4 @@ Creates a report function for the given rule context.
 
 A function that can be used to report violations.
 
-```ts
-(descriptor?: ReportDescriptor<string> | null): void;
-```
-
-### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `descriptor?` | `ReportDescriptor`\<`string`\> \| `null` |
-
-### Returns
-
-`void`
+(`descriptor?`: `ReportDescriptor`\<`string`\> \| `null`) => `void`

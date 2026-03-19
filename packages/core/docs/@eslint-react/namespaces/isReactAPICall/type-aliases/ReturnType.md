@@ -1,6 +1,6 @@
 [@eslint-react/core](../../../../README.md) / [isReactAPICall](../README.md) / ReturnType
 
-# Type Alias: ReturnType()
+# Type Alias: ReturnType
 
 ```ts
 type ReturnType = {
@@ -40,16 +40,4 @@ type ReturnType = {
 
 ### Returns
 
-```ts
-(node: Node | null): node is CallExpression;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
-
-#### Returns
-
-`node is CallExpression`
+(`node`: `Node` \| `null`) => `node is CallExpression`

@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseEffectCall
 
-# Variable: isUseEffectCall()
+# Variable: isUseEffectCall
 
 ```ts
 const isUseEffectCall: (...a: [Node | null]) => boolean;

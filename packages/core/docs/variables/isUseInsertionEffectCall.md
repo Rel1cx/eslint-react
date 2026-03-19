@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseInsertionEffectCall
 
-# Variable: isUseInsertionEffectCall()
+# Variable: isUseInsertionEffectCall
 
 ```ts
 const isUseInsertionEffectCall: (...a: [Node | null]) => boolean;

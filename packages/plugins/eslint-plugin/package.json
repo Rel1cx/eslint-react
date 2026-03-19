@@ -59,7 +59,7 @@
     "eslint-plugin-react-rsc": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
-    "ts-api-utils": "^2.4.0"
+    "ts-api-utils": "^2.5.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",

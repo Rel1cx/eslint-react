@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseOptimisticCall
 
-# Variable: isUseOptimisticCall()
+# Variable: isUseOptimisticCall
 
 ```ts
 const isUseOptimisticCall: (...a: [Node | null]) => boolean;

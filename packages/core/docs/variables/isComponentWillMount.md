@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isComponentWillMount
 
-# Variable: isComponentWillMount()
+# Variable: isComponentWillMount
 
 ```ts
 const isComponentWillMount: (node: Node) => node is TSESTreeMethodOrProperty;

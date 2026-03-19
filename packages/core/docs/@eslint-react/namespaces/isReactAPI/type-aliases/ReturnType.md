@@ -1,6 +1,6 @@
 [@eslint-react/core](../../../../README.md) / [isReactAPI](../README.md) / ReturnType
 
-# Type Alias: ReturnType()
+# Type Alias: ReturnType
 
 ```ts
 type ReturnType = {
@@ -40,16 +40,4 @@ type ReturnType = {
 
 ### Returns
 
-```ts
-(node: Node | null): boolean;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
-
-#### Returns
-
-`boolean`
+(`node`: `Node` \| `null`) => `boolean`

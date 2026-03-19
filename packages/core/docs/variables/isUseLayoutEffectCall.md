@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseLayoutEffectCall
 
-# Variable: isUseLayoutEffectCall()
+# Variable: isUseLayoutEffectCall
 
 ```ts
 const isUseLayoutEffectCall: (...a: [Node | null]) => boolean;
