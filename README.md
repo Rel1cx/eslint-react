@@ -126,7 +126,7 @@ export default defineConfig(
 - `x`\
   Enable rules for React.
 - `jsx`\
-  Enable rules for JSX syntax.
+  Enable rules for React Flavored JSX.
 - `rsc`\
   Enable rules for React Server Components.
 - `dom`\

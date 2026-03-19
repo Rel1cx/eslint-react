@@ -9,11 +9,8 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
-  lastModifiedTime: "git",
   mdxOptions: {
     rehypeCodeOptions: {
-      experimentalJSEngine: true,
-      inline: "tailing-curly-colon",
       langs: [
         "bash",
         "css",

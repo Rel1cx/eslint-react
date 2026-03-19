@@ -1,8 +1,10 @@
 {
   "title": "Custom Rules",
   "pages": [
-    "index",
+    "introduction",
+    "---API Reference---",
+    "api-reference",
     "---Rule Recipes---",
-    "function-component-definition"
+    "rule-recipes/function-component-definition"
   ]
 }
