@@ -31,6 +31,7 @@
 - [Changelog](#changelog)
 - [Roadmap](#roadmap)
 - [Disclaimer](#disclaimer)
+- [Sponsors](#sponsors)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -200,6 +201,16 @@ export default defineConfig(
 This project is not affiliated with Meta Corporation or the [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
 
 This project is, and will remain, 90% of its code written by humans.
+
+## Sponsors
+
+A huge thank you to our amazing sponsors who make this project possible.
+
+<p align="center">
+  <a href="https://github.com/sponsors/Rel1cx">
+    <img src=".github/sponsors.svg" alt="Sponsors" />
+  </a>
+</p>
 
 ## Contributing
 
