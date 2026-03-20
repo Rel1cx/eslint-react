@@ -67,15 +67,8 @@ export default defineConfig(
         {
           name: "function-component-definition",
           make: (ctx, kit) => {
-            // Customize component detection with hint flags.
-            // Also treat functions defined on object methods as components,
-            // by removing DoNotIncludeFunctionDefinedAsObjectMethod from the default hint.
-            const hint = kit.hint.defaultComponent
-              & ~kit.hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
-
             // Create a collector with the customized hint.
-            const { query, visitor } = kit.collect.components(ctx, { hint });
-
+            const { query, visitor } = kit.collect.components(ctx);
             // Merge the collector's visitor with inspection logic.
             return merge(
               visitor,
