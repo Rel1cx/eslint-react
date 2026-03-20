@@ -13,7 +13,7 @@
     "@local/eff": "workspace:*",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
-    "effect": "^3.20.0",
+    "effect": "^3.21.0",
     "fumadocs-core": "16.6.17",
     "fumadocs-docgen": "3.0.8",
     "fumadocs-mdx": "14.2.10",

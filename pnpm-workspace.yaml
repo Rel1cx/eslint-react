@@ -32,7 +32,7 @@ overrides:
   tslib: ^2.8.1
   typescript-eslint: "^8.57.1"
   typescript: ^5.9.3
-  undici-types: ^7.24.4
-  undici: ^7.24.4
+  undici-types: ^7.24.5
+  undici: ^7.24.5
 
 trustPolicy: "no-downgrade"
