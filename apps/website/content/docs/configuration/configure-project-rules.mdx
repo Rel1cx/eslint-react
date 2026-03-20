@@ -20,7 +20,8 @@ Define custom rules directly in your `eslint.config.ts`:
 
 ```ts copy filename="eslint.config.ts"
 import eslintJs from "@eslint/js";
-import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -30,7 +31,8 @@ export default defineConfig(
     extends: [
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
-      defineReactConfig(
+      eslintReact.configs["recommended-typescript"],
+      eslintReactKit(
         {
           name: "function-component-definition",
           make: (ctx, kit) => {

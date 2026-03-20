@@ -274,6 +274,8 @@ export function merge(...listeners: RuleListener[]): RuleListener {
   return base;
 }
 
+export default defineConfig;
+
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface RuleContext<MessageIds extends string, Options extends readonly unknown[]> {
     report(

@@ -1,5 +1,5 @@
 import eslintReact from "@eslint-react/eslint-plugin";
-import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
@@ -62,7 +62,7 @@ export default defineConfig(
   {
     files: TSCONFIG_APP.include,
     extends: [
-      defineReactConfig(
+      eslintReactKit(
         // Components: Enforce arrow function definitions
         {
           name: "function-component-definition",

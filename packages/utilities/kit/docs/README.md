@@ -15,3 +15,9 @@
 | ------ | ------ |
 | [defineConfig](functions/defineConfig.md) | - |
 | [merge](functions/merge.md) | - |
+
+## References
+
+### default
+
+Renames and re-exports [defineConfig](functions/defineConfig.md)
