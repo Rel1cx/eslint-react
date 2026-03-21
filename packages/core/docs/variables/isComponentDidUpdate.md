@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isComponentDidUpdate
 
-# Variable: isComponentDidUpdate()
+# Variable: isComponentDidUpdate
 
 ```ts
 const isComponentDidUpdate: (node: Node) => node is TSESTreeMethodOrProperty;

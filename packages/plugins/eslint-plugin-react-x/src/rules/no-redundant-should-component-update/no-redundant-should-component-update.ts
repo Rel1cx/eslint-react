@@ -37,13 +37,13 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
+  const { api, visitor } = core.getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "PureComponent", flag, node: component } of ctx.getAllComponents(program)) {
+        for (const { name = "PureComponent", flag, node: component } of api.getAllComponents(program)) {
           if ((flag & core.ComponentFlag.PureComponent) === 0n) {
             continue;
           }

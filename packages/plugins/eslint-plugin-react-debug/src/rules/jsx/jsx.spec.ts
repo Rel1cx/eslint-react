@@ -2,7 +2,7 @@ import { RuleTester } from "@typescript-eslint/rule-tester";
 
 import tsx from "dedent";
 
-import { JsxEmit } from "@eslint-react/core";
+import { JsxEmit } from "@eslint-react/jsx";
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "../../../../../../test";
 import { stringify } from "../../utils";
 import rule, { RULE_NAME } from "./jsx";

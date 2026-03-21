@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseMemoCall
 
-# Variable: isUseMemoCall()
+# Variable: isUseMemoCall
 
 ```ts
 const isUseMemoCall: (...a: [Node | null]) => boolean;

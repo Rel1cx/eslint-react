@@ -1,4 +1,5 @@
 import * as ast from "@eslint-react/ast";
+import { isJsxLike } from "@eslint-react/jsx";
 import type { RuleContext } from "@eslint-react/shared";
 import { IdGenerator } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -6,7 +7,6 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import { isHookCall } from "../hook";
-import { isJsxLike } from "../jsx";
 import {
   type ComponentDetectionHint,
   DEFAULT_COMPONENT_DETECTION_HINT,
@@ -17,19 +17,19 @@ import { getFunctionComponentId } from "./component-id";
 import { isFunctionWithLooseComponentName } from "./component-name";
 import type { FunctionComponentSemanticNode } from "./component-semantic-node";
 
-const idGen = new IdGenerator("function-component:");
+const idGen = new IdGenerator("component:");
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isComponentDefinition: boolean;
 }
 
-export declare namespace useComponentCollector {
+export declare namespace getComponentCollector {
   type Options = {
     collectDisplayName?: boolean;
     hint?: ComponentDetectionHint;
   };
   type ReturnType = {
-    ctx: {
+    api: {
       getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
       getCurrentEntries: () => FunctionEntry[];
       getCurrentEntry: () => FunctionEntry | null;
@@ -39,15 +39,15 @@ export declare namespace useComponentCollector {
 }
 
 /**
- * Get a ctx and visitor object for the rule to collect function components
+ * Get a api and visitor object for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
- * @returns The ctx and visitor of the collector
+ * @returns The api and visitor of the collector
  */
-export function useComponentCollector(
+export function getComponentCollector(
   context: RuleContext,
-  options: useComponentCollector.Options = {},
-): useComponentCollector.ReturnType {
+  options: getComponentCollector.Options = {},
+): getComponentCollector.ReturnType {
   const {
     collectDisplayName = false,
     hint = DEFAULT_COMPONENT_DETECTION_HINT,
@@ -60,7 +60,7 @@ export function useComponentCollector(
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const key = idGen.next();
-    const exp = ast.findParentNode(node, (n) => n.type === AST.ExportDefaultDeclaration);
+    const exp = ast.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
@@ -70,7 +70,7 @@ export function useComponentCollector(
     const entry = {
       id: getFunctionComponentId(context, node),
       key,
-      kind: "function-component",
+      kind: "component",
       name,
       directives,
       displayName: null,
@@ -94,7 +94,7 @@ export function useComponentCollector(
     return functionEntries.pop();
   };
 
-  const ctx = {
+  const api = {
     getAllComponents(node: TSESTree.Program) {
       return [...components.values()];
     },
@@ -149,5 +149,5 @@ export function useComponentCollector(
       components.set(entry.key, entry);
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, visitor } as const;
+  return { api, visitor } as const;
 }

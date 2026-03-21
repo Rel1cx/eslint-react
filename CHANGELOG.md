@@ -1,3 +1,96 @@
+## v4.0.0-beta.0 (2026-03-15)
+
+### 💥 Breaking Changes
+
+**New `eslint-plugin-react-jsx` package**
+
+A new dedicated plugin for React Flavored JSX rules has been introduced. Several rules have been migrated from `eslint-plugin-react-x` and `eslint-plugin-react-dom` to this new package:
+
+| Old Rule (`react-x/`)      | New Rule (`react-jsx/`)  | Change             |
+| :------------------------- | :----------------------- | :----------------- |
+| `jsx-key-before-spread`    | `runtime` (consolidated) | relocated, renamed |
+| `jsx-no-comment-textnodes` | `no-comment-textnodes`   | relocated, renamed |
+| `no-children-prop`         | `no-children-prop`       | relocated          |
+| `no-useless-fragment`      | `no-useless-fragment`    | relocated          |
+
+| Old Rule (`react-dom/`) | New Rule (`react-jsx/`)  | Change    |
+| :---------------------- | :----------------------- | :-------- |
+| `no-namespace`          | `runtime` (consolidated) | relocated |
+
+**Rule prefix changes in `@eslint-react/eslint-plugin`**
+
+Rules from individual plugins now use a flattened naming convention when accessed through the unified `@eslint-react/eslint-plugin` package:
+
+- `@eslint-react/<rule>` -> `@eslint-react/<rule>` (no changes)
+- `@eslint-react-jsx-<rule>` -> `@eslint-react-jsx-<rule>` (no changes)
+- `@eslint-react/rsc/<rule>` -> `@eslint-react/rsc-<rule>`
+- `@eslint-react/dom/<rule>` -> `@eslint-react/dom-<rule>`
+- `@eslint-react/web-api/<rule>` -> `@eslint-react/web-api-<rule>`
+- `@eslint-react/naming-convention/<rule>` -> `@eslint-react/naming-convention-<rule>`
+- `@eslint-react/debug/<rule>` -> `@eslint-react/debug-<rule>`
+
+**Removed Rules in `eslint-plugin-react-jsx`**
+
+The following rules have been removed from `eslint-plugin-react-jsx`:
+
+| Rule                             | Replaced by                                                                                                  |
+| :------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
+| `react-x/jsx-shorthand-boolean`  | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
+| `react-x/jsx-shorthand-fragment` | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
+
+### ✨ New
+
+- `@eslint-react/kit`: New plugin to create custom rules with a toolkit that helps identify React patterns.
+- `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
+- `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
+- `react-jsx/no-deoptimization`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
+- `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
+
+### 🪄 Improvements
+
+- `react-jsx/no-children-prop`: Add suggestion-fix feature to move children from prop to element content.
+
+### ✅ Upgrade Checklist
+
+Use this checklist to upgrade from v3.x to v4.0.0:
+
+#### Package changes
+
+- [ ] Install the new `eslint-plugin-react-jsx` package — this is a new dedicated plugin for React Flavored JSX rules.
+
+#### ESLint configuration
+
+- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/no-deoptimization` in your ESLint config.
+- [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
+- [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
+- [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment` in your ESLint config.
+- [ ] Replace `react-dom/no-namespace` with `react-jsx/no-namespace` in your ESLint config.
+
+#### Rule prefix changes in `@eslint-react/eslint-plugin`
+
+If you use the unified `@eslint-react/eslint-plugin` package, update the following rule prefixes (slash `\/` -> dash `-`):
+
+- [ ] Replace `@eslint-react/rsc/<rule>` with `@eslint-react/rsc-<rule>` in your ESLint config.
+- [ ] Replace `@eslint-react/dom/<rule>` with `@eslint-react/dom-<rule>` in your ESLint config.
+- [ ] Replace `@eslint-react/web-api/<rule>` with `@eslint-react/web-api-<rule>` in your ESLint config.
+- [ ] Replace `@eslint-react/naming-convention/<rule>` with `@eslint-react/naming-convention-<rule>` in your ESLint config.
+- [ ] Replace `@eslint-react/debug/<rule>` with `@eslint-react/debug-<rule>` in your ESLint config.
+
+#### Review new rules
+
+- [ ] `react-jsx/no-children-prop-with-children` — new rule that disallows passing `children` as a prop when children are also passed as nested content. Review your codebase for new reports if using presets.
+
+#### Removed rules
+
+- [ ] `react-x/jsx-dollar`
+- [ ] `react-x/jsx-shorthand-boolean`
+- [ ] `react-x/jsx-shorthand-fragment`
+
+If you still need these rules, you can enforce them using the new `@eslint-react/kit` by creating custom rules that implement the desired checks.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.0.0-beta.0
+
 ## v3.0.0 (2026-03-16)
 
 ### 🧹 Chores
@@ -122,36 +215,36 @@ All rules have been migrated into `eslint-plugin-react-x`:
 
 **Preset changes**
 
-| Change  | Rule                                                      | Presets affected                                        | Severity / Notes                                              |
-| :------ | :-------------------------------------------------------- | :------------------------------------------------------ | :------------------------------------------------------------ |
-| Added   | `react-x/component-hook-factories`                        | `recommended`, `x`                                      | `error`                                                       |
-| Added   | `react-x/error-boundaries`                                | `recommended`, `x`                                      | `error`                                                       |
-| Added   | `react-x/exhaustive-deps`                                 | `recommended`, `x`                                      | `warn`                                                        |
-| Added   | `react-x/immutability`                                    | `all`                                                   | `error`                                                       |
-| Added   | `react-x/no-unused-class-component-members`               | `recommended`, `x`                                      | `warn`                                                        |
-| Added   | `react-x/purity`                                          | `recommended`, `x`                                      | `warn`                                                        |
-| Added   | `react-x/refs`                                            | `all`                                                   | `error`                                                       |
-| Added   | `react-x/rules-of-hooks`                                  | `recommended`, `x`                                      | `error`                                                       |
-| Added   | `react-x/set-state-in-effect`                             | `recommended`, `x`                                      | `warn`                                                        |
-| Added   | `react-x/set-state-in-render`                             | `recommended`, `x`                                      | `error`                                                       |
-| Added   | `react-x/unsupported-syntax`                              | `recommended`, `x`                                      | `error`                                                       |
-| Added   | `react-x/use-memo`                                        | `recommended`, `x`                                      | `error`                                                       |
-| Moved   | `react-naming-convention/use-state` → `react-x/use-state` | `recommended`, `x`                                      | `warn`                                                        |
-| Removed | `@eslint-react/hooks-extra/*`                             | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed                                                       |
-| Removed | `react-naming-convention/component-name`                  | `all`                                                   | removed                                                       |
-| Removed | `react-naming-convention/use-state`                       | `all`                                                   | moved to `react-x/use-state`                                  |
-| Removed | `react-x/jsx-no-duplicate-props`                          | `recommended`, `x`, `all`                               | LSP and Language Features natively report duplicate JSX props |
-| Removed | `react-x/jsx-no-iife`                                     | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax`                              |
-| Removed | `react-x/jsx-no-undef`                                    | `all`                                                   | ESLint v10.0.0+ native support                                |
-| Removed | `react-x/jsx-uses-react`                                  | `recommended`, `x`, `all`                               | ESLint v10.0.0+ native support                                |
-| Removed | `react-x/jsx-uses-vars`                                   | `recommended`, `x`, `all`                               | ESLint v10.0.0+ native support                                |
-| Removed | `react-x/no-default-props`                                | `recommended`, `x`                                      | removed                                                       |
-| Removed | `react-x/no-prop-types`                                   | `recommended`, `x`                                      | removed                                                       |
-| Removed | `react-x/no-string-refs`                                  | `recommended`, `x`                                      | removed                                                       |
-| Removed | `react-x/no-unnecessary-key`                              | `all`                                                   | removed                                                       |
-| Removed | `react-x/no-useless-forward-ref`                          | `recommended`, `x`, `all`                               | merged into `no-forward-ref`                                  |
-| Removed | `react-x/prefer-read-only-props`                          | `disable-experimental`, `disable-type-checked`          | consolidated into `immutability`                              |
-| Removed | `react-x/prefer-use-state-lazy-initialization`            | `recommended`, `x`, `all`                               | merged into `use-state`                                       |
+| Change  | Rule                                                       | Presets affected                                        | Severity / Notes                                              |
+| :------ | :--------------------------------------------------------- | :------------------------------------------------------ | :------------------------------------------------------------ |
+| Added   | `react-x/component-hook-factories`                         | `recommended`, `x`                                      | `error`                                                       |
+| Added   | `react-x/error-boundaries`                                 | `recommended`, `x`                                      | `error`                                                       |
+| Added   | `react-x/exhaustive-deps`                                  | `recommended`, `x`                                      | `warn`                                                        |
+| Added   | `react-x/immutability`                                     | `all`                                                   | `error`                                                       |
+| Added   | `react-x/no-unused-class-component-members`                | `recommended`, `x`                                      | `warn`                                                        |
+| Added   | `react-x/purity`                                           | `recommended`, `x`                                      | `warn`                                                        |
+| Added   | `react-x/refs`                                             | `all`                                                   | `error`                                                       |
+| Added   | `react-x/rules-of-hooks`                                   | `recommended`, `x`                                      | `error`                                                       |
+| Added   | `react-x/set-state-in-effect`                              | `recommended`, `x`                                      | `warn`                                                        |
+| Added   | `react-x/set-state-in-render`                              | `recommended`, `x`                                      | `error`                                                       |
+| Added   | `react-x/unsupported-syntax`                               | `recommended`, `x`                                      | `error`                                                       |
+| Added   | `react-x/use-memo`                                         | `recommended`, `x`                                      | `error`                                                       |
+| Moved   | `react-naming-convention/use-state` -> `react-x/use-state` | `recommended`, `x`                                      | `warn`                                                        |
+| Removed | `@eslint-react/hooks-extra/*`                              | `recommended`, `all` (in `@eslint-react/eslint-plugin`) | removed                                                       |
+| Removed | `react-naming-convention/component-name`                   | `all`                                                   | removed                                                       |
+| Removed | `react-naming-convention/use-state`                        | `all`                                                   | moved to `react-x/use-state`                                  |
+| Removed | `react-x/jsx-no-duplicate-props`                           | `recommended`, `x`, `all`                               | LSP and Language Features natively report duplicate JSX props |
+| Removed | `react-x/jsx-no-iife`                                      | `strict`, `disable-experimental`, `all`                 | merged into `unsupported-syntax`                              |
+| Removed | `react-x/jsx-no-undef`                                     | `all`                                                   | ESLint v10.0.0+ native support                                |
+| Removed | `react-x/jsx-uses-react`                                   | `recommended`, `x`, `all`                               | ESLint v10.0.0+ native support                                |
+| Removed | `react-x/jsx-uses-vars`                                    | `recommended`, `x`, `all`                               | ESLint v10.0.0+ native support                                |
+| Removed | `react-x/no-default-props`                                 | `recommended`, `x`                                      | removed                                                       |
+| Removed | `react-x/no-prop-types`                                    | `recommended`, `x`                                      | removed                                                       |
+| Removed | `react-x/no-string-refs`                                   | `recommended`, `x`                                      | removed                                                       |
+| Removed | `react-x/no-unnecessary-key`                               | `all`                                                   | removed                                                       |
+| Removed | `react-x/no-useless-forward-ref`                           | `recommended`, `x`, `all`                               | merged into `no-forward-ref`                                  |
+| Removed | `react-x/prefer-read-only-props`                           | `disable-experimental`, `disable-type-checked`          | consolidated into `immutability`                              |
+| Removed | `react-x/prefer-use-state-lazy-initialization`             | `recommended`, `x`, `all`                               | merged into `use-state`                                       |
 
 ### ✨ New
 
@@ -162,7 +255,7 @@ All rules have been migrated into `eslint-plugin-react-x`:
 - `exhaustive-deps`: Enforces that React hook dependency arrays contain all reactive values used in the callback. (#1499)
 - `immutability` (Experimental): Validates against mutating props, state, and other values that are immutable. Detects in-place array mutations (ex: `push`, `sort`, `splice`) and direct property assignments on state variables from `useState` and props objects. Mirrors the [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability) lint rule described in the React docs.
 - `no-implicit-children` and `no-implicit-ref`: New rules added in beta.75. (#1594)
-- `no-mixing-controlled-and-uncontrolled` → `unstable-rules-of-props`: Validates against mixing controlled and uncontrolled prop patterns. (#486, #1571)
+- `no-mixing-controlled-and-uncontrolled` -> `unstable-rules-of-props`: Validates against mixing controlled and uncontrolled prop patterns. (#486, #1571)
 - `purity` (Experimental): Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - `refs` (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render. See the ["pitfalls" section in `useRef()`](https://react.dev/reference/react/useRef#caveats).
 - `rules-of-hooks`: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). (#1499)
@@ -284,7 +377,7 @@ Use this checklist to upgrade from v2.x to v3.0.0:
 
 - [ ] Remove `@eslint-react/hooks-extra/*` rules from your config — these have been removed from `@eslint-react/eslint-plugin`.
 - [ ] Replace `react-hooks-extra/no-direct-set-state-in-use-effect` with `react-x/set-state-in-effect` in your ESLint config.
-- [ ] Replace `react-naming-convention/use-state` (or `@eslint-react/naming-convention/use-state`) with `react-x/use-state` (or `@eslint-react/use-state`) in your ESLint config.
+- [ ] Replace `react-naming-convention/use-state` (or `@eslint-react/naming-convention-use-state`) with `react-x/use-state` (or `@eslint-react/use-state`) in your ESLint config.
 - [ ] Remove references to the following deleted rules (use [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) instead if needed):
   - `react-x/no-default-props`
   - `react-x/no-forbidden-props`

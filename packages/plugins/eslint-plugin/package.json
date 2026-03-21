@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "3.0.0",
+  "version": "4.0.0-beta.0",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
     "react",
@@ -8,6 +8,7 @@
     "eslint-react",
     "eslint-plugin",
     "eslint-plugin-react-x",
+    "eslint-plugin-react-jsx",
     "eslint-plugin-react-rsc",
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
@@ -48,21 +49,22 @@
   },
   "dependencies": {
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.57.0",
-    "@typescript-eslint/type-utils": "^8.57.0",
-    "@typescript-eslint/types": "^8.57.0",
-    "@typescript-eslint/utils": "^8.57.0",
+    "@typescript-eslint/scope-manager": "^8.57.1",
+    "@typescript-eslint/type-utils": "^8.57.1",
+    "@typescript-eslint/types": "^8.57.1",
+    "@typescript-eslint/utils": "^8.57.1",
     "eslint-plugin-react-dom": "workspace:*",
+    "eslint-plugin-react-jsx": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-rsc": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
     "eslint-plugin-react-x": "workspace:*",
-    "ts-api-utils": "^2.4.0"
+    "ts-api-utils": "^2.5.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "tsdown": "^0.21.2"
+    "tsdown": "^0.21.4"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",

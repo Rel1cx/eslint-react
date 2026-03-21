@@ -1,6 +1,5 @@
-import { JsxInspector } from "@eslint-react/core";
+import { findAttribute, hasAttribute, isWhitespace } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
 
@@ -28,39 +27,20 @@ export default createRule<[], MessageID>({
 
 const DSIH = "dangerouslySetInnerHTML";
 
-/**
- * Check if a JSX child node is considered significant (i.e., not just whitespace for formatting)
- * @param node The JSX child node to check
- * @returns `true` if the node is significant, `false` otherwise
- */
-function isSignificantChildren(node: TSESTree.JSXElement["children"][number]) {
-  // Any node that is not plain text is considered significant
-  if (!JsxInspector.isJsxText(node)) {
-    return true;
-  }
-  // A JSXText node is insignificant if it's purely whitespace and contains a newline,
-  // which is a common pattern for formatting.
-  const isFormattingWhitespace = node.raw.trim() === "" && node.raw.includes("\n");
-
-  // The node is significant if it's not just formatting whitespace
-  return !isFormattingWhitespace;
-}
-
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
   if (!context.sourceCode.text.includes(DSIH)) {
     return {};
   }
 
-  const jsx = JsxInspector.from(context);
-
   return defineRuleListener(
     {
       JSXElement(node) {
         // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
-        if (!jsx.hasAttribute(node, DSIH)) return;
+        if (!hasAttribute(context, node, DSIH)) return;
         // Check for a 'children' prop or actual child nodes that are not just whitespace
-        const childrenPropOrNode = jsx.findAttribute(node, "children") ?? node.children.find(isSignificantChildren);
+        const childrenPropOrNode = findAttribute(context, node, "children")
+          ?? node.children.find((child) => !isWhitespace(child));
         // If no children are found, the rule passes
         if (childrenPropOrNode == null) return;
         // If both 'dangerouslySetInnerHTML' and children are present, report an error

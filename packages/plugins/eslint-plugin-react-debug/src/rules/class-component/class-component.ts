@@ -28,12 +28,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
+  const { api, visitor } = core.getComponentCollectorLegacy(context);
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
+        for (const { name = "anonymous", node: component } of api.getAllComponents(program)) {
           context.report({
             data: {
               json: stringify({ name }),

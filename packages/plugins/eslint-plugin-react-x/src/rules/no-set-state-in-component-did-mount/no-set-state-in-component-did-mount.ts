@@ -37,9 +37,9 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Find the enclosing class component
-        const enclosingClassNode = ast.findParentNode(node, core.isClassComponent);
+        const enclosingClassNode = ast.findParent(node, core.isClassComponent);
         // Find the enclosing 'componentDidMount' method
-        const enclosingMethodNode = ast.findParentNode(
+        const enclosingMethodNode = ast.findParent(
           node,
           (n) => n === enclosingClassNode || core.isComponentDidMount(n),
         );

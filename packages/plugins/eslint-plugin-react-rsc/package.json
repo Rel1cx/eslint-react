@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-rsc",
-  "version": "3.0.0",
+  "version": "4.0.0-beta.0",
   "description": "ESLint React's ESLint plugin for RSC related rules.",
   "keywords": [
     "react",
@@ -46,10 +46,10 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.57.0",
-    "@typescript-eslint/type-utils": "^8.57.0",
-    "@typescript-eslint/types": "^8.57.0",
-    "@typescript-eslint/utils": "^8.57.0",
+    "@typescript-eslint/scope-manager": "^8.57.1",
+    "@typescript-eslint/type-utils": "^8.57.1",
+    "@typescript-eslint/types": "^8.57.1",
+    "@typescript-eslint/utils": "^8.57.1",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
@@ -57,8 +57,8 @@
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.0.3",
-    "tsdown": "^0.21.2"
+    "eslint": "^10.1.0",
+    "tsdown": "^0.21.4"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",

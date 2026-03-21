@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
 import { is, isFunction } from "./node-is";
-import { findParentNode } from "./node-traverse";
+import { findParent } from "./node-traverse";
 
 /**
  * Get all nested identifiers in a expression like node
@@ -141,13 +141,13 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
   const statements: TSESTree.ReturnStatement[] = [];
   const boundaryNode = isFunction(node)
     ? node
-    : findParentNode(node, isFunction);
+    : findParent(node, isFunction);
   simpleTraverse(node, {
     enter(node) {
       if (node.type !== AST.ReturnStatement) {
         return;
       }
-      const parentFunction = findParentNode(node, isFunction);
+      const parentFunction = findParent(node, isFunction);
       if (parentFunction !== boundaryNode) {
         return;
       }

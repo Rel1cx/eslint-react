@@ -13,7 +13,7 @@ npm install --save-dev eslint-plugin-react-web-api
 
 ```ts
 import js from "@eslint/js";
-import webApi from "eslint-plugin-react-web-api";
+import reactWebApi from "eslint-plugin-react-web-api";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -24,7 +24,7 @@ export default defineConfig(
       js.configs.recommended,
       tseslint.configs.recommended,
       // Add configs from eslint-plugin-react-web-api
-      webApi.configs.recommended,
+      reactWebApi.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here

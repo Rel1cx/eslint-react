@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseActionStateCall
 
-# Variable: isUseActionStateCall()
+# Variable: isUseActionStateCall
 
 ```ts
 const isUseActionStateCall: (...a: [Node | null]) => boolean;

@@ -59,7 +59,7 @@ export default defineConfig(
       "react-refresh": pluginReactRefresh,
     },
     rules: {
-      "@eslint-react/naming-convention/filename": ["error", { rule: "kebab-case" }],
+      "@eslint-react/naming-convention-filename": ["error", { rule: "kebab-case" }],
       "@eslint-react/no-unused-props": "warn",
       "react-refresh/only-export-components": "warn",
     },
@@ -74,7 +74,7 @@ export default defineConfig(
   {
     files: GLOB_COMPONENT,
     rules: {
-      "@eslint-react/naming-convention/filename": ["error", { rule: "PascalCase" }],
+      "@eslint-react/naming-convention-filename": ["error", { rule: "PascalCase" }],
     },
   },
   {

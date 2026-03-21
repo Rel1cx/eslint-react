@@ -30,40 +30,32 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const hint = core.ComponentDetectionHint.None;
-  // Collector for function components
-  const collector = core.useComponentCollector(context, { hint });
-  // Collector for class components
-  const collectorLegacy = core.useComponentCollectorLegacy(context);
-
-  // A set to store all `React.lazy()` call expressions
+  const collector = core.getComponentCollector(context, { hint });
+  const collectorLegacy = core.getComponentCollectorLegacy(context);
   const lazyComponentDeclarations = new Set<TSESTree.CallExpression>();
 
   return defineRuleListener(
     collector.visitor,
     collectorLegacy.visitor,
     {
-      // Find all `React.lazy()` calls with dynamic imports and store them
       ImportExpression(node) {
-        const lazyCall = ast.findParentNode(node, (n) => core.isLazyCall(context, n));
+        const lazyCall = ast.findParent(node, (n) => core.isLazyCall(context, n));
         if (lazyCall != null) {
           lazyComponentDeclarations.add(lazyCall);
         }
       },
-      // After traversing the whole program, check if any lazy component is nested
       "Program:exit"(program) {
-        // Get all collected function and class components
         const functionComponents = collector
-          .ctx
+          .api
           .getAllComponents(program);
 
         const classComponents = collectorLegacy
-          .ctx
+          .api
           .getAllComponents(program);
 
-        // Iterate over each found `React.lazy()` call
         for (const lazy of lazyComponentDeclarations) {
           // Check if the lazy declaration is inside a component, hook, or JSX
-          const significantParent = ast.findParentNode(lazy, (n) => {
+          const significantParent = ast.findParent(lazy, (n) => {
             if (ast.isJSX(n)) return true;
             if (n.type === AST.CallExpression) {
               // Check for React hooks, `createElement`, or `createContext`

@@ -13,9 +13,9 @@ Used as reference when:
 
 ### A1. Source Files
 
-- [ ] Rename `src/rules/<old-name>/<old-name>.ts` → `src/rules/<new-name>/<new-name>.ts`
-- [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` → `src/rules/<new-name>/<new-name>.spec.ts`
-- [ ] Rename `src/rules/<old-name>/<old-name>.mdx` → `src/rules/<new-name>/<new-name>.mdx`
+- [ ] Rename `src/rules/<old-name>/<old-name>.ts` -> `src/rules/<new-name>/<new-name>.ts`
+- [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` -> `src/rules/<new-name>/<new-name>.spec.ts`
+- [ ] Rename `src/rules/<old-name>/<old-name>.mdx` -> `src/rules/<new-name>/<new-name>.mdx`
 
 ### A2. Rule Implementation (`<new-name>.ts`)
 
@@ -77,7 +77,7 @@ Update the rule key (prefixed `@eslint-react/`) in every config that includes th
 
 ### A8. CHANGELOG
 
-- [ ] Update the preset-changes table row: `react-x/<old-name>` → `react-x/<new-name>`
+- [ ] Update the preset-changes table row: `react-x/<old-name>` -> `react-x/<new-name>`
 - [ ] Update the new-rules bullet entry name
 - [ ] Update the upgrade checklist entry
 
@@ -98,7 +98,7 @@ Update the rule key (prefixed `@eslint-react/`) in every config that includes th
 
 ---
 
-## Part B — Move a Rule (different source plugin → `eslint-plugin-react-x`)
+## Part B — Move a Rule (different source plugin -> `eslint-plugin-react-x`)
 
 ### B1. Dependencies
 
@@ -149,7 +149,7 @@ Add the rule to every applicable preset:
 ### B7. CHANGELOG
 
 - [ ] Add a preset-changes table row marking the rule as moved:
-      `react-<source>/<rule-name>` → `react-x/<rule-name>`
+      `react-<source>/<rule-name>` -> `react-x/<rule-name>`
 - [ ] Add a new-rules bullet entry for `react-x/<rule-name>`
 - [ ] Add an upgrade checklist entry for the new rule
 

@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseSyncExternalStoreCall
 
-# Variable: isUseSyncExternalStoreCall()
+# Variable: isUseSyncExternalStoreCall
 
 ```ts
 const isUseSyncExternalStoreCall: (...a: [Node | null]) => boolean;

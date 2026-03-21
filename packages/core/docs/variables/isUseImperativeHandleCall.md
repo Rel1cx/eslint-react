@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseImperativeHandleCall
 
-# Variable: isUseImperativeHandleCall()
+# Variable: isUseImperativeHandleCall
 
 ```ts
 const isUseImperativeHandleCall: (...a: [Node | null]) => boolean;

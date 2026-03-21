@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseCall
 
-# Variable: isUseCall()
+# Variable: isUseCall
 
 ```ts
 const isUseCall: (...a: [Node | null]) => boolean;

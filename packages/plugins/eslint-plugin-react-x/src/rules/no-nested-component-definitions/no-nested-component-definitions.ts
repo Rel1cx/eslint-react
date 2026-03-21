@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { JsxInspector } from "@eslint-react/core";
+import { findParentAttribute } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -38,13 +38,13 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
     | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayPattern
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedInArrayExpression
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
+    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
     | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
-  const fCollector = core.useComponentCollector(context, { hint });
-  const cCollector = core.useComponentCollectorLegacy(context);
+  const fCollector = core.getComponentCollector(context, { hint });
+  const cCollector = core.getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     fCollector.visitor,
@@ -52,11 +52,11 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       "Program:exit"(program) {
         // Gather all function and class components found by the collectors
-        const fComponents = [...fCollector.ctx.getAllComponents(program)];
-        const cComponents = [...cCollector.ctx.getAllComponents(program)];
+        const fComponents = [...fCollector.api.getAllComponents(program)];
+        const cComponents = [...cCollector.api.getAllComponents(program)];
         // Helper to find the enclosing component of a node
         function findEnclosingComponent(node: TSESTree.Node) {
-          return ast.findParentNode(node, (n) => {
+          return ast.findParent(node, (n) => {
             if (ast.isFunction(n)) return fComponents.some((c) => c.node === n);
             if (ast.isClass(n)) return cComponents.some((c) => c.node === n);
             return false;
@@ -151,7 +151,7 @@ export function create(context: RuleContext<MessageID, []>) {
  */
 function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
   return node.parent.type === AST.JSXAttribute
-    || JsxInspector.findParentAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
+    || findParentAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
 }
 
 /**
@@ -161,7 +161,7 @@ function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
  * @returns `true` if the node is inside a class component's render block
  */
 function isInsideRenderMethod(node: TSESTree.Node) {
-  return ast.findParentNode(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
+  return ast.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
 }
 
 /**
@@ -171,10 +171,10 @@ function isInsideRenderMethod(node: TSESTree.Node) {
  * @returns `true` if the node is inside `createElement`'s props
  */
 function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node) {
-  const call = ast.findParentNode(node, core.isCreateElementCall(context));
+  const call = ast.findParent(node, core.isCreateElementCall(context));
   if (call == null) return false;
   // Check if the node is within an object expression that is the second argument (props) of createElement
-  const prop = ast.findParentNode(node, ast.is(AST.ObjectExpression));
+  const prop = ast.findParent(node, ast.is(AST.ObjectExpression));
   if (prop == null) return false;
   return prop === call.arguments[1];
 }

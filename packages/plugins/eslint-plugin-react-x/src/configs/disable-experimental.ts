@@ -4,7 +4,6 @@ export const name = "react-x/disable-experimental";
 
 export const rules: Record<string, RuleConfig> = {
   "react-x/immutability": "off",
-  "react-x/jsx-key-before-spread": "off",
   "react-x/no-duplicate-key": "off",
   "react-x/no-implicit-children": "off",
   "react-x/no-implicit-key": "off",

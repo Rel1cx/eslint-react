@@ -70,10 +70,16 @@ export type TSESTreeJSX =
   | TSESTree.JSXTagNameExpression
   | TSESTree.JSXTextToken;
 
+export type TSESTreeJSXElementLike =
+  | TSESTree.JSXElement
+  | TSESTree.JSXFragment;
+
 /**
  * Represents JSX attribute-like nodes (attributes and spread attributes)
  */
-export type TSESTreeJSXAttributeLike = TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute;
+export type TSESTreeJSXAttributeLike =
+  | TSESTree.JSXAttribute
+  | TSESTree.JSXSpreadAttribute;
 
 /**
  * Represents destructuring patterns in variable declarations

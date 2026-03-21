@@ -13,7 +13,7 @@ npm install --save-dev eslint-plugin-react-dom
 
 ```ts
 import js from "@eslint/js";
-import dom from "eslint-plugin-react-dom";
+import reactDom from "eslint-plugin-react-dom";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -24,7 +24,7 @@ export default defineConfig(
       js.configs.recommended,
       tseslint.configs.recommended,
       // Add configs from eslint-plugin-react-dom
-      dom.configs.recommended,
+      reactDom.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here

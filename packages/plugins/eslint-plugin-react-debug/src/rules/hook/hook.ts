@@ -28,13 +28,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useHookCollector(context);
+  const { api, visitor } = core.getHookCollector(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name, hookCalls, node } of ctx.getAllHooks(program)) {
+        for (const { name, hookCalls, node } of api.getAllHooks(program)) {
           context.report({
             data: {
               json: stringify({

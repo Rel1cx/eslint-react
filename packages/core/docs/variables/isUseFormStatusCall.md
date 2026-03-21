@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseFormStatusCall
 
-# Variable: isUseFormStatusCall()
+# Variable: isUseFormStatusCall
 
 ```ts
 const isUseFormStatusCall: (...a: [Node | null]) => boolean;

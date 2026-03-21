@@ -13,7 +13,7 @@ npm install --save-dev eslint-plugin-react-naming-convention
 
 ```ts
 import js from "@eslint/js";
-import namingConvention from "eslint-plugin-react-naming-convention";
+import reactNamingConvention from "eslint-plugin-react-naming-convention";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -24,7 +24,7 @@ export default defineConfig(
       js.configs.recommended,
       tseslint.configs.recommended,
       // Add configs from eslint-plugin-react-naming-convention
-      namingConvention.configs.recommended,
+      reactNamingConvention.configs.recommended,
     ],
     rules: {
       // Put rules you want to override here

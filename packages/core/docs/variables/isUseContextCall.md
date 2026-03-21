@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseContextCall
 
-# Variable: isUseContextCall()
+# Variable: isUseContextCall
 
 ```ts
 const isUseContextCall: (...a: [Node | null]) => boolean;

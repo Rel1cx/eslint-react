@@ -9,10 +9,6 @@ export const rules = {
   "@eslint-react/no-leaked-conditional-rendering": "error",
 } as const satisfies Record<string, RuleConfig>;
 
-export const plugins = {
-  ...recommendedTypeScript.plugins,
-};
-
 export const settings = {
   ...recommendedTypeScript.settings,
 };

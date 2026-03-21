@@ -28,12 +28,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `Component` is not present in the file
   if (!context.sourceCode.text.includes("Component")) return {};
-  const { ctx, visitor } = core.useComponentCollectorLegacy(context);
+  const { api, visitor } = core.getComponentCollectorLegacy(context);
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "anonymous", node: component } of ctx.getAllComponents(program)) {
+        for (const { name = "anonymous", node: component } of api.getAllComponents(program)) {
           if (component.body.body.some((m) => core.isComponentDidCatch(m) || core.isGetDerivedStateFromError(m))) {
             continue;
           }

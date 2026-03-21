@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isComponentDidCatch
 
-# Variable: isComponentDidCatch()
+# Variable: isComponentDidCatch
 
 ```ts
 const isComponentDidCatch: (node: Node) => node is TSESTreeMethodOrProperty;

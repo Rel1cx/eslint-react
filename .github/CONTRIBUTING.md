@@ -45,7 +45,7 @@ pnpm run build:website
 pnpm run test
 
 # Run a single test file
-pnpm vitest packages/plugins/eslint-plugin-react-x/src/rules/[rule-name]/[rule-name].spec.ts
+pnpm vitest related packages/plugins/eslint-plugin-react-x/src/rules/[rule-name]/[rule-name].spec.ts
 ```
 
 ### Code Linting and Formatting

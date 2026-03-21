@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isRender
 
-# Variable: isRender()
+# Variable: isRender
 
 ```ts
 const isRender: (node: Node) => node is TSESTreeMethodOrProperty;

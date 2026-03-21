@@ -25,6 +25,7 @@
 | [ReportFixFunction](type-aliases/ReportFixFunction.md) | - |
 | [RuleContext](type-aliases/RuleContext.md) | Rule context. |
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
+| [RuleListener](type-aliases/RuleListener.md) | - |
 | [RuleSuggest](type-aliases/RuleSuggest.md) | A suggestion for fixing a reported issue. |
 | [Severity](type-aliases/Severity.md) | The severity of a rule in a configuration. |
 | [SeverityLevel](type-aliases/SeverityLevel.md) | The numeric severity level for a rule. |

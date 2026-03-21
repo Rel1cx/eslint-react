@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
 [![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
-[![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.2-000000?style=flat)](https://tsdown.dev)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.4-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster, composable ESLint rules for React and friends.
 
@@ -31,6 +31,7 @@
 - [Changelog](#changelog)
 - [Roadmap](#roadmap)
 - [Disclaimer](#disclaimer)
+- [Sponsors](#sponsors)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -46,6 +47,7 @@
 ### Modular ESLint Plugins
 
 - [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x) - X rules (renderer-agnostic, compatible with x-platform).
+- [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx) - React Flavored JSX rules.
 - [`eslint-plugin-react-rsc`](https://npmx.dev/package/eslint-plugin-react-rsc) - Rules for React Server Components.
 - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom) - DOM-specific rules for React DOM.
 - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api) - Rules for interacting with Web APIs.
@@ -124,6 +126,8 @@ export default defineConfig(
 
 - `x`\
   Enable rules for React.
+- `jsx`\
+  Enable rules for React Flavored JSX.
 - `rsc`\
   Enable rules for React Server Components.
 - `dom`\
@@ -156,6 +160,8 @@ export default defineConfig(
 
 ### Other
 
+- `disable-jsx`\
+  Disable rules in the `jsx` preset.
 - `disable-rsc`\
   Disable rules in the `rsc` preset.
 - `disable-dom`\
@@ -200,6 +206,16 @@ export default defineConfig(
 This project is not affiliated with Meta Corporation or the [facebook/react](https://github.com/facebook/react) project or team, nor is it endorsed or sponsored by them.
 
 This project is, and will remain, 90% of its code written by humans.
+
+## Sponsors
+
+A huge thank you to our amazing sponsors who make this project possible.
+
+<p align="center">
+  <a href="https://github.com/sponsors/Rel1cx">
+    <img src=".github/sponsors.svg" alt="Sponsors" />
+  </a>
+</p>
 
 ## Contributing
 
