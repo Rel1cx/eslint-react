@@ -15,11 +15,11 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^10.0.1",
-    "@preact/preset-vite": "^2.10.4",
+    "@preact/preset-vite": "^2.10.5",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.5.0",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "typescript": "^5.9.3",

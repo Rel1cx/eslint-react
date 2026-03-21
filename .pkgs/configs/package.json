@@ -31,7 +31,7 @@
     "typescript-eslint": "^8.57.1"
   },
   "devDependencies": {
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "tsl": "^1.0.29",
     "tsl-dx": "^0.10.2",
     "typedoc": "0.28.17",

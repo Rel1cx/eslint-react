@@ -52,7 +52,7 @@
     "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.80.0",
+    "@effect/language-service": "^0.81.0",
     "@effect/platform": "^0.96.0",
     "@effect/platform-node": "^0.106.0",
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -73,7 +73,7 @@
     "dedent": "^1.7.2",
     "dprint": "^0.53.0",
     "effect": "^3.21.0",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "eslint-plugin-fast-import": "^2.1.0",
     "mdxlint": "^1.0.0",
     "preact": "^10.29.0",
