@@ -1,6 +1,7 @@
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
+import type { TSESTree } from "@typescript-eslint/utils";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
@@ -53,15 +54,9 @@ export default defineConfig(
   {
     files: TSCONFIG_APP.include,
     extends: [
-      eslintReact.configs["strict-type-checked"],
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
       eslintPluginReactRefresh.configs.recommended,
-    ],
-  },
-  // custom rules powered by @eslint-react/kit
-  {
-    files: TSCONFIG_APP.include,
-    extends: [
+      eslintReact.configs["strict-type-checked"],
       eslintReactKit(
         // Components: Enforce arrow function definitions
         {
@@ -141,22 +136,38 @@ export default defineConfig(
           make: (ctx, kit) => {
             const fc = kit.collect.components(ctx);
             const hk = kit.collect.hooks(ctx);
-
-            return merge(fc.visitor, hk.visitor, {
-              "Program:exit"(program) {
-                for (const { kind, name, node } of [...fc.query.all(program), ...hk.query.all(program)]) {
-                  if (name == null) continue;
-                  if (kit.find.parent(node, kit.is.function) == null) continue;
-                  ctx.report({
-                    node,
-                    message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
-                  });
-                }
+            return merge(
+              fc.visitor,
+              hk.visitor,
+              {
+                "Program:exit"(program) {
+                  const comps = fc.query.all(program);
+                  const hooks = hk.query.all(program);
+                  for (const { name, node, kind } of [...comps, ...hooks]) {
+                    if (name == null) continue;
+                    if (findParent(node, isFunction) == null) continue;
+                    ctx.report({
+                      node,
+                      message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
+                    });
+                  }
+                },
               },
-            });
+            );
           },
         },
       ),
     ],
   },
 );
+
+function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+  if (parent == null) return null;
+  if (test(parent)) return parent;
+  if (parent.type === "Program") return null;
+  return findParent(parent, test);
+}
+
+function isFunction({ type }: TSESTree.Node) {
+  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+}

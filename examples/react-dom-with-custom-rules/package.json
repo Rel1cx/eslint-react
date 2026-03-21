@@ -22,6 +22,8 @@
     "@tsconfig/vite-react": "^7.0.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/types": "^8.57.1",
+    "@typescript-eslint/utils": "^8.57.1",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.0.3",
     "eslint-plugin-react-hooks": "^7.0.1",

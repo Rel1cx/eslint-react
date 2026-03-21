@@ -349,8 +349,9 @@ defineReactConfig({
 });
 
 function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+  if (parent == null) return null;
   if (test(parent)) return parent;
-  if (parent.type === AST.Program) return null;
+  if (parent.type === "Program") return null;
   return findParent(parent, test);
 }
 
