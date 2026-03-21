@@ -3,34 +3,11 @@ import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "../../../../../../test";
-import rule, { RULE_NAME } from "./runtime";
+import rule, { RULE_NAME } from "./no-deoptimization";
 
 // Default ruleTester tests (auto-detect runtime from tsconfig)
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
-    // no-namespace violations
-    {
-      code: tsx`<ns:testcomponent />`,
-      errors: [{
-        data: { name: "ns:testcomponent" },
-        messageId: "noNamespace",
-      }],
-    },
-    {
-      code: tsx`<ns:testComponent />`,
-      errors: [{
-        data: { name: "ns:testComponent" },
-        messageId: "noNamespace",
-      }],
-    },
-    {
-      code: tsx`<Ns:TestComponent />`,
-      errors: [{
-        data: { name: "Ns:TestComponent" },
-        messageId: "noNamespace",
-      }],
-    },
-    // deoptimization violations (default tsconfig likely uses automatic runtime)
     {
       code: tsx`
         const App = (props) => {
@@ -42,9 +19,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noDeoptimization" },
-        { messageId: "noDeoptimization" },
-        { messageId: "noDeoptimization" },
+        { messageId: "noKeyAfterSpread" },
+        { messageId: "noKeyAfterSpread" },
+        { messageId: "noKeyAfterSpread" },
       ],
     },
     {
@@ -53,36 +30,10 @@ ruleTester.run(RULE_NAME, rule, {
           return <div {...props} key={props.id}>1</div>;
         };
       `,
-      errors: [{ messageId: "noDeoptimization" }],
-    },
-    // Both violations in one case
-    {
-      code: tsx`
-        const App = (props) => {
-          return <ns:div {...props} key="1">1</ns:div>;
-        };
-      `,
-      errors: [
-        { messageId: "noNamespace" },
-        { messageId: "noDeoptimization" },
-      ],
+      errors: [{ messageId: "noKeyAfterSpread" }],
     },
   ],
   valid: [
-    // no namespace is valid
-    "<testcomponent />",
-    "<testComponent />",
-    "<test_component />",
-    "<TestComponent />",
-    "<object.testcomponent />",
-    "<object.testComponent />",
-    "<object.test_component />",
-    "<object.TestComponent />",
-    "<Object.testcomponent />",
-    "<Object.testComponent />",
-    "<Object.test_component />",
-    "<Object.TestComponent />",
-    // no deoptimization
     tsx`
       const App = (props) => {
           return [<div key="1">1</div>]
@@ -124,16 +75,7 @@ const ruleTesterWithJsxClassicRuntime = new RuleTester({
 });
 
 ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
-  invalid: [
-    // no-namespace still applies in classic runtime
-    {
-      code: tsx`<ns:testcomponent />`,
-      errors: [{
-        data: { name: "ns:testcomponent" },
-        messageId: "noNamespace",
-      }],
-    },
-  ],
+  invalid: [],
   valid: [
     // no deoptimization check in classic runtime
     tsx`
@@ -162,15 +104,6 @@ const ruleTesterWithJsxAutomaticRuntime = new RuleTester({
 
 ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
   invalid: [
-    // no-namespace applies in automatic runtime too
-    {
-      code: tsx`<ns:testcomponent />`,
-      errors: [{
-        data: { name: "ns:testcomponent" },
-        messageId: "noNamespace",
-      }],
-    },
-    // deoptimization violations
     {
       code: tsx`
         const App = (props) => {
@@ -182,9 +115,9 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
         };
       `,
       errors: [
-        { messageId: "noDeoptimization" },
-        { messageId: "noDeoptimization" },
-        { messageId: "noDeoptimization" },
+        { messageId: "noKeyAfterSpread" },
+        { messageId: "noKeyAfterSpread" },
+        { messageId: "noKeyAfterSpread" },
       ],
     },
     {
@@ -193,15 +126,10 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
           return <Component {...props} key="test" />;
         };
       `,
-      errors: [{ messageId: "noDeoptimization" }],
+      errors: [{ messageId: "noKeyAfterSpread" }],
     },
   ],
   valid: [
-    // no namespace is valid
-    "<testcomponent />",
-    "<TestComponent />",
-    "<object.TestComponent />",
-    // no deoptimization
     tsx`
       const App = (props) => {
         return <Component key="test" {...props} />;

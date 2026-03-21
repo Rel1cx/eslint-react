@@ -43,7 +43,8 @@ The following rules have been removed from `eslint-plugin-react-jsx`:
 
 - `@eslint-react/kit`: New plugin to create custom rules with a toolkit that helps identify React patterns.
 - `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
-- `react-jsx/runtime`: New rule that consolidates `key-before-spread` and `no-namespace` into a single JSX runtime rule. It disallows namespace tags and prevents deoptimization caused by placing `key` after spread props in automatic runtime.
+- `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
+- `react-jsx/no-deoptimization`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
 
 ### 🪄 Improvements
@@ -60,11 +61,11 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 
 #### ESLint configuration
 
-- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/runtime` in your ESLint config.
+- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/no-deoptimization` in your ESLint config.
 - [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
 - [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
 - [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment` in your ESLint config.
-- [ ] Replace `react-dom/no-namespace` with `react-jsx/runtime` in your ESLint config.
+- [ ] Replace `react-dom/no-namespace` with `react-jsx/no-namespace` in your ESLint config.
 
 #### Rule prefix changes in `@eslint-react/eslint-plugin`
 

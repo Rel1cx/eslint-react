@@ -7,5 +7,6 @@ export const rules = {
   "@eslint-react/jsx-no-children-prop": "warn",
   "@eslint-react/jsx-no-children-prop-with-children": "error",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
-  "@eslint-react/jsx-runtime": "error",
+  "@eslint-react/jsx-no-deoptimization": "error",
+  "@eslint-react/jsx-no-namespace": "error",
 } as const satisfies Record<string, RuleConfig>;

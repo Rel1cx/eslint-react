@@ -93,7 +93,8 @@ full: true
 | [`no-children-prop-with-children`](jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content                                      |         |
 | [`no-comment-textnodes`](jsx-no-comment-textnodes)                     | 1️⃣ 1️⃣ |           | Prevents comment strings (ex: beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes |         |
 | [`no-useless-fragment`](jsx-no-useless-fragment)                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                         |         |
-| [`runtime`](jsx-runtime)                                               | 2️⃣ 2️⃣ |           | Enforces JSX runtime related rules including namespace restrictions and deoptimization prevention                           |         |
+| [`no-deoptimization`](jsx-no-deoptimization)                           | 2️⃣ 2️⃣ |           | Prevent patterns that cause deoptimization when using the automatic JSX runtime                                             |         |
+| [`no-namespace`](jsx-no-namespace)                                     | 2️⃣ 2️⃣ |           | Disallow JSX namespace syntax, as React does not support them                                                               |         |
 
 ## RSC Rules
 

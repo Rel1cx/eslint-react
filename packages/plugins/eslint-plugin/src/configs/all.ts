@@ -66,8 +66,9 @@ export const rules = {
   "@eslint-react/jsx-no-children-prop": "warn",
   "@eslint-react/jsx-no-children-prop-with-children": "error",
   "@eslint-react/jsx-no-comment-textnodes": "warn",
+  "@eslint-react/jsx-no-deoptimization": "error",
+  "@eslint-react/jsx-no-namespace": "error",
   "@eslint-react/jsx-no-useless-fragment": "warn",
-  "@eslint-react/jsx-runtime": "error",
   "@eslint-react/rsc-function-definition": "error",
 
   "@eslint-react/dom-no-dangerously-set-innerhtml": "warn",

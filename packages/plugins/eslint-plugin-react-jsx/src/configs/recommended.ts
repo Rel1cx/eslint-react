@@ -8,7 +8,8 @@ export const name = "react-jsx/recommended";
 export const rules = {
   "react-jsx/no-children-prop": "warn",
   "react-jsx/no-comment-textnodes": "warn",
-  "react-jsx/runtime": "error",
+  "react-jsx/no-deoptimization": "error",
+  "react-jsx/no-namespace": "error",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

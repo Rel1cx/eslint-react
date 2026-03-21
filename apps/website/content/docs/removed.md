@@ -11,7 +11,7 @@ full: true
 | `react-x/avoid-shorthand-boolean`                            |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/avoid-shorthand-fragment`                           |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-forward-ref`](/docs/rules/no-forward-ref)                                                       | 2.0.0      | renamed      |
-| `react-x/jsx-key-before-spread`                              | [`react-jsx/runtime`](/docs/rules/jsx-runtime)                                                               | 4.0.0      | consolidated |
+| `react-x/jsx-key-before-spread`                              | [`react-jsx/no-deoptimization`](/docs/rules/jsx-no-deoptimization)                                           | 4.0.0      | consolidated |
 | `react-x/jsx-no-duplicate-props`                             |                                                                                                              | 3.0.0      | deprecated   |
 | `react-x/jsx-no-iife`                                        | [`react-x/unsupported-syntax`](/docs/rules/unsupported-syntax)                                               | 3.0.0      | consolidated |
 | `react-x/jsx-no-undef`                                       | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                                     | 3.0.0      | deprecated   |
@@ -36,7 +36,7 @@ full: true
 | `react-x/prefer-use-state-lazy-initialization`               | [`react-x/use-state`](/docs/rules/use-state)                                                                 | 3.0.0      | consolidated |
 | `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](/docs/rules/jsx-uses-vars)                                                         | 2.0.0      | renamed      |
 | `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)                 | 2.0.0      | renamed      |
-| `react-dom/no-namespace`                                     | [`react-jsx/runtime`](/docs/rules/jsx-runtime)                                                               | 4.0.0      | consolidated |
+| `react-dom/no-namespace`                                     | [`react-jsx/no-namespace`](/docs/rules/jsx-no-namespace)                                                     | 4.0.0      | consolidated |
 | `react-jsx/dollar`                                           |                                                                                                              | 4.0.0      | discontinued |
 | `react-hooks-extra/exhaustive-deps`                          | [`react-x/exhaustive-deps`](/docs/rules/exhaustive-deps)                                                     | 2.14.0     | relocated    |
 | `react-hooks-extra/no-direct-set-state-in-use-effect`        | [`react-x/set-state-in-effect`](/docs/rules/set-state-in-effect)                                             | 2.14.0     | relocated    |
