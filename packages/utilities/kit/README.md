@@ -1,6 +1,6 @@
 # @eslint-react/kit
 
-ESLint React's toolkit for building custom React lint rules — inline, right inside your `eslint.config.ts`.
+ESLint React's toolkit for building custom React lint rules right inside your `eslint.config.ts`.
 
 ## Index
 
@@ -14,9 +14,8 @@ ESLint React's toolkit for building custom React lint rules — inline, right in
     - [`kit.is`](#kitis) — Predicates
     - [`kit.hint`](#kithint) — Detection hint bit-flags
     - [`kit.flag`](#kitflag) — Component characteristic flags
-    <!--- [`kit.builtinHookNames`](#kitbuiltinhooknames) — Hook name list-->
 - [Examples](#examples)
-  - [Simple: Ban `Date.now`](#simple-ban-datenow)
+  - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
   - [Component: Max component per file](#component-max-componoent-per-file)
   - [Hooks: Warn on custom hooks doesn't call other hooks](#hooks-warn-on-custom-hooks-doesnt-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
@@ -248,15 +247,15 @@ for (const component of query.all(program)) {
 
 ## Examples
 
-### Simple: Ban `Date.now`
+### Simple: Ban `forwardRef`
 
 ```ts
 defineReactConfig({
-  name: "no-date-now",
-  make: (ctx) => ({
+  name: "no-forward-ref",
+  make: (ctx, kit) => ({
     CallExpression(node) {
-      if (ctx.sourceCode.getText(node.callee) === "Date.now") {
-        ctx.report({ node, message: "Don't use 'Date.now'." });
+      if (kit.is.forwardRefCall(node)) {
+        ctx.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
       }
     },
   }),
