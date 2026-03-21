@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-object-types */
 /* eslint-disable perfectionist/sort-objects */
-import { type TSESTreeFunction, findParent, isFunction } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
@@ -53,7 +53,6 @@ export type { RuleContext };
 
 export interface RuleToolkit {
   is: {
-    function: typeof isFunction;
     componentDefinition: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isComponentName;
     componentNameLoose: typeof core.isComponentNameLoose;
@@ -127,10 +126,6 @@ export interface RuleToolkit {
     component: typeof core.ComponentFlag;
   };
 
-  find: {
-    parent: typeof findParent;
-  };
-
   collect: {
     components: typeof components;
     hooks: typeof hooks;
@@ -140,7 +135,6 @@ export interface RuleToolkit {
 function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
   return {
     is: {
-      function: isFunction,
       componentDefinition: (node, hint) => core.isComponentDefinition(ctx, node, hint),
       componentName: core.isComponentName,
       componentNameLoose: core.isComponentNameLoose,
@@ -212,10 +206,6 @@ function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
 
     flag: {
       component: core.ComponentFlag,
-    },
-
-    find: {
-      parent: findParent,
     },
 
     collect: {

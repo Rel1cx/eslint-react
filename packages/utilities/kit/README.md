@@ -327,7 +327,6 @@ defineReactConfig({
   make: (ctx, kit) => {
     const fc = kit.collect.components(ctx);
     const hk = kit.collect.hooks(ctx);
-
     return merge(
       fc.visitor,
       hk.visitor,
@@ -337,7 +336,7 @@ defineReactConfig({
           const hooks = hk.query.all(program);
           for (const { name, node, kind } of [...comps, ...hooks]) {
             if (name == null) continue;
-            if (kit.find.parent(node, kit.is.function) == null) continue;
+            if (findParent(node, isFunction) == null) continue;
             ctx.report({
               node,
               message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
@@ -348,6 +347,16 @@ defineReactConfig({
     );
   },
 });
+
+function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+  if (test(parent)) return parent;
+  if (parent.type === AST.Program) return null;
+  return findParent(parent, test);
+}
+
+function isFunction({ type }: TSESTree.Node) {
+  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+}
 ```
 
 ## More Examples
