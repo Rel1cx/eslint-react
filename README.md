@@ -212,7 +212,7 @@ This project is, and will remain, 90% of its code written by humans.
 A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
-  <a href="https://github.com/sponsors/Rel1cx">
+  <a href="##">
     <img src=".github/sponsors.svg" alt="Sponsors" />
   </a>
 </p>
