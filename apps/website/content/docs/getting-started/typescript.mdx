@@ -66,22 +66,6 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
   <Step>
     ## Configure [Project Config](/docs/glossary#project-config) (Optional)
 
-    ```ts title="eslint.config.ts"
-    import tseslint from "typescript-eslint";
-
-    export default [
-      {
-        languageOptions: {
-          parser: tseslint.parser,
-          parserOptions: {
-            projectService: true,
-            tsconfigRootDir: import.meta.dirname,
-          },
-        },
-      },
-    ];
-    ```
-
     ```jsonc title="tsconfig.json"
     {
       "compilerOptions": {
