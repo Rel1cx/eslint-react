@@ -31,8 +31,6 @@ export declare namespace getComponentCollector {
   type ReturnType = {
     api: {
       getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];
-      getCurrentEntries: () => FunctionEntry[];
-      getCurrentEntry: () => FunctionEntry | null;
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -98,10 +96,6 @@ export function getComponentCollector(
     getAllComponents(node: TSESTree.Program) {
       return [...components.values()];
     },
-    getCurrentEntries() {
-      return [...functionEntries];
-    },
-    getCurrentEntry,
   } as const;
 
   const visitor = {

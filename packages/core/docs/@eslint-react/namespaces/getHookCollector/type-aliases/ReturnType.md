@@ -6,8 +6,6 @@
 type ReturnType = {
   api: {
      getAllHooks: HookSemanticNode[];
-     getCurrentEntries: FunctionEntry[];
-     getCurrentEntry: FunctionEntry | null;
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -17,8 +15,6 @@ type ReturnType = {
 
 | Property | Type |
 | ------ | ------ |
-| <a id="property-api"></a> `api` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; `getCurrentEntries`: `FunctionEntry`[]; `getCurrentEntry`: `FunctionEntry` \| `null`; \} |
+| <a id="property-api"></a> `api` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; \} |
 | `api.getAllHooks` | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[] |
-| `api.getCurrentEntries` | `FunctionEntry`[] |
-| `api.getCurrentEntry` | `FunctionEntry` \| `null` |
 | <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |

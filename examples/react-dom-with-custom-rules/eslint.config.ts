@@ -61,9 +61,9 @@ export default defineConfig(
         // Components: Enforce arrow function definitions
         {
           name: "function-component-definition",
-          make: (ctx, kit) => {
+          make: (context, { collect }) => {
             // Create a collector with the customized hint.
-            const { query, visitor } = kit.collect.components(ctx);
+            const { query, visitor } = collect.components(context);
             // Merge the collector's visitor with inspection logic.
             return merge(
               visitor,
@@ -71,14 +71,14 @@ export default defineConfig(
                 "Program:exit"(program) {
                   for (const { node } of query.all(program)) {
                     if (node.type === "ArrowFunctionExpression") continue;
-                    ctx.report({
+                    context.report({
                       node,
                       message: "Function components must be defined with arrow functions.",
                       suggest: [
                         {
                           desc: "Convert to arrow function.",
                           fix(fixer) {
-                            const src = ctx.sourceCode;
+                            const src = context.sourceCode;
                             if (node.generator) return null;
                             const prefix = node.async ? "async " : "";
                             const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
@@ -118,14 +118,14 @@ export default defineConfig(
         // Hooks: Warn on custom hooks with no hook calls
         {
           name: "no-unnecessary-use-prefix",
-          make: (ctx, kit) => {
-            const { query, visitor } = kit.collect.hooks(ctx);
+          make: (context, { collect }) => {
+            const { query, visitor } = collect.hooks(context);
 
             return merge(visitor, {
               "Program:exit"(program) {
                 for (const hook of query.all(program)) {
                   if (hook.hookCalls.length === 0) {
-                    ctx.report({
+                    context.report({
                       node: hook.node,
                       message:
                         `Custom hook "${hook.name}" doesn't call any hooks. A custom hook should use at least one hook, otherwise it's just a regular function.`,
@@ -139,9 +139,9 @@ export default defineConfig(
         // Multiple Collectors: No component/hook factories
         {
           name: "component-hook-factories",
-          make: (ctx, kit) => {
-            const fc = kit.collect.components(ctx);
-            const hk = kit.collect.hooks(ctx);
+          make: (context, { collect }) => {
+            const fc = collect.components(context);
+            const hk = collect.hooks(context);
             return merge(
               fc.visitor,
               hk.visitor,
@@ -152,7 +152,7 @@ export default defineConfig(
                   for (const { name, node, kind } of [...comps, ...hooks]) {
                     if (name == null) continue;
                     if (findParent(node, isFunction) == null) continue;
-                    ctx.report({
+                    context.report({
                       node,
                       message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
                     });

@@ -88,9 +88,9 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
 
   return defineRuleListener(visitor, {
     [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ast.ObjectDestructuringVariableDeclarator) {
-      const functionEntry = api.getCurrentEntry();
-      if (functionEntry == null) return;
-      getOrElseUpdate(declarators, functionEntry.node, () => []).push(node);
+      const enclosingFunction = ast.findParent(node, ast.isFunction);
+      if (enclosingFunction == null) return;
+      getOrElseUpdate(declarators, enclosingFunction, () => []).push(node);
     },
     "Program:exit"(program) {
       for (const { node: component } of api.getAllComponents(program)) {

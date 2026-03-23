@@ -50,9 +50,9 @@ export function create(context: RuleContext<MessageID, []>) {
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
-        const functionEntry = api.getCurrentEntry();
-        if (functionEntry == null) return;
-        if (compilationMode === "annotation" && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
+        const enclosingFunction = ast.findParent(node, ast.isFunction);
+        if (enclosingFunction == null) return;
+        if (compilationMode === "annotation" && ast.isDirectiveInFunction(enclosingFunction, "use memo")) return;
         const attribute = node
           .attributes
           .find((attribute) =>
@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (core.isHookCall(construction.node)) {
           return;
         }
-        getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
+        getOrElseUpdate(constructions, enclosingFunction, () => []).push(construction);
       },
       "Program:exit"(program) {
         for (const { directives, node: component } of api.getAllComponents(program)) {

@@ -35,8 +35,8 @@ export default defineConfig(
       eslintReactKit(
         {
           name: "function-component-definition",
-          make: (ctx, kit) => {
-            const { query, visitor } = kit.collect.components(ctx);
+          make: (context, { collect }) => {
+            const { query, visitor } = collect.components(ctx);
 
             return merge(
               visitor,
@@ -44,7 +44,7 @@ export default defineConfig(
                 "Program:exit"(program) {
                   for (const { node } of query.all(program)) {
                     if (node.type === "ArrowFunctionExpression") continue;
-                    ctx.report({
+                    context.report({
                       node,
                       message: "Function components must be defined with arrow functions.",
                     });

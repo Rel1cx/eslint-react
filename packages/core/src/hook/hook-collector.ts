@@ -17,8 +17,6 @@ export declare namespace getHookCollector {
   type ReturnType = {
     api: {
       getAllHooks(node: TSESTree.Program): HookSemanticNode[];
-      getCurrentEntries(): FunctionEntry[];
-      getCurrentEntry(): FunctionEntry | null;
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -58,8 +56,6 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     getAllHooks(node: TSESTree.Program) {
       return [...hooks.values()];
     },
-    getCurrentEntries: () => functionEntries,
-    getCurrentEntry,
   } as const;
   const visitor = {
     ":function": onFunctionEnter,

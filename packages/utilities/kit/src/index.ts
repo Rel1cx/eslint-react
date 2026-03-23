@@ -5,6 +5,7 @@ import * as core from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { Linter, Rule } from "eslint";
+export type { RuleContext };
 
 import pkg from "../package.json";
 
@@ -48,8 +49,6 @@ function hooks(
     visitor,
   };
 }
-
-export type { RuleContext };
 
 export interface RuleToolkit {
   is: {
