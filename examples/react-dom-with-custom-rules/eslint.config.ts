@@ -92,6 +92,12 @@ export default defineConfig(
                               return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
                             }
 
+                            // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
+                            if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
+                              // dprint-ignore
+                              return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
+                            }
+
                             // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
                             if (node.type === "FunctionExpression" && node.parent.type === "Property") {
                               // dprint-ignore
