@@ -1,18 +1,18 @@
 [@eslint-react/core](../../../../README.md) / [isReactAPI](../README.md) / ReturnType
 
-# Type Alias: ReturnType()
+# Type Alias: ReturnType
 
 ```ts
 type ReturnType = {
-  (context: RuleContext, node: Node | null): node is Identifier | MemberExpression;
-  (context: RuleContext): (node: Node | null) => node is Identifier | MemberExpression;
+  (context: RuleContext, node: Node | null): boolean;
+  (context: RuleContext): (node: Node | null) => boolean;
 };
 ```
 
 ## Call Signature
 
 ```ts
-(context: RuleContext, node: Node | null): node is Identifier | MemberExpression;
+(context: RuleContext, node: Node | null): boolean;
 ```
 
 ### Parameters
@@ -24,12 +24,12 @@ type ReturnType = {
 
 ### Returns
 
-node is Identifier \| MemberExpression
+`boolean`
 
 ## Call Signature
 
 ```ts
-(context: RuleContext): (node: Node | null) => node is Identifier | MemberExpression;
+(context: RuleContext): (node: Node | null) => boolean;
 ```
 
 ### Parameters
@@ -40,16 +40,4 @@ node is Identifier \| MemberExpression
 
 ### Returns
 
-```ts
-(node: Node | null): node is Identifier | MemberExpression;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
-
-#### Returns
-
-node is Identifier \| MemberExpression
+(`node`: `Node` \| `null`) => `boolean`

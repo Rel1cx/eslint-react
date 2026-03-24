@@ -1,8 +1,9 @@
-import * as core from "@eslint-react/core";
+import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule, stringify } from "../../utils";
 
@@ -57,12 +58,38 @@ function getRefInitNode(node: TSESTree.Identifier | TSESTree.JSXIdentifier, init
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.Identifier:
-      return core.getRefInit(node.parent.object.name, initialScope);
+      return getRefInit(node.parent.object.name, initialScope);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.JSXIdentifier:
-      return core.getRefInit(node.parent.object.name, initialScope);
+      return getRefInit(node.parent.object.name, initialScope);
     default:
-      return core.getRefInit(name, initialScope);
+      return getRefInit(name, initialScope);
   }
+}
+
+/**
+ * Get the init expression of a ref variable
+ * @param name The variable name
+ * @param initialScope The initial scope
+ * @returns The init expression node if the variable is derived from a ref, or null otherwise
+ */
+function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | null {
+  for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
+    if (node.type !== AST.VariableDeclarator) continue;
+    const init = node.init;
+    if (init == null) continue;
+    switch (true) {
+      // const identifier = anotherRef.current;
+      case init.type === AST.MemberExpression
+        && init.object.type === AST.Identifier
+        && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
+        return init;
+      // const identifier = useRef();
+      case init.type === AST.CallExpression
+        && isUseRefCall(init):
+        return init;
+    }
+  }
+  return null;
 }

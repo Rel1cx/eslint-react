@@ -1,4 +1,4 @@
-import { JsxInspector } from "@eslint-react/core";
+import { hasAnyAttribute } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../../utils";
@@ -47,7 +47,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
-  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     {
@@ -58,13 +57,8 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
 
-        // Check if the element has a 'children' prop
-        const hasChildrenProp = jsx.hasAttribute(node, "children");
-        // Check if the element has a 'dangerouslySetInnerHTML' prop
-        const hasDangerouslySetInnerHTML = jsx.hasAttribute(node, "dangerouslySetInnerHTML");
-
         // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
-        if (node.children.length > 0 || hasChildrenProp || hasDangerouslySetInnerHTML) {
+        if (node.children.length > 0 || hasAnyAttribute(context, node, ["children", "dangerouslySetInnerHTML"])) {
           context.report({
             data: {
               elementType: domElementType,

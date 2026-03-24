@@ -18,14 +18,11 @@ Minimum supported versions:
 
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
-- [x] `react-x/jsx-dollar` -> `react-jsx/dollar` (renamed)
-- [x] `react-x/jsx-key-before-spread` -> `react-jsx/key-before-spread` (renamed)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-deoptimization` (consolidated)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
-- [x] `react-x/jsx-shorthand-boolean` -> `react-jsx/shorthand-boolean` (renamed)
-- [x] `react-x/jsx-shorthand-fragment` -> `react-jsx/shorthand-fragment` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
 - [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
-- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace`
+- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace` (renamed)
 
 ### New Rules
 
@@ -154,10 +151,10 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [x] `react-x/avoid-shorthand-boolean` - Replaced by `react-jsx/shorthand-boolean`
-- [x] `react-x/avoid-shorthand-fragment` - Replaced by `react-jsx/shorthand-fragment`
+- [x] `react-x/avoid-shorthand-boolean` - Removed
+- [x] `react-x/avoid-shorthand-fragment` - Removed
 - [x] `react-x/no-comment-textnodes` - Replaced by `react-jsx/no-comment-textnodes`
 - [x] `react-x/prefer-react-namespace-import` - Replaced by `prefer-namespace-import`
-- [x] `react-x/prefer-shorthand-boolean` - Replaced by `react-jsx/shorthand-boolean`
-- [x] `react-x/prefer-shorthand-fragment` - Replaced by `react-jsx/shorthand-fragment`
+- [x] `react-x/prefer-shorthand-boolean` - Removed
+- [x] `react-x/prefer-shorthand-fragment` - Removed
 - [x] `react-hooks-extra/no-direct-set-state-in-use-layout-effect` - Merged into `hooks-extra/no-direct-set-state-in-use-effect`

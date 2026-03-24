@@ -26,13 +26,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
-        for (const component of ctx.getAllComponents(program)) {
+        for (const component of api.getAllComponents(program)) {
           if (component.name == null || component.isExportDefaultDeclaration) continue;
           const [props] = component.node.params;
           if (props == null) continue;

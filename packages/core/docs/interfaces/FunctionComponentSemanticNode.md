@@ -22,7 +22,7 @@ Represents a React Function Component
 | <a id="property-isexportdefault"></a> `isExportDefault` | `boolean` | Indicates if the component is inside an export default declaration | - | - |
 | <a id="property-isexportdefaultdeclaration"></a> `isExportDefaultDeclaration` | `boolean` | Indicates if the component is itself an export default declaration | - | - |
 | <a id="property-key"></a> `key` | `string` | The unique key of the node | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#property-key) |
-| <a id="property-kind"></a> `kind` | `"function-component"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#property-kind) | - |
+| <a id="property-kind"></a> `kind` | `"component"` | The kind of component | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#property-kind) | - |
 | <a id="property-name"></a> `name` | `string` \| `null` | The name of the node | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#property-name) |
 | <a id="property-node"></a> `node` | `TSESTreeFunction` | The AST node of the function | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#property-node) | - |
 | <a id="property-rets"></a> `rets` | (`Expression` \| `null`)[] | List of expressions returned by the component | - | - |

@@ -8,9 +8,9 @@ import type { ClassComponentSemanticNode } from "./component-semantic-node";
 
 const idGen = new IdGenerator("class-component:");
 
-export declare namespace useComponentCollectorLegacy {
+export declare namespace getComponentCollectorLegacy {
   type ReturnType = {
-    ctx: {
+    api: {
       getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
     };
     visitor: ESLintUtils.RuleListener;
@@ -18,14 +18,14 @@ export declare namespace useComponentCollectorLegacy {
 }
 
 /**
- * Get a ctx and visitor object for the rule to collect class componentss
+ * Get a api and visitor object for the rule to collect class componentss
  * @param context The ESLint rule context
- * @returns The ctx and visitor of the collector
+ * @returns The api and visitor of the collector
  */
-export function useComponentCollectorLegacy(context: RuleContext): useComponentCollectorLegacy.ReturnType {
+export function getComponentCollectorLegacy(context: RuleContext): getComponentCollectorLegacy.ReturnType {
   const components = new Map<string, ClassComponentSemanticNode>();
 
-  const ctx = {
+  const api = {
     getAllComponents(node: TSESTree.Program) {
       return [...components.values()];
     },
@@ -65,5 +65,5 @@ export function useComponentCollectorLegacy(context: RuleContext): useComponentC
     ClassExpression: collect,
   } as const satisfies ESLintUtils.RuleListener;
 
-  return { ctx, visitor } as const;
+  return { api, visitor } as const;
 }

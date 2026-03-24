@@ -29,7 +29,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `memo` or `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
 
-  const { ctx, visitor } = core.useComponentCollector(context, {
+  const { api, visitor } = core.getComponentCollector(context, {
     collectDisplayName: true,
     hint: core.DEFAULT_COMPONENT_DETECTION_HINT,
   });
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { displayName, flag, node } of ctx.getAllComponents(program)) {
+        for (const { displayName, flag, node } of api.getAllComponents(program)) {
           const id = ast.getFunctionId(node);
           // Check if the component is wrapped with `forwardRef` or `memo`
           const isMemoOrForwardRef = (flag & (core.ComponentFlag.ForwardRef | core.ComponentFlag.Memo)) > 0n;

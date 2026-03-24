@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.useHookCollector(context);
-  const cCollector = core.useComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
+  const cCollector = core.getComponentCollector(context);
   const cEntries: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
         switch (true) {
           case expr.type === AST.Identifier: {
             if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
-            const func = ast.findParentNode(node, ast.isFunction);
+            const func = ast.findParent(node, ast.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
             const objectName = expr.object.name;
             const propertyName = expr.property.name;
             if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
-            const func = ast.findParentNode(node, ast.isFunction);
+            const func = ast.findParent(node, ast.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -78,13 +78,13 @@ export function create(context: RuleContext<MessageID, []>) {
         const expr = ast.getUnderlyingExpression(node.callee);
         if (expr.type !== AST.Identifier) return;
         if (!IMPURE_CTORS.has(expr.name)) return;
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
       },
       "Program:exit"(node) {
-        const comps = cCollector.ctx.getAllComponents(node);
-        const hooks = hCollector.ctx.getAllHooks(node);
+        const comps = cCollector.api.getAllComponents(node);
+        const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const { func, node } of [...cEntries, ...nEntries]) {
           if (!funcs.some((f) => f.node === func)) continue;

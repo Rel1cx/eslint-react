@@ -1,8 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 
 import { createRule } from "../../utils";
@@ -36,8 +39,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.useHookCollector(context);
-  const cCollector = core.useComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
+  const cCollector = core.getComponentCollector(context);
 
   // Collected ref.current accesses with their enclosing function
   const refAccesses: { isWrite: boolean; node: TSESTree.MemberExpression }[] = [];
@@ -83,6 +86,26 @@ export function create(context: RuleContext<MessageID, []>) {
     return checkSides(left, right) || checkSides(right, left);
   }
 
+  function isInitializedFromRef(name: string, initialScope: Scope) {
+    for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
+      if (node.type !== AST.VariableDeclarator) continue;
+      const init = node.init;
+      if (init == null) continue;
+      switch (true) {
+        // const identifier = anotherRef.current;
+        case init.type === AST.MemberExpression
+          && init.object.type === AST.Identifier
+          && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
+          return true;
+        // const identifier = useRef();
+        case init.type === AST.CallExpression
+          && isUseRefCall(init):
+          return true;
+      }
+    }
+    return false;
+  }
+
   return defineRuleListener(
     hCollector.visitor,
     cCollector.visitor,
@@ -124,8 +147,8 @@ export function create(context: RuleContext<MessageID, []>) {
         });
       },
       "Program:exit"(program) {
-        const comps = cCollector.ctx.getAllComponents(program);
-        const hooks = hCollector.ctx.getAllHooks(program);
+        const comps = cCollector.api.getAllComponents(program);
+        const hooks = hCollector.api.getAllHooks(program);
         const funcs = new Set([
           ...comps.map((c) => c.node),
           ...hooks.map((h) => h.node),
@@ -138,21 +161,21 @@ export function create(context: RuleContext<MessageID, []>) {
           const obj = node.object;
           if (obj.type !== AST.Identifier) continue;
           switch (true) {
-            case core.isRefLikeName(obj.name):
+            case obj.name === "ref" || obj.name.endsWith("Ref"):
             case jsxRefIdentifiers.has(obj.name):
-            case core.isInitializedFromRef(obj.name, context.sourceCode.getScope(node.object)):
+            case isInitializedFromRef(obj.name, context.sourceCode.getScope(node.object)):
               break;
             default:
               continue;
           }
 
           // Find the enclosing component or hook function
-          const boundary = ast.findParentNode(node, isCompOrHookFn);
+          const boundary = ast.findParent(node, isCompOrHookFn);
 
           // Not inside a component or hook - could be a ref used in a non-React function, which is fine
           if (boundary == null) continue;
 
-          if (ast.findParentNode(node, ast.isFunction) !== boundary) continue;
+          if (ast.findParent(node, ast.isFunction) !== boundary) continue;
 
           //
           // Standard:

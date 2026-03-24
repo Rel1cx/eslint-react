@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseRefCall
 
-# Variable: isUseRefCall()
+# Variable: isUseRefCall
 
 ```ts
 const isUseRefCall: (...a: [Node | null]) => boolean;

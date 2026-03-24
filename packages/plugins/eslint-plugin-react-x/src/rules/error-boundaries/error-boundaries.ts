@@ -1,5 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { JsxDetectionHint, isJsxLike } from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -37,15 +38,15 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
 
-  const hint = core.JsxDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
+  const hint = JsxDetectionHint.DoNotIncludeJsxWithNullValue
+    | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
+    | JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
+    | JsxDetectionHint.DoNotIncludeJsxWithStringValue
+    | JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
@@ -55,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node) {
         if (!core.isUseCall(node)) return;
-        const stmt = ast.findParentNode(node, ast.is(AST.TryStatement));
+        const stmt = ast.findParent(node, ast.is(AST.TryStatement));
         if (stmt != null && !reported.has(stmt)) {
           context.report({
             messageId: "tryCatchWithUse",
@@ -65,12 +66,12 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       "Program:exit"(node) {
-        for (const { rets } of ctx.getAllComponents(node)) {
+        for (const { rets } of api.getAllComponents(node)) {
           for (const ret of rets) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
-            if (!core.isJsxLike(context, ret, hint)) continue;
-            const stmt = ast.findParentNode(ret, ast.is(AST.TryStatement));
+            if (!isJsxLike(context, ret, hint)) continue;
+            const stmt = ast.findParent(ret, ast.is(AST.TryStatement));
             if (stmt != null && !reported.has(stmt)) {
               context.report({
                 messageId: "tryCatchWithJsx",

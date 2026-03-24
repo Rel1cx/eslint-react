@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Check if the call is to `captureOwnerStack`
         if (!core.isCaptureOwnerStackCall(context, node)) return;
         // Check if the call is wrapped in a development-only conditional block
-        if (ast.findParentNode(node, isDevelopmentOnlyCheck) == null) {
+        if (ast.findParent(node, isDevelopmentOnlyCheck) == null) {
           context.report({
             messageId: "missingDevelopmentOnlyCheck",
             node,

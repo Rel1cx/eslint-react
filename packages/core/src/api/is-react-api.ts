@@ -5,10 +5,8 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isReactAPI {
   type ReturnType = {
-    (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.Identifier | TSESTree.MemberExpression;
-    (
-      context: RuleContext,
-    ): (node: null | TSESTree.Node) => node is TSESTree.MemberExpression | TSESTree.Identifier;
+    (context: RuleContext, node: null | TSESTree.Node): boolean;
+    (context: RuleContext): (node: null | TSESTree.Node) => boolean;
   };
 }
 
@@ -18,10 +16,7 @@ export declare namespace isReactAPI {
  * @returns A predicate function to check if a node matches the API
  */
 export function isReactAPI(api: string): isReactAPI.ReturnType {
-  const func = (context: RuleContext, node: null | TSESTree.Node): node is
-    | TSESTree.Identifier
-    | TSESTree.MemberExpression =>
-  {
+  const func = (context: RuleContext, node: null | TSESTree.Node) => {
     if (node == null) return false;
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
     const name = ast.getFullyQualifiedName(node, getText);
@@ -48,7 +43,7 @@ export function isReactAPICall(api: string): isReactAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
     if (node.type !== AST.CallExpression) return false;
-    return isReactAPI(api)(context, node.callee);
+    return isReactAPI(api)(context, ast.getUnderlyingExpression(node.callee));
   };
   return dual(2, func);
 }

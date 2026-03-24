@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseDebugValueCall
 
-# Variable: isUseDebugValueCall()
+# Variable: isUseDebugValueCall
 
 ```ts
 const isUseDebugValueCall: (...a: [Node | null]) => boolean;

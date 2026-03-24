@@ -13,23 +13,21 @@ type FunctionEntry = {
   node: ast.TSESTreeFunction;
 };
 
-export declare namespace useHookCollector {
+export declare namespace getHookCollector {
   type ReturnType = {
-    ctx: {
+    api: {
       getAllHooks(node: TSESTree.Program): HookSemanticNode[];
-      getCurrentEntries(): FunctionEntry[];
-      getCurrentEntry(): FunctionEntry | null;
     };
     visitor: ESLintUtils.RuleListener;
   };
 }
 
 /**
- * Get a ctx and visitor object for the rule to collect hooks
+ * Get a api and visitor object for the rule to collect hooks
  * @param context The ESLint rule context
- * @returns The ctx and visitor of the collector
+ * @returns The api and visitor of the collector
  */
-export function useHookCollector(context: RuleContext): useHookCollector.ReturnType {
+export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
   const hooks = new Map<string, HookSemanticNode>();
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
@@ -42,7 +40,7 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
     hooks.set(key, {
       id,
       key,
-      kind: "function",
+      kind: "hook",
       name: ast.getFullyQualifiedName(id, getText),
       directives: [],
       flag: 0n,
@@ -54,12 +52,10 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
   const onFunctionExit = () => {
     functionEntries.pop();
   };
-  const ctx = {
+  const api = {
     getAllHooks(node: TSESTree.Program) {
       return [...hooks.values()];
     },
-    getCurrentEntries: () => functionEntries,
-    getCurrentEntry,
   } as const;
   const visitor = {
     ":function": onFunctionEnter,
@@ -71,5 +67,5 @@ export function useHookCollector(context: RuleContext): useHookCollector.ReturnT
       hooks.get(entry.key)?.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
-  return { ctx, visitor } as const;
+  return { api, visitor } as const;
 }

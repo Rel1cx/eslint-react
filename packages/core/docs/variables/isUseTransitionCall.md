@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseTransitionCall
 
-# Variable: isUseTransitionCall()
+# Variable: isUseTransitionCall
 
 ```ts
 const isUseTransitionCall: (...a: [Node | null]) => boolean;

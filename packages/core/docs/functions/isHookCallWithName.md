@@ -19,16 +19,4 @@ Returns a function that accepts a hook name to check against.
 
 A function that takes a hook name and returns boolean
 
-```ts
-(name: string): boolean;
-```
-
-### Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| `name` | `string` |
-
-### Returns
-
-`boolean`
+(`name`: `string`) => `boolean`

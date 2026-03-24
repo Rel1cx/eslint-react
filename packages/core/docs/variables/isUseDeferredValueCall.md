@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUseDeferredValueCall
 
-# Variable: isUseDeferredValueCall()
+# Variable: isUseDeferredValueCall
 
 ```ts
 const isUseDeferredValueCall: (...a: [Node | null]) => boolean;

@@ -51,7 +51,7 @@ export type RuleFeature =
   | "TSC" // TypeScript Type Checking
   | "EXP"; // Experimental
 
-export type { ReportFixFunction, RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
+export type { ReportFixFunction, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 
 /**
  * A suggestion for fixing a reported issue.

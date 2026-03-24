@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { JsxInspector } from "@eslint-react/core";
+import { getElementFullType } from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, computeObjectType } from "@eslint-react/var";
@@ -39,21 +39,20 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
-  const jsx = JsxInspector.from(context);
 
   return defineRuleListener(
     visitor,
     {
       JSXOpeningElement(node) {
-        const fullName = jsx.getElementType(node.parent);
+        const fullName = getElementFullType(node.parent);
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
-        const functionEntry = ctx.getCurrentEntry();
-        if (functionEntry == null) return;
-        if (compilationMode === "annotation" && ast.isDirectiveInFunction(functionEntry.node, "use memo")) return;
+        const enclosingFunction = ast.findParent(node, ast.isFunction);
+        if (enclosingFunction == null) return;
+        if (compilationMode === "annotation" && ast.isDirectiveInFunction(enclosingFunction, "use memo")) return;
         const attribute = node
           .attributes
           .find((attribute) =>
@@ -69,10 +68,10 @@ export function create(context: RuleContext<MessageID, []>) {
         if (core.isHookCall(construction.node)) {
           return;
         }
-        getOrElseUpdate(constructions, functionEntry.node, () => []).push(construction);
+        getOrElseUpdate(constructions, enclosingFunction, () => []).push(construction);
       },
       "Program:exit"(program) {
-        for (const { directives, node: component } of ctx.getAllComponents(program)) {
+        for (const { directives, node: component } of api.getAllComponents(program)) {
           if (compilationMode === "annotation" && directives.some((d) => d.directive === "use memo")) continue;
           for (const construction of constructions.get(component) ?? []) {
             const { kind, node: constructionNode } = construction;

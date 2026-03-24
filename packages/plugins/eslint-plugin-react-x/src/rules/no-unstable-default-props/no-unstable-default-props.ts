@@ -81,19 +81,19 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
   const declarators = new WeakMap<ast.TSESTreeFunction, ast.ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return defineRuleListener(visitor, {
     [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ast.ObjectDestructuringVariableDeclarator) {
-      const functionEntry = ctx.getCurrentEntry();
-      if (functionEntry == null) return;
-      getOrElseUpdate(declarators, functionEntry.node, () => []).push(node);
+      const enclosingFunction = ast.findParent(node, ast.isFunction);
+      if (enclosingFunction == null) return;
+      getOrElseUpdate(declarators, enclosingFunction, () => []).push(node);
     },
     "Program:exit"(program) {
-      for (const { node: component } of ctx.getAllComponents(program)) {
+      for (const { node: component } of api.getAllComponents(program)) {
         const { params } = component;
         const [props] = params;
         if (props == null) {

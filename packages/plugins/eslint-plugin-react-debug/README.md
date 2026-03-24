@@ -15,7 +15,7 @@ npm install --save-dev eslint-plugin-react-debug
 
 ```ts
 import js from "@eslint/js";
-import debug from "eslint-plugin-react-debug";
+import reactDebug from "eslint-plugin-react-debug";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
@@ -26,7 +26,7 @@ export default defineConfig(
       js.configs.recommended,
       tseslint.configs.recommended,
       // Add configs from eslint-plugin-react-debug
-      debug.configs.all,
+      reactDebug.configs.all,
     ],
     rules: {
       // Put rules you want to override here

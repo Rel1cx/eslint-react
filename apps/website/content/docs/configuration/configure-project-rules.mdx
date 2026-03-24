@@ -1,0 +1,67 @@
+---
+title: Configure Project Rules
+---
+
+Configure [Project Rules](/docs/glossary#project-rules) using `@eslint-react/kit`.
+
+<Callout type="info">
+  This utility module is for advanced use cases where you need to build custom ESLint rules tailored to your project's specific requirements.
+</Callout>
+
+## Installation
+
+```bash copy
+npm install --save-dev @eslint-react/kit
+```
+
+## Quick Start
+
+Define custom rules directly in your `eslint.config.ts`:
+
+```ts copy filename="eslint.config.ts"
+import eslintJs from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintReactKit, { merge } from "@eslint-react/kit";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+      eslintReactKit(
+        {
+          name: "function-component-definition",
+          make: (context, { collect }) => {
+            const { query, visitor } = collect.components(ctx);
+
+            return merge(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of query.all(program)) {
+                    if (node.type === "FunctionDeclaration") continue;
+                    context.report({
+                      node,
+                      message: "Function components must be defined with function declarations.",
+                    });
+                  }
+                },
+              },
+            );
+          },
+        },
+      ),
+    ],
+  },
+);
+```
+
+## Resources
+
+- [AST Explorer](https://astexplorer.net/) - A tool for exploring the abstract syntax tree (AST) of JavaScript code, which is essential for writing ESLint rules.
+- [ESLint Developer Guide](https://eslint.org/docs/latest/extend/custom-rules) - Official ESLint documentation for creating custom rules.
+- [Using the TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#type-checker-apis) - TypeScript compiler API documentation for working with type information in custom rules.

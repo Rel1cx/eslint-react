@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * @param test The test function
  * @returns The parent node that satisfies the test function or `null` if not found
  */
-function findParentNode<A extends TSESTree.Node>(
+function findParent<A extends TSESTree.Node>(
   node: TSESTree.Node | null,
   test: (n: TSESTree.Node) => n is A,
 ): A | null;
@@ -17,8 +17,8 @@ function findParentNode<A extends TSESTree.Node>(
  * @param test The test function
  * @returns The parent node that satisfies the test function
  */
-function findParentNode(node: TSESTree.Node | null, test: (node: TSESTree.Node) => boolean): TSESTree.Node | null;
-function findParentNode<A extends TSESTree.Node>(
+function findParent(node: TSESTree.Node | null, test: (node: TSESTree.Node) => boolean): TSESTree.Node | null;
+function findParent<A extends TSESTree.Node>(
   node: TSESTree.Node | null,
   // tsl-ignore core/noRedundantTypeConstituents
   test: ((node: TSESTree.Node) => boolean) | ((n: TSESTree.Node) => n is A),
@@ -34,4 +34,4 @@ function findParentNode<A extends TSESTree.Node>(
   return null;
 }
 
-export { findParentNode };
+export { findParent };

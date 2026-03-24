@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useComponentCollector(
+  const { api, visitor } = core.getComponentCollector(
     context,
     {
       collectDisplayName: true,
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name, displayName, flag, hookCalls, node } of ctx.getAllComponents(program)) {
+        for (const { name, displayName, flag, hookCalls, node } of api.getAllComponents(program)) {
           context.report({
             data: {
               json: stringify({

@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>) {
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (!core.isAssignmentToThisState(node)) return;
         // Find the parent class of the assignment
-        const parentClass = ast.findParentNode(
+        const parentClass = ast.findParent(
           node,
           ast.isOneOf([
             AST.ClassDeclaration,
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // and the mutation is not inside the constructor
         if (
           core.isClassComponent(parentClass)
-          && context.sourceCode.getScope(node).block !== ast.findParentNode(node, isConstructorFunction)
+          && context.sourceCode.getScope(node).block !== ast.findParent(node, isConstructorFunction)
         ) {
           context.report({
             messageId: "default",

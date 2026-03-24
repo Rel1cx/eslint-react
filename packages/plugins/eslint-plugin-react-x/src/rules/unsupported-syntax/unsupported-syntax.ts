@@ -45,8 +45,8 @@ function isIifeCall(node: ast.TSESTreeFunction) {
 }
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.useHookCollector(context);
-  const cCollector = core.useComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
+  const cCollector = core.getComponentCollector(context);
   const evalCalls: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node: TSESTree.CallExpression) {
         if (!isEvalCall(node)) return;
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         evalCalls.push({ func, node });
       },
@@ -82,8 +82,8 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       "Program:exit"(node) {
-        const components = cCollector.ctx.getAllComponents(node);
-        const hooks = hCollector.ctx.getAllHooks(node);
+        const components = cCollector.api.getAllComponents(node);
+        const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...components, ...hooks];
         for (const { func, node } of evalCalls) {
           if (!funcs.some((f) => f.node === func)) continue;
@@ -101,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       WithStatement(node: TSESTree.WithStatement) {
-        const func = ast.findParentNode(node, ast.isFunction);
+        const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         withStmts.push({ func, node });
       },

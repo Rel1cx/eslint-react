@@ -216,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>) {
             node?.type === AST.CallExpression || ast.isConditional(node);
           const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
           const hasDynamicallyAdded = oentries
-            .some((e) => !isPhaseNode(ast.findParentNode(e.node, or(isDynamic, isPhaseNode))));
+            .some((e) => !isPhaseNode(ast.findParent(e.node, or(isDynamic, isPhaseNode))));
           if (hasDynamicallyAdded) {
             context.report({ messageId: "expectedDisconnectInControlFlow", node });
             continue;

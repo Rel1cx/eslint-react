@@ -48,6 +48,7 @@ export default defineConfig(
     rules: {
       "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
       "fast-import/no-unused-exports": "off",
+      "fast-import/no-unresolved-imports": "off",
     },
   },
   // Relaxed config for scripts and config files (no type checking)

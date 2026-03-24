@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const { ctx, visitor } = core.useComponentCollector(context);
+  const { api, visitor } = core.getComponentCollector(context);
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
       const totalDeclaredProps = new Map<ts.Declaration, ts.Symbol>();
       const totalUsedDeclarations = new Set<ts.Declaration>();
 
-      for (const component of ctx.getAllComponents(program)) {
+      for (const component of api.getAllComponents(program)) {
         const [props] = component.node.params;
         if (props == null) continue;
 

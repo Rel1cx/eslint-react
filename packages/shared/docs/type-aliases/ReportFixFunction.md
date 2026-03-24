@@ -1,6 +1,6 @@
 [@eslint-react/shared](../README.md) / ReportFixFunction
 
-# Type Alias: ReportFixFunction()
+# Type Alias: ReportFixFunction
 
 ```ts
 type ReportFixFunction = (fixer: RuleFixer) => 

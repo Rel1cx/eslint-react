@@ -12,12 +12,12 @@ Defines a rule listener by merging multiple visitor objects
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `base` | `RuleListener` | Base visitor object (target of merge) |
-| ...`rest` | `RuleListener`[] | Additional visitor objects to merge (one or more) |
+| `base` | [`RuleListener`](../type-aliases/RuleListener.md) | Base visitor object (target of merge) |
+| ...`rest` | [`RuleListener`](../type-aliases/RuleListener.md)[] | Additional visitor objects to merge (one or more) |
 
 ## Returns
 
-`RuleListener`
+[`RuleListener`](../type-aliases/RuleListener.md)
 
 Merged RuleListener object
 

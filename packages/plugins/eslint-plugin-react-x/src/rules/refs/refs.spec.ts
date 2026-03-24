@@ -810,7 +810,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ref in deeply nested callbacks (effect → setTimeout → callback)
+    // Ref in deeply nested callbacks (effect -> setTimeout -> callback)
     {
       code: tsx`
         function Component() {

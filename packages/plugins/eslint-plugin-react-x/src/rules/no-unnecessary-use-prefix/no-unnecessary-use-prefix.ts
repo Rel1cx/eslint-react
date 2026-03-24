@@ -37,11 +37,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { ctx, visitor } = core.useHookCollector(context);
+  const { api, visitor } = core.getHookCollector(context);
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
-      for (const { id, name, hookCalls, node } of ctx.getAllHooks(program)) {
+      for (const { id, name, hookCalls, node } of api.getAllHooks(program)) {
         // If the function calls at least one real hook, it's a valid custom hook, so we skip it
         if (hookCalls.length > 0) {
           continue;
@@ -59,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (ast.findParentNode(node, ast.isViMockCallback) != null) {
+        if (ast.findParent(node, ast.isViMockCallback) != null) {
           continue;
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it
