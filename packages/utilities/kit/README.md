@@ -16,8 +16,8 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
     - [`kit.flag`](#kitflag) — Component characteristic flags
 - [Examples](#examples)
   - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
-  - [Component: Max component per file](#component-max-componoent-per-file)
-  - [Hooks: Warn on custom hooks doesn't call other hooks](#hooks-warn-on-custom-hooks-doesnt-call-other-hooks)
+  - [Component: Max component per file](#component-max-component-per-file)
+  - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
 - [More Examples](#more-examples)
 
@@ -47,7 +47,7 @@ export default defineConfig(
         {
           name: "function-component-definition",
           make: (context, { collect }) => {
-            const { query, visitor } = collect.components(ctx);
+            const { query, visitor } = collect.components(context);
 
             return merge(
               visitor,
@@ -270,7 +270,7 @@ defineReactConfig({
 });
 ```
 
-### Component: Max componoent per file
+### Component: Max component per file
 
 ```ts
 defineReactConfig({
@@ -295,7 +295,7 @@ defineReactConfig({
 });
 ```
 
-### Hooks: Warn on custom hooks doesn't call other hooks
+### Hooks: Warn on custom hooks that don't call other hooks
 
 This is a simplified kit reimplementation of the built-in
 [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
