@@ -30,38 +30,48 @@ npm install --save-dev @eslint-react/kit
 ## Quick Start
 
 ```ts
-// eslint.config.ts
-import { defineConfig as defineReactConfig, merge } from "@eslint-react/kit";
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintReactKit, { merge } from "@eslint-react/kit";
+import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-export default defineConfig({
-  files: ["**/*.{ts,tsx}"],
-  extends: [
-    defineReactConfig(
-      {
-        name: "function-component-definition",
-        make: (context, { collect }) => {
-          const { query, visitor } = collect.components(context);
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+      eslintReactKit(
+        {
+          name: "function-component-definition",
+          make: (context, { collect }) => {
+            const { query, visitor } = collect.components(ctx);
 
-          return merge(
-            visitor,
-            {
-              "Program:exit"(program) {
-                for (const { node } of query.all(program)) {
-                  if (node.type === "FunctionDeclaration") continue;
-                  context.report({
-                    node,
-                    message: "Function components must be defined with function declarations.",
-                  });
-                }
+            return merge(
+              visitor,
+              {
+                "Program:exit"(program) {
+                  for (const { node } of query.all(program)) {
+                    if (node.type === "FunctionDeclaration") continue;
+                    context.report({
+                      node,
+                      message: "Function components must be defined with function declarations.",
+                    });
+                  }
+                },
               },
-            },
-          );
+            );
+          },
         },
-      },
-    ),
-  ],
-});
+      ),
+    ],
+    rules: {
+      "@eslint-react/kit/function-component-definition": "error",
+    },
+  },
+);
 ```
 
 ## API Reference
@@ -105,7 +115,6 @@ kit
 ├── is                 -> All predicates (component, hook, React API, import source)
 ├── hint               -> Detection hint bit-flags
 ├── flag               -> Component characteristic bit-flags
-└── builtinHookNames   -> Readonly list of React built-in hook names
 ```
 
 ---
@@ -181,7 +190,7 @@ is.memo(node);
 is.memoCall(node);
 
 // Useful in filter/find
-nodes.filter(kit.is.memoCall);
+nodes.filter(is.memoCall);
 
 // Factory for any API name
 const isCreateRefCall = is.reactAPICall("createRef");
@@ -216,7 +225,7 @@ hint.component.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
 **Customization example:**
 
 ```ts
-const { query, visitor } = kit.collect.components(context, {
+const { query, visitor } = collect.components(context, {
   // Also treat object methods as components (remove the exclusion flag)
   hint: hint.defaultComponent & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
 });
