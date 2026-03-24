@@ -43,10 +43,10 @@ export default defineConfig(
               {
                 "Program:exit"(program) {
                   for (const { node } of query.all(program)) {
-                    if (node.type === "ArrowFunctionExpression") continue;
+                    if (node.type === "FunctionDeclaration") continue;
                     context.report({
                       node,
-                      message: "Function components must be defined with arrow functions.",
+                      message: "Function components must be defined with function declarations.",
                     });
                   }
                 },
