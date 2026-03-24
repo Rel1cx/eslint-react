@@ -52,7 +52,7 @@
     "verify:rule-docs": "tsx ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.81.0",
+    "@effect/language-service": "^0.83.1",
     "@effect/platform": "^0.96.0",
     "@effect/platform-node": "^0.106.0",
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -66,9 +66,9 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/parser": "^8.57.1",
-    "@typescript-eslint/rule-tester": "^8.57.1",
-    "@typescript-eslint/types": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@typescript-eslint/rule-tester": "^8.57.2",
+    "@typescript-eslint/types": "^8.57.2",
     "ansis": "^4.2.0",
     "dedent": "^1.7.2",
     "dprint": "^0.53.0",
@@ -90,12 +90,12 @@
     "tsl": "^1.0.29",
     "tsx": "^4.21.0",
     "type-fest": "^5.5.0",
-    "typedoc": "^0.28.17",
+    "typedoc": "^0.28.18",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1",
-    "vitest": "^4.1.0"
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^4.1.1"
   },
   "packageManager": "pnpm@10.32.1",
   "engines": {
