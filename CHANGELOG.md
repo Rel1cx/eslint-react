@@ -1,4 +1,4 @@
-## v4.0.0-beta.0 (2026-03-15)
+## v4.0.0-beta.0 (2026-03-24)
 
 ### 💥 Breaking Changes
 
@@ -6,16 +6,16 @@
 
 A new dedicated plugin for React Flavored JSX rules has been introduced. Several rules have been migrated from `eslint-plugin-react-x` and `eslint-plugin-react-dom` to this new package:
 
-| Old Rule (`react-x/`)      | New Rule (`react-jsx/`)  | Change             |
-| :------------------------- | :----------------------- | :----------------- |
-| `jsx-key-before-spread`    | `runtime` (consolidated) | relocated, renamed |
-| `jsx-no-comment-textnodes` | `no-comment-textnodes`   | relocated, renamed |
-| `no-children-prop`         | `no-children-prop`       | relocated          |
-| `no-useless-fragment`      | `no-useless-fragment`    | relocated          |
+| Old Rule (`react-x/`)      | New Rule (`react-jsx/`) | Change             |
+| :------------------------- | :---------------------- | :----------------- |
+| `jsx-key-before-spread`    | `no-deoptimization`     | relocated, renamed |
+| `jsx-no-comment-textnodes` | `no-comment-textnodes`  | relocated, renamed |
+| `no-children-prop`         | `no-children-prop`      | relocated          |
+| `no-useless-fragment`      | `no-useless-fragment`   | relocated          |
 
-| Old Rule (`react-dom/`) | New Rule (`react-jsx/`)  | Change    |
-| :---------------------- | :----------------------- | :-------- |
-| `no-namespace`          | `runtime` (consolidated) | relocated |
+| Old Rule (`react-dom/`) | New Rule (`react-jsx/`) | Change    |
+| :---------------------- | :---------------------- | :-------- |
+| `no-namespace`          | `no-namespace`          | relocated |
 
 **Rule prefix changes in `@eslint-react/eslint-plugin`**
 
@@ -29,27 +29,60 @@ Rules from individual plugins now use a flattened naming convention when accesse
 - `@eslint-react/naming-convention/<rule>` -> `@eslint-react/naming-convention-<rule>`
 - `@eslint-react/debug/<rule>` -> `@eslint-react/debug-<rule>`
 
-**Removed Rules in `eslint-plugin-react-jsx`**
+**Removed Rules from `eslint-plugin-react-x`**
 
-The following rules have been removed from `eslint-plugin-react-jsx`:
+The following rules have been removed from `eslint-plugin-react-x`:
 
-| Rule                             | Replaced by                                                                                                  |
-| :------------------------------- | :----------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`             | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
-| `react-x/jsx-shorthand-boolean`  | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
-| `react-x/jsx-shorthand-fragment` | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) |
+| Rule                             | Replaced by                                                                                                            |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-boolean`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-fragment` | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+
+**JSX utilities extracted from `@eslint-react/core` to `@eslint-react/jsx`**
+
+The JSX module has been extracted from `@eslint-react/core` into a new standalone `@eslint-react/jsx` package. The following exports are no longer available from `@eslint-react/core`:
+
+- `JsxInspector` class — removed, replaced with standalone utility functions from `@eslint-react/jsx` (e.g. `findAttribute`, `hasAttribute`, `getChildren`, `isElement`, `isFragmentElement`, `isHostElement`, `isJsxLike`, etc.)
+- `JsxConfig`, `JsxDetectionHint`, `JsxAttributeValue` — moved to `@eslint-react/jsx`
+- `getElementType` — renamed to `getElementFullType` in `@eslint-react/jsx`
+- `getElementSelfName` — renamed to `getElementSelfType` in `@eslint-react/jsx`
+
+**Removed ref APIs from `@eslint-react/core`**
+
+The following ref-related APIs have been removed from `@eslint-react/core` without replacement:
+
+- `isRefId`
+- `isInitializedFromRef`
+- `getRefInit`
+- `isRefLikeName`
+
+**Core collector API renames**
+
+The collector APIs in `@eslint-react/core` have been renamed:
+
+| Before                           | After                            |
+| :------------------------------- | :------------------------------- |
+| `useComponentCollector()`        | `getComponentCollector()`        |
+| `useComponentCollectorLegacy()`  | `getComponentCollectorLegacy()`  |
+| `useHookCollector()`             | `getHookCollector()`             |
+| Collector return property `.ctx` | Collector return property `.api` |
 
 ### ✨ New
 
-- `@eslint-react/kit`: New plugin to create custom rules with a toolkit that helps identify React patterns.
-- `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules.
+- `@eslint-react/kit`: New utility module for building custom ESLint rules with React awareness. Provides `defineConfig()`, `merge()`, and a `RuleToolkit` interface with pre-bound context helpers for component/hook analysis.
+- `@eslint-react/jsx`: New utility package for static analysis of JSX patterns in TSESTree ASTs, extracted from `@eslint-react/core`.
+- `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules. Ships with `recommended` and `strict` config presets.
 - `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
 - `react-jsx/no-deoptimization`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
+- New `jsx` and `disable-jsx` config presets in `@eslint-react/eslint-plugin`.
+- New `react-dom-with-custom-rules` example project demonstrating custom rule creation with `@eslint-react/kit`.
 
 ### 🪄 Improvements
 
 - `react-jsx/no-children-prop`: Add suggestion-fix feature to move children from prop to element content.
+- `@eslint-react/eslint-plugin`: Unified plugin architecture refactored — configs now auto-inject the plugin, so users no longer need to manually register it separately.
 
 ### ✅ Upgrade Checklist
 
@@ -58,6 +91,7 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 #### Package changes
 
 - [ ] Install the new `eslint-plugin-react-jsx` package — this is a new dedicated plugin for React Flavored JSX rules.
+- [ ] If you depend on JSX utilities from `@eslint-react/core`, install `@eslint-react/jsx` and update imports accordingly.
 
 #### ESLint configuration
 
@@ -88,6 +122,18 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 - [ ] `react-x/jsx-shorthand-fragment`
 
 If you still need these rules, you can enforce them using the new `@eslint-react/kit` by creating custom rules that implement the desired checks.
+
+#### Core API changes (for custom rule authors)
+
+- [ ] Replace `useComponentCollector()` with `getComponentCollector()`.
+- [ ] Replace `useComponentCollectorLegacy()` with `getComponentCollectorLegacy()`.
+- [ ] Replace `useHookCollector()` with `getHookCollector()`.
+- [ ] Replace collector return property `.ctx` with `.api`.
+- [ ] Replace `JsxInspector.from(context)` usage with standalone utility functions from `@eslint-react/jsx`.
+- [ ] Replace `getElementType()` with `getElementFullType()` from `@eslint-react/jsx`.
+- [ ] Replace `getElementSelfName()` with `getElementSelfType()` from `@eslint-react/jsx`.
+- [ ] Remove usage of deleted ref APIs (`isRefId`, `isInitializedFromRef`, `getRefInit`, `isRefLikeName`).
+- [ ] Update JSX-related imports from `@eslint-react/core` to `@eslint-react/jsx`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.0.0-beta.0
 
