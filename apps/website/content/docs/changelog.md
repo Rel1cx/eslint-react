@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v4.0.0-beta.2 (2026-03-25)
+
+### ✨ New
+
+- `kit.settings`: Expose normalized ESLint React settings via `settings` property on `RuleToolkit`.
+
+### 🐞 Fixes
+
+- `website`: Mark `function-component-definition` rule as `🔧` (fixable) in migration guide.
+
+### 🪄 Improvements
+
+- `refactor(kit)`: Remove unused type parameter from `CollectorWithContext<T, E>` to `CollectorWithContext<T>`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.0-beta.1...v4.0.0-beta.2
+
 ## v4.0.0-beta.1 (2026-03-25)
 
 ### 💥 Breaking Changes

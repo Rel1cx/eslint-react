@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "tsdown": "^0.21.4"
+    "tsdown": "^0.21.5"
   },
   "engines": {
     "node": ">=22.0.0"

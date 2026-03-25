@@ -20,7 +20,7 @@
     "fumadocs-twoslash": "3.1.14",
     "fumadocs-typescript": "5.2.0",
     "fumadocs-ui": "16.7.4",
-    "lucide-react": "^1.0.1",
+    "lucide-react": "^1.6.0",
     "next": "^16.2.1",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.4",
@@ -55,7 +55,7 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "importx": "^0.5.2",
     "postcss": "^8.5.8",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.2"
   }
 }
