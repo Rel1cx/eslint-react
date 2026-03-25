@@ -16,7 +16,7 @@ export interface Collector<T> {
   visitor: RuleListener;
 }
 
-export interface CollectorWithContext<T, E> extends Collector<T> {
+export interface CollectorWithContext<T> extends Collector<T> {
   query: {
     all(program: TSESTree.Program): T[];
   };
@@ -28,7 +28,7 @@ function components(
     collectDisplayName?: boolean;
     hint?: bigint;
   },
-): CollectorWithContext<core.FunctionComponentSemanticNode, core.FunctionComponentSemanticNode> {
+): CollectorWithContext<core.FunctionComponentSemanticNode> {
   const { api, visitor } = core.getComponentCollector(ctx, options);
   return {
     query: {
@@ -40,7 +40,7 @@ function components(
 
 function hooks(
   ctx: RuleContext<string, unknown[]>,
-): CollectorWithContext<core.HookSemanticNode, { key: string; node: TSESTree.Node }> {
+): CollectorWithContext<core.HookSemanticNode> {
   const { api, visitor } = core.getHookCollector(ctx);
   return {
     query: {

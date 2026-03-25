@@ -1,6 +1,6 @@
 [@eslint-react/kit](../README.md) / CollectorWithContext
 
-# Interface: CollectorWithContext\<T, E\>
+# Interface: CollectorWithContext\<T\>
 
 ## Extends
 
@@ -11,7 +11,6 @@
 | Type Parameter |
 | ------ |
 | `T` |
-| `E` |
 
 ## Properties
 
