@@ -81,3 +81,4 @@
 | `is.useStateLikeCall` | (`node`: `Node` \| `null`, `additionalStateHooks?`: `RegExpLike`) => `node is CallExpression` | - |
 | `is.useSyncExternalStoreCall` | (`node`: `Node` \| `null`) => `boolean` | - |
 | `is.useTransitionCall` | (`node`: `Node` \| `null`) => `boolean` | - |
+| <a id="property-settings"></a> `settings` | `ESLintReactSettingsNormalized` | - |
