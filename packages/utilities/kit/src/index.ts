@@ -1,79 +1,111 @@
-/* eslint-disable perfectionist/sort-object-types */
-/* eslint-disable perfectionist/sort-objects */
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { TSESTree } from "@typescript-eslint/utils";
-import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-import type { Linter, Rule } from "eslint";
-export type { RuleContext };
-import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
+import type {
+  ESLintReactSettingsNormalized,
+  RuleContext,
+  RuleFix,
+  RuleFixer,
+  RuleListener,
+} from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import type { TSESTree } from "@typescript-eslint/utils";
+import type { Linter, Rule } from "eslint";
 
 import pkg from "../package.json";
 
-export interface Collector<T> {
+export { defineRuleListener as merge } from "@eslint-react/shared";
+export type { RuleContext, RuleFix, RuleFixer, RuleListener };
+
+// #region Interfaces
+
+interface Collector<T> {
   query: {
     all(program: TSESTree.Program): T[];
   };
   visitor: RuleListener;
 }
 
-export interface CollectorWithContext<T> extends Collector<T> {
+interface CollectorWithContext<T> extends Collector<T> {
   query: {
     all(program: TSESTree.Program): T[];
   };
 }
 
-function components(
-  ctx: RuleContext<string, unknown[]>,
-  options?: {
-    collectDisplayName?: boolean;
-    hint?: bigint;
-  },
-): CollectorWithContext<core.FunctionComponentSemanticNode> {
-  const { api, visitor } = core.getComponentCollector(ctx, options);
-  return {
-    query: {
-      all: (program) => api.getAllComponents(program),
-    },
-    visitor,
-  };
+interface RuleDefinition {
+  name: string;
+  make(ctx: RuleContext, kit: RuleToolkit): RuleListener;
 }
 
-function hooks(
-  ctx: RuleContext<string, unknown[]>,
-): CollectorWithContext<core.HookSemanticNode> {
-  const { api, visitor } = core.getHookCollector(ctx);
-  return {
-    query: {
-      all: (program) => api.getAllHooks(program),
-    },
-    visitor,
+interface RuleToolkit {
+  collect: {
+    components(
+      ctx: RuleContext,
+      options?: {
+        collectDisplayName?: boolean;
+        hint?: bigint;
+      },
+    ): CollectorWithContext<core.FunctionComponentSemanticNode>;
+    hooks(ctx: RuleContext): CollectorWithContext<core.HookSemanticNode>;
   };
-}
 
-export interface RuleToolkit {
+  flag: {
+    component: typeof core.ComponentFlag;
+  };
+
+  hint: {
+    component: typeof core.ComponentDetectionHint & { Default: bigint };
+  };
+
   is: {
+    captureOwnerStack: (node: null | TSESTree.Node) => boolean;
+    captureOwnerStackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    childrenCount: (node: null | TSESTree.Node) => boolean;
+    childrenCountCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    childrenForEach: (node: null | TSESTree.Node) => boolean;
+    childrenForEachCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    childrenMap: (node: null | TSESTree.Node) => boolean;
+    childrenMapCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    childrenOnly: (node: null | TSESTree.Node) => boolean;
+    childrenOnlyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    childrenToArray: (node: null | TSESTree.Node) => boolean;
+    childrenToArrayCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    cloneElement: (node: null | TSESTree.Node) => boolean;
+    cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     componentDefinition: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isComponentName;
     componentNameLoose: typeof core.isComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;
-    componentWrapperCallLoose: (node: TSESTree.Node) => boolean;
     componentWrapperCallback: (node: TSESTree.Node) => boolean;
+    componentWrapperCallLoose: (node: TSESTree.Node) => boolean;
+    createContext: (node: null | TSESTree.Node) => boolean;
+    createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    createElement: (node: null | TSESTree.Node) => boolean;
+    createElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    createRef: (node: null | TSESTree.Node) => boolean;
+    createRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    forwardRef: (node: null | TSESTree.Node) => boolean;
+    forwardRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     hook: typeof core.isHook;
     hookCall: typeof core.isHookCall;
     hookName: typeof core.isHookName;
-    useEffectLikeCall: typeof core.isUseEffectLikeCall;
-    useStateLikeCall: typeof core.isUseStateLikeCall;
-    useEffectSetupCallback: typeof core.isUseEffectSetupCallback;
-    useEffectCleanupCallback: typeof core.isUseEffectCleanupCallback;
-    useCall: typeof core.isUseCall;
+    initializedFromReact: typeof core.isInitializedFromReact;
+    initializedFromReactNative: typeof core.isInitializedFromReactNative;
+    lazy: (node: null | TSESTree.Node) => boolean;
+    lazyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    memo: (node: null | TSESTree.Node) => boolean;
+    memoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    reactAPI: (api: string) => (node: null | TSESTree.Node) => boolean;
+    reactAPICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useActionStateCall: typeof core.isUseActionStateCall;
+    useCall: typeof core.isUseCall;
     useCallbackCall: typeof core.isUseCallbackCall;
     useContextCall: typeof core.isUseContextCall;
     useDebugValueCall: typeof core.isUseDebugValueCall;
     useDeferredValueCall: typeof core.isUseDeferredValueCall;
     useEffectCall: typeof core.isUseEffectCall;
+    useEffectCleanupCallback: typeof core.isUseEffectCleanupCallback;
+    useEffectLikeCall: typeof core.isUseEffectLikeCall;
+    useEffectSetupCallback: typeof core.isUseEffectSetupCallback;
     useFormStatusCall: typeof core.isUseFormStatusCall;
     useIdCall: typeof core.isUseIdCall;
     useImperativeHandleCall: typeof core.isUseImperativeHandleCall;
@@ -84,79 +116,106 @@ export interface RuleToolkit {
     useReducerCall: typeof core.isUseReducerCall;
     useRefCall: typeof core.isUseRefCall;
     useStateCall: typeof core.isUseStateCall;
+    useStateLikeCall: typeof core.isUseStateLikeCall;
     useSyncExternalStoreCall: typeof core.isUseSyncExternalStoreCall;
     useTransitionCall: typeof core.isUseTransitionCall;
-    reactAPI: (api: string) => (node: null | TSESTree.Node) => boolean;
-    reactAPICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    captureOwnerStack: (node: null | TSESTree.Node) => boolean;
-    childrenCount: (node: null | TSESTree.Node) => boolean;
-    childrenForEach: (node: null | TSESTree.Node) => boolean;
-    childrenMap: (node: null | TSESTree.Node) => boolean;
-    childrenOnly: (node: null | TSESTree.Node) => boolean;
-    childrenToArray: (node: null | TSESTree.Node) => boolean;
-    cloneElement: (node: null | TSESTree.Node) => boolean;
-    createContext: (node: null | TSESTree.Node) => boolean;
-    createElement: (node: null | TSESTree.Node) => boolean;
-    createRef: (node: null | TSESTree.Node) => boolean;
-    forwardRef: (node: null | TSESTree.Node) => boolean;
-    memo: (node: null | TSESTree.Node) => boolean;
-    lazy: (node: null | TSESTree.Node) => boolean;
-    captureOwnerStackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenCountCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenForEachCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenMapCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenOnlyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenToArrayCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    createElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    createRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    forwardRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    memoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    lazyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    initializedFromReact: typeof core.isInitializedFromReact;
-    initializedFromReactNative: typeof core.isInitializedFromReactNative;
-  };
-
-  hint: {
-    component: typeof core.ComponentDetectionHint & { Default: bigint };
-  };
-
-  flag: {
-    component: typeof core.ComponentFlag;
-  };
-
-  collect: {
-    components: typeof components;
-    hooks: typeof hooks;
   };
 
   settings: ESLintReactSettingsNormalized;
 }
 
-function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
+// #endregion
+
+// #region createKit
+
+function createKit(ctx: RuleContext): RuleToolkit {
   return {
+    collect: {
+      components(ctx, options?) {
+        const { api, visitor } = core.getComponentCollector(ctx, options);
+        return {
+          query: {
+            all(program) {
+              return api.getAllComponents(program);
+            },
+          },
+          visitor,
+        };
+      },
+      hooks(ctx) {
+        const { api, visitor } = core.getHookCollector(ctx);
+        return {
+          query: {
+            all(program) {
+              return api.getAllHooks(program);
+            },
+          },
+          visitor,
+        };
+      },
+    },
+
+    flag: {
+      component: core.ComponentFlag,
+    },
+
+    hint: {
+      component: {
+        ...core.ComponentDetectionHint,
+        Default: core.DEFAULT_COMPONENT_DETECTION_HINT,
+      },
+    },
+
     is: {
+      captureOwnerStack: core.isCaptureOwnerStack(ctx),
+      captureOwnerStackCall: core.isCaptureOwnerStackCall(ctx),
+      childrenCount: core.isChildrenCount(ctx),
+      childrenCountCall: core.isChildrenCountCall(ctx),
+      childrenForEach: core.isChildrenForEach(ctx),
+      childrenForEachCall: core.isChildrenForEachCall(ctx),
+      childrenMap: core.isChildrenMap(ctx),
+      childrenMapCall: core.isChildrenMapCall(ctx),
+      childrenOnly: core.isChildrenOnly(ctx),
+      childrenOnlyCall: core.isChildrenOnlyCall(ctx),
+      childrenToArray: core.isChildrenToArray(ctx),
+      childrenToArrayCall: core.isChildrenToArrayCall(ctx),
+      cloneElement: core.isCloneElement(ctx),
+      cloneElementCall: core.isCloneElementCall(ctx),
       componentDefinition: (node, hint) => core.isComponentDefinition(ctx, node, hint),
       componentName: core.isComponentName,
       componentNameLoose: core.isComponentNameLoose,
       componentWrapperCall: (node) => core.isComponentWrapperCall(ctx, node),
-      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(ctx, node),
       componentWrapperCallback: (node) => core.isComponentWrapperCallback(ctx, node),
+      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(ctx, node),
+      createContext: core.isCreateContext(ctx),
+      createContextCall: core.isCreateContextCall(ctx),
+      createElement: core.isCreateElement(ctx),
+      createElementCall: core.isCreateElementCall(ctx),
+      createRef: core.isCreateRef(ctx),
+      createRefCall: core.isCreateRefCall(ctx),
+      forwardRef: core.isForwardRef(ctx),
+      forwardRefCall: core.isForwardRefCall(ctx),
       hook: core.isHook,
       hookCall: core.isHookCall,
       hookName: core.isHookName,
-      useEffectLikeCall: core.isUseEffectLikeCall,
-      useStateLikeCall: core.isUseStateLikeCall,
-      useEffectSetupCallback: core.isUseEffectSetupCallback,
-      useEffectCleanupCallback: core.isUseEffectCleanupCallback,
-      useCall: core.isUseCall,
+      initializedFromReact: core.isInitializedFromReact,
+      initializedFromReactNative: core.isInitializedFromReactNative,
+      lazy: core.isLazy(ctx),
+      lazyCall: core.isLazyCall(ctx),
+      memo: core.isMemo(ctx),
+      memoCall: core.isMemoCall(ctx),
+      reactAPI: (api) => core.isReactAPI(api)(ctx),
+      reactAPICall: (api) => core.isReactAPICall(api)(ctx),
       useActionStateCall: core.isUseActionStateCall,
+      useCall: core.isUseCall,
       useCallbackCall: core.isUseCallbackCall,
       useContextCall: core.isUseContextCall,
       useDebugValueCall: core.isUseDebugValueCall,
       useDeferredValueCall: core.isUseDeferredValueCall,
       useEffectCall: core.isUseEffectCall,
+      useEffectCleanupCallback: core.isUseEffectCleanupCallback,
+      useEffectLikeCall: core.isUseEffectLikeCall,
+      useEffectSetupCallback: core.isUseEffectSetupCallback,
       useFormStatusCall: core.isUseFormStatusCall,
       useIdCall: core.isUseIdCall,
       useImperativeHandleCall: core.isUseImperativeHandleCall,
@@ -167,64 +226,18 @@ function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
       useReducerCall: core.isUseReducerCall,
       useRefCall: core.isUseRefCall,
       useStateCall: core.isUseStateCall,
+      useStateLikeCall: core.isUseStateLikeCall,
       useSyncExternalStoreCall: core.isUseSyncExternalStoreCall,
       useTransitionCall: core.isUseTransitionCall,
-      reactAPI: (api) => core.isReactAPI(api)(ctx),
-      reactAPICall: (api) => core.isReactAPICall(api)(ctx),
-      captureOwnerStack: core.isCaptureOwnerStack(ctx),
-      childrenCount: core.isChildrenCount(ctx),
-      childrenForEach: core.isChildrenForEach(ctx),
-      childrenMap: core.isChildrenMap(ctx),
-      childrenOnly: core.isChildrenOnly(ctx),
-      childrenToArray: core.isChildrenToArray(ctx),
-      cloneElement: core.isCloneElement(ctx),
-      createContext: core.isCreateContext(ctx),
-      createElement: core.isCreateElement(ctx),
-      createRef: core.isCreateRef(ctx),
-      forwardRef: core.isForwardRef(ctx),
-      memo: core.isMemo(ctx),
-      lazy: core.isLazy(ctx),
-      captureOwnerStackCall: core.isCaptureOwnerStackCall(ctx),
-      childrenCountCall: core.isChildrenCountCall(ctx),
-      childrenForEachCall: core.isChildrenForEachCall(ctx),
-      childrenMapCall: core.isChildrenMapCall(ctx),
-      childrenOnlyCall: core.isChildrenOnlyCall(ctx),
-      childrenToArrayCall: core.isChildrenToArrayCall(ctx),
-      cloneElementCall: core.isCloneElementCall(ctx),
-      createContextCall: core.isCreateContextCall(ctx),
-      createElementCall: core.isCreateElementCall(ctx),
-      createRefCall: core.isCreateRefCall(ctx),
-      forwardRefCall: core.isForwardRefCall(ctx),
-      memoCall: core.isMemoCall(ctx),
-      lazyCall: core.isLazyCall(ctx),
-      initializedFromReact: core.isInitializedFromReact,
-      initializedFromReactNative: core.isInitializedFromReactNative,
-    },
-
-    hint: {
-      component: {
-        ...core.ComponentDetectionHint,
-        Default: core.DEFAULT_COMPONENT_DETECTION_HINT,
-      },
-    },
-
-    flag: {
-      component: core.ComponentFlag,
-    },
-
-    collect: {
-      components,
-      hooks,
     },
 
     settings: getSettingsFromContext(ctx),
   };
 }
 
-interface RuleDefinition {
-  name: string;
-  make(ctx: RuleContext<string, unknown[]>, kit: RuleToolkit): RuleListener;
-}
+// #endregion
+
+// #region defineConfig & merge
 
 export function defineConfig(...rules: RuleDefinition[]): Linter.Config {
   return {
@@ -238,7 +251,7 @@ export function defineConfig(...rules: RuleDefinition[]): Linter.Config {
               fixable: "code",
               hasSuggestions: true,
             },
-            create(ctx: RuleContext<string, unknown[]>) {
+            create(ctx: RuleContext) {
               return make(ctx, createKit(ctx));
             },
           });
@@ -253,24 +266,11 @@ export function defineConfig(...rules: RuleDefinition[]): Linter.Config {
   };
 }
 
-export function merge(...listeners: RuleListener[]): RuleListener {
-  const [base = {}, ...rest] = listeners;
-  for (const r of rest) {
-    for (const key in r) {
-      const existing = base[key];
-      // tsl-ignore core/strictBooleanExpressions
-      base[key] = existing
-        ? (...args) => {
-          existing(...args);
-          r[key]?.(...args);
-        }
-        : r[key];
-    }
-  }
-  return base;
-}
-
 export default defineConfig;
+
+// #endregion
+
+// #region Module Augmentation
 
 declare module "@typescript-eslint/utils/ts-eslint" {
   export interface RuleContext<MessageIds extends string, Options extends readonly unknown[]> {
@@ -308,3 +308,5 @@ declare module "@typescript-eslint/utils/ts-eslint" {
     ): void;
   }
 }
+
+// #endregion

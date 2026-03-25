@@ -4,17 +4,22 @@
 
 | Interface | Description |
 | ------ | ------ |
-| [Collector](interfaces/Collector.md) | - |
-| [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
-| [RuleContext](interfaces/RuleContext.md) | - |
-| [RuleToolkit](interfaces/RuleToolkit.md) | - |
+| [RuleFix](interfaces/RuleFix.md) | - |
+| [RuleFixer](interfaces/RuleFixer.md) | - |
+
+## Type Aliases
+
+| Type Alias | Description |
+| ------ | ------ |
+| [RuleContext](type-aliases/RuleContext.md) | Rule context. |
+| [RuleListener](type-aliases/RuleListener.md) | - |
 
 ## Functions
 
 | Function | Description |
 | ------ | ------ |
 | [defineConfig](functions/defineConfig.md) | - |
-| [merge](functions/merge.md) | - |
+| [merge](functions/merge.md) | Defines a rule listener by merging multiple visitor objects |
 
 ## References
 
