@@ -10,9 +10,9 @@ title: Changelog
 
 The `hint` API in `@eslint-react/kit` has been restructured for better namespacing:
 
-| Before                   | After                        |
-| :----------------------- | :--------------------------- |
-| `hint.defaultComponent`  | `hint.component.Default`     |
+| Before                  | After                    |
+| :---------------------- | :----------------------- |
+| `hint.defaultComponent` | `hint.component.Default` |
 
 ### 🐞 Fixes
 

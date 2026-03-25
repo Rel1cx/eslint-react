@@ -6,6 +6,8 @@ import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { Linter, Rule } from "eslint";
 export type { RuleContext };
+import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 
 import pkg from "../package.json";
 
@@ -128,6 +130,8 @@ export interface RuleToolkit {
     components: typeof components;
     hooks: typeof hooks;
   };
+
+  settings: ESLintReactSettingsNormalized;
 }
 
 function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
@@ -212,6 +216,8 @@ function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
       components,
       hooks,
     },
+
+    settings: getSettingsFromContext(ctx),
   };
 }
 

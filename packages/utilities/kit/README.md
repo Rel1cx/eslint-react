@@ -14,6 +14,7 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
     - [`kit.is`](#kitis) — Predicates
     - [`kit.hint`](#kithint) — Detection hint bit-flags
     - [`kit.flag`](#kitflag) — Component characteristic flags
+    - [`kit.settings`](#kitsettings) — Normalized ESLint React settings
 - [Examples](#examples)
   - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
   - [Component: Destructure component props](#component-destructure-component-props)
@@ -115,6 +116,7 @@ kit
 ├── is                 -> All predicates (component, hook, React API, import source)
 ├── hint               -> Detection hint bit-flags
 ├── flag               -> Component characteristic bit-flags
+├── settings           -> Normalized ESLint React settings
 ```
 
 ---
@@ -252,6 +254,41 @@ for (const component of query.all(program)) {
   }
 }
 ```
+
+#### `kit.settings`
+
+Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets your custom rules read and react to the same project-level settings used by the built-in rules.
+
+| Property                | Type                                                    | Default     | Description                                               |
+| ----------------------- | ------------------------------------------------------- | ----------- | --------------------------------------------------------- |
+| `version`               | `string`                                                | auto-detect | Resolved React version (e.g. `"19.2.4"`).                 |
+| `importSource`          | `string`                                                | `"react"`   | The module React is imported from (e.g. `"@pika/react"`). |
+| `compilationMode`       | `"infer" \| "annotation" \| "syntax" \| "all" \| "off"` | `"off"`     | The React Compiler compilation mode the project uses.     |
+| `polymorphicPropName`   | `string \| null`                                        | `"as"`      | Prop name used for polymorphic components.                |
+| `additionalStateHooks`  | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as state hooks.     |
+| `additionalEffectHooks` | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as effect hooks.    |
+
+`RegExpLike` is an object with a `test(s: string) => boolean` method (same interface as `RegExp`).
+
+**Usage:**
+
+```ts
+defineReactConfig({
+  name: "require-react-19",
+  make: (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith("19.")) {
+        context.report({
+          node: program,
+          message: `This project requires React 19, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  }),
+});
+```
+
+---
 
 ## Examples
 

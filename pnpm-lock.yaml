@@ -1259,6 +1259,9 @@ importers:
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../../core
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../shared
       '@typescript-eslint/utils':
         specifier: ^8.57.2
         version: 8.57.2(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
