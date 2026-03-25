@@ -153,32 +153,38 @@ You can migrate gradually by using both plugins together, using the `disableConf
 ```ts title="eslint.config.ts"
 import pluginReact from "eslint-plugin-react";
 import eslintReact from "@eslint-react/eslint-plugin";
+import { defineConfig } from "eslint/config";
 
-export default [
+export default defineConfig([
   // Start with the eslint-plugin-react
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}'],
-    // Whatever config you had enabled with eslint-plugin-react
-    ...pluginReact.configs.flat.recommended,
+    extends: [
+      // Whatever config you had enabled with eslint-plugin-react
+      pluginReact.configs.flat.recommended,
 
-    // Now disable all conflicting rules
-    ...eslintReact.configs["disable-conflict-eslint-plugin-react"],
+      // Now disable all conflicting rules
+      eslintReact.configs["disable-conflict-eslint-plugin-react"],
 
-    // Now enable the desired rules
-    ...eslintReact.configs["recommended-typescript"],
+      // Now enable the desired rules
+      eslintReact.configs["recommended-typescript"],
+    ]
   }
-];
+]);
 ```
 
 Once you have fully migrated, you can remove `eslint-plugin-react` entirely and rely solely on ESLint React:
 
 ```ts title="eslint.config.ts"
 import eslintReact from '@eslint-react/eslint-plugin';
+import { defineConfig } from "eslint/config";
 
-export default [
+export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}'],
-    ...eslintReact.configs["recommended-typescript"],
+    extends: [
+      eslintReact.configs["recommended-typescript"],
+    ]
   },
-];
+]);
 ```
