@@ -1,3 +1,26 @@
+## v4.0.0-beta.1 (2026-03-25)
+
+### 💥 Breaking Changes
+
+**`@eslint-react/kit` API restructuring**
+
+The `hint` API in `@eslint-react/kit` has been restructured for better namespacing:
+
+| Before                   | After                        |
+| :----------------------- | :--------------------------- |
+| `hint.defaultComponent`  | `hint.component.Default`     |
+
+### 🐞 Fixes
+
+- `docs(kit)`: Fix `defineConfig` import statement in README examples.
+- `docs(kit)`: Update example to use `hint.component.Default` instead of `hint.defaultComponent`.
+
+### 🪄 Improvements
+
+- `docs(kit)`: Replace "max-component-per-file" example with "destructure-component-props" example for better practical guidance.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.0-beta.0...v4.0.0-beta.1
+
 ## v4.0.0-beta.0 (2026-03-24)
 
 ### 💥 Breaking Changes

@@ -117,8 +117,7 @@ export interface RuleToolkit {
   };
 
   hint: {
-    component: typeof core.ComponentDetectionHint;
-    defaultComponent: bigint;
+    component: typeof core.ComponentDetectionHint & { Default: bigint };
   };
 
   flag: {
@@ -199,8 +198,10 @@ function createKit(ctx: RuleContext<string, unknown[]>): RuleToolkit {
     },
 
     hint: {
-      component: core.ComponentDetectionHint,
-      defaultComponent: core.DEFAULT_COMPONENT_DETECTION_HINT,
+      component: {
+        ...core.ComponentDetectionHint,
+        Default: core.DEFAULT_COMPONENT_DETECTION_HINT,
+      },
     },
 
     flag: {
