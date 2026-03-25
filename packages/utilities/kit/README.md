@@ -16,7 +16,7 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
     - [`kit.flag`](#kitflag) — Component characteristic flags
 - [Examples](#examples)
   - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
-  - [Component: Max component per file](#component-max-component-per-file)
+  - [Component: Destructure component props](#component-destructure-component-props)
   - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
 - [More Examples](#more-examples)
@@ -79,7 +79,7 @@ export default defineConfig(
 ### `defineConfig` (default export)
 
 ```ts
-import { defineConfig as defineReactConfig } from "@eslint-react/kit";
+import defineReactConfig from "@eslint-react/kit";
 
 defineReactConfig(...rules: RuleDefinition[]): Linter.Config
 ```
@@ -212,7 +212,7 @@ Bit-flags that control what the component collector considers a "component". Com
 
 ```ts
 // The default hint used when none is specified
-hint.defaultComponent;
+hint.component.Default;
 
 // All available flags
 hint.component.DoNotIncludeFunctionDefinedAsObjectMethod;
@@ -227,7 +227,7 @@ hint.component.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
 ```ts
 const { query, visitor } = collect.components(context, {
   // Also treat object methods as components (remove the exclusion flag)
-  hint: hint.defaultComponent & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
+  hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
 });
 ```
 
@@ -257,6 +257,8 @@ for (const component of query.all(program)) {
 
 ### Simple: Ban `forwardRef`
 
+This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://eslint-react.xyz/docs/rules/no-forwardRef) rule.
+
 ```ts
 defineReactConfig({
   name: "no-forward-ref",
@@ -270,24 +272,33 @@ defineReactConfig({
 });
 ```
 
-### Component: Max component per file
+### Component: Destructure component props
+
+This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
 defineReactConfig({
-  name: "max-component-per-file",
+  name: "destructure-component-props",
   make: (context, { collect }) => {
-    const MAX = 1;
     const { query, visitor } = collect.components(context);
 
     return merge(visitor, {
       "Program:exit"(program) {
-        const comps = [...query.all(program)];
-        if (comps.length <= MAX) return;
-        for (const { node, name } of comps.slice(MAX)) {
-          context.report({
-            node,
-            message: `There are ${comps.length} component definitions in this file. Maximum allowed is ${MAX}.`,
-          });
+        for (const { node } of query.all(program)) {
+          const [props] = node.params;
+          if (props == null) continue;
+          if (props.type !== AST.Identifier) continue;
+          const propName = props.name;
+          const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
+          const propReferences = propVariable?.references ?? [];
+          for (const ref of propReferences) {
+            const { parent } = ref.identifier;
+            if (parent.type !== AST.MemberExpression) continue;
+            context.report({
+              message: "Use destructuring assignment for component props.",
+              node: parent,
+            });
+          }
         }
       },
     });
@@ -297,8 +308,7 @@ defineReactConfig({
 
 ### Hooks: Warn on custom hooks that don't call other hooks
 
-This is a simplified kit reimplementation of the built-in
-[`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
 defineReactConfig({
@@ -325,8 +335,7 @@ defineReactConfig({
 ### Multiple Collectors: No component/hook factories
 
 Disallow defining components or hooks inside other functions (factory pattern).
-This is a simplified kit reimplementation of the built-in
-[`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
 defineReactConfig({
