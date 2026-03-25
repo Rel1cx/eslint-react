@@ -25,7 +25,7 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
 ## Installation
 
 ```sh
-npm install --save-dev @eslint-react/kit
+npm install --save-dev @eslint-react/kit@beta
 ```
 
 ## Quick Start
