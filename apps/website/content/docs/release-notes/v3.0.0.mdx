@@ -42,10 +42,9 @@ Several rules have been consolidated into more powerful replacements, and rules 
 
 Key rationale:
 
-- **`jsx-no-duplicate-props`**: LSP and Language Features natively report duplicate JSX props, making this rule redundant.
 - **`jsx-no-undef`**, **`jsx-uses-react`**, **`jsx-uses-vars`**: ESLint v10.0.0 now tracks JSX references and variables natively.
 - **`no-useless-forward-ref`**: Consolidated into `no-forward-ref`. Since React 19, `forwardRef` is no longer necessary as `ref` can be passed as a prop.
-- **`prefer-read-only-props`**: Consolidated into the new `immutability` rule, which covers a broader set of immutability violations.
+- **`prefer-read-only-props`**: Replaced by the new `immutability` rule, which covers a broader set of immutability violations.
 - **`prefer-use-state-lazy-initialization`**: Merged into `use-state` and controlled by the `enforceLazyInitialization` option (default: `true`).
 
 Previously deprecated rules have also been removed:
@@ -62,15 +61,12 @@ Previously deprecated rules have also been removed:
 
 ## **Introducing Powerful New Rules**
 
-This release adds a significant number of new rules to `eslint-plugin-react-x`, including rules ported _verbatim_ from `eslint-plugin-react-hooks` with full code-path analysis, as well as re-implemented rules from `eslint-plugin-react-compiler` that offer better performance and, unlike the official plugin, require **no** Babel or React Compiler installation:
+This release adds a significant number of new rules to `eslint-plugin-react-x`, including rules ported _verbatim_ from `eslint-plugin-react-hooks` with full code-path analysis, as well as re-implemented React Compiler rules that offer better performance and, unlike the official plugin, require **no** Babel or React Compiler installation:
 
 - **`react-x/component-hook-factories`**: Validates against higher-order functions defining nested components or hooks. Components and hooks should be defined at the module level.
 - **`react-x/error-boundaries`**: Validates usage of Error Boundaries instead of try/catch for errors in child components.
 - **`react-x/exhaustive-deps`**: Enforces that React hook dependency arrays contain all reactive values used in the callback.
 - **`react-x/immutability`** (Experimental): Validates against mutating props, state, and other immutable values. Detects in-place array mutations (e.g. `push`, `sort`, `splice`) and direct property assignments on state variables.
-- **`react-x/no-implicit-children`** and **`react-x/no-implicit-ref`**: New rules to catch implicit children and ref patterns.
-- **`react-x/no-unused-class-component-members`**: Catches unused class component methods and properties.
-- **`react-x/prefer-set-state-callback`**: Enforces using callback form of `setState` when the new state is computed from the previous state.
 - **`react-x/purity`** (Experimental): Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - **`react-x/refs`** (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render.
 - **`react-x/rules-of-hooks`**: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). Ported from `eslint-plugin-react-hooks` with code-path analysis for more accurate hook validation.
@@ -78,10 +74,11 @@ This release adds a significant number of new rules to `eslint-plugin-react-x`, 
 - **`react-x/set-state-in-render`** (Experimental): Validates against unconditionally setting state during render, which can cause infinite render loops.
 - **`react-x/unsupported-syntax`**: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
 - **`react-x/use-memo`**: Validates that `useMemo` is called with a callback that returns a value and that its return value is not discarded.
-- **`react-x/use-state`**: Enforces correct `useState` usage — destructuring, symmetric naming of value and setter (e.g. `count` / `setCount`), and lazy initialization of expensive initial state.
 
 ### Experimental Rules
 
+- **`react-x/no-implicit-ref`**: Prevents implicitly passing `ref` via spread props (e.g., `{...values}`).
+- **`react-x/no-implicit-children`**: Prevents implicitly passing `children` via spread props (e.g., `{...values}`).
 - **`react-x/unstable-rules-of-props`**: Validates against mixing controlled and uncontrolled prop patterns and detects duplicate props on JSX elements. Supports generic `foo`/`defaultFoo` prop pairs.
 - **`react-x/unstable-rules-of-state`**: Consolidates state-related validations including `prefer-set-state-callback`.
 

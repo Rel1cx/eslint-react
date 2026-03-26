@@ -4,20 +4,16 @@ description: Enforces the Rules of Props.
 ---
 
 <Callout type="warning">
-  This rule is currently in rc and only available in v3.0.0 rc releases.
-</Callout>
-
-<Callout type="warning">
   This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
 </Callout>
 
-**Full Name in [`eslint-plugin-react-x@rc`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/unstable-rules-of-props
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin@rc`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/unstable-rules-of-props
@@ -94,14 +90,14 @@ Mixing both modes on the same element is a mistake. React will silently ignore t
 
 Any prop pair of the form `foo` and `defaultFoo` must not appear together on the same element. This includes built-in React pairs as well as custom component props that follow the same convention:
 
-| Controlled prop | Uncontrolled prop |
-|---|---|
-| `value` | `defaultValue` |
-| `checked` | `defaultChecked` |
-| `open` | `defaultOpen` |
-| `page` | `defaultPage` |
-| `selectedItem` | `defaultSelectedItem` |
-| *any `foo`* | *`defaultFoo`* |
+| Controlled prop | Uncontrolled prop     |
+| --------------- | --------------------- |
+| `value`         | `defaultValue`        |
+| `checked`       | `defaultChecked`      |
+| `open`          | `defaultOpen`         |
+| `page`          | `defaultPage`         |
+| `selectedItem`  | `defaultSelectedItem` |
+| _any `foo`_     | _`defaultFoo`_        |
 
 #### Invalid
 
