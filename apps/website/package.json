@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbopack",
-    "lint": "tsc --noEmit && eslint . --concurrency=auto",
-    "prepare": "fumadocs-mdx",
-    "start": "next start"
+    "dev": "next dev",
+    "postinstall": "fumadocs-mdx",
+    "prepare": "fumadocs-mdx && next typegen",
+    "start": "next start",
+    "types:check": "fumadocs-mdx && next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
+    "@takumi-rs/image-response": "^0.73.1",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "effect": "^3.21.0",
@@ -20,8 +23,8 @@
     "fumadocs-twoslash": "3.1.14",
     "fumadocs-typescript": "5.2.0",
     "fumadocs-ui": "16.7.6",
-    "lucide-react": "^1.6.0",
-    "next": "^16.2.1",
+    "lucide-react": "^1.7.0",
+    "next": "16.2.1",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -55,6 +58,9 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "importx": "^0.5.2",
     "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "tsl": "^1.0.29",
+    "tsl-dx": "^0.10.2",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.2"
   }

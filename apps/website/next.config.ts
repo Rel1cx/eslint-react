@@ -20,6 +20,7 @@ const config = {
   serverExternalPackages: [
     "typescript",
     "twoslash",
+    "@takumi-rs/image-response",
   ],
   async redirects() {
     return [
