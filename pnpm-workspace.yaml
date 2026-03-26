@@ -20,6 +20,7 @@ overrides:
   "@typescript-eslint/type-utils": "^8.57.2"
   "@typescript-eslint/types": "^8.57.2"
   "@typescript-eslint/utils": "^8.57.2"
+  chokidar: ^5.0.0
   dompurify: ^3.3.3
   esbuild: ^0.27.4
   lodash: ^4.17.23
@@ -32,7 +33,7 @@ overrides:
   tslib: ^2.8.1
   typescript-eslint: "^8.57.2"
   typescript: 5.9.3
-  undici-types: ^7.24.5
-  undici: ^7.24.5
+  undici-types: ^7.24.6
+  undici: ^7.24.6
 
 trustPolicy: "no-downgrade"
