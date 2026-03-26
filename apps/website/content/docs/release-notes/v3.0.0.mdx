@@ -1,0 +1,165 @@
+---
+title: "Announcing v3.0.0"
+description: "A major release with new rules ported from eslint-plugin-react-hooks, consolidated packages, and ESLint v10 support"
+---
+
+<Callout type="info">
+  This release consolidates all changes from v2.13.0 through v3.0.0-rc.5.
+</Callout>
+
+## **ESLint v10 and Node.js 22**
+
+v3.0.0 embraces the latest tooling ecosystem with the following environment changes:
+
+1. **Node.js 22+**: The minimum required Node.js version is now `>=22.0.0` (previously `>=20.19.0`).
+2. **ESLint v10**: Bumped to ESLint 10.0.3, leveraging native JSX reference tracking and variable tracking that make several legacy rules redundant.
+
+## **Package Consolidation**
+
+To simplify the plugin ecosystem, v3.0.0 removes the `eslint-plugin-react-hooks-extra` package entirely. All of its rules have been migrated into `eslint-plugin-react-x`:
+
+| Old Rule (`react-hooks-extra/`)     | New Rule (`react-x/`) | Change             |
+| :---------------------------------- | :-------------------- | :----------------- |
+| `no-direct-set-state-in-use-effect` | `set-state-in-effect` | relocated, renamed |
+
+Additionally, the `react-naming-convention/use-state` rule has been moved to `react-x/use-state`, and `react-naming-convention/component-name` has been removed.
+
+## **Consolidated and Removed Rules**
+
+Several rules have been consolidated into more powerful replacements, and rules made redundant by ESLint v10 have been removed:
+
+| Old Rule (`react-x/`)                  | New Rule (`react-x/`) | Change       |
+| :------------------------------------- | :-------------------- | :----------- |
+| `jsx-no-duplicate-props`               | —                     | removed      |
+| `jsx-no-iife`                          | `unsupported-syntax`  | consolidated |
+| `jsx-no-undef`                         | —                     | removed      |
+| `jsx-uses-react`                       | —                     | removed      |
+| `jsx-uses-vars`                        | —                     | removed      |
+| `no-unnecessary-key`                   | —                     | removed      |
+| `no-useless-forward-ref`               | `no-forward-ref`      | consolidated |
+| `prefer-read-only-props`               | `immutability`        | consolidated |
+| `prefer-use-state-lazy-initialization` | `use-state`           | consolidated |
+
+Key rationale:
+
+- **`jsx-no-duplicate-props`**: LSP and Language Features natively report duplicate JSX props, making this rule redundant.
+- **`jsx-no-undef`**, **`jsx-uses-react`**, **`jsx-uses-vars`**: ESLint v10.0.0 now tracks JSX references and variables natively.
+- **`no-useless-forward-ref`**: Consolidated into `no-forward-ref`. Since React 19, `forwardRef` is no longer necessary as `ref` can be passed as a prop.
+- **`prefer-read-only-props`**: Consolidated into the new `immutability` rule, which covers a broader set of immutability violations.
+- **`prefer-use-state-lazy-initialization`**: Merged into `use-state` and controlled by the `enforceLazyInitialization` option (default: `true`).
+
+Previously deprecated rules have also been removed:
+
+| Rule                     | Deprecated in | Package                                 |
+| :----------------------- | :------------ | :-------------------------------------- |
+| `filename-extension`     | 2.13.0        | `eslint-plugin-react-naming-convention` |
+| `filename`               | 2.13.0        | `eslint-plugin-react-naming-convention` |
+| `no-default-props`       | 2.9.3         | `eslint-plugin-react-x`                 |
+| `no-forbidden-props`     | 2.3.2         | `eslint-plugin-react-x`                 |
+| `no-prop-types`          | 2.9.3         | `eslint-plugin-react-x`                 |
+| `no-string-refs`         | 2.9.3         | `eslint-plugin-react-x`                 |
+| `no-unnecessary-use-ref` | 2.10.0        | `eslint-plugin-react-x`                 |
+
+## **Introducing Powerful New Rules**
+
+This release adds a significant number of new rules to `eslint-plugin-react-x`, including rules ported _verbatim_ from `eslint-plugin-react-hooks` with full code-path analysis, as well as re-implemented rules from `eslint-plugin-react-compiler` that offer better performance and, unlike the official plugin, require **no** Babel or React Compiler installation:
+
+- **`react-x/component-hook-factories`**: Validates against higher-order functions defining nested components or hooks. Components and hooks should be defined at the module level.
+- **`react-x/error-boundaries`**: Validates usage of Error Boundaries instead of try/catch for errors in child components.
+- **`react-x/exhaustive-deps`**: Enforces that React hook dependency arrays contain all reactive values used in the callback.
+- **`react-x/immutability`** (Experimental): Validates against mutating props, state, and other immutable values. Detects in-place array mutations (e.g. `push`, `sort`, `splice`) and direct property assignments on state variables.
+- **`react-x/no-implicit-children`** and **`react-x/no-implicit-ref`**: New rules to catch implicit children and ref patterns.
+- **`react-x/no-unused-class-component-members`**: Catches unused class component methods and properties.
+- **`react-x/prefer-set-state-callback`**: Enforces using callback form of `setState` when the new state is computed from the previous state.
+- **`react-x/purity`** (Experimental): Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
+- **`react-x/refs`** (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render.
+- **`react-x/rules-of-hooks`**: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). Ported from `eslint-plugin-react-hooks` with code-path analysis for more accurate hook validation.
+- **`react-x/set-state-in-effect`**: Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance. Unlike the old `no-direct-set-state-in-use-effect`, this rule allows `setState` when the value is derived from a ref (aligning with React's recommended patterns).
+- **`react-x/set-state-in-render`** (Experimental): Validates against unconditionally setting state during render, which can cause infinite render loops.
+- **`react-x/unsupported-syntax`**: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.
+- **`react-x/use-memo`**: Validates that `useMemo` is called with a callback that returns a value and that its return value is not discarded.
+- **`react-x/use-state`**: Enforces correct `useState` usage — destructuring, symmetric naming of value and setter (e.g. `count` / `setCount`), and lazy initialization of expensive initial state.
+
+### Experimental Rules
+
+- **`react-x/unstable-rules-of-props`**: Validates against mixing controlled and uncontrolled prop patterns and detects duplicate props on JSX elements. Supports generic `foo`/`defaultFoo` prop pairs.
+- **`react-x/unstable-rules-of-state`**: Consolidates state-related validations including `prefer-set-state-callback`.
+
+## **New `compilationMode` Setting**
+
+Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode your project uses, allowing rules to understand how components and hooks will be optimized by the compiler. Possible values: `"infer"`, `"annotation"`, `"syntax"`, `"all"`.
+
+## **Developer Experience Improvements**
+
+- **Safer React 19 migration fixes**: The `no-context-provider`, `no-forward-ref`, and `no-use-context` rules no longer auto-fix via `--fix`. Their fixes have been converted to suggestions to prevent automatic code modifications that could break existing code.
+- **Better rule categorization**: Many rules have been recategorized from `problem` to `suggestion` type for clearer intent.
+- **`disable-conflict-eslint-plugin-react-hooks` configuration**: Added to both `@eslint-react/eslint-plugin` and `eslint-plugin-react-x` for easier migration from `eslint-plugin-react-hooks`.
+- **Improved component detection**: Better detection of components created via conditional (ternary) expressions, `satisfies` expressions, and other TypeScript type patterns.
+
+## **Migration Guide**
+
+### Node.js
+
+- Upgrade Node.js to `>=22.0.0` (previously `>=20.19.0`).
+
+### Package Changes
+
+- Remove `eslint-plugin-react-hooks-extra` from your `package.json` — this package is no longer published.
+- If you were importing `eslint-plugin-react-hooks-extra` directly, replace it with `eslint-plugin-react-x`.
+
+### ESLint Configuration
+
+1. Replace `react-hooks-extra/no-direct-set-state-in-use-effect` with `react-x/set-state-in-effect`.
+2. Replace `react-naming-convention/use-state` with `react-x/use-state`.
+3. Remove references to the following deleted rules (use [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax) instead if needed):
+   - `react-x/no-default-props`
+   - `react-x/no-forbidden-props`
+   - `react-x/no-prop-types`
+   - `react-x/no-string-refs`
+4. Remove the following removed/consolidated rules from your config if present:
+   - `react-x/jsx-no-duplicate-props`
+   - `react-x/jsx-no-undef`
+   - `react-x/jsx-uses-react`
+   - `react-x/jsx-uses-vars`
+   - `react-x/no-unnecessary-key`
+   - `react-x/no-unnecessary-use-ref`
+   - `react-x/jsx-no-iife` → use `react-x/unsupported-syntax`
+   - `react-x/no-useless-forward-ref` → use `react-x/no-forward-ref`
+   - `react-x/prefer-read-only-props` → use `react-x/immutability`
+   - `react-x/prefer-use-state-lazy-initialization` → use `react-x/use-state`
+   - `react-naming-convention/filename` and `react-naming-convention/filename-extension`
+   - `react-naming-convention/component-name`
+5. Be aware that `react-x/no-context-provider`, `react-x/no-forward-ref`, and `react-x/no-use-context` no longer auto-fix via `--fix` — apply fixes manually.
+
+### Settings
+
+- If your project uses [React Compiler](https://react.dev/learn/react-compiler), consider adding the `compilationMode` setting under `settings["react-x"]`.
+
+### Review New Rules Enabled in Presets
+
+If you use the `recommended`, `x`, or `all` preset, the following rules are now included automatically:
+
+| Rule                                        | Severity | Presets            |
+| :------------------------------------------ | :------- | :----------------- |
+| `react-x/component-hook-factories`          | `error`  | `recommended`, `x` |
+| `react-x/error-boundaries`                  | `error`  | `recommended`, `x` |
+| `react-x/exhaustive-deps`                   | `warn`   | `recommended`, `x` |
+| `react-x/immutability`                      | `error`  | `all`              |
+| `react-x/no-unused-class-component-members` | `warn`   | `recommended`, `x` |
+| `react-x/purity`                            | `warn`   | `recommended`, `x` |
+| `react-x/refs`                              | `error`  | `all`              |
+| `react-x/rules-of-hooks`                    | `error`  | `recommended`, `x` |
+| `react-x/set-state-in-effect`               | `warn`   | `recommended`, `x` |
+| `react-x/set-state-in-render`               | `error`  | `recommended`, `x` |
+| `react-x/unsupported-syntax`                | `error`  | `recommended`, `x` |
+| `react-x/use-memo`                          | `error`  | `recommended`, `x` |
+| `react-x/use-state`                         | `warn`   | `recommended`, `x` |
+
+### Migrating from `eslint-plugin-react-hooks`
+
+See the [complete migration guide](/docs/migrating-from-eslint-plugin-react-hooks) for step-by-step instructions on replacing `eslint-plugin-react-hooks` with `eslint-plugin-react-x`.
+
+## References
+
+- Changelog: [v3.0.0](/docs/changelog#v300-2026-03-16)
+- Full Changelog: [v2.13.0...v3.0.0](https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0)
