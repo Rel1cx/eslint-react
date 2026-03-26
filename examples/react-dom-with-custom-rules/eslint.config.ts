@@ -15,6 +15,7 @@ import {
   jsxBooleanValue,
   jsxNoBind,
   jsxPropsNoSpreading,
+  maxComponentPerFile,
   noMultiComp,
   noUnescapedEntities,
   noUnnecessaryUsePrefix,
@@ -70,23 +71,23 @@ export default defineConfig(
       eslintPluginReactRefresh.configs.recommended,
       eslintReact.configs["strict-type-checked"],
       eslintReactKit(
-        functionComponentDefinition(),
-        noUnnecessaryUsePrefix(),
+        checkedRequiresOnchangeOrReadonly(),
         componentHookFactories(),
-        noMultiComp(),
-        jsxPropsNoSpreading(),
-        jsxBooleanValue(),
-        jsxNoBind(),
+        forbidComponentProps({
+          forbidden: ["className", "style"],
+        }),
         forbidElements({
           forbidden: new Map([
             ["button", "Use <Button> from '@/components/ui' instead."],
             ["input", "Use <Input> from '@/components/ui' instead."],
           ]),
         }),
-        forbidComponentProps({
-          forbidden: ["className", "style"],
-        }),
-        checkedRequiresOnchangeOrReadonly(),
+        functionComponentDefinition(),
+        jsxBooleanValue(),
+        jsxNoBind(),
+        jsxPropsNoSpreading(),
+        maxComponentPerFile({ max: 1 }),
+        noMultiComp(),
         noUnescapedEntities({
           entities: {
             ">": "&gt;",
@@ -95,6 +96,7 @@ export default defineConfig(
             "}": "&#125;",
           },
         }),
+        noUnnecessaryUsePrefix(),
       ),
     ],
   },
