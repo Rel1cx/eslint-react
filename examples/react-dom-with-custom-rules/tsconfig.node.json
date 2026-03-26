@@ -18,7 +18,8 @@
     "*.ts",
     "*.cts",
     "*.mts",
-    "*.d.ts"
+    "*.d.ts",
+    "rules/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -38,20 +38,20 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- | :----- |
 | [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`button-has-type`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)                                             | [`dom-no-missing-button-type`](/docs/rules/dom-no-missing-button-type)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | ✅           | 🔧     |
-| [`checked-requires-onchange-or-readonly`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/checked-requires-onchange-or-readonly.md) |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`checked-requires-onchange-or-readonly`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/checked-requires-onchange-or-readonly.md) | [`@eslint-react/kit/checked-requires-onchange-or-readonly`](#checked-requires-onchange-or-readonly)  report-only                                                                                                                                                                                                                                                                                                                                                                                                                                               | ✅           | ✅      |
 | [`default-props-match-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/default-props-match-prop-types.md)               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`destructuring-assignment`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md)                           | [`prefer-destructuring-assignment`](/docs/rules/prefer-destructuring-assignment)                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 🔧          | ✅      |
 | [`display-name`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/display-name.md)                                                   | [`no-missing-component-display-name`](/docs/rules/no-missing-component-display-name) + [`no-missing-context-display-name`](/docs/rules/no-missing-context-display-name)                                                                                                                                                                                                                                                                                                                                                                                        | ✅           | 🟡     |
-| [`forbid-component-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-component-props.md)                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`forbid-component-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-component-props.md)                               | [`@eslint-react/kit/forbid-component-props`](#forbid-component-props)  report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | ✅           | ✅      |
 | [`forbid-dom-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-dom-props.md)                                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
-| [`forbid-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md)                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`forbid-elements`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md)                                             | [`@eslint-react/kit/forbid-elements`](#forbid-elements)  report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`forbid-foreign-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md)                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`forbid-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md)                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`forward-ref-uses-ref`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forward-ref-uses-ref.md)                                   | [`no-forward-ref`](/docs/rules/no-forward-ref)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | ✅           | 🔄     |
-| [`function-component-definition`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md)                 | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule, e.g. `@eslint-react/kit/function-component-definition`; report-only by default, autofix depends on your implementation)                                                                                                                                                                                                                                                                                                              | ✅           | 🔧      |
+| [`function-component-definition`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md)                 | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule, e.g. [`@eslint-react/kit/function-component-definition`](#function-component-definition); report-only by default, autofix depends on your implementation)                                                                                                                                                                                                                                                                               | ✅           | 🔧     |
 | [`hook-use-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/hook-use-state.md)                                               | [`use-state`](/docs/rules/use-state)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`iframe-missing-sandbox`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/iframe-missing-sandbox.md)                               | [`dom-no-missing-iframe-sandbox`](/docs/rules/dom-no-missing-iframe-sandbox)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | ✅           | 🔧     |
-| [`jsx-boolean-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | 🔧          | ❌      |
+| [`jsx-boolean-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)                                         | [`@eslint-react/kit/jsx-boolean-value`](#jsx-boolean-value) includes autofix                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 🔧          | 🔧     |
 | [`jsx-child-element-spacing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-child-element-spacing.md)                         | [`@stylistic/jsx-child-element-spacing`](https://eslint.style/rules/jsx-child-element-spacing)                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | ✅           | ➡️     |
 | [`jsx-closing-bracket-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)                   | [`@stylistic/jsx-closing-bracket-location`](https://eslint.style/rules/jsx-closing-bracket-location)                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 🔧          | ➡️     |
 | [`jsx-closing-tag-location`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md)                           | [`@stylistic/jsx-closing-tag-location`](https://eslint.style/rules/jsx-closing-tag-location)                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 🔧          | ➡️     |
@@ -69,7 +69,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`jsx-max-depth`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-depth.md)                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`jsx-max-props-per-line`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-max-props-per-line.md)                               | [`@stylistic/jsx-max-props-per-line`](https://eslint.style/rules/jsx-max-props-per-line)                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 🔧          | ➡️     |
 | [`jsx-newline`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-newline.md)                                                     | [`@stylistic/jsx-newline`](https://eslint.style/rules/jsx-newline)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | 🔧          | ➡️     |
-| [`jsx-no-bind`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`jsx-no-bind`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)                                                     | [`@eslint-react/kit/jsx-no-bind`](#jsx-no-bind); report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | ✅           | ✅      |
 | [`jsx-no-comment-textnodes`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-comment-textnodes.md)                           | [`jsx-no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | ✅           | ✅      |
 | [`jsx-no-constructed-context-values`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md)         | [`no-unstable-context-value`](/docs/rules/no-unstable-context-value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`jsx-no-duplicate-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md)                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
@@ -83,7 +83,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`jsx-pascal-case`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`jsx-props-no-multi-spaces`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-multi-spaces.md)                         | [`@stylistic/jsx-props-no-multi-spaces`](https://eslint.style/rules/jsx-props-no-multi-spaces)                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | 🔧          | ➡️     |
 | [`jsx-props-no-spread-multi`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spread-multi.md)                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
-| [`jsx-props-no-spreading`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md)                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`jsx-props-no-spreading`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-props-no-spreading.md)                               | [`@eslint-react/kit/jsx-props-no-spreading`](#jsx-props-no-spreading); report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | ✅           | ✅      |
 | [`jsx-sort-default-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-default-props.md)                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ⚠️          |        |
 | [`jsx-sort-props`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md)                                               | [`@stylistic/jsx-sort-props`](https://eslint.style/rules/jsx-sort-props)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 🔧          | ➡️     |
 | [`jsx-space-before-closing`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md)                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ⚠️          |        |
@@ -105,7 +105,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`no-find-dom-node`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md)                                           | [`dom-no-find-dom-node`](/docs/rules/dom-no-find-dom-node)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | ✅           | ✅      |
 | [`no-invalid-html-attribute`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-invalid-html-attribute.md)                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`no-is-mounted`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
-| [`no-multi-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md)                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`no-multi-comp`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md)                                                 | [`@eslint-react/kit/no-multi-comp`](#no-multi-comp); report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | ✅           | ✅      |
 | [`no-namespace`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-namespace.md)                                                   | [`jsx-no-namespace`](/docs/rules/jsx-no-namespace)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | ✅           | ✅      |
 | [`no-object-type-as-default-prop`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-object-type-as-default-prop.md)               | [`no-unstable-default-props`](/docs/rules/no-unstable-default-props)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`no-redundant-should-component-update`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-redundant-should-component-update.md)   | [`no-redundant-should-component-update`](/docs/rules/no-redundant-should-component-update)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | ✅           | 🚫     |
@@ -114,7 +114,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`no-string-refs`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`no-this-in-sfc`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`no-typos`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-typos.md)                                                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
-| [`no-unescaped-entities`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md)                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`no-unescaped-entities`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unescaped-entities.md)                                 | [`@eslint-react/kit/no-unescaped-entities`](#no-unescaped-entities); report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | ✅           | ✅      |
 | [`no-unknown-property`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md)                                     | [`dom-no-unknown-property`](/docs/rules/dom-no-unknown-property)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 🔧          | 🔧     |
 | [`no-unsafe`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unsafe.md)                                                         | [`no-unsafe-component-will-mount`](/docs/rules/no-unsafe-component-will-mount) + [`no-unsafe-component-will-receive-props`](/docs/rules/no-unsafe-component-will-receive-props) + [`no-unsafe-component-will-update`](/docs/rules/no-unsafe-component-will-update)                                                                                                                                                                                                                                                                                             | ✅           | 🟡     |
 | [`no-unstable-nested-components`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unstable-nested-components.md)                 | [`no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | ✅           | ✅      |
@@ -187,4 +187,366 @@ export default defineConfig([
     ]
   },
 ]);
+```
+
+## Custom Rules for Unsupported Rules
+
+Some `eslint-plugin-react` rules marked as ❌ in the comparison table don't have built-in equivalents in ESLint React.
+You can use [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) to create minimal custom implementations for these rules directly in your `eslint.config.ts`.
+
+Install `@eslint-react/kit` first:
+
+```package-install copy
+npm install --save-dev @eslint-react/kit@beta
+```
+
+Below are drop-in rule definitions for the most commonly needed rules. Pass them to the `eslintReactKit()` call in your config:
+
+```ts title="eslint.config.ts"
+import eslintReact from "@eslint-react/eslint-plugin";
+import eslintReactKit from "@eslint-react/kit";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintReact.configs["recommended-typescript"],
+      eslintReactKit(
+        checkedRequiresOnchangeOrReadonly(),
+        forbidComponentProps({ forbidden: ["className", "style"] }),
+        forbidElements({
+          forbidden: new Map([
+            ["button", "Use <Button> from '@/components/ui' instead."],
+            ["input", "Use <Input> from '@/components/ui' instead."],
+          ]),
+        }),
+        functionComponentDefinition(),
+        jsxBooleanValue(),
+        jsxNoBind(),
+        jsxPropsNoSpreading(),
+        noMultiComp(),
+        noUnescapedEntities({
+          entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" },
+        }),
+      ),
+    ],
+  },
+]);
+```
+
+### `checked-requires-onchange-or-readonly`
+
+Require `onChange` or `readOnly` when using `checked` on `<input>`.
+
+```ts title="rules/checked-requires-onchange-or-readonly.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
+export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
+  return {
+    name: "checked-requires-onchange-or-readonly",
+    make: (context) => ({
+      JSXOpeningElement(node) {
+        const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
+        if (name !== "input") return;
+        const attrs = node.attributes.filter((a) => a.type === "JSXAttribute");
+        const hasChecked = attrs.some((a) => a.name.name === "checked");
+        if (!hasChecked) return;
+        const hasOnChange = attrs.some((a) => a.name.name === "onChange");
+        const hasReadOnly = attrs.some((a) => a.name.name === "readOnly");
+        if (!hasOnChange && !hasReadOnly) {
+          context.report({
+            node,
+            message: "`checked` requires `onChange` or `readOnly`.",
+          });
+        }
+      },
+    }),
+  };
+}
+```
+
+### `forbid-component-props`
+
+Forbid certain props on React components (not DOM elements). Only reports on PascalCase elements.
+
+```ts title="rules/forbid-component-props.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Options for {@link forbidComponentProps}. */
+export type ForbidComponentPropsOptions = {
+  /** Prop names that are not allowed on React components. */
+  forbidden: string[];
+};
+
+/** Forbid certain props on React components (not DOM elements). */
+export function forbidComponentProps({ forbidden }: ForbidComponentPropsOptions): RuleDefinition {
+  return {
+    name: "forbid-component-props",
+    make: (context) => {
+      return {
+        JSXAttribute(node) {
+          const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
+          if (propName == null || !forbidden.includes(propName)) return;
+          const parent = node.parent;
+          if (parent?.type !== "JSXOpeningElement") return;
+          const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
+          // Only report on components (PascalCase names), not DOM elements
+          if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
+          context.report({
+            node,
+            message: `Prop "${propName}" is forbidden on components.`,
+          });
+        },
+      };
+    },
+  };
+}
+```
+
+### `forbid-elements`
+
+Forbid specific JSX elements. Customize the `forbidden` map with your project's requirements.
+
+```ts title="rules/forbid-elements.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Options for {@link forbidElements}. */
+export type ForbidElementsOptions = {
+  /** A map from element name to the error message reported when that element is used. */
+  forbidden: Map<string, string>;
+};
+
+/** Forbid specific JSX elements. */
+export function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
+  return {
+    name: "forbid-elements",
+    make: (context) => {
+      return {
+        JSXOpeningElement(node) {
+          const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
+          if (name != null && forbidden.has(name)) {
+            context.report({ node, message: forbidden.get(name)! });
+          }
+        },
+      };
+    },
+  };
+}
+```
+
+### `function-component-definition`
+
+Enforce arrow function definitions for function components.
+
+```ts title="rules/function-component-definition.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
+/** Enforce arrow function definitions for function components. */
+export function functionComponentDefinition(): RuleDefinition {
+  return {
+    name: "function-component-definition",
+    make: (context, { collect }) => {
+      const { query, visitor } = collect.components(context);
+      return merge(
+        visitor,
+        {
+          "Program:exit"(program) {
+            for (const { node } of query.all(program)) {
+              if (node.type === "ArrowFunctionExpression") continue;
+              context.report({
+                node,
+                message: "Function components must be defined with arrow functions.",
+                suggest: [
+                  {
+                    desc: "Convert to arrow function.",
+                    fix(fixer) {
+                      const src = context.sourceCode;
+                      if (node.generator) return null;
+                      const prefix = node.async ? "async " : "";
+                      const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                      const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+                      const returnType = node.returnType ? src.getText(node.returnType) : "";
+                      const body = src.getText(node.body);
+
+                      // function Foo(params) { ... } -> const Foo = (params) => { ... };
+                      if (node.type === "FunctionDeclaration" && node.id) {
+                        // dprint-ignore
+                        return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                      }
+
+                      // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
+                      if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
+                        // dprint-ignore
+                        return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
+                      }
+
+                      // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
+                      if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                        // dprint-ignore
+                        return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                      }
+
+                      return null;
+                    },
+                  },
+                ],
+              });
+            }
+          },
+        },
+      );
+    },
+  };
+}
+```
+
+### `jsx-boolean-value`
+
+Enforce shorthand for boolean JSX attributes (e.g. prefer `<C disabled />` over `<C disabled={true} />`).
+
+```ts title="rules/jsx-boolean-value.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Enforce shorthand for boolean JSX attributes. */
+export function jsxBooleanValue(): RuleDefinition {
+  return {
+    name: "jsx-boolean-value",
+    make: (context) => ({
+      JSXAttribute(node) {
+        const { value } = node;
+        if (value?.type !== "JSXExpressionContainer") return;
+        if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+        context.report({
+          node,
+          message: "Omit the value for boolean attributes.",
+          fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+        });
+      },
+    }),
+  };
+}
+```
+
+### `jsx-no-bind`
+
+Prevent arrow functions, function expressions, and `.bind()` in JSX props.
+
+```ts title="rules/jsx-no-bind.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Prevent inline functions and `.bind()` in JSX props. */
+export function jsxNoBind(): RuleDefinition {
+  return {
+    name: "jsx-no-bind",
+    make: (context) => ({
+      JSXAttribute(node) {
+        const value = node.value;
+        if (value?.type !== "JSXExpressionContainer") return;
+        switch (true) {
+          case value.expression.type === "ArrowFunctionExpression":
+          case value.expression.type === "FunctionExpression":
+            context.report({ node, message: "JSX props should not use inline functions." });
+            break;
+          case value.expression.type === "CallExpression"
+            && value.expression.callee.type === "MemberExpression"
+            && value.expression.callee.property.type === "Identifier"
+            && value.expression.callee.property.name === "bind":
+            context.report({ node, message: "JSX props should not use .bind()." });
+            break;
+        }
+      },
+    }),
+  };
+}
+```
+
+### `jsx-props-no-spreading`
+
+Disallow JSX props spreading.
+
+```ts title="rules/jsx-props-no-spreading.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Disallow JSX props spreading. */
+export function jsxPropsNoSpreading(): RuleDefinition {
+  return {
+    name: "jsx-props-no-spreading",
+    make: (context) => ({
+      JSXSpreadAttribute(node) {
+        context.report({
+          node,
+          message: "Props spreading is not allowed.",
+        });
+      },
+    }),
+  };
+}
+```
+
+### `no-multi-comp`
+
+Prevent defining more than one component per file.
+
+```ts title="rules/no-multi-comp.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
+/** Prevent defining more than one component per file. */
+export function noMultiComp(): RuleDefinition {
+  return {
+    name: "no-multi-comp",
+    make: (context, { collect }) => {
+      const { query, visitor } = collect.components(context);
+      return merge(visitor, {
+        "Program:exit"(program) {
+          const components = query.all(program);
+          for (const { node, name } of components.slice(1)) {
+            context.report({
+              node,
+              message: `Declare only one component per file. Found extra component "${name ?? "anonymous"}".`,
+            });
+          }
+        },
+      });
+    },
+  };
+}
+```
+
+### `no-unescaped-entities`
+
+Disallow unescaped `>`, `"`, `'`, and `}` in JSX text.
+
+```ts title="rules/no-unescaped-entities.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Options for {@link noUnescapedEntities}. */
+export type NoUnescapedEntitiesOptions = {
+  /** A map from unescaped character to its HTML entity replacement (e.g. `{ ">": "&gt;" }`). */
+  entities: Record<string, string>;
+};
+
+/** Disallow unescaped HTML entities in JSX text. */
+export function noUnescapedEntities({ entities }: NoUnescapedEntitiesOptions): RuleDefinition {
+  const chars = Object.keys(entities).map((c) => c.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")).join("");
+  const pattern = new RegExp(`[${chars}]`, "g");
+  return {
+    name: "no-unescaped-entities",
+    make: (context) => ({
+      JSXText(node) {
+        let match;
+        pattern.lastIndex = 0;
+        while ((match = pattern.exec(node.raw)) != null) {
+          context.report({
+            node,
+            message: `Unescaped entity "${match[0]}". Use "${entities[match[0]]}" instead.`,
+          });
+        }
+      },
+    }),
+  };
+}
 ```

@@ -1,37 +1,32 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type {
-  ESLintReactSettingsNormalized,
-  RuleContext,
-  RuleFix,
-  RuleFixer,
-  RuleListener,
-} from "@eslint-react/shared";
+import type { ESLintReactSettingsNormalized, RuleFix, RuleFixer, RuleListener } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
+import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { Linter, Rule } from "eslint";
+export { defineRuleListener as merge } from "@eslint-react/shared";
 
 import pkg from "../package.json";
 
-export { defineRuleListener as merge } from "@eslint-react/shared";
-export type { RuleContext, RuleFix, RuleFixer, RuleListener };
+export type { RuleFix, RuleFixer, RuleListener };
 
 // #region Interfaces
 
-interface Collector<T> {
+export interface Collector<T> {
   query: {
     all(program: TSESTree.Program): T[];
   };
   visitor: RuleListener;
 }
 
-interface CollectorWithContext<T> extends Collector<T> {
+export interface CollectorWithContext<T> extends Collector<T> {
   query: {
     all(program: TSESTree.Program): T[];
   };
 }
 
-interface RuleDefinition {
+export interface RuleDefinition {
   name: string;
   make(ctx: RuleContext, kit: RuleToolkit): RuleListener;
 }
@@ -273,7 +268,10 @@ export default defineConfig;
 // #region Module Augmentation
 
 declare module "@typescript-eslint/utils/ts-eslint" {
-  export interface RuleContext<MessageIds extends string, Options extends readonly unknown[]> {
+  export interface RuleContext<
+    MessageIds extends string = string,
+    Options extends readonly unknown[] = readonly unknown[],
+  > {
     report(
       descriptor: {
         readonly data?: Readonly<Record<string, unknown>>;

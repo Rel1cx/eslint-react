@@ -1,3 +1,6 @@
+/* eslint-disable @eslint-react/kit/forbid-elements */
+/* eslint-disable @eslint-react/kit/jsx-no-bind */
+/* eslint-disable @eslint-react/kit/no-multi-comp */
 import "./App.css";
 
 import { useState } from "react";

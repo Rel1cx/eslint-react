@@ -4,6 +4,9 @@
 
 | Interface | Description |
 | ------ | ------ |
+| [Collector](interfaces/Collector.md) | - |
+| [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
+| [RuleDefinition](interfaces/RuleDefinition.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
 
@@ -11,7 +14,6 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [RuleContext](type-aliases/RuleContext.md) | Rule context. |
 | [RuleListener](type-aliases/RuleListener.md) | - |
 
 ## Functions
