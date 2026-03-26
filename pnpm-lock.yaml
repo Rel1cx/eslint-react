@@ -100,6 +100,9 @@ importers:
       eslint-plugin-fast-import:
         specifier: ^2.1.0
         version: 2.1.0(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
+      eslint-plugin-fsecond:
+        specifier: ^1.5.0
+        version: 1.5.0(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -4561,6 +4564,13 @@ packages:
     resolution: {integrity: sha512-S/xaRSXcyr9+puGo9+V5F7rJRBwQsj72sji/EGyU/RFcybsUaIQX1kmkTPR94iS8+HB0bnqBj2LfNx3mewRXAA==}
     peerDependencies:
       eslint: '>=9.0.0'
+
+  eslint-plugin-fsecond@1.5.0:
+    resolution: {integrity: sha512-GeWeUmOmHqMXCn/09NFchVuQIubP2YgPzf1jZObetbu8IU+a+zXKMq0ujP/QITxj8+LTnDOfXcX6+pyuwabg7g==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      eslint: '>=9.0.0'
+      typescript: 5.9.3
 
   eslint-plugin-function-rule@0.10.2:
     resolution: {integrity: sha512-FbdSoSeDGGz/7UsNjAMZ2qI53eRuvE5ybB7UVmqa5KKWCepXmPnDylxBEEnL/kAXz82YBB9bDR7Ib5Xv1d5CEA==}
@@ -9872,6 +9882,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
       - typescript
+
+  eslint-plugin-fsecond@1.5.0(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3):
+    dependencies:
+      '@typescript-eslint/parser': 8.57.2(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.57.2(eslint@10.1.0(jiti@2.6.1))(typescript@5.9.3)
+      eslint: 10.1.0(jiti@2.6.1)
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - supports-color
 
   eslint-plugin-function-rule@0.10.2(eslint@10.1.0(jiti@2.6.1)):
     dependencies:
