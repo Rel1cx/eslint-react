@@ -1,0 +1,21 @@
+[@eslint-react/kit](../README.md) / CollectorWithContext
+
+# Interface: CollectorWithContext\<T\>
+
+## Extends
+
+- [`Collector`](Collector.md)\<`T`\>
+
+## Type Parameters
+
+| Type Parameter |
+| ------ |
+| `T` |
+
+## Properties
+
+| Property | Type | Overrides | Inherited from |
+| ------ | ------ | ------ | ------ |
+| <a id="property-query"></a> `query` | \{ `all`: `T`[]; \} | [`Collector`](Collector.md).[`query`](Collector.md#property-query) | - |
+| `query.all` | `T`[] | - | - |
+| <a id="property-visitor"></a> `visitor` | [`RuleListener`](../type-aliases/RuleListener.md) | - | [`Collector`](Collector.md).[`visitor`](Collector.md#property-visitor) |

@@ -10,7 +10,7 @@ function defineConfig(...rules: RuleDefinition[]): Config;
 
 | Parameter | Type |
 | ------ | ------ |
-| ...`rules` | `RuleDefinition`[] |
+| ...`rules` | [`RuleDefinition`](../interfaces/RuleDefinition.md)[] |
 
 ## Returns
 
