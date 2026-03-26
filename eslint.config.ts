@@ -8,6 +8,7 @@ import {
   strictTypeChecked,
 } from "@local/configs/eslint";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
+import fsecond from "eslint-plugin-fsecond";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
@@ -45,10 +46,15 @@ export default defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    plugins: {
+      // @ts-expect-error - type issue
+      fsecond: fsecond,
+    },
     rules: {
       "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
-      "fast-import/no-unused-exports": "off",
       "fast-import/no-unresolved-imports": "off",
+      "fast-import/no-unused-exports": "off",
+      "fsecond/prefer-destructured-optionals": "warn",
     },
   },
   // Relaxed config for scripts and config files (no type checking)
