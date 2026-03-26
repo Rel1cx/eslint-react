@@ -294,7 +294,7 @@ defineReactConfig({
 
 ### Simple: Ban `forwardRef`
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://eslint-react.xyz/docs/rules/no-forwardRef) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
 
 ```ts
 defineReactConfig({
@@ -311,7 +311,7 @@ defineReactConfig({
 
 ### Component: Destructure component props
 
-This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
 defineReactConfig({
@@ -345,7 +345,7 @@ defineReactConfig({
 
 ### Hooks: Warn on custom hooks that don't call other hooks
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
 defineReactConfig({
@@ -372,7 +372,7 @@ defineReactConfig({
 ### Multiple Collectors: No component/hook factories
 
 Disallow defining components or hooks inside other functions (factory pattern).
-This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
 defineReactConfig({
@@ -415,4 +415,4 @@ function isFunction({ type }: TSESTree.Node) {
 
 ## More Examples
 
-Please check the [Rule Recipes](https://eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.
+Please check the [Rule Recipes](https://beta.eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.
