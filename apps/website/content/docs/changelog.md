@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v4.0.1-beta.1 (2026-03-28)
+
+### 🪄 Improvements
+
+- `refactor(kit)`: Improve `Builder` and `RuleDefinition` implementation for better type inference and code organization, closes #1649.
+- `docs(website)`: Improve `configure-project-rules` documentation with clearer examples and explanations.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.1-beta.0...v4.0.1-beta.1
+
 ## v4.0.1-beta.0 (2026-03-27)
 
 ### 💥 Breaking Changes
