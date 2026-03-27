@@ -9,7 +9,7 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
 - [API Reference](#api-reference)
   - [`eslintReactKit` (default export)](#eslintreactkit-default-export)
   - [`RuleDefinition`](#ruledefinition)
-  - [`KitBuilder`](#kitbuilder)
+  - [`Builder`](#builder)
   - [`merge`](#merge)
   - [`Kit` — the toolkit object](#kit--the-toolkit-object)
     - [`kit.collect`](#kitcollect) — Semantic collectors
@@ -85,10 +85,10 @@ The rule name is derived automatically from the function name (`functionComponen
 ```ts
 import eslintReactKit from "@eslint-react/kit";
 
-eslintReactKit(): KitBuilder
+eslintReactKit(): Builder
 ```
 
-Creates a `KitBuilder` instance for registering custom rules via the chainable `.use()` API.
+Creates a `Builder` instance for registering custom rules via the chainable `.use()` API.
 
 ### `RuleDefinition`
 
@@ -115,11 +115,11 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
 }
 ```
 
-### `KitBuilder`
+### `Builder`
 
 ```ts
-interface KitBuilder {
-  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): KitBuilder;
+interface Builder {
+  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
   getConfig(): Linter.Config;
 }
 ```
@@ -317,6 +317,8 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 **Usage:**
 
 ```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+
 function requireReact19(): RuleDefinition {
   return (context, { settings }) => ({
     Program(program) {
@@ -340,6 +342,8 @@ function requireReact19(): RuleDefinition {
 This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
 
 ```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+
 function noForwardRef(): RuleDefinition {
   return (context, { is }) => ({
     CallExpression(node) {
@@ -361,6 +365,9 @@ eslintReactKit()
 This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
 function destructureComponentProps(): RuleDefinition {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
@@ -370,13 +377,13 @@ function destructureComponentProps(): RuleDefinition {
         for (const { node } of query.all(program)) {
           const [props] = node.params;
           if (props == null) continue;
-          if (props.type !== AST.Identifier) continue;
+          if (props.type !== "Identifier") continue;
           const propName = props.name;
           const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
           for (const ref of propReferences) {
             const { parent } = ref.identifier;
-            if (parent.type !== AST.MemberExpression) continue;
+            if (parent.type !== "MemberExpression") continue;
             context.report({
               message: "Use destructuring assignment for component props.",
               node: parent,
@@ -399,6 +406,9 @@ eslintReactKit()
 This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
 function noUnnecessaryUsePrefix(): RuleDefinition {
   return (context, { collect }) => {
     const { query, visitor } = collect.hooks(context);
@@ -430,6 +440,10 @@ Disallow defining components or hooks inside other functions (factory pattern).
 This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/utils";
+
 function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
   if (parent == null) return null;
   if (test(parent)) return parent;

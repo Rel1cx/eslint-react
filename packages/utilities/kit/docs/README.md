@@ -4,9 +4,9 @@
 
 | Interface | Description |
 | ------ | ------ |
+| [Builder](interfaces/Builder.md) | - |
 | [Collector](interfaces/Collector.md) | - |
 | [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
-| [KitBuilder](interfaces/KitBuilder.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
 

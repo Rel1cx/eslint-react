@@ -3,15 +3,15 @@
 # Type Alias: RuleDefinition
 
 ```ts
-type RuleDefinition = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `ctx` | `RuleContext` |
-| `kit` | `RuleToolkit` |
+| `context` | `RuleContext` |
+| `toolkit` | `RuleToolkit` |
 
 ## Returns
 
