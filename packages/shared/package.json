@@ -47,7 +47,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.5.0",
     "@types/picomatch": "^4.0.2",
-    "tsdown": "^0.21.5"
+    "tsdown": "^0.21.6"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",
