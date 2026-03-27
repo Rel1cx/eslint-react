@@ -66,38 +66,34 @@ export default defineConfig(
   // react specific configurations
   {
     files: TSCONFIG_APP.include,
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
     extends: [
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
       eslintPluginReactRefresh.configs.recommended,
       eslintReact.configs["strict-type-checked"],
-      eslintReactKit(
-        checkedRequiresOnchangeOrReadonly(),
-        componentHookFactories(),
-        forbidComponentProps({
-          forbidden: ["className", "style"],
-        }),
-        forbidElements({
-          forbidden: new Map([
-            ["button", "Use <Button> from '@/components/ui' instead."],
-            ["input", "Use <Input> from '@/components/ui' instead."],
-          ]),
-        }),
-        functionComponentDefinition(),
-        jsxBooleanValue(),
-        jsxNoBind(),
-        jsxPropsNoSpreading(),
-        maxComponentPerFile({ max: 1 }),
-        noMultiComp(),
-        noUnescapedEntities({
-          entities: {
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&apos;",
-            "}": "&#125;",
-          },
-        }),
-        noUnnecessaryUsePrefix(),
-      ),
+      eslintReactKit()
+        .use(checkedRequiresOnchangeOrReadonly)
+        .use(componentHookFactories)
+        .use(forbidComponentProps, { forbidden: ["className", "style"] })
+        .use(forbidElements, {
+          forbidden: new Map([["button", "Use <Button> from '@/components/ui' instead."], [
+            "input",
+            "Use <Input> from '@/components/ui' instead.",
+          ]]),
+        })
+        .use(functionComponentDefinition)
+        .use(jsxBooleanValue)
+        .use(jsxNoBind)
+        .use(jsxPropsNoSpreading)
+        .use(maxComponentPerFile, { max: 100 })
+        .use(noMultiComp)
+        .use(noUnescapedEntities, { entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" } })
+        .use(noUnnecessaryUsePrefix)
+        .getConfig({ files: TSCONFIG_APP.include }),
     ],
   },
 );

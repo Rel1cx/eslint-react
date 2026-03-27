@@ -6,7 +6,7 @@
 | ------ | ------ |
 | [Collector](interfaces/Collector.md) | - |
 | [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
-| [RuleDefinition](interfaces/RuleDefinition.md) | - |
+| [KitBuilder](interfaces/KitBuilder.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
 
@@ -14,17 +14,12 @@
 
 | Type Alias | Description |
 | ------ | ------ |
+| [RuleDefinition](type-aliases/RuleDefinition.md) | - |
 | [RuleListener](type-aliases/RuleListener.md) | - |
 
 ## Functions
 
 | Function | Description |
 | ------ | ------ |
-| [defineConfig](functions/defineConfig.md) | - |
+| [default](functions/default.md) | - |
 | [merge](functions/merge.md) | Defines a rule listener by merging multiple visitor objects |
-
-## References
-
-### default
-
-Renames and re-exports [defineConfig](functions/defineConfig.md)

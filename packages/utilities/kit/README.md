@@ -7,7 +7,9 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [API Reference](#api-reference)
-  - [`defineConfig` (default export)](#defineconfig-default-export)
+  - [`eslintReactKit` (default export)](#eslintreactkit-default-export)
+  - [`RuleDefinition`](#ruledefinition)
+  - [`KitBuilder`](#kitbuilder)
   - [`merge`](#merge)
   - [`Kit` — the toolkit object](#kit--the-toolkit-object)
     - [`kit.collect`](#kitcollect) — Semantic collectors
@@ -33,9 +35,31 @@ npm install --save-dev @eslint-react/kit@beta
 ```ts
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
+import type { RuleDefinition } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
+
+/** Enforce function declarations for function components. */
+function functionComponentDefinition(): RuleDefinition {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(
+      visitor,
+      {
+        "Program:exit"(program) {
+          for (const { node } of query.all(program)) {
+            if (node.type === "FunctionDeclaration") continue;
+            context.report({
+              node,
+              message: "Function components must be defined with function declarations.",
+            });
+          }
+        },
+      },
+    );
+  };
+}
 
 export default defineConfig(
   {
@@ -44,55 +68,75 @@ export default defineConfig(
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
       eslintReact.configs["recommended-typescript"],
-      eslintReactKit(
-        {
-          name: "function-component-definition",
-          make: (context, { collect }) => {
-            const { query, visitor } = collect.components(context);
-
-            return merge(
-              visitor,
-              {
-                "Program:exit"(program) {
-                  for (const { node } of query.all(program)) {
-                    if (node.type === "FunctionDeclaration") continue;
-                    context.report({
-                      node,
-                      message: "Function components must be defined with function declarations.",
-                    });
-                  }
-                },
-              },
-            );
-          },
-        },
-      ),
+      eslintReactKit()
+        .use(functionComponentDefinition)
+        .getConfig(),
     ],
-    rules: {
-      "@eslint-react/kit/function-component-definition": "error",
-    },
   },
 );
 ```
 
+The rule name is derived automatically from the function name (`functionComponentDefinition` → `function-component-definition`), and registered as `@eslint-react/kit/function-component-definition` at `"error"` severity.
+
 ## API Reference
 
-### `defineConfig` (default export)
+### `eslintReactKit` (default export)
 
 ```ts
-import defineReactConfig from "@eslint-react/kit";
+import eslintReactKit from "@eslint-react/kit";
 
-defineReactConfig(...rules: RuleDefinition[]): Linter.Config
+eslintReactKit(): KitBuilder
 ```
 
-Creates an ESLint flat-config object from one or more custom rule definitions. Rules are registered under the `@eslint-react/kit` plugin namespace and enabled at `"error"` severity by default.
+Creates a `KitBuilder` instance for registering custom rules via the chainable `.use()` API.
 
-**`RuleDefinition`:**
+### `RuleDefinition`
 
-| Field  | Type                             | Description                                                                      |
-| ------ | -------------------------------- | -------------------------------------------------------------------------------- |
-| `name` | `string`                         | Unique rule name. Used as `@eslint-react/kit/<name>` in config.                  |
-| `make` | `(context, kit) => RuleListener` | Rule factory. Receives the ESLint rule context and the structured `Kit` toolkit. |
+```ts
+import type { RuleDefinition } from "@eslint-react/kit";
+
+type RuleDefinition = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+```
+
+A rule definition is a function that receives the ESLint rule context and the structured `Kit` toolkit, and returns a `RuleListener` (AST visitor object).
+
+Rules are defined as **named functions** that return a `RuleDefinition`. The function name is automatically converted to kebab-case and used as the rule name under the `@eslint-react/kit` plugin namespace.
+
+```ts
+// Function name `noForwardRef` → rule name `no-forward-ref`
+// Registered as `@eslint-react/kit/no-forward-ref`
+function noForwardRef(): RuleDefinition {
+  return (context, { is }) => ({ ... });
+}
+
+// Functions that accept options work the same way
+function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
+  return (context) => ({ ... });
+}
+```
+
+### `KitBuilder`
+
+```ts
+interface KitBuilder {
+  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): KitBuilder;
+  getConfig(): Linter.Config;
+}
+```
+
+A chainable builder for registering custom rules.
+
+| Method      | Description                                                                                                                |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `use`       | Registers a rule factory. The rule name is `kebabCase(factory.name)`. Options type is inferred from the factory signature. |
+| `getConfig` | Returns a `Linter.Config` with all registered rules enabled at `"error"` severity.                                         |
+
+```ts
+eslintReactKit()
+  .use(noForwardRef) // no-arg factory
+  .use(forbidElements, { forbidden: new Map() }) // factory with inferred options
+  .getConfig();
+```
 
 ### `merge`
 
@@ -108,7 +152,7 @@ This is essential for combining a collector's `visitor` with your own inspection
 
 ### Kit — the toolkit object
 
-The second argument to `make` is a structured `Kit` object:
+The second argument passed to the `RuleDefinition` function is a structured `Kit` object:
 
 ```
 kit
@@ -273,9 +317,8 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 **Usage:**
 
 ```ts
-defineReactConfig({
-  name: "require-react-19",
-  make: (context, { settings }) => ({
+function requireReact19(): RuleDefinition {
+  return (context, { settings }) => ({
     Program(program) {
       if (!settings.version.startsWith("19.")) {
         context.report({
@@ -284,8 +327,8 @@ defineReactConfig({
         });
       }
     },
-  }),
-});
+  });
+}
 ```
 
 ---
@@ -297,16 +340,20 @@ defineReactConfig({
 This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
 
 ```ts
-defineReactConfig({
-  name: "no-forward-ref",
-  make: (context, { is }) => ({
+function noForwardRef(): RuleDefinition {
+  return (context, { is }) => ({
     CallExpression(node) {
       if (is.forwardRefCall(node)) {
         context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
       }
     },
-  }),
-});
+  });
+}
+
+// Usage
+eslintReactKit()
+  .use(noForwardRef)
+  .getConfig();
 ```
 
 ### Component: Destructure component props
@@ -314,9 +361,8 @@ defineReactConfig({
 This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
-defineReactConfig({
-  name: "destructure-component-props",
-  make: (context, { collect }) => {
+function destructureComponentProps(): RuleDefinition {
+  return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
 
     return merge(visitor, {
@@ -339,8 +385,13 @@ defineReactConfig({
         }
       },
     });
-  },
-});
+  };
+}
+
+// Usage
+eslintReactKit()
+  .use(destructureComponentProps)
+  .getConfig();
 ```
 
 ### Hooks: Warn on custom hooks that don't call other hooks
@@ -348,9 +399,8 @@ defineReactConfig({
 This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
-defineReactConfig({
-  name: "no-unnecessary-use-prefix",
-  make: (context, { collect }) => {
+function noUnnecessaryUsePrefix(): RuleDefinition {
+  return (context, { collect }) => {
     const { query, visitor } = collect.hooks(context);
 
     return merge(visitor, {
@@ -365,8 +415,13 @@ defineReactConfig({
         }
       },
     });
-  },
-});
+  };
+}
+
+// Usage
+eslintReactKit()
+  .use(noUnnecessaryUsePrefix)
+  .getConfig();
 ```
 
 ### Multiple Collectors: No component/hook factories
@@ -375,9 +430,19 @@ Disallow defining components or hooks inside other functions (factory pattern).
 This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
-defineReactConfig({
-  name: "component-hook-factories",
-  make: (context, { collect }) => {
+function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+  if (parent == null) return null;
+  if (test(parent)) return parent;
+  if (parent.type === "Program") return null;
+  return findParent(parent, test);
+}
+
+function isFunction({ type }: TSESTree.Node) {
+  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+}
+
+function componentHookFactories(): RuleDefinition {
+  return (context, { collect }) => {
     const fc = collect.components(context);
     const hk = collect.hooks(context);
     return merge(
@@ -398,19 +463,13 @@ defineReactConfig({
         },
       },
     );
-  },
-});
-
-function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
-  if (parent == null) return null;
-  if (test(parent)) return parent;
-  if (parent.type === "Program") return null;
-  return findParent(parent, test);
+  };
 }
 
-function isFunction({ type }: TSESTree.Node) {
-  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
-}
+// Usage
+eslintReactKit()
+  .use(componentHookFactories)
+  .getConfig();
 ```
 
 ## More Examples

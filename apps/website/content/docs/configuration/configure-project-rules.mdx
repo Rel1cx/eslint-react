@@ -22,8 +22,30 @@ Define custom rules directly in your `eslint.config.ts`:
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
+import type { RuleDefinition } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
+
+/** Enforce function declarations for function components. */
+function functionComponentDefinition(): RuleDefinition {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(
+      visitor,
+      {
+        "Program:exit"(program) {
+          for (const { node } of query.all(program)) {
+            if (node.type === "FunctionDeclaration") continue;
+            context.report({
+              node,
+              message: "Function components must be defined with function declarations.",
+            });
+          }
+        },
+      },
+    );
+  };
+}
 
 export default defineConfig(
   {
@@ -32,35 +54,15 @@ export default defineConfig(
       eslintJs.configs.recommended,
       tseslint.configs.recommended,
       eslintReact.configs["recommended-typescript"],
-      eslintReactKit(
-        {
-          name: "function-component-definition",
-          make: (context, { collect }) => {
-            const { query, visitor } = collect.components(ctx);
-            return merge(
-              visitor,
-              {
-                "Program:exit"(program) {
-                  for (const { node } of query.all(program)) {
-                    if (node.type === "FunctionDeclaration") continue;
-                    context.report({
-                      node,
-                      message: "Function components must be defined with function declarations.",
-                    });
-                  }
-                },
-              },
-            );
-          },
-        },
-      ),
+      eslintReactKit()
+        .use(functionComponentDefinition)
+        .getConfig(),
     ],
-    rules: {
-      "@eslint-react/kit/function-component-definition": "error"
-    }
   },
 );
 ```
+
+The rule name is derived automatically from the function name (`functionComponentDefinition` → `function-component-definition`), and registered as `@eslint-react/kit/function-component-definition` at `"error"` severity.
 
 ## Resources
 

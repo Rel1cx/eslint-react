@@ -46,7 +46,8 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/utils": "^8.57.2"
+    "@typescript-eslint/utils": "^8.57.2",
+    "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
