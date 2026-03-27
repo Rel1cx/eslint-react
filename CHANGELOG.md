@@ -1,3 +1,18 @@
+## v4.0.0-beta.3 (2026-03-27)
+
+### ✨ New
+
+- `@eslint-react/kit`: Re-export types from `@eslint-react/shared` for better TypeScript intellisense.
+
+### 🪄 Improvements
+
+- `examples/react-dom-with-custom-rules`: Add `max-component-per-file` custom rule example, closes #1437.
+- `examples/react-dom-with-custom-rules`: Modularize custom rules configuration for better maintainability.
+- `website`: Migrate to new Fumadocs structure and add LLM routes (`/llms.txt`, `/llms-full.txt`, `/llms.mdx`), closes #1588.
+- `docs`: Add index sections to migration guides for better navigation.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.0-beta.2...v4.0.0-beta.3
+
 ## v4.0.0-beta.2 (2026-03-25)
 
 ### ✨ New

@@ -47,7 +47,6 @@
 // region Directives
 
 /* eslint-disable jsdoc/check-param-names */
-/* eslint-disable fsecond/prefer-destructured-optionals */
 /* tsl-ignore dx/nullish */
 
 // #endregion
