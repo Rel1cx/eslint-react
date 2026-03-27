@@ -3,9 +3,9 @@
 # Function: default()
 
 ```ts
-function default(): KitBuilder;
+function default(): Builder;
 ```
 
 ## Returns
 
-[`KitBuilder`](../interfaces/KitBuilder.md)
+[`Builder`](../interfaces/Builder.md)

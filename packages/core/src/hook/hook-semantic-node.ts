@@ -15,6 +15,8 @@ export interface HookSemanticNode extends SemanticNode {
   node: ast.TSESTreeFunction;
   /** The name of the hook */
   name: string;
+  /** The kind of hook */
+  kind: "hook";
   /** The other hooks called by the hook */
   hookCalls: TSESTree.CallExpression[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */

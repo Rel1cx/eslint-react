@@ -27,23 +27,23 @@ export interface CollectorWithContext<T> extends Collector<T> {
   };
 }
 
-export type RuleDefinition = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+export type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 
-export interface KitBuilder {
+export interface Builder {
   getConfig(args?: { files?: string[] }): Linter.Config;
-  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): KitBuilder;
+  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
 }
 
 interface RuleToolkit {
   collect: {
     components(
-      ctx: RuleContext,
+      context: RuleContext,
       options?: {
         collectDisplayName?: boolean;
         hint?: bigint;
       },
     ): CollectorWithContext<core.FunctionComponentSemanticNode>;
-    hooks(ctx: RuleContext): CollectorWithContext<core.HookSemanticNode>;
+    hooks(context: RuleContext): CollectorWithContext<core.HookSemanticNode>;
   };
 
   flag: {
@@ -124,13 +124,13 @@ interface RuleToolkit {
 
 // #endregion
 
-// #region createKit
+// #region makeRuleToolkit
 
-function createKit(ctx: RuleContext): RuleToolkit {
+function makeRuleToolkit(context: RuleContext): RuleToolkit {
   return {
     collect: {
-      components(ctx, options?) {
-        const { api, visitor } = core.getComponentCollector(ctx, options);
+      components(context, options?) {
+        const { api, visitor } = core.getComponentCollector(context, options);
         return {
           query: {
             all(program) {
@@ -140,8 +140,8 @@ function createKit(ctx: RuleContext): RuleToolkit {
           visitor,
         };
       },
-      hooks(ctx) {
-        const { api, visitor } = core.getHookCollector(ctx);
+      hooks(context) {
+        const { api, visitor } = core.getHookCollector(context);
         return {
           query: {
             all(program) {
@@ -165,45 +165,45 @@ function createKit(ctx: RuleContext): RuleToolkit {
     },
 
     is: {
-      captureOwnerStack: core.isCaptureOwnerStack(ctx),
-      captureOwnerStackCall: core.isCaptureOwnerStackCall(ctx),
-      childrenCount: core.isChildrenCount(ctx),
-      childrenCountCall: core.isChildrenCountCall(ctx),
-      childrenForEach: core.isChildrenForEach(ctx),
-      childrenForEachCall: core.isChildrenForEachCall(ctx),
-      childrenMap: core.isChildrenMap(ctx),
-      childrenMapCall: core.isChildrenMapCall(ctx),
-      childrenOnly: core.isChildrenOnly(ctx),
-      childrenOnlyCall: core.isChildrenOnlyCall(ctx),
-      childrenToArray: core.isChildrenToArray(ctx),
-      childrenToArrayCall: core.isChildrenToArrayCall(ctx),
-      cloneElement: core.isCloneElement(ctx),
-      cloneElementCall: core.isCloneElementCall(ctx),
-      componentDefinition: (node, hint) => core.isComponentDefinition(ctx, node, hint),
+      captureOwnerStack: core.isCaptureOwnerStack(context),
+      captureOwnerStackCall: core.isCaptureOwnerStackCall(context),
+      childrenCount: core.isChildrenCount(context),
+      childrenCountCall: core.isChildrenCountCall(context),
+      childrenForEach: core.isChildrenForEach(context),
+      childrenForEachCall: core.isChildrenForEachCall(context),
+      childrenMap: core.isChildrenMap(context),
+      childrenMapCall: core.isChildrenMapCall(context),
+      childrenOnly: core.isChildrenOnly(context),
+      childrenOnlyCall: core.isChildrenOnlyCall(context),
+      childrenToArray: core.isChildrenToArray(context),
+      childrenToArrayCall: core.isChildrenToArrayCall(context),
+      cloneElement: core.isCloneElement(context),
+      cloneElementCall: core.isCloneElementCall(context),
+      componentDefinition: (node, hint) => core.isComponentDefinition(context, node, hint),
       componentName: core.isComponentName,
       componentNameLoose: core.isComponentNameLoose,
-      componentWrapperCall: (node) => core.isComponentWrapperCall(ctx, node),
-      componentWrapperCallback: (node) => core.isComponentWrapperCallback(ctx, node),
-      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(ctx, node),
-      createContext: core.isCreateContext(ctx),
-      createContextCall: core.isCreateContextCall(ctx),
-      createElement: core.isCreateElement(ctx),
-      createElementCall: core.isCreateElementCall(ctx),
-      createRef: core.isCreateRef(ctx),
-      createRefCall: core.isCreateRefCall(ctx),
-      forwardRef: core.isForwardRef(ctx),
-      forwardRefCall: core.isForwardRefCall(ctx),
+      componentWrapperCall: (node) => core.isComponentWrapperCall(context, node),
+      componentWrapperCallback: (node) => core.isComponentWrapperCallback(context, node),
+      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(context, node),
+      createContext: core.isCreateContext(context),
+      createContextCall: core.isCreateContextCall(context),
+      createElement: core.isCreateElement(context),
+      createElementCall: core.isCreateElementCall(context),
+      createRef: core.isCreateRef(context),
+      createRefCall: core.isCreateRefCall(context),
+      forwardRef: core.isForwardRef(context),
+      forwardRefCall: core.isForwardRefCall(context),
       hook: core.isHook,
       hookCall: core.isHookCall,
       hookName: core.isHookName,
       initializedFromReact: core.isInitializedFromReact,
       initializedFromReactNative: core.isInitializedFromReactNative,
-      lazy: core.isLazy(ctx),
-      lazyCall: core.isLazyCall(ctx),
-      memo: core.isMemo(ctx),
-      memoCall: core.isMemoCall(ctx),
-      reactAPI: (api) => core.isReactAPI(api)(ctx),
-      reactAPICall: (api) => core.isReactAPICall(api)(ctx),
+      lazy: core.isLazy(context),
+      lazyCall: core.isLazyCall(context),
+      memo: core.isMemo(context),
+      memoCall: core.isMemoCall(context),
+      reactAPI: (api) => core.isReactAPI(api)(context),
+      reactAPICall: (api) => core.isReactAPICall(api)(context),
       useActionStateCall: core.isUseActionStateCall,
       useCall: core.isUseCall,
       useCallbackCall: core.isUseCallbackCall,
@@ -229,7 +229,7 @@ function createKit(ctx: RuleContext): RuleToolkit {
       useTransitionCall: core.isUseTransitionCall,
     },
 
-    settings: getSettingsFromContext(ctx),
+    settings: getSettingsFromContext(context),
   };
 }
 
@@ -237,10 +237,10 @@ function createKit(ctx: RuleContext): RuleToolkit {
 
 // #region KitBuilder
 
-export default function eslintReactKit(): KitBuilder {
+export default function eslintReactKit(): Builder {
   const idGen = new IdGenerator();
   const rules: { name: string; make: RuleDefinition }[] = [];
-  const builder: KitBuilder = {
+  const builder: Builder = {
     getConfig({ files = ["**/*.ts", "**/*.tsx"] } = {}): Linter.Config {
       return {
         files,
@@ -253,9 +253,7 @@ export default function eslintReactKit(): KitBuilder {
                   fixable: "code",
                   hasSuggestions: true,
                 },
-                create(ctx: RuleContext) {
-                  return make(ctx, createKit(ctx));
-                },
+                create: (context: RuleContext) => make(context, makeRuleToolkit(context)),
               });
               return acc;
             }, {}),
@@ -267,7 +265,7 @@ export default function eslintReactKit(): KitBuilder {
         }, {}),
       };
     },
-    use(factory: (...args: any[]) => RuleDefinition, ...args: any[]): KitBuilder {
+    use(factory: (...args: any[]) => RuleDefinition, ...args: any[]): Builder {
       const name = kebabCase(factory.name === "" ? idGen.next() : factory.name);
       rules.push({ name, make: factory(...args) });
       return builder;

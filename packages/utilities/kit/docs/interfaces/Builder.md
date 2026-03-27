@@ -1,6 +1,6 @@
-[@eslint-react/kit](../README.md) / KitBuilder
+[@eslint-react/kit](../README.md) / Builder
 
-# Interface: KitBuilder
+# Interface: Builder
 
 ## Methods
 
@@ -28,7 +28,7 @@ getConfig(args?: {
 ### use()
 
 ```ts
-use<F>(factory: F, ...args: Parameters<F>): KitBuilder;
+use<F>(factory: F, ...args: Parameters<F>): Builder;
 ```
 
 #### Type Parameters
@@ -46,4 +46,4 @@ use<F>(factory: F, ...args: Parameters<F>): KitBuilder;
 
 #### Returns
 
-`KitBuilder`
+`Builder`
