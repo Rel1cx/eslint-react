@@ -7,7 +7,7 @@ export type NoUnescapedEntitiesOptions = {
 };
 
 /** Disallow unescaped HTML entities in JSX text. */
-export const noUnescapedEntities = ({ entities }: NoUnescapedEntitiesOptions): RuleDefinition => {
+export function noUnescapedEntities({ entities }: NoUnescapedEntitiesOptions): RuleDefinition {
   const chars = Object.keys(entities).map((c) => c.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")).join("");
   const pattern = new RegExp(`[${chars}]`, "g");
   return (context) => ({
@@ -22,4 +22,4 @@ export const noUnescapedEntities = ({ entities }: NoUnescapedEntitiesOptions): R
       }
     },
   });
-};
+}

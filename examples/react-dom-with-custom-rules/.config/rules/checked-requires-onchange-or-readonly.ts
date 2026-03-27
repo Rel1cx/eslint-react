@@ -1,7 +1,7 @@
 import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
-export const checkedRequiresOnchangeOrReadonly = (): RuleDefinition => {
+export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -20,4 +20,4 @@ export const checkedRequiresOnchangeOrReadonly = (): RuleDefinition => {
       }
     },
   });
-};
+}

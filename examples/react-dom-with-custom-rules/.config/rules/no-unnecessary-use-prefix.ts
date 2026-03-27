@@ -2,7 +2,7 @@ import type { RuleDefinition } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
 /** Warn on custom hooks that don't call other hooks. */
-export const noUnnecessaryUsePrefix = (): RuleDefinition => {
+export function noUnnecessaryUsePrefix(): RuleDefinition {
   return (context, { collect }) => {
     const { query, visitor } = collect.hooks(context);
 
@@ -20,4 +20,4 @@ export const noUnnecessaryUsePrefix = (): RuleDefinition => {
       },
     });
   };
-};
+}

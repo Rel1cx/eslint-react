@@ -1,7 +1,7 @@
 import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Enforce shorthand for boolean JSX attributes. */
-export const jsxBooleanValue = (): RuleDefinition => {
+export function jsxBooleanValue(): RuleDefinition {
   return (context) => ({
     JSXAttribute(node) {
       const { value } = node;
@@ -14,4 +14,4 @@ export const jsxBooleanValue = (): RuleDefinition => {
       });
     },
   });
-};
+}

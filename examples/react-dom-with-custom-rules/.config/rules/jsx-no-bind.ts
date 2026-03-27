@@ -1,7 +1,7 @@
 import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Prevent inline functions and `.bind()` in JSX props. */
-export const jsxNoBind = (): RuleDefinition => {
+export function jsxNoBind(): RuleDefinition {
   return (context) => ({
     JSXAttribute(node) {
       const value = node.value;
@@ -20,4 +20,4 @@ export const jsxNoBind = (): RuleDefinition => {
       }
     },
   });
-};
+}

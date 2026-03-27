@@ -2,7 +2,7 @@ import type { RuleDefinition } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
 /** Prevent defining more than one component per file. */
-export const noMultiComp = (): RuleDefinition => {
+export function noMultiComp(): RuleDefinition {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(visitor, {
@@ -17,4 +17,4 @@ export const noMultiComp = (): RuleDefinition => {
       },
     });
   };
-};
+}

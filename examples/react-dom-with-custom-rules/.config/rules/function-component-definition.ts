@@ -2,7 +2,7 @@ import type { RuleDefinition } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
 /** Enforce arrow function definitions for function components. */
-export const functionComponentDefinition = (): RuleDefinition => {
+export function functionComponentDefinition(): RuleDefinition {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(
@@ -54,4 +54,4 @@ export const functionComponentDefinition = (): RuleDefinition => {
       },
     );
   };
-};
+}

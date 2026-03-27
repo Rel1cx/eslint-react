@@ -1,7 +1,7 @@
 import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Disallow JSX props spreading. */
-export const jsxPropsNoSpreading = (): RuleDefinition => {
+export function jsxPropsNoSpreading(): RuleDefinition {
   return (context) => ({
     JSXSpreadAttribute(node) {
       context.report({
@@ -10,4 +10,4 @@ export const jsxPropsNoSpreading = (): RuleDefinition => {
       });
     },
   });
-};
+}

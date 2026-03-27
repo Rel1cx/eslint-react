@@ -14,7 +14,7 @@ function isFunction({ type }: TSESTree.Node) {
 }
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */
-export const componentHookFactories = (): RuleDefinition => {
+export function componentHookFactories(): RuleDefinition {
   return (context, { collect }) => {
     const fc = collect.components(context);
     const hk = collect.hooks(context);
@@ -37,4 +37,4 @@ export const componentHookFactories = (): RuleDefinition => {
       },
     );
   };
-};
+}
