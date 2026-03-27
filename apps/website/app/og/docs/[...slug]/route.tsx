@@ -11,11 +11,11 @@ export async function GET(_req: Request, { params }: RouteContext<"/og/docs/[...
   if (!page) notFound();
 
   return new ImageResponse(
-    <DefaultImage title={page.data.title} description={page.data.description} site="ESLint React" />,
+    <DefaultImage description={page.data.description} site="ESLint React" title={page.data.title} />,
     {
-      width: 1200,
-      height: 630,
       format: "webp",
+      height: 630,
+      width: 1200,
     },
   );
 }

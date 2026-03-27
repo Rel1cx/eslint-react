@@ -37,7 +37,6 @@ export default defineConfig(
           name: "function-component-definition",
           make: (context, { collect }) => {
             const { query, visitor } = collect.components(ctx);
-
             return merge(
               visitor,
               {

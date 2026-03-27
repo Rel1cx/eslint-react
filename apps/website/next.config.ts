@@ -6,10 +6,7 @@ const withMDX = createMDX();
 const config = {
   reactStrictMode: true,
   experimental: {
-    // ppr: true,
     inlineCss: true,
-    // reactCompiler: true,
-    // viewTransition: true,
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -18,9 +15,9 @@ const config = {
     ignoreDuringBuilds: true,
   },
   serverExternalPackages: [
-    "typescript",
-    "twoslash",
     "@takumi-rs/image-response",
+    "twoslash",
+    "typescript",
   ],
   async redirects() {
     return [

@@ -6,8 +6,8 @@ import { docsContentRoute, docsImageRoute, docsRoute } from "./shared";
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
   baseUrl: docsRoute,
-  source: docs.toFumadocsSource(),
   plugins: [lucideIconsPlugin()],
+  source: docs.toFumadocsSource(),
 });
 
 export function getPageImage(page: InferPageType<typeof source>) {

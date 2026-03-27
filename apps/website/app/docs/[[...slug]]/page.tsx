@@ -22,14 +22,14 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const markdownUrl = getPageMarkdownUrl(page).url;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage full={page.data.full} toc={page.data.toc}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b pb-6">
         <MarkdownCopyButton markdownUrl={markdownUrl} />
         <ViewOptionsPopover
-          markdownUrl={markdownUrl}
           githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
+          markdownUrl={markdownUrl}
         />
       </div>
       <DocsBody>
@@ -54,8 +54,8 @@ export async function generateMetadata(props: PageProps<"/docs/[[...slug]]">): P
   if (!page) notFound();
 
   return {
-    title: page.data.title,
     description: page.data.description,
+    title: page.data.title,
     openGraph: {
       images: getPageImage(page).url,
     },

@@ -9,7 +9,6 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
   return (
     <DocsLayout
       {...baseOptions()}
-      tree={source.getPageTree()}
       nav={{
         ...base.nav,
         title: (
@@ -25,6 +24,7 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
           </div>
         ),
       }}
+      tree={source.getPageTree()}
     >
       {children}
     </DocsLayout>

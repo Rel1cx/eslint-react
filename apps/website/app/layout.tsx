@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <ViewTransitions>
-      <html lang="en" className={inter.className} suppressHydrationWarning>
+      <html className={inter.className} lang="en" suppressHydrationWarning>
         <meta content="#fff" name="msapplication-TileColor" />
         <meta content="en" httpEquiv="Content-Language" />
         <meta content="ESLint React" name="apple-mobile-web-app-title" />
