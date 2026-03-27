@@ -1,3 +1,41 @@
+## v4.0.1-beta.0 (2026-03-27)
+
+### 💥 Breaking Changes
+
+**`@eslint-react/kit` API redesign**
+
+The `defineConfig` function has been replaced with a chainable builder API for better composability and type inference:
+
+| Before                                    | After                                                |
+| :---------------------------------------- | :--------------------------------------------------- |
+| `defineConfig({ rules: [rule1, rule2] })` | `eslintReactKit().use(rule1).use(rule2).getConfig()` |
+
+The new API provides better TypeScript intellisense and allows for more flexible rule configuration:
+
+```ts
+import eslintReactKit from "@eslint-react/kit";
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      // ... other configs
+      eslintReactKit()
+        .use(functionComponentDefinition)
+        .use(maxComponentPerFile, { max: 1 })
+        .getConfig(),
+    ],
+  },
+);
+```
+
+### 🪄 Improvements
+
+- `refactor(kit)`: Replace `defineConfig` with chainable `.use().getConfig()` builder API, closes #1644.
+- `refactor(website)`: Cleanup and organize code.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.0-beta.3...v4.0.1-beta.0
+
 ## v4.0.0-beta.3 (2026-03-27)
 
 ### ✨ New

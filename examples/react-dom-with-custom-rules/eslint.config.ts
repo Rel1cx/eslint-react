@@ -66,11 +66,6 @@ export default defineConfig(
   // react specific configurations
   {
     files: TSCONFIG_APP.include,
-    languageOptions: {
-      parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
     extends: [
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
       eslintPluginReactRefresh.configs.recommended,
@@ -80,10 +75,12 @@ export default defineConfig(
         .use(componentHookFactories)
         .use(forbidComponentProps, { forbidden: ["className", "style"] })
         .use(forbidElements, {
-          forbidden: new Map([["button", "Use <Button> from '@/components/ui' instead."], [
-            "input",
-            "Use <Input> from '@/components/ui' instead.",
-          ]]),
+          forbidden: new Map(
+            [
+              ["button", "Use <Button> from '@/components/ui' instead."],
+              ["input", "Use <Input> from '@/components/ui' instead."],
+            ],
+          ),
         })
         .use(functionComponentDefinition)
         .use(jsxBooleanValue)
