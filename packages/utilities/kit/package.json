@@ -46,13 +46,13 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/utils": "^8.57.2"
+    "@typescript-eslint/utils": "^8.57.2",
+    "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.1.0",
-    "string-ts": "^2.3.1",
     "tsdown": "^0.21.6"
   },
   "peerDependencies": {
