@@ -219,7 +219,7 @@ Install `@eslint-react/kit` first:
 npm install --save-dev @eslint-react/kit@beta
 ```
 
-Below are drop-in rule definitions for the most commonly needed rules. Pass them to the `eslintReactKit()` call in your config:
+Below are drop-in rule definitions for the most commonly needed rules. Register them via the `.use()` chain in your config:
 
 ```ts title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -231,24 +231,24 @@ export default defineConfig([
     files: ["**/*.{ts,tsx}"],
     extends: [
       eslintReact.configs["recommended-typescript"],
-      eslintReactKit(
-        checkedRequiresOnchangeOrReadonly(),
-        forbidComponentProps({ forbidden: ["className", "style"] }),
-        forbidElements({
+      eslintReactKit()
+        .use(checkedRequiresOnchangeOrReadonly)
+        .use(forbidComponentProps, { forbidden: ["className", "style"] })
+        .use(forbidElements, {
           forbidden: new Map([
             ["button", "Use <Button> from '@/components/ui' instead."],
             ["input", "Use <Input> from '@/components/ui' instead."],
           ]),
-        }),
-        functionComponentDefinition(),
-        jsxBooleanValue(),
-        jsxNoBind(),
-        jsxPropsNoSpreading(),
-        noMultiComp(),
-        noUnescapedEntities({
+        })
+        .use(functionComponentDefinition)
+        .use(jsxBooleanValue)
+        .use(jsxNoBind)
+        .use(jsxPropsNoSpreading)
+        .use(noMultiComp)
+        .use(noUnescapedEntities, {
           entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" },
-        }),
-      ),
+        })
+        .getConfig(),
     ],
   },
 ]);
@@ -263,27 +263,24 @@ import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
 export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
-  return {
-    name: "checked-requires-onchange-or-readonly",
-    make: (context) => ({
-      JSXOpeningElement(node) {
-        const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
-        if (name !== "input") return;
-        const attrs = new Set<string>();
-        for (const attr of node.attributes) {
-          if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
-            attrs.add(attr.name.name);
-          }
+  return (context) => ({
+    JSXOpeningElement(node) {
+      const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
+      if (name !== "input") return;
+      const attrs = new Set<string>();
+      for (const attr of node.attributes) {
+        if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
+          attrs.add(attr.name.name);
         }
-        if (!attrs.has("onChange") && !attrs.has("readOnly")) {
-          context.report({
-            node,
-            message: "`checked` requires `onChange` or `readOnly`.",
-          });
-        }
-      },
-    }),
-  };
+      }
+      if (!attrs.has("onChange") && !attrs.has("readOnly")) {
+        context.report({
+          node,
+          message: "`checked` requires `onChange` or `readOnly`.",
+        });
+      }
+    },
+  });
 }
 ```
 
@@ -302,25 +299,22 @@ export type ForbidComponentPropsOptions = {
 
 /** Forbid certain props on React components (not DOM elements). */
 function forbidComponentProps({ forbidden }: ForbidComponentPropsOptions): RuleDefinition {
-  return {
-    name: "forbid-component-props",
-    make: (context) => {
-      return {
-        JSXAttribute(node) {
-          const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
-          if (propName == null || !forbidden.includes(propName)) return;
-          const parent = node.parent;
-          if (parent?.type !== "JSXOpeningElement") return;
-          const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
-          // Only report on components (PascalCase names), not DOM elements
-          if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
-          context.report({
-            node,
-            message: `Prop "${propName}" is forbidden on components.`,
-          });
-        },
-      };
-    },
+  return (context) => {
+    return {
+      JSXAttribute(node) {
+        const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
+        if (propName == null || !forbidden.includes(propName)) return;
+        const parent = node.parent;
+        if (parent?.type !== "JSXOpeningElement") return;
+        const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
+        // Only report on components (PascalCase names), not DOM elements
+        if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
+        context.report({
+          node,
+          message: `Prop "${propName}" is forbidden on components.`,
+        });
+      },
+    };
   };
 }
 ```
@@ -340,18 +334,15 @@ export type ForbidElementsOptions = {
 
 /** Forbid specific JSX elements. */
 function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
-  return {
-    name: "forbid-elements",
-    make: (context) => {
-      return {
-        JSXOpeningElement(node) {
-          const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
-          if (name != null && forbidden.has(name)) {
-            context.report({ node, message: forbidden.get(name)! });
-          }
-        },
-      };
-    },
+  return (context) => {
+    return {
+      JSXOpeningElement(node) {
+        const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
+        if (name != null && forbidden.has(name)) {
+          context.report({ node, message: forbidden.get(name)! });
+        }
+      },
+    };
   };
 }
 ```
@@ -366,59 +357,56 @@ import { merge } from "@eslint-react/kit";
 
 /** Enforce arrow function definitions for function components. */
 function functionComponentDefinition(): RuleDefinition {
-  return {
-    name: "function-component-definition",
-    make: (context, { collect }) => {
-      const { query, visitor } = collect.components(context);
-      return merge(
-        visitor,
-        {
-          "Program:exit"(program) {
-            for (const { node } of query.all(program)) {
-              if (node.type === "ArrowFunctionExpression") continue;
-              context.report({
-                node,
-                message: "Function components must be defined with arrow functions.",
-                suggest: [
-                  {
-                    desc: "Convert to arrow function.",
-                    fix(fixer) {
-                      const src = context.sourceCode;
-                      if (node.generator) return null;
-                      const prefix = node.async ? "async " : "";
-                      const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
-                      const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                      const returnType = node.returnType ? src.getText(node.returnType) : "";
-                      const body = src.getText(node.body);
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(
+      visitor,
+      {
+        "Program:exit"(program) {
+          for (const { node } of query.all(program)) {
+            if (node.type === "ArrowFunctionExpression") continue;
+            context.report({
+              node,
+              message: "Function components must be defined with arrow functions.",
+              suggest: [
+                {
+                  desc: "Convert to arrow function.",
+                  fix(fixer) {
+                    const src = context.sourceCode;
+                    if (node.generator) return null;
+                    const prefix = node.async ? "async " : "";
+                    const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                    const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
+                    const returnType = node.returnType ? src.getText(node.returnType) : "";
+                    const body = src.getText(node.body);
 
-                      // function Foo(params) { ... } -> const Foo = (params) => { ... };
-                      if (node.type === "FunctionDeclaration" && node.id) {
-                        // dprint-ignore
-                        return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
-                      }
+                    // function Foo(params) { ... } -> const Foo = (params) => { ... };
+                    if (node.type === "FunctionDeclaration" && node.id) {
+                      // dprint-ignore
+                      return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                    }
 
-                      // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
-                      if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
-                        // dprint-ignore
-                        return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
-                      }
+                    // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
+                    if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
+                      // dprint-ignore
+                      return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
+                    }
 
-                      // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
-                      if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                        // dprint-ignore
-                        return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
-                      }
+                    // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
+                    if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                      // dprint-ignore
+                      return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                    }
 
-                      return null;
-                    },
+                    return null;
                   },
-                ],
-              });
-            }
-          },
+                },
+              ],
+            });
+          }
         },
-      );
-    },
+      },
+    );
   };
 }
 ```
@@ -432,21 +420,18 @@ import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Enforce shorthand for boolean JSX attributes. */
 function jsxBooleanValue(): RuleDefinition {
-  return {
-    name: "jsx-boolean-value",
-    make: (context) => ({
-      JSXAttribute(node) {
-        const { value } = node;
-        if (value?.type !== "JSXExpressionContainer") return;
-        if (value.expression.type !== "Literal" || value.expression.value !== true) return;
-        context.report({
-          node,
-          message: "Omit the value for boolean attributes.",
-          fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
-        });
-      },
-    }),
-  };
+  return (context) => ({
+    JSXAttribute(node) {
+      const { value } = node;
+      if (value?.type !== "JSXExpressionContainer") return;
+      if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+      context.report({
+        node,
+        message: "Omit the value for boolean attributes.",
+        fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+      });
+    },
+  });
 }
 ```
 
@@ -459,27 +444,24 @@ import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Prevent inline functions and `.bind()` in JSX props. */
 function jsxNoBind(): RuleDefinition {
-  return {
-    name: "jsx-no-bind",
-    make: (context) => ({
-      JSXAttribute(node) {
-        const value = node.value;
-        if (value?.type !== "JSXExpressionContainer") return;
-        switch (true) {
-          case value.expression.type === "ArrowFunctionExpression":
-          case value.expression.type === "FunctionExpression":
-            context.report({ node, message: "JSX props should not use inline functions." });
-            break;
-          case value.expression.type === "CallExpression"
-            && value.expression.callee.type === "MemberExpression"
-            && value.expression.callee.property.type === "Identifier"
-            && value.expression.callee.property.name === "bind":
-            context.report({ node, message: "JSX props should not use .bind()." });
-            break;
-        }
-      },
-    }),
-  };
+  return (context) => ({
+    JSXAttribute(node) {
+      const value = node.value;
+      if (value?.type !== "JSXExpressionContainer") return;
+      switch (true) {
+        case value.expression.type === "ArrowFunctionExpression":
+        case value.expression.type === "FunctionExpression":
+          context.report({ node, message: "JSX props should not use inline functions." });
+          break;
+        case value.expression.type === "CallExpression"
+          && value.expression.callee.type === "MemberExpression"
+          && value.expression.callee.property.type === "Identifier"
+          && value.expression.callee.property.name === "bind":
+          context.report({ node, message: "JSX props should not use .bind()." });
+          break;
+      }
+    },
+  });
 }
 ```
 
@@ -492,17 +474,14 @@ import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Disallow JSX props spreading. */
 function jsxPropsNoSpreading(): RuleDefinition {
-  return {
-    name: "jsx-props-no-spreading",
-    make: (context) => ({
-      JSXSpreadAttribute(node) {
-        context.report({
-          node,
-          message: "Props spreading is not allowed.",
-        });
-      },
-    }),
-  };
+  return (context) => ({
+    JSXSpreadAttribute(node) {
+      context.report({
+        node,
+        message: "Props spreading is not allowed.",
+      });
+    },
+  });
 }
 ```
 
@@ -516,22 +495,19 @@ import { merge } from "@eslint-react/kit";
 
 /** Prevent defining more than one component per file. */
 function noMultiComp(): RuleDefinition {
-  return {
-    name: "no-multi-comp",
-    make: (context, { collect }) => {
-      const { query, visitor } = collect.components(context);
-      return merge(visitor, {
-        "Program:exit"(program) {
-          const components = query.all(program);
-          for (const { node, name } of components.slice(1)) {
-            context.report({
-              node,
-              message: `Declare only one component per file. Found extra component "${name ?? "anonymous"}".`,
-            });
-          }
-        },
-      });
-    },
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(visitor, {
+      "Program:exit"(program) {
+        const components = query.all(program);
+        for (const { node, name } of components.slice(1)) {
+          context.report({
+            node,
+            message: `Declare only one component per file. Found extra component "${name ?? "anonymous"}".`,
+          });
+        }
+      },
+    });
   };
 }
 ```
@@ -553,20 +529,17 @@ export type NoUnescapedEntitiesOptions = {
 function noUnescapedEntities({ entities }: NoUnescapedEntitiesOptions): RuleDefinition {
   const chars = Object.keys(entities).map((c) => c.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")).join("");
   const pattern = new RegExp(`[${chars}]`, "g");
-  return {
-    name: "no-unescaped-entities",
-    make: (context) => ({
-      JSXText(node) {
-        let match;
-        pattern.lastIndex = 0;
-        while ((match = pattern.exec(node.raw)) != null) {
-          context.report({
-            node,
-            message: `Unescaped entity "${match[0]}". Use "${entities[match[0]]}" instead.`,
-          });
-        }
-      },
-    }),
-  };
+  return (context) => ({
+    JSXText(node) {
+      let match;
+      pattern.lastIndex = 0;
+      while ((match = pattern.exec(node.raw)) != null) {
+        context.report({
+          node,
+          message: `Unescaped entity "${match[0]}". Use "${entities[match[0]]}" instead.`,
+        });
+      }
+    },
+  });
 }
 ```

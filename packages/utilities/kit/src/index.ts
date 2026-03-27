@@ -1,10 +1,11 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { ESLintReactSettingsNormalized, RuleFix, RuleFixer, RuleListener } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { IdGenerator, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { Linter, Rule } from "eslint";
+import { kebabCase } from "string-ts";
 export { defineRuleListener as merge } from "@eslint-react/shared";
 
 import pkg from "../package.json";
@@ -26,9 +27,11 @@ export interface CollectorWithContext<T> extends Collector<T> {
   };
 }
 
-export interface RuleDefinition {
-  name: string;
-  make(ctx: RuleContext, kit: RuleToolkit): RuleListener;
+export type RuleDefinition = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+
+export interface KitBuilder {
+  getConfig(args?: { files?: string[] }): Linter.Config;
+  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): KitBuilder;
 }
 
 interface RuleToolkit {
@@ -232,36 +235,47 @@ function createKit(ctx: RuleContext): RuleToolkit {
 
 // #endregion
 
-// #region defineConfig & merge
+// #region KitBuilder
 
-export function defineConfig(...rules: RuleDefinition[]): Linter.Config {
-  return {
-    files: ["**/*.ts", "**/*.tsx"],
-    plugins: {
-      [pkg.name]: {
-        meta: { name: pkg.name, version: pkg.version },
-        rules: rules.reduce<Record<string, Rule.RuleModule>>((acc, { name, make }) => {
-          Reflect.set(acc, name, {
-            meta: {
-              fixable: "code",
-              hasSuggestions: true,
-            },
-            create(ctx: RuleContext) {
-              return make(ctx, createKit(ctx));
-            },
-          });
+export default function eslintReactKit(): KitBuilder {
+  const idGen = new IdGenerator();
+  const rules: { name: string; make: RuleDefinition }[] = [];
+  const builder: KitBuilder = {
+    getConfig({ files = ["**/*.ts", "**/*.tsx"] } = {}): Linter.Config {
+      return {
+        files,
+        plugins: {
+          [pkg.name]: {
+            meta: { name: pkg.name, version: pkg.version },
+            rules: rules.reduce<Record<string, Rule.RuleModule>>((acc, { name, make }) => {
+              Reflect.set(acc, name, {
+                meta: {
+                  fixable: "code",
+                  hasSuggestions: true,
+                },
+                create(ctx: RuleContext) {
+                  return make(ctx, createKit(ctx));
+                },
+              });
+              return acc;
+            }, {}),
+          },
+        },
+        rules: rules.reduce<Linter.Config["rules"] & {}>((acc, { name }) => {
+          acc[`${pkg.name}/${name}`] = "error";
           return acc;
         }, {}),
-      },
+      };
     },
-    rules: rules.reduce<Linter.Config["rules"] & {}>((acc, { name }) => {
-      acc[`${pkg.name}/${name}`] = "error";
-      return acc;
-    }, {}),
+    use(factory: (...args: any[]) => RuleDefinition, ...args: any[]): KitBuilder {
+      const name = kebabCase(factory.name === "" ? idGen.next() : factory.name);
+      rules.push({ name, make: factory(...args) });
+      return builder;
+    },
   };
-}
 
-export default defineConfig;
+  return builder;
+}
 
 // #endregion
 

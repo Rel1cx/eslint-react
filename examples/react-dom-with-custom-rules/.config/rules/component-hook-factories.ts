@@ -14,30 +14,27 @@ function isFunction({ type }: TSESTree.Node) {
 }
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */
-export function componentHookFactories(): RuleDefinition {
-  return {
-    name: "component-hook-factories",
-    make: (context, { collect }) => {
-      const fc = collect.components(context);
-      const hk = collect.hooks(context);
-      return merge(
-        fc.visitor,
-        hk.visitor,
-        {
-          "Program:exit"(program) {
-            const comps = fc.query.all(program);
-            const hooks = hk.query.all(program);
-            for (const { name, node, kind } of [...comps, ...hooks]) {
-              if (name == null) continue;
-              if (findParent(node, isFunction) == null) continue;
-              context.report({
-                node,
-                message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
-              });
-            }
-          },
+export const componentHookFactories = (): RuleDefinition => {
+  return (context, { collect }) => {
+    const fc = collect.components(context);
+    const hk = collect.hooks(context);
+    return merge(
+      fc.visitor,
+      hk.visitor,
+      {
+        "Program:exit"(program) {
+          const comps = fc.query.all(program);
+          const hooks = hk.query.all(program);
+          for (const { name, node, kind } of [...comps, ...hooks]) {
+            if (name == null) continue;
+            if (findParent(node, isFunction) == null) continue;
+            context.report({
+              node,
+              message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
+            });
+          }
         },
-      );
-    },
+      },
+    );
   };
-}
+};

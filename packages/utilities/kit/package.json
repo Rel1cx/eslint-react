@@ -52,6 +52,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.1.0",
+    "string-ts": "^2.3.1",
     "tsdown": "^0.21.6"
   },
   "peerDependencies": {

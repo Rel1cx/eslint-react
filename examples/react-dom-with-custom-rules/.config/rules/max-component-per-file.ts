@@ -8,24 +8,21 @@ export type MaxComponentPerFileOptions = {
 };
 
 /** Prevent defining more than one component per file. */
-export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleDefinition {
-  return {
-    name: "no-multi-comp",
-    make: (context, { collect }) => {
-      const { query, visitor } = collect.components(context);
-      return merge(visitor, {
-        "Program:exit"(program) {
-          const components = query.all(program);
-          for (const { node, name } of components.slice(max)) {
-            context.report({
-              node,
-              message: `Declare only ${max} component${max !== 1 ? "s" : ""} per file. Found extra component "${
-                name ?? "anonymous"
-              }".`,
-            });
-          }
-        },
-      });
-    },
+export const maxComponentPerFile = ({ max }: MaxComponentPerFileOptions): RuleDefinition => {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(visitor, {
+      "Program:exit"(program) {
+        const components = query.all(program);
+        for (const { node, name } of components.slice(max)) {
+          context.report({
+            node,
+            message: `Declare only ${max} component${max !== 1 ? "s" : ""} per file. Found extra component "${
+              name ?? "anonymous"
+            }".`,
+          });
+        }
+      },
+    });
   };
-}
+};
