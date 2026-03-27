@@ -54,7 +54,6 @@ export default defineConfig(
       "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
       "fast-import/no-unresolved-imports": "off",
       "fast-import/no-unused-exports": "off",
-      "fsecond/prefer-destructured-optionals": "warn",
     },
   },
   // Relaxed config for scripts and config files (no type checking)
