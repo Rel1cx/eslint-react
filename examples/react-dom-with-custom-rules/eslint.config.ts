@@ -93,7 +93,7 @@ export default defineConfig(
         .use(noMultiComp)
         .use(noUnescapedEntities, { entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" } })
         .use(noUnnecessaryUsePrefix)
-        .getConfig({ files: ["**/*.ts", "**/*.tsx"] }),
+        .getConfig({ files: TSCONFIG_APP.include }),
     ],
   },
 );
