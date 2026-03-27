@@ -500,7 +500,6 @@ export const IMPURE_FUNCS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
  * Known impure global constructors used with `new`
  */
 export const IMPURE_CTORS: ReadonlySet<string> = new Set([
-  "AbortController",
   "Audio",
   "AudioContext",
   "BroadcastChannel",
