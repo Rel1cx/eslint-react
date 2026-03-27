@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🪄 Improvements
 
-- `refactor(kit)`: Improve `Builder` and `RuleDefinition` implementation for better type inference and code organization, closes #1649.
+- `refactor(kit)`: Improve `Builder` and `RuleDefinition` implementation for better type inference and code organization.
 - `docs(website)`: Improve `configure-project-rules` documentation with clearer examples and explanations.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.1-beta.0...v4.0.1-beta.1
