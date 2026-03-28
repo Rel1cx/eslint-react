@@ -13,7 +13,7 @@ import {
   checkedRequiresOnchangeOrReadonly,
   componentHookFactories,
   forbidComponentProps,
-  forbidDomProps,
+  // forbidDomProps,
   forbidElements,
   functionComponentDefinition,
   jsxBooleanValue,
@@ -22,7 +22,7 @@ import {
   jsxMaxDepth,
   jsxNoBind,
   jsxNoDuplicateProps,
-  jsxNoLiterals,
+  // jsxNoLiterals,
   jsxPascalCase,
   jsxPropsNoSpreadMulti,
   jsxPropsNoSpreading,
@@ -31,7 +31,7 @@ import {
   noMultiComp,
   noUnnecessaryUsePrefix,
   version,
-} from "./.config/rules";
+} from "./eslint.config.rules";
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
@@ -84,7 +84,7 @@ export default defineConfig(
         .use(checkedRequiresOnchangeOrReadonly)
         .use(componentHookFactories)
         .use(forbidComponentProps, { forbidden: ["className", "style"] })
-        .use(forbidDomProps, { forbidden: ["style", "className"] })
+        // .use(forbidDomProps, { forbidden: ["style", "className"] })
         .use(forbidElements, {
           forbidden: new Map(
             [
@@ -100,7 +100,7 @@ export default defineConfig(
         .use(jsxMaxDepth, { max: 4 })
         .use(jsxNoBind)
         .use(jsxNoDuplicateProps)
-        .use(jsxNoLiterals, { noStrings: false })
+        // .use(jsxNoLiterals, { noStrings: false })
         .use(jsxPascalCase)
         .use(jsxPropsNoSpreadMulti)
         .use(jsxPropsNoSpreading)
