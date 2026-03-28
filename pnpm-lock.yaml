@@ -227,6 +227,9 @@ importers:
 
   apps/website:
     dependencies:
+      '@eslint-react/kit':
+        specifier: workspace:*
+        version: link:../../packages/utilities/kit
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
