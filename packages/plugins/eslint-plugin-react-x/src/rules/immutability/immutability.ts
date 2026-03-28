@@ -69,9 +69,11 @@ export function create(context: RuleContext<MessageID, []>) {
     func: ast.TSESTreeFunction;
     messageId: MessageID;
     node: TSESTree.Node;
-    /** When the violation originates from a props parameter, this is the
-     *  function where that parameter was declared. It must be verified as a
-     *  component or hook at Program:exit time. */
+    /**
+     * When the violation originates from a props parameter, this is the
+     * function where that parameter was declared. It must be verified as a
+     * component or hook at Program:exit time.
+     */
     propsDefiningFunc?: ast.TSESTreeFunction;
   }[] = [];
 

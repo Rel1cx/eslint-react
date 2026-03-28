@@ -1,3 +1,17 @@
+## v4.0.2-beta.1 (2026-03-28)
+
+### 🐞 Fixes
+
+- `immutability/no-mutation-props`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
+- `purity/no-impure-constructors`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
+
+### 🪄 Improvements
+
+- `docs`: Update bug report template with upstream eslint-plugin-react-hooks guidance.
+- `examples/react-dom-with-custom-rules`: Update custom rules example.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.0...v4.0.2-beta.1
+
 ## v4.0.2-beta.0 (2026-03-28)
 
 ### ✨ New
