@@ -12,21 +12,31 @@ Minimum supported versions:
 - [x] ESLint: 10.x.x
 - [x] TypeScript: 5
 
-### New Plugins
+### New Packages
 
 - [x] `eslint-plugin-react-jsx` - New dedicated plugin for React Flavored JSX rules
+- [x] `@eslint-react/jsx` - New utility module for static analysis of JSX patterns in TSESTree ASTs
+- [x] `@eslint-react/kit` - New utility module for building custom ESLint rules with React awareness
 
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
-- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-deoptimization` (consolidated)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-deoptimization` (consolidated, renamed)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
 - [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
-- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace` (renamed)
+- [x] `react-dom/no-namespace` -> `react-jsx/no-namespace`
 
 ### New Rules
 
+- [x] `react-jsx/no-deoptimization` - Prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props)
+- [x] `react-jsx/no-namespace` - Disallows JSX namespace syntax, as React does not support them
 - [x] `react-jsx/no-children-prop-with-children` - Disallows passing `children` as a prop when children are also passed as nested content
+
+### Removed Rules
+
+- [x] `react-x/jsx-dollar` - Removed (can be implemented using `@eslint-react/kit` as custom rule)
+- [x] `react-x/jsx-shorthand-boolean` - Removed (can be implemented using `@eslint-react/kit` as custom rule)
+- [x] `react-x/jsx-shorthand-fragment` - Removed (can be implemented using `@eslint-react/kit` as custom rule)
 
 ### Rule Prefix Changes (in `@eslint-react/eslint-plugin`)
 
@@ -35,6 +45,16 @@ Minimum supported versions:
 - [x] `@eslint-react/web-api/<rule>` -> `@eslint-react/web-api-<rule>`
 - [x] `@eslint-react/naming-convention/<rule>` -> `@eslint-react/naming-convention-<rule>`
 - [x] `@eslint-react/debug/<rule>` -> `@eslint-react/debug-<rule>`
+
+### Core API Changes (for custom rule authors)
+
+- [x] `useComponentCollector()` -> `getComponentCollector()`
+- [x] `useComponentCollectorLegacy()` -> `getComponentCollectorLegacy()`
+- [x] `useHookCollector()` -> `getHookCollector()`
+- [x] Collector return property `.ctx` -> `.api`
+- [x] `JsxInspector` class -> Removed, replaced with standalone utility functions from `@eslint-react/jsx`
+- [x] `getElementType()` -> `getElementFullType()` in `@eslint-react/jsx`
+- [x] `getElementSelfName()` -> `getElementSelfType()` in `@eslint-react/jsx`
 
 ## Milestone 3.0 (RC)
 
