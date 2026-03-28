@@ -1,3 +1,17 @@
+## v4.0.2-beta.0 (2026-03-28)
+
+### ✨ New
+
+- `kit`: Add `getPlugin()` API to `Builder` for fine-grained control over plugin namespace and rule severities.
+- `examples/react-dom-with-custom-rules`: Add `require-react-19` custom rule example demonstrating settings usage.
+
+### 🪄 Improvements
+
+- `kit`: `getConfig()` now accepts optional `{ files?: string[] }` argument for more flexible configuration.
+- `docs(kit)`: Add comprehensive documentation for `getConfig()` and `getPlugin()` APIs with usage examples.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.1-beta.1...v4.0.2-beta.0
+
 ## v4.0.1-beta.1 (2026-03-28)
 
 ### 🪄 Improvements

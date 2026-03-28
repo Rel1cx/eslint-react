@@ -11,6 +11,7 @@
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@eslint-react/kit": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@takumi-rs/image-response": "^0.73.1",

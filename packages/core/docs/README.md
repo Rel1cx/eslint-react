@@ -108,11 +108,11 @@
 | Function | Description |
 | ------ | ------ |
 | [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
-| [getComponentCollector](functions/getComponentCollector.md) | Get a api and visitor object for the rule to collect function components |
-| [getComponentCollectorLegacy](functions/getComponentCollectorLegacy.md) | Get a api and visitor object for the rule to collect class componentss |
+| [getComponentCollector](functions/getComponentCollector.md) | Get an api and visitor object for the rule to collect function components |
+| [getComponentCollectorLegacy](functions/getComponentCollectorLegacy.md) | Get an api and visitor object for the rule to collect class componentss |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
-| [getHookCollector](functions/getHookCollector.md) | Get a api and visitor object for the rule to collect hooks |
+| [getHookCollector](functions/getHookCollector.md) | Get an api and visitor object for the rule to collect hooks |
 | [isClassComponent](functions/isClassComponent.md) | Check if a node is a React class component |
 | [isComponentDefinition](functions/isComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isComponentDidMountCallback](functions/isComponentDidMountCallback.md) | Check if the given node is a componentDidMount callback |

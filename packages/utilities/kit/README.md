@@ -10,6 +10,8 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
   - [`eslintReactKit` (default export)](#eslintreactkit-default-export)
   - [`RuleDefinition`](#ruledefinition)
   - [`Builder`](#builder)
+    - [`getConfig`](#getconfig)
+    - [`getPlugin`](#getplugin)
   - [`merge`](#merge)
   - [`Kit` — the toolkit object](#kit--the-toolkit-object)
     - [`kit.collect`](#kitcollect) — Semantic collectors
@@ -22,6 +24,7 @@ ESLint React's toolkit for building custom React lint rules right inside your `e
   - [Component: Destructure component props](#component-destructure-component-props)
   - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
+  - [Advanced Config: Using `getPlugin` for custom plugin namespace](#advanced-config-using-getplugin-for-custom-plugin-namespace)
 - [More Examples](#more-examples)
 
 ## Installation
@@ -120,7 +123,8 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
 ```ts
 interface Builder {
   use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
-  getConfig(): Linter.Config;
+  getConfig(args?: { files?: string[] }): Linter.Config;
+  getPlugin(): ESLint.Plugin;
 }
 ```
 
@@ -130,12 +134,44 @@ A chainable builder for registering custom rules.
 | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `use`       | Registers a rule factory. The rule name is `kebabCase(factory.name)`. Options type is inferred from the factory signature. |
 | `getConfig` | Returns a `Linter.Config` with all registered rules enabled at `"error"` severity.                                         |
+| `getPlugin` | Returns an `ESLint.Plugin` containing the registered rules and plugin metadata.                                            |
+
+#### `getConfig`
+
+Returns a flat `Linter.Config` object with all registered rules set to `"error"`. This is a convenience wrapper that calls `getPlugin()` internally and adds the plugin plus rule entries to the config.
 
 ```ts
 eslintReactKit()
   .use(noForwardRef) // no-arg factory
-  .use(forbidElements, { forbidden: new Map() }) // factory with inferred options
+  .use(version, "19") // factory with inferred options
   .getConfig();
+```
+
+#### `getPlugin`
+
+Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this when you need finer-grained control over how the plugin is integrated into your ESLint configuration — for example, when you want to choose the plugin namespace, set per-rule severities, or compose the plugin with other configs manually.
+
+```ts
+const kit = eslintReactKit()
+  .use(noForwardRef);
+  .use(version, "19")
+
+// Retrieve the raw plugin object
+const plugin = kit.getPlugin();
+
+// Use it in a custom flat config with your own namespace and severity
+export default [
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      react: plugin,
+    },
+    rules: {
+      "react/version": "error",
+      "react/no-forward-ref": "error",
+    },
+  },
+];
 ```
 
 ### `merge`
@@ -319,13 +355,13 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
 
-function requireReact19(): RuleDefinition {
+function version(major = "19"): RuleDefinition {
   return (context, { settings }) => ({
     Program(program) {
-      if (!settings.version.startsWith("19.")) {
+      if (!settings.version.startsWith(`${major}.`)) {
         context.report({
           node: program,
-          message: `This project requires React 19, but detected version ${settings.version}.`,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
         });
       }
     },
@@ -486,6 +522,60 @@ eslintReactKit()
   .getConfig();
 ```
 
-## More Examples
+### Advanced Config: Using `getPlugin` for custom plugin namespace
 
-Please check the [Rule Recipes](https://beta.eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.
+Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
+
+```ts
+import eslintReactKit from "@eslint-react/kit";
+import type { RuleDefinition } from "@eslint-react/kit";
+
+function version(major = "19"): RuleDefinition {
+  return (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith(`${major}.`)) {
+        context.report({
+          node: program,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  });
+}
+
+function noForwardRef(): RuleDefinition {
+  return (context, { is }) => ({
+    CallExpression(node) {
+      if (is.forwardRefCall(node)) {
+        context.report({ node, message: "forwardRef is deprecated in React 19." });
+      }
+    },
+  });
+}
+
+const kit = eslintReactKit()
+  .use(noForwardRef);
+  .use(version, "19")
+
+// Instead of kit.getConfig(), use kit.getPlugin() for full control:
+const plugin = kit.getPlugin();
+
+export default [
+  {
+    files: ["**/*.{ts,tsx}"],
+    plugins: {
+      // Choose your own namespace
+      react: plugin,
+    },
+    rules: {
+      // Set individual severities
+      "react/version": "error",
+      "react/no-forward-ref": "error",
+    },
+  },
+];
+```
+
+<!--## More Examples
+
+Please check the [Rule Recipes](https://beta.eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.-->
