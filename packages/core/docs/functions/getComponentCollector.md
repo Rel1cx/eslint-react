@@ -6,14 +6,14 @@
 function getComponentCollector(context: RuleContext, options?: Options): ReturnType;
 ```
 
-Get a api and visitor object for the rule to collect function components
+Get an api and visitor object for the rule to collect function components
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context |
-| `options` | [`Options`](../@eslint-react/namespaces/getComponentCollector/type-aliases/Options.md) | The options to use |
+| Parameter | Type                                                                                   | Description             |
+| --------- | -------------------------------------------------------------------------------------- | ----------------------- |
+| `context` | `RuleContext`                                                                          | The ESLint rule context |
+| `options` | [`Options`](../@eslint-react/namespaces/getComponentCollector/type-aliases/Options.md) | The options to use      |
 
 ## Returns
 

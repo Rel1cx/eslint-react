@@ -23,7 +23,7 @@ export declare namespace getHookCollector {
 }
 
 /**
- * Get a api and visitor object for the rule to collect hooks
+ * Get an api and visitor object for the rule to collect hooks
  * @param context The ESLint rule context
  * @returns The api and visitor of the collector
  */

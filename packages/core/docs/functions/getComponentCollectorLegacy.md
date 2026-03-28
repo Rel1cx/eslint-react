@@ -6,12 +6,12 @@
 function getComponentCollectorLegacy(context: RuleContext): ReturnType;
 ```
 
-Get a api and visitor object for the rule to collect class componentss
+Get an api and visitor object for the rule to collect class componentss
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description             |
+| --------- | ------------- | ----------------------- |
 | `context` | `RuleContext` | The ESLint rule context |
 
 ## Returns

@@ -18,7 +18,7 @@ export declare namespace getComponentCollectorLegacy {
 }
 
 /**
- * Get a api and visitor object for the rule to collect class componentss
+ * Get an api and visitor object for the rule to collect class componentss
  * @param context The ESLint rule context
  * @returns The api and visitor of the collector
  */

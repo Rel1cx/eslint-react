@@ -228,7 +228,7 @@ export interface Builder {
   use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
 }
 
-export default function eslintReactKit(): Builder {
+export default function build(): Builder {
   const idGen = new IdGenerator();
   const rules: ESLint.Plugin["rules"] & {} = {};
   const builder: Builder = {
