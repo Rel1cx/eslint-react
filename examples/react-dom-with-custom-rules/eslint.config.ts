@@ -22,7 +22,7 @@ import {
   noMultiComp,
   noUnescapedEntities,
   noUnnecessaryUsePrefix,
-  requireReact19,
+  version,
 } from "./.config/rules";
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
@@ -92,7 +92,7 @@ export default defineConfig(
         .use(noMultiComp)
         .use(noUnescapedEntities, { entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" } })
         .use(noUnnecessaryUsePrefix)
-        .use(requireReact19)
+        .use(version, "19")
         .getConfig({ files: TSCONFIG_APP.include }),
     ],
   },
