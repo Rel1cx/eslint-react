@@ -13,14 +13,22 @@ import {
   checkedRequiresOnchangeOrReadonly,
   componentHookFactories,
   forbidComponentProps,
+  forbidDomProps,
   forbidElements,
   functionComponentDefinition,
   jsxBooleanValue,
+  jsxFragments,
+  jsxHandlerNames,
+  jsxMaxDepth,
   jsxNoBind,
+  jsxNoDuplicateProps,
+  jsxNoLiterals,
+  jsxPascalCase,
+  jsxPropsNoSpreadMulti,
   jsxPropsNoSpreading,
   maxComponentPerFile,
+  noAdjacentInlineElements,
   noMultiComp,
-  noUnescapedEntities,
   noUnnecessaryUsePrefix,
   version,
 } from "./.config/rules";
@@ -76,6 +84,7 @@ export default defineConfig(
         .use(checkedRequiresOnchangeOrReadonly)
         .use(componentHookFactories)
         .use(forbidComponentProps, { forbidden: ["className", "style"] })
+        .use(forbidDomProps, { forbidden: ["style", "className"] })
         .use(forbidElements, {
           forbidden: new Map(
             [
@@ -86,11 +95,18 @@ export default defineConfig(
         })
         .use(functionComponentDefinition)
         .use(jsxBooleanValue)
+        .use(jsxFragments)
+        .use(jsxHandlerNames, { eventHandlerPrefix: "handle", eventHandlerPropPrefix: "on" })
+        .use(jsxMaxDepth, { max: 4 })
         .use(jsxNoBind)
+        .use(jsxNoDuplicateProps)
+        .use(jsxNoLiterals, { noStrings: false })
+        .use(jsxPascalCase)
+        .use(jsxPropsNoSpreadMulti)
         .use(jsxPropsNoSpreading)
         .use(maxComponentPerFile, { max: 100 })
+        .use(noAdjacentInlineElements)
         .use(noMultiComp)
-        .use(noUnescapedEntities, { entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" } })
         .use(noUnnecessaryUsePrefix)
         .use(version, "19")
         .getConfig({ files: TSCONFIG_APP.include }),
