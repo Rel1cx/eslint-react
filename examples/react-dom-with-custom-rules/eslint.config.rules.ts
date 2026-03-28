@@ -14,6 +14,7 @@ export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
           attrs.add(attr.name.name);
         }
       }
+      if (!attrs.has("checked")) return;
       if (!attrs.has("onChange") && !attrs.has("readOnly")) {
         context.report({
           node,
@@ -24,19 +25,19 @@ export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
   });
 }
 
-function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
-  if (parent == null) return null;
-  if (test(parent)) return parent;
-  if (parent.type === "Program") return null;
-  return findParent(parent, test);
-}
-
-function isFunction({ type }: TSESTree.Node) {
-  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
-}
-
 /** Disallow defining components or hooks inside other functions (factory pattern). */
 export function componentHookFactories(): RuleDefinition {
+  function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+    if (parent == null) return null;
+    if (test(parent)) return parent;
+    if (parent.type === "Program") return null;
+    return findParent(parent, test);
+  }
+
+  function isFunction({ type }: TSESTree.Node) {
+    return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+  }
+
   return (context, { collect }) => {
     const fc = collect.components(context);
     const hk = collect.hooks(context);
@@ -208,33 +209,59 @@ export type JsxsFragmentsOptions = {
 
 /** Enforce shorthand or standard form for React fragments. */
 export function jsxFragments({ mode = "syntax" }: JsxsFragmentsOptions = {}): RuleDefinition {
-  return (context) => ({
-    JSXOpeningElement(node) {
-      const name = node.name;
-      if (name.type !== "JSXMemberExpression") return;
-      if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
-      if (name.property.type !== "JSXIdentifier" || name.property.name !== "Fragment") return;
-
-      // Check if has key prop or other attributes
+  return (context) => {
+    function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       const hasAttributes = node.attributes.length > 0;
+      if (hasAttributes) return;
+      context.report({
+        node,
+        message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
+        fix(fixer) {
+          const src = context.sourceCode;
+          const closing = node.parent?.closingElement;
+          if (!closing) return null;
+          return [fixer.replaceText(node, "<>"), fixer.replaceText(closing, "</>")];
+        },
+      });
+    }
 
-      if (mode === "syntax" && !hasAttributes) {
-        context.report({
-          node,
-          message: "Use shorthand fragment syntax '<>...</>' instead of '<React.Fragment>...</React.Fragment>'.",
-          fix(fixer) {
-            const src = context.sourceCode;
-            const opening = node;
-            const closing = node.parent?.closingElement;
-            if (!closing) return null;
-            const openingText = src.getText(opening).replace(/^<React\.Fragment/, "<");
-            const closingText = src.getText(closing).replace(/^<\/React\.Fragment/, "</");
-            return [fixer.replaceText(opening, openingText), fixer.replaceText(closing, closingText)];
-          },
-        });
-      }
-    },
-  });
+    return {
+      JSXOpeningElement(node) {
+        const name = node.name;
+
+        // Handle standalone <Fragment> (JSXIdentifier)
+        if (name.type === "JSXIdentifier" && name.name === "Fragment") {
+          if (mode === "syntax") {
+            reportSyntaxPreferred(node, "Fragment");
+          }
+          return;
+        }
+
+        // Handle <React.Fragment> (JSXMemberExpression)
+        if (name.type !== "JSXMemberExpression") return;
+        if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
+        if (name.property.type !== "JSXIdentifier" || name.property.name !== "Fragment") return;
+
+        if (mode === "syntax") {
+          reportSyntaxPreferred(node, "React.Fragment");
+        }
+      },
+      JSXFragment(node) {
+        if (mode === "element") {
+          context.report({
+            node,
+            message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
+            fix(fixer) {
+              return [
+                fixer.replaceText(node.openingFragment, "<React.Fragment>"),
+                fixer.replaceText(node.closingFragment, "</React.Fragment>"),
+              ];
+            },
+          });
+        }
+      },
+    };
+  };
 }
 
 /** Options for {@link jsxHandlerNames}. */
@@ -281,10 +308,16 @@ export function jsxHandlerNames({
           return;
         }
 
-        if (
-          checkInlineFunction
-          && (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression")
-        ) {
+        if (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression") {
+          if (checkInlineFunction) {
+            context.report({
+              node: expression,
+              message:
+                `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
+                  propName.slice(eventHandlerPropPrefix.length)
+                }" function.`,
+            });
+          }
           return;
         }
       }
@@ -383,7 +416,7 @@ export type JsxNoLiteralsOptions = {
 
 /** Disallow usage of string literals in JSX. */
 export function jsxNoLiterals(
-  { noStrings = false, allowedStrings = [], ignoreProps = false }: JsxNoLiteralsOptions = {},
+  { noStrings = false, allowedStrings = [], ignoreProps = true }: JsxNoLiteralsOptions = {},
 ): RuleDefinition {
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
@@ -459,12 +492,7 @@ export function jsxPascalCase(
 
       const componentName = name.name;
 
-      // Ignore DOM elements (lowercase first letter)
-      const firstChar = componentName[0];
-      if (firstChar === undefined) return;
-      if (firstChar === firstChar.toLowerCase()) return;
-
-      // Check for leading underscore
+      // Check for leading underscore (before lowercase check since "_".toLowerCase() === "_")
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
@@ -474,6 +502,11 @@ export function jsxPascalCase(
         }
         return;
       }
+
+      // Ignore DOM elements (lowercase first letter)
+      const firstChar = componentName[0];
+      if (firstChar === undefined) return;
+      if (firstChar === firstChar.toLowerCase()) return;
 
       // Check for all caps
       if (componentName === componentName.toUpperCase()) {
@@ -564,44 +597,44 @@ export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleDe
   };
 }
 
-/** Set of inline HTML elements. */
-const INLINE_ELEMENTS = new Set([
-  "a",
-  "abbr",
-  "acronym",
-  "b",
-  "bdi",
-  "bdo",
-  "big",
-  "br",
-  "cite",
-  "code",
-  "dfn",
-  "em",
-  "i",
-  "img",
-  "input",
-  "kbd",
-  "label",
-  "map",
-  "object",
-  "q",
-  "samp",
-  "script",
-  "select",
-  "small",
-  "span",
-  "strong",
-  "sub",
-  "sup",
-  "textarea",
-  "time",
-  "tt",
-  "var",
-]);
-
 /** Disallow adjacent inline elements not separated by whitespace. */
 export function noAdjacentInlineElements(): RuleDefinition {
+  /** Set of inline HTML elements. */
+  const INLINE_ELEMENTS = new Set([
+    "a",
+    "abbr",
+    "acronym",
+    "b",
+    "bdi",
+    "bdo",
+    "big",
+    "br",
+    "cite",
+    "code",
+    "dfn",
+    "em",
+    "i",
+    "img",
+    "input",
+    "kbd",
+    "label",
+    "map",
+    "object",
+    "q",
+    "samp",
+    "script",
+    "select",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "textarea",
+    "time",
+    "tt",
+    "var",
+  ]);
+
   return (context) => ({
     JSXElement(node) {
       const children = node.children;
