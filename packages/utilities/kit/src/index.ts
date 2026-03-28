@@ -4,7 +4,7 @@ import type { ESLintReactSettingsNormalized, RuleFix, RuleFixer, RuleListener } 
 import { IdGenerator, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import type { ESLint, Linter, Rule } from "eslint";
+import type { ESLint, Linter } from "eslint";
 import { kebabCase } from "string-ts";
 export { defineRuleListener as merge } from "@eslint-react/shared";
 
