@@ -10,3 +10,4 @@ export * from "./max-component-per-file";
 export * from "./no-multi-comp";
 export * from "./no-unescaped-entities";
 export * from "./no-unnecessary-use-prefix";
+export * from "./require-react-19";

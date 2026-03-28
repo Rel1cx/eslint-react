@@ -25,6 +25,18 @@ getConfig(args?: {
 
 ***
 
+### getPlugin()
+
+```ts
+getPlugin(): Plugin;
+```
+
+#### Returns
+
+`Plugin`
+
+***
+
 ### use()
 
 ```ts
