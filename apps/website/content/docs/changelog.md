@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v4.0.2-beta.2 (2026-03-28)
+
+### ✨ New
+
+- `docs(utilities)`: Add utilities documentation for utility modules, closes #1656.
+
+### 🪄 Improvements
+
+- `examples(react-dom-with-custom-rules)`: Expand with additional custom rules examples including `forbid-dom-props`, `jsx-fragments`, `jsx-handler-names`, `jsx-max-depth`, `jsx-no-duplicate-props`, `jsx-no-literals`, `jsx-pascal-case`, `jsx-props-no-spread-multi`, and `no-adjacent-inline-elements`, closes #1653.
+- `docs`: Update migrating-from-eslint-plugin-react.mdx with improved examples and fixes, closes #1654.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.1...v4.0.2-beta.2
+
 ## v4.0.2-beta.1 (2026-03-28)
 
 ### 🐞 Fixes
