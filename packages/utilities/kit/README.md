@@ -142,8 +142,8 @@ Returns a flat `Linter.Config` object with all registered rules set to `"error"`
 
 ```ts
 eslintReactKit()
+  .use(version, "19") // factory with inferred options
   .use(noForwardRef) // no-arg factory
-  .use(forbidElements, { forbidden: new Map() }) // factory with inferred options
   .getConfig();
 ```
 
@@ -153,23 +153,22 @@ Returns an `ESLint.Plugin` object containing the registered rules and plugin met
 
 ```ts
 const kit = eslintReactKit()
-  .use(noForwardRef)
-  .use(forbidElements, { forbidden: new Map() });
+  .use(version, "19")
+  .use(noForwardRef);
 
 // Retrieve the raw plugin object
 const plugin = kit.getPlugin();
-// => { meta: { name: "@eslint-react/kit", version: "..." }, rules: { "no-forward-ref": ..., "forbid-elements": ... } }
 
 // Use it in a custom flat config with your own namespace and severity
 export default [
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
-      "react-custom-rules": plugin,
+      react: plugin,
     },
     rules: {
-      "react-custom-rules/no-forward-ref": "error",
-      "react-custom-rules/forbid-elements": "warn",
+      "react/version": "error",
+      "react/no-forward-ref": "error",
     },
   },
 ];
@@ -356,13 +355,13 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
 
-function requireReact19(): RuleDefinition {
+function version(major = "19"): RuleDefinition {
   return (context, { settings }) => ({
     Program(program) {
-      if (!settings.version.startsWith("19.")) {
+      if (!settings.version.startsWith(`${major}.`)) {
         context.report({
           node: program,
-          message: `This project requires React 19, but detected version ${settings.version}.`,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
         });
       }
     },
@@ -531,6 +530,19 @@ Use `getPlugin()` when you want full control over the plugin namespace and rule 
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
 
+function version(major = "19"): RuleDefinition {
+  return (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith(`${major}.`)) {
+        context.report({
+          node: program,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  });
+}
+
 function noForwardRef(): RuleDefinition {
   return (context, { is }) => ({
     CallExpression(node) {
@@ -541,22 +553,9 @@ function noForwardRef(): RuleDefinition {
   });
 }
 
-function requireReact19(): RuleDefinition {
-  return (context, { settings }) => ({
-    Program(program) {
-      if (!settings.version.startsWith("19.")) {
-        context.report({
-          node: program,
-          message: `This project requires React 19, but detected version ${settings.version}.`,
-        });
-      }
-    },
-  });
-}
-
 const kit = eslintReactKit()
-  .use(noForwardRef)
-  .use(requireReact19);
+  .use(version, "19")
+  .use(noForwardRef);
 
 // Instead of kit.getConfig(), use kit.getPlugin() for full control:
 const plugin = kit.getPlugin();
@@ -566,12 +565,12 @@ export default [
     files: ["**/*.{ts,tsx}"],
     plugins: {
       // Choose your own namespace
-      "react-custom": plugin,
+      react: plugin,
     },
     rules: {
       // Set individual severities
-      "react-custom/no-forward-ref": "error",
-      "react-custom/require-react-19": "error",
+      "react/version": "error",
+      "react/no-forward-ref": "error",
     },
   },
 ];
