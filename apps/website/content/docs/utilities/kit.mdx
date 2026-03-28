@@ -1,31 +1,18 @@
-# @eslint-react/kit
+---
+title: "@eslint-react/kit"
+description: ESLint React's toolkit for building custom React rules with JavasSript functions.
+---
 
-ESLint React's toolkit for building custom React rules with JavasSript functions right inside your `eslint.config.ts`.
+import { BskyPost } from "#/components/BskyPost";
 
-## Index
+<Callout type="warning">
+  This module is currently in **beta**. APIs may change in future releases.
+  Please test thoroughly before using in production.
+</Callout>
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [API Reference](#api-reference)
-  - [`eslintReactKit` (default export)](#eslintreactkit-default-export)
-  - [`RuleDefinition`](#ruledefinition)
-  - [`Builder`](#builder)
-    - [`getConfig`](#getconfig)
-    - [`getPlugin`](#getplugin)
-  - [`merge`](#merge)
-  - [`Kit` — the toolkit object](#kit--the-toolkit-object)
-    - [`kit.collect`](#kitcollect) — Semantic collectors
-    - [`kit.is`](#kitis) — Predicates
-    - [`kit.hint`](#kithint) — Detection hint bit-flags
-    - [`kit.flag`](#kitflag) — Component characteristic flags
-    - [`kit.settings`](#kitsettings) — Normalized ESLint React settings
-- [Examples](#examples)
-  - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
-  - [Component: Destructure component props](#component-destructure-component-props)
-  - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
-  - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
-  - [Advanced Config: Using `getPlugin` for custom plugin namespace](#advanced-config-using-getplugin-for-custom-plugin-namespace)
-- [More Examples](#more-examples)
+<Callout icon="">
+  <BskyPost handle="rel1cx.bsky.social" id="3ltnc77265k2d" />
+</Callout>
 
 ## Installation
 
@@ -149,12 +136,12 @@ eslintReactKit()
 
 #### `getPlugin`
 
-Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this when you need finer-grained control over how the plugin is integrated into your ESLint configuration — for example, when you want to choose the plugin namespace, set per-rule severities, or compose the plugin with other configs manually.
+Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this when you need finer-grained control over how the plugin is integrated into your ESLint configuration.
 
 ```ts
 const kit = eslintReactKit()
-  .use(noForwardRef);
-  .use(version, "19")
+  .use(noForwardRef)
+  .use(version, "19");
 
 // Retrieve the raw plugin object
 const plugin = kit.getPlugin();
@@ -186,7 +173,7 @@ Merges multiple `RuleListener` (visitor) objects into a single listener. When tw
 
 This is essential for combining a collector's `visitor` with your own inspection logic.
 
-### Kit — the toolkit object
+## Kit — the toolkit object
 
 The second argument passed to the `RuleDefinition` function is a structured `Kit` object:
 
@@ -199,9 +186,7 @@ kit
 ├── settings           -> Normalized ESLint React settings
 ```
 
----
-
-#### `kit.collect`
+### `kit.collect`
 
 Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
 
@@ -216,13 +201,11 @@ Collector factories create a `{ query, visitor }` pair. The `visitor` must be me
 | -------------------- | ----------------------------------------- |
 | `query.all(program)` | All collected semantic nodes in the file. |
 
----
-
-#### `kit.is`
+### `kit.is`
 
 All predicates live under `kit.is` — organized into four sub-sections.
 
-##### Component
+#### Component
 
 | Predicate                   | Signature                 | Description                                                                 |
 | --------------------------- | ------------------------- | --------------------------------------------------------------------------- |
@@ -233,9 +216,7 @@ All predicates live under `kit.is` — organized into four sub-sections.
 | `componentWrapperCallLoose` | `(node) -> boolean`       | Like above, but also matches `useCallback(…)`. (context pre-bound)          |
 | `componentWrapperCallback`  | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
 
-##### Hook
-
-General hook predicates:
+#### Hook
 
 | Predicate                  | Signature                             | Description                                                  |
 | -------------------------- | ------------------------------------- | ------------------------------------------------------------ |
@@ -247,7 +228,7 @@ General hook predicates:
 | `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
 | `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
 
-##### React API
+#### React API
 
 Factory functions (context pre-bound):
 
@@ -301,18 +282,16 @@ const isCreateRefCall = is.reactAPICall("createRef");
 isCreateRefCall(node);
 ```
 
-##### Import source
+#### Import source
 
 | Predicate                    | Signature                                 | Description                                          |
 | ---------------------------- | ----------------------------------------- | ---------------------------------------------------- |
 | `initializedFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
 | `initializedFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
 
----
+### `kit.hint`
 
-#### `kit.hint`
-
-Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`|`) and remove with bitwise AND-NOT (`& ~`).
+Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`\|`) and remove with bitwise AND-NOT (`& ~`).
 
 ```ts
 // The default hint used when none is specified
@@ -335,9 +314,7 @@ const { query, visitor } = collect.components(context, {
 });
 ```
 
----
-
-#### `kit.flag`
+### `kit.flag`
 
 Bit-flags indicating component characteristics. Check with bitwise AND (`&`).
 
@@ -357,7 +334,7 @@ for (const component of query.all(program)) {
 }
 ```
 
-#### `kit.settings`
+### `kit.settings`
 
 Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets your custom rules read and react to the same project-level settings used by the built-in rules.
 
@@ -391,13 +368,11 @@ function version(major = "19"): RuleDefinition {
 }
 ```
 
----
-
 ## Examples
 
 ### Simple: Ban `forwardRef`
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](/docs/rules/no-forward-ref) rule.
 
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
@@ -420,7 +395,7 @@ eslintReactKit()
 
 ### Component: Destructure component props
 
-This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
@@ -461,7 +436,7 @@ eslintReactKit()
 
 ### Hooks: Warn on custom hooks that don't call other hooks
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
@@ -495,7 +470,7 @@ eslintReactKit()
 ### Multiple Collectors: No component/hook factories
 
 Disallow defining components or hooks inside other functions (factory pattern).
-This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](/docs/rules/component-hook-factories) rule.
 
 ```ts
 import type { RuleDefinition } from "@eslint-react/kit";
@@ -576,8 +551,8 @@ function noForwardRef(): RuleDefinition {
 }
 
 const kit = eslintReactKit()
-  .use(noForwardRef);
-  .use(version, "19")
+  .use(noForwardRef)
+  .use(version, "19");
 
 // Instead of kit.getConfig(), use kit.getPlugin() for full control:
 const plugin = kit.getPlugin();
@@ -597,7 +572,3 @@ export default [
   },
 ];
 ```
-
-<!--## More Examples
-
-Please check the [Rule Recipes](https://beta.eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.-->

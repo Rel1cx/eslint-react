@@ -1,0 +1,142 @@
+---
+title: "@eslint-react/ast"
+description: AST traversal and node utility functions for JavaScript/TypeScript
+---
+
+<Callout type="error">
+  This module is currently **unstable**. APIs may change significantly or be
+  removed in future releases. Use with caution and expect breaking changes.
+</Callout>
+
+AST traversal, node identification, and utility functions for working with JavaScript/TypeScript syntax trees.
+
+## Installation
+
+```sh
+npm install --save-dev @eslint-react/ast
+```
+
+## Overview
+
+The `@eslint-react/ast` package provides low-level utilities for:
+
+- **Node Identification** - Check node types and characteristics
+- **AST Traversal** - Navigate and search the AST
+- **Function Analysis** - Identify function types, directives, and IDs
+- **Identifier Handling** - Work with identifiers and their names
+- **Expression Checking** - Validate expression types
+
+## API Reference
+
+### Node Identification
+
+Functions for identifying AST node types:
+
+| Function                   | Description                                                     |
+| -------------------------- | --------------------------------------------------------------- |
+| `isNodeOfType(node, type)` | Check if a node is of a specific type                           |
+| `isLiteral(node)`          | Check if node is a literal                                      |
+| `isIdentifier(node)`       | Check if node is an identifier                                  |
+| `isFunction(node)`         | Check if node is a function (declaration, expression, or arrow) |
+
+### Function Analysis
+
+Utilities for analyzing functions:
+
+| Function                          | Description                                              |
+| --------------------------------- | -------------------------------------------------------- |
+| `getFunctionId(node)`             | Extract the identifier from a function node              |
+| `isFunctionDeclaration(node)`     | Check if node is a function declaration                  |
+| `isFunctionExpression(node)`      | Check if node is a function expression                   |
+| `isArrowFunctionExpression(node)` | Check if node is an arrow function                       |
+| `getFunctionDirective(node)`      | Get the directive from a function (e.g., `'use client'`) |
+| `getFunctionInitPath(node)`       | Get the initialization path of a function                |
+
+### Identifier Utilities
+
+| Function                              | Description                                 |
+| ------------------------------------- | ------------------------------------------- |
+| `getIdentifierName(node)`             | Get the name of an identifier node          |
+| `isIdentifierName(node, name)`        | Check if identifier matches a specific name |
+| `traverseIdentifiers(node, callback)` | Traverse all identifiers in a node          |
+
+### Directive Handling
+
+| Function                       | Description                                                      |
+| ------------------------------ | ---------------------------------------------------------------- |
+| `getDirectiveKind(node)`       | Get the kind of directive (`'use client'`, `'use server'`, etc.) |
+| `isDirective(node, directive)` | Check if a node is a specific directive                          |
+| `getFileDirective(sourceCode)` | Get file-level directives                                        |
+
+### Expression Checking
+
+| Function                         | Description                               |
+| -------------------------------- | ----------------------------------------- |
+| `isExpressionOfType(node, type)` | Check if expression is of a specific type |
+| `getNestedExpressions(node)`     | Get nested expressions within a node      |
+| `isBooleanExpression(node)`      | Check if node evaluates to a boolean      |
+
+### Node Traversal
+
+| Function                      | Description                             |
+| ----------------------------- | --------------------------------------- |
+| `traverseNode(node, visitor)` | Traverse a node with a visitor pattern  |
+| `findParent(node, predicate)` | Find a parent node matching a predicate |
+| `getNodeLine(node)`           | Get the line number of a node           |
+
+### Property Access
+
+| Function                             | Description                |
+| ------------------------------------ | -------------------------- |
+| `getPropertyName(node)`              | Get the name of a property |
+| `traverseProperties(node, callback)` | Traverse all properties    |
+
+### Node Equality
+
+| Function            | Description                               |
+| ------------------- | ----------------------------------------- |
+| `isNodeEqual(a, b)` | Check if two nodes are semantically equal |
+
+### Pattern Matching
+
+| Function                    | Description                             |
+| --------------------------- | --------------------------------------- |
+| `isProcessEnvNodeEnv(node)` | Check if node is `process.env.NODE_ENV` |
+| `isVitestMock(node)`        | Check if node is a Vitest mock call     |
+
+## Usage Example
+
+```ts
+import { isFunction, getFunctionId, getFunctionDirective } from "@eslint-react/ast";
+import type { TSESTree } from "@typescript-eslint/utils";
+
+function analyzeFunction(node: TSESTree.Node) {
+  if (!isFunction(node)) {
+    return null;
+  }
+
+  const id = getFunctionId(node);
+  const directive = getFunctionDirective(node);
+
+  return {
+    name: id?.name,
+    directive,
+    isArrow: node.type === "ArrowFunctionExpression",
+  };
+}
+```
+
+## Type Exports
+
+The package also exports TypeScript types:
+
+```ts
+import type { FunctionNode, LiteralNode } from "@eslint-react/ast";
+```
+
+---
+
+## See Also
+
+- [**JSX**](/docs/utilities/jsx) - JSX-specific utilities
+- [**Kit**](/docs/utilities/kit) - High-level rule building toolkit
