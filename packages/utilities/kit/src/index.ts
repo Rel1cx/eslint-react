@@ -223,7 +223,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
 export type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 
 export interface Builder {
-  getConfig(args?: { files?: string[] }): Linter.Config;
+  getConfig(options?: { files?: string[] }): Linter.Config;
   getPlugin(): ESLint.Plugin;
   use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
 }
