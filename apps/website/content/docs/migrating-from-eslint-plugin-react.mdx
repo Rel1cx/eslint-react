@@ -18,7 +18,7 @@ import { Callout } from "fumadocs-ui/components/callout";
   - [Table](/docs/migrating-from-eslint-plugin-react#table)
   - [ESLint React Column](/docs/migrating-from-eslint-plugin-react#eslint-react-column)
 - [Gradual Migration](/docs/migrating-from-eslint-plugin-react#gradual-migration)
-- [Custom Rules For Extended Functionality](/docs/migrating-from-eslint-plugin-react#custom-rules-for-extended-functionality)
+- [Custom Rules For Missing Rules](/docs/migrating-from-eslint-plugin-react#custom-rules-for-missing-rules)
   - [`checked-requires-onchange-or-readonly`](/docs/migrating-from-eslint-plugin-react#checked-requires-onchange-or-readonly)
   - [`forbid-component-props`](/docs/migrating-from-eslint-plugin-react#forbid-component-props)
   - [`forbid-dom-props`](/docs/migrating-from-eslint-plugin-react#forbid-dom-props)
@@ -214,7 +214,7 @@ export default defineConfig([
 ]);
 ```
 
-## Custom Rules For Extended Functionality
+## Custom Rules For Missing Rules
 
 Some `eslint-plugin-react` rules don't have built-in equivalents in ESLint React, or you may want to customize their behavior.
 You can use [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) to create minimal custom rule implementations directly in your `eslint.config.ts`.
