@@ -5,3 +5,8 @@
 .bsky-post [class*="embed-module_external"] {
 	display: none;
 }
+
+.bsky-post [class*="post-content-module_content"] {
+  font-size: 1em;
+  line-height: inherit;
+}
