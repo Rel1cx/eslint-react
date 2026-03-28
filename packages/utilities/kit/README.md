@@ -258,11 +258,33 @@ Factory functions (context pre-bound):
 
 Pre-built identifier predicates (context pre-bound):
 
-`captureOwnerStack`, `childrenCount`, `childrenForEach`, `childrenMap`, `childrenOnly`, `childrenToArray`, `cloneElement`, `createContext`, `createElement`, `forwardRef`, `memo`, `lazy`
+- `captureOwnerStack`
+- `childrenCount`
+- `childrenForEach`
+- `childrenMap`
+- `childrenOnly`
+- `childrenToArray`
+- `cloneElement`
+- `createContext`
+- `createElement`
+- `forwardRef`
+- `memo`
+- `lazy`
 
 Pre-built call predicates (context pre-bound):
 
-`captureOwnerStackCall`, `childrenCountCall`, `childrenForEachCall`, `childrenMapCall`, `childrenOnlyCall`, `childrenToArrayCall`, `cloneElementCall`, `createContextCall`, `createElementCall`, `forwardRefCall`, `memoCall`, `lazyCall`
+- `captureOwnerStackCall`
+- `childrenCountCall`
+- `childrenForEachCall`
+- `childrenMapCall`
+- `childrenOnlyCall`
+- `childrenToArrayCall`
+- `cloneElementCall`
+- `createContextCall`
+- `createElementCall`
+- `forwardRefCall`
+- `memoCall`
+- `lazyCall`
 
 All React API predicates and factories have `context` pre-bound — no need to pass the rule context manually:
 
