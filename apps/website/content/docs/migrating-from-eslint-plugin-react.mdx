@@ -531,8 +531,8 @@ export function jsxFragments({ mode = "syntax" }: JsxsFragmentsOptions = {}): Ru
             const opening = node;
             const closing = node.parent?.closingElement;
             if (!closing) return null;
-            const openingText = src.getText(opening).replace(/^<React\.Fragment/, "<>").replace(/>$/, ">");
-            const closingText = src.getText(closing).replace(/^<\/React\.Fragment/, "</>").replace(/>$/, ">");
+            const openingText = src.getText(opening).replace(/^<React\.Fragment/, "<");
+            const closingText = src.getText(closing).replace(/^<\/React\.Fragment/, "</");
             return [fixer.replaceText(opening, openingText), fixer.replaceText(closing, closingText)];
           },
         });
