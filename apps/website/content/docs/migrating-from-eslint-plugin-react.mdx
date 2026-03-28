@@ -138,7 +138,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`no-render-return-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-render-return-value.md)                               | [`dom-no-render-return-value`](/docs/rules/dom-no-render-return-value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | ✅           | ✅      |
 | [`no-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-set-state.md)                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`no-string-refs`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
-| [`no-this-in-sfc`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md)                                               | [`@eslint-react/kit/no-this-in-sfc`](#no-this-in-sfc)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | ✅           | ✅      |
+| [`no-this-in-sfc`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`no-typos`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-typos.md)                                                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`no-unknown-property`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md)                                     | [`dom-no-unknown-property`](/docs/rules/dom-no-unknown-property)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 🔧          | 🔧     |
 | [`no-unsafe`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unsafe.md)                                                         | [`no-unsafe-component-will-mount`](/docs/rules/no-unsafe-component-will-mount) + [`no-unsafe-component-will-receive-props`](/docs/rules/no-unsafe-component-will-receive-props) + [`no-unsafe-component-will-update`](/docs/rules/no-unsafe-component-will-update)                                                                                                                                                                                                                                                                                             | ✅           | 🟡     |
@@ -249,8 +249,7 @@ import {
   jsxPropsNoSpreading,
   noAdjacentInlineElements,
   noMultiComp,
-  noThisInSfc,
-  noUnescapedEntities,
+
 } from "./eslint.config.rules";
 
 export default defineConfig([
@@ -271,7 +270,6 @@ export default defineConfig([
         .use(jsxPropsNoSpreadMulti)
         .use(noAdjacentInlineElements)
         .use(noMultiComp)
-        .use(noThisInSfc)
         .use(forbidElements, {
           forbidden: new Map([
             ["button", "Use <Button> from '@/components/ui' instead."],
@@ -282,9 +280,7 @@ export default defineConfig([
         .use(jsxBooleanValue)
         .use(jsxNoBind)
         .use(jsxPropsNoSpreading)
-        .use(noUnescapedEntities, {
-          entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" },
-        })
+
         .getConfig(),
     ],
   },
