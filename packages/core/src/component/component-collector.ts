@@ -37,7 +37,7 @@ export declare namespace getComponentCollector {
 }
 
 /**
- * Get a api and visitor object for the rule to collect function components
+ * Get an api and visitor object for the rule to collect function components
  * @param context The ESLint rule context
  * @param options The options to use
  * @returns The api and visitor of the collector

@@ -6,7 +6,7 @@
 function getComponentCollector(context: RuleContext, options?: Options): ReturnType;
 ```
 
-Get a api and visitor object for the rule to collect function components
+Get an api and visitor object for the rule to collect function components
 
 ## Parameters
 

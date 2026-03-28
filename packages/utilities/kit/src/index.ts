@@ -4,7 +4,7 @@ import type { ESLintReactSettingsNormalized, RuleFix, RuleFixer, RuleListener } 
 import { IdGenerator, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/utils";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
-import type { ESLint, Linter, Rule } from "eslint";
+import type { ESLint, Linter } from "eslint";
 import { kebabCase } from "string-ts";
 export { defineRuleListener as merge } from "@eslint-react/shared";
 
@@ -224,31 +224,35 @@ export type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => Rul
 
 export interface Builder {
   getConfig(args?: { files?: string[] }): Linter.Config;
+  getPlugin(): ESLint.Plugin;
   use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
 }
 
-export default function eslintReactKit(): Builder {
+export default function build(): Builder {
   const idGen = new IdGenerator();
-  const plugin = {
-    meta: { name: pkg.name, version: pkg.version },
-    rules: {},
-  } as const satisfies ESLint.Plugin;
+  const rules: ESLint.Plugin["rules"] & {} = {};
   const builder: Builder = {
     getConfig({ files = ["**/*.ts", "**/*.tsx"] } = {}): Linter.Config {
       return {
         files,
         plugins: {
-          [pkg.name]: plugin,
+          [pkg.name]: builder.getPlugin(),
         },
-        rules: Object.keys(plugin.rules).reduce<Linter.Config["rules"] & {}>((acc, name) => {
+        rules: Object.keys(rules).reduce<Linter.Config["rules"] & {}>((acc, name) => {
           acc[`${pkg.name}/${name}`] = "error";
           return acc;
         }, {}),
       };
     },
+    getPlugin(): ESLint.Plugin {
+      return {
+        meta: { name: pkg.name, version: pkg.version },
+        rules,
+      };
+    },
     use(make: (...args: any[]) => RuleDefinition, ...args: any[]): Builder {
       const name = kebabCase(make.name === "" ? idGen.next() : make.name);
-      Reflect.set(plugin.rules, name, {
+      Reflect.set(rules, name, {
         meta: {
           fixable: "code",
           hasSuggestions: true,

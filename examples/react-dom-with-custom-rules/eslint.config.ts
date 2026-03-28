@@ -6,6 +6,9 @@ import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
+import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
+import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
+
 import {
   checkedRequiresOnchangeOrReadonly,
   componentHookFactories,
@@ -19,9 +22,8 @@ import {
   noMultiComp,
   noUnescapedEntities,
   noUnnecessaryUsePrefix,
+  version,
 } from "./.config/rules";
-import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
-import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
@@ -90,6 +92,7 @@ export default defineConfig(
         .use(noMultiComp)
         .use(noUnescapedEntities, { entities: { ">": "&gt;", '"': "&quot;", "'": "&apos;", "}": "&#125;" } })
         .use(noUnnecessaryUsePrefix)
+        .use(version, "19")
         .getConfig({ files: TSCONFIG_APP.include }),
     ],
   },

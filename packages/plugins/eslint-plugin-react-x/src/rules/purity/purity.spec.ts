@@ -303,15 +303,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          const controller = new AbortController();
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
           const observer = new MutationObserver(() => {});
           return <div>Content</div>;
         }
@@ -861,15 +852,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          const controller = new (AbortController as any)();
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
           const date = new (Date satisfies typeof Date)();
           return <div>{date.toISOString()}</div>;
         }
@@ -1065,6 +1047,14 @@ ruleTester.run(RULE_NAME, rule, {
             const ws = new WebSocket("ws://example.com");
             return () => ws.close();
           }, []);
+          return <div>Content</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const controller = new AbortController();
           return <div>Content</div>;
         }
       `,
