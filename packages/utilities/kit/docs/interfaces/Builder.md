@@ -7,7 +7,7 @@
 ### getConfig()
 
 ```ts
-getConfig(args?: {
+getConfig(options?: {
   files?: string[];
 }): Config;
 ```
@@ -16,8 +16,8 @@ getConfig(args?: {
 
 | Parameter | Type |
 | ------ | ------ |
-| `args?` | \{ `files?`: `string`[]; \} |
-| `args.files?` | `string`[] |
+| `options?` | \{ `files?`: `string`[]; \} |
+| `options.files?` | `string`[] |
 
 #### Returns
 

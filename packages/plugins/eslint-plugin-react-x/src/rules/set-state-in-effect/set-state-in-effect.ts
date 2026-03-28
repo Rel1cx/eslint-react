@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
-import { constVoid, getOrElseUpdate, not } from "@local/eff";
+import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -294,8 +294,8 @@ export function create(context: RuleContext<MessageID, []>) {
               }
               default: {
                 const init = ast.findParent(node, isHookDecl)?.init;
-                if (init == null) getOrElseUpdate(setStateCallsByFn, entry.node, () => []).push(node);
-                else getOrElseUpdate(setStateInHookCallbacks, init, () => []).push(node);
+                if (init == null) getOrInsertComputed(setStateCallsByFn, entry.node, () => []).push(node);
+                else getOrInsertComputed(setStateInHookCallbacks, init, () => []).push(node);
               }
             }
           })
@@ -330,7 +330,7 @@ export function create(context: RuleContext<MessageID, []>) {
             }
             const init = ast.findParent(parent, isHookDecl)?.init;
             if (init != null) {
-              getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
+              getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
             }
             break;
           }
@@ -344,14 +344,14 @@ export function create(context: RuleContext<MessageID, []>) {
             if (core.isUseCallbackCall(node.parent)) {
               const init = ast.findParent(node.parent, isHookDecl)?.init;
               if (init != null) {
-                getOrElseUpdate(setStateInEffectArg, init, () => []).push(node);
+                getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
               }
               break;
             }
             // const [state, setState] = useState();
             // useEffect(setState);
             if (isUseEffectCall(node.parent)) {
-              getOrElseUpdate(setStateInEffectSetup, node.parent, () => []).push(node);
+              getOrInsertComputed(setStateInEffectSetup, node.parent, () => []).push(node);
             }
           }
         }

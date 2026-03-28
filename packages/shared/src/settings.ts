@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
-import { getOrElseUpdate, identity } from "@local/eff";
+import { getOrInsertComputed, identity } from "@local/eff";
 import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 
 import { P, match } from "ts-pattern";
@@ -135,7 +135,7 @@ const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
   const settings = context.settings;
-  return getOrElseUpdate(
+  return getOrInsertComputed(
     cache,
     settings["react-x"],
     () => normalizeSettings(decodeSettings(settings["react-x"])),

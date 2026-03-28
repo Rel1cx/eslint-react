@@ -1216,20 +1216,21 @@ export function flow(
 // #region Map & Set
 
 /**
- * Retrieves a value from a Map or WeakMap if the key exists, or computes a new value if it doesn't.
+ * Retrieves a value from a Map or WeakMap if the key exists, or inserts and returns a default value if it doesn't.
  *
- * @param map - The Map or WeakMap to get from.
+ * @param map - The Map or WeakMap to get from or update.
  * @param key - The key to look up in the Map or WeakMap.
- * @param callback - The function to call to generate a new value if the key doesn't exist.
- * @returns The existing value for the key, or the computed fallback value.
+ * @param defaultValue - The value to insert and return if the key is not present.
+ * @returns The existing value for the key, or the inserted default value.
  */
-export function getOrElse<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V;
-export function getOrElse<K, V>(map: Map<K, V>, key: K, callback: () => V): V;
-export function getOrElse<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V {
+export function getOrInsert<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, defaultValue: V): V;
+export function getOrInsert<K, V>(map: Map<K, V>, key: K, defaultValue: V): V;
+export function getOrInsert<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, defaultValue: V): V {
   if (map.has(key)) {
     return map.get(key)!;
   }
-  return callback();
+  map.set(key, defaultValue);
+  return defaultValue;
 }
 
 /**
@@ -1237,33 +1238,18 @@ export function getOrElse<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, call
  *
  * @param map - The Map or WeakMap to get from or update.
  * @param key - The key to look up in the Map or WeakMap.
- * @param callback - The function to call to generate a new value if the key doesn't exist.
+ * @param callback - A function that returns the value to insert if the key is not present. Called with the key as argument.
  * @returns The existing value for the key, or the newly computed value.
  */
-export function getOrElseUpdate<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V;
-export function getOrElseUpdate<K, V>(map: Map<K, V>, key: K, callback: () => V): V;
-export function getOrElseUpdate<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: () => V): V {
+export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: (key: K) => V): V;
+export function getOrInsertComputed<K, V>(map: Map<K, V>, key: K, callback: (key: K) => V): V;
+export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: (key: K) => V): V {
   if (map.has(key)) {
     return map.get(key)!;
   }
-  const value = callback();
+  const value = callback(key);
   map.set(key, value);
   return value;
-}
-
-/**
- * Attempts to add a value to a Set, but only if it doesn't already exist.
- *
- * @param set - The Set to potentially add to.
- * @param value - The value to add if it doesn't already exist in the Set.
- * @returns `true` if the value was added, `false` if it already existed.
- */
-export function tryAddToSet<T>(set: Set<T>, value: T): boolean {
-  if (!set.has(value)) {
-    set.add(value);
-    return true;
-  }
-  return false;
 }
 
 // #endregion
