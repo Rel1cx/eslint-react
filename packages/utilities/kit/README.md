@@ -591,8 +591,8 @@ export default [
     },
     rules: {
       // Set individual severities
-      "react/version": "error",
       "react/no-forward-ref": "error",
+      "react/version": "error",
     },
   },
 ];
