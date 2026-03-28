@@ -756,6 +756,39 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
+    // DOM event target mutations are not props mutations
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        import { type KeyboardEvent } from "react";
+
+        export function SearchInput() {
+          function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+            if (e.key === "Escape") {
+              e.currentTarget.value = "";
+            }
+          }
+
+          return <input onKeyDown={onKeyDown} />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { type MouseEvent } from "react";
+
+        export function Button() {
+          return (
+            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.disabled = true;
+            }}>
+              Click
+            </button>
+          );
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
     // Props destructuring (reading is fine)
     // -------------------------------------------------------------------------
     {
