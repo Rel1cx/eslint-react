@@ -66,7 +66,7 @@ export function getComponentCollector(
     const initPath = ast.getFunctionInitPath(node);
     const directives = ast.getFunctionDirectives(node);
     const entry = {
-      id: getFunctionComponentId(context, node),
+      id,
       key,
       kind: "component",
       name,

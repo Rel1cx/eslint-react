@@ -13,7 +13,7 @@ This interface extends SemanticNode and provides additional properties for React
 
 | Property | Type | Description | Overrides | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-directives"></a> `directives` | `StringLiteral`[] | The directives used in the function (ex: "use strict", "use client", etc.) | - | - |
+| <a id="property-directives"></a> `directives` | `TSESTreeDirective`[] | The directives used in the function (ex: "use strict", "use client", etc.) | - | - |
 | <a id="property-flag"></a> `flag` | `bigint` | The flag of the node | - | [`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#property-flag) |
 | <a id="property-hint"></a> `hint` | `bigint` | The hint of the node | - | [`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#property-hint) |
 | <a id="property-hookcalls"></a> `hookCalls` | `CallExpression`[] | The other hooks called by the hook | - | - |

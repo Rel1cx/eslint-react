@@ -109,7 +109,7 @@
 | ------ | ------ |
 | [findImportSource](functions/findImportSource.md) | Find the import source of a variable |
 | [getComponentCollector](functions/getComponentCollector.md) | Get an api and visitor object for the rule to collect function components |
-| [getComponentCollectorLegacy](functions/getComponentCollectorLegacy.md) | Get an api and visitor object for the rule to collect class componentss |
+| [getComponentCollectorLegacy](functions/getComponentCollectorLegacy.md) | Get an api and visitor object for the rule to collect class components |
 | [getComponentFlagFromInitPath](functions/getComponentFlagFromInitPath.md) | Get component flag from init path |
 | [getFunctionComponentId](functions/getFunctionComponentId.md) | Get function component identifier from `const Component = memo(() => {});` |
 | [getHookCollector](functions/getHookCollector.md) | Get an api and visitor object for the rule to collect hooks |
@@ -124,9 +124,8 @@
 | [isComponentWrapperCallbackLoose](functions/isComponentWrapperCallbackLoose.md) | Check if the node is a callback function passed to a component wrapper loosely |
 | [isComponentWrapperCallLoose](functions/isComponentWrapperCallLoose.md) | Check if the node is a call expression for a component wrapper loosely |
 | [isFunctionWithLooseComponentName](functions/isFunctionWithLooseComponentName.md) | Check if a function has a loose component name |
-| [isHook](functions/isHook.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
-| [isHookCallWithName](functions/isHookCallWithName.md) | Check if a node is a call to a specific React hook. Returns a function that accepts a hook name to check against. |
+| [isHookDefinition](functions/isHookDefinition.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookId](functions/isHookId.md) | Checks if the given node is a hook identifier |
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
 | [isInitializedFromReact](functions/isInitializedFromReact.md) | Check if a variable is initialized from React import |

@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (!core.isThisSetState(node)) {
+        if (!core.isThisSetStateCall(node)) {
           return;
         }
         // Find the enclosing class component

@@ -6,7 +6,7 @@
 function getComponentCollectorLegacy(context: RuleContext): ReturnType;
 ```
 
-Get an api and visitor object for the rule to collect class componentss
+Get an api and visitor object for the rule to collect class components
 
 ## Parameters
 
