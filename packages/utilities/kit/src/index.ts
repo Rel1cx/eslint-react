@@ -60,7 +60,7 @@ interface RuleToolkit {
     childrenToArrayCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     cloneElement: (node: null | TSESTree.Node) => boolean;
     cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    componentDefinition: (node: TSESTreeFunction, hint: bigint) => boolean;
+    componentDecl: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isComponentName;
     componentNameLoose: typeof core.isComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;
@@ -74,8 +74,8 @@ interface RuleToolkit {
     createRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     forwardRef: (node: null | TSESTree.Node) => boolean;
     forwardRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    hook: typeof core.isHook;
     hookCall: typeof core.isHookCall;
+    hookDecl: typeof core.isHookDefinition;
     hookName: typeof core.isHookName;
     initializedFromReact: typeof core.isInitializedFromReact;
     initializedFromReactNative: typeof core.isInitializedFromReactNative;
@@ -166,7 +166,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       childrenToArrayCall: core.isChildrenToArrayCall(context),
       cloneElement: core.isCloneElement(context),
       cloneElementCall: core.isCloneElementCall(context),
-      componentDefinition: (node, hint) => core.isComponentDefinition(context, node, hint),
+      componentDecl: (node, hint) => core.isComponentDefinition(context, node, hint),
       componentName: core.isComponentName,
       componentNameLoose: core.isComponentNameLoose,
       componentWrapperCall: (node) => core.isComponentWrapperCall(context, node),
@@ -180,8 +180,8 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       createRefCall: core.isCreateRefCall(context),
       forwardRef: core.isForwardRef(context),
       forwardRefCall: core.isForwardRefCall(context),
-      hook: core.isHook,
       hookCall: core.isHookCall,
+      hookDecl: core.isHookDefinition,
       hookName: core.isHookName,
       initializedFromReact: core.isInitializedFromReact,
       initializedFromReactNative: core.isInitializedFromReactNative,

@@ -20,6 +20,6 @@ export interface HookSemanticNode extends SemanticNode {
   /** The other hooks called by the hook */
   hookCalls: TSESTree.CallExpression[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */
-  directives: TSESTree.StringLiteral[];
+  directives: ast.TSESTreeDirective[];
 }
 /* eslint-enable perfectionist/sort-interfaces */

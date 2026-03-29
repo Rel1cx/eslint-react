@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isHook
+[@eslint-react/core](../README.md) / isHookDefinition
 
-# Function: isHook()
+# Function: isHookDefinition()
 
 ```ts
-function isHook(node: TSESTreeFunction | null): boolean;
+function isHookDefinition(node: TSESTreeFunction | null): boolean;
 ```
 
 Determine if a function node is a React Hook based on its name.
