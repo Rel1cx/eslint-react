@@ -232,7 +232,7 @@ export default function build(): Builder {
   const idGen = new IdGenerator();
   const rules: ESLint.Plugin["rules"] & {} = {};
   const builder: Builder = {
-    getConfig({ files = ["**/*.ts", "**/*.tsx"] } = {}): Linter.Config {
+    getConfig({ files = ["**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}"] } = {}): Linter.Config {
       return {
         files,
         plugins: {
