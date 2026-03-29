@@ -2,6 +2,23 @@
 title: Changelog
 ---
 
+## v4.0.2-beta.3 (2026-03-29)
+
+### ✨ New
+
+- `kit`: Support more file extensions in `getConfig` defaults (`js`, `mjs`, `cjs`, `jsx`, `ts`, `mts`, `cts`, `tsx`), closes #1659.
+
+### 🐞 Fixes
+
+- `docs`: Update package structure documentation in contributing guide and FAQ, closes #1658.
+
+### 🪄 Improvements
+
+- `refactor(eff)`: Replace `getOrElse`/`getOrElseUpdate` with `getOrInsert`/`getOrInsertComputed` for better API consistency, closes #1657.
+- `refactor(kit)`: Rename parameter `args` to `options`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.2...v4.0.2-beta.3
+
 ## v4.0.2-beta.2 (2026-03-28)
 
 ### ✨ New
