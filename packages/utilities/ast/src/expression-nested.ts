@@ -139,6 +139,8 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
  */
 export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
   const statements: TSESTree.ReturnStatement[] = [];
+  // If the node is not inside a function, boundaryNode will be null
+  // and no return statements will be collected (as expected)
   const boundaryNode = isFunction(node)
     ? node
     : findParent(node, isFunction);

@@ -340,6 +340,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        const Foo = class extends React.Component {
+          handleClick() {}
+          render() {
+            return null;
+          }
+        };
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "handleClick" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`

@@ -106,8 +106,11 @@ export const isJSXTagNameExpression = isOneOf([
 
 /**
  * Check if a node is a JSX-related node
+ * Note: This runtime guard includes JSXExpressionContainer which is commonly needed
+ * for AST traversals but not included in the TSESTreeJSX type union.
  * @param node The node to check
  * @returns True if the node is a JSX node
+ * @see TSESTreeJSX
  */
 export const isJSX = isOneOf([
   AST.JSXAttribute,

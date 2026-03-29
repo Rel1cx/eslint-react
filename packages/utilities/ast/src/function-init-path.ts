@@ -59,16 +59,16 @@ export type FunctionInitPath =
     TSESTree.CallExpression,
     TSESTreeFunction,
   ]
-  // Class method components: class Comp { TopNav() { return <div />; } }
+  // Class method components: class Comp { TopNav() { return <div />; } } or const Comp = class { TopNav() {} }
   | readonly [
-    TSESTree.ClassDeclaration,
+    TSESTree.ClassDeclaration | TSESTree.ClassExpression,
     TSESTree.ClassBody,
     TSESTree.MethodDefinition,
     TSESTreeFunction,
   ]
-  // Class property arrow functions: class Comp { TopNav = () => <div />; }
+  // Class property arrow functions: class Comp { TopNav = () => <div />; } or const Comp = class { TopNav = () => {} }
   | readonly [
-    TSESTree.ClassDeclaration,
+    TSESTree.ClassDeclaration | TSESTree.ClassExpression,
     TSESTree.ClassBody,
     TSESTree.PropertyDefinition,
     TSESTreeFunction,
@@ -114,14 +114,16 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
-    // Class method component: class Comp { render() {} }
+    // Class method component: class Comp { render() {} } or const Comp = class { render() {} }
     case parent.type === AST.MethodDefinition
-      && parent.parent.parent.type === AST.ClassDeclaration:
+      && (parent.parent.parent.type === AST.ClassDeclaration
+        || parent.parent.parent.type === AST.ClassExpression):
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
-    // Class property arrow function: class Comp { render = () => {} }
+    // Class property arrow function: class Comp { render = () => {} } or const Comp = class { render = () => {} }
     case parent.type === AST.PropertyDefinition
-      && parent.parent.parent.type === AST.ClassDeclaration:
+      && (parent.parent.parent.type === AST.ClassDeclaration
+        || parent.parent.parent.type === AST.ClassExpression):
       return [parent.parent.parent, parent.parent, parent, node] as const;
   }
 
