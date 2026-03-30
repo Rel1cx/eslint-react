@@ -18,8 +18,8 @@ export function getFileDirectives(node: TSESTree.Program): TSESTreeDirective[] {
 }
 
 /**
- * Check if a directive with the given name exists in the file or function directives
- * @param node The program or function AST node
+ * Check if a directive with the given name exists in the file directives
+ * @param node The program AST node
  * @param name The directive name to check (ex: "use strict", "use memo", "use no memo")
  * @returns True if the directive exists, false otherwise
  */

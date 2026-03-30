@@ -61,7 +61,7 @@ export const isNodeEqual: {
       return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
     case a.type === AST.JSXAttribute
       && b.type === AST.JSXAttribute: {
-      if (a.name.name !== b.name.name) {
+      if (!isNodeEqual(a.name, b.name)) {
         return false;
       }
       if (a.value == null || b.value == null) {

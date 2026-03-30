@@ -861,6 +861,25 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const ChildComponent = class extends React.Component {
+            render() {
+              return <div />;
+            }
+          };
+          return <ChildComponent />;
+        }
+      `,
+      errors: [{
+        data: {
+          name: "ChildComponent",
+          suggestion: "Move it to the top level.",
+        },
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     tsx`

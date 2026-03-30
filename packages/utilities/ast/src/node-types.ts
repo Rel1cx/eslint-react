@@ -56,6 +56,9 @@ export type TSESTreeProperty =
 
 /**
  * Represents all JSX-related nodes in TSESTree
+ * Note: This type is for type-level operations. The isJSX() runtime guard in node-is.ts
+ * has a slightly different set of nodes as it includes JSXExpressionContainer which is
+ * commonly needed for runtime checks but not included in this type union.
  */
 export type TSESTreeJSX =
   | TSESTree.JSXAttribute

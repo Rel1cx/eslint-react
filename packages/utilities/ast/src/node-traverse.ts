@@ -25,6 +25,8 @@ function findParent<A extends TSESTree.Node>(
 ): TSESTree.Node | A | null {
   if (node == null) return null;
   let parent = node.parent;
+  // Stop at Program node - we don't include Program itself in the search
+  // as it's typically the root and callers usually look for specific node types
   while (parent != null && parent.type !== AST.Program) {
     if (test(parent)) {
       return parent;
