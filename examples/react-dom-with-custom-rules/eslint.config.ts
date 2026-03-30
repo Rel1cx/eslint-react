@@ -80,36 +80,39 @@ export default defineConfig(
       eslintPluginReactHooks.configs.flat["recommended-latest"] ?? [],
       eslintPluginReactRefresh.configs.recommended,
       eslintReact.configs["strict-type-checked"],
-      eslintReactKit()
-        .use(checkedRequiresOnchangeOrReadonly)
-        .use(componentHookFactories)
-        .use(forbidComponentProps, { forbidden: ["className", "style"] })
-        // .use(forbidDomProps, { forbidden: ["style", "className"] })
-        .use(forbidElements, {
-          forbidden: new Map(
-            [
-              ["button", "Use <Button> from '@/components/ui' instead."],
-              ["input", "Use <Input> from '@/components/ui' instead."],
-            ],
-          ),
-        })
-        .use(functionComponentDefinition)
-        .use(jsxBooleanValue)
-        .use(jsxFragments)
-        .use(jsxHandlerNames, { eventHandlerPrefix: "handle", eventHandlerPropPrefix: "on" })
-        .use(jsxMaxDepth, { max: 4 })
-        .use(jsxNoBind)
-        .use(jsxNoDuplicateProps)
-        // .use(jsxNoLiterals, { noStrings: false })
-        .use(jsxPascalCase)
-        .use(jsxPropsNoSpreadMulti)
-        .use(jsxPropsNoSpreading)
-        .use(maxComponentPerFile, { max: 100 })
-        .use(noAdjacentInlineElements)
-        .use(noMultiComp)
-        .use(noUnnecessaryUsePrefix)
-        .use(version, "19")
-        .getConfig({ files: TSCONFIG_APP.include }),
+      {
+        ...eslintReactKit()
+          .use(checkedRequiresOnchangeOrReadonly)
+          .use(componentHookFactories)
+          .use(forbidComponentProps, { forbidden: ["className", "style"] })
+          // .use(forbidDomProps, { forbidden: ["style", "className"] })
+          .use(forbidElements, {
+            forbidden: new Map(
+              [
+                ["button", "Use <Button> from '@/components/ui' instead."],
+                ["input", "Use <Input> from '@/components/ui' instead."],
+              ],
+            ),
+          })
+          .use(functionComponentDefinition)
+          .use(jsxBooleanValue)
+          .use(jsxFragments)
+          .use(jsxHandlerNames, { eventHandlerPrefix: "handle", eventHandlerPropPrefix: "on" })
+          .use(jsxMaxDepth, { max: 4 })
+          .use(jsxNoBind)
+          .use(jsxNoDuplicateProps)
+          // .use(jsxNoLiterals, { noStrings: false })
+          .use(jsxPascalCase)
+          .use(jsxPropsNoSpreadMulti)
+          .use(jsxPropsNoSpreading)
+          .use(maxComponentPerFile, { max: 100 })
+          .use(noAdjacentInlineElements)
+          .use(noMultiComp)
+          .use(noUnnecessaryUsePrefix)
+          .use(version, "19")
+          .getConfig(),
+        files: TSCONFIG_APP.include,
+      },
     ],
   },
 );
