@@ -3,10 +3,10 @@
 ### 🐞 Fixes
 
 - `eslint-plugin-react-x`
-  - `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652.
+  - `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
 
 - `eslint-plugin-react-jsx`
-  - Improve type safety and edge case handling, closes #1664.
+  - Improve type safety and edge case handling for JSX rules (#1664).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.6...v4.0.3-beta.0
 
