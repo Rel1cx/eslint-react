@@ -114,16 +114,12 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
       && parent.parent.parent.type === AST.VariableDeclarator:
       return [parent.parent.parent.parent, parent.parent.parent, parent.parent, parent, node] as const;
 
-    // Class method component: class Comp { render() {} } or const Comp = class { render() {} }
-    case parent.type === AST.MethodDefinition
-      && (parent.parent.parent.type === AST.ClassDeclaration
-        || parent.parent.parent.type === AST.ClassExpression):
+    // Class method component: class Comp { TopNav() {} } or const Comp = class { TopNav() {} }
+    case parent.type === AST.MethodDefinition:
       return [parent.parent.parent, parent.parent, parent, node] as const;
 
-    // Class property arrow function: class Comp { render = () => {} } or const Comp = class { render = () => {} }
-    case parent.type === AST.PropertyDefinition
-      && (parent.parent.parent.type === AST.ClassDeclaration
-        || parent.parent.parent.type === AST.ClassExpression):
+    // Class property arrow function: class Comp { TopNav = () => {} } or const Comp = class { TopNav = () => {} }
+    case parent.type === AST.PropertyDefinition:
       return [parent.parent.parent, parent.parent, parent, node] as const;
   }
 

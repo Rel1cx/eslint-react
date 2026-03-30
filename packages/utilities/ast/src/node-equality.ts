@@ -61,21 +61,8 @@ export const isNodeEqual: {
       return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
     case a.type === AST.JSXAttribute
       && b.type === AST.JSXAttribute: {
-      // Handle JSXNamespacedName (e.g., <svg xlink:href="" />)
-      if (a.name.type !== b.name.type) {
+      if (!isNodeEqual(a.name, b.name)) {
         return false;
-      }
-      if (a.name.type === AST.JSXNamespacedName && b.name.type === AST.JSXNamespacedName) {
-        if (
-          a.name.namespace.name !== b.name.namespace.name
-          || a.name.name.name !== b.name.name.name
-        ) {
-          return false;
-        }
-      } else if (a.name.type === AST.JSXIdentifier && b.name.type === AST.JSXIdentifier) {
-        if (a.name.name !== b.name.name) {
-          return false;
-        }
       }
       if (a.value == null || b.value == null) {
         return a.value === b.value;

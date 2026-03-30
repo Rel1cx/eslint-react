@@ -60,7 +60,7 @@
     "importx": "^0.5.2",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.2",
-    "tsl": "^1.0.29",
+    "tsl": "^1.0.30",
     "tsl-dx": "^0.10.2",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.57.2"
