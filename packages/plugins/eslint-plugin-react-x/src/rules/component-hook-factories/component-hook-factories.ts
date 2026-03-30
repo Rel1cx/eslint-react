@@ -34,6 +34,7 @@ export default createRule<[], MessageID>({
 
 /**
  * Check if a function parameter name looks like a React component (PascalCase).
+ * @param name The parameter name to check.
  */
 function isComponentLikeParamName(name: string): boolean {
   return /^[A-Z]/.test(name);
@@ -42,6 +43,7 @@ function isComponentLikeParamName(name: string): boolean {
 /**
  * Check if a function parameter has a type annotation that looks like a React component type.
  * Matches types like ComponentType, React.ComponentType, FC, React.FC, etc.
+ * @param param The parameter to check.
  */
 function hasComponentTypeAnnotation(param: TSESTree.Parameter): boolean {
   if (param.type !== AST.Identifier || param.typeAnnotation == null) return false;
@@ -55,6 +57,7 @@ function hasComponentTypeAnnotation(param: TSESTree.Parameter): boolean {
 
 /**
  * Check if a type name refers to a known React component type.
+ * @param typeName The type name to check.
  */
 function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
   if (typeName.type === AST.Identifier) {
@@ -74,6 +77,7 @@ function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
  * Considers a function an HOC if it takes a parameter that looks like a React component
  * (by name or type annotation). This does not validate that the function actually returns
  * a React component.
+ * @param fn
  */
 function isHigherOrderComponent(fn: ast.TSESTreeFunction): boolean {
   return fn.params.some((param) => {
@@ -91,6 +95,7 @@ function isHigherOrderComponent(fn: ast.TSESTreeFunction): boolean {
 
 /**
  * Check if a node is inside a test mock callback (vi.mock or jest.mock).
+ * @param node The node to check.
  */
 function isInsideTestMockCallback(node: TSESTree.Node): boolean {
   return ast.findParent(node, ast.isTestMockCallback) != null;

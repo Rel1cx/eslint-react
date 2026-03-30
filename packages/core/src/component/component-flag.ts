@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-objects */
 import * as ast from "@eslint-react/ast";
 
 import type { FunctionComponentSemanticNode } from "./component-semantic-node";
