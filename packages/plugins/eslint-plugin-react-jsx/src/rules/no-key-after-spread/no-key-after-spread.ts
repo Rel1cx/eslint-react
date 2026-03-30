@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
 
-export const RULE_NAME = "no-deoptimization";
+export const RULE_NAME = "no-key-after-spread";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 

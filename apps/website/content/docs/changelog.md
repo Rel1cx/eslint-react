@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v4.0.3-beta.0 (2026-03-30)
+
+### 🐞 Fixes
+
+- `eslint-plugin-react-x`
+  - `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
+
+- `eslint-plugin-react-jsx`
+  - Improve type safety and edge case handling for JSX rules (#1664).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.6...v4.0.3-beta.0
+
 ## v4.0.2-beta.6 (2026-03-30)
 
 ### 🪄 Improvements
@@ -199,7 +211,7 @@ A new dedicated plugin for React Flavored JSX rules has been introduced. Several
 
 | Old Rule (`react-x/`)      | New Rule (`react-jsx/`) | Change             |
 | :------------------------- | :---------------------- | :----------------- |
-| `jsx-key-before-spread`    | `no-deoptimization`     | relocated, renamed |
+| `jsx-key-before-spread`    | `no-key-after-spread`   | relocated, renamed |
 | `jsx-no-comment-textnodes` | `no-comment-textnodes`  | relocated, renamed |
 | `no-children-prop`         | `no-children-prop`      | relocated          |
 | `no-useless-fragment`      | `no-useless-fragment`   | relocated          |
@@ -265,7 +277,7 @@ The collector APIs in `@eslint-react/core` have been renamed:
 - `@eslint-react/jsx`: New utility package for static analysis of JSX patterns in TSESTree ASTs, extracted from `@eslint-react/core`.
 - `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules. Ships with `recommended` and `strict` config presets.
 - `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
-- `react-jsx/no-deoptimization`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
+- `react-jsx/no-key-after-spread`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
 - `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
 - New `jsx` and `disable-jsx` config presets in `@eslint-react/eslint-plugin`.
 - New `react-dom-with-custom-rules` example project demonstrating custom rule creation with `@eslint-react/kit`.
@@ -286,7 +298,7 @@ Use this checklist to upgrade from v3.x to v4.0.0:
 
 #### ESLint configuration
 
-- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/no-deoptimization` in your ESLint config.
+- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/no-key-after-spread` in your ESLint config.
 - [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes` in your ESLint config.
 - [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop` in your ESLint config.
 - [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment` in your ESLint config.

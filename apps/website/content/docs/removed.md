@@ -11,7 +11,7 @@ full: true
 | `react-x/avoid-shorthand-boolean`                            |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/avoid-shorthand-fragment`                           |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/ensure-forward-ref-using-ref`                       | [`react-x/no-forward-ref`](/docs/rules/no-forward-ref)                                                       | 2.0.0      | renamed      |
-| `react-x/jsx-key-before-spread`                              | [`react-jsx/no-deoptimization`](/docs/rules/jsx-no-deoptimization)                                           | 4.0.0      | consolidated |
+| `react-x/jsx-key-before-spread`                              | [`react-jsx/no-key-after-spread`](/docs/rules/jsx-no-key-after-spread)                                       | 4.0.0      | consolidated |
 | `react-x/jsx-no-duplicate-props`                             |                                                                                                              | 3.0.0      | deprecated   |
 | `react-x/jsx-no-iife`                                        | [`react-x/unsupported-syntax`](/docs/rules/unsupported-syntax)                                               | 3.0.0      | consolidated |
 | `react-x/jsx-no-undef`                                       | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                                     | 3.0.0      | deprecated   |

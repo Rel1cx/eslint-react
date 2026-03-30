@@ -20,7 +20,7 @@ Minimum supported versions:
 
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
-- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-deoptimization` (consolidated, renamed)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-key-after-spread` (consolidated, renamed)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
 - [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
@@ -28,7 +28,7 @@ Minimum supported versions:
 
 ### New Rules
 
-- [x] `react-jsx/no-deoptimization` - Prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props)
+- [x] `react-jsx/no-key-after-spread` - Prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props)
 - [x] `react-jsx/no-namespace` - Disallows JSX namespace syntax, as React does not support them
 - [x] `react-jsx/no-children-prop-with-children` - Disallows passing `children` as a prop when children are also passed as nested content
 
