@@ -128,5 +128,10 @@ export function getChildrenSourceText(context: RuleContext, node: ast.TSESTreeJS
     return "";
   }
 
-  return sourceCode.text.slice(opener.range[1], closer?.range[0]);
+  // Handle malformed JSX where closer might be null
+  if (closer == null) {
+    return "";
+  }
+
+  return sourceCode.text.slice(opener.range[1], closer.range[0]);
 }
