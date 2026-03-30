@@ -2,12 +2,23 @@
 title: Changelog
 ---
 
+## v4.2.0-beta.0 (2026-03-31)
+
+### 💥 Breaking Changes
+
+- `kit`: Remove `files` option from `getConfig()` and normalize file extensions handling (#1669). The `files` option is no longer supported; file extensions are now automatically normalized to include both standard and TypeScript variants.
+
+### 🐞 Fixes
+
+- `react-x`: `component-hook-factories`: Use `isComponentNameLoose` for more accurate component parameter checks.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.1.0-beta.0...v4.2.0-beta.0
+
 ## v4.1.0-beta.0 (2026-03-30)
 
 ### 💥 Breaking Changes
 
-- `eslint-plugin-react-jsx`
-  - Rename `no-deoptimization` rule to `no-key-after-spread` for clearer intent (#1668).
+- `react-jsx`: Rename `no-deoptimization` rule to `no-key-after-spread` for clearer intent (#1668).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.3-beta.0...v4.1.0-beta.0
 
@@ -15,11 +26,8 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `eslint-plugin-react-x`
-  - `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
-
-- `eslint-plugin-react-jsx`
-  - Improve type safety and edge case handling for JSX rules (#1664).
+- `react-x`: `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
+- `react-jsx`: Improve type safety and edge case handling for JSX rules (#1664).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.6...v4.0.3-beta.0
 
@@ -27,7 +35,7 @@ title: Changelog
 
 ### 🪄 Improvements
 
-- `test`: Enhance test coverage for `eslint-plugin-react-x` and `eslint-plugin-react-dom` rules, closes #1663.
+- `test`: Enhance test coverage for `react-x` and `react-dom` rules, closes #1663.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.5...v4.0.2-beta.6
 
@@ -37,17 +45,12 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `@eslint-react/core`
-  - `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
-  - `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
-  - `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
-
-- `@eslint-react/ast`
-  - Fix JSX attribute name comparison to use `isNodeEqual` instead of string comparison, properly handling `JSXNamespacedName` (e.g., `xlink:href`).
-  - Update `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
-
-- `eslint-plugin-react-x`
-  - `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
+- `core`: `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
+- `core`: `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
+- `core`: `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
+- `ast`: Fix JSX attribute name comparison to use `isNodeEqual` instead of string comparison, properly handling `JSXNamespacedName` (e.g., `xlink:href`).
+- `ast`: Update `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
+- `react-x`: `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.3...v4.0.2-beta.5
 
@@ -85,8 +88,8 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `immutability/no-mutation-props`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
-- `purity/no-impure-constructors`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
+- `react-x`: `immutability`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
+- `react-x`: `purity`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
 
 ### 🪄 Improvements
 
