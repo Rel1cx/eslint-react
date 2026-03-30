@@ -70,8 +70,10 @@ function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
 }
 
 /**
- * Check if a function is a Higher Order Component (HOC) - a function that takes
- * a component as a parameter and returns a new component.
+ * Heuristically check if a function is a Higher Order Component (HOC) based on its parameters.
+ * Considers a function an HOC if it takes a parameter that looks like a React component
+ * (by name or type annotation). This does not validate that the function actually returns
+ * a React component.
  */
 function isHigherOrderComponent(fn: ast.TSESTreeFunction): boolean {
   return fn.params.some((param) => {
