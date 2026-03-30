@@ -375,6 +375,64 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
+    // Custom hook with additionalHooks option - missing dependency
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          useCustomEffect(() => {
+            console.log(value);
+          }, []);
+        }
+      `,
+      options: [{ additionalHooks: "useCustomEffect" }],
+      errors: [
+        {
+          message:
+            `React Hook useCustomEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [value]`,
+              output: tsx`
+                function MyComponent({ value }) {
+                  useCustomEffect(() => {
+                    console.log(value);
+                  }, [value]);
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Custom hook matching pattern - missing dependency
+    {
+      code: tsx`
+        function MyComponent({ a, b }) {
+          useDataEffect(() => {
+            console.log(a, b);
+          }, []);
+        }
+      `,
+      options: [{ additionalHooks: "use(Data|Custom)Effect" }],
+      errors: [
+        {
+          message:
+            `React Hook useDataEffect has missing dependencies: 'a' and 'b'. Either include them or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [a, b]`,
+              output: tsx`
+                function MyComponent({ a, b }) {
+                  useDataEffect(() => {
+                    console.log(a, b);
+                  }, [a, b]);
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     // Empty dependency array with no external deps
@@ -530,6 +588,28 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
           }, []);
         }
       `,
+    },
+    // Custom hook with additionalHooks option
+    {
+      code: tsx`
+        function MyComponent({ value }) {
+          useCustomEffect(() => {
+            console.log(value);
+          }, [value]);
+        }
+      `,
+      options: [{ additionalHooks: "useCustomEffect" }],
+    },
+    // Custom hook matching pattern
+    {
+      code: tsx`
+        function MyComponent({ a, b }) {
+          useDataEffect(() => {
+            console.log(a, b);
+          }, [a, b]);
+        }
+      `,
+      options: [{ additionalHooks: "use(Data|Custom)Effect" }],
     },
   ],
 });
