@@ -213,7 +213,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
   <a href="##">
-    <img src=".github/sponsors.svg" alt="Sponsors" />
+    <img src="https://eslint-react.xyz/sponsors.svg" alt="sponsors" />
   </a>
 </p>
 
