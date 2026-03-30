@@ -33,14 +33,6 @@ export default createRule<[], MessageID>({
 });
 
 /**
- * Check if a function parameter name looks like a React component (PascalCase).
- * @param name The parameter name to check.
- */
-function isComponentLikeParamName(name: string): boolean {
-  return /^[A-Z]/.test(name);
-}
-
-/**
  * Check if a function parameter has a type annotation that looks like a React component type.
  * Matches types like ComponentType, React.ComponentType, FC, React.FC, etc.
  * @param param The parameter to check.
@@ -77,12 +69,12 @@ function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
  * Considers a function an HOC if it takes a parameter that looks like a React component
  * (by name or type annotation). This does not validate that the function actually returns
  * a React component.
- * @param fn
+ * @param fn The function to check.
  */
 function isHigherOrderComponent(fn: ast.TSESTreeFunction): boolean {
   return fn.params.some((param) => {
     // Check for PascalCase parameter name (e.g., WrappedComponent, Component)
-    if (param.type === AST.Identifier && isComponentLikeParamName(param.name)) {
+    if (param.type === AST.Identifier && core.isComponentNameLoose(param.name)) {
       return true;
     }
     // Check for ComponentType/FC type annotation
