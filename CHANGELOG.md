@@ -2,7 +2,7 @@
 
 ### 💥 Breaking Changes
 
-- `eslint-plugin-react-x`
+- `eslint-plugin-react-jsx`
   - Rename `no-deoptimization` rule to `no-key-after-spread` for clearer intent (#1668).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.3-beta.0...v4.1.0-beta.0
