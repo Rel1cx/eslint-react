@@ -2,17 +2,26 @@
 title: Changelog
 ---
 
-## v4.0.2-beta.4 (2026-03-30)
+## v4.0.2-beta.5 (2026-03-30)
+
+> **Note**: `v4.0.2-beta.4` was skipped.
 
 ### 🐞 Fixes
 
-- `core`: Review fixes for component, hook and api modules, closes #1660.
+- `@eslint-react/core`
+  - `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
+  - `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
+  - `isClassComponent`: Add validation for React imports with optional `context` parameter to avoid false positives with non-React `Component` classes.
+  - `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
 
-### 🪄 Improvements
+- `@eslint-react/ast`
+  - Fix JSX attribute name comparison to use `isNodeEqual` instead of string comparison, properly handling `JSXNamespacedName` (e.g., `xlink:href`).
+  - Update `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
 
-- `chore`: Update assets and readme, closes #1661.
+- `eslint-plugin-react-x`
+  - `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.3...v4.0.2-beta.4
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.3...v4.0.2-beta.5
 
 ## v4.0.2-beta.3 (2026-03-29)
 
