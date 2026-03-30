@@ -183,7 +183,7 @@ import { defineConfig } from "eslint/config";
 export default defineConfig([
   // Start with the eslint-plugin-react
   {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}"],
+    files: ["**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}"],
     extends: [
       // Whatever config you had enabled with eslint-plugin-react
       pluginReact.configs.flat.recommended,
@@ -206,7 +206,7 @@ import { defineConfig } from "eslint/config";
 
 export default defineConfig([
   {
-    files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}"],
+    files: ["**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}"],
     extends: [
       eslintReact.configs["recommended-typescript"],
     ],

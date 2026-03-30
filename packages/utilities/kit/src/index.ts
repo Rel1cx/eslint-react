@@ -223,7 +223,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
 export type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 
 export interface Builder {
-  getConfig(options?: { files?: string[] }): Linter.Config;
+  getConfig(): Linter.Config;
   getPlugin(): ESLint.Plugin;
   use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
 }
@@ -232,9 +232,11 @@ export default function build(): Builder {
   const idGen = new IdGenerator();
   const rules: ESLint.Plugin["rules"] & {} = {};
   const builder: Builder = {
-    getConfig({ files = ["**/*.{js,mjs,cjs,jsx,mjsx,ts,mts,tsx,mtsx}"] } = {}): Linter.Config {
+    getConfig(): Linter.Config {
+      const name = pkg.name;
       return {
-        files,
+        name,
+        files: ["**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}"],
         plugins: {
           [pkg.name]: builder.getPlugin(),
         },
@@ -245,8 +247,10 @@ export default function build(): Builder {
       };
     },
     getPlugin(): ESLint.Plugin {
+      const name = pkg.name;
+      const version = pkg.version;
       return {
-        meta: { name: pkg.name, version: pkg.version },
+        meta: { name, version },
         rules,
       };
     },
