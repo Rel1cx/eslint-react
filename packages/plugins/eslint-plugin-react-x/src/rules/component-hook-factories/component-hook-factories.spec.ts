@@ -491,5 +491,49 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
+    tsx`
+      // ✅ HOC pattern - function takes a component as parameter (PascalCase param name)
+      import { ComponentType, ReactElement } from 'react';
+      function withBorder<P>(WrappedComponent: ComponentType<P>): ComponentType<P> {
+        return function NewComponent(props: any): ReactElement {
+          return (
+            <div style={{ border: '2px solid blue', padding: '10px' }}>
+              <WrappedComponent {...props} />
+            </div>
+          );
+        };
+      }
+    `,
+    tsx`
+      // ✅ HOC pattern - arrow function with component parameter
+      const withLoading = (BaseComponent) => {
+        return function WithLoadingComponent({ isLoading, ...props }) {
+          if (isLoading) return <div>Loading...</div>;
+          return <BaseComponent {...props} />;
+        };
+      };
+    `,
+    tsx`
+      // ✅ Component mock inside vi.mock
+      vi.mock(import('../path/to/go'), () => ({
+        MyComponent: ({propX}) => <div data-x={propX} />,
+      }));
+    `,
+    tsx`
+      // ✅ Component mock inside vi.mock with importOriginal
+      vi.mock(import('../path/to/go'), async (importOriginal) => {
+        const original = await importOriginal();
+        return {
+          ...original,
+          MyComponent: ({propX}) => <div data-x={propX} />,
+        };
+      });
+    `,
+    tsx`
+      // ✅ Component mock inside jest.mock
+      jest.mock('../path/to/go', () => ({
+        MyComponent: ({propX}) => <div data-x={propX} />,
+      }));
+    `,
   ],
 });
