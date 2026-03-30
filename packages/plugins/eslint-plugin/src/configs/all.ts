@@ -1,10 +1,5 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactNamingConvention from "eslint-plugin-react-naming-convention";
-import reactWebApi from "eslint-plugin-react-web-api";
 
-import * as dom from "./dom";
-import * as jsx from "./jsx";
-import * as rsc from "./rsc";
 import * as x from "./x";
 
 export const name = "@eslint-react/all";

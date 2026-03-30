@@ -140,5 +140,23 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
         return items.map((item) => <div key={item.id} {...item} />);
       };
     `,
+    // Namespace attributes should not cause runtime errors
+    tsx`
+      const App = (props) => {
+        return <div xml:space="preserve" {...props} />;
+      };
+    `,
+    // xml:key after spread should NOT be reported (it's not the React key)
+    tsx`
+      const App = (props) => {
+        return <div {...props} xml:key="test" />;
+      };
+    `,
+    // xmlns:x after spread should NOT be reported
+    tsx`
+      const App = (props) => {
+        return <svg {...props} xmlns:x="http://example.com" />;
+      };
+    `,
   ],
 });

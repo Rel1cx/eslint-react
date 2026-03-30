@@ -55,5 +55,11 @@ ruleTester.run(RULE_NAME, rule, {
     "<strong>&nbsp;https://www.eslint-react.xyz/attachment/download/1</strong>",
     "<App /* valid */ placeholder={'foo'}/>",
     "</* valid */></>",
+    // URL-like text should not be treated as comments
+    "<div>https://example.com</div>",
+    "<div>http://localhost:3000</div>",
+    "<div>Check https://example.com</div>",
+    "<div>path/to//file</div>",
+    "<div>a//b</div>",
   ],
 });

@@ -1,3 +1,75 @@
+## v4.0.2-beta.6 (2026-03-30)
+
+### 🪄 Improvements
+
+- `test`: Enhance test coverage for `eslint-plugin-react-x` and `eslint-plugin-react-dom` rules, closes #1663.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.5...v4.0.2-beta.6
+
+## v4.0.2-beta.5 (2026-03-30)
+
+> **Note**: `v4.0.2-beta.4` was skipped.
+
+### 🐞 Fixes
+
+- `@eslint-react/core`
+  - `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
+  - `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
+  - `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
+
+- `@eslint-react/ast`
+  - Fix JSX attribute name comparison to use `isNodeEqual` instead of string comparison, properly handling `JSXNamespacedName` (e.g., `xlink:href`).
+  - Update `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
+
+- `eslint-plugin-react-x`
+  - `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.3...v4.0.2-beta.5
+
+## v4.0.2-beta.3 (2026-03-29)
+
+### ✨ New
+
+- `kit`: Support more file extensions in `getConfig` defaults (`js`, `mjs`, `cjs`, `jsx`, `ts`, `mts`, `cts`, `tsx`), closes #1659.
+
+### 🐞 Fixes
+
+- `docs`: Update package structure documentation in contributing guide and FAQ, closes #1658.
+
+### 🪄 Improvements
+
+- `refactor(eff)`: Replace `getOrElse`/`getOrElseUpdate` with `getOrInsert`/`getOrInsertComputed` for better API consistency, closes #1657.
+- `refactor(kit)`: Rename parameter `args` to `options`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.2...v4.0.2-beta.3
+
+## v4.0.2-beta.2 (2026-03-28)
+
+### ✨ New
+
+- `docs(utilities)`: Add utilities documentation for utility modules, closes #1656.
+
+### 🪄 Improvements
+
+- `examples(react-dom-with-custom-rules)`: Expand with additional custom rules examples including `forbid-dom-props`, `jsx-fragments`, `jsx-handler-names`, `jsx-max-depth`, `jsx-no-duplicate-props`, `jsx-no-literals`, `jsx-pascal-case`, `jsx-props-no-spread-multi`, and `no-adjacent-inline-elements`, closes #1653.
+- `docs`: Update migrating-from-eslint-plugin-react.mdx with improved examples and fixes, closes #1654.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.1...v4.0.2-beta.2
+
+## v4.0.2-beta.1 (2026-03-28)
+
+### 🐞 Fixes
+
+- `immutability/no-mutation-props`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
+- `purity/no-impure-constructors`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
+
+### 🪄 Improvements
+
+- `docs`: Update bug report template with upstream eslint-plugin-react-hooks guidance.
+- `examples/react-dom-with-custom-rules`: Update custom rules example.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.0...v4.0.2-beta.1
+
 ## v4.0.2-beta.0 (2026-03-28)
 
 ### ✨ New

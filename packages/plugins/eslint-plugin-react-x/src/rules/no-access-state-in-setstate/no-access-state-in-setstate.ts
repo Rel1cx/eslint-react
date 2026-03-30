@@ -61,14 +61,14 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       // Push `setState` calls to the stack upon entry
       CallExpression(node) {
-        if (!core.isThisSetState(node)) {
+        if (!core.isThisSetStateCall(node)) {
           return;
         }
         setStateStack.push([node, false]);
       },
       // Pop `setState` calls from the stack upon exit
       "CallExpression:exit"(node) {
-        if (!core.isThisSetState(node)) {
+        if (!core.isThisSetStateCall(node)) {
           return;
         }
         setStateStack.pop();

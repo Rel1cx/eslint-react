@@ -11,7 +11,7 @@ import { isHookName } from "./hook-name";
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
-export function isHook(node: ast.TSESTreeFunction | null) {
+export function isHookDefinition(node: ast.TSESTreeFunction | null) {
   if (node == null) return false;
   const id = ast.getFunctionId(node);
   switch (id?.type) {
@@ -49,7 +49,7 @@ export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExp
  * @param node The AST node to check
  * @returns A function that takes a hook name and returns boolean
  */
-export function isHookCallWithName(node: TSESTree.Node | null) {
+function isHookCallWithName(node: TSESTree.Node | null) {
   if (node == null || node.type !== AST.CallExpression) return constFalse;
   return (name: string) => {
     switch (node.callee.type) {

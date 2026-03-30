@@ -18,6 +18,12 @@ export function isComponentWrapperCall(context: RuleContext, node: TSESTree.Node
 }
 
 /**
+ * Check if the node is a callback function passed to a component wrapper
+ * @param context The ESLint rule context
+ * @param node The node to check
+ * @returns `true` if the node is a callback function passed to a component wrapper
+ */
+/**
  * Check if the node is a call expression for a component wrapper loosely
  * @param context The ESLint rule context
  * @param node The node to check

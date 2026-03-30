@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactRsc from "eslint-plugin-react-rsc";
 
 export const name = "@eslint-react/rsc";
 

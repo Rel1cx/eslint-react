@@ -221,5 +221,10 @@ ruleTester.run(RULE_NAME, rule, {
           })
       };
     `,
+    tsx`
+      const App = () => {
+          return <svg xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon" />
+      };
+    `,
   ],
 });

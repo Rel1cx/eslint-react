@@ -48,7 +48,8 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If a 'key' prop is found after a spread prop, it causes deoptimization
-        if (prop.name.name === "key" && index > firstSpreadPropIndex) {
+        // Only check JSXIdentifier (not JSXNamespacedName like xml:key)
+        if (prop.name.type === AST.JSXIdentifier && prop.name.name === "key" && index > firstSpreadPropIndex) {
           context.report({
             messageId: "noKeyAfterSpread",
             node: prop,

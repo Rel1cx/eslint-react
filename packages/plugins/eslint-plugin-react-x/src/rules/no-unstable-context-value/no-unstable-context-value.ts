@@ -4,7 +4,7 @@ import { getElementFullType } from "@eslint-react/jsx";
 import type { RuleContext, RuleFeature } from "@eslint-react/shared";
 import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, computeObjectType } from "@eslint-react/var";
-import { getOrElseUpdate } from "@local/eff";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (core.isHookCall(construction.node)) {
           return;
         }
-        getOrElseUpdate(constructions, enclosingFunction, () => []).push(construction);
+        getOrInsertComputed(constructions, enclosingFunction, () => []).push(construction);
       },
       "Program:exit"(program) {
         for (const { directives, node: component } of api.getAllComponents(program)) {

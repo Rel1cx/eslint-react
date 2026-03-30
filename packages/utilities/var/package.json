@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/var",
-  "version": "4.0.2-beta.0",
+  "version": "4.0.2-beta.6",
   "description": "ESLint React's TSESTree AST utility module for static analysis of variables.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -47,7 +47,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@typescript-eslint/typescript-estree": "^8.57.2",
-    "tsdown": "^0.21.6"
+    "tsdown": "^0.21.7"
   },
   "peerDependencies": {
     "eslint": "^10.0.0",

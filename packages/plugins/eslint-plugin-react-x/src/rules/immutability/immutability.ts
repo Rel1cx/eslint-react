@@ -69,6 +69,12 @@ export function create(context: RuleContext<MessageID, []>) {
     func: ast.TSESTreeFunction;
     messageId: MessageID;
     node: TSESTree.Node;
+    /**
+     * When the violation originates from a props parameter, this is the
+     * function where that parameter was declared. It must be verified as a
+     * component or hook at Program:exit time.
+     */
+    propsDefiningFunc?: ast.TSESTreeFunction;
   }[] = [];
 
   // ---------------------------------------------------------------------------
@@ -107,8 +113,12 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   /**
-   * Return true when `id` is a direct (non-destructured) props parameter at
-   * position 0 of any ancestor function.
+   * Return the function node when `id` is a direct (non-destructured) props
+   * parameter at position 0 of any ancestor function; otherwise return `null`.
+   *
+   * The caller must later verify (at Program:exit) that the returned function
+   * is actually a component or hook — event handler parameters share the same
+   * syntactic shape but should **not** be treated as React props.
    *
    * Uses scope resolution so that references to `props` inside nested arrow
    * functions (ex: event handlers) are correctly traced back to the component
@@ -120,19 +130,22 @@ export function create(context: RuleContext<MessageID, []>) {
    *     };
    *   }
    * @param id The identifier to check. May be a reference to the props parameter, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
-   * @returns True if `id` is a props parameter, false otherwise.
+   * @returns The function node where `id` is the first parameter, or `null`.
    */
-  function isPropsObject(id: TSESTree.Identifier): boolean {
+  function getPropsDefiningFunction(id: TSESTree.Identifier): ast.TSESTreeFunction | null {
     const scope = context.sourceCode.getScope(id);
     const variable = findVariable(scope, id);
-    if (variable == null) return false;
+    if (variable == null) return null;
     for (const def of variable.defs) {
       if (def.type !== DefinitionType.Parameter) continue;
       if (!ast.isFunction(def.node)) continue;
-      const firstParam = (def.node as ast.TSESTreeFunction).params.at(0);
-      return firstParam?.type === AST.Identifier && firstParam.name === id.name;
+      const fn = def.node as ast.TSESTreeFunction;
+      const firstParam = fn.params.at(0);
+      if (firstParam?.type === AST.Identifier && firstParam.name === id.name) {
+        return fn;
+      }
     }
-    return false;
+    return null;
   }
 
   // ---------------------------------------------------------------------------
@@ -168,8 +181,8 @@ export function create(context: RuleContext<MessageID, []>) {
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
-        const isProps = isPropsObject(rootId);
-        if (!isState && !isProps) return;
+        const propsDefiningFunc = !isState ? getPropsDefiningFunction(rootId) : null;
+        if (!isState && propsDefiningFunc == null) return;
 
         violations.push({
           data: {
@@ -179,6 +192,7 @@ export function create(context: RuleContext<MessageID, []>) {
           func: enclosingFn,
           messageId: "mutatingArrayMethod",
           node,
+          ...(propsDefiningFunc != null ? { propsDefiningFunc } : {}),
         });
       },
 
@@ -201,8 +215,8 @@ export function create(context: RuleContext<MessageID, []>) {
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
-        const isProps = isPropsObject(rootId);
-        if (!isState && !isProps) return;
+        const propsDefiningFunc = !isState ? getPropsDefiningFunction(rootId) : null;
+        if (!isState && propsDefiningFunc == null) return;
 
         violations.push({
           data: {
@@ -211,6 +225,7 @@ export function create(context: RuleContext<MessageID, []>) {
           func: enclosingFn,
           messageId: "mutatingAssignment",
           node,
+          ...(propsDefiningFunc != null ? { propsDefiningFunc } : {}),
         });
       },
       "Program:exit"(node) {
@@ -218,7 +233,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
 
-        for (const { data, func, messageId, node } of violations) {
+        for (const { data, func, messageId, node, propsDefiningFunc } of violations) {
           // Walk up the function chain to find a component or hook boundary
           let current: ast.TSESTreeFunction | null = func;
           let insideComponentOrHook = false;
@@ -231,6 +246,13 @@ export function create(context: RuleContext<MessageID, []>) {
           }
 
           if (!insideComponentOrHook) continue;
+
+          // For props-based violations, verify that the function where the
+          // parameter was declared is itself a component or hook. This prevents
+          // false positives on event handler parameters (e.g. `e.currentTarget`).
+          if (propsDefiningFunc != null) {
+            if (!funcs.some((f) => f.node === propsDefiningFunc)) continue;
+          }
 
           context.report({ data, messageId, node });
         }

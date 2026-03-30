@@ -47,6 +47,16 @@ export function findImportSource(
   name: string,
   initialScope: Scope,
 ) {
+  return findImportSourceImpl(name, initialScope, new Set());
+}
+
+function findImportSourceImpl(
+  name: string,
+  initialScope: Scope,
+  visited: Set<string>,
+) {
+  if (visited.has(name)) return null;
+  visited.add(name);
   const latestDef = findVariable(initialScope, name)?.defs.at(-1);
   if (latestDef == null) return null;
   const { node, parent } = latestDef;
@@ -54,11 +64,11 @@ export function findImportSource(
     const { init } = node;
     // check for: variable = Source.variable
     if (init.type === AST.MemberExpression && init.object.type === AST.Identifier) {
-      return findImportSource(init.object.name, initialScope);
+      return findImportSourceImpl(init.object.name, initialScope, visited);
     }
     // check for: { variable } = Source
     if (init.type === AST.Identifier) {
-      return findImportSource(init.name, initialScope);
+      return findImportSourceImpl(init.name, initialScope, visited);
     }
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);

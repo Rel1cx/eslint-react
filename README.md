@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
 [![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
 [![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
-[![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.6-000000?style=flat)](https://tsdown.dev)
+[![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.7-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster, composable ESLint rules for React and friends.
 
@@ -213,7 +213,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
   <a href="##">
-    <img src=".github/sponsors.svg" alt="Sponsors" />
+    <img src="https://eslint-react.xyz/sponsors.svg" alt="sponsors" />
   </a>
 </p>
 

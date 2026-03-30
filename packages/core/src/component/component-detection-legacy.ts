@@ -1,21 +1,33 @@
 import * as ast from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+
+import { isInitializedFromReact } from "../api";
 
 /**
  * Check if a node is a React class component
  * @param node The AST node to check
  * @returns `true` if the node is a class component, `false` otherwise
  */
-export function isClassComponent(node: TSESTree.Node): node is ast.TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node): node is ast.TSESTreeClass;
+export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is ast.TSESTreeClass;
+export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is ast.TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
       case node.superClass.type === AST.Identifier:
-        return re.test(node.superClass.name);
+        if (!re.test(node.superClass.name)) return false;
+        if (context == null) return true;
+        return isInitializedFromReact(node.superClass.name, context.sourceCode.getScope(node), "react");
       case node.superClass.type === AST.MemberExpression
         && node.superClass.property.type === AST.Identifier:
-        return re.test(node.superClass.property.name);
+        if (!re.test(node.superClass.property.name)) return false;
+        if (context == null) return true;
+        if (node.superClass.object.type === AST.Identifier) {
+          return isInitializedFromReact(node.superClass.object.name, context.sourceCode.getScope(node), "react");
+        }
+        return true;
     }
   }
   return false;
@@ -114,7 +126,7 @@ export function isRenderMethodLike(node: TSESTree.Node): node is ast.TSESTreeMet
   return ast.isMethodOrProperty(node)
     && node.key.type === AST.Identifier
     && node.key.name.startsWith("render")
-    && node.parent.parent.type === AST.ClassDeclaration;
+    && ast.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
 
 /**
@@ -134,12 +146,9 @@ export function isRenderMethodCallback(node: ast.TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
-
-  return (
-    greatGrandparent != null
+  return greatGrandparent != null
     && isRenderMethodLike(parent)
-    && isClassComponent(greatGrandparent)
-  );
+    && isClassComponent(greatGrandparent);
 }
 
 /**
@@ -147,7 +156,7 @@ export function isRenderMethodCallback(node: ast.TSESTreeFunction) {
  * @param node The node to check
  * @internal
  */
-export function isThisSetState(node: TSESTree.CallExpression) {
+export function isThisSetStateCall(node: TSESTree.CallExpression) {
   const { callee } = node;
   return (
     callee.type === AST.MemberExpression

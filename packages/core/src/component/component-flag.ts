@@ -6,16 +6,16 @@ import type { FunctionComponentSemanticNode } from "./component-semantic-node";
  * Component flag constants
  */
 export const ComponentFlag = {
-  /** Indicates the component creates elements using `createElement` instead of JSX */
-  CreateElement: 1n << 1n,
-  /** Indicates the component forwards a ref (ex: React.forwardRef) */
-  ForwardRef: 1n << 3n,
-  /** Indicates the component is memoized (ex: React.memo) */
-  Memo: 1n << 2n,
   /** No flags set */
   None: 0n,
   /** Indicates the component is a pure component (ex: extends PureComponent) */
   PureComponent: 1n << 0n,
+  /** Indicates the component creates elements using `createElement` instead of JSX */
+  CreateElement: 1n << 1n,
+  /** Indicates the component is memoized (ex: React.memo) */
+  Memo: 1n << 2n,
+  /** Indicates the component forwards a ref (ex: React.forwardRef) */
+  ForwardRef: 1n << 3n,
 };
 
 /**
