@@ -28,6 +28,7 @@
 - [Rules](#rules)
 - [Benchmark](#benchmark)
 - [FAQ](#faq)
+- [Migration](#migration)
 - [Changelog](#changelog)
 - [Roadmap](#roadmap)
 - [Disclaimer](#disclaimer)
@@ -192,6 +193,12 @@ export default defineConfig(
 ## FAQ
 
 [Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
+
+## Migration
+
+- [Migrating from eslint-plugin-react ↗](https://beta.eslint-react.xyz/docs/migrating-from-eslint-plugin-react)
+  - [Custom Rules for Missing Rules ↗](https://beta.eslint-react.xyz/docs/migrating-from-eslint-plugin-react#custom-rules-for-missing-rules)
+- [Migrating from eslint-plugin-react-hooks ↗](https://beta.eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks)
 
 ## Changelog
 
