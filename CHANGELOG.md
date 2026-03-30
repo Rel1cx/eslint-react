@@ -7,7 +7,6 @@
 - `@eslint-react/core`
   - `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
   - `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
-  - `isClassComponent`: Add validation for React imports with optional `context` parameter to avoid false positives with non-React `Component` classes.
   - `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
 
 - `@eslint-react/ast`

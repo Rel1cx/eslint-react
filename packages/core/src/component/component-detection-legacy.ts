@@ -146,12 +146,9 @@ export function isRenderMethodCallback(node: ast.TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
-
-  return (
-    greatGrandparent != null
+  return greatGrandparent != null
     && isRenderMethodLike(parent)
-    && isClassComponent(greatGrandparent)
-  );
+    && isClassComponent(greatGrandparent);
 }
 
 /**
