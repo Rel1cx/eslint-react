@@ -1,3 +1,15 @@
+## v4.0.2-beta.4 (2026-03-30)
+
+### 🐞 Fixes
+
+- `core`: Review fixes for component, hook and api modules, closes #1660.
+
+### 🪄 Improvements
+
+- `chore`: Update assets and readme, closes #1661.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.3...v4.0.2-beta.4
+
 ## v4.0.2-beta.3 (2026-03-29)
 
 ### ✨ New
