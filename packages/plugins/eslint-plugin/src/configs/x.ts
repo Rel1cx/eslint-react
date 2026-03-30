@@ -1,6 +1,5 @@
 import type { RuleConfig } from "@eslint-react/shared";
 import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
-import reactX from "eslint-plugin-react-x";
 
 export const name = "@eslint-react/x";
 

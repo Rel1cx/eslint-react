@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactDom from "eslint-plugin-react-dom";
 
 export const name = "@eslint-react/dom";
 

@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactJsx from "eslint-plugin-react-jsx";
 
 export const name = "@eslint-react/jsx";
 

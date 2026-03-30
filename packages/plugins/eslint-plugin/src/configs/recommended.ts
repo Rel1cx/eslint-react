@@ -1,5 +1,4 @@
 import type { RuleConfig } from "@eslint-react/shared";
-import reactNamingConvention from "eslint-plugin-react-naming-convention";
 
 import * as dom from "./dom";
 import * as jsx from "./jsx";
