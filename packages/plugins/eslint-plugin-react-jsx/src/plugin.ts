@@ -5,7 +5,7 @@ import { name, version } from "../package.json";
 import noChildrenPropWithChildren from "./rules/no-children-prop-with-children/no-children-prop-with-children";
 import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noCommentTextnodes from "./rules/no-comment-textnodes/no-comment-textnodes";
-import noDeoptimization from "./rules/no-deoptimization/no-deoptimization";
+import noKeyAfterSpread from "./rules/no-key-after-spread/no-key-after-spread";
 import noNamespace from "./rules/no-namespace/no-namespace";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 
@@ -18,7 +18,7 @@ export const plugin = {
     "no-children-prop": noChildrenProp,
     "no-children-prop-with-children": noChildrenPropWithChildren,
     "no-comment-textnodes": noCommentTextnodes,
-    "no-deoptimization": noDeoptimization,
+    "no-key-after-spread": noKeyAfterSpread,
     "no-namespace": noNamespace,
     "no-useless-fragment": noUselessFragment,
   },

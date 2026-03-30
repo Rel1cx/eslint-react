@@ -65,7 +65,7 @@
     "jsx-no-children-prop",
     "jsx-no-children-prop-with-children",
     "jsx-no-comment-textnodes",
-    "jsx-no-deoptimization",
+    "jsx-no-key-after-spread",
     "jsx-no-namespace",
     "jsx-no-useless-fragment",
     "---RSC Rules---",

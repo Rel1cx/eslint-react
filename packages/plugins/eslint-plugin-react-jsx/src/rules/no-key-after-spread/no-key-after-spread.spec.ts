@@ -3,7 +3,7 @@ import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "../../../../../../test";
-import rule, { RULE_NAME } from "./no-deoptimization";
+import rule, { RULE_NAME } from "./no-key-after-spread";
 
 // Default ruleTester tests (auto-detect runtime from tsconfig)
 ruleTester.run(RULE_NAME, rule, {
