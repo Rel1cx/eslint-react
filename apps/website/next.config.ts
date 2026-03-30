@@ -4,6 +4,9 @@ import { createMDX } from "fumadocs-mdx/next";
 const withMDX = createMDX();
 
 const config = {
+  images: {
+    qualities: [100],
+  },
   reactStrictMode: true,
   experimental: {
     inlineCss: true,
