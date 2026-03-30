@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v4.0.2-beta.6 (2026-03-30)
+
+### 🪄 Improvements
+
+- `test`: Enhance test coverage for `eslint-plugin-react-x` and `eslint-plugin-react-dom` rules, closes #1663.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.2-beta.5...v4.0.2-beta.6
+
 ## v4.0.2-beta.5 (2026-03-30)
 
 > **Note**: `v4.0.2-beta.4` was skipped.
