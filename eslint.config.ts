@@ -13,7 +13,6 @@ import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
 
-// Build ignore patterns from . gitignore + additional exclusions
 const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
   "apps",
   "docs",
