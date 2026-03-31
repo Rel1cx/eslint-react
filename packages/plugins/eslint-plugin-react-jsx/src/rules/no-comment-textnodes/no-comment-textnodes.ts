@@ -15,8 +15,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Prevents comment strings (ex: beginning with '//' or '/*') from being accidentally inserted into a JSX element's text nodes.",
+      description: "Prevents comment strings from being accidentally inserted into a JSX element's text nodes.",
     },
     messages: {
       default:
