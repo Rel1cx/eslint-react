@@ -20,7 +20,7 @@ Minimum supported versions:
 
 ### Relocated Rules (to `eslint-plugin-react-jsx`)
 
-- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-key-after-spread` (consolidated, renamed)
+- [x] `react-x/jsx-key-before-spread` -> `react-jsx/no-key-after-spread` (renamed)
 - [x] `react-x/jsx-no-comment-textnodes` -> `react-jsx/no-comment-textnodes` (renamed)
 - [x] `react-x/no-children-prop` -> `react-jsx/no-children-prop`
 - [x] `react-x/no-useless-fragment` -> `react-jsx/no-useless-fragment`
