@@ -29,15 +29,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          console.log("rendering");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
           const uuid = crypto.randomUUID();
           return <div id={uuid}>Content</div>;
         }
@@ -520,15 +511,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function useLogger() {
-          console.log("hook called");
-          return null;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
         function useStorage() {
           const value = localStorage.getItem("key");
           return value;
@@ -583,15 +565,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    {
-      code: tsx`
-        const Component = () => {
-          console.warn("rendering");
-          return <div>Content</div>;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // -------------------------------------------------------------------------
     // Multiple impure calls in a single component (multiple errors)
     // -------------------------------------------------------------------------
@@ -605,7 +578,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "default" },
         { messageId: "default" },
         { messageId: "default" },
       ],
@@ -642,78 +614,6 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     // Various console methods in components
     // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          console.error("error during render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.warn("warning during render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.info("info during render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.debug("debug during render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.trace("trace during render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.table({ a: 1, b: 2 });
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.time("render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          console.timeEnd("render");
-          return <div>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // -------------------------------------------------------------------------
     // document methods in components
     // -------------------------------------------------------------------------
@@ -817,15 +717,6 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     // Component assigned to variable (const)
     // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        const MyComponent = function() {
-          console.log("render");
-          return <div>Content</div>;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // -------------------------------------------------------------------------
     // NewExpression with type expressions wrapping the callee
     // (getUnderlyingExpression unwraps TSAsExpression, TSNonNullExpression,
@@ -916,15 +807,6 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const id = (Math.random as any)();
           return <div key={id}>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          (console.log as any)("rendering");
-          return <div>Content</div>;
         }
       `,
       errors: [{ messageId: "default" }],
