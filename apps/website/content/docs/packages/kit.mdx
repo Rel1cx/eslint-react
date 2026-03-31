@@ -22,7 +22,7 @@ npm install --save-dev @eslint-react/kit@beta
 
 ## Quick Start
 
-```ts
+```ts title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
@@ -138,7 +138,7 @@ eslintReactKit()
 
 Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this when you need finer-grained control over how the plugin is integrated into your ESLint configuration.
 
-```ts
+```ts title="eslint.config.ts"
 const kit = eslintReactKit()
   .use(noForwardRef)
   .use(version, "19");
@@ -523,7 +523,7 @@ eslintReactKit()
 
 `getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
 
-```ts
+```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
 
@@ -548,7 +548,7 @@ This pattern is especially useful when composing kit configs alongside other ESL
 
 Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
 
-```ts
+```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
 
