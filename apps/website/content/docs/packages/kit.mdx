@@ -527,43 +527,11 @@ eslintReactKit()
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
 
-function functionComponentDefinition(): RuleDefinition {
-  return (context, { collect }) => {
-    const { query, visitor } = collect.components(context);
-    return {
-      ...visitor,
-      "Program:exit"(program) {
-        for (const { name, node } of query.all(program)) {
-          if (node.type !== "FunctionDeclaration") {
-            context.report({
-              node,
-              message: `Component "${name ?? "(anonymous)"}" must be a function declaration.`,
-            });
-          }
-        }
-      },
-    };
-  };
-}
-
-function version(major = "19"): RuleDefinition {
-  return (context, { settings }) => ({
-    Program(program) {
-      if (!settings.version.startsWith(`${major}.`)) {
-        context.report({
-          node: program,
-          message: `This project requires React ${major}, but detected version ${settings.version}.`,
-        });
-      }
-    },
-  });
-}
-
 // Spread the config into a new object to add or override properties like `files`:
 export default [
   {
     ...eslintReactKit()
-      .use(functionComponentDefinition)
+      .use(noForwardRef)
       .use(version, "19")
       .getConfig(),
     // Override `name` so it shows your own label in config inspector tools
@@ -583,29 +551,6 @@ Use `getPlugin()` when you want full control over the plugin namespace and rule 
 ```ts
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
-
-function version(major = "19"): RuleDefinition {
-  return (context, { settings }) => ({
-    Program(program) {
-      if (!settings.version.startsWith(`${major}.`)) {
-        context.report({
-          node: program,
-          message: `This project requires React ${major}, but detected version ${settings.version}.`,
-        });
-      }
-    },
-  });
-}
-
-function noForwardRef(): RuleDefinition {
-  return (context, { is }) => ({
-    CallExpression(node) {
-      if (is.forwardRefCall(node)) {
-        context.report({ node, message: "forwardRef is deprecated in React 19." });
-      }
-    },
-  });
-}
 
 const kit = eslintReactKit()
   .use(noForwardRef)
