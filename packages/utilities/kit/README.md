@@ -24,8 +24,8 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
   - [Component: Destructure component props](#component-destructure-component-props)
   - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
+  - [Override Config: Using spread syntax with `getConfig`](#Override-config-using-spread-syntax-with-getconfig)
   - [Advanced Config: Using `getPlugin` for custom plugin namespace](#advanced-config-using-getplugin-for-custom-plugin-namespace)
-- [More Examples](#more-examples)
 
 ## Installation
 
@@ -543,6 +543,63 @@ eslintReactKit()
   .use(componentHookFactories)
   .getConfig();
 ```
+
+### Override Config: Using spread syntax with `getConfig`
+
+`getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
+
+```ts
+import eslintReactKit from "@eslint-react/kit";
+import type { RuleDefinition } from "@eslint-react/kit";
+
+function functionComponentDefinition(): RuleDefinition {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return {
+      ...visitor,
+      "Program:exit"(program) {
+        for (const { name, node } of query.all(program)) {
+          if (node.type !== "FunctionDeclaration") {
+            context.report({
+              node,
+              message: `Component "${name ?? "(anonymous)"}" must be a function declaration.`,
+            });
+          }
+        }
+      },
+    };
+  };
+}
+
+function version(major = "19"): RuleDefinition {
+  return (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith(`${major}.`)) {
+        context.report({
+          node: program,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  });
+}
+
+// Spread the config into a new object to add or override properties like `files`:
+export default [
+  {
+    ...eslintReactKit()
+      .use(functionComponentDefinition)
+      .use(version, "19")
+      .getConfig(),
+    // Override `name` so it shows your own label in config inspector tools
+    name: "my-app/kit-rules",
+    // Override `files` to scope the kit rules to specific source files
+    files: ["src/**/*.ts", "src/**/*.tsx"],
+  },
+];
+```
+
+This pattern is especially useful when composing kit configs alongside other ESLint configs (e.g. `typescript-eslint`, `eslint-plugin-react-hooks`) via `defineConfig` — you can nest the spread object inside `extends` arrays and attach shared properties like `files` or `languageOptions` at the same level.
 
 ### Advanced Config: Using `getPlugin` for custom plugin namespace
 
