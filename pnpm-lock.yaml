@@ -712,6 +712,9 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../.pkgs/eff
+      '@typescript-eslint/typescript-estree':
+        specifier: ^8.58.0
+        version: 8.58.0(typescript@6.0.2)
       tsdown:
         specifier: ^0.21.7
         version: 0.21.7(publint@0.3.18)(typescript@6.0.2)
