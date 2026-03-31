@@ -6,6 +6,7 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
+import { match } from "ts-pattern";
 import { version } from "./lib/version";
 
 const RE_STABLE = /^\d+\.\d+\.\d+$/u;
@@ -75,32 +76,20 @@ const resolveNewVersion = Effect.fnUntraced(
   function*(input: string) {
     const currentVersion = yield* version;
     yield* Effect.log(`Current version: ${ansis.cyan(currentVersion)}`);
-
-    switch (input) {
-      case "patch":
-        return bumpPatch(currentVersion);
-      case "minor":
-        return bumpMinor(currentVersion);
-      case "major":
-        return bumpMajor(currentVersion);
-      case "rc":
-        return bumpPrerelease(currentVersion, "rc");
-      case "beta":
-        return bumpPrerelease(currentVersion, "beta");
-      case "next":
-        return bumpPrerelease(currentVersion, "next");
-      default: {
-        // Treat as explicit version string
-        if (classifyVersion(input) === "unknown") {
-          yield* Effect.logError(ansis.red(`Invalid version format: ${ansis.bold(input)}`));
-          yield* Effect.logError(
-            "Expected format: X.Y.Z, X.Y.Z-rc.N, X.Y.Z-beta.N, or X.Y.Z-next.N",
-          );
-          return yield* Effect.fail(new Error(`Invalid version format: ${input}`));
-        }
-        return input;
-      }
-    }
+    return yield* match(input)
+      .with("patch", () => Effect.succeed(bumpPatch(currentVersion)))
+      .with("minor", () => Effect.succeed(bumpMinor(currentVersion)))
+      .with("major", () => Effect.succeed(bumpMajor(currentVersion)))
+      .with("rc", () => Effect.succeed(bumpPrerelease(currentVersion, "rc")))
+      .with("beta", () => Effect.succeed(bumpPrerelease(currentVersion, "beta")))
+      .with("next", () => Effect.succeed(bumpPrerelease(currentVersion, "next")))
+      .otherwise(Effect.fnUntraced(function*() {
+        yield* Effect.logError(ansis.red(`Invalid version format: ${ansis.bold(input)}`));
+        yield* Effect.logError(
+          "Expected format: X.Y.Z, X.Y.Z-rc.N, X.Y.Z-beta.N, or X.Y.Z-next.N",
+        );
+        return yield* Effect.fail(new Error(`Invalid version format: ${input}`));
+      }));
   },
 );
 

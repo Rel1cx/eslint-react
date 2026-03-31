@@ -10,14 +10,14 @@ import { version } from "./lib/version";
 
 const CHANGELOG_PATH = "CHANGELOG.md";
 
-const CATEGORY_MAP: Record<string, { emoji: string; heading: string }> = {
+const CATEGORY_MAP = {
   feat: { emoji: "✨", heading: "New" },
   fix: { emoji: "🐞", heading: "Fixes" },
   perf: { emoji: "🪄", heading: "Improvements" },
   refactor: { emoji: "🪄", heading: "Improvements" },
   docs: { emoji: "📝", heading: "Documentation" },
   breaking: { emoji: "💥", heading: "Breaking Changes" },
-};
+} as const satisfies Record<string, { emoji: string; heading: string }>;
 
 const CATEGORY_ORDER = ["breaking", "feat", "fix", "perf", "docs"] as const;
 
