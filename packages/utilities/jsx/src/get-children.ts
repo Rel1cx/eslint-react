@@ -38,7 +38,7 @@ export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[
  * These nodes are formatting artefacts (indentation between JSX tags) that
  * React discards at render time.
  *
- * @param node
+ * @param node The JSX child node to check.
  * @internal
  */
 function isPaddingSpaces(node: TSESTree.JSXChild): boolean {

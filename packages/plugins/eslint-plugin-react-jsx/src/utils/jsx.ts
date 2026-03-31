@@ -11,7 +11,7 @@ import type { TSESTree } from "@typescript-eslint/types";
  * Trim leading / trailing whitespace the same way React does when rendering
  * JSX text.  Whitespace that contains a newline is stripped entirely;
  * whitespace that stays on the same line is preserved.
- * @param text
+ * @param text The JSX text to trim.
  */
 export function trimLikeReact(text: string): string {
   const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
@@ -32,8 +32,8 @@ export function trimLikeReact(text: string): string {
 /**
  * Compute the removal range for a JSX attribute, consuming any leading
  * whitespace (spaces, tabs, newlines) so the resulting markup stays clean.
- * @param context
- * @param prop
+ * @param context The rule context.
+ * @param prop The JSX attribute.
  */
 export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttribute): [start: number, end: number] {
   const { sourceCode } = context;
@@ -56,8 +56,8 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
  * - `children={<>…</>}`      -> `<>…</>`  (JSX fragment, no braces)
  * - `children={expression}`  -> `{expression}`  (wrapped in braces)
  * - `children`               -> `null`  (boolean shorthand, cannot extract)
- * @param context
- * @param prop
+ * @param context The rule context.
+ * @param prop The JSX attribute.
  */
 export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttribute): string | null {
   const { sourceCode } = context;
@@ -98,7 +98,7 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
  * fragment (from the start of the first child to the end of the last child).
  *
  * Returns `null` when there are no children at all.
- * @param node
+ * @param node The JSX element or fragment.
  */
 export function getChildrenContentRange(node: ast.TSESTreeJSXElementLike): [start: number, end: number] | null {
   if (node.children.length === 0) return null;
@@ -112,8 +112,8 @@ export function getChildrenContentRange(node: ast.TSESTreeJSXElementLike): [star
  * (everything between the opening and closing tags).
  *
  * Returns `""` for self-closing elements like `<Fragment />`.
- * @param context
- * @param node
+ * @param context The rule context.
+ * @param node The JSX element or fragment.
  */
 export function getChildrenSourceText(context: RuleContext, node: ast.TSESTreeJSXElementLike): string {
   const { sourceCode } = context;

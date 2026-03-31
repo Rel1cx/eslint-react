@@ -45,7 +45,7 @@ export function hasChildren(element: TSESTreeJSXElementLike): boolean {
  * Any `JSXText` whose raw content consists entirely of whitespace characters
  * (spaces, tabs, newlines, etc.) is considered whitespace text.  Non-text
  * nodes always return `false`.
- * @param node
+ * @param node The JSX child node to check.
  */
 function isWhitespaceText(node: TSESTreeJSXElementLike["children"][number]): boolean {
   if (node.type !== AST.JSXText) return false;
