@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v4.2.0-beta.2 (2026-03-31)
+
+### 🐞 Fixes
+
+- `var`: Fix logic bugs in `compute-object-type`, `find-enclosing-assignment-target`, and `is-value-equal` utilities (#1672).
+
+### 🪄 Improvements
+
+- `test`: Add comprehensive unit tests for `@eslint-react/var` utilities including `compute-object-type`, `find-enclosing-assignment-target`, `is-assignment-target-equal`, and `is-value-equal` (#1672).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.0-beta.1...v4.2.0-beta.2
+
 ## v4.2.0-beta.1 (2026-03-31)
 
 ### 🐞 Fixes
