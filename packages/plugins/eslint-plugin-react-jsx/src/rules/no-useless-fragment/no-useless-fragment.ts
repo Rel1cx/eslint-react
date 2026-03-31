@@ -82,7 +82,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   /**
    * Whether the fragment has too few meaningful children to justify its
    * existence (the "contains less than two children" reason).
-   * @param node
+   * @param node The fragment node to check.
    */
   function isContentUseless(node: ast.TSESTreeJSXElementLike) {
     // Empty fragment — useless unless explicitly allowed.
@@ -133,7 +133,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
   /**
    * Whether it is safe to auto-fix the fragment by unwrapping it.
-   * @param node
+   * @param node The fragment node to check.
    */
   function isSafeToFix(node: ast.TSESTreeJSXElementLike) {
     // Inside a JSX parent we can only safely unwrap if the parent is a host
@@ -162,7 +162,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
   /**
    * Build an autofix that unwraps the fragment, replacing it with its
    * trimmed children text.  Returns `null` when the fix is unsafe.
-   * @param node
+   * @param node The fragment node to fix.
    */
   function buildFix(node: ast.TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
     if (!isSafeToFix(node)) return null;
@@ -181,7 +181,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * A fragment may be reported for **two independent reasons** on the same
    * node (e.g. `<p><>foo</></p>` is both "placed inside a host component"
    * and* "contains less than two children").
-   * @param node
+   * @param node The fragment node to inspect.
    */
   function checkNode(node: ast.TSESTreeJSXElementLike) {
     // A fragment inside a host component is always redundant — the host

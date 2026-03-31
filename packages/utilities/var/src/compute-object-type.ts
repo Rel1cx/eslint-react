@@ -95,16 +95,14 @@ export function computeObjectType(
       return computeObjectType(context, initNode);
     }
     case AST.MemberExpression: {
-      if (!("object" in node)) return null;
       return computeObjectType(context, node.object);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
-      if (!("right" in node)) return null;
       return computeObjectType(context, node.right);
     }
     case AST.LogicalExpression: {
-      return computeObjectType(context, node.right);
+      return computeObjectType(context, node.left) ?? computeObjectType(context, node.right);
     }
     case AST.ConditionalExpression: {
       return computeObjectType(context, node.consequent) ?? computeObjectType(context, node.alternate);
@@ -132,6 +130,28 @@ export function computeObjectType(
           return { kind: "array", node } as const;
         case isIdentifier(node.callee, "RegExp"):
           return { kind: "regexp", node } as const;
+      }
+
+      // Handle static factory methods (e.g. Array.from(), Object.create())
+      if (
+        node.callee.type === AST.MemberExpression
+        && isIdentifier(node.callee.object)
+        && isIdentifier(node.callee.property)
+      ) {
+        const objName = node.callee.object.name;
+        const methodName = node.callee.property.name;
+        switch (objName) {
+          case "Array":
+            if (methodName === "from" || methodName === "of") {
+              return { kind: "array", node } as const;
+            }
+            break;
+          case "Object":
+            if (methodName === "create" || methodName === "assign" || methodName === "fromEntries") {
+              return { kind: "plain", node } as const;
+            }
+            break;
+        }
       }
 
       return { kind: "unknown", node, reason: "call-expression" } as const;

@@ -75,7 +75,19 @@ export function isValueEqual(
           }
           const aRight = aDefParentParent.right;
           const bRight = bDefParentParent.right;
-          return ast.isNodeEqual(aRight, bRight);
+          if (!ast.isNodeEqual(aRight, bRight)) {
+            return false;
+          }
+          // When both variables come from the SAME for-of statement (e.g.
+          // `for (const [a, b] of items)`), fall back to variable identity
+          // so that `a` and `b` are not incorrectly treated as equal.
+          // When they come from DIFFERENT for-of statements iterating the
+          // same source (e.g. `for (const event of xs)` and
+          // `for (const evt of xs)`), they represent the same values.
+          if (aDefParentParent === bDefParentParent) {
+            return aVar != null && bVar != null && aVar === bVar;
+          }
+          return true;
         }
         default: {
           return aVar != null && bVar != null && aVar === bVar;
@@ -84,8 +96,10 @@ export function isValueEqual(
     }
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression: {
-      return ast.isNodeEqual(a.property, b.property)
-        && isValueEqual(context, a.object, b.object);
+      const propEqual = a.computed && b.computed
+        ? isValueEqual(context, a.property, b.property)
+        : ast.isNodeEqual(a.property, b.property);
+      return propEqual && isValueEqual(context, a.object, b.object);
     }
     case a.type === AST.ThisExpression
       && b.type === AST.ThisExpression: {

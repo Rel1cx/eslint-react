@@ -66,8 +66,8 @@ export function create(context: RuleContext<MessageID, []>) {
   /**
    * Check if a test expression is a null check on `ref.current` for a given ref name.
    * Matches forms like `ref.current === null`, `null === ref.current`, and their != variants.
-   * @param test
-   * @param refName
+   * @param test The test expression to check.
+   * @param refName The name of the ref variable.
    */
   function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string): boolean {
     if (test.type !== AST.BinaryExpression) return false;
