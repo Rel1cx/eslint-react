@@ -78,6 +78,9 @@ export function create(context: RuleContext<MessageID, []>) {
         const expr = ast.getUnderlyingExpression(node.callee);
         if (expr.type !== AST.Identifier) return;
         if (!IMPURE_CTORS.has(expr.name)) return;
+        // `new Date(arg)` with arguments is pure (deterministic),
+        // only `new Date()` without arguments is impure (depends on current time).
+        if (expr.name === "Date" && node.arguments.length > 0) return;
         const func = ast.findParent(node, ast.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
