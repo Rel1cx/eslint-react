@@ -567,7 +567,7 @@ export default [
       .use(version, "19")
       .getConfig(),
     // Override `name` so it shows your own label in config inspector tools
-    name: "my-app/kit-rules",
+    name: "react-custom-rules",
     // Override `files` to scope the kit rules to specific source files
     files: ["src/**/*.ts", "src/**/*.tsx"],
   },
@@ -619,12 +619,12 @@ export default [
     files: ["**/*.{ts,tsx}"],
     plugins: {
       // Choose your own namespace
-      react: plugin,
+      "react-custom-rules": plugin,
     },
     rules: {
       // Set individual severities
-      "react/no-forward-ref": "error",
-      "react/version": "error",
+      "react-custom-rules/no-forward-ref": "error",
+      "react-custom-rules/version": "error",
     },
   },
 ];

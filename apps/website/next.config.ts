@@ -55,6 +55,11 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/packages",
+        destination: "/docs/packages/overview",
+        permanent: true,
+      },
+      {
         source: "/docs/configuration",
         destination: "/docs/configuration/configure-analyzer",
         permanent: true,

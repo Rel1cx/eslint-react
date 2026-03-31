@@ -1,11 +1,8 @@
 {
-  "title": "Utilities",
+  "title": "Packages",
   "description": "Utility modules for building custom React rules",
   "pages": [
-    "!overview",
-    "!ast",
-    "!jsx",
-    "!var",
+    "overview",
     "kit"
   ]
 }

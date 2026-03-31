@@ -1,0 +1,47 @@
+---
+title: Overview
+description: All packages in the ESLint React monorepo.
+---
+
+## Packages Summary
+
+This section provides a summary of the packages in the monorepo.
+
+### Local Packages
+
+- `.pkgs/configs`: Workspace config bases
+- `.pkgs/eff`: JavaScript and TypeScript utilities
+
+### Internal Packages
+
+- **Utilities**
+  - `packages/utilities/ast`: TSESTree AST utility module for static analysis
+  - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
+  - `packages/utilities/jsx`: TSESTree JSX utility module for static analysis of JSX patterns
+- **Core & Shared**
+  - `packages/core`: Utility module for static analysis of React core APIs and patterns
+  - `packages/shared`: Shared constants, types and functions
+
+### Public Packages
+
+- **Utilities**
+  - [`@eslint-react/kit`](https://npmx.dev/package/@eslint-react/kit): Utility module for building custom React rules with JavaScript functions
+- **ESLint Plugins**
+  - [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x): Core React rules
+  - [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx): React Flavored JSX rules
+  - [`eslint-plugin-react-rsc`](https://npmx.dev/package/eslint-plugin-react-rsc): React Server Components rules
+  - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom): React DOM rules
+  - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api): Web API interaction rules
+  - [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention): Naming convention rules
+  - [`eslint-plugin-react-debug`](https://npmx.dev/package/eslint-plugin-react-debug): Debugging rules for inspecting React patterns in code
+  - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin): A unified plugin that combines all individual plugins into one
+
+### Documentation
+
+- `apps/website`: Documentation website
+- `apps/playground`: Interactive playground (WIP)
+
+## Learn More
+
+- See the [Rules](/docs/rules/overview) page for a full list of available lint rules.
+- See the [`@eslint-react/kit`](/docs/packages/kit) page for building your own custom React rules.
