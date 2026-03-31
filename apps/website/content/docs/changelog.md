@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+# Changelog
+
+## v4.2.0-beta.3 (2026-04-01)
+
+### 🐞 Fixes
+
+- **purity:** treat new Date(arg) as pure, closes #1582 (#1677) (`f727b59f5`)
+- **purity:** remove console methods from impurity detection, closes #1616 (#1676) (`10fe2eb0e`)
+
+### 📝 Documentation
+
+- **scripts:** add comprehensive README and more automation scripts (#1673) (`dcaa5aa45`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.0-beta.2...v4.2.0-beta.3
+
 ## v4.2.0-beta.2 (2026-03-31)
 
 ### 🐞 Fixes
