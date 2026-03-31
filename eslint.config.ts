@@ -1,6 +1,7 @@
 import {
   GLOB_CONFIGS,
   GLOB_SCRIPTS,
+  GLOB_TESTS,
   GLOB_TS,
   buildIgnoreConfig,
   disableProblematicEslintJsRules,
@@ -19,6 +20,7 @@ const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignor
   "test",
   "examples",
   "**/*.d.ts",
+  ...GLOB_TESTS,
 ]);
 
 export default defineConfig(
