@@ -2,8 +2,6 @@
 title: Changelog
 ---
 
-# Changelog
-
 ## v4.2.0-beta.3 (2026-04-01)
 
 ### 🐞 Fixes

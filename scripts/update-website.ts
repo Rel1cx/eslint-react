@@ -186,7 +186,7 @@ const processChangelog = Effect.gen(function*() {
     "title: Changelog",
     "---",
     "",
-    source,
+    source.replace(/^# Changelog\n\n/m, ""),
   ].join("\n");
 
   const dir = path.dirname(targetPath);
