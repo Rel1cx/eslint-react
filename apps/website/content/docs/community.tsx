@@ -37,6 +37,7 @@ export const projects = [
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
   { owner: "toss", repo: "suspensive" },
+  { owner: "xbmc", repo: "kodi-tv" },
   { owner: "yjs", repo: "yjs-inspector" },
 ];
 
