@@ -12,8 +12,11 @@ react-jsx/no-key-after-spread
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
-@eslint-react/jsx-no-key-after-spread
+@eslint-react/jsx/no-key-after-spread
 ```
+
+**Features**
+
 
 **Presets**
 
@@ -26,53 +29,25 @@ react-jsx/no-key-after-spread
 
 ## Rule Details
 
-When using the automatic JSX runtime (`react-jsx` / `react-jsxdev`), certain patterns cause the compiler to fall back from the optimized `_jsx` / `_jsxs` call to the slower `createElement` path. This rule detects such patterns.
+When using the JSX automatic runtime, `key` is a special prop in the JSX transform. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
 
-This rule only applies when the automatic JSX runtime is detected (via `tsconfig.json` or `@jsxRuntime` annotation). In classic runtime mode, no checks are performed.
+If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
 
-### Placing `key` After Spread Props
+## Common Violations
 
-The `key` prop is treated specially by the compiler. If `key` appears before any spread props, it is passed directly as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. If `key` appears after a spread prop, the compiler falls back to the slower `createElement` call and passes `key` as a regular prop, causing a deoptimization. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
-
-#### Invalid
+### Invalid
 
 ```tsx
-// ❌ 'key' is after spread — causes deoptimization.
-<div {...props} key="1" />;
+<div {...props} key="2" />;
+//              ^^^ The 'key' prop must be placed before any spread props when using the new JSX transform.
 ```
 
-```tsx
-// ❌ Multiple elements with the same issue.
-const App = (props) => {
-  return [
-    <div {...props} key="1">1</div>,
-    <div {...props} key="2">2</div>,
-  ];
-};
-```
+### Valid
 
 ```tsx
-// ❌ Even with other props in between.
-<div id="test" {...props} key="1" className="foo" />;
-```
-
-#### Valid
-
-```tsx
-// ✅ 'key' is before spread — compiler uses the optimized path.
 <div key="1" {...props} />;
-```
-
-```tsx
-// ✅ No spread props — no deoptimization concern.
 <div key="3" className="" />;
 <div className="" key="3" />;
-```
-
-```tsx
-// ✅ Classic runtime annotation — deoptimization check does not apply.
-/** @jsxRuntime classic */
-<div {...props} key="1" />;
 ```
 
 ## Resources
@@ -82,6 +57,6 @@ const App = (props) => {
 
 ## Further Reading
 
-- [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
 - [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+- [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
 - [TSConfig: jsx](https://www.typescriptlang.org/tsconfig/#jsx)

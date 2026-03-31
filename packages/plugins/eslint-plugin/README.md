@@ -23,7 +23,6 @@
   - [Bare Bones](#bare-bones)
   - [General Purpose](#general-purpose)
   - [TypeScript Specialized](#typescript-specialized)
-  - [Category Based](#category-based)
   - [Other](#other)
 - [Rules](#rules)
 - [Benchmark](#benchmark)

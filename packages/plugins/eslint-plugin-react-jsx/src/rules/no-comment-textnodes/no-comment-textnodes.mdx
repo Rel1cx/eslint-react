@@ -1,23 +1,19 @@
 ---
-title: jsx-key-before-spread
-description: Enforces 'key' prop placement before spread props.
+title: no-comment-textnodes
+description: Prevents comment strings (ex: beginning with '//' or '/*') from being accidentally inserted into a JSX element's text nodes.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+**Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
 
 ```plain copy
-react-x/jsx-key-before-spread
+react-jsx/no-comment-textnodes
 ```
 
 **Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
-@eslint-react/jsx-key-before-spread
+@eslint-react/jsx-no-comment-textnodes
 ```
-
-**Features**
-
-`🧪`
 
 **Presets**
 
@@ -30,34 +26,39 @@ react-x/jsx-key-before-spread
 
 ## Rule Details
 
-When using the JSX automatic runtime, `key` is a special prop in the JSX transform. See the [Babel REPL](https://babeljs.io/repl#?browsers=last%202%20chrome%20versions\&build=\&builtIns=false\&corejs=3.21\&spec=false\&loose=false\&code_lz=DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3AFCiTZ45GmWyKoBMmOkxbR4yFAGZMAYwA2AQzJkAcvIC2cVIIbNw0OYpXrNKTGNRSaDIA\&forceAllTransforms=false\&modules=false\&shippedProposals=false\&evaluate=true\&fileSize=false\&timeTravel=false\&sourceType=module\&lineWrap=true\&presets=react\&prettier=false\&targets=\&version=7.27.0\&externalPlugins=\&assumptions=%7B%7D) and the [TypeScript Playground](https://www.typescriptlang.org/play/?target=99\&jsx=4#code/DwEwlgbgBA1gpgTwLwCICMKoG8B0eAOATgPb4DOAvlAPQB8A3ALABQok2eORplsiqAJkx0mrcNHjIUAZkwBjADYBDMmQBySgLZxUwhizbRFK9Vp0pMk1ABY99IA).
+This rule prevents comment strings (ex: beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes.
 
-If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
+Comments inside JSX elements should be placed inside braces (`{/* comment */}`) to prevent them from being rendered as text.
 
 ## Common Violations
 
 ### Invalid
 
 ```tsx
-<div {...props} key="2" />;
-//              ^^^ The 'key' prop must be placed before any spread props when using the new JSX transform.
+function MyComponent() {
+  return (
+    <div>
+      // This will be rendered as text
+      /* This will also be rendered as text */
+    </div>
+  );
+}
 ```
 
 ### Valid
 
 ```tsx
-<div key="1" {...props} />;
-<div key="3" className="" />;
-<div className="" key="3" />;
+function MyComponent() {
+  return (
+    <div>
+      {/* This is a valid comment inside JSX */}
+      <span>Hello</span>
+    </div>
+  );
+}
 ```
 
 ## Resources
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-key-before-spread/jsx-key-before-spread.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x/src/rules/jsx-key-before-spread/jsx-key-before-spread.spec.ts)
-
-## Further Reading
-
-- [React Docs: New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
-- [Babel Preset React: runtime](https://babeljs.io/docs/babel-preset-react#runtime)
-- [TSConfig: jsx](https://www.typescriptlang.org/tsconfig/#jsx)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.spec.ts)
