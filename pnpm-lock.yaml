@@ -15,7 +15,7 @@ overrides:
   chokidar: ^5.0.0
   dompurify: ^3.3.3
   esbuild: ^0.27.4
-  lodash: ^4.17.23
+  lodash: ^4.18.0
   minimatch: ^10.2.5
   next: ^16.2.1
   react-dom: ^19.2.4
@@ -5342,8 +5342,8 @@ packages:
   lodash.uniqwith@4.5.0:
     resolution: {integrity: sha512-7lYL8bLopMoy4CTICbxygAUq6CdRJ36vFc80DucPueUee+d5NBRxz3FdT9Pes/HEx5mPoT9jwnsEJWz1N7uq7Q==}
 
-  lodash@4.17.23:
-    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
+  lodash@4.18.0:
+    resolution: {integrity: sha512-l1mfj2atMqndAHI3ls7XqPxEjV2J9ZkcNyHpoZA3r2T1LLwDB69jgkMWh71YKwhBbK0G2f4WSn05ahmQXVxupA==}
 
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
@@ -9606,7 +9606,7 @@ snapshots:
       is-core-module: 2.16.1
       js-yaml: 3.14.2
       json5: 2.2.3
-      lodash: 4.17.23
+      lodash: 4.18.0
       minimatch: 10.2.5
       multimatch: 5.0.0
       please-upgrade-node: 3.2.0
@@ -10698,7 +10698,7 @@ snapshots:
 
   lodash.uniqwith@4.5.0: {}
 
-  lodash@4.17.23: {}
+  lodash@4.18.0: {}
 
   longest-streak@3.1.0: {}
 
