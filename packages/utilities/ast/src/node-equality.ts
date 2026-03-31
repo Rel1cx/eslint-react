@@ -58,7 +58,19 @@ export const isNodeEqual: {
       return a.name === b.name;
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression:
-      return isNodeEqual(a.property, b.property) && isNodeEqual(a.object, b.object);
+      return isNodeEqual(a.property, b.property)
+        && isNodeEqual(a.object, b.object);
+    case a.type === AST.JSXIdentifier
+      && b.type === AST.JSXIdentifier:
+      return a.name === b.name;
+    case a.type === AST.JSXNamespacedName
+      && b.type === AST.JSXNamespacedName:
+      return isNodeEqual(a.namespace, b.namespace)
+        && isNodeEqual(a.name, b.name);
+    case a.type === AST.JSXMemberExpression
+      && b.type === AST.JSXMemberExpression:
+      return isNodeEqual(a.object, b.object)
+        && isNodeEqual(a.property, b.property);
     case a.type === AST.JSXAttribute
       && b.type === AST.JSXAttribute: {
       if (!isNodeEqual(a.name, b.name)) {
