@@ -63,6 +63,6 @@
     "tsl": "^1.0.30",
     "tsl-dx": "^0.10.2",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.2"
+    "typescript-eslint": "^8.58.0"
   }
 }

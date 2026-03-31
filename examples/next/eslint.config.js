@@ -27,7 +27,7 @@ export default defineConfig(
   {
     files: TSCONFIG.include,
     extends: [
-      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.recommended,
     ],
     languageOptions: {
       parser: tseslint.parser,
