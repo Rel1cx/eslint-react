@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v4.2.0-beta.1 (2026-03-31)
+
+### 🐞 Fixes
+
+- `ast`: `isNodeEqual`: Fix `JSXNamespacedName` comparison logic.
+
+### 🪄 Improvements
+
+- `test`: Add comprehensive test coverage for `find-import-source`, `is-react-api`, legacy component detection, hook detection, function init path, and node equality utilities (#1671).
+- `deps`: Update typescript-eslint to ^8.58.0 (#1670).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.0-beta.0...v4.2.0-beta.1
+
 ## v4.2.0-beta.0 (2026-03-31)
 
 ### 💥 Breaking Changes
