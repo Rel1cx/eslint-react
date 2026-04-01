@@ -30,7 +30,6 @@
 - [FAQ](#faq)
 - [Migration](#migration)
 - [Changelog](#changelog)
-- [Roadmap](#roadmap)
 - [Disclaimer](#disclaimer)
 - [Sponsors](#sponsors)
 - [Contributing](#contributing)
@@ -207,10 +206,6 @@ export default defineConfig(
 ## Changelog
 
 [Changelog ↗](https://www.eslint-react.xyz/docs/changelog)
-
-## Roadmap
-
-- [Milestone 3.0 ↗](https://eslint-react.xyz/docs/roadmap#milestone-30-tbd)
 
 ## Disclaimer
 
