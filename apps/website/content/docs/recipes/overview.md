@@ -50,7 +50,7 @@ import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-import { noForwardRef } from "./eslint.config.rules"
+import { noForwardRef } from "./eslint.config.rules";
 
 export default defineConfig(
   {
@@ -65,16 +65,17 @@ export default defineConfig(
     ],
     rules: {
       "@eslint-react/kit/no-forward-ref": "error",
-    }
+    },
   },
 );
 ```
 
 ## Available Recipes
 
-| Recipe                                                           | Rules | Description                                                                                       |
-| :--------------------------------------------------------------- | :---: | :------------------------------------------------------------------------------------------------ |
-| [component-hook-factories](./component-hook-factories)           |   1   | Disallow defining components or hooks inside other functions (factory pattern).                   |
-| [custom-rules-of-props](./custom-rules-of-props)                 |   2   | Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props. |
-| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Custom rules for validating state usage — prefer updater function form in useState setters.       |
-| [function-component-definition](./function-component-definition) |   1   | Enforce arrow function syntax for function components.                                            |
+| Recipe                                                           | Rules | Description                                                                                                                                                |
+| :--------------------------------------------------------------- | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [component-hook-factories](./component-hook-factories)           |   1   | Disallow defining components or hooks inside other functions (factory pattern).                                                                            |
+| [custom-rules-of-props](./custom-rules-of-props)                 |   2   | Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props.                                                          |
+| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Custom rules for validating state usage — prefer updater function form in useState setters.                                                                |
+| [function-component-definition](./function-component-definition) |   1   | Enforce arrow function syntax for function components.                                                                                                     |
+| [no-circular-effect](./no-circular-effect)                       |   1   | Custom rule to detect circular dependencies between useEffect hooks — prevents infinite update loops caused by effects that set state they also depend on. |

@@ -28,6 +28,7 @@ import {
   jsxPropsNoSpreading,
   maxComponentPerFile,
   noAdjacentInlineElements,
+  noCircularEffect,
   noMultiComp,
   noUnnecessaryUsePrefix,
   version,
@@ -107,6 +108,7 @@ export default defineConfig(
           .use(jsxPropsNoSpreading)
           .use(maxComponentPerFile, { max: 100 })
           .use(noAdjacentInlineElements)
+          .use(noCircularEffect)
           .use(noMultiComp)
           .use(noUnnecessaryUsePrefix)
           .use(version, "19")
