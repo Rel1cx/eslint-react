@@ -76,7 +76,7 @@
     "@typescript-eslint/types": "^8.58.0",
     "ansis": "^4.2.0",
     "dedent": "^1.7.2",
-    "dprint": "^0.53.1",
+    "dprint": "^0.53.2",
     "effect": "^3.21.0",
     "eslint": "^10.1.0",
     "eslint-plugin-fast-import": "^2.2.0",
