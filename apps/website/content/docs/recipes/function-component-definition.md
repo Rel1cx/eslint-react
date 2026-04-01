@@ -44,7 +44,10 @@ export function functionComponentDefinition(): RuleDefinition {
 
                     // function Foo(params) { ... } -> const Foo = (params) => { ... };
                     if (node.type === "FunctionDeclaration" && node.id) {
-                      return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
+                      return fixer.replaceText(
+                        node,
+                        `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`,
+                      );
                     }
 
                     // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
@@ -54,7 +57,10 @@ export function functionComponentDefinition(): RuleDefinition {
 
                     // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
                     if (node.type === "FunctionExpression" && node.parent.type === "Property") {
-                      return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
+                      return fixer.replaceText(
+                        node.parent,
+                        `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`,
+                      );
                     }
 
                     return null;
@@ -102,7 +108,7 @@ function MyComponent({ name }: { name: string }) {
 
 ```tsx
 // Function expression — will be reported
-const MyComponent = function ({ name }: { name: string }) {
+const MyComponent = function({ name }: { name: string }) {
   return <div>Hello, {name}!</div>;
 };
 ```

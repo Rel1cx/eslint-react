@@ -1,20 +1,21 @@
 ---
 title: custom-rules-of-props
-description: Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props.
+description: Custom rules for validating JSX props — duplicate props, mixing controlled/uncontrolled props, and explicit spread props.
 ---
 
 ## Overview
 
-This recipe contains two custom rules for validating JSX props:
+This recipe contains three custom rules for validating JSX props:
 
-1. **`jsxNoDuplicateProps`** — Reports when the same prop appears more than once on a JSX element.
-2. **`noMixingControlledAndUncontrolledProps`** — Reports when both a controlled prop and its uncontrolled counterpart appear on the same element.
+1. **`noDuplicateProps`** — Reports when the same prop appears more than once on a JSX element.
+2. **`noExplicitSpreadProps`** — Reports when an object literal is spread onto a JSX element instead of writing each property as a separate prop. Includes auto-fix.
+3. **`noMixingControlledAndUncontrolledProps`** — Reports when both a controlled prop and its uncontrolled counterpart appear on the same element.
 
 ## Rule Definitions
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
-### jsxNoDuplicateProps
+### noDuplicateProps
 
 Reports when the same prop appears more than once on a JSX element. Only the last occurrence takes effect — earlier values are silently discarded. This is almost always a mistake, typically from copy-paste errors or merge conflict leftovers.
 
@@ -24,9 +25,11 @@ Spread attributes are intentionally ignored because overriding a spread prop wit
 import type { RuleDefinition } from "@eslint-react/kit";
 
 /** Disallow duplicate props on JSX elements. */
-export function jsxNoDuplicateProps(): RuleDefinition {
+export function noDuplicateProps(): RuleDefinition {
   return (context) => {
-    function getPropName(attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } }): string {
+    function getPropName(
+      attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
+    ): string {
       if (attribute.name.type === "JSXNamespacedName") {
         const ns = attribute.name.namespace as { name: string };
         const local = attribute.name.name as { name: string };
@@ -56,6 +59,30 @@ export function jsxNoDuplicateProps(): RuleDefinition {
       },
     };
   };
+}
+```
+
+### noExplicitSpreadProps
+
+Reports when an object literal is spread directly onto a JSX element. The spread is unnecessary — each property of the object can be written as a separate JSX attribute instead. This improves readability and makes it easier to see which props an element receives at a glance.
+
+Only plain object literals are flagged. Conditional expressions, variables, and other non-literal spreads are left untouched because they serve a legitimate purpose (e.g. conditionally applying a group of props).
+
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+
+/** Disallow spreading object literals in JSX — write each property as a separate prop. */
+export function noExplicitSpreadProps(): RuleDefinition {
+  return (context) => ({
+    JSXSpreadAttribute(node) {
+      if (node.argument.type === "ObjectExpression") {
+        context.report({
+          node,
+          message: "Don't spread an object literal in JSX. Write each property as a separate prop instead.",
+        });
+      }
+    },
+  });
 }
 ```
 
@@ -102,7 +129,8 @@ export function noMixingControlledAndUncontrolledProps(): RuleDefinition {
 
         context.report({
           node: attrNode,
-          message: `'${controlled}' and '${uncontrolled}' should not be used together. Use either controlled or uncontrolled mode, not both.`,
+          message:
+            `'${controlled}' and '${uncontrolled}' should not be used together. Use either controlled or uncontrolled mode, not both.`,
         });
       }
     },
@@ -114,16 +142,14 @@ export function noMixingControlledAndUncontrolledProps(): RuleDefinition {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import {
-  jsxNoDuplicateProps,
-  noMixingControlledAndUncontrolledProps,
-} from "./eslint.config.rules";
+import { noDuplicateProps, noExplicitSpreadProps, noMixingControlledAndUncontrolledProps } from "./eslint.config.rules";
 
 export default [
   // ... other configs
   {
     ...eslintReactKit()
-      .use(jsxNoDuplicateProps)
+      .use(noDuplicateProps)
+      .use(noExplicitSpreadProps)
       .use(noMixingControlledAndUncontrolledProps)
       .getConfig(),
     files: ["src/**/*.tsx"],
@@ -133,53 +159,48 @@ export default [
 
 ## Examples
 
-### jsxNoDuplicateProps
+### noDuplicateProps
 
 #### Invalid
 
 ```tsx
-// ❌ 'id' is specified twice — only the last value takes effect.
 <div id="a" id="b" />;
 ```
 
 ```tsx
-// ❌ Duplicate props on a custom component.
-<MyComponent foo="a" foo="b" />;
-```
-
-```tsx
-// ❌ Duplicate boolean props.
-<input disabled disabled />;
-```
-
-```tsx
-// ❌ Duplicate event handlers.
-<div onClick={handleA} onClick={handleB} />;
-```
-
-```tsx
-// ❌ Duplicate namespaced props.
 <div on:click={handleA} on:click={handleB} />;
 ```
 
 #### Valid
 
 ```tsx
-// ✅ All props are unique.
 <div id="a" className="b" />;
 ```
 
 ```tsx
-// ✅ Spread attributes are ignored.
 <div id="a" {...props} />;
 ```
 
+### noExplicitSpreadProps
+
+#### Invalid
+
 ```tsx
-// ✅ Same prop on different elements is fine.
-<div>
-  <span id="a" />
-  <span id="b" />
-</div>;
+<MyComponent {...{ foo, bar, baz }} />;
+```
+
+```tsx
+<input {...{ disabled: true, readOnly: true }} />;
+```
+
+#### Valid
+
+```tsx
+<div {...props} />;
+```
+
+```tsx
+<Comp {...(cond ? { a: "b" } : {})} />;
 ```
 
 ### noMixingControlledAndUncontrolledProps
@@ -187,40 +208,21 @@ export default [
 #### Invalid
 
 ```tsx
-// ❌ 'defaultValue' is ignored because 'value' makes the input controlled.
 <input value={name} defaultValue="World" />;
 ```
 
 ```tsx
-// ❌ 'defaultChecked' is ignored because 'checked' makes the checkbox controlled.
 <input type="checkbox" checked={isChecked} defaultChecked />;
-```
-
-```tsx
-// ❌ Order does not matter — the pair is still invalid.
-<textarea defaultValue="fallback" value={content} />;
 ```
 
 #### Valid
 
 ```tsx
-// ✅ Controlled input — value is driven by React state.
-<input value={name} onChange={(e) => setName(e.target.value)} />;
+<input value={name} onChange={handleChange} />;
 ```
 
 ```tsx
-// ✅ Uncontrolled input — initial value is provided.
 <input defaultValue="World" />;
-```
-
-```tsx
-// ✅ Controlled checkbox.
-<input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />;
-```
-
-```tsx
-// ✅ Uncontrolled checkbox.
-<input type="checkbox" defaultChecked />;
 ```
 
 ## Further Reading

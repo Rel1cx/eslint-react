@@ -13,9 +13,9 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
 
 ```ts title="eslint.config.rules.ts"
 import type { RuleDefinition } from "@eslint-react/kit";
+import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 
 /** Require the updater function form of useState setters when referencing the corresponding state variable. */
 export function preferStateUpdaterFunction(): RuleDefinition {
@@ -82,7 +82,9 @@ export function preferStateUpdaterFunction(): RuleDefinition {
           if (hasStateRef) {
             context.report({
               node,
-              message: `Do not reference '${context.sourceCode.getText(node.callee)}' directly; use the updater function form instead.`,
+              message: `Do not reference '${
+                context.sourceCode.getText(node.callee)
+              }' directly; use the updater function form instead.`,
             });
           }
         }
@@ -226,15 +228,6 @@ function Component() {
   return <div />;
 }
 ```
-
-## How It Works
-
-This rule tracks `useState` (and custom state hooks matching `additionalStateHooks`) call sites to build a mapping from each setter variable to its corresponding state variable.
-
-All other function calls are queued and checked at `Program:exit` (so that pairs declared later in the file are still detected). For each queued call whose callee resolves to a known setter:
-
-1. If the first argument is a function (arrow, expression, or declaration), the call is using the updater form and is **OK**.
-2. Otherwise, the rule checks whether any reference to the state variable falls within the argument's source range. If it does, the call is reported.
 
 ## Further Reading
 
