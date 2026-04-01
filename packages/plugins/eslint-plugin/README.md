@@ -16,6 +16,7 @@
 - [Public Packages](#public-packages)
   - [Modular ESLint Plugins](#modular-eslint-plugins)
   - [Unified ESLint Plugin](#unified-eslint-plugin)
+  - [Utility Modules](#utility-modules)
 - [Installation](#installation)
   - [Install](#install)
   - [Setup](#setup)
@@ -56,6 +57,10 @@
 ### Unified ESLint Plugin
 
 - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one.
+
+### Utility Modules
+
+- [`@eslint-react/kit`](https://npmx.dev/package/@eslint-react/kit): Utility module for building custom React rules with JavaScript functions
 
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
