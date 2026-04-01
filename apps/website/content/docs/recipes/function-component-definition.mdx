@@ -127,3 +127,10 @@ The suggested fix handles three cases:
 3. **Function expressions in object properties** — `{ Foo() {} }` → `{ Foo: () => {} }`
 
 The fix also preserves `async`, type parameters, parameter types, and return types.
+
+---
+
+## See Also
+
+- [`component-hook-factories`](./component-hook-factories)\
+  Disallow defining components or hooks inside other functions (factory pattern).
