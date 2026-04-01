@@ -11,17 +11,17 @@ This recipe contains three custom rules for validating JSX props:
 2. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
 3. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
 
-## Rule Definitions
+## Rule Factories
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
 ### noDuplicateProps
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow duplicate props on JSX elements. */
-export function noDuplicateProps(): RuleDefinition {
+export function noDuplicateProps(): RuleFunction {
   return (context) => {
     function getPropName(
       attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
@@ -104,10 +104,10 @@ Spread attributes are ignored because overriding them with explicit props is a c
 ### noExplicitSpreadProps
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow spreading object literals in JSX. Write each property as a separate prop. */
-export function noExplicitSpreadProps(): RuleDefinition {
+export function noExplicitSpreadProps(): RuleFunction {
   return (context) => ({
     JSXSpreadAttribute(node) {
       if (node.argument.type === "ObjectExpression") {
@@ -167,7 +167,7 @@ Only plain object literals are flagged. Conditional expressions, variables, and 
 ### noMixingControlledAndUncontrolledProps
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
 const CONTROLLED_PAIRS: [controlled: string, uncontrolled: string][] = [
   ["value", "defaultValue"],
@@ -175,7 +175,7 @@ const CONTROLLED_PAIRS: [controlled: string, uncontrolled: string][] = [
 ];
 
 /** Disallow using controlled and uncontrolled props on the same element. */
-export function noMixingControlledAndUncontrolledProps(): RuleDefinition {
+export function noMixingControlledAndUncontrolledProps(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const props = new Set<string>();

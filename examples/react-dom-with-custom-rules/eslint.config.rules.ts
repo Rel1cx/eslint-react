@@ -1,11 +1,11 @@
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
-export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
+export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -28,7 +28,7 @@ export function checkedRequiresOnchangeOrReadonly(): RuleDefinition {
 }
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */
-export function componentHookFactories(): RuleDefinition {
+export function componentHookFactories(): RuleFunction {
   function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
     if (parent == null) return null;
     if (test(parent)) return parent;
@@ -71,7 +71,7 @@ export type ForbidComponentPropsOptions = {
 };
 
 /** Forbid certain props on React components (not DOM elements). */
-export function forbidComponentProps({ forbidden }: ForbidComponentPropsOptions): RuleDefinition {
+export function forbidComponentProps({ forbidden }: ForbidComponentPropsOptions): RuleFunction {
   return (context) => ({
     JSXAttribute(node) {
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -96,7 +96,7 @@ export type ForbidDomPropsOptions = {
 };
 
 /** Forbid certain props on DOM elements (not React components). */
-export function forbidDomProps({ forbidden }: ForbidDomPropsOptions): RuleDefinition {
+export function forbidDomProps({ forbidden }: ForbidDomPropsOptions): RuleFunction {
   return (context) => ({
     JSXAttribute(node) {
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -121,7 +121,7 @@ export type ForbidElementsOptions = {
 };
 
 /** Forbid specific JSX elements. */
-export function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
+export function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -133,7 +133,7 @@ export function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefini
 }
 
 /** Enforce arrow function definitions for function components. */
-export function functionComponentDefinition(): RuleDefinition {
+export function functionComponentDefinition(): RuleFunction {
   return (context, { collect, hint }) => {
     const { query, visitor } = collect.components(context, {
       hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
@@ -190,7 +190,7 @@ export function functionComponentDefinition(): RuleDefinition {
 }
 
 /** Enforce shorthand for boolean JSX attributes. */
-export function jsxBooleanValue(): RuleDefinition {
+export function jsxBooleanValue(): RuleFunction {
   return (context) => ({
     JSXAttribute(node) {
       const { value } = node;
@@ -212,7 +212,7 @@ export type JsxsFragmentsOptions = {
 };
 
 /** Enforce shorthand or standard form for React fragments. */
-export function jsxFragments({ mode = "syntax" }: JsxsFragmentsOptions = {}): RuleDefinition {
+export function jsxFragments({ mode = "syntax" }: JsxsFragmentsOptions = {}): RuleFunction {
   return (context) => {
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       const hasAttributes = node.attributes.length > 0;
@@ -282,7 +282,7 @@ export function jsxHandlerNames({
   eventHandlerPrefix = "handle",
   eventHandlerPropPrefix = "on",
   checkInlineFunction = false,
-}: JsxHandlerNamesOptions = {}): RuleDefinition {
+}: JsxHandlerNamesOptions = {}): RuleFunction {
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
 
@@ -335,7 +335,7 @@ export type JsxMaxDepthOptions = {
 };
 
 /** Enforce JSX maximum depth. */
-export function jsxMaxDepth({ max }: JsxMaxDepthOptions): RuleDefinition {
+export function jsxMaxDepth({ max }: JsxMaxDepthOptions): RuleFunction {
   return (context) => ({
     JSXElement(node) {
       let depth = 0;
@@ -358,7 +358,7 @@ export function jsxMaxDepth({ max }: JsxMaxDepthOptions): RuleDefinition {
 }
 
 /** Prevent inline functions and `.bind()` in JSX props. */
-export function jsxNoBind(): RuleDefinition {
+export function jsxNoBind(): RuleFunction {
   return (context) => ({
     JSXAttribute(node) {
       const value = node.value;
@@ -386,7 +386,7 @@ export type JsxNoDuplicatePropsOptions = {
 };
 
 /** Disallow duplicate properties in JSX. */
-export function jsxNoDuplicateProps({ ignoreCase = false }: JsxNoDuplicatePropsOptions = {}): RuleDefinition {
+export function jsxNoDuplicateProps({ ignoreCase = false }: JsxNoDuplicatePropsOptions = {}): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const seen = new Map<string, string>();
@@ -420,7 +420,7 @@ export type JsxNoLiteralsOptions = {
 /** Disallow usage of string literals in JSX. */
 export function jsxNoLiterals(
   { noStrings = false, allowedStrings = [], ignoreProps = true }: JsxNoLiteralsOptions = {},
-): RuleDefinition {
+): RuleFunction {
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
     Literal(node) {
@@ -487,7 +487,7 @@ export type JsxPascalCaseOptions = {
 /** Enforce PascalCase for user-defined JSX components. */
 export function jsxPascalCase(
   { allowAllCaps = false, allowLeadingUnderscore = false }: JsxPascalCaseOptions = {},
-): RuleDefinition {
+): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name;
@@ -535,7 +535,7 @@ export function jsxPascalCase(
 }
 
 /** Disallow JSX prop spreading the same identifier multiple times. */
-export function jsxPropsNoSpreadMulti(): RuleDefinition {
+export function jsxPropsNoSpreadMulti(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const seen = new Set<string>();
@@ -563,7 +563,7 @@ export function jsxPropsNoSpreadMulti(): RuleDefinition {
 }
 
 /** Disallow JSX props spreading. */
-export function jsxPropsNoSpreading(): RuleDefinition {
+export function jsxPropsNoSpreading(): RuleFunction {
   return (context) => ({
     JSXSpreadAttribute(node) {
       context.report({
@@ -581,7 +581,7 @@ export type MaxComponentPerFileOptions = {
 };
 
 /** Prevent defining more than one component per file. */
-export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleDefinition {
+export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(visitor, {
@@ -601,7 +601,7 @@ export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleDe
 }
 
 /** Disallow adjacent inline elements not separated by whitespace. */
-export function noAdjacentInlineElements(): RuleDefinition {
+export function noAdjacentInlineElements(): RuleFunction {
   /** Set of inline HTML elements. */
   const INLINE_ELEMENTS = new Set([
     "a",
@@ -665,7 +665,7 @@ export function noAdjacentInlineElements(): RuleDefinition {
 }
 
 /** Prevent defining more than one component per file. */
-export function noMultiComp(): RuleDefinition {
+export function noMultiComp(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(visitor, {
@@ -683,7 +683,7 @@ export function noMultiComp(): RuleDefinition {
 }
 
 /** Warn on custom hooks that don't call other hooks. */
-export function noUnnecessaryUsePrefix(): RuleDefinition {
+export function noUnnecessaryUsePrefix(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.hooks(context);
 
@@ -704,7 +704,7 @@ export function noUnnecessaryUsePrefix(): RuleDefinition {
 }
 
 /** Require the project to use a specific React version. */
-export function version(major = "19"): RuleDefinition {
+export function version(major = "19"): RuleFunction {
   return (context, { settings }) => ({
     Program(program) {
       if (!settings.version.startsWith(`${major}.`)) {
@@ -718,7 +718,7 @@ export function version(major = "19"): RuleDefinition {
 }
 
 /** Detect circular dependencies between useEffect hooks via useState setters. */
-export function noCircularEffect(): RuleDefinition {
+export function noCircularEffect(): RuleFunction {
   return (context, { is, settings }) => {
     // Map: setter Scope.Variable → state Scope.Variable
     const setterToState = new Map<Scope.Variable, Scope.Variable>();

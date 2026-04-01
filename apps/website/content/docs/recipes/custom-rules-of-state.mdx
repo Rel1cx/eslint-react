@@ -7,18 +7,18 @@ description: Validates state usage. Prefer the updater function form in useState
 
 Reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
 
-## Rule Definition
+## Rule Factory
 
 Copy the following rule definition into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /** Require the updater function form of useState setters when referencing the corresponding state variable. */
-export function preferStateUpdaterFunction(): RuleDefinition {
+export function preferStateUpdaterFunction(): RuleFunction {
   function isFunction({ type }: TSESTree.Node) {
     return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
   }

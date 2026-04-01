@@ -9,17 +9,17 @@ This recipe contains a custom rule that disallows defining components or hooks i
 
 Defining components or hooks inside other functions creates new instances on every call. React treats each as a completely different component, destroying and recreating the entire component tree, losing all state, and causing performance problems.
 
-## Rule Definition
+## Rule Factory
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */
-export function componentHookFactories(): RuleDefinition {
+export function componentHookFactories(): RuleFunction {
   function findParent(
     { parent }: TSESTree.Node,
     test: (n: TSESTree.Node) => boolean,

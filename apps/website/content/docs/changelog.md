@@ -153,7 +153,7 @@ export default defineConfig(
 
 - `react-jsx/no-children-prop`: Add suggestion-fix feature to move children from prop to element content.
 - `@eslint-react/eslint-plugin`: Unified plugin architecture refactored — configs now auto-inject the plugin, so users no longer need to manually register it separately.
-- `refactor(kit)`: Improve `Builder` and `RuleDefinition` implementation for better type inference and code organization.
+- `refactor(kit)`: Improve `Builder` and `RuleFunction` implementation for better type inference and code organization.
 - `refactor(kit)`: Replace `defineConfig` with chainable `.use().getConfig()` builder API, closes #1644.
 - `refactor(kit)`: Remove unused type parameter from `CollectorWithContext<T, E>` to `CollectorWithContext<T>`.
 - `refactor(kit)`: Rename parameter `args` to `options`.
@@ -392,7 +392,7 @@ If you still need these rules, you can enforce them using the new `@eslint-react
 
 ### 🪄 Improvements
 
-- `refactor(kit)`: Improve `Builder` and `RuleDefinition` implementation for better type inference and code organization.
+- `refactor(kit)`: Improve `Builder` and `RuleFunction` implementation for better type inference and code organization.
 - `docs(website)`: Improve `configure-project-rules` documentation with clearer examples and explanations.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.0.1-beta.0...v4.0.1-beta.1

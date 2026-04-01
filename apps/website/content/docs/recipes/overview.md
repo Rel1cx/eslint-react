@@ -24,15 +24,15 @@ npm install --save-dev @eslint-react/kit
 
 Each recipe page provides:
 
-1. **Rule Definition** — A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
+1. **Rule Factory** — A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
 2. **Usage** — How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
 
 Here's the general pattern:
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
-function noForwardRef(): RuleDefinition {
+function noForwardRef(): RuleFunction {
   return (context, { is }) => ({
     CallExpression(node) {
       if (is.forwardRefCall(node)) {

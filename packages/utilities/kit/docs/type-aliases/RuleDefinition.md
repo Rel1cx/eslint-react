@@ -1,18 +1,11 @@
-[@eslint-react/kit](../README.md) / RuleDefinition
+[@eslint-react/kit](../README.md) / RuleFunction
 
-# Type Alias: RuleDefinition
+# ~~Type Alias: RuleFunction~~
 
 ```ts
-type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
+type RuleFunction = RuleFunction;
 ```
 
-## Parameters
+## Deprecated
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `toolkit` | `RuleToolkit` |
-
-## Returns
-
-[`RuleListener`](RuleListener.md)
+Use `RuleFunction` instead.

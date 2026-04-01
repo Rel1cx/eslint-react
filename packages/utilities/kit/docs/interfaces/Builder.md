@@ -38,7 +38,7 @@ use<F>(factory: F, ...args: Parameters<F>): Builder;
 
 | Type Parameter |
 | ------ |
-| `F` *extends* (...`args`: `any`[]) => [`RuleDefinition`](../type-aliases/RuleDefinition.md) |
+| `F` *extends* (...`args`: `any`[]) => [`RuleFunction`](../type-aliases/RuleFunction.md) |
 
 #### Parameters
 

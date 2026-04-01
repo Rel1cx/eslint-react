@@ -22,12 +22,12 @@ Define custom rules directly in your `eslint.config.ts`:
 import eslintJs from "@eslint/js";
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 /** Enforce function declarations for function components. */
-function functionComponentDefinition(): RuleDefinition {
+function functionComponentDefinition(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(

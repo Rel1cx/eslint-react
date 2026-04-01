@@ -11,18 +11,18 @@ description: Detects circular dependencies between useEffect hooks. Prevents inf
 
 This rule detects when `useEffect`-like hooks form a cycle through state variables. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
 
-## Rule Definition
+## Rule Factory
 
 Copy the following rule definition into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
 /** Detect circular dependencies between useEffect hooks via useState setters. */
-export function noCircularEffect(): RuleDefinition {
+export function noCircularEffect(): RuleFunction {
   return (context, { is, settings }) => {
     const { additionalStateHooks, additionalEffectHooks } = settings;
 
