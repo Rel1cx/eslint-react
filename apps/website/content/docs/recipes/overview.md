@@ -72,10 +72,10 @@ export default defineConfig(
 
 ## Available Recipes
 
-| Recipe                                                           | Rules | Description                                                                                                                                                |
-| :--------------------------------------------------------------- | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [component-hook-factories](./component-hook-factories)           |   1   | Disallow defining components or hooks inside other functions (factory pattern).                                                                            |
-| [custom-rules-of-props](./custom-rules-of-props)                 |   2   | Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props.                                                          |
-| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Custom rules for validating state usage — prefer updater function form in useState setters.                                                                |
-| [function-component-definition](./function-component-definition) |   1   | Enforce arrow function syntax for function components.                                                                                                     |
-| [no-circular-effect](./no-circular-effect)                       |   1   | Custom rule to detect circular dependencies between useEffect hooks — prevents infinite update loops caused by effects that set state they also depend on. |
+| Recipe                                                           | Rules | Description                                                                                                                                 |
+| :--------------------------------------------------------------- | :---: | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| [component-hook-factories](./component-hook-factories)           |   1   | Disallows components or hooks defined inside other functions (factory pattern).                                                             |
+| [custom-rules-of-props](./custom-rules-of-props)                 |   3   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.              |
+| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                |
+| [function-component-definition](./function-component-definition) |   1   | Enforces arrow function style for function component definitions.                                                                           |
+| [no-circular-effect](./no-circular-effect)                       |   1   | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
