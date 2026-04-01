@@ -35,6 +35,8 @@ full: true
 | `react-x/prefer-shorthand-fragment`                          |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/prefer-use-state-lazy-initialization`               | [`react-x/use-state`](/docs/rules/use-state)                                                                 | 3.0.0      | consolidated |
 | `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](/docs/rules/jsx-uses-vars)                                                         | 2.0.0      | renamed      |
+| `react-x/unstable-rules-of-props`                            | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                        | 4.2.1      | discontinued |
+| `react-x/unstable-rules-of-state`                            | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                        | 4.2.1      | discontinued |
 | `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)                 | 2.0.0      | renamed      |
 | `react-dom/no-namespace`                                     | [`react-jsx/no-namespace`](/docs/rules/jsx-no-namespace)                                                     | 4.0.0      | consolidated |
 | `react-jsx/dollar`                                           |                                                                                                              | 4.0.0      | discontinued |

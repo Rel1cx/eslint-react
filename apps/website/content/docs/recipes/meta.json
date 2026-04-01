@@ -1,0 +1,9 @@
+{
+  "title": "Recipes",
+  "pages": [
+    "overview",
+    "function-component-definition",
+    "custom-rules-of-props",
+    "custom-rules-of-state"
+  ]
+}

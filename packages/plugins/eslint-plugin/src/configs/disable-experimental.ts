@@ -14,8 +14,6 @@ export const rules: Record<string, RuleConfig> = {
   "@eslint-react/no-unused-props": "off",
   "@eslint-react/refs": "off",
   "@eslint-react/set-state-in-render": "off",
-  "@eslint-react/unstable-rules-of-props": "off",
-  "@eslint-react/unstable-rules-of-state": "off",
 
   "@eslint-react/jsx-no-key-after-spread": "off",
   "@eslint-react/jsx-no-namespace": "off",
