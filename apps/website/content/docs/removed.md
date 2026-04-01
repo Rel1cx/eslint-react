@@ -21,11 +21,11 @@ full: true
 | `react-x/jsx-uses-vars`                                      | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                                     | 3.0.0      | deprecated   |
 | `react-x/no-comment-textnodes`                               | [`react-jsx/no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                                     | 2.0.0      | renamed      |
 | `react-x/no-complicated-conditional-rendering`               |                                                                                                              | 2.0.0      | discontinued |
-| `react-x/no-default-props`                                   | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                          | 2.9.3      | deprecated   |
-| `react-x/no-forbidden-props`                                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                          | 2.3.2      | deprecated   |
+| `react-x/no-default-props`                                   | [`@eslint-react/kit/no-default-props`](https://beta.eslint-react.xyz/docs/packages/kit)                      | 2.9.3      | deprecated   |
+| `react-x/no-forbidden-props`                                 | [`@eslint-react/kit/no-forbidden-props`](https://beta.eslint-react.xyz/docs/packages/kit)                    | 2.3.2      | deprecated   |
 | `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)                     | 2.0.0      | renamed      |
-| `react-x/no-prop-types`                                      | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                          | 2.9.3      | deprecated   |
-| `react-x/no-string-refs`                                     | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                          | 2.9.3      | deprecated   |
+| `react-x/no-prop-types`                                      | [`@eslint-react/kit/no-prop-types`](https://beta.eslint-react.xyz/docs/packages/kit)                         | 2.9.3      | deprecated   |
+| `react-x/no-string-refs`                                     | [`@eslint-react/kit/no-string-refs`](https://beta.eslint-react.xyz/docs/packages/kit)                        | 2.9.3      | deprecated   |
 | `react-x/no-unnecessary-key`                                 |                                                                                                              | 3.0.0      | discontinued |
 | `react-x/no-unnecessary-use-ref`                             |                                                                                                              | 2.10.0     | discontinued |
 | `react-x/no-useless-forward-ref`                             | [`react-x/no-forward-ref`](/docs/rules/no-forward-ref)                                                       | 3.0.0      | consolidated |
