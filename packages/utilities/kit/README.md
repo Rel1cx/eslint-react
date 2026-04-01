@@ -8,7 +8,7 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
 - [Quick Start](#quick-start)
 - [API Reference](#api-reference)
   - [`eslintReactKit` (default export)](#eslintreactkit-default-export)
-  - [`RuleDefinition`](#ruledefinition)
+  - [`RuleFunction`](#rulefunction)
   - [`Builder`](#builder)
     - [`getConfig`](#getconfig)
     - [`getPlugin`](#getplugin)
@@ -39,13 +39,13 @@ npm install --save-dev @eslint-react/kit
 ```ts
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 /** Enforce function declarations for function components. */
-function functionComponentDefinition(): RuleDefinition {
+function functionComponentDefinition(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(
@@ -94,27 +94,27 @@ eslintReactKit(): Builder
 
 Creates a `Builder` instance for registering custom rules via the chainable `.use()` API.
 
-### `RuleDefinition`
+### `RuleFunction`
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
-type RuleDefinition = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+type RuleFunction = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
 ```
 
 A rule definition is a function that receives the ESLint rule context and the structured `Kit` toolkit, and returns a `RuleListener` (AST visitor object).
 
-Rules are defined as **named functions** that return a `RuleDefinition`. The function name is automatically converted to kebab-case and used as the rule name under the `@eslint-react/kit` plugin namespace.
+Rules are defined as **named functions** that return a `RuleFunction`. The function name is automatically converted to kebab-case and used as the rule name under the `@eslint-react/kit` plugin namespace.
 
 ```ts
 // Function name `noForwardRef` → rule name `no-forward-ref`
 // Registered as `@eslint-react/kit/no-forward-ref`
-function noForwardRef(): RuleDefinition {
+function noForwardRef(): RuleFunction {
   return (context, { is }) => ({ ... });
 }
 
 // Functions that accept options work the same way
-function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
+function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
   return (context) => ({ ... });
 }
 ```
@@ -123,7 +123,7 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefinition {
 
 ```ts
 interface Builder {
-  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
+  use<F extends (...args: any[]) => RuleFunction>(factory: F, ...args: Parameters<F>): Builder;
   getConfig(): Linter.Config;
   getPlugin(): ESLint.Plugin;
 }
@@ -189,7 +189,7 @@ This is essential for combining a collector's `visitor` with your own inspection
 
 ### Kit — the toolkit object
 
-The second argument passed to the `RuleDefinition` function is a structured `Kit` object:
+The second argument passed to the `RuleFunction` function is a structured `Kit` object:
 
 ```
 kit
@@ -376,9 +376,9 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 **Usage:**
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
-function version(major = "19"): RuleDefinition {
+function version(major = "19"): RuleFunction {
   return (context, { settings }) => ({
     Program(program) {
       if (!settings.version.startsWith(`${major}.`)) {
@@ -401,9 +401,9 @@ function version(major = "19"): RuleDefinition {
 This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
-function noForwardRef(): RuleDefinition {
+function noForwardRef(): RuleFunction {
   return (context, { is }) => ({
     CallExpression(node) {
       if (is.forwardRefCall(node)) {
@@ -424,10 +424,10 @@ eslintReactKit()
 This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
-function destructureComponentProps(): RuleDefinition {
+function destructureComponentProps(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
 
@@ -465,10 +465,10 @@ eslintReactKit()
 This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
-function noUnnecessaryUsePrefix(): RuleDefinition {
+function noUnnecessaryUsePrefix(): RuleFunction {
   return (context, { collect }) => {
     const { query, visitor } = collect.hooks(context);
 
@@ -499,11 +499,11 @@ Disallow defining components or hooks inside other functions (factory pattern).
 This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 
-function componentHookFactories(): RuleDefinition {
+function componentHookFactories(): RuleFunction {
   function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
     if (parent == null) return null;
     if (test(parent)) return parent;
@@ -550,7 +550,7 @@ eslintReactKit()
 
 ```ts
 import eslintReactKit from "@eslint-react/kit";
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
 // Spread the config into a new object to add or override properties like `files`:
 export default [
@@ -575,7 +575,7 @@ Use `getPlugin()` when you want full control over the plugin namespace and rule 
 
 ```ts
 import eslintReactKit from "@eslint-react/kit";
-import type { RuleDefinition } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
 
 const kit = eslintReactKit()
   .use(noForwardRef);

@@ -220,12 +220,17 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
   };
 }
 
-export type RuleDefinition = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
+export type RuleFunction = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
+
+/**
+ * @deprecated Use `RuleFunction` instead.
+ */
+export type RuleDefinition = RuleFunction;
 
 export interface Builder {
   getConfig(): Linter.Config;
   getPlugin(): ESLint.Plugin;
-  use<F extends (...args: any[]) => RuleDefinition>(factory: F, ...args: Parameters<F>): Builder;
+  use<F extends (...args: any[]) => RuleFunction>(factory: F, ...args: Parameters<F>): Builder;
 }
 
 export default function build(): Builder {
@@ -254,7 +259,7 @@ export default function build(): Builder {
         rules,
       };
     },
-    use(make: (...args: any[]) => RuleDefinition, ...args: any[]): Builder {
+    use(make: (...args: any[]) => RuleFunction, ...args: any[]): Builder {
       const name = kebabCase(make.name === "" ? idGen.next() : make.name);
       Reflect.set(rules, name, {
         meta: {
