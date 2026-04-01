@@ -30,26 +30,56 @@ Each recipe page provides:
 Here's the general pattern:
 
 ```ts title="eslint.config.rules.ts"
-import type { RuleDefinition } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
+import type { RuleDefinition } from "@eslint-react/kit";
 
-export function myCustomReactRule(): RuleDefinition {
-  return (context, toolkit) => {
-    // ... your rule logic
-    return { /* visitor */ };
+/** Enforce function declarations for function components. */
+function functionComponentDefinition(): RuleDefinition {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+    return merge(
+      visitor,
+      {
+        "Program:exit"(program) {
+          for (const { node } of query.all(program)) {
+            if (node.type === "FunctionDeclaration") continue;
+            context.report({
+              node,
+              message: "Function components must be defined with function declarations.",
+            });
+          }
+        },
+      },
+    );
   };
 }
 ```
 
 ```ts title="eslint.config.ts"
+import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit from "@eslint-react/kit";
-import { myCustomReactRule } from "./eslint.config.rules";
+import eslintJs from "@eslint/js";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 
-export default [
-  eslintReactKit()
-    .use(myCustomReactRule)
-    .getConfig(),
-];
+import { functionComponentDefinition } from "./eslint.config.rules"
+
+export default defineConfig(
+  {
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      eslintJs.configs.recommended,
+      tseslint.configs.recommended,
+      eslintReact.configs["recommended-typescript"],
+      eslintReactKit()
+        .use(functionComponentDefinition)
+        .getConfig(),
+    ],
+    rules: {
+      "@eslint-react/kit/function-component-definition": "error",
+    }
+  },
+);
 ```
 
 ## Available Recipes
@@ -60,16 +90,3 @@ export default [
 | [custom-rules-of-props](./custom-rules-of-props)                 |   2   | Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props. |
 | [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Custom rules for validating state usage — prefer updater function form in useState setters.       |
 | [function-component-definition](./function-component-definition) |   1   | Enforce arrow function syntax for function components.                                            |
-
----
-
-## See Also
-
-- [`component-hook-factories`](./component-hook-factories)\
-  Disallow defining components or hooks inside other functions (factory pattern).
-- [`custom-rules-of-props`](./custom-rules-of-props)\
-  Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props.
-- [`custom-rules-of-state`](./custom-rules-of-state)\
-  Custom rules for validating state usage — prefer updater function form in useState setters.
-- [`function-component-definition`](./function-component-definition)\
-  Enforce arrow function syntax for function components.

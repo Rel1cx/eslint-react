@@ -55,6 +55,11 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/recipes",
+        destination: "/docs/recipes/overview",
+        permanent: true,
+      },
+      {
         source: "/docs/packages",
         destination: "/docs/packages/overview",
         permanent: true,
