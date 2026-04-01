@@ -1,13 +1,13 @@
 ---
 title: custom-rules-of-state
-description: Custom rules for validating state usage — prefer updater function form in useState setters.
+description: Custom rules for validating state usage. Prefer the updater function form in useState setters.
 ---
 
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 ## Overview
 
-This rule reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update is always based on the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
+Reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
 
 ## Rule Definition
 
@@ -72,7 +72,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
               const arg = node.arguments[0];
               if (arg == null) continue;
 
-              // Already using the callback form — OK.
+              // Already using the callback form.
               if (isFunction(arg)) continue;
 
               // Check if the argument contains a reference to the state variable.
@@ -125,7 +125,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     function Counter() {
       const [count, setCount] = useState(0);
 
-      // ❌ Referencing `count` directly — stale state risk.
+      // ❌ Referencing `count` directly. Stale state risk.
       return (
         <button onClick={() => setCount(count + 1)}>
           {count}
@@ -155,7 +155,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     function UserEditor() {
       const [user, setUser] = useState({ name: "John", age: 25 });
 
-      // ❌ Spreading state directly — stale state risk.
+      // ❌ Spreading state directly. Stale state risk.
       const updateAge = () => setUser({ ...user, age: 30 });
 
       return <button onClick={updateAge}>Update Age</button>;
@@ -168,7 +168,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     function ItemList() {
       const [items, setItems] = useState(["a", "b"]);
 
-      // ❌ Calling a method on state directly — stale state risk.
+      // ❌ Calling a method on state directly. Stale state risk.
       const addItem = () => setItems([...items, "c"]);
 
       return <button onClick={addItem}>Add</button>;
@@ -183,7 +183,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     function Counter() {
       const [count, setCount] = useState(0);
 
-      // ✅ Callback form — always gets the latest state.
+      // ✅ Callback form. Always gets the latest state.
       return (
         <button onClick={() => setCount((prev) => prev + 1)}>
           {count}
@@ -242,4 +242,4 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
 ## See Also
 
 - [`custom-rules-of-props`](./custom-rules-of-props)\
-  Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props.
+  Custom rules for validating JSX props. Includes checks for duplicate props and mixing controlled and uncontrolled props.

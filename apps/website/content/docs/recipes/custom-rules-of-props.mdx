@@ -1,6 +1,6 @@
 ---
 title: custom-rules-of-props
-description: Custom rules for validating JSX props — duplicate props, mixing controlled/uncontrolled props, and explicit spread props.
+description: Custom rules for validating JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.
 ---
 
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
@@ -9,9 +9,9 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 This recipe contains three custom rules for validating JSX props:
 
-1. **`noDuplicateProps`** — Reports when the same prop appears more than once on a JSX element.
-2. **`noExplicitSpreadProps`** — Reports when an object literal is spread onto a JSX element instead of writing each property as a separate prop. Includes auto-fix.
-3. **`noMixingControlledAndUncontrolledProps`** — Reports when both a controlled prop and its uncontrolled counterpart appear on the same element.
+1. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
+2. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
+3. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
 
 ## Rule Definitions
 
@@ -103,9 +103,9 @@ Copy the following into your project (e.g. `eslint.config.rules.ts`):
   </Tab>
 </Tabs>
 
-Reports when the same prop appears more than once on a JSX element. Only the last occurrence takes effect — earlier values are silently discarded. This is almost always a mistake, typically from copy-paste errors or merge conflict leftovers.
+Reports when a prop appears multiple times on a JSX element. Only the last occurrence takes effect, silently discarding earlier values. This is typically a copy-paste error or a merge conflict leftover.
 
-Spread attributes are intentionally ignored because overriding a spread prop with an explicit prop is a common and valid pattern.
+Spread attributes are ignored because overriding them with explicit props is a common and valid pattern.
 
 ### noExplicitSpreadProps
 
@@ -114,7 +114,7 @@ Spread attributes are intentionally ignored because overriding a spread prop wit
     ```ts title="eslint.config.rules.ts"
     import type { RuleDefinition } from "@eslint-react/kit";
 
-    /** Disallow spreading object literals in JSX — write each property as a separate prop. */
+    /** Disallow spreading object literals in JSX. Write each property as a separate prop. */
     export function noExplicitSpreadProps(): RuleDefinition {
       return (context) => ({
         JSXSpreadAttribute(node) {
@@ -170,9 +170,9 @@ Spread attributes are intentionally ignored because overriding a spread prop wit
   </Tab>
 </Tabs>
 
-Reports when an object literal is spread directly onto a JSX element. The spread is unnecessary — each property of the object can be written as a separate JSX attribute instead. This improves readability and makes it easier to see which props an element receives at a glance.
+Reports when an object literal is spread directly onto a JSX element. This is unnecessary. Writing each property as a separate JSX attribute improves readability and makes props visible at a glance.
 
-Only plain object literals are flagged. Conditional expressions, variables, and other non-literal spreads are left untouched because they serve a legitimate purpose (e.g. conditionally applying a group of props).
+Only plain object literals are flagged. Conditional expressions, variables, and other non-literal spreads serve legitimate purposes and remain untouched.
 
 ### noMixingControlledAndUncontrolledProps
 
@@ -260,7 +260,7 @@ Only plain object literals are flagged. Conditional expressions, variables, and 
   </Tab>
 </Tabs>
 
-Reports when both a controlled prop and its uncontrolled counterpart appear on the same JSX element. Mixing both modes is a mistake — React will silently ignore the `default*` prop and may emit a console warning, leading to confusing bugs.
+Reports when both a controlled prop and its uncontrolled counterpart appear on the same JSX element. Mixing modes is a mistake. React will silently ignore the `default*` prop and might emit a console warning, leading to confusing bugs.
 
 Only well-known React prop pairs are checked:
 
@@ -300,4 +300,4 @@ export default [
 ## See Also
 
 - [`custom-rules-of-state`](./custom-rules-of-state)\
-  Custom rules for validating state usage — prefer updater function form in useState setters.
+  Custom rules for validating state usage. Prefer the updater function form in useState setters.
