@@ -22,6 +22,11 @@ const links = [
   },
   {
     active: "nested-url",
+    text: "Recipes",
+    url: "/docs/recipes",
+  },
+  {
+    active: "nested-url",
     text: "Packages",
     url: "/docs/packages",
   },
