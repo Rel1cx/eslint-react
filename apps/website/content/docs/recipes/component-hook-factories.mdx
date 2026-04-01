@@ -3,8 +3,6 @@ title: component-hook-factories
 description: Disallows components or hooks defined inside other functions (factory pattern).
 ---
 
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-
 ## Overview
 
 This recipe contains a custom rule that disallows defining components or hooks inside other functions (factory pattern). This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](/docs/rules/component-hook-factories) rule.
@@ -15,151 +13,147 @@ Defining components or hooks inside other functions creates new instances on eve
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
-<Tabs items={["Code", "Usage", "Examples"]}>
-  <Tab value="Code">
-    ```ts title="eslint.config.rules.ts"
-    import type { RuleDefinition } from "@eslint-react/kit";
-    import { merge } from "@eslint-react/kit";
-    import type { TSESTree } from "@typescript-eslint/utils";
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/utils";
 
-    /** Disallow defining components or hooks inside other functions (factory pattern). */
-    export function componentHookFactories(): RuleDefinition {
-      function findParent(
-        { parent }: TSESTree.Node,
-        test: (n: TSESTree.Node) => boolean,
-      ): TSESTree.Node | null {
-        if (parent == null) return null;
-        if (test(parent)) return parent;
-        if (parent.type === "Program") return null;
-        return findParent(parent, test);
-      }
+/** Disallow defining components or hooks inside other functions (factory pattern). */
+export function componentHookFactories(): RuleDefinition {
+  function findParent(
+    { parent }: TSESTree.Node,
+    test: (n: TSESTree.Node) => boolean,
+  ): TSESTree.Node | null {
+    if (parent == null) return null;
+    if (test(parent)) return parent;
+    if (parent.type === "Program") return null;
+    return findParent(parent, test);
+  }
 
-      function isFunction({ type }: TSESTree.Node) {
-        return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
-      }
+  function isFunction({ type }: TSESTree.Node) {
+    return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+  }
 
-      return (context, { collect }) => {
-        const fc = collect.components(context);
-        const hk = collect.hooks(context);
-        return merge(
-          fc.visitor,
-          hk.visitor,
-          {
-            "Program:exit"(program) {
-              const comps = fc.query.all(program);
-              const hooks = hk.query.all(program);
-              for (const { name, node, kind } of [...comps, ...hooks]) {
-                if (name == null) continue;
-                if (findParent(node, isFunction) == null) continue;
-                context.report({
-                  node,
-                  message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
-                });
-              }
-            },
-          },
-        );
-      };
-    }
-    ```
-  </Tab>
-
-  <Tab value="Usage">
-    ```ts title="eslint.config.ts"
-    import eslintReactKit from "@eslint-react/kit";
-    import { componentHookFactories } from "./eslint.config.rules";
-
-    export default [
-      // ... other configs
+  return (context, { collect }) => {
+    const fc = collect.components(context);
+    const hk = collect.hooks(context);
+    return merge(
+      fc.visitor,
+      hk.visitor,
       {
-        ...eslintReactKit()
-          .use(componentHookFactories)
-          .getConfig(),
-        files: ["src/**/*.tsx"],
+        "Program:exit"(program) {
+          const comps = fc.query.all(program);
+          const hooks = hk.query.all(program);
+          for (const { name, node, kind } of [...comps, ...hooks]) {
+            if (name == null) continue;
+            if (findParent(node, isFunction) == null) continue;
+            context.report({
+              node,
+              message: `Don't define ${kind} "${name}" inside a function. Move it to the module level.`,
+            });
+          }
+        },
       },
-    ];
-    ```
-  </Tab>
+    );
+  };
+}
+```
 
-  <Tab value="Examples">
-    #### Invalid
+## Usage
 
-    ```tsx
-    // ❌ Factory function creating components
-    function createComponent(defaultValue) {
-      return function Component() {
-        // ...
-      };
-    }
-    ```
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { componentHookFactories } from "./eslint.config.rules";
 
-    ```tsx
-    // ❌ Component defined inside another component
-    function Parent() {
-      function Child() {
-        return <div />;
-      }
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(componentHookFactories)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
 
-      return <Child />;
-    }
-    ```
+## Examples
 
-    ```tsx
-    // ❌ Hook factory function
-    function createCustomHook(endpoint) {
-      return function useData() {
-        // ...
-      };
-    }
-    ```
+### Invalid
 
-    ```tsx
-    // ❌ Hook defined inside a component
-    function MyComponent() {
-      function useLocalState() {
-        return useState(0);
-      }
-      // ...
-    }
-    ```
+```tsx
+// ❌ Factory function creating components
+function createComponent(defaultValue) {
+  return function Component() {
+    // ...
+  };
+}
+```
 
-    #### Valid
+```tsx
+// ❌ Component defined inside another component
+function Parent() {
+  function Child() {
+    return <div />;
+  }
 
-    ```tsx
-    // ✅ Component defined at module level
-    function Component({ defaultValue }) {
-      // ...
-    }
-    ```
+  return <Child />;
+}
+```
 
-    ```tsx
-    // ✅ Custom hook at module level
-    function useData(endpoint) {
-      // ...
-    }
-    ```
+```tsx
+// ❌ Hook factory function
+function createCustomHook(endpoint) {
+  return function useData() {
+    // ...
+  };
+}
+```
 
-    ```tsx
-    // ✅ Pass props instead of using a factory
-    function Button({ color, children }) {
-      return (
-        <button style={{ backgroundColor: color }}>
-          {children}
-        </button>
-      );
-    }
+```tsx
+// ❌ Hook defined inside a component
+function MyComponent() {
+  function useLocalState() {
+    return useState(0);
+  }
+  // ...
+}
+```
 
-    function App() {
-      return (
-        <>
-          <Button color="red">Red</Button>
-          <Button color="blue">Blue</Button>
-        </>
-      );
-    }
-    ```
-  </Tab>
-</Tabs>
+### Valid
+
+```tsx
+// ✅ Component defined at module level
+function Component({ defaultValue }) {
+  // ...
+}
+```
+
+```tsx
+// ✅ Custom hook at module level
+function useData(endpoint) {
+  // ...
+}
+```
+
+```tsx
+// ✅ Pass props instead of using a factory
+function Button({ color, children }) {
+  return (
+    <button style={{ backgroundColor: color }}>
+      {children}
+    </button>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Button color="red">Red</Button>
+      <Button color="blue">Blue</Button>
+    </>
+  );
+}
+```
 
 ## How It Works
 

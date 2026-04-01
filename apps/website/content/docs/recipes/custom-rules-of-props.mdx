@@ -3,8 +3,6 @@ title: custom-rules-of-props
 description: Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.
 ---
 
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-
 ## Overview
 
 This recipe contains three custom rules for validating JSX props:
@@ -19,89 +17,85 @@ Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
 ### noDuplicateProps
 
-<Tabs items={["Code", "Usage", "Examples"]}>
-  <Tab value="Code">
-    ```ts title="eslint.config.rules.ts"
-    import type { RuleDefinition } from "@eslint-react/kit";
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
 
-    /** Disallow duplicate props on JSX elements. */
-    export function noDuplicateProps(): RuleDefinition {
-      return (context) => {
-        function getPropName(
-          attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
-        ): string {
-          if (attribute.name.type === "JSXNamespacedName") {
-            const ns = attribute.name.namespace as { name: string };
-            const local = attribute.name.name as { name: string };
-            return `${ns.name}:${local.name}`;
-          }
-          return attribute.name.name as string;
-        }
-
-        return {
-          JSXOpeningElement(node) {
-            const seen = new Map<string, boolean>();
-
-            for (const attribute of node.attributes) {
-              if (attribute.type === "JSXSpreadAttribute") continue;
-
-              const propName = getPropName(attribute);
-
-              if (seen.has(propName)) {
-                context.report({
-                  node: attribute,
-                  message: `Prop \`${propName}\` is specified more than once. Only the last one will take effect.`,
-                });
-              }
-
-              seen.set(propName, true);
-            }
-          },
-        };
-      };
+/** Disallow duplicate props on JSX elements. */
+export function noDuplicateProps(): RuleDefinition {
+  return (context) => {
+    function getPropName(
+      attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
+    ): string {
+      if (attribute.name.type === "JSXNamespacedName") {
+        const ns = attribute.name.namespace as { name: string };
+        const local = attribute.name.name as { name: string };
+        return `${ns.name}:${local.name}`;
+      }
+      return attribute.name.name as string;
     }
-    ```
-  </Tab>
 
-  <Tab value="Usage">
-    ```ts title="eslint.config.ts"
-    import eslintReactKit from "@eslint-react/kit";
-    import { noDuplicateProps } from "./eslint.config.rules";
+    return {
+      JSXOpeningElement(node) {
+        const seen = new Map<string, boolean>();
 
-    export default [
-      // ... other configs
-      {
-        ...eslintReactKit()
-          .use(noDuplicateProps)
-          .getConfig(),
-        files: ["src/**/*.tsx"],
+        for (const attribute of node.attributes) {
+          if (attribute.type === "JSXSpreadAttribute") continue;
+
+          const propName = getPropName(attribute);
+
+          if (seen.has(propName)) {
+            context.report({
+              node: attribute,
+              message: `Prop \`${propName}\` is specified more than once. Only the last one will take effect.`,
+            });
+          }
+
+          seen.set(propName, true);
+        }
       },
-    ];
-    ```
-  </Tab>
+    };
+  };
+}
+```
 
-  <Tab value="Examples">
-    #### Invalid
+#### Usage
 
-    ```tsx
-    <div id="a" id="b" />;
-    ```
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noDuplicateProps } from "./eslint.config.rules";
 
-    ```tsx
-    <div on:click={handleA} on:click={handleB} />;
-    ```
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noDuplicateProps)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
 
-    #### Valid
+#### Examples
 
-    ```tsx
-    <div id="a" className="b" />;
-    ```
+##### Invalid
 
-    ```tsx
-    <div id="a" {...props} />;
-    ```
-  </Tab>
-</Tabs>
+```tsx
+<div id="a" id="b" />;
+```
+
+```tsx
+<div on:click={handleA} on:click={handleB} />;
+```
+
+##### Valid
+
+```tsx
+<div id="a" className="b" />;
+```
+
+```tsx
+<div id="a" {...props} />;
+```
 
 Reports when a prop appears multiple times on a JSX element. Only the last occurrence takes effect, silently discarding earlier values. This is typically a copy-paste error or a merge conflict leftover.
 
@@ -109,66 +103,62 @@ Spread attributes are ignored because overriding them with explicit props is a c
 
 ### noExplicitSpreadProps
 
-<Tabs items={["Code", "Usage", "Examples"]}>
-  <Tab value="Code">
-    ```ts title="eslint.config.rules.ts"
-    import type { RuleDefinition } from "@eslint-react/kit";
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
 
-    /** Disallow spreading object literals in JSX. Write each property as a separate prop. */
-    export function noExplicitSpreadProps(): RuleDefinition {
-      return (context) => ({
-        JSXSpreadAttribute(node) {
-          if (node.argument.type === "ObjectExpression") {
-            context.report({
-              node,
-              message: "Don't spread an object literal in JSX. Write each property as a separate prop instead.",
-            });
-          }
-        },
-      });
-    }
-    ```
-  </Tab>
+/** Disallow spreading object literals in JSX. Write each property as a separate prop. */
+export function noExplicitSpreadProps(): RuleDefinition {
+  return (context) => ({
+    JSXSpreadAttribute(node) {
+      if (node.argument.type === "ObjectExpression") {
+        context.report({
+          node,
+          message: "Don't spread an object literal in JSX. Write each property as a separate prop instead.",
+        });
+      }
+    },
+  });
+}
+```
 
-  <Tab value="Usage">
-    ```ts title="eslint.config.ts"
-    import eslintReactKit from "@eslint-react/kit";
-    import { noExplicitSpreadProps } from "./eslint.config.rules";
+#### Usage
 
-    export default [
-      // ... other configs
-      {
-        ...eslintReactKit()
-          .use(noExplicitSpreadProps)
-          .getConfig(),
-        files: ["src/**/*.tsx"],
-      },
-    ];
-    ```
-  </Tab>
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noExplicitSpreadProps } from "./eslint.config.rules";
 
-  <Tab value="Examples">
-    #### Invalid
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noExplicitSpreadProps)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
 
-    ```tsx
-    <MyComponent {...{ foo, bar, baz }} />;
-    ```
+#### Examples
 
-    ```tsx
-    <input {...{ disabled: true, readOnly: true }} />;
-    ```
+##### Invalid
 
-    #### Valid
+```tsx
+<MyComponent {...{ foo, bar, baz }} />;
+```
 
-    ```tsx
-    <div {...props} />;
-    ```
+```tsx
+<input {...{ disabled: true, readOnly: true }} />;
+```
 
-    ```tsx
-    <Comp {...(cond ? { a: "b" } : {})} />;
-    ```
-  </Tab>
-</Tabs>
+##### Valid
+
+```tsx
+<div {...props} />;
+```
+
+```tsx
+<Comp {...(cond ? { a: "b" } : {})} />;
+```
 
 Reports when an object literal is spread directly onto a JSX element. This is unnecessary. Writing each property as a separate JSX attribute improves readability and makes props visible at a glance.
 
@@ -176,89 +166,85 @@ Only plain object literals are flagged. Conditional expressions, variables, and 
 
 ### noMixingControlledAndUncontrolledProps
 
-<Tabs items={["Code", "Usage", "Examples"]}>
-  <Tab value="Code">
-    ```ts title="eslint.config.rules.ts"
-    import type { RuleDefinition } from "@eslint-react/kit";
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
 
-    const CONTROLLED_PAIRS: [controlled: string, uncontrolled: string][] = [
-      ["value", "defaultValue"],
-      ["checked", "defaultChecked"],
-    ];
+const CONTROLLED_PAIRS: [controlled: string, uncontrolled: string][] = [
+  ["value", "defaultValue"],
+  ["checked", "defaultChecked"],
+];
 
-    /** Disallow using controlled and uncontrolled props on the same element. */
-    export function noMixingControlledAndUncontrolledProps(): RuleDefinition {
-      return (context) => ({
-        JSXOpeningElement(node) {
-          const props = new Set<string>();
+/** Disallow using controlled and uncontrolled props on the same element. */
+export function noMixingControlledAndUncontrolledProps(): RuleDefinition {
+  return (context) => ({
+    JSXOpeningElement(node) {
+      const props = new Set<string>();
 
-          for (const attr of node.attributes) {
-            if (attr.type === "JSXSpreadAttribute") continue;
-            if (attr.name.type === "JSXNamespacedName") continue;
-            props.add(attr.name.name);
-          }
+      for (const attr of node.attributes) {
+        if (attr.type === "JSXSpreadAttribute") continue;
+        if (attr.name.type === "JSXNamespacedName") continue;
+        props.add(attr.name.name);
+      }
 
-          for (const [controlled, uncontrolled] of CONTROLLED_PAIRS) {
-            if (!props.has(controlled) || !props.has(uncontrolled)) continue;
+      for (const [controlled, uncontrolled] of CONTROLLED_PAIRS) {
+        if (!props.has(controlled) || !props.has(uncontrolled)) continue;
 
-            const attrNode = node.attributes.find(
-              (a) =>
-                a.type === "JSXAttribute"
-                && a.name.type !== "JSXNamespacedName"
-                && a.name.name === uncontrolled,
-            )!;
+        const attrNode = node.attributes.find(
+          (a) =>
+            a.type === "JSXAttribute"
+            && a.name.type !== "JSXNamespacedName"
+            && a.name.name === uncontrolled,
+        )!;
 
-            context.report({
-              node: attrNode,
-              message:
-                `'${controlled}' and '${uncontrolled}' should not be used together. Use either controlled or uncontrolled mode, not both.`,
-            });
-          }
-        },
-      });
-    }
-    ```
-  </Tab>
+        context.report({
+          node: attrNode,
+          message:
+            `'${controlled}' and '${uncontrolled}' should not be used together. Use either controlled or uncontrolled mode, not both.`,
+        });
+      }
+    },
+  });
+}
+```
 
-  <Tab value="Usage">
-    ```ts title="eslint.config.ts"
-    import eslintReactKit from "@eslint-react/kit";
-    import { noMixingControlledAndUncontrolledProps } from "./eslint.config.rules";
+#### Usage
 
-    export default [
-      // ... other configs
-      {
-        ...eslintReactKit()
-          .use(noMixingControlledAndUncontrolledProps)
-          .getConfig(),
-        files: ["src/**/*.tsx"],
-      },
-    ];
-    ```
-  </Tab>
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noMixingControlledAndUncontrolledProps } from "./eslint.config.rules";
 
-  <Tab value="Examples">
-    #### Invalid
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noMixingControlledAndUncontrolledProps)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
 
-    ```tsx
-    <input value={name} defaultValue="World" />;
-    ```
+#### Examples
 
-    ```tsx
-    <input type="checkbox" checked={isChecked} defaultChecked />;
-    ```
+##### Invalid
 
-    #### Valid
+```tsx
+<input value={name} defaultValue="World" />;
+```
 
-    ```tsx
-    <input value={name} onChange={handleChange} />;
-    ```
+```tsx
+<input type="checkbox" checked={isChecked} defaultChecked />;
+```
 
-    ```tsx
-    <input defaultValue="World" />;
-    ```
-  </Tab>
-</Tabs>
+##### Valid
+
+```tsx
+<input value={name} onChange={handleChange} />;
+```
+
+```tsx
+<input defaultValue="World" />;
+```
 
 Reports when both a controlled prop and its uncontrolled counterpart appear on the same JSX element. Mixing modes is a mistake. React will silently ignore the `default*` prop and might emit a console warning, leading to confusing bugs.
 

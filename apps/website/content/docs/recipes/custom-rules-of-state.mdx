@@ -3,8 +3,6 @@ title: custom-rules-of-state
 description: Validates state usage. Prefer the updater function form in useState setters.
 ---
 
-import { Tab, Tabs } from "fumadocs-ui/components/tabs";
-
 ## Overview
 
 Reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
@@ -13,225 +11,221 @@ Reports when a `useState` setter is called with an expression that directly refe
 
 Copy the following rule definition into your project (e.g. `eslint.config.rules.ts`):
 
-<Tabs items={["Code", "Usage", "Examples"]}>
-  <Tab value="Code">
-    ```ts title="eslint.config.rules.ts"
-    import type { RuleDefinition } from "@eslint-react/kit";
-    import type { ScopeVariable } from "@typescript-eslint/scope-manager";
-    import type { TSESTree } from "@typescript-eslint/utils";
-    import { findVariable } from "@typescript-eslint/utils/ast-utils";
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+import type { ScopeVariable } from "@typescript-eslint/scope-manager";
+import type { TSESTree } from "@typescript-eslint/utils";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
-    /** Require the updater function form of useState setters when referencing the corresponding state variable. */
-    export function preferStateUpdaterFunction(): RuleDefinition {
-      function isFunction({ type }: TSESTree.Node) {
-        return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
-      }
-      return (context, { is, settings }) => {
-        const setterToStateVar = new Map<ScopeVariable, ScopeVariable>();
-        const pendingCalls: { callerVar: ScopeVariable; node: TSESTree.CallExpression }[] = [];
+/** Require the updater function form of useState setters when referencing the corresponding state variable. */
+export function preferStateUpdaterFunction(): RuleDefinition {
+  function isFunction({ type }: TSESTree.Node) {
+    return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+  }
+  return (context, { is, settings }) => {
+    const setterToStateVar = new Map<ScopeVariable, ScopeVariable>();
+    const pendingCalls: { callerVar: ScopeVariable; node: TSESTree.CallExpression }[] = [];
 
-        return {
-          CallExpression(node: TSESTree.CallExpression) {
-            // Register useState pairs.
-            if (is.useStateLikeCall(node, settings.additionalStateHooks)) {
-              const { parent } = node;
-              if (
-                parent.type === "VariableDeclarator"
-                && parent.id.type === "ArrayPattern"
-              ) {
-                const [stateEl, setterEl] = parent.id.elements;
-                if (
-                  stateEl?.type === "Identifier"
-                  && setterEl?.type === "Identifier"
-                ) {
-                  const scope = context.sourceCode.getScope(node);
-                  const stateVar = findVariable(scope, stateEl.name);
-                  const setterVar = findVariable(scope, setterEl.name);
-                  if (stateVar != null && setterVar != null) {
-                    setterToStateVar.set(setterVar, stateVar);
-                  }
-                }
-              }
-              return;
-            }
-
-            // Queue potential setter calls for deferred checking at Program:exit,
-            // so that useState pairs declared after the setter call are still detected.
-            if (node.callee.type !== "Identifier") return;
-            const scope = context.sourceCode.getScope(node);
-            const callerVar = findVariable(scope, node.callee.name);
-            if (callerVar != null) {
-              pendingCalls.push({ callerVar, node });
-            }
-          },
-
-          "Program:exit"() {
-            for (const { callerVar, node } of pendingCalls) {
-              if (!setterToStateVar.has(callerVar)) continue;
-              const stateVar = setterToStateVar.get(callerVar)!;
-              const arg = node.arguments[0];
-              if (arg == null) continue;
-
-              // Already using the callback form.
-              if (isFunction(arg)) continue;
-
-              // Check if the argument contains a reference to the state variable.
-              const [argStart, argEnd] = arg.range!;
-              const hasStateRef = stateVar.references.some(
-                (ref) =>
-                  argStart <= ref.identifier.range![0]
-                  && ref.identifier.range![1] <= argEnd,
-              );
-
-              if (hasStateRef) {
-                context.report({
-                  node,
-                  message: `Do not reference '${
-                    context.sourceCode.getText(node.callee)
-                  }' directly; use the updater function form instead.`,
-                });
+    return {
+      CallExpression(node: TSESTree.CallExpression) {
+        // Register useState pairs.
+        if (is.useStateLikeCall(node, settings.additionalStateHooks)) {
+          const { parent } = node;
+          if (
+            parent.type === "VariableDeclarator"
+            && parent.id.type === "ArrayPattern"
+          ) {
+            const [stateEl, setterEl] = parent.id.elements;
+            if (
+              stateEl?.type === "Identifier"
+              && setterEl?.type === "Identifier"
+            ) {
+              const scope = context.sourceCode.getScope(node);
+              const stateVar = findVariable(scope, stateEl.name);
+              const setterVar = findVariable(scope, setterEl.name);
+              if (stateVar != null && setterVar != null) {
+                setterToStateVar.set(setterVar, stateVar);
               }
             }
-          },
-        };
-      };
-    }
-    ```
-  </Tab>
+          }
+          return;
+        }
 
-  <Tab value="Usage">
-    ```ts title="eslint.config.ts"
-    import eslintReactKit from "@eslint-react/kit";
-    import { preferStateUpdaterFunction } from "./eslint.config.rules";
-
-    export default [
-      // ... other configs
-      {
-        ...eslintReactKit()
-          .use(preferStateUpdaterFunction)
-          .getConfig(),
-        files: ["src/**/*.tsx"],
+        // Queue potential setter calls for deferred checking at Program:exit,
+        // so that useState pairs declared after the setter call are still detected.
+        if (node.callee.type !== "Identifier") return;
+        const scope = context.sourceCode.getScope(node);
+        const callerVar = findVariable(scope, node.callee.name);
+        if (callerVar != null) {
+          pendingCalls.push({ callerVar, node });
+        }
       },
-    ];
-    ```
-  </Tab>
 
-  <Tab value="Examples">
-    #### Invalid
+      "Program:exit"() {
+        for (const { callerVar, node } of pendingCalls) {
+          if (!setterToStateVar.has(callerVar)) continue;
+          const stateVar = setterToStateVar.get(callerVar)!;
+          const arg = node.arguments[0];
+          if (arg == null) continue;
 
-    ```tsx
-    import { useState } from "react";
+          // Already using the callback form.
+          if (isFunction(arg)) continue;
 
-    function Counter() {
-      const [count, setCount] = useState(0);
+          // Check if the argument contains a reference to the state variable.
+          const [argStart, argEnd] = arg.range!;
+          const hasStateRef = stateVar.references.some(
+            (ref) =>
+              argStart <= ref.identifier.range![0]
+              && ref.identifier.range![1] <= argEnd,
+          );
 
-      // ❌ Referencing `count` directly. Stale state risk.
-      return (
-        <button onClick={() => setCount(count + 1)}>
-          {count}
-        </button>
-      );
-    }
-    ```
+          if (hasStateRef) {
+            context.report({
+              node,
+              message: `Do not reference '${
+                context.sourceCode.getText(node.callee)
+              }' directly; use the updater function form instead.`,
+            });
+          }
+        }
+      },
+    };
+  };
+}
+```
 
-    ```tsx
-    import { useState } from "react";
+## Usage
 
-    function Toggle() {
-      const [enabled, setEnabled] = useState(false);
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { preferStateUpdaterFunction } from "./eslint.config.rules";
 
-      // ❌ Negating state directly.
-      return (
-        <button onClick={() => setEnabled(!enabled)}>
-          {enabled ? "On" : "Off"}
-        </button>
-      );
-    }
-    ```
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(preferStateUpdaterFunction)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
 
-    ```tsx
-    import { useState } from "react";
+## Examples
 
-    function UserEditor() {
-      const [user, setUser] = useState({ name: "John", age: 25 });
+### Invalid
 
-      // ❌ Spreading state directly. Stale state risk.
-      const updateAge = () => setUser({ ...user, age: 30 });
+```tsx
+import { useState } from "react";
 
-      return <button onClick={updateAge}>Update Age</button>;
-    }
-    ```
+function Counter() {
+  const [count, setCount] = useState(0);
 
-    ```tsx
-    import { useState } from "react";
+  // ❌ Referencing `count` directly. Stale state risk.
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
 
-    function ItemList() {
-      const [items, setItems] = useState(["a", "b"]);
+```tsx
+import { useState } from "react";
 
-      // ❌ Calling a method on state directly. Stale state risk.
-      const addItem = () => setItems([...items, "c"]);
+function Toggle() {
+  const [enabled, setEnabled] = useState(false);
 
-      return <button onClick={addItem}>Add</button>;
-    }
-    ```
+  // ❌ Negating state directly.
+  return (
+    <button onClick={() => setEnabled(!enabled)}>
+      {enabled ? "On" : "Off"}
+    </button>
+  );
+}
+```
 
-    #### Valid
+```tsx
+import { useState } from "react";
 
-    ```tsx
-    import { useState } from "react";
+function UserEditor() {
+  const [user, setUser] = useState({ name: "John", age: 25 });
 
-    function Counter() {
-      const [count, setCount] = useState(0);
+  // ❌ Spreading state directly. Stale state risk.
+  const updateAge = () => setUser({ ...user, age: 30 });
 
-      // ✅ Callback form. Always gets the latest state.
-      return (
-        <button onClick={() => setCount((prev) => prev + 1)}>
-          {count}
-        </button>
-      );
-    }
-    ```
+  return <button onClick={updateAge}>Update Age</button>;
+}
+```
 
-    ```tsx
-    import { useState } from "react";
+```tsx
+import { useState } from "react";
 
-    function Component() {
-      const [count, setCount] = useState(0);
+function ItemList() {
+  const [items, setItems] = useState(["a", "b"]);
 
-      // ✅ Setting a constant value does not reference state.
-      return <button onClick={() => setCount(0)}>Reset</button>;
-    }
-    ```
+  // ❌ Calling a method on state directly. Stale state risk.
+  const addItem = () => setItems([...items, "c"]);
 
-    ```tsx
-    import { useState } from "react";
+  return <button onClick={addItem}>Add</button>;
+}
+```
 
-    function Component() {
-      const [user, setUser] = useState({ name: "John" });
-      const newUserFromApi = { name: "Jane" };
+### Valid
 
-      // ✅ Setting a value that does not reference the state variable.
-      setUser(newUserFromApi);
+```tsx
+import { useState } from "react";
 
-      return <div />;
-    }
-    ```
+function Counter() {
+  const [count, setCount] = useState(0);
 
-    ```tsx
-    import { useState } from "react";
+  // ✅ Callback form. Always gets the latest state.
+  return (
+    <button onClick={() => setCount((prev) => prev + 1)}>
+      {count}
+    </button>
+  );
+}
+```
 
-    function Component() {
-      const [count, setCount] = useState(0);
-      const [total, setTotal] = useState(100);
+```tsx
+import { useState } from "react";
 
-      // ✅ Referencing a *different* state variable is fine.
-      setCount(total);
+function Component() {
+  const [count, setCount] = useState(0);
 
-      return <div />;
-    }
-    ```
-  </Tab>
-</Tabs>
+  // ✅ Setting a constant value does not reference state.
+  return <button onClick={() => setCount(0)}>Reset</button>;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [user, setUser] = useState({ name: "John" });
+  const newUserFromApi = { name: "Jane" };
+
+  // ✅ Setting a value that does not reference the state variable.
+  setUser(newUserFromApi);
+
+  return <div />;
+}
+```
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(100);
+
+  // ✅ Referencing a *different* state variable is fine.
+  setCount(total);
+
+  return <div />;
+}
+```
 
 ## Further Reading
 
