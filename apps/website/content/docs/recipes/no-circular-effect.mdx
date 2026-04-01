@@ -1,17 +1,17 @@
 ---
 title: no-circular-effect
-description: Custom rule to detect circular dependencies between useEffect hooks — prevents infinite update loops caused by effects that set state they also depend on.
+description: Custom rule to detect circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on.
 ---
 
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 <Callout type="warning">
-  In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead — it's also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect). Use this custom recipe only when you need to detect circular dependencies across multiple effects.
+  In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead. It's also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect). Use this custom recipe only when you need to detect circular dependencies across multiple effects.
 </Callout>
 
 ## Overview
 
-This rule detects when `useEffect`-like hooks form a cycle through state variables — e.g. an effect that depends on state A and sets state B, while another effect depends on state B and sets state A, creating an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
+This rule detects when `useEffect`-like hooks form a cycle through state variables. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
 
 ## Rule Definition
 
@@ -188,7 +188,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
   <Tab value="Examples">
     #### Invalid
 
-    Circular effect with depth 1 — an effect depends on `items` and also sets `items`:
+    Circular effect with depth 1. An effect depends on `items` and also sets `items`:
 
     ```tsx
     import { useEffect, useState } from "react";
@@ -204,7 +204,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     }
     ```
 
-    Circular effect with depth 2 — two effects form a cycle: one depends on `limit` and sets `items`, another depends on `items` and sets `limit`:
+    Circular effect with depth 2. Two effects form a cycle: one depends on `limit` and sets `items`, and another depends on `items` and sets `limit`:
 
     ```tsx
     import { useEffect, useState } from "react";
@@ -225,7 +225,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     }
     ```
 
-    Circular effect with depth 3 — three effects form a cycle through `items → count → limit → items`:
+    Circular effect with depth 3. Three effects form a cycle through `items → count → limit → items`:
 
     ```tsx
     import { useEffect, useState } from "react";
@@ -262,7 +262,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
       const [count, setCount] = useState(0);
       const [label, setLabel] = useState("");
 
-      // ✅ Depends on `count`, sets `label` — no cycle.
+      // ✅ Depends on `count`, sets `label`. No cycle.
       useEffect(() => {
         setLabel(`Count is ${count}`);
       }, [count]);
@@ -279,7 +279,7 @@ Copy the following rule definition into your project (e.g. `eslint.config.rules.
     function ValidComponent2() {
       const [count, setCount] = useState(0);
 
-      // ✅ No dependency array — not a circular pattern.
+      // ✅ No dependency array. Not a circular pattern.
       useEffect(() => {
         setCount(0);
       });
