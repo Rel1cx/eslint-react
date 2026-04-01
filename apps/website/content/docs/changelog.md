@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v4.2.1-rc.1 (2026-04-01)
+
+### ✨ New
+
+- **docs:** add recipes section; remove unstable-rules-of-props/state (#1679) (`01edc2f74`)
+
+### 📝 Documentation
+
+- update @eslint-react/kit installation tag from beta to rc (`2da9b4e9d`)
+- update deprecated rule replacements in removed.md (`dc2fe27fb`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.1-rc.0...v4.2.1-rc.1
+
 ## v4.2.1-rc.0 (2026-04-01)
 
 This release consolidates all changes since v3.0.0.
