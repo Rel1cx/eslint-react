@@ -26,6 +26,7 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
   - [Override Config: Using spread syntax with `getConfig`](#Override-config-using-spread-syntax-with-getconfig)
   - [Advanced Config: Using `getPlugin` for custom plugin namespace](#advanced-config-using-getplugin-for-custom-plugin-namespace)
+- [More Examples](#more-examples)
 
 ## Installation
 
@@ -502,18 +503,17 @@ import type { RuleDefinition } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 
-function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
-  if (parent == null) return null;
-  if (test(parent)) return parent;
-  if (parent.type === "Program") return null;
-  return findParent(parent, test);
-}
-
-function isFunction({ type }: TSESTree.Node) {
-  return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
-}
-
 function componentHookFactories(): RuleDefinition {
+  function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
+    if (parent == null) return null;
+    if (test(parent)) return parent;
+    if (parent.type === "Program") return null;
+    return findParent(parent, test);
+  }
+
+  function isFunction({ type }: TSESTree.Node) {
+    return type === "FunctionDeclaration" || type === "FunctionExpression" || type === "ArrowFunctionExpression";
+  }
   return (context, { collect }) => {
     const fc = collect.components(context);
     const hk = collect.hooks(context);
@@ -600,6 +600,6 @@ export default [
 ];
 ```
 
-<!--## More Examples
+## More Examples
 
-Please check the [Rule Recipes](https://beta.eslint-react.xyz/docs/configuration/configure-custom-rules#rule-recipes) in the documentation site.-->
+Please check the [Rule Recipes](https://www.eslint-react.xyz/docs/recipes/overview) in the documentation site.

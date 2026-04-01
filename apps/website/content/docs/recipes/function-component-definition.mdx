@@ -18,7 +18,9 @@ import { merge } from "@eslint-react/kit";
 /** Enforce arrow function style for function component definitions. */
 export function functionComponentDefinition(): RuleDefinition {
   return (context, { collect }) => {
-    const { query, visitor } = collect.components(context);
+    const { query, visitor } = collect.components(context, {
+      hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
+    });
     return merge(
       visitor,
       {

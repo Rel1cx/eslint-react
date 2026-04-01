@@ -132,8 +132,10 @@ export function forbidElements({ forbidden }: ForbidElementsOptions): RuleDefini
 
 /** Enforce arrow function definitions for function components. */
 export function functionComponentDefinition(): RuleDefinition {
-  return (context, { collect }) => {
-    const { query, visitor } = collect.components(context);
+  return (context, { collect, hint }) => {
+    const { query, visitor } = collect.components(context, {
+      hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
+    });
     return merge(
       visitor,
       {

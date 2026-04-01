@@ -2,8 +2,9 @@
   "title": "Recipes",
   "pages": [
     "overview",
-    "function-component-definition",
+    "component-hook-factories",
     "custom-rules-of-props",
-    "custom-rules-of-state"
+    "custom-rules-of-state",
+    "function-component-definition"
   ]
 }
