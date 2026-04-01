@@ -30,28 +30,16 @@ Each recipe page provides:
 Here's the general pattern:
 
 ```ts title="eslint.config.rules.ts"
-import { merge } from "@eslint-react/kit";
 import type { RuleDefinition } from "@eslint-react/kit";
 
-/** Enforce function declarations for function components. */
-function functionComponentDefinition(): RuleDefinition {
-  return (context, { collect }) => {
-    const { query, visitor } = collect.components(context);
-    return merge(
-      visitor,
-      {
-        "Program:exit"(program) {
-          for (const { node } of query.all(program)) {
-            if (node.type === "FunctionDeclaration") continue;
-            context.report({
-              node,
-              message: "Function components must be defined with function declarations.",
-            });
-          }
-        },
-      },
-    );
-  };
+function noForwardRef(): RuleDefinition {
+  return (context, { is }) => ({
+    CallExpression(node) {
+      if (is.forwardRefCall(node)) {
+        context.report({ node, message: "The 'forwardRef' is deprecated in React 19. Pass 'ref' as a prop instead." });
+      }
+    },
+  });
 }
 ```
 
@@ -62,7 +50,7 @@ import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-import { functionComponentDefinition } from "./eslint.config.rules"
+import { noForwardRef } from "./eslint.config.rules"
 
 export default defineConfig(
   {
@@ -72,11 +60,11 @@ export default defineConfig(
       tseslint.configs.recommended,
       eslintReact.configs["recommended-typescript"],
       eslintReactKit()
-        .use(functionComponentDefinition)
+        .use(noForwardRef)
         .getConfig(),
     ],
     rules: {
-      "@eslint-react/kit/function-component-definition": "error",
+      "@eslint-react/kit/no-forward-ref": "error",
     }
   },
 );
