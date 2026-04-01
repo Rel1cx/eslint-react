@@ -5,6 +5,7 @@
     "component-hook-factories",
     "custom-rules-of-props",
     "custom-rules-of-state",
-    "function-component-definition"
+    "function-component-definition",
+    "no-circular-effect"
   ]
 }
