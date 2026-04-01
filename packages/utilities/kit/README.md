@@ -30,7 +30,7 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
 ## Installation
 
 ```sh
-npm install --save-dev @eslint-react/kit@rc
+npm install --save-dev @eslint-react/kit
 ```
 
 ## Quick Start
