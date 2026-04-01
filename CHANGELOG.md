@@ -1,19 +1,6 @@
 # Changelog
 
-## v4.2.1-rc.1 (2026-04-01)
-
-### ✨ New
-
-- **docs:** add recipes section; remove unstable-rules-of-props/state (#1679) (`01edc2f74`)
-
-### 📝 Documentation
-
-- update @eslint-react/kit installation tag from beta to rc (`2da9b4e9d`)
-- update deprecated rule replacements in removed.md (`dc2fe27fb`)
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.1-rc.0...v4.2.1-rc.1
-
-## v4.2.1-rc.0 (2026-04-01)
+## v4.2.1 (2026-04-01)
 
 This release consolidates all changes since v3.0.0.
 
@@ -127,37 +114,37 @@ export default defineConfig(
 
 ### ✨ New
 
-- `@eslint-react/kit`: New utility module for building custom ESLint rules with React awareness. Provides a chainable `eslintReactKit().use().getConfig()` builder API and a `RuleToolkit` interface with pre-bound context helpers for component/hook analysis.
-- `@eslint-react/jsx`: New utility package for static analysis of JSX patterns in TSESTree ASTs, extracted from `@eslint-react/core`.
-- `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules. Ships with `recommended` and `strict` config presets.
-- `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
-- `react-jsx/no-key-after-spread`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
-- `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
 - New `jsx` and `disable-jsx` config presets in `@eslint-react/eslint-plugin`.
 - New `react-dom-with-custom-rules` example project demonstrating custom rule creation with `@eslint-react/kit`.
-- `kit.settings`: Expose normalized ESLint React settings via `settings` property on `RuleToolkit`.
+- `eslint-plugin-react-jsx`: New plugin dedicated to React Flavored JSX rules. Ships with `recommended` and `strict` config presets.
+- `react-jsx/no-children-prop-with-children`: New rule that disallows passing `children` as a prop when children are also passed as nested content.
+- `react-jsx/no-key-after-spread`: New rule that prevents patterns causing deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props).
+- `react-jsx/no-namespace`: New rule that disallows JSX namespace syntax, as React does not support them.
+- `@eslint-react/jsx`: New utility package for static analysis of JSX patterns in TSESTree ASTs, extracted from `@eslint-react/core`.
+- `@eslint-react/kit`: New utility module for building custom ESLint rules with React awareness. Provides a chainable `eslintReactKit().use().getConfig()` builder API and a `RuleToolkit` interface with pre-bound context helpers for component/hook analysis.
 - `@eslint-react/kit`: Re-export types from `@eslint-react/shared` for better TypeScript intellisense.
 - `kit`: Add `getPlugin()` API to `Builder` for fine-grained control over plugin namespace and rule severities.
 - `kit`: Support more file extensions in `getConfig` defaults (`js`, `mjs`, `cjs`, `jsx`, `ts`, `mts`, `cts`, `tsx`), closes #1659.
+- `kit.settings`: Expose normalized ESLint React settings via `settings` property on `RuleToolkit`.
 - `docs(utilities)`: Add utilities documentation for utility modules, closes #1656.
 
 ### 🐞 Fixes
 
-- **purity:** Treat `new Date(arg)` as pure, closes #1582 (#1677).
-- **purity:** Remove console methods from impurity detection, closes #1616 (#1676).
-- `var`: Fix logic bugs in `compute-object-type`, `find-enclosing-assignment-target`, and `is-value-equal` utilities (#1672).
-- `ast`: `isNodeEqual`: Fix `JSXNamespacedName` comparison logic.
-- `react-x`: `component-hook-factories`: Use `isComponentNameLoose` for more accurate component parameter checks.
-- `react-x`: `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
+- `purity`: Remove console methods from impurity detection, closes #1616 (#1676).
+- `purity`: Treat `new Date(arg)` as pure, closes #1582 (#1677).
 - `react-jsx`: Improve type safety and edge case handling for JSX rules (#1664).
-- `core`: `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
+- `react-x`: `component-hook-factories`: Exclude HOC patterns and test mocks from component detection, closes #1652. Thanks @zerone0x!
+- `react-x`: `component-hook-factories`: Use `isComponentNameLoose` for more accurate component parameter checks.
+- `react-x`: `immutability`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
+- `react-x`: `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
+- `react-x`: `purity`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
 - `core`: `isReactAPI`: Fix API name matching logic to use `endsWith` for precise matching.
 - `core`: `isRenderMethodLike`: Support `ClassExpression` in addition to `ClassDeclaration`.
+- `core`: `findImportSource`: Add cycle detection to prevent infinite recursion when resolving variable aliases.
 - `ast`: Fix JSX attribute name comparison to use `isNodeEqual` instead of string comparison, properly handling `JSXNamespacedName` (e.g., `xlink:href`).
 - `ast`: Update `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
-- `react-x`: `no-duplicate-key`: Fix false positive for SVG `xlink` attributes.
-- `react-x`: `immutability`: Exclude event handler params from props mutation check, closes #1647. Thanks @zerone0x!
-- `react-x`: `purity`: Remove `AbortController` from impure constructors, closes #1648. Thanks @zerone0x!
+- `ast`: `isNodeEqual`: Fix `JSXNamespacedName` comparison logic.
+- `var`: Fix logic bugs in `compute-object-type`, `find-enclosing-assignment-target`, and `is-value-equal` utilities (#1672).
 - `docs`: Update package structure documentation in contributing guide and FAQ, closes #1658.
 
 ### 🪄 Improvements
@@ -172,6 +159,7 @@ export default defineConfig(
 - `docs(kit)`: Add comprehensive documentation for `getConfig()` and `getPlugin()` APIs with usage examples.
 - `docs(kit)`: Replace "max-component-per-file" example with "destructure-component-props" example for better practical guidance.
 - `docs(website)`: Improve `configure-project-rules` documentation with clearer examples and explanations.
+- `docs`: add recipes section; remove unstable-rules-of-props/state (#1679) (`01edc2f74`)
 - `docs`: Update migrating-from-eslint-plugin-react.mdx with improved examples and fixes, closes #1654.
 - `docs`: Add index sections to migration guides for better navigation.
 - `examples/react-dom-with-custom-rules`: Expand with additional custom rules examples including `forbid-dom-props`, `jsx-fragments`, `jsx-handler-names`, `jsx-max-depth`, `jsx-no-duplicate-props`, `jsx-no-literals`, `jsx-pascal-case`, `jsx-props-no-spread-multi`, and `no-adjacent-inline-elements`, closes #1653.
@@ -187,15 +175,16 @@ export default defineConfig(
 
 - **scripts:** Add comprehensive README and more automation scripts (#1673).
 - `docs`: Update bug report template with upstream eslint-plugin-react-hooks guidance.
+- update @eslint-react/kit installation tag from beta to rc (`2da9b4e9d`)
+- update deprecated rule replacements in removed.md (`dc2fe27fb`)
 
 ### ✅ Upgrade Checklist
 
-Use this checklist to upgrade from v3.x to v4.2.1-rc.0:
+Use this checklist to upgrade from v3.x to v4.2.1:
 
 #### Package changes
 
 - [ ] Install the new `eslint-plugin-react-jsx` package — this is a new dedicated plugin for React Flavored JSX rules.
-- [ ] If you depend on JSX utilities from `@eslint-react/core`, install `@eslint-react/jsx` and update imports accordingly.
 
 #### ESLint configuration
 
@@ -247,7 +236,7 @@ If you still need these rules, you can enforce them using the new `@eslint-react
 - [ ] Remove usage of deleted ref APIs (`isRefId`, `isInitializedFromRef`, `getRefInit`, `isRefLikeName`).
 - [ ] Update JSX-related imports from `@eslint-react/core` to `@eslint-react/jsx`.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.2.1-rc.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.2.1
 
 ## v4.2.0-beta.3 (2026-04-01)
 
