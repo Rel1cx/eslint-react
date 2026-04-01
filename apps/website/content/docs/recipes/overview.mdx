@@ -1,0 +1,61 @@
+---
+title: Overview
+---
+
+Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). They are **not** part of the core plugin — instead, they are designed to be **copied and pasted** directly into your project. Each recipe contains one or more custom rules.
+
+## Why Recipes?
+
+Some lint rules are inherently **opinionated** — they enforce a specific code style or convention that not every team agrees on. Rather than shipping these as built-in rules with fixed behavior, we provide them as recipes so you can:
+
+- **Copy** the rule definition into your project.
+- **Customize** the implementation to match your team's conventions.
+- **Own** the code — no dependency on upstream changes you didn't ask for.
+
+## Prerequisites
+
+Recipes require the `@eslint-react/kit` package:
+
+```package-install copy
+npm --save-dev @eslint-react/kit
+```
+
+## Usage
+
+Each recipe page provides:
+
+1. **Rule Definition** — A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
+2. **Usage** — How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
+
+Here's the general pattern:
+
+```ts title="eslint.config.rules.ts"
+import type { RuleDefinition } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
+export function myCustomReactRule(): RuleDefinition {
+  return (context, toolkit) => {
+    // ... your rule logic
+    return { /* visitor */ };
+  };
+}
+```
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { myCustomReactRule } from "./eslint.config.rules";
+
+export default [
+  eslintReactKit()
+    .use(myCustomReactRule)
+    .getConfig(),
+];
+```
+
+## Available Recipes
+
+| Recipe                                                           | Rules | Description                                                                                       |
+| :--------------------------------------------------------------- | :---: | :------------------------------------------------------------------------------------------------ |
+| [custom-rules-of-props](./custom-rules-of-props)                 |   2   | Custom rules for validating JSX props — duplicate props and mixing controlled/uncontrolled props. |
+| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Custom rules for validating state usage — prefer updater function form in useState setters.       |
+| [function-component-definition](./function-component-definition) |   1   | Enforce arrow function syntax for function components.                                            |

@@ -39,11 +39,13 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 The following rules have been removed from `eslint-plugin-react-x`:
 
-| Rule                             | Replaced by                                                                                                            |
-| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-boolean`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-fragment` | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| Rule                              | Replaced by                                                                                                            |
+| :-------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-boolean`   | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-fragment`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/utilities/kit/README.md) (custom rule) |
+| `react-x/unstable-rules-of-props` | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                                  |
+| `react-x/unstable-rules-of-state` | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                                  |
 
 **JSX utilities extracted from `@eslint-react/core` to `@eslint-react/jsx`**
 
@@ -211,6 +213,8 @@ If you use the unified `@eslint-react/eslint-plugin` package, update the followi
 - [ ] `react-x/jsx-dollar`
 - [ ] `react-x/jsx-shorthand-boolean`
 - [ ] `react-x/jsx-shorthand-fragment`
+- [ ] `react-x/unstable-rules-of-props` — replaced by [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)
+- [ ] `react-x/unstable-rules-of-state` — replaced by [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)
 
 If you still need these rules, you can enforce them using the new `@eslint-react/kit` by creating custom rules that implement the desired checks.
 

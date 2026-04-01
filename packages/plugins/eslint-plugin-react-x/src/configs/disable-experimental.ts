@@ -14,6 +14,4 @@ export const rules: Record<string, RuleConfig> = {
   "react-x/no-unused-props": "off",
   "react-x/refs": "off",
   "react-x/set-state-in-render": "off",
-  "react-x/unstable-rules-of-props": "off",
-  "react-x/unstable-rules-of-state": "off",
 };
