@@ -1,5 +1,32 @@
 # Changelog
 
+## v4.2.2 (2026-04-02)
+
+### 🪄 Improvements
+
+- `refactor(kit)`: Rename `RuleDefinition` to `RuleFunction` and deprecate the old name (#1683). The `RuleDefinition` type is now deprecated and will be removed in a future major release. Please migrate to `RuleFunction`.
+
+### 📝 Documentation
+
+- `docs`: Add `noCircularEffect` recipe and register in examples, closes #755 (#1681).
+- `docs`: Add `component-hook-factories` recipe and update examples.
+- `docs`: Add `noExplicitSpreadProps` rule to `custom-rules-of-props` recipe, closes #503.
+- `docs`: Migrate recipe docs to MDX format.
+- `docs`: Flatten recipe docs from tabbed UI to plain markdown sections.
+- `docs`: Standardize quotes in rule descriptions (#1680).
+- `docs`: Standardize punctuation and phrasing in recipe docs (#1682).
+- `docs`: Standardize recipe frontmatter descriptions.
+- `docs(website)`: Update recipes overview page.
+- `docs(website)`: Add "See Also" cross-references to recipes docs.
+- `docs(website)`: Simplify rule definition example in recipes overview.
+- `docs`: Remove obsolete `component-hook-factories` references from recipes.
+- `docs`: Remove Roadmap section from READMEs.
+- `docs`: Remove Custom Rules for Missing Rules link.
+- `docs`: Add Recipes link and update install command.
+- `docs`: Switch to installing `@eslint-react/kit` without rc tag.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.1...v4.2.2
+
 ## v4.2.1 (2026-04-01)
 
 This release consolidates all changes since v3.0.0.
