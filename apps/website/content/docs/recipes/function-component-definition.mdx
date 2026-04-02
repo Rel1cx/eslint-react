@@ -100,6 +100,7 @@ export default [
 ```tsx
 // Function declaration — will be reported
 function MyComponent({ name }: { name: string }) {
+//      ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
 }
 ```
@@ -107,6 +108,7 @@ function MyComponent({ name }: { name: string }) {
 ```tsx
 // Function expression — will be reported
 const MyComponent = function({ name }: { name: string }) {
+//                  ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
 };
 ```

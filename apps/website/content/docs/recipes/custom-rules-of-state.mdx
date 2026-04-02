@@ -124,6 +124,7 @@ function Counter() {
   // ❌ Referencing `count` directly. Stale state risk.
   return (
     <button onClick={() => setCount(count + 1)}>
+      {/*                           ^^^ Do not reference 'setCount' directly; use the updater function form instead. */}
       {count}
     </button>
   );
@@ -139,6 +140,7 @@ function Toggle() {
   // ❌ Negating state directly.
   return (
     <button onClick={() => setEnabled(!enabled)}>
+      {/*                             ^^^ Do not reference 'setEnabled' directly; use the updater function form instead. */ }
       {enabled ? "On" : "Off"}
     </button>
   );
@@ -153,6 +155,7 @@ function UserEditor() {
 
   // ❌ Spreading state directly. Stale state risk.
   const updateAge = () => setUser({ ...user, age: 30 });
+  //                                ^^^ Do not reference 'setUser' directly; use the updater function form instead.
 
   return <button onClick={updateAge}>Update Age</button>;
 }
@@ -166,6 +169,7 @@ function ItemList() {
 
   // ❌ Calling a method on state directly. Stale state risk.
   const addItem = () => setItems([...items, "c"]);
+  //                              ^^^ Do not reference 'setItems' directly; use the updater function form instead.
 
   return <button onClick={addItem}>Add</button>;
 }

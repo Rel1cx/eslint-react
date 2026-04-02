@@ -81,10 +81,12 @@ export default [
 
 ```tsx
 <div id="a" id="b" />;
+//          ^^^ Prop `id` is specified more than once. Only the last one will take effect.
 ```
 
 ```tsx
-<div on:click={handleA} on:click={handleB} />;
+<div onClick={handleA} onClick={handleB} />;
+//                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
 ```
 
 ##### Valid
@@ -144,10 +146,12 @@ export default [
 
 ```tsx
 <MyComponent {...{ foo, bar, baz }} />;
+//            ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
 ```tsx
 <input {...{ disabled: true, readOnly: true }} />;
+//      ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
 ##### Valid
@@ -230,10 +234,12 @@ export default [
 
 ```tsx
 <input value={name} defaultValue="World" />;
+//                  ^^^ 'value' and 'defaultValue' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
 ```tsx
 <input type="checkbox" checked={isChecked} defaultChecked />;
+//                                         ^^^ 'checked' and 'defaultChecked' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
 ##### Valid

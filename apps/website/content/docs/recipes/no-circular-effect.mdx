@@ -195,6 +195,7 @@ function CircularEffect1() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [items]);
+  // ^^^ Circular effect detected: this effect depends on [items] and updates [items], creating an infinite update loop.
 
   return null;
 }
@@ -212,10 +213,12 @@ function CircularEffect2() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [limit]);
+  // ^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
 
   useEffect(() => {
     setLimit(x => !x);
   }, [items]);
+  // ^^^ Circular effect detected: this effect depends on [items] and updates [limit], creating an infinite update loop.
 
   return null;
 }
@@ -234,14 +237,17 @@ function CircularEffect3() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [limit]);
+  // ^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
 
   useEffect(() => {
     setCount(x => x + 1);
   }, [items]);
+  // ^^^ Circular effect detected: this effect depends on [items] and updates [count], creating an infinite update loop.
 
   useEffect(() => {
     setLimit(x => !x);
   }, [count]);
+  // ^^^ Circular effect detected: this effect depends on [count] and updates [limit], creating an infinite update loop.
 
   return null;
 }

@@ -84,7 +84,8 @@ export default [
 // ❌ Factory function creating components
 function createComponent(defaultValue) {
   return function Component() {
-    // ...
+    //            ^^^ Don't define component "Component" inside a function. Move it to the module level.
+    return <div />;
   };
 }
 ```
@@ -93,6 +94,7 @@ function createComponent(defaultValue) {
 // ❌ Component defined inside another component
 function Parent() {
   function Child() {
+    //     ^^^ Don't define component "Child" inside a function. Move it to the module level.
     return <div />;
   }
 
@@ -104,6 +106,7 @@ function Parent() {
 // ❌ Hook factory function
 function createCustomHook(endpoint) {
   return function useData() {
+    //            ^^^ Don't define hook "useData" inside a function. Move it to the module level.
     // ...
   };
 }
@@ -113,9 +116,9 @@ function createCustomHook(endpoint) {
 // ❌ Hook defined inside a component
 function MyComponent() {
   function useLocalState() {
+    //     ^^^ Don't define hook "useLocalState" inside a function. Move it to the module level.
     return useState(0);
   }
-  // ...
 }
 ```
 
