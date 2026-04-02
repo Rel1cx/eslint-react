@@ -2,7 +2,6 @@
   "title": "Recipes",
   "pages": [
     "overview",
-    "jsx-no-leaked-semicolon",
     "custom-rules-of-props",
     "custom-rules-of-state",
     "component-hook-factories",

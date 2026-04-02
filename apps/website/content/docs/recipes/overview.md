@@ -80,4 +80,3 @@ export default defineConfig(
 | [Custom Rules Of State](./custom-rules-of-state)                 |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                |
 | [Function Component Definition](./function-component-definition) |   1   | Enforces arrow function style for function component definitions.                                                                           |
 | [No Circular Effect](./no-circular-effect)                       |   1   | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
-| [No Leaked Semicolon](./no-leaked-semicolon)                     |   1   | Detects trailing semicolons that would be rendered as text nodes in JSX.                                                                    |
