@@ -21,18 +21,17 @@ export function noLeakedSemicolon(): RuleFunction {
     return type === "JSXElement" || type === "JSXFragment";
   }
 
-  function hasSuspiciousSemicolon(text: string) {
+  function hasLeakedSemicolon(text: string) {
     return text.startsWith(";\n") || text.startsWith(";\r");
   }
 
   return (context) => {
     function check(node: TSESTree.JSXText | TSESTree.Literal) {
       if (!isJSXElementLike(node.parent)) return;
-      if (!hasSuspiciousSemicolon(context.sourceCode.getText(node))) return;
+      if (!hasLeakedSemicolon(context.sourceCode.getText(node))) return;
       context.report({
         node,
-        message:
-          "Suspicious trailing semicolon in JSX. This semicolon will be rendered as a text node.",
+        message: "Potential leaked trailing semicolon. This semicolon will be rendered as a text node.",
       });
     }
 
