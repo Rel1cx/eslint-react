@@ -1,7 +1,7 @@
 import type * as ast from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import { P, isMatching } from "ts-pattern";
 

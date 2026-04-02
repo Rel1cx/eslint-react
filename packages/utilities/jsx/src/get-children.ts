@@ -1,6 +1,5 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Get the **meaningful** children of a JSX element or fragment.

@@ -19,7 +19,7 @@
     "*.cts",
     "*.mts",
     "*.d.ts",
-    "rules/**/*.ts"
+    ".config/*.ts"
   ],
   "exclude": [
     "node_modules",

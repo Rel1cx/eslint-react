@@ -14,7 +14,7 @@ Copy the following code into your project (e.g. `.config/preferStateUpdaterFunct
 ```ts title=".config/preferStateUpdaterFunction.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import type { ScopeVariable } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /** Require the updater function form of useState setters when referencing the corresponding state variable. */

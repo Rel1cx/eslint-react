@@ -1,8 +1,7 @@
 /// <reference types="node" />
 
 import * as tsParser from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { Linter } from "eslint";
 import { describe, expect, it } from "vitest";

@@ -1,5 +1,4 @@
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check whether a JSX child node is **whitespace padding** that React would

@@ -1,5 +1,5 @@
 import type { RuleFunction } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxFragments}. */
 export type JsxsFragmentsOptions = {

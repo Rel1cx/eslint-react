@@ -5,8 +5,7 @@ import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFrom
 import { resolve } from "@eslint-react/var";
 import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
