@@ -7,9 +7,9 @@ description: Validates state usage. Prefer the updater function form in useState
 
 Reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
 
-## Rule Factory
+## Code
 
-Copy the following rule definition into your project (e.g. `eslint.config.rules.ts`):
+Copy the following code into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
 import type { RuleFunction } from "@eslint-react/kit";
