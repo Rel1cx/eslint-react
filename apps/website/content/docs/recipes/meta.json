@@ -6,6 +6,7 @@
     "custom-rules-of-props",
     "custom-rules-of-state",
     "function-component-definition",
-    "no-circular-effect"
+    "no-circular-effect",
+    "no-leaked-semicolon"
   ]
 }
