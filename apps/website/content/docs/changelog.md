@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v4.2.3 (2026-04-03)
+
+### ✨ New
+
+- **jsx:** add jsx-no-leaked-dollar rule, add suggest fix to jsx-no-leaked-semicolon rule (#1688) (`b86bdd6da`)
+- **jsx:** add jsx-no-leaked-semicolon rule, closes #1685 (#1686) (`fbb495000`)
+
+### 📝 Documentation
+
+- update recipe section structure (Code→Rule, Usage→Config) (`8cade3008`)
+- update custom rule examples code style (#1684) (`dc9d05c33`)
+- update recipe titles to Title Case (`6a2d941b6`)
+- improve recipes overview (`8278f45c9`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.2...v4.2.3
+
 ## v4.2.2 (2026-04-02)
 
 ### 🪄 Improvements
