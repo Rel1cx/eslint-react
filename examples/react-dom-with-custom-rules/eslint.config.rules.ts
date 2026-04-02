@@ -71,7 +71,8 @@ export type ForbidComponentPropsOptions = {
 };
 
 /** Forbid certain props on React components (not DOM elements). */
-export function forbidComponentProps({ forbidden }: ForbidComponentPropsOptions): RuleFunction {
+export function forbidComponentProps(options: ForbidComponentPropsOptions): RuleFunction {
+  const { forbidden } = options;
   return (context) => ({
     JSXAttribute(node) {
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -96,7 +97,8 @@ export type ForbidDomPropsOptions = {
 };
 
 /** Forbid certain props on DOM elements (not React components). */
-export function forbidDomProps({ forbidden }: ForbidDomPropsOptions): RuleFunction {
+export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
+  const { forbidden } = options;
   return (context) => ({
     JSXAttribute(node) {
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -121,7 +123,8 @@ export type ForbidElementsOptions = {
 };
 
 /** Forbid specific JSX elements. */
-export function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
+export function forbidElements(options: ForbidElementsOptions): RuleFunction {
+  const { forbidden } = options;
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
@@ -212,7 +215,8 @@ export type JsxsFragmentsOptions = {
 };
 
 /** Enforce shorthand or standard form for React fragments. */
-export function jsxFragments({ mode = "syntax" }: JsxsFragmentsOptions = {}): RuleFunction {
+export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
+  const { mode = "syntax" } = options;
   return (context) => {
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       const hasAttributes = node.attributes.length > 0;
@@ -278,11 +282,12 @@ export type JsxHandlerNamesOptions = {
 };
 
 /** Enforce naming convention for JSX event handlers. */
-export function jsxHandlerNames({
-  eventHandlerPrefix = "handle",
-  eventHandlerPropPrefix = "on",
-  checkInlineFunction = false,
-}: JsxHandlerNamesOptions = {}): RuleFunction {
+export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunction {
+  const {
+    eventHandlerPrefix = "handle",
+    eventHandlerPropPrefix = "on",
+    checkInlineFunction = false,
+  } = options;
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
 
@@ -335,7 +340,8 @@ export type JsxMaxDepthOptions = {
 };
 
 /** Enforce JSX maximum depth. */
-export function jsxMaxDepth({ max }: JsxMaxDepthOptions): RuleFunction {
+export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
+  const { max } = options;
   return (context) => ({
     JSXElement(node) {
       let depth = 0;
@@ -386,7 +392,8 @@ export type JsxNoDuplicatePropsOptions = {
 };
 
 /** Disallow duplicate properties in JSX. */
-export function jsxNoDuplicateProps({ ignoreCase = false }: JsxNoDuplicatePropsOptions = {}): RuleFunction {
+export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): RuleFunction {
+  const { ignoreCase = false } = options;
   return (context) => ({
     JSXOpeningElement(node) {
       const seen = new Map<string, string>();
@@ -418,9 +425,8 @@ export type JsxNoLiteralsOptions = {
 };
 
 /** Disallow usage of string literals in JSX. */
-export function jsxNoLiterals(
-  { noStrings = false, allowedStrings = [], ignoreProps = true }: JsxNoLiteralsOptions = {},
-): RuleFunction {
+export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction {
+  const { noStrings = false, allowedStrings = [], ignoreProps = true } = options;
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
     Literal(node) {
@@ -485,9 +491,10 @@ export type JsxPascalCaseOptions = {
 };
 
 /** Enforce PascalCase for user-defined JSX components. */
-export function jsxPascalCase(
-  { allowAllCaps = false, allowLeadingUnderscore = false }: JsxPascalCaseOptions = {},
-): RuleFunction {
+export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction {
+  const { allowAllCaps = false, allowLeadingUnderscore = false } = options;
+  // Check PascalCase: first letter uppercase, rest can be mixed but no underscores
+  const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/;
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name;
@@ -522,8 +529,6 @@ export function jsxPascalCase(
         return;
       }
 
-      // Check PascalCase: first letter uppercase, rest can be mixed but no underscores
-      const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/;
       if (!pascalCaseRegex.test(componentName)) {
         context.report({
           node: name,
@@ -581,7 +586,8 @@ export type MaxComponentPerFileOptions = {
 };
 
 /** Prevent defining more than one component per file. */
-export function maxComponentPerFile({ max }: MaxComponentPerFileOptions): RuleFunction {
+export function maxComponentPerFile(options: MaxComponentPerFileOptions): RuleFunction {
+  const { max } = options;
   return (context, { collect }) => {
     const { query, visitor } = collect.components(context);
     return merge(visitor, {
