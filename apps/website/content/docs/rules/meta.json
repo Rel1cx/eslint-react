@@ -65,6 +65,7 @@
     "jsx-no-comment-textnodes",
     "jsx-no-key-after-spread",
     "jsx-no-namespace",
+    "jsx-no-trailing-semicolon",
     "jsx-no-useless-fragment",
     "---RSC Rules---",
     "rsc-function-definition",

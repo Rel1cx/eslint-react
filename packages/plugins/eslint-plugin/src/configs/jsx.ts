@@ -8,4 +8,5 @@ export const rules = {
   "@eslint-react/jsx-no-comment-textnodes": "warn",
   "@eslint-react/jsx-no-key-after-spread": "error",
   "@eslint-react/jsx-no-namespace": "error",
+  "@eslint-react/jsx-no-trailing-semicolon": "warn",
 } as const satisfies Record<string, RuleConfig>;
