@@ -75,8 +75,8 @@ export default defineConfig(
 
 | Recipe                                                           | Rules | Description                                                                                                                                 |
 | :--------------------------------------------------------------- | :---: | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| [component-hook-factories](./component-hook-factories)           |   1   | Disallows components or hooks defined inside other functions (factory pattern).                                                             |
-| [custom-rules-of-props](./custom-rules-of-props)                 |   3   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.              |
-| [custom-rules-of-state](./custom-rules-of-state)                 |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                |
-| [function-component-definition](./function-component-definition) |   1   | Enforces arrow function style for function component definitions.                                                                           |
-| [no-circular-effect](./no-circular-effect)                       |   1   | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
+| [Component Hook Factories](./component-hook-factories)           |   1   | Disallows components or hooks defined inside other functions (factory pattern).                                                             |
+| [Custom Rules Of Props](./custom-rules-of-props)                 |   3   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.              |
+| [Custom Rules Of State](./custom-rules-of-state)                 |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                |
+| [Function Component Definition](./function-component-definition) |   1   | Enforces arrow function style for function component definitions.                                                                           |
+| [No Circular Effect](./no-circular-effect)                       |   1   | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
