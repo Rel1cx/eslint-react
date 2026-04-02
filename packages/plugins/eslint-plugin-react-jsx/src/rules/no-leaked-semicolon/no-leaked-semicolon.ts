@@ -6,18 +6,25 @@ import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-leaked-semicolon";
 
-export const RULE_FEATURES = [] as const satisfies RuleFeature[];
+export const RULE_FEATURES = [
+  "FIX",
+] as const satisfies RuleFeature[];
 
-export type MessageID = "default";
+export type MessageID = "default" | RuleSuggestMessageID;
+
+export type RuleSuggestMessageID = "removeSemicolon";
 
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Disallows trailing semicolons that would be rendered as text nodes.",
+      description:
+        'Catches `;` at the start of JSX text nodes — typically from accidentally placing a statement-ending `;` inside JSX. The `;` "leaks" into the rendered output.',
     },
+    hasSuggestions: true,
     messages: {
-      default: "Leaked semicolon in JSX. This semicolon will be rendered as text nodes.",
+      default: "Leaked ';' in JSX. This ';' will be rendered as text nodes.",
+      removeSemicolon: "Remove the text node ';'.",
     },
     schema: [],
   },
@@ -41,6 +48,14 @@ export function create(context: RuleContext<MessageID, []>) {
     context.report({
       messageId: "default",
       node,
+      suggest: [
+        {
+          fix(fixer) {
+            return fixer.removeRange([node.range[0], node.range[0] + 1]);
+          },
+          messageId: "removeSemicolon",
+        },
+      ],
     });
   };
   return defineRuleListener({

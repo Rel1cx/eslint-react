@@ -87,14 +87,16 @@ full: true
   JSX rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
 </Callout>
 
-| Rule                                                                   |    ✅    |     🌟    | Description                                                                               | `react` |
-| :--------------------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------------------------------- | :-----: |
-| [`no-children-prop`](jsx-no-children-prop)                             | 1️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop                                                    |         |
-| [`no-children-prop-with-children`](jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content    |         |
-| [`no-comment-textnodes`](jsx-no-comment-textnodes)                     | 1️⃣ 1️⃣ |           | Prevents comment strings from being accidentally inserted into a JSX element's text nodes |         |
-| [`no-useless-fragment`](jsx-no-useless-fragment)                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                       |         |
-| [`no-key-after-spread`](jsx-no-key-after-spread)                       | 2️⃣ 2️⃣ |           | Prevent patterns that cause deoptimization when using the automatic JSX runtime           |         |
-| [`no-namespace`](jsx-no-namespace)                                     | 2️⃣ 2️⃣ |           | Disallow JSX namespace syntax, as React does not support them                             |         |
+| Rule                                                                   |    ✅    |     🌟    | Description                                                                                                                                                                  | `react` |
+| :--------------------------------------------------------------------- | :-----: | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
+| [`no-children-prop`](jsx-no-children-prop)                             | 1️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop                                                                                                                                       |         |
+| [`no-children-prop-with-children`](jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content                                                                                       |         |
+| [`no-comment-textnodes`](jsx-no-comment-textnodes)                     | 1️⃣ 1️⃣ |           | Prevents comment strings from being accidentally inserted into a JSX element's text nodes                                                                                    |         |
+| [`no-key-after-spread`](jsx-no-key-after-spread)                       | 2️⃣ 2️⃣ |           | Prevent patterns that cause deoptimization when using the automatic JSX runtime                                                                                              |         |
+| [`no-leaked-dollar`](jsx-no-leaked-dollar)                             | 0️⃣ 0️⃣ |    `🔧`   | Catches `$` before `{expr}` in JSX — typically from template literal `${expr}` being copy-pasted into JSX without removing the `$`. The `$` "leaks" into the rendered output |         |
+| [`no-leaked-semicolon`](jsx-no-leaked-semicolon)                       | 1️⃣ 1️⃣ |    `🔧`   | Catches `;` at the start of JSX text nodes — typically from accidentally placing a statement-ending `;` inside JSX. The `;` "leaks" into the rendered output                 |         |
+| [`no-namespace`](jsx-no-namespace)                                     | 2️⃣ 2️⃣ |           | Disallow JSX namespace syntax, as React does not support them                                                                                                                |         |
+| [`no-useless-fragment`](jsx-no-useless-fragment)                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                                                                          |         |
 
 ## RSC Rules
 

@@ -1,6 +1,6 @@
 ---
 title: no-leaked-semicolon
-description: Disallows leaked semicolons that would be rendered as text nodes in JSX.
+description: Catches ';' at the start of JSX text nodes — typically from accidentally placing a statement-ending ';' inside JSX. The ';' "leaks" into the rendered output.
 ---
 
 **Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
@@ -15,6 +15,10 @@ react-jsx/no-leaked-semicolon
 @eslint-react/jsx-no-leaked-semicolon
 ```
 
+**Features**
+
+`🔧`
+
 **Presets**
 
 `recommended`
@@ -28,7 +32,7 @@ react-jsx/no-leaked-semicolon
 
 When refactoring JSX, trailing semicolons may be accidentally left immediately after JSX elements or fragments. This causes `;` to be unexpectedly rendered as text nodes:
 
-```tsx
+````tsx
 // before
 return <div />;
 
@@ -51,7 +55,7 @@ function MyComponent() {
     </div>
   );
 }
-```
+````
 
 ```tsx
 function MyComponent() {
