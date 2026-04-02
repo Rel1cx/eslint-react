@@ -1,9 +1,9 @@
-[@eslint-react/kit](../README.md) / RuleFunction
+[@eslint-react/kit](../README.md) / RuleDefinition
 
-# ~~Type Alias: RuleFunction~~
+# ~~Type Alias: RuleDefinition~~
 
 ```ts
-type RuleFunction = RuleFunction;
+type RuleDefinition = RuleFunction;
 ```
 
 ## Deprecated

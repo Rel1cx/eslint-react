@@ -2,15 +2,15 @@
 title: Overview
 ---
 
-Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). They are **not** part of the core plugin — instead, they are designed to be **copied and pasted** directly into your project. Each recipe contains one or more custom rules.
+Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). They are **not** part of the core plugin. Instead, they are designed to be **copied and pasted** directly into your project. Each recipe contains one or more custom rules.
 
 ## Why Recipes?
 
-Some lint rules are inherently **opinionated** — they enforce a specific code style or convention that not every team agrees on. Rather than shipping these as built-in rules with fixed behavior, we provide them as recipes so you can:
+Some lint rules are inherently **opinionated**. They enforce a specific code style or convention that not every team agrees on. Rather than shipping these as built-in rules with fixed behavior, we provide them as recipes so you can:
 
 - **Copy** the rule definition into your project.
 - **Customize** the implementation to match your team's conventions.
-- **Own** the code — no dependency on upstream changes you didn't ask for.
+- **Own** the code with no dependency on upstream changes you didn't ask for.
 
 ## Prerequisites
 
@@ -24,8 +24,9 @@ npm install --save-dev @eslint-react/kit
 
 Each recipe page provides:
 
-1. **Rule Factory** — A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
-2. **Usage** — How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
+1. **Rule Factory**: A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
+2. **Usage**: How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
+3. **Examples**: Code snippets demonstrating valid and invalid patterns to show what the rule catches and how to resolve it.
 
 Here's the general pattern:
 
