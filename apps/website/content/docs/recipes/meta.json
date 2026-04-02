@@ -2,15 +2,11 @@
   "title": "Recipes",
   "pages": [
     "overview",
-    "---Component Recipes---",
-    "component-hook-factories",
-    "function-component-definition",
-    "---Props & State Recipes---",
+    "jsx-no-leaked-semicolon",
     "custom-rules-of-props",
     "custom-rules-of-state",
-    "---Effect Recipes---",
-    "no-circular-effect",
-    "---JSX Recipes---",
-    "no-leaked-semicolon"
+    "component-hook-factories",
+    "function-component-definition",
+    "no-circular-effect"
   ]
 }
