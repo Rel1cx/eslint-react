@@ -11,11 +11,11 @@ This recipe contains three custom rules for validating JSX props:
 2. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
 3. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
 
-## Code
+## noDuplicateProps
+
+### Rule
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
-
-### noDuplicateProps
 
 ```ts title="eslint.config.rules.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -58,7 +58,7 @@ export function noDuplicateProps(): RuleFunction {
 }
 ```
 
-#### Usage
+### Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
@@ -75,9 +75,9 @@ export default [
 ];
 ```
 
-#### Examples
+### Examples
 
-##### Invalid
+#### Invalid
 
 ```tsx
 <div id="a" id="b" />;
@@ -89,7 +89,7 @@ export default [
 //                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
 ```
 
-##### Valid
+#### Valid
 
 ```tsx
 <div id="a" className="b" />;
@@ -103,7 +103,11 @@ Reports when a prop appears multiple times on a JSX element. Only the last occur
 
 Spread attributes are ignored because overriding them with explicit props is a common and valid pattern.
 
-### noExplicitSpreadProps
+## noExplicitSpreadProps
+
+### Rule
+
+Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -123,7 +127,7 @@ export function noExplicitSpreadProps(): RuleFunction {
 }
 ```
 
-#### Usage
+### Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
@@ -140,9 +144,9 @@ export default [
 ];
 ```
 
-#### Examples
+### Examples
 
-##### Invalid
+#### Invalid
 
 ```tsx
 <MyComponent {...{ foo, bar, baz }} />;
@@ -154,7 +158,7 @@ export default [
 //      ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
-##### Valid
+#### Valid
 
 ```tsx
 <div {...props} />;
@@ -168,7 +172,11 @@ Reports when an object literal is spread directly onto a JSX element. This is un
 
 Only plain object literals are flagged. Conditional expressions, variables, and other non-literal spreads serve legitimate purposes and remain untouched.
 
-### noMixingControlledAndUncontrolledProps
+## noMixingControlledAndUncontrolledProps
+
+### Rule
+
+Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
 ```ts title="eslint.config.rules.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -211,7 +219,7 @@ export function noMixingControlledAndUncontrolledProps(): RuleFunction {
 }
 ```
 
-#### Usage
+### Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
@@ -228,9 +236,9 @@ export default [
 ];
 ```
 
-#### Examples
+### Examples
 
-##### Invalid
+#### Invalid
 
 ```tsx
 <input value={name} defaultValue="World" />;
@@ -242,7 +250,7 @@ export default [
 //                                         ^^^ 'checked' and 'defaultChecked' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
-##### Valid
+#### Valid
 
 ```tsx
 <input value={name} onChange={handleChange} />;

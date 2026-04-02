@@ -24,8 +24,8 @@ npm install --save-dev @eslint-react/kit
 
 Each recipe page provides:
 
-1. **Code**: A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
-2. **Usage**: How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
+1. **Rule**: A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
+2. **Config**: How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
 3. **Examples**: Code snippets demonstrating valid and invalid patterns to show what the rule catches and how to resolve it.
 
 Here's the general pattern:

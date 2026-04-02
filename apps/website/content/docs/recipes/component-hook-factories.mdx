@@ -9,7 +9,7 @@ This recipe contains a custom rule that disallows defining components or hooks i
 
 Defining components or hooks inside other functions creates new instances on every call. React treats each as a completely different component, destroying and recreating the entire component tree, losing all state, and causing performance problems.
 
-## Code
+## Rule
 
 Copy the following into your project (e.g. `eslint.config.rules.ts`):
 
@@ -59,7 +59,7 @@ export function componentHookFactories(): RuleFunction {
 }
 ```
 
-## Usage
+## Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";

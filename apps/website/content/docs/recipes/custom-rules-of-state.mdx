@@ -7,7 +7,7 @@ description: Validates state usage. Prefer the updater function form in useState
 
 Reports when a `useState` setter is called with an expression that directly references the corresponding state variable. Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
 
-## Code
+## Rule
 
 Copy the following code into your project (e.g. `eslint.config.rules.ts`):
 
@@ -94,7 +94,7 @@ export function preferStateUpdaterFunction(): RuleFunction {
 }
 ```
 
-## Usage
+## Config
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
