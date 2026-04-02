@@ -32,7 +32,7 @@ react-jsx/no-leaked-semicolon
 
 When refactoring JSX, trailing semicolons may be accidentally left immediately after JSX elements or fragments. This causes `;` to be unexpectedly rendered as text nodes:
 
-````tsx
+```tsx
 // before
 return <div />;
 
@@ -42,6 +42,7 @@ return (
     <div />;
   </div>
 );
+```
 
 ## Common Violations
 
@@ -55,7 +56,7 @@ function MyComponent() {
     </div>
   );
 }
-````
+```
 
 ```tsx
 function MyComponent() {
