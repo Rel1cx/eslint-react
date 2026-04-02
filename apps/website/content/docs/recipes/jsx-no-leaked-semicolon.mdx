@@ -1,5 +1,5 @@
 ---
-title: No Leaked Semicolon
+title: JSX No Leaked Semicolon
 description: Detects trailing semicolons that would be rendered as text nodes in JSX.
 ---
 
@@ -9,14 +9,14 @@ When refactoring JSX, trailing semicolons may be accidentally left immediately a
 
 ## Rule
 
-Copy the following code into your project (e.g. `.config/noLeakedSemicolon.ts`):
+Copy the following code into your project (e.g. `.config/jsxNoLeakedSemicolon.ts`):
 
-```ts title=".config/noLeakedSemicolon.ts"
+```ts title=".config/jsxNoLeakedSemicolon.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 
 /** Detect trailing semicolons that would be rendered as text nodes in JSX. */
-export function noLeakedSemicolon(): RuleFunction {
+export function jsxNoLeakedSemicolon(): RuleFunction {
   function isJSXElementLike({ type }: TSESTree.Node) {
     return type === "JSXElement" || type === "JSXFragment";
   }
@@ -47,13 +47,13 @@ export function noLeakedSemicolon(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noLeakedSemicolon } from "./.config/noLeakedSemicolon";
+import { jsxNoLeakedSemicolon } from "./.config/jsxNoLeakedSemicolon";
 
 export default [
   // ... other configs
   {
     ...eslintReactKit()
-      .use(noLeakedSemicolon)
+      .use(jsxNoLeakedSemicolon)
       .getConfig(),
     files: ["src/**/*.tsx"],
   },
