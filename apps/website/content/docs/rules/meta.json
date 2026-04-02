@@ -64,6 +64,7 @@
     "jsx-no-children-prop-with-children",
     "jsx-no-comment-textnodes",
     "jsx-no-key-after-spread",
+    "jsx-no-leaked-dollar",
     "jsx-no-leaked-semicolon",
     "jsx-no-namespace",
     "jsx-no-useless-fragment",

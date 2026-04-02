@@ -6,6 +6,7 @@ import noChildrenPropWithChildren from "./rules/no-children-prop-with-children/n
 import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noCommentTextnodes from "./rules/no-comment-textnodes/no-comment-textnodes";
 import noKeyAfterSpread from "./rules/no-key-after-spread/no-key-after-spread";
+import noLeakedDollar from "./rules/no-leaked-dollar/no-leaked-dollar";
 import noLeakedSemicolon from "./rules/no-leaked-semicolon/no-leaked-semicolon";
 import noNamespace from "./rules/no-namespace/no-namespace";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
@@ -20,6 +21,7 @@ export const plugin = {
     "no-children-prop-with-children": noChildrenPropWithChildren,
     "no-comment-textnodes": noCommentTextnodes,
     "no-key-after-spread": noKeyAfterSpread,
+    "no-leaked-dollar": noLeakedDollar,
     "no-leaked-semicolon": noLeakedSemicolon,
     "no-namespace": noNamespace,
     "no-useless-fragment": noUselessFragment,

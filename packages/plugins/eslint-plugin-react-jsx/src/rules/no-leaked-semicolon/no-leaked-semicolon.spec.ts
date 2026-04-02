@@ -15,7 +15,25 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <div />
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
     },
     {
       code: tsx`
@@ -29,7 +47,27 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <Component>
+                        <div />
+                      </Component>
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
     },
     {
       code: tsx`
@@ -39,7 +77,23 @@ ruleTester.run(RULE_NAME, rule, {
           </div>
         )
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => (
+                  <div>
+                    <Component />
+                  </div>
+                )
+              `,
+            },
+          ],
+        },
+      ],
     },
     {
       code: tsx`
@@ -51,7 +105,25 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <>
+                      <div />
+                    </>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
     },
     {
       code: tsx`
@@ -65,7 +137,27 @@ ruleTester.run(RULE_NAME, rule, {
           );
         }
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <>
+                      <Component>
+                        <div />
+                      </Component>
+                    </>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
     },
   ],
   valid: [
