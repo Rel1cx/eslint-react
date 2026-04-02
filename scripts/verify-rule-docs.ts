@@ -115,7 +115,8 @@ const verifyDocs = Effect.gen(function*() {
       .replace("description: ", "")
       .replaceAll(/^"|"$/gu, "")
       .replaceAll("`", "'");
-    if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, ""))) {
+    // dprint-ignore
+    if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, "").replaceAll("`", "'"))) {
       yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
@@ -254,7 +255,7 @@ const verifyOverview = Effect.gen(function*() {
       }
 
       // Verify the description text
-      const expectedDescription = meta.description.replace(/\.$/, "");
+      const expectedDescription = meta.description.replace(/\.$/, "").replaceAll("`", "'");
       const providedDescription = description.trim().replaceAll("`", "'");
       if (expectedDescription !== providedDescription) {
         yield* Effect.logError(ansis.red(`Found 1 mismatched description for rule ${rulename}`));
