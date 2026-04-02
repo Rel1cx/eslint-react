@@ -4,7 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
 
-export const RULE_NAME = "no-trailing-semicolon";
+export const RULE_NAME = "no-leaked-semicolon";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
@@ -17,7 +17,7 @@ export default createRule<[], MessageID>({
       description: "Disallows trailing semicolons that would be rendered as text nodes.",
     },
     messages: {
-      default: "Suspicious trailing semicolon in JSX. This semicolon will be rendered as text nodes.",
+      default: "Leaked semicolon in JSX. This semicolon will be rendered as text nodes.",
     },
     schema: [],
   },
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-function hasSuspiciousSemicolon(text: string) {
+function hasLeakedSemicolon(text: string) {
   return text.startsWith(";\n") || text.startsWith(";\r");
 }
 
@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>) {
     if (!ast.isJSXElementLike(node.parent)) {
       return;
     }
-    if (!hasSuspiciousSemicolon(context.sourceCode.getText(node))) {
+    if (!hasLeakedSemicolon(context.sourceCode.getText(node))) {
       return;
     }
     context.report({

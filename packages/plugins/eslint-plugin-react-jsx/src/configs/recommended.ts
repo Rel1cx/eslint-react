@@ -9,8 +9,8 @@ export const rules = {
   "react-jsx/no-children-prop": "warn",
   "react-jsx/no-comment-textnodes": "warn",
   "react-jsx/no-key-after-spread": "error",
+  "react-jsx/no-leaked-semicolon": "warn",
   "react-jsx/no-namespace": "error",
-  "react-jsx/no-trailing-semicolon": "warn",
 } as const satisfies Record<string, RuleConfig>;
 
 export const plugins = {

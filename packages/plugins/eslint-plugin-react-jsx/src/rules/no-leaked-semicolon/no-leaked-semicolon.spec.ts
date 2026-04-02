@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../../test";
-import rule, { RULE_NAME } from "./no-trailing-semicolon";
+import rule, { RULE_NAME } from "./no-leaked-semicolon";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
