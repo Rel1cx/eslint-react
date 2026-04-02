@@ -11,9 +11,9 @@ Defining components or hooks inside other functions creates new instances on eve
 
 ## Rule
 
-Copy the following into your project (e.g. `eslint.config.rules.ts`):
+Copy the following into your project (e.g. `.config/componentHookFactories.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/componentHookFactories.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -63,7 +63,7 @@ export function componentHookFactories(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { componentHookFactories } from "./eslint.config.rules";
+import { componentHookFactories } from "./.config/componentHookFactories";
 
 export default [
   // ... other configs

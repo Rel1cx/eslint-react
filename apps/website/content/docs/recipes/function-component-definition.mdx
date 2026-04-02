@@ -9,9 +9,9 @@ This rule enforces that function components are defined with arrow functions ins
 
 ## Rule
 
-Copy the following code into your project (e.g. `eslint.config.rules.ts`):
+Copy the following code into your project (e.g. `.config/functionComponentDefinition.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/functionComponentDefinition.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
@@ -80,7 +80,7 @@ export function functionComponentDefinition(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { functionComponentDefinition } from "./eslint.config.rules";
+import { functionComponentDefinition } from "./.config/functionComponentDefinition";
 
 export default [
   // ... other configs

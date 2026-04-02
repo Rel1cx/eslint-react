@@ -9,9 +9,9 @@ Reports when a `useState` setter is called with an expression that directly refe
 
 ## Rule
 
-Copy the following code into your project (e.g. `eslint.config.rules.ts`):
+Copy the following code into your project (e.g. `.config/preferStateUpdaterFunction.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/preferStateUpdaterFunction.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import type { ScopeVariable } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/utils";
@@ -98,7 +98,7 @@ export function preferStateUpdaterFunction(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { preferStateUpdaterFunction } from "./eslint.config.rules";
+import { preferStateUpdaterFunction } from "./.config/preferStateUpdaterFunction";
 
 export default [
   // ... other configs

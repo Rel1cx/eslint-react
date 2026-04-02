@@ -249,7 +249,7 @@ import {
   jsxPropsNoSpreading,
   noAdjacentInlineElements,
   noMultiComp,
-} from "./eslint.config.rules";
+} from "./.config";
 
 export default defineConfig([
   {
@@ -289,7 +289,7 @@ export default defineConfig([
 
 Require `onChange` or `readOnly` when using `checked` on `<input>`.
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/checkedRequiresOnchangeOrReadonly.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */

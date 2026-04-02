@@ -1,21 +1,3 @@
----
-title: No Circular Effect
-description: Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on.
----
-
-<Callout type="warning">
-  In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead. It's also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect). Use this custom recipe only when you need to detect circular dependencies across multiple effects.
-</Callout>
-
-## Overview
-
-This rule detects when `useEffect`-like hooks form a cycle through state variables. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
-
-## Rule
-
-Copy the following code into your project (e.g. `.config/noCircularEffect.ts`):
-
-```ts title=".config/noCircularEffect.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -24,8 +6,6 @@ import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 /** Detect circular dependencies between useEffect hooks via useState setters. */
 export function noCircularEffect(): RuleFunction {
   return (context, { is, settings }) => {
-    const { additionalStateHooks, additionalEffectHooks } = settings;
-
     // Map: setter Scope.Variable → state Scope.Variable
     const setterToState = new Map<Scope.Variable, Scope.Variable>();
 
@@ -35,9 +15,12 @@ export function noCircularEffect(): RuleFunction {
     return {
       CallExpression(node: TSESTree.CallExpression) {
         // 1. Register useState pairs
-        if (is.useStateLikeCall(node, additionalStateHooks)) {
+        if (is.useStateLikeCall(node, settings.additionalStateHooks)) {
           const { parent } = node;
-          if (parent.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
+          if (
+            parent.type === "VariableDeclarator"
+            && parent.id.type === "ArrayPattern"
+          ) {
             const [stateEl, setterEl] = parent.id.elements;
             if (stateEl?.type === "Identifier" && setterEl?.type === "Identifier") {
               const scope = context.sourceCode.getScope(node);
@@ -52,7 +35,7 @@ export function noCircularEffect(): RuleFunction {
         }
 
         // 2. Collect useEffect-like calls
-        if (is.useEffectLikeCall(node, additionalEffectHooks)) {
+        if (is.useEffectLikeCall(node, settings.additionalEffectHooks)) {
           pendingEffects.push(node);
         }
       },
@@ -95,7 +78,10 @@ export function noCircularEffect(): RuleFunction {
               const [refStart, refEnd] = ref.identifier.range;
               if (refStart < cbStart || refEnd > cbEnd) continue;
               const { parent } = ref.identifier;
-              if (parent?.type === "CallExpression" && parent.callee === ref.identifier) {
+              if (
+                parent?.type === "CallExpression"
+                && parent.callee === ref.identifier
+              ) {
                 targets.push(stateVar);
                 break;
               }
@@ -161,143 +147,3 @@ export function noCircularEffect(): RuleFunction {
     };
   };
 }
-```
-
-## Config
-
-```ts title="eslint.config.ts"
-import eslintReactKit from "@eslint-react/kit";
-import { noCircularEffect } from "./.config/noCircularEffect";
-
-export default [
-  // ... other configs
-  {
-    ...eslintReactKit()
-      .use(noCircularEffect)
-      .getConfig(),
-    files: ["src/**/*.tsx"],
-  },
-];
-```
-
-## Examples
-
-### Invalid
-
-Circular effect with depth 1. An effect depends on `items` and also sets `items`:
-
-```tsx
-import { useEffect, useState } from "react";
-
-function CircularEffect1() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [items]);
-  // ^^^ Circular effect detected: this effect depends on [items] and updates [items], creating an infinite update loop.
-
-  return null;
-}
-```
-
-Circular effect with depth 2. Two effects form a cycle: one depends on `limit` and sets `items`, and another depends on `items` and sets `limit`:
-
-```tsx
-import { useEffect, useState } from "react";
-
-function CircularEffect2() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-  const [limit, setLimit] = useState(false);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [limit]);
-  // ^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
-
-  useEffect(() => {
-    setLimit(x => !x);
-  }, [items]);
-  // ^^^ Circular effect detected: this effect depends on [items] and updates [limit], creating an infinite update loop.
-
-  return null;
-}
-```
-
-Circular effect with depth 3. Three effects form a cycle through `items → count → limit → items`:
-
-```tsx
-import { useEffect, useState } from "react";
-
-function CircularEffect3() {
-  const [items, setItems] = useState([0, 1, 2, 3, 4]);
-  const [limit, setLimit] = useState(false);
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    setItems(x => [...x].reverse());
-  }, [limit]);
-  // ^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
-
-  useEffect(() => {
-    setCount(x => x + 1);
-  }, [items]);
-  // ^^^ Circular effect detected: this effect depends on [items] and updates [count], creating an infinite update loop.
-
-  useEffect(() => {
-    setLimit(x => !x);
-  }, [count]);
-  // ^^^ Circular effect detected: this effect depends on [count] and updates [limit], creating an infinite update loop.
-
-  return null;
-}
-```
-
-### Valid
-
-Effects without circular dependencies:
-
-```tsx
-import { useEffect, useState } from "react";
-
-function ValidComponent() {
-  const [count, setCount] = useState(0);
-  const [label, setLabel] = useState("");
-
-  // ✅ Depends on `count`, sets `label`. No cycle.
-  useEffect(() => {
-    setLabel(`Count is ${count}`);
-  }, [count]);
-
-  return null;
-}
-```
-
-Effects with no dependency array:
-
-```tsx
-import { useEffect, useState } from "react";
-
-function ValidComponent2() {
-  const [count, setCount] = useState(0);
-
-  // ✅ No dependency array. Not a circular pattern.
-  useEffect(() => {
-    setCount(0);
-  });
-
-  return null;
-}
-```
-
-## Further Reading
-
-- [React Docs: Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
-- [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
-
----
-
-## See Also
-
-- [`set-state-in-effect`](/docs/rules/set-state-in-effect)\
-  Built-in rule for detecting setState calls in useEffect. Use this instead in most cases.

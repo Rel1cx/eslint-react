@@ -24,13 +24,13 @@ npm install --save-dev @eslint-react/kit
 
 Each recipe page provides:
 
-1. **Rule**: A self-contained function you copy into your project (e.g. into an `eslint.config.rules.ts` file).
+1. **Rule**: A self-contained function you copy into your project (e.g. into an `.config/noForwardRef.ts` file).
 2. **Config**: How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
 3. **Examples**: Code snippets demonstrating valid and invalid patterns to show what the rule catches and how to resolve it.
 
 Here's the general pattern:
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/noForwardRef.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 function noForwardRef(): RuleFunction {
@@ -51,7 +51,7 @@ import eslintJs from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
-import { noForwardRef } from "./eslint.config.rules";
+import { noForwardRef } from "./.config/noForwardRef";
 
 export default defineConfig(
   {

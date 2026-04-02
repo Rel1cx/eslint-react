@@ -15,9 +15,9 @@ This recipe contains three custom rules for validating JSX props:
 
 ### Rule
 
-Copy the following into your project (e.g. `eslint.config.rules.ts`):
+Copy the following into your project (e.g. `.config/noDuplicateProps.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/noDuplicateProps.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow duplicate props on JSX elements. */
@@ -62,7 +62,7 @@ export function noDuplicateProps(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noDuplicateProps } from "./eslint.config.rules";
+import { noDuplicateProps } from "./.config/noDuplicateProps";
 
 export default [
   // ... other configs
@@ -107,9 +107,9 @@ Spread attributes are ignored because overriding them with explicit props is a c
 
 ### Rule
 
-Copy the following into your project (e.g. `eslint.config.rules.ts`):
+Copy the following into your project (e.g. `.config/noExplicitSpreadProps.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/noExplicitSpreadProps.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow spreading object literals in JSX. Write each property as a separate prop. */
@@ -131,7 +131,7 @@ export function noExplicitSpreadProps(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noExplicitSpreadProps } from "./eslint.config.rules";
+import { noExplicitSpreadProps } from "./.config/noExplicitSpreadProps";
 
 export default [
   // ... other configs
@@ -176,9 +176,9 @@ Only plain object literals are flagged. Conditional expressions, variables, and 
 
 ### Rule
 
-Copy the following into your project (e.g. `eslint.config.rules.ts`):
+Copy the following into your project (e.g. `.config/noMixingControlledAndUncontrolledProps.ts`):
 
-```ts title="eslint.config.rules.ts"
+```ts title=".config/noMixingControlledAndUncontrolledProps.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 const CONTROLLED_PAIRS: [controlled: string, uncontrolled: string][] = [
@@ -223,7 +223,7 @@ export function noMixingControlledAndUncontrolledProps(): RuleFunction {
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noMixingControlledAndUncontrolledProps } from "./eslint.config.rules";
+import { noMixingControlledAndUncontrolledProps } from "./.config/noMixingControlledAndUncontrolledProps";
 
 export default [
   // ... other configs
@@ -275,7 +275,7 @@ To use all three rules together:
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noDuplicateProps, noExplicitSpreadProps, noMixingControlledAndUncontrolledProps } from "./eslint.config.rules";
+import { noDuplicateProps, noExplicitSpreadProps, noMixingControlledAndUncontrolledProps } from "./.config";
 
 export default [
   // ... other configs

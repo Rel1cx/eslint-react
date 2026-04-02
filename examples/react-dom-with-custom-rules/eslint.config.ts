@@ -32,7 +32,7 @@ import {
   noMultiComp,
   noUnnecessaryUsePrefix,
   version,
-} from "./eslint.config.rules";
+} from "./.config";
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];
 
