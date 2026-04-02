@@ -1,6 +1,5 @@
 import { findParent } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Walk **up** the AST from `node` to find the nearest ancestor that is a

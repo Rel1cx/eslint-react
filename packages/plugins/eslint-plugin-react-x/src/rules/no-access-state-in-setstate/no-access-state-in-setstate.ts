@@ -2,8 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { constFalse, constTrue } from "@local/eff";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../utils";

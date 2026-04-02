@@ -3,8 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";

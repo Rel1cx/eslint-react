@@ -475,7 +475,7 @@ This is a simplified kit reimplementation of the built-in [`react-x/component-ho
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/utils";
+import type { TSESTree } from "@typescript-eslint/types";
 
 function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
   if (parent == null) return null;

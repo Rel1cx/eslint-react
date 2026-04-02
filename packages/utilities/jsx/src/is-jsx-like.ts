@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { DEFAULT_JSX_DETECTION_HINT, type JsxDetectionHint, JsxDetectionHint as Hint } from "./jsx-detection-hint";
 
