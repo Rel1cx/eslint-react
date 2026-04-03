@@ -34,4 +34,4 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#rsc-rules>
+<https://eslint-react.xyz/docs/rules#rsc-rules>

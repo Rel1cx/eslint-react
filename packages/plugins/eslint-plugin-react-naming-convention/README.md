@@ -36,4 +36,4 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#naming-convention-rules>
+<https://eslint-react.xyz/docs/rules#naming-convention-rules>

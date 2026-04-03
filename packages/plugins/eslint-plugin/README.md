@@ -187,7 +187,7 @@ export default defineConfig(
 
 ## Rules
 
-[Rules Overview ↗](https://eslint-react.xyz/docs/rules/overview)
+[Rules Overview ↗](https://eslint-react.xyz/docs/rules)
 
 ## Benchmark
 

@@ -151,7 +151,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
       };
     }, {});
 
-    const pages = orderedCategories.reduce((acc, cat) => {
+    const pages = orderedCategories.reduce<string[]>((acc, cat) => {
       const rules = grouped[cat.key];
       if (!rules || rules.length === 0) return acc;
 
@@ -163,7 +163,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
         cat.heading,
         ...sortedRules,
       ];
-    }, ["overview"]);
+    }, []);
 
     const jsonContent = JSON.stringify({ pages }, null, 2) + "\n";
     yield* fs.makeDirectory(path.dirname(targetPath), { recursive: true });

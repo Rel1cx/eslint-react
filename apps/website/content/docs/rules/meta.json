@@ -1,6 +1,5 @@
 {
   "pages": [
-    "overview",
     "---X Rules---",
     "component-hook-factories",
     "error-boundaries",

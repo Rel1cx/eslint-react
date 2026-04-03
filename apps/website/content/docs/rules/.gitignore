@@ -1,5 +1,5 @@
 *.md
 *.mdx
-!overview.md
-!overview.mdx
+!index.md
+!index.mdx
 

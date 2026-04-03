@@ -36,7 +36,7 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#web-api-rules>
+<https://eslint-react.xyz/docs/rules#web-api-rules>
 
 ## Rules to be implemented
 

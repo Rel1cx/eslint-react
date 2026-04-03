@@ -50,18 +50,8 @@ const config = {
         permanent: true,
       },
       {
-        source: "/docs/rules",
-        destination: "/docs/rules/overview",
-        permanent: true,
-      },
-      {
-        source: "/docs/recipes",
-        destination: "/docs/recipes/overview",
-        permanent: true,
-      },
-      {
-        source: "/docs/packages",
-        destination: "/docs/packages/overview",
+        source: "/docs/rules/overview",
+        destination: "/docs/rules",
         permanent: true,
       },
       {

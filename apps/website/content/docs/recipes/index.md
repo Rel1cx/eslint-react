@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: Recipes
 ---
 
 Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). They are **not** part of the core plugin. Instead, they are designed to be **copied and pasted** directly into your project. Each recipe contains one or more custom rules.
