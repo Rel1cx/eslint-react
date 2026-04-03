@@ -1,7 +1,6 @@
 {
   "title": "Recipes",
   "pages": [
-    "overview",
     "custom-rules-of-props",
     "custom-rules-of-state",
     "component-hook-factories",

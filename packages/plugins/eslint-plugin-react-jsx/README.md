@@ -35,4 +35,4 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#jsx-rules>
+<https://eslint-react.xyz/docs/rules#jsx-rules>

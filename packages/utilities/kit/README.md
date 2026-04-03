@@ -602,4 +602,4 @@ export default [
 
 ## More Examples
 
-Please check the [Rule Recipes](https://www.eslint-react.xyz/docs/recipes/overview) in the documentation site.
+Please check the [Rule Recipes](https://www.eslint-react.xyz/docs/recipes) in the documentation site.

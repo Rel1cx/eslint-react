@@ -36,4 +36,4 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#dom-rules>
+<https://eslint-react.xyz/docs/rules#dom-rules>

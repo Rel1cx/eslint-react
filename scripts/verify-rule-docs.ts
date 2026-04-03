@@ -13,7 +13,7 @@ import * as config0 from "../packages/plugins/eslint-plugin/src/configs/recommen
 import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
 
 const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
-const RULES_OVERVIEW_PATH = ["apps", "website", "content", "docs", "rules", "overview.mdx"];
+const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
   { key: "jsx", heading: "JSX Rules" },
@@ -196,18 +196,18 @@ const verifyDocs = Effect.gen(function*() {
   }
 });
 
-// Verify the overview.mdx "View by Domain" table entries match the actual rule metadata
-const verifyOverview = Effect.gen(function*() {
+// Verify the index.mdx "View by Domain" table entries match the actual rule metadata
+const verifyIndex = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const target = path.join(...RULES_OVERVIEW_PATH);
+  const target = path.join(...RULES_INDEX_PATH);
   const content = yield* fs.readFileString(target, "utf8");
   const contentLines = content.split("\n");
   const verifyIndex = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
   const verifyIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
   const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd).map((line) => line.trim());
 
-  yield* Effect.log(ansis.green(`Verifying rules overview at ${target}...`));
+  yield* Effect.log(ansis.green(`Verifying rules index at ${target}...`));
 
   // Process each rule domain section
   for (const { key, heading } of SECTION_HEADERS) {
@@ -287,8 +287,8 @@ const verifyOverview = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   // Verify the rules documentation matches the actual rule definitions
   yield* verifyDocs;
-  // Verify the rules overview "View by Domain" matches the actual rule definitions
-  yield* verifyOverview;
+  // Verify the rules index "View by Domain" matches the actual rule definitions
+  yield* verifyIndex;
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);

@@ -262,7 +262,7 @@ Takes no arguments. Also runs as part of CI (`check.yml`).
   - Correct **Features** icons (`🔧`, `💭`, `🧪`, etc.) matching `RULE_FEATURES`
   - **Presets** section (if the rule has non-zero severity in recommended/strict)
   - Correct **Rule Source** and **Test Source** GitHub links in the **Resources** section
-- **Overview page** — verifies that every row in the `apps/website/content/docs/rules/overview.mdx` "View by Domain" tables has correct link format, description, feature icons, and severity icons matching the preset configs
+- **Index page** — verifies that every row in the `apps/website/content/docs/rules/index.mdx` "View by Domain" tables has correct link format, description, feature icons, and severity icons matching the preset configs
 
 ---
 

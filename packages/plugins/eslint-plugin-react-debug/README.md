@@ -38,4 +38,4 @@ export default defineConfig(
 
 ## Rules
 
-<https://eslint-react.xyz/docs/rules/overview#debug-rules>
+<https://eslint-react.xyz/docs/rules#debug-rules>

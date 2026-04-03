@@ -45,28 +45,8 @@ const config = {
         permanent: true,
       },
       {
-        source: "/docs/getting-started",
-        destination: "/docs/getting-started/typescript",
-        permanent: true,
-      },
-      {
-        source: "/docs/rules",
-        destination: "/docs/rules/overview",
-        permanent: true,
-      },
-      {
-        source: "/docs/recipes",
-        destination: "/docs/recipes/overview",
-        permanent: true,
-      },
-      {
-        source: "/docs/packages",
-        destination: "/docs/packages/overview",
-        permanent: true,
-      },
-      {
-        source: "/docs/configuration",
-        destination: "/docs/configuration/configure-analyzer",
+        source: "/docs/rules/overview",
+        destination: "/docs/rules",
         permanent: true,
       },
       {
@@ -75,23 +55,13 @@ const config = {
         permanent: true,
       },
       {
-        source: "/roadmap",
-        destination: "/docs/roadmap",
-        permanent: true,
-      },
-      {
-        source: "/docs/release-notes",
-        destination: "/docs/release-notes/v2.0.0",
+        source: "/rules/:wildcard",
+        destination: "/docs/rules/:wildcard",
         permanent: true,
       },
       {
         source: "/presets/:wildcard",
         destination: "/docs/presets/:wildcard",
-        permanent: true,
-      },
-      {
-        source: "/rules/:wildcard",
-        destination: "/docs/rules/:wildcard",
         permanent: true,
       },
     ];
