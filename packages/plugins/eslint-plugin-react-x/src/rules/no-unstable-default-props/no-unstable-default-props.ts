@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
-  const { api, visitor } = core.getComponentCollector(context);
+  const { api, visitor } = core.getFunctionComponentCollector(context);
   const declarators = new WeakMap<ast.TSESTreeFunction, ast.ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));

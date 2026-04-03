@@ -4,7 +4,6 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
-import { getComponentCollectorLegacy } from "./lib";
 
 export const RULE_NAME = "component-hook-factories";
 
@@ -75,7 +74,7 @@ function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
 function isHigherOrderComponent(fn: ast.TSESTreeFunction): boolean {
   return fn.params.some((param) => {
     // Check for PascalCase parameter name (e.g., WrappedComponent, Component)
-    if (param.type === AST.Identifier && core.isComponentNameLoose(param.name)) {
+    if (param.type === AST.Identifier && core.isFunctionComponentNameLoose(param.name)) {
       return true;
     }
     // Check for ComponentType/FC type annotation
@@ -96,20 +95,20 @@ function isInsideTestMockCallback(node: TSESTree.Node): boolean {
 
 export function create(context: RuleContext<MessageID, []>) {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-    | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component and hook definitions in the code
-  const fCollector = core.getComponentCollector(context, { hint });
-  const cCollector = getComponentCollectorLegacy(context);
+  const fCollector = core.getFunctionComponentCollector(context, { hint });
+  const cCollector = core.getClassComponentCollector(context);
   const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports

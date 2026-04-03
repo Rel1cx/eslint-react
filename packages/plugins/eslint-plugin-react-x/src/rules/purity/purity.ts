@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
-  const cCollector = core.getComponentCollector(context);
+  const cCollector = core.getFunctionComponentCollector(context);
   const cEntries: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;

@@ -1,6 +1,6 @@
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { createRule } from "../../utils";
-import { getComponentCollectorLegacy, isUnsafeComponentWillReceiveProps } from "./lib";
 
 export const RULE_NAME = "no-unsafe-component-will-receive-props";
 
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `UNSAFE_componentWillReceiveProps` is not present in the file
   if (!context.sourceCode.text.includes("UNSAFE_componentWillReceiveProps")) return {};
-  const { api, visitor } = getComponentCollectorLegacy(context);
+  const { api, visitor } = core.getClassComponentCollector(context);
 
   return defineRuleListener(
     visitor,
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const { body } = component.body;
 
           for (const member of body) {
-            if (isUnsafeComponentWillReceiveProps(member)) {
+            if (core.isUnsafeComponentWillReceiveProps(member)) {
               context.report({
                 messageId: "default",
                 node: member,

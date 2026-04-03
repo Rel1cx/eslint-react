@@ -2,7 +2,7 @@
 title: Roadmap
 ---
 
-## Milestone 4.0 (Beta)
+## Milestone 4.0
 
 ### System Requirements
 

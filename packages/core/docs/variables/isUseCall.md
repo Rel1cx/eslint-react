@@ -3,15 +3,5 @@
 # Variable: isUseCall
 
 ```ts
-const isUseCall: (...a: [Node | null]) => boolean;
+const isUseCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

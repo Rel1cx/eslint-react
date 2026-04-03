@@ -3,15 +3,5 @@
 # Variable: isUseDebugValueCall
 
 ```ts
-const isUseDebugValueCall: (...a: [Node | null]) => boolean;
+const isUseDebugValueCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

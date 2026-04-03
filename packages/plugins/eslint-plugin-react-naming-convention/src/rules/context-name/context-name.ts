@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
           .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
           .otherwise(() => [null, null] as const);
         if (id == null) return;
-        if (core.isComponentName(name) && name.endsWith("Context")) return;
+        if (core.isFunctionComponentName(name) && name.endsWith("Context")) return;
         context.report({
           messageId: "invalidContextName",
           node: id,

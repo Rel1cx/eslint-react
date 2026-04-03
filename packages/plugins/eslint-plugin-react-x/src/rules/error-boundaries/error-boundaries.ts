@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
     | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const fCollector = core.getComponentCollector(context);
+  const fCollector = core.getFunctionComponentCollector(context);
   const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports

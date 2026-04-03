@@ -3,15 +3,5 @@
 # Variable: isUseOptimisticCall
 
 ```ts
-const isUseOptimisticCall: (...a: [Node | null]) => boolean;
+const isUseOptimisticCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

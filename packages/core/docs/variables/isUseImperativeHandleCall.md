@@ -3,15 +3,5 @@
 # Variable: isUseImperativeHandleCall
 
 ```ts
-const isUseImperativeHandleCall: (...a: [Node | null]) => boolean;
+const isUseImperativeHandleCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

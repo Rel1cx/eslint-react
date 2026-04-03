@@ -252,10 +252,10 @@ General hook predicates:
 
 Factory functions (context pre-bound):
 
-| Predicate      | Signature                        | Description                                                                  |
-| -------------- | -------------------------------- | ---------------------------------------------------------------------------- |
-| `reactAPI`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
-| `reactAPICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
+| Predicate | Signature                        | Description                                                                  |
+| --------- | -------------------------------- | ---------------------------------------------------------------------------- |
+| `API`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
+| `APICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
 
 Pre-built identifier predicates (context pre-bound):
 

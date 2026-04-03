@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const { additionalStateHooks } = getSettingsFromContext(context);
 
   const hCollector = core.getHookCollector(context);
-  const cCollector = core.getComponentCollector(context);
+  const cCollector = core.getFunctionComponentCollector(context);
 
   /**
    * Violations accumulated while traversing. Each entry records the node to

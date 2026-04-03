@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import { isClassComponent, isComponentDidMount, isThisSetStateCall } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -33,15 +33,15 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (!isThisSetStateCall(node)) {
+        if (!core.isThisSetStateCall(node)) {
           return;
         }
         // Find the enclosing class component
-        const enclosingClassNode = ast.findParent(node, isClassComponent);
+        const enclosingClassNode = ast.findParent(node, core.isClassComponent);
         // Find the enclosing 'componentDidMount' method
         const enclosingMethodNode = ast.findParent(
           node,
-          (n) => n === enclosingClassNode || isComponentDidMount(n),
+          (n) => n === enclosingClassNode || core.isComponentDidMount(n),
         );
 
         // Ensure 'this.setState' is inside a 'componentDidMount' method within a class component

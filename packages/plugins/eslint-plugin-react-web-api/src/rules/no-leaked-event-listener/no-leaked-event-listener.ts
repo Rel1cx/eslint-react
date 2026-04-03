@@ -226,7 +226,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // https://github.com/Rel1cx/eslint-react/issues/1323
             const isFromReactNative = node.callee.type === AST.MemberExpression
               && node.callee.object.type === AST.Identifier
-              && core.isInitializedFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
+              && core.isAPIFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
             if (isFromReactNative) {
               return;
             }

@@ -34,7 +34,6 @@ const conflictingRules = [
   "react/no-find-dom-node",
   "react/no-namespace",
   "react/no-object-type-as-default-prop",
-  "react/no-redundant-should-component-update",
   "react/no-render-return-value",
   "react/no-string-refs",
   "react/no-unknown-property",

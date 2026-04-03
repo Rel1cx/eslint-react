@@ -3,15 +3,5 @@
 # Variable: isUseCallbackCall
 
 ```ts
-const isUseCallbackCall: (...a: [Node | null]) => boolean;
+const isUseCallbackCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

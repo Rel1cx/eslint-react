@@ -1,9 +1,10 @@
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { unionConstituents } from "ts-api-utils";
 
-import { createRule, getFullyQualifiedNameEx } from "../../utils";
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-implicit-key";
 
@@ -44,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
           // For react, react-dom, and @rbxts/react the FQN is "React.Attributes.key"
           // For preact and preact/compat the FQN is "preact.Attributes.key"
           // https://github.com/Rel1cx/eslint-react/issues/1472
-          if (getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
+          if (core.getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
           // Allow when the key property's type is React.Key (ex: `{ key: React.Key }`)
           const keyType = checker.getTypeOfSymbol(key);
           if (keyType.aliasSymbol != null) {

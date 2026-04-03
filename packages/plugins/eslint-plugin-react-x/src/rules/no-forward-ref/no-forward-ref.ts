@@ -86,10 +86,10 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   // Check if the callee is `forwardRef` or `React.forwardRef`
   switch (node.callee.type) {
     case AST.Identifier:
-      return core.isInitializedFromReact(node.callee.name, initialScope, importSource);
+      return core.isAPIFromReact(node.callee.name, initialScope, importSource);
     case AST.MemberExpression:
       return node.callee.object.type === AST.Identifier
-        && core.isInitializedFromReact(node.callee.object.name, initialScope, importSource);
+        && core.isAPIFromReact(node.callee.object.name, initialScope, importSource);
     default:
       return false;
   }

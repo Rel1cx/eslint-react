@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
-  const cCollector = core.getComponentCollector(context);
+  const cCollector = core.getFunctionComponentCollector(context);
 
   // Collected ref.current accesses with their enclosing function
   const refAccesses: { isWrite: boolean; node: TSESTree.MemberExpression }[] = [];

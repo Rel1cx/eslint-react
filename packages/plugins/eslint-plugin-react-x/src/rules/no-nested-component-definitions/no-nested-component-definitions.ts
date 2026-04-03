@@ -6,7 +6,6 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
-import { getComponentCollectorLegacy, isClassComponent, isRenderMethodLike } from "./lib";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
@@ -32,20 +31,20 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-    | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
-  const fCollector = core.getComponentCollector(context, { hint });
-  const cCollector = getComponentCollectorLegacy(context);
+  const fCollector = core.getFunctionComponentCollector(context, { hint });
+  const cCollector = core.getClassComponentCollector(context);
 
   return defineRuleListener(
     fCollector.visitor,
@@ -162,7 +161,7 @@ function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
  * @returns `true` if the node is inside a class component's render block
  */
 function isInsideRenderMethod(node: TSESTree.Node) {
-  return ast.findParent(node, (n) => isRenderMethodLike(n) && isClassComponent(n.parent.parent)) != null;
+  return ast.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
 }
 
 /**

@@ -3,15 +3,5 @@
 # Variable: isUseTransitionCall
 
 ```ts
-const isUseTransitionCall: (...a: [Node | null]) => boolean;
+const isUseTransitionCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

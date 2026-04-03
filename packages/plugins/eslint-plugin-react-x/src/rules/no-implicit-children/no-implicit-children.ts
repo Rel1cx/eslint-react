@@ -1,9 +1,10 @@
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { unionConstituents } from "ts-api-utils";
 
-import { createRule, getFullyQualifiedNameEx } from "../../utils";
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-implicit-children";
 
@@ -46,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>) {
           // For react, react-dom the FQN is "React.DOMAttributes.children"
           // For PropsWithChildren the FQN is "React.PropsWithChildren.children"
           // For @rbxts/react the FQN is "React.Attributes.children"
-          const fqn = getFullyQualifiedNameEx(checker, children).toLowerCase();
+          const fqn = core.getFullyQualifiedNameEx(checker, children).toLowerCase();
           if (fqn.endsWith("attributes.children") || fqn.endsWith("propswithchildren.children")) continue;
           // Allow when the children property's type is a React children type alias
           // e.g. React.ReactNode, React.ReactElement, React.ReactPortal, JSX.Element

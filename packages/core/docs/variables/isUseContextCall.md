@@ -3,15 +3,5 @@
 # Variable: isUseContextCall
 
 ```ts
-const isUseContextCall: (...a: [Node | null]) => boolean;
+const isUseContextCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

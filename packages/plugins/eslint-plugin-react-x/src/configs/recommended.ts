@@ -27,7 +27,6 @@ export const rules = {
   "react-x/no-missing-key": "error",
   "react-x/no-nested-component-definitions": "error",
   "react-x/no-nested-lazy-component-declarations": "error",
-  "react-x/no-redundant-should-component-update": "error",
   "react-x/no-set-state-in-component-did-mount": "warn",
   "react-x/no-set-state-in-component-did-update": "warn",
   "react-x/no-set-state-in-component-will-update": "warn",
