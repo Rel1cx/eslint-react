@@ -45,6 +45,26 @@ Example using `@pika/react` instead of `react`:
 import React from "@pika/react";
 ```
 
+### `importSourceCheckMode`
+
+- `"auto"` (default): Rules identify React APIs by shape only when reporting diagnostics, but verify the import source when producing auto-fixes or suggestions. This balances detection coverage with safe code modifications.
+- `"both"`: Rules verify the import source in both the diagnostic (checking) and auto-fix/suggestion (fixing) phases. Only APIs actually imported from the configured `importSource` are recognized as React APIs.
+
+For example, when `importSourceCheckMode` is set to `"both"`, a `memo` function from `unrelated-library` will not be recognized as React's `memo` during checks:
+
+```ts
+import { memo } from "unrelated-library";
+
+const NonComponentFunction = memo(() => {
+  //                         ^^^^
+  //                         - This will not be recognized as React's memo
+});
+```
+
+<Callout type="warn">
+  Note that setting `importSourceCheckMode` to `"both"` makes all related rules **less strict overall**. The APIs that are skipped may actually be React APIs imported in a non-standard way, and this will make the rules behave differently from the official `eslint-plugin-react-hooks` rules such as [`rules-of-hooks`](https://github.com/facebook/react/issues/31237#issuecomment-2774761394).
+</Callout>
+
 ### `compilationMode`
 
 Specifies the React Compiler [`compilationMode`](https://react.dev/reference/react-compiler/compilationMode) used in your React Compiler config.

@@ -14,6 +14,13 @@ const properties = {
     description: <Link href="#importsource">The source where React is imported from</Link>,
     default: '"react"',
   },
+  importSourceCheckMode: {
+    type: "string",
+    description: (
+      <Link href="#importsourcecheckmode">Whether to check the import source when identifying React APIs</Link>
+    ),
+    default: '"auto"',
+  },
   compilationMode: {
     type: "string",
     description: (
