@@ -37,7 +37,7 @@ export default function HomePage() {
         </Cards>
         <h2>Roadmap</h2>
         <p>
-          Check out the <Link href="/roadmap">roadmap</Link> to see what's planned for the future.
+          Check out the <Link href="/docs/roadmap">roadmap</Link> to see what's planned for the future.
         </p>
         <h2>Contributing</h2>
         <p>
