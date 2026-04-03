@@ -7,20 +7,6 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        class Example extends React.Component {
-          componentDidMount() {
-            setTimeout(this.handleTimeout, 1000);
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedTimeoutId",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function Example() {
           useEffect(() => {
             setTimeout(() => {}, 1000);
@@ -77,19 +63,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    tsx`
-      class Example extends React.Component {
-        _timeoutId: number | null = null;
-        componentDidMount() {
-          this._timeoutId = setTimeout(() => {}, 1000);
-        }
-        componentWillUnmount() {
-          if (this._timeoutId !== null) {
-            clearTimeout(this._timeoutId);
-          }
-        }
-      }
-    `,
     tsx`
       import { useEffect } from "react";
 

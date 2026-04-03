@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { constFalse, constTrue } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
+import { isClassComponent, isThisSetStateCall } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -60,21 +60,21 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       // Push `setState` calls to the stack upon entry
       CallExpression(node) {
-        if (!core.isThisSetStateCall(node)) {
+        if (!isThisSetStateCall(node)) {
           return;
         }
         setStateStack.push([node, false]);
       },
       // Pop `setState` calls from the stack upon exit
       "CallExpression:exit"(node) {
-        if (!core.isThisSetStateCall(node)) {
+        if (!isThisSetStateCall(node)) {
           return;
         }
         setStateStack.pop();
       },
       // Push class declarations to the stack upon entry
       ClassDeclaration(node) {
-        classStack.push([node, core.isClassComponent(node)]);
+        classStack.push([node, isClassComponent(node)]);
       },
       // Pop class declarations from the stack upon exit
       "ClassDeclaration:exit"() {
@@ -82,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       // Push class expressions to the stack upon entry
       ClassExpression(node) {
-        classStack.push([node, core.isClassComponent(node)]);
+        classStack.push([node, isClassComponent(node)]);
       },
       // Pop class expressions from the stack upon exit
       "ClassExpression:exit"() {

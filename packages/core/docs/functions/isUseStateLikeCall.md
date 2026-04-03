@@ -6,7 +6,7 @@
 function isUseStateLikeCall(node: Node | null, additionalStateHooks?: RegExpLike): node is CallExpression;
 ```
 
-Detect useState calls and variations (useCustomState, etc.) using a regex pattern
+Detect useState calls and variations using a regex pattern
 
 ## Parameters
 

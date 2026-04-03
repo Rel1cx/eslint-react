@@ -44,7 +44,9 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       VariableDeclarator(node) {
         const { id, init } = node;
-        if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseMemoCall(init)) return;
+        if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseMemoCall(context, init)) {
+          return;
+        }
         const [mem, ...rest] = context.sourceCode.getDeclaredVariables(node);
         // Skip non-standard `useMemo()` usages to prevent false positives
         if (mem == null || rest.length > 0) return;

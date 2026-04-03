@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { isAssignmentToThisState, isClassComponent } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
-        if (!core.isAssignmentToThisState(node)) return;
+        if (!isAssignmentToThisState(node)) return;
         // Find the parent class of the assignment
         const parentClass = ast.findParent(
           node,
@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Report an error if 'this.state' is directly mutated in a class component
         // and the mutation is not inside the constructor
         if (
-          core.isClassComponent(parentClass)
+          isClassComponent(parentClass)
           && context.sourceCode.getScope(node).block !== ast.findParent(node, isConstructorFunction)
         ) {
           context.report({

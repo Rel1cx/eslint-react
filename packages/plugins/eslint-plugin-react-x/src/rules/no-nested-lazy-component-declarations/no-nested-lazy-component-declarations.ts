@@ -5,6 +5,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { getComponentCollectorLegacy } from "./lib";
 
 export const RULE_NAME = "no-nested-lazy-component-declarations";
 
@@ -31,7 +32,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const fCollector = core.getComponentCollector(context);
-  const cCollector = core.getComponentCollectorLegacy(context);
+  const cCollector = getComponentCollectorLegacy(context);
   const hCollector = core.getHookCollector(context);
   const lazyCalls = new Set<TSESTree.CallExpression>();
 

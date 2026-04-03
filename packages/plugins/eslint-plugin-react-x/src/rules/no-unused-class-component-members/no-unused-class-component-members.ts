@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { constFalse, constTrue } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
+import { isClassComponent } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -79,7 +79,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Called when the AST traversal enters a class declaration or expression
   function classEnter(node: ast.TSESTreeClass) {
     classStack.push(node);
-    if (!core.isClassComponent(node)) {
+    if (!isClassComponent(node)) {
       return;
     }
     // Initialize sets for definitions and usages for the current class component
@@ -90,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Called when the AST traversal exits a class declaration or expression
   function classExit() {
     const currentClass = classStack.pop();
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     const id = ast.getClassId(currentClass);
@@ -125,7 +125,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function methodEnter(node: ast.TSESTreeMethodOrProperty) {
     methodStack.push(node);
     const currentClass = classStack.at(-1);
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     // Ignore static members
@@ -156,7 +156,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (currentClass == null || currentMethod == null) {
           return;
         }
-        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+        if (!isClassComponent(currentClass) || currentMethod.static) {
           return;
         }
         // Check for expressions like `this.property`
@@ -185,7 +185,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (currentClass == null || currentMethod == null) {
           return;
         }
-        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+        if (!isClassComponent(currentClass) || currentMethod.static) {
           return;
         }
         // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`

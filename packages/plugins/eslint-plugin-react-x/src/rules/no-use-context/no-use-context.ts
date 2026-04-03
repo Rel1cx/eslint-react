@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node) {
-        if (!core.isUseContextCall(node)) return;
+        if (!core.isUseContextCall(context, node)) return;
         context.report({
           messageId: "default",
           node: node.callee,

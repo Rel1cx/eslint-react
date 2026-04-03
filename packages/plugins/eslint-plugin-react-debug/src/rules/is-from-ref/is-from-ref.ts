@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
-    const refInit = getRefInitNode(node, initialScope);
+    const refInit = getRefInitNode(context, node, initialScope);
     if (refInit != null) {
       const json = stringify({
         name: node.name,
@@ -52,29 +52,38 @@ export function create(context: RuleContext<MessageID, []>) {
   );
 }
 
-function getRefInitNode(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {
+function getRefInitNode(
+  context: RuleContext<MessageID, []>,
+  node: TSESTree.Identifier | TSESTree.JSXIdentifier,
+  initialScope: Scope,
+) {
   const name = node.name;
   switch (true) {
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.Identifier:
-      return getRefInit(node.parent.object.name, initialScope);
+      return getRefInit(context, node.parent.object.name, initialScope);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.JSXIdentifier:
-      return getRefInit(node.parent.object.name, initialScope);
+      return getRefInit(context, node.parent.object.name, initialScope);
     default:
-      return getRefInit(name, initialScope);
+      return getRefInit(context, name, initialScope);
   }
 }
 
 /**
  * Get the init expression of a ref variable
+ * @param context The rule context
  * @param name The variable name
  * @param initialScope The initial scope
  * @returns The init expression node if the variable is derived from a ref, or null otherwise
  */
-function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | null {
+function getRefInit(
+  context: RuleContext<MessageID, []>,
+  name: string,
+  initialScope: Scope,
+): TSESTree.Expression | null {
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
@@ -87,7 +96,7 @@ function getRefInit(name: string, initialScope: Scope): TSESTree.Expression | nu
         return init;
       // const identifier = useRef();
       case init.type === AST.CallExpression
-        && isUseRefCall(init):
+        && isUseRefCall(context, init):
         return init;
     }
   }

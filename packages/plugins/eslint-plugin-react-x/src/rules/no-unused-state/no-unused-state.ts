@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { constFalse, constTrue } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
+import { isAssignmentToThisState, isClassComponent, isGetDerivedStateFromProps } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function classExit() {
     // Pop the class when exiting its node
     const currentClass = classStack.pop();
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     const id = ast.getClassId(currentClass);
@@ -87,13 +87,13 @@ export function create(context: RuleContext<MessageID, []>) {
     // Keep track of the current method being visited
     methodStack.push(node);
     const currentClass = classStack.at(-1);
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !isClassComponent(currentClass)) {
       return;
     }
     if (node.static) {
       // `getDerivedStateFromProps` can update state, so we mark state as used
       if (
-        core.isGetDerivedStateFromProps(node)
+        isGetDerivedStateFromProps(node)
         && isMatching({ params: [P.nonNullable, ...P.array()] })(node.value)
       ) {
         const defNode = stateDefs.get(currentClass)?.node ?? null;
@@ -126,11 +126,11 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       AssignmentExpression(node) {
         // Detect state definition in constructor (`this.state = ...`)
-        if (!core.isAssignmentToThisState(node)) {
+        if (!isAssignmentToThisState(node)) {
           return;
         }
         const currentClass = classStack.at(-1);
-        if (currentClass == null || !core.isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         // Ensure the assignment is within the constructor of the current class
@@ -158,7 +158,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         const currentClass = classStack.at(-1);
-        if (currentClass == null || !core.isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         // Ensure the usage is within a method of the current class
@@ -185,7 +185,7 @@ export function create(context: RuleContext<MessageID, []>) {
       "PropertyDefinition:exit": methodExit,
       VariableDeclarator(node) {
         const currentClass = classStack.at(-1);
-        if (currentClass == null || !core.isClassComponent(currentClass)) {
+        if (currentClass == null || !isClassComponent(currentClass)) {
           return;
         }
         const currentMethod = methodStack.at(-1);

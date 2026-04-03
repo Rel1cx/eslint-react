@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (!core.isUseIdCall(node)) return;
+        if (!core.isUseIdCall(context, node)) return;
         const [id, name] = match(findEnclosingAssignmentTarget(node))
           // for cases like: const myId = useId();
           .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)

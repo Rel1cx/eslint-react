@@ -6,6 +6,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { getComponentCollectorLegacy, isClassComponent, isRenderMethodLike } from "./lib";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
@@ -44,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   // Collectors to find all component definitions in the code
   const fCollector = core.getComponentCollector(context, { hint });
-  const cCollector = core.getComponentCollectorLegacy(context);
+  const cCollector = getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     fCollector.visitor,
@@ -161,7 +162,7 @@ function isInsideJSXAttributeValue(node: ast.TSESTreeFunction) {
  * @returns `true` if the node is inside a class component's render block
  */
 function isInsideRenderMethod(node: TSESTree.Node) {
-  return ast.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent)) != null;
+  return ast.findParent(node, (n) => isRenderMethodLike(n) && isClassComponent(n.parent.parent)) != null;
 }
 
 /**

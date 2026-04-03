@@ -1,7 +1,7 @@
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule, stringify } from "../../utils";
+import { getComponentCollectorLegacy } from "./lib";
 
 export const RULE_NAME = "class-component";
 
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { api, visitor } = core.getComponentCollectorLegacy(context);
+  const { api, visitor } = getComponentCollectorLegacy(context);
   return defineRuleListener(
     visitor,
     {

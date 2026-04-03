@@ -4,6 +4,7 @@ import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { getComponentCollectorLegacy } from "./lib";
 
 export const RULE_NAME = "component-hook-factories";
 
@@ -108,7 +109,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   // Collectors to find all component and hook definitions in the code
   const fCollector = core.getComponentCollector(context, { hint });
-  const cCollector = core.getComponentCollectorLegacy(context);
+  const cCollector = getComponentCollectorLegacy(context);
   const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports

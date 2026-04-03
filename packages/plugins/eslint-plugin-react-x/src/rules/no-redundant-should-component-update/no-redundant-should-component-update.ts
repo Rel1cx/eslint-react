@@ -1,9 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { ComponentFlag, getComponentCollectorLegacy } from "./lib";
 
 export const RULE_NAME = "no-redundant-should-component-update";
 
@@ -36,14 +36,14 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `shouldComponentUpdate` is not present in the file
   if (!context.sourceCode.text.includes("shouldComponentUpdate")) return {};
-  const { api, visitor } = core.getComponentCollectorLegacy(context);
+  const { api, visitor } = getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
     {
       "Program:exit"(program) {
         for (const { name = "PureComponent", flag, node: component } of api.getAllComponents(program)) {
-          if ((flag & core.ComponentFlag.PureComponent) === 0n) {
+          if ((flag & ComponentFlag.PureComponent) === 0n) {
             continue;
           }
           const { body } = component.body;

@@ -16,7 +16,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "expectedClearIntervalInCleanup"
-  | "expectedClearIntervalInUnmount"
   | "expectedIntervalId";
 
 // #endregion
@@ -26,8 +25,7 @@ export type MessageID =
 type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "setInterval" | "clearInterval";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
+type CallKind = EventMethodKind | EffectMethodKind | "other";
 
 // #endregion
 
@@ -61,8 +59,7 @@ export default createRule<[], MessageID>({
     messages: {
       expectedClearIntervalInCleanup:
         "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
-      expectedClearIntervalInUnmount:
-        "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the 'componentWillUnmount' method.",
+
       expectedIntervalId: "A 'setInterval' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
@@ -155,16 +152,6 @@ export function create(context: RuleContext<MessageID, []>) {
                   kind: "useEffect",
                 },
                 messageId: "expectedClearIntervalInCleanup",
-                node: sEntry.node,
-              });
-              continue;
-            case "mount":
-            case "unmount":
-              context.report({
-                data: {
-                  kind: "componentDidMount",
-                },
-                messageId: "expectedClearIntervalInUnmount",
                 node: sEntry.node,
               });
               continue;

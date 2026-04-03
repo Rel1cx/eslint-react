@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>) {
     hCollector.visitor,
     {
       CallExpression(node) {
-        if (!core.isUseCall(node)) return;
+        if (!core.isUseCall(context, node)) return;
         useCalls.add(node);
       },
       "Program:exit"(node) {

@@ -7,20 +7,6 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        class Example extends React.Component {
-          componentDidMount() {
-            window.addEventListener("resize", this.handleResize);
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInUnmount",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", handleResize);
@@ -646,37 +632,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    tsx`
-      class Example extends React.Component {
-        componentDidMount() {
-          window.addEventListener("resize", this.handleResize);
-        }
-        componentWillUnmount() {
-          window.removeEventListener("resize", this.handleResize);
-        }
-      }
-    `,
-    tsx`
-      class Example extends React.Component {
-        componentDidMount() {
-          window.removeEventListener("resize", this.handleResize);
-        }
-        componentWillUnmount() {
-          window.addEventListener("resize", this.handleResize);
-        }
-      }
-    `,
-    tsx`
-      class Example extends React.Component {
-        componentDidMount() {
-          window.addEventListener("resize", this.handleResize);
-          window.addEventListener("resize", this.handleResize);
-        }
-        componentWillUnmount() {
-          window.removeEventListener("resize", this.handleResize);
-        }
-      }
-    `,
     tsx`
       function Example() {
         useEffect(() => {

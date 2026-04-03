@@ -46,7 +46,9 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       VariableDeclarator(node) {
         const { id, init } = node;
-        if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseCallbackCall(init)) return;
+        if (id.type !== AST.Identifier || init?.type !== AST.CallExpression || !core.isUseCallbackCall(context, init)) {
+          return;
+        }
         const [cbk, ...rest] = context.sourceCode.getDeclaredVariables(node);
         // Skip non-standard `useCallback()` usages to prevent false positives
         if (cbk == null || rest.length > 0) return;

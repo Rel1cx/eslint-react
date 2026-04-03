@@ -65,7 +65,6 @@ interface RuleToolkit {
     componentNameLoose: typeof core.isComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;
     componentWrapperCallback: (node: TSESTree.Node) => boolean;
-    componentWrapperCallLoose: (node: TSESTree.Node) => boolean;
     createContext: (node: null | TSESTree.Node) => boolean;
     createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     createElement: (node: null | TSESTree.Node) => boolean;
@@ -85,29 +84,29 @@ interface RuleToolkit {
     memoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     reactAPI: (api: string) => (node: null | TSESTree.Node) => boolean;
     reactAPICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    useActionStateCall: typeof core.isUseActionStateCall;
-    useCall: typeof core.isUseCall;
-    useCallbackCall: typeof core.isUseCallbackCall;
-    useContextCall: typeof core.isUseContextCall;
-    useDebugValueCall: typeof core.isUseDebugValueCall;
-    useDeferredValueCall: typeof core.isUseDeferredValueCall;
-    useEffectCall: typeof core.isUseEffectCall;
+    useActionStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useCallbackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useDebugValueCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useDeferredValueCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useEffectCleanupCallback: typeof core.isUseEffectCleanupCallback;
     useEffectLikeCall: typeof core.isUseEffectLikeCall;
     useEffectSetupCallback: typeof core.isUseEffectSetupCallback;
-    useFormStatusCall: typeof core.isUseFormStatusCall;
-    useIdCall: typeof core.isUseIdCall;
-    useImperativeHandleCall: typeof core.isUseImperativeHandleCall;
-    useInsertionEffectCall: typeof core.isUseInsertionEffectCall;
-    useLayoutEffectCall: typeof core.isUseLayoutEffectCall;
-    useMemoCall: typeof core.isUseMemoCall;
-    useOptimisticCall: typeof core.isUseOptimisticCall;
-    useReducerCall: typeof core.isUseReducerCall;
-    useRefCall: typeof core.isUseRefCall;
-    useStateCall: typeof core.isUseStateCall;
+    useFormStatusCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useIdCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useImperativeHandleCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useInsertionEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useLayoutEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useMemoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useOptimisticCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useReducerCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useStateLikeCall: typeof core.isUseStateLikeCall;
-    useSyncExternalStoreCall: typeof core.isUseSyncExternalStoreCall;
-    useTransitionCall: typeof core.isUseTransitionCall;
+    useSyncExternalStoreCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useTransitionCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
   };
 
   settings: ESLintReactSettingsNormalized;
@@ -171,7 +170,6 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       componentNameLoose: core.isComponentNameLoose,
       componentWrapperCall: (node) => core.isComponentWrapperCall(context, node),
       componentWrapperCallback: (node) => core.isComponentWrapperCallback(context, node),
-      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(context, node),
       createContext: core.isCreateContext(context),
       createContextCall: core.isCreateContextCall(context),
       createElement: core.isCreateElement(context),
@@ -191,29 +189,29 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       memoCall: core.isMemoCall(context),
       reactAPI: (api) => core.isReactAPI(api)(context),
       reactAPICall: (api) => core.isReactAPICall(api)(context),
-      useActionStateCall: core.isUseActionStateCall,
-      useCall: core.isUseCall,
-      useCallbackCall: core.isUseCallbackCall,
-      useContextCall: core.isUseContextCall,
-      useDebugValueCall: core.isUseDebugValueCall,
-      useDeferredValueCall: core.isUseDeferredValueCall,
-      useEffectCall: core.isUseEffectCall,
+      useActionStateCall: core.isUseActionStateCall(context),
+      useCall: core.isUseCall(context),
+      useCallbackCall: core.isUseCallbackCall(context),
+      useContextCall: core.isUseContextCall(context),
+      useDebugValueCall: core.isUseDebugValueCall(context),
+      useDeferredValueCall: core.isUseDeferredValueCall(context),
+      useEffectCall: core.isUseEffectCall(context),
       useEffectCleanupCallback: core.isUseEffectCleanupCallback,
       useEffectLikeCall: core.isUseEffectLikeCall,
       useEffectSetupCallback: core.isUseEffectSetupCallback,
-      useFormStatusCall: core.isUseFormStatusCall,
-      useIdCall: core.isUseIdCall,
-      useImperativeHandleCall: core.isUseImperativeHandleCall,
-      useInsertionEffectCall: core.isUseInsertionEffectCall,
-      useLayoutEffectCall: core.isUseLayoutEffectCall,
-      useMemoCall: core.isUseMemoCall,
-      useOptimisticCall: core.isUseOptimisticCall,
-      useReducerCall: core.isUseReducerCall,
-      useRefCall: core.isUseRefCall,
-      useStateCall: core.isUseStateCall,
+      useFormStatusCall: core.isUseFormStatusCall(context),
+      useIdCall: core.isUseIdCall(context),
+      useImperativeHandleCall: core.isUseImperativeHandleCall(context),
+      useInsertionEffectCall: core.isUseInsertionEffectCall(context),
+      useLayoutEffectCall: core.isUseLayoutEffectCall(context),
+      useMemoCall: core.isUseMemoCall(context),
+      useOptimisticCall: core.isUseOptimisticCall(context),
+      useReducerCall: core.isUseReducerCall(context),
+      useRefCall: core.isUseRefCall(context),
+      useStateCall: core.isUseStateCall(context),
       useStateLikeCall: core.isUseStateLikeCall,
-      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall,
-      useTransitionCall: core.isUseTransitionCall,
+      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall(context),
+      useTransitionCall: core.isUseTransitionCall(context),
     },
 
     settings: getSettingsFromContext(context),

@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return true;
         // const identifier = useRef();
         case init.type === AST.CallExpression
-          && isUseRefCall(init):
+          && isUseRefCall(context, init):
           return true;
       }
     }

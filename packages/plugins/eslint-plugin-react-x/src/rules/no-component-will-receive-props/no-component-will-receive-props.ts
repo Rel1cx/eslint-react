@@ -1,7 +1,7 @@
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
+import { getComponentCollectorLegacy, isComponentWillReceiveProps } from "./lib";
 
 export const RULE_NAME = "no-component-will-receive-props";
 
@@ -31,7 +31,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `componentWillReceiveProps` is not present in the file
   if (!context.sourceCode.text.includes("componentWillReceiveProps")) return {};
-  const { api, visitor } = core.getComponentCollectorLegacy(context);
+  const { api, visitor } = getComponentCollectorLegacy(context);
 
   return defineRuleListener(
     visitor,
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const { node: component } of api.getAllComponents(program)) {
           const { body } = component.body;
           for (const member of body) {
-            if (core.isComponentWillReceiveProps(member)) {
+            if (isComponentWillReceiveProps(member)) {
               context.report({
                 fix(fixer) {
                   if (!("key" in member)) {

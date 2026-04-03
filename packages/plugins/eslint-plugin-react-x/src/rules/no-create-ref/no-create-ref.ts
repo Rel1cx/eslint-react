@@ -3,6 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
+import { isClassComponent } from "./lib";
 
 export const RULE_NAME = "no-create-ref";
 
@@ -30,7 +31,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node) {
-        if (core.isCreateRefCall(context, node) && ast.findParent(node, core.isClassComponent) == null) {
+        if (core.isCreateRefCall(context, node) && ast.findParent(node, isClassComponent) == null) {
           context.report({ messageId: "default", node });
         }
       },
