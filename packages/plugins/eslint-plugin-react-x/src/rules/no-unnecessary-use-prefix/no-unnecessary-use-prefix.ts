@@ -42,6 +42,9 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(visitor, {
     "Program:exit"(program) {
       for (const { id, name, hookCalls, node } of api.getAllHooks(program)) {
+        if (name == null) {
+          continue;
+        }
         // If the function calls at least one real hook, it's a valid custom hook, so we skip it
         if (hookCalls.length > 0) {
           continue;

@@ -46,27 +46,37 @@ export function create(context: RuleContext<MessageID, []>) {
     | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const { api, visitor } = core.getComponentCollector(context);
+  const fCollector = core.getComponentCollector(context);
+  const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
+  const useCalls = new Set<TSESTree.CallExpression>();
 
   return defineRuleListener(
-    visitor,
+    fCollector.visitor,
+    hCollector.visitor,
     {
       CallExpression(node) {
         if (!core.isUseCall(node)) return;
-        const stmt = ast.findParent(node, ast.is(AST.TryStatement));
-        if (stmt != null && !reported.has(stmt)) {
-          context.report({
-            messageId: "tryCatchWithUse",
-            node,
-          });
-          reported.add(stmt);
-        }
+        useCalls.add(node);
       },
       "Program:exit"(node) {
-        for (const { rets } of api.getAllComponents(node)) {
+        const comps = fCollector.api.getAllComponents(node);
+        const hooks = hCollector.api.getAllHooks(node);
+        const funcs = [...comps, ...hooks];
+        for (const call of useCalls) {
+          const stmt = ast.findParent(call, ast.is(AST.TryStatement));
+          const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
+          if (stmt != null && func != null && !reported.has(stmt)) {
+            context.report({
+              messageId: "tryCatchWithUse",
+              node: stmt,
+            });
+            reported.add(stmt);
+          }
+        }
+        for (const { rets } of funcs) {
           for (const ret of rets) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
