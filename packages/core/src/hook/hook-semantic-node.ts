@@ -13,10 +13,10 @@ export interface HookSemanticNode extends SemanticNode {
   id: ast.FunctionID;
   /** The AST node of the hook */
   node: ast.TSESTreeFunction;
-  /** The name of the hook */
-  name: string;
   /** The kind of hook */
   kind: "hook";
+  /** List of expressions returned by the hook */
+  rets: TSESTree.ReturnStatement["argument"][];
   /** The other hooks called by the hook */
   hookCalls: TSESTree.CallExpression[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */

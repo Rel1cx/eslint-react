@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import { IdGenerator, type RuleContext } from "@eslint-react/shared";
-import type { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
 import type { HookSemanticNode } from "./hook-semantic-node";
 
 import { isHookId } from "./hook-id";
@@ -8,10 +8,9 @@ import { isHookCall } from "./hook-is";
 
 const idGen = new IdGenerator("hook:");
 
-type FunctionEntry = {
-  key: string;
-  node: ast.TSESTreeFunction;
-};
+interface FunctionEntry extends HookSemanticNode {
+  isHookDefinition: boolean;
+}
 
 export declare namespace getHookCollector {
   type ReturnType = {
@@ -35,19 +34,23 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const id = ast.getFunctionId(node);
     const key = idGen.next();
-    functionEntries.push({ key, node });
-    if (id == null || !isHookId(id)) return;
-    hooks.set(key, {
+    const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
+    const entry = {
       id,
       key,
       kind: "hook",
-      name: ast.getFullyQualifiedName(id, getText),
+      name,
       directives: [],
       flag: 0n,
       hint: 0n,
       hookCalls: [],
+      isHookDefinition: id != null && isHookId(id),
       node,
-    });
+      rets: [],
+    } as const satisfies FunctionEntry;
+    functionEntries.push(entry);
+    if (!entry.isHookDefinition) return;
+    hooks.set(key, entry);
   };
   const onFunctionExit = () => {
     functionEntries.pop();
@@ -60,11 +63,23 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const visitor = {
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
+    "ArrowFunctionExpression[body.type!='BlockStatement']"() {
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      const { body } = entry.node;
+      if (body.type === AST.BlockStatement) return;
+      entry.rets.push(body);
+    },
     CallExpression(node) {
       if (!isHookCall(node)) return;
       const entry = getCurrentEntry();
       if (entry == null) return;
-      hooks.get(entry.key)?.hookCalls.push(node);
+      entry.hookCalls.push(node);
+    },
+    ReturnStatement(node: TSESTree.ReturnStatement) {
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      entry.rets.push(node.argument);
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { api, visitor } as const;
