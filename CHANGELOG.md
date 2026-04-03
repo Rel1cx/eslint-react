@@ -1,5 +1,17 @@
 # Changelog
 
+## v4.2.5-beta.1 (2026-04-03)
+
+### 🐞 Fixes
+
+- `react-x`: `error-boundaries`: Fix false positives on non-react code, closes #1690 (#1693) (`d2103595d`)
+
+### 📝 Documentation
+
+- add missing index pages and clean up redirects for flattened URLs (`c419f4282`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.3...v4.2.5-beta.0
+
 ## v4.2.3 (2026-04-03)
 
 ### ✨ New
