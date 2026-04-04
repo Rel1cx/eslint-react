@@ -115,7 +115,6 @@ export const isMemoCall = isAPICall("memo");
 export const isLazyCall = isAPICall("lazy");
 
 // React Hook API checks
-
 export const isUse = isAPI("use");
 export const isUseActionState = isAPI("useActionState");
 export const isUseCallback = isAPI("useCallback");
@@ -136,6 +135,7 @@ export const isUseState = isAPI("useState");
 export const isUseSyncExternalStore = isAPI("useSyncExternalStore");
 export const isUseTransition = isAPI("useTransition");
 
+// React Hook API Call checks
 export const isUseCall = isAPICall("use");
 export const isUseActionStateCall = isAPICall("useActionState");
 export const isUseCallbackCall = isAPICall("useCallback");

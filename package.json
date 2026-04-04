@@ -44,7 +44,6 @@
     "lint:ts": "pnpm m run lint:ts",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
     "prepare": "pnpm run build",
-    "prepare:release": "tsx ./scripts/prepare-release.ts",
     "rename:rule": "tsx ./scripts/rename-rule.ts",
     "scaffold:rule": "tsx ./scripts/scaffold-rule.ts",
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
