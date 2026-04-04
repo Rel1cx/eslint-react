@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isComponentWillUpdate
 
-# Variable: isComponentWillUpdate
+# ~~Variable: isComponentWillUpdate~~
 
 ```ts
 const isComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

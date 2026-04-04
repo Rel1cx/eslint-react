@@ -12,7 +12,6 @@ import {
   ComponentPhaseRelevance,
   type EventListenerEntry,
   getPhaseKindOfFunction,
-  isInversePhase,
 } from "../../types";
 import { createRule } from "../../utils";
 
@@ -24,7 +23,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "expectedRemoveEventListenerInCleanup"
-  | "expectedRemoveEventListenerInUnmount"
   | "unexpectedInlineFunction";
 
 // #endregion
@@ -34,8 +32,7 @@ export type MessageID =
 type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "abort" | "other";
+type CallKind = EventMethodKind | EffectMethodKind | "abort" | "other";
 
 export type AEntry = EventListenerEntry & { method: "addEventListener" };
 
@@ -148,8 +145,6 @@ export default createRule<[], MessageID>({
     messages: {
       expectedRemoveEventListenerInCleanup:
         "An 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
-      expectedRemoveEventListenerInUnmount:
-        "An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in 'componentWillUnmount' method.",
       unexpectedInlineFunction: "A/an '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
@@ -164,7 +159,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("addEventListener")) {
     return {};
   }
-  if (!/use\w*Effect|componentDidMount|componentWillUnmount/u.test(context.sourceCode.text)) {
+  if (!/use\w*Effect/u.test(context.sourceCode.text)) {
     return {};
   }
   const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
@@ -183,7 +178,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
     const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
     const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (!isInversePhase(aPhase, rPhase)) {
+    if (ComponentPhaseRelevance.get(aPhase) !== rPhase) {
       return false;
     }
     return isSameObject(aCallee, rCallee)
@@ -231,7 +226,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // https://github.com/Rel1cx/eslint-react/issues/1323
             const isFromReactNative = node.callee.type === AST.MemberExpression
               && node.callee.object.type === AST.Identifier
-              && core.isInitializedFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
+              && core.isAPIFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
             if (isFromReactNative) {
               return;
             }
@@ -300,13 +295,6 @@ export function create(context: RuleContext<MessageID, []>) {
                   effectMethodKind: "useEffect",
                 },
                 messageId: "expectedRemoveEventListenerInCleanup",
-                node: aEntry.node,
-              });
-              continue;
-            case "mount":
-            case "unmount":
-              context.report({
-                messageId: "expectedRemoveEventListenerInUnmount",
                 node: aEntry.node,
               });
               continue;

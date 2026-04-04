@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>) {
             {
               fix(fixer) {
                 // Ensure the context name is a valid component name before applying the fix
-                if (!core.isComponentNameLoose(contextSelfName)) return null;
+                if (!core.isFunctionComponentNameLoose(contextSelfName)) return null;
                 const openingElement = node.openingElement;
                 const closingElement = node.closingElement;
                 // Handle self-closing elements like <MyContext.Provider value={...} />

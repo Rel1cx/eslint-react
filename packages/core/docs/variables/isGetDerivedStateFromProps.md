@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetDerivedStateFromProps
 
-# Variable: isGetDerivedStateFromProps
+# ~~Variable: isGetDerivedStateFromProps~~
 
 ```ts
 const isGetDerivedStateFromProps: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetDerivedStateFromProps: (node: Node) => node is TSESTreeMethodOrProper
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
     | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const fCollector = core.getComponentCollector(context);
+  const fCollector = core.getFunctionComponentCollector(context);
   const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>) {
     hCollector.visitor,
     {
       CallExpression(node) {
-        if (!core.isUseCall(node)) return;
+        if (!core.isUseCall(context, node)) return;
         useCalls.add(node);
       },
       "Program:exit"(node) {

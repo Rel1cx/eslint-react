@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isComponentWillReceiveProps
 
-# Variable: isComponentWillReceiveProps
+# ~~Variable: isComponentWillReceiveProps~~
 
 ```ts
 const isComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrPrope
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

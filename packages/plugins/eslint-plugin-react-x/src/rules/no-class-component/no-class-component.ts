@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `Component` is not present in the file
   if (!context.sourceCode.text.includes("Component")) return {};
-  const { api, visitor } = core.getComponentCollectorLegacy(context);
+  const { api, visitor } = core.getClassComponentCollector(context);
   return defineRuleListener(
     visitor,
     {

@@ -1,30 +1,21 @@
 [@eslint-react/core](../README.md) / isRenderMethodLike
 
-# Function: isRenderMethodLike()
+# ~~Function: isRenderMethodLike()~~
 
 ```ts
 function isRenderMethodLike(node: Node): node is TSESTreeMethodOrProperty;
 ```
 
-Check whether given node is a render method of a class component
-
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check |
+| `node` | `Node` | The AST node to check. |
 
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
 
-`true` if node is a render function, `false` if not
+## Deprecated
 
-## Example
-
-```tsx
-class Component extends React.Component {
-  renderHeader = () => <div />;
-  renderFooter = () => <div />;
-}
-```
+Class components are legacy. This function exists only to support legacy rules.

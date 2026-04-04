@@ -38,14 +38,16 @@ interface RuleToolkit {
   };
 
   flag: {
-    component: typeof core.ComponentFlag;
+    component: typeof core.FunctionComponentFlag;
   };
 
   hint: {
-    component: typeof core.ComponentDetectionHint & { Default: bigint };
+    component: typeof core.FunctionComponentDetectionHint & { Default: bigint };
   };
 
   is: {
+    API: (api: string) => (node: null | TSESTree.Node) => boolean;
+    APICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     captureOwnerStack: (node: null | TSESTree.Node) => boolean;
     captureOwnerStackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     childrenCount: (node: null | TSESTree.Node) => boolean;
@@ -61,11 +63,10 @@ interface RuleToolkit {
     cloneElement: (node: null | TSESTree.Node) => boolean;
     cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     componentDecl: (node: TSESTreeFunction, hint: bigint) => boolean;
-    componentName: typeof core.isComponentName;
-    componentNameLoose: typeof core.isComponentNameLoose;
+    componentName: typeof core.isFunctionComponentName;
+    componentNameLoose: typeof core.isFunctionComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;
     componentWrapperCallback: (node: TSESTree.Node) => boolean;
-    componentWrapperCallLoose: (node: TSESTree.Node) => boolean;
     createContext: (node: null | TSESTree.Node) => boolean;
     createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     createElement: (node: null | TSESTree.Node) => boolean;
@@ -77,37 +78,35 @@ interface RuleToolkit {
     hookCall: typeof core.isHookCall;
     hookDecl: typeof core.isHookDefinition;
     hookName: typeof core.isHookName;
-    initializedFromReact: typeof core.isInitializedFromReact;
-    initializedFromReactNative: typeof core.isInitializedFromReactNative;
+    initializedFromReact: typeof core.isAPIFromReact;
+    initializedFromReactNative: typeof core.isAPIFromReactNative;
     lazy: (node: null | TSESTree.Node) => boolean;
     lazyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     memo: (node: null | TSESTree.Node) => boolean;
     memoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    reactAPI: (api: string) => (node: null | TSESTree.Node) => boolean;
-    reactAPICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    useActionStateCall: typeof core.isUseActionStateCall;
-    useCall: typeof core.isUseCall;
-    useCallbackCall: typeof core.isUseCallbackCall;
-    useContextCall: typeof core.isUseContextCall;
-    useDebugValueCall: typeof core.isUseDebugValueCall;
-    useDeferredValueCall: typeof core.isUseDeferredValueCall;
-    useEffectCall: typeof core.isUseEffectCall;
+    useActionStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useCallbackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useDebugValueCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useDeferredValueCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useEffectCleanupCallback: typeof core.isUseEffectCleanupCallback;
     useEffectLikeCall: typeof core.isUseEffectLikeCall;
     useEffectSetupCallback: typeof core.isUseEffectSetupCallback;
-    useFormStatusCall: typeof core.isUseFormStatusCall;
-    useIdCall: typeof core.isUseIdCall;
-    useImperativeHandleCall: typeof core.isUseImperativeHandleCall;
-    useInsertionEffectCall: typeof core.isUseInsertionEffectCall;
-    useLayoutEffectCall: typeof core.isUseLayoutEffectCall;
-    useMemoCall: typeof core.isUseMemoCall;
-    useOptimisticCall: typeof core.isUseOptimisticCall;
-    useReducerCall: typeof core.isUseReducerCall;
-    useRefCall: typeof core.isUseRefCall;
-    useStateCall: typeof core.isUseStateCall;
+    useFormStatusCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useIdCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useImperativeHandleCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useInsertionEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useLayoutEffectCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useMemoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useOptimisticCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useReducerCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useStateLikeCall: typeof core.isUseStateLikeCall;
-    useSyncExternalStoreCall: typeof core.isUseSyncExternalStoreCall;
-    useTransitionCall: typeof core.isUseTransitionCall;
+    useSyncExternalStoreCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useTransitionCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
   };
 
   settings: ESLintReactSettingsNormalized;
@@ -117,7 +116,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
   return {
     collect: {
       components(context, options?) {
-        const { api, visitor } = core.getComponentCollector(context, options);
+        const { api, visitor } = core.getFunctionComponentCollector(context, options);
         return {
           query: {
             all(program) {
@@ -141,17 +140,19 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
     },
 
     flag: {
-      component: core.ComponentFlag,
+      component: core.FunctionComponentFlag,
     },
 
     hint: {
       component: {
-        ...core.ComponentDetectionHint,
+        ...core.FunctionComponentDetectionHint,
         Default: core.DEFAULT_COMPONENT_DETECTION_HINT,
       },
     },
 
     is: {
+      API: (api) => core.isAPI(api)(context),
+      APICall: (api) => core.isAPICall(api)(context),
       captureOwnerStack: core.isCaptureOwnerStack(context),
       captureOwnerStackCall: core.isCaptureOwnerStackCall(context),
       childrenCount: core.isChildrenCount(context),
@@ -166,12 +167,11 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       childrenToArrayCall: core.isChildrenToArrayCall(context),
       cloneElement: core.isCloneElement(context),
       cloneElementCall: core.isCloneElementCall(context),
-      componentDecl: (node, hint) => core.isComponentDefinition(context, node, hint),
-      componentName: core.isComponentName,
-      componentNameLoose: core.isComponentNameLoose,
-      componentWrapperCall: (node) => core.isComponentWrapperCall(context, node),
-      componentWrapperCallback: (node) => core.isComponentWrapperCallback(context, node),
-      componentWrapperCallLoose: (node) => core.isComponentWrapperCallLoose(context, node),
+      componentDecl: (node, hint) => core.isFunctionComponentDefinition(context, node, hint),
+      componentName: core.isFunctionComponentName,
+      componentNameLoose: core.isFunctionComponentNameLoose,
+      componentWrapperCall: (node) => core.isFunctionComponentWrapperCall(context, node),
+      componentWrapperCallback: (node) => core.isFunctionComponentWrapperCallback(context, node),
       createContext: core.isCreateContext(context),
       createContextCall: core.isCreateContextCall(context),
       createElement: core.isCreateElement(context),
@@ -183,37 +183,35 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       hookCall: core.isHookCall,
       hookDecl: core.isHookDefinition,
       hookName: core.isHookName,
-      initializedFromReact: core.isInitializedFromReact,
-      initializedFromReactNative: core.isInitializedFromReactNative,
+      initializedFromReact: core.isAPIFromReact,
+      initializedFromReactNative: core.isAPIFromReactNative,
       lazy: core.isLazy(context),
       lazyCall: core.isLazyCall(context),
       memo: core.isMemo(context),
       memoCall: core.isMemoCall(context),
-      reactAPI: (api) => core.isReactAPI(api)(context),
-      reactAPICall: (api) => core.isReactAPICall(api)(context),
-      useActionStateCall: core.isUseActionStateCall,
-      useCall: core.isUseCall,
-      useCallbackCall: core.isUseCallbackCall,
-      useContextCall: core.isUseContextCall,
-      useDebugValueCall: core.isUseDebugValueCall,
-      useDeferredValueCall: core.isUseDeferredValueCall,
-      useEffectCall: core.isUseEffectCall,
+      useActionStateCall: core.isUseActionStateCall(context),
+      useCall: core.isUseCall(context),
+      useCallbackCall: core.isUseCallbackCall(context),
+      useContextCall: core.isUseContextCall(context),
+      useDebugValueCall: core.isUseDebugValueCall(context),
+      useDeferredValueCall: core.isUseDeferredValueCall(context),
+      useEffectCall: core.isUseEffectCall(context),
       useEffectCleanupCallback: core.isUseEffectCleanupCallback,
       useEffectLikeCall: core.isUseEffectLikeCall,
       useEffectSetupCallback: core.isUseEffectSetupCallback,
-      useFormStatusCall: core.isUseFormStatusCall,
-      useIdCall: core.isUseIdCall,
-      useImperativeHandleCall: core.isUseImperativeHandleCall,
-      useInsertionEffectCall: core.isUseInsertionEffectCall,
-      useLayoutEffectCall: core.isUseLayoutEffectCall,
-      useMemoCall: core.isUseMemoCall,
-      useOptimisticCall: core.isUseOptimisticCall,
-      useReducerCall: core.isUseReducerCall,
-      useRefCall: core.isUseRefCall,
-      useStateCall: core.isUseStateCall,
+      useFormStatusCall: core.isUseFormStatusCall(context),
+      useIdCall: core.isUseIdCall(context),
+      useImperativeHandleCall: core.isUseImperativeHandleCall(context),
+      useInsertionEffectCall: core.isUseInsertionEffectCall(context),
+      useLayoutEffectCall: core.isUseLayoutEffectCall(context),
+      useMemoCall: core.isUseMemoCall(context),
+      useOptimisticCall: core.isUseOptimisticCall(context),
+      useReducerCall: core.isUseReducerCall(context),
+      useRefCall: core.isUseRefCall(context),
+      useStateCall: core.isUseStateCall(context),
       useStateLikeCall: core.isUseStateLikeCall,
-      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall,
-      useTransitionCall: core.isUseTransitionCall,
+      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall(context),
+      useTransitionCall: core.isUseTransitionCall(context),
     },
 
     settings: getSettingsFromContext(context),

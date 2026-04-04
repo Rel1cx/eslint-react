@@ -1,9 +1,10 @@
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { unionConstituents } from "ts-api-utils";
 
-import { createRule, getFullyQualifiedNameEx } from "../../utils";
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-implicit-ref";
 
@@ -43,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const ref = type.getProperty("ref");
           if (ref == null) continue;
           // Allow pass-through of React internally defined refs
-          if (getFullyQualifiedNameEx(checker, ref).toLowerCase().endsWith("attributes.ref")) continue;
+          if (core.getFullyQualifiedNameEx(checker, ref).toLowerCase().endsWith("attributes.ref")) continue;
           // Allow when the ref property's type is a React ref type alias
           // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
           const refType = checker.getTypeOfSymbol(ref);

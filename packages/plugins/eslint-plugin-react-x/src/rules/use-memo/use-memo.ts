@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return defineRuleListener({
     CallExpression(node) {
-      if (!core.isUseMemoCall(node)) return;
+      if (!core.isUseMemoCall(context, node)) return;
 
       // Check if the useMemo call result is assigned to a variable.
       // Valid: const x = useMemo(...)

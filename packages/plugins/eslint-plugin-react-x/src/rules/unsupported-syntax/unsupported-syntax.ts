@@ -45,7 +45,7 @@ function isIifeCall(node: ast.TSESTreeFunction) {
 
 export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
-  const cCollector = core.getComponentCollector(context);
+  const cCollector = core.getFunctionComponentCollector(context);
   const evalCalls: {
     func: ast.TSESTreeFunction;
     node: TSESTree.CallExpression;

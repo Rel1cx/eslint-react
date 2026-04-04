@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetDerivedStateFromError
 
-# Variable: isGetDerivedStateFromError
+# ~~Variable: isGetDerivedStateFromError~~
 
 ```ts
 const isGetDerivedStateFromError: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetDerivedStateFromError: (node: Node) => node is TSESTreeMethodOrProper
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

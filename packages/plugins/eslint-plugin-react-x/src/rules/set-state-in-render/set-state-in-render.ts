@@ -140,10 +140,10 @@ export function create(context: RuleContext<MessageID, []>) {
     const id = ast.getFunctionId(node);
     if (id == null) return false;
     if (id.type === AST.Identifier) {
-      return core.isComponentName(id.name) || core.isHookName(id.name);
+      return core.isFunctionComponentName(id.name) || core.isHookName(id.name);
     }
     if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
-      return core.isComponentName(id.property.name) || core.isHookName(id.property.name);
+      return core.isFunctionComponentName(id.property.name) || core.isHookName(id.property.name);
     }
     return false;
   }

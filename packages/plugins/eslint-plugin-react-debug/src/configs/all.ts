@@ -6,7 +6,6 @@ import { plugin } from "../plugin";
 export const name = "react-debug/all";
 
 export const rules = {
-  "react-debug/class-component": "warn",
   "react-debug/function-component": "warn",
   "react-debug/hook": "warn",
   "react-debug/is-from-react": "warn",

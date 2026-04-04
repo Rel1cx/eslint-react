@@ -3,15 +3,5 @@
 # Variable: isUseSyncExternalStoreCall
 
 ```ts
-const isUseSyncExternalStoreCall: (...a: [Node | null]) => boolean;
+const isUseSyncExternalStoreCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

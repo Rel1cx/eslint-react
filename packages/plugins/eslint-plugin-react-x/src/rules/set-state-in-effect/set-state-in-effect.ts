@@ -216,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return true;
         // const identifier = useRef();
         case init.type === AST.CallExpression
-          && isUseRefCall(init):
+          && isUseRefCall(context, init):
           return true;
       }
     }
@@ -324,7 +324,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // const [state, setState] = useState();
             // const set = useMemo(() => setState, []);
             // useEffect(set, []);
-            if (!core.isUseMemoCall(parent)) {
+            if (!core.isUseMemoCall(context, parent)) {
               break;
             }
             const init = ast.findParent(parent, isHookDecl)?.init;
@@ -340,7 +340,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // const [state, setState] = useState();
             // const set = useCallback(setState, []);
             // useEffect(set, []);
-            if (core.isUseCallbackCall(node.parent)) {
+            if (core.isUseCallbackCall(context, node.parent)) {
               const init = ast.findParent(node.parent, isHookDecl)?.init;
               if (init != null) {
                 getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);

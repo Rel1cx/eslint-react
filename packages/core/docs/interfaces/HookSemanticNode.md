@@ -3,7 +3,6 @@
 # Interface: HookSemanticNode
 
 Represents a semantic hook node in the AST
-This interface extends SemanticNode and provides additional properties for React hook analysis
 
 ## Extends
 

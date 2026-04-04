@@ -75,12 +75,12 @@ function isFromReact(
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.Identifier:
-      return core.isInitializedFromReact(node.parent.object.name, initialScope, importSource);
+      return core.isAPIFromReact(node.parent.object.name, initialScope, importSource);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.JSXIdentifier:
-      return core.isInitializedFromReact(node.parent.object.name, initialScope, importSource);
+      return core.isAPIFromReact(node.parent.object.name, initialScope, importSource);
     default:
-      return core.isInitializedFromReact(name, initialScope, importSource);
+      return core.isAPIFromReact(name, initialScope, importSource);
   }
 }

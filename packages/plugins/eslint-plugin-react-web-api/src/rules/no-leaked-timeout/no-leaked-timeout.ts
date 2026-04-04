@@ -16,7 +16,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "expectedClearTimeoutInCleanup"
-  | "expectedClearTimeoutInUnmount"
   | "expectedTimeoutId";
 
 // #endregion
@@ -26,8 +25,7 @@ export type MessageID =
 type FunctionKind = ComponentPhaseKind | "other";
 type EventMethodKind = "setTimeout" | "clearTimeout";
 type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type LifecycleMethodKind = "componentDidMount" | "componentWillUnmount";
-type CallKind = EventMethodKind | EffectMethodKind | LifecycleMethodKind | "other";
+type CallKind = EventMethodKind | EffectMethodKind | "other";
 
 // #endregion
 
@@ -60,8 +58,6 @@ export default createRule<[], MessageID>({
     messages: {
       expectedClearTimeoutInCleanup:
         "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
-      expectedClearTimeoutInUnmount:
-        "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the 'componentWillUnmount' method.",
       expectedTimeoutId: "A 'setTimeout' must be assigned to a variable for proper cleanup.",
     },
     schema: [],
@@ -144,16 +140,6 @@ export function create(context: RuleContext<MessageID, []>) {
                   kind: "useEffect",
                 },
                 messageId: "expectedClearTimeoutInCleanup",
-                node: sEntry.node,
-              });
-              continue;
-            case "mount":
-            case "unmount":
-              context.report({
-                data: {
-                  kind: "componentDidMount",
-                },
-                messageId: "expectedClearTimeoutInUnmount",
                 node: sEntry.node,
               });
               continue;

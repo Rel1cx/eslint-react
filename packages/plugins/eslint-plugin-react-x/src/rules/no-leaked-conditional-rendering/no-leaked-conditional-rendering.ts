@@ -1,4 +1,5 @@
 import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import {
   type RuleContext,
   type RuleFeature,
@@ -17,7 +18,7 @@ import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
 
-import { type TypeVariant, createRule, getTypeVariants } from "../../utils";
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
@@ -67,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
     ...compare(version, "18.0.0", "<")
       ? []
       : ["string", "falsy string"] as const,
-  ] as const satisfies TypeVariant[];
+  ] as const satisfies core.TypeVariant[];
 
   const services = ESLintUtils.getParserServices(context, false);
 
@@ -110,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Get the type of the left-hand side operand
         const leftType = getConstrainedTypeAtLocation(services, left);
-        const leftTypeVariants = getTypeVariants(unionConstituents(leftType));
+        const leftTypeVariants = core.getTypeVariants(unionConstituents(leftType));
         // Check if all possible types of the left operand are in the allowed list
         const isLeftValid = Array
           .from(leftTypeVariants.values())

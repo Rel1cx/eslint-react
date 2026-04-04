@@ -3,15 +3,5 @@
 # Variable: isUseMemoCall
 
 ```ts
-const isUseMemoCall: (...a: [Node | null]) => boolean;
+const isUseMemoCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetChildContext
 
-# Variable: isGetChildContext
+# ~~Variable: isGetChildContext~~
 
 ```ts
 const isGetChildContext: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetChildContext: (node: Node) => node is TSESTreeMethodOrProperty;
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

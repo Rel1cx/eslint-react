@@ -32,7 +32,6 @@ export const rules = {
   "@eslint-react/no-misused-capture-owner-stack": "error",
   "@eslint-react/no-nested-component-definitions": "error",
   "@eslint-react/no-nested-lazy-component-declarations": "error",
-  "@eslint-react/no-redundant-should-component-update": "error",
   "@eslint-react/no-set-state-in-component-did-mount": "warn",
   "@eslint-react/no-set-state-in-component-did-update": "warn",
   "@eslint-react/no-set-state-in-component-will-update": "warn",

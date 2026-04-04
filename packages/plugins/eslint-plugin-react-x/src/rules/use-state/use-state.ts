@@ -110,7 +110,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (ast.findParent(expr, core.isUseCall) != null) continue;
+            if (ast.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
             context.report({ messageId: "invalidInitialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
@@ -121,7 +121,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             // Ignore primitive wrappers like `String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (ast.findParent(expr, core.isUseCall) != null) continue;
+            if (ast.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
             context.report({ messageId: "invalidInitialization", node: expr });
           }
         }

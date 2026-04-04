@@ -3,15 +3,5 @@
 # Variable: isUseLayoutEffectCall
 
 ```ts
-const isUseLayoutEffectCall: (...a: [Node | null]) => boolean;
+const isUseLayoutEffectCall: ReturnType;
 ```
-
-## Parameters
-
-| Parameter | Type |
-| ------ | ------ |
-| ...`a` | \[`Node` \| `null`\] |
-
-## Returns
-
-`boolean`

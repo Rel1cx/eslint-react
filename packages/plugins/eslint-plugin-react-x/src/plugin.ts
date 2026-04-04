@@ -33,7 +33,7 @@ import noMissingKey from "./rules/no-missing-key/no-missing-key";
 import noMisusedCaptureOwnerStack from "./rules/no-misused-capture-owner-stack/no-misused-capture-owner-stack";
 import noNestedComponentDefinitions from "./rules/no-nested-component-definitions/no-nested-component-definitions";
 import noNestedLazyComponentDeclarations from "./rules/no-nested-lazy-component-declarations/no-nested-lazy-component-declarations";
-import noRedundantShouldComponentUpdate from "./rules/no-redundant-should-component-update/no-redundant-should-component-update";
+
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update/no-set-state-in-component-will-update";
@@ -97,7 +97,7 @@ export const plugin = {
     "no-misused-capture-owner-stack": noMisusedCaptureOwnerStack,
     "no-nested-component-definitions": noNestedComponentDefinitions,
     "no-nested-lazy-component-declarations": noNestedLazyComponentDeclarations,
-    "no-redundant-should-component-update": noRedundantShouldComponentUpdate,
+
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,

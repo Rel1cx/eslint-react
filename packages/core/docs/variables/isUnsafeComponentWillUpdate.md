@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isUnsafeComponentWillUpdate
 
-# Variable: isUnsafeComponentWillUpdate
+# ~~Variable: isUnsafeComponentWillUpdate~~
 
 ```ts
 const isUnsafeComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isUnsafeComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrPrope
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

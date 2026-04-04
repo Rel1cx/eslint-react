@@ -31,20 +31,20 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   // Configuration hints to optimize component detection accuracy and performance
-  const hint = core.ComponentDetectionHint.DoNotIncludeJsxWithNumberValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithNullValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithStringValue
-    | core.ComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | core.ComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
-    | core.ComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
-    | core.ComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+  const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNullValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
-  const fCollector = core.getComponentCollector(context, { hint });
-  const cCollector = core.getComponentCollectorLegacy(context);
+  const fCollector = core.getFunctionComponentCollector(context, { hint });
+  const cCollector = core.getClassComponentCollector(context);
 
   return defineRuleListener(
     fCollector.visitor,

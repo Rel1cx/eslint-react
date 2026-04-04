@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  const { api, visitor } = core.getComponentCollector(context);
+  const { api, visitor } = core.getFunctionComponentCollector(context);
 
   return defineRuleListener(visitor, {
     "Program:exit"(program) {

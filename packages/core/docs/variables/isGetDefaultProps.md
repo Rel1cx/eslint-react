@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetDefaultProps
 
-# Variable: isGetDefaultProps
+# ~~Variable: isGetDefaultProps~~
 
 ```ts
 const isGetDefaultProps: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetDefaultProps: (node: Node) => node is TSESTreeMethodOrProperty;
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

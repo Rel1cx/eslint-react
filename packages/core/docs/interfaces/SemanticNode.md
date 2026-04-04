@@ -8,7 +8,6 @@ This is the base interface for all semantic nodes in the React semantic analysis
 ## Extended by
 
 - [`FunctionComponentSemanticNode`](FunctionComponentSemanticNode.md)
-- [`ClassComponentSemanticNode`](ClassComponentSemanticNode.md)
 - [`HookSemanticNode`](HookSemanticNode.md)
 - [`SemanticFunc`](SemanticFunc.md)
 

@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetSnapshotBeforeUpdate
 
-# Variable: isGetSnapshotBeforeUpdate
+# ~~Variable: isGetSnapshotBeforeUpdate~~
 
 ```ts
 const isGetSnapshotBeforeUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetSnapshotBeforeUpdate: (node: Node) => node is TSESTreeMethodOrPropert
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

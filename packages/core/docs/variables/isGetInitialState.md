@@ -1,6 +1,6 @@
 [@eslint-react/core](../README.md) / isGetInitialState
 
-# Variable: isGetInitialState
+# ~~Variable: isGetInitialState~~
 
 ```ts
 const isGetInitialState: (node: Node) => node is TSESTreeMethodOrProperty;
@@ -15,3 +15,7 @@ const isGetInitialState: (node: Node) => node is TSESTreeMethodOrProperty;
 ## Returns
 
 `node is TSESTreeMethodOrProperty`
+
+## Deprecated
+
+Class components are legacy.

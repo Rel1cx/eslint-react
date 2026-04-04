@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && ast.isDirectiveInFile(context.sourceCode.ast, "use memo")) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
-  const { api, visitor } = core.getComponentCollector(context);
+  const { api, visitor } = core.getFunctionComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
 
   return defineRuleListener(

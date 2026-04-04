@@ -139,26 +139,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        import { Component } from 'react';
-
-        class MyComponent extends Component {
-          componentDidMount() {
-            new ResizeObserver(() => {}).observe(document.body);
-          }
-
-          render() {
-            return <div />;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "unexpectedFloatingInstance",
-        },
-      ],
-    },
   ],
   valid: [
     tsx`

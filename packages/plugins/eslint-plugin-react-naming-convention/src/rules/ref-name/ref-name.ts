@@ -34,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return defineRuleListener(
     {
       CallExpression(node: TSESTree.CallExpression) {
-        if (!core.isUseRefCall(node)) return;
+        if (!core.isUseRefCall(context, node)) return;
         // https://github.com/Rel1cx/eslint-react/issues/1375
         if (ast.getUnderlyingExpression(node.parent).type === AST.MemberExpression) return;
         const [id, name] = match(findEnclosingAssignmentTarget(node))
