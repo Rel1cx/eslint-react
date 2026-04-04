@@ -1,8 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type CompareOperator, compare } from "compare-versions";
 
 import { createRule } from "../../utils";

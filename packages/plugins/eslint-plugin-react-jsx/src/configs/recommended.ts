@@ -1,5 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
-import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS, type RuleConfig } from "@eslint-react/shared";
 
 import { plugin } from "../plugin";
 

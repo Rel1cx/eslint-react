@@ -1,5 +1,4 @@
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check if the given node is an identifier

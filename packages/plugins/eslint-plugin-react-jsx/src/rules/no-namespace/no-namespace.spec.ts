@@ -1,4 +1,3 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../../test";

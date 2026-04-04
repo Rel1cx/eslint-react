@@ -9,8 +9,7 @@ import {
 } from "@eslint-react/shared";
 import { computeObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 

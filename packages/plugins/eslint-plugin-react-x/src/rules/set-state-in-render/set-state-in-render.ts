@@ -4,7 +4,7 @@ import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFrom
 import { resolve } from "@eslint-react/var";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
 

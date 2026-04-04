@@ -4,8 +4,7 @@ import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
-import { globalIgnores } from "eslint/config";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
 

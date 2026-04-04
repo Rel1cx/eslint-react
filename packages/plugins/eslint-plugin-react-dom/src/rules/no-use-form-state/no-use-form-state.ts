@@ -1,7 +1,11 @@
-import type { RuleContext, RuleFeature, RuleFixer } from "@eslint-react/shared";
-import { defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import {
+  type RuleContext,
+  type RuleFeature,
+  type RuleFixer,
+  defineRuleListener,
+  getSettingsFromContext,
+} from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
 import { createRule } from "../../utils";

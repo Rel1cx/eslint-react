@@ -1,7 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { resolve } from "./resolve";

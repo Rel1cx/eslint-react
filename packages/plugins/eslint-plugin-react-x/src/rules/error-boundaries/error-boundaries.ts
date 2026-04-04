@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { JsxDetectionHint, isJsxLike } from "@eslint-react/jsx";
-import type { RuleContext, RuleFeature } from "@eslint-react/shared";
-import { defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";

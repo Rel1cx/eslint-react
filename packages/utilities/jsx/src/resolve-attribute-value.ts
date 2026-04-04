@@ -1,5 +1,4 @@
 import type { TSESTreeJSXAttributeLike } from "@eslint-react/ast";
-import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";

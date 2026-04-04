@@ -1,8 +1,7 @@
 import { isIdentifier } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { resolve } from "./resolve";
 
 /**

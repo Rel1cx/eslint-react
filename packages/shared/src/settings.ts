@@ -1,7 +1,7 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 import { getOrInsertComputed, identity } from "@local/eff";
-import type { ESLint, SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
+import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";

@@ -1,9 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import { isJsxLike } from "@eslint-react/jsx";
-import type { RuleContext } from "@eslint-react/shared";
-import { IdGenerator } from "@eslint-react/shared";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { IdGenerator, type RuleContext } from "@eslint-react/shared";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 
 import {
@@ -76,9 +74,9 @@ export function getFunctionComponentCollector(
       hint,
       hookCalls: [],
       initPath,
-      isFunctionComponentDefinition: isFunctionComponentDefinition(context, node, hint),
       isExportDefault,
       isExportDefaultDeclaration,
+      isFunctionComponentDefinition: isFunctionComponentDefinition(context, node, hint),
       node,
       rets: [],
     } as const satisfies FunctionEntry;

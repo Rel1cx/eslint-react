@@ -1,7 +1,5 @@
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
-
-import { match } from "ts-pattern";
 import { createJsxElementResolver, createRule } from "../../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";

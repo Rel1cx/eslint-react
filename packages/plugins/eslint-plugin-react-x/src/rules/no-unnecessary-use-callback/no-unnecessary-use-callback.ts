@@ -4,8 +4,7 @@ import { type RuleContext, type RuleFeature, defineRuleListener, report } from "
 import { resolve } from "@eslint-react/var";
 import { identity } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isIdentifier, isVariableDeclarator } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor, SourceCode } from "@typescript-eslint/utils/ts-eslint";
 import { match } from "ts-pattern";

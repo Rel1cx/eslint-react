@@ -1,7 +1,13 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { ESLintReactSettingsNormalized, RuleFix, RuleFixer, RuleListener } from "@eslint-react/shared";
-import { IdGenerator, getSettingsFromContext } from "@eslint-react/shared";
+import {
+  type ESLintReactSettingsNormalized,
+  IdGenerator,
+  type RuleFix,
+  type RuleFixer,
+  type RuleListener,
+  getSettingsFromContext,
+} from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";

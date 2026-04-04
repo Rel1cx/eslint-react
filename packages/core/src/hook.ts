@@ -1,8 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticNode } from "./semantic";
 
