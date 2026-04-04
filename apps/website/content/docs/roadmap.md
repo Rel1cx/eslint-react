@@ -2,6 +2,53 @@
 title: Roadmap
 ---
 
+## Milestone 5.0
+
+### System Requirements
+
+Minimum supported versions:
+
+- [x] Node.js: 22.0.0
+- [x] ESLint: 10.x.x
+- [x] TypeScript: 5
+
+### Core API Refactoring
+
+- [x] Performed a large-scale flattening refactor of the core package's internal structure, merging modules previously scattered across subdirectories like `component/`, `function/`, `hook/`, `semantic/`, and `api/` into the root directory.
+- [x] Renamed several core APIs:
+  - `isReactAPI` → `isAPI`
+  - `isReactAPICall` → `isAPICall`
+  - `isInitializedFromReact` → `isAPIFromReact`
+  - `isInitializedFromReactNative` → `isAPIFromReactNative`
+  - `ComponentDetectionHint` → `FunctionComponentDetectionHint`
+  - `ComponentFlag` → `FunctionComponentFlag`
+  - `getComponentCollector` → `getFunctionComponentCollector`
+  - `getComponentCollectorLegacy` → `getClassComponentCollector`
+- [x] Migrated type utilities `type-is`, `type-name`, and `type-variant` from `eslint-plugin-react-x` to `@eslint-react/core`.
+- [x] Updated the `Toolkit` interface in `@eslint-react/kit` to reflect the naming changes above.
+
+### Removed Rules
+
+- [x] `@eslint-react/no-redundant-should-component-update`: This rule, along with its documentation and tests, has been removed from `eslint-plugin-react-x` and all configuration presets (`all`, `x`, `recommended`, `strict`, etc.).
+- [x] `debug/class-component`: This debug rule has been removed from `eslint-plugin-react-debug` and the `debug/all` configuration.
+
+### Class Component Support Deprecation
+
+- [x] All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
+- [x] Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
+
+### Documentation
+
+- [x] Added an Examples page (`/docs/examples`), listing all official example projects and links.
+- [x] Removed redundant Overview headings in several places throughout the documentation.
+- [x] Updated the migration guide and roadmap.
+
+### Internal Improvements
+
+- [x] Unified the import style for `@typescript-eslint/types` across the codebase, merging `TSESTree` types and `AST_NODE_TYPES` constants into single-line imports.
+- [x] Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
+- [x] Updated dependency versions for `esbuild`, `@eslint/compat`, `@types/node`, `undici`, etc.
+
 ## Milestone 4.0
 
 ### System Requirements

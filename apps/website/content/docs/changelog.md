@@ -2,6 +2,47 @@
 title: Changelog
 ---
 
+## v5.0.0-beta.0 (2026-04-04)
+
+### 💥 Breaking Changes
+
+#### Core API Refactoring (@eslint-react/core)
+
+- Performed a large-scale flattening refactor of the core package's internal structure, merging modules previously scattered across subdirectories like `component/`, `function/`, `hook/`, `semantic/`, and `api/` into the root directory.
+- Renamed several core APIs:
+  - `isReactAPI` → `isAPI`
+  - `isReactAPICall` → `isAPICall`
+  - `isInitializedFromReact` → `isAPIFromReact`
+  - `isInitializedFromReactNative` → `isAPIFromReactNative`
+  - `ComponentDetectionHint` → `FunctionComponentDetectionHint`
+  - `ComponentFlag` → `FunctionComponentFlag`
+  - `getComponentCollector` → `getFunctionComponentCollector`
+  - `getComponentCollectorLegacy` → `getClassComponentCollector`
+- Migrated type utilities `type-is`, `type-name`, and `type-variant` from `eslint-plugin-react-x` to `@eslint-react/core`.
+- Updated the `Toolkit` interface in `@eslint-react/kit` to reflect the naming changes above.
+
+#### Removed Rules
+
+- `@eslint-react/no-redundant-should-component-update`: This rule, along with its documentation and tests, has been removed from `eslint-plugin-react-x` and all configuration presets (`all`, `x`, `recommended`, `strict`, etc.).
+- `debug/class-component`: This debug rule has been removed from `eslint-plugin-react-debug` and the `debug/all` configuration.
+
+#### Class Component Support Deprecation
+
+- All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
+- Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
+
+### 📝 Documentation
+
+- Added an Examples page (`/docs/examples`), listing all official example projects and links.
+- Removed redundant Overview headings in several places throughout the documentation.
+- Updated the migration guide and roadmap.
+
+### 🏗️ Internal Improvements
+
+- Unified the import style for `@typescript-eslint/types` across the codebase, merging `TSESTree` types and `AST_NODE_TYPES` constants into single-line imports.
+- Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
+- Updated dependency versions for `esbuild`, `@eslint/compat`, `@types/node`, `undici`, etc.
+
 ## v4.2.5-beta.1 (2026-04-03)
 
 ### 🐞 Fixes
