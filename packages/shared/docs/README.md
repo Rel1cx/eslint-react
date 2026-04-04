@@ -37,12 +37,6 @@
 | ------ | ------ |
 | [DEFAULT\_ESLINT\_REACT\_SETTINGS](variables/DEFAULT_ESLINT_REACT_SETTINGS.md) | - |
 | [DEFAULT\_ESLINT\_SETTINGS](variables/DEFAULT_ESLINT_SETTINGS.md) | - |
-| [GITHUB\_URL](variables/GITHUB_URL.md) | The GitHub repository for this project. |
-| [IMPURE\_CTORS](variables/IMPURE_CTORS.md) | Known impure global constructors used with `new` |
-| [IMPURE\_FUNCS](variables/IMPURE_FUNCS.md) | Known impure functions |
-| [NPM\_SCOPE](variables/NPM_SCOPE.md) | The NPM scope for this project. |
-| [PURE\_CTORS](variables/PURE_CTORS.md) | Known pure global constructors used with `new` |
-| [PURE\_FUNCS](variables/PURE_FUNCS.md) | Known pure functions |
 | [RE\_ANNOTATION\_JSX](variables/RE_ANNOTATION_JSX.md) | Regular expression for matching a `@jsx` annotation comment. |
 | [RE\_ANNOTATION\_JSX\_FRAG](variables/RE_ANNOTATION_JSX_FRAG.md) | Regular expression for matching a `@jsxFrag` annotation comment. |
 | [RE\_ANNOTATION\_JSX\_IMPORT\_SOURCE](variables/RE_ANNOTATION_JSX_IMPORT_SOURCE.md) | Regular expression for matching a `@jsxImportSource` annotation comment. |
@@ -61,7 +55,6 @@
 | [RE\_REGEXP\_STR](variables/RE_REGEXP_STR.md) | Regular expression for matching a RegExp string. |
 | [RE\_SNAKE\_CASE](variables/RE_SNAKE_CASE.md) | Regular expression for matching a snake_case string. |
 | [RE\_TS\_EXT](variables/RE_TS_EXT.md) | Regular expression for matching a TypeScript file extension. |
-| [WEBSITE\_URL](variables/WEBSITE_URL.md) | The URL to the project's website. |
 
 ## Functions
 

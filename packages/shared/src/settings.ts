@@ -1,14 +1,18 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
+/// <reference types="node" />
+import module from "node:module";
+import path from "node:path";
+
 import { getOrInsertComputed, identity } from "@local/eff";
 import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
-
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
 
-import { getReactVersion } from "./react-version";
 import { type RegExpLike, toRegExp } from "./regexp";
 import type { RuleContext } from "./types";
+
+const _require = module.createRequire(process.cwd() + path.sep);
 
 /**
  * @internal
@@ -133,12 +137,27 @@ export const normalizeSettings = ({
 
 const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
+/**
+ * Gets the React version from the project's dependencies.
+ * @param fallback The fallback version to return if React is not found.
+ * @returns The detected React version or the fallback version.
+ */
+export function getReactVersion(fallback: string): string {
+  try {
+    return match(_require("react"))
+      .with({ version: P.select(P.string) }, identity)
+      .otherwise(() => fallback);
+  } catch {
+    return fallback;
+  }
+}
+
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
-  const settings = context.settings;
+  const settings = context.settings["react-x"];
   return getOrInsertComputed(
     cache,
-    settings["react-x"],
-    () => normalizeSettings(decodeSettings(settings["react-x"])),
+    settings,
+    () => normalizeSettings(decodeSettings(settings)),
   );
 }
 

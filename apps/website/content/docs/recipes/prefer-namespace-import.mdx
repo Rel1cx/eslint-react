@@ -1,0 +1,126 @@
+---
+title: Prefer Namespace Import
+description: Enforces importing React via a namespace import.
+---
+
+## Overview
+
+This rule enforces that React is imported via a namespace import (`import * as React from 'react'`) instead of a default import (`import React from 'react'`). It provides an auto-fix that converts default imports to namespace imports.
+
+## Rule
+
+Copy the following code into your project (e.g. `.config/preferNamespaceImport.ts`):
+
+```ts title=".config/preferNamespaceImport.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
+
+/** Enforce importing React via a namespace import. */
+export function preferNamespaceImport(): RuleFunction {
+  return (context, { settings }) => {
+    const importSource = settings.importSource;
+    return {
+      [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
+        const hasOtherSpecifiers = node.parent.specifiers.length > 1;
+        context.report({
+          data: { importSource },
+          fix(fixer) {
+            const importDeclarationText = context.sourceCode.getText(node.parent);
+            const semi = importDeclarationText.endsWith(";") ? ";" : "";
+            const quote = node.parent.source.raw?.at(0) ?? "'";
+            const isTypeImport = node.parent.importKind === "type";
+            const importStringPrefix = `import${isTypeImport ? " type" : ""}`;
+            const importSourceQuoted = `${quote}${importSource}${quote}`;
+            if (!hasOtherSpecifiers) {
+              return fixer.replaceText(
+                node.parent,
+                `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
+              );
+            }
+            // remove the default specifier and prepend the namespace import specifier
+            const specifiers = importDeclarationText.slice(
+              importDeclarationText.indexOf("{"),
+              importDeclarationText.indexOf("}") + 1,
+            );
+            return fixer.replaceText(
+              node.parent,
+              [
+                `${importStringPrefix} * as ${node.local.name} from ${importSourceQuoted}${semi}`,
+                `${importStringPrefix} ${specifiers} from ${importSourceQuoted}${semi}`,
+              ].join("\n"),
+            );
+          },
+          messageId: "default",
+          node: hasOtherSpecifiers ? node : node.parent,
+        });
+      },
+    };
+  };
+}
+```
+
+## Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { preferNamespaceImport } from "./.config/preferNamespaceImport";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(preferNamespaceImport)
+      .getConfig(),
+    files: ["src/**/*.{ts,tsx}"],
+  },
+];
+```
+
+## Examples
+
+### Invalid
+
+```tsx
+// Default import — will be reported
+import React from 'react';
+//     ^^^^ Prefer importing React as 'import * as React from "react"';
+```
+
+```tsx
+// Default import with other specifiers — will be reported
+import React, { useState, useEffect } from 'react';
+//     ^^^^ Prefer importing React as 'import * as React from "react"';
+```
+
+### Valid
+
+```tsx
+// Namespace import — OK
+import * as React from 'react';
+```
+
+```tsx
+// Named imports only — OK
+import { useState, useEffect } from 'react';
+```
+
+## How It Works
+
+This rule uses ESLint's selector to find default import specifiers from the configured React import source (defaults to `"react"`).
+
+When a default import is detected:
+
+1. **Simple case** (`import React from 'react'`): Replaces with `import * as React from 'react'`
+
+2. **Mixed case** (`import React, { useState } from 'react'`): Splits into two separate import statements:
+   ```ts
+   import * as React from 'react';
+   import { useState } from 'react';
+   ```
+
+The rule respects:
+
+- The configured `importSource` from React settings (e.g., `"@pika/react"`)
+- Type imports (`import type React from 'react'` → `import type * as React from 'react'`)
+- Semicolon usage style
+- Quote style (single vs double)

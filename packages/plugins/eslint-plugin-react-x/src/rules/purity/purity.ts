@@ -1,13 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  IMPURE_CTORS,
-  IMPURE_FUNCS,
-  type RuleContext,
-  type RuleFeature,
-  defineRuleListener,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+
+import { IMPURE_CTORS, IMPURE_FUNCS } from "./lib";
 
 import { createRule } from "../../utils";
 

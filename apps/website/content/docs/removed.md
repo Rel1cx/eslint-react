@@ -34,6 +34,12 @@ full: true
 | `react-x/prefer-shorthand-boolean`                           |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/prefer-shorthand-fragment`                          |                                                                                                              | 2.0.0      | consolidated |
 | `react-x/prefer-use-state-lazy-initialization`               | [`react-x/use-state`](/docs/rules/use-state)                                                                 | 3.0.0      | consolidated |
+| `react-x/no-unnecessary-use-callback`                        | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler)        | 5.0.0      | deprecated   |
+| `react-x/no-unnecessary-use-memo`                            | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler)        | 5.0.0      | deprecated   |
+| `react-x/no-unused-state`                                    | N/A (Rule deprecated due to low usage and overlap with other rules)                                          | 5.0.0      | deprecated   |
+| `react-x/prefer-destructuring-assignment`                    | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead)        | 5.0.0      | deprecated   |
+| `react-x/prefer-namespace-import`                            | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead)        | 5.0.0      | deprecated   |
+| `react-dom/prefer-namespace-import`                          | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead)        | 5.0.0      | deprecated   |
 | `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](/docs/rules/jsx-uses-vars)                                                         | 2.0.0      | renamed      |
 | `react-x/unstable-rules-of-props`                            | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                        | 4.2.1      | discontinued |
 | `react-x/unstable-rules-of-state`                            | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                        | 4.2.1      | discontinued |
@@ -43,8 +49,8 @@ full: true
 | `react-hooks-extra/exhaustive-deps`                          | [`react-x/exhaustive-deps`](/docs/rules/exhaustive-deps)                                                     | 2.14.0     | relocated    |
 | `react-hooks-extra/no-direct-set-state-in-use-effect`        | [`react-x/set-state-in-effect`](/docs/rules/set-state-in-effect)                                             | 2.14.0     | relocated    |
 | `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-x/set-state-in-effect`](/docs/rules/set-state-in-effect)                                             | 2.0.0      | consolidated |
-| `react-hooks-extra/no-unnecessary-use-callback`              | [`react-x/no-unnecessary-use-callback`](/docs/rules/no-unnecessary-use-callback)                             | 2.0.0      | relocated    |
-| `react-hooks-extra/no-unnecessary-use-memo`                  | [`react-x/no-unnecessary-use-memo`](/docs/rules/no-unnecessary-use-memo)                                     | 2.0.0      | relocated    |
+| `react-hooks-extra/no-unnecessary-use-callback`              | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler)        | 2.0.0      | relocated    |
+| `react-hooks-extra/no-unnecessary-use-memo`                  | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler)        | 2.0.0      | relocated    |
 | `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix)                                 | 2.0.0      | relocated    |
 | `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](/docs/rules/prefer-use-state-lazy-initialization)           | 2.0.0      | relocated    |
 | `react-hooks-extra/rules-of-hooks`                           | [`react-x/rules-of-hooks`](/docs/rules/rules-of-hooks)                                                       | 2.14.0     | relocated    |
