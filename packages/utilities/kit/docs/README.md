@@ -14,7 +14,6 @@
 
 | Type Alias | Description |
 | ------ | ------ |
-| [~~RuleDefinition~~](type-aliases/RuleDefinition.md) | - |
 | [RuleFunction](type-aliases/RuleFunction.md) | - |
 | [RuleListener](type-aliases/RuleListener.md) | - |
 

@@ -226,11 +226,6 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
 
 export type RuleFunction = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 
-/**
- * @deprecated Use `RuleFunction` instead.
- */
-export type RuleDefinition = RuleFunction;
-
 export interface Builder {
   getConfig(): Linter.Config;
   getPlugin(): ESLint.Plugin;
