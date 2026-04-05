@@ -40,13 +40,13 @@ const config = {
         permanent: true,
       },
       {
-        source: "/docs/installation",
-        destination: "/docs/getting-started",
+        source: "/docs/rules/overview",
+        destination: "/docs/rules",
         permanent: true,
       },
       {
-        source: "/docs/rules/overview",
-        destination: "/docs/rules",
+        source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
+        destination: "/docs/rules/set-state-in-effect",
         permanent: true,
       },
       {
