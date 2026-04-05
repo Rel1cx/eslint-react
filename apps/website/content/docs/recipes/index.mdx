@@ -75,18 +75,18 @@ export default defineConfig(
 
 ### Simple
 
-| Recipe                                                                         | Description                                                                                                                                            |
-| :----------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`Component Hook Factories`](/docs/recipes/component-hook-factories)           | Disallows components or hooks defined inside other functions (factory pattern).                                                                        |
-| [`Function Component Definition`](/docs/recipes/function-component-definition) | Enforces arrow function style for function component definitions.                                                                                      |
-| [`No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on.            |
-| [`Prefer Namespace Import`](/docs/recipes/prefer-namespace-import)             | Enforces importing React via a namespace import instead of default import.                                                                             |
+| Recipe                                                                         | Description                                                                                                                                 |
+| :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| [`Component Hook Factories`](/docs/recipes/component-hook-factories)           | Disallows components or hooks defined inside other functions (factory pattern).                                                             |
+| [`Function Component Definition`](/docs/recipes/function-component-definition) | Enforces arrow function style for function component definitions.                                                                           |
+| [`No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
+| [`Prefer Namespace Import`](/docs/recipes/prefer-namespace-import)             | Enforces importing React via a namespace import instead of default import.                                                                  |
 
 ### Compound
 
-| Recipe                                                                         | Rules | Description                                                                                                                                            |
-| :----------------------------------------------------------------------------- | :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`Custom Rules Of Props`](/docs/recipes/custom-rules-of-props)                 |   4   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access.    |
-| [`Custom Rules Of State`](/docs/recipes/custom-rules-of-state)                 |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                           |
-| [`Custom Rules Of Children`](/docs/recipes/custom-rules-of-children)           |   5   | Validates React Children API usage. Includes checks for `Children.count`, `Children.forEach`, `Children.map`, `Children.only`, and `Children.toArray`. |
-| [`Custom Rules Of Context`](/docs/recipes/custom-rules-of-context)             |   1   | Validates React Context API usage. Includes checks for `useContext` and other context-related patterns.                                                |
+| Recipe                                                               | Rules | Description                                                                                                                                            |
+| :------------------------------------------------------------------- | :---: | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`Custom Rules Of Props`](/docs/recipes/custom-rules-of-props)       |   4   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access.    |
+| [`Custom Rules Of State`](/docs/recipes/custom-rules-of-state)       |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                           |
+| [`Custom Rules Of Children`](/docs/recipes/custom-rules-of-children) |   5   | Validates React Children API usage. Includes checks for `Children.count`, `Children.forEach`, `Children.map`, `Children.only`, and `Children.toArray`. |
+| [`Custom Rules Of Context`](/docs/recipes/custom-rules-of-context)   |   1   | Validates React Context API usage. Includes checks for `useContext` and other context-related patterns.                                                |

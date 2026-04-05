@@ -326,21 +326,6 @@ Factory functions (context pre-bound):
 | `API`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
 | `APICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
 
-Pre-built identifier predicates (context pre-bound):
-
-- `captureOwnerStack`
-- `childrenCount`
-- `childrenForEach`
-- `childrenMap`
-- `childrenOnly`
-- `childrenToArray`
-- `cloneElement`
-- `createContext`
-- `createElement`
-- `forwardRef`
-- `memo`
-- `lazy`
-
 Pre-built call predicates (context pre-bound):
 
 - `captureOwnerStackCall`
@@ -360,7 +345,6 @@ All React API predicates and factories have `context` pre-bound — no need to p
 
 ```ts
 // Direct check
-is.memo(node);
 is.memoCall(node);
 
 // Useful in filter/find
@@ -373,10 +357,10 @@ isCreateRefCall(node);
 
 ##### Import source
 
-| Predicate                    | Signature                                 | Description                                          |
-| ---------------------------- | ----------------------------------------- | ---------------------------------------------------- |
-| `initializedFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
-| `initializedFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
+| Predicate            | Signature                                 | Description                                          |
+| -------------------- | ----------------------------------------- | ---------------------------------------------------- |
+| `APIFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
+| `APIFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
 
 ---
 

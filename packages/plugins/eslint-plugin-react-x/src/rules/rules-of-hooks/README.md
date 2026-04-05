@@ -12,7 +12,7 @@ Changes to the rule logic should be made upstream in the React repository and th
 
 ### Source
 
-- **Original Source**: https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts
+- **Original Source**: [https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts)
 - **License**: MIT License (Copyright (c) Meta Platforms, Inc. and affiliates.)
 
 ### Local Adaptations

@@ -54,41 +54,28 @@ interface RuleToolkit {
   is: {
     API: (api: string) => (node: null | TSESTree.Node) => boolean;
     APICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    captureOwnerStack: (node: null | TSESTree.Node) => boolean;
+    APIFromReact: typeof core.isAPIFromReact;
+    APIFromReactNative: typeof core.isAPIFromReactNative;
     captureOwnerStackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenCount: (node: null | TSESTree.Node) => boolean;
     childrenCountCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenForEach: (node: null | TSESTree.Node) => boolean;
     childrenForEachCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenMap: (node: null | TSESTree.Node) => boolean;
     childrenMapCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenOnly: (node: null | TSESTree.Node) => boolean;
     childrenOnlyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    childrenToArray: (node: null | TSESTree.Node) => boolean;
     childrenToArrayCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    cloneElement: (node: null | TSESTree.Node) => boolean;
     cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     componentDecl: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isFunctionComponentName;
     componentNameLoose: typeof core.isFunctionComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;
     componentWrapperCallback: (node: TSESTree.Node) => boolean;
-    createContext: (node: null | TSESTree.Node) => boolean;
     createContextCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    createElement: (node: null | TSESTree.Node) => boolean;
     createElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    createRef: (node: null | TSESTree.Node) => boolean;
     createRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    forwardRef: (node: null | TSESTree.Node) => boolean;
     forwardRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     hookCall: typeof core.isHookCall;
     hookDecl: typeof core.isHookDefinition;
     hookName: typeof core.isHookName;
-    initializedFromReact: typeof core.isAPIFromReact;
-    initializedFromReactNative: typeof core.isAPIFromReactNative;
-    lazy: (node: null | TSESTree.Node) => boolean;
     lazyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    memo: (node: null | TSESTree.Node) => boolean;
     memoCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useActionStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
@@ -159,41 +146,28 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
     is: {
       API: (api) => core.isAPI(api)(context),
       APICall: (api) => core.isAPICall(api)(context),
-      captureOwnerStack: core.isCaptureOwnerStack(context),
+      APIFromReact: core.isAPIFromReact,
+      APIFromReactNative: core.isAPIFromReactNative,
       captureOwnerStackCall: core.isCaptureOwnerStackCall(context),
-      childrenCount: core.isChildrenCount(context),
       childrenCountCall: core.isChildrenCountCall(context),
-      childrenForEach: core.isChildrenForEach(context),
       childrenForEachCall: core.isChildrenForEachCall(context),
-      childrenMap: core.isChildrenMap(context),
       childrenMapCall: core.isChildrenMapCall(context),
-      childrenOnly: core.isChildrenOnly(context),
       childrenOnlyCall: core.isChildrenOnlyCall(context),
-      childrenToArray: core.isChildrenToArray(context),
       childrenToArrayCall: core.isChildrenToArrayCall(context),
-      cloneElement: core.isCloneElement(context),
       cloneElementCall: core.isCloneElementCall(context),
       componentDecl: (node, hint) => core.isFunctionComponentDefinition(context, node, hint),
       componentName: core.isFunctionComponentName,
       componentNameLoose: core.isFunctionComponentNameLoose,
       componentWrapperCall: (node) => core.isFunctionComponentWrapperCall(context, node),
       componentWrapperCallback: (node) => core.isFunctionComponentWrapperCallback(context, node),
-      createContext: core.isCreateContext(context),
       createContextCall: core.isCreateContextCall(context),
-      createElement: core.isCreateElement(context),
       createElementCall: core.isCreateElementCall(context),
-      createRef: core.isCreateRef(context),
       createRefCall: core.isCreateRefCall(context),
-      forwardRef: core.isForwardRef(context),
       forwardRefCall: core.isForwardRefCall(context),
       hookCall: core.isHookCall,
       hookDecl: core.isHookDefinition,
       hookName: core.isHookName,
-      initializedFromReact: core.isAPIFromReact,
-      initializedFromReactNative: core.isAPIFromReactNative,
-      lazy: core.isLazy(context),
       lazyCall: core.isLazyCall(context),
-      memo: core.isMemo(context),
       memoCall: core.isMemoCall(context),
       useActionStateCall: core.isUseActionStateCall(context),
       useCall: core.isUseCall(context),

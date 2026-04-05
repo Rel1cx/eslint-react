@@ -238,6 +238,8 @@ kit
 ├── settings           -> Normalized ESLint React settings
 ```
 
+---
+
 ### `kit.collect`
 
 Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
@@ -252,6 +254,8 @@ Collector factories create a `{ query, visitor }` pair. The `visitor` must be me
 | Query                | Description                               |
 | -------------------- | ----------------------------------------- |
 | `query.all(program)` | All collected semantic nodes in the file. |
+
+---
 
 ### `kit.is`
 
@@ -270,6 +274,8 @@ All predicates live under `kit.is` — organized into four sub-sections.
 
 #### Hook
 
+General hook predicates:
+
 | Predicate                  | Signature                             | Description                                                  |
 | -------------------------- | ------------------------------------- | ------------------------------------------------------------ |
 | `hook`                     | `(node) -> boolean`                   | Whether a function node is a hook (by name).                 |
@@ -284,25 +290,10 @@ All predicates live under `kit.is` — organized into four sub-sections.
 
 Factory functions (context pre-bound):
 
-| Predicate      | Signature                        | Description                                                                  |
-| -------------- | -------------------------------- | ---------------------------------------------------------------------------- |
-| `reactAPI`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
-| `reactAPICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
-
-Pre-built identifier predicates (context pre-bound):
-
-- `captureOwnerStack`
-- `childrenCount`
-- `childrenForEach`
-- `childrenMap`
-- `childrenOnly`
-- `childrenToArray`
-- `cloneElement`
-- `createContext`
-- `createElement`
-- `forwardRef`
-- `memo`
-- `lazy`
+| Predicate | Signature                        | Description                                                                  |
+| --------- | -------------------------------- | ---------------------------------------------------------------------------- |
+| `API`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
+| `APICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
 
 Pre-built call predicates (context pre-bound):
 
@@ -323,7 +314,6 @@ All React API predicates and factories have `context` pre-bound — no need to p
 
 ```ts
 // Direct check
-is.memo(node);
 is.memoCall(node);
 
 // Useful in filter/find
@@ -336,14 +326,16 @@ isCreateRefCall(node);
 
 #### Import source
 
-| Predicate                    | Signature                                 | Description                                          |
-| ---------------------------- | ----------------------------------------- | ---------------------------------------------------- |
-| `initializedFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
-| `initializedFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
+| Predicate            | Signature                                 | Description                                          |
+| -------------------- | ----------------------------------------- | ---------------------------------------------------- |
+| `APIFromReact`       | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React import.        |
+| `APIFromReactNative` | `(name, scope, importSource?) -> boolean` | Whether a variable comes from a React Native import. |
+
+---
 
 ### `kit.hint`
 
-Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`\|`) and remove with bitwise AND-NOT (`& ~`).
+Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`|`) and remove with bitwise AND-NOT (`& ~`).
 
 ```ts
 // The default hint used when none is specified
@@ -365,6 +357,8 @@ const { query, visitor } = collect.components(context, {
   hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
 });
 ```
+
+---
 
 ### `kit.flag`
 
@@ -419,6 +413,8 @@ function version(major = "19"): RuleFunction {
   });
 }
 ```
+
+---
 
 ## Examples
 
