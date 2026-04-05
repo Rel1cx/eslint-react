@@ -136,7 +136,7 @@ Anonymous rules are ideal for checks that are **critical to code quality or secu
 eslintReactKit().use(() => (context, { is }) => ({
   CallExpression(node) {
     // Prevent dangerous API calls that could lead to XSS
-    if (is.createElement(node) && isUnsafeArgument(node.arguments[0])) {
+    if (is.createElement(node) && isUnsafeArguments(node.arguments)) {
       context.report({
         node,
         message: "Potential XSS vulnerability detected. This issue must be fixed.",
