@@ -14,9 +14,6 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   serverExternalPackages: [
     "@takumi-rs/image-response",
     "twoslash",

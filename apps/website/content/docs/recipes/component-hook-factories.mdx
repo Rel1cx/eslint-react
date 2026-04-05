@@ -1,6 +1,6 @@
 ---
 title: Component Hook Factories
-description: Disallows components or hooks defined inside other functions (factory pattern).
+description: Disallows components or hooks defined inside other functions (factory pattern)
 ---
 
 ## Overview
@@ -20,10 +20,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */
 export function componentHookFactories(): RuleFunction {
-  function findParent(
-    { parent }: TSESTree.Node,
-    test: (n: TSESTree.Node) => boolean,
-  ): TSESTree.Node | null {
+  function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
     if (parent == null) return null;
     if (test(parent)) return parent;
     if (parent.type === "Program") return null;

@@ -1,16 +1,108 @@
 ---
 title: Custom Rules Of Props
-description: Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access.
+description: Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access
 ---
 
 ## Overview
 
 This recipe contains four custom rules for validating JSX props:
 
-1. **`noDirectAccessProps`**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
-2. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
+1. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
+2. **`noDirectAccessProps`**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
 3. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
 4. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
+
+## noDuplicateProps
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noDuplicateProps.ts`):
+
+```ts title=".config/noDuplicateProps.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow duplicate props on JSX elements. */
+export function noDuplicateProps(): RuleFunction {
+  return (context) => {
+    function getPropName(
+      attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
+    ): string {
+      if (attribute.name.type === "JSXNamespacedName") {
+        const ns = attribute.name.namespace as { name: string };
+        const local = attribute.name.name as { name: string };
+        return `${ns.name}:${local.name}`;
+      }
+      return attribute.name.name as string;
+    }
+
+    return {
+      JSXOpeningElement(node) {
+        const seen = new Map<string, boolean>();
+
+        for (const attribute of node.attributes) {
+          if (attribute.type === "JSXSpreadAttribute") continue;
+
+          const propName = getPropName(attribute);
+
+          if (seen.has(propName)) {
+            context.report({
+              node: attribute,
+              message: `Prop \`${propName}\` is specified more than once. Only the last one will take effect.`,
+            });
+          }
+
+          seen.set(propName, true);
+        }
+      },
+    };
+  };
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noDuplicateProps } from "./.config/noDuplicateProps";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noDuplicateProps)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+<div id="a" id="b" />;
+//          ^^^ Prop `id` is specified more than once. Only the last one will take effect.
+```
+
+```tsx
+<div onClick={handleA} onClick={handleB} />;
+//                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
+```
+
+#### Valid
+
+```tsx
+<div id="a" className="b" />;
+```
+
+```tsx
+<div id="a" {...props} />;
+```
+
+Reports when a prop appears multiple times on a JSX element. Only the last occurrence takes effect, silently discarding earlier values. This is typically a copy-paste error or a merge conflict leftover.
+
+Spread attributes are ignored because overriding them with explicit props is a common and valid pattern.
 
 ## noDirectAccessProps
 
@@ -109,98 +201,6 @@ Reports when component props are accessed via member expressions (e.g., `props.n
 This rule uses the `collect.components` collector from `@eslint-react/kit` to find all function component definitions in the file. For each component, it checks if the first parameter (`props`) is an `Identifier`, then finds all references to the `props` variable and reports any that are used as the object of a `MemberExpression`.
 
 This encourages consistent destructuring patterns which improve code readability and make it easier to track which props a component uses.
-
-## noDuplicateProps
-
-### Rule
-
-Copy the following into your project (e.g. `.config/noDuplicateProps.ts`):
-
-```ts title=".config/noDuplicateProps.ts"
-import type { RuleFunction } from "@eslint-react/kit";
-
-/** Disallow duplicate props on JSX elements. */
-export function noDuplicateProps(): RuleFunction {
-  return (context) => {
-    function getPropName(
-      attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
-    ): string {
-      if (attribute.name.type === "JSXNamespacedName") {
-        const ns = attribute.name.namespace as { name: string };
-        const local = attribute.name.name as { name: string };
-        return `${ns.name}:${local.name}`;
-      }
-      return attribute.name.name as string;
-    }
-
-    return {
-      JSXOpeningElement(node) {
-        const seen = new Map<string, boolean>();
-
-        for (const attribute of node.attributes) {
-          if (attribute.type === "JSXSpreadAttribute") continue;
-
-          const propName = getPropName(attribute);
-
-          if (seen.has(propName)) {
-            context.report({
-              node: attribute,
-              message: `Prop \`${propName}\` is specified more than once. Only the last one will take effect.`,
-            });
-          }
-
-          seen.set(propName, true);
-        }
-      },
-    };
-  };
-}
-```
-
-### Config
-
-```ts title="eslint.config.ts"
-import eslintReactKit from "@eslint-react/kit";
-import { noDuplicateProps } from "./.config/noDuplicateProps";
-
-export default [
-  // ... other configs
-  {
-    ...eslintReactKit()
-      .use(noDuplicateProps)
-      .getConfig(),
-    files: ["src/**/*.tsx"],
-  },
-];
-```
-
-### Examples
-
-#### Invalid
-
-```tsx
-<div id="a" id="b" />;
-//          ^^^ Prop `id` is specified more than once. Only the last one will take effect.
-```
-
-```tsx
-<div onClick={handleA} onClick={handleB} />;
-//                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
-```
-
-#### Valid
-
-```tsx
-<div id="a" className="b" />;
-```
-
-```tsx
-<div id="a" {...props} />;
-```
-
-Reports when a prop appears multiple times on a JSX element. Only the last occurrence takes effect, silently discarding earlier values. This is typically a copy-paste error or a merge conflict leftover.
-
-Spread attributes are ignored because overriding them with explicit props is a common and valid pattern.
 
 ## noExplicitSpreadProps
 
@@ -375,8 +375,8 @@ To use all four rules together:
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
 import {
-  noDirectAccessProps,
   noDuplicateProps,
+  noDirectAccessProps,
   noExplicitSpreadProps,
   noMixingControlledAndUncontrolledProps,
 } from "./.config";
@@ -385,8 +385,8 @@ export default [
   // ... other configs
   {
     ...eslintReactKit()
-      .use(noDirectAccessProps)
       .use(noDuplicateProps)
+      .use(noDirectAccessProps)
       .use(noExplicitSpreadProps)
       .use(noMixingControlledAndUncontrolledProps)
       .getConfig(),

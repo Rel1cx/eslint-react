@@ -29,7 +29,7 @@ export default function HomePage() {
           {features.map(([title, description, Icon]) => (
             <Card
               description={description}
-              icon={<Icon />}
+              icon={<Icon aria-hidden="true" />}
               key={title}
               title={title}
             />
@@ -37,12 +37,16 @@ export default function HomePage() {
         </Cards>
         <h2>Roadmap</h2>
         <p>
-          Check out the <Link href="/docs/roadmap">roadmap</Link> to see what's planned for the future.
+          Check out the <Link aria-label="View the project roadmap" href="/docs/roadmap">roadmap</Link>{" "}
+          to see what's planned for the future.
         </p>
         <h2>Contributing</h2>
         <p>
           Want to contribute? Check out the{" "}
-          <Link href="https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md">
+          <Link
+            aria-label="Read the contributing guide on GitHub"
+            href="https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md"
+          >
             contributing guide
           </Link>.
         </p>
@@ -50,7 +54,13 @@ export default function HomePage() {
       <footer className="text-sm text-center md:text-base text-gray-500 mt-12 mb-6">
         <small>
           ESLint React is not affiliated with Meta Corporation or the{" "}
-          <Link className="underline" href="https://github.com/facebook/react">facebook/react</Link>{" "}
+          <Link
+            aria-label="Visit the official facebook/react GitHub repository"
+            className="underline"
+            href="https://github.com/facebook/react"
+          >
+            facebook/react
+          </Link>{" "}
           project or team, nor is it endorsed or sponsored by them.
 
           This project is, and will remain, 90% of its code written by humans.

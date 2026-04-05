@@ -1,15 +1,25 @@
 ---
 title: "Glossary"
-description: "A collection of terms and concepts used in the ESLint React."
+description: "A collection of terms and concepts used in the ESLint React"
 ---
+
+## R
+
+### Recipe
+
+Ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). Recipes are designed to be **copied and pasted** directly into your project, allowing you to customize the implementation to match your team's conventions.
+
+See [Recipes](/docs/recipes) for available recipes.
 
 ## P
 
 ### Project Rules
 
-Custom ESLint rules defined inline in your `eslint.config.ts` using [`@eslint-react/kit`](/docs/configuration/configure-project-rules).
+Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, Project Rules are owned by your team and can be tailored to match your specific coding standards.
 
-Unlike traditional ESLint rules that live in standalone plugins, Project Rules are project-specific rules tailored to your codebase's conventions and requirements.
+Project Rules are defined as functions that return a rule implementation, and are registered using the `eslintReactKit().use()` builder API. The rule name is automatically derived from the function name (e.g., `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
+
+See [Configure Project Rules](/docs/configuration/configure-project-rules) for setup instructions and [Recipes](/docs/recipes) for ready-to-use examples.
 
 ### Project Config
 
