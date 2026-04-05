@@ -9,7 +9,7 @@
     "presets",
     "recipes",
     "packages",
-    "examples",
+    "!examples",
     "configuration",
     "---Project Information---",
     "roadmap",

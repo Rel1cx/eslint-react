@@ -133,14 +133,6 @@ esslintReactKit().use(() => (context) => ({
 }));
 ```
 
-**Example: Generated rule names for 3 inline anonymous functions:**
-
-| Factory                                    | Generated Rule Name                            |
-| ------------------------------------------ | ---------------------------------------------- |
-| `() => () => ({ JSXOpeningElement() {} })` | `@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C` |
-| `() => () => ({ JSXClosingElement() {} })` | `@eslint-react/kit/01KNE2WSJ8GMXA6JNGJW5C0NB6` |
-| `() => () => ({ JSXText() {} })`           | `@eslint-react/kit/01KNE2WSJ8Q9ZQE8M0QP9X9QM6` |
-
 > **Note:** The rule names are ULIDs generated randomly on each ESLint run. The examples above illustrate the format — actual values will differ every time.
 
 ##### Characteristics of Anonymous Rules

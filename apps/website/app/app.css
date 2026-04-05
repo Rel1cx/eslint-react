@@ -134,15 +134,10 @@ button {
 		font-weight: 400;
 	}
 
-	p[style^="padding-inline-start:calc(2 * var(--spacing))"] {
-		margin-top: 28px;
-		margin-bottom: 16px;
-	}
-
 	div[data-state],
 	a[data-active] {
-		margin-top: 4px;
-		margin-bottom: 4px;
+		margin-top: 3px;
+		margin-bottom: 3px;
 		border-radius: 6px;
 	}
 }
