@@ -2,21 +2,21 @@
 
 ## Forward References
 
-<!-- EMPTY TABLE TEMPLATE: DO NOT DELETE -->
+<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
 
 | Rule | References |
 | ---- | ---------- |
 
 ## Reverse References (Who references this rule)
 
-<!-- EMPTY TABLE TEMPLATE: DO NOT DELETE -->
+<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
 
 | Rule | Referenced By |
 | ---- | ------------- |
 
 ## Bidirectional Relations
 
-<!-- EMPTY TABLE TEMPLATE: DO NOT DELETE -->
+<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
 
 Pairs of rules that reference each other:
 
