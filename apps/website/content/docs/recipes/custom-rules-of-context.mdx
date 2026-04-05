@@ -1,0 +1,115 @@
+---
+title: Custom Rules Of Context
+description: Validates React Context API usage. Includes checks for 'useContext' and other context-related patterns.
+---
+
+## Overview
+
+This recipe contains custom rules for validating React Context API usage:
+
+1. **`noUseContext`**: Reports usage of `useContext` and suggests using `use` instead (React 19+).
+
+## noUseContext
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noUseContext.ts`):
+
+```ts title=".config/noUseContext.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow 'useContext' in React 19+. Prefer 'use' instead. */
+export function noUseContext(): RuleFunction {
+  return (context, { is }) => ({
+    CallExpression(node) {
+      if (is.useContextCall(node)) {
+        context.report({
+          node: node.callee,
+          message: "In React 19, 'use' is preferred over 'useContext' because it is more flexible.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noUseContext } from "./.config/noUseContext";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noUseContext)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { useContext } from "react";
+
+function Button() {
+  const theme = useContext(ThemeContext);
+  //            ^^^^^^^^^^ In React 19, 'use' is preferred over 'useContext' because it is more flexible.
+  // ...
+}
+```
+
+#### Valid
+
+```tsx
+import { use } from "react";
+
+function Button() {
+  const theme = use(ThemeContext);
+  // ...
+}
+```
+
+Reports when `useContext` is used in React 19+ projects. The `use` API is more flexible than `useContext` because it can be called in loops and conditional statements.
+
+This rule checks the React version from settings and only reports when the version is 19.0.0 or higher. For projects on React 18 or earlier, this rule does nothing.
+
+## Using All Rules
+
+To use all context-related rules together:
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import {
+  noUseContext,
+  // Additional context rules can be added here
+} from "./.config";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noUseContext)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+## Further Reading
+
+- [React Docs: Blog: New feature `use`](https://react.dev/blog/2024/12/05/react-19#new-feature-use)
+- [React Docs: Reading context with `use`](https://react.dev/reference/react/use#reading-context-with-use)
+- [React Docs: `useContext`](https://react.dev/reference/react/useContext)
+
+---
+
+## See Also
+
+- [`custom-rules-of-children`](./custom-rules-of-children)\
+  Validates React Children API usage. Includes checks for `Children.count`, `Children.forEach`, `Children.map`, `Children.only`, and `Children.toArray`.

@@ -18,7 +18,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 /** Enforce importing React via a namespace import. */
 export function preferNamespaceImport(): RuleFunction {
   return (context, { settings }) => {
-    const importSource = settings.importSource;
+    const { importSource } = settings;
     return {
       [`ImportDeclaration[source.value="${importSource}"] ImportDefaultSpecifier`](node: TSESTree.ImportDefaultSpecifier) {
         const hasOtherSpecifiers = node.parent.specifiers.length > 1;

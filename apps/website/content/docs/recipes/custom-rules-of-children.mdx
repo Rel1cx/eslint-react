@@ -1,0 +1,409 @@
+---
+title: Custom Rules Of Children
+description: Validates React Children API usage. Includes checks for 'Children.count', 'Children.forEach', 'Children.map', 'Children.only', and 'Children.toArray'.
+---
+
+## Overview
+
+This recipe contains five custom rules for validating React Children API usage:
+
+1. **`noChildrenCount`**: Reports the use of `Children.count` from the 'react' package.
+2. **`noChildrenForEach`**: Reports the use of `Children.forEach` from the 'react' package.
+3. **`noChildrenMap`**: Reports the use of `Children.map` from the 'react' package.
+4. **`noChildrenOnly`**: Reports the use of `Children.only` from the 'react' package.
+5. **`noChildrenToArray`**: Reports the use of `Children.toArray` from the 'react' package.
+
+## noChildrenCount
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noChildrenCount.ts`):
+
+```ts title=".config/noChildrenCount.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow the use of Children.count. */
+export function noChildrenCount(): RuleFunction {
+  return (context, { is }) => ({
+    MemberExpression(node) {
+      if (is.childrenCount(node)) {
+        context.report({
+          node: node.property,
+          message: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noChildrenCount } from "./.config/noChildrenCount";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenCount)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { Children } from "react";
+
+function MyComponent({ children }) {
+  return <h1>Total: {Children.count(children)}</h1>;
+  //                        ^^^^^ Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.
+}
+```
+
+#### Valid
+
+```tsx
+function MyComponent({ children }) {
+  const count = Array.isArray(children) ? children.length : 0;
+  return <h1>Total: {count}</h1>;
+}
+```
+
+Reports when `Children.count` is used. This API is fragile because it doesn't work well with fragments, renders, and other modern React patterns.
+
+## noChildrenForEach
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noChildrenForEach.ts`):
+
+```ts title=".config/noChildrenForEach.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow the use of Children.forEach. */
+export function noChildrenForEach(): RuleFunction {
+  return (context, { is }) => ({
+    MemberExpression(node) {
+      if (is.childrenForEach(node)) {
+        context.report({
+          node: node.property,
+          message: "Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noChildrenForEach } from "./.config/noChildrenForEach";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenForEach)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { Children } from "react";
+
+function MyComponent({ children }) {
+  const result = [];
+  Children.forEach(children, (child, index) => {
+  //       ^^^^^^^ Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.
+    result.push(child);
+    result.push(<hr key={index} />);
+  });
+}
+```
+
+#### Valid
+
+```tsx
+function MyComponent({ children }) {
+  return (
+    <>
+      {Array.isArray(children) && children.map((child, index) => (
+        <React.Fragment key={index}>
+          {child}
+          <hr />
+        </React.Fragment>
+      ))}
+    </>
+  );
+}
+```
+
+Reports when `Children.forEach` is used. Use standard array methods or JSX transformation patterns instead.
+
+## noChildrenMap
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noChildrenMap.ts`):
+
+```ts title=".config/noChildrenMap.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow the use of Children.map. */
+export function noChildrenMap(): RuleFunction {
+  return (context, { is }) => ({
+    MemberExpression(node) {
+      if (is.childrenMap(node)) {
+        context.report({
+          node: node.property,
+          message: "Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noChildrenMap } from "./.config/noChildrenMap";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenMap)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { Children } from "react";
+
+function MyComponent({ children }) {
+  return (
+    <div className="RowList">
+      {Children.map(children, (child) => <div className="Row">{child}</div>)}
+      //      ^^^ Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.
+    </div>
+  );
+}
+```
+
+#### Valid
+
+```tsx
+function MyComponent({ children }) {
+  return (
+    <div className="RowList">
+      {Array.isArray(children) && children.map((child, i) => (
+        <div className="Row" key={i}>{child}</div>
+      ))}
+    </div>
+  );
+}
+```
+
+Reports when `Children.map` is used. This pattern is rarely needed in modern React; instead, render children directly or use standard array methods.
+
+## noChildrenOnly
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noChildrenOnly.ts`):
+
+```ts title=".config/noChildrenOnly.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow the use of Children.only. */
+export function noChildrenOnly(): RuleFunction {
+  return (context, { is }) => ({
+    MemberExpression(node) {
+      if (is.childrenOnly(node)) {
+        context.report({
+          node: node.property,
+          message: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noChildrenOnly } from "./.config/noChildrenOnly";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenOnly)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { Children } from "react";
+
+function MyComponent({ children }) {
+  const element = Children.only(children);
+  //                     ^^^^ Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.
+  // ...
+}
+```
+
+#### Valid
+
+```tsx
+import { isValidElement } from "react";
+
+function MyComponent({ children }) {
+  if (!isValidElement(children)) {
+    throw new Error("Expected a single React element child");
+  }
+  const element = children;
+  // ...
+}
+```
+
+Reports when `Children.only` is used. This API throws if children is not a single element. Use type checks or explicit validation instead for clearer error handling.
+
+## noChildrenToArray
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noChildrenToArray.ts`):
+
+```ts title=".config/noChildrenToArray.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow the use of Children.toArray. */
+export function noChildrenToArray(): RuleFunction {
+  return (context, { is }) => ({
+    MemberExpression(node) {
+      if (is.childrenToArray(node)) {
+        context.report({
+          node: node.property,
+          message: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",
+        });
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noChildrenToArray } from "./.config/noChildrenToArray";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenToArray)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+import { Children } from "react";
+
+function MyComponent({ children }) {
+  const result = Children.toArray(children);
+  //                     ^^^^^^^ Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.
+  result.reverse();
+  // ...
+}
+```
+
+#### Valid
+
+```tsx
+function MyComponent({ children }) {
+  const result = Array.isArray(children) ? [...children] : [children];
+  // ...
+}
+```
+
+Reports when `Children.toArray` is used. This API is typically a workaround for poor component design. Restructure your props or use standard React patterns instead.
+
+## Using All Rules
+
+To use all five rules together:
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import {
+  noChildrenCount,
+  noChildrenForEach,
+  noChildrenMap,
+  noChildrenOnly,
+  noChildrenToArray,
+} from "./.config";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noChildrenCount)
+      .use(noChildrenForEach)
+      .use(noChildrenMap)
+      .use(noChildrenOnly)
+      .use(noChildrenToArray)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+## Further Reading
+
+- [Legacy React APIs: `Children`](https://react.dev/reference/react/Children)
+- [React Docs: `Children` alternatives](https://react.dev/reference/react/Children#alternatives)
+
+---
+
+## See Also
+
+- [`custom-rules-of-context`](./custom-rules-of-context)\
+  Validates React Context API usage. Includes checks for 'useContext' and other context-related patterns.
