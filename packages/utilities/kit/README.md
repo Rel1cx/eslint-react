@@ -168,7 +168,14 @@ eslintReactKit().use(() => (context, { is }) => ({
 }));
 ```
 
-**Note:** Since the rule name is random and changes on every ESLint run, developers cannot use standard disable comments like:
+**Note:** Since the rule name is random and changes on every ESLint run, developers cannot use standard rules configs or disable comments like:
+
+```ts
+// This will NOT work - the rule name is random!
+{ rules: { "01KNE2WSJ8011D2HXE3A6H717C": "off" } }
+```
+
+Or
 
 ```ts
 // This will NOT work - the rule name is random!
