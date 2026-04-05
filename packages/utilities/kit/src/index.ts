@@ -2,7 +2,6 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
   type ESLintReactSettingsNormalized,
-  IdGenerator,
   type RuleFix,
   type RuleFixer,
   type RuleListener,
@@ -13,6 +12,7 @@ import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";
 import { kebabCase } from "string-ts";
 export { defineRuleListener as merge } from "@eslint-react/shared";
+import { ulid } from "ulid";
 
 import pkg from "../package.json";
 
@@ -238,7 +238,6 @@ export interface Builder {
 }
 
 export default function build(): Builder {
-  const idGen = new IdGenerator();
   const rules: ESLint.Plugin["rules"] & {} = {};
   const builder: Builder = {
     getConfig(): Linter.Config {
@@ -264,7 +263,7 @@ export default function build(): Builder {
       };
     },
     use(make: (...args: any[]) => RuleFunction, ...args: any[]): Builder {
-      const name = kebabCase(make.name === "" ? idGen.next() : make.name);
+      const name = make.name === "" ? ulid() : kebabCase(make.name);
       Reflect.set(rules, name, {
         meta: {
           fixable: "code",

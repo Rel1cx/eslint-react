@@ -36,4 +36,4 @@ overrides:
   undici-types: ^8.0.2
   undici: ^8.0.2
 
-# trustPolicy: "no-downgrade"
+trustPolicy: "no-downgrade"

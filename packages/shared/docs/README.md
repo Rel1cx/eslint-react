@@ -1,11 +1,5 @@
 # @eslint-react/shared
 
-## Classes
-
-| Class | Description |
-| ------ | ------ |
-| [IdGenerator](classes/IdGenerator.md) | A generator for unique ids. |
-
 ## Interfaces
 
 | Interface | Description |

@@ -119,6 +119,64 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
 }
 ```
 
+#### Anonymous Rules
+
+When you use an **anonymous function** (arrow function without a name) with `.use()`, a random ULID is automatically generated as the rule name:
+
+```ts
+// Anonymous rule → random ULID name like "01KNE2WSJ8011D2HXE3A6H717C"
+// Registered as `@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C`
+esslintReactKit().use(() => (context) => ({
+  JSXOpeningElement(node) {
+    // Critical check that cannot be easily disabled
+  },
+}));
+```
+
+**Example: Generated rule names for 3 inline anonymous functions:**
+
+| Index | Factory                                    | Generated Rule Name                            |
+| ----: | ------------------------------------------ | ---------------------------------------------- |
+|     1 | `() => () => ({ JSXOpeningElement() {} })` | `@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C` |
+|     2 | `() => () => ({ JSXClosingElement() {} })` | `@eslint-react/kit/01KNE2WSJ8GMXA6JNGJW5C0NB6` |
+|     3 | `() => () => ({ JSXText() {} })`           | `@eslint-react/kit/01KNE2WSJ8Q9ZQE8M0QP9X9QM6` |
+
+> **Note:** The rule names are ULIDs generated randomly on each ESLint run. The examples above illustrate the format — actual values will differ every time.
+
+##### Characteristics of Anonymous Rules
+
+| Feature            | Description                                                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Random name**    | A unique ULID is generated for each rule on every lint run                                                                                 |
+| **Non-disablable** | Cannot be disabled via `{ rules: { <rule-name>: "off" } }` or `// eslint-disable-next-line <rule-name>` because the name changes each time |
+| **Use case**       | Critical checks that must never be bypassed                                                                                                |
+
+Anonymous rules are ideal for checks that are **critical to code quality or security** and should never be bypassed via disable comments:
+
+```ts
+// This critical security check cannot be easily disabled by developers
+eslintReactKit().use(() => (context, { is }) => ({
+  CallExpression(node) {
+    // Prevent dangerous API calls that could lead to XSS
+    if (is.createElement(node) && isUnsafeArgument(node.arguments[0])) {
+      context.report({
+        node,
+        message: "Potential XSS vulnerability detected. This issue must be fixed.",
+      });
+    }
+  },
+}));
+```
+
+**Note:** Since the rule name is random and changes on every ESLint run, developers cannot use standard disable comments like:
+
+```ts
+// This will NOT work - the rule name is random!
+// eslint-disable-next-line 01KNE2WSJ8011D2HXE3A6H717C
+```
+
+To disable an anonymous rule, developers must modify the ESLint configuration file directly, which provides an audit trail for policy violations.
+
 ### `Builder`
 
 ```ts
