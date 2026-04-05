@@ -1,13 +1,15 @@
 {
   "title": "Recipes",
   "pages": [
+    "---Simple---",
     "component-hook-factories",
-    "custom-rules-of-children",
-    "custom-rules-of-context",
-    "custom-rules-of-props",
-    "custom-rules-of-state",
     "function-component-definition",
     "no-circular-effect",
-    "prefer-namespace-import"
+    "prefer-namespace-import",
+    "---Compound---",
+    "custom-rules-of-props",
+    "custom-rules-of-state",
+    "custom-rules-of-children",
+    "custom-rules-of-context"
   ]
 }
