@@ -184,6 +184,22 @@ Or
 
 To disable an anonymous rule, developers must modify the ESLint configuration file directly, which provides an audit trail for policy violations.
 
+##### Debugging Anonymous Rules
+
+For debugging purposes, you can [set a `displayName`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/displayName#setting_a_displayname) on an anonymous function. The display name will be used as a label in various places. This helps identify the rule, while the actual registered rule name remains a random ULID:
+
+```ts
+import { defineRule } from "@eslint-react/kit";
+
+const myRule = defineRule(() => (context) => ({}));
+
+myRule.displayName = "my-rule";
+
+eslintReactKit().use(myRule);
+```
+
+> **Note:** This feature is currently under development and may not be available in the current release.
+
 ### `Builder`
 
 ```ts
