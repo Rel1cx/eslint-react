@@ -1,10 +1,11 @@
 {
   "title": "Recipes",
   "pages": [
+    "component-hook-factories",
     "custom-rules-of-props",
     "custom-rules-of-state",
-    "component-hook-factories",
     "function-component-definition",
-    "no-circular-effect"
+    "no-circular-effect",
+    "prefer-namespace-import"
   ]
 }

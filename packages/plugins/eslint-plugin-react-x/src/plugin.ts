@@ -37,8 +37,6 @@ import noNestedLazyComponentDeclarations from "./rules/no-nested-lazy-component-
 import noSetStateInComponentDidMount from "./rules/no-set-state-in-component-did-mount/no-set-state-in-component-did-mount";
 import noSetStateInComponentDidUpdate from "./rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update";
 import noSetStateInComponentWillUpdate from "./rules/no-set-state-in-component-will-update/no-set-state-in-component-will-update";
-import noUnnecessaryUseCallback from "./rules/no-unnecessary-use-callback/no-unnecessary-use-callback";
-import noUnnecessaryUseMemo from "./rules/no-unnecessary-use-memo/no-unnecessary-use-memo";
 import noUnnecessaryUsePrefix from "./rules/no-unnecessary-use-prefix/no-unnecessary-use-prefix";
 import noUnsafeComponentWillMount from "./rules/no-unsafe-component-will-mount/no-unsafe-component-will-mount";
 import noUnsafeComponentWillReceiveProps from "./rules/no-unsafe-component-will-receive-props/no-unsafe-component-will-receive-props";
@@ -47,10 +45,7 @@ import noUnstableContextValue from "./rules/no-unstable-context-value/no-unstabl
 import noUnstableDefaultProps from "./rules/no-unstable-default-props/no-unstable-default-props";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members/no-unused-class-component-members";
 import noUnusedProps from "./rules/no-unused-props/no-unused-props";
-import noUnusedState from "./rules/no-unused-state/no-unused-state";
 import noUseContext from "./rules/no-use-context/no-use-context";
-import preferDestructuringAssignment from "./rules/prefer-destructuring-assignment/prefer-destructuring-assignment";
-import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
 import purity from "./rules/purity/purity";
 import refs from "./rules/refs/refs";
 import rulesOfHooks from "./rules/rules-of-hooks/rules-of-hooks";
@@ -101,8 +96,6 @@ export const plugin = {
     "no-set-state-in-component-did-mount": noSetStateInComponentDidMount,
     "no-set-state-in-component-did-update": noSetStateInComponentDidUpdate,
     "no-set-state-in-component-will-update": noSetStateInComponentWillUpdate,
-    "no-unnecessary-use-callback": noUnnecessaryUseCallback,
-    "no-unnecessary-use-memo": noUnnecessaryUseMemo,
     "no-unnecessary-use-prefix": noUnnecessaryUsePrefix,
     "no-unsafe-component-will-mount": noUnsafeComponentWillMount,
     "no-unsafe-component-will-receive-props": noUnsafeComponentWillReceiveProps,
@@ -111,10 +104,7 @@ export const plugin = {
     "no-unstable-default-props": noUnstableDefaultProps,
     "no-unused-class-component-members": noUnusedClassComponentMembers,
     "no-unused-props": noUnusedProps,
-    "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
-    "prefer-destructuring-assignment": preferDestructuringAssignment,
-    "prefer-namespace-import": preferNamespaceImport,
     purity: purity,
     refs: refs,
     "rules-of-hooks": rulesOfHooks,

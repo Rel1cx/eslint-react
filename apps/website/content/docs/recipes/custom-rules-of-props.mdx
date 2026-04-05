@@ -1,15 +1,114 @@
 ---
 title: Custom Rules Of Props
-description: Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, and explicit spread props.
+description: Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access.
 ---
 
 ## Overview
 
-This recipe contains three custom rules for validating JSX props:
+This recipe contains four custom rules for validating JSX props:
 
-1. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
-2. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
-3. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
+1. **`noDirectAccessProps`**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
+2. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
+3. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
+4. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
+
+## noDirectAccessProps
+
+### Rule
+
+Copy the following into your project (e.g. `.config/noDirectAccessProps.ts`):
+
+```ts title=".config/noDirectAccessProps.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
+
+/** Enforce destructuring assignment for component props. */
+export function noDirectAccessProps(): RuleFunction {
+  return (context, { collect }) => {
+    const { query, visitor } = collect.components(context);
+
+    return merge(visitor, {
+      "Program:exit"(program) {
+        for (const { node } of query.all(program)) {
+          const [props] = node.params;
+          if (props == null) continue;
+          if (props.type !== "Identifier") continue;
+          const propName = props.name;
+          const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
+          const propReferences = propVariable?.references ?? [];
+          for (const ref of propReferences) {
+            const { parent } = ref.identifier;
+            if (parent.type !== "MemberExpression") continue;
+            context.report({
+              message: "Use destructuring assignment for component props.",
+              node: parent,
+            });
+          }
+        }
+      },
+    });
+  };
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noDirectAccessProps } from "./.config/noDirectAccessProps";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noDirectAccessProps)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+// Member expression access — will be reported
+function MyComponent(props) {
+  return <div>Hello, {props.name}!</div>;
+  //                     ^^^^^^^^^ Use destructuring assignment for component props.
+}
+```
+
+```tsx
+// Member expression access — will be reported
+const MyComponent = (props) => {
+  return <div>{props.title}</div>;
+  //            ^^^^^^^^^^^ Use destructuring assignment for component props.
+};
+```
+
+#### Valid
+
+```tsx
+// Destructured props — OK
+function MyComponent({ name }: { name: string }) {
+  return <div>Hello, {name}!</div>;
+}
+```
+
+```tsx
+// Destructured props — OK
+const MyComponent = ({ title }: { title: string }) => {
+  return <div>{title}</div>;
+};
+```
+
+Reports when component props are accessed via member expressions (e.g., `props.name`).
+
+This rule uses the `collect.components` collector from `@eslint-react/kit` to find all function component definitions in the file. For each component, it checks if the first parameter (`props`) is an `Identifier`, then finds all references to the `props` variable and reports any that are used as the object of a `MemberExpression`.
+
+This encourages consistent destructuring patterns which improve code readability and make it easier to track which props a component uses.
 
 ## noDuplicateProps
 
@@ -271,16 +370,22 @@ Only well-known React prop pairs are checked:
 
 ## Using All Rules
 
-To use all three rules together:
+To use all four rules together:
 
 ```ts title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
-import { noDuplicateProps, noExplicitSpreadProps, noMixingControlledAndUncontrolledProps } from "./.config";
+import {
+  noDirectAccessProps,
+  noDuplicateProps,
+  noExplicitSpreadProps,
+  noMixingControlledAndUncontrolledProps,
+} from "./.config";
 
 export default [
   // ... other configs
   {
     ...eslintReactKit()
+      .use(noDirectAccessProps)
       .use(noDuplicateProps)
       .use(noExplicitSpreadProps)
       .use(noMixingControlledAndUncontrolledProps)

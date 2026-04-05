@@ -18,7 +18,6 @@ import noUnsafeIframeSandbox from "./rules/no-unsafe-iframe-sandbox/no-unsafe-if
 import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank/no-unsafe-target-blank";
 import noUseFormState from "./rules/no-use-form-state/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children/no-void-elements-with-children";
-import preferNamespaceImport from "./rules/prefer-namespace-import/prefer-namespace-import";
 
 export const plugin = {
   meta: {
@@ -42,6 +41,5 @@ export const plugin = {
     "no-unsafe-target-blank": noUnsafeTargetBlank,
     "no-use-form-state": noUseFormState,
     "no-void-elements-with-children": noVoidElementsWithChildren,
-    "prefer-namespace-import": preferNamespaceImport,
   },
 } as unknown as ESLint.Plugin;
