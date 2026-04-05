@@ -7,7 +7,7 @@ export function ESLintReact() {
     <div className="flex flex-col items-center gap-4 m-0 mx-auto p-8 w-fit">
       <Image alt="logo" height="150" quality={100} src={logo as StaticImageData} width="150" />
       <span className="text-2xl">ESLint React</span>
-      <p className="text-center text-(--color-fd-prose-body) pt-4">
+      <p className="text-center text-fd-prose-body pt-4">
         4-7x faster, composable ESLint rules for React and friends.
       </p>
     </div>
