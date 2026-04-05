@@ -1,8 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import { isJsxLike } from "@eslint-react/jsx";
-import { IdGenerator, type RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { ulid } from "ulid";
 
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,
@@ -14,8 +15,6 @@ import {
   isFunctionWithLooseComponentName,
 } from "./function-component";
 import { isHookCall } from "./hook";
-
-const idGen = new IdGenerator("component:");
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isFunctionComponentDefinition: boolean;
@@ -55,7 +54,7 @@ export function getFunctionComponentCollector(
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
-    const key = idGen.next();
+    const key = ulid();
     const exp = ast.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;

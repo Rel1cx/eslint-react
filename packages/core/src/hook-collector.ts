@@ -1,10 +1,9 @@
 import * as ast from "@eslint-react/ast";
-import { IdGenerator, type RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
+import { ulid } from "ulid";
 
 import { type HookSemanticNode, isHookCall, isHookId } from "./hook";
-
-const idGen = new IdGenerator("hook:");
 
 interface FunctionEntry extends HookSemanticNode {
   isHookDefinition: boolean;
@@ -31,7 +30,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
     const id = ast.getFunctionId(node);
-    const key = idGen.next();
+    const key = ulid();
     const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
     const entry = {
       id,

@@ -1,13 +1,12 @@
 import * as ast from "@eslint-react/ast";
-import { IdGenerator, type RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
+import { ulid } from "ulid";
 
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
 
 // #region Component Collector Legacy
-
-const idGen = new IdGenerator("class-component:");
 
 /**
  * @deprecated Class components are legacy. This namespace exists only to support legacy rules.
@@ -40,7 +39,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
       return;
     }
     const id = ast.getClassId(node);
-    const key = idGen.next();
+    const key = ulid();
     const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
     components.set(
       key,
