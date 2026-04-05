@@ -24,7 +24,7 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
   - [Component: Destructure component props](#component-destructure-component-props)
   - [Hooks: Warn on custom hooks that don't call other hooks](#hooks-warn-on-custom-hooks-that-dont-call-other-hooks)
   - [Multiple Collectors: No component/hook factories](#multiple-collectors-no-componenthook-factories)
-  - [Override Config: Using spread syntax with `getConfig`](#Override-config-using-spread-syntax-with-getconfig)
+  - [Override Config: Using spread syntax with `getConfig`](#override-config-using-spread-syntax-with-getconfig)
   - [Advanced Config: Using `getPlugin` for custom plugin namespace](#advanced-config-using-getplugin-for-custom-plugin-namespace)
 - [More Examples](#more-examples)
 
