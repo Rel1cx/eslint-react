@@ -34,12 +34,12 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(ctx: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>) {
   let inChildrenToArray = false;
 
   function check(node: TSESTree.Node): Descriptor | null {
     if (node.type === AST.JSXElement) {
-      return !hasAttribute(ctx, node, "key")
+      return !hasAttribute(context, node, "key")
         ? { messageId: "default", node }
         : null;
     }
@@ -81,13 +81,13 @@ export function create(ctx: RuleContext<MessageID, []>) {
         const elements = node.elements.filter(ast.is(AST.JSXElement));
         if (elements.length === 0) return;
         for (const el of elements) {
-          if (!hasAttribute(ctx, el, "key")) {
-            ctx.report({ messageId: "default", node: el });
+          if (!hasAttribute(context, el, "key")) {
+            context.report({ messageId: "default", node: el });
           }
         }
       },
       CallExpression(node) {
-        inChildrenToArray ||= core.isChildrenToArrayCall(ctx, node);
+        inChildrenToArray ||= core.isChildrenToArrayCall(context, node);
         if (inChildrenToArray) return;
         if (node.callee.type !== AST.MemberExpression) return;
         if (node.callee.property.type !== AST.Identifier) return;
@@ -97,20 +97,20 @@ export function create(ctx: RuleContext<MessageID, []>) {
         const cb = node.arguments[idx];
         if (!ast.isFunction(cb)) return;
         if (cb.body.type === AST.BlockStatement) {
-          checkBlock(cb.body).forEach(report(ctx));
+          checkBlock(cb.body).forEach(report(context));
         } else {
-          report(ctx)(checkExpr(cb.body));
+          report(context)(checkExpr(cb.body));
         }
       },
       "CallExpression:exit"(node) {
-        if (core.isChildrenToArrayCall(ctx, node)) {
+        if (core.isChildrenToArrayCall(context, node)) {
           inChildrenToArray = false;
         }
       },
       JSXFragment(node) {
         if (inChildrenToArray) return;
         if (node.parent.type === AST.ArrayExpression) {
-          ctx.report({ messageId: "unexpectedFragmentSyntax", node });
+          context.report({ messageId: "unexpectedFragmentSyntax", node });
         }
       },
     },

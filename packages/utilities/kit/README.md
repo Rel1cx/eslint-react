@@ -99,7 +99,7 @@ Creates a `Builder` instance for registering custom rules via the chainable `.us
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
 
-type RuleFunction = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+type RuleFunction = (context: RuleContext, toolkit: RuleToolkit) => RuleListener;
 ```
 
 A function that receives the ESLint rule context and the structured `RuleToolkit` toolkit, and returns a `RuleListener` (AST visitor object).
