@@ -25,10 +25,10 @@ import type { RuleFunction } from "@eslint-react/kit";
 /** Disallow the use of Children.count. */
 export function noChildrenCount(): RuleFunction {
   return (context, { is }) => ({
-    MemberExpression(node) {
-      if (is.childrenCount(node)) {
+    CallExpression(node) {
+      if (is.childrenCountCall(node)) {
         context.report({
-          node: node.property,
+          node,
           message: "Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.",
         });
       }
@@ -90,10 +90,10 @@ import type { RuleFunction } from "@eslint-react/kit";
 /** Disallow the use of Children.forEach. */
 export function noChildrenForEach(): RuleFunction {
   return (context, { is }) => ({
-    MemberExpression(node) {
-      if (is.childrenForEach(node)) {
+    CallExpression(node) {
+      if (is.childrenForEachCall(node)) {
         context.report({
-          node: node.property,
+          node,
           message: "Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.",
         });
       }
@@ -167,10 +167,10 @@ import type { RuleFunction } from "@eslint-react/kit";
 /** Disallow the use of Children.map. */
 export function noChildrenMap(): RuleFunction {
   return (context, { is }) => ({
-    MemberExpression(node) {
-      if (is.childrenMap(node)) {
+    CallExpression(node) {
+      if (is.childrenMapCall(node)) {
         context.report({
-          node: node.property,
+          node,
           message: "Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.",
         });
       }
@@ -241,10 +241,10 @@ import type { RuleFunction } from "@eslint-react/kit";
 /** Disallow the use of Children.only. */
 export function noChildrenOnly(): RuleFunction {
   return (context, { is }) => ({
-    MemberExpression(node) {
-      if (is.childrenOnly(node)) {
+    CallExpression(node) {
+      if (is.childrenOnlyCall(node)) {
         context.report({
-          node: node.property,
+          node,
           message: "Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.",
         });
       }
@@ -312,10 +312,10 @@ import type { RuleFunction } from "@eslint-react/kit";
 /** Disallow the use of Children.toArray. */
 export function noChildrenToArray(): RuleFunction {
   return (context, { is }) => ({
-    MemberExpression(node) {
-      if (is.childrenToArray(node)) {
+    CallExpression(node) {
+      if (is.childrenToArrayCall(node)) {
         context.report({
-          node: node.property,
+          node,
           message: "Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.",
         });
       }

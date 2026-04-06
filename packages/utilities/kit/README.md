@@ -278,13 +278,13 @@ All predicates live under `kit.is` — organized into four sub-sections.
 
 ##### Component
 
-| Predicate                   | Signature                 | Description                                                                 |
-| --------------------------- | ------------------------- | --------------------------------------------------------------------------- |
-| `componentDecl`             | `(node, hint) -> boolean` | Whether a function node is a component. (context pre-bound)                 |
-| `componentName`             | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
-| `componentNameLoose`        | `(name) -> boolean`       | Loose component name check.                                                 |
-| `componentWrapperCall`      | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
-| `componentWrapperCallback`  | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
+| Predicate                  | Signature                 | Description                                                                 |
+| -------------------------- | ------------------------- | --------------------------------------------------------------------------- |
+| `componentDecl`            | `(node, hint) -> boolean` | Whether a function node is a component. (context pre-bound)                 |
+| `componentName`            | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
+| `componentNameLoose`       | `(name) -> boolean`       | Loose component name check.                                                 |
+| `componentWrapperCall`     | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
+| `componentWrapperCallback` | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
 
 ##### Hook
 
@@ -302,26 +302,26 @@ General hook predicates:
 
 Specific hook call predicates (context pre-bound):
 
-| Predicate                   | Description                                      |
-| --------------------------- | ------------------------------------------------ |
-| `useActionStateCall`        | Whether a node is a `useActionState` call.       |
-| `useCallbackCall`           | Whether a node is a `useCallback` call.          |
-| `useContextCall`            | Whether a node is a `useContext` call.           |
-| `useDebugValueCall`         | Whether a node is a `useDebugValue` call.        |
-| `useDeferredValueCall`      | Whether a node is a `useDeferredValue` call.     |
-| `useEffectCall`             | Whether a node is a `useEffect` call.            |
-| `useFormStatusCall`         | Whether a node is a `useFormStatus` call.        |
-| `useIdCall`                 | Whether a node is a `useId` call.                |
-| `useImperativeHandleCall`   | Whether a node is a `useImperativeHandle` call.  |
-| `useInsertionEffectCall`    | Whether a node is a `useInsertionEffect` call.   |
-| `useLayoutEffectCall`       | Whether a node is a `useLayoutEffect` call.      |
-| `useMemoCall`               | Whether a node is a `useMemo` call.              |
-| `useOptimisticCall`         | Whether a node is a `useOptimistic` call.        |
-| `useReducerCall`            | Whether a node is a `useReducer` call.           |
-| `useRefCall`                | Whether a node is a `useRef` call.               |
-| `useStateCall`              | Whether a node is a `useState` call.             |
-| `useSyncExternalStoreCall`  | Whether a node is a `useSyncExternalStore` call. |
-| `useTransitionCall`         | Whether a node is a `useTransition` call.        |
+| Predicate                  | Description                                      |
+| -------------------------- | ------------------------------------------------ |
+| `useActionStateCall`       | Whether a node is a `useActionState` call.       |
+| `useCallbackCall`          | Whether a node is a `useCallback` call.          |
+| `useContextCall`           | Whether a node is a `useContext` call.           |
+| `useDebugValueCall`        | Whether a node is a `useDebugValue` call.        |
+| `useDeferredValueCall`     | Whether a node is a `useDeferredValue` call.     |
+| `useEffectCall`            | Whether a node is a `useEffect` call.            |
+| `useFormStatusCall`        | Whether a node is a `useFormStatus` call.        |
+| `useIdCall`                | Whether a node is a `useId` call.                |
+| `useImperativeHandleCall`  | Whether a node is a `useImperativeHandle` call.  |
+| `useInsertionEffectCall`   | Whether a node is a `useInsertionEffect` call.   |
+| `useLayoutEffectCall`      | Whether a node is a `useLayoutEffect` call.      |
+| `useMemoCall`              | Whether a node is a `useMemo` call.              |
+| `useOptimisticCall`        | Whether a node is a `useOptimistic` call.        |
+| `useReducerCall`           | Whether a node is a `useReducer` call.           |
+| `useRefCall`               | Whether a node is a `useRef` call.               |
+| `useStateCall`             | Whether a node is a `useState` call.             |
+| `useSyncExternalStoreCall` | Whether a node is a `useSyncExternalStore` call. |
+| `useTransitionCall`        | Whether a node is a `useTransition` call.        |
 
 ##### React API
 
