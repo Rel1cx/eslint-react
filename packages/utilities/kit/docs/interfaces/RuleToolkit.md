@@ -1,0 +1,70 @@
+[@eslint-react/kit](../README.md) / RuleToolkit
+
+# Interface: RuleToolkit
+
+## Properties
+
+| Property | Type | Description |
+| ------ | ------ | ------ |
+| <a id="property-collect"></a> `collect` | \{ `components`: [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`\>; `hooks`: [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`\>; \} | - |
+| `collect.components` | [`CollectorWithContext`](CollectorWithContext.md)\<`FunctionComponentSemanticNode`\> | - |
+| `collect.hooks` | [`CollectorWithContext`](CollectorWithContext.md)\<`HookSemanticNode`\> | - |
+| <a id="property-flag"></a> `flag` | \{ `component`: \{ `CreateElement`: `bigint`; `ForwardRef`: `bigint`; `Memo`: `bigint`; `None`: `bigint`; `PureComponent`: `bigint`; \}; \} | - |
+| `flag.component` | \{ `CreateElement`: `bigint`; `ForwardRef`: `bigint`; `Memo`: `bigint`; `None`: `bigint`; `PureComponent`: `bigint`; \} | - |
+| `flag.component.CreateElement` | `bigint` | - |
+| `flag.component.ForwardRef` | `bigint` | - |
+| `flag.component.Memo` | `bigint` | - |
+| `flag.component.None` | `bigint` | No flags set |
+| `flag.component.PureComponent` | `bigint` | - |
+| <a id="property-hint"></a> `hint` | \{ `component`: \{ `DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayExpressionElement`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayFlatMapCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayMapCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayPatternElement`: `bigint`; `DoNotIncludeFunctionDefinedAsClassMethod`: `bigint`; `DoNotIncludeFunctionDefinedAsClassProperty`: `bigint`; `DoNotIncludeFunctionDefinedAsObjectMethod`: `bigint`; `DoNotIncludeJsxWithBigIntValue`: `bigint`; `DoNotIncludeJsxWithBooleanValue`: `bigint`; `DoNotIncludeJsxWithCreateElementValue`: `bigint`; `DoNotIncludeJsxWithEmptyArrayValue`: `bigint`; `DoNotIncludeJsxWithNullValue`: `bigint`; `DoNotIncludeJsxWithNumberValue`: `bigint`; `DoNotIncludeJsxWithStringValue`: `bigint`; `DoNotIncludeJsxWithUndefinedValue`: `bigint`; `None`: `0n`; `RequireAllArrayElementsToBeJsx`: `bigint`; `RequireBothBranchesOfConditionalExpressionToBeJsx`: `bigint`; `RequireBothSidesOfLogicalExpressionToBeJsx`: `bigint`; \} & \{ `Default`: `bigint`; \}; \} | - |
+| `hint.component` | \{ `DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayExpressionElement`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayFlatMapCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayMapCallback`: `bigint`; `DoNotIncludeFunctionDefinedAsArrayPatternElement`: `bigint`; `DoNotIncludeFunctionDefinedAsClassMethod`: `bigint`; `DoNotIncludeFunctionDefinedAsClassProperty`: `bigint`; `DoNotIncludeFunctionDefinedAsObjectMethod`: `bigint`; `DoNotIncludeJsxWithBigIntValue`: `bigint`; `DoNotIncludeJsxWithBooleanValue`: `bigint`; `DoNotIncludeJsxWithCreateElementValue`: `bigint`; `DoNotIncludeJsxWithEmptyArrayValue`: `bigint`; `DoNotIncludeJsxWithNullValue`: `bigint`; `DoNotIncludeJsxWithNumberValue`: `bigint`; `DoNotIncludeJsxWithStringValue`: `bigint`; `DoNotIncludeJsxWithUndefinedValue`: `bigint`; `None`: `0n`; `RequireAllArrayElementsToBeJsx`: `bigint`; `RequireBothBranchesOfConditionalExpressionToBeJsx`: `bigint`; `RequireBothSidesOfLogicalExpressionToBeJsx`: `bigint`; \} & \{ `Default`: `bigint`; \} | - |
+| <a id="property-is"></a> `is` | \{ `API`: (`api`: `string`) => (`node`: `Node` \| `null`) => `boolean`; `APICall`: (`api`: `string`) => (`node`: `Node` \| `null`) => `node is CallExpression`; `APIFromReact`: (`name`: `string`, `initialScope`: `Scope`, `importSource?`: `string`) => `boolean`; `APIFromReactNative`: (`name`: `string`, `initialScope`: `Scope`, `importSource?`: `string`) => `boolean`; `captureOwnerStackCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `childrenCountCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `childrenForEachCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `childrenMapCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `childrenOnlyCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `childrenToArrayCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `cloneElementCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `componentDecl`: (`node`: `TSESTreeFunction`, `hint`: `bigint`) => `boolean`; `componentName`: (`name`: `string`) => `boolean`; `componentNameLoose`: (`name`: `string`) => `boolean`; `componentWrapperCall`: (`node`: `Node`) => `boolean`; `componentWrapperCallback`: (`node`: `Node`) => `boolean`; `createContextCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `createElementCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `createRefCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `forwardRefCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `hookCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `hookDecl`: (`node`: `TSESTreeFunction` \| `null`) => `boolean`; `hookName`: (`name`: `string`) => `boolean`; `lazyCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `memoCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useActionStateCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useCallbackCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useContextCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useDebugValueCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useDeferredValueCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useEffectCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useEffectCleanupCallback`: (`node`: `Node` \| `null`) => `boolean`; `useEffectLikeCall`: (`node`: `Node` \| `null`, `additionalEffectHooks?`: `RegExpLike`) => `node is CallExpression`; `useEffectSetupCallback`: (`node`: `Node` \| `null`) => `boolean`; `useFormStatusCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useIdCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useImperativeHandleCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useInsertionEffectCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useLayoutEffectCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useMemoCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useOptimisticCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useReducerCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useRefCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useStateCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useStateLikeCall`: (`node`: `Node` \| `null`, `additionalStateHooks?`: `RegExpLike`) => `node is CallExpression`; `useSyncExternalStoreCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; `useTransitionCall`: (`node`: `Node` \| `null`) => `node is CallExpression`; \} | - |
+| `is.API` | (`api`: `string`) => (`node`: `Node` \| `null`) => `boolean` | - |
+| `is.APICall` | (`api`: `string`) => (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.APIFromReact` | (`name`: `string`, `initialScope`: `Scope`, `importSource?`: `string`) => `boolean` | - |
+| `is.APIFromReactNative` | (`name`: `string`, `initialScope`: `Scope`, `importSource?`: `string`) => `boolean` | - |
+| `is.captureOwnerStackCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.childrenCountCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.childrenForEachCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.childrenMapCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.childrenOnlyCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.childrenToArrayCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.cloneElementCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.componentDecl` | (`node`: `TSESTreeFunction`, `hint`: `bigint`) => `boolean` | - |
+| `is.componentName` | (`name`: `string`) => `boolean` | - |
+| `is.componentNameLoose` | (`name`: `string`) => `boolean` | - |
+| `is.componentWrapperCall` | (`node`: `Node`) => `boolean` | - |
+| `is.componentWrapperCallback` | (`node`: `Node`) => `boolean` | - |
+| `is.createContextCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.createElementCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.createRefCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.forwardRefCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.hookCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.hookDecl` | (`node`: `TSESTreeFunction` \| `null`) => `boolean` | - |
+| `is.hookName` | (`name`: `string`) => `boolean` | - |
+| `is.lazyCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.memoCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useActionStateCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useCallbackCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useContextCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useDebugValueCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useDeferredValueCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useEffectCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useEffectCleanupCallback` | (`node`: `Node` \| `null`) => `boolean` | - |
+| `is.useEffectLikeCall` | (`node`: `Node` \| `null`, `additionalEffectHooks?`: `RegExpLike`) => `node is CallExpression` | - |
+| `is.useEffectSetupCallback` | (`node`: `Node` \| `null`) => `boolean` | - |
+| `is.useFormStatusCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useIdCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useImperativeHandleCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useInsertionEffectCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useLayoutEffectCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useMemoCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useOptimisticCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useReducerCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useRefCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useStateCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useStateLikeCall` | (`node`: `Node` \| `null`, `additionalStateHooks?`: `RegExpLike`) => `node is CallExpression` | - |
+| `is.useSyncExternalStoreCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| `is.useTransitionCall` | (`node`: `Node` \| `null`) => `node is CallExpression` | - |
+| <a id="property-settings"></a> `settings` | `ESLintReactSettingsNormalized` | - |
