@@ -2,6 +2,62 @@
 title: Changelog
 ---
 
+## v5.0.2-beta.0 (2026-04-07)
+
+### 💥 Breaking Changes
+
+#### Kit API Simplification (@eslint-react/kit)
+
+- **Simplified `RuleToolkit.is` API**: Removed pre-built identifier predicates (`memo`, `lazy`, `forwardRef`, etc.) from `RuleToolkit.is`. Only `*Call` variants and `API`/`APICall` factories are now available.
+- **Renamed initialization checkers**:
+  - `initializedFromReact` → `APIFromReact`
+  - `initializedFromReactNative` → `APIFromReactNative`
+- Code using `is.memo(node)`, `is.lazy(node)`, etc. must migrate to `is.memoCall(node)` or use `is.API("memo")(node)`.
+
+#### Type Alias Removal
+
+- **Removed deprecated `RuleDefinition` type alias**: The `RuleDefinition` type has been completely removed from `@eslint-react/kit`. Use `RuleFunction` instead.
+
+#### Removed Rules
+
+The following rules have been removed from `eslint-plugin-react-x` and `eslint-plugin-react-dom`:
+
+| Rule                              | Package     | Notes                    |
+| --------------------------------- | ----------- | ------------------------ |
+| `no-unnecessary-use-callback`     | `react-x`   | Removed from all configs |
+| `no-unnecessary-use-memo`         | `react-x`   | Removed from all configs |
+| `no-unused-state`                 | `react-x`   | Removed from all configs |
+| `prefer-destructuring-assignment` | `react-x`   | Removed from all configs |
+| `prefer-namespace-import`         | `react-dom` | Removed from all configs |
+| `prefer-namespace-import`         | `react-x`   | Removed from all configs |
+
+### ✨ New Features
+
+#### Anonymous Rule Identifier
+
+- Added support for **Universally Unique Lexicographically Sortable Identifiers (ULID)** for anonymous rules. This provides more robust identification for rules created without explicit names, improving debugging and traceability.
+
+### 📝 Documentation
+
+- **New Recipes**:
+  - Added `custom-rules-of-children` recipe for creating custom ESLint rules for React Children API.
+  - Added `custom-rules-of-context` recipe for creating custom ESLint rules for React Context API.
+  - Added `no-multiple-children-in-title` rule example.
+  - Added `prefer-namespace-import` recipe for enforcing namespace imports.
+- **Documentation Improvements**:
+  - Updated kit documentation to reflect API renames and removals.
+  - Synchronized API documentation across packages.
+  - Reordered recipes (Context before Children) for better logical flow.
+  - Removed Utility Modules section from READMEs.
+  - Added beta warning to Configure Project Rules documentation.
+
+### 🏗️ Internal Improvements
+
+- **JSX Package Refactoring**: Moved rule-specific JSX helpers into per-rule `lib.ts` files for better code organization.
+- **HOC Detection**: Extracted HOC detection helpers to dedicated `lib.ts` files.
+- **Website Improvements**: Improved accessibility and unified layout configuration.
+- **Dependencies**: Bumped Vite to 8.0.5 across examples.
+
 ## v5.0.0-beta.0 (2026-04-04)
 
 ### 💥 Breaking Changes
