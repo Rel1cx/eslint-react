@@ -30,6 +30,7 @@ import {
   noAdjacentInlineElements,
   noCircularEffect,
   noMultiComp,
+  noMultipleChildrenInTitle,
   noUnnecessaryUsePrefix,
   version,
 } from "./.config";
@@ -110,6 +111,7 @@ export default defineConfig(
           .use(noAdjacentInlineElements)
           .use(noCircularEffect)
           .use(noMultiComp)
+          .use(noMultipleChildrenInTitle)
           .use(noUnnecessaryUsePrefix)
           .use(version, "19")
           .getConfig(),

@@ -18,5 +18,6 @@ export * from "./maxComponentPerFile";
 export * from "./noAdjacentInlineElements";
 export * from "./noCircularEffect";
 export * from "./noMultiComp";
+export * from "./noMultipleChildrenInTitle";
 export * from "./noUnnecessaryUsePrefix";
 export * from "./version";
