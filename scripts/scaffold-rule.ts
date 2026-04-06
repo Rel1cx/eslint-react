@@ -5,7 +5,7 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
-const VALID_PLUGINS = ["x", "dom", "jsx", "rsc", "web-api", "naming-convention", "debug"] as const;
+const VALID_PLUGINS = ["x", "jsx", "dom", "rsc", "web-api", "naming-convention", "debug"] as const;
 
 type PluginName = typeof VALID_PLUGINS[number];
 
