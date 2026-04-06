@@ -135,14 +135,6 @@ eslintReactKit().use(() => (context) => ({
 
 > **Note:** The rule names are ULIDs generated randomly on each ESLint run. The examples above illustrate the format — actual values will differ every time.
 
-##### Characteristics of Anonymous Rules
-
-| Feature            | Description                                                                                                                                |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Random name**    | A unique ULID is generated for each rule on every lint run                                                                                 |
-| **Non-disablable** | Cannot be disabled via `{ rules: { <rule-name>: "off" } }` or `// eslint-disable-next-line <rule-name>` because the name changes each time |
-| **Use case**       | Critical checks that must never be bypassed                                                                                                |
-
 Anonymous rules are ideal for checks that are **critical to code quality or security** and should never be bypassed via disable comments:
 
 ```ts
