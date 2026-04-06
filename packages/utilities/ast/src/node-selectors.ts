@@ -19,7 +19,6 @@ export type ObjectDestructuringVariableDeclarator = TSESTree.VariableDeclarator 
  * Represents an assignment expression that assigns to a displayName property
  */
 export type DisplayNameAssignmentExpression = TSESTree.AssignmentExpression & {
-  type: "AssignmentExpression";
   left: TSESTree.MemberExpression & {
     property: TSESTree.Identifier & {
       name: "displayName";

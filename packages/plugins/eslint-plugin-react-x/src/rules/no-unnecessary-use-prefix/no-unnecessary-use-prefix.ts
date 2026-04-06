@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (ast.findParent(node, ast.isViMockCallback) != null) {
+        if (ast.findParent(node, ast.isTestMockCallback) != null) {
           continue;
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it
