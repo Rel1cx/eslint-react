@@ -17,7 +17,9 @@ import {
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
-import { createRule, getChildrenSourceText, trimLikeReact } from "../../utils";
+import { getChildrenSourceText, trimLikeReact } from "./lib";
+
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-useless-fragment";
 

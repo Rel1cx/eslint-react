@@ -2,7 +2,9 @@ import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { createRule, getChildrenContentRange, getPropRemovalRange } from "../../utils";
+import { getChildrenContentRange, getPropRemovalRange } from "./lib";
+
+import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
