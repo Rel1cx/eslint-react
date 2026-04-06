@@ -265,7 +265,7 @@ All predicates live under `kit.is` — organized into four sub-sections.
 
 | Predicate                   | Signature                 | Description                                                                 |
 | --------------------------- | ------------------------- | --------------------------------------------------------------------------- |
-| `componentDefinition`       | `(node, hint) -> boolean` | Whether a function node is a component definition. (context pre-bound)      |
+| `componentDecl`             | `(node, hint) -> boolean` | Whether a function node is a component. (context pre-bound)                 |
 | `componentName`             | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
 | `componentNameLoose`        | `(name) -> boolean`       | Loose component name check.                                                 |
 | `componentWrapperCall`      | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
@@ -278,7 +278,7 @@ General hook predicates:
 
 | Predicate                  | Signature                             | Description                                                  |
 | -------------------------- | ------------------------------------- | ------------------------------------------------------------ |
-| `hook`                     | `(node) -> boolean`                   | Whether a function node is a hook (by name).                 |
+| `hookDecl`                 | `(node) -> boolean`                   | Whether a function node is a hook (by name).                 |
 | `hookCall`                 | `(node) -> boolean`                   | Whether a node is a hook call.                               |
 | `hookName`                 | `(name) -> boolean`                   | Whether a string matches the `use[A-Z]` convention.          |
 | `useEffectLikeCall`        | `(node, additionalHooks?) -> boolean` | Whether a node is a `useEffect`/`useLayoutEffect`-like call. |
