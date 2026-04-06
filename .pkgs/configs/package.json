@@ -22,8 +22,7 @@
   "dependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint-plugin-de-morgan": "^2.1.1",
-    "eslint-plugin-function": "^0.10.2",
-    "eslint-plugin-function-rule": "^0.10.2",
+    "eslint-plugin-function": "^0.10.3",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-perfectionist": "^5.8.0",
     "eslint-plugin-regexp": "^3.1.0",
@@ -33,19 +32,19 @@
   "devDependencies": {
     "eslint": "^10.2.0",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.10.2",
-    "typedoc": "0.28.17",
+    "tsl-dx": "^0.10.3",
+    "typedoc": "0.28.18",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^6.0.2"
   },
   "peerDependencies": {
-    "eslint": "^10.0.2",
-    "tsl": "^1.0.29",
-    "tsl-dx": "^0.10.2",
-    "typedoc": "0.28.17",
-    "typedoc-plugin-markdown": "^4.10.0",
+    "eslint": "^10.2.0",
+    "tsl": "^1.0.30",
+    "tsl-dx": "^0.10.3",
+    "typedoc": "0.28.18",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }

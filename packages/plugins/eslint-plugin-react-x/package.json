@@ -64,10 +64,10 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.2.0",
     "tsdown": "^0.21.7",
-    "tsl-dx": "^0.10.2"
+    "tsl-dx": "^0.10.3"
   },
   "peerDependencies": {
-    "eslint": "^10.0.0",
+    "eslint": "^10.2.0",
     "typescript": "*"
   },
   "engines": {
