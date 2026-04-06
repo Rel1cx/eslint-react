@@ -13,12 +13,12 @@ ESLint React's toolkit for building custom React rules with JavasSript functions
     - [`getConfig`](#getconfig)
     - [`getPlugin`](#getplugin)
   - [`merge`](#merge)
-  - [`Kit` — the toolkit object](#kit--the-toolkit-object)
-    - [`kit.collect`](#kitcollect) — Semantic collectors
-    - [`kit.is`](#kitis) — Predicates
-    - [`kit.hint`](#kithint) — Detection hint bit-flags
-    - [`kit.flag`](#kitflag) — Component characteristic flags
-    - [`kit.settings`](#kitsettings) — Normalized ESLint React settings
+  - [`RuleToolkit` — the toolkit object](#ruletoolkit--the-toolkit-object)
+    - [`collect`](#collect) — Semantic collectors
+    - [`is`](#is) — Predicates
+    - [`hint`](#hint) — Detection hint bit-flags
+    - [`flag`](#flag) — Component characteristic flags
+    - [`settings`](#settings) — Normalized ESLint React settings
 - [Examples](#examples)
   - [Simple: Ban `forwardRef`](#simple-ban-forwardref)
   - [Component: Destructure component props](#component-destructure-component-props)
@@ -102,7 +102,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 type RuleFunction = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
 ```
 
-A function that receives the ESLint rule context and the structured `Kit` toolkit, and returns a `RuleListener` (AST visitor object).
+A function that receives the ESLint rule context and the structured `RuleToolkit` toolkit, and returns a `RuleListener` (AST visitor object).
 
 Rules are defined as **named functions** that return a `RuleFunction`. The function name is automatically converted to kebab-case and used as the rule name under the `@eslint-react/kit` plugin namespace.
 
@@ -126,7 +126,7 @@ When you use an **anonymous function** (arrow function without a name) with `.us
 ```ts
 // Anonymous rule → random ULID name like "01KNE2WSJ8011D2HXE3A6H717C"
 // Registered as `@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C`
-esslintReactKit().use(() => (context) => ({
+eslintReactKit().use(() => (context) => ({
   JSXOpeningElement(node) {
     // Critical check that cannot be easily disabled
   },
@@ -150,7 +150,7 @@ Anonymous rules are ideal for checks that are **critical to code quality or secu
 eslintReactKit().use(() => (context, { is }) => ({
   CallExpression(node) {
     // Prevent dangerous API calls that could lead to XSS
-    if (is.createElement(node) && isUnsafeArguments(node.arguments)) {
+    if (is.createElementCall(node) && isUnsafeArguments(node.arguments)) {
       context.report({
         node,
         message: "Potential XSS vulnerability detected. This issue must be fixed.",
@@ -164,29 +164,13 @@ eslintReactKit().use(() => (context, { is }) => ({
 
 ```ts
 // This will NOT work - the rule name is random!
-{ rules: { "01KNE2WSJ8011D2HXE3A6H717C": "off" } }
+{ rules: { "@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C": "off" } }
 
 // This will NOT work - the rule name is random!
-// eslint-disable-next-line 01KNE2WSJ8011D2HXE3A6H717C
+// eslint-disable-next-line @eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C
 ```
 
 To disable an anonymous rule, developers must modify the ESLint configuration file directly, which provides an audit trail for policy violations.
-
-##### Debugging Anonymous Rules
-
-For debugging purposes, you can [set a `displayName`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/displayName#setting_a_displayname) on an anonymous function. The display name will be used as a label in various places. This helps identify the rule, while the actual registered rule name remains a random ULID:
-
-```ts
-import { defineRule } from "@eslint-react/kit";
-
-const myRule = defineRule(() => (context) => ({}));
-
-myRule.displayName = "my-rule";
-
-eslintReactKit().use(myRule);
-```
-
-> **Note:** This feature is currently under development and may not be available in the current release.
 
 ### `Builder`
 
@@ -223,8 +207,8 @@ Returns an `ESLint.Plugin` object containing the registered rules and plugin met
 
 ```ts
 const kit = eslintReactKit()
-  .use(noForwardRef);
-  .use(version, "19")
+  .use(noForwardRef)
+  .use(version, "19");
 
 // Retrieve the raw plugin object
 const plugin = kit.getPlugin();
@@ -256,9 +240,9 @@ Merges multiple `RuleListener` (visitor) objects into a single listener. When tw
 
 This is essential for combining a collector's `visitor` with your own inspection logic.
 
-### Kit — the toolkit object
+### `RuleToolkit` — the toolkit object
 
-The second argument passed to the `RuleFunction` function is a structured `Kit` object:
+The second argument passed to the `RuleFunction` function is a structured `RuleToolkit` object:
 
 ```
 kit
@@ -271,7 +255,7 @@ kit
 
 ---
 
-#### `kit.collect`
+#### `collect`
 
 Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
 
@@ -288,20 +272,19 @@ Collector factories create a `{ query, visitor }` pair. The `visitor` must be me
 
 ---
 
-#### `kit.is`
+#### `is`
 
 All predicates live under `kit.is` — organized into four sub-sections.
 
 ##### Component
 
-| Predicate                   | Signature                 | Description                                                                 |
-| --------------------------- | ------------------------- | --------------------------------------------------------------------------- |
-| `componentDecl`             | `(node, hint) -> boolean` | Whether a function node is a component. (context pre-bound)                 |
-| `componentName`             | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
-| `componentNameLoose`        | `(name) -> boolean`       | Loose component name check.                                                 |
-| `componentWrapperCall`      | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
-| `componentWrapperCallLoose` | `(node) -> boolean`       | Like above, but also matches `useCallback(…)`. (context pre-bound)          |
-| `componentWrapperCallback`  | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
+| Predicate                  | Signature                 | Description                                                                 |
+| -------------------------- | ------------------------- | --------------------------------------------------------------------------- |
+| `componentDecl`            | `(node, hint) -> boolean` | Whether a function node is a component. (context pre-bound)                 |
+| `componentName`            | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
+| `componentNameLoose`       | `(name) -> boolean`       | Loose component name check.                                                 |
+| `componentWrapperCall`     | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
+| `componentWrapperCallback` | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
 
 ##### Hook
 
@@ -316,6 +299,29 @@ General hook predicates:
 | `useStateLikeCall`         | `(node, additionalHooks?) -> boolean` | Whether a node is a `useState`-like call.                    |
 | `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
 | `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
+
+Specific hook call predicates (context pre-bound):
+
+| Predicate                  | Description                                      |
+| -------------------------- | ------------------------------------------------ |
+| `useActionStateCall`       | Whether a node is a `useActionState` call.       |
+| `useCallbackCall`          | Whether a node is a `useCallback` call.          |
+| `useContextCall`           | Whether a node is a `useContext` call.           |
+| `useDebugValueCall`        | Whether a node is a `useDebugValue` call.        |
+| `useDeferredValueCall`     | Whether a node is a `useDeferredValue` call.     |
+| `useEffectCall`            | Whether a node is a `useEffect` call.            |
+| `useFormStatusCall`        | Whether a node is a `useFormStatus` call.        |
+| `useIdCall`                | Whether a node is a `useId` call.                |
+| `useImperativeHandleCall`  | Whether a node is a `useImperativeHandle` call.  |
+| `useInsertionEffectCall`   | Whether a node is a `useInsertionEffect` call.   |
+| `useLayoutEffectCall`      | Whether a node is a `useLayoutEffect` call.      |
+| `useMemoCall`              | Whether a node is a `useMemo` call.              |
+| `useOptimisticCall`        | Whether a node is a `useOptimistic` call.        |
+| `useReducerCall`           | Whether a node is a `useReducer` call.           |
+| `useRefCall`               | Whether a node is a `useRef` call.               |
+| `useStateCall`             | Whether a node is a `useState` call.             |
+| `useSyncExternalStoreCall` | Whether a node is a `useSyncExternalStore` call. |
+| `useTransitionCall`        | Whether a node is a `useTransition` call.        |
 
 ##### React API
 
@@ -337,9 +343,11 @@ Pre-built call predicates (context pre-bound):
 - `cloneElementCall`
 - `createContextCall`
 - `createElementCall`
+- `createRefCall`
 - `forwardRefCall`
-- `memoCall`
 - `lazyCall`
+- `memoCall`
+- `useCall`
 
 All React API predicates and factories have `context` pre-bound — no need to pass the rule context manually:
 
@@ -351,7 +359,7 @@ is.memoCall(node);
 nodes.filter(is.memoCall);
 
 // Factory for any API name
-const isCreateRefCall = is.reactAPICall("createRef");
+const isCreateRefCall = is.APICall("createRef");
 isCreateRefCall(node);
 ```
 
@@ -364,7 +372,7 @@ isCreateRefCall(node);
 
 ---
 
-#### `kit.hint`
+#### `hint`
 
 Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`|`) and remove with bitwise AND-NOT (`& ~`).
 
@@ -391,7 +399,7 @@ const { query, visitor } = collect.components(context, {
 
 ---
 
-#### `kit.flag`
+#### `flag`
 
 Bit-flags indicating component characteristics. Check with bitwise AND (`&`).
 
@@ -411,7 +419,7 @@ for (const component of query.all(program)) {
 }
 ```
 
-#### `kit.settings`
+#### `settings`
 
 Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets your custom rules read and react to the same project-level settings used by the built-in rules.
 
@@ -451,7 +459,7 @@ function version(major = "19"): RuleFunction {
 
 ### Simple: Ban `forwardRef`
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://beta.eslint-react.xyz/docs/rules/no-forward-ref) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](https://eslint-react.xyz/docs/rules/no-forward-ref) rule.
 
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
@@ -474,7 +482,7 @@ eslintReactKit()
 
 ### Component: Destructure component props
 
-This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://beta.eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment) rule.
 
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
@@ -515,7 +523,7 @@ eslintReactKit()
 
 ### Hooks: Warn on custom hooks that don't call other hooks
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://beta.eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix) rule.
 
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
@@ -549,7 +557,7 @@ eslintReactKit()
 ### Multiple Collectors: No component/hook factories
 
 Disallow defining components or hooks inside other functions (factory pattern).
-This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://beta.eslint-react.xyz/docs/rules/component-hook-factories) rule.
+This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](https://eslint-react.xyz/docs/rules/component-hook-factories) rule.
 
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
@@ -609,7 +617,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 export default [
   {
     ...eslintReactKit()
-      .use(noForwardRef);
+      .use(noForwardRef)
       .use(version, "19")
       .getConfig(),
     // Override `name` so it shows your own label in config inspector tools
@@ -631,8 +639,8 @@ import eslintReactKit from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
 
 const kit = eslintReactKit()
-  .use(noForwardRef);
-  .use(version, "19")
+  .use(noForwardRef)
+  .use(version, "19");
 
 // Instead of kit.getConfig(), use kit.getPlugin() for full control:
 const plugin = kit.getPlugin();

@@ -31,7 +31,7 @@ export interface CollectorWithContext<T> extends Collector<T> {
   };
 }
 
-interface RuleToolkit {
+export interface RuleToolkit {
   collect: {
     components(
       context: RuleContext,

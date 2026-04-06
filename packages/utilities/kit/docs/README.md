@@ -9,6 +9,7 @@
 | [CollectorWithContext](interfaces/CollectorWithContext.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
+| [RuleToolkit](interfaces/RuleToolkit.md) | - |
 
 ## Type Aliases
 

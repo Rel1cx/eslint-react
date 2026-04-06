@@ -84,10 +84,10 @@ Creates a `Builder` instance for registering custom rules via the chainable `.us
 ```ts
 import type { RuleFunction } from "@eslint-react/kit";
 
-type RuleFunction = (ctx: RuleContext, kit: RuleToolkit) => RuleListener;
+type RuleFunction = (ctx: RuleContext, toolkit: RuleToolkit) => RuleListener;
 ```
 
-A function that receives the ESLint rule context and the structured `Kit` toolkit, and returns a `RuleListener` (AST visitor object).
+A function that receives the ESLint rule context and the structured `RuleToolkit` toolkit, and returns a `RuleListener` (AST visitor object).
 
 Rules are defined as **named functions** that return a `RuleFunction`. The function name is automatically converted to kebab-case and used as the rule name under the `@eslint-react/kit` plugin namespace.
 
@@ -135,7 +135,7 @@ Anonymous rules are ideal for checks that are **critical to code quality or secu
 eslintReactKit().use(() => (context, { is }) => ({
   CallExpression(node) {
     // Prevent dangerous API calls that could lead to XSS
-    if (is.createElement(node) && isUnsafeArguments(node.arguments)) {
+    if (is.createElementCall(node) && isUnsafeArguments(node.arguments)) {
       context.report({
         node,
         message: "Potential XSS vulnerability detected. This issue must be fixed.",
@@ -225,9 +225,9 @@ Merges multiple `RuleListener` (visitor) objects into a single listener. When tw
 
 This is essential for combining a collector's `visitor` with your own inspection logic.
 
-## Kit — the toolkit object
+## `RuleToolkit` — the toolkit object
 
-The second argument passed to the `RuleFunction` function is a structured `Kit` object:
+The second argument passed to the `RuleFunction` function is a structured `RuleToolkit` object:
 
 ```
 kit
@@ -240,7 +240,7 @@ kit
 
 ---
 
-### `kit.collect`
+### `collect`
 
 Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
 
@@ -257,7 +257,7 @@ Collector factories create a `{ query, visitor }` pair. The `visitor` must be me
 
 ---
 
-### `kit.is`
+### `is`
 
 All predicates live under `kit.is` — organized into four sub-sections.
 
@@ -269,7 +269,6 @@ All predicates live under `kit.is` — organized into four sub-sections.
 | `componentName`             | `(name) -> boolean`       | Strict PascalCase component name check.                                     |
 | `componentNameLoose`        | `(name) -> boolean`       | Loose component name check.                                                 |
 | `componentWrapperCall`      | `(node) -> boolean`       | Whether a node is a `memo(…)` or `forwardRef(…)` call. (context pre-bound)  |
-| `componentWrapperCallLoose` | `(node) -> boolean`       | Like above, but also matches `useCallback(…)`. (context pre-bound)          |
 | `componentWrapperCallback`  | `(node) -> boolean`       | Whether a function is the callback passed to a wrapper. (context pre-bound) |
 
 #### Hook
@@ -285,6 +284,29 @@ General hook predicates:
 | `useStateLikeCall`         | `(node, additionalHooks?) -> boolean` | Whether a node is a `useState`-like call.                    |
 | `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
 | `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
+
+Specific hook call predicates (context pre-bound):
+
+| Predicate                   | Description                                      |
+| --------------------------- | ------------------------------------------------ |
+| `useActionStateCall`        | Whether a node is a `useActionState` call.       |
+| `useCallbackCall`           | Whether a node is a `useCallback` call.          |
+| `useContextCall`            | Whether a node is a `useContext` call.           |
+| `useDebugValueCall`         | Whether a node is a `useDebugValue` call.        |
+| `useDeferredValueCall`      | Whether a node is a `useDeferredValue` call.     |
+| `useEffectCall`             | Whether a node is a `useEffect` call.            |
+| `useFormStatusCall`         | Whether a node is a `useFormStatus` call.        |
+| `useIdCall`                 | Whether a node is a `useId` call.                |
+| `useImperativeHandleCall`   | Whether a node is a `useImperativeHandle` call.  |
+| `useInsertionEffectCall`    | Whether a node is a `useInsertionEffect` call.   |
+| `useLayoutEffectCall`       | Whether a node is a `useLayoutEffect` call.      |
+| `useMemoCall`               | Whether a node is a `useMemo` call.              |
+| `useOptimisticCall`         | Whether a node is a `useOptimistic` call.        |
+| `useReducerCall`            | Whether a node is a `useReducer` call.           |
+| `useRefCall`                | Whether a node is a `useRef` call.               |
+| `useStateCall`              | Whether a node is a `useState` call.             |
+| `useSyncExternalStoreCall`  | Whether a node is a `useSyncExternalStore` call. |
+| `useTransitionCall`         | Whether a node is a `useTransition` call.        |
 
 #### React API
 
@@ -306,9 +328,11 @@ Pre-built call predicates (context pre-bound):
 - `cloneElementCall`
 - `createContextCall`
 - `createElementCall`
+- `createRefCall`
 - `forwardRefCall`
-- `memoCall`
 - `lazyCall`
+- `memoCall`
+- `useCall`
 
 All React API predicates and factories have `context` pre-bound — no need to pass the rule context manually:
 
@@ -320,7 +344,7 @@ is.memoCall(node);
 nodes.filter(is.memoCall);
 
 // Factory for any API name
-const isCreateRefCall = is.reactAPICall("createRef");
+const isCreateRefCall = is.APICall("createRef");
 isCreateRefCall(node);
 ```
 
@@ -333,7 +357,7 @@ isCreateRefCall(node);
 
 ---
 
-### `kit.hint`
+### `hint`
 
 Bit-flags that control what the component collector considers a "component". Combine with bitwise OR (`|`) and remove with bitwise AND-NOT (`& ~`).
 
@@ -360,7 +384,7 @@ const { query, visitor } = collect.components(context, {
 
 ---
 
-### `kit.flag`
+### `flag`
 
 Bit-flags indicating component characteristics. Check with bitwise AND (`&`).
 
@@ -380,7 +404,7 @@ for (const component of query.all(program)) {
 }
 ```
 
-### `kit.settings`
+### `settings`
 
 Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets your custom rules read and react to the same project-level settings used by the built-in rules.
 
