@@ -5,6 +5,7 @@
     "component-hook-factories",
     "function-component-definition",
     "no-circular-effect",
+    "no-multiple-children-in-title",
     "prefer-namespace-import",
     "---Compound---",
     "custom-rules-of-props",

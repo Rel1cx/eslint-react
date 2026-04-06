@@ -1,0 +1,107 @@
+---
+title: No Multiple Children in Title
+description: Ensures the <title> component has a single string child to avoid React errors.
+---
+
+## Overview
+
+The built-in browser `<title>` component in React requires its children to be a single string (or a single number/object with a `toString` method).
+
+If you use JSX curly braces to interpolate variables, such as `<title>Page {number}</title>`, React treats the children as an array (e.g., `["Page ", 1]`), which will cause an error. This recipe provides a custom rule to prevent this pattern and suggest the correct string interpolation.
+
+## Rule
+
+Copy the following into your project (e.g. `.config/noMultipleChildrenInTitle.ts`):
+
+```ts title=".config/noMultipleChildrenInTitle.ts"
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Ensure <title> has a single string child. */
+export function noMultipleChildrenInTitle(): RuleFunction {
+  /** Trim leading / trailing whitespace the same way React does when rendering JSX text. */
+  function trimLikeReact(text: string): string {
+    const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
+    const trailingSpaces = /\s*$/.exec(text)?.[0] ?? "";
+
+    const start = leadingSpaces.includes("\n") ? leadingSpaces.length : 0;
+    const end = trailingSpaces.includes("\n")
+      ? text.length - trailingSpaces.length
+      : text.length;
+
+    return text.slice(start, end);
+  }
+  return (context) => ({
+    JSXElement(node) {
+      if (node.openingElement.name.type === "JSXIdentifier" && node.openingElement.name.name === "title") {
+        const significantChildren = node.children.filter((child) => {
+          if (child.type === "JSXText") {
+            return trimLikeReact(child.value).length > 0;
+          }
+          if (child.type === "JSXExpressionContainer") {
+            return child.expression.type !== "JSXEmptyExpression";
+          }
+          return true;
+        });
+
+        if (significantChildren.length > 1) {
+          context.report({
+            node,
+            message: "The <title> component must have a single string child. Use string interpolation instead.",
+          });
+        }
+      }
+    },
+  });
+}
+```
+
+### Config
+
+```ts title="eslint.config.ts"
+import eslintReactKit from "@eslint-react/kit";
+import { noMultipleChildrenInTitle } from "./.config/noMultipleChildrenInTitle";
+
+export default [
+  // ... other configs
+  {
+    ...eslintReactKit()
+      .use(noMultipleChildrenInTitle)
+      .getConfig(),
+    files: ["src/**/*.tsx"],
+  },
+];
+```
+
+### Examples
+
+#### Invalid
+
+```tsx
+function ResultsPage({ pageNumber }) {
+  return (
+    <>
+      <title>Results page {pageNumber}</title>
+      {/* 🔴 Problem: This creates an array of children ["Results page ", pageNumber] */}
+      <div>...</div>
+    </>
+  );
+}
+```
+
+#### Valid
+
+```tsx
+function ResultsPage({ pageNumber }) {
+  return (
+    <>
+      <title>{`Results page ${pageNumber}`}</title>
+      {/* ✅ Correct: A single string via template literal */}
+      <div>...</div>
+    </>
+  );
+}
+```
+
+## Further Reading
+
+- [React DOM Reference: `<title>`](https://react.dev/reference/react-dom/components/title#use-variables-in-the-title)
