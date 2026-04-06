@@ -27,27 +27,57 @@ Minimum supported versions:
 - [x] Migrated type utilities `type-is`, `type-name`, and `type-variant` from `eslint-plugin-react-x` to `@eslint-react/core`.
 - [x] Updated the `Toolkit` interface in `@eslint-react/kit` to reflect the naming changes above.
 
+### Kit API Simplification (@eslint-react/kit)
+
+- [x] Simplified `RuleToolkit.is` API: Removed pre-built identifier predicates (`memo`, `lazy`, `forwardRef`, etc.) from `RuleToolkit.is`. Only `*Call` variants and `API`/`APICall` factories are now available.
+- [x] Renamed initialization checkers:
+  - `initializedFromReact` → `APIFromReact`
+  - `initializedFromReactNative` → `APIFromReactNative`
+- [x] Removed deprecated `RuleDefinition` type alias: Use `RuleFunction` instead.
+
 ### Removed Rules
 
 - [x] `@eslint-react/no-redundant-should-component-update`: This rule, along with its documentation and tests, has been removed from `eslint-plugin-react-x` and all configuration presets (`all`, `x`, `recommended`, `strict`, etc.).
 - [x] `debug/class-component`: This debug rule has been removed from `eslint-plugin-react-debug` and the `debug/all` configuration.
+- [x] `no-unnecessary-use-callback` (react-x): Removed from all configs.
+- [x] `no-unnecessary-use-memo` (react-x): Removed from all configs.
+- [x] `no-unused-state` (react-x): Removed from all configs.
+- [x] `prefer-destructuring-assignment` (react-x): Removed from all configs.
+- [x] `prefer-namespace-import` (react-dom): Removed from all configs.
+- [x] `prefer-namespace-import` (react-x): Removed from all configs.
 
 ### Class Component Support Deprecation
 
 - [x] All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
 - [x] Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
 
+### New Features
+
+- [x] Added support for **Universally Unique Lexicographically Sortable Identifiers (ULID)** for anonymous rules. This provides more robust identification for rules created without explicit names, improving debugging and traceability.
+
 ### Documentation
 
 - [x] Added an Examples page (`/docs/examples`), listing all official example projects and links.
 - [x] Removed redundant Overview headings in several places throughout the documentation.
 - [x] Updated the migration guide and roadmap.
+- [x] Added new recipes:
+  - `custom-rules-of-children` recipe for creating custom ESLint rules for React Children API.
+  - `custom-rules-of-context` recipe for creating custom ESLint rules for React Context API.
+  - `no-multiple-children-in-title` rule example.
+  - `prefer-namespace-import` recipe for enforcing namespace imports.
+- [x] Updated kit documentation to reflect API renames and removals.
+- [x] Synchronized API documentation across packages.
+- [x] Added beta warning to Configure Project Rules documentation.
 
 ### Internal Improvements
 
 - [x] Unified the import style for `@typescript-eslint/types` across the codebase, merging `TSESTree` types and `AST_NODE_TYPES` constants into single-line imports.
 - [x] Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
 - [x] Updated dependency versions for `esbuild`, `@eslint/compat`, `@types/node`, `undici`, etc.
+- [x] JSX Package Refactoring: Moved rule-specific JSX helpers into per-rule `lib.ts` files for better code organization.
+- [x] HOC Detection: Extracted HOC detection helpers to dedicated `lib.ts` files.
+- [x] Website Improvements: Improved accessibility and unified layout configuration.
+- [x] Bumped Vite to 8.0.5 across examples.
 
 ## Milestone 4.0
 
