@@ -1,12 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  type RuleContext,
-  type RuleFeature,
-  defineRuleListener,
-  getSettingsFromContext,
-  report,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -16,6 +10,8 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
+
+import { report } from "./lib";
 
 import { createRule } from "../../utils";
 

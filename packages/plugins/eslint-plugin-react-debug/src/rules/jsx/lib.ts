@@ -1,5 +1,5 @@
+import type { RuleContext } from "@eslint-react/shared";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import type { RuleContext } from "./types";
 
 /**
  * Creates a report function for the given rule context.

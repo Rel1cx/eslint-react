@@ -1,9 +1,11 @@
 import * as ast from "@eslint-react/ast";
 import { JsxEmit, getElementFullType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener, report } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
+
+import { report } from "./lib";
 
 import { createRule, stringify } from "../../utils";
 
@@ -66,9 +68,7 @@ export function create(context: RuleContext<MessageID, []>) {
       node,
     } as const);
   }
-  return defineRuleListener(
-    {
-      "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
-    },
-  );
+  return defineRuleListener({
+    "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
+  });
 }
