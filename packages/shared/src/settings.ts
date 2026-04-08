@@ -12,8 +12,6 @@ import { z } from "zod/v4";
 import { type RegExpLike, toRegExp } from "./regexp";
 import type { RuleContext } from "./types";
 
-const _require = module.createRequire(process.cwd() + path.sep);
-
 /**
  * @internal
  */
@@ -144,7 +142,7 @@ const cache = new Map<unknown, ESLintReactSettingsNormalized>();
  */
 export function getReactVersion(fallback: string): string {
   try {
-    return match(_require("react"))
+    return match(module.createRequire(process.cwd() + path.sep)("react"))
       .with({ version: P.select(P.string) }, identity)
       .otherwise(() => fallback);
   } catch {
