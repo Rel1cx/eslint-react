@@ -1,8 +1,8 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "@eslint-react/disable-type-checked";
 
-export const rules: Record<string, RuleConfig> = {
+export const rules: Linter.RulesRecord = {
   "@eslint-react/no-implicit-children": "off",
   "@eslint-react/no-implicit-key": "off",
   "@eslint-react/no-implicit-ref": "off",

@@ -1,7 +1,7 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "@eslint-react/rsc";
 
 export const rules = {
   "@eslint-react/rsc-function-definition": "error",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;

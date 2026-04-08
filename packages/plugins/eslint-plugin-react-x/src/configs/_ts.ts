@@ -1,6 +1,6 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 /**
  * Disables rules that are already handled by TypeScript
  */
-export const rules = {} as const satisfies Record<string, RuleConfig>;
+export const rules = {} as const satisfies Linter.RulesRecord;

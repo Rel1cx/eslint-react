@@ -1,4 +1,5 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS, type RuleConfig } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import { plugin } from "../plugin";
 
@@ -11,7 +12,7 @@ export const rules = {
   "react-jsx/no-leaked-dollar": "warn",
   "react-jsx/no-leaked-semicolon": "warn",
   "react-jsx/no-namespace": "error",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const plugins = {
   "react-jsx": plugin,

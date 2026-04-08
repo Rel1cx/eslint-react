@@ -7,7 +7,6 @@
 | [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | - |
 | [RuleFix](interfaces/RuleFix.md) | - |
 | [RuleFixer](interfaces/RuleFixer.md) | - |
-| [SettingsConfig](interfaces/SettingsConfig.md) | A collection of settings. |
 
 ## Type Aliases
 
@@ -21,9 +20,6 @@
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
 | [RuleListener](type-aliases/RuleListener.md) | - |
 | [RuleSuggest](type-aliases/RuleSuggest.md) | A suggestion for fixing a reported issue. |
-| [Severity](type-aliases/Severity.md) | The severity of a rule in a configuration. |
-| [SeverityLevel](type-aliases/SeverityLevel.md) | The numeric severity level for a rule. |
-| [SeverityName](type-aliases/SeverityName.md) | Rule severity. |
 
 ## Variables
 

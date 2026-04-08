@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import * as recommended from "./recommended";
 
@@ -18,7 +18,7 @@ export const rules = {
   "@eslint-react/dom-no-missing-button-type": "warn",
   "@eslint-react/dom-no-missing-iframe-sandbox": "warn",
   "@eslint-react/dom-no-unsafe-target-blank": "warn",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const settings = {
   ...recommended.settings,

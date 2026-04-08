@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import * as dom from "./dom";
 import * as jsx from "./jsx";
@@ -18,7 +18,7 @@ export const rules = {
   "@eslint-react/naming-convention-id-name": "warn",
   "@eslint-react/naming-convention-ref-name": "warn",
   "@eslint-react/use-state": "warn",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const settings = {
   ...x.settings,

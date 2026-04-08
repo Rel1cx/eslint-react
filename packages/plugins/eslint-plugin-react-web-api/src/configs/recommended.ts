@@ -1,4 +1,5 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS, type RuleConfig } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import { plugin } from "../plugin";
 
@@ -9,7 +10,7 @@ export const rules = {
   "react-web-api/no-leaked-interval": "warn",
   "react-web-api/no-leaked-resize-observer": "warn",
   "react-web-api/no-leaked-timeout": "warn",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const plugins = {
   "react-web-api": plugin,

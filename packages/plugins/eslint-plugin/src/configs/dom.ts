@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "@eslint-react/dom";
 
@@ -14,4 +14,4 @@ export const rules = {
   "@eslint-react/dom-no-unsafe-iframe-sandbox": "warn",
   "@eslint-react/dom-no-use-form-state": "error",
   "@eslint-react/dom-no-void-elements-with-children": "error",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;

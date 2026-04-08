@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import * as recommendedConfig from "./recommended";
 
@@ -8,7 +8,7 @@ export const rules = {
   ...recommendedConfig.rules,
   "react-jsx/no-children-prop": "error",
   "react-jsx/no-useless-fragment": "warn",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const plugins = {
   ...recommendedConfig.plugins,

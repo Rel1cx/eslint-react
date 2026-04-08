@@ -1,8 +1,8 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "react-x/disable-experimental";
 
-export const rules: Record<string, RuleConfig> = {
+export const rules: Linter.RulesRecord = {
   "react-x/immutability": "off",
   "react-x/no-duplicate-key": "off",
   "react-x/no-implicit-children": "off",

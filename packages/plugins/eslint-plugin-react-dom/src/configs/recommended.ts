@@ -1,4 +1,5 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS, type RuleConfig } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import { plugin } from "../plugin";
 
@@ -16,7 +17,7 @@ export const rules = {
   "react-dom/no-unsafe-iframe-sandbox": "warn",
   "react-dom/no-use-form-state": "error",
   "react-dom/no-void-elements-with-children": "error",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const plugins = {
   "react-dom": plugin,

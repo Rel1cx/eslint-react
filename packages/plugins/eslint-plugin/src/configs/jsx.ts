@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "@eslint-react/jsx";
 
@@ -9,4 +9,4 @@ export const rules = {
   "@eslint-react/jsx-no-key-after-spread": "error",
   "@eslint-react/jsx-no-leaked-semicolon": "warn",
   "@eslint-react/jsx-no-namespace": "error",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;

@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 import * as recommended from "./recommended";
 
@@ -6,7 +6,7 @@ export const name = "react-rsc/recommended-typescript";
 
 export const rules = {
   ...recommended.rules,
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const plugins = {
   ...recommended.plugins,

@@ -13,7 +13,7 @@ function normalizeSettings(__namedParameters: {
 }): {
   additionalEffectHooks: RegExpLike;
   additionalStateHooks: RegExpLike;
-  compilationMode: "off" | "infer" | "annotation" | "syntax" | "all";
+  compilationMode: "infer" | "annotation" | "syntax" | "all" | "off";
   importSource: string;
   polymorphicPropName: string;
   version: string;
@@ -38,7 +38,7 @@ function normalizeSettings(__namedParameters: {
 {
   additionalEffectHooks: RegExpLike;
   additionalStateHooks: RegExpLike;
-  compilationMode: "off" | "infer" | "annotation" | "syntax" | "all";
+  compilationMode: "infer" | "annotation" | "syntax" | "all" | "off";
   importSource: string;
   polymorphicPropName: string;
   version: string;
@@ -49,7 +49,7 @@ function normalizeSettings(__namedParameters: {
 | ------ | ------ |
 | `additionalEffectHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
 | `additionalStateHooks` | [`RegExpLike`](../type-aliases/RegExpLike.md) |
-| `compilationMode` | `"off"` \| `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` |
+| `compilationMode` | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` \| `"off"` |
 | `importSource` | `string` |
 | `polymorphicPropName` | `string` |
 | `version` | `string` |

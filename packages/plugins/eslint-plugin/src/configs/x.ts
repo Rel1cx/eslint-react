@@ -1,4 +1,5 @@
-import { DEFAULT_ESLINT_REACT_SETTINGS, type RuleConfig } from "@eslint-react/shared";
+import { DEFAULT_ESLINT_REACT_SETTINGS } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 export const name = "@eslint-react/x";
 
@@ -40,7 +41,7 @@ export const rules = {
   "@eslint-react/unsupported-syntax": "error",
   "@eslint-react/use-memo": "error",
   "@eslint-react/use-state": "warn",
-} as const satisfies Record<string, RuleConfig>;
+} as const satisfies Linter.RulesRecord;
 
 export const settings = {
   "react-x": DEFAULT_ESLINT_REACT_SETTINGS,

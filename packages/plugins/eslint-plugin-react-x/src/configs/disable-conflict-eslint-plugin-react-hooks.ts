@@ -1,4 +1,4 @@
-import type { RuleConfig } from "@eslint-react/shared";
+import type { Linter } from "eslint";
 
 // This rulelist should be kept in sync with `apps/website/content/docs/migrating-from-eslint-plugin-react-hooks.mdx`
 // Rules provided by `eslint-plugin-react-hooks` that exist in this plugin.
@@ -19,6 +19,6 @@ const conflictingRules = [
 
 export const name = "react-x/disable-conflict-eslint-plugin-react-hooks";
 
-export const rules: Record<string, RuleConfig> = Object.fromEntries(
+export const rules: Linter.RulesRecord = Object.fromEntries(
   conflictingRules.map((key) => [key, "off"] as const),
 );
