@@ -8,7 +8,7 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
-const DOCS_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
+const DOCS_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
 const RE_RULE_PREFIX = /^(x|jsx|rsc|dom|web-api|naming-convention|debug)-(.+)$/u;
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;

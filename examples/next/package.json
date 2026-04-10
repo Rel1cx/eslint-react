@@ -15,7 +15,7 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "workspace:*",
+    "eslint-plugin-react-simple": "workspace:*",
     "@eslint/compat": "^2.0.4",
     "@eslint/js": "^10.0.1",
     "@next/eslint-plugin-next": "^16.2.2",

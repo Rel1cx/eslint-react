@@ -1,0 +1,64 @@
+---
+title: no-comment-textnodes
+description: Prevents comment strings from being accidentally inserted into a JSX element's text nodes.
+---
+
+**Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
+
+```plain copy
+react-jsx/no-comment-textnodes
+```
+
+**Full Name in [`eslint-plugin-react-simple`](https://npmx.dev/package/eslint-plugin-react-simple/v/latest)**
+
+```plain copy
+@eslint-react/jsx-no-comment-textnodes
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+This rule prevents comment strings (ex: beginning with `//` or `/*`) from being accidentally inserted into a JSX element's text nodes.
+
+Comments inside JSX elements should be placed inside braces (`{/* comment */}`) to prevent them from being rendered as text.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      // This will be rendered as text
+      /* This will also be rendered as text */
+    </div>
+  );
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      {/* This is a valid comment inside JSX */}
+      <span>Hello</span>
+    </div>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-comment-textnodes/no-comment-textnodes.spec.ts)

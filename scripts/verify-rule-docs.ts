@@ -9,10 +9,10 @@ import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
 
-import * as config0 from "../packages/plugins/eslint-plugin/src/configs/recommended-typescript";
-import * as config1 from "../packages/plugins/eslint-plugin/src/configs/strict-typescript";
+import * as config0 from "../packages/eslint-plugin-react-simple/src/configs/recommended-typescript";
+import * as config1 from "../packages/eslint-plugin-react-simple/src/configs/strict-typescript";
 
-const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
+const RULES_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
 const SECTION_HEADERS = [
   { key: "x", heading: "X Rules" },
@@ -56,7 +56,7 @@ const getFeatureIcon = (x: unknown) =>
 // Extract metadata from a rule module (name, description, features, severities)
 const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
-    const filename = `packages/plugins/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
+    const filename = `packages/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
 
     // Extract description from the rule's meta.docs
@@ -97,7 +97,7 @@ const verifyDocs = Effect.gen(function*() {
 
   for (const file of files) {
     // Extract domain and rule name from file path
-    const domain = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
+    const domain = /^packages\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
     const basename = path.parse(path.basename(file)).name;
     const filename = path.resolve(file);
     const rulename = `${domain}/${basename}`;
@@ -163,7 +163,7 @@ const verifyDocs = Effect.gen(function*() {
     // Verify Rule Source link
     const ruleSourceLine = resourcesSection.find((line) => line.includes("[Rule Source]"));
     const expectedRuleSource =
-      `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
+      `https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
     if (ruleSourceLine == null) {
       yield* Effect.logError(ansis.red(`  Missing Rule Source link in documentation for rule ${rulename}`));
     } else {
@@ -180,7 +180,7 @@ const verifyDocs = Effect.gen(function*() {
     // Verify Test Source link
     const testSourceLine = resourcesSection.find((line) => line.includes("[Test Source]"));
     const expectedTestSource =
-      `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
+      `https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
     if (testSourceLine == null) {
       yield* Effect.logError(ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`));
     } else {

@@ -13,7 +13,7 @@
     "preact": "^10.29.1"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "workspace:*",
+    "eslint-plugin-react-simple": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.5",
     "@tsconfig/node24": "^24.0.4",

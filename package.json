@@ -2,7 +2,7 @@
   "name": "@eslint-react/monorepo",
   "version": "5.0.2-beta.5",
   "private": true,
-  "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
+  "description": "Monorepo for eslint-plugin-react-[simple, x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
     "react",
     "eslint",
@@ -13,7 +13,8 @@
     "eslint-plugin-react-rsc",
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
-    "eslint-plugin-react-naming-convention"
+    "eslint-plugin-react-naming-convention",
+    "eslint-plugin-react-simple"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -59,7 +60,7 @@
     "@effect/language-service": "^0.84.3",
     "@effect/platform": "^0.96.0",
     "@effect/platform-node": "^0.106.0",
-    "@eslint-react/eslint-plugin": "workspace:*",
+    "eslint-plugin-react-simple": "workspace:*",
     "@eslint/compat": "^2.0.4",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",

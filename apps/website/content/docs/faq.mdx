@@ -26,26 +26,26 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
     **Internal Packages**
 
     - **Utilities**
-      - `packages/utilities/ast`: TSESTree AST utility module for static analysis
-      - `packages/utilities/var`: TSESTree AST utility module for static analysis of variables
-      - `packages/utilities/jsx`: TSESTree JSX utility module for static analysis of JSX patterns
+      - `packages/@eslint-react/ast`: TSESTree AST utility module for static analysis
+      - `packages/@eslint-react/var`: TSESTree AST utility module for static analysis of variables
+      - `packages/@eslint-react/jsx`: TSESTree JSX utility module for static analysis of JSX patterns
     - **Core & Shared**
-      - `packages/core`: Utility module for static analysis of React core APIs and patterns
-      - `packages/shared`: Shared constants, types and functions
+      - `packages/@eslint-react/core`: Utility module for static analysis of React core APIs and patterns
+      - `packages/@eslint-react/shared`: Shared constants, types and functions
 
     **Public Packages**
 
     - **Utilities**
-      - `packages/utilities/kit`: Utility module for building custom React rules with JavaScript functions
+      - `packages/@eslint-react/kit`: Utility module for building custom React rules with JavaScript functions
     - **ESLint Plugins**
-      - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) - Core React rules.
-      - [`eslint-plugin-react-jsx`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-jsx) - React Flavored JSX rules.
-      - [`eslint-plugin-react-rsc`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-rsc) - React Server Components rules.
-      - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) - React DOM rules.
-      - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-web-api) - Web API interaction rules.
-      - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-naming-convention) - Naming convention rules.
-      - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
-      - [`@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin) - A unified plugin that combines all individual plugins into one.
+      - [`eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-x) - Core React rules.
+      - [`eslint-plugin-react-jsx`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx) - React Flavored JSX rules.
+      - [`eslint-plugin-react-rsc`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-rsc) - React Server Components rules.
+      - [`eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-dom) - React DOM rules.
+      - [`eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-web-api) - Web API interaction rules.
+      - [`eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-naming-convention) - Naming convention rules.
+      - [`eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-debug) - Debugging rules for inspecting React patterns in code.
+      - [`eslint-plugin-react-simple`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-simple) - A unified plugin that combines all individual plugins into one.
 
     **Documentation**
 
@@ -62,12 +62,12 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   </Accordion>
 
   <Accordion title="Which one should I use? Unified plugin or individual plugins?">
-    For users who use the presets we provide (such as `recommended` or `strict`), it is recommended to use the unified plugin `@eslint-react/eslint-plugin`. This simplifies configuration and ensures that all relevant rules are enabled correctly.
+    For users who use the presets we provide (such as `recommended` or `strict`), it is recommended to use the unified plugin `eslint-plugin-react-simple`. This simplifies configuration and ensures that all relevant rules are enabled correctly.
 
     For users who need more fine-grained control or build and maintain an ESLint configuration for themselves or their organization, it is recommended to use individual plugins. This allows you to freely select plugins and compose rules as needed, without being limited by presets.
 
     <Callout type="warning">
-      The unified plugin (`@eslint-react/eslint-plugin`) contains some historical decisions and internal behaviors that were originally made to be compatible with both Legacy Config and Flat Config. Reducing external package dependencies on it is better in the long run.
+      The unified plugin (`eslint-plugin-react-simple`) contains some historical decisions and internal behaviors that were originally made to be compatible with both Legacy Config and Flat Config. Reducing external package dependencies on it is better in the long run.
     </Callout>
   </Accordion>
 
