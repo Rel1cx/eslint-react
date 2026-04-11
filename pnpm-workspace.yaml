@@ -16,25 +16,25 @@ onlyBuiltDependencies:
 overrides:
   "@types/react": ^19.2.14
   "@types/react-dom": ^19.2.3
-  "@typescript-eslint/scope-manager": "^8.58.0"
-  "@typescript-eslint/type-utils": "^8.58.0"
-  "@typescript-eslint/types": "^8.58.0"
-  "@typescript-eslint/utils": "^8.58.0"
+  "@typescript-eslint/scope-manager": "^8.58.1"
+  "@typescript-eslint/type-utils": "^8.58.1"
+  "@typescript-eslint/types": "^8.58.1"
+  "@typescript-eslint/utils": "^8.58.1"
   chokidar: ^5.0.0
-  defu: ^6.1.6
+  defu: ^6.1.7
   dompurify: ^3.3.3
   esbuild: ^0.28.0
   lodash-es: ^4.18.1
   lodash: ^4.18.1
   minimatch: ^10.2.5
-  next: ^16.2.2
+  next: ^16.2.3
   path-to-regexp: "^8.4.2"
-  react-dom: ^19.2.4
-  react: ^19.2.4
+  react-dom: ^19.2.5
+  react: ^19.2.5
   semver: "^7.7.4"
   ts-api-utils: ^2.5.0
   tslib: ^2.8.1
-  typescript-eslint: "^8.58.0"
+  typescript-eslint: "^8.58.1"
   undici-types: ^8.0.2
   undici: ^8.0.2
 

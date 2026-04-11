@@ -1,0 +1,82 @@
+{
+  "name": "eslint-plugin-react-x",
+  "version": "5.0.2-beta.5",
+  "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
+  "keywords": [
+    "react",
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-x"
+  ],
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/eslint-plugin-react-x"
+  },
+  "license": "MIT",
+  "author": "Rel1cx",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "lint:publish": "publint",
+    "lint:ts": "tsl",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "dependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/core": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
+    "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/scope-manager": "^8.58.1",
+    "@typescript-eslint/type-utils": "^8.58.1",
+    "@typescript-eslint/types": "^8.58.1",
+    "@typescript-eslint/utils": "^8.58.1",
+    "compare-versions": "^6.1.1",
+    "string-ts": "^2.3.1",
+    "ts-api-utils": "^2.5.0",
+    "ts-pattern": "^5.9.0"
+  },
+  "devDependencies": {
+    "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.2.0",
+    "tsdown": "^0.21.7",
+    "tsl-dx": "^0.10.3"
+  },
+  "peerDependencies": {
+    "eslint": "^10.2.0",
+    "typescript": "*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "inlinedDependencies": {
+    "@local/eff": "workspace:*"
+  }
+}

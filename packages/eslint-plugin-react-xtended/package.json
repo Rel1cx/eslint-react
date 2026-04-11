@@ -1,0 +1,83 @@
+{
+  "name": "eslint-plugin-react-xtended",
+  "version": "5.0.2-beta.5",
+  "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
+  "keywords": [
+    "react",
+    "eslint",
+    "eslint-react",
+    "eslint-plugin",
+    "eslint-plugin-react-x",
+    "eslint-plugin-react-jsx",
+    "eslint-plugin-react-rsc",
+    "eslint-plugin-react-dom",
+    "eslint-plugin-react-web-api",
+    "eslint-plugin-react-naming-convention",
+    "eslint-plugin-react-xtended"
+  ],
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/eslint-plugin-react-xtended"
+  },
+  "license": "MIT",
+  "author": "Rel1cx",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "lint:publish": "pnpm publint",
+    "lint:ts": "tsl",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "dependencies": {
+    "@eslint-react/shared": "workspace:*",
+    "@typescript-eslint/scope-manager": "^8.58.1",
+    "@typescript-eslint/type-utils": "^8.58.1",
+    "@typescript-eslint/types": "^8.58.1",
+    "@typescript-eslint/utils": "^8.58.1",
+    "eslint-plugin-react-dom": "workspace:*",
+    "eslint-plugin-react-jsx": "workspace:*",
+    "eslint-plugin-react-naming-convention": "workspace:*",
+    "eslint-plugin-react-rsc": "workspace:*",
+    "eslint-plugin-react-web-api": "workspace:*",
+    "eslint-plugin-react-x": "workspace:*",
+    "ts-api-utils": "^2.5.0"
+  },
+  "devDependencies": {
+    "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
+    "tsdown": "^0.21.7"
+  },
+  "peerDependencies": {
+    "eslint": "^10.2.0",
+    "typescript": "*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "inlinedDependencies": {
+    "@local/eff": "workspace:*"
+  }
+}

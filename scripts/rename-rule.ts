@@ -83,7 +83,7 @@ const renameSourceFiles = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
     const oldRuleDir = path.join(pluginDir, "src", "rules", oldName);
     const newRuleDir = path.join(pluginDir, "src", "rules", newName);
 
@@ -132,7 +132,7 @@ const updateRuleImplementation = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
     const ruleFile = path.join(pluginDir, "src", "rules", newName, `${newName}.ts`);
 
     const exists = yield* fs.exists(ruleFile);
@@ -161,7 +161,7 @@ const updateTestFile = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
     const specFile = path.join(pluginDir, "src", "rules", newName, `${newName}.spec.ts`);
 
     const exists = yield* fs.exists(specFile);
@@ -190,7 +190,7 @@ const updateDocumentation = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
     const mdxFile = path.join(pluginDir, "src", "rules", newName, `${newName}.mdx`);
 
     const exists = yield* fs.exists(mdxFile);
@@ -211,7 +211,7 @@ const updateDocumentation = Effect.fnUntraced(
     // Update full name in eslint-plugin-react-* code block
     content = content.replace(`${pluginPrefix}/${oldName}`, `${pluginPrefix}/${newName}`);
 
-    // Update full name in @eslint-react/eslint-plugin code block
+    // Update full name in eslint-plugin-react-xtended code block
     content = content.replace(oldAggregatedKey, newAggregatedKey);
 
     // Update Rule Source link
@@ -238,7 +238,7 @@ const updatePluginRegistration = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
     const pluginFile = path.join(pluginDir, "src", "plugin.ts");
 
     const exists = yield* fs.exists(pluginFile);
@@ -291,7 +291,7 @@ const updateAggregatedConfigs = Effect.fnUntraced(
     const oldConfigKey = buildConfigKey(plugin, oldName);
     const newConfigKey = buildConfigKey(plugin, newName);
 
-    const configGlob = ["packages/plugins/eslint-plugin/src/configs/*.ts"];
+    const configGlob = ["packages/eslint-plugin-react-xtended/src/configs/*.ts"];
     const configFiles = glob(configGlob);
 
     let updatedCount = 0;
@@ -324,7 +324,7 @@ const updateSubPluginConfigs = Effect.fnUntraced(
     const oldSubKey = `${pluginPrefix}/${oldName}`;
     const newSubKey = `${pluginPrefix}/${newName}`;
 
-    const configGlob = [`packages/plugins/eslint-plugin-react-${plugin}/src/configs/*.ts`];
+    const configGlob = [`packages/eslint-plugin-react-${plugin}/src/configs/*.ts`];
     const configFiles = glob(configGlob);
 
     let updatedCount = 0;
@@ -371,8 +371,8 @@ const updateRuleRelationsTable = Effect.fnUntraced(
 
 const verifyNoLeftovers = Effect.fnUntraced(
   function*(plugin: PluginDomain, oldName: string) {
-    const pluginDir = `packages/plugins/eslint-plugin-react-${plugin}`;
-    const aggregatedDir = "packages/plugins/eslint-plugin";
+    const pluginDir = `packages/eslint-plugin-react-${plugin}`;
+    const aggregatedDir = "packages/eslint-plugin-react-xtended";
 
     const allFiles = [
       ...glob([`${pluginDir}/src/**/*.ts`]),

@@ -1,9 +1,9 @@
-import react from "@eslint-react/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
+import react from "eslint-plugin-react-xtended";
 import { defineConfig, globalIgnores } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";

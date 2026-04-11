@@ -6,17 +6,17 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
-import * as allConfig from "../packages/plugins/eslint-plugin/src/configs/all";
-import * as disableExperimentalConfig from "../packages/plugins/eslint-plugin/src/configs/disable-experimental";
-import * as disableTypeCheckedConfig from "../packages/plugins/eslint-plugin/src/configs/disable-type-checked";
-import * as domConfig from "../packages/plugins/eslint-plugin/src/configs/dom";
-import * as jsxConfig from "../packages/plugins/eslint-plugin/src/configs/jsx";
-import * as recommendedConfig from "../packages/plugins/eslint-plugin/src/configs/recommended";
-import * as rscConfig from "../packages/plugins/eslint-plugin/src/configs/rsc";
-import * as strictConfig from "../packages/plugins/eslint-plugin/src/configs/strict";
-import * as webApiConfig from "../packages/plugins/eslint-plugin/src/configs/web-api";
+import * as allConfig from "../packages/eslint-plugin-react-xtended/src/configs/all";
+import * as disableExperimentalConfig from "../packages/eslint-plugin-react-xtended/src/configs/disable-experimental";
+import * as disableTypeCheckedConfig from "../packages/eslint-plugin-react-xtended/src/configs/disable-type-checked";
+import * as domConfig from "../packages/eslint-plugin-react-xtended/src/configs/dom";
+import * as jsxConfig from "../packages/eslint-plugin-react-xtended/src/configs/jsx";
+import * as recommendedConfig from "../packages/eslint-plugin-react-xtended/src/configs/recommended";
+import * as rscConfig from "../packages/eslint-plugin-react-xtended/src/configs/rsc";
+import * as strictConfig from "../packages/eslint-plugin-react-xtended/src/configs/strict";
+import * as webApiConfig from "../packages/eslint-plugin-react-xtended/src/configs/web-api";
 
-const RULES_GLOB = ["packages/plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
+const RULES_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.ts"];
 
 const DOMAINS = [
   { key: "x", prefix: "" },
@@ -57,7 +57,7 @@ const collectRegisteredRules = Effect.gen(function*() {
   const rules: RegisteredRule[] = [];
 
   for (const file of files) {
-    const domain = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
+    const domain = /^packages\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
     // Skip debug plugin as it's not part of the aggregated plugin
     if (domain === "debug") continue;
     const mod = yield* Effect.tryPromise(() => import(`../${file}`));

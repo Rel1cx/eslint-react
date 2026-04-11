@@ -92,9 +92,9 @@ function generateRuleMdx(plugin: PluginName, ruleName: string, description: stri
   const pluginNpmName = getPluginNpmName(plugin);
   const pluginPkgName = getPluginPackageName(plugin);
   const ruleSourceUrl =
-    `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
+    `https://github.com/Rel1cx/eslint-react/tree/main/packages/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
   const testSourceUrl =
-    `https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`;
+    `https://github.com/Rel1cx/eslint-react/tree/main/packages/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`;
 
   return [
     `---`,
@@ -108,7 +108,7 @@ function generateRuleMdx(plugin: PluginName, ruleName: string, description: stri
     `${subPluginPrefix}/${ruleName}`,
     "```",
     ``,
-    `**Full Name in [\`@eslint-react/eslint-plugin\`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**`,
+    `**Full Name in [\`eslint-plugin-react-xtended\`](https://npmx.dev/package/eslint-plugin-react-xtended/v/latest)**`,
     ``,
     "```plain copy",
     `${aggregatedKey}`,
@@ -263,7 +263,7 @@ const program = Effect.gen(function*() {
   const path = yield* Path.Path;
 
   const pluginPkgName = getPluginPackageName(plugin);
-  const pluginDir = path.join("packages", "plugins", pluginPkgName);
+  const pluginDir = path.join("packages", pluginPkgName);
   const rulesDir = path.join(pluginDir, "src", "rules", ruleName!);
   const pluginTsPath = path.join(pluginDir, "src", "plugin.ts");
 

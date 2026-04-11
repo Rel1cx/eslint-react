@@ -1,0 +1,99 @@
+---
+title: no-leaked-semicolon
+description: Catches ';' at the start of JSX text nodes — typically from accidentally placing a statement-ending ';' inside JSX. The ';' "leaks" into the rendered output.
+---
+
+**Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
+
+```plain copy
+react-jsx/no-leaked-semicolon
+```
+
+**Full Name in [`eslint-plugin-react-xtended`](https://npmx.dev/package/eslint-plugin-react-xtended/v/latest)**
+
+```plain copy
+@eslint-react/jsx-no-leaked-semicolon
+```
+
+**Features**
+
+`🔧`
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+When refactoring JSX, trailing semicolons may be accidentally left immediately after JSX elements or fragments. This causes `;` to be unexpectedly rendered as text nodes:
+
+```tsx
+// before
+return <div />;
+
+// after
+return (
+  <div>
+    <div />;
+  </div>
+);
+```
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      <div />;
+    </div>
+  );
+}
+```
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      <Component>
+        <div />
+      </Component>;
+    </div>
+  );
+}
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      <div />
+    </div>
+  );
+}
+```
+
+```tsx
+function MyComponent() {
+  return (
+    <div>
+      <div />
+      ;
+    </div>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-leaked-semicolon/no-leaked-semicolon.spec.ts)

@@ -69,7 +69,7 @@ Before you begin, make sure you have the following installed:
 │   ├── shared/                 # @eslint-react/shared — shared types and utilities
 │   ├── utilities/              # Utility packages (ast, jsx, kit, var)
 │   └── plugins/                # Published ESLint plugins
-│       ├── eslint-plugin/                          # Unified plugin (@eslint-react/eslint-plugin)
+│       ├── eslint-plugin/                          # Unified plugin (eslint-plugin-react-xtended)
 │       ├── eslint-plugin-react-x/                  # Core React rules (renderer-agnostic)
 │       ├── eslint-plugin-react-dom/                # DOM-specific rules
 │       ├── eslint-plugin-react-jsx/                # JSX rules
@@ -109,7 +109,7 @@ pnpm run build:website
 pnpm run test
 
 # Run a single test file
-pnpm vitest related packages/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts
+pnpm vitest related packages/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts
 
 # Run tests matching a pattern
 pnpm vitest run -t "<test-name-pattern>"
@@ -204,7 +204,7 @@ pnpm run scaffold:rule
 This creates the following files inside the target plugin:
 
 ```
-packages/plugins/<plugin>/src/rules/<rule-name>/
+packages/<plugin>/src/rules/<rule-name>/
 ├── <rule-name>.ts         # Rule implementation
 ├── <rule-name>.spec.ts    # Test file
 └── <rule-name>.mdx        # Documentation (MDX with YAML frontmatter)
@@ -219,7 +219,7 @@ Write the rule logic in `<rule-name>.ts`. The file should export:
 - `MessageID` — a string union type for all message IDs.
 - A default export calling `createRule(...)`.
 
-Refer to existing rules (e.g., `packages/plugins/eslint-plugin-react-x/src/rules/no-array-index-key/`) as a reference.
+Refer to existing rules (e.g., `packages/eslint-plugin-react-x/src/rules/no-array-index-key/`) as a reference.
 
 ### Step 4 — Write Tests
 
@@ -243,7 +243,7 @@ Write the rule documentation in `<rule-name>.mdx`:
 
 1. Export the rule in the plugin's entry file (`src/plugin.ts`).
 2. If the rule should be enabled by default, update the preset configurations.
-3. Update the unified plugin (`packages/plugins/eslint-plugin/`) to include the new rule.
+3. Update the unified plugin (`packages/eslint-plugin-react-xtended/`) to include the new rule.
 4. Run `pnpm run update:all` to synchronize metadata across the monorepo.
 
 ### Step 7 — Verify and Submit

@@ -13,17 +13,17 @@
     "preact": "^10.29.1"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.5",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^25.5.2",
+    "@types/node": "^25.6.0",
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
+    "eslint-plugin-react-xtended": "workspace:*",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.0",
-    "vite": "^8.0.7"
+    "typescript-eslint": "^8.58.1",
+    "vite": "^8.0.8"
   }
 }

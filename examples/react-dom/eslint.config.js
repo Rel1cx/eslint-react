@@ -1,9 +1,9 @@
 // @ts-check
 
-import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import eslintReact from "eslint-plugin-react-xtended";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 

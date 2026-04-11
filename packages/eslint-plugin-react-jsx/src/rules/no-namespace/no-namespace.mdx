@@ -1,0 +1,72 @@
+---
+title: no-namespace
+description: Disallow JSX namespace syntax, as React does not support them.
+---
+
+**Full Name in [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx/v/latest)**
+
+```plain copy
+react-jsx/no-namespace
+```
+
+**Full Name in [`eslint-plugin-react-xtended`](https://npmx.dev/package/eslint-plugin-react-xtended/v/latest)**
+
+```plain copy
+@eslint-react/jsx-no-namespace
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+React does not support XML namespaced tags (e.g. `<ns:Component />`). Although the JSX specification permits namespaces, React does not implement them. Using a namespaced element will cause a runtime error.
+
+### Invalid
+
+```tsx
+// ❌ Namespace tag — not supported by React.
+<ns:testcomponent />;
+```
+
+```tsx
+// ❌ PascalCase namespace is also not allowed.
+<Ns:TestComponent />;
+```
+
+```tsx
+// ❌ SVG-style namespace is also not allowed.
+<svg:circle cx="50" cy="50" r="40" />;
+```
+
+### Valid
+
+```tsx
+// ✅ Plain element — no namespace.
+<testcomponent />;
+```
+
+```tsx
+// ✅ Member expression — not a namespace.
+<object.TestComponent />;
+```
+
+```tsx
+// ✅ PascalCase component.
+<TestComponent />;
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-namespace/no-namespace.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx/src/rules/no-namespace/no-namespace.spec.ts)
+
+## Further Reading
+
+- [Babel Preset React: throwIfNamespace](https://babeljs.io/docs/babel-preset-react#throwifnamespace)
