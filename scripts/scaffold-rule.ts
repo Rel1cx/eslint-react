@@ -108,7 +108,7 @@ function generateRuleMdx(plugin: PluginName, ruleName: string, description: stri
     `${subPluginPrefix}/${ruleName}`,
     "```",
     ``,
-    `**Full Name in [\`eslint-plugin-react-simple\`](https://npmx.dev/package/eslint-plugin-react-simple/v/latest)**`,
+    `**Full Name in [\`eslint-plugin-react-xtended\`](https://npmx.dev/package/eslint-plugin-react-xtended/v/latest)**`,
     ``,
     "```plain copy",
     `${aggregatedKey}`,

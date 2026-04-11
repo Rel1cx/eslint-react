@@ -211,7 +211,7 @@ const updateDocumentation = Effect.fnUntraced(
     // Update full name in eslint-plugin-react-* code block
     content = content.replace(`${pluginPrefix}/${oldName}`, `${pluginPrefix}/${newName}`);
 
-    // Update full name in eslint-plugin-react-simple code block
+    // Update full name in eslint-plugin-react-xtended code block
     content = content.replace(oldAggregatedKey, newAggregatedKey);
 
     // Update Rule Source link
@@ -291,7 +291,7 @@ const updateAggregatedConfigs = Effect.fnUntraced(
     const oldConfigKey = buildConfigKey(plugin, oldName);
     const newConfigKey = buildConfigKey(plugin, newName);
 
-    const configGlob = ["packages/eslint-plugin-react-simple/src/configs/*.ts"];
+    const configGlob = ["packages/eslint-plugin-react-xtended/src/configs/*.ts"];
     const configFiles = glob(configGlob);
 
     let updatedCount = 0;
@@ -372,7 +372,7 @@ const updateRuleRelationsTable = Effect.fnUntraced(
 const verifyNoLeftovers = Effect.fnUntraced(
   function*(plugin: PluginDomain, oldName: string) {
     const pluginDir = `packages/eslint-plugin-react-${plugin}`;
-    const aggregatedDir = "packages/eslint-plugin-react-simple";
+    const aggregatedDir = "packages/eslint-plugin-react-xtended";
 
     const allFiles = [
       ...glob([`${pluginDir}/src/**/*.ts`]),

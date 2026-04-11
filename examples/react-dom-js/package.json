@@ -21,7 +21,7 @@
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "eslint-plugin-react-simple": "workspace:*",
+    "eslint-plugin-react-xtended": "workspace:*",
     "globals": "^17.4.0",
     "vite": "^8.0.8"
   },

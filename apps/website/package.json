@@ -56,7 +56,7 @@
     "eslint-plugin-fast-import": "^2.2.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "eslint-plugin-react-simple": "workspace:*",
+    "eslint-plugin-react-xtended": "workspace:*",
     "importx": "^0.5.2",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2",

@@ -12,7 +12,7 @@ const program = Effect.gen(function*() {
   const ce = yield* CommandExecutor.CommandExecutor;
   const branch = yield* ce.string(Command.make("git", "branch", "--show-current"));
   const source = "README.md";
-  const destination = "packages/eslint-plugin-react-simple/README.md";
+  const destination = "packages/eslint-plugin-react-xtended/README.md";
   const buildToolVersion = match(JSON.parse(yield* fs.readFileString("package.json", "utf8")))
     .with({ devDependencies: { tsdown: P.select(P.string) } }, Str.replace("^", ""))
     .otherwise(() => "latest");
@@ -30,7 +30,7 @@ const program = Effect.gen(function*() {
     return `[${text}](${absoluteUrl})`;
   });
   // Ensure the destination directory exists
-  yield* fs.makeDirectory("packages/eslint-plugin-react-simple", { recursive: true });
+  yield* fs.makeDirectory("packages/eslint-plugin-react-xtended", { recursive: true });
   yield* fs.writeFileString(source, readmeContentNew);
   yield* fs.writeFileString(destination, readmeContentAbs);
   yield* Effect.log(`Updated ${destination} from ${source}`);

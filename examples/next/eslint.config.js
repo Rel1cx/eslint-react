@@ -3,7 +3,7 @@ import eslintJs from "@eslint/js";
 import eslintPluginNext from "@next/eslint-plugin-next";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import eslintReact from "eslint-plugin-react-simple";
+import eslintReact from "eslint-plugin-react-xtended";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";

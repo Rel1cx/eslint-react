@@ -21,7 +21,7 @@
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "eslint-plugin-react-simple": "workspace:*",
+    "eslint-plugin-react-xtended": "workspace:*",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
     "vite": "^8.0.8"

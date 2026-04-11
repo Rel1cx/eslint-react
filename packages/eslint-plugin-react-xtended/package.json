@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin-react-simple",
+  "name": "eslint-plugin-react-xtended",
   "version": "5.0.2-beta.5",
   "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
   "keywords": [
@@ -13,7 +13,7 @@
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-naming-convention",
-    "eslint-plugin-react-simple"
+    "eslint-plugin-react-xtended"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/eslint-plugin-react-simple"
+    "directory": "packages/eslint-plugin-react-xtended"
   },
   "license": "MIT",
   "author": "Rel1cx",
