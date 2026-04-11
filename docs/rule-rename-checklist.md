@@ -1,6 +1,6 @@
 # Rule Rename / Move Checklist
 
-Step-by-step checklists for renaming or moving a rule in `eslint-plugin-react-x` and `eslint-plugin-react-xtended`.
+Step-by-step checklists for renaming or moving a rule in `eslint-plugin-react-x` and `eslint-plugin-react-instant`.
 
 Used as reference when:
 
@@ -67,7 +67,7 @@ Update the rule key in every preset that includes the rule:
 - [ ] `src/configs/strict-type-checked.ts` — if present
 - [ ] `src/configs/disable-experimental.ts` — if present
 
-### A7. Preset Configs (`eslint-plugin-react-xtended`)
+### A7. Preset Configs (`eslint-plugin-react-instant`)
 
 Update the rule key (prefixed `@eslint-react/`) in every config that includes the rule:
 
@@ -133,7 +133,7 @@ Add the rule to every applicable preset:
 - [ ] `src/configs/strict.ts` — if stricter coverage is desired
 - [ ] Other presets as appropriate
 
-### B5. Preset Configs (`eslint-plugin-react-xtended`)
+### B5. Preset Configs (`eslint-plugin-react-instant`)
 
 - [ ] `src/configs/x.ts` — `"@eslint-react/<rule-name>": "<severity>"`
 - [ ] `src/configs/all.ts` — `"@eslint-react/<rule-name>": "<severity>"`
@@ -182,7 +182,7 @@ Mirrors the style established by `use-memo.mdx`.
 title: <rule-name>
 ---
 
-**Full Name in [`eslint-plugin-react-xtended`](https://npmx.dev/package/eslint-plugin-react-xtended/v/latest)**
+**Full Name in [`eslint-plugin-react-instant`](https://npmx.dev/package/eslint-plugin-react-instant/v/latest)**
 
 \`\`\`plain copy
 @eslint-react/<rule-name>

@@ -2,7 +2,7 @@
   "name": "@eslint-react/monorepo",
   "version": "5.1.0-beta.1",
   "private": true,
-  "description": "Monorepo for eslint-plugin-react-[xtended, x, jsx, rsc, dom, web-api, naming-convention].",
+  "description": "Monorepo for eslint-plugin-react-[instant, x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
     "react",
     "eslint",
@@ -14,7 +14,7 @@
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-naming-convention",
-    "eslint-plugin-react-xtended"
+    "eslint-plugin-react-instant"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -79,7 +79,7 @@
     "effect": "^3.21.0",
     "eslint": "^10.2.0",
     "eslint-plugin-fast-import": "^2.2.1",
-    "eslint-plugin-react-xtended": "workspace:*",
+    "eslint-plugin-react-instant": "workspace:*",
     "mdxlint": "^1.0.0",
     "preact": "^10.29.1",
     "publint": "^0.3.18",

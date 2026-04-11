@@ -99,9 +99,9 @@ importers:
       eslint-plugin-fast-import:
         specifier: ^2.2.1
         version: 2.2.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      eslint-plugin-react-xtended:
+      eslint-plugin-react-instant:
         specifier: workspace:*
-        version: link:packages/eslint-plugin-react-xtended
+        version: link:packages/eslint-plugin-react-instant
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -350,12 +350,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       importx:
         specifier: ^0.5.2
         version: 0.5.2
@@ -420,12 +420,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
@@ -460,12 +460,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
@@ -503,12 +503,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
@@ -555,12 +555,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       typescript:
         specifier: ^6.0.2
         version: 6.0.2
@@ -598,12 +598,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       globals:
         specifier: ^17.4.0
         version: 17.4.0
@@ -656,12 +656,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
+      eslint-plugin-react-instant:
+        specifier: workspace:*
+        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-xtended:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-xtended
       jiti:
         specifier: ^2.6.1
         version: 2.6.1
@@ -1062,6 +1062,64 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
+  packages/eslint-plugin-react-instant:
+    dependencies:
+      '@eslint-react/eslint':
+        specifier: workspace:*
+        version: link:../@eslint-react/eslint
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../@eslint-react/shared
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/type-utils':
+        specifier: ^8.58.1
+        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
+      '@typescript-eslint/types':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/utils':
+        specifier: ^8.58.1
+        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
+      eslint:
+        specifier: ^10.2.0
+        version: 10.2.0(jiti@2.6.1)
+      eslint-plugin-react-dom:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-dom
+      eslint-plugin-react-jsx:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-jsx
+      eslint-plugin-react-naming-convention:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-naming-convention
+      eslint-plugin-react-rsc:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-rsc
+      eslint-plugin-react-web-api:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-web-api
+      eslint-plugin-react-x:
+        specifier: workspace:*
+        version: link:../eslint-plugin-react-x
+      ts-api-utils:
+        specifier: ^2.5.0
+        version: 2.5.0(typescript@6.0.2)
+      typescript:
+        specifier: '*'
+        version: 6.0.2
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
+      tsdown:
+        specifier: ^0.21.7
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
+
   packages/eslint-plugin-react-jsx:
     dependencies:
       '@eslint-react/ast':
@@ -1357,64 +1415,6 @@ importers:
       tsl-dx:
         specifier: ^0.10.3
         version: 0.10.3(tsl@1.0.30(typescript@6.0.2))(typescript@6.0.2)
-
-  packages/eslint-plugin-react-xtended:
-    dependencies:
-      '@eslint-react/eslint':
-        specifier: workspace:*
-        version: link:../@eslint-react/eslint
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../@eslint-react/shared
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/type-utils':
-        specifier: ^8.58.1
-        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      '@typescript-eslint/types':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/utils':
-        specifier: ^8.58.1
-        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      eslint:
-        specifier: ^10.2.0
-        version: 10.2.0(jiti@2.6.1)
-      eslint-plugin-react-dom:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-dom
-      eslint-plugin-react-jsx:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-jsx
-      eslint-plugin-react-naming-convention:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-naming-convention
-      eslint-plugin-react-rsc:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-rsc
-      eslint-plugin-react-web-api:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-web-api
-      eslint-plugin-react-x:
-        specifier: workspace:*
-        version: link:../eslint-plugin-react-x
-      ts-api-utils:
-        specifier: ^2.5.0
-        version: 2.5.0(typescript@6.0.2)
-      typescript:
-        specifier: '*'
-        version: 6.0.2
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../.pkgs/configs
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
-      tsdown:
-        specifier: ^0.21.7
-        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
 packages:
 

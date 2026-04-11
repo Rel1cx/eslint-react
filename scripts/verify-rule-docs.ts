@@ -9,8 +9,8 @@ import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
 
-import * as config0 from "../packages/eslint-plugin-react-xtended/src/configs/recommended-typescript";
-import * as config1 from "../packages/eslint-plugin-react-xtended/src/configs/strict-typescript";
+import * as config0 from "../packages/eslint-plugin-react-instant/src/configs/recommended-typescript";
+import * as config1 from "../packages/eslint-plugin-react-instant/src/configs/strict-typescript";
 
 const RULES_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
