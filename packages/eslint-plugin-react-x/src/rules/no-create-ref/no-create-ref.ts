@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
 import { createRule } from "../../utils";
 
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return defineRuleListener(
+  return merge(
     {
       CallExpression(node) {
         if (core.isCreateRefCall(context, node) && ast.findParent(node, core.isClassComponent) == null) {

@@ -1,4 +1,4 @@
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { findAttribute } from "./find-attribute";

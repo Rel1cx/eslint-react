@@ -1,6 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../../utils";
 
@@ -38,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("captureOwnerStack")) return {};
   const { importSource } = getSettingsFromContext(context);
 
-  return defineRuleListener(
+  return merge(
     {
       CallExpression(node) {
         // Check if the call is to `captureOwnerStack`

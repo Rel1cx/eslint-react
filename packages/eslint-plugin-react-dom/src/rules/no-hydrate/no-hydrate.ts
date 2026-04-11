@@ -1,10 +1,5 @@
-import {
-  type RuleContext,
-  type RuleFeature,
-  type RuleFixer,
-  defineRuleListener,
-  getSettingsFromContext,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -48,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const reactDomNames = new Set<string>(); // For `import ReactDOM from 'react-dom'`
   const hydrateNames = new Set<string>(); // For `import { hydrate } from 'react-dom'`
 
-  return defineRuleListener(
+  return merge(
     {
       CallExpression(node) {
         switch (true) {

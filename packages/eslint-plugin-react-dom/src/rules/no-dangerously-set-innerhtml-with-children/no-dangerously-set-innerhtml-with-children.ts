@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, hasAttribute, isWhitespace } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
 
@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return {};
   }
 
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop

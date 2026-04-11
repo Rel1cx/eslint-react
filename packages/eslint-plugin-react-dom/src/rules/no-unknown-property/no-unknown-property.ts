@@ -1,5 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type CompareOperator, compare } from "compare-versions";
 
@@ -1190,7 +1191,7 @@ export function create(context: RuleContext<MessageID, Options[]>) {
     return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
-  return defineRuleListener(
+  return merge(
     {
       JSXAttribute(node): void {
         const ignoreNames: string[] = getIgnoreConfig();

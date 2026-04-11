@@ -1,7 +1,8 @@
 /* eslint-disable perfectionist/sort-objects */
 import * as ast from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
-import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE, type RuleContext } from "@eslint-react/shared";
+import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";

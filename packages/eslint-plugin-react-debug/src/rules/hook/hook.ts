@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
 import { createRule, stringify } from "../../utils";
 
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const { api, visitor } = core.getHookCollector(context);
 
-  return defineRuleListener(
+  return merge(
     visitor,
     {
       "Program:exit"(program) {

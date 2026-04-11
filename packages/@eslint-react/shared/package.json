@@ -50,6 +50,7 @@
     "tsdown": "^0.21.7"
   },
   "peerDependencies": {
+    "@eslint-react/eslint": "workspace:*",
     "eslint": "^10.2.0",
     "typescript": "*"
   },

@@ -10,7 +10,7 @@ function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormal
 
 | Parameter | Type |
 | ------ | ------ |
-| `context` | [`RuleContext`](../type-aliases/RuleContext.md) |
+| `context` | `RuleContext` |
 
 ## Returns
 

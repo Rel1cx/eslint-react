@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -34,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
   const lazyCalls = new Set<TSESTree.CallExpression>();
 
-  return defineRuleListener(
+  return merge(
     fCollector.visitor,
     cCollector.visitor,
     hCollector.visitor,

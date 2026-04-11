@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { createJsxElementResolver, createRule } from "../../utils";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
@@ -45,7 +45,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         // 1. Resolve the JSX element to see if it's a DOM 'iframe'. If not, we don't need to check it

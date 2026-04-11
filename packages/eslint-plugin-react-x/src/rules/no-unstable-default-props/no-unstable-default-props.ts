@@ -1,12 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  type RuleContext,
-  type RuleFeature,
-  defineRuleListener,
-  getSettingsFromContext,
-  toRegExp,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { computeObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -85,7 +80,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
-  return defineRuleListener(visitor, {
+  return merge(visitor, {
     [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ast.ObjectDestructuringVariableDeclarator) {
       const enclosingFunction = ast.findParent(node, ast.isFunction);
       if (enclosingFunction == null) return;

@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Stores all `displayName` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
 
-  return defineRuleListener(
+  return merge(
     {
       // Collect all `*.displayName = '...'` assignments
       [ast.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: ast.DisplayNameAssignmentExpression) {

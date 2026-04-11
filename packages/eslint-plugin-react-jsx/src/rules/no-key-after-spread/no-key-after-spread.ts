@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { JsxEmit, getJsxConfig } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return {};
   }
 
-  return defineRuleListener({
+  return merge({
     JSXOpeningElement(node) {
       let firstSpreadPropIndex: null | number = null;
       for (const [index, prop] of node.attributes.entries()) {

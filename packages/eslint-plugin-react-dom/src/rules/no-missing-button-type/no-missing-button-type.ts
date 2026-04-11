@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, type RuleSuggest, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../../utils";
 
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         // Resolve the JSX element to its corresponding DOM element type
@@ -55,12 +55,12 @@ export function create(context: RuleContext<MessageID, []>) {
           messageId: "missingTypeAttribute",
           node: node.openingElement,
           // Provide suggestions to automatically fix the issue
-          suggest: BUTTON_TYPES.map((type): RuleSuggest<MessageID> => ({
+          suggest: BUTTON_TYPES.map((type) => ({
             data: { type },
             // The fix function inserts the 'type' attribute with a suggested value
             fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
             messageId: "addTypeAttribute",
-          })),
+          } as const)),
         });
       },
     },

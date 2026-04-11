@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
@@ -34,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const checker = services.program.getTypeChecker();
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
-  return defineRuleListener(visitor, {
+  return merge(visitor, {
     "Program:exit"(program) {
       // Keyed by declaration node to normalize across different ts.Symbol objects
       // that refer to the same property (ex: via Omit/Pick mapped types).

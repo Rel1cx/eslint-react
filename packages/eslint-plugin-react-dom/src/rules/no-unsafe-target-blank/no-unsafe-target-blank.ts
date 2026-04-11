@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 import { createJsxElementResolver, createRule } from "../../utils";
@@ -60,7 +60,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node: TSESTree.JSXElement) {
         // Only process anchor tags (<a>)

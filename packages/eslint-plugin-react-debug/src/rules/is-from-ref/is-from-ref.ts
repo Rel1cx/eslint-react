@@ -1,5 +1,5 @@
 import { isUseRefCall } from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>) {
       });
     }
   }
-  return defineRuleListener(
+  return merge(
     { Identifier: visitorFunction, JSXIdentifier: visitorFunction },
   );
 }

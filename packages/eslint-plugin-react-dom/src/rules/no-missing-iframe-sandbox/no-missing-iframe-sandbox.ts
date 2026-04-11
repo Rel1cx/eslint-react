@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createJsxElementResolver, createRule } from "../../utils";
 
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         const { domElementType } = resolver.resolve(node);

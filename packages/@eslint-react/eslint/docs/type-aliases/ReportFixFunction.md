@@ -1,4 +1,4 @@
-[@eslint-react/shared](../README.md) / ReportFixFunction
+[@eslint-react/eslint](../README.md) / ReportFixFunction
 
 # Type Alias: ReportFixFunction
 

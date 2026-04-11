@@ -1,4 +1,4 @@
-[@eslint-react/shared](../README.md) / RuleFix
+[@eslint-react/eslint](../README.md) / RuleFix
 
 # Interface: RuleFix
 

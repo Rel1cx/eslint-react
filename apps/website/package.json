@@ -37,6 +37,7 @@
   "devDependencies": {
     "@effect/language-service": "^0.85.1",
     "@eslint-react/shared": "workspace:*",
+    "@eslint-react/eslint": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",

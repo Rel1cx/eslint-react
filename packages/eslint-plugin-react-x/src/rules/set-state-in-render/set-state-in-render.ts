@@ -1,6 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -159,7 +160,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return "other";
   }
 
-  return defineRuleListener(
+  return merge(
     {
       ":function"(node: ast.TSESTreeFunction) {
         const kind = getFunctionKind(node);

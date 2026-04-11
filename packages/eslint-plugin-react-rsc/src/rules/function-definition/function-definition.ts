@@ -4,8 +4,8 @@ import {
   type RuleContext,
   type RuleFeature,
   type RuleFixer,
-  defineRuleListener,
-} from "@eslint-react/shared";
+  merge,
+} from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>) {
     reportNonAsyncFunction(initNode, "file");
   }
 
-  return defineRuleListener(
+  return merge(
     {
       ArrowFunctionExpression(node) {
         checkLocalServerFunction(node);

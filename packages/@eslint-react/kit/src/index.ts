@@ -1,20 +1,16 @@
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  type ESLintReactSettingsNormalized,
-  type RuleFix,
-  type RuleFixer,
-  type RuleListener,
-  getSettingsFromContext,
-} from "@eslint-react/shared";
+import type { RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
+import { type ESLintReactSettingsNormalized, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";
 import { kebabCase } from "string-ts";
-export { defineRuleListener as merge } from "@eslint-react/shared";
 import { ulid } from "ulid";
 
 import pkg from "../package.json";
+
+export { merge } from "@eslint-react/eslint";
 
 export type { RuleFix, RuleFixer, RuleListener };
 

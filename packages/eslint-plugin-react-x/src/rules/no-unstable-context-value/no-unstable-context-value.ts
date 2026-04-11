@@ -1,7 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, computeObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -41,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const { api, visitor } = core.getFunctionComponentCollector(context);
   const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
 
-  return defineRuleListener(
+  return merge(
     visitor,
     {
       JSXOpeningElement(node) {

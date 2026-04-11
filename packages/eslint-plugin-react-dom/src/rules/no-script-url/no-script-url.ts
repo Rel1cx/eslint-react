@@ -1,5 +1,6 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { resolveAttributeValue } from "@eslint-react/jsx";
-import { RE_JAVASCRIPT_PROTOCOL, type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -27,7 +28,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return defineRuleListener(
+  return merge(
     {
       JSXAttribute(node) {
         if (node.name.type !== AST.JSXIdentifier || node.value == null) return;

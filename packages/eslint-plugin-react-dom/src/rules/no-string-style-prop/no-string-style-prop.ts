@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
 
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         // This rule only applies to host elements (ex: <div />, <span />), not custom components

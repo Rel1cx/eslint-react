@@ -1,4 +1,4 @@
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -30,7 +30,7 @@ const findDOMNode = "findDOMNode";
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `findDOMNode` is not present in the file
   if (!context.sourceCode.text.includes(findDOMNode)) return {};
-  return defineRuleListener(
+  return merge(
     {
       CallExpression(node) {
         const { callee } = node;

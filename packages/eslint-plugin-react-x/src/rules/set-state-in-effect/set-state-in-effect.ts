@@ -1,7 +1,8 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { isUseRefCall } from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -223,7 +224,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  return defineRuleListener(
+  return merge(
     {
       ":function"(node: ast.TSESTreeFunction) {
         const kind = getFunctionKind(node);

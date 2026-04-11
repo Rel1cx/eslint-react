@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-unsafe-component-will-receive-props";
@@ -29,7 +29,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("UNSAFE_componentWillReceiveProps")) return {};
   const { api, visitor } = core.getClassComponentCollector(context);
 
-  return defineRuleListener(
+  return merge(
     visitor,
     {
       "Program:exit"(program) {

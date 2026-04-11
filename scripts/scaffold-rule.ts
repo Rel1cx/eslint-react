@@ -32,7 +32,7 @@ function getAggregatedRuleKey(plugin: PluginName, ruleName: string): string {
 
 function generateRuleTs(ruleName: string): string {
   return [
-    `import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";`,
+    `import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";`,
     ``,
     `import { createRule } from "../../utils";`,
     ``,
@@ -59,7 +59,7 @@ function generateRuleTs(ruleName: string): string {
     `});`,
     ``,
     `export function create(context: RuleContext<MessageID, []>) {`,
-    `  return defineRuleListener({`,
+    `  return merge({`,
     `    // TODO: Add AST visitor methods.`,
     `  });`,
     `}`,

@@ -1,10 +1,5 @@
-import {
-  type RuleContext,
-  type RuleFeature,
-  type RuleFixer,
-  defineRuleListener,
-  getSettingsFromContext,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -47,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Tracks imported names for the `render` function
   const renderNames = new Set<string>();
 
-  return defineRuleListener(
+  return merge(
     {
       // Visitor for call expressions, e.g., render() or ReactDOM.render()
       CallExpression(node) {

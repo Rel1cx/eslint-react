@@ -1,4 +1,4 @@
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
   const renderNames = new Set<string>();
 
-  return defineRuleListener(
+  return merge(
     {
       // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
       CallExpression(node) {

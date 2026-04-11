@@ -1,6 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
@@ -45,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
-  return defineRuleListener(
+  return merge(
     {
       // Visitor for `forwardRef()` calls
       CallExpression(node) {

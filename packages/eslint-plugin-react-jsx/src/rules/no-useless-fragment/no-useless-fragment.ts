@@ -1,4 +1,5 @@
 import * as ast from "@eslint-react/ast";
+import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
 import {
   getChildren,
   getJsxConfig,
@@ -7,13 +8,6 @@ import {
   isHostElement,
   isWhitespaceText,
 } from "@eslint-react/jsx";
-import {
-  type RuleContext,
-  type RuleFeature,
-  type RuleFix,
-  type RuleFixer,
-  defineRuleListener,
-} from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
@@ -208,7 +202,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     }
   }
 
-  return defineRuleListener({
+  return merge({
     JSXElement(node) {
       if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
       if (hasAnyAttribute(context, node, ["key", "ref"])) return;

@@ -46,6 +46,7 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
     "@eslint-react/shared": "workspace:*",
+    "@eslint-react/eslint": "workspace:*",
     "@typescript-eslint/utils": "^8.58.1",
     "string-ts": "^2.3.1",
     "ulid": "^3.0.2"

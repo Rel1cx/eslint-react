@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";

@@ -1,12 +1,12 @@
-[@eslint-react/shared](../README.md) / defineRuleListener
+[@eslint-react/eslint](../README.md) / merge
 
-# Function: defineRuleListener()
+# Function: merge()
 
 ```ts
-function defineRuleListener(base: RuleListener, ...rest: RuleListener[]): RuleListener;
+function merge(base: RuleListener, ...rest: RuleListener[]): RuleListener;
 ```
 
-Defines a rule listener by merging multiple visitor objects
+Merges multiple visitor objects into a single visitor object.
 
 ## Parameters
 
@@ -19,13 +19,13 @@ Defines a rule listener by merging multiple visitor objects
 
 [`RuleListener`](../type-aliases/RuleListener.md)
 
-Merged RuleListener object
+Merged visitor object
 
 ## Example
 
 ```typescript
-const listener1 = { Identifier: () => console.log(1) };
-const listener2 = { Identifier: () => console.log(2) };
-const merged = defineRuleListener(listener1, listener2);
+const visitor1 = { Identifier: () => console.log(1) };
+const visitor2 = { Identifier: () => console.log(2) };
+const merged = merge(visitor1, visitor2);
 // When encountering Identifier nodes, outputs 1 then 2
 ```

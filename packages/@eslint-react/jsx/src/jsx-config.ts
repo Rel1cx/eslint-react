@@ -1,10 +1,10 @@
 /* eslint-disable perfectionist/sort-objects */
+import type { RuleContext } from "@eslint-react/eslint";
 import {
   RE_ANNOTATION_JSX,
   RE_ANNOTATION_JSX_FRAG,
   RE_ANNOTATION_JSX_IMPORT_SOURCE,
   RE_ANNOTATION_JSX_RUNTIME,
-  type RuleContext,
 } from "@eslint-react/shared";
 
 // ---------------------------------------------------------------------------

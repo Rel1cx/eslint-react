@@ -1,6 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -139,7 +140,7 @@ export function create(context: RuleContext<MessageID, []>) {
       // For all other node types, assume they are safe
       .otherwise(() => null);
   }
-  return defineRuleListener(
+  return merge(
     {
       JSXExpressionContainer: flow(getReportDescriptor, report(context)),
     },

@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { JsxDetectionHint, isJsxLike } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -52,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const reported = new Set<TSESTree.TryStatement>();
   const useCalls = new Set<TSESTree.CallExpression>();
 
-  return defineRuleListener(
+  return merge(
     fCollector.visitor,
     hCollector.visitor,
     {

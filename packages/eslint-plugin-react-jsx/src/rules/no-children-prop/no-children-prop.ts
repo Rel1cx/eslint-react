@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { getChildrenPropText, getPropRemovalRange } from "./lib";
@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return defineRuleListener({
+  return merge({
     JSXElement(node) {
       const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;

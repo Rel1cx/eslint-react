@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { or } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -120,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
-  return defineRuleListener(
+  return merge(
     {
       [":function"](node: ast.TSESTreeFunction) {
         const kind = getFunctionKind(node);

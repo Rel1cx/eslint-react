@@ -23,4 +23,4 @@
 | Function | Description |
 | ------ | ------ |
 | [default](functions/default.md) | - |
-| [merge](functions/merge.md) | Defines a rule listener by merging multiple visitor objects |
+| [merge](functions/merge.md) | Merges multiple visitor objects into a single visitor object. |

@@ -1,5 +1,5 @@
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
 
 import { createRule } from "../../utils";
 
@@ -30,7 +30,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes(DSIH)) return {};
-  return defineRuleListener(
+  return merge(
     {
       JSXElement(node) {
         // Check if the element has the 'dangerouslySetInnerHTML' prop

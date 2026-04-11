@@ -5,8 +5,6 @@
 | Interface | Description |
 | ------ | ------ |
 | [ESLintReactSettingsNormalized](interfaces/ESLintReactSettingsNormalized.md) | - |
-| [RuleFix](interfaces/RuleFix.md) | - |
-| [RuleFixer](interfaces/RuleFixer.md) | - |
 
 ## Type Aliases
 
@@ -15,11 +13,6 @@
 | [ESLintReactSettings](type-aliases/ESLintReactSettings.md) | - |
 | [ESLintSettings](type-aliases/ESLintSettings.md) | - |
 | [RegExpLike](type-aliases/RegExpLike.md) | A type represents RegExp-like object with `test` method. |
-| [ReportFixFunction](type-aliases/ReportFixFunction.md) | - |
-| [RuleContext](type-aliases/RuleContext.md) | Rule context. |
-| [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
-| [RuleListener](type-aliases/RuleListener.md) | - |
-| [RuleSuggest](type-aliases/RuleSuggest.md) | A suggestion for fixing a reported issue. |
 
 ## Variables
 
@@ -52,7 +45,6 @@
 | ------ | ------ |
 | [decodeESLintSettings](functions/decodeESLintSettings.md) | - |
 | [decodeSettings](functions/decodeSettings.md) | - |
-| [defineRuleListener](functions/defineRuleListener.md) | Defines a rule listener by merging multiple visitor objects |
 | [getReactVersion](functions/getReactVersion.md) | Gets the React version from the project's dependencies. |
 | [getSettingsFromContext](functions/getSettingsFromContext.md) | - |
 | [isESLintReactSettings](functions/isESLintReactSettings.md) | - |

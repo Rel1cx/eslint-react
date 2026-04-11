@@ -1,5 +1,6 @@
+import type { RuleContext } from "@eslint-react/eslint";
 import { getAttributeStaticValue, getElementFullType } from "@eslint-react/jsx";
-import { type RuleContext, getSettingsFromContext } from "@eslint-react/shared";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**

@@ -10,6 +10,7 @@ export default {
   dts: true,
   deps: {
     alwaysBundle: [
+      "@eslint-react/eslint",
       "@local/eff",
     ],
     neverBundle: [

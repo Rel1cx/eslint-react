@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
 import { isHigherOrderComponent } from "./lib";
 
@@ -54,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<ast.TSESTreeFunction>();
 
-  return defineRuleListener(
+  return merge(
     fCollector.visitor,
     cCollector.visitor,
     hCollector.visitor,

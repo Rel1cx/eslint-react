@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../../utils";
 
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const { api, visitor } = core.getHookCollector(context);
 
-  return defineRuleListener(visitor, {
+  return merge(visitor, {
     "Program:exit"(program) {
       for (const { id, name, hookCalls, node } of api.getAllHooks(program)) {
         if (name == null) {

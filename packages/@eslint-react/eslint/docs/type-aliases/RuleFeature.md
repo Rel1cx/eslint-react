@@ -1,4 +1,4 @@
-[@eslint-react/shared](../README.md) / RuleFeature
+[@eslint-react/eslint](../README.md) / RuleFeature
 
 # Type Alias: RuleFeature
 

@@ -1,5 +1,5 @@
 import type * as ast from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
-  return defineRuleListener(
+  return merge(
     {
       [":function"](node: ast.TSESTreeFunction) {
         const kind = getPhaseKindOfFunction(node) ?? "other";

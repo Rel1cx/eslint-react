@@ -1,5 +1,5 @@
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { unionConstituents } from "ts-api-utils";
@@ -37,7 +37,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();
-  return defineRuleListener(
+  return merge(
     {
       JSXSpreadAttribute(node) {
         for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {

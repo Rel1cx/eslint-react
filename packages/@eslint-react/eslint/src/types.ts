@@ -25,15 +25,3 @@ export type RuleFeature =
   | "EXP"; // Experimental
 
 export type { ReportFixFunction, RuleFix, RuleFixer, RuleListener } from "@typescript-eslint/utils/ts-eslint";
-
-/**
- * A suggestion for fixing a reported issue.
- */
-export type RuleSuggest<MessageIds extends string = string> = {
-  /** Optional data to pass to the message formatter. */
-  data?: Record<string, unknown>;
-  /** The fix function to apply the suggestion. */
-  fix: tseslint.ReportFixFunction;
-  /** The message ID for the suggestion. */
-  messageId: MessageIds;
-};

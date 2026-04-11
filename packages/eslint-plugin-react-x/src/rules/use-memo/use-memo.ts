@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `useMemo` is not present in the file
   if (!context.sourceCode.text.includes("useMemo")) return {};
 
-  return defineRuleListener({
+  return merge({
     CallExpression(node) {
       if (!core.isUseMemoCall(context, node)) return;
 

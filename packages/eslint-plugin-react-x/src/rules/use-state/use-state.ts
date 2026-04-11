@@ -1,7 +1,8 @@
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, defineRuleListener, getSettingsFromContext } from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { findEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -95,7 +96,7 @@ export function create(context: RuleContext<MessageID, Options>) {
     enforceSetterName = true,
   } = options;
   const { additionalStateHooks } = getSettingsFromContext(context);
-  return defineRuleListener({
+  return merge({
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseStateLikeCall(node, additionalStateHooks)) return;
 

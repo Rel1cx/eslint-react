@@ -1,10 +1,5 @@
-import {
-  type RuleContext,
-  type RuleFeature,
-  type RuleFixer,
-  defineRuleListener,
-  getSettingsFromContext,
-} from "@eslint-react/shared";
+import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -47,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Keep track of local names for 'useFormState' import
   const useFormStateNames = new Set<string>();
 
-  return defineRuleListener(
+  return merge(
     {
       // This visitor function is called for every function call in the code
       CallExpression(node) {

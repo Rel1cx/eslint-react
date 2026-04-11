@@ -1,5 +1,5 @@
 import * as ast from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/eslint";
 import { resolveImportSource } from "@eslint-react/var";
 import { dual } from "@local/eff";
 import type { Scope } from "@typescript-eslint/scope-manager";

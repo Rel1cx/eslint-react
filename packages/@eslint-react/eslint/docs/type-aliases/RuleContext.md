@@ -1,4 +1,4 @@
-[@eslint-react/shared](../README.md) / RuleContext
+[@eslint-react/eslint](../README.md) / RuleContext
 
 # Type Alias: RuleContext\<MessageIds, Options\>
 

@@ -1,4 +1,4 @@
-[@eslint-react/shared](../README.md) / RuleListener
+[@eslint-react/eslint](../README.md) / RuleListener
 
 # Type Alias: RuleListener
 

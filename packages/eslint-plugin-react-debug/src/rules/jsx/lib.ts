@@ -1,4 +1,4 @@
-import type { RuleContext } from "@eslint-react/shared";
+import type { RuleContext } from "@eslint-react/eslint";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 /**
