@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-jsx",
-  "version": "5.1.0-beta.1",
+  "version": "5.2.0-next.0",
   "description": "ESLint React's ESLint plugin for React Flavored JSX rules.",
   "keywords": [
     "react",
