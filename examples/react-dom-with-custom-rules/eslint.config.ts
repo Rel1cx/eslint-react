@@ -1,8 +1,8 @@
 import eslintReactKit from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintReact from "eslint-plugin-react-instant";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import eslintReact from "eslint-plugin-react-xtended";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 

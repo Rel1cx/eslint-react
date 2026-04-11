@@ -6,15 +6,15 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
-import * as allConfig from "../packages/eslint-plugin-react-xtended/src/configs/all";
-import * as disableExperimentalConfig from "../packages/eslint-plugin-react-xtended/src/configs/disable-experimental";
-import * as disableTypeCheckedConfig from "../packages/eslint-plugin-react-xtended/src/configs/disable-type-checked";
-import * as domConfig from "../packages/eslint-plugin-react-xtended/src/configs/dom";
-import * as jsxConfig from "../packages/eslint-plugin-react-xtended/src/configs/jsx";
-import * as recommendedConfig from "../packages/eslint-plugin-react-xtended/src/configs/recommended";
-import * as rscConfig from "../packages/eslint-plugin-react-xtended/src/configs/rsc";
-import * as strictConfig from "../packages/eslint-plugin-react-xtended/src/configs/strict";
-import * as webApiConfig from "../packages/eslint-plugin-react-xtended/src/configs/web-api";
+import * as allConfig from "../packages/eslint-plugin-react-instant/src/configs/all";
+import * as disableExperimentalConfig from "../packages/eslint-plugin-react-instant/src/configs/disable-experimental";
+import * as disableTypeCheckedConfig from "../packages/eslint-plugin-react-instant/src/configs/disable-type-checked";
+import * as domConfig from "../packages/eslint-plugin-react-instant/src/configs/dom";
+import * as jsxConfig from "../packages/eslint-plugin-react-instant/src/configs/jsx";
+import * as recommendedConfig from "../packages/eslint-plugin-react-instant/src/configs/recommended";
+import * as rscConfig from "../packages/eslint-plugin-react-instant/src/configs/rsc";
+import * as strictConfig from "../packages/eslint-plugin-react-instant/src/configs/strict";
+import * as webApiConfig from "../packages/eslint-plugin-react-instant/src/configs/web-api";
 
 const RULES_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.ts"];
 

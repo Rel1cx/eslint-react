@@ -69,7 +69,7 @@ Before you begin, make sure you have the following installed:
 │   ├── shared/                 # @eslint-react/shared — shared types and utilities
 │   ├── utilities/              # Utility packages (ast, jsx, kit, var)
 │   └── plugins/                # Published ESLint plugins
-│       ├── eslint-plugin/                          # Unified plugin (eslint-plugin-react-xtended)
+│       ├── eslint-plugin/                          # Unified plugin (eslint-plugin-react-instant)
 │       ├── eslint-plugin-react-x/                  # Core React rules (renderer-agnostic)
 │       ├── eslint-plugin-react-dom/                # DOM-specific rules
 │       ├── eslint-plugin-react-jsx/                # JSX rules
@@ -243,7 +243,7 @@ Write the rule documentation in `<rule-name>.mdx`:
 
 1. Export the rule in the plugin's entry file (`src/plugin.ts`).
 2. If the rule should be enabled by default, update the preset configurations.
-3. Update the unified plugin (`packages/eslint-plugin-react-xtended/`) to include the new rule.
+3. Update the unified plugin (`packages/eslint-plugin-react-instant/`) to include the new rule.
 4. Run `pnpm run update:all` to synchronize metadata across the monorepo.
 
 ### Step 7 — Verify and Submit

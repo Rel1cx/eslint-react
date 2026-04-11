@@ -1,7 +1,7 @@
 {
-  "name": "eslint-plugin-react-xtended",
+  "name": "eslint-plugin-react-instant",
   "version": "5.1.0-beta.1",
-  "description": "A unified plugin that combines all individual plugins from the eslint-react monorepo into one.",
+  "description": "The all-in-one, blazing fast ESLint plugin for React. Get complete, out-of-the-box rule coverage with instant feedback.",
   "keywords": [
     "react",
     "eslint",
@@ -13,7 +13,7 @@
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-naming-convention",
-    "eslint-plugin-react-xtended"
+    "eslint-plugin-react-instant"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -22,7 +22,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/eslint-plugin-react-xtended"
+    "directory": "packages/eslint-plugin-react-instant"
   },
   "license": "MIT",
   "author": "Rel1cx",
@@ -49,8 +49,8 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/shared": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.58.1",
     "@typescript-eslint/type-utils": "^8.58.1",
     "@typescript-eslint/types": "^8.58.1",

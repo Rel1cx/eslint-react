@@ -40,7 +40,7 @@ npm install --save-dev @eslint-react/kit
 import eslintReactKit, { merge } from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
-import eslintReact from "eslint-plugin-react-xtended";
+import eslintReact from "eslint-plugin-react-instant";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
