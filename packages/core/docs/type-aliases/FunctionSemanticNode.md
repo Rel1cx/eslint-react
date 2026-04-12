@@ -8,4 +8,4 @@ type FunctionSemanticNode =
   | ServerFunctionSemanticNode;
 ```
 
-Represents a React Function
+Represents a function semantic node.

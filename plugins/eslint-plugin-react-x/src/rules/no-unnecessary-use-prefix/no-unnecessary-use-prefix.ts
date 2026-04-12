@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If the function has an empty body, no need to flag it
-        if (ast.isFunctionEmpty(node)) {
+        if (core.isFunctionEmpty(node)) {
           continue;
         }
         // If the function is in a list of known hooks, skip it

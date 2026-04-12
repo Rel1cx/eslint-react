@@ -4,6 +4,7 @@ import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { ulid } from "ulid";
 
+import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
 
 // #region Component Collector Legacy
@@ -38,7 +39,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
     if (!isClassComponent(node)) {
       return;
     }
-    const id = ast.getClassId(node);
+    const id = getClassId(node);
     const key = ulid();
     const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
     components.set(

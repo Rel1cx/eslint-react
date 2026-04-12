@@ -39,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       "Program:exit"(program) {
         for (const { displayName, flag, node } of api.getAllComponents(program)) {
-          const id = ast.getFunctionId(node);
+          const id = core.getFunctionId(node);
           // Check if the component is wrapped with `forwardRef` or `memo`
           const isMemoOrForwardRef =
             (flag & (core.FunctionComponentFlag.ForwardRef | core.FunctionComponentFlag.Memo)) > 0n;

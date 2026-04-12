@@ -3,6 +3,7 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
 import { ulid } from "ulid";
 
+import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId } from "./hook";
 
 interface FunctionEntry extends HookSemanticNode {
@@ -29,7 +30,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: ast.TSESTreeFunction) => {
-    const id = ast.getFunctionId(node);
+    const id = getFunctionId(node);
     const key = ulid();
     const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
     const entry = {

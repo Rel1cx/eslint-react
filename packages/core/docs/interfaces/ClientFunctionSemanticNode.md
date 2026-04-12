@@ -2,7 +2,7 @@
 
 # Interface: ClientFunctionSemanticNode
 
-Represents a React Client Function
+Represents a client function semantic node.
 
 ## Extends
 
@@ -18,7 +18,7 @@ Represents a React Client Function
 | <a id="property-hint"></a> `hint` | `bigint` | The hint of the node | - | [`SemanticFunc`](SemanticFunc.md).[`hint`](SemanticFunc.md#property-hint) |
 | <a id="property-id"></a> `id` | \| `ArrayExpression` \| `ArrayPattern` \| `ArrowFunctionExpression` \| `AssignmentExpression` \| `AwaitExpression` \| `PrivateInExpression` \| `SymmetricBinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `FunctionExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `PrivateIdentifier` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpressionBitwiseNot` \| `UnaryExpressionDelete` \| `UnaryExpressionMinus` \| `UnaryExpressionNot` \| `UnaryExpressionPlus` \| `UnaryExpressionTypeof` \| `UnaryExpressionVoid` \| `UpdateExpression` \| `YieldExpression` \| `null` | The identifier of the function | - | [`SemanticFunc`](SemanticFunc.md).[`id`](SemanticFunc.md#property-id) |
 | <a id="property-key"></a> `key` | `string` | The unique key of the node | - | [`SemanticFunc`](SemanticFunc.md).[`key`](SemanticFunc.md#property-key) |
-| <a id="property-kind"></a> `kind` | `"client-function"` | The kind of function | [`SemanticFunc`](SemanticFunc.md).[`kind`](SemanticFunc.md#property-kind) | - |
+| <a id="property-kind"></a> `kind` | `"client-function"` | The kind of function. | [`SemanticFunc`](SemanticFunc.md).[`kind`](SemanticFunc.md#property-kind) | - |
 | <a id="property-name"></a> `name` | `string` \| `null` | The name of the function | - | [`SemanticFunc`](SemanticFunc.md).[`name`](SemanticFunc.md#property-name) |
 | <a id="property-node"></a> `node` | `TSESTreeFunction` | The AST node of the function | - | [`SemanticFunc`](SemanticFunc.md).[`node`](SemanticFunc.md#property-node) |
 | <a id="property-parameters"></a> `parameters` | `Parameter`[] | The parameters of the function | - | [`SemanticFunc`](SemanticFunc.md).[`parameters`](SemanticFunc.md#property-parameters) |

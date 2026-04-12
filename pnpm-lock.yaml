@@ -1244,6 +1244,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../../packages/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint
@@ -1375,6 +1378,9 @@ importers:
       '@typescript-eslint/types':
         specifier: ^8.58.1
         version: 8.58.1
+      '@typescript-eslint/typescript-estree':
+        specifier: ^8.58.1
+        version: 8.58.1(typescript@6.0.2)
       '@typescript-eslint/utils':
         specifier: ^8.58.1
         version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)

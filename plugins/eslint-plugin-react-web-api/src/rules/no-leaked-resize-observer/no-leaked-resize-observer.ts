@@ -13,6 +13,7 @@ import {
   getPhaseKindOfFunction,
 } from "../../types";
 import { createRule } from "../../utils";
+import { isConditional } from "./lib";
 
 // #region Rule Metadata
 
@@ -212,8 +213,7 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
           const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-          const isDynamic = (node: TSESTree.Node | null) =>
-            node?.type === AST.CallExpression || ast.isConditional(node);
+          const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || isConditional(node);
           const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
           const hasDynamicallyAdded = oentries
             .some((e) => !isPhaseNode(ast.findParent(e.node, or(isDynamic, isPhaseNode))));

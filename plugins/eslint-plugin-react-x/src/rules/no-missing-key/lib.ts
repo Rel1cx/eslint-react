@@ -1,4 +1,7 @@
+import { findParent, isFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 /**
@@ -11,4 +14,31 @@ export function report(context: RuleContext) {
     if (descriptor == null) return;
     return context.report(descriptor);
   };
+}
+
+/**
+ * Gets the nested return statements in the node that are within the same function
+ * @param node The AST node
+ * @returns The nested return statements in the node
+ */
+export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
+  const statements: TSESTree.ReturnStatement[] = [];
+  // If the node is not inside a function, boundaryNode will be null
+  // and no return statements will be collected (as expected)
+  const boundaryNode = isFunction(node)
+    ? node
+    : findParent(node, isFunction);
+  simpleTraverse(node, {
+    enter(node) {
+      if (node.type !== AST.ReturnStatement) {
+        return;
+      }
+      const parentFunction = findParent(node, isFunction);
+      if (parentFunction !== boundaryNode) {
+        return;
+      }
+      statements.push(node);
+    },
+  });
+  return statements;
 }

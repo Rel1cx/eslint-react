@@ -16,6 +16,12 @@
 | [RuleFeature](type-aliases/RuleFeature.md) | Rule feature. |
 | [RuleListener](type-aliases/RuleListener.md) | - |
 
+## Variables
+
+| Variable | Description |
+| ------ | ------ |
+| [createRule](variables/createRule.md) | - |
+
 ## Functions
 
 | Function | Description |

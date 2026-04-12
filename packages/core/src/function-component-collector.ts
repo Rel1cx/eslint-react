@@ -5,6 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { ulid } from "ulid";
 
+import { getFunctionDirectives, getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,
   type FunctionComponentDetectionHint,
@@ -60,8 +61,8 @@ export function getFunctionComponentCollector(
     const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
     const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
-    const initPath = ast.getFunctionInitPath(node);
-    const directives = ast.getFunctionDirectives(node);
+    const initPath = getFunctionInitPath(node);
+    const directives = getFunctionDirectives(node);
     const entry = {
       id,
       key,

@@ -9,18 +9,6 @@ export type TSESTreeFunction =
   | TSESTree.FunctionExpression;
 
 /**
- * Represents all function-related types including TypeScript function types
- */
-export type TSESTreeFunctionType =
-  | TSESTree.TSCallSignatureDeclaration
-  | TSESTree.TSConstructSignatureDeclaration
-  | TSESTree.TSDeclareFunction
-  | TSESTree.TSEmptyBodyFunctionExpression
-  | TSESTree.TSFunctionType
-  | TSESTree.TSMethodSignature
-  | TSESTreeFunction;
-
-/**
  * Represents class declarations and expressions in TSESTree
  */
 export type TSESTreeClass = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
@@ -29,30 +17,6 @@ export type TSESTreeClass = TSESTree.ClassDeclaration | TSESTree.ClassExpression
  * Represents method definitions and property definitions in classes
  */
 export type TSESTreeMethodOrProperty = TSESTree.PropertyDefinition | TSESTree.MethodDefinition;
-
-/**
- * Represents loop statements in TSESTree
- */
-export type TSESTreeLoop =
-  | TSESTree.DoWhileStatement
-  | TSESTree.ForInStatement
-  | TSESTree.ForOfStatement
-  | TSESTree.ForStatement
-  | TSESTree.WhileStatement;
-
-/**
- * Represents TypeScript array and tuple types
- */
-export type TSESTreeArrayTupleType = TSESTree.TSArrayType | TSESTree.TSTupleType;
-
-/**
- * Represents property-like nodes in TSESTree
- */
-export type TSESTreeProperty =
-  | TSESTree.PropertyDefinition
-  | TSESTree.TSIndexSignature
-  | TSESTree.TSParameterProperty
-  | TSESTree.TSPropertySignature;
 
 /**
  * Represents all JSX-related nodes in TSESTree
@@ -85,41 +49,6 @@ export type TSESTreeJSXAttributeLike =
   | TSESTree.JSXSpreadAttribute;
 
 /**
- * Represents destructuring patterns in variable declarations
- */
-export type TSESTreeDestructuringPattern =
-  | TSESTree.ArrayPattern
-  | TSESTree.AssignmentPattern
-  | TSESTree.ObjectPattern
-  | TSESTree.RestElement;
-
-/**
- * Represents TypeScript type declaration nodes
- */
-export type TSESTreeTypeDeclaration =
-  | TSESTree.TSInterfaceDeclaration
-  | TSESTree.TSTypeAliasDeclaration;
-
-/**
- * Represents TypeScript type expression nodes (type assertions, non-null expressions, etc.)
- */
-export type TSESTreeTypeExpression =
-  | TSESTree.TSAsExpression
-  | TSESTree.TSNonNullExpression
-  | TSESTree.TSSatisfiesExpression
-  | TSESTree.TSTypeAssertion
-  | TSESTree.TSInstantiationExpression;
-
-/**
- * Represents TypeScript type assertion expressions (excluding instantiation expressions)
- */
-export type TSESTreeTypeAssertionExpression =
-  | TSESTree.TSAsExpression
-  | TSESTree.TSNonNullExpression
-  | TSESTree.TSSatisfiesExpression
-  | TSESTree.TSTypeAssertion;
-
-/**
  * Represents a directive expression statement in TSESTree (ex: "use strict";)
  */
 export type TSESTreeDirective = TSESTree.ExpressionStatement & {
@@ -127,9 +56,9 @@ export type TSESTreeDirective = TSESTree.ExpressionStatement & {
   expression: TSESTree.StringLiteral;
 };
 
-/**
- * Represents a directive-like expression statement in TSESTree
- */
-export type TSESTreeDirectiveLike = TSESTree.ExpressionStatement & {
-  expression: TSESTree.StringLiteral;
-};
+export type TSESTreeTypeExpression =
+  | TSESTree.TSAsExpression
+  | TSESTree.TSTypeAssertion
+  | TSESTree.TSNonNullExpression
+  | TSESTree.TSSatisfiesExpression
+  | TSESTree.TSInstantiationExpression;

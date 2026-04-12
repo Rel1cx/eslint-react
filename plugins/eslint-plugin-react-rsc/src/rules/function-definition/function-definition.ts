@@ -1,4 +1,5 @@
 import * as ast from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import {
   type ReportFixFunction,
   type RuleContext,
@@ -43,7 +44,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `use server` is not present in the entire file for performance
   if (!context.sourceCode.text.includes("use server")) return {};
 
-  const hasFileLevelUseServerDirective = ast.isDirectiveInFile(context.sourceCode.ast, "use server");
+  const hasFileLevelUseServerDirective = ast.isFileHasDirective(context.sourceCode.ast, "use server");
 
   /**
    * Check if `node` is an async function, and report if not
@@ -83,7 +84,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function checkLocalServerFunction(
     node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
   ) {
-    if (ast.getFunctionDirectives(node).some((d) => d.directive === "use server")) {
+    if (core.getFunctionDirectives(node).some((d) => d.directive === "use server")) {
       reportNonAsyncFunction(node, "local");
     }
   }

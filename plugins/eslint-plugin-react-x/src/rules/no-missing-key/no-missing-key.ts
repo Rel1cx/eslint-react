@@ -5,7 +5,7 @@ import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
-import { report } from "./lib";
+import { getNestedReturnStatements, report } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function checkBlock(node: TSESTree.BlockStatement): Descriptor[] {
     const descriptors: Descriptor[] = [];
-    for (const stmt of ast.getNestedReturnStatements(node)) {
+    for (const stmt of getNestedReturnStatements(node)) {
       if (stmt.argument == null) continue;
       const desc = check(stmt.argument);
       if (desc == null) continue;

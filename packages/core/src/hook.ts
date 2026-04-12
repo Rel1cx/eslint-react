@@ -3,6 +3,7 @@ import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
+import { type FunctionID, getFunctionId } from "./function";
 import type { SemanticNode } from "./semantic";
 
 // #region Types
@@ -13,7 +14,7 @@ import type { SemanticNode } from "./semantic";
  */
 export interface HookSemanticNode extends SemanticNode {
   /** The identifier of the hook */
-  id: ast.FunctionID;
+  id: FunctionID;
   /** The AST node of the hook */
   node: ast.TSESTreeFunction;
   /** The kind of hook */
@@ -95,7 +96,7 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
  */
 export function isHookDefinition(node: ast.TSESTreeFunction | null) {
   if (node == null) return false;
-  const id = ast.getFunctionId(node);
+  const id = getFunctionId(node);
   switch (id?.type) {
     case AST.Identifier:
       return isHookName(id.name);
