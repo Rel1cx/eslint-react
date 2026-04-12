@@ -22,7 +22,5 @@ export * from "./node-selectors";
 export * from "./node-traverse";
 export type * from "./node-types";
 export * from "./node-unwrap";
-export * from "./pattern-process-env-node-env";
-export * from "./pattern-test-mock";
 export * from "./property-name";
 export * from "./property-traverse";

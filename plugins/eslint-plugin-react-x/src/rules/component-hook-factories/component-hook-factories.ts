@@ -2,7 +2,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
-import { isHigherOrderComponent } from "./lib";
+import { isHigherOrderComponent, isTestMockCallback } from "./lib";
 
 import { createRule } from "../../utils";
 
@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const parentFn = ast.findParent(node, ast.isFunction);
           if (parentFn == null) continue;
           // Skip components inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, ast.isTestMockCallback) != null) continue;
+          if (ast.findParent(node, isTestMockCallback) != null) continue;
           // Skip components inside HOC definitions (functions that take a component as parameter)
           if (isHigherOrderComponent(parentFn as ast.TSESTreeFunction)) continue;
           if (reported.has(node)) continue;
@@ -88,7 +88,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const parentFn = ast.findParent(node, ast.isFunction);
           if (parentFn == null) continue;
           // Skip components inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, ast.isTestMockCallback) != null) continue;
+          if (ast.findParent(node, isTestMockCallback) != null) continue;
           // Skip components inside HOC definitions
           if (isHigherOrderComponent(parentFn as ast.TSESTreeFunction)) continue;
           context.report({
@@ -103,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const parentFn = ast.findParent(node, ast.isFunction);
           if (parentFn == null) continue;
           // Skip hooks inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, ast.isTestMockCallback) != null) continue;
+          if (ast.findParent(node, isTestMockCallback) != null) continue;
           if (reported.has(node)) continue;
           context.report({
             data: { name },

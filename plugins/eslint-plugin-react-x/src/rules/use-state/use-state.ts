@@ -3,7 +3,7 @@ import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { findEnclosingAssignmentTarget } from "@eslint-react/var";
+import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
@@ -133,7 +133,7 @@ export function create(context: RuleContext<MessageID, Options>) {
         return;
       }
 
-      const id = findEnclosingAssignmentTarget(node);
+      const id = resolveEnclosingAssignmentTarget(node);
       if (id?.type !== AST.ArrayPattern) {
         if (!enforceAssignment) return;
         context.report({ messageId: "invalidAssignment", node: id ?? node });

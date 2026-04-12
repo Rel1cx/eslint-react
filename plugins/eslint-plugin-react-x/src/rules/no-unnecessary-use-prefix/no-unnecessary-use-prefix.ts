@@ -1,7 +1,9 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import type { TSESTree } from "@typescript-eslint/types";
+
+import { WELL_KNOWN_HOOKS, containsUseComments, isTestMockCallback } from "./lib";
+
 import { createRule } from "../../utils";
 
 export const RULE_NAME = "no-unnecessary-use-prefix";
@@ -9,15 +11,6 @@ export const RULE_NAME = "no-unnecessary-use-prefix";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-const WELL_KNOWN_HOOKS = ["useMDXComponents"];
-
-// Checks if a node contains comments that suggest a Hook usage like `use(Context)` or `useMyHook()`
-function containsUseComments(context: RuleContext, node: TSESTree.Node) {
-  return context.sourceCode
-    .getCommentsInside(node)
-    .some(({ value }) => /use\([\s\S]*?\)/u.test(value) || /use[A-Z0-9]\w*\([\s\S]*?\)/u.test(value));
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -62,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (ast.findParent(node, ast.isTestMockCallback) != null) {
+        if (ast.findParent(node, isTestMockCallback) != null) {
           continue;
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it

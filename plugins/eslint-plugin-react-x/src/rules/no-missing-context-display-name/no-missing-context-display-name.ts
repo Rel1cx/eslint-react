@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
       "Program:exit"() {
         for (const call of createCalls) {
           // Get the variable identifier for the context
-          const id = findEnclosingAssignmentTarget(call);
+          const id = resolveEnclosingAssignmentTarget(call);
           if (id == null) {
             // Report an error if the context is not assigned to a variable
             context.report({

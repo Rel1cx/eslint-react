@@ -7,7 +7,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../test";
-import { findEnclosingAssignmentTarget } from "./find-enclosing-assignment-target";
+import { resolveEnclosingAssignmentTarget } from "./resolve-enclosing-assignment-target";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -32,14 +32,14 @@ function findFirstNodeOfType<T extends TSESTree.Node>(ast: TSESTree.Program, typ
   return found;
 }
 
-describe("findEnclosingAssignmentTarget", () => {
+describe("resolveEnclosingAssignmentTarget", () => {
   describe("basic functionality", () => {
     it("should return the variable identifier for a VariableDeclarator", () => {
       const code = "const x = new ResizeObserver(() => {})";
       const { ast } = parse(code);
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).not.toBeNull();
       expect(result!.type).toBe(AST.Identifier);
@@ -51,7 +51,7 @@ describe("findEnclosingAssignmentTarget", () => {
       const { ast } = parse(code);
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).not.toBeNull();
       expect(result!.type).toBe(AST.Identifier);
@@ -63,7 +63,7 @@ describe("findEnclosingAssignmentTarget", () => {
       const { ast } = parse(code);
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).not.toBeNull();
       expect(result!.type).toBe(AST.Identifier);
@@ -75,7 +75,7 @@ describe("findEnclosingAssignmentTarget", () => {
       const { ast } = parse(code);
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).toBeNull();
     });
@@ -85,7 +85,7 @@ describe("findEnclosingAssignmentTarget", () => {
       const { ast } = parse(code);
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).toBeNull();
     });
@@ -98,7 +98,7 @@ describe("findEnclosingAssignmentTarget", () => {
       const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
 
       // ExportDefaultDeclaration is now handled — it returns the declaration node.
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).not.toBeNull();
       expect(result!.type).toBe(AST.NewExpression);
@@ -128,7 +128,7 @@ describe("findEnclosingAssignmentTarget", () => {
       // Identifier → ExpressionStatement → BlockStatement → returns null.
       // The for-of assignment context is not reachable because BlockStatement
       // acts as a boundary.
-      const result = findEnclosingAssignmentTarget(itemRef!);
+      const result = resolveEnclosingAssignmentTarget(itemRef!);
 
       expect(result).toBeNull();
     });
@@ -144,7 +144,7 @@ describe("findEnclosingAssignmentTarget", () => {
       // The Property node type is intentionally NOT handled because downstream
       // rules (e.g. no-missing-context-display-name) rely on traversal past
       // Property to find the outer VariableDeclarator for autofix purposes.
-      const result = findEnclosingAssignmentTarget(newExpr);
+      const result = resolveEnclosingAssignmentTarget(newExpr);
 
       expect(result).not.toBeNull();
       expect(result!.type).toBe(AST.Identifier);

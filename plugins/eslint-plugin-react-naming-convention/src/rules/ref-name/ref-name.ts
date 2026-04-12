@@ -1,7 +1,7 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findEnclosingAssignmentTarget } from "@eslint-react/var";
+import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!core.isUseRefCall(context, node)) return;
         // https://github.com/Rel1cx/eslint-react/issues/1375
         if (ast.getUnderlyingExpression(node.parent).type === AST.MemberExpression) return;
-        const [id, name] = match(findEnclosingAssignmentTarget(node))
+        const [id, name] = match(resolveEnclosingAssignmentTarget(node))
           // for cases like: const inputRef = useRef();
           .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
           // for cases like: refs.inputRef = useRef();

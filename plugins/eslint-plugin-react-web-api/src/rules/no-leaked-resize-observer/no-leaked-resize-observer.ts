@@ -1,6 +1,6 @@
 import * as ast from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findEnclosingAssignmentTarget, isAssignmentTargetEqual, resolve } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolve, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
@@ -190,7 +190,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!isNewResizeObserver(node)) {
           return;
         }
-        const id = findEnclosingAssignmentTarget(node);
+        const id = resolveEnclosingAssignmentTarget(node);
         if (id == null) {
           context.report({
             messageId: "unexpectedFloatingInstance",

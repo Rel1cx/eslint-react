@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-import { isLiteral } from "./literal-is";
+import * as ast from "@eslint-react/ast";
 
 /**
  * Check if the given node is a member expression that accesses `process.env.NODE_ENV`
@@ -34,10 +34,10 @@ export function isProcessEnvNodeEnvCompare(
   if (node == null) return false;
   if (node.type !== AST.BinaryExpression) return false;
   if (node.operator !== operator) return false;
-  if (isProcessEnvNodeEnv(node.left) && isLiteral(node.right, "string")) {
+  if (isProcessEnvNodeEnv(node.left) && ast.isLiteral(node.right, "string")) {
     return node.right.value === value;
   }
-  if (isLiteral(node.left, "string") && isProcessEnvNodeEnv(node.right)) {
+  if (ast.isLiteral(node.left, "string") && isProcessEnvNodeEnv(node.right)) {
     return node.left.value === value;
   }
   return false;

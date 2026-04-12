@@ -6,7 +6,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * @param node The starting node
  * @returns The enclosing assignment target node, or null if not found
  */
-export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
+export function resolveEnclosingAssignmentTarget(node: TSESTree.Node) {
   switch (true) {
     // Case: variable declaration (const x = new ResizeObserver())
     case node.type === AST.VariableDeclarator:
@@ -31,11 +31,11 @@ export function findEnclosingAssignmentTarget(node: TSESTree.Node) {
 
     // Continue traversing up the AST until we find an identifier
     default:
-      return findEnclosingAssignmentTarget(node.parent);
+      return resolveEnclosingAssignmentTarget(node.parent);
   }
 }
 
 /**
- * Type representing the possible assignment targets returned by `findEnclosingAssignmentTarget`
+ * Type representing the possible assignment targets returned by `resolveEnclosingAssignmentTarget`
  */
-export type AssignmentTarget = ReturnType<typeof findEnclosingAssignmentTarget>;
+export type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;

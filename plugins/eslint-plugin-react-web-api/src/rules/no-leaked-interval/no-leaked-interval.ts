@@ -1,6 +1,6 @@
 import type * as ast from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findEnclosingAssignmentTarget, isAssignmentTargetEqual } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
 import { P, isMatching } from "ts-pattern";
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!ComponentPhaseRelevance.has(fEntry.kind)) {
               break;
             }
-            const intervalIdNode = findEnclosingAssignmentTarget(node);
+            const intervalIdNode = resolveEnclosingAssignmentTarget(node);
             if (intervalIdNode == null) {
               context.report({
                 messageId: "expectedIntervalId",

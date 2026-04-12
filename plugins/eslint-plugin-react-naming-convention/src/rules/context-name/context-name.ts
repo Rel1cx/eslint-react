@@ -1,6 +1,6 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findEnclosingAssignmentTarget } from "@eslint-react/var";
+import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 
@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node) {
         if (!core.isCreateContextCall(context, node)) return;
-        const [id, name] = match(findEnclosingAssignmentTarget(node))
+        const [id, name] = match(resolveEnclosingAssignmentTarget(node))
           // for cases like: const ThemeContext = createContext();
           .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
           // for cases like: ctxs.ThemeContext = createContext();
