@@ -40,7 +40,7 @@ flowchart TB
                 ReactDOM["eslint-plugin-react-dom"]:::plugins
                 ReactWebAPI["eslint-plugin-react-web-api"]:::plugins
                 ReactNamingConvention["eslint-plugin-react-naming-convention"]:::plugins
-                ReactAggregated["Aggregated Plugin (eslint-plugin-react-instant)"]:::plugins
+                ReactAggregated["Aggregated Plugin (@eslint-react/eslint-plugin)"]:::plugins
             end
         end
 
@@ -108,18 +108,18 @@ flowchart TB
     %% Click Events
     click Website "https://github.com/rel1cx/eslint-react/tree/main/apps/website"
     click Playground "https://github.com/rel1cx/eslint-react/tree/main/apps/playground"
-    click Core "https://github.com/rel1cx/eslint-react/tree/main/packages/@eslint-react/core"
-    click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/@eslint-react/shared"
-    click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/@eslint-react/ast"
-    click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/@eslint-react/var"
-    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/@eslint-react/jsx"
-    click ReactX "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-x"
-    click ReactJSX "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx"
-    click ReactRSC "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-rsc"
-    click ReactDOM "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-dom"
-    click ReactWebAPI "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-web-api"
-    click ReactNamingConvention "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-naming-convention"
-    click ReactAggregated "https://github.com/rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-instant"
+    click Core "https://github.com/rel1cx/eslint-react/tree/main/packages/core"
+    click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/shared"
+    click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/ast"
+    click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/var"
+    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/jsx"
+    click ReactX "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x"
+    click ReactJSX "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-jsx"
+    click ReactRSC "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-rsc"
+    click ReactDOM "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom"
+    click ReactWebAPI "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api"
+    click ReactNamingConvention "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention"
+    click ReactAggregated "https://github.com/rel1cx/eslint-react/tree/main/plugins/@eslint-react/eslint-plugin"
     click Scripts "https://github.com/rel1cx/eslint-react/tree/main/scripts"
     click Tests "https://github.com/rel1cx/eslint-react/tree/main/test"
 
@@ -143,26 +143,26 @@ This section provides a summary of the packages in the monorepo.
 ### Internal Packages
 
 - **Utilities**
-  - [`packages/@eslint-react/ast`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/ast): TSESTree AST utility module for static analysis
-  - [`packages/@eslint-react/var`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/var): TSESTree AST utility module for static analysis of variables
-  - [`packages/@eslint-react/jsx`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/jsx): TSESTree JSX utility module for static analysis of JSX patterns
+  - [`packages/ast`](https://github.com/Rel1cx/eslint-react/tree/main/packages/ast): TSESTree AST utility module for static analysis
+  - [`packages/var`](https://github.com/Rel1cx/eslint-react/tree/main/packages/var): TSESTree AST utility module for static analysis of variables
+  - [`packages/jsx`](https://github.com/Rel1cx/eslint-react/tree/main/packages/jsx): TSESTree JSX utility module for static analysis of JSX patterns
 - **Core & Shared**
-  - [`packages/@eslint-react/core`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/core): Utility module for static analysis of React core APIs and patterns
-  - [`packages/@eslint-react/shared`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/shared): Shared constants, types and functions
+  - [`packages/core`](https://github.com/Rel1cx/eslint-react/tree/main/packages/core): Utility module for static analysis of React core APIs and patterns
+  - [`packages/shared`](https://github.com/Rel1cx/eslint-react/tree/main/packages/shared): Shared constants, types and functions
 
 ### Public Packages
 
 - **Utilities**
-  - [`packages/@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/tree/main/packages/@eslint-react/kit): Utility module for building custom React rules with JavaScript functions
+  - [`packages/kit`](https://github.com/Rel1cx/eslint-react/tree/main/packages/kit): Utility module for building custom React rules with JavaScript functions
 - **ESLint Plugins**
-  - [`packages/eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-x): Core React rules
-  - [`packages/eslint-plugin-react-jsx`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-jsx): React Flavored JSX rules
-  - [`packages/eslint-plugin-react-rsc`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-rsc): React Server Components rules
-  - [`packages/eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-dom): React DOM rules
-  - [`packages/eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-web-api): Web API interaction rules
-  - [`packages/eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-naming-convention): Naming convention rules
-  - [`packages/eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-debug): Debugging rules for inspecting React patterns in code
-  - [`packages/eslint-plugin-react-instant`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-instant): A unified plugin that combines all individual plugins into one
+  - [`plugins/eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x): Core React rules
+  - [`plugins/eslint-plugin-react-jsx`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-jsx): React Flavored JSX rules
+  - [`plugins/eslint-plugin-react-rsc`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-rsc): React Server Components rules
+  - [`plugins/eslint-plugin-react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom): React DOM rules
+  - [`plugins/eslint-plugin-react-web-api`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api): Web API interaction rules
+  - [`plugins/eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention): Naming convention rules
+  - [`plugins/eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug): Debugging rules for inspecting React patterns in code
+  - [`plugins/@eslint-react/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/@eslint-react/eslint-plugin): A unified plugin that combines all individual plugins into one
 
 ### Documentation
 

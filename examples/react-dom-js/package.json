@@ -14,13 +14,13 @@
     "react-dom": "^19.2.5"
   },
   "devDependencies": {
+    "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-instant": "workspace:*",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "vite": "^8.0.8"

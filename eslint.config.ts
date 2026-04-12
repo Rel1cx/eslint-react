@@ -27,8 +27,8 @@ export default defineConfig(
   // Skip ESLint checks for rules ported directly from upstream
   {
     ignores: [
-      "packages/eslint-plugin-react-x/src/rules/exhaustive-deps",
-      "packages/eslint-plugin-react-x/src/rules/rules-of-hooks",
+      "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
+      "plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
     ],
   },
   // Main TypeScript configuration with strict type checking

@@ -1,0 +1,67 @@
+{
+  "name": "@eslint-react/core",
+  "version": "5.2.0-beta.0",
+  "description": "ESLint React's ESLint utility module for static analysis of React core APIs and patterns.",
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rel1cx/eslint-react.git",
+    "directory": "packages/core"
+  },
+  "license": "MIT",
+  "author": "Rel1cx",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "tsdown --dts-resolve",
+    "build:docs": "typedoc",
+    "lint:publish": "publint",
+    "lint:ts": "tsl",
+    "publish": "pnpm run build && pnpm run lint:publish"
+  },
+  "dependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/eslint": "workspace:*",
+    "@eslint-react/jsx": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
+    "@eslint-react/var": "workspace:*",
+    "@typescript-eslint/scope-manager": "^8.58.1",
+    "@typescript-eslint/types": "^8.58.1",
+    "@typescript-eslint/utils": "^8.58.1",
+    "ts-pattern": "^5.9.0",
+    "ulid": "^3.0.2"
+  },
+  "devDependencies": {
+    "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
+    "@typescript-eslint/typescript-estree": "^8.58.1",
+    "tsdown": "^0.21.7"
+  },
+  "peerDependencies": {
+    "eslint": "^10.2.0",
+    "typescript": "*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "inlinedDependencies": {
+    "@local/eff": "workspace:*"
+  }
+}

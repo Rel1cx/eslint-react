@@ -1,6 +1,6 @@
 # Rule Rename / Move Checklist
 
-Step-by-step checklists for renaming or moving a rule in `eslint-plugin-react-x` and `eslint-plugin-react-instant`.
+Step-by-step checklists for renaming or moving a rule in `eslint-plugin-react-x` and `@eslint-react/eslint-plugin`.
 
 Used as reference when:
 
@@ -67,7 +67,7 @@ Update the rule key in every preset that includes the rule:
 - [ ] `src/configs/strict-type-checked.ts` — if present
 - [ ] `src/configs/disable-experimental.ts` — if present
 
-### A7. Preset Configs (`eslint-plugin-react-instant`)
+### A7. Preset Configs (`@eslint-react/eslint-plugin`)
 
 Update the rule key (prefixed `@eslint-react/`) in every config that includes the rule:
 
@@ -133,7 +133,7 @@ Add the rule to every applicable preset:
 - [ ] `src/configs/strict.ts` — if stricter coverage is desired
 - [ ] Other presets as appropriate
 
-### B5. Preset Configs (`eslint-plugin-react-instant`)
+### B5. Preset Configs (`@eslint-react/eslint-plugin`)
 
 - [ ] `src/configs/x.ts` — `"@eslint-react/<rule-name>": "<severity>"`
 - [ ] `src/configs/all.ts` — `"@eslint-react/<rule-name>": "<severity>"`
@@ -182,7 +182,7 @@ Mirrors the style established by `use-memo.mdx`.
 title: <rule-name>
 ---
 
-**Full Name in [`eslint-plugin-react-instant`](https://npmx.dev/package/eslint-plugin-react-instant/v/latest)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 \`\`\`plain copy
 @eslint-react/<rule-name>
@@ -236,8 +236,8 @@ Document each option with its name, effect, and default value.
 
 ## Implementation
 
-- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.ts)
-- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts)
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts)
 
 ## Further Reading
 

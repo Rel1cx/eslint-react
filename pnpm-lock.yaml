@@ -42,6 +42,9 @@ importers:
       '@effect/platform-node':
         specifier: ^0.106.0
         version: 0.106.0(@effect/cluster@0.58.0(@effect/platform@0.96.0(effect@3.21.0))(@effect/rpc@0.75.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/sql@0.51.0(@effect/experimental@0.60.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/workflow@0.18.0(@effect/experimental@0.60.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/platform@0.96.0(effect@3.21.0))(@effect/rpc@0.75.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(effect@3.21.0))(effect@3.21.0))(@effect/platform@0.96.0(effect@3.21.0))(@effect/rpc@0.75.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/sql@0.51.0(@effect/experimental@0.60.0(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(@effect/platform@0.96.0(effect@3.21.0))(effect@3.21.0))(effect@3.21.0)
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:plugins/eslint-plugin
       '@eslint/compat':
         specifier: ^2.0.5
         version: 2.0.5(eslint@10.2.0(jiti@2.6.1))
@@ -99,9 +102,6 @@ importers:
       eslint-plugin-fast-import:
         specifier: ^2.2.1
         version: 2.2.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:packages/eslint-plugin-react-instant
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -228,7 +228,7 @@ importers:
     dependencies:
       '@eslint-react/kit':
         specifier: workspace:*
-        version: link:../../packages/@eslint-react/kit
+        version: link:../../packages/kit
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
@@ -237,7 +237,7 @@ importers:
         version: link:../../.pkgs/eff
       '@takumi-rs/image-response':
         specifier: ^1.0.4
-        version: 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       bsky-react-post:
         specifier: ^0.1.7
         version: 0.1.7(react@19.2.5)(swr@2.4.1(react@19.2.5))
@@ -258,13 +258,13 @@ importers:
         version: 14.2.11(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(vite@8.0.8(@types/node@25.6.0)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3))
       fumadocs-twoslash:
         specifier: 3.1.15
-        version: 3.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2)
+        version: 3.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2)
       fumadocs-typescript:
         specifier: 5.2.2
-        version: 5.2.2(08fb7c097ab3967cc4b3421d6ada0cfd)
+        version: 5.2.2(d0d1f8fcb3c306f2ec748af44ecd9216)
       fumadocs-ui:
         specifier: 16.7.12
-        version: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
+        version: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
       lucide-react:
         specifier: ^1.8.0
         version: 1.8.0(react@19.2.5)
@@ -298,10 +298,13 @@ importers:
         version: 0.85.1
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../../packages/@eslint-react/eslint
+        version: link:../../packages/eslint
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../../packages/@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -350,9 +353,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -387,6 +387,9 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint/compat':
         specifier: ^2.0.5
         version: 2.0.5(eslint@10.2.0(jiti@2.6.1))
@@ -420,9 +423,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -439,6 +439,9 @@ importers:
         specifier: ^10.29.1
         version: 10.29.1
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -460,9 +463,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -482,6 +482,9 @@ importers:
         specifier: ^10.29.1
         version: 10.29.1
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -503,9 +506,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -528,6 +528,9 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -555,9 +558,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -580,6 +580,9 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -598,15 +601,12 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
       globals:
         specifier: ^17.4.0
-        version: 17.4.0
+        version: 17.5.0
       vite:
         specifier: ^8.0.8
         version: 8.0.8(@types/node@25.6.0)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)
@@ -620,9 +620,12 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@eslint-react/eslint-plugin':
+        specifier: workspace:*
+        version: link:../../plugins/eslint-plugin
       '@eslint-react/kit':
         specifier: workspace:*
-        version: link:../../packages/@eslint-react/kit
+        version: link:../../packages/kit
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.2.0(jiti@2.6.1))
@@ -656,9 +659,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^7.0.1
         version: 7.0.1(eslint@10.2.0(jiti@2.6.1))
-      eslint-plugin-react-instant:
-        specifier: workspace:*
-        version: link:../../packages/eslint-plugin-react-instant
       eslint-plugin-react-refresh:
         specifier: ^0.5.2
         version: 0.5.2(eslint@10.2.0(jiti@2.6.1))
@@ -675,7 +675,7 @@ importers:
         specifier: ^8.0.8
         version: 8.0.8(@types/node@25.6.0)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)
 
-  packages/@eslint-react/ast:
+  packages/ast:
     dependencies:
       '@typescript-eslint/types':
         specifier: ^8.58.1
@@ -698,15 +698,15 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       tsdown:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/core:
+  packages/core:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -747,10 +747,10 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       '@typescript-eslint/typescript-estree':
         specifier: ^8.58.1
         version: 8.58.1(typescript@6.0.2)
@@ -758,7 +758,7 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/eslint:
+  packages/eslint:
     dependencies:
       '@typescript-eslint/utils':
         specifier: ^8.58.1
@@ -772,10 +772,10 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -786,7 +786,7 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/jsx:
+  packages/jsx:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -818,12 +818,12 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       tsdown:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/kit:
+  packages/kit:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -852,10 +852,10 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       eslint:
         specifier: ^10.2.0
         version: 10.2.0(jiti@2.6.1)
@@ -863,7 +863,7 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/shared:
+  packages/shared:
     dependencies:
       '@eslint-react/eslint':
         specifier: workspace:*
@@ -886,10 +886,10 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -903,7 +903,7 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/@eslint-react/var:
+  packages/var:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
@@ -935,10 +935,10 @@ importers:
     devDependencies:
       '@local/configs':
         specifier: workspace:*
-        version: link:../../../.pkgs/configs
+        version: link:../../.pkgs/configs
       '@local/eff':
         specifier: workspace:*
-        version: link:../../../.pkgs/eff
+        version: link:../../.pkgs/eff
       '@typescript-eslint/typescript-estree':
         specifier: ^8.58.1
         version: 8.58.1(typescript@6.0.2)
@@ -946,130 +946,14 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-debug:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../@eslint-react/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../@eslint-react/core
-      '@eslint-react/eslint':
-        specifier: workspace:*
-        version: link:../@eslint-react/eslint
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../@eslint-react/jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../@eslint-react/shared
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../@eslint-react/var
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/type-utils':
-        specifier: ^8.58.1
-        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      '@typescript-eslint/types':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/utils':
-        specifier: ^8.58.1
-        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      ts-pattern:
-        specifier: ^5.9.0
-        version: 5.9.0
-      typescript:
-        specifier: '*'
-        version: 6.0.2
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../.pkgs/configs
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
-      '@types/react':
-        specifier: ^19.2.14
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      eslint:
-        specifier: ^10.2.0
-        version: 10.2.0(jiti@2.6.1)
-      tsdown:
-        specifier: ^0.21.7
-        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
-
-  packages/eslint-plugin-react-dom:
-    dependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../@eslint-react/ast
-      '@eslint-react/core':
-        specifier: workspace:*
-        version: link:../@eslint-react/core
-      '@eslint-react/eslint':
-        specifier: workspace:*
-        version: link:../@eslint-react/eslint
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../@eslint-react/jsx
-      '@eslint-react/shared':
-        specifier: workspace:*
-        version: link:../@eslint-react/shared
-      '@eslint-react/var':
-        specifier: workspace:*
-        version: link:../@eslint-react/var
-      '@typescript-eslint/scope-manager':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/types':
-        specifier: ^8.58.1
-        version: 8.58.1
-      '@typescript-eslint/utils':
-        specifier: ^8.58.1
-        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
-      compare-versions:
-        specifier: ^6.1.1
-        version: 6.1.1
-      ts-pattern:
-        specifier: ^5.9.0
-        version: 5.9.0
-      typescript:
-        specifier: '*'
-        version: 6.0.2
-    devDependencies:
-      '@local/configs':
-        specifier: workspace:*
-        version: link:../../.pkgs/configs
-      '@local/eff':
-        specifier: workspace:*
-        version: link:../../.pkgs/eff
-      '@types/react':
-        specifier: ^19.2.14
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      eslint:
-        specifier: ^10.2.0
-        version: 10.2.0(jiti@2.6.1)
-      tsdown:
-        specifier: ^0.21.7
-        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
-
-  packages/eslint-plugin-react-instant:
+  plugins/eslint-plugin:
     dependencies:
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -1120,26 +1004,84 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-jsx:
+  plugins/eslint-plugin-react-debug:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../@eslint-react/ast
+        version: link:../../packages/ast
       '@eslint-react/core':
         specifier: workspace:*
-        version: link:../@eslint-react/core
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../@eslint-react/jsx
+        version: link:../../packages/jsx
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
-        version: link:../@eslint-react/var
+        version: link:../../packages/var
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/type-utils':
+        specifier: ^8.58.1
+        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
+      '@typescript-eslint/types':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/utils':
+        specifier: ^8.58.1
+        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
+      ts-pattern:
+        specifier: ^5.9.0
+        version: 5.9.0
+      typescript:
+        specifier: '*'
+        version: 6.0.2
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.2.0
+        version: 10.2.0(jiti@2.6.1)
+      tsdown:
+        specifier: ^0.21.7
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
+
+  plugins/eslint-plugin-react-dom:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../packages/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@eslint-react/eslint':
+        specifier: workspace:*
+        version: link:../../packages/eslint
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../packages/jsx
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -1178,23 +1120,81 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-naming-convention:
+  plugins/eslint-plugin-react-jsx:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../@eslint-react/ast
+        version: link:../../packages/ast
       '@eslint-react/core':
         specifier: workspace:*
-        version: link:../@eslint-react/core
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
+      '@eslint-react/jsx':
+        specifier: workspace:*
+        version: link:../../packages/jsx
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
-        version: link:../@eslint-react/var
+        version: link:../../packages/var
+      '@typescript-eslint/scope-manager':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/types':
+        specifier: ^8.58.1
+        version: 8.58.1
+      '@typescript-eslint/utils':
+        specifier: ^8.58.1
+        version: 8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@6.0.2)
+      compare-versions:
+        specifier: ^6.1.1
+        version: 6.1.1
+      ts-pattern:
+        specifier: ^5.9.0
+        version: 5.9.0
+      typescript:
+        specifier: '*'
+        version: 6.0.2
+    devDependencies:
+      '@local/configs':
+        specifier: workspace:*
+        version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      eslint:
+        specifier: ^10.2.0
+        version: 10.2.0(jiti@2.6.1)
+      tsdown:
+        specifier: ^0.21.7
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
+
+  plugins/eslint-plugin-react-naming-convention:
+    dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../packages/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@eslint-react/eslint':
+        specifier: workspace:*
+        version: link:../../packages/eslint
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -1239,20 +1239,20 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-rsc:
+  plugins/eslint-plugin-react-rsc:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../@eslint-react/ast
+        version: link:../../packages/ast
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
-        version: link:../@eslint-react/var
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -1291,23 +1291,23 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-web-api:
+  plugins/eslint-plugin-react-web-api:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../@eslint-react/ast
+        version: link:../../packages/ast
       '@eslint-react/core':
         specifier: workspace:*
-        version: link:../@eslint-react/core
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
-        version: link:../@eslint-react/var
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -1346,26 +1346,26 @@ importers:
         specifier: ^0.21.7
         version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.2)
 
-  packages/eslint-plugin-react-x:
+  plugins/eslint-plugin-react-x:
     dependencies:
       '@eslint-react/ast':
         specifier: workspace:*
-        version: link:../@eslint-react/ast
+        version: link:../../packages/ast
       '@eslint-react/core':
         specifier: workspace:*
-        version: link:../@eslint-react/core
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
-        version: link:../@eslint-react/eslint
+        version: link:../../packages/eslint
       '@eslint-react/jsx':
         specifier: workspace:*
-        version: link:../@eslint-react/jsx
+        version: link:../../packages/jsx
       '@eslint-react/shared':
         specifier: workspace:*
-        version: link:../@eslint-react/shared
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
-        version: link:../@eslint-react/var
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.58.1
         version: 8.58.1
@@ -3724,64 +3724,64 @@ packages:
   '@tailwindcss/postcss@4.2.2':
     resolution: {integrity: sha512-n4goKQbW8RVXIbNKRB/45LzyUqN451deQK0nzIeauVEqjlI49slUlgKYJM2QyUzap/PcpnS7kzSUmPb1sCRvYQ==}
 
-  '@takumi-rs/core-darwin-arm64@1.0.4':
-    resolution: {integrity: sha512-mDLVJZvhTBWEyeeaPOVmXkCP6H7SMfPnBy+6xr0k/iBoY48TMBpLV75SWf+lXiU4GvPVWV4wNAbuKij6HGETmg==}
+  '@takumi-rs/core-darwin-arm64@1.0.5':
+    resolution: {integrity: sha512-8YJco+FFl3teasItTMbLZIitnEB2oXwQfDVKI5FnTq2Fy1oBB5bntw1Ms6WbZsDQxUZzNg+79RJ0LyHzsohVow==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@takumi-rs/core-darwin-x64@1.0.4':
-    resolution: {integrity: sha512-ERWkjwMp+xL511wo6cUUgoOJD7wsW3FwZLOOHwL7gv6t5otYGCYK/JMH+sht6akETkTKxYisZTp2TOz92BhTdA==}
+  '@takumi-rs/core-darwin-x64@1.0.5':
+    resolution: {integrity: sha512-za/qCcmM8x3rvR7S4TNRsaNDC8HlU+RLvfr19kIRdqVcmWLxlTpRE/vDztRZzkpr3G0qIOqT7u28njUYYQsrjA==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@takumi-rs/core-linux-arm64-gnu@1.0.4':
-    resolution: {integrity: sha512-S446WcniUqrwVX2QnnACAY8pYm5526Nq4iKqKSOXkyw5PDqs4ZtudJaxuAuzEZmFD+owxs1xug0QKV3aUBEPEA==}
+  '@takumi-rs/core-linux-arm64-gnu@1.0.5':
+    resolution: {integrity: sha512-BWbZtlM496exkai3kLcYIidTwslsVC/QNiwhPX/Rcjj8aJVI4dpsPSebYOjDK7wmX8dKxHEUk0PL9Oa9ROUGEQ==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@takumi-rs/core-linux-arm64-musl@1.0.4':
-    resolution: {integrity: sha512-YNikb4slFW5bspzEzp3nHu9xJ7rdSjjpyZViP4dCKdK8HYlZVH8Bp3u63paizOG9mxrGkednBJMRnUEhf8sGUg==}
+  '@takumi-rs/core-linux-arm64-musl@1.0.5':
+    resolution: {integrity: sha512-WuTh8H+LJJFsNuPpljADGOlyeg2rB6SDBxy1x5wzclvh1i9WaHQpUi5+zCqaZOur0Wdlyp2Lr/RQxXtkpazUBQ==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@takumi-rs/core-linux-x64-gnu@1.0.4':
-    resolution: {integrity: sha512-H0vv7hQVXlxi85PIkIP9RE9oU9w0etldGUzxQ4iViIX7OIrWprDVTwWSA+J1EvgAD/Blbp47B/1ilcWswMcSSg==}
+  '@takumi-rs/core-linux-x64-gnu@1.0.5':
+    resolution: {integrity: sha512-d6qzB8oPptdZdf7UOUqXZqhQgP40W93Q1ejK0GfPK+YQgUMczrVAo0Bgolfb43fMdMYzegjkN4rG0izMXJx+AQ==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@takumi-rs/core-linux-x64-musl@1.0.4':
-    resolution: {integrity: sha512-YovSISHtm3X6z4199+G5CguqajZE9IQ7GkP6LB93Ax+HFzqPNaUwVaVq1gWxyd0QV4YioBG4/OZl0cxf/XTo8g==}
+  '@takumi-rs/core-linux-x64-musl@1.0.5':
+    resolution: {integrity: sha512-16etQEW63yRyeZgArfHaJEtmYu6cHez+BphsuN5A06dt3e9Ci8880JlWGQQFTIvrBJEHr+G51CA4GbLF2ZYLzg==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@takumi-rs/core-win32-arm64-msvc@1.0.4':
-    resolution: {integrity: sha512-0HP5AuLPn7dZIMfGeDts+32FadUYln+rhUsWG3bg465LHO6uYsdDH4gp15K7jxSV58IypidUFfPd/+aNYY5hkw==}
+  '@takumi-rs/core-win32-arm64-msvc@1.0.5':
+    resolution: {integrity: sha512-zAGCMFdgDDG/8t2ztp0NAIzC26nENG6YhJUq+fIWMlvNjRUnP8teC6x8YOgt1DxqIgpVRmBOmiASX2qe69tfgA==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@takumi-rs/core-win32-x64-msvc@1.0.4':
-    resolution: {integrity: sha512-XxHMEkg5QImIQGWrvYUsM7/lZK0UVne/AFmHojMXMau2SHkL/10nOeclJITpMXJblQb2HHwDd8hgE5nnZY5j1Q==}
+  '@takumi-rs/core-win32-x64-msvc@1.0.5':
+    resolution: {integrity: sha512-Eh9zHZ2CtE2He6OhSnnXnNrvrn9RqxQIJcoba/YuBVSiggt0BuPwfnVihqmbo5jPvGQSnyQn8UmBRzTmKJBBlA==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
     cpu: [x64]
     os: [win32]
 
-  '@takumi-rs/core@1.0.4':
-    resolution: {integrity: sha512-R40g6Bjvjble2VRxbLkcjEE9NO01TWEMhxzmbxSaLI19Lyb0P/lgxLcMFjc6x6z7WfI1YHnEFm7ULdGCUkqx2g==}
+  '@takumi-rs/core@1.0.5':
+    resolution: {integrity: sha512-K80f0tQu3uZapkGU0icPh4s5bIgKV9PCkJ68EcGhM50Ln+a2ktN+PBhHB4uPZSnVzZMRbIdRaBac43HQpsl+Mw==}
     engines: {node: '>= 12.22.0 < 13 || >= 14.17.0 < 15 || >= 15.12.0 < 16 || >= 16.0.0'}
 
-  '@takumi-rs/helpers@1.0.4':
-    resolution: {integrity: sha512-EPHPkJQqd86zMf+V5qaKcASwB8bBBt/oLA5F7NptQu0qu0BuFdzJCS7N0VAmwJJGfCaO2GywUqu++vXNW6TtHw==}
+  '@takumi-rs/helpers@1.0.5':
+    resolution: {integrity: sha512-0vyQ2PfwjJfy47bmPm4wNZz6OAoSWDh42lZrdfnGveaWKuBgYFPLnJqGL8C2sZydIRq0cEF4jXu5r7PUHF4+LQ==}
     peerDependencies:
       react: ^19.2.5
       react-dom: ^19.2.5
@@ -3789,11 +3789,11 @@ packages:
       react-dom:
         optional: true
 
-  '@takumi-rs/image-response@1.0.4':
-    resolution: {integrity: sha512-l5ihSE+8bvicn7DEzimTfW61Ozp3YpABbO2WJiLTVHk0krh6pnSdGixFJjtB27gR+HqdbMnbvMTlG/BlnzKccg==}
+  '@takumi-rs/image-response@1.0.5':
+    resolution: {integrity: sha512-UVkewAfIascP7WlcTWhxwHCTAHONKb/KvjDSnPcTq/x0vPWkSB0bpRBju6DzeMtgERuI2j79RC4XAf/zB3SDgw==}
 
-  '@takumi-rs/wasm@1.0.4':
-    resolution: {integrity: sha512-IZAuEslbHKgMScwzCCBnPJxZOPUCUN1eBfQ5/iuA1NMfAX2JgLHHEpTaS8yy0yEUeILsnjG2nN6I0/L/wSrcCQ==}
+  '@takumi-rs/wasm@1.0.5':
+    resolution: {integrity: sha512-ZzarkrkX9yullYKxv4KwW4mAj2uAzZSvd5wVYt3mZC0Qdl97iPF0srJqrHoHL95OhQ5Os2cmdOBKIcfsDc8RWg==}
 
   '@theguild/remark-mermaid@0.3.0':
     resolution: {integrity: sha512-Fy1J4FSj8totuHsHFpaeWyWRaRSIvpzGTRoEfnNJc1JmLV9uV70sYE3zcT+Jj5Yw20Xq4iCsiT+3Ho49BBZcBQ==}
@@ -4214,8 +4214,8 @@ packages:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
 
-  baseline-browser-mapping@2.10.17:
-    resolution: {integrity: sha512-HdrkN8eVG2CXxeifv/VdJ4A4RSra1DTW8dc/hdxzhGHN8QePs6gKaWM9pHPcpCoxYZJuOZ8drHmbdpLHjCYjLA==}
+  baseline-browser-mapping@2.10.18:
+    resolution: {integrity: sha512-VSnGQAOLtP5mib/DPyg2/t+Tlv65NTBz83BJBJvmLVHHuKJVaDOBvJJykiT5TR++em5nfAySPccDZDa4oSrn8A==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -4250,8 +4250,8 @@ packages:
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
-  builtin-modules@5.0.0:
-    resolution: {integrity: sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg==}
+  builtin-modules@5.1.0:
+    resolution: {integrity: sha512-c5JxaDrzwRjq3WyJkI1AGR5xy6Gr6udlt7sQPbl09+3ckB+Zo2qqQ2KhCTBr7Q8dHB43bENGYEk4xddrFH/b7A==}
     engines: {node: '>=18.20'}
 
   bundle-require@5.1.0:
@@ -4702,8 +4702,8 @@ packages:
   effect@3.21.0:
     resolution: {integrity: sha512-PPN80qRokCd1f015IANNhrwOnLO7GrrMQfk4/lnZRE/8j7UPWrNNjPV0uBrZutI/nHzernbW+J0hdqQysHiSnQ==}
 
-  electron-to-chromium@1.5.334:
-    resolution: {integrity: sha512-mgjZAz7Jyx1SRCwEpy9wefDS7GvNPazLthHg8eQMJ76wBdGQQDW33TCrUTvQ4wzpmOrv2zrFoD3oNufMdyMpog==}
+  electron-to-chromium@1.5.335:
+    resolution: {integrity: sha512-q9n5T4BR4Xwa2cwbrwcsDJtHD/enpQ5S1xF1IAtdqf5AAgqDFmR/aakqH3ChFdqd/QXJhS3rnnXFtexU7rax6Q==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -4739,6 +4739,10 @@ packages:
 
   error-ex@1.3.4:
     resolution: {integrity: sha512-sqQamAnR14VgCr1A618A3sGrygcpK+HEbenA/HiEAkkUwcZIIB/tgWqHFxWgOyDh4nB4JCRimh79dR5Ywc9MDQ==}
+
+  es-errors@1.3.0:
+    resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
+    engines: {node: '>= 0.4'}
 
   es-module-lexer@2.0.0:
     resolution: {integrity: sha512-5POEcUuZybH7IdmGsD8wlf0AI55wMecM9rVBTI/qEAy2c1kTOm3DjFYjrBdI2K3BaJjJYfYFeRtM0t9ssnRuxw==}
@@ -5225,8 +5229,8 @@ packages:
     resolution: {integrity: sha512-5lsx1NUDHtSjfg0eHlmYvZKv8/nVqX4ckFbM+FrGcQ+04KWcWFo9P5MxPZYSzUvyzmdTbI7Eix8Q4IbELDqzKg==}
     engines: {node: '>=0.10.0'}
 
-  globals@17.4.0:
-    resolution: {integrity: sha512-hjrNztw/VajQwOLsMNT1cbJiH2muO3OROCHnbehc8eY5JyD2gqz4AcMHPqgaOR59DjgUjYAYLeH699g/eWi2jw==}
+  globals@17.5.0:
+    resolution: {integrity: sha512-qoV+HK2yFl/366t2/Cb3+xxPUo5BuMynomoDmiaZBIdbs+0pYbjfZU+twLhGKp4uCZ/+NbtpVepH5bGCxRyy2g==}
     engines: {node: '>=18'}
 
   graceful-fs@4.2.11:
@@ -6377,8 +6381,8 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
-  resolve@1.22.11:
-    resolution: {integrity: sha512-RfqAvLnMl313r7c9oclB1HhUEAezcpLjz95wFH4LVuhk9JF/r22qmVP9AMmOU4vMX7Q8pN8jwNg/CSpdFnMjTQ==}
+  resolve@1.22.12:
+    resolution: {integrity: sha512-TyeJ1zif53BPfHootBGwPRYT1RUt6oGWsaQr8UyZW/eAm9bKoijtvruSDEmZHm92CwS9nj7/fWttqPCgzep8CA==}
     engines: {node: '>= 0.4'}
     hasBin: true
 
@@ -6626,8 +6630,8 @@ packages:
   tailwindcss@4.2.2:
     resolution: {integrity: sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q==}
 
-  takumi-js@1.0.4:
-    resolution: {integrity: sha512-fWRYtCLz8PNMJ/s4quK06hZZnCH/m5eV2QG3n/+Ea/ECBIxq1kvXdMQpot+ycB8QcYSKmXEcjxyTOIT4JkCLuA==}
+  takumi-js@1.0.5:
+    resolution: {integrity: sha512-U/UU0azRTAGOBUBfWsDkkHq+iCmPuYRhHKif2L8N9h7JEOq2fVJKYvxigPxAerRraXEoXQ2Bx24LZXAZ+bssXA==}
 
   tapable@2.3.2:
     resolution: {integrity: sha512-1MOpMXuhGzGL5TTCZFItxCc0AARf1EZFQkGqMm7ERKj8+Hgr5oLvJOVFcC+lRmR8hCe2S3jC4T5D7Vg/d7/fhA==}
@@ -9024,62 +9028,62 @@ snapshots:
       postcss: 8.5.9
       tailwindcss: 4.2.2
 
-  '@takumi-rs/core-darwin-arm64@1.0.4':
+  '@takumi-rs/core-darwin-arm64@1.0.5':
     optional: true
 
-  '@takumi-rs/core-darwin-x64@1.0.4':
+  '@takumi-rs/core-darwin-x64@1.0.5':
     optional: true
 
-  '@takumi-rs/core-linux-arm64-gnu@1.0.4':
+  '@takumi-rs/core-linux-arm64-gnu@1.0.5':
     optional: true
 
-  '@takumi-rs/core-linux-arm64-musl@1.0.4':
+  '@takumi-rs/core-linux-arm64-musl@1.0.5':
     optional: true
 
-  '@takumi-rs/core-linux-x64-gnu@1.0.4':
+  '@takumi-rs/core-linux-x64-gnu@1.0.5':
     optional: true
 
-  '@takumi-rs/core-linux-x64-musl@1.0.4':
+  '@takumi-rs/core-linux-x64-musl@1.0.5':
     optional: true
 
-  '@takumi-rs/core-win32-arm64-msvc@1.0.4':
+  '@takumi-rs/core-win32-arm64-msvc@1.0.5':
     optional: true
 
-  '@takumi-rs/core-win32-x64-msvc@1.0.4':
+  '@takumi-rs/core-win32-x64-msvc@1.0.5':
     optional: true
 
-  '@takumi-rs/core@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@takumi-rs/core@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@takumi-rs/helpers': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/helpers': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     optionalDependencies:
-      '@takumi-rs/core-darwin-arm64': 1.0.4
-      '@takumi-rs/core-darwin-x64': 1.0.4
-      '@takumi-rs/core-linux-arm64-gnu': 1.0.4
-      '@takumi-rs/core-linux-arm64-musl': 1.0.4
-      '@takumi-rs/core-linux-x64-gnu': 1.0.4
-      '@takumi-rs/core-linux-x64-musl': 1.0.4
-      '@takumi-rs/core-win32-arm64-msvc': 1.0.4
-      '@takumi-rs/core-win32-x64-msvc': 1.0.4
+      '@takumi-rs/core-darwin-arm64': 1.0.5
+      '@takumi-rs/core-darwin-x64': 1.0.5
+      '@takumi-rs/core-linux-arm64-gnu': 1.0.5
+      '@takumi-rs/core-linux-arm64-musl': 1.0.5
+      '@takumi-rs/core-linux-x64-gnu': 1.0.5
+      '@takumi-rs/core-linux-x64-musl': 1.0.5
+      '@takumi-rs/core-win32-arm64-msvc': 1.0.5
+      '@takumi-rs/core-win32-x64-msvc': 1.0.5
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@takumi-rs/helpers@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@takumi-rs/helpers@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       react: 19.2.5
     optionalDependencies:
       react-dom: 19.2.5(react@19.2.5)
 
-  '@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      takumi-js: 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      takumi-js: 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     transitivePeerDependencies:
       - react
       - react-dom
 
-  '@takumi-rs/wasm@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@takumi-rs/wasm@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@takumi-rs/helpers': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/helpers': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     transitivePeerDependencies:
       - react
       - react-dom
@@ -9590,7 +9594,7 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  baseline-browser-mapping@2.10.17: {}
+  baseline-browser-mapping@2.10.18: {}
 
   birecord@0.1.1: {}
 
@@ -9608,9 +9612,9 @@ snapshots:
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.17
+      baseline-browser-mapping: 2.10.18
       caniuse-lite: 1.0.30001787
-      electron-to-chromium: 1.5.334
+      electron-to-chromium: 1.5.335
       node-releases: 2.0.37
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -9621,7 +9625,7 @@ snapshots:
 
   buffer-from@1.1.2: {}
 
-  builtin-modules@5.0.0: {}
+  builtin-modules@5.1.0: {}
 
   bundle-require@5.1.0(esbuild@0.28.0):
     dependencies:
@@ -10015,7 +10019,7 @@ snapshots:
       please-upgrade-node: 3.2.0
       readdirp: 3.6.0
       require-package-name: 2.0.1
-      resolve: 1.22.11
+      resolve: 1.22.12
       resolve-from: 5.0.0
       semver: 7.7.4
       yargs: 16.2.0
@@ -10091,7 +10095,7 @@ snapshots:
       '@standard-schema/spec': 1.1.0
       fast-check: 3.23.2
 
-  electron-to-chromium@1.5.334: {}
+  electron-to-chromium@1.5.335: {}
 
   emoji-regex@10.6.0: {}
 
@@ -10117,6 +10121,8 @@ snapshots:
   error-ex@1.3.4:
     dependencies:
       is-arrayish: 0.2.1
+
+  es-errors@1.3.0: {}
 
   es-module-lexer@2.0.0: {}
 
@@ -10272,7 +10278,7 @@ snapshots:
       core-js-compat: 3.49.0
       eslint: 10.2.0(jiti@2.6.1)
       find-up-simple: 1.0.1
-      globals: 17.4.0
+      globals: 17.5.0
       indent-string: 5.0.0
       is-builtin-module: 5.0.0
       jsesc: 3.1.0
@@ -10593,11 +10599,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-twoslash@3.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2):
+  fumadocs-twoslash@3.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.2):
     dependencies:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@shikijs/twoslash': 4.0.2(typescript@6.0.2)
-      fumadocs-ui: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
+      fumadocs-ui: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
       mdast-util-from-markdown: 2.0.3
       mdast-util-gfm: 3.1.0
       mdast-util-to-hast: 13.2.1
@@ -10613,7 +10619,7 @@ snapshots:
       - supports-color
       - typescript
 
-  fumadocs-typescript@5.2.2(08fb7c097ab3967cc4b3421d6ada0cfd):
+  fumadocs-typescript@5.2.2(d0d1f8fcb3c306f2ec748af44ecd9216):
     dependencies:
       estree-util-value-to-estree: 3.5.0
       fumadocs-core: 16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6)
@@ -10631,12 +10637,12 @@ snapshots:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       '@types/react': 19.2.14
-      fumadocs-ui: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
+      fumadocs-ui: 16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2)
       shiki: 4.0.2
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2):
+  fumadocs-ui@16.7.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@takumi-rs/image-response@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/mdx@2.0.13)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(fumadocs-core@16.7.12(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.8.0(react@19.2.5))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(zod@4.3.6))(next@16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(shiki@4.0.2)(tailwindcss@4.2.2):
     dependencies:
       '@fumadocs/tailwind': 0.0.3(tailwindcss@4.2.2)
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -10664,7 +10670,7 @@ snapshots:
       tailwind-merge: 3.5.0
       unist-util-visit: 5.1.0
     optionalDependencies:
-      '@takumi-rs/image-response': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/image-response': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@types/mdx': 2.0.13
       '@types/react': 19.2.14
       next: 16.2.3(@babel/core@7.29.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -10723,7 +10729,7 @@ snapshots:
       is-windows: 1.0.2
       which: 1.3.1
 
-  globals@17.4.0: {}
+  globals@17.5.0: {}
 
   graceful-fs@4.2.11: {}
 
@@ -10934,7 +10940,7 @@ snapshots:
 
   is-builtin-module@5.0.0:
     dependencies:
-      builtin-modules: 5.0.0
+      builtin-modules: 5.1.0
 
   is-core-module@2.16.1:
     dependencies:
@@ -11746,7 +11752,7 @@ snapshots:
     dependencies:
       '@next/env': 16.2.3
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.17
+      baseline-browser-mapping: 2.10.18
       caniuse-lite: 1.0.30001787
       postcss: 8.4.31
       react: 19.2.5
@@ -12302,8 +12308,9 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  resolve@1.22.11:
+  resolve@1.22.12:
     dependencies:
+      es-errors: 1.3.0
       is-core-module: 2.16.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
@@ -12631,11 +12638,11 @@ snapshots:
 
   tailwindcss@4.2.2: {}
 
-  takumi-js@1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+  takumi-js@1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
     dependencies:
-      '@takumi-rs/core': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@takumi-rs/helpers': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@takumi-rs/wasm': 1.0.4(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/core': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/helpers': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@takumi-rs/wasm': 1.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     transitivePeerDependencies:
       - react
       - react-dom

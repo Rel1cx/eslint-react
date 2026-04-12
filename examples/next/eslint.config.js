@@ -1,8 +1,8 @@
+import eslintReact from "@eslint-react/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import eslintJs from "@eslint/js";
 import eslintPluginNext from "@next/eslint-plugin-next";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintReact from "eslint-plugin-react-instant";
 import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig } from "eslint/config";
 import path from "node:path";

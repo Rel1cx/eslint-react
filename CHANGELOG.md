@@ -189,13 +189,13 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 The following rules have been removed from `eslint-plugin-react-x`:
 
-| Rule                              | Replaced by                                                                                                                |
-| :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-boolean`   | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-fragment`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
-| `react-x/unstable-rules-of-props` | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                                      |
-| `react-x/unstable-rules-of-state` | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                                      |
+| Rule                              | Replaced by                                                                                                  |
+| :-------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-boolean`   | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-fragment`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/unstable-rules-of-props` | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                        |
+| `react-x/unstable-rules-of-state` | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                        |
 
 **JSX utilities extracted from `@eslint-react/core` to `@eslint-react/jsx`**
 
@@ -674,11 +674,11 @@ Rules from individual plugins now use a flattened naming convention when accesse
 
 The following rules have been removed from `eslint-plugin-react-x`:
 
-| Rule                             | Replaced by                                                                                                                |
-| :------------------------------- | :------------------------------------------------------------------------------------------------------------------------- |
-| `react-x/jsx-dollar`             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-boolean`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
-| `react-x/jsx-shorthand-fragment` | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/@eslint-react/kit/README.md) (custom rule) |
+| Rule                             | Replaced by                                                                                                  |
+| :------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-boolean`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-fragment` | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
 
 **JSX utilities extracted from `@eslint-react/core` to `@eslint-react/jsx`**
 

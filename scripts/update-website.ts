@@ -8,7 +8,7 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
-const DOCS_GLOB = ["packages/eslint-plugin-react-*/src/rules/*/*.mdx"];
+const DOCS_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
 const RE_RULE_PREFIX = /^(x|jsx|rsc|dom|web-api|naming-convention|debug)-(.+)$/u;
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
@@ -99,7 +99,7 @@ const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
   const docs = yield* Effect.sync(() => glob(DOCS_GLOB));
   return docs.map<RuleMeta>((doc) => {
-    const catename = /^packages\/plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
+    const catename = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
 
     const isPluginX = catename === "x";

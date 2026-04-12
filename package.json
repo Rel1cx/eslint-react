@@ -14,7 +14,7 @@
     "eslint-plugin-react-dom",
     "eslint-plugin-react-web-api",
     "eslint-plugin-react-naming-convention",
-    "eslint-plugin-react-instant"
+    "@eslint-react/eslint-plugin"
   ],
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -28,7 +28,7 @@
   "author": "Rel1cx",
   "type": "module",
   "scripts": {
-    "build": "pnpm run update:all && pnpm run build:pkgs && pnpm run build:packages && pnpm run build:docs",
+    "build": "pnpm run update:all && pnpm run build:pkgs && pnpm run build:packages",
     "build:docs": "pnpm -r --stream --filter \"./packages/**\" run build:docs",
     "build:packages": "pnpm -r --stream --filter \"./packages/**\" run build",
     "build:pkgs": "pnpm -r --stream --filter \"./.pkgs/*\" run build",
@@ -60,6 +60,7 @@
     "@effect/language-service": "^0.85.1",
     "@effect/platform": "^0.96.0",
     "@effect/platform-node": "^0.106.0",
+    "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/compat": "^2.0.5",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
@@ -79,7 +80,6 @@
     "effect": "^3.21.0",
     "eslint": "^10.2.0",
     "eslint-plugin-fast-import": "^2.2.1",
-    "eslint-plugin-react-instant": "workspace:*",
     "mdxlint": "^1.0.0",
     "preact": "^10.29.1",
     "publint": "^0.3.18",

@@ -2,9 +2,9 @@
 
 <h1 align="center" alt="title">ESLint React</h1>
 
-[![Version](https://img.shields.io/npm/v/eslint-plugin-react-instant?style=flat&colorA=111111&colorB=000000)](https://npmx.dev/package/eslint-plugin-react-instant)
-[![Downloads](https://img.shields.io/npm/dt/eslint-plugin-react-instant.svg?style=flat&colorA=222222&colorB=000000)](https://npmx.dev/package/eslint-plugin-react-instant)
-[![License](https://img.shields.io/npm/l/eslint-plugin-react-instant?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/@eslint-react/eslint-plugin?style=flat&colorA=111111&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
+[![Downloads](https://img.shields.io/npm/dt/@eslint-react/eslint-plugin.svg?style=flat&colorA=222222&colorB=000000)](https://npmx.dev/package/@eslint-react/eslint-plugin)
+[![License](https://img.shields.io/npm/l/@eslint-react/eslint-plugin?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
 [![Build with](https://img.shields.io/badge/built_with-tsdown@0.21.7-000000?style=flat)](https://tsdown.dev)
 
 4-7x faster, composable ESLint rules for React and friends.
@@ -54,7 +54,7 @@
 
 ### Unified ESLint Plugin
 
-- [`eslint-plugin-react-instant`](https://npmx.dev/package/eslint-plugin-react-instant) - A unified plugin that combines all individual plugins into one. Get complete, out-of-the-box rule coverage with instant feedback.
+- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one. Get complete, out-of-the-box rule coverage with instant feedback.
 
 > [!NOTE]\
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
@@ -71,7 +71,7 @@
 ### Install
 
 ```sh
-npm install --save-dev typescript-eslint eslint-plugin-react-instant
+npm install --save-dev typescript-eslint @eslint-react/eslint-plugin
 ```
 
 ### Setup
@@ -79,8 +79,8 @@ npm install --save-dev typescript-eslint eslint-plugin-react-instant
 ```js
 // eslint.config.js
 
+import eslintReact from "@eslint-react/eslint-plugin";
 import eslintJs from "@eslint/js";
-import eslintReact from "eslint-plugin-react-instant";
 import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 

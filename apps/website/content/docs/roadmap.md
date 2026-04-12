@@ -115,7 +115,7 @@ Minimum supported versions:
 - [x] `react-x/jsx-shorthand-boolean` - Removed (can be implemented using `@eslint-react/kit` as custom rule)
 - [x] `react-x/jsx-shorthand-fragment` - Removed (can be implemented using `@eslint-react/kit` as custom rule)
 
-### Rule Prefix Changes (in `eslint-plugin-react-instant`)
+### Rule Prefix Changes (in `@eslint-react/eslint-plugin`)
 
 - [x] `@eslint-react/rsc/<rule>` -> `@eslint-react/rsc-<rule>`
 - [x] `@eslint-react/dom/<rule>` -> `@eslint-react/dom-<rule>`

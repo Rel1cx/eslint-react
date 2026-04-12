@@ -16,7 +16,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
     ## Installation
 
     ```package-install copy
-    npm install --save-dev globals eslint @eslint/js eslint-plugin-react-instant
+    npm install --save-dev globals eslint @eslint/js @eslint-react/eslint-plugin
     ```
   </Step>
 
@@ -26,7 +26,7 @@ import { Step, Steps } from "fumadocs-ui/components/steps";
     ```ts title="eslint.config.ts"
     import globals from "globals";
     import eslintJs from "@eslint/js";
-    import eslintReact from "eslint-plugin-react-instant";
+    import eslintReact from "@eslint-react/eslint-plugin";
     import { defineConfig } from "eslint/config";
 
     export default defineConfig(

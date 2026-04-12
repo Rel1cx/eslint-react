@@ -2,7 +2,7 @@ packages:
   - .pkgs/*
   - apps/*
   - packages/*
-  - packages/*/*
+  - plugins/*
   - examples/*
 
 onlyBuiltDependencies:
