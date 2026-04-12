@@ -41,16 +41,16 @@ jobs:
         run: |
           if git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            pnpm --filter "./packages/**" publish --provenance --access public
+            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-rc\.[0-9]\+$";
           then
-            pnpm --filter "./packages/**" publish --provenance --access public --tag rc --no-git-checks
+            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag rc --no-git-checks
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-beta\.[0-9]\+$";
           then
-            pnpm --filter "./packages/**" publish --provenance --access public --tag beta --no-git-checks
+            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag beta --no-git-checks
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-next\.[0-9]\+$";
           then
-            pnpm --filter "./packages/**" publish --provenance --access public --tag next --no-git-checks
+            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag next --no-git-checks
           else
             echo "Not a release, skipping publish"
           fi

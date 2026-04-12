@@ -29,6 +29,6 @@
     "examples",
     "node_modules",
     "packages/*/src",
-    "packages/*/*/src"
+    "plugins/*/src"
   ]
 }

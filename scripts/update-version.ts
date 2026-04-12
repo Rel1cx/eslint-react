@@ -13,7 +13,7 @@ import { version } from "./lib/version";
 const GLOB_PACKAGE_JSON = [
   "package.json",
   "packages/*/package.json",
-  "packages/*/*/package.json",
+  "plugins/*/package.json",
 ];
 
 const processPackageJson = Effect.fnUntraced(

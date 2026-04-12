@@ -92,7 +92,7 @@ pnpm run build
 # Build only internal monorepo packages (.pkgs/*)
 pnpm run build:pkgs
 
-# Build only publishable packages (packages/**)
+# Build only publishable packages (packages/*)
 pnpm run build:packages
 
 # Build documentation for all packages
