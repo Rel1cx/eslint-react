@@ -93,7 +93,7 @@ export function create(context: RuleContext<MessageID, []>) {
     if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
-    const id = ast.getClassId(currentClass);
+    const id = core.getClassId(currentClass);
     const defs = propertyDefs.get(currentClass);
     const usages = propertyUsages.get(currentClass);
     if (defs == null) {

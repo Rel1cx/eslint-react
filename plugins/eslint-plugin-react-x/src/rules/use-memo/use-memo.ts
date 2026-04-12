@@ -4,6 +4,7 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { getNestedReturnStatements } from "../no-missing-key/lib";
 
 export const RULE_NAME = "use-memo";
 
@@ -88,7 +89,7 @@ export function create(context: RuleContext<MessageID, []>) {
       const body = callbackArg.body;
       if (body.type !== AST.BlockStatement) return;
 
-      const returnStatements = ast.getNestedReturnStatements(callbackArg);
+      const returnStatements = getNestedReturnStatements(callbackArg);
 
       // If there are no return statements at all, the function implicitly returns undefined
       if (returnStatements.length === 0) {

@@ -1,6 +1,8 @@
 import type * as ast from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
+import type { FunctionID } from "./function";
+
 /**
  * Represents a semantic node in the AST
  * This is the base interface for all semantic nodes in the React semantic analysis
@@ -29,7 +31,7 @@ export interface SemanticNode {
  */
 export interface SemanticFunc extends SemanticNode {
   /** The identifier of the function */
-  id: ast.FunctionID;
+  id: FunctionID;
   /** The AST node of the function */
   node: ast.TSESTreeFunction;
   /** The name of the function */

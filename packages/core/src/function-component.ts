@@ -7,6 +7,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";
 import { isRenderMethodCallback } from "./class-component";
+import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
 import type { SemanticNode } from "./semantic";
 
 // #region Types
@@ -18,7 +19,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The identifier or identifier sequence of the component
    */
-  id: ast.FunctionID;
+  id: FunctionID;
 
   /**
    * The kind of component
@@ -50,7 +51,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
    */
   initPath:
     | null
-    | ast.FunctionInitPath;
+    | FunctionInitPath;
 
   /**
    * Indicates if the component is inside an export default declaration
@@ -108,10 +109,10 @@ export const FunctionComponentFlag = {
  */
 export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponentSemanticNode["initPath"]) {
   let flag = FunctionComponentFlag.None;
-  if (initPath != null && ast.hasCallInFunctionInitPath("memo", initPath)) {
+  if (initPath != null && isFunctionHasCallInInitPath("memo", initPath)) {
     flag |= FunctionComponentFlag.Memo;
   }
-  if (initPath != null && ast.hasCallInFunctionInitPath("forwardRef", initPath)) {
+  if (initPath != null && isFunctionHasCallInInitPath("forwardRef", initPath)) {
     flag |= FunctionComponentFlag.ForwardRef;
   }
   return flag;
@@ -159,8 +160,8 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
 export function getFunctionComponentId(
   context: RuleContext,
   node: ast.TSESTreeFunction,
-): ast.FunctionID {
-  const functionId = ast.getFunctionId(node);
+): FunctionID {
+  const functionId = getFunctionId(node);
   if (functionId != null) {
     return functionId;
   }
@@ -328,7 +329,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: ast.TS
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
     case parent.type === AST.CallExpression
-      && ast.getFunctionId(node) == null
+      && getFunctionId(node) == null
       && !isFunctionComponentWrapperCall(context, parent)
       && !isCreateElementCall(context, parent):
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) {

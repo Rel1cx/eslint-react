@@ -1,6 +1,5 @@
+import type { TSESTreeClass } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
-import type { TSESTreeClass } from "./node-types";
 
 /**
  * Get the class identifier of a class node

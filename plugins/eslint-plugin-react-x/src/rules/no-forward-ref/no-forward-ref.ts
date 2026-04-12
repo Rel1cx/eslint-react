@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!core.isForwardRefCall(context, node)) {
           return;
         }
-        const id = ast.getFunctionId(node);
+        const id = core.getFunctionId(node);
         const suggest = canFix(context, node)
           ? [
             {

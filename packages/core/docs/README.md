@@ -15,20 +15,22 @@
 | Interface | Description |
 | ------ | ------ |
 | [~~ClassComponentSemanticNode~~](interfaces/ClassComponentSemanticNode.md) | - |
-| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a React Client Function |
+| [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a client function semantic node. |
 | [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
 | [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST |
 | [SemanticFunc](interfaces/SemanticFunc.md) | Represents a semantic function node in the AST This interface extends SemanticNode and provides additional properties for function analysis |
 | [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
-| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a React Server Function |
+| [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a server function semantic node. |
 
 ## Type Aliases
 
 | Type Alias | Description |
 | ------ | ------ |
 | [FunctionComponentDetectionHint](type-aliases/FunctionComponentDetectionHint.md) | Hints for component collector |
-| [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a React function |
-| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a React Function |
+| [FunctionID](type-aliases/FunctionID.md) | Type representing the return type of `getFunctionId`. |
+| [FunctionInitPath](type-aliases/FunctionInitPath.md) | Represents various AST paths for function declarations. Each tuple type represents a specific function definition pattern. |
+| [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a function. |
+| [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a function semantic node. |
 | [TypeVariant](type-aliases/TypeVariant.md) | - |
 
 ## Variables
@@ -127,8 +129,12 @@
 | Function | Description |
 | ------ | ------ |
 | [~~getClassComponentCollector~~](functions/getClassComponentCollector.md) | - |
+| [getClassId](functions/getClassId.md) | Get the class identifier of a class node |
 | [getFullyQualifiedNameEx](functions/getFullyQualifiedNameEx.md) | An enhanced version of getFullyQualifiedName that handles cases that original function does not handle |
 | [getFunctionComponentCollector](functions/getFunctionComponentCollector.md) | Get an api and visitor object for the rule to collect function components |
+| [getFunctionDirectives](functions/getFunctionDirectives.md) | Gets all directive expression statements from the top of a function body. |
+| [getFunctionId](functions/getFunctionId.md) | Gets the static identifier of a function AST node. |
+| [getFunctionInitPath](functions/getFunctionInitPath.md) | Identifies the initialization path of a function node in the AST. |
 | [getHookCollector](functions/getHookCollector.md) | Get an api and visitor object for the rule to collect hooks |
 | [isAPI](functions/isAPI.md) | Check if the node is a React API identifier or member expression |
 | [isAPICall](functions/isAPICall.md) | Check if the node is a call expression to a specific React API |
@@ -143,6 +149,9 @@
 | [isFunctionComponentNameLoose](functions/isFunctionComponentNameLoose.md) | Check if a string matches the loose component name pattern |
 | [isFunctionComponentWrapperCall](functions/isFunctionComponentWrapperCall.md) | Check if the node is a call expression for a component wrapper |
 | [isFunctionComponentWrapperCallback](functions/isFunctionComponentWrapperCallback.md) | Check if the node is a callback function passed to a component wrapper |
+| [isFunctionEmpty](functions/isFunctionEmpty.md) | Checks if a function is empty. |
+| [isFunctionHasCallInInitPath](functions/isFunctionHasCallInInitPath.md) | Checks if a specific function call exists in the function initialization path. |
+| [isFunctionHasDirective](functions/isFunctionHasDirective.md) | Checks if a directive with the given name exists in the function directives. |
 | [isFunctionWithLooseComponentName](functions/isFunctionWithLooseComponentName.md) | Check if a function has a loose component name |
 | [isHookCall](functions/isHookCall.md) | Check if the given node is a React Hook call by its name. |
 | [isHookDefinition](functions/isHookDefinition.md) | Determine if a function node is a React Hook based on its name. |

@@ -1,6 +1,5 @@
 import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
@@ -11,6 +10,7 @@ import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils
 import { match } from "ts-pattern";
 
 import { createRule } from "../../utils";
+import { getNestedIdentifiers } from "./lib";
 
 export const RULE_NAME = "set-state-in-effect";
 
@@ -217,7 +217,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return true;
         // const identifier = useRef();
         case init.type === AST.CallExpression
-          && isUseRefCall(context, init):
+          && core.isUseRefCall(context, init):
           return true;
       }
     }
@@ -268,7 +268,7 @@ export function create(context: RuleContext<MessageID, []>) {
                       case AST.MemberExpression:
                         return isUsingRefValue(n.object);
                       case AST.CallExpression:
-                        return isUsingRefValue(n.callee) || ast.getNestedIdentifiers(n).some(isUsingRefValue);
+                        return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
                       default:
                         return false;
                     }
@@ -301,7 +301,7 @@ export function create(context: RuleContext<MessageID, []>) {
           })
           .with("useEffect", () => {
             if (ast.isFunction(node.arguments.at(0))) return;
-            setupFnIds.push(...ast.getNestedIdentifiers(node));
+            setupFnIds.push(...getNestedIdentifiers(node));
           })
           .with("other", () => {
             if (entry.node !== setupFunction) return;

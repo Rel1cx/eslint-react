@@ -138,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isComponentOrHookLikeFunction(node: ast.TSESTreeFunction) {
-    const id = ast.getFunctionId(node);
+    const id = core.getFunctionId(node);
     if (id == null) return false;
     if (id.type === AST.Identifier) {
       return core.isFunctionComponentName(id.name) || core.isHookName(id.name);

@@ -1,13 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
- * Represents an arrow function expression with an implicit return
- */
-export type ImplicitReturnArrowFunctionExpression = TSESTree.ArrowFunctionExpression & {
-  body: TSESTree.Expression;
-};
-
-/**
  * Represents a variable declarator with object destructuring and an identifier initializer
  */
 export type ObjectDestructuringVariableDeclarator = TSESTree.VariableDeclarator & {
@@ -27,11 +20,6 @@ export type DisplayNameAssignmentExpression = TSESTree.AssignmentExpression & {
   operator: "=";
   right: TSESTree.Literal;
 };
-
-/**
- * Selector for arrow function expressions with implicit return
- */
-export const SEL_IMPLICIT_RETURN_ARROW_FUNCTION_EXPRESSION = "ArrowFunctionExpression[body.type!='BlockStatement']";
 
 /**
  * Selector for variable declarators with object destructuring

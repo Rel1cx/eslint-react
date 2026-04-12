@@ -1,4 +1,5 @@
 export * from "./api";
+export * from "./class";
 export * from "./class-component";
 export * from "./class-component-collector";
 export * from "./function";

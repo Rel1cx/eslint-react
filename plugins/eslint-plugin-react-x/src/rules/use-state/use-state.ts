@@ -9,6 +9,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
 
 import { createRule } from "../../utils";
+import { getNestedCallExpressions, getNestedNewExpressions } from "./lib";
 
 export const RULE_NAME = "use-state";
 
@@ -105,7 +106,7 @@ export function create(context: RuleContext<MessageID, Options>) {
         const [useStateInput] = node.arguments;
         if (useStateInput != null) {
           // Check for `new` expressions, e.g., `new MyClass()`
-          for (const expr of ast.getNestedNewExpressions(useStateInput)) {
+          for (const expr of getNestedNewExpressions(useStateInput)) {
             if (!("name" in expr.callee)) continue;
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
@@ -114,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             context.report({ messageId: "invalidInitialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
-          for (const expr of ast.getNestedCallExpressions(useStateInput)) {
+          for (const expr of getNestedCallExpressions(useStateInput)) {
             if (!("name" in expr.callee)) continue;
             // Ignore other React hooks
             if (core.isHookName(expr.callee.name)) continue;

@@ -1,4 +1,11 @@
+import { ESLintUtils } from "@typescript-eslint/utils";
 import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+
+function getDocsUrl(ruleName: string) {
+  return `https://eslint-react.xyz/docs/rules/${ruleName}`;
+}
+
+export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 
 /**
  * Merges multiple visitor objects into a single visitor object.

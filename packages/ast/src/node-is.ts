@@ -1,7 +1,8 @@
-import { or } from "@local/eff";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
+
+import type { TSESTreeDirective } from "./node-types";
 
 /**
  * Type guard to check if a node is of a specific AST node type
@@ -26,23 +27,6 @@ export const isFunction = isOneOf([
   AST.ArrowFunctionExpression,
   AST.FunctionDeclaration,
   AST.FunctionExpression,
-]);
-
-/**
- * Check if a node is a function type (including TypeScript function types)
- * @param node The node to check
- * @returns True if the node is a function type
- */
-export const isFunctionType = isOneOf([
-  AST.ArrowFunctionExpression,
-  AST.FunctionDeclaration,
-  AST.FunctionExpression,
-  AST.TSCallSignatureDeclaration,
-  AST.TSConstructSignatureDeclaration,
-  AST.TSDeclareFunction,
-  AST.TSEmptyBodyFunctionExpression,
-  AST.TSFunctionType,
-  AST.TSMethodSignature,
 ]);
 
 /**
@@ -82,16 +66,9 @@ export const isProperty = isOneOf([
 export const isJSXElement = is(AST.JSXElement);
 
 /**
- * Check if a node is a JSX fragment
- * @param node The node to check
- * @returns True if the node is a JSX fragment
- */
-export const isJSXFragment = is(AST.JSXFragment);
-
-/**
  * Check if a node is a JSX element or JSX fragment
  */
-export const isJSXElementLike = or(isJSXElement, isJSXFragment);
+export const isJSXElementLike = isOneOf([AST.JSXElement, AST.JSXFragment]);
 
 /**
  * Check if a node is a JSX tag name expression (identifier, member expression, or namespaced name)
@@ -131,45 +108,6 @@ export const isJSX = isOneOf([
 ]);
 
 /**
- * Check if a node is a loop statement
- * @param node The node to check
- * @returns True if the node is a loop
- */
-export const isLoop = isOneOf([
-  AST.DoWhileStatement,
-  AST.ForInStatement,
-  AST.ForOfStatement,
-  AST.ForStatement,
-  AST.WhileStatement,
-]);
-
-/**
- * Check if a node is a control flow statement (loop, if, or switch)
- * @param node The node to check
- * @returns True if the node is a control flow statement
- */
-export const isControlFlow = or(
-  isLoop,
-  isOneOf([
-    AST.IfStatement,
-    AST.SwitchStatement,
-  ]),
-);
-
-/**
- * Check if a node is a conditional expression or control flow statement
- * @param node The node to check
- * @returns True if the node is conditional
- */
-export const isConditional = or(
-  isControlFlow,
-  isOneOf([
-    AST.LogicalExpression,
-    AST.ConditionalExpression,
-  ]),
-);
-
-/**
  * Check if a node is a TypeScript type expression
  * @param node The node to check
  * @returns True if the node is a type expression
@@ -193,3 +131,12 @@ export const isTypeAssertionExpression = isOneOf([
   AST.TSNonNullExpression,
   AST.TSSatisfiesExpression,
 ]);
+
+/**
+ * Check if a node is a directive expression statement
+ * @param node The node to check
+ * @returns True if the node is a directive, false otherwise
+ */
+export function isDirective(node: TSESTree.Node): node is TSESTreeDirective {
+  return node.type === AST.ExpressionStatement && node.directive != null;
+}
