@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
@@ -74,18 +75,29 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 export function create(context: RuleContext<MessageID, Options>, [options]: Options) {
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (compilationMode === "annotation" && ast.isFileHasDirective(context.sourceCode.ast, "use memo")) return {};
+  if (
+    compilationMode === "annotation"
+    && context.sourceCode.ast.body.some((stmt) => Check.directive(stmt) && stmt.directive === "use memo")
+  ) {
+    return {};
+  }
   const { api, visitor } = core.getFunctionComponentCollector(context);
-  const declarators = new WeakMap<ast.TSESTreeFunction, ast.ObjectDestructuringVariableDeclarator[]>();
+  const SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR = [
+    "VariableDeclarator",
+    "[id.type='ObjectPattern']",
+    "[init.type='Identifier']",
+  ].join("");
+
+  type ObjectDestructuringVariableDeclarator = TSESTree.VariableDeclarator & {
+    id: TSESTree.ObjectPattern;
+    init: TSESTree.Identifier;
+  };
+
+  const declarators = new WeakMap<FunctionExpression, ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
   return merge(visitor, {
-    [ast.SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ast.ObjectDestructuringVariableDeclarator) {
-      const enclosingFunction = ast.findParent(node, ast.isFunction);
-      if (enclosingFunction == null) return;
-      getOrInsertComputed(declarators, enclosingFunction, () => []).push(node);
-    },
     "Program:exit"(program) {
       for (const { node: component } of api.getAllComponents(program)) {
         const { params } = component;
@@ -123,13 +135,18 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           context.report({
             data: {
-              kind: ast.getHumanReadableKind(right),
+              kind: Extract.humanReadableKind(right),
             },
             messageId: "default",
             node: right,
           });
         }
       }
+    },
+    [SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR](node: ObjectDestructuringVariableDeclarator) {
+      const enclosingFunction = Traverse.findParent(node, Check.isFunction);
+      if (enclosingFunction == null) return;
+      getOrInsertComputed(declarators, enclosingFunction, () => []).push(node);
     },
   });
 }

@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -28,7 +28,7 @@ export function resolveImportSource(
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
-    if (arg0 == null || !ast.isLiteral(arg0, "string")) {
+    if (arg0 == null || !Check.literal(arg0, "string")) {
       return null;
     }
     // check for: require('source') or require('source/...')

@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
   type ReportFixFunction,
@@ -44,7 +45,9 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `use server` is not present in the entire file for performance
   if (!context.sourceCode.text.includes("use server")) return {};
 
-  const hasFileLevelUseServerDirective = ast.isFileHasDirective(context.sourceCode.ast, "use server");
+  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(
+    (stmt) => Check.directive(stmt) && stmt.directive === "use server",
+  );
 
   /**
    * Check if `node` is an async function, and report if not
@@ -69,7 +72,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID): boolean {
-    if (!ast.isFunction(node)) return false;
+    if (!Check.isFunction(node)) return false;
     if (!node.async) {
       context.report({ fix: getAsyncFix(node), messageId, node });
       return true;
@@ -99,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
     const initNode = resolve(context, id);
-    if (initNode == null || !ast.isFunction(initNode)) return;
+    if (initNode == null || !Check.isFunction(initNode)) return;
     reportNonAsyncFunction(initNode, "file");
   }
 
@@ -118,7 +121,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (reportNonAsyncFunction(decl, "file")) {
           return;
         }
-        if (ast.isIdentifier(decl)) {
+        if (Check.identifier(decl)) {
           findAndCheckExportedFunctionDeclarations(decl, node);
         }
       },

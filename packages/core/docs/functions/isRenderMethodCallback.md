@@ -3,14 +3,14 @@
 # Function: isRenderMethodCallback()
 
 ```ts
-function isRenderMethodCallback(node: TSESTreeFunction): boolean;
+function isRenderMethodCallback(node: FunctionExpression): boolean;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `node` | `TSESTreeFunction` |
+| `node` | `FunctionExpression` |
 
 ## Returns
 

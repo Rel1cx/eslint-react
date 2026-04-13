@@ -3,7 +3,7 @@
 # Function: isClassComponentLoose()
 
 ```ts
-function isClassComponentLoose(node: Node): node is TSESTreeClass;
+function isClassComponentLoose(node: Node): node is ClassExpression;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ function isClassComponentLoose(node: Node): node is TSESTreeClass;
 
 ## Returns
 
-`node is TSESTreeClass`
+`node is ClassExpression`

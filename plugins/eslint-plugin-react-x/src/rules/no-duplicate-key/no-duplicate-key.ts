@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
       return false;
     }
     // Compare the AST nodes of the values for equality
-    return ast.isNodeEqual(aValue, bValue);
+    return Compare.areEqual(aValue, bValue);
   }
   return merge(
     {
@@ -76,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           // Case 2: Elements created by an array's .map() call
           default: {
-            const call = ast.findParent(
+            const call = Traverse.findParent(
               jsxElement,
               (n): n is TSESTree.CallExpression => (
                 n.type === AST.CallExpression
@@ -85,12 +85,12 @@ export function create(context: RuleContext<MessageID, []>) {
                 && n.callee.property.name === "map"
               ),
             );
-            const iter = ast.findParent(jsxElement, (n) => n === call || ast.isFunction(n));
-            if (!ast.isFunction(iter)) return;
+            const iter = Traverse.findParent(jsxElement, (n) => n === call || Check.isFunction(n));
+            if (!Check.isFunction(iter)) return;
             const arg0 = call?.arguments[0];
             if (call == null || arg0 == null) return;
             // Ensure we are inside the callback of the .map() call
-            if (ast.getUnderlyingExpression(arg0) !== iter) {
+            if (Extract.unwrapped(arg0) !== iter) {
               return;
             }
             // Flag literal keys in .map() calls as they are a common source of duplication

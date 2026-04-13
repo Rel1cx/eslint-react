@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
@@ -55,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>) {
           continue;
         }
         // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (ast.findParent(node, isTestMockCallback) != null) {
+        if (Traverse.findParent(node, isTestMockCallback) != null) {
           continue;
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it

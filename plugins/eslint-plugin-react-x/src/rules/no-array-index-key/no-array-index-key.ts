@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { isOneOf } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -61,7 +62,7 @@ function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpressio
   if (callbackArg == null) {
     return null;
   }
-  if (!ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callbackArg)) {
+  if (!isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callbackArg)) {
     return null;
   }
   const { params } = callbackArg;

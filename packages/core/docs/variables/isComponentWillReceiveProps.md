@@ -3,7 +3,7 @@
 # ~~Variable: isComponentWillReceiveProps~~
 
 ```ts
-const isComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrProperty;
+const isComponentWillReceiveProps: (node: Node) => node is MethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isComponentWillReceiveProps: (node: Node) => node is TSESTreeMethodOrPrope
 
 ## Returns
 
-`node is TSESTreeMethodOrProperty`
+`node is MethodOrPropertyDefinition`
 
 ## Deprecated
 

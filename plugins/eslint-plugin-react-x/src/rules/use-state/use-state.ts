@@ -1,5 +1,5 @@
+import { Traverse } from "@eslint-react/ast";
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
-import * as ast from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -111,7 +111,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (ast.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
+            if (Traverse.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
             context.report({ messageId: "invalidInitialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
@@ -122,7 +122,7 @@ export function create(context: RuleContext<MessageID, Options>) {
             // Ignore primitive wrappers like `String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
-            if (ast.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
+            if (Traverse.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
             context.report({ messageId: "invalidInitialization", node: expr });
           }
         }

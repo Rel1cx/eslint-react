@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
       // Valid: const x = useMemo(...)
       // Invalid: useMemo(...) — result discarded (side-effect usage)
       let parent = node.parent;
-      while (ast.isTypeExpression(parent)) parent = parent.parent;
+      while (Check.isTypeExpression(parent)) parent = parent.parent;
       const isAssigned = parent.type === AST.VariableDeclarator
         || parent.type === AST.AssignmentExpression
         || parent.type === AST.AssignmentPattern
@@ -78,7 +78,7 @@ export function create(context: RuleContext<MessageID, []>) {
       // Check that the first argument (the factory callback) actually returns a value.
       const [callbackArg] = node.arguments;
       if (callbackArg == null) return;
-      if (!ast.isFunction(callbackArg)) return;
+      if (!Check.isFunction(callbackArg)) return;
 
       // Arrow functions with a concise body always return a value (ex: `() => expr`)
       if (callbackArg.type === AST.ArrowFunctionExpression && callbackArg.body.type !== AST.BlockStatement) {

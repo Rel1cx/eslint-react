@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { isFunction } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -26,7 +26,7 @@ describe("isHookDefinition", () => {
     let found = false;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (isFunction(node)) {
+        if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
           found = true;
         }
@@ -41,7 +41,7 @@ describe("isHookDefinition", () => {
     let found = false;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (isFunction(node)) {
+        if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
           found = true;
         }
@@ -56,7 +56,7 @@ describe("isHookDefinition", () => {
     let found = false;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (isFunction(node)) {
+        if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
           found = true;
         }
@@ -71,7 +71,7 @@ describe("isHookDefinition", () => {
     let found = false;
     simpleTraverse(parse(code).ast, {
       enter(node) {
-        if (isFunction(node)) {
+        if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
           found = true;
         }

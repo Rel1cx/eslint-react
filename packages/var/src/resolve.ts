@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
+import type { ClassExpression, FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -71,7 +72,7 @@ export function resolve(
 
     // Return containing function node only for real functions (not type signatures)
     case DefinitionType.Parameter:
-      return ast.isFunction(def.node) ? def.node : null;
+      return Check.isFunction(def.node) ? def.node : null;
 
     // Return enum declaration for member inspection
     case DefinitionType.TSEnumName:

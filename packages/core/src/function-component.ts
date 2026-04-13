@@ -1,5 +1,6 @@
+import { Check, Traverse, isOneOf } from "@eslint-react/ast";
+import type { Directive, FunctionExpression } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
-import * as ast from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
 import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared";
@@ -29,7 +30,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The AST node of the function
    */
-  node: ast.TSESTreeFunction;
+  node: FunctionExpression;
 
   /**
    * Flags describing the component's characteristics
@@ -78,7 +79,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The directives used in the function (ex: "use strict", "use client", etc.)
    */
-  directives: ast.TSESTreeDirective[];
+  directives: Directive[];
 }
 
 // #endregion
@@ -140,9 +141,9 @@ export function isFunctionComponentWrapperCall(context: RuleContext, node: TSEST
  * @returns `true` if the node is a callback function passed to a component wrapper
  */
 export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
-  if (!ast.isFunction(node)) return false;
+  if (!Check.isFunction(node)) return false;
   let parent = node.parent;
-  while (ast.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
   if (parent.type !== AST.CallExpression) return false;
   return isFunctionComponentWrapperCall(context, parent);
 }
@@ -159,14 +160,14 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
  */
 export function getFunctionComponentId(
   context: RuleContext,
-  node: ast.TSESTreeFunction,
+  node: FunctionExpression,
 ): FunctionID {
   const functionId = getFunctionId(node);
   if (functionId != null) {
     return functionId;
   }
   let parent = node.parent;
-  while (ast.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
   if (
     parent.type === AST.CallExpression
     && isFunctionComponentWrapperCall(context, parent)
@@ -213,7 +214,7 @@ export function isFunctionComponentNameLoose(name: string) {
  * @param allowNone Whether to allow no name
  * @returns Whether the function has a loose component name
  */
-export function isFunctionWithLooseComponentName(context: RuleContext, fn: ast.TSESTreeFunction, allowNone = false) {
+export function isFunctionWithLooseComponentName(context: RuleContext, fn: FunctionExpression, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
   if (id == null) return allowNone;
   if (id.type === AST.Identifier) {
@@ -275,7 +276,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
  * @param hint Component detection hints (bit flags) to customize detection logic
  * @returns `true` if the node is considered a component definition
  */
-export function isFunctionComponentDefinition(context: RuleContext, node: ast.TSESTreeFunction, hint: bigint) {
+export function isFunctionComponentDefinition(context: RuleContext, node: FunctionExpression, hint: bigint) {
   // 1. Check for basic naming conventions
   if (!isFunctionWithLooseComponentName(context, node, true)) {
     return false;
@@ -293,20 +294,20 @@ export function isFunctionComponentDefinition(context: RuleContext, node: ast.TS
 
   // 3. Traverse up to find the non-type expression parent
   let parent = node.parent;
-  while (ast.isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
 
   // 4. Apply contextual exclusions via hints
   switch (true) {
-    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
       && parent.parent.type === AST.ObjectExpression:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod) return false;
       break;
-    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.MethodDefinition:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassMethod) return false;
       break;
-    case ast.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
@@ -339,9 +340,9 @@ export function isFunctionComponentDefinition(context: RuleContext, node: ast.TS
   }
 
   // 5. Exclude inline JSX callbacks (event handlers, render props)
-  const significantParent = ast.findParent(
+  const significantParent = Traverse.findParent(
     node,
-    ast.isOneOf([
+    isOneOf([
       AST.JSXExpressionContainer,
       AST.ArrowFunctionExpression,
       AST.FunctionExpression,

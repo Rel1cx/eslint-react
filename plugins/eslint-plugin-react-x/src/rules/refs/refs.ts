@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -54,9 +55,9 @@ export function create(context: RuleContext<MessageID, []>) {
    */
   function isInNullCheckTest(node: TSESTree.MemberExpression): boolean {
     let parent: TSESTree.Node = node.parent;
-    while (ast.isTypeExpression(parent)) parent = parent.parent;
+    while (Check.isTypeExpression(parent)) parent = parent.parent;
     if (!isMatching({ type: AST.BinaryExpression, operator: P.union("===", "==", "!==", "!=") }, parent)) return false;
-    const isLeftSide = parent.left === node || ast.getUnderlyingExpression(parent.left) === node;
+    const isLeftSide = parent.left === node || Extract.unwrapped(parent.left) === node;
     const otherSide = isLeftSide ? parent.right : parent.left;
     if (otherSide.type !== AST.Literal || otherSide.value != null) return false;
     return parent.parent.type === AST.IfStatement && parent.parent.test === parent;
@@ -74,13 +75,13 @@ export function create(context: RuleContext<MessageID, []>) {
     if (op !== "===" && op !== "==" && op !== "!==" && op !== "!=") return false;
     const { left, right } = test;
     const checkSides = (a: TSESTree.Node, b: TSESTree.Node) => {
-      a = ast.isTypeExpression(a) ? ast.getUnderlyingExpression(a) : a;
+      a = Check.isTypeExpression(a) ? Extract.unwrapped(a) : a;
       return a.type === AST.MemberExpression
         && a.object.type === AST.Identifier
         && a.object.name === refName
         && b.type === AST.Literal
         && b.value == null
-        && ast.getPropertyName(a.property) === "current";
+        && Extract.propertyName(a.property) === "current";
     };
     return checkSides(left, right) || checkSides(right, left);
   }
@@ -122,23 +123,23 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       // Track ref.current accesses
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (!ast.isIdentifier(node.property, "current")) return;
+        if (!Check.identifier(node.property, "current")) return;
         refAccesses.push({
           isWrite: (() => {
             let parent: TSESTree.Node = node.parent;
-            while (ast.isTypeExpression(parent)) parent = parent.parent;
+            while (Check.isTypeExpression(parent)) parent = parent.parent;
             return match(parent)
               .with(
                 {
                   type: AST.AssignmentExpression,
                 },
-                (p) => p.left === node || ast.getUnderlyingExpression(p.left) === node,
+                (p) => p.left === node || Extract.unwrapped(p.left) === node,
               )
               .with(
                 {
                   type: AST.UpdateExpression,
                 },
-                (p) => p.argument === node || ast.getUnderlyingExpression(p.argument) === node,
+                (p) => p.argument === node || Extract.unwrapped(p.argument) === node,
               )
               .otherwise(() => false);
           })(),
@@ -153,7 +154,7 @@ export function create(context: RuleContext<MessageID, []>) {
           ...hooks.map((h) => h.node),
         ]);
 
-        const isCompOrHookFn = (n: TSESTree.Node): n is ast.TSESTreeFunction => ast.isFunction(n) && funcs.has(n);
+        const isCompOrHookFn = (n: TSESTree.Node): n is FunctionExpression => Check.isFunction(n) && funcs.has(n);
 
         for (const { isWrite, node } of refAccesses) {
           // Inline isRefIdentifier — must be accessing .current on a ref
@@ -169,12 +170,12 @@ export function create(context: RuleContext<MessageID, []>) {
           }
 
           // Find the enclosing component or hook function
-          const boundary = ast.findParent(node, isCompOrHookFn);
+          const boundary = Traverse.findParent(node, isCompOrHookFn);
 
           // Not inside a component or hook - could be a ref used in a non-React function, which is fine
           if (boundary == null) continue;
 
-          if (ast.findParent(node, ast.isFunction) !== boundary) continue;
+          if (Traverse.findParent(node, Check.isFunction) !== boundary) continue;
 
           //
           // Standard:

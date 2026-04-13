@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -54,23 +55,23 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const functionEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
-  const setupFnRef: { current: ast.TSESTreeFunction | null } = { current: null };
+  const functionEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
+  const setupFnRef: { current: FunctionExpression | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
 
   const trackedFnCalls: TSESTree.CallExpression[] = [];
-  const setStateCallsByFn = new WeakMap<ast.TSESTreeFunction, TSESTree.CallExpression[]>();
+  const setStateCallsByFn = new WeakMap<FunctionExpression, TSESTree.CallExpression[]>();
   const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
-  const onSetupFunctionEnter = (node: ast.TSESTreeFunction) => {
+  const onSetupFunctionEnter = (node: FunctionExpression) => {
     setupFnRef.current = node;
   };
 
-  const onSetupFunctionExit = (node: ast.TSESTreeFunction) => {
+  const onSetupFunctionExit = (node: FunctionExpression) => {
     if (setupFnRef.current === node) {
       setupFnRef.current = null;
     }
@@ -98,9 +99,9 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function getCallName(node: TSESTree.Node) {
     if (node.type === AST.CallExpression) {
-      return ast.getFullyQualifiedName(node.callee, getText);
+      return Extract.fullyQualifiedName(node.callee, getText);
     }
-    return ast.getFullyQualifiedName(node, getText);
+    return Extract.fullyQualifiedName(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
@@ -112,8 +113,8 @@ export function create(context: RuleContext<MessageID, []>) {
       .otherwise(() => "other");
   }
 
-  function getFunctionKind(node: ast.TSESTreeFunction) {
-    const parent = ast.findParent(node, not(ast.isTypeExpression)) ?? node.parent;
+  function getFunctionKind(node: FunctionExpression) {
+    const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;
     switch (true) {
       case node.async:
       case parent.type === AST.CallExpression
@@ -226,14 +227,14 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return merge(
     {
-      ":function"(node: ast.TSESTreeFunction) {
+      ":function"(node: FunctionExpression) {
         const kind = getFunctionKind(node);
         functionEntries.push({ kind, node });
         if (kind === "setup") {
           onSetupFunctionEnter(node);
         }
       },
-      ":function:exit"(node: ast.TSESTreeFunction) {
+      ":function:exit"(node: FunctionExpression) {
         const { kind } = functionEntries.at(-1) ?? {};
         if (kind === "setup") {
           onSetupFunctionExit(node);
@@ -255,7 +256,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 break;
               case entry.node === setupFunction:
               case entry.kind === "immediate"
-                && ast.findParent(entry.node, ast.isFunction) === setupFunction: {
+                && Traverse.findParent(entry.node, Check.isFunction) === setupFunction: {
                 const args0 = node.arguments.at(0);
                 // setState() without arguments, which is invalid but other tools will report it
                 if (args0 == null) return;
@@ -276,7 +277,7 @@ export function create(context: RuleContext<MessageID, []>) {
                   // Case 1: setState(ref.current.scrollTop);
                   if (isUsingRefValue(node)) return true;
                   // Case 2: setState(() => ref.current.scrollTop);
-                  return ast.isFunction(node)
+                  return Check.isFunction(node)
                     && context.sourceCode
                       .getScope(node.body)
                       .references
@@ -293,14 +294,14 @@ export function create(context: RuleContext<MessageID, []>) {
                 return;
               }
               default: {
-                const init = ast.findParent(node, isHookDecl)?.init;
+                const init = Traverse.findParent(node, isHookDecl)?.init;
                 if (init == null) getOrInsertComputed(setStateCallsByFn, entry.node, () => []).push(node);
                 else getOrInsertComputed(setStateInHookCallbacks, init, () => []).push(node);
               }
             }
           })
           .with("useEffect", () => {
-            if (ast.isFunction(node.arguments.at(0))) return;
+            if (Check.isFunction(node.arguments.at(0))) return;
             setupFnIds.push(...getNestedIdentifiers(node));
           })
           .with("other", () => {
@@ -328,7 +329,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (!core.isUseMemoCall(context, parent)) {
               break;
             }
-            const init = ast.findParent(parent, isHookDecl)?.init;
+            const init = Traverse.findParent(parent, isHookDecl)?.init;
             if (init != null) {
               getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
             }
@@ -342,7 +343,7 @@ export function create(context: RuleContext<MessageID, []>) {
             // const set = useCallback(setState, []);
             // useEffect(set, []);
             if (core.isUseCallbackCall(context, node.parent)) {
-              const init = ast.findParent(node.parent, isHookDecl)?.init;
+              const init = Traverse.findParent(node.parent, isHookDecl)?.init;
               if (init != null) {
                 getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
               }

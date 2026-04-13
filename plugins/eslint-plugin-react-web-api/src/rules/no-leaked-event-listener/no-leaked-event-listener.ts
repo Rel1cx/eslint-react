@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Compare, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isValueEqual, resolve } from "@eslint-react/var";
@@ -66,7 +67,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: FunctionExpression): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
@@ -77,7 +78,7 @@ function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | nu
       const resolved = resolve(context, node);
       // If the identifier is a function parameter (resolve returns the containing function),
       // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
-      if (resolved != null && ast.isFunction(resolved)) {
+      if (resolved != null && Check.isFunction(resolved)) {
         return node;
       }
       return getSignalValueExpression(context, resolved);
@@ -104,7 +105,7 @@ function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument)
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        const pCapture = ast.findProperty(node.properties, "capture");
+        const pCapture = Traverse.findProperty(node.properties, "capture");
         const vCapture = match(pCapture)
           .with(P.nullish, () => false)
           .with({ type: AST.Property }, (prop) => {
@@ -117,7 +118,7 @@ function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument)
             }
           })
           .otherwise(() => false);
-        const pSignal = ast.findProperty(node.properties, "signal");
+        const pSignal = Traverse.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(context, pSignal.value)
           : null;
@@ -162,7 +163,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
+  const fEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
   const abortedSignals: TSESTree.Expression[] = [];
@@ -170,7 +171,7 @@ export function create(context: RuleContext<MessageID, []>) {
     switch (true) {
       case a.type === AST.MemberExpression
         && b.type === AST.MemberExpression:
-        return ast.isNodeEqual(a.object, b.object);
+        return Compare.areEqual(a.object, b.object);
       default:
         return false;
     }
@@ -182,7 +183,7 @@ export function create(context: RuleContext<MessageID, []>) {
       return false;
     }
     return isSameObject(aCallee, rCallee)
-      && ast.isNodeEqual(aListener, rListener)
+      && Compare.areEqual(aListener, rListener)
       && isValueEqual(context, aType, rType)
       && aCapture === rCapture;
   }
@@ -192,7 +193,7 @@ export function create(context: RuleContext<MessageID, []>) {
     options: typeof defaultOptions,
   ) {
     const listener = node.arguments.at(1);
-    if (!ast.isFunction(listener)) {
+    if (!Check.isFunction(listener)) {
       return;
     }
     if (options.signal != null) {
@@ -206,7 +207,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
   return merge(
     {
-      [":function"](node: ast.TSESTreeFunction) {
+      [":function"](node: FunctionExpression) {
         const kind = getFunctionKind(node);
         fEntries.push({ kind, node });
       },

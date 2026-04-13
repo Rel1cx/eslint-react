@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ export function isJsxLike(
   if (node == null) return false;
 
   // Actual JSX nodes are always considered JSX-like.
-  if (ast.isJSX(node)) return true;
+  if (Check.isJSX(node)) return true;
 
   switch (node.type) {
     case AST.Literal: {
@@ -111,7 +111,7 @@ export function isJsxLike(
       if (node.name === "undefined") {
         return !(hint & Hint.DoNotIncludeJsxWithUndefinedValue);
       }
-      if (ast.isJSXTagNameExpression(node)) {
+      if (Check.isJSXTagNameExpression(node)) {
         return true;
       }
       return isJsxLike(context, resolve(context, node), hint);

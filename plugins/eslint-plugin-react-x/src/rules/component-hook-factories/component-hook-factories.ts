@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
@@ -52,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
-  const reported = new Set<ast.TSESTreeFunction>();
+  const reported = new Set<FunctionExpression>();
 
   return merge(
     fCollector.visitor,
@@ -68,12 +69,12 @@ export function create(context: RuleContext<MessageID, []>) {
         // Check function components defined inside any function (not at module level)
         for (const { name, node } of fComponents) {
           if (name == null) continue;
-          const parentFn = ast.findParent(node, ast.isFunction);
+          const parentFn = Traverse.findParent(node, Check.isFunction);
           if (parentFn == null) continue;
           // Skip components inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, isTestMockCallback) != null) continue;
+          if (Traverse.findParent(node, isTestMockCallback) != null) continue;
           // Skip components inside HOC definitions (functions that take a component as parameter)
-          if (isHigherOrderComponent(parentFn as ast.TSESTreeFunction)) continue;
+          if (isHigherOrderComponent(parentFn as FunctionExpression)) continue;
           if (reported.has(node)) continue;
           context.report({
             data: { name },
@@ -85,12 +86,12 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Check class components defined inside any function (not at module level)
         for (const { name = "unknown", node } of cComponents) {
-          const parentFn = ast.findParent(node, ast.isFunction);
+          const parentFn = Traverse.findParent(node, Check.isFunction);
           if (parentFn == null) continue;
           // Skip components inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, isTestMockCallback) != null) continue;
+          if (Traverse.findParent(node, isTestMockCallback) != null) continue;
           // Skip components inside HOC definitions
-          if (isHigherOrderComponent(parentFn as ast.TSESTreeFunction)) continue;
+          if (isHigherOrderComponent(parentFn as FunctionExpression)) continue;
           context.report({
             data: { name },
             messageId: "component",
@@ -100,10 +101,10 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // Check hooks defined inside any function (not at module level)
         for (const { name, node } of hooks) {
-          const parentFn = ast.findParent(node, ast.isFunction);
+          const parentFn = Traverse.findParent(node, Check.isFunction);
           if (parentFn == null) continue;
           // Skip hooks inside test mock callbacks (vi.mock / jest.mock)
-          if (ast.findParent(node, isTestMockCallback) != null) continue;
+          if (Traverse.findParent(node, isTestMockCallback) != null) continue;
           if (reported.has(node)) continue;
           context.report({
             data: { name },

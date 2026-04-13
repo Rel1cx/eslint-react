@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
     hCollector.visitor,
     {
       ImportExpression(node) {
-        const lazyCall = ast.findParent(node, (n) => core.isLazyCall(context, n));
+        const lazyCall = Traverse.findParent(node, (n) => core.isLazyCall(context, n));
         if (lazyCall != null) {
           lazyCalls.add(lazyCall);
         }
@@ -52,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>) {
           ...cCollector.api.getAllComponents(program),
         ];
         for (const lazy of lazyCalls) {
-          if (ast.findParent(lazy, (n) => significantParents.some((p) => p.node === n))) {
+          if (Traverse.findParent(lazy, (n) => significantParents.some((p) => p.node === n))) {
             context.report({
               messageId: "default",
               node: lazy,

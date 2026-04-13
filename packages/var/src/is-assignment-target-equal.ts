@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Compare } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -18,5 +18,5 @@ export function isAssignmentTargetEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ) {
-  return ast.isNodeEqual(a, b) || isValueEqual(context, a, b);
+  return Compare.areEqual(a, b) || isValueEqual(context, a, b);
 }

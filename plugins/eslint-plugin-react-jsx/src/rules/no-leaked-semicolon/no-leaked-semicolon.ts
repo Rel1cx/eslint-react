@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -39,7 +39,7 @@ function hasLeakedSemicolon(text: string) {
 
 export function create(context: RuleContext<MessageID, []>) {
   const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal) => {
-    if (!ast.isJSXElementLike(node.parent)) {
+    if (!Check.isJSXLike(node.parent)) {
       return;
     }
     if (!hasLeakedSemicolon(context.sourceCode.getText(node))) {

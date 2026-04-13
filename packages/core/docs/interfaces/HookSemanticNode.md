@@ -12,7 +12,7 @@ Represents a semantic hook node in the AST
 
 | Property | Type | Description | Overrides | Inherited from |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="property-directives"></a> `directives` | `TSESTreeDirective`[] | The directives used in the function (ex: "use strict", "use client", etc.) | - | - |
+| <a id="property-directives"></a> `directives` | `Directive`[] | The directives used in the function (ex: "use strict", "use client", etc.) | - | - |
 | <a id="property-flag"></a> `flag` | `bigint` | The flag of the node | - | [`SemanticNode`](SemanticNode.md).[`flag`](SemanticNode.md#property-flag) |
 | <a id="property-hint"></a> `hint` | `bigint` | The hint of the node | - | [`SemanticNode`](SemanticNode.md).[`hint`](SemanticNode.md#property-hint) |
 | <a id="property-hookcalls"></a> `hookCalls` | `CallExpression`[] | The other hooks called by the hook | - | - |
@@ -20,5 +20,5 @@ Represents a semantic hook node in the AST
 | <a id="property-key"></a> `key` | `string` | The unique key of the node | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#property-key) |
 | <a id="property-kind"></a> `kind` | `"hook"` | The kind of hook | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#property-kind) | - |
 | <a id="property-name"></a> `name` | `string` \| `null` | The name of the node | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#property-name) |
-| <a id="property-node"></a> `node` | `TSESTreeFunction` | The AST node of the hook | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#property-node) | - |
+| <a id="property-node"></a> `node` | `FunctionExpression` | The AST node of the hook | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#property-node) | - |
 | <a id="property-rets"></a> `rets` | (`Expression` \| `null`)[] | List of expressions returned by the hook | - | - |

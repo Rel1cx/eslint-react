@@ -3,7 +3,7 @@
 # Function: isFunctionEmpty()
 
 ```ts
-function isFunctionEmpty(node: TSESTreeFunction): boolean;
+function isFunctionEmpty(node: FunctionExpression): boolean;
 ```
 
 Checks if a function is empty.
@@ -12,7 +12,7 @@ Checks if a function is empty.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `TSESTreeFunction` | The function node to check. |
+| `node` | `FunctionExpression` | The function node to check. |
 
 ## Returns
 

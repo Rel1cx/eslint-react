@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolveImportSource } from "@eslint-react/var";
 import { dual } from "@local/eff";
@@ -21,7 +21,7 @@ export function isAPI(api: string): isAPI.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node) => {
     if (node == null) return false;
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-    const name = ast.getFullyQualifiedName(node, getText);
+    const name = Extract.fullyQualifiedName(node, getText);
     if (name === api) return true;
     if (name.endsWith(`.${api}`)) return true;
     return false;
@@ -45,7 +45,7 @@ export function isAPICall(api: string): isAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
     if (node.type !== AST.CallExpression) return false;
-    return isAPI(api)(context, ast.getUnderlyingExpression(node.callee));
+    return isAPI(api)(context, Extract.unwrapped(node.callee));
   };
   return dual(2, func);
 }

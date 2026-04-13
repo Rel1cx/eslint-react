@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Extract } from "@eslint-react/ast";
+import type { ClassExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
@@ -35,13 +36,13 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
   } as const;
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-  const collect = (node: ast.TSESTreeClass) => {
+  const collect = (node: ClassExpression) => {
     if (!isClassComponent(node)) {
       return;
     }
     const id = getClassId(node);
     const key = ulid();
-    const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
     components.set(
       key,
       {

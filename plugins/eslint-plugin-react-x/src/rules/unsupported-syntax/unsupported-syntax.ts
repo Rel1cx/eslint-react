@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -39,7 +40,7 @@ function isEvalCall(node: TSESTree.CallExpression) {
   return node.callee.type === AST.Identifier && node.callee.name === "eval";
 }
 
-function isIifeCall(node: ast.TSESTreeFunction) {
+function isIifeCall(node: FunctionExpression) {
   return node.parent.type === AST.CallExpression && node.parent.callee === node;
 }
 
@@ -47,11 +48,11 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
   const cCollector = core.getFunctionComponentCollector(context);
   const evalCalls: {
-    func: ast.TSESTreeFunction;
+    func: FunctionExpression;
     node: TSESTree.CallExpression;
   }[] = [];
   const withStmts: {
-    func: ast.TSESTreeFunction;
+    func: FunctionExpression;
     node: TSESTree.WithStatement;
   }[] = [];
   return merge(
@@ -60,11 +61,11 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node: TSESTree.CallExpression) {
         if (!isEvalCall(node)) return;
-        const func = ast.findParent(node, ast.isFunction);
+        const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         evalCalls.push({ func, node });
       },
-      "JSXElement :function"(node: ast.TSESTreeFunction) {
+      "JSXElement :function"(node: FunctionExpression) {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",
@@ -72,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>) {
           });
         }
       },
-      "JSXFragment :function"(node: ast.TSESTreeFunction) {
+      "JSXFragment :function"(node: FunctionExpression) {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",
@@ -100,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       WithStatement(node: TSESTree.WithStatement) {
-        const func = ast.findParent(node, ast.isFunction);
+        const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         withStmts.push({ func, node });
       },

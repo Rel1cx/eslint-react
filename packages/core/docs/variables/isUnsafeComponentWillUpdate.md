@@ -3,7 +3,7 @@
 # ~~Variable: isUnsafeComponentWillUpdate~~
 
 ```ts
-const isUnsafeComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
+const isUnsafeComponentWillUpdate: (node: Node) => node is MethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isUnsafeComponentWillUpdate: (node: Node) => node is TSESTreeMethodOrPrope
 
 ## Returns
 
-`node is TSESTreeMethodOrProperty`
+`node is MethodOrPropertyDefinition`
 
 ## Deprecated
 

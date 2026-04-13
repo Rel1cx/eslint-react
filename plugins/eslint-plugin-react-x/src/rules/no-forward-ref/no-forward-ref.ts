@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -104,7 +105,7 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
 function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
-    if (componentNode == null || !ast.isFunction(componentNode)) {
+    if (componentNode == null || !Check.isFunction(componentNode)) {
       return [];
     }
     return [
@@ -133,7 +134,7 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
 function getComponentPropsFixes(
   context: RuleContext,
   fixer: RuleFixer,
-  node: ast.TSESTreeFunction,
+  node: FunctionExpression,
   typeArguments: TSESTree.TypeNode[],
 ) {
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);

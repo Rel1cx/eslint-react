@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, isOneOf } from "@eslint-react/ast";
+import type { ClassExpression, FunctionExpression, MethodOrPropertyDefinition } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -16,8 +17,8 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   displayName: null | TSESTree.Expression;
   flag: bigint;
   hint: bigint;
-  methods: ast.TSESTreeMethodOrProperty[];
-  node: ast.TSESTreeClass;
+  methods: MethodOrPropertyDefinition[];
+  node: ClassExpression;
 }
 
 // #endregion
@@ -28,14 +29,14 @@ export interface ClassComponentSemanticNode extends SemanticNode {
  * @param node The AST node to check.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isClassComponent(node: TSESTree.Node): node is ast.TSESTreeClass;
+export function isClassComponent(node: TSESTree.Node): node is ClassExpression;
 /**
  * @param node The AST node to check.
  * @param context The rule context.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is ast.TSESTreeClass;
-export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is ast.TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is ClassExpression;
+export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is ClassExpression {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
@@ -56,7 +57,7 @@ export function isClassComponent(node: TSESTree.Node, context?: RuleContext): no
   return false;
 }
 
-export function isClassComponentLoose(node: TSESTree.Node): node is ast.TSESTreeClass {
+export function isClassComponentLoose(node: TSESTree.Node): node is ClassExpression {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
@@ -93,8 +94,8 @@ export function isPureComponent(node: TSESTree.Node) {
 // #region Lifecycle Method Checkers
 
 function createLifecycleChecker(methodName: string, isStatic = false) {
-  return (node: TSESTree.Node): node is ast.TSESTreeMethodOrProperty => (
-    ast.isMethodOrProperty(node)
+  return (node: TSESTree.Node): node is MethodOrPropertyDefinition => (
+    Check.isMethodOrProperty(node)
     && node.static === isStatic
     && node.key.type === AST.Identifier
     && node.key.name === methodName
@@ -147,14 +148,14 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  * @param node The AST node to check.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isRenderMethodLike(node: TSESTree.Node): node is ast.TSESTreeMethodOrProperty {
-  return ast.isMethodOrProperty(node)
+export function isRenderMethodLike(node: TSESTree.Node): node is MethodOrPropertyDefinition {
+  return Check.isMethodOrProperty(node)
     && node.key.type === AST.Identifier
     && node.key.name.startsWith("render")
-    && ast.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
+    && isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
 
-export function isRenderMethodCallback(node: ast.TSESTreeFunction) {
+export function isRenderMethodCallback(node: FunctionExpression) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
@@ -175,7 +176,7 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
   const { callee } = node;
   return (
     callee.type === AST.MemberExpression
-    && ast.isThisExpressionLoose(callee.object)
+    && Check.thisExpression(callee.object)
     && callee.property.type === AST.Identifier
     && callee.property.name === "setState"
   );
@@ -188,8 +189,8 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   return left.type === AST.MemberExpression
-    && ast.isThisExpressionLoose(left.object)
-    && ast.getPropertyName(left.property) === "state";
+    && Check.thisExpression(left.object)
+    && Extract.propertyName(left.property) === "state";
 }
 
 // #endregion

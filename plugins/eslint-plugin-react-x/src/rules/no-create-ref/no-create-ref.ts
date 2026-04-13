@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>) {
   return merge(
     {
       CallExpression(node) {
-        if (core.isCreateRefCall(context, node) && ast.findParent(node, core.isClassComponent) == null) {
+        if (core.isCreateRefCall(context, node) && Traverse.findParent(node, core.isClassComponent) == null) {
           context.report({ messageId: "default", node });
         }
       },
