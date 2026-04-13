@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@local/configs/typedoc.base.json"
+  ],
+  "name": "@eslint-react/ast",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "docs"
+}

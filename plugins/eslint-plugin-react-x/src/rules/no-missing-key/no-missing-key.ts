@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       ArrayExpression(node) {
         if (inChildrenToArray) return;
-        const elements = node.elements.filter(ast.is(AST.JSXElement));
+        const elements = node.elements.filter(is(AST.JSXElement));
         if (elements.length === 0) return;
         for (const el of elements) {
           if (!hasAttribute(context, el, "key")) {
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
         if (idx < 0) return;
         const cb = node.arguments[idx];
-        if (!ast.isFunction(cb)) return;
+        if (!Check.isFunction(cb)) return;
         if (cb.body.type === AST.BlockStatement) {
           checkBlock(cb.body).forEach(report(context));
         } else {

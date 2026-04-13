@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -66,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
    */
   const violations: {
     data: Record<string, string>;
-    func: ast.TSESTreeFunction;
+    func: FunctionExpression;
     messageId: MessageID;
     node: TSESTree.Node;
     /**
@@ -74,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>) {
      * function where that parameter was declared. It must be verified as a
      * component or hook at Program:exit time.
      */
-    propsDefiningFunc?: ast.TSESTreeFunction;
+    propsDefiningFunc?: FunctionExpression;
   }[] = [];
 
   // ---------------------------------------------------------------------------
@@ -132,14 +133,14 @@ export function create(context: RuleContext<MessageID, []>) {
    * @param id The identifier to check. May be a reference to the props parameter, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
    * @returns The function node where `id` is the first parameter, or `null`.
    */
-  function getPropsDefiningFunction(id: TSESTree.Identifier): ast.TSESTreeFunction | null {
+  function getPropsDefiningFunction(id: TSESTree.Identifier): FunctionExpression | null {
     const scope = context.sourceCode.getScope(id);
     const variable = findVariable(scope, id);
     if (variable == null) return null;
     for (const def of variable.defs) {
       if (def.type !== DefinitionType.Parameter) continue;
-      if (!ast.isFunction(def.node)) continue;
-      const fn = def.node as ast.TSESTreeFunction;
+      if (!Check.isFunction(def.node)) continue;
+      const fn = def.node as FunctionExpression;
       const firstParam = fn.params.at(0);
       if (firstParam?.type === AST.Identifier && firstParam.name === id.name) {
         return fn;
@@ -173,11 +174,11 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
 
         // Find the root identifier (handles `state`, `state.nested`, etc.)
-        const rootId = ast.getRootIdentifier(object);
+        const rootId = Extract.rootIdentifier(object);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
-        const enclosingFn = ast.findParent(node, ast.isFunction);
+        const enclosingFn = Traverse.findParent(node, Check.isFunction);
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
@@ -207,11 +208,11 @@ export function create(context: RuleContext<MessageID, []>) {
        */
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.left.type !== AST.MemberExpression) return;
-        const rootId = ast.getRootIdentifier(node.left);
+        const rootId = Extract.rootIdentifier(node.left);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
-        const enclosingFn = ast.findParent(node, ast.isFunction);
+        const enclosingFn = Traverse.findParent(node, Check.isFunction);
         if (enclosingFn == null) return;
 
         const isState = isStateValue(rootId);
@@ -235,14 +236,14 @@ export function create(context: RuleContext<MessageID, []>) {
 
         for (const { data, func, messageId, node, propsDefiningFunc } of violations) {
           // Walk up the function chain to find a component or hook boundary
-          let current: ast.TSESTreeFunction | null = func;
+          let current: FunctionExpression | null = func;
           let insideComponentOrHook = false;
           while (current != null) {
             if (funcs.some((f) => f.node === current)) {
               insideComponentOrHook = true;
               break;
             }
-            current = ast.findParent(current, ast.isFunction);
+            current = Traverse.findParent(current, Check.isFunction);
           }
 
           if (!insideComponentOrHook) continue;

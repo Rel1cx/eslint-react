@@ -1,4 +1,4 @@
-import type { TSESTreeJSXAttributeLike } from "@eslint-react/ast";
+import type { JSXAttributeLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -33,7 +33,7 @@ import type { JsxAttributeValue } from "./jsx-attribute-value";
  */
 export function resolveAttributeValue(
   context: RuleContext,
-  attribute: TSESTreeJSXAttributeLike,
+  attribute: JSXAttributeLike,
 ): JsxAttributeValue {
   if (attribute.type === AST.JSXAttribute) {
     return resolveJsxAttribute(context, attribute);

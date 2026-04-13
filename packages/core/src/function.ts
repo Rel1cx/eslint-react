@@ -1,5 +1,5 @@
-import { isDirective, isMethodOrProperty, isTypeAssertionExpression, isTypeExpression } from "@eslint-react/ast";
-import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
+import type { Directive, FunctionExpression } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticFunc } from "./semantic";
@@ -20,14 +20,14 @@ export type FunctionInitPath =
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Higher-order component patterns: const Component = React.memo(() => <div />);
   | readonly [
     TSESTree.VariableDeclaration,
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Nested higher-order components: const Component = React.memo(React.forwardRef(() => <div />));
   | readonly [
@@ -35,7 +35,7 @@ export type FunctionInitPath =
     TSESTree.VariableDeclarator,
     TSESTree.CallExpression,
     TSESTree.CallExpression,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Object property components: const Components = { Nav() {}, SidePanel: () => <div /> }
   | readonly [
@@ -43,7 +43,7 @@ export type FunctionInitPath =
     TSESTree.VariableDeclarator,
     TSESTree.ObjectExpression,
     TSESTree.Property,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // HOC inside object property: const Components = { Nav: React.memo(() => <div />) }
   | readonly [
@@ -52,7 +52,7 @@ export type FunctionInitPath =
     TSESTree.ObjectExpression,
     TSESTree.Property,
     TSESTree.CallExpression,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Nested HOCs in object: const Components = { Nav: React.memo(React.forwardRef(() => <div />)) }
   | readonly [
@@ -62,21 +62,21 @@ export type FunctionInitPath =
     TSESTree.Property,
     TSESTree.CallExpression,
     TSESTree.CallExpression,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Class method components: class Component { Nav() { return <div />; } } or const Component = class { Nav() {} }
   | readonly [
     TSESTree.ClassDeclaration | TSESTree.ClassExpression,
     TSESTree.ClassBody,
     TSESTree.MethodDefinition,
-    TSESTreeFunction,
+    FunctionExpression,
   ]
   // Class property arrow functions: class Component { Nav = () => <div />; } or const Component = class { Nav = () => {} }
   | readonly [
     TSESTree.ClassDeclaration | TSESTree.ClassExpression,
     TSESTree.ClassBody,
     TSESTree.PropertyDefinition,
-    TSESTreeFunction,
+    FunctionExpression,
   ];
 
 /**
@@ -125,7 +125,7 @@ export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSe
  * @param node - The function node to analyze.
  * @returns The identifier node if found, `null` otherwise.
  */
-export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
+export function getFunctionId(node: TSESTree.Expression | FunctionExpression) {
   switch (true) {
     // function MaybeComponent() {}
     case "id" in node
@@ -148,7 +148,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       return node.parent.key;
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
-    case isMethodOrProperty(node.parent)
+    case Check.isMethodOrProperty(node.parent)
       && node.parent.value === node:
       return node.parent.key;
       // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
@@ -164,7 +164,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     // const MaybeComponent = (() => {})!;
     // const MaybeComponent = (() => {}) as FunctionComponent;
     // const MaybeComponent = (() => {}) satisfies FunctionComponent;
-    case isTypeAssertionExpression(node.parent):
+    case Check.isTypeAssertionExpression(node.parent):
       return getFunctionId(node.parent);
   }
   return null;
@@ -176,7 +176,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
  * @param node - The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
  */
-export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInitPath {
+export function getFunctionInitPath(node: FunctionExpression): null | FunctionInitPath {
   // Function declaration is the simplest case
   if (node.type === AST.FunctionDeclaration) {
     return [node] as const;
@@ -184,7 +184,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
 
   // Traverse up through type expressions (as, satisfies, !, etc.) to find the semantic parent
   let parent: TSESTree.Node = node.parent;
-  while (isTypeExpression(parent)) parent = parent.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
 
   // Match against various component patterns
   switch (true) {
@@ -257,7 +257,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
  * @param node - The function node to check.
  * @returns `true` if the function is empty, `false` otherwise.
  */
-export function isFunctionEmpty(node: TSESTreeFunction) {
+export function isFunctionEmpty(node: FunctionExpression) {
   return node.body.type === AST.BlockStatement
     && node.body.body.length === 0;
 }
@@ -268,11 +268,11 @@ export function isFunctionEmpty(node: TSESTreeFunction) {
  * @param node - The function AST node.
  * @returns An array of directive expression statements.
  */
-export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[] {
-  const directives: TSESTreeDirective[] = [];
+export function getFunctionDirectives(node: FunctionExpression): Directive[] {
+  const directives: Directive[] = [];
   if (node.body.type !== AST.BlockStatement) return directives;
   for (const stmt of node.body.body) {
-    if (!isDirective(stmt)) continue;
+    if (!Check.directive(stmt)) continue;
     directives.push(stmt);
   }
   return directives;
@@ -285,6 +285,6 @@ export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective
  * @param name - The directive name to check (e.g., "use memo", "use no memo").
  * @returns `true` if the directive exists, `false` otherwise.
  */
-export function isFunctionHasDirective(node: TSESTreeFunction, name: string): boolean {
+export function isFunctionHasDirective(node: FunctionExpression, name: string): boolean {
   return getFunctionDirectives(node).some((d) => d.directive === name);
 }

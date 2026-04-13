@@ -5,7 +5,7 @@
 ```ts
 function isFunctionComponentDefinition(
    context: RuleContext, 
-   node: TSESTreeFunction, 
+   node: FunctionExpression, 
    hint: bigint): boolean;
 ```
 
@@ -16,7 +16,7 @@ Determine if a function node represents a valid React component definition
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `context` | `RuleContext` | The rule context |
-| `node` | `TSESTreeFunction` | The function node to analyze |
+| `node` | `FunctionExpression` | The function node to analyze |
 | `hint` | `bigint` | Component detection hints (bit flags) to customize detection logic |
 
 ## Returns

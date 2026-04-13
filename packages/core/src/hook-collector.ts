@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Extract } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
 import { ulid } from "ulid";
@@ -29,10 +30,10 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const functionEntries: FunctionEntry[] = [];
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
-  const onFunctionEnter = (node: ast.TSESTreeFunction) => {
+  const onFunctionEnter = (node: FunctionExpression) => {
     const id = getFunctionId(node);
     const key = ulid();
-    const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
     const entry = {
       id,
       key,

@@ -3,7 +3,7 @@
 # ~~Variable: isComponentDidMount~~
 
 ```ts
-const isComponentDidMount: (node: Node) => node is TSESTreeMethodOrProperty;
+const isComponentDidMount: (node: Node) => node is MethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isComponentDidMount: (node: Node) => node is TSESTreeMethodOrProperty;
 
 ## Returns
 
-`node is TSESTreeMethodOrProperty`
+`node is MethodOrPropertyDefinition`
 
 ## Deprecated
 

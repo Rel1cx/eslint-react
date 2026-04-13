@@ -3,7 +3,7 @@
 # ~~Variable: isGetDefaultProps~~
 
 ```ts
-const isGetDefaultProps: (node: Node) => node is TSESTreeMethodOrProperty;
+const isGetDefaultProps: (node: Node) => node is MethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetDefaultProps: (node: Node) => node is TSESTreeMethodOrProperty;
 
 ## Returns
 
-`node is TSESTreeMethodOrProperty`
+`node is MethodOrPropertyDefinition`
 
 ## Deprecated
 

@@ -1,5 +1,5 @@
-import * as ast from "@eslint-react/ast";
-import type { TSESTreeJSXAttributeLike } from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
+import type { JSXAttributeLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -36,7 +36,7 @@ export function findAttribute(
   context: RuleContext,
   element: TSESTree.JSXElement,
   name: string,
-): TSESTreeJSXAttributeLike | undefined {
+): JSXAttributeLike | undefined {
   return element.openingElement.attributes.findLast((attr) => {
     if (attr.type === AST.JSXAttribute) {
       return getAttributeName(attr) === name;
@@ -47,12 +47,12 @@ export function findAttribute(
       case AST.Identifier: {
         const initNode = resolve(context, attr.argument);
         if (initNode?.type === AST.ObjectExpression) {
-          return ast.findProperty(initNode.properties, name) != null;
+          return Traverse.findProperty(initNode.properties, name) != null;
         }
         return false;
       }
       case AST.ObjectExpression:
-        return ast.findProperty(attr.argument.properties, name) != null;
+        return Traverse.findProperty(attr.argument.properties, name) != null;
     }
 
     return false;

@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Check if the call is to `captureOwnerStack`
         if (!core.isCaptureOwnerStackCall(context, node)) return;
         // Check if the call is wrapped in a development-only conditional block
-        if (ast.findParent(node, isDevelopmentOnlyCheck) == null) {
+        if (Traverse.findParent(node, isDevelopmentOnlyCheck) == null) {
           context.report({
             messageId: "missingDevelopmentOnlyCheck",
             node,

@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
@@ -37,10 +38,15 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const { compilationMode, version } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (compilationMode === "annotation" && ast.isFileHasDirective(context.sourceCode.ast, "use memo")) return {};
+  if (
+    compilationMode === "annotation"
+    && context.sourceCode.ast.body.some((stmt) => Check.directive(stmt) && stmt.directive === "use memo")
+  ) {
+    return {};
+  }
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { api, visitor } = core.getFunctionComponentCollector(context);
-  const constructions = new WeakMap<ast.TSESTreeFunction, ObjectType[]>();
+  const constructions = new WeakMap<FunctionExpression, ObjectType[]>();
 
   return merge(
     visitor,
@@ -50,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const selfName = fullName.split(".").at(-1);
         if (selfName == null) return;
         if (!isContextName(selfName, isReact18OrBelow)) return;
-        const enclosingFunction = ast.findParent(node, ast.isFunction);
+        const enclosingFunction = Traverse.findParent(node, Check.isFunction);
         if (enclosingFunction == null) return;
         if (compilationMode === "annotation" && core.isFunctionHasDirective(enclosingFunction, "use memo")) return;
         const attribute = node
@@ -80,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>) {
               : "Consider wrapping it in a useMemo hook.";
             context.report({
               data: {
-                kind: ast.getHumanReadableKind(constructionNode),
+                kind: Extract.humanReadableKind(constructionNode),
                 suggestion,
               },
               messageId: "unstableContextValue",

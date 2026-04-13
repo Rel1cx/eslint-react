@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Extract, Select, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -54,13 +55,13 @@ export function getFunctionComponentCollector(
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
-  const onFunctionEnter = (node: ast.TSESTreeFunction) => {
+  const onFunctionEnter = (node: FunctionExpression) => {
     const key = ulid();
-    const exp = ast.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
+    const exp = Traverse.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
-    const isExportDefaultDeclaration = exp != null && ast.getUnderlyingExpression(exp.declaration) === node;
+    const isExportDefaultDeclaration = exp != null && Extract.unwrapped(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? null : ast.getFullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
     const initPath = getFunctionInitPath(node);
     const directives = getFunctionDirectives(node);
     const entry = {
@@ -111,7 +112,7 @@ export function getFunctionComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [ast.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: TSESTree.AssignmentExpression) {
+        [Select.displayNameAssignment](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== AST.MemberExpression) return;
           const componentName = left.object.type === AST.Identifier

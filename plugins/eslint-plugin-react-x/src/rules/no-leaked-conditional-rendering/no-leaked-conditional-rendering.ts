@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -81,9 +81,9 @@ export function create(context: RuleContext<MessageID, []>) {
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (ast.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
-    if (ast.isJSX(node)) return null;
-    if (ast.isTypeExpression(node)) return getReportDescriptor(node.expression);
+    if (is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
+    if (Check.isJSX(node)) return null;
+    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression);
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         const initialScope = context.sourceCode.getScope(left);
         // Specifically check for 'NaN', which is a falsy value that gets rendered
-        if (ast.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
+        if (Check.identifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
             data: { value: context.sourceCode.getText(left) },
             messageId: "default",

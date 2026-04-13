@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -21,7 +21,7 @@ export function isTestMock(node: TSESTree.Node | null): node is TSESTree.MemberE
 
 export function isTestMockCallback(node: TSESTree.Node | null) {
   return node != null
-    && ast.isFunction(node)
+    && Check.isFunction(node)
     && node.parent.type === AST.CallExpression
     && isTestMock(node.parent.callee)
     && node.parent.arguments[1] === node;

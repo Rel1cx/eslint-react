@@ -1,15 +1,10 @@
-export * from "./expression-is";
-export * from "./file";
-export * from "./identifier-is";
-export * from "./identifier-traverse";
-export * from "./literal-is";
-export * from "./node-equality";
-export * from "./node-is";
-export * from "./node-kind";
-export * from "./node-name";
-export * from "./node-selectors";
-export * from "./node-traverse";
-export type * from "./node-types";
-export * from "./node-unwrap";
-export * from "./property-name";
-export * from "./property-traverse";
+export * as Check from "./check";
+export * as Compare from "./compare";
+export * as Extract from "./extract";
+export * as Select from "./select";
+export * as Traverse from "./traverse";
+export type * from "./types";
+
+// Convenience exports for commonly used base guards
+// tsl-ignore dx/no-duplicate-exports
+export { is, isOneOf } from "./check";

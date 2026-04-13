@@ -1,4 +1,5 @@
-import { isIdentifier } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
+import type { ClassExpression, FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -117,25 +118,25 @@ export function computeObjectType(
     }
     case AST.CallExpression: {
       switch (true) {
-        case isIdentifier(node.callee, "Boolean"):
+        case Check.identifier(node.callee, "Boolean"):
           return null;
-        case isIdentifier(node.callee, "String"):
+        case Check.identifier(node.callee, "String"):
           return null;
-        case isIdentifier(node.callee, "Number"):
+        case Check.identifier(node.callee, "Number"):
           return null;
-        case isIdentifier(node.callee, "Object"):
+        case Check.identifier(node.callee, "Object"):
           return { kind: "plain", node } as const;
-        case isIdentifier(node.callee, "Array"):
+        case Check.identifier(node.callee, "Array"):
           return { kind: "array", node } as const;
-        case isIdentifier(node.callee, "RegExp"):
+        case Check.identifier(node.callee, "RegExp"):
           return { kind: "regexp", node } as const;
       }
 
       // Handle static factory methods (e.g. Array.from(), Object.create())
       if (
         node.callee.type === AST.MemberExpression
-        && isIdentifier(node.callee.object)
-        && isIdentifier(node.callee.property)
+        && Check.identifier(node.callee.object)
+        && Check.identifier(node.callee.property)
       ) {
         const objName = node.callee.object.name;
         const methodName = node.callee.property.name;

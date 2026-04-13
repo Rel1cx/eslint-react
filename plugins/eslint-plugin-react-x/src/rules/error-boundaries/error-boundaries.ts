@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { JsxDetectionHint, isJsxLike } from "@eslint-react/jsx";
@@ -65,8 +65,8 @@ export function create(context: RuleContext<MessageID, []>) {
         const hooks = hCollector.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of useCalls) {
-          const stmt = ast.findParent(call, ast.is(AST.TryStatement));
-          const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
+          const stmt = Traverse.findParent(call, is(AST.TryStatement));
+          const func = Traverse.findParent(stmt, (n) => funcs.some((f) => f.node === n));
           if (stmt != null && func != null && !reported.has(stmt)) {
             context.report({
               messageId: "tryCatchWithUse",
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
             if (!isJsxLike(context, ret, hint)) continue;
-            const stmt = ast.findParent(ret, ast.is(AST.TryStatement));
+            const stmt = Traverse.findParent(ret, is(AST.TryStatement));
             if (stmt != null && !reported.has(stmt)) {
               context.report({
                 messageId: "tryCatchWithJsx",

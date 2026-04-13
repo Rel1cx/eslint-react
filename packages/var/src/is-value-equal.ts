@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Compare, Extract, Traverse, isOneOf } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -24,8 +25,8 @@ export function isValueEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ): boolean {
-  a = ast.isTypeExpression(a) ? ast.getUnderlyingExpression(a) : a;
-  b = ast.isTypeExpression(b) ? ast.getUnderlyingExpression(b) : b;
+  a = Check.isTypeExpression(a) ? Extract.unwrapped(a) : a;
+  b = Check.isTypeExpression(b) ? Extract.unwrapped(b) : b;
   const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
   switch (true) {
     case a === b: {
@@ -54,15 +55,15 @@ export function isValueEqual(
       switch (true) {
         case aDefNodeParent?.type === AST.CallExpression
           && bDefNodeParent?.type === AST.CallExpression
-          && ast.isFunction(aDefNode)
-          && ast.isFunction(bDefNode): {
-          if (!ast.isNodeEqual(aDefNodeParent.callee, bDefNodeParent.callee)) {
+          && Check.isFunction(aDefNode)
+          && Check.isFunction(bDefNode): {
+          if (!Compare.areEqual(aDefNodeParent.callee, bDefNodeParent.callee)) {
             return false;
           }
           const aParams = aDefNode.params;
           const bParams = bDefNode.params;
-          const aPos = aParams.findIndex((x) => ast.isNodeEqual(x, a));
-          const bPos = bParams.findIndex((x) => ast.isNodeEqual(x, b));
+          const aPos = aParams.findIndex((x) => Compare.areEqual(x, a));
+          const bPos = bParams.findIndex((x) => Compare.areEqual(x, b));
           return aPos !== -1 && bPos !== -1 && aPos === bPos;
         }
         case aDefParentParent?.type === AST.ForOfStatement
@@ -74,7 +75,7 @@ export function isValueEqual(
           }
           const aRight = aDefParentParent.right;
           const bRight = bDefParentParent.right;
-          if (!ast.isNodeEqual(aRight, bRight)) {
+          if (!Compare.areEqual(aRight, bRight)) {
             return false;
           }
           // When both variables come from the SAME for-of statement (e.g.
@@ -97,7 +98,7 @@ export function isValueEqual(
       && b.type === AST.MemberExpression: {
       const propEqual = a.computed && b.computed
         ? isValueEqual(context, a.property, b.property)
-        : ast.isNodeEqual(a.property, b.property);
+        : Compare.areEqual(a.property, b.property);
       return propEqual && isValueEqual(context, a.object, b.object);
     }
     case a.type === AST.ThisExpression
@@ -105,8 +106,8 @@ export function isValueEqual(
       if (aScope.block === bScope.block) {
         return true;
       }
-      const aFunction = ast.findParent(a, ast.isOneOf(thisBlockTypes));
-      const bFunction = ast.findParent(b, ast.isOneOf(thisBlockTypes));
+      const aFunction = Traverse.findParent(a, isOneOf(thisBlockTypes));
+      const bFunction = Traverse.findParent(b, isOneOf(thisBlockTypes));
       return aFunction === bFunction;
     }
     default: {

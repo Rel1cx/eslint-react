@@ -5,7 +5,7 @@
 ```ts
 function isFunctionWithLooseComponentName(
    context: RuleContext, 
-   fn: TSESTreeFunction, 
+   fn: FunctionExpression, 
    allowNone?: boolean): boolean;
 ```
 
@@ -16,7 +16,7 @@ Check if a function has a loose component name
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `context` | `RuleContext` | `undefined` | The rule context |
-| `fn` | `TSESTreeFunction` | `undefined` | The function to check |
+| `fn` | `FunctionExpression` | `undefined` | The function to check |
 | `allowNone` | `boolean` | `false` | Whether to allow no name |
 
 ## Returns

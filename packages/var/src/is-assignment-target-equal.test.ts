@@ -70,7 +70,7 @@ function findIdentifierRefs(root: TSESTree.Node, name: string): TSESTree.Identif
 describe("isAssignmentTargetEqual", () => {
   it("should return true for structurally equal nodes", () => {
     // Two separate `obj.x` member expressions are structurally identical,
-    // so `ast.isNodeEqual` returns true and short-circuits.
+    // so `Compare.areEqual` returns true and short-circuits.
     const code = "foo(obj.x); bar(obj.x);";
     const result = runInRule(code, (context, ast) => {
       const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
@@ -82,7 +82,7 @@ describe("isAssignmentTargetEqual", () => {
 
   it("should return true for value-equal but structurally different nodes", () => {
     // A literal `2` and a binary expression `1 + 1` are structurally different
-    // (different AST node types), so `ast.isNodeEqual` returns false.
+    // (different AST node types), so `Compare.areEqual` returns false.
     // However, `isValueEqual` falls through to `getStaticValue` which evaluates
     // both to the same value (2), so `isAssignmentTargetEqual` returns true.
     const code = "foo(2); bar(1 + 1);";
@@ -101,7 +101,7 @@ describe("isAssignmentTargetEqual", () => {
 
   it("should return false for nodes that are neither structurally nor value-equal", () => {
     // `x` and `y` are different variables with different values,
-    // so both `ast.isNodeEqual` (different names) and `isValueEqual`
+    // so both `Compare.areEqual` (different names) and `isValueEqual`
     // (different variables) return false.
     const code = "const x = 1; const y = 2; foo(x); bar(y);";
     const result = runInRule(code, (context, ast) => {

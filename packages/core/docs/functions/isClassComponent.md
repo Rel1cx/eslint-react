@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function isClassComponent(node: Node): node is TSESTreeClass;
+function isClassComponent(node: Node): node is ClassExpression;
 ```
 
 ### Parameters
@@ -16,7 +16,7 @@ function isClassComponent(node: Node): node is TSESTreeClass;
 
 ### Returns
 
-`node is TSESTreeClass`
+`node is ClassExpression`
 
 ### Deprecated
 
@@ -25,7 +25,7 @@ Class components are legacy. This function exists only to support legacy rules.
 ## Call Signature
 
 ```ts
-function isClassComponent(node: Node, context: RuleContext): node is TSESTreeClass;
+function isClassComponent(node: Node, context: RuleContext): node is ClassExpression;
 ```
 
 ### Parameters
@@ -37,7 +37,7 @@ function isClassComponent(node: Node, context: RuleContext): node is TSESTreeCla
 
 ### Returns
 
-`node is TSESTreeClass`
+`node is ClassExpression`
 
 ### Deprecated
 

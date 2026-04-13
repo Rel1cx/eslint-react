@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Select } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
@@ -41,10 +41,6 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return merge(
     {
-      // Collect all `*.displayName = '...'` assignments
-      [ast.SEL_DISPLAY_NAME_ASSIGNMENT_EXPRESSION](node: ast.DisplayNameAssignmentExpression) {
-        displayNameAssignments.push(node);
-      },
       // Collect all `createContext()` calls
       CallExpression(node) {
         if (!core.isCreateContextCall(context, node)) return;
@@ -98,6 +94,10 @@ export function create(context: RuleContext<MessageID, []>) {
             });
           }
         }
+      },
+      // Collect all `*.displayName = '...'` assignments
+      [Select.displayNameAssignment](node: Select.DisplayNameAssignment) {
+        displayNameAssignments.push(node);
       },
     },
   );

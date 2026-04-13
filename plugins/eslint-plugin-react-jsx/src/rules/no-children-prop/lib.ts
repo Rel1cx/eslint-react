@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -77,7 +77,7 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
     const exprText = sourceCode.getText(expression);
 
     // JSX elements and fragments can be placed directly as children
-    if (ast.isJSXElementLike(expression)) {
+    if (Check.isJSXLike(expression)) {
       return exprText;
     }
 

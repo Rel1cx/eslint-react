@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
       CallExpression(node: TSESTree.CallExpression) {
         if (!core.isUseRefCall(context, node)) return;
         // https://github.com/Rel1cx/eslint-react/issues/1375
-        if (ast.getUnderlyingExpression(node.parent).type === AST.MemberExpression) return;
+        if (Extract.unwrapped(node.parent).type === AST.MemberExpression) return;
         const [id, name] = match(resolveEnclosingAssignmentTarget(node))
           // for cases like: const inputRef = useRef();
           .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)

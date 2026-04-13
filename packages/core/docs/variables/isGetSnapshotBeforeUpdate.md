@@ -3,7 +3,7 @@
 # ~~Variable: isGetSnapshotBeforeUpdate~~
 
 ```ts
-const isGetSnapshotBeforeUpdate: (node: Node) => node is TSESTreeMethodOrProperty;
+const isGetSnapshotBeforeUpdate: (node: Node) => node is MethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetSnapshotBeforeUpdate: (node: Node) => node is TSESTreeMethodOrPropert
 
 ## Returns
 
-`node is TSESTreeMethodOrProperty`
+`node is MethodOrPropertyDefinition`
 
 ## Deprecated
 

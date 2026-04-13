@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
@@ -76,7 +77,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
   }
 }
 
-function getFunctionKind(node: ast.TSESTreeFunction): FunctionKind {
+function getFunctionKind(node: FunctionExpression): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
@@ -111,19 +112,19 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("ResizeObserver")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: ast.TSESTreeFunction }[] = [];
+  const fEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
     phase: ComponentPhaseKind;
-    phaseNode: ast.TSESTreeFunction;
+    phaseNode: FunctionExpression;
   }[] = [];
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
   return merge(
     {
-      [":function"](node: ast.TSESTreeFunction) {
+      [":function"](node: FunctionExpression) {
         const kind = getFunctionKind(node);
         fEntries.push({ kind, node });
       },
@@ -216,7 +217,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || isConditional(node);
           const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
           const hasDynamicallyAdded = oentries
-            .some((e) => !isPhaseNode(ast.findParent(e.node, or(isDynamic, isPhaseNode))));
+            .some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
           if (hasDynamicallyAdded) {
             context.report({ messageId: "expectedDisconnectInControlFlow", node });
             continue;

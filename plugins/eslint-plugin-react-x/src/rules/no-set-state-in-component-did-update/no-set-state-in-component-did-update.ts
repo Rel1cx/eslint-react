@@ -1,4 +1,4 @@
-import * as ast from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -37,9 +37,9 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Find the enclosing class component
-        const enclosingClassNode = ast.findParent(node, core.isClassComponent);
+        const enclosingClassNode = Traverse.findParent(node, core.isClassComponent);
         // Find the enclosing 'componentDidUpdate' method
-        const enclosingMethodNode = ast.findParent(
+        const enclosingMethodNode = Traverse.findParent(
           node,
           (n) => n === enclosingClassNode || core.isComponentDidUpdate(n),
         );

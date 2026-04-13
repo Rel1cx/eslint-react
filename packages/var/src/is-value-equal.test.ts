@@ -136,7 +136,7 @@ describe("isValueEqual", () => {
 
   describe("issue verification", () => {
     it("FIXED: MemberExpression computed property now uses value equality", () => {
-      // Previously `isValueEqual` used `ast.isNodeEqual(a.property, b.property)` for
+      // Previously `isValueEqual` used `Compare.areEqual(a.property, b.property)` for
       // MemberExpression properties, which is structural equality. For computed properties
       // like `obj[1 + 1]` vs `obj[2]`, the property nodes are structurally different
       // (BinaryExpression vs Literal) even though they evaluate to the same value.

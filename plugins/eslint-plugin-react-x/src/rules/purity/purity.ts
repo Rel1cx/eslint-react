@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
+import type { FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -35,11 +36,11 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
   const cCollector = core.getFunctionComponentCollector(context);
   const cEntries: {
-    func: ast.TSESTreeFunction;
+    func: FunctionExpression;
     node: TSESTree.CallExpression;
   }[] = [];
   const nEntries: {
-    func: ast.TSESTreeFunction;
+    func: FunctionExpression;
     node: TSESTree.NewExpression;
   }[] = [];
   return merge(
@@ -47,11 +48,11 @@ export function create(context: RuleContext<MessageID, []>) {
     cCollector.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
-        const expr = ast.getUnderlyingExpression(node.callee);
+        const expr = Extract.unwrapped(node.callee);
         switch (true) {
           case expr.type === AST.Identifier: {
             if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
-            const func = ast.findParent(node, ast.isFunction);
+            const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -62,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>) {
             const objectName = expr.object.name;
             const propertyName = expr.property.name;
             if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
-            const func = ast.findParent(node, ast.isFunction);
+            const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
@@ -70,13 +71,13 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       NewExpression(node: TSESTree.NewExpression) {
-        const expr = ast.getUnderlyingExpression(node.callee);
+        const expr = Extract.unwrapped(node.callee);
         if (expr.type !== AST.Identifier) return;
         if (!IMPURE_CTORS.has(expr.name)) return;
         // `new Date(arg)` with arguments is pure (deterministic),
         // only `new Date()` without arguments is impure (depends on current time).
         if (expr.name === "Date" && node.arguments.length > 0) return;
-        const func = ast.findParent(node, ast.isFunction);
+        const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
       },

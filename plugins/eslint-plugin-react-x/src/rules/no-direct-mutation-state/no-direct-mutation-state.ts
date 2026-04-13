@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Traverse, isOneOf } from "@eslint-react/ast";
+import type { ClassExpression, FunctionExpression } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -14,8 +15,8 @@ export type MessageID = "default";
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return ast.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
-    && ast.isMethodOrProperty(node.parent)
+  return isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
+    && Check.isMethodOrProperty(node.parent)
     && node.parent.key.type === AST.Identifier
     && node.parent.key.name === "constructor";
 }
@@ -42,9 +43,9 @@ export function create(context: RuleContext<MessageID, []>) {
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (!core.isAssignmentToThisState(node)) return;
         // Find the parent class of the assignment
-        const parentClass = ast.findParent(
+        const parentClass = Traverse.findParent(
           node,
-          ast.isOneOf([
+          isOneOf([
             AST.ClassDeclaration,
             AST.ClassExpression,
           ]),
@@ -55,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // and the mutation is not inside the constructor
         if (
           core.isClassComponent(parentClass)
-          && context.sourceCode.getScope(node).block !== ast.findParent(node, isConstructorFunction)
+          && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)
         ) {
           context.report({
             messageId: "default",

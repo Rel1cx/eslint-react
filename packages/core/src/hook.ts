@@ -1,4 +1,5 @@
-import * as ast from "@eslint-react/ast";
+import { Check, Extract, Traverse, is } from "@eslint-react/ast";
+import type { Directive, FunctionExpression } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -16,7 +17,7 @@ export interface HookSemanticNode extends SemanticNode {
   /** The identifier of the hook */
   id: FunctionID;
   /** The AST node of the hook */
-  node: ast.TSESTreeFunction;
+  node: FunctionExpression;
   /** The kind of hook */
   kind: "hook";
   /** List of expressions returned by the hook */
@@ -24,7 +25,7 @@ export interface HookSemanticNode extends SemanticNode {
   /** The other hooks called by the hook */
   hookCalls: TSESTree.CallExpression[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */
-  directives: ast.TSESTreeDirective[];
+  directives: Directive[];
 }
 /* eslint-enable perfectionist/sort-interfaces */
 
@@ -94,7 +95,7 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
-export function isHookDefinition(node: ast.TSESTreeFunction | null) {
+export function isHookDefinition(node: FunctionExpression | null) {
   if (node == null) return false;
   const id = getFunctionId(node);
   switch (id?.type) {
@@ -171,7 +172,7 @@ export function isUseStateLikeCall(
         || additionalStateHooks.test(node.callee.name);
     case node.callee.type === AST.MemberExpression
       && node.callee.property.type === AST.Identifier:
-      return ast.getPropertyName(node.callee.property) === "useState"
+      return Extract.propertyName(node.callee.property) === "useState"
         || additionalStateHooks.test(node.callee.property.name);
   }
   return false;
@@ -199,9 +200,9 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
 
-  const returnStatement = ast.findParent(node, ast.is(AST.ReturnStatement));
-  const enclosingFunction = ast.findParent(node, ast.isFunction);
-  const enclosingFunctionOfReturn = ast.findParent(returnStatement, ast.isFunction);
+  const returnStatement = Traverse.findParent(node, is(AST.ReturnStatement));
+  const enclosingFunction = Traverse.findParent(node, Check.isFunction);
+  const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 
   if (enclosingFunction !== enclosingFunctionOfReturn) return false;
 
