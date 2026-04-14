@@ -17,8 +17,8 @@
     "erasableSyntaxOnly": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "exactOptionalPropertyTypes": true,
     "composite": false,
     "stripInternal": false

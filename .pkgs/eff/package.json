@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": "packages/.pkgs/eff"
+    "directory": ".pkgs/eff"
   },
   "license": "MIT",
   "author": "Rel1cx",

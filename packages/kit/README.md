@@ -1,6 +1,6 @@
 # @eslint-react/kit
 
-ESLint React's toolkit for building custom React rules with JavasSript functions right inside your `eslint.config.ts`.
+ESLint React's toolkit for building custom React rules with JavaScript functions right inside your `eslint.config.ts`.
 
 ## Index
 

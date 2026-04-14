@@ -1,25 +1,13 @@
+import base from "@local/configs/tsdown";
 import type { UserConfig } from "tsdown";
 
 export default {
-  entry: ["src/index.ts"],
-  outDir: "dist",
-  format: ["esm"],
-  fixedExtension: false,
-  platform: "node",
-  target: "node22",
-  dts: true,
+  ...base,
   deps: {
+    ...base.deps,
     alwaysBundle: [
       "@eslint-react/eslint",
-      "@local/eff",
-    ],
-    neverBundle: [
-      "eslint",
-      "typescript",
+      ...(base.deps?.alwaysBundle ?? []),
     ],
   },
-  treeshake: true,
-  minify: false,
-  sourcemap: false,
-  clean: true,
 } satisfies UserConfig;

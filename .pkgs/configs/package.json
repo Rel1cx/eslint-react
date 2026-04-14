@@ -10,6 +10,10 @@
       "types": "./eslint.d.ts",
       "import": "./eslint.js"
     },
+    "./tsdown": {
+      "types": "./tsdown.d.ts",
+      "import": "./tsdown.js"
+    },
     "./tsconfig.base.json": "./tsconfig.base.json",
     "./tsl.config.ts": "./tsl.config.ts",
     "./typedoc.base.json": "./typedoc.base.json"
@@ -31,6 +35,7 @@
   },
   "devDependencies": {
     "eslint": "^10.2.0",
+    "tsdown": "^0.21.8",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.10.3",
     "typedoc": "0.28.19",
