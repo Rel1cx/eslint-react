@@ -1,4 +1,4 @@
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import type { TSESTree } from "@typescript-eslint/types";
@@ -72,7 +72,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("setTimeout")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
+  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const sEntries: TimerEntry[] = [];
   const rEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
   return merge(
     {
-      [":function"](node: FunctionExpression) {
+      [":function"](node: TSESTreeFunction) {
         const kind = getPhaseKindOfFunction(node) ?? "other";
         fEntries.push({ kind, node });
       },

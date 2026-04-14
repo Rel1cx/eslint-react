@@ -14,4 +14,3 @@
 | Function | Description |
 | ------ | ------ |
 | [findParent](functions/findParent.md) | - |
-| [findProperty](functions/findProperty.md) | - |

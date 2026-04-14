@@ -1,9 +1,9 @@
-[@eslint-react/ast](../README.md) / FunctionExpression
+[@eslint-react/ast](../README.md) / TSESTreeFunction
 
-# Type Alias: FunctionExpression
+# Type Alias: TSESTreeFunction
 
 ```ts
-type FunctionExpression = 
+type TSESTreeFunction = 
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionDeclaration
   | TSESTree.FunctionExpression;

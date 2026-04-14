@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -29,7 +29,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * }
  * ```
  */
-export function hasChildren(element: JSXElementLike): boolean {
+export function hasChildren(element: TSESTreeJSXElementLike): boolean {
   if (element.children.length === 0) return false;
   return !element.children.every((child: TSESTree.JSXChild) => isWhitespaceText(child));
 }
@@ -46,7 +46,7 @@ export function hasChildren(element: JSXElementLike): boolean {
  * nodes always return `false`.
  * @param node The JSX child node to check.
  */
-function isWhitespaceText(node: JSXElementLike["children"][number]): boolean {
+function isWhitespaceText(node: TSESTreeJSXElementLike["children"][number]): boolean {
   if (node.type !== AST.JSXText) return false;
   return node.raw.trim() === "";
 }

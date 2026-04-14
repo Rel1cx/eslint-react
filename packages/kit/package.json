@@ -47,7 +47,7 @@
     "@eslint-react/core": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/utils": "^8.58.1",
+    "@typescript-eslint/utils": "^8.58.2",
     "string-ts": "^2.3.1",
     "ulid": "^3.0.2"
   },
@@ -55,7 +55,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.2.0",
-    "tsdown": "^0.21.7"
+    "tsdown": "^0.21.8"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

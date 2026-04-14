@@ -3,7 +3,7 @@
 # ~~Variable: isGetChildContext~~
 
 ```ts
-const isGetChildContext: (node: Node) => node is MethodOrPropertyDefinition;
+const isGetChildContext: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetChildContext: (node: Node) => node is MethodOrPropertyDefinition;
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

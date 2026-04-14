@@ -1,9 +1,9 @@
-[@eslint-react/ast](../../../../README.md) / [Select](../README.md) / DisplayNameAssignment
+[@eslint-react/core](../README.md) / FunctionDisplayNameAssignment
 
-# Type Alias: DisplayNameAssignment
+# Type Alias: FunctionDisplayNameAssignment
 
 ```ts
-type DisplayNameAssignment = TSESTree.AssignmentExpression & {
+type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
      property: TSESTree.Identifier & {
         name: "displayName";

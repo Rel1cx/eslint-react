@@ -3,7 +3,7 @@
 # ~~Variable: isRender~~
 
 ```ts
-const isRender: (node: Node) => node is MethodOrPropertyDefinition;
+const isRender: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isRender: (node: Node) => node is MethodOrPropertyDefinition;
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

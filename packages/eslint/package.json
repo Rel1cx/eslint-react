@@ -37,14 +37,14 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.58.1"
+    "@typescript-eslint/utils": "^8.58.2"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.6.0",
-    "tsdown": "^0.21.7"
+    "tsdown": "^0.21.8"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

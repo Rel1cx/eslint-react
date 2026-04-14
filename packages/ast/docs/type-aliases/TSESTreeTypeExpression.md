@@ -1,9 +1,9 @@
-[@eslint-react/ast](../README.md) / TypeExpression
+[@eslint-react/ast](../README.md) / TSESTreeTypeExpression
 
-# Type Alias: TypeExpression
+# Type Alias: TSESTreeTypeExpression
 
 ```ts
-type TypeExpression = 
+type TSESTreeTypeExpression = 
   | TSESTree.TSAsExpression
   | TSESTree.TSTypeAssertion
   | TSESTree.TSNonNullExpression

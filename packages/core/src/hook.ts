@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse, is } from "@eslint-react/ast";
-import type { Directive, FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -17,7 +17,7 @@ export interface HookSemanticNode extends SemanticNode {
   /** The identifier of the hook */
   id: FunctionID;
   /** The AST node of the hook */
-  node: FunctionExpression;
+  node: TSESTreeFunction;
   /** The kind of hook */
   kind: "hook";
   /** List of expressions returned by the hook */
@@ -25,7 +25,7 @@ export interface HookSemanticNode extends SemanticNode {
   /** The other hooks called by the hook */
   hookCalls: TSESTree.CallExpression[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */
-  directives: Directive[];
+  directives: TSESTreeDirective[];
 }
 /* eslint-enable perfectionist/sort-interfaces */
 
@@ -95,7 +95,7 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
  * @param node The function node to check
  * @returns True if the function is a React Hook, false otherwise
  */
-export function isHookDefinition(node: FunctionExpression | null) {
+export function isHookDefinition(node: TSESTreeFunction | null) {
   if (node == null) return false;
   const id = getFunctionId(node);
   switch (id?.type) {

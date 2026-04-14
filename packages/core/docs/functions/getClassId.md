@@ -3,7 +3,7 @@
 # Function: getClassId()
 
 ```ts
-function getClassId(node: ClassExpression): BindingName | null;
+function getClassId(node: TSESTreeClass): BindingName | null;
 ```
 
 Get the class identifier of a class node
@@ -12,7 +12,7 @@ Get the class identifier of a class node
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `ClassExpression` | The class node to get the identifier from |
+| `node` | `TSESTreeClass` | The class node to get the identifier from |
 
 ## Returns
 

@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -32,7 +32,7 @@ export function trimLikeReact(text: string): string {
  * @param context The rule context.
  * @param node The JSX element or fragment.
  */
-export function getChildrenSourceText(context: RuleContext, node: JSXElementLike): string {
+export function getChildrenSourceText(context: RuleContext, node: TSESTreeJSXElementLike): string {
   const { sourceCode } = context;
   const opener = node.type === AST.JSXFragment
     ? node.openingFragment

@@ -1,5 +1,4 @@
 import { Check } from "@eslint-react/ast";
-import type { ClassExpression, FunctionExpression } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";

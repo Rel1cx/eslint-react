@@ -3,7 +3,7 @@
 # ~~Variable: isGetDerivedStateFromError~~
 
 ```ts
-const isGetDerivedStateFromError: (node: Node) => node is MethodOrPropertyDefinition;
+const isGetDerivedStateFromError: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetDerivedStateFromError: (node: Node) => node is MethodOrPropertyDefini
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

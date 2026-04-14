@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -26,7 +26,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * const meaningful = getChildren(node);
  * ```
  */
-export function getChildren(element: JSXElementLike): TSESTree.JSXChild[] {
+export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
   return element.children.filter((child: TSESTree.JSXChild) => !isPaddingSpaces(child));
 }
 

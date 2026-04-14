@@ -20,6 +20,6 @@ Class components are legacy. This type exists only to support legacy rules.
 | <a id="property-id"></a> ~~`id`~~ | `BindingName` \| `null` | The identifier of the node | [`SemanticNode`](SemanticNode.md).[`id`](SemanticNode.md#property-id) | - |
 | <a id="property-key"></a> ~~`key`~~ | `string` | The unique key of the node | - | [`SemanticNode`](SemanticNode.md).[`key`](SemanticNode.md#property-key) |
 | <a id="property-kind"></a> ~~`kind`~~ | `"class-component"` | The kind of the node | [`SemanticNode`](SemanticNode.md).[`kind`](SemanticNode.md#property-kind) | - |
-| <a id="property-methods"></a> ~~`methods`~~ | `MethodOrPropertyDefinition`[] | - | - | - |
+| <a id="property-methods"></a> ~~`methods`~~ | `TSESTreeMethodOrPropertyDefinition`[] | - | - | - |
 | <a id="property-name"></a> ~~`name`~~ | `string` \| `null` | The name of the node | - | [`SemanticNode`](SemanticNode.md).[`name`](SemanticNode.md#property-name) |
-| <a id="property-node"></a> ~~`node`~~ | `ClassExpression` | The AST node | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#property-node) | - |
+| <a id="property-node"></a> ~~`node`~~ | `TSESTreeClass` | The AST node | [`SemanticNode`](SemanticNode.md).[`node`](SemanticNode.md#property-node) | - |

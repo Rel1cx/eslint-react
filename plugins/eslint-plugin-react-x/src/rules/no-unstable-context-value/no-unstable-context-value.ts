@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { api, visitor } = core.getFunctionComponentCollector(context);
-  const constructions = new WeakMap<FunctionExpression, ObjectType[]>();
+  const constructions = new WeakMap<TSESTreeFunction, ObjectType[]>();
 
   return merge(
     visitor,

@@ -1,5 +1,5 @@
-import { Extract, Select, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import { Extract, Traverse } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -16,6 +16,7 @@ import {
   isFunctionComponentDefinition,
   isFunctionWithLooseComponentName,
 } from "./function-component";
+import { SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT } from "./function-display-name";
 import { isHookCall } from "./hook";
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
@@ -55,7 +56,7 @@ export function getFunctionComponentCollector(
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
-  const onFunctionEnter = (node: FunctionExpression) => {
+  const onFunctionEnter = (node: TSESTreeFunction) => {
     const key = ulid();
     const exp = Traverse.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
@@ -112,7 +113,7 @@ export function getFunctionComponentCollector(
     },
     ...collectDisplayName
       ? {
-        [Select.displayNameAssignment](node: TSESTree.AssignmentExpression) {
+        [SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: TSESTree.AssignmentExpression) {
           const { left, right } = node;
           if (left.type !== AST.MemberExpression) return;
           const componentName = left.object.type === AST.Identifier

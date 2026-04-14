@@ -1,5 +1,5 @@
 import { Check, Traverse, is } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";
@@ -149,7 +149,7 @@ export function create(context: RuleContext<MessageID, []>) {
  * @param node The AST node to check
  * @returns `true` if the node is inside JSX attribute value
  */
-function isInsideJSXAttributeValue(node: FunctionExpression) {
+function isInsideJSXAttributeValue(node: TSESTreeFunction) {
   return node.parent.type === AST.JSXAttribute
     || findParentAttribute(node, (n) => n.value?.type === AST.JSXExpressionContainer) != null;
 }

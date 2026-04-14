@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { getElementFullType } from "./get-element-type";
@@ -15,7 +15,7 @@ import { getElementFullType } from "./get-element-type";
 export type ElementTest =
   | string
   | readonly string[]
-  | ((elementType: string, node: JSXElementLike) => boolean);
+  | ((elementType: string, node: TSESTreeJSXElementLike) => boolean);
 
 /**
  * Check whether a node is a `JSXElement` (or `JSXFragment`) and optionally
@@ -52,7 +52,7 @@ export type ElementTest =
 export function isElement(
   node: TSESTree.Node | null | undefined,
   test?: ElementTest,
-): node is JSXElementLike {
+): node is TSESTreeJSXElementLike {
   if (node == null) return false;
   if (node.type !== AST.JSXElement && node.type !== AST.JSXFragment) {
     return false;

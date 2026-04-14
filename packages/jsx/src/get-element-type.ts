@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -12,7 +12,7 @@ import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
  * @param node - A `JSXElement` or `JSXFragment` node.
  * @returns The fully-qualified element type string.
  */
-export function getElementFullType(node: JSXElementLike): string {
+export function getElementFullType(node: TSESTreeJSXElementLike): string {
   if (node.type === AST.JSXFragment) {
     return "";
   }
@@ -45,6 +45,6 @@ export function getElementFullType(node: JSXElementLike): string {
  * @param node - A `JSXElement` or `JSXFragment` node.
  * @returns The last segment of the element type, or `""` for fragments.
  */
-export function getElementSelfType(node: JSXElementLike): string {
+export function getElementSelfType(node: TSESTreeJSXElementLike): string {
   return getElementFullType(node).split(".").at(-1) ?? "";
 }

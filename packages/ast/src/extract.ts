@@ -1,11 +1,11 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { delimiterCase, replace, toLowerCase } from "string-ts";
 import * as Check from "./check";
-import type { TypeExpression } from "./types";
+import type { TSESTreeTypeExpression } from "./types";
 
 export function unwrapped(
   from: TSESTree.Node,
-): Exclude<TSESTree.Node, TypeExpression> {
+): Exclude<TSESTree.Node, TSESTreeTypeExpression> {
   if (Check.isTypeExpression(from)) {
     return unwrapped(from.expression);
   }

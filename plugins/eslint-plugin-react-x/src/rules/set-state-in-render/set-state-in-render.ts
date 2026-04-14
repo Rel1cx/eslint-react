@@ -1,5 +1,5 @@
 import { Check, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -43,8 +43,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   const { additionalStateHooks } = getSettingsFromContext(context);
-  const functionEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
-  const componentFnRef: { current: FunctionExpression | null } = { current: null };
+  const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  const componentFnRef: { current: TSESTreeFunction | null } = { current: null };
   const componentHasEarlyReturn: { current: boolean } = { current: false };
 
   function isUseStateCall(node: TSESTree.Node) {
@@ -109,7 +109,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
-  function isInsideConditional(node: TSESTree.Node, stopAt: FunctionExpression) {
+  function isInsideConditional(node: TSESTree.Node, stopAt: TSESTreeFunction) {
     let current: TSESTree.Node | undefined = node.parent;
     while (current != null && current !== stopAt) {
       switch (current.type) {
@@ -127,7 +127,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function isInsideEventHandler(node: TSESTree.Node, stopAt: FunctionExpression) {
+  function isInsideEventHandler(node: TSESTree.Node, stopAt: TSESTreeFunction) {
     let current: TSESTree.Node | undefined = node.parent;
     while (current != null && current !== stopAt) {
       if (Check.isFunction(current) && current !== stopAt) {
@@ -138,7 +138,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function isComponentOrHookLikeFunction(node: FunctionExpression) {
+  function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
     const id = core.getFunctionId(node);
     if (id == null) return false;
     if (id.type === AST.Identifier) {
@@ -150,7 +150,7 @@ export function create(context: RuleContext<MessageID, []>) {
     return false;
   }
 
-  function getFunctionKind(node: FunctionExpression): FunctionKind {
+  function getFunctionKind(node: TSESTreeFunction): FunctionKind {
     if (isComponentOrHookLikeFunction(node)) {
       return "component";
     }
@@ -163,7 +163,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return merge(
     {
-      ":function"(node: FunctionExpression) {
+      ":function"(node: TSESTreeFunction) {
         const kind = getFunctionKind(node);
         functionEntries.push({ kind, node });
         if (kind === "component") {
@@ -171,7 +171,7 @@ export function create(context: RuleContext<MessageID, []>) {
           componentHasEarlyReturn.current = false;
         }
       },
-      ":function:exit"(node: FunctionExpression) {
+      ":function:exit"(node: TSESTreeFunction) {
         const entry = functionEntries.at(-1);
         if (entry?.kind === "component" && componentFnRef.current === node) {
           componentFnRef.current = null;

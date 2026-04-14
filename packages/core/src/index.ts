@@ -5,6 +5,7 @@ export * from "./class-component-collector";
 export * from "./function";
 export * from "./function-component";
 export * from "./function-component-collector";
+export * from "./function-display-name";
 export * from "./hook";
 export * from "./hook-collector";
 export * from "./semantic";

@@ -1,5 +1,5 @@
 import { Check, Extract, isOneOf } from "@eslint-react/ast";
-import type { ClassExpression, FunctionExpression, MethodOrPropertyDefinition } from "@eslint-react/ast";
+import type { TSESTreeClass, TSESTreeFunction, TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -17,8 +17,8 @@ export interface ClassComponentSemanticNode extends SemanticNode {
   displayName: null | TSESTree.Expression;
   flag: bigint;
   hint: bigint;
-  methods: MethodOrPropertyDefinition[];
-  node: ClassExpression;
+  methods: TSESTreeMethodOrPropertyDefinition[];
+  node: TSESTreeClass;
 }
 
 // #endregion
@@ -29,14 +29,14 @@ export interface ClassComponentSemanticNode extends SemanticNode {
  * @param node The AST node to check.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isClassComponent(node: TSESTree.Node): node is ClassExpression;
+export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass;
 /**
  * @param node The AST node to check.
  * @param context The rule context.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is ClassExpression;
-export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is ClassExpression {
+export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass;
+export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
@@ -57,7 +57,7 @@ export function isClassComponent(node: TSESTree.Node, context?: RuleContext): no
   return false;
 }
 
-export function isClassComponentLoose(node: TSESTree.Node): node is ClassExpression {
+export function isClassComponentLoose(node: TSESTree.Node): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
@@ -94,7 +94,7 @@ export function isPureComponent(node: TSESTree.Node) {
 // #region Lifecycle Method Checkers
 
 function createLifecycleChecker(methodName: string, isStatic = false) {
-  return (node: TSESTree.Node): node is MethodOrPropertyDefinition => (
+  return (node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition => (
     Check.isMethodOrProperty(node)
     && node.static === isStatic
     && node.key.type === AST.Identifier
@@ -148,14 +148,14 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  * @param node The AST node to check.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isRenderMethodLike(node: TSESTree.Node): node is MethodOrPropertyDefinition {
+export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
   return Check.isMethodOrProperty(node)
     && node.key.type === AST.Identifier
     && node.key.name.startsWith("render")
     && isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
 
-export function isRenderMethodCallback(node: FunctionExpression) {
+export function isRenderMethodCallback(node: TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;

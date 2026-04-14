@@ -1,5 +1,5 @@
-import { Check, Compare, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import { Check, Compare } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isValueEqual, resolve } from "@eslint-react/var";
@@ -15,6 +15,7 @@ import {
   getPhaseKindOfFunction,
 } from "../../types";
 import { createRule } from "../../utils";
+import { findProperty } from "./lib";
 
 // #region Rule Metadata
 
@@ -67,7 +68,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function getFunctionKind(node: FunctionExpression): FunctionKind {
+function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
@@ -105,7 +106,7 @@ function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument)
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        const pCapture = Traverse.findProperty(node.properties, "capture");
+        const pCapture = findProperty(node.properties, "capture");
         const vCapture = match(pCapture)
           .with(P.nullish, () => false)
           .with({ type: AST.Property }, (prop) => {
@@ -118,7 +119,7 @@ function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument)
             }
           })
           .otherwise(() => false);
-        const pSignal = Traverse.findProperty(node.properties, "signal");
+        const pSignal = findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(context, pSignal.value)
           : null;
@@ -163,7 +164,7 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
+  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
   const abortedSignals: TSESTree.Expression[] = [];
@@ -207,7 +208,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
   return merge(
     {
-      [":function"](node: FunctionExpression) {
+      [":function"](node: TSESTreeFunction) {
         const kind = getFunctionKind(node);
         fEntries.push({ kind, node });
       },

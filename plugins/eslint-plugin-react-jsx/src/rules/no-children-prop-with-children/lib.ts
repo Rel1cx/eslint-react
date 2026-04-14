@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -36,7 +36,7 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
  * Returns `null` when there are no children at all.
  * @param node The JSX element or fragment.
  */
-export function getChildrenContentRange(node: JSXElementLike): [start: number, end: number] | null {
+export function getChildrenContentRange(node: TSESTreeJSXElementLike): [start: number, end: number] | null {
   if (node.children.length === 0) return null;
   const first = node.children[0]!;
   const last = node.children[node.children.length - 1]!;

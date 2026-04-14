@@ -1,5 +1,5 @@
 import { Check, Traverse, isOneOf } from "@eslint-react/ast";
-import type { Directive, FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
@@ -30,7 +30,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The AST node of the function
    */
-  node: FunctionExpression;
+  node: TSESTreeFunction;
 
   /**
    * Flags describing the component's characteristics
@@ -79,7 +79,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * The directives used in the function (ex: "use strict", "use client", etc.)
    */
-  directives: Directive[];
+  directives: TSESTreeDirective[];
 }
 
 // #endregion
@@ -158,10 +158,7 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
  * @param node The AST node to get the function component identifier from
  * @internal
  */
-export function getFunctionComponentId(
-  context: RuleContext,
-  node: FunctionExpression,
-): FunctionID {
+export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): FunctionID {
   const functionId = getFunctionId(node);
   if (functionId != null) {
     return functionId;
@@ -214,7 +211,7 @@ export function isFunctionComponentNameLoose(name: string) {
  * @param allowNone Whether to allow no name
  * @returns Whether the function has a loose component name
  */
-export function isFunctionWithLooseComponentName(context: RuleContext, fn: FunctionExpression, allowNone = false) {
+export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
   if (id == null) return allowNone;
   if (id.type === AST.Identifier) {
@@ -276,7 +273,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
  * @param hint Component detection hints (bit flags) to customize detection logic
  * @returns `true` if the node is considered a component definition
  */
-export function isFunctionComponentDefinition(context: RuleContext, node: FunctionExpression, hint: bigint) {
+export function isFunctionComponentDefinition(context: RuleContext, node: TSESTreeFunction, hint: bigint) {
   // 1. Check for basic naming conventions
   if (!isFunctionWithLooseComponentName(context, node, true)) {
     return false;
@@ -286,7 +283,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: Functi
   switch (true) {
     case node.parent.type === AST.CallExpression
       && isCreateElementCall(context, node.parent)
-      && node.parent.arguments.slice(2).some((arg) => arg === node):
+      && node.parent.arguments.slice(2).some((arg: TSESTree.Node) => arg === node):
       return false;
     case isRenderMethodCallback(node):
       return false;

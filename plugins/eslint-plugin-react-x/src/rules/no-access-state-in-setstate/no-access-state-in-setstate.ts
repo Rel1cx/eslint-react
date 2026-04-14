@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { ClassExpression, MethodOrPropertyDefinition } from "@eslint-react/ast";
+import type { TSESTreeClass, TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { constFalse, constTrue } from "@local/eff";
@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Stack to track class declarations and whether they are React components
   const classStack: [node: TSESTree.ClassDeclaration | TSESTree.ClassExpression, isComponent: boolean][] = [];
   // Stack to track method definitions and whether they are static
-  const methodStack: [node: MethodOrPropertyDefinition, isStatic: boolean][] = [];
+  const methodStack: [node: TSESTreeMethodOrPropertyDefinition, isStatic: boolean][] = [];
   // Stack to track `setState` call expressions
   const setStateStack: [node: TSESTree.CallExpression, hasThisState: boolean][] = [];
 

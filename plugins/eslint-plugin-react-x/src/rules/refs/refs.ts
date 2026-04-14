@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -154,7 +154,7 @@ export function create(context: RuleContext<MessageID, []>) {
           ...hooks.map((h) => h.node),
         ]);
 
-        const isCompOrHookFn = (n: TSESTree.Node): n is FunctionExpression => Check.isFunction(n) && funcs.has(n);
+        const isCompOrHookFn = (n: TSESTree.Node): n is TSESTreeFunction => Check.isFunction(n) && funcs.has(n);
 
         for (const { isWrite, node } of refAccesses) {
           // Inline isRefIdentifier — must be accessing .current on a ref

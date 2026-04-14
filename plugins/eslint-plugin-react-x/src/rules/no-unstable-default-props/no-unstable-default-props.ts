@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
@@ -93,7 +93,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
     init: TSESTree.Identifier;
   };
 
-  const declarators = new WeakMap<FunctionExpression, ObjectDestructuringVariableDeclarator[]>();
+  const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;
   const safePatterns = safeDefaultProps.map((s) => toRegExp(s));
 
