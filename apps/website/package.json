@@ -14,7 +14,7 @@
     "@eslint-react/kit": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@takumi-rs/image-response": "^1.0.5",
+    "@takumi-rs/image-response": "^1.0.9",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "effect": "^3.21.0",
@@ -64,6 +64,6 @@
     "tsl": "^1.0.30",
     "tsl-dx": "^0.10.3",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.1"
+    "typescript-eslint": "^8.58.2"
   }
 }

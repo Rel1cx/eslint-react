@@ -27,6 +27,7 @@
 | Type Alias | Description |
 | ------ | ------ |
 | [FunctionComponentDetectionHint](type-aliases/FunctionComponentDetectionHint.md) | Hints for component collector |
+| [FunctionDisplayNameAssignment](type-aliases/FunctionDisplayNameAssignment.md) | - |
 | [FunctionID](type-aliases/FunctionID.md) | Type representing the return type of `getFunctionId`. |
 | [FunctionInitPath](type-aliases/FunctionInitPath.md) | Represents various AST paths for function declarations. Each tuple type represents a specific function definition pattern. |
 | [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a function. |
@@ -123,6 +124,7 @@
 | [isUseTransition](variables/isUseTransition.md) | - |
 | [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
 | [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
+| [SEL\_FUNCTION\_DISPLAY\_NAME\_ASSIGNMENT](variables/SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT.md) | - |
 
 ## Functions
 

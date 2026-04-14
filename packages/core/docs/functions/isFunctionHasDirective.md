@@ -3,7 +3,7 @@
 # Function: isFunctionHasDirective()
 
 ```ts
-function isFunctionHasDirective(node: FunctionExpression, name: string): boolean;
+function isFunctionHasDirective(node: TSESTreeFunction, name: string): boolean;
 ```
 
 Checks if a directive with the given name exists in the function directives.
@@ -12,7 +12,7 @@ Checks if a directive with the given name exists in the function directives.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `FunctionExpression` | The function AST node. |
+| `node` | `TSESTreeFunction` | The function AST node. |
 | `name` | `string` | The directive name to check (e.g., "use memo", "use no memo"). |
 
 ## Returns

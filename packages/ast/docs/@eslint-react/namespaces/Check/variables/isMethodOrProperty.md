@@ -3,7 +3,7 @@
 # Variable: isMethodOrProperty
 
 ```ts
-const isMethodOrProperty: (node: Node | null | undefined) => node is MethodDefinitionComputedName | MethodDefinitionNonComputedName | PropertyDefinitionComputedName | PropertyDefinitionNonComputedName;
+const isMethodOrProperty: (node: Node | null | undefined) => node is PropertyDefinitionComputedName | PropertyDefinitionNonComputedName | MethodDefinitionComputedName | MethodDefinitionNonComputedName;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ const isMethodOrProperty: (node: Node | null | undefined) => node is MethodDefin
 
 ## Returns
 
-node is MethodDefinitionComputedName \| MethodDefinitionNonComputedName \| PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName
+node is PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName \| MethodDefinitionComputedName \| MethodDefinitionNonComputedName

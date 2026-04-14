@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -36,11 +36,11 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
   const cCollector = core.getFunctionComponentCollector(context);
   const cEntries: {
-    func: FunctionExpression;
+    func: TSESTreeFunction;
     node: TSESTree.CallExpression;
   }[] = [];
   const nEntries: {
-    func: FunctionExpression;
+    func: TSESTreeFunction;
     node: TSESTree.NewExpression;
   }[] = [];
   return merge(

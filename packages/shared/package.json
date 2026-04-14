@@ -37,7 +37,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.58.1",
+    "@typescript-eslint/utils": "^8.58.2",
     "ts-pattern": "^5.9.0",
     "zod": "^4.3.6"
   },
@@ -47,7 +47,7 @@
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.6.0",
     "@types/picomatch": "^4.0.3",
-    "tsdown": "^0.21.7"
+    "tsdown": "^0.21.8"
   },
   "peerDependencies": {
     "@eslint-react/eslint": "workspace:*",

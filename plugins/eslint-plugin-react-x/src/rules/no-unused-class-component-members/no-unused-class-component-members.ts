@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { ClassExpression, MethodOrPropertyDefinition } from "@eslint-react/ast";
+import type { TSESTreeClass, TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { constFalse, constTrue } from "@local/eff";
@@ -14,7 +14,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
 
-type Property = MethodOrPropertyDefinition["key"];
+type Property = TSESTreeMethodOrPropertyDefinition["key"];
 
 // A set of React lifecycle methods that are implicitly used and should not be flagged as unused
 const LIFECYCLE_METHODS = new Set([
@@ -69,16 +69,16 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   // A stack to keep track of class nodes, to handle nested classes
-  const classStack: ClassExpression[] = [];
+  const classStack: TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
-  const methodStack: MethodOrPropertyDefinition[] = [];
+  const methodStack: TSESTreeMethodOrPropertyDefinition[] = [];
   // Stores all defined properties and methods for each class component
-  const propertyDefs = new WeakMap<ClassExpression, Set<Property>>();
+  const propertyDefs = new WeakMap<TSESTreeClass, Set<Property>>();
   // Stores all used properties and methods for each class component
-  const propertyUsages = new WeakMap<ClassExpression, Set<string>>();
+  const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
 
   // Called when the AST traversal enters a class declaration or expression
-  function classEnter(node: ClassExpression) {
+  function classEnter(node: TSESTreeClass) {
     classStack.push(node);
     if (!core.isClassComponent(node)) {
       return;
@@ -123,7 +123,7 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   // Called when the AST traversal enters a method or property definition
-  function methodEnter(node: MethodOrPropertyDefinition) {
+  function methodEnter(node: TSESTreeMethodOrPropertyDefinition) {
     methodStack.push(node);
     const currentClass = classStack.at(-1);
     if (currentClass == null || !core.isClassComponent(currentClass)) {

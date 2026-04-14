@@ -1,4 +1,4 @@
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import { type ESLintReactSettingsNormalized, getSettingsFromContext } from "@eslint-react/shared";
@@ -59,7 +59,7 @@ export interface RuleToolkit {
     childrenOnlyCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     childrenToArrayCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     cloneElementCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    componentDecl: (node: FunctionExpression, hint: bigint) => boolean;
+    componentDecl: (node: TSESTreeFunction, hint: bigint) => boolean;
     componentName: typeof core.isFunctionComponentName;
     componentNameLoose: typeof core.isFunctionComponentNameLoose;
     componentWrapperCall: (node: TSESTree.Node) => boolean;

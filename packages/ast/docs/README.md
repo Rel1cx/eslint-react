@@ -2,31 +2,25 @@
 
 ## Namespaces
 
-| Namespace                                               | Description |
-| ------------------------------------------------------- | ----------- |
-| [Check](@eslint-react/namespaces/Check/README.md)       | -           |
-| [Compare](@eslint-react/namespaces/Compare/README.md)   | -           |
-| [Extract](@eslint-react/namespaces/Extract/README.md)   | -           |
-| [Select](@eslint-react/namespaces/Select/README.md)     | -           |
-| [Traverse](@eslint-react/namespaces/Traverse/README.md) | -           |
+| Namespace | Description |
+| ------ | ------ |
+| [Check](@eslint-react/namespaces/Check/README.md) | - |
+| [Compare](@eslint-react/namespaces/Compare/README.md) | - |
+| [Extract](@eslint-react/namespaces/Extract/README.md) | - |
+| [Traverse](@eslint-react/namespaces/Traverse/README.md) | - |
 
 ## Type Aliases
 
-| Type Alias                                                               | Description |
-| ------------------------------------------------------------------------ | ----------- |
-| [ClassExpression](type-aliases/ClassExpression.md)                       | -           |
-| [Directive](type-aliases/Directive.md)                                   | -           |
-| [Expression](type-aliases/Expression.md)                                 | -           |
-| [FunctionExpression](type-aliases/FunctionExpression.md)                 | -           |
-| [Identifier](type-aliases/Identifier.md)                                 | -           |
-| [JSXAttributeLike](type-aliases/JSXAttributeLike.md)                     | -           |
-| [JSXElementLike](type-aliases/JSXElementLike.md)                         | -           |
-| [JSXNode](type-aliases/JSXNode.md)                                       | -           |
-| [MethodOrPropertyDefinition](type-aliases/MethodOrPropertyDefinition.md) | -           |
-| [Node](type-aliases/Node.md)                                             | -           |
-| [Program](type-aliases/Program.md)                                       | -           |
-| [Statement](type-aliases/Statement.md)                                   | -           |
-| [TypeExpression](type-aliases/TypeExpression.md)                         | -           |
+| Type Alias | Description |
+| ------ | ------ |
+| [TSESTreeClass](type-aliases/TSESTreeClass.md) | - |
+| [TSESTreeDirective](type-aliases/TSESTreeDirective.md) | - |
+| [TSESTreeFunction](type-aliases/TSESTreeFunction.md) | - |
+| [TSESTreeJSX](type-aliases/TSESTreeJSX.md) | - |
+| [TSESTreeJSXAttributeLike](type-aliases/TSESTreeJSXAttributeLike.md) | - |
+| [TSESTreeJSXElementLike](type-aliases/TSESTreeJSXElementLike.md) | - |
+| [TSESTreeMethodOrPropertyDefinition](type-aliases/TSESTreeMethodOrPropertyDefinition.md) | - |
+| [TSESTreeTypeExpression](type-aliases/TSESTreeTypeExpression.md) | - |
 
 ## References
 
@@ -34,7 +28,7 @@
 
 Re-exports [is](@eslint-react/namespaces/Check/variables/is.md)
 
----
+***
 
 ### isOneOf
 

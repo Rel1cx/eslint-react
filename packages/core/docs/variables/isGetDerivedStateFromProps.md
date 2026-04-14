@@ -3,7 +3,7 @@
 # ~~Variable: isGetDerivedStateFromProps~~
 
 ```ts
-const isGetDerivedStateFromProps: (node: Node) => node is MethodOrPropertyDefinition;
+const isGetDerivedStateFromProps: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetDerivedStateFromProps: (node: Node) => node is MethodOrPropertyDefini
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -55,23 +55,23 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
-  const functionEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
-  const setupFnRef: { current: FunctionExpression | null } = { current: null };
+  const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  const setupFnRef: { current: TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
 
   const trackedFnCalls: TSESTree.CallExpression[] = [];
-  const setStateCallsByFn = new WeakMap<FunctionExpression, TSESTree.CallExpression[]>();
+  const setStateCallsByFn = new WeakMap<TSESTreeFunction, TSESTree.CallExpression[]>();
   const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
-  const onSetupFunctionEnter = (node: FunctionExpression) => {
+  const onSetupFunctionEnter = (node: TSESTreeFunction) => {
     setupFnRef.current = node;
   };
 
-  const onSetupFunctionExit = (node: FunctionExpression) => {
+  const onSetupFunctionExit = (node: TSESTreeFunction) => {
     if (setupFnRef.current === node) {
       setupFnRef.current = null;
     }
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>) {
       .otherwise(() => "other");
   }
 
-  function getFunctionKind(node: FunctionExpression) {
+  function getFunctionKind(node: TSESTreeFunction) {
     const parent = Traverse.findParent(node, not(Check.isTypeExpression)) ?? node.parent;
     switch (true) {
       case node.async:
@@ -227,14 +227,14 @@ export function create(context: RuleContext<MessageID, []>) {
 
   return merge(
     {
-      ":function"(node: FunctionExpression) {
+      ":function"(node: TSESTreeFunction) {
         const kind = getFunctionKind(node);
         functionEntries.push({ kind, node });
         if (kind === "setup") {
           onSetupFunctionEnter(node);
         }
       },
-      ":function:exit"(node: FunctionExpression) {
+      ":function:exit"(node: TSESTreeFunction) {
         const { kind } = functionEntries.at(-1) ?? {};
         if (kind === "setup") {
           onSetupFunctionExit(node);

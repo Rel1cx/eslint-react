@@ -3,7 +3,7 @@
 # ~~Variable: isShouldComponentUpdate~~
 
 ```ts
-const isShouldComponentUpdate: (node: Node) => node is MethodOrPropertyDefinition;
+const isShouldComponentUpdate: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isShouldComponentUpdate: (node: Node) => node is MethodOrPropertyDefinitio
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

@@ -1,5 +1,5 @@
 import { Check, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -40,7 +40,7 @@ function isEvalCall(node: TSESTree.CallExpression) {
   return node.callee.type === AST.Identifier && node.callee.name === "eval";
 }
 
-function isIifeCall(node: FunctionExpression) {
+function isIifeCall(node: TSESTreeFunction) {
   return node.parent.type === AST.CallExpression && node.parent.callee === node;
 }
 
@@ -48,11 +48,11 @@ export function create(context: RuleContext<MessageID, []>) {
   const hCollector = core.getHookCollector(context);
   const cCollector = core.getFunctionComponentCollector(context);
   const evalCalls: {
-    func: FunctionExpression;
+    func: TSESTreeFunction;
     node: TSESTree.CallExpression;
   }[] = [];
   const withStmts: {
-    func: FunctionExpression;
+    func: TSESTreeFunction;
     node: TSESTree.WithStatement;
   }[] = [];
   return merge(
@@ -65,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (func == null) return;
         evalCalls.push({ func, node });
       },
-      "JSXElement :function"(node: FunctionExpression) {
+      "JSXElement :function"(node: TSESTreeFunction) {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>) {
           });
         }
       },
-      "JSXFragment :function"(node: FunctionExpression) {
+      "JSXFragment :function"(node: TSESTreeFunction) {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",

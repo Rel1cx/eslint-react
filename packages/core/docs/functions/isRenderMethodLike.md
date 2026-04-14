@@ -3,7 +3,7 @@
 # ~~Function: isRenderMethodLike()~~
 
 ```ts
-function isRenderMethodLike(node: Node): node is MethodOrPropertyDefinition;
+function isRenderMethodLike(node: Node): node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ function isRenderMethodLike(node: Node): node is MethodOrPropertyDefinition;
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

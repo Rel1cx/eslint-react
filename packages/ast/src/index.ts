@@ -1,7 +1,6 @@
 export * as Check from "./check";
 export * as Compare from "./compare";
 export * as Extract from "./extract";
-export * as Select from "./select";
 export * as Traverse from "./traverse";
 export type * from "./types";
 

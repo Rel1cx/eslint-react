@@ -3,7 +3,7 @@
 # Function: getFunctionDirectives()
 
 ```ts
-function getFunctionDirectives(node: FunctionExpression): Directive[];
+function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[];
 ```
 
 Gets all directive expression statements from the top of a function body.
@@ -12,10 +12,10 @@ Gets all directive expression statements from the top of a function body.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `FunctionExpression` | The function AST node. |
+| `node` | `TSESTreeFunction` | The function AST node. |
 
 ## Returns
 
-`Directive`[]
+`TSESTreeDirective`[]
 
 An array of directive expression statements.

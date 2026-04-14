@@ -1,9 +1,9 @@
-[@eslint-react/ast](../README.md) / Directive
+[@eslint-react/ast](../README.md) / TSESTreeDirective
 
-# Type Alias: Directive
+# Type Alias: TSESTreeDirective
 
 ```ts
-type Directive = TSESTree.ExpressionStatement & {
+type TSESTreeDirective = TSESTree.ExpressionStatement & {
   directive: string;
   expression: TSESTree.StringLiteral;
 };

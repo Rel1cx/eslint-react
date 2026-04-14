@@ -1,6 +1,6 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
-import type { Directive } from "./types";
+import type { TSESTreeDirective } from "./types";
 
 type LiteralType = "boolean" | "null" | "number" | "regexp" | "string";
 
@@ -114,6 +114,6 @@ export const isTypeAssertionExpression = isOneOf([
 ]);
 
 // Directive check
-export function directive(node: TSESTree.Node): node is Directive {
+export function directive(node: TSESTree.Node): node is TSESTreeDirective {
   return node.type === AST.ExpressionStatement && node.directive != null;
 }

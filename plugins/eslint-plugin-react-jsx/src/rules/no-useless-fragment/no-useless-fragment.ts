@@ -1,5 +1,5 @@
 import { Check } from "@eslint-react/ast";
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
 import {
   getChildren,
@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * existence (the "contains less than two children" reason).
    * @param node The fragment node to check.
    */
-  function isContentUseless(node: JSXElementLike) {
+  function isContentUseless(node: TSESTreeJSXElementLike) {
     // Empty fragment — useless unless explicitly allowed.
     if (node.children.length === 0) {
       return !allowEmptyFragment;
@@ -132,7 +132,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * Whether it is safe to auto-fix the fragment by unwrapping it.
    * @param node The fragment node to check.
    */
-  function isSafeToFix(node: JSXElementLike) {
+  function isSafeToFix(node: TSESTreeJSXElementLike) {
     // Inside a JSX parent we can only safely unwrap if the parent is a host
     // (intrinsic / DOM) element.  Custom components might require `children`
     // to be a single ReactElement, so unwrapping could break them.
@@ -161,7 +161,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * trimmed children text.  Returns `null` when the fix is unsafe.
    * @param node The fragment node to fix.
    */
-  function buildFix(node: JSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
+  function buildFix(node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
     if (!isSafeToFix(node)) return null;
 
     return (fixer) => {
@@ -180,7 +180,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * and* "contains less than two children").
    * @param node The fragment node to inspect.
    */
-  function checkNode(node: JSXElementLike) {
+  function checkNode(node: TSESTreeJSXElementLike) {
     // A fragment inside a host component is always redundant — the host
     // element already accepts an arbitrary number of children.
     if (isHostElement(node.parent)) {

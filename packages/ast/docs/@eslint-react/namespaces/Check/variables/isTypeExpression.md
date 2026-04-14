@@ -3,7 +3,7 @@
 # Variable: isTypeExpression
 
 ```ts
-const isTypeExpression: (node: Node | null | undefined) => node is TSAsExpression | TSInstantiationExpression | TSNonNullExpression | TSSatisfiesExpression | TSTypeAssertion;
+const isTypeExpression: (node: Node | null | undefined) => node is TSAsExpression | TSTypeAssertion | TSNonNullExpression | TSSatisfiesExpression | TSInstantiationExpression;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ const isTypeExpression: (node: Node | null | undefined) => node is TSAsExpressio
 
 ## Returns
 
-node is TSAsExpression \| TSInstantiationExpression \| TSNonNullExpression \| TSSatisfiesExpression \| TSTypeAssertion
+node is TSAsExpression \| TSTypeAssertion \| TSNonNullExpression \| TSSatisfiesExpression \| TSInstantiationExpression

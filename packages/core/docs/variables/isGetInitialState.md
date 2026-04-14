@@ -3,7 +3,7 @@
 # ~~Variable: isGetInitialState~~
 
 ```ts
-const isGetInitialState: (node: Node) => node is MethodOrPropertyDefinition;
+const isGetInitialState: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isGetInitialState: (node: Node) => node is MethodOrPropertyDefinition;
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

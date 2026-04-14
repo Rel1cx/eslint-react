@@ -1,4 +1,4 @@
-import type { JSXElementLike } from "@eslint-react/ast";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { JsxEmit, getElementFullType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
 import { flow } from "@local/eff";
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>) {
   const jsxConfig = getJsxConfig(context);
 
   function getReportDescriptor(context: RuleContext) {
-    return (node: JSXElementLike) => ({
+    return (node: TSESTreeJSXElementLike) => ({
       data: {
         json: stringify({
           kind: match(node)

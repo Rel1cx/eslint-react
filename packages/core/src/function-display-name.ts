@@ -1,6 +1,6 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type DisplayNameAssignment = TSESTree.AssignmentExpression & {
+export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
     property: TSESTree.Identifier & { name: "displayName" };
   };
@@ -8,7 +8,7 @@ export type DisplayNameAssignment = TSESTree.AssignmentExpression & {
   right: TSESTree.Literal;
 };
 
-export const displayNameAssignment = [
+export const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT = [
   "AssignmentExpression",
   "[operator='=']",
   "[left.type='MemberExpression']",

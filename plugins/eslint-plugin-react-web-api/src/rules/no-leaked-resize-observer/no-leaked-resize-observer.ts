@@ -1,5 +1,5 @@
 import { Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
@@ -77,7 +77,7 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
   }
 }
 
-function getFunctionKind(node: FunctionExpression): FunctionKind {
+function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return getPhaseKindOfFunction(node) ?? "other";
 }
 
@@ -112,19 +112,19 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("ResizeObserver")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: FunctionExpression }[] = [];
+  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
     phase: ComponentPhaseKind;
-    phaseNode: FunctionExpression;
+    phaseNode: TSESTreeFunction;
   }[] = [];
   const oEntries: OEntry[] = [];
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
   return merge(
     {
-      [":function"](node: FunctionExpression) {
+      [":function"](node: TSESTreeFunction) {
         const kind = getFunctionKind(node);
         fEntries.push({ kind, node });
       },

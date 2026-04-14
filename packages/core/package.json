@@ -42,17 +42,17 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.58.1",
-    "@typescript-eslint/types": "^8.58.1",
-    "@typescript-eslint/utils": "^8.58.1",
+    "@typescript-eslint/scope-manager": "^8.58.2",
+    "@typescript-eslint/types": "^8.58.2",
+    "@typescript-eslint/utils": "^8.58.2",
     "ts-pattern": "^5.9.0",
     "ulid": "^3.0.2"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@typescript-eslint/typescript-estree": "^8.58.1",
-    "tsdown": "^0.21.7"
+    "@typescript-eslint/typescript-estree": "^8.58.2",
+    "tsdown": "^0.21.8"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

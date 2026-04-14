@@ -37,15 +37,15 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/types": "^8.58.1",
-    "@typescript-eslint/typescript-estree": "^8.58.1",
-    "@typescript-eslint/utils": "^8.58.1",
+    "@typescript-eslint/types": "^8.58.2",
+    "@typescript-eslint/typescript-estree": "^8.58.2",
+    "@typescript-eslint/utils": "^8.58.2",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "tsdown": "^0.21.7"
+    "tsdown": "^0.21.8"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

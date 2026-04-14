@@ -3,7 +3,7 @@
 # Function: directive()
 
 ```ts
-function directive(node: Node): node is Directive;
+function directive(node: Node): node is TSESTreeDirective;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ function directive(node: Node): node is Directive;
 
 ## Returns
 
-`node is Directive`
+`node is TSESTreeDirective`

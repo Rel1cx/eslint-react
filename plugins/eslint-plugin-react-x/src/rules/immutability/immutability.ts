@@ -1,5 +1,5 @@
 import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>) {
    */
   const violations: {
     data: Record<string, string>;
-    func: FunctionExpression;
+    func: TSESTreeFunction;
     messageId: MessageID;
     node: TSESTree.Node;
     /**
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>) {
      * function where that parameter was declared. It must be verified as a
      * component or hook at Program:exit time.
      */
-    propsDefiningFunc?: FunctionExpression;
+    propsDefiningFunc?: TSESTreeFunction;
   }[] = [];
 
   // ---------------------------------------------------------------------------
@@ -133,14 +133,14 @@ export function create(context: RuleContext<MessageID, []>) {
    * @param id The identifier to check. May be a reference to the props parameter, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
    * @returns The function node where `id` is the first parameter, or `null`.
    */
-  function getPropsDefiningFunction(id: TSESTree.Identifier): FunctionExpression | null {
+  function getPropsDefiningFunction(id: TSESTree.Identifier): TSESTreeFunction | null {
     const scope = context.sourceCode.getScope(id);
     const variable = findVariable(scope, id);
     if (variable == null) return null;
     for (const def of variable.defs) {
       if (def.type !== DefinitionType.Parameter) continue;
       if (!Check.isFunction(def.node)) continue;
-      const fn = def.node as FunctionExpression;
+      const fn = def.node as TSESTreeFunction;
       const firstParam = fn.params.at(0);
       if (firstParam?.type === AST.Identifier && firstParam.name === id.name) {
         return fn;
@@ -236,7 +236,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         for (const { data, func, messageId, node, propsDefiningFunc } of violations) {
           // Walk up the function chain to find a component or hook boundary
-          let current: FunctionExpression | null = func;
+          let current: TSESTreeFunction | null = func;
           let insideComponentOrHook = false;
           while (current != null) {
             if (funcs.some((f) => f.node === current)) {

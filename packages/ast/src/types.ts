@@ -1,25 +1,19 @@
 import type { TSESTree } from "@typescript-eslint/types";
 
-export type Node = TSESTree.Node;
-export type Program = TSESTree.Program;
-export type Expression = TSESTree.Expression;
-export type Statement = TSESTree.Statement;
-export type Identifier = TSESTree.Identifier;
-
-export type FunctionExpression =
+export type TSESTreeFunction =
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionDeclaration
   | TSESTree.FunctionExpression;
 
-export type ClassExpression =
+export type TSESTreeClass =
   | TSESTree.ClassDeclaration
   | TSESTree.ClassExpression;
 
-export type MethodOrPropertyDefinition =
+export type TSESTreeMethodOrPropertyDefinition =
   | TSESTree.PropertyDefinition
   | TSESTree.MethodDefinition;
 
-export type JSXNode =
+export type TSESTreeJSX =
   | TSESTree.JSXAttribute
   | TSESTree.JSXChild
   | TSESTree.JSXClosingElement
@@ -32,15 +26,15 @@ export type JSXNode =
   | TSESTree.JSXTagNameExpression
   | TSESTree.JSXTextToken;
 
-export type JSXElementLike = TSESTree.JSXElement | TSESTree.JSXFragment;
-export type JSXAttributeLike = TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute;
+export type TSESTreeJSXElementLike = TSESTree.JSXElement | TSESTree.JSXFragment;
+export type TSESTreeJSXAttributeLike = TSESTree.JSXAttribute | TSESTree.JSXSpreadAttribute;
 
-export type Directive = TSESTree.ExpressionStatement & {
+export type TSESTreeDirective = TSESTree.ExpressionStatement & {
   directive: string;
   expression: TSESTree.StringLiteral;
 };
 
-export type TypeExpression =
+export type TSESTreeTypeExpression =
   | TSESTree.TSAsExpression
   | TSESTree.TSTypeAssertion
   | TSESTree.TSNonNullExpression

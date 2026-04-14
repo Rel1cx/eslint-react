@@ -1,9 +1,9 @@
-[@eslint-react/ast](../README.md) / JSXNode
+[@eslint-react/ast](../README.md) / TSESTreeJSX
 
-# Type Alias: JSXNode
+# Type Alias: TSESTreeJSX
 
 ```ts
-type JSXNode = 
+type TSESTreeJSX = 
   | TSESTree.JSXAttribute
   | TSESTree.JSXChild
   | TSESTree.JSXClosingElement

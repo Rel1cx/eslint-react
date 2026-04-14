@@ -1,4 +1,4 @@
-import type { Directive, FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -31,7 +31,7 @@ export interface SemanticFunc extends SemanticNode {
   /** The identifier of the function */
   id: null | TSESTree.Node;
   /** The AST node of the function */
-  node: FunctionExpression;
+  node: TSESTreeFunction;
   /** The name of the function */
   name: string | null;
   /** The return type annotation of the function */
@@ -39,7 +39,7 @@ export interface SemanticFunc extends SemanticNode {
   /** The body of the function */
   body: TSESTree.BlockStatement | TSESTree.Expression;
   /** The directives of the function (ex: "use strict", "use client", "use server", etc.) */
-  directives: Directive[];
+  directives: TSESTreeDirective[];
   /** The parameters of the function */
   parameters: TSESTree.Parameter[];
   /** The type parameters of the function */

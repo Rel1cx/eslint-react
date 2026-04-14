@@ -1,4 +1,3 @@
-import { Select } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
@@ -45,6 +44,10 @@ export function create(context: RuleContext<MessageID, []>) {
       CallExpression(node) {
         if (!core.isCreateContextCall(context, node)) return;
         createCalls.push(node);
+      },
+      // Collect all `*.displayName = '...'` assignments
+      [core.SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: core.FunctionDisplayNameAssignment) {
+        displayNameAssignments.push(node);
       },
       "Program:exit"() {
         for (const call of createCalls) {
@@ -94,10 +97,6 @@ export function create(context: RuleContext<MessageID, []>) {
             });
           }
         }
-      },
-      // Collect all `*.displayName = '...'` assignments
-      [Select.displayNameAssignment](node: Select.DisplayNameAssignment) {
-        displayNameAssignments.push(node);
       },
     },
   );

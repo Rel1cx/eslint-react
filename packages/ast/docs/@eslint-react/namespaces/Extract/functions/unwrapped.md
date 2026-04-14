@@ -4,10 +4,32 @@
 
 ```ts
 function unwrapped(from: Node): 
+  | ArrowFunctionExpression
+  | FunctionDeclaration
+  | FunctionExpression
+  | ClassDeclaration
+  | ClassExpression
+  | PropertyDefinition
+  | MethodDefinition
+  | JSXAttribute
+  | JSXElement
+  | JSXExpressionContainer
+  | JSXSpreadChild
+  | JSXFragment
+  | JSXText
+  | JSXClosingElement
+  | JSXClosingFragment
+  | JSXEmptyExpression
+  | JSXOpeningElement
+  | JSXOpeningFragment
+  | JSXSpreadAttribute
+  | JSXIdentifier
+  | JSXMemberExpression
+  | JSXNamespacedName
+  | ExpressionStatement
   | AccessorProperty
   | ArrayExpression
   | ArrayPattern
-  | ArrowFunctionExpression
   | AssignmentExpression
   | AssignmentPattern
   | AwaitExpression
@@ -18,8 +40,6 @@ function unwrapped(from: Node):
   | CatchClause
   | ChainExpression
   | ClassBody
-  | ClassDeclaration
-  | ClassExpression
   | ConditionalExpression
   | ContinueStatement
   | DebuggerStatement
@@ -30,12 +50,9 @@ function unwrapped(from: Node):
   | ExportDefaultDeclaration
   | ExportNamedDeclaration
   | ExportSpecifier
-  | ExpressionStatement
   | ForInStatement
   | ForOfStatement
   | ForStatement
-  | FunctionDeclaration
-  | FunctionExpression
   | Identifier
   | IfStatement
   | ImportAttribute
@@ -44,34 +61,17 @@ function unwrapped(from: Node):
   | ImportExpression
   | ImportNamespaceSpecifier
   | ImportSpecifier
-  | JSXAttribute
-  | JSXClosingElement
-  | JSXClosingFragment
-  | JSXElement
-  | JSXEmptyExpression
-  | JSXExpressionContainer
-  | JSXFragment
-  | JSXIdentifier
-  | JSXMemberExpression
-  | JSXNamespacedName
-  | JSXOpeningElement
-  | JSXOpeningFragment
-  | JSXSpreadAttribute
-  | JSXSpreadChild
-  | JSXText
   | LabeledStatement
   | Literal
   | LogicalExpression
   | MemberExpression
   | MetaProperty
-  | MethodDefinition
   | NewExpression
   | ObjectExpression
   | ObjectPattern
   | PrivateIdentifier
   | Program
   | Property
-  | PropertyDefinition
   | RestElement
   | ReturnStatement
   | SequenceExpression
@@ -177,10 +177,32 @@ function unwrapped(from: Node):
 
 ## Returns
 
+  \| `ArrowFunctionExpression`
+  \| `FunctionDeclaration`
+  \| `FunctionExpression`
+  \| `ClassDeclaration`
+  \| `ClassExpression`
+  \| `PropertyDefinition`
+  \| `MethodDefinition`
+  \| `JSXAttribute`
+  \| `JSXElement`
+  \| `JSXExpressionContainer`
+  \| `JSXSpreadChild`
+  \| `JSXFragment`
+  \| `JSXText`
+  \| `JSXClosingElement`
+  \| `JSXClosingFragment`
+  \| `JSXEmptyExpression`
+  \| `JSXOpeningElement`
+  \| `JSXOpeningFragment`
+  \| `JSXSpreadAttribute`
+  \| `JSXIdentifier`
+  \| `JSXMemberExpression`
+  \| `JSXNamespacedName`
+  \| `ExpressionStatement`
   \| `AccessorProperty`
   \| `ArrayExpression`
   \| `ArrayPattern`
-  \| `ArrowFunctionExpression`
   \| `AssignmentExpression`
   \| `AssignmentPattern`
   \| `AwaitExpression`
@@ -191,8 +213,6 @@ function unwrapped(from: Node):
   \| `CatchClause`
   \| `ChainExpression`
   \| `ClassBody`
-  \| `ClassDeclaration`
-  \| `ClassExpression`
   \| `ConditionalExpression`
   \| `ContinueStatement`
   \| `DebuggerStatement`
@@ -203,12 +223,9 @@ function unwrapped(from: Node):
   \| `ExportDefaultDeclaration`
   \| `ExportNamedDeclaration`
   \| `ExportSpecifier`
-  \| `ExpressionStatement`
   \| `ForInStatement`
   \| `ForOfStatement`
   \| `ForStatement`
-  \| `FunctionDeclaration`
-  \| `FunctionExpression`
   \| `Identifier`
   \| `IfStatement`
   \| `ImportAttribute`
@@ -217,34 +234,17 @@ function unwrapped(from: Node):
   \| `ImportExpression`
   \| `ImportNamespaceSpecifier`
   \| `ImportSpecifier`
-  \| `JSXAttribute`
-  \| `JSXClosingElement`
-  \| `JSXClosingFragment`
-  \| `JSXElement`
-  \| `JSXEmptyExpression`
-  \| `JSXExpressionContainer`
-  \| `JSXFragment`
-  \| `JSXIdentifier`
-  \| `JSXMemberExpression`
-  \| `JSXNamespacedName`
-  \| `JSXOpeningElement`
-  \| `JSXOpeningFragment`
-  \| `JSXSpreadAttribute`
-  \| `JSXSpreadChild`
-  \| `JSXText`
   \| `LabeledStatement`
   \| `Literal`
   \| `LogicalExpression`
   \| `MemberExpression`
   \| `MetaProperty`
-  \| `MethodDefinition`
   \| `NewExpression`
   \| `ObjectExpression`
   \| `ObjectPattern`
   \| `PrivateIdentifier`
   \| `Program`
   \| `Property`
-  \| `PropertyDefinition`
   \| `RestElement`
   \| `ReturnStatement`
   \| `SequenceExpression`

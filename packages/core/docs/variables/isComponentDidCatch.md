@@ -3,7 +3,7 @@
 # ~~Variable: isComponentDidCatch~~
 
 ```ts
-const isComponentDidCatch: (node: Node) => node is MethodOrPropertyDefinition;
+const isComponentDidCatch: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 ```
 
 ## Parameters
@@ -14,7 +14,7 @@ const isComponentDidCatch: (node: Node) => node is MethodOrPropertyDefinition;
 
 ## Returns
 
-`node is MethodOrPropertyDefinition`
+`node is TSESTreeMethodOrPropertyDefinition`
 
 ## Deprecated
 

@@ -3,7 +3,7 @@
 # Function: getFunctionInitPath()
 
 ```ts
-function getFunctionInitPath(node: FunctionExpression): FunctionInitPath | null;
+function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | null;
 ```
 
 Identifies the initialization path of a function node in the AST.
@@ -12,7 +12,7 @@ Identifies the initialization path of a function node in the AST.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `FunctionExpression` | The function node to analyze. |
+| `node` | `TSESTreeFunction` | The function node to analyze. |
 
 ## Returns
 

@@ -1,5 +1,5 @@
 import { Check } from "@eslint-react/ast";
-import type { FunctionExpression } from "@eslint-react/ast";
+import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -42,7 +42,7 @@ export function isComponentTypeName(typeName: TSESTree.EntityName): boolean {
  * a React component.
  * @param fn The function to check.
  */
-export function isHigherOrderComponent(fn: FunctionExpression): boolean {
+export function isHigherOrderComponent(fn: TSESTreeFunction): boolean {
   return fn.params.some((param) => {
     // Check for PascalCase parameter name (e.g., WrappedComponent, Component)
     if (param.type === AST.Identifier && core.isFunctionComponentNameLoose(param.name)) {
