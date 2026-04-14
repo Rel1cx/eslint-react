@@ -58,6 +58,7 @@
     "node": ">=22.0.0"
   },
   "inlinedDependencies": {
+    "@eslint-react/eslint": "workspace:*",
     "@local/eff": "workspace:*"
   }
 }
