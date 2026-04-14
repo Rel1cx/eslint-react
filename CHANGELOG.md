@@ -1,5 +1,30 @@
 # Changelog
 
+## v5.2.3-beta.0 (2026-04-14)
+
+### 🪄 Improvements
+
+- use `Linter.RulesRecord` from eslint instead of custom `RuleConfig` (`01b79efd2`)
+
+### 📝 Documentation
+
+- **website:** fix rules table 404 pages, closes #1702 (`c8721be38`)
+- **kit:** remove redundant characteristics table for anonymous rules (`5f46e094f`)
+- Update roadmap with completed v5 items (`e48117cdb`)
+- Update flowchart label for Aggregated Plugin (`3122d37dc`)
+- Update Kit docs link to internal route (`1c79c0892`)
+
+### 🏗️ Internal
+
+- add `build:plugins` script and update build path patterns (`b0cc71b6a`)
+- consolidate AST utilities and clean up `packages/ast` (`5b19496a8`)
+- extract ESLint types and utilities into `@eslint-react/eslint` package (`f5cb25679`)
+- move pattern utilities to rule directories and rename assignment target helper (`0b3f8b6b6`)
+- restructure monorepo packages directory layout (`c0cefd0c2`)
+- update Vite to ^8.0.7 in examples (`59165fdc7`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.0.2-beta.0...v5.2.3-beta.0
+
 ## v5.0.2-beta.0 (2026-04-07)
 
 ### 💥 Breaking Changes
