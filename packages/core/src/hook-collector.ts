@@ -2,7 +2,7 @@ import { Extract } from "@eslint-react/ast";
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
-import { ulid } from "ulid";
+import { randomBytes } from "node:crypto";
 
 import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId } from "./hook";
@@ -32,7 +32,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);
-    const key = ulid();
+    const key = randomBytes(8).toString("hex");
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     const entry = {
       id,

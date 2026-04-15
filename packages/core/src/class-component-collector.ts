@@ -3,7 +3,7 @@ import type { TSESTreeClass } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { ulid } from "ulid";
+import { randomBytes } from "node:crypto";
 
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
@@ -41,7 +41,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
       return;
     }
     const id = getClassId(node);
-    const key = ulid();
+    const key = randomBytes(8).toString("hex");
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     components.set(
       key,

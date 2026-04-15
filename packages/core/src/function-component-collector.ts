@@ -4,7 +4,7 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
-import { ulid } from "ulid";
+import { randomBytes } from "node:crypto";
 
 import { getFunctionDirectives, getFunctionInitPath } from "./function";
 import {
@@ -57,7 +57,7 @@ export function getFunctionComponentCollector(
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
-    const key = ulid();
+    const key = randomBytes(8).toString("hex");
     const exp = Traverse.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
     const isExportDefaultDeclaration = exp != null && Extract.unwrap(exp.declaration) === node;
