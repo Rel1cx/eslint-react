@@ -1,0 +1,15 @@
+---
+title: Diagrams
+full: true
+---
+
+import { FunctionComponentCollectorSequence } from "./diagrams.tsx";
+import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+
+<InlineTOC items={toc}>Table of Contents</InlineTOC>
+
+## Function Component Collector Sequence
+
+The following sequence diagram illustrates how `getFunctionComponentCollector` (in `packages/core/src/function-component-collector.ts`) collects function components during an ESLint rule's AST traversal.
+
+<FunctionComponentCollectorSequence />

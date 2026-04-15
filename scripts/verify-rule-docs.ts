@@ -205,7 +205,9 @@ const verifyIndex = Effect.gen(function*() {
   const contentLines = content.split("\n");
   const verifyIndex = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
   const verifyIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
-  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd).map((line) => line.trim());
+  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd === -1 ? undefined : verifyIndexEnd).map((
+    line,
+  ) => line.trim());
 
   yield* Effect.log(ansis.green(`Verifying rules index at ${target}...`));
 

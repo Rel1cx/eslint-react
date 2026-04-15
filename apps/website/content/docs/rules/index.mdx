@@ -3,9 +3,13 @@ title: Rules
 full: true
 ---
 
+import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+
 <Callout type="info">
   Linter rules can have false positives, false negatives, and some rules depend on the `react` or `react-dom` [version](https://react.dev/versions) you are using.
 </Callout>
+
+<InlineTOC items={toc}>Table of Contents</InlineTOC>
 
 - 🌟 Feature - Enhanced or special functionality
 - ⚙️ Configurable - Accepts custom options via rule configuration
@@ -167,7 +171,3 @@ full: true
 | [`is-from-react`](/docs/rules/debug-is-from-react)           | 0️⃣ 0️⃣ | `🐞` | Reports all identifiers initialized from React in JSON format           |
 | [`is-from-ref`](/docs/rules/debug-is-from-ref)               | 0️⃣ 0️⃣ | `🐞` | Reports all identifiers initialized or derived from refs in JSON format |
 | [`jsx`](/docs/rules/debug-jsx)                               | 0️⃣ 0️⃣ | `🐞` | Reports all JSX elements and fragments in JSON format                   |
-
-## See Also
-
-- [Removed Rules ↗](/docs/removed#rules)

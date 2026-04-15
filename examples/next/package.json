@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^16.2.3",
+    "next": "^16.2.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
@@ -18,7 +18,7 @@
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint/compat": "^2.0.5",
     "@eslint/js": "^10.0.1",
-    "@next/eslint-plugin-next": "^16.2.3",
+    "@next/eslint-plugin-next": "^16.2.4",
     "@tsconfig/next": "^2.0.6",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",

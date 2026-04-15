@@ -4,6 +4,10 @@ description: Reference for removed rules, presets, and settings
 full: true
 ---
 
+import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+
+<InlineTOC items={toc}>Table of Contents</InlineTOC>
+
 ## Rules
 
 | Rule                                                         | Replaced by                                                                                           | Removed in | Reason       |
