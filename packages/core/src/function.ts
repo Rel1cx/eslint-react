@@ -262,19 +262,12 @@ export function isFunctionEmpty(node: TSESTreeFunction) {
     && node.body.body.length === 0;
 }
 
-/**
- * Gets all directive expression statements from the top of a function body.
- *
- * @param node - The function AST node.
- * @returns An array of directive expression statements.
- */
-function isDirective(node: TSESTree.Statement): node is TSESTreeDirective {
-  return node.type === AST.ExpressionStatement && node.directive != null;
-}
-
 export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[] {
   const directives: TSESTreeDirective[] = [];
   if (node.body.type !== AST.BlockStatement) return directives;
+  function isDirective(node: TSESTree.Statement): node is TSESTreeDirective {
+    return node.type === AST.ExpressionStatement && node.directive != null;
+  }
   for (const stmt of node.body.body) {
     if (!isDirective(stmt)) continue;
     directives.push(stmt);
