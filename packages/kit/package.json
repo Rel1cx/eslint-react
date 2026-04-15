@@ -43,14 +43,14 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
-    "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@typescript-eslint/utils": "^8.58.2",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {
+    "@eslint-react/ast": "workspace:*",
+    "@eslint-react/eslint": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.2.0",
