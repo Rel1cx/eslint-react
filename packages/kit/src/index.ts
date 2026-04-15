@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
@@ -5,8 +6,8 @@ import { type ESLintReactSettingsNormalized, getSettingsFromContext } from "@esl
 import type { TSESTree } from "@typescript-eslint/types";
 import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";
+import { randomBytes } from "node:crypto";
 import { kebabCase } from "string-ts";
-import { ulid } from "ulid";
 
 import pkg from "../package.json";
 
@@ -228,7 +229,7 @@ export default function build(): Builder {
       };
     },
     use(make: (...args: any[]) => RuleFunction, ...args: any[]): Builder {
-      const name = make.name === "" ? ulid() : kebabCase(make.name);
+      const name = make.name === "" ? randomBytes(8).toString("hex") : kebabCase(make.name);
       Reflect.set(rules, name, {
         meta: {
           fixable: "code",

@@ -742,9 +742,6 @@ importers:
       typescript:
         specifier: '*'
         version: 6.0.2
-      ulid:
-        specifier: ^3.0.2
-        version: 3.0.2
     devDependencies:
       '@local/configs':
         specifier: workspace:*
@@ -847,9 +844,6 @@ importers:
       typescript:
         specifier: '*'
         version: 6.0.2
-      ulid:
-        specifier: ^3.0.2
-        version: 3.0.2
     devDependencies:
       '@local/configs':
         specifier: workspace:*
@@ -6617,10 +6611,6 @@ packages:
 
   ufo@1.6.3:
     resolution: {integrity: sha512-yDJTmhydvl5lJzBmy/hyOAA0d+aqCBuwl818haVdYCRrWV84o7YyeVm4QlVHStqNrrJSTb6jKuFAVqAFsr+K3Q==}
-
-  ulid@3.0.2:
-    resolution: {integrity: sha512-yu26mwteFYzBAot7KVMqFGCVpsF6g8wXfJzQUHvu1no3+rRRSFcSV2nKeYvNPLD2J4b08jYBDhHUjeH0ygIl9w==}
-    hasBin: true
 
   unconfig-core@7.5.0:
     resolution: {integrity: sha512-Su3FauozOGP44ZmKdHy2oE6LPjk51M/TRRjHv2HNCWiDvfvCoxC2lno6jevMA91MYAdCdwP05QnWdWpSbncX/w==}
@@ -12440,8 +12430,6 @@ snapshots:
   uc.micro@2.1.0: {}
 
   ufo@1.6.3: {}
-
-  ulid@3.0.2: {}
 
   unconfig-core@7.5.0:
     dependencies:
