@@ -1,9 +1,9 @@
-[@eslint-react/ast](../../../../README.md) / [Compare](../README.md) / areEqual
+[@eslint-react/ast](../../../../README.md) / [Compare](../README.md) / isEqual
 
-# Variable: areEqual
+# Variable: isEqual
 
 ```ts
-const areEqual: {
+const isEqual: {
   (a: Node): (b: Node) => boolean;
   (a: Node, b: Node): boolean;
 };

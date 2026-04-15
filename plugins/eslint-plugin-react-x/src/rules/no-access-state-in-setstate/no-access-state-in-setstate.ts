@@ -111,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Check if the property being accessed is `state`
-        if (Extract.propertyName(node.property) !== "state") {
+        if (Extract.getPropertyName(node.property) !== "state") {
           return;
         }
         // Report an issue if `this.state` is accessed
@@ -160,7 +160,7 @@ export function create(context: RuleContext<MessageID, []>) {
           .some((prop) =>
             prop.type === AST.Property
             && isKeyLiteral(prop, prop.key)
-            && Extract.propertyName(prop.key) === "state"
+            && Extract.getPropertyName(prop.key) === "state"
           );
         if (!hasState) {
           return;

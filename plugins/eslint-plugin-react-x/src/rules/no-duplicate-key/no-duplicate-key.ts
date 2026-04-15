@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
       return false;
     }
     // Compare the AST nodes of the values for equality
-    return Compare.areEqual(aValue, bValue);
+    return Compare.isEqual(aValue, bValue);
   }
   return merge(
     {
@@ -90,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>) {
             const arg0 = call?.arguments[0];
             if (call == null || arg0 == null) return;
             // Ensure we are inside the callback of the .map() call
-            if (Extract.unwrapped(arg0) !== iter) {
+            if (Extract.unwrap(arg0) !== iter) {
               return;
             }
             // Flag literal keys in .map() calls as they are a common source of duplication

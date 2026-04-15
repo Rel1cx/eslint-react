@@ -6,8 +6,8 @@
 
 | Function | Description |
 | ------ | ------ |
-| [fullyQualifiedName](functions/fullyQualifiedName.md) | - |
-| [humanReadableKind](functions/humanReadableKind.md) | - |
-| [propertyName](functions/propertyName.md) | - |
-| [rootIdentifier](functions/rootIdentifier.md) | - |
-| [unwrapped](functions/unwrapped.md) | - |
+| [getFullyQualifiedName](functions/getFullyQualifiedName.md) | - |
+| [getHumanReadableKind](functions/getHumanReadableKind.md) | - |
+| [getPropertyName](functions/getPropertyName.md) | - |
+| [getRootIdentifier](functions/getRootIdentifier.md) | - |
+| [unwrap](functions/unwrap.md) | - |

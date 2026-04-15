@@ -2,13 +2,12 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ASTUtils } from "@typescript-eslint/utils";
 import type { TSESTreeDirective } from "./types";
 
-type LiteralType = "boolean" | "null" | "number" | "regexp" | "string";
-
 // Base guards
 export const is = ASTUtils.isNodeOfType;
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
 // Literal check (curried)
+type LiteralType = "boolean" | "null" | "number" | "regexp" | "string";
 export function isLiteral(): (node: TSESTree.Node) => node is TSESTree.Literal;
 export function isLiteral(kind: "boolean"): (node: TSESTree.Node) => node is TSESTree.BooleanLiteral;
 export function isLiteral(kind: "null"): (node: TSESTree.Node) => node is TSESTree.NullLiteral;

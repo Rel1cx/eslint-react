@@ -172,7 +172,7 @@ export function create(context: RuleContext<MessageID, []>) {
     switch (true) {
       case a.type === AST.MemberExpression
         && b.type === AST.MemberExpression:
-        return Compare.areEqual(a.object, b.object);
+        return Compare.isEqual(a.object, b.object);
       default:
         return false;
     }
@@ -184,7 +184,7 @@ export function create(context: RuleContext<MessageID, []>) {
       return false;
     }
     return isSameObject(aCallee, rCallee)
-      && Compare.areEqual(aListener, rListener)
+      && Compare.isEqual(aListener, rListener)
       && isValueEqual(context, aType, rType)
       && aCapture === rCapture;
   }

@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>) {
     let parent: TSESTree.Node = node.parent;
     while (Check.isTypeExpression(parent)) parent = parent.parent;
     if (!isMatching({ type: AST.BinaryExpression, operator: P.union("===", "==", "!==", "!=") }, parent)) return false;
-    const isLeftSide = parent.left === node || Extract.unwrapped(parent.left) === node;
+    const isLeftSide = parent.left === node || Extract.unwrap(parent.left) === node;
     const otherSide = isLeftSide ? parent.right : parent.left;
     if (otherSide.type !== AST.Literal || otherSide.value != null) return false;
     return parent.parent.type === AST.IfStatement && parent.parent.test === parent;
@@ -75,13 +75,13 @@ export function create(context: RuleContext<MessageID, []>) {
     if (op !== "===" && op !== "==" && op !== "!==" && op !== "!=") return false;
     const { left, right } = test;
     const checkSides = (a: TSESTree.Node, b: TSESTree.Node) => {
-      a = Check.isTypeExpression(a) ? Extract.unwrapped(a) : a;
+      a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
       return a.type === AST.MemberExpression
         && a.object.type === AST.Identifier
         && a.object.name === refName
         && b.type === AST.Literal
         && b.value == null
-        && Extract.propertyName(a.property) === "current";
+        && Extract.getPropertyName(a.property) === "current";
     };
     return checkSides(left, right) || checkSides(right, left);
   }
@@ -133,13 +133,13 @@ export function create(context: RuleContext<MessageID, []>) {
                 {
                   type: AST.AssignmentExpression,
                 },
-                (p) => p.left === node || Extract.unwrapped(p.left) === node,
+                (p) => p.left === node || Extract.unwrap(p.left) === node,
               )
               .with(
                 {
                   type: AST.UpdateExpression,
                 },
-                (p) => p.argument === node || Extract.unwrapped(p.argument) === node,
+                (p) => p.argument === node || Extract.unwrap(p.argument) === node,
               )
               .otherwise(() => false);
           })(),

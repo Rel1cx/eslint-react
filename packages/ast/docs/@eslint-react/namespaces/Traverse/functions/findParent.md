@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function findParent<T>(of: Node | null, where: Predicate<T>): T | null;
+function findParent<T>(node: Node | null, test: Predicate<T>): T | null;
 ```
 
 ### Type Parameters
@@ -18,8 +18,8 @@ function findParent<T>(of: Node | null, where: Predicate<T>): T | null;
 
 | Parameter | Type |
 | ------ | ------ |
-| `of` | `Node` \| `null` |
-| `where` | [`Predicate`](../type-aliases/Predicate.md)\<`T`\> |
+| `node` | `Node` \| `null` |
+| `test` | `Predicate`\<`T`\> |
 
 ### Returns
 
@@ -28,15 +28,15 @@ function findParent<T>(of: Node | null, where: Predicate<T>): T | null;
 ## Call Signature
 
 ```ts
-function findParent(of: Node | null, where: NodePredicate): Node | null;
+function findParent(node: Node | null, test: NodePredicate): Node | null;
 ```
 
 ### Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `of` | `Node` \| `null` |
-| `where` | [`NodePredicate`](../type-aliases/NodePredicate.md) |
+| `node` | `Node` \| `null` |
+| `test` | `NodePredicate` |
 
 ### Returns
 

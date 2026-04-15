@@ -174,7 +174,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
 
         // Find the root identifier (handles `state`, `state.nested`, etc.)
-        const rootId = Extract.rootIdentifier(object);
+        const rootId = Extract.getRootIdentifier(object);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 
@@ -208,7 +208,7 @@ export function create(context: RuleContext<MessageID, []>) {
        */
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.left.type !== AST.MemberExpression) return;
-        const rootId = Extract.rootIdentifier(node.left);
+        const rootId = Extract.getRootIdentifier(node.left);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
 

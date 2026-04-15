@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
     // Compare definitions and usages to find unused members
     for (const def of defs) {
-      const methodName = Extract.propertyName(def);
+      const methodName = Extract.getPropertyName(def);
       if (methodName == null) {
         continue;
       }
@@ -170,7 +170,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Detect usages like `this.property()` or `x = this.property`
-        const propertyName = Extract.propertyName(node.property);
+        const propertyName = Extract.getPropertyName(node.property);
         if (propertyName != null) {
           propertyUsages.get(currentClass)?.add(propertyName);
         }
@@ -193,7 +193,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (node.init != null && node.init.type === AST.ThisExpression && node.id.type === AST.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
-              const keyName = Extract.propertyName(prop.key);
+              const keyName = Extract.getPropertyName(prop.key);
               if (keyName != null) {
                 // Add destructured properties to the usages set
                 propertyUsages.get(currentClass)?.add(keyName);

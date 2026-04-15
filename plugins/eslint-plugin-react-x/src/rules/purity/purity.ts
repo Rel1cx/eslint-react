@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>) {
     cCollector.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
-        const expr = Extract.unwrapped(node.callee);
+        const expr = Extract.unwrap(node.callee);
         switch (true) {
           case expr.type === AST.Identifier: {
             if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
@@ -71,7 +71,7 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       NewExpression(node: TSESTree.NewExpression) {
-        const expr = Extract.unwrapped(node.callee);
+        const expr = Extract.unwrap(node.callee);
         if (expr.type !== AST.Identifier) return;
         if (!IMPURE_CTORS.has(expr.name)) return;
         // `new Date(arg)` with arguments is pure (deterministic),

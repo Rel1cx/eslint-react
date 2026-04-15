@@ -172,7 +172,7 @@ export function isUseStateLikeCall(
         || additionalStateHooks.test(node.callee.name);
     case node.callee.type === AST.MemberExpression
       && node.callee.property.type === AST.Identifier:
-      return Extract.propertyName(node.callee.property) === "useState"
+      return Extract.getPropertyName(node.callee.property) === "useState"
         || additionalStateHooks.test(node.callee.property.name);
   }
   return false;

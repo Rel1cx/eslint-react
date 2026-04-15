@@ -22,7 +22,7 @@ const expectedViolations = [
   },
   {
     data: {
-      kind: "RegExp literal",
+      kind: "regexp literal",
       propName: "c",
     },
     messageId: MESSAGE_ID,
@@ -57,7 +57,7 @@ const expectedViolations = [
   },
   {
     data: {
-      kind: "JSX element",
+      kind: "jsx element",
       propName: "h",
     },
     messageId: MESSAGE_ID,

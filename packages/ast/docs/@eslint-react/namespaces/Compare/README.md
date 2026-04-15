@@ -6,4 +6,4 @@
 
 | Variable | Description |
 | ------ | ------ |
-| [areEqual](variables/areEqual.md) | Check if two nodes are equal |
+| [isEqual](variables/isEqual.md) | Check if two nodes are equal |

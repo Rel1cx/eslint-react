@@ -39,7 +39,7 @@ export function findAttribute(
 ): TSESTreeJSXAttributeLike | undefined {
   function findProperty(of: TSESTree.ObjectLiteralElement[], named: string): TSESTree.Property | null {
     for (const property of of) {
-      if (property.type === AST.Property && Extract.propertyName(property.key) === named) {
+      if (property.type === AST.Property && Extract.getPropertyName(property.key) === named) {
         return property;
       }
       if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {

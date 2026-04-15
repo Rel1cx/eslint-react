@@ -33,7 +33,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);
     const key = ulid();
-    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     const entry = {
       id,
       key,

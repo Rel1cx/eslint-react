@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>) {
               : "Consider wrapping it in a useMemo hook.";
             context.report({
               data: {
-                kind: Extract.humanReadableKind(constructionNode),
+                kind: Extract.getHumanReadableKind(constructionNode),
                 suggestion,
               },
               messageId: "unstableContextValue",

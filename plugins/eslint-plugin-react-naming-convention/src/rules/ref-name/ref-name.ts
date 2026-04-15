@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
       CallExpression(node: TSESTree.CallExpression) {
         if (!core.isUseRefCall(context, node)) return;
         // https://github.com/Rel1cx/eslint-react/issues/1375
-        if (Extract.unwrapped(node.parent).type === AST.MemberExpression) return;
+        if (Extract.unwrap(node.parent).type === AST.MemberExpression) return;
         const [id, name] = match(resolveEnclosingAssignmentTarget(node))
           // for cases like: const inputRef = useRef();
           .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)

@@ -1,9 +1,9 @@
-[@eslint-react/ast](../../../../README.md) / [Extract](../README.md) / unwrapped
+[@eslint-react/ast](../../../../README.md) / [Extract](../README.md) / unwrap
 
-# Function: unwrapped()
+# Function: unwrap()
 
 ```ts
-function unwrapped(from: Node): 
+function unwrap(node: Node): 
   | ArrowFunctionExpression
   | FunctionDeclaration
   | FunctionExpression
@@ -173,7 +173,7 @@ function unwrapped(from: Node):
 
 | Parameter | Type |
 | ------ | ------ |
-| `from` | `Node` |
+| `node` | `Node` |
 
 ## Returns
 

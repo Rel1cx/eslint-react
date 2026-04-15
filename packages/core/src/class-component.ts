@@ -190,7 +190,7 @@ export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   return left.type === AST.MemberExpression
     && left.object.type === AST.ThisExpression
-    && Extract.propertyName(left.property) === "state";
+    && Extract.getPropertyName(left.property) === "state";
 }
 
 // #endregion

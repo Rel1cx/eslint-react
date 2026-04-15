@@ -99,9 +99,9 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function getCallName(node: TSESTree.Node) {
     if (node.type === AST.CallExpression) {
-      return Extract.fullyQualifiedName(node.callee, getText);
+      return Extract.getFullyQualifiedName(node.callee, getText);
     }
-    return Extract.fullyQualifiedName(node, getText);
+    return Extract.getFullyQualifiedName(node, getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {

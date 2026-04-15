@@ -122,7 +122,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           context.report({
             data: {
-              kind: Extract.humanReadableKind(right),
+              kind: Extract.getHumanReadableKind(right),
             },
             messageId: "default",
             node: right,

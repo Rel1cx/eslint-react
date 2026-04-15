@@ -60,9 +60,9 @@ export function getFunctionComponentCollector(
     const key = ulid();
     const exp = Traverse.findParent(node, (n) => n.type === AST.ExportDefaultDeclaration);
     const isExportDefault = exp != null;
-    const isExportDefaultDeclaration = exp != null && Extract.unwrapped(exp.declaration) === node;
+    const isExportDefaultDeclaration = exp != null && Extract.unwrap(exp.declaration) === node;
     const id = getFunctionComponentId(context, node);
-    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     const initPath = getFunctionInitPath(node);
     const directives = getFunctionDirectives(node);
     const entry = {

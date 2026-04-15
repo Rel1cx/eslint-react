@@ -42,7 +42,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
     }
     const id = getClassId(node);
     const key = ulid();
-    const name = id == null ? null : Extract.fullyQualifiedName(id, getText);
+    const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
     components.set(
       key,
       {

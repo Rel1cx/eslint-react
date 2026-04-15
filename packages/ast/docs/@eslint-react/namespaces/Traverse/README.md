@@ -2,13 +2,6 @@
 
 # Traverse
 
-## Type Aliases
-
-| Type Alias | Description |
-| ------ | ------ |
-| [NodePredicate](type-aliases/NodePredicate.md) | - |
-| [Predicate](type-aliases/Predicate.md) | - |
-
 ## Functions
 
 | Function | Description |

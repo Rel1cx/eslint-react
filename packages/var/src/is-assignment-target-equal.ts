@@ -18,5 +18,5 @@ export function isAssignmentTargetEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ) {
-  return Compare.areEqual(a, b) || isValueEqual(context, a, b);
+  return Compare.isEqual(a, b) || isValueEqual(context, a, b);
 }

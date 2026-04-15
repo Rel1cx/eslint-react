@@ -11,12 +11,12 @@ import * as Extract from "./extract";
  * @returns `true` if node equal
  * @see https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/util/isNodeEqual.ts
  */
-export const areEqual: {
+export const isEqual: {
   (a: TSESTree.Node): (b: TSESTree.Node) => boolean;
   (a: TSESTree.Node, b: TSESTree.Node): boolean;
 } = dual(2, (a: TSESTree.Node, b: TSESTree.Node): boolean => {
-  a = Check.isTypeExpression(a) ? Extract.unwrapped(a) : a;
-  b = Check.isTypeExpression(b) ? Extract.unwrapped(b) : b;
+  a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
+  b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
   switch (true) {
     case a === b:
       return true;
@@ -43,7 +43,7 @@ export const areEqual: {
       while (i--) {
         const exprA = a.expressions[i]!;
         const exprB = b.expressions[i]!;
-        if (!areEqual(exprA, exprB)) {
+        if (!isEqual(exprA, exprB)) {
           return false;
         }
       }
@@ -57,28 +57,28 @@ export const areEqual: {
       return a.name === b.name;
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression:
-      return areEqual(a.property, b.property)
-        && areEqual(a.object, b.object);
+      return isEqual(a.property, b.property)
+        && isEqual(a.object, b.object);
     case a.type === AST.JSXIdentifier
       && b.type === AST.JSXIdentifier:
       return a.name === b.name;
     case a.type === AST.JSXNamespacedName
       && b.type === AST.JSXNamespacedName:
-      return areEqual(a.namespace, b.namespace)
-        && areEqual(a.name, b.name);
+      return isEqual(a.namespace, b.namespace)
+        && isEqual(a.name, b.name);
     case a.type === AST.JSXMemberExpression
       && b.type === AST.JSXMemberExpression:
-      return areEqual(a.object, b.object)
-        && areEqual(a.property, b.property);
+      return isEqual(a.object, b.object)
+        && isEqual(a.property, b.property);
     case a.type === AST.JSXAttribute
       && b.type === AST.JSXAttribute: {
-      if (!areEqual(a.name, b.name)) {
+      if (!isEqual(a.name, b.name)) {
         return false;
       }
       if (a.value == null || b.value == null) {
         return a.value === b.value;
       }
-      return areEqual(a.value, b.value);
+      return isEqual(a.value, b.value);
     }
     case a.type === AST.ThisExpression
       && b.type === AST.ThisExpression:

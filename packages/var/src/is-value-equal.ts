@@ -24,8 +24,8 @@ export function isValueEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ): boolean {
-  a = Check.isTypeExpression(a) ? Extract.unwrapped(a) : a;
-  b = Check.isTypeExpression(b) ? Extract.unwrapped(b) : b;
+  a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
+  b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
   const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
   switch (true) {
     case a === b: {
@@ -56,13 +56,13 @@ export function isValueEqual(
           && bDefNodeParent?.type === AST.CallExpression
           && Check.isFunction(aDefNode)
           && Check.isFunction(bDefNode): {
-          if (!Compare.areEqual(aDefNodeParent.callee, bDefNodeParent.callee)) {
+          if (!Compare.isEqual(aDefNodeParent.callee, bDefNodeParent.callee)) {
             return false;
           }
           const aParams = aDefNode.params;
           const bParams = bDefNode.params;
-          const aPos = aParams.findIndex((x) => Compare.areEqual(x, a));
-          const bPos = bParams.findIndex((x) => Compare.areEqual(x, b));
+          const aPos = aParams.findIndex((x) => Compare.isEqual(x, a));
+          const bPos = bParams.findIndex((x) => Compare.isEqual(x, b));
           return aPos !== -1 && bPos !== -1 && aPos === bPos;
         }
         case aDefParentParent?.type === AST.ForOfStatement
@@ -74,7 +74,7 @@ export function isValueEqual(
           }
           const aRight = aDefParentParent.right;
           const bRight = bDefParentParent.right;
-          if (!Compare.areEqual(aRight, bRight)) {
+          if (!Compare.isEqual(aRight, bRight)) {
             return false;
           }
           // When both variables come from the SAME for-of statement (e.g.
@@ -97,7 +97,7 @@ export function isValueEqual(
       && b.type === AST.MemberExpression: {
       const propEqual = a.computed && b.computed
         ? isValueEqual(context, a.property, b.property)
-        : Compare.areEqual(a.property, b.property);
+        : Compare.isEqual(a.property, b.property);
       return propEqual && isValueEqual(context, a.object, b.object);
     }
     case a.type === AST.ThisExpression

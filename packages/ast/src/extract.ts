@@ -3,77 +3,64 @@ import { delimiterCase, replace, toLowerCase } from "string-ts";
 import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
 
-export function unwrapped(
-  from: TSESTree.Node,
-): Exclude<TSESTree.Node, TSESTreeTypeExpression> {
-  if (Check.isTypeExpression(from)) {
-    return unwrapped(from.expression);
+export function unwrap(node: TSESTree.Node): Exclude<TSESTree.Node, TSESTreeTypeExpression> {
+  if (Check.isTypeExpression(node)) {
+    return unwrap(node.expression);
   }
-  return from;
+  return node;
 }
 
-export function rootIdentifier(
-  from: TSESTree.Expression | TSESTree.PrivateIdentifier,
-): TSESTree.Identifier | null {
-  const node = unwrapped(from);
-  if (node.type === AST.Identifier) return node;
-  if (node.type === AST.MemberExpression) {
-    return rootIdentifier(node.object);
+export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateIdentifier): TSESTree.Identifier | null {
+  const expr = unwrap(node);
+  if (expr.type === AST.Identifier) return expr;
+  if (expr.type === AST.MemberExpression) {
+    return getRootIdentifier(expr.object);
   }
   return null;
 }
 
-export function propertyName(from: TSESTree.Node): string | null {
-  if (Check.isTypeExpression(from)) {
-    return propertyName(unwrapped(from));
+export function getPropertyName(node: TSESTree.Node): string | null {
+  if (Check.isTypeExpression(node)) {
+    return getPropertyName(unwrap(node));
   }
-  if (from.type === AST.Identifier || from.type === AST.PrivateIdentifier) {
-    return from.name;
+  if (node.type === AST.Identifier || node.type === AST.PrivateIdentifier) {
+    return node.name;
   }
-  if (from.type === AST.Literal) {
-    return String(from.value);
+  if (node.type === AST.Literal) {
+    return String(node.value);
   }
-  if (from.type === AST.TemplateLiteral && from.expressions.length === 0) {
-    return from.quasis[0]?.value.cooked ?? from.quasis[0]?.value.raw ?? null;
+  if (node.type === AST.TemplateLiteral && node.expressions.length === 0) {
+    return node.quasis[0]?.value.cooked ?? node.quasis[0]?.value.raw ?? null;
   }
   return null;
 }
 
-export function fullyQualifiedName(
-  from: TSESTree.Node,
-  using: (node: TSESTree.Node) => string,
-): string {
-  switch (from.type) {
+export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+  switch (node.type) {
     case AST.Identifier:
     case AST.JSXIdentifier:
     case AST.PrivateIdentifier:
-      return from.name;
+      return node.name;
     case AST.MemberExpression:
     case AST.JSXMemberExpression:
-      return `${fullyQualifiedName(from.object, using)}.${fullyQualifiedName(from.property, using)}`;
+      return `${getFullyQualifiedName(node.object, getText)}.${getFullyQualifiedName(node.property, getText)}`;
     case AST.JSXNamespacedName:
-      return `${from.namespace.name}:${from.name.name}`;
+      return `${node.namespace.name}:${node.name.name}`;
     case AST.JSXText:
-      return from.value;
+      return node.value;
     case AST.Literal:
-      return from.raw;
+      return node.raw;
     default:
-      return using(from);
+      return getText(node);
   }
 }
 
-export function humanReadableKind(
-  of: TSESTree.Node,
-  delimiter: string = " ",
-): string {
-  if (of.type === AST.Literal) {
-    if ("regex" in of) return "RegExp literal";
+export function getHumanReadableKind(node: TSESTree.Node) {
+  if (node.type === AST.Literal) {
+    if ("regex" in node) return "regexp literal" as const;
     // tsl-ignore dx/nullish
-    if (of.value === null) return "null literal";
-    return `${typeof of.value} literal`;
+    if (node.value === null) return "null literal" as const;
+    return `${typeof node.value} literal` as const;
   }
-  if (Check.isJSX(of)) {
-    return `JSX ${toLowerCase(delimiterCase(replace(of.type, "JSX", ""), delimiter))}`;
-  }
-  return toLowerCase(delimiterCase(of.type, delimiter));
+  return toLowerCase(delimiterCase(node.type, " "));
 }
