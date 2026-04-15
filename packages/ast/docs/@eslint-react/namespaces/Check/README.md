@@ -24,7 +24,6 @@
 
 | Function | Description |
 | ------ | ------ |
-| [directive](functions/directive.md) | - |
-| [identifier](functions/identifier.md) | - |
-| [literal](functions/literal.md) | - |
-| [thisExpression](functions/thisExpression.md) | - |
+| [isDirective](functions/isDirective.md) | - |
+| [isIdentifier](functions/isIdentifier.md) | - |
+| [isLiteral](functions/isLiteral.md) | - |

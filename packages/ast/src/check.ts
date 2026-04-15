@@ -8,44 +8,44 @@ type LiteralType = "boolean" | "null" | "number" | "regexp" | "string";
 export const is = ASTUtils.isNodeOfType;
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
+// Literal check (curried)
+export function isLiteral(): (node: TSESTree.Node) => node is TSESTree.Literal;
+export function isLiteral(kind: "boolean"): (node: TSESTree.Node) => node is TSESTree.BooleanLiteral;
+export function isLiteral(kind: "null"): (node: TSESTree.Node) => node is TSESTree.NullLiteral;
+export function isLiteral(kind: "number"): (node: TSESTree.Node) => node is TSESTree.NumberLiteral;
+export function isLiteral(kind: "regexp"): (node: TSESTree.Node) => node is TSESTree.RegExpLiteral;
+export function isLiteral(kind: "string"): (node: TSESTree.Node) => node is TSESTree.StringLiteral;
+export function isLiteral(kind?: LiteralType): (node: TSESTree.Node) => boolean {
+  return (node) => {
+    if (node.type !== AST.Literal) return false;
+    if (kind == null) return true;
+    switch (kind) {
+      case "boolean":
+        return typeof node.value === "boolean";
+      case "null":
+        // tsl-ignore dx/nullish
+        return node.value === null;
+      case "number":
+        return typeof node.value === "number";
+      case "regexp":
+        return "regex" in node;
+      case "string":
+        return typeof node.value === "string";
+      default:
+        return false;
+    }
+  };
+}
+
+// Directive check
+export function isDirective(name: string) {
+  return (node: TSESTree.Node): node is TSESTreeDirective =>
+    node.type === AST.ExpressionStatement && node.directive === name;
+}
+
 // Identifier check
-export function identifier(
-  node: TSESTree.Node | null,
-  named?: string,
-): node is TSESTree.Identifier {
-  return node?.type === AST.Identifier && (named == null || node.name === named);
-}
-
-// Literal check (overloaded)
-export function literal(node: TSESTree.Node): node is TSESTree.Literal;
-export function literal(node: TSESTree.Node, ofKind: "boolean"): node is TSESTree.BooleanLiteral;
-export function literal(node: TSESTree.Node, ofKind: "null"): node is TSESTree.NullLiteral;
-export function literal(node: TSESTree.Node, ofKind: "number"): node is TSESTree.NumberLiteral;
-export function literal(node: TSESTree.Node, ofKind: "regexp"): node is TSESTree.RegExpLiteral;
-export function literal(node: TSESTree.Node, ofKind: "string"): node is TSESTree.StringLiteral;
-export function literal(node: TSESTree.Node, ofKind?: LiteralType): boolean {
-  if (node.type !== AST.Literal) return false;
-  if (ofKind == null) return true;
-  switch (ofKind) {
-    case "boolean":
-      return typeof node.value === "boolean";
-    case "null":
-      // tsl-ignore dx/nullish
-      return node.value === null;
-    case "number":
-      return typeof node.value === "number";
-    case "regexp":
-      return "regex" in node;
-    case "string":
-      return typeof node.value === "string";
-    default:
-      return false;
-  }
-}
-
-// Expression check
-export function thisExpression(expression: TSESTree.Expression): boolean {
-  return expression.type === AST.ThisExpression;
+export function isIdentifier(name: string) {
+  return (node: TSESTree.Node): node is TSESTree.Identifier => node.type === AST.Identifier && node.name === name;
 }
 
 // Composite type guards
@@ -112,8 +112,3 @@ export const isTypeAssertionExpression = isOneOf([
   AST.TSNonNullExpression,
   AST.TSSatisfiesExpression,
 ]);
-
-// Directive check
-export function directive(node: TSESTree.Node): node is TSESTreeDirective {
-  return node.type === AST.ExpressionStatement && node.directive != null;
-}

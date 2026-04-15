@@ -117,25 +117,25 @@ export function computeObjectType(
     }
     case AST.CallExpression: {
       switch (true) {
-        case Check.identifier(node.callee, "Boolean"):
+        case Check.isIdentifier("Boolean")(node.callee):
           return null;
-        case Check.identifier(node.callee, "String"):
+        case Check.isIdentifier("String")(node.callee):
           return null;
-        case Check.identifier(node.callee, "Number"):
+        case Check.isIdentifier("Number")(node.callee):
           return null;
-        case Check.identifier(node.callee, "Object"):
+        case Check.isIdentifier("Object")(node.callee):
           return { kind: "plain", node } as const;
-        case Check.identifier(node.callee, "Array"):
+        case Check.isIdentifier("Array")(node.callee):
           return { kind: "array", node } as const;
-        case Check.identifier(node.callee, "RegExp"):
+        case Check.isIdentifier("RegExp")(node.callee):
           return { kind: "regexp", node } as const;
       }
 
       // Handle static factory methods (e.g. Array.from(), Object.create())
       if (
         node.callee.type === AST.MemberExpression
-        && Check.identifier(node.callee.object)
-        && Check.identifier(node.callee.property)
+        && node.callee.object.type === AST.Identifier
+        && node.callee.property.type === AST.Identifier
       ) {
         const objName = node.callee.object.name;
         const methodName = node.callee.property.name;

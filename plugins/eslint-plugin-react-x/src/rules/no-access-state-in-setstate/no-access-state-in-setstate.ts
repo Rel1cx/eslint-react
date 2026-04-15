@@ -92,7 +92,7 @@ export function create(context: RuleContext<MessageID, []>) {
       // Main logic for detecting `this.state` access
       MemberExpression(node) {
         // Check for `this` expressions
-        if (!Check.thisExpression(node.object)) {
+        if (node.object.type !== AST.ThisExpression) {
           return;
         }
         // Ensure we are inside a React class component
@@ -150,7 +150,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Check for destructuring from `this`
-        if (node.init == null || !Check.thisExpression(node.init) || node.id.type !== AST.ObjectPattern) {
+        if (node.init == null || node.init.type !== AST.ThisExpression || node.id.type !== AST.ObjectPattern) {
           return;
         }
         // Check if `state` is one of the destructured properties

@@ -123,7 +123,7 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       // Track ref.current accesses
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (!Check.identifier(node.property, "current")) return;
+        if (!Check.isIdentifier("current")(node.property)) return;
         refAccesses.push({
           isWrite: (() => {
             let parent: TSESTree.Node = node.parent;

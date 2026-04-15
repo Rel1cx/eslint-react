@@ -33,10 +33,10 @@ export function isProcessEnvNodeEnvCompare(
   if (node == null) return false;
   if (node.type !== AST.BinaryExpression) return false;
   if (node.operator !== operator) return false;
-  if (isProcessEnvNodeEnv(node.left) && Check.literal(node.right, "string")) {
+  if (isProcessEnvNodeEnv(node.left) && Check.isLiteral("string")(node.right)) {
     return node.right.value === value;
   }
-  if (Check.literal(node.left, "string") && isProcessEnvNodeEnv(node.right)) {
+  if (Check.isLiteral("string")(node.left) && isProcessEnvNodeEnv(node.right)) {
     return node.left.value === value;
   }
   return false;

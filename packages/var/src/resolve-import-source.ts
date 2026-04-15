@@ -28,7 +28,7 @@ export function resolveImportSource(
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
-    if (arg0 == null || !Check.literal(arg0, "string")) {
+    if (arg0 == null || !Check.isLiteral("string")(arg0)) {
       return null;
     }
     // check for: require('source') or require('source/...')

@@ -268,11 +268,15 @@ export function isFunctionEmpty(node: TSESTreeFunction) {
  * @param node - The function AST node.
  * @returns An array of directive expression statements.
  */
+function isDirective(node: TSESTree.Statement): node is TSESTreeDirective {
+  return node.type === AST.ExpressionStatement && node.directive != null;
+}
+
 export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[] {
   const directives: TSESTreeDirective[] = [];
   if (node.body.type !== AST.BlockStatement) return directives;
   for (const stmt of node.body.body) {
-    if (!Check.directive(stmt)) continue;
+    if (!isDirective(stmt)) continue;
     directives.push(stmt);
   }
   return directives;

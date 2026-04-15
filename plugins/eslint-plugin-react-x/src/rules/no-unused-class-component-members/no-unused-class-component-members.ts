@@ -161,7 +161,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Check for expressions like `this.property`
-        if (!Check.thisExpression(node.object) || !isKeyLiteral(node, node.property)) {
+        if (node.object.type !== AST.ThisExpression || !isKeyLiteral(node, node.property)) {
           return;
         }
         // Detect assignments like `this.property = xxx` as definitions
@@ -190,7 +190,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
-        if (node.init != null && Check.thisExpression(node.init) && node.id.type === AST.ObjectPattern) {
+        if (node.init != null && node.init.type === AST.ThisExpression && node.id.type === AST.ObjectPattern) {
           for (const prop of node.id.properties) {
             if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
               const keyName = Extract.propertyName(prop.key);

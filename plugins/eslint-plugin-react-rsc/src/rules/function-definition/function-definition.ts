@@ -45,9 +45,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `use server` is not present in the entire file for performance
   if (!context.sourceCode.text.includes("use server")) return {};
 
-  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(
-    (stmt) => Check.directive(stmt) && stmt.directive === "use server",
-  );
+  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(Check.isDirective("use server"));
 
   /**
    * Check if `node` is an async function, and report if not
@@ -121,7 +119,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (reportNonAsyncFunction(decl, "file")) {
           return;
         }
-        if (Check.identifier(decl)) {
+        if (decl.type === AST.Identifier) {
           findAndCheckExportedFunctionDeclarations(decl, node);
         }
       },

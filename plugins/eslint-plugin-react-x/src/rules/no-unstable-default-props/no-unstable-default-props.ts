@@ -11,6 +11,8 @@ import { match } from "ts-pattern";
 
 import { createRule } from "../../utils";
 
+import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR } from "./lib";
+
 export const RULE_NAME = "no-unstable-default-props";
 
 export const RULE_FEATURES = ["CFG"] as const satisfies RuleFeature[];
@@ -75,23 +77,8 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 export function create(context: RuleContext<MessageID, Options>, [options]: Options) {
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (
-    compilationMode === "annotation"
-    && context.sourceCode.ast.body.some((stmt) => Check.directive(stmt) && stmt.directive === "use memo")
-  ) {
-    return {};
-  }
+  if (compilationMode === "annotation" && context.sourceCode.ast.body.some(Check.isDirective("use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
-  const SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR = [
-    "VariableDeclarator",
-    "[id.type='ObjectPattern']",
-    "[init.type='Identifier']",
-  ].join("");
-
-  type ObjectDestructuringVariableDeclarator = TSESTree.VariableDeclarator & {
-    id: TSESTree.ObjectPattern;
-    init: TSESTree.Identifier;
-  };
 
   const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();
   const { safeDefaultProps = [] } = options;

@@ -134,7 +134,7 @@
 | [getClassId](functions/getClassId.md) | Get the class identifier of a class node |
 | [getFullyQualifiedNameEx](functions/getFullyQualifiedNameEx.md) | An enhanced version of getFullyQualifiedName that handles cases that original function does not handle |
 | [getFunctionComponentCollector](functions/getFunctionComponentCollector.md) | Get an api and visitor object for the rule to collect function components |
-| [getFunctionDirectives](functions/getFunctionDirectives.md) | Gets all directive expression statements from the top of a function body. |
+| [getFunctionDirectives](functions/getFunctionDirectives.md) | - |
 | [getFunctionId](functions/getFunctionId.md) | Gets the static identifier of a function AST node. |
 | [getFunctionInitPath](functions/getFunctionInitPath.md) | Identifies the initialization path of a function node in the AST. |
 | [getHookCollector](functions/getHookCollector.md) | Get an api and visitor object for the rule to collect hooks |
