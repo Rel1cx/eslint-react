@@ -1,0 +1,142 @@
+---
+title: "Announcing v4.2.1"
+description: "A major release introducing a dedicated JSX plugin, new utility packages for custom rules, and flattened rule naming"
+---
+
+<Callout type="info">
+  This release consolidates all changes from v3.0.0 through v4.2.1.
+</Callout>
+
+## **A Dedicated JSX Plugin**
+
+v4.2.1 introduces `eslint-plugin-react-jsx`, a new dedicated plugin for React Flavored JSX rules. Several rules previously scattered across `eslint-plugin-react-x` and `eslint-plugin-react-dom` have been migrated to this new package for clearer categorization:
+
+| Old Rule (`react-x/`)      | New Rule (`react-jsx/`) | Change             |
+| :------------------------- | :---------------------- | :----------------- |
+| `jsx-key-before-spread`    | `no-key-after-spread`   | relocated, renamed |
+| `jsx-no-comment-textnodes` | `no-comment-textnodes`  | relocated, renamed |
+| `no-children-prop`         | `no-children-prop`      | relocated          |
+| `no-useless-fragment`      | `no-useless-fragment`   | relocated          |
+
+| Old Rule (`react-dom/`) | New Rule (`react-jsx/`) | Change    |
+| :---------------------- | :---------------------- | :-------- |
+| `no-namespace`          | `no-namespace`          | relocated |
+
+The new plugin ships with `recommended` and `strict` config presets, and `@eslint-react/eslint-plugin` now includes `jsx` and `disable-jsx` presets as well.
+
+## **New Utility Package for Custom Rules**
+
+A new package has been added to the monorepo to empower users building custom React-aware ESLint rules:
+
+### `@eslint-react/kit`
+
+A new utility module for building custom ESLint rules with React awareness. It features:
+
+- A chainable `eslintReactKit().use().getConfig()` builder API for better composability and type inference.
+- A `RuleToolkit` interface with pre-bound context helpers for component and hook analysis.
+- Normalized ESLint React settings exposed via `settings` on `RuleToolkit`.
+- A `getPlugin()` API on the builder for fine-grained control over plugin namespace and rule severities.
+
+## **Flattened Rule Naming in the Unified Plugin**
+
+Rules from individual plugins now use a flattened naming convention when accessed through the unified `@eslint-react/eslint-plugin` package. Slash-based prefixes have been replaced with dash-based prefixes:
+
+| Before                                   | After                                    |
+| :--------------------------------------- | :--------------------------------------- |
+| `@eslint-react/rsc/<rule>`               | `@eslint-react/rsc-<rule>`               |
+| `@eslint-react/dom/<rule>`               | `@eslint-react/dom-<rule>`               |
+| `@eslint-react/web-api/<rule>`           | `@eslint-react/web-api-<rule>`           |
+| `@eslint-react/naming-convention/<rule>` | `@eslint-react/naming-convention-<rule>` |
+
+Core and JSX rules keep their existing prefixes (`@eslint-react/<rule>` and `@eslint-react/jsx-<rule>`).
+
+## **Removed and Relocated Rules**
+
+The following rules have been removed from `eslint-plugin-react-x`:
+
+| Rule                              | Replaced by                                                                                                  |
+| :-------------------------------- | :----------------------------------------------------------------------------------------------------------- |
+| `react-x/jsx-dollar`              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-boolean`   | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/jsx-shorthand-fragment`  | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule) |
+| `react-x/unstable-rules-of-props` | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                        |
+| `react-x/unstable-rules-of-state` | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                        |
+
+## **API Cleanups and Renames**
+
+### `@eslint-react/kit`
+
+- `hint.defaultComponent` has been moved to `hint.component.Default`.
+- `defineConfig({ rules: [...] })` has been replaced with the chainable builder pattern:
+
+  ```ts
+  import eslintReactKit from "@eslint-react/kit";
+
+  export default defineConfig(
+    {
+      files: ["**/*.{ts,tsx}"],
+      extends: [
+        eslintReactKit()
+          .use(functionComponentDefinition)
+          .getConfig(),
+      ],
+    },
+  );
+  ```
+
+## **New Rules**
+
+This release adds several new rules, primarily under the new `react-jsx` plugin:
+
+- **`react-jsx/no-children-prop-with-children`**: Disallows passing `children` as a prop when children are also passed as nested content.
+- **`react-jsx/no-key-after-spread`**: Prevents patterns that cause deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props). This is the renamed and relocated successor to `react-x/jsx-key-before-spread`.
+- **`react-jsx/no-namespace`**: Disallows JSX namespace syntax, as React does not support them.
+
+## **Developer Experience Improvements**
+
+- **Suggestion fix for `react-jsx/no-children-prop`**: Added a suggestion to move children from a prop to element content.
+- **New example project**: `examples/react-dom-with-custom-rules` demonstrates how to create custom rules with `@eslint-react/kit`, including rules like `forbid-dom-props`, `jsx-fragments`, `jsx-handler-names`, `jsx-max-depth`, `jsx-no-duplicate-props`, `jsx-no-literals`, `jsx-pascal-case`, `jsx-props-no-spread-multi`, `no-adjacent-inline-elements`, and `max-component-per-file`.
+- **Website improvements**: Migrated to the new Fumadocs structure and added LLM routes (`/llms.txt`, `/llms-full.txt`, `/llms.mdx`).
+
+## **Bug Fixes**
+
+- `react-x/purity`: Removed console methods from impurity detection and now treats `new Date(arg)` as pure.
+- `react-x/component-hook-factories`: Excluded HOC patterns and test mocks from component detection, and improved component parameter checks.
+- `react-x/immutability`: Excluded event handler params from props mutation check.
+- `react-x/no-duplicate-key`: Fixed a false positive for SVG `xlink` attributes.
+- `ast`: Fixed JSX attribute name comparison to properly handle `JSXNamespacedName` (e.g. `xlink:href`).
+- `var`: Fixed logic bugs in `compute-object-type`, `find-enclosing-assignment-target`, and `is-value-equal` utilities.
+
+## **Migration Guide**
+
+### ESLint configuration
+
+- [ ] Replace `react-x/jsx-key-before-spread` with `react-jsx/no-key-after-spread`.
+- [ ] Replace `react-x/jsx-no-comment-textnodes` with `react-jsx/no-comment-textnodes`.
+- [ ] Replace `react-x/no-children-prop` with `react-jsx/no-children-prop`.
+- [ ] Replace `react-x/no-useless-fragment` with `react-jsx/no-useless-fragment`.
+- [ ] Replace `react-dom/no-namespace` with `react-jsx/no-namespace`.
+
+### Unified plugin rule prefixes
+
+If you use `@eslint-react/eslint-plugin`, update the following rule prefixes:
+
+- [ ] Replace `@eslint-react/rsc/<rule>` with `@eslint-react/rsc-<rule>`.
+- [ ] Replace `@eslint-react/dom/<rule>` with `@eslint-react/dom-<rule>`.
+- [ ] Replace `@eslint-react/web-api/<rule>` with `@eslint-react/web-api-<rule>`.
+- [ ] Replace `@eslint-react/naming-convention/<rule>` with `@eslint-react/naming-convention-<rule>`.
+
+### Removed rules
+
+- [ ] Remove `react-x/jsx-dollar`, `react-x/jsx-shorthand-boolean`, and `react-x/jsx-shorthand-fragment`. Use `@eslint-react/kit` to implement them as custom rules if needed.
+- [ ] Remove `react-x/unstable-rules-of-props` and `react-x/unstable-rules-of-state`. See the [custom-rules-of-props](/docs/recipes/custom-rules-of-props) and [custom-rules-of-state](/docs/recipes/custom-rules-of-state) recipes for guidance.
+
+### Kit API migration
+
+- [ ] Replace `defineConfig({ rules: [...] })` with `eslintReactKit().use(rule1).use(rule2).getConfig()`.
+- [ ] Replace `hint.defaultComponent` with `hint.component.Default`.
+
+## **References**
+
+- Changelog: [v4.2.1](/docs/changelog#v421-2026-04-01)
+- Full Changelog: [v3.0.0...v4.2.1](https://github.com/Rel1cx/eslint-react/compare/v3.0.0...v4.2.1)
