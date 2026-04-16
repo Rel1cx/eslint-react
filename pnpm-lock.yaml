@@ -230,6 +230,9 @@ importers:
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../packages/utilities/kit
+      '@examples/react-dom-with-custom-rules':
+        specifier: workspace:*
+        version: link:../../examples/react-dom-with-custom-rules
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
@@ -239,6 +242,9 @@ importers:
       '@takumi-rs/image-response':
         specifier: ^0.73.1
         version: 0.73.1
+      '@typescript-eslint/types':
+        specifier: ^8.58.0
+        version: 8.58.0
       bsky-react-post:
         specifier: ^0.1.7
         version: 0.1.7(react@19.2.4)(swr@2.4.1(react@19.2.4))

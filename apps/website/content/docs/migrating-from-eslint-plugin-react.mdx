@@ -226,7 +226,7 @@ npm install --save-dev @eslint-react/kit
 
 Below are drop-in rule definitions for the most commonly needed rules. Register them via the `.use()` chain in your config:
 
-```ts title="eslint.config.ts"
+```ts twoslash title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
@@ -248,7 +248,7 @@ import {
   jsxPropsNoSpreading,
   noAdjacentInlineElements,
   noMultiComp,
-} from "./.config";
+} from "@examples/react-dom-with-custom-rules";
 
 export default defineConfig([
   {
@@ -288,7 +288,7 @@ export default defineConfig([
 
 Require `onChange` or `readOnly` when using `checked` on `<input>`.
 
-```ts title=".config/checkedRequiresOnchangeOrReadonly.ts"
+```ts twoslash title=".config/checkedRequiresOnchangeOrReadonly.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Require `onChange` or `readOnly` when using `checked` on `<input>`. */
@@ -319,7 +319,7 @@ export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
 
 Forbid certain props on React components (not DOM elements). Only reports on PascalCase elements.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link forbidComponentProps}. */
@@ -353,7 +353,7 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
 
 Forbid certain props on DOM elements (not React components). Only reports on lowercase DOM element names.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link forbidDomProps}. */
@@ -387,7 +387,7 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
 
 Forbid specific JSX elements. Customize the `forbidden` map with your project's requirements.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link forbidElements}. */
@@ -414,7 +414,7 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
 
 Enforce arrow function definitions for function components.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
@@ -480,7 +480,7 @@ export function functionComponentDefinition(): RuleFunction {
 
 Enforce shorthand for boolean JSX attributes (e.g. prefer `<C disabled />` over `<C disabled={true} />`).
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Enforce shorthand for boolean JSX attributes. */
@@ -504,8 +504,9 @@ export function jsxBooleanValue(): RuleFunction {
 
 Enforce shorthand syntax for React fragments. Reports when `<React.Fragment>` is used instead of `<>...</>`. Allows standard form when `key` prop is present.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /** Options for {@link jsxFragments}. */
 export type JsxsFragmentsOptions = {
@@ -575,7 +576,7 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
 
 Enforce naming convention for JSX event handler props and the functions they reference.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxHandlerNames}. */
@@ -645,7 +646,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
 Enforce a maximum depth for JSX elements.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxMaxDepth}. */
@@ -683,7 +684,7 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
 
 Prevent arrow functions, function expressions, and `.bind()` in JSX props.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Prevent inline functions and `.bind()` in JSX props. */
@@ -713,7 +714,7 @@ export function jsxNoBind(): RuleFunction {
 
 Disallow duplicate properties in JSX elements.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxNoDuplicateProps}. */
@@ -750,7 +751,7 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
 
 Disallow usage of string literals in JSX. By default requires wrapping strings in JSX expressions `{'TEXT'}`.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxNoLiterals}. */
@@ -826,7 +827,7 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
 
 Enforce PascalCase for user-defined JSX components. DOM elements like `<div>` are ignored.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxPascalCase}. */
@@ -891,7 +892,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
 Disallow spreading the same expression multiple times in a JSX element.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow JSX prop spreading the same identifier multiple times. */
@@ -927,7 +928,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
 
 Disallow JSX props spreading.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow JSX props spreading. */
@@ -947,7 +948,7 @@ export function jsxPropsNoSpreading(): RuleFunction {
 
 Disallow adjacent inline elements not separated by whitespace.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -1020,7 +1021,7 @@ export function noAdjacentInlineElements(): RuleFunction {
 
 Prevent defining more than one component per file.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 import { merge } from "@eslint-react/kit";
 
