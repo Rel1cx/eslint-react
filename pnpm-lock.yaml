@@ -230,6 +230,9 @@ importers:
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../packages/kit
+      '@examples/react-dom-with-custom-rules':
+        specifier: workspace:*
+        version: link:../../examples/react-dom-with-custom-rules
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
@@ -239,6 +242,9 @@ importers:
       '@takumi-rs/image-response':
         specifier: ^1.0.10
         version: 1.0.10(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@typescript-eslint/types':
+        specifier: ^8.58.2
+        version: 8.58.2
       beautiful-mermaid:
         specifier: ^1.1.3
         version: 1.1.3

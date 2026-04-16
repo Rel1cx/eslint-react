@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@eslint-react/kit": "workspace:*",
+    "@examples/react-dom-with-custom-rules": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@takumi-rs/image-response": "^1.0.10",
+    "@typescript-eslint/types": "^8.58.2",
     "beautiful-mermaid": "^1.1.3",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
