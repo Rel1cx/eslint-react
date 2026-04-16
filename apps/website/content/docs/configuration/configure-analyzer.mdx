@@ -78,6 +78,16 @@ Example matching `useMyState` and `useCustomState`:
 additionalStateHooks: "/^(useMyState|useCustomState)$/u",
 ```
 
+### `additionalEffectHooks`
+
+A regex pattern for matching custom hooks that should be treated as effect hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
+
+Example matching `useMyEffect` and `useCustomEffect`:
+
+```ts
+additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
+```
+
 ## Basic Configuration Example
 
 ```ts title="eslint.config.ts"
@@ -110,6 +120,7 @@ export default [
         importSource: "react",
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (ex: <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
+        additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u", // Regex pattern for custom hooks treated as effect hooks
       },
     },
   },
@@ -147,6 +158,7 @@ export default [
         compilationMode, // Use the same compilationMode as the React Compiler config for consistent analysis
         polymorphicPropName: "as",
         additionalStateHooks: "/^(useMyState|useCustomState)$/u",
+        additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
       },
     },
   },

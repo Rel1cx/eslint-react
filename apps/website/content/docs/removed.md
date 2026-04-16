@@ -33,7 +33,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/no-unnecessary-key`                                 |                                                                                                       | 3.0.0      | discontinued |
 | `react-x/no-unnecessary-use-ref`                             |                                                                                                       | 2.10.0     | discontinued |
 | `react-x/no-useless-forward-ref`                             | [`react-x/no-forward-ref`](/docs/rules/no-forward-ref)                                                | 3.0.0      | consolidated |
-| `react-x/prefer-react-namespace-import`                      | [`react-x/prefer-namespace-import`](/docs/rules/prefer-namespace-import)                              | 2.0.0      | renamed      |
+| `react-x/prefer-react-namespace-import`                      | `react-x/prefer-namespace-import`                                                                     | 2.0.0      | renamed      |
 | `react-x/prefer-read-only-props`                             | [`react-x/immutability`](/docs/rules/immutability)                                                    | 3.0.0      | consolidated |
 | `react-x/prefer-shorthand-boolean`                           |                                                                                                       | 2.0.0      | consolidated |
 | `react-x/prefer-shorthand-fragment`                          |                                                                                                       | 2.0.0      | consolidated |
@@ -44,7 +44,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/prefer-destructuring-assignment`                    | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
 | `react-x/prefer-namespace-import`                            | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
 | `react-dom/prefer-namespace-import`                          | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
-| `react-x/use-jsx-vars`                                       | [`react-x/jsx-uses-vars`](/docs/rules/jsx-uses-vars)                                                  | 2.0.0      | renamed      |
+| `react-x/use-jsx-vars`                                       | `react-x/jsx-uses-vars`                                                                               | 2.0.0      | renamed      |
 | `react-x/unstable-rules-of-props`                            | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                 | 4.2.1      | discontinued |
 | `react-x/unstable-rules-of-state`                            | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                 | 4.2.1      | discontinued |
 | `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)          | 2.0.0      | renamed      |
@@ -56,7 +56,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-hooks-extra/no-unnecessary-use-callback`              | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler) | 2.0.0      | relocated    |
 | `react-hooks-extra/no-unnecessary-use-memo`                  | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler) | 2.0.0      | relocated    |
 | `react-hooks-extra/no-unnecessary-use-prefix`                | [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix)                          | 2.0.0      | relocated    |
-| `react-hooks-extra/prefer-use-state-lazy-initialization`     | [`react-x/prefer-use-state-lazy-initialization`](/docs/rules/prefer-use-state-lazy-initialization)    | 2.0.0      | relocated    |
+| `react-hooks-extra/prefer-use-state-lazy-initialization`     | `react-x/use-state`                                                                                   | 2.0.0      | relocated    |
 | `react-hooks-extra/rules-of-hooks`                           | [`react-x/rules-of-hooks`](/docs/rules/rules-of-hooks)                                                | 2.14.0     | relocated    |
 | `react-naming-convention/component-name`                     |                                                                                                       | 3.0.0      | deprecated   |
 | `react-naming-convention/filename-extension`                 |                                                                                                       | 2.13.0     | deprecated   |
