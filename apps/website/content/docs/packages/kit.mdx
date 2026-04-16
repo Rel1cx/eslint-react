@@ -22,7 +22,7 @@ npm install --save-dev @eslint-react/kit
 
 ## Quick Start
 
-```ts title="eslint.config.ts"
+```ts twoslash title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit, { merge } from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
@@ -351,7 +351,7 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 
 **Usage:**
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
 
 function version(major = "19"): RuleFunction {
@@ -374,8 +374,9 @@ function version(major = "19"): RuleFunction {
 
 This is a simplified kit reimplementation of the built-in [`react-x/no-forwardRef`](/docs/rules/no-forward-ref) rule.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 
 function noForwardRef(): RuleFunction {
   return (context, { is }) => ({
@@ -397,9 +398,9 @@ eslintReactKit()
 
 This is a simplified kit reimplementation of the built-in [`react-x/prefer-destructuring-assignment`](/docs/rules/prefer-destructuring-assignment) rule.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 
 function destructureComponentProps(): RuleFunction {
   return (context, { collect }) => {
@@ -438,9 +439,9 @@ eslintReactKit()
 
 This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix) rule.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 
 function noUnnecessaryUsePrefix(): RuleFunction {
   return (context, { collect }) => {
@@ -472,9 +473,9 @@ eslintReactKit()
 Disallow defining components or hooks inside other functions (factory pattern).
 This is a simplified kit reimplementation of the built-in [`react-x/component-hook-factories`](/docs/rules/component-hook-factories) rule.
 
-```ts
+```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import eslintReactKit, { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
 function findParent({ parent }: TSESTree.Node, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
@@ -523,9 +524,32 @@ eslintReactKit()
 
 `getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
 
-```ts title="eslint.config.ts"
+```ts twoslash title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
+
+function noForwardRef(): RuleFunction {
+  return (context, { is }) => ({
+    CallExpression(node) {
+      if (is.forwardRefCall(node)) {
+        context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
+      }
+    },
+  });
+}
+
+function version(major = "19"): RuleFunction {
+  return (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith(`${major}.`)) {
+        context.report({
+          node: program,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  });
+}
 
 // Spread the config into a new object to add or override properties like `files`:
 export default [
@@ -548,9 +572,32 @@ This pattern is especially useful when composing kit configs alongside other ESL
 
 Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
 
-```ts title="eslint.config.ts"
+```ts twoslash title="eslint.config.ts"
 import eslintReactKit from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
+
+function noForwardRef(): RuleFunction {
+  return (context, { is }) => ({
+    CallExpression(node) {
+      if (is.forwardRefCall(node)) {
+        context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
+      }
+    },
+  });
+}
+
+function version(major = "19"): RuleFunction {
+  return (context, { settings }) => ({
+    Program(program) {
+      if (!settings.version.startsWith(`${major}.`)) {
+        context.report({
+          node: program,
+          message: `This project requires React ${major}, but detected version ${settings.version}.`,
+        });
+      }
+    },
+  });
+}
 
 const kit = eslintReactKit()
   .use(noForwardRef)
