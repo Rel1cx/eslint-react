@@ -2,14 +2,9 @@ import { baseUrl } from "#/lib/metadata";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
-import { Inter } from "next/font/google";
 
 import "#/app/app.css";
 import "#/app/app.override.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-});
 
 const themeOptions = {
   enabled: true,
@@ -30,7 +25,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <ViewTransitions>
-      <html className={inter.className} lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
         <meta content="#fff" name="msapplication-TileColor" />
         <meta content="en" httpEquiv="Content-Language" />
         <meta content="ESLint React" name="apple-mobile-web-app-title" />
