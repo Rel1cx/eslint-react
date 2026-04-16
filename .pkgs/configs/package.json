@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "eslint": "^10.2.0",
-    "tsdown": "^0.21.8",
+    "tsdown": "^0.21.9",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.10.3",
     "typedoc": "0.28.19",

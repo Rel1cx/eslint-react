@@ -44,7 +44,7 @@
     "@local/eff": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^25.6.0",
-    "tsdown": "^0.21.8"
+    "tsdown": "^0.21.9"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

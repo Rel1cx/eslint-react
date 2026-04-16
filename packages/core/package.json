@@ -51,7 +51,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@typescript-eslint/typescript-estree": "^8.58.2",
-    "tsdown": "^0.21.8"
+    "tsdown": "^0.21.9"
   },
   "peerDependencies": {
     "eslint": "^10.2.0",

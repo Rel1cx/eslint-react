@@ -21,7 +21,7 @@
     "effect": "^3.21.0",
     "fumadocs-core": "16.7.16",
     "fumadocs-docgen": "3.0.10",
-    "fumadocs-mdx": "14.2.14",
+    "fumadocs-mdx": "14.3.0",
     "fumadocs-twoslash": "3.2.0",
     "fumadocs-typescript": "5.2.6",
     "fumadocs-ui": "16.7.16",
