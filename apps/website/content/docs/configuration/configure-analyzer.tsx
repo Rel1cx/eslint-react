@@ -33,6 +33,14 @@ const properties = {
       </Link>
     ),
   },
+  additionalEffectHooks: {
+    type: "string",
+    description: (
+      <Link href="#additionaleffecthooks">
+        Regex pattern matching custom hooks that should be treated as effect hooks
+      </Link>
+    ),
+  },
 };
 
 export function AnalyzerPropertyTypeTable() {
