@@ -48,17 +48,13 @@ export function isIdentifier(name: string) {
 }
 
 // Composite type guards
+
+export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
+
 export const isFunction = isOneOf([
   AST.ArrowFunctionExpression,
   AST.FunctionDeclaration,
   AST.FunctionExpression,
-]);
-
-export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
-
-export const isMethodOrProperty = isOneOf([
-  AST.PropertyDefinition,
-  AST.MethodDefinition,
 ]);
 
 export const isProperty = isOneOf([
@@ -68,10 +64,15 @@ export const isProperty = isOneOf([
   AST.TSPropertySignature,
 ]);
 
+export const isPropertyOrMethod = isOneOf([
+  AST.PropertyDefinition,
+  AST.MethodDefinition,
+]);
+
 // JSX guards
 export const isJSXElement = is(AST.JSXElement);
 export const isJSXFragment = is(AST.JSXFragment);
-export const isJSXLike = isOneOf([AST.JSXElement, AST.JSXFragment]);
+export const isJSXElementOrFragment = isOneOf([AST.JSXElement, AST.JSXFragment]);
 export const isJSXTagNameExpression = isOneOf([
   AST.JSXIdentifier,
   AST.JSXMemberExpression,

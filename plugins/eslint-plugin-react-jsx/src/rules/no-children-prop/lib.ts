@@ -77,7 +77,7 @@ export function getChildrenPropText(context: RuleContext, prop: TSESTree.JSXAttr
     const exprText = sourceCode.getText(expression);
 
     // JSX elements and fragments can be placed directly as children
-    if (Check.isJSXLike(expression)) {
+    if (Check.isJSXElementOrFragment(expression)) {
       return exprText;
     }
 

@@ -39,7 +39,7 @@ function hasLeakedSemicolon(text: string) {
 
 export function create(context: RuleContext<MessageID, []>) {
   const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal) => {
-    if (!Check.isJSXLike(node.parent)) {
+    if (!Check.isJSXElementOrFragment(node.parent)) {
       return;
     }
     if (!hasLeakedSemicolon(context.sourceCode.getText(node))) {

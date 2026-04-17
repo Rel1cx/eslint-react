@@ -15,7 +15,7 @@ function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
-    && Check.isMethodOrProperty(node.parent)
+    && Check.isPropertyOrMethod(node.parent)
     && node.parent.key.type === AST.Identifier
     && node.parent.key.name === "constructor";
 }

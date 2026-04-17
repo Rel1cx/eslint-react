@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       return !allowEmptyFragment;
     }
 
-    const insideJsx = Check.isJSXLike(node.parent);
+    const insideJsx = Check.isJSXElementOrFragment(node.parent);
 
     // When expressions are disallowed, any fragment inside JSX is useless
     // (the wrapper serves no purpose), and a single-child fragment outside
@@ -135,7 +135,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // Inside a JSX parent we can only safely unwrap if the parent is a host
     // (intrinsic / DOM) element.  Custom components might require `children`
     // to be a single ReactElement, so unwrapping could break them.
-    if (Check.isJSXLike(node.parent)) {
+    if (Check.isJSXElementOrFragment(node.parent)) {
       return isHostElement(node.parent);
     }
 

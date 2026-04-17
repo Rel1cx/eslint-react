@@ -101,7 +101,7 @@ export function isPureComponent(node: TSESTree.Node) {
 
 function createLifecycleChecker(methodName: string, isStatic = false) {
   return (node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition => (
-    Check.isMethodOrProperty(node)
+    Check.isPropertyOrMethod(node)
     && node.static === isStatic
     && node.key.type === AST.Identifier
     && node.key.name === methodName
@@ -155,7 +155,7 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
-  return Check.isMethodOrProperty(node)
+  return Check.isPropertyOrMethod(node)
     && node.key.type === AST.Identifier
     && node.key.name.startsWith("render")
     && isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);

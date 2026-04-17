@@ -147,7 +147,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
       return node.parent.key;
     // class {MaybeComponent = () => {}}
     // class {MaybeComponent() {}}
-    case Check.isMethodOrProperty(node.parent)
+    case Check.isPropertyOrMethod(node.parent)
       && node.parent.value === node:
       return node.parent.key;
       // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.

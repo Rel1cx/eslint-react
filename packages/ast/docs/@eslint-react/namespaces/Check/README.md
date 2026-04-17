@@ -11,12 +11,12 @@
 | [isFunction](variables/isFunction.md) | - |
 | [isJSX](variables/isJSX.md) | - |
 | [isJSXElement](variables/isJSXElement.md) | - |
+| [isJSXElementOrFragment](variables/isJSXElementOrFragment.md) | - |
 | [isJSXFragment](variables/isJSXFragment.md) | - |
-| [isJSXLike](variables/isJSXLike.md) | - |
 | [isJSXTagNameExpression](variables/isJSXTagNameExpression.md) | - |
-| [isMethodOrProperty](variables/isMethodOrProperty.md) | - |
 | [isOneOf](variables/isOneOf.md) | - |
 | [isProperty](variables/isProperty.md) | - |
+| [isPropertyOrMethod](variables/isPropertyOrMethod.md) | - |
 | [isTypeAssertionExpression](variables/isTypeAssertionExpression.md) | - |
 | [isTypeExpression](variables/isTypeExpression.md) | - |
 
