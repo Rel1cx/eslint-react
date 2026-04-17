@@ -19,8 +19,8 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/jsx-no-duplicate-props`                             |                                                                                                       | 3.0.0      | deprecated   |
 | `react-x/jsx-no-iife`                                        | [`react-x/unsupported-syntax`](/docs/rules/unsupported-syntax)                                        | 3.0.0      | consolidated |
 | `react-x/jsx-no-undef`                                       | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
-| `react-x/jsx-shorthand-boolean`                              | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)    | 4.0.0      | discontinued |
-| `react-x/jsx-shorthand-fragment`                             | [`react-kit/<rule-name>`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)    | 4.0.0      | discontinued |
+| `react-x/jsx-shorthand-boolean`                              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)         | 4.0.0      | discontinued |
+| `react-x/jsx-shorthand-fragment`                             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)         | 4.0.0      | discontinued |
 | `react-x/jsx-uses-react`                                     | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
 | `react-x/jsx-uses-vars`                                      | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
 | `react-x/no-comment-textnodes`                               | [`react-jsx/no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                              | 2.0.0      | renamed      |

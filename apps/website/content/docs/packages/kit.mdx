@@ -111,7 +111,7 @@ When you use an **anonymous function** (arrow function without a name) with `.us
 ```ts
 // Anonymous rule → random ULID name like "01KNE2WSJ8011D2HXE3A6H717C"
 // Registered as `@eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C`
-esslintReactKit().use(() => (context) => ({
+eslintReactKit().use(() => (context) => ({
   JSXOpeningElement(node) {
     // Critical check that cannot be easily disabled
   },
@@ -460,7 +460,7 @@ eslintReactKit()
 
 ### Component: Destructure component props
 
-This is a simplified kit reimplementation of the built-in `react-x/prefer-destructuring-assignment` rule.
+This is a simplified kit reimplementation that enforces destructuring assignment for component props.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
