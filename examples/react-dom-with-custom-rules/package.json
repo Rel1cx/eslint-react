@@ -33,10 +33,10 @@
     "@typescript-eslint/utils": "^8.58.2",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.2.0",
-    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-hooks": "^7.1.0",
     "eslint-plugin-react-refresh": "^0.5.2",
     "jiti": "^2.6.1",
-    "typescript": "^6.0.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.8"
   },
