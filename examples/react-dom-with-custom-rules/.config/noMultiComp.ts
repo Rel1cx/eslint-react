@@ -1,5 +1,4 @@
-import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import { type RuleFunction, merge } from "@eslint-react/kit";
 
 /** Prevent defining more than one component per file. */
 export function noMultiComp(): RuleFunction {

@@ -1,5 +1,4 @@
-import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import { type RuleFunction, merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /** Disallow defining components or hooks inside other functions (factory pattern). */

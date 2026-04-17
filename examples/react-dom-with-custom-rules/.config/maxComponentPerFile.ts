@@ -1,5 +1,4 @@
-import type { RuleFunction } from "@eslint-react/kit";
-import { merge } from "@eslint-react/kit";
+import { type RuleFunction, merge } from "@eslint-react/kit";
 
 /** Options for {@link maxComponentPerFile}. */
 export type MaxComponentPerFileOptions = {

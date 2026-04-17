@@ -1,6 +1,5 @@
 import logo from "#/assets/logo.svg";
-import type { StaticImageData } from "next/image";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 
 export function ESLintReact() {
   return (
