@@ -9,10 +9,6 @@ import { BskyPost } from "#/components/BskyPost";
   This module is currently in **beta**. APIs may change in future releases.
 </Callout>
 
-<Callout icon="">
-  <BskyPost handle="rel1cx.bsky.social" id="3ltnc77265k2d" />
-</Callout>
-
 ## Installation
 
 ```sh
@@ -109,7 +105,6 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
 When you use an **anonymous function** (arrow function without a name) with `.use()`, a random hex string is automatically generated as the rule name:
 
 ```ts
-// Anonymous rule → random hex string name like "a1b2c3d4e5f67890"
 // Registered as `@eslint-react/kit/a1b2c3d4e5f67890`
 eslintReactKit().use(() => (context) => ({
   JSXOpeningElement(node) {
@@ -117,8 +112,6 @@ eslintReactKit().use(() => (context) => ({
   },
 }));
 ```
-
-> **Note:** The rule names are random hex strings generated on each ESLint run. The examples above illustrate the format — actual values will differ every time.
 
 Anonymous rules are ideal for checks that are **critical to code quality or security** and should never be bypassed via disable comments:
 
@@ -277,29 +270,6 @@ General hook predicates:
 | `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
 | `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
 
-Specific hook call predicates (context pre-bound):
-
-| Predicate                  | Description                                      |
-| -------------------------- | ------------------------------------------------ |
-| `useActionStateCall`       | Whether a node is a `useActionState` call.       |
-| `useCallbackCall`          | Whether a node is a `useCallback` call.          |
-| `useContextCall`           | Whether a node is a `useContext` call.           |
-| `useDebugValueCall`        | Whether a node is a `useDebugValue` call.        |
-| `useDeferredValueCall`     | Whether a node is a `useDeferredValue` call.     |
-| `useEffectCall`            | Whether a node is a `useEffect` call.            |
-| `useFormStatusCall`        | Whether a node is a `useFormStatus` call.        |
-| `useIdCall`                | Whether a node is a `useId` call.                |
-| `useImperativeHandleCall`  | Whether a node is a `useImperativeHandle` call.  |
-| `useInsertionEffectCall`   | Whether a node is a `useInsertionEffect` call.   |
-| `useLayoutEffectCall`      | Whether a node is a `useLayoutEffect` call.      |
-| `useMemoCall`              | Whether a node is a `useMemo` call.              |
-| `useOptimisticCall`        | Whether a node is a `useOptimistic` call.        |
-| `useReducerCall`           | Whether a node is a `useReducer` call.           |
-| `useRefCall`               | Whether a node is a `useRef` call.               |
-| `useStateCall`             | Whether a node is a `useState` call.             |
-| `useSyncExternalStoreCall` | Whether a node is a `useSyncExternalStore` call. |
-| `useTransitionCall`        | Whether a node is a `useTransition` call.        |
-
 #### React API
 
 Factory functions (context pre-bound):
@@ -308,23 +278,6 @@ Factory functions (context pre-bound):
 | --------- | -------------------------------- | ---------------------------------------------------------------------------- |
 | `API`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
 | `APICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
-
-Pre-built call predicates (context pre-bound):
-
-- `captureOwnerStackCall`
-- `childrenCountCall`
-- `childrenForEachCall`
-- `childrenMapCall`
-- `childrenOnlyCall`
-- `childrenToArrayCall`
-- `cloneElementCall`
-- `createContextCall`
-- `createElementCall`
-- `createRefCall`
-- `forwardRefCall`
-- `lazyCall`
-- `memoCall`
-- `useCall`
 
 All React API predicates and factories have `context` pre-bound — no need to pass the rule context manually:
 
@@ -589,31 +542,15 @@ eslintReactKit()
 `getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
 
 ```ts twoslash title="eslint.config.ts"
-import eslintReactKit from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
 
-function noForwardRef(): RuleFunction {
-  return (context, { is }) => ({
-    CallExpression(node) {
-      if (is.forwardRefCall(node)) {
-        context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
-      }
-    },
-  });
-}
+declare function noForwardRef(): RuleFunction;
 
-function version(major = "19"): RuleFunction {
-  return (context, { settings }) => ({
-    Program(program) {
-      if (!settings.version.startsWith(`${major}.`)) {
-        context.report({
-          node: program,
-          message: `This project requires React ${major}, but detected version ${settings.version}.`,
-        });
-      }
-    },
-  });
-}
+declare function version(major: string): RuleFunction;
+
+// ---cut---
+
+import eslintReactKit from "@eslint-react/kit";
 
 // Spread the config into a new object to add or override properties like `files`:
 export default [
@@ -637,31 +574,15 @@ This pattern is especially useful when composing kit configs alongside other ESL
 Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
 
 ```ts twoslash title="eslint.config.ts"
-import eslintReactKit from "@eslint-react/kit";
 import type { RuleFunction } from "@eslint-react/kit";
 
-function noForwardRef(): RuleFunction {
-  return (context, { is }) => ({
-    CallExpression(node) {
-      if (is.forwardRefCall(node)) {
-        context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
-      }
-    },
-  });
-}
+declare function noForwardRef(): RuleFunction;
 
-function version(major = "19"): RuleFunction {
-  return (context, { settings }) => ({
-    Program(program) {
-      if (!settings.version.startsWith(`${major}.`)) {
-        context.report({
-          node: program,
-          message: `This project requires React ${major}, but detected version ${settings.version}.`,
-        });
-      }
-    },
-  });
-}
+declare function version(major: string): RuleFunction;
+
+// ---cut---
+
+import eslintReactKit from "@eslint-react/kit";
 
 const kit = eslintReactKit()
   .use(noForwardRef)
