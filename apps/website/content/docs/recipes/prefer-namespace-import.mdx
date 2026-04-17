@@ -57,7 +57,7 @@ export function preferNamespaceImport(): RuleFunction {
               ].join("\n"),
             );
           },
-          messageId: "default",
+          message: `Prefer importing React as 'import * as React from "${importSource}"' `,
           node: hasOtherSpecifiers ? node : node.parent,
         });
       },
