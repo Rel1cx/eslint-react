@@ -126,7 +126,7 @@ Minimum supported versions:
 - [x] `react-x/rules-of-hooks` - Enforces the Rules of Hooks
 - [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect
 - [x] `react-x/set-state-in-render` - Validates against unconditionally setting state during render
-- [x] `react-x/static-components` - Validates that components are static, not recreated every render
+- [x] `react-x/no-nested-component-definitions` + `react-x/no-nested-lazy-component-declarations` - Validates that components are static, not recreated every render
 - [x] `react-x/unstable-rules-of-props` (Experimental) - Consolidates state-related validations including `prefer-set-state-callback`
 - [x] `react-x/unstable-rules-of-state` (Experimental) - Consolidates state-related validations
 - [x] `react-x/unsupported-syntax` - Validates against syntax that React Compiler does not support (eval, with, IIFE in JSX)
