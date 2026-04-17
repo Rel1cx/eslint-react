@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.getHookCollector(context);
-  const cCollector = core.getFunctionComponentCollector(context);
+  const hc = core.getHookCollector(context);
+  const fc = core.getFunctionComponentCollector(context);
 
   // Collected ref.current accesses with their enclosing function
   const refAccesses: { isWrite: boolean; node: TSESTree.MemberExpression }[] = [];
@@ -105,8 +105,8 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   return merge(
-    hCollector.visitor,
-    cCollector.visitor,
+    hc.visitor,
+    fc.visitor,
     {
       // Track JSX ref props: <div ref={someRef} />
       JSXAttribute(node: TSESTree.JSXAttribute) {
@@ -145,8 +145,8 @@ export function create(context: RuleContext<MessageID, []>) {
         });
       },
       "Program:exit"(program) {
-        const comps = cCollector.api.getAllComponents(program);
-        const hooks = hCollector.api.getAllHooks(program);
+        const comps = fc.api.getAllComponents(program);
+        const hooks = hc.api.getAllHooks(program);
         const funcs = new Set([
           ...comps.map((c) => c.node),
           ...hooks.map((h) => h.node),

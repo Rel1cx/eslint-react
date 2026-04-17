@@ -29,15 +29,15 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const fCollector = core.getFunctionComponentCollector(context);
-  const cCollector = core.getClassComponentCollector(context);
-  const hCollector = core.getHookCollector(context);
+  const fc = core.getFunctionComponentCollector(context);
+  const cc = core.getClassComponentCollector(context);
+  const hc = core.getHookCollector(context);
   const lazyCalls = new Set<TSESTree.CallExpression>();
 
   return merge(
-    fCollector.visitor,
-    cCollector.visitor,
-    hCollector.visitor,
+    fc.visitor,
+    cc.visitor,
+    hc.visitor,
     {
       ImportExpression(node) {
         const lazyCall = Traverse.findParent(node, (n) => core.isLazyCall(context, n));
@@ -47,9 +47,9 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       "Program:exit"(program) {
         const significantParents = [
-          ...fCollector.api.getAllComponents(program),
-          ...hCollector.api.getAllHooks(program),
-          ...cCollector.api.getAllComponents(program),
+          ...fc.api.getAllComponents(program),
+          ...hc.api.getAllHooks(program),
+          ...cc.api.getAllComponents(program),
         ];
         for (const lazy of lazyCalls) {
           if (Traverse.findParent(lazy, (n) => significantParents.some((p) => p.node === n))) {

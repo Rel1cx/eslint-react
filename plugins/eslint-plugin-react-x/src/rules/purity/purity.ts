@@ -32,8 +32,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.getHookCollector(context);
-  const cCollector = core.getFunctionComponentCollector(context);
+  const hc = core.getHookCollector(context);
+  const fc = core.getFunctionComponentCollector(context);
   const cEntries: {
     func: TSESTreeFunction;
     node: TSESTree.CallExpression;
@@ -43,8 +43,8 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.NewExpression;
   }[] = [];
   return merge(
-    hCollector.visitor,
-    cCollector.visitor,
+    hc.visitor,
+    fc.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
         const expr = Extract.unwrap(node.callee);
@@ -81,8 +81,8 @@ export function create(context: RuleContext<MessageID, []>) {
         nEntries.push({ func, node });
       },
       "Program:exit"(node) {
-        const comps = cCollector.api.getAllComponents(node);
-        const hooks = hCollector.api.getAllHooks(node);
+        const comps = fc.api.getAllComponents(node);
+        const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const { func, node } of [...cEntries, ...nEntries]) {
           if (!funcs.some((f) => f.node === func)) continue;

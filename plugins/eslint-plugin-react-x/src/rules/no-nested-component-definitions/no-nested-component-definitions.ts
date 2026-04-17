@@ -42,17 +42,17 @@ export function create(context: RuleContext<MessageID, []>) {
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
 
   // Collectors to find all component definitions in the code
-  const fCollector = core.getFunctionComponentCollector(context, { hint });
-  const cCollector = core.getClassComponentCollector(context);
+  const fc = core.getFunctionComponentCollector(context, { hint });
+  const cc = core.getClassComponentCollector(context);
 
   return merge(
-    fCollector.visitor,
-    cCollector.visitor,
+    fc.visitor,
+    cc.visitor,
     {
       "Program:exit"(program) {
         // Gather all function and class components found by the collectors
-        const fComponents = [...fCollector.api.getAllComponents(program)];
-        const cComponents = [...cCollector.api.getAllComponents(program)];
+        const fComponents = [...fc.api.getAllComponents(program)];
+        const cComponents = [...cc.api.getAllComponents(program)];
         // Helper to find the enclosing component of a node
         function findEnclosingComponent(node: TSESTree.Node) {
           return Traverse.findParent(node, (n) => {

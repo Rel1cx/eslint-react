@@ -44,8 +44,8 @@ function isIifeCall(node: TSESTreeFunction) {
 }
 
 export function create(context: RuleContext<MessageID, []>) {
-  const hCollector = core.getHookCollector(context);
-  const cCollector = core.getFunctionComponentCollector(context);
+  const hc = core.getHookCollector(context);
+  const fc = core.getFunctionComponentCollector(context);
   const evalCalls: {
     func: TSESTreeFunction;
     node: TSESTree.CallExpression;
@@ -55,8 +55,8 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.WithStatement;
   }[] = [];
   return merge(
-    hCollector.visitor,
-    cCollector.visitor,
+    hc.visitor,
+    fc.visitor,
     {
       CallExpression(node: TSESTree.CallExpression) {
         if (!isEvalCall(node)) return;
@@ -81,8 +81,8 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       "Program:exit"(node) {
-        const components = cCollector.api.getAllComponents(node);
-        const hooks = hCollector.api.getAllHooks(node);
+        const components = fc.api.getAllComponents(node);
+        const hooks = hc.api.getAllHooks(node);
         const funcs = [...components, ...hooks];
         for (const { func, node } of evalCalls) {
           if (!funcs.some((f) => f.node === func)) continue;

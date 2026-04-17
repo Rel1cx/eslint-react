@@ -45,24 +45,24 @@ export function create(context: RuleContext<MessageID, []>) {
     | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
     | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
-  const fCollector = core.getFunctionComponentCollector(context);
-  const hCollector = core.getHookCollector(context);
+  const fc = core.getFunctionComponentCollector(context);
+  const hc = core.getHookCollector(context);
 
   // Track already-reported nodes to avoid duplicate reports
   const reported = new Set<TSESTree.TryStatement>();
   const useCalls = new Set<TSESTree.CallExpression>();
 
   return merge(
-    fCollector.visitor,
-    hCollector.visitor,
+    fc.visitor,
+    hc.visitor,
     {
       CallExpression(node) {
         if (!core.isUseCall(context, node)) return;
         useCalls.add(node);
       },
       "Program:exit"(node) {
-        const comps = fCollector.api.getAllComponents(node);
-        const hooks = hCollector.api.getAllHooks(node);
+        const comps = fc.api.getAllComponents(node);
+        const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of useCalls) {
           const stmt = Traverse.findParent(call, is(AST.TryStatement));
