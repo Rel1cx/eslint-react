@@ -1,5 +1,35 @@
 # Changelog
 
+## v5.2.4-beta.3 (2026-04-17)
+
+### 🪄 Improvements
+
+- **ast:** normalize API naming conventions (`17e2f02d5`)
+- **ast:** rewrite Check helpers (`d0c134bd1`)
+- **core,kit:** replace ulid with node:crypto randomBytes (#1710) (`90b58e374`)
+
+### 📝 Documentation
+
+- **kit:** trim README to website link and simplify website docs (`711b74ca0`)
+- **website:** add inline TOCs (`1006386c1`)
+- **website:** add marigold and nodejs.org to community projects (`ee0d2b7ed`)
+- **website:** enable twoslash type-checking for code examples (#1713) (`a3c475ef7`)
+- **website:** fix content and formatting issues in non-rule docs (`6c912a07d`)
+- **website:** fix grammar, spacing, and table alignment in documentation (`d92b3fda1`)
+- add v4.2.1 release notes (`aa1f659aa`)
+- fix broken links and add missing `additionalEffectHooks` documentation (#1711) (`d30e047a9`)
+- fix content and formatting issues in non-rule documentation (`94ebfbfd1`)
+
+### 🏗️ Internal
+
+- Bump TypeScript to 6.0.3 and update deps (`2463160ce`)
+- bump tsdown to 0.21.9 and fumadocs-mdx to 14.3.0 (`07bd7f267`)
+- bump fumadocs and postcss in website (`612376c89`)
+- extract shared tsdown config, add typedoc docs, and clean up (`ec8ad997a`)
+- fix high-priority build, lockfile, script and doc inconsistencies (`50023dfd8`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.2.3-beta.0...v5.2.4-beta.3
+
 ## v5.2.3-beta.0 (2026-04-14)
 
 ### 🪄 Improvements
