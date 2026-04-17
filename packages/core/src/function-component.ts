@@ -1,5 +1,4 @@
-import { Check, Traverse, isOneOf } from "@eslint-react/ast";
-import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
+import { Check, type TSESTreeDirective, type TSESTreeFunction, Traverse, isOneOf } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";

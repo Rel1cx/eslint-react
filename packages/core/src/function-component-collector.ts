@@ -1,5 +1,4 @@
-import { Extract, Traverse } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";

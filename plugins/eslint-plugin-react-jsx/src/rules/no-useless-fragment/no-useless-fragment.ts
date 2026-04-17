@@ -1,5 +1,4 @@
-import { Check } from "@eslint-react/ast";
-import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
 import {
   getChildren,

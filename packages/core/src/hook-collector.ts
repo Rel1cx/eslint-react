@@ -1,7 +1,7 @@
-import { Extract } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type ESLintUtils, type TSESTree } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
 
 import { getFunctionId } from "./function";

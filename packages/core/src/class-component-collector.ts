@@ -1,5 +1,4 @@
-import { Extract } from "@eslint-react/ast";
-import type { TSESTreeClass } from "@eslint-react/ast";
+import { Extract, type TSESTreeClass } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";

@@ -1,5 +1,4 @@
-import { Check } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 

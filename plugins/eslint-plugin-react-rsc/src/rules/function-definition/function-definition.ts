@@ -1,5 +1,4 @@
-import { Check } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
   type ReportFixFunction,

@@ -1,10 +1,8 @@
-import { Check, Compare } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Compare, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isValueEqual, resolve } from "@eslint-react/var";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 

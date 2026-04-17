@@ -1,5 +1,5 @@
 import { isOneOf } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 /**
  * Check if a node is a loop statement

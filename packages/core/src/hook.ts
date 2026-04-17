@@ -1,5 +1,4 @@
-import { Check, Extract, Traverse, is } from "@eslint-react/ast";
-import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse, is } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";

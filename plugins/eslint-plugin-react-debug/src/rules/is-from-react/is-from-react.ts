@@ -2,8 +2,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule, stringify } from "../../utils";
 

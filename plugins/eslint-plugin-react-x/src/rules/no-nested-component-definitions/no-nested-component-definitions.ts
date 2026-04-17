@@ -1,5 +1,4 @@
-import { Check, Traverse, is } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, type TSESTreeFunction, Traverse, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";

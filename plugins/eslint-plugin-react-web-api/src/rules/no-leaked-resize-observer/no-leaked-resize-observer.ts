@@ -1,10 +1,8 @@
-import { Traverse } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
-import type { TSESTree } from "@typescript-eslint/types";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/utils";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 
 import {

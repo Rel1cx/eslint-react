@@ -1,5 +1,4 @@
-import { Check, Extract } from "@eslint-react/ast";
-import type { TSESTreeClass, TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { constFalse, constTrue } from "@local/eff";

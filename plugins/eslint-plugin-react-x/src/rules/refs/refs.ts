@@ -1,7 +1,5 @@
-import { Check, Extract, Traverse } from "@eslint-react/ast";
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { isUseRefCall } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -99,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return true;
         // const identifier = useRef();
         case init.type === AST.CallExpression
-          && isUseRefCall(context, init):
+          && core.isUseRefCall(context, init):
           return true;
       }
     }

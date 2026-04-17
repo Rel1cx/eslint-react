@@ -1,5 +1,4 @@
-import { Check } from "@eslint-react/ast";
-import type { TSESTreeDirective, TSESTreeFunction } from "@eslint-react/ast";
+import { Check, type TSESTreeDirective, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticFunc } from "./semantic";

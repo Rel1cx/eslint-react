@@ -1,6 +1,12 @@
-import { Check, Extract, isOneOf } from "@eslint-react/ast";
-import type { TSESTreeClass, TSESTreeFunction, TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/eslint";
+import {
+  Check,
+  Extract,
+  type TSESTreeClass,
+  type TSESTreeFunction,
+  type TSESTreeMethodOrPropertyDefinition,
+  isOneOf,
+} from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { isAPIFromReact } from "./api";
