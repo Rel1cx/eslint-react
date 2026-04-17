@@ -21,8 +21,8 @@ full: true
 
 ## X Rules
 
-| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                                                                 |  `react` |
-| :--------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
+| Rule                                                                                           |    ✅    |     🌟    | Description                                                                                                                                                                 |  `react` |
+| :--------------------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
 | [`component-hook-factories`](/docs/rules/component-hook-factories)                             | 2️⃣ 2️⃣ |           | Disallows higher order functions that define components or hooks inside them                                                                                                |          |
 | [`error-boundaries`](/docs/rules/error-boundaries)                                             | 2️⃣ 2️⃣ |           | Validates usage of Error Boundaries instead of try/catch for errors in child components                                                                                     |          |
 | [`exhaustive-deps`](/docs/rules/exhaustive-deps)                                               | 1️⃣ 1️⃣ | `⚙️` `🔧` | Verifies the list of dependencies for Hooks like `useEffect` and similar                                                                                                    |          |
@@ -86,8 +86,8 @@ full: true
   JSX rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
 </Callout>
 
-| Rule                                                                   |    ✅    |     🌟    | Description                                                                                                                                                                  | `react` |
-| :--------------------------------------------------------------------- | :-----: | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
+| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                                                                  | `react` |
+| :--------------------------------------------------------------------------------- | :-----: | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
 | [`no-children-prop`](/docs/rules/jsx-no-children-prop)                             | 1️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop                                                                                                                                       |         |
 | [`no-children-prop-with-children`](/docs/rules/jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content                                                                                       |         |
 | [`no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                     | 1️⃣ 1️⃣ |           | Prevents comment strings from being accidentally inserted into a JSX element's text nodes                                                                                    |         |
@@ -103,8 +103,8 @@ full: true
   RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
 </Callout>
 
-| Rule                                             |    ✅    |     🌟    | Description                                                       |  `react` |
-| :----------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------- | :------: |
+| Rule                                                         |    ✅    |     🌟    | Description                                                       |  `react` |
+| :----------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------- | :------: |
 | [`function-definition`](/docs/rules/rsc-function-definition) | 2️⃣ 2️⃣ | `🔧` `🧪` | Validates and transforms React Client/Server Function definitions | >=19.0.0 |
 
 ## DOM Rules
@@ -113,8 +113,8 @@ full: true
   DOM rules target [React DOM](https://react.dev/reference/react#react-dom)-specific concerns including security vulnerabilities, deprecated APIs, and DOM property usage.
 </Callout>
 
-| Rule                                                                                           |    ✅    |     🌟    | Description                                                                                   | `react-dom` |
-| :--------------------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------- | :---------: |
+| Rule                                                                                                       |    ✅    |     🌟    | Description                                                                                   | `react-dom` |
+| :--------------------------------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------- | :---------: |
 | [`no-dangerously-set-innerhtml`](/docs/rules/dom-no-dangerously-set-innerhtml)                             | 1️⃣ 1️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML`                                   |             |
 | [`no-dangerously-set-innerhtml-with-children`](/docs/rules/dom-no-dangerously-set-innerhtml-with-children) | 2️⃣ 2️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML` and `children` at the same time   |             |
 | [`no-find-dom-node`](/docs/rules/dom-no-find-dom-node)                                                     | 2️⃣ 2️⃣ |           | Disallows `findDOMNode`                                                                       |             |
@@ -139,8 +139,8 @@ full: true
   Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
 </Callout>
 
-| Rule                                                             |    ✅    |  🌟 | Description                                                                                                                  |
-| :--------------------------------------------------------------- | :-----: | :-: | :--------------------------------------------------------------------------------------------------------------------------- |
+| Rule                                                                         |    ✅    |  🌟 | Description                                                                                                                  |
+| :--------------------------------------------------------------------------- | :-----: | :-: | :--------------------------------------------------------------------------------------------------------------------------- |
 | [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |     | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`               |
 | [`no-leaked-interval`](/docs/rules/web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |     | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                          |
 | [`no-leaked-resize-observer`](/docs/rules/web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |     | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()` |
@@ -152,8 +152,8 @@ full: true
   Naming convention rules enforce consistent naming patterns for `React` entities.
 </Callout>
 
-| Rule                                             |    ✅    |  🌟 | Description                                                                                 |
-| :----------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------ |
+| Rule                                                         |    ✅    |  🌟 | Description                                                                                 |
+| :----------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------ |
 | [`context-name`](/docs/rules/naming-convention-context-name) | 1️⃣ 1️⃣ |     | Enforces the context name to be a valid component name with the suffix `Context`            |
 | [`id-name`](/docs/rules/naming-convention-id-name)           | 1️⃣ 1️⃣ |     | Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`    |
 | [`ref-name`](/docs/rules/naming-convention-ref-name)         | 1️⃣ 1️⃣ |     | Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref` |
@@ -166,8 +166,8 @@ full: true
   These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns.
 </Callout>
 
-| Rule                                             |    ✅    |  🌟  | Description                                                             |
-| :----------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------- |
+| Rule                                                         |    ✅    |  🌟  | Description                                                             |
+| :----------------------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------- |
 | [`function-component`](/docs/rules/debug-function-component) | 0️⃣ 0️⃣ | `🐞` | Reports all function components in JSON format                          |
 | [`hook`](/docs/rules/debug-hook)                             | 0️⃣ 0️⃣ | `🐞` | Reports all React Hooks in JSON format                                  |
 | [`is-from-react`](/docs/rules/debug-is-from-react)           | 0️⃣ 0️⃣ | `🐞` | Reports all identifiers initialized from React in JSON format           |
