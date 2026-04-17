@@ -58,6 +58,9 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "inlinedDependencies": {
     "@local/eff": "workspace:*"
   }

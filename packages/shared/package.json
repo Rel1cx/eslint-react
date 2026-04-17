@@ -57,8 +57,10 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "inlinedDependencies": {
-    "@eslint-react/eslint": "workspace:*",
     "@local/eff": "workspace:*"
   }
 }
