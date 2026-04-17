@@ -37,7 +37,7 @@ export function noCircularEffect(): RuleFunction {
         // 1. Register useState pairs
         if (is.useStateLikeCall(node, additionalStateHooks)) {
           const { parent } = node;
-          if (parent.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
+          if (parent?.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
             const [stateEl, setterEl] = parent.id.elements;
             if (stateEl?.type === "Identifier" && setterEl?.type === "Identifier") {
               const scope = context.sourceCode.getScope(node);
@@ -89,9 +89,11 @@ export function noCircularEffect(): RuleFunction {
 
           // Find setter calls inside the callback body
           const targets: Scope.Variable[] = [];
+          if (callback.range == null) continue;
           const [cbStart, cbEnd] = callback.range;
           for (const [setterVar, stateVar] of setterToState) {
             for (const ref of setterVar.references) {
+              if (ref.identifier.range == null) continue;
               const [refStart, refEnd] = ref.identifier.range;
               if (refStart < cbStart || refEnd > cbEnd) continue;
               const { parent } = ref.identifier;

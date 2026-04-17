@@ -16,9 +16,7 @@ const properties = {
   },
   compilationMode: {
     type: "string",
-    description: (
-      <Link href="#compilationmode">The [React Compiler](https://react.dev/learn/react-compiler) compilation mode</Link>
-    ),
+    description: <Link href="#compilationmode">The React Compiler compilation mode</Link>,
   },
   polymorphicPropName: {
     type: "string",

@@ -29,6 +29,7 @@ export default defineConfig({
         "html",
         "js",
         "json",
+        "jsonc",
         "jsx",
         "lisp",
         "log",

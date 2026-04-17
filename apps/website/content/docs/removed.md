@@ -19,17 +19,17 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/jsx-no-duplicate-props`                             |                                                                                                       | 3.0.0      | deprecated   |
 | `react-x/jsx-no-iife`                                        | [`react-x/unsupported-syntax`](/docs/rules/unsupported-syntax)                                        | 3.0.0      | consolidated |
 | `react-x/jsx-no-undef`                                       | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
-| `react-x/jsx-shorthand-boolean`                              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)         | 4.0.0      | discontinued |
-| `react-x/jsx-shorthand-fragment`                             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)         | 4.0.0      | discontinued |
+| `react-x/jsx-shorthand-boolean`                              | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)        | 4.0.0      | discontinued |
+| `react-x/jsx-shorthand-fragment`                             | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md)        | 4.0.0      | discontinued |
 | `react-x/jsx-uses-react`                                     | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
 | `react-x/jsx-uses-vars`                                      | N/A (ESLint v10.0.0+ now tracks JSX references natively)                                              | 3.0.0      | deprecated   |
 | `react-x/no-comment-textnodes`                               | [`react-jsx/no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                              | 2.0.0      | renamed      |
 | `react-x/no-complicated-conditional-rendering`               |                                                                                                       | 2.0.0      | discontinued |
-| `react-x/no-default-props`                                   | [`@eslint-react/kit/no-default-props`](https://beta.eslint-react.xyz/docs/packages/kit)               | 2.9.3      | deprecated   |
-| `react-x/no-forbidden-props`                                 | [`@eslint-react/kit/no-forbidden-props`](https://beta.eslint-react.xyz/docs/packages/kit)             | 2.3.2      | deprecated   |
+| `react-x/no-default-props`                                   | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.9.3      | deprecated   |
+| `react-x/no-forbidden-props`                                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.3.2      | deprecated   |
 | `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)              | 2.0.0      | renamed      |
-| `react-x/no-prop-types`                                      | [`@eslint-react/kit/no-prop-types`](https://beta.eslint-react.xyz/docs/packages/kit)                  | 2.9.3      | deprecated   |
-| `react-x/no-string-refs`                                     | [`@eslint-react/kit/no-string-refs`](https://beta.eslint-react.xyz/docs/packages/kit)                 | 2.9.3      | deprecated   |
+| `react-x/no-prop-types`                                      | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.9.3      | deprecated   |
+| `react-x/no-string-refs`                                     | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.9.3      | deprecated   |
 | `react-x/no-unnecessary-key`                                 |                                                                                                       | 3.0.0      | discontinued |
 | `react-x/no-unnecessary-use-ref`                             |                                                                                                       | 2.10.0     | discontinued |
 | `react-x/no-useless-forward-ref`                             | [`react-x/no-forward-ref`](/docs/rules/no-forward-ref)                                                | 3.0.0      | consolidated |
@@ -42,14 +42,16 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/no-unnecessary-use-memo`                            | N/A (Rule deprecated due to being inherently incompatible with `React.StrictMode` and React Compiler) | 5.0.0      | deprecated   |
 | `react-x/no-unused-state`                                    | N/A (Rule deprecated due to low usage and overlap with other rules)                                   | 5.0.0      | deprecated   |
 | `react-x/prefer-destructuring-assignment`                    | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
+| `react-x/no-redundant-should-component-update`               | N/A (Rule removed due to low usage and overlap with other rules)                                      | 5.0.0      | deprecated   |
 | `react-x/prefer-namespace-import`                            | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
 | `react-dom/prefer-namespace-import`                          | N/A (Rule deprecated due to low usage, use `@eslint-react/kit` to implement as a custom rule instead) | 5.0.0      | deprecated   |
+| `debug/class-component`                                      | N/A (Debug rule removed)                                                                              | 5.0.0      | deprecated   |
 | `react-x/use-jsx-vars`                                       | `react-x/jsx-uses-vars`                                                                               | 2.0.0      | renamed      |
 | `react-x/unstable-rules-of-props`                            | [Recipes: custom-rules-of-props](/docs/recipes/custom-rules-of-props)                                 | 4.2.1      | discontinued |
 | `react-x/unstable-rules-of-state`                            | [Recipes: custom-rules-of-state](/docs/recipes/custom-rules-of-state)                                 | 4.2.1      | discontinued |
 | `react-dom/no-children-in-void-dom-elements`                 | [`react-dom/no-void-elements-with-children`](/docs/rules/dom-no-void-elements-with-children)          | 2.0.0      | renamed      |
 | `react-dom/no-namespace`                                     | [`react-jsx/no-namespace`](/docs/rules/jsx-no-namespace)                                              | 4.0.0      | consolidated |
-| `react-jsx/dollar`                                           |                                                                                                       | 4.0.0      | discontinued |
+| `react-x/jsx-dollar`                                         |                                                                                                       | 4.0.0      | discontinued |
 | `react-hooks-extra/exhaustive-deps`                          | [`react-x/exhaustive-deps`](/docs/rules/exhaustive-deps)                                              | 2.14.0     | relocated    |
 | `react-hooks-extra/no-direct-set-state-in-use-effect`        | [`react-x/set-state-in-effect`](/docs/rules/set-state-in-effect)                                      | 2.14.0     | relocated    |
 | `react-hooks-extra/no-direct-set-state-in-use-layout-effect` | [`react-x/set-state-in-effect`](/docs/rules/set-state-in-effect)                                      | 2.0.0      | consolidated |

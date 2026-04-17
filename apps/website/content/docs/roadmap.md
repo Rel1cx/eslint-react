@@ -10,7 +10,7 @@ Minimum supported versions:
 
 - [x] Node.js: 22.0.0
 - [x] ESLint: 10.x.x
-- [x] TypeScript: 5
+- [x] TypeScript: 6
 
 ### Core API Refactoring
 
@@ -87,7 +87,7 @@ Minimum supported versions:
 
 - [x] Node.js: 22.0.0
 - [x] ESLint: 10.x.x
-- [x] TypeScript: 5
+- [x] TypeScript: 6
 
 ### New Packages
 
@@ -141,7 +141,7 @@ Minimum supported versions:
 
 - [x] Node.js: 22.0.0 (raised from 20.19.0)
 - [x] ESLint: 10.0.0
-- [x] TypeScript: 5
+- [x] TypeScript: 6
 
 ### New Rules
 
@@ -157,7 +157,7 @@ Minimum supported versions:
 - [x] `react-x/set-state-in-effect` - Validates against calling `setState` synchronously in an effect
 - [x] `react-x/set-state-in-render` - Validates against unconditionally setting state during render
 - [x] `react-x/no-nested-component-definitions` + `react-x/no-nested-lazy-component-declarations` - Validates that components are static, not recreated every render
-- [x] `react-x/unstable-rules-of-props` (Experimental) - Consolidates state-related validations including `prefer-set-state-callback`
+- [x] `react-x/unstable-rules-of-props` (Experimental) - Consolidates prop-related validations including mixing controlled and uncontrolled prop patterns
 - [x] `react-x/unstable-rules-of-state` (Experimental) - Consolidates state-related validations
 - [x] `react-x/unsupported-syntax` - Validates against syntax that React Compiler does not support (eval, with, IIFE in JSX)
 - [x] `react-x/use-memo` - Validates that `useMemo` is called with a callback that returns a value
@@ -196,7 +196,7 @@ Minimum supported versions:
 
 - [x] Node.js: 22.0.0
 - [x] ESLint: 10.0.0
-- [x] TypeScript: 5
+- [x] TypeScript: 6
 
 ### Package Distribution
 

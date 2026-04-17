@@ -1,5 +1,7 @@
 ---
 title: Contributing
+description: Monorepo structure and contributing guide for ESLint React
+full: true
 ---
 
 Contributions are welcome!
@@ -106,22 +108,22 @@ flowchart TB
     Scripts -->|"CI/CD"| Tests
 
     %% Click Events
-    click Website "https://github.com/rel1cx/eslint-react/tree/main/apps/website"
-    click Playground "https://github.com/rel1cx/eslint-react/tree/main/apps/playground"
-    click Core "https://github.com/rel1cx/eslint-react/tree/main/packages/core"
-    click Shared "https://github.com/rel1cx/eslint-react/tree/main/packages/shared"
-    click AST "https://github.com/rel1cx/eslint-react/tree/main/packages/ast"
-    click Var "https://github.com/rel1cx/eslint-react/tree/main/packages/var"
-    click JSX "https://github.com/rel1cx/eslint-react/tree/main/packages/jsx"
-    click ReactX "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x"
-    click ReactJSX "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-jsx"
-    click ReactRSC "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-rsc"
-    click ReactDOM "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom"
-    click ReactWebAPI "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api"
-    click ReactNamingConvention "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention"
-    click ReactAggregated "https://github.com/rel1cx/eslint-react/tree/main/plugins/eslint-plugin"
-    click Scripts "https://github.com/rel1cx/eslint-react/tree/main/scripts"
-    click Tests "https://github.com/rel1cx/eslint-react/tree/main/test"
+    click Website "https://github.com/Rel1cx/eslint-react/tree/main/apps/website"
+    click Playground "https://github.com/Rel1cx/eslint-react/tree/main/apps/playground"
+    click Core "https://github.com/Rel1cx/eslint-react/tree/main/packages/core"
+    click Shared "https://github.com/Rel1cx/eslint-react/tree/main/packages/shared"
+    click AST "https://github.com/Rel1cx/eslint-react/tree/main/packages/ast"
+    click Var "https://github.com/Rel1cx/eslint-react/tree/main/packages/var"
+    click JSX "https://github.com/Rel1cx/eslint-react/tree/main/packages/jsx"
+    click ReactX "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x"
+    click ReactJSX "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-jsx"
+    click ReactRSC "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-rsc"
+    click ReactDOM "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom"
+    click ReactWebAPI "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api"
+    click ReactNamingConvention "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention"
+    click ReactAggregated "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin"
+    click Scripts "https://github.com/Rel1cx/eslint-react/tree/main/scripts"
+    click Tests "https://github.com/Rel1cx/eslint-react/tree/main/test"
 
     %% Styles
     classDef apps fill:#f9e79f,stroke:#7d6608,stroke-width:2px;
@@ -153,6 +155,7 @@ This section provides a summary of the packages in the monorepo.
 ### Public Packages
 
 - **Utilities**
+  - [`packages/eslint`](https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint): ESLint types and utilities extracted for reuse across packages
   - [`packages/kit`](https://github.com/Rel1cx/eslint-react/tree/main/packages/kit): Utility module for building custom React rules with JavaScript functions
 - **ESLint Plugins**
   - [`plugins/eslint-plugin-react-x`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x): Core React rules
