@@ -1,30 +1,14 @@
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
+
 import { createJsxElementResolver, createRule } from "../../utils";
+import { isUnsafeSandboxCombination } from "./lib";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-const UNSAFE_SANDBOX_VALUES = ["allow-scripts", "allow-same-origin"] as const;
-
-/**
- * Check if the sandbox attribute value contains an unsafe combination
- * An iframe with both "allow-scripts" and "allow-same-origin" can remove its sandbox attribute,
- * making it as insecure as an iframe without any sandboxing
- * @param value The value of the sandbox attribute
- * @returns `true` if the value is a string and contains an unsafe combination, `false` otherwise
- */
-function isUnsafeSandboxCombination(value: unknown): value is string {
-  // The value must be a string to be processed
-  if (typeof value !== "string") {
-    return false;
-  }
-  // Check if the value includes both "allow-scripts" and "allow-same-origin"
-  return UNSAFE_SANDBOX_VALUES.every((v) => value.includes(v));
-}
 
 export default createRule<[], MessageID>({
   meta: {

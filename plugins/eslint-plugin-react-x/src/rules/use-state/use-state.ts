@@ -9,7 +9,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
 
 import { createRule } from "../../utils";
-import { getNestedCallExpressions, getNestedNewExpressions } from "./lib";
+import { LAZY_INIT_ALLOW_LIST, getNestedCallExpressions, getNestedNewExpressions } from "./lib";
 
 export const RULE_NAME = "use-state";
 
@@ -59,13 +59,6 @@ const schema = [
     },
   },
 ] as const satisfies JSONSchema4[];
-
-// Allow primitive wrapper types, as they are not expensive to call without lazy initialization
-const LAZY_INIT_ALLOW_LIST = [
-  "Boolean",
-  "String",
-  "Number",
-];
 
 export default createRule<Options, MessageID>({
   meta: {

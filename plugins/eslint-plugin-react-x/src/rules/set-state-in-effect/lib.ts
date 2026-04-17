@@ -1,4 +1,8 @@
+import * as core from "@eslint-react/core";
+import type { RuleContext } from "@eslint-react/eslint";
+import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Get all nested identifiers in a expression like node
@@ -125,4 +129,43 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
     identifiers.push(...getNestedIdentifiers(node.expression));
   }
   return identifiers;
+}
+
+export function isHookDecl(node: TSESTree.Node): node is
+  & TSESTree.VariableDeclarator
+  & { init: TSESTree.CallExpression }
+{
+  if (node.type !== AST.VariableDeclarator) return false;
+  if (node.id.type !== AST.Identifier) return false;
+  const init = node.init;
+  if (init == null || init.type !== AST.CallExpression) return false;
+  switch (init.callee.type) {
+    case AST.Identifier:
+      return core.isHookName(init.callee.name);
+    case AST.MemberExpression:
+      return init.callee.property.type === AST.Identifier
+        && core.isHookName(init.callee.property.name);
+    default:
+      return false;
+  }
+}
+
+export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope) {
+  for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
+    if (node.type !== AST.VariableDeclarator) continue;
+    const init = node.init;
+    if (init == null) continue;
+    switch (true) {
+      // const identifier = anotherRef.current;
+      case init.type === AST.MemberExpression
+        && init.object.type === AST.Identifier
+        && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
+        return true;
+      // const identifier = useRef();
+      case init.type === AST.CallExpression
+        && core.isUseRefCall(context, init):
+        return true;
+    }
+  }
+  return false;
 }

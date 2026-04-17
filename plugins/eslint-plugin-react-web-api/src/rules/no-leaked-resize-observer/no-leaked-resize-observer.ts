@@ -1,6 +1,6 @@
 import { type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { isAssignmentTargetEqual, resolve, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
@@ -12,7 +12,7 @@ import {
   getPhaseKindOfFunction,
 } from "../../types";
 import { createRule } from "../../utils";
-import { isConditional } from "./lib";
+import { isConditional, isFromObserver, isNewResizeObserver } from "./lib";
 
 // #region Rule Metadata
 
@@ -39,25 +39,6 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 // #endregion
 
 // #region Helpers
-
-function isNewResizeObserver(node: TSESTree.Node | null) {
-  return node?.type === AST.NewExpression
-    && node.callee.type === AST.Identifier
-    && node.callee.name === "ResizeObserver";
-}
-
-function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
-  switch (true) {
-    case node.type === AST.Identifier: {
-      const initNode = resolve(context, node);
-      return isNewResizeObserver(initNode);
-    }
-    case node.type === AST.MemberExpression:
-      return isFromObserver(context, node.object);
-    default:
-      return false;
-  }
-}
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   switch (true) {

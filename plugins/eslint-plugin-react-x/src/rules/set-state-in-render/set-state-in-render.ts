@@ -8,6 +8,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
+import { isComponentOrHookLikeFunction, isInsideConditional, isInsideEventHandler } from "./lib";
 
 export const RULE_NAME = "set-state-in-render";
 
@@ -106,47 +107,6 @@ export function create(context: RuleContext<MessageID, []>) {
         return false;
       }
     }
-  }
-
-  function isInsideConditional(node: TSESTree.Node, stopAt: TSESTreeFunction) {
-    let current: TSESTree.Node | undefined = node.parent;
-    while (current != null && current !== stopAt) {
-      switch (current.type) {
-        case AST.IfStatement:
-        case AST.ConditionalExpression:
-        case AST.LogicalExpression:
-        case AST.SwitchStatement:
-        case AST.SwitchCase:
-          return true;
-        default:
-          break;
-      }
-      current = current.parent;
-    }
-    return false;
-  }
-
-  function isInsideEventHandler(node: TSESTree.Node, stopAt: TSESTreeFunction) {
-    let current: TSESTree.Node | undefined = node.parent;
-    while (current != null && current !== stopAt) {
-      if (Check.isFunction(current) && current !== stopAt) {
-        return true;
-      }
-      current = current.parent;
-    }
-    return false;
-  }
-
-  function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
-    const id = core.getFunctionId(node);
-    if (id == null) return false;
-    if (id.type === AST.Identifier) {
-      return core.isFunctionComponentName(id.name) || core.isHookName(id.name);
-    }
-    if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
-      return core.isFunctionComponentName(id.property.name) || core.isHookName(id.property.name);
-    }
-    return false;
   }
 
   function getFunctionKind(node: TSESTreeFunction): FunctionKind {

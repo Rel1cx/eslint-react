@@ -2,32 +2,13 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { hasAnyAttribute } from "@eslint-react/jsx";
 
 import { createJsxElementResolver, createRule } from "../../utils";
+import { VOID_ELEMENTS } from "./lib";
 
 export const RULE_NAME = "no-void-elements-with-children";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-// A set of HTML void elements that cannot have children
-const voidElements = new Set([
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "keygen",
-  "link",
-  "menuitem",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-]);
 
 export default createRule<[], MessageID>({
   meta: {
@@ -53,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>) {
       JSXElement(node) {
         const { domElementType } = resolver.resolve(node);
         // If the element is not a void element, do nothing
-        if (!voidElements.has(domElementType)) {
+        if (!VOID_ELEMENTS.has(domElementType)) {
           return;
         }
 

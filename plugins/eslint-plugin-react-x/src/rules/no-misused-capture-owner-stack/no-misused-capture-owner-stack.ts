@@ -4,7 +4,8 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { createRule } from "../../utils";
-import { isProcessEnvNodeEnvCompare } from "./lib";
+
+import { isDevelopmentOnlyCheck } from "./lib";
 
 export const RULE_NAME = "no-misused-capture-owner-stack";
 
@@ -70,10 +71,4 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
-}
-
-// Helper function to check if a node is a development-only `if` statement
-function isDevelopmentOnlyCheck(node: TSESTree.Node) {
-  if (node.type !== AST.IfStatement) return false;
-  return isProcessEnvNodeEnvCompare(node.test, "!==", "production");
 }

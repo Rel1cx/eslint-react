@@ -140,9 +140,5 @@ export function create(context: RuleContext<MessageID, []>) {
       // For all other node types, assume they are safe
       .otherwise(() => null);
   }
-  return merge(
-    {
-      JSXExpressionContainer: flow(getReportDescriptor, report(context)),
-    },
-  );
+  return merge({ JSXExpressionContainer: flow(getReportDescriptor, report(context)) });
 }

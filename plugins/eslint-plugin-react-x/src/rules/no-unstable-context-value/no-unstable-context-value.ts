@@ -9,6 +9,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
 import { createRule } from "../../utils";
+import { isContextName } from "./lib";
 
 export const RULE_NAME = "no-unstable-context-value";
 
@@ -91,12 +92,4 @@ export function create(context: RuleContext<MessageID, []>) {
       },
     },
   );
-}
-
-function isContextName(name: string, isReact18OrBelow: boolean): boolean {
-  if (name === "Provider") return true;
-  if (!isReact18OrBelow) {
-    return name.endsWith("Context") || name.endsWith("CONTEXT");
-  }
-  return false;
 }

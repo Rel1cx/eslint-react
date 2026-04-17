@@ -1,6 +1,13 @@
 import { is } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
+// Allow primitive wrapper types, as they are not expensive to call without lazy initialization
+export const LAZY_INIT_ALLOW_LIST = [
+  "Boolean",
+  "String",
+  "Number",
+];
+
 /**
  * Get all nested expressions of type T in an expression like node
  * @param type The type of the expression to retrieve within the node

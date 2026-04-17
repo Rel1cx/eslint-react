@@ -1,9 +1,10 @@
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
+import { isEvalCall, isIifeCall } from "./lib";
 
 export const RULE_NAME = "unsupported-syntax";
 
@@ -34,14 +35,6 @@ export default createRule<[], MessageID>({
   create,
   defaultOptions: [],
 });
-
-function isEvalCall(node: TSESTree.CallExpression) {
-  return node.callee.type === AST.Identifier && node.callee.name === "eval";
-}
-
-function isIifeCall(node: TSESTreeFunction) {
-  return node.parent.type === AST.CallExpression && node.parent.callee === node;
-}
 
 export function create(context: RuleContext<MessageID, []>) {
   const hc = core.getHookCollector(context);

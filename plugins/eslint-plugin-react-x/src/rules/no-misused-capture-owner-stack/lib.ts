@@ -41,3 +41,9 @@ export function isProcessEnvNodeEnvCompare(
   }
   return false;
 }
+
+// Helper function to check if a node is a development-only `if` statement
+export function isDevelopmentOnlyCheck(node: TSESTree.Node) {
+  if (node.type !== AST.IfStatement) return false;
+  return isProcessEnvNodeEnvCompare(node.test, "!==", "production");
+}

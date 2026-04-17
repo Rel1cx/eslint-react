@@ -1,5 +1,7 @@
 import { isOneOf } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { type RuleContext } from "@eslint-react/eslint";
+import { resolve } from "@eslint-react/var";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check if a node is a loop statement
@@ -30,3 +32,22 @@ export const isConditional = isOneOf([
   AST.LogicalExpression,
   AST.ConditionalExpression,
 ]);
+
+export function isNewResizeObserver(node: TSESTree.Node | null) {
+  return node?.type === AST.NewExpression
+    && node.callee.type === AST.Identifier
+    && node.callee.name === "ResizeObserver";
+}
+
+export function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
+  switch (true) {
+    case node.type === AST.Identifier: {
+      const initNode = resolve(context, node);
+      return isNewResizeObserver(initNode);
+    }
+    case node.type === AST.MemberExpression:
+      return isFromObserver(context, node.object);
+    default:
+      return false;
+  }
+}

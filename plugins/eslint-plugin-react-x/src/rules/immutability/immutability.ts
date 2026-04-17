@@ -8,6 +8,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { createRule } from "../../utils";
+import { MUTATING_ARRAY_METHODS } from "./lib";
 
 export const RULE_NAME = "immutability";
 
@@ -18,22 +19,6 @@ export const RULE_FEATURES = [
 export type MessageID =
   | "mutatingArrayMethod"
   | "mutatingAssignment";
-
-/**
- * Array methods that mutate the array in place.
- * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
- */
-const MUTATING_ARRAY_METHODS = new Set([
-  "copyWithin",
-  "fill",
-  "pop",
-  "push",
-  "reverse",
-  "shift",
-  "sort",
-  "splice",
-  "unshift",
-]);
 
 export default createRule<[], MessageID>({
   meta: {
