@@ -61,7 +61,7 @@ Previously deprecated rules have also been removed:
 
 ## **Introducing Powerful New Rules**
 
-This release adds a significant number of new rules to `eslint-plugin-react-x`, including rules ported _verbatim_ from `eslint-plugin-react-hooks` with full code-path analysis, as well as re-implemented React Compiler rules that offer better performance and, unlike the official plugin, require **no** Babel or React Compiler installation:
+This release adds a significant number of new rules to `eslint-plugin-react-x`, including rules ported _verbatim_ from `eslint-plugin-react-hooks` with full code-path analysis, as well as re-implemented React Compiler rules that offer better performance and, unlike the official plugin, require neither Babel nor React Compiler installation:
 
 - **`react-x/component-hook-factories`**: Validates against higher-order functions defining nested components or hooks. Components and hooks should be defined at the module level.
 - **`react-x/error-boundaries`**: Validates usage of Error Boundaries instead of try/catch for errors in child components.
@@ -69,7 +69,7 @@ This release adds a significant number of new rules to `eslint-plugin-react-x`, 
 - **`react-x/immutability`** (Experimental): Validates against mutating props, state, and other immutable values. Detects in-place array mutations (e.g. `push`, `sort`, `splice`) and direct property assignments on state variables.
 - **`react-x/purity`** (Experimental): Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
 - **`react-x/refs`** (Experimental): Validates correct usage of refs by checking that `ref.current` is not read or written during render.
-- **`react-x/rules-of-hooks`**: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-react#rules-of-hooks). Ported from `eslint-plugin-react-hooks` with code-path analysis for more accurate hook validation.
+- **`react-x/rules-of-hooks`**: Enforces the [Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks). Ported from `eslint-plugin-react-hooks` with code-path analysis for more accurate hook validation.
 - **`react-x/set-state-in-effect`**: Validates against calling `setState` synchronously in an effect, which can lead to re-renders that degrade performance. Unlike the old `no-direct-set-state-in-use-effect`, this rule allows `setState` when the value is derived from a ref (aligning with React's recommended patterns).
 - **`react-x/set-state-in-render`** (Experimental): Validates against unconditionally setting state during render, which can cause infinite render loops.
 - **`react-x/unsupported-syntax`**: Validates against syntax that React Compiler does not support, including `eval`, `with` statements, and IIFEs in JSX.

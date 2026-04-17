@@ -1,6 +1,6 @@
 ---
 title: "Announcing v4.2.1"
-description: "A major release introducing a dedicated JSX plugin, new utility packages for custom rules, and flattened rule naming"
+description: "A major release introducing a dedicated JSX plugin, new utility package for custom rules, and flattened rule naming"
 ---
 
 <Callout type="info">
@@ -90,7 +90,7 @@ This release adds several new rules, primarily under the new `react-jsx` plugin:
 
 - **`react-jsx/no-children-prop-with-children`**: Disallows passing `children` as a prop when children are also passed as nested content.
 - **`react-jsx/no-key-after-spread`**: Prevents patterns that cause deoptimization when using the automatic JSX runtime (e.g. placing `key` after spread props). This is the renamed and relocated successor to `react-x/jsx-key-before-spread`.
-- **`react-jsx/no-namespace`**: Disallows JSX namespace syntax, as React does not support them.
+- **`react-jsx/no-namespace`**: Disallows JSX namespace syntax, as React does not support it.
 
 ## **Developer Experience Improvements**
 

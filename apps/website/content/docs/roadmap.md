@@ -183,7 +183,7 @@ Minimum supported versions:
 - [x] ~~`eslint-plugin-react-hooks-extra`~~ - Extra Hooks rules for React (removed in 2.14.0, rules migrated to `eslint-plugin-react-x`)
 - ... (Free to combine with other plugins from the community)
 
-### Add codemod feature to rules that can be transformed (using auto-fix) safely
+### Add codemod feature to rules that can be safely transformed using auto-fix
 
 - [x] `react-x/no-component-did-update`
 - [x] `react-x/no-component-will-receive-props`
@@ -192,12 +192,12 @@ Minimum supported versions:
 - [x] `react-x/no-forward-ref`
 - [x] `react-x/no-string-refs`
 
-### Add auto-fix feature to rules that can be auto-fixed safely
+### Add auto-fix feature to rules that can be safely fixed
 
 - [x] `react-x/prefer-namespace-import`
 - [x] `react-dom/prefer-namespace-import`
 
-### Add suggestion-fix feature to rules that can be fixed interactively
+### Add suggestion fix feature to rules that can be fixed interactively
 
 - [x] `react-dom/no-missing-button-type`
 - [x] `react-dom/no-missing-iframe-sandbox`

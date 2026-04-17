@@ -1,4 +1,3 @@
-import { CodeBlock } from "#/components/ui/CodeBlock";
 import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 
@@ -17,8 +16,8 @@ export function JSXConfigTypeTable() {
           ),
           default: '"react-jsx"',
           typeDescription: (
-            <CodeBlock
-              code={dedent`
+            <code style={{ whiteSpace: "pre" }}>
+              {dedent`
                 type JSXTransform =
                   | "none"
                   | "react-jsx"
@@ -27,8 +26,7 @@ export function JSXConfigTypeTable() {
                   | "react-native"
                   | "react";
               `}
-              lang="ts"
-            />
+            </code>
           ),
         },
         jsxFactory: {

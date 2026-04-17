@@ -11,7 +11,7 @@ description: "A major release embracing modern JavaScript standards with powerfu
 
 To align with the direction of the JavaScript ecosystem, v2.0.0 introduces the following significant changes:
 
-1. **ESM-Only**: `eslint-react.xyz` is now distributed exclusively as ECMAScript Modules (ESM).
+1. **ESM-Only**: ESLint React is now distributed exclusively as ECMAScript Modules (ESM).
 2. **Flat Config Exclusive**: We have dropped support for the legacy `.eslintrc` format and now exclusively support ESLint's Flat Config, enabling more powerful and flexible configurations.
 3. **Updated Environment Requirements**:
    - **Node.js**: `18.x` ↦ `20.x`
@@ -32,7 +32,7 @@ We have refactored our rules to make them more consistent and intuitive.
   // "react-hooks-extra/no-direct-set-state-in-use-layout-effect": "warn",
 
   // New way: A single rule handling all useEffect variants
-  "react-x/no-direct-set-state-in-use-effect": "warn",
+  "react-hooks-extra/no-direct-set-state-in-use-effect": "warn",
   ```
 
 - **Rule Migration**: Several generic Hooks rules from the `react-hooks-extra` package, such as `no-unnecessary-use-prefix`, have been moved to the core `react-x` plugin.
@@ -78,7 +78,7 @@ We believe a great tool should not only find problems but also help you fix them
 To upgrade to v2.0.0, follow these steps:
 
 1. **Update Node.js**: Ensure your environment is running Node.js 20.x or higher.
-2. **Update Dependencies**: Update ESLint plugins from `eslint-react.xyz` and its related dependencies to their required versions.
+2. **Update Dependencies**: Update `@eslint-react/*` ESLint plugins and their related dependencies to their required versions.
 3. **Review Rule Changes**: Check the [Changelog](/docs/changelog#v200-2025-09-26) for a complete list of rule changes.
 4. **Adjust ESLint Configuration**: Update your ESLint configuration to accommodate renamed or consolidated rules. If you haven't already, convert your configuration to Flat Config.
 5. **Update ESLint Directives**: Use the provided codemods to update any ESLint directives in your codebase.
