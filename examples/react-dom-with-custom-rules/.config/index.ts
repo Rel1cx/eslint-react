@@ -1,3 +1,4 @@
+export * from "./booleanPropNaming";
 export * from "./checkedRequiresOnchangeOrReadonly";
 export * from "./componentHookFactories";
 export * from "./forbidComponentProps";

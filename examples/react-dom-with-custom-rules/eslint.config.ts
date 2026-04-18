@@ -10,6 +10,7 @@ import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 
 import {
+  booleanPropNaming,
   checkedRequiresOnchangeOrReadonly,
   componentHookFactories,
   forbidComponentProps,
@@ -84,6 +85,7 @@ export default defineConfig(
       eslintReact.configs["strict-type-checked"],
       {
         ...eslintReactKit()
+          .use(booleanPropNaming)
           .use(checkedRequiresOnchangeOrReadonly)
           .use(componentHookFactories)
           .use(forbidComponentProps, { forbidden: ["className", "style"] })

@@ -1,3 +1,4 @@
+/* eslint-disable @eslint-react/kit/boolean-prop-naming */
 /* eslint-disable @eslint-react/kit/forbid-elements */
 /* eslint-disable @eslint-react/kit/jsx-no-bind */
 /* eslint-disable @eslint-react/kit/no-multi-comp */
@@ -35,5 +36,30 @@ const MDXComponents = {
 };
 
 void MDXComponents;
+
+// ❌ Should report: "disabled" does not match the boolean prop naming pattern.
+const ToggleButton = ({ disabled }: { disabled: boolean }) => {
+  return <button type="button" disabled={disabled}>Click me</button>;
+};
+
+// ❌ Should report: "visible" does not match the boolean prop naming pattern.
+const Modal = ({ visible }: { visible: boolean }) => {
+  return visible ? <div>Modal</div> : null;
+};
+
+// ✅ Correct — "isOpen" matches the boolean prop naming pattern.
+const Drawer = ({ isOpen }: { isOpen: boolean }) => {
+  return isOpen ? <div>Drawer</div> : null;
+};
+
+// ✅ Correct — "hasError" matches the boolean prop naming pattern.
+const InputField = ({ hasError }: { hasError: boolean }) => {
+  return <input aria-invalid={hasError} />;
+};
+
+void ToggleButton;
+void Modal;
+void Drawer;
+void InputField;
 
 export default App;

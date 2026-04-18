@@ -39,7 +39,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 
 | `eslint-plugin-react` Rule Name                                                                                                                              | New Rule Name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Prev Status | Status |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- | :----- |
-| [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
+| [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)                                     | [`@eslint-react/kit/boolean-prop-naming`](#boolean-prop-naming) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ✅           | ✅      |
 | [`button-has-type`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)                                             | [`dom-no-missing-button-type`](/docs/rules/dom-no-missing-button-type)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | ✅           | 🔧     |
 | [`checked-requires-onchange-or-readonly`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/checked-requires-onchange-or-readonly.md) | [`@eslint-react/kit/checked-requires-onchange-or-readonly`](#checked-requires-onchange-or-readonly) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ✅      |
 | [`default-props-match-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/default-props-match-prop-types.md)               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
@@ -207,6 +207,7 @@ import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit from "@eslint-react/kit";
 import { defineConfig } from "eslint/config";
 import {
+  booleanPropNaming,
   checkedRequiresOnchangeOrReadonly,
   forbidComponentProps,
   forbidDomProps,
@@ -232,6 +233,7 @@ export default defineConfig([
     extends: [
       eslintReact.configs["recommended-typescript"],
       eslintReactKit()
+        .use(booleanPropNaming, { rule: "^(is|has|should)[A-Z]([A-Za-z0-9]?)+" })
         .use(checkedRequiresOnchangeOrReadonly)
         .use(forbidComponentProps, { forbidden: ["className", "style"] })
         .use(forbidDomProps, { forbidden: ["style", "className"] })
@@ -258,6 +260,72 @@ export default defineConfig([
     ],
   },
 ]);
+```
+
+### `boolean-prop-naming`
+
+Enforce a naming convention for boolean props.
+
+```ts twoslash title=".config/booleanPropNaming.ts"
+import { type RuleFunction, merge } from "@eslint-react/kit";
+import { ESLintUtils } from "@typescript-eslint/utils";
+import ts from "typescript";
+
+/** Options for {@link booleanPropNaming}. */
+export type booleanPropNamingOptions = {
+  /** A regular expression that boolean prop names must match. */
+  rule?: string;
+};
+
+/** Enforce boolean prop naming convention. */
+export function booleanPropNaming(options?: booleanPropNamingOptions): RuleFunction {
+  const { rule = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+" } = options ?? {};
+  const regex = new RegExp(rule);
+  function isBooleanType(type: ts.Type): boolean {
+    if (type.isUnion()) {
+      return type.types.some(isBooleanType);
+    }
+    return !!(type.getFlags() & (ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral));
+  }
+  return (context, { collect }) => {
+    const services = ESLintUtils.getParserServices(context, false);
+    const checker = services.program.getTypeChecker();
+
+    const { query, visitor } = collect.components(context);
+
+    return merge(visitor, {
+      "Program:exit"(program) {
+        const components = query.all(program);
+        for (const component of components) {
+          const [props] = component.node.params;
+          if (props == null) continue;
+
+          const tsNode = services.esTreeNodeToTSNodeMap.get(props);
+          const propsType = checker.getTypeAtLocation(tsNode);
+          const declaredProps = propsType.getProperties();
+
+          for (const prop of declaredProps) {
+            const propType = checker.getTypeOfSymbolAtLocation(prop, tsNode);
+            if (!isBooleanType(propType)) continue;
+            if (regex.test(prop.name)) continue;
+
+            const declaration = prop.getDeclarations()?.[0];
+            if (declaration == null) continue;
+
+            const declarationNode = services.tsNodeToESTreeNodeMap.get(declaration);
+            if (declarationNode == null) continue;
+
+            context.report({
+              data: { name: prop.name, rule },
+              message: `Boolean prop "{{name}}" should be named according to the pattern "{{rule}}".`,
+              node: "key" in declarationNode ? declarationNode.key : declarationNode,
+            });
+          }
+        }
+      },
+    });
+  };
+}
 ```
 
 ### `checked-requires-onchange-or-readonly`
