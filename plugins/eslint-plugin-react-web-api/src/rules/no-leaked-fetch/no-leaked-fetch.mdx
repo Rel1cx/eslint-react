@@ -54,7 +54,7 @@ function UserProfile({ id }: { id: string }) {
 
   useEffect(() => {
     fetch(`/api/user/${id}`)
-    //^^^ A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
+    // ^^^ A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
       .then((r) => r.json())
       .then(setUser);
   }, [id]);
