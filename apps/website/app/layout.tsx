@@ -1,7 +1,8 @@
 import { baseUrl } from "#/lib/metadata";
+import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
-import { ViewTransitions } from "next-view-transitions";
+import { Link, ViewTransitions } from "next-view-transitions";
 
 import "#/app/app.css";
 import "#/app/app.override.css";
@@ -43,6 +44,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
           type="image/png"
         />
         <body className="flex flex-col min-h-screen">
+          <Banner id="v5-beta" variant="rainbow">
+            <Link href="https://beta.eslint-react.xyz/docs">Try ESLint React v5 Beta →</Link>
+          </Banner>
           <RootProvider theme={themeOptions}>
             {children}
           </RootProvider>
