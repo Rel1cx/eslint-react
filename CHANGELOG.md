@@ -1,5 +1,30 @@
 # Changelog
 
+## v5.3.0-beta.1 (2026-04-18)
+
+### ✨ New
+
+- **react-web-api:** add `no-leaked-fetch` rule, closes #1714 (#1715) (`09a3b1664`)
+
+### 🪄 Improvements
+
+- **ast:** rename `isJSXLike` to `isJSXElementOrFragment` and `isMethodOrProperty` to `isPropertyOrMethod` (`7b21cf210`)
+- **eslint-plugin-react-x:** rename component and hook collectors to short names (`e02d773a7`)
+- extract rule helpers into co-located `lib.ts` modules across multiple plugins (`405964d31`)
+- unify import style across packages and plugins (`5734462a4`)
+- fix imports in website and custom rules examples (`ec8cf3cea`)
+- add `publishConfig.access` to packages and mark `@local/eff` as private (`684e7f0d7`)
+
+### 📝 Documentation
+
+- **website:** add banner for kit beta and disable inline CSS (`4686faa3f`)
+
+### 🏗️ Internal
+
+- bump `tsl-dx`, `eslint-plugin-react-hooks`, and `@takumi-rs/image-response` (`7d9ff2677`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.2.4-beta.3...v5.3.0-beta.1
+
 ## v5.2.4-beta.3 (2026-04-17)
 
 ### 🪄 Improvements
