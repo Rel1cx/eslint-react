@@ -1,7 +1,8 @@
 import { baseUrl } from "#/lib/metadata";
+import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
-import { ViewTransitions } from "next-view-transitions";
+import { Link, ViewTransitions } from "next-view-transitions";
 
 import "#/app/app.css";
 import "#/app/app.override.css";
@@ -43,6 +44,16 @@ export default function Layout({ children }: LayoutProps<"/">) {
           type="image/png"
         />
         <body className="flex flex-col min-h-screen">
+          <Banner id="kit-beta" variant="rainbow">
+            {"ESLint React Kit is now in beta. "}
+            <Link
+              className="underline"
+              href="/docs/packages/kit"
+              rel="noreferrer"
+            >
+              Create project-specific rules
+            </Link>
+          </Banner>
           <RootProvider theme={themeOptions}>
             {children}
           </RootProvider>
