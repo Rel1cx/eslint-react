@@ -16,38 +16,16 @@ export function findProperty(of: TSESTree.ObjectLiteralElement[], named: string)
   return null;
 }
 
-function unwrapTypeExpression(node: TSESTree.Node): TSESTree.Node {
-  let current = node;
-  while (true) {
-    switch (current.type) {
-      case AST.ParenthesizedExpression:
-        current = current.expression;
-        continue;
-      case AST.TSAsExpression:
-        current = current.expression;
-        continue;
-      case AST.TSSatisfiesExpression:
-        current = current.expression;
-        continue;
-      case AST.TSTypeAssertion:
-        current = current.expression;
-        continue;
-      default:
-        return current;
-    }
-  }
-}
-
 export function resolveToObjectExpression(context: RuleContext, node: TSESTree.Node): TSESTree.ObjectExpression | null {
-  const unwrappedNode = unwrapTypeExpression(node);
-  switch (unwrappedNode.type) {
+  node = Extract.unwrap(node);
+  switch (node.type) {
     case AST.ObjectExpression:
-      return unwrappedNode;
+      return node;
     case AST.Identifier: {
-      const resolved = resolve(context, unwrappedNode);
-      const unwrappedResolved = resolved == null ? null : unwrapTypeExpression(resolved);
-      if (unwrappedResolved?.type === AST.ObjectExpression) {
-        return unwrappedResolved;
+      let resolved = resolve(context, node);
+      resolved = resolved == null ? null : Extract.unwrap(resolved);
+      if (resolved?.type === AST.ObjectExpression) {
+        return resolved;
       }
       return null;
     }

@@ -133,6 +133,44 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedAbortInCleanup" }],
     },
+    // Signal wrapped in type expression without cleanup (unwrap)
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal as AbortSignal });
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortInCleanup" }],
+    },
+    // Options wrapped in type expression without cleanup (unwrap)
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal } as RequestInit);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortInCleanup" }],
+    },
+    // Aborting wrong controller wrapped in type expression (unwrap)
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl1 = new AbortController();
+            const ctrl2 = new AbortController();
+            fetch("/api/user", { signal: ctrl1.signal });
+            return () => (ctrl2 as AbortController).abort();
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortInCleanup" }],
+    },
     // Cleanup returns a non-function
     {
       code: tsx`
@@ -298,6 +336,67 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const ctrl = new AbortController();
           fetch("/api/user", { ...someOptions, signal: ctrl.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Signal wrapped in type expression (unwrap)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal as AbortSignal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Options wrapped in type expression (unwrap)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal } as RequestInit);
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Abort controller wrapped in type expression (unwrap)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal });
+          return () => (ctrl as AbortController).abort();
+        }, []);
+      }
+    `,
+    // Signal with non-null assertion (unwrap)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal! });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Options variable resolved through type expression (unwrap)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          const opts = { signal: ctrl.signal } as RequestInit;
+          fetch("/api/user", opts);
           return () => ctrl.abort();
         }, []);
       }

@@ -4,7 +4,7 @@ import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
 
 export function unwrap(node: TSESTree.Node): Exclude<TSESTree.Node, TSESTreeTypeExpression> {
-  if (Check.isTypeExpression(node)) {
+  if (Check.isTypeExpression(node) || node.type === AST.ChainExpression) {
     return unwrap(node.expression);
   }
   return node;

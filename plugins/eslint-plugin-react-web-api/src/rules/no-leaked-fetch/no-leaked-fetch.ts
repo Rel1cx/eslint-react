@@ -1,4 +1,4 @@
-import { Check, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -62,39 +62,24 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
-function unwrapSignalExpression(node: TSESTree.Node): TSESTree.Node {
-  switch (node.type) {
-    case AST.TSAsExpression:
-    case AST.TSSatisfiesExpression:
-    case AST.TSNonNullExpression:
-    case AST.TSTypeAssertion:
-    case AST.ParenthesizedExpression:
-      return unwrapSignalExpression(node.expression);
-    case AST.ChainExpression:
-      return unwrapSignalExpression(node.expression);
-    default:
-      return node;
-  }
-}
-
 function getControllerFromSignal(
   context: RuleContext,
   node: TSESTree.Node,
 ): { controller: TSESTree.Node | null; isParamSignal: boolean } {
-  const unwrappedNode = unwrapSignalExpression(node);
-  switch (unwrappedNode.type) {
+  node = Extract.unwrap(node);
+  switch (node.type) {
     case AST.MemberExpression:
-      return { controller: unwrappedNode.object, isParamSignal: false };
+      return { controller: node.object, isParamSignal: false };
     case AST.Identifier: {
-      const resolved = resolve(context, unwrappedNode);
-      const unwrappedResolved = resolved == null ? null : unwrapSignalExpression(resolved);
-      if (unwrappedResolved?.type === AST.MemberExpression) {
-        return { controller: unwrappedResolved.object, isParamSignal: false };
+      const resolved = resolve(context, node);
+      const resolvedUnwrapped = resolved == null ? null : Extract.unwrap(resolved);
+      if (resolvedUnwrapped?.type === AST.MemberExpression) {
+        return { controller: resolvedUnwrapped.object, isParamSignal: false };
       }
       // If the identifier is a function parameter, treat it as a valid signal expression
       // (e.g. `signal` from foxact/use-abortable-effect).
       if (resolved != null && Check.isFunction(resolved)) {
-        return { controller: unwrappedNode, isParamSignal: true };
+        return { controller: node, isParamSignal: true };
       }
       return { controller: null, isParamSignal: false };
     }
@@ -140,7 +125,7 @@ export default createRule<[], MessageID>({
     messages: {
       expectedAbortController: "A 'fetch' must be provided with an 'AbortController' for proper cleanup.",
       expectedAbortInCleanup:
-        "A 'fetch' started in '{{ kind }}' must be aborted with 'AbortController.abort' in the cleanup function.",
+        "A 'fetch' started in effect must be aborted with 'AbortController.abort' in the cleanup function.",
     },
     schema: [],
   },
@@ -216,9 +201,6 @@ export function create(context: RuleContext<MessageID, []>) {
           );
           if (!hasMatchingAbort) {
             context.report({
-              data: {
-                kind: "useEffect",
-              },
               messageId: "expectedAbortInCleanup",
               node: fEntry.node,
             });

@@ -93,6 +93,25 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component() {
           useEffect(() => {
+            const observer = new ResizeObserver(() => {}) as ResizeObserver;
+            observer.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
             const observer = new ResizeObserver(() => {});
             for (const element of document.querySelectorAll('.selector')) {
               observer.observe(element);
@@ -150,6 +169,36 @@ ruleTester.run(RULE_NAME, rule, {
           observer.observe(document.body);
           return () => {
             observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {}) as ResizeObserver;
+          observer.observe(document.body);
+          return () => {
+            observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body as HTMLElement);
+          return () => {
+            observer.unobserve(document.body);
           }
         }, []);
 
