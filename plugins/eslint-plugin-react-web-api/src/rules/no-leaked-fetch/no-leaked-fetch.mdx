@@ -1,0 +1,111 @@
+---
+title: no-leaked-fetch
+description: Enforces that every 'fetch' in a component or custom hook has a corresponding 'AbortController' abort in the cleanup function.
+---
+
+<Callout type="warning">
+  This is an evaluation implementation and may contain false positives or negatives that have not yet been fully audited. Review each report carefully before applying fixes.
+</Callout>
+
+**Full Name in `eslint-plugin-react-web-api`**
+
+```plain copy
+react-web-api/no-leaked-fetch
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/web-api-no-leaked-fetch
+```
+
+**Features**
+
+`🧪`
+
+**Presets**
+
+`web-api`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Starting a `fetch` within the setup function of `useEffect` / `useLayoutEffect` /
+`useInsertionEffect` without passing an `AbortSignal` and aborting it in cleanup
+can lead to responses resolving after the component unmounts or after the effect
+re-runs on a dependency change. If the resolved handler calls `setState` or
+writes to a ref the component reads, the UI will display data for a component
+instance that no longer exists, or overwrite fresh data with stale data.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import { useEffect, useState } from "react";
+
+function UserProfile({ id }: { id: string }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`/api/user/${id}`)
+    //^^^ A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
+      .then((r) => r.json())
+      .then(setUser);
+  }, [id]);
+
+  return user ? <Profile user={user} /> : null;
+}
+```
+
+### Valid
+
+```tsx
+import { useEffect, useState } from "react";
+
+function UserProfile({ id }: { id: string }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    fetch(`/api/user/${id}`, { signal: ctrl.signal })
+      .then((r) => r.json())
+      .then(setUser);
+    return () => ctrl.abort();
+  }, [id]);
+
+  return user ? <Profile user={user} /> : null;
+}
+```
+
+## Troubleshooting
+
+### Why is this pattern problematic?
+
+An in-flight `fetch` does not know its caller has unmounted. When the response
+resolves, the `.then` chain runs regardless. If that chain writes state, React
+logs "Can't perform a state update on an unmounted component" (pre-18) or
+silently overwrites fresh data (post-18, once the component remounts with new
+props).
+
+### What are the alternatives?
+
+- **`AbortController`** (recommended, canonical React guidance).
+- **TanStack Query / SWR**: they manage this for you inside their API boundary; code using them exclusively does not need this rule.
+- **`isMounted` ref guard**: technically prevents UI corruption but wastes network and doesn't trigger on React's strict-mode double-invoke. Rule does not recognize this pattern as a cleanup.
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-fetch/no-leaked-fetch.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-fetch/no-leaked-fetch.spec.ts)
+
+## Further Reading
+
+- [MDN: AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)
+- [MDN: fetch() `signal` option](https://developer.mozilla.org/en-US/docs/Web/API/fetch#signal)
+- [React Docs: Fetching data in Effects](https://react.dev/learn/synchronizing-with-effects#fetching-data)
