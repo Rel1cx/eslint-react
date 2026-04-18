@@ -62,22 +62,39 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   }
 }
 
+function unwrapSignalExpression(node: TSESTree.Node): TSESTree.Node {
+  switch (node.type) {
+    case AST.TSAsExpression:
+    case AST.TSSatisfiesExpression:
+    case AST.TSNonNullExpression:
+    case AST.TSTypeAssertion:
+    case AST.ParenthesizedExpression:
+      return unwrapSignalExpression(node.expression);
+    case AST.ChainExpression:
+      return unwrapSignalExpression(node.expression);
+    default:
+      return node;
+  }
+}
+
 function getControllerFromSignal(
   context: RuleContext,
   node: TSESTree.Node,
 ): { controller: TSESTree.Node | null; isParamSignal: boolean } {
-  switch (node.type) {
+  const unwrappedNode = unwrapSignalExpression(node);
+  switch (unwrappedNode.type) {
     case AST.MemberExpression:
-      return { controller: node.object, isParamSignal: false };
+      return { controller: unwrappedNode.object, isParamSignal: false };
     case AST.Identifier: {
-      const resolved = resolve(context, node);
-      if (resolved?.type === AST.MemberExpression) {
-        return { controller: resolved.object, isParamSignal: false };
+      const resolved = resolve(context, unwrappedNode);
+      const unwrappedResolved = resolved == null ? null : unwrapSignalExpression(resolved);
+      if (unwrappedResolved?.type === AST.MemberExpression) {
+        return { controller: unwrappedResolved.object, isParamSignal: false };
       }
       // If the identifier is a function parameter, treat it as a valid signal expression
       // (e.g. `signal` from foxact/use-abortable-effect).
       if (resolved != null && Check.isFunction(resolved)) {
-        return { controller: node, isParamSignal: true };
+        return { controller: unwrappedNode, isParamSignal: true };
       }
       return { controller: null, isParamSignal: false };
     }
