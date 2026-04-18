@@ -28,13 +28,13 @@
     "eslint-plugin-de-morgan": "^2.1.1",
     "eslint-plugin-function": "^0.10.3",
     "eslint-plugin-jsdoc": "^62.9.0",
-    "eslint-plugin-perfectionist": "^5.8.0",
+    "eslint-plugin-perfectionist": "^5.9.0",
     "eslint-plugin-regexp": "^3.1.0",
     "eslint-plugin-unicorn": "^64.0.0",
     "typescript-eslint": "^8.58.2"
   },
   "devDependencies": {
-    "eslint": "^10.2.0",
+    "eslint": "^10.2.1",
     "tsdown": "^0.21.9",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.11.0",
@@ -44,7 +44,7 @@
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.2.0",
+    "eslint": "^10.2.1",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.11.0",
     "typedoc": "0.28.19",
