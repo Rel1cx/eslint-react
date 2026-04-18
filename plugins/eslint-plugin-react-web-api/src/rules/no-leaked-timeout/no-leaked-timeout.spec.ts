@@ -61,6 +61,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const timeoutId = setTimeout(() => {}, 1000) as number;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedClearTimeoutInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -135,6 +149,26 @@ ruleTester.run(RULE_NAME, rule, {
               clearTimeout(timeoutIdRef.current);
             }
           };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const timeoutId = setTimeout(() => {}, 1000) as number;
+          return () => clearTimeout(timeoutId as number);
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const timeoutId = setTimeout(() => {}, 1000) as number;
+          return () => clearTimeout(timeoutId);
         }, []);
       }
     `,

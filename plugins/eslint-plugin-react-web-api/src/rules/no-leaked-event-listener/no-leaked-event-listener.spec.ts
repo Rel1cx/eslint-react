@@ -933,6 +933,28 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          (window as Window).addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            (window as Window).removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
       const abortController = new AbortController();
       function Example() {
         const rHandleResize = useRef(() => {});

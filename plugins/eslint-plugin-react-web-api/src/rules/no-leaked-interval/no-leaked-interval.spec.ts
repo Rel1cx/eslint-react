@@ -61,6 +61,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const intervalId = setInterval(() => {}, 1000) as number;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedClearIntervalInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -135,6 +149,26 @@ ruleTester.run(RULE_NAME, rule, {
               clearInterval(intervalIdRef.current);
             }
           };
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const intervalId = setInterval(() => {}, 1000) as number;
+          return () => clearInterval(intervalId as number);
+        }, []);
+      }
+    `,
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const intervalId = setInterval(() => {}, 1000) as number;
+          return () => clearInterval(intervalId);
         }, []);
       }
     `,

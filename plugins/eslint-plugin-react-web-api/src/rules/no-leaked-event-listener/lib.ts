@@ -23,12 +23,13 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
   switch (node.type) {
     case AST.Identifier: {
       const resolved = resolve(context, node);
+      const unwrapped = resolved == null ? null : Extract.unwrap(resolved);
       // If the identifier is a function parameter (resolve returns the containing function),
       // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
-      if (resolved != null && Check.isFunction(resolved)) {
+      if (unwrapped != null && Check.isFunction(unwrapped)) {
         return node;
       }
-      return getSignalValueExpression(context, resolved);
+      return getSignalValueExpression(context, unwrapped);
     }
     case AST.MemberExpression:
       return node;
