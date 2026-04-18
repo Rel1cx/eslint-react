@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint",
-  "version": "5.3.0-next.1",
+  "version": "5.3.0-beta.1",
   "description": "ESLint React's ESLint types and utils.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
