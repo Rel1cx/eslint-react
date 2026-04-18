@@ -16,14 +16,38 @@ export function findProperty(of: TSESTree.ObjectLiteralElement[], named: string)
   return null;
 }
 
+function unwrapTypeExpression(node: TSESTree.Node): TSESTree.Node {
+  let current = node;
+  while (true) {
+    switch (current.type) {
+      case AST.ParenthesizedExpression:
+        current = current.expression;
+        continue;
+      case AST.TSAsExpression:
+        current = current.expression;
+        continue;
+      case AST.TSSatisfiesExpression:
+        current = current.expression;
+        continue;
+      case AST.TSTypeAssertion:
+        current = current.expression;
+        continue;
+      default:
+        return current;
+    }
+  }
+}
+
 export function resolveToObjectExpression(context: RuleContext, node: TSESTree.Node): TSESTree.ObjectExpression | null {
-  switch (node.type) {
+  const unwrappedNode = unwrapTypeExpression(node);
+  switch (unwrappedNode.type) {
     case AST.ObjectExpression:
-      return node;
+      return unwrappedNode;
     case AST.Identifier: {
-      const resolved = resolve(context, node);
-      if (resolved?.type === AST.ObjectExpression) {
-        return resolved;
+      const resolved = resolve(context, unwrappedNode);
+      const unwrappedResolved = resolved == null ? null : unwrapTypeExpression(resolved);
+      if (unwrappedResolved?.type === AST.ObjectExpression) {
+        return unwrappedResolved;
       }
       return null;
     }
