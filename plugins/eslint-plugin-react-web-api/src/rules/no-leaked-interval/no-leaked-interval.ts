@@ -1,4 +1,4 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -31,14 +31,15 @@ type CallKind = EventMethodKind | EffectMethodKind | "other";
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
-    case node.callee.type === AST.Identifier
-      && isMatching(P.union("setInterval", "clearInterval"))(node.callee.name):
-      return node.callee.name;
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && isMatching(P.union("setInterval", "clearInterval"))(node.callee.property.name):
-      return node.callee.property.name;
+    case callee.type === AST.Identifier
+      && isMatching(P.union("setInterval", "clearInterval"))(callee.name):
+      return callee.name;
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && isMatching(P.union("setInterval", "clearInterval"))(callee.property.name):
+      return callee.property.name;
     default:
       return "other";
   }

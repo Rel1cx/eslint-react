@@ -1,4 +1,4 @@
-import { Check, Compare, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isValueEqual } from "@eslint-react/var";
@@ -41,14 +41,15 @@ export type REntry = EventListenerEntry & { method: "removeEventListener" };
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
-    case node.callee.type === AST.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.name):
-      return node.callee.name;
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(node.callee.property.name):
-      return node.callee.property.name;
+    case callee.type === AST.Identifier
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(callee.name):
+      return callee.name;
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(callee.property.name):
+      return callee.property.name;
     default:
       return "other";
   }
@@ -148,12 +149,13 @@ export function create(context: RuleContext<MessageID, []>) {
         if (!ComponentPhaseRelevance.has(fKind)) {
           return;
         }
+        const unwrappedCallee = Extract.unwrap(node.callee);
         match(getCallKind(node))
           .with("addEventListener", (callKind) => {
             // https://github.com/Rel1cx/eslint-react/issues/1323
-            const isFromReactNative = node.callee.type === AST.MemberExpression
-              && node.callee.object.type === AST.Identifier
-              && core.isAPIFromReactNative(node.callee.object.name, context.sourceCode.getScope(node));
+            const isFromReactNative = unwrappedCallee.type === AST.MemberExpression
+              && unwrappedCallee.object.type === AST.Identifier
+              && core.isAPIFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
             if (isFromReactNative) {
               return;
             }

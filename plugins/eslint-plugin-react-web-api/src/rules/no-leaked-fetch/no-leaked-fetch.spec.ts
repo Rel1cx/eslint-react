@@ -266,6 +266,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedAbortController" }],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            (fetch as any)("/api/user");
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortController" }],
+    },
   ],
   valid: [
     // Basic valid cases

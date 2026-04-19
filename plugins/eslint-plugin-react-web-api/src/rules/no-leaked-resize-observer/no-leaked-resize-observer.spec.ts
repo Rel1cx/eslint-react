@@ -158,6 +158,21 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            (observer.observe as any)(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
   ],
   valid: [
     tsx`
