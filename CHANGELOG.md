@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.3.2-beta.0 (2026-04-20)
+
+### 🐞 Fixes
+
+- **eslint-plugin:** extract naming-convention preset and fix config gaps (`d39a0c9f7`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.1-beta.0...v5.3.2-beta.0
+
 ## v5.3.1-beta.0 (2026-04-20)
 
 ### ✨ New
