@@ -29,6 +29,7 @@ However, not all rules have direct equivalents, and some behave differently.
 - 🚫 **Legacy** - Rule is not applicable in modern TypeScript React development (e.g., class-based components, `propTypes`)
 - ⚠️ **Warning** - Rule has been deprecated in `eslint-plugin-react`
 - 🔄 **Codemod** - Rule is supported as a codemod (safe AST transformation)
+- 💭 **Requires type checking** - Rule requires TypeScript type-aware linting to function correctly
 
 A variety of rules are marked **legacy**, but still have equivalent rules. This distinction was done to more accurately assess
 migration for React written with function components and no longer use `propTypes`.
@@ -39,7 +40,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 
 | `eslint-plugin-react` Rule Name                                                                                                                              | New Rule Name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Prev Status | Status |
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------- | :----- |
-| [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)                                     | [`@eslint-react/kit/boolean-prop-naming`](#boolean-prop-naming) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ✅           | ✅      |
+| [`boolean-prop-naming`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/boolean-prop-naming.md)                                     | [`@eslint-react/kit/boolean-prop-naming`](#boolean-prop-naming) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ✅           | 💭     |
 | [`button-has-type`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)                                             | [`dom-no-missing-button-type`](/docs/rules/dom-no-missing-button-type)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | ✅           | 🔧     |
 | [`checked-requires-onchange-or-readonly`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/checked-requires-onchange-or-readonly.md) | [`@eslint-react/kit/checked-requires-onchange-or-readonly`](#checked-requires-onchange-or-readonly) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ✅      |
 | [`default-props-match-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/default-props-match-prop-types.md)               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
@@ -287,10 +288,10 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
   const flattenTypes = (type: ts.Type): ts.Type[] => type.isUnion() ? type.types.flatMap(flattenTypes) : [type];
   const isBooleanType = (type: ts.Type): boolean => flattenTypes(type).some(t => !!(t.getFlags() & BOOLEAN_LIKE));
 
-  return (ctx, { collect }) => {
-    const srv = ESLintUtils.getParserServices(ctx, false);
+  return (context, { collect }) => {
+    const srv = ESLintUtils.getParserServices(context, false);
     const chk = srv.program.getTypeChecker();
-    const { query, visitor } = collect.components(ctx);
+    const { query, visitor } = collect.components(context);
 
     return merge(visitor, {
       "Program:exit"(prog) {
@@ -319,13 +320,15 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             if (decls == null || decls.length === 0) continue;
 
             const [decl] = decls;
+            if (decl == null) continue;
+
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
             if (declNode == null) continue;
 
             const node = "key" in declNode ? declNode.key : declNode;
 
             // › Report violation
-            ctx.report({
+            context.report({
               data: { name: prop.name, rule },
               message: `Boolean prop "{{name}}" should match "{{rule}}".`,
               node,

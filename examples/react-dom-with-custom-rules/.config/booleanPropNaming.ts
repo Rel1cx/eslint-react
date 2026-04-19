@@ -18,10 +18,10 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
   const flattenTypes = (type: ts.Type): ts.Type[] => type.isUnion() ? type.types.flatMap(flattenTypes) : [type];
   const isBooleanType = (type: ts.Type): boolean => flattenTypes(type).some(t => !!(t.getFlags() & BOOLEAN_LIKE));
 
-  return (ctx, { collect }) => {
-    const srv = ESLintUtils.getParserServices(ctx, false);
+  return (context, { collect }) => {
+    const srv = ESLintUtils.getParserServices(context, false);
     const chk = srv.program.getTypeChecker();
-    const { query, visitor } = collect.components(ctx);
+    const { query, visitor } = collect.components(context);
 
     return merge(visitor, {
       "Program:exit"(prog) {
@@ -50,13 +50,14 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             if (decls == null || decls.length === 0) continue;
 
             const [decl] = decls;
+            if (decl == null) continue;
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
             if (declNode == null) continue;
 
             const node = "key" in declNode ? declNode.key : declNode;
 
             // › Report violation
-            ctx.report({
+            context.report({
               data: { name: prop.name, rule },
               message: `Boolean prop "{{name}}" should match "{{rule}}".`,
               node,
