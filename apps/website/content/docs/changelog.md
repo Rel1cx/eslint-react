@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.3.0-beta.2 (2026-04-19)
+
+### ✨ New
+
+- **custom-rules:** add boolean prop naming custom rule and docs (`e0ac2090c`)
+
+### 🪄 Improvements
+
+- **custom-rules:** update booleanPropNaming.ts (`f55e8686b`)
+
+### 📝 Documentation
+
+- add `no-set-state` and `no-string-refs` migration examples (`7691e11b3`)
+- add 'Requires type checking' legend (`630e41fc6`)
+- improve custom rule examples readability and consistency (`bfeaea095`)
+- update migrating-from-eslint-plugin-react.mdx (`24e393566`)
+- update rule warning text in plugin docs (`3d511d657`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.0-beta.1...v5.3.0-beta.2
+
 ## v5.3.0-beta.1 (2026-04-18)
 
 ### ✨ New
