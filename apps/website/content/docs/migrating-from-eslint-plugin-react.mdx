@@ -271,54 +271,71 @@ import { type RuleFunction, merge } from "@eslint-react/kit";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import ts from "typescript";
 
-/** Options for {@link booleanPropNaming}. */
-export type booleanPropNamingOptions = {
+// ── Options ───────────────────────────────────────────
+export type BooleanPropNamingOptions = {
   /** A regular expression that boolean prop names must match. */
   rule?: string;
 };
 
-/** Enforce boolean prop naming convention. */
-export function booleanPropNaming(options?: booleanPropNamingOptions): RuleFunction {
-  const { rule = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+" } = options ?? {};
-  const regex = new RegExp(rule);
-  function isBooleanType(type: ts.Type): boolean {
-    if (type.isUnion()) {
-      return type.types.some(isBooleanType);
-    }
-    return !!(type.getFlags() & (ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral));
-  }
-  return (context, { collect }) => {
-    const services = ESLintUtils.getParserServices(context, false);
-    const checker = services.program.getTypeChecker();
+// ── Constants ─────────────────────────────────────────
+const DEFAULT_RULE = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+";
+const BOOLEAN_LIKE = ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral;
 
-    const { query, visitor } = collect.components(context);
+// ── Type Utils ────────────────────────────────────────
+const flattenTypes = (type: ts.Type): ts.Type[] =>
+  type.isUnion() ? type.types.flatMap(flattenTypes) : [type];
+
+const isBooleanType = (type: ts.Type): boolean =>
+  flattenTypes(type).some(t => !!(t.getFlags() & BOOLEAN_LIKE));
+
+// ── Rule ──────────────────────────────────────────────
+/** Enforce boolean prop naming convention. */
+export function booleanPropNaming(
+  options?: BooleanPropNamingOptions,
+): RuleFunction {
+  const { rule = DEFAULT_RULE } = options ?? {};
+  const regex = new RegExp(rule);
+
+  // ── Listener ────────────────────────────────────────
+  return (context, { collect }) => {
+    const srv = ESLintUtils.getParserServices(context, false); // parser services
+    const chk = srv.program.getTypeChecker();                  // type checker
+    const { query, visitor } = collect.components(context);    // component utils
 
     return merge(visitor, {
-      "Program:exit"(program) {
-        const components = query.all(program);
-        for (const component of components) {
-          const [props] = component.node.params;
-          if (props == null) continue;
+      "Program:exit"(prog) {
+        const comps = query.all(prog);
 
-          const tsNode = services.esTreeNodeToTSNodeMap.get(props);
-          const propsType = checker.getTypeAtLocation(tsNode);
+        // ── Each component ────────────────────────────
+        for (const comp of comps) {
+          const [propsParam] = comp.node.params;
+          if (propsParam == null) continue; // no props
+
+          const tsNode = srv.esTreeNodeToTSNodeMap.get(propsParam);
+          const propsType = chk.getTypeAtLocation(tsNode);
           const declaredProps = propsType.getProperties();
 
+          // ── Each prop ───────────────────────────────
           for (const prop of declaredProps) {
-            const propType = checker.getTypeOfSymbolAtLocation(prop, tsNode);
-            if (!isBooleanType(propType)) continue;
-            if (regex.test(prop.name)) continue;
+            const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
+            if (!isBooleanType(propType)) continue; // non-boolean
+            if (regex.test(prop.name))    continue; // valid name
 
-            const declaration = prop.getDeclarations()?.[0];
-            if (declaration == null) continue;
+            const decls = prop.getDeclarations();
+            if (decls == null)            continue; // no declarations
 
-            const declarationNode = services.tsNodeToESTreeNodeMap.get(declaration);
-            if (declarationNode == null) continue;
+            const [decl] = decls;
+            if (decl == null)             continue; // empty
+
+            const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
+            if (declNode == null)         continue; // no estree node
+
+            const node = "key" in declNode ? declNode.key : declNode;
 
             context.report({
               data: { name: prop.name, rule },
-              message: `Boolean prop "{{name}}" should be named according to the pattern "{{rule}}".`,
-              node: "key" in declarationNode ? declarationNode.key : declarationNode,
+              message: `Boolean prop "{{name}}" should match "{{rule}}".`,
+              node,
             });
           }
         }
