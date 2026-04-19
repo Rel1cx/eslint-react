@@ -133,6 +133,20 @@ ruleTester.run(RULE_NAME, rule, {
         function MyComponent() {
           return (
             <div>
+              {((() => <span>wrapped</span>) as any)()}
+            </div>
+          );
+        }
+      `,
+      errors: [{
+        messageId: "iife",
+      }],
+    },
+    {
+      code: tsx`
+        function MyComponent() {
+          return (
+            <div>
               {(function() {
                 return <span>hello</span>;
               })()}

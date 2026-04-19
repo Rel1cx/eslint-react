@@ -114,15 +114,15 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
  */
 export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
   if (node == null) return false;
-  const expr = Extract.unwrap(node);
-  if (expr.type !== AST.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
-  if (expr.callee.type === AST.Identifier) {
-    return isHookName(expr.callee.name);
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type === AST.Identifier) {
+    return isHookName(callee.name);
   }
-  if (expr.callee.type === AST.MemberExpression) {
-    return expr.callee.property.type === AST.Identifier && isHookName(expr.callee.property.name);
+  if (callee.type === AST.MemberExpression) {
+    return callee.property.type === AST.Identifier && isHookName(callee.property.name);
   }
   return false;
 }
@@ -138,11 +138,10 @@ export function isUseEffectLikeCall(
   additionalEffectHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  const expr = Extract.unwrap(node);
-  if (expr.type !== AST.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
-  const callee = Extract.unwrap(expr.callee);
+  const callee = Extract.unwrap(node.callee);
   return [/^use\w*Effect$/u, additionalEffectHooks].some((regexp) => {
     if (callee.type === AST.Identifier) {
       return regexp.test(callee.name);
@@ -165,11 +164,10 @@ export function isUseStateLikeCall(
   additionalStateHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  const expr = Extract.unwrap(node);
-  if (expr.type !== AST.CallExpression) {
+  if (node.type !== AST.CallExpression) {
     return false;
   }
-  const callee = Extract.unwrap(expr.callee);
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
     case callee.type === AST.Identifier:
       return callee.name === "useState"
