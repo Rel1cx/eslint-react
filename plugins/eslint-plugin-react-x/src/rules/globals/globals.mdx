@@ -1,0 +1,110 @@
+---
+title: globals
+description: Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.
+---
+
+<Callout type="warning">
+  This is an evaluation implementation and may contain false positives or negatives that have not yet been fully audited. Review each report carefully before applying fixes.
+</Callout>
+
+**Full Name in [`eslint-plugin-react-x@rc`](https://npmx.dev/package/eslint-plugin-react-x)**
+
+```plain copy
+react-x/globals
+```
+
+**Full Name in [`@eslint-react/eslint-plugin@rc`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+
+```plain copy
+@eslint-react/globals
+```
+
+## Rule Details
+
+Global variables exist outside React's control. When you modify them during render, you break React's assumption that rendering is pure. This can cause components to behave differently in development vs production, break Fast Refresh, and make your app impossible to optimize with features like React Compiler.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+// ❌ Global counter
+let renderCount = 0;
+function Component() {
+  renderCount++; // Mutating global
+  return <div>Count: {renderCount}</div>;
+}
+```
+
+```tsx
+// ❌ Modifying window properties
+function Component({ userId }) {
+  window.currentUser = userId; // Global mutation
+  return <div>User: {userId}</div>;
+}
+```
+
+```tsx
+// ❌ Global array push
+const events = [];
+function Component({ event }) {
+  events.push(event); // Mutating global array
+  return <div>Events: {events.length}</div>;
+}
+```
+
+```tsx
+// ❌ Cache manipulation
+const cache = {};
+function Component({ id }) {
+  if (!cache[id]) {
+    cache[id] = fetchData(id); // Modifying cache during render
+  }
+  return <div>{cache[id]}</div>;
+}
+```
+
+### Valid
+
+```tsx
+// ✅ Use state for counters
+function Component() {
+  const [clickCount, setClickCount] = useState(0);
+  const handleClick = () => {
+    setClickCount(c => c + 1);
+  };
+  return (
+    <button onClick={handleClick}>
+      Clicked: {clickCount} times
+    </button>
+  );
+}
+```
+
+```tsx
+// ✅ Use context for global values
+function Component() {
+  const user = useContext(UserContext);
+  return <div>User: {user.id}</div>;
+}
+```
+
+```tsx
+// ✅ Synchronize external state with React
+function Component({ title }) {
+  useEffect(() => {
+    document.title = title; // OK in effect
+  }, [title]);
+  return <div>Page: {title}</div>;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/globals/globals.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/globals/globals.spec.ts)
+
+## Further Reading
+
+- [React Docs: Keeping Components Pure](https://react.dev/learn/keeping-components-pure)
+- [React Docs: `globals` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/globals)

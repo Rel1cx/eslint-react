@@ -5,6 +5,7 @@ import { name, version } from "../package.json";
 import componentHookFactories from "./rules/component-hook-factories/component-hook-factories";
 import errorBoundaries from "./rules/error-boundaries/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps/exhaustive-deps";
+import globals from "./rules/globals/globals";
 import immutability from "./rules/immutability/immutability";
 import noAccessStateInSetstate from "./rules/no-access-state-in-setstate/no-access-state-in-setstate";
 import noArrayIndexKey from "./rules/no-array-index-key/no-array-index-key";
@@ -63,6 +64,7 @@ export const plugin = {
     "component-hook-factories": componentHookFactories,
     "error-boundaries": errorBoundaries,
     "exhaustive-deps": exhaustiveDeps,
+    globals: globals,
     immutability: immutability,
     "no-access-state-in-setstate": noAccessStateInSetstate,
     "no-array-index-key": noArrayIndexKey,
