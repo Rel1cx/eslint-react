@@ -54,10 +54,13 @@ export function create(context: RuleContext<MessageID, []>) {
         switch (true) {
           case node.name.type === AST.JSXIdentifier
             && node.name.name === "ref"
-            && node.value?.type === AST.JSXExpressionContainer
-            && node.value.expression.type === AST.Identifier:
-            jsxRefIdentifiers.add(node.value.expression.name);
+            && node.value?.type === AST.JSXExpressionContainer: {
+            const expr = Extract.unwrap(node.value.expression);
+            if (expr.type === AST.Identifier) {
+              jsxRefIdentifiers.add(expr.name);
+            }
             return;
+          }
         }
       },
       // Track ref.current accesses
@@ -97,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         for (const { isWrite, node } of refAccesses) {
           // Inline isRefIdentifier — must be accessing .current on a ref
-          const obj = node.object;
+          const obj = Extract.unwrap(node.object);
           if (obj.type !== AST.Identifier) continue;
           switch (true) {
             case obj.name === "ref" || obj.name.endsWith("Ref"):

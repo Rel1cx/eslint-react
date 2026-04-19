@@ -121,6 +121,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "notAssignedToVariable" }],
     },
+    // Callback wrapped in TSAsExpression with no return value
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo((() => {
+            data.forEach(item => console.log(item));
+          }) as () => void, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [{ messageId: "missingReturnValue" }],
+    },
   ],
   valid: [
     // Arrow function with concise body (always returns)

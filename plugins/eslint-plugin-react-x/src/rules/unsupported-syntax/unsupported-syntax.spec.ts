@@ -19,6 +19,17 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function Component({ code }) {
+          const result = (eval as Function)(code);
+          return <div>{result}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "eval",
+      }],
+    },
+    {
+      code: tsx`
         function Component() {
           with (Math) {
             return <div>{sin(PI / 2)}</div>;

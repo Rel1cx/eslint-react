@@ -34,9 +34,10 @@ export function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string
   const { left, right } = test;
   const checkSides = (a: TSESTree.Node, b: TSESTree.Node) => {
     a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
+    const obj = a.type === AST.MemberExpression ? Extract.unwrap(a.object) : null;
     return a.type === AST.MemberExpression
-      && a.object.type === AST.Identifier
-      && a.object.name === refName
+      && obj?.type === AST.Identifier
+      && obj.name === refName
       && b.type === AST.Literal
       && b.value == null
       && Extract.getPropertyName(a.property) === "current";
@@ -51,10 +52,16 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
     if (init == null) continue;
     switch (true) {
       // const identifier = anotherRef.current;
-      case init.type === AST.MemberExpression
-        && init.object.type === AST.Identifier
-        && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
-        return true;
+      case init.type === AST.MemberExpression: {
+        const initObj = Extract.unwrap(init.object);
+        if (
+          initObj.type === AST.Identifier
+          && (initObj.name === "ref" || initObj.name.endsWith("Ref"))
+        ) {
+          return true;
+        }
+        break;
+      }
       // const identifier = useRef();
       case init.type === AST.CallExpression
         && core.isUseRefCall(context, init):

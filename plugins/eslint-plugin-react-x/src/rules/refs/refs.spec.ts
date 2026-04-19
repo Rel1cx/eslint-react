@@ -567,6 +567,32 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "writeDuringRender",
       }],
     },
+    // Write through TSNonNullExpression on the ref object itself
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          ref!.current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write through TSAsExpression on the ref object itself
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          (ref as any).current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -1228,6 +1254,18 @@ ruleTester.run(RULE_NAME, rule, {
           const ref = useRef<ExpensiveThing | null>(null);
           if ((ref.current as ExpensiveThing | null) === null) {
             ref.current = createExpensiveThing();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with TSAsExpression on the ref object itself
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<ExpensiveThing | null>(null);
+          if ((ref as any).current === null) {
+            (ref as any).current = createExpensiveThing();
           }
           return <div />;
         }

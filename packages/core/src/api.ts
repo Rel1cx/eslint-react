@@ -20,8 +20,9 @@ export declare namespace isAPI {
 export function isAPI(api: string): isAPI.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node) => {
     if (node == null) return false;
+    const expr = Extract.unwrap(node);
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-    const name = Extract.getFullyQualifiedName(node, getText);
+    const name = Extract.getFullyQualifiedName(expr, getText);
     if (name === api) return true;
     if (name.endsWith(`.${api}`)) return true;
     return false;
@@ -44,8 +45,9 @@ export declare namespace isAPICall {
 export function isAPICall(api: string): isAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
-    if (node.type !== AST.CallExpression) return false;
-    return isAPI(api)(context, Extract.unwrap(node.callee));
+    const expr = Extract.unwrap(node);
+    if (expr.type !== AST.CallExpression) return false;
+    return isAPI(api)(context, Extract.unwrap(expr.callee));
   };
   return dual(2, func);
 }
