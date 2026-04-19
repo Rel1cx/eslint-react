@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.3.1-beta.0 (2026-04-20)
+
+### ✨ New
+
+- **react-x:** add `globals` rule (#1716) (`324b38891`)
+
+### 🐞 Fixes
+
+- add missing `Extract.unwrap` for type expressions and chain expressions (#1717) (`24bc183e1`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.0-beta.2...v5.3.1-beta.0
+
 ## v5.3.0-beta.2 (2026-04-19)
 
 ### ✨ New
