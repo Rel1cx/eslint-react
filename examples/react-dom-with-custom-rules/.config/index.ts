@@ -20,5 +20,7 @@ export * from "./noAdjacentInlineElements";
 export * from "./noCircularEffect";
 export * from "./noMultiComp";
 export * from "./noMultipleChildrenInTitle";
+export * from "./noSetState";
+export * from "./noStringRefs";
 export * from "./noUnnecessaryUsePrefix";
 export * from "./version";

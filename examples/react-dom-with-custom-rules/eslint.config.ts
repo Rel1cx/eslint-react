@@ -32,6 +32,8 @@ import {
   noCircularEffect,
   noMultiComp,
   noMultipleChildrenInTitle,
+  noSetState,
+  noStringRefs,
   noUnnecessaryUsePrefix,
   version,
 } from "./.config";
@@ -114,6 +116,8 @@ export default defineConfig(
           .use(noCircularEffect)
           .use(noMultiComp)
           .use(noMultipleChildrenInTitle)
+          .use(noSetState)
+          .use(noStringRefs)
           .use(noUnnecessaryUsePrefix)
           .use(version, "19")
           .getConfig(),

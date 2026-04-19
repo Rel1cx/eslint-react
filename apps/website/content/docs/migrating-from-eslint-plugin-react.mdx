@@ -112,8 +112,8 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`no-namespace`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-namespace.md)                                                   | [`jsx-no-namespace`](/docs/rules/jsx-no-namespace)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | ✅           | ✅      |
 | [`no-object-type-as-default-prop`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-object-type-as-default-prop.md)               | [`no-unstable-default-props`](/docs/rules/no-unstable-default-props)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`no-render-return-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-render-return-value.md)                               | [`dom-no-render-return-value`](/docs/rules/dom-no-render-return-value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | ✅           | ✅      |
-| [`no-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-set-state.md)                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
-| [`no-string-refs`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
+| [`no-set-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-set-state.md)                                                   | [`@eslint-react/kit/no-set-state`](#no-set-state) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | ✅           | ✅      |
+| [`no-string-refs`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)                                               | [`@eslint-react/kit/no-string-refs`](#no-string-refs) report-only                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | ✅           | ✅      |
 | [`no-this-in-sfc`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-this-in-sfc.md)                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`no-typos`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-typos.md)                                                           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | ❌      |
 | [`no-unknown-property`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md)                                     | [`dom-no-unknown-property`](/docs/rules/dom-no-unknown-property)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 🔧          | 🔧     |
@@ -1115,6 +1115,65 @@ export function noAdjacentInlineElements(): RuleFunction {
         context.report({
           node: current,
           message: `Adjacent inline elements "${currentName}" and "${nextName}" should be separated by whitespace.`,
+        });
+      }
+    },
+  });
+}
+```
+
+### `no-set-state`
+
+Forbid `this.setState()` calls.
+
+```ts twoslash
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Forbid this.setState() calls. */
+export function noSetState(): RuleFunction {
+  return (context) => ({
+    CallExpression(node) {
+      const { callee } = node;
+
+      // Check if callee is this.setState
+      if (
+        callee.type === "MemberExpression" &&
+        callee.object.type === "ThisExpression" &&
+        callee.property.type === "Identifier" &&
+        callee.property.name === "setState"
+      ) {
+        context.report({
+          node,
+          message: "this.setState() is not allowed.",
+        });
+      }
+    },
+  });
+}
+```
+
+### `no-string-refs`
+
+Disallow deprecated string refs.
+
+```ts twoslash
+import type { RuleFunction } from "@eslint-react/kit";
+
+/** Disallow deprecated string refs. */
+export function noStringRefs(): RuleFunction {
+  return (context) => ({
+    JSXAttribute(node) {
+      // Check if this is a ref attribute
+      if (node.name.type !== "JSXIdentifier" || node.name.name !== "ref") {
+        return;
+      }
+
+      // Check if the value is a string literal (string ref)
+      const value = node.value;
+      if (value?.type === "Literal" && typeof value.value === "string") {
+        context.report({
+          node,
+          message: `String refs are deprecated and should not be used. Use callback refs or React.createRef() instead.`,
         });
       }
     },
