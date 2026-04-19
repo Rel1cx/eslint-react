@@ -1,0 +1,95 @@
+---
+title: component-name
+description: Enforces the component name to be a valid PascalCase identifier.
+---
+
+**Full Name in `eslint-plugin-react-naming-convention`**
+
+```plain copy
+react-naming-convention/component-name
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/naming-convention-component-name
+```
+
+**Presets**
+
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Enforces that any function containing or returning JSX is named using PascalCase. Functions prefixed with `use` (React hooks) and anonymous functions are exempt.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+function myComponent() {
+  return <div />;
+}
+```
+
+```tsx
+const myComponent = () => <div />;
+```
+
+```tsx
+const myComponent = () => {
+  return <div />;
+};
+```
+
+```tsx
+const myComponent = () => <></>;
+```
+
+### Valid
+
+```tsx
+function MyComponent() {
+  return <div />;
+}
+```
+
+```tsx
+const MyComponent = () => <div />;
+```
+
+```tsx
+const MyComponent = () => {
+  return <div />;
+};
+```
+
+### Valid (hooks are exempt)
+
+```tsx
+const useMyHook = () => <div />;
+```
+
+### Valid (anonymous exports are exempt)
+
+```tsx
+export default function () {
+  return <div />;
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention/src/rules/component-name/component-name.spec.ts)
+
+## Further Reading
+
+- [React Docs: Your First Component](https://react.dev/learn/your-first-component)
+- [React Docs: Thinking in React](https://react.dev/learn/thinking-in-react)
