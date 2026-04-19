@@ -143,7 +143,7 @@ export default defineConfig(
 
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
-  _This preset includes the `x`, `rsc`, `dom`, and `web-api` presets._
+  _This preset includes the `x`, `jsx`, `rsc`, `dom`, and `web-api` presets._
 
 - `strict`\
   Same as the `recommended` preset but enables additional strict rules.
