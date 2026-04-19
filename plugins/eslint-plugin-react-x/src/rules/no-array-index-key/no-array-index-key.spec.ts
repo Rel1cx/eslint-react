@@ -243,6 +243,10 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`foo.bar.map((value, index) => <MyComponent key={index} />);`,
       errors: [{ messageId: "default" }],
     },
+    {
+      code: tsx`(foo.map as any)((bar, i) => <Foo key={i} />)`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [],
 });

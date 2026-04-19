@@ -1,4 +1,4 @@
-import { isOneOf } from "@eslint-react/ast";
+import { Extract, isOneOf } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -40,7 +40,7 @@ export function getIndexParamPosition(methodName: string) {
 // Gets the name of the index parameter from a map-like function's callback
 // e.g., in `data.map((item, index) => ...)` it returns 'index'
 export function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | null {
-  const { callee } = node;
+  const callee = Extract.unwrap(node.callee);
   if (callee.type !== AST.MemberExpression) {
     return null;
   }

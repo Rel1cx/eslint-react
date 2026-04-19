@@ -331,6 +331,24 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
+      // prop used via type assertion should still detect unused prop
+      code: tsx`
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{(props as any).abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 42,
+        data: {
+          name: "hello",
+        },
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
+        messageId: "default",
+      }],
+    },
+    {
       // track computed member access
       code: tsx`
         function Component(props: { abc: string; hello: string; }) {
@@ -720,6 +738,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           return <div>{props.abc}</div>;
         }
         return <div>{props.hello}</div>;
+      }
+    `,
+    // props accessed via type assertion
+    tsx`
+      function Component(props: { abc: string; hello: string }) {
+        return <div>{(props as any).abc}{(props as any).hello}</div>;
       }
     `,
     // expect no false positives when using PropsWithChildren

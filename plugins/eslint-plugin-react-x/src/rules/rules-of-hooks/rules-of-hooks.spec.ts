@@ -23,6 +23,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Hook with callee wrapped in TSAsExpression
+    {
+      code: tsx`
+        function MyComponent({ condition }) {
+          if (condition) {
+            (useState as any)(0);
+          }
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
+        },
+      ],
+    },
     // Hook in loop
     {
       code: tsx`

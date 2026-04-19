@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { Reference } from "@typescript-eslint/scope-manager";
@@ -100,15 +101,20 @@ export function collectUsedPropKeysOfReference(
   identifier: TSESTree.Identifier,
   ref: Reference,
 ): boolean {
-  const { parent } = ref.identifier;
+  // Walk upward through type-expression wrappers to find the outer value node
+  let valueNode: TSESTree.Node = ref.identifier;
+  while (
+    Check.isTypeExpression(valueNode.parent)
+    || valueNode.parent.type === AST.ChainExpression
+  ) {
+    valueNode = valueNode.parent;
+  }
+  const parent = valueNode.parent;
 
   switch (parent.type) {
     case AST.MemberExpression: {
-      // Handle `props.foo` or `props["foo"]`
-      if (
-        parent.object.type === AST.Identifier
-        && parent.object.name === identifier.name
-      ) {
+      // Handle `props.foo` or `props["foo"]` (including wrapped variants)
+      if (parent.object === valueNode) {
         const key = getKeyOfExpression(parent.property);
         if (key == null) return false;
         usedPropKeys.add(key);
@@ -117,10 +123,10 @@ export function collectUsedPropKeysOfReference(
       break;
     }
     case AST.VariableDeclarator: {
-      // Handle `const { foo, bar } = props`
+      // Handle `const { foo, bar } = props` (including wrapped variants)
       if (
         parent.id.type === AST.ObjectPattern
-        && parent.init === ref.identifier
+        && parent.init === valueNode
       ) {
         return collectUsedPropKeysOfObjectPattern(
           context,
