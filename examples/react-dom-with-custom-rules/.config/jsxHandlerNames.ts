@@ -22,6 +22,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
   return (context) => ({
     JSXAttribute(node) {
+      // › Guard: must be event handler prop (onXxx)
       if (node.name.type !== "JSXIdentifier") return;
       const propName = node.name.name;
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
@@ -29,9 +30,11 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
       const value = node.value;
       if (!value) return;
 
+      // ─── Check expression value ────────────────────
       if (value.type === "JSXExpressionContainer") {
         const expression = value.expression;
 
+        // Case: direct reference (onClick={handleClick})
         if (expression.type === "Identifier") {
           const handlerName = expression.name;
           if (!HANDLER_FUNC_REGEX.test(handlerName)) {
@@ -45,6 +48,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           return;
         }
 
+        // Case: inline function (onClick={() => {}})
         if (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression") {
           if (checkInlineFunction) {
             context.report({

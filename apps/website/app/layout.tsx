@@ -45,7 +45,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
         />
         <body className="flex flex-col min-h-screen">
           <Banner id="kit-beta" variant="rainbow">
-            <Link href="/docs/packages/kit">Try @eslint-react/kit Beta →</Link>
+            <Link href="/docs/packages/kit">
+              <pre>Try <code>@eslint-react/kit@beta</code> →</pre>
+            </Link>
           </Banner>
           <RootProvider theme={themeOptions}>
             {children}

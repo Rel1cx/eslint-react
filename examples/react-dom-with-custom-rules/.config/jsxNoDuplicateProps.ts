@@ -12,10 +12,15 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
   return (context) => ({
     JSXOpeningElement(node) {
       const seen = new Map<string, string>();
+
+      // ─── Check each attribute ──────────────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;
+
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
+
+        // › Report duplicate
         if (seen.has(name)) {
           context.report({
             node: attr,

@@ -1,4 +1,5 @@
-import { type RuleFunction, merge } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
 
 /** Enforce arrow function definitions for function components. */
 export function functionComponentDefinition(): RuleFunction {
@@ -10,8 +11,11 @@ export function functionComponentDefinition(): RuleFunction {
       visitor,
       {
         "Program:exit"(program) {
+          // ─── Iterate all components ────────────────────
           for (const { node } of query.all(program)) {
+            // › Guard: must not already be arrow function
             if (node.type === "ArrowFunctionExpression") continue;
+
             context.report({
               node,
               message: "Function components must be defined with arrow functions.",
@@ -21,25 +25,26 @@ export function functionComponentDefinition(): RuleFunction {
                   fix(fixer) {
                     const src = context.sourceCode;
                     if (node.generator) return null;
+
                     const prefix = node.async ? "async " : "";
                     const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
                     const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
                     const returnType = node.returnType ? src.getText(node.returnType) : "";
                     const body = src.getText(node.body);
 
-                    // function Foo(params) { ... } -> const Foo = (params) => { ... };
+                    // ─── Case: function declaration ──────────────
                     if (node.type === "FunctionDeclaration" && node.id) {
                       // dprint-ignore
                       return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
                     }
 
-                    // const Foo = function(params) { ... } -> const Foo = (params) => { ... }
+                    // ─── Case: function expression in variable ───
                     if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
                       // dprint-ignore
                       return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
 
-                    // { Foo(params) { ... } } -> { Foo: (params) => { ... } }
+                    // ─── Case: object method shorthand ───────────
                     if (node.type === "FunctionExpression" && node.parent.type === "Property") {
                       // dprint-ignore
                       return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);

@@ -5,9 +5,12 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
       const seen = new Set<string>();
+
+      // ─── Check each spread attribute ───────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
+        // › Extract spread identifier name
         let spreadKey: string;
         if (attr.argument.type === "Identifier") {
           spreadKey = attr.argument.name;
@@ -15,6 +18,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
           spreadKey = context.sourceCode.getText(attr.argument);
         }
 
+        // › Report duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
             node: attr,

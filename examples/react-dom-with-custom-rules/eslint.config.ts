@@ -14,7 +14,7 @@ import {
   checkedRequiresOnchangeOrReadonly,
   componentHookFactories,
   forbidComponentProps,
-  // forbidDomProps,
+  forbidDomProps,
   forbidElements,
   functionComponentDefinition,
   jsxBooleanValue,
@@ -23,7 +23,7 @@ import {
   jsxMaxDepth,
   jsxNoBind,
   jsxNoDuplicateProps,
-  // jsxNoLiterals,
+  jsxNoLiterals,
   jsxPascalCase,
   jsxPropsNoSpreadMulti,
   jsxPropsNoSpreading,
@@ -89,7 +89,7 @@ export default defineConfig(
           .use(checkedRequiresOnchangeOrReadonly)
           .use(componentHookFactories)
           .use(forbidComponentProps, { forbidden: ["className", "style"] })
-          // .use(forbidDomProps, { forbidden: ["style", "className"] })
+          .use(forbidDomProps, { forbidden: ["style", "className"] })
           .use(forbidElements, {
             forbidden: new Map(
               [
@@ -102,10 +102,10 @@ export default defineConfig(
           .use(jsxBooleanValue)
           .use(jsxFragments)
           .use(jsxHandlerNames, { eventHandlerPrefix: "handle", eventHandlerPropPrefix: "on" })
-          .use(jsxMaxDepth, { max: 4 })
+          .use(jsxMaxDepth, { max: 3 })
           .use(jsxNoBind)
           .use(jsxNoDuplicateProps)
-          // .use(jsxNoLiterals, { noStrings: false })
+          .use(jsxNoLiterals, { noStrings: true, allowedStrings: ["allowed"] })
           .use(jsxPascalCase)
           .use(jsxPropsNoSpreadMulti)
           .use(jsxPropsNoSpreading)

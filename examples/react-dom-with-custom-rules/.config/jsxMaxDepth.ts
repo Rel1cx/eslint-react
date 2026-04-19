@@ -14,12 +14,16 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
       let depth = 0;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       let parent: any = node.parent;
+
+      // ─── Walk up the tree ──────────────────────────
       while (parent) {
         if (parent.type === "JSXElement") {
           depth++;
         }
         parent = parent.parent;
       }
+
+      // › Check depth limit
       if (depth > max) {
         context.report({
           node,

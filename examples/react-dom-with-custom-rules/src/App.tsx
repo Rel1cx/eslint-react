@@ -1,6 +1,8 @@
 /* eslint-disable @eslint-react/kit/boolean-prop-naming */
+/* eslint-disable @eslint-react/kit/forbid-dom-props */
 /* eslint-disable @eslint-react/kit/forbid-elements */
 /* eslint-disable @eslint-react/kit/jsx-no-bind */
+/* eslint-disable @eslint-react/kit/jsx-no-literals */
 /* eslint-disable @eslint-react/kit/no-multi-comp */
 import "./App.css";
 

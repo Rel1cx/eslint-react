@@ -11,16 +11,17 @@ export type JsxPascalCaseOptions = {
 /** Enforce PascalCase for user-defined JSX components. */
 export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction {
   const { allowAllCaps = false, allowLeadingUnderscore = false } = options;
-  // Check PascalCase: first letter uppercase, rest can be mixed but no underscores
   const pascalCaseRegex = /^[A-Z][a-zA-Z0-9]*$/;
   return (context) => ({
     JSXOpeningElement(node) {
       const name = node.name;
+
+      // › Guard: must be simple identifier
       if (name.type !== "JSXIdentifier") return;
 
       const componentName = name.name;
 
-      // Check for leading underscore (before lowercase check since "_".toLowerCase() === "_")
+      // ─── Handle leading underscore ───────────────
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
@@ -31,12 +32,12 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      // Ignore DOM elements (lowercase first letter)
+      // › Guard: ignore DOM elements (lowercase)
       const firstChar = componentName[0];
       if (firstChar === undefined) return;
       if (firstChar === firstChar.toLowerCase()) return;
 
-      // Check for all caps
+      // ─── Handle all-caps ─────────────────────────
       if (componentName === componentName.toUpperCase()) {
         if (!allowAllCaps) {
           context.report({
@@ -47,6 +48,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
+      // ─── Validate PascalCase ─────────────────────
       if (!pascalCaseRegex.test(componentName)) {
         context.report({
           node: name,

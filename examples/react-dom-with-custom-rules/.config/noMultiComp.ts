@@ -1,4 +1,5 @@
-import { type RuleFunction, merge } from "@eslint-react/kit";
+import type { RuleFunction } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
 
 /** Prevent defining more than one component per file. */
 export function noMultiComp(): RuleFunction {
@@ -7,6 +8,8 @@ export function noMultiComp(): RuleFunction {
     return merge(visitor, {
       "Program:exit"(program) {
         const components = query.all(program);
+
+        // ─── Report excess components ──────────────────
         for (const { node, name } of components.slice(1)) {
           context.report({
             node,
