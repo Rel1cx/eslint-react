@@ -42,20 +42,21 @@ type AbortEntry = {
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
-    case node.callee.type === AST.Identifier
-      && node.callee.name === "fetch":
+    case callee.type === AST.Identifier
+      && callee.name === "fetch":
       return "fetch";
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && node.callee.property.name === "fetch":
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && callee.property.name === "fetch":
       return "fetch";
-    case node.callee.type === AST.Identifier
-      && node.callee.name === "abort":
+    case callee.type === AST.Identifier
+      && callee.name === "abort":
       return "abort";
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && node.callee.property.name === "abort":
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && callee.property.name === "abort":
       return "abort";
     default:
       return "other";
@@ -105,8 +106,9 @@ function getFetchController(
 }
 
 function getAbortController(node: TSESTree.CallExpression): TSESTree.Node | null {
-  if (node.callee.type === AST.MemberExpression) {
-    return node.callee.object;
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type === AST.MemberExpression) {
+    return callee.object;
   }
   return null;
 }

@@ -102,11 +102,21 @@ export function create(context: RuleContext<MessageID, []>) {
        */
       UpdateExpression(node: TSESTree.UpdateExpression) {
         const arg = Extract.unwrap(node.argument);
-        if (arg.type !== AST.Identifier) return;
-        if (!isGlobalOrModuleVariable(arg)) return;
-        recordViolation(node, "mutatingGlobal", {
-          name: arg.name,
-        });
+        if (arg.type === AST.Identifier) {
+          if (!isGlobalOrModuleVariable(arg)) return;
+          recordViolation(node, "mutatingGlobal", {
+            name: arg.name,
+          });
+          return;
+        }
+        if (arg.type === AST.MemberExpression) {
+          const rootId = Extract.getRootIdentifier(arg);
+          if (rootId == null) return;
+          if (!isGlobalOrModuleVariable(rootId)) return;
+          recordViolation(node, "mutatingGlobalProperty", {
+            name: context.sourceCode.getText(arg),
+          });
+        }
       },
 
       /**
@@ -139,8 +149,9 @@ export function create(context: RuleContext<MessageID, []>) {
        * Detect `events.push(event)`, `cache.sort()`, etc.
        */
       CallExpression(node: TSESTree.CallExpression) {
-        if (node.callee.type !== AST.MemberExpression) return;
-        const { object, property } = node.callee;
+        const callee = Extract.unwrap(node.callee);
+        if (callee.type !== AST.MemberExpression) return;
+        const { object, property } = callee;
         if (property.type !== AST.Identifier) return;
         if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
 

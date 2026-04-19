@@ -75,6 +75,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            (setInterval as any)(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedIntervalId" }],
+    },
   ],
   valid: [
     tsx`

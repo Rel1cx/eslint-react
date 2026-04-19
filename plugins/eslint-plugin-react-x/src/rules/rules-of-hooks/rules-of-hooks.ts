@@ -15,6 +15,7 @@
 // LICENSE file in the root directory of this source tree.
 // -----------------------------------------------------------------------------
 
+import { Extract } from "@eslint-react/ast";
 import { type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
@@ -50,14 +51,15 @@ function isHookName(s: string): boolean {
  * containing a hook name.
  */
 function isHook(node: Node): boolean {
-  if (node.type === "Identifier") {
-    return isHookName(node.name);
+  const expr = Extract.unwrap(node);
+  if (expr.type === "Identifier") {
+    return isHookName(expr.name);
   } else if (
-    node.type === "MemberExpression"
-    && !node.computed
-    && isHook(node.property)
+    expr.type === "MemberExpression"
+    && !expr.computed
+    && isHook(expr.property)
   ) {
-    const obj = node.object;
+    const obj = expr.object;
     const isPascalCaseNameSpace = /^[A-Z].*/;
     return obj.type === "Identifier" && isPascalCaseNameSpace.test(obj.name);
   } else {
@@ -769,7 +771,8 @@ const rule = {
       // But that gets complicated and enters type-system territory, so we're
       // only being strict about hook calls for now.
       CallExpression(node) {
-        if (isHook(node.callee)) {
+        const callee = Extract.unwrap(node.callee);
+        if (isHook(callee)) {
           // Add the hook node to a map keyed by the code path segment. We will
           // do full code path analysis at the end of our code path.
           const reactHooksMap = last(codePathReactHooksMapStack);
@@ -779,7 +782,7 @@ const rule = {
             reactHooks = [];
             reactHooksMap.set(codePathSegment, reactHooks);
           }
-          reactHooks.push(node.callee);
+          reactHooks.push(callee);
         }
 
         // useEffectEvent: useEffectEvent functions can be passed by reference within useEffect as well as in

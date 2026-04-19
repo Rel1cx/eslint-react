@@ -223,6 +223,53 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      code: tsx`
+        'use server';
+        export const serverFunction = (() => {
+          return 42;
+        }) as MyType;
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        export const serverFunction = (async () => {
+          return 42;
+        }) as MyType;
+      `,
+    },
+    {
+      code: tsx`
+        'use server';
+        export default (function serverFunction() {
+          return 42;
+        }) as MyType;
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        export default (async function serverFunction() {
+          return 42;
+        }) as MyType;
+      `,
+    },
+    {
+      code: tsx`
+        'use server';
+        const serverFunction = (() => {
+          return 42;
+        }) as MyType;
+        export { serverFunction };
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        const serverFunction = (async () => {
+          return 42;
+        }) as MyType;
+        export { serverFunction };
+      `,
+    },
   ],
   valid: [
     tsx`

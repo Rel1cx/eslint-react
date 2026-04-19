@@ -1,4 +1,4 @@
-import { type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
@@ -41,16 +41,17 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 // #region Helpers
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
-    case node.callee.type === AST.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.name)
-      && isFromObserver(context, node.callee):
-      return node.callee.name;
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"))(node.callee.property.name)
-      && isFromObserver(context, node.callee):
-      return node.callee.property.name;
+    case callee.type === AST.Identifier
+      && isMatching(P.union("observe", "unobserve", "disconnect"))(callee.name)
+      && isFromObserver(context, callee):
+      return callee.name;
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && isMatching(P.union("observe", "unobserve", "disconnect"))(callee.property.name)
+      && isFromObserver(context, callee):
+      return callee.property.name;
     default:
       return "other";
   }
@@ -111,14 +112,15 @@ export function create(context: RuleContext<MessageID, []>) {
         fEntries.pop();
       },
       ["CallExpression"](node) {
-        if (node.callee.type !== AST.MemberExpression) {
+        const unwrappedCallee = Extract.unwrap(node.callee);
+        if (unwrappedCallee.type !== AST.MemberExpression) {
           return;
         }
         const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
         if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
           return;
         }
-        const { object } = node.callee;
+        const { object } = unwrappedCallee;
         match(getCallKind(context, node))
           .with("disconnect", () => {
             dEntries.push({

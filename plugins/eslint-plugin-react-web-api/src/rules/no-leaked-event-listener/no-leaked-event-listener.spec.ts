@@ -630,6 +630,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            (window.addEventListener as any)("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedRemoveEventListenerInCleanup" }],
+    },
   ],
   valid: [
     tsx`

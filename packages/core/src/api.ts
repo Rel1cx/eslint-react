@@ -20,8 +20,9 @@ export declare namespace isAPI {
 export function isAPI(api: string): isAPI.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node) => {
     if (node == null) return false;
+    const expr = Extract.unwrap(node);
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
-    const name = Extract.getFullyQualifiedName(node, getText);
+    const name = Extract.getFullyQualifiedName(expr, getText);
     if (name === api) return true;
     if (name.endsWith(`.${api}`)) return true;
     return false;

@@ -123,4 +123,32 @@ describe("isHookCall", () => {
   it("should return false for null", () => {
     expect(isHookCall(null)).toBe(false);
   });
+
+  it("should return true for hook call with callee wrapped in TSAsExpression", () => {
+    const code = "(useState as any)()";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isHookCall(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return true for hook call with type arguments", () => {
+    const code = "useState<number>()";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isHookCall(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });

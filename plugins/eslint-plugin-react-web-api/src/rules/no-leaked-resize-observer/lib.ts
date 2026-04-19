@@ -34,9 +34,10 @@ export const isConditional = isOneOf([
 ]);
 
 export function isNewResizeObserver(node: TSESTree.Node | null) {
-  return node?.type === AST.NewExpression
-    && node.callee.type === AST.Identifier
-    && node.callee.name === "ResizeObserver";
+  if (node?.type !== AST.NewExpression) return false;
+  const callee = Extract.unwrap(node.callee);
+  return callee.type === AST.Identifier
+    && callee.name === "ResizeObserver";
 }
 
 export function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {

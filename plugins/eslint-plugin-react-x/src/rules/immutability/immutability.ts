@@ -152,8 +152,9 @@ export function create(context: RuleContext<MessageID, []>) {
        * @param node The CallExpression node to analyze.
        */
       CallExpression(node: TSESTree.CallExpression) {
-        if (node.callee.type !== AST.MemberExpression) return;
-        const { object, property } = node.callee;
+        const callee = Extract.unwrap(node.callee);
+        if (callee.type !== AST.MemberExpression) return;
+        const { object, property } = callee;
         if (property.type !== AST.Identifier) return;
         if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
 

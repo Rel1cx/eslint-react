@@ -1,4 +1,4 @@
-import { Traverse } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -121,7 +121,9 @@ export function create(context: RuleContext<MessageID, Options>) {
         }
       }
 
-      if (node.parent.type !== AST.VariableDeclarator) {
+      let parent = node.parent;
+      while (Check.isTypeExpression(parent)) parent = parent.parent;
+      if (parent.type !== AST.VariableDeclarator) {
         if (!enforceAssignment) return;
         context.report({ messageId: "invalidAssignment", node });
         return;

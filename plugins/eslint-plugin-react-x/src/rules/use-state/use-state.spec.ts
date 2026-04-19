@@ -142,6 +142,30 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidAssignment" }],
     },
+    // useState callee wrapped in TSAsExpression (should still detect and report invalid setter name)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, updateCount] = (useState as any)(0);
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [{ messageId: "invalidSetterName" }],
+    },
+    // useState with type arguments (TSInstantiationExpression)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, updateCount] = useState<number>(0);
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [{ messageId: "invalidSetterName" }],
+    },
     // --- Lazy initialization ---
     {
       code: `import { useState } from "react"; useState(1 || getValue())`,
@@ -521,6 +545,17 @@ ruleTester.run(RULE_NAME, rule, {
         const prev = usePreviousState(0);
 
           return <div />;
+        }
+      `,
+    },
+    // useState result wrapped in TSAsExpression (should not report invalidAssignment)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0) as [number, (n: number) => void];
+          return <div>{count}</div>;
         }
       `,
     },

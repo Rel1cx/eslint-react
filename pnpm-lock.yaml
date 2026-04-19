@@ -835,6 +835,9 @@ importers:
 
   packages/kit:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../ast
       '@eslint-react/core':
         specifier: workspace:*
         version: link:../core
@@ -851,9 +854,6 @@ importers:
         specifier: '*'
         version: 6.0.2
     devDependencies:
-      '@eslint-react/ast':
-        specifier: workspace:*
-        version: link:../ast
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../eslint

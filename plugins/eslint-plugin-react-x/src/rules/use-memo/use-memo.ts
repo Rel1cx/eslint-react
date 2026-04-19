@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -78,15 +78,16 @@ export function create(context: RuleContext<MessageID, []>) {
       // Check that the first argument (the factory callback) actually returns a value.
       const [callbackArg] = node.arguments;
       if (callbackArg == null) return;
-      if (!Check.isFunction(callbackArg)) return;
+      const callback = Extract.unwrap(callbackArg);
+      if (!Check.isFunction(callback)) return;
 
       // Arrow functions with a concise body always return a value (ex: `() => expr`)
-      if (callbackArg.type === AST.ArrowFunctionExpression && callbackArg.body.type !== AST.BlockStatement) {
+      if (callback.type === AST.ArrowFunctionExpression && callback.body.type !== AST.BlockStatement) {
         return;
       }
 
       // For block-body functions, check that at least one return statement has a value
-      const body = callbackArg.body;
+      const body = callback.body;
       if (body.type !== AST.BlockStatement) return;
 
       const returnStatements = getNestedReturnStatements(callbackArg);

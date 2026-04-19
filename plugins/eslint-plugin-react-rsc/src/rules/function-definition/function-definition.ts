@@ -1,4 +1,4 @@
-import { Check, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
   type ReportFixFunction,
@@ -69,9 +69,11 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID): boolean {
-    if (!Check.isFunction(node)) return false;
-    if (!node.async) {
-      context.report({ fix: getAsyncFix(node), messageId, node });
+    if (node == null) return false;
+    const unwrapped = Extract.unwrap(node);
+    if (!Check.isFunction(unwrapped)) return false;
+    if (!unwrapped.async) {
+      context.report({ fix: getAsyncFix(unwrapped), messageId, node: unwrapped });
       return true;
     }
     return false;
@@ -99,8 +101,10 @@ export function create(context: RuleContext<MessageID, []>) {
     node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
   ) {
     const initNode = resolve(context, id);
-    if (initNode == null || !Check.isFunction(initNode)) return;
-    reportNonAsyncFunction(initNode, "file");
+    if (initNode == null) return;
+    const unwrapped = Extract.unwrap(initNode);
+    if (!Check.isFunction(unwrapped)) return;
+    reportNonAsyncFunction(unwrapped, "file");
   }
 
   return merge(

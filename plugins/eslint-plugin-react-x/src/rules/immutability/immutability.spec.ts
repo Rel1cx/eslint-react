@@ -389,6 +389,45 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     // -------------------------------------------------------------------------
+    // Optional chaining and type expression wrapping (should still report)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setItems] = useState([1, 2, 3]);
+          const addItem = () => {
+            items?.push(4);
+            setItems(items);
+          };
+          return <div>{items.length}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "items", method: "push" },
+        messageId: "mutatingArrayMethod",
+      }],
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [items, setItems] = useState([1, 2, 3]);
+          const addItem = () => {
+            (items.push as Function)(4);
+            setItems(items);
+          };
+          return <div>{items.length}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "items", method: "push" },
+        messageId: "mutatingArrayMethod",
+      }],
+    },
+    // -------------------------------------------------------------------------
     // Multiple mutations in same function
     // -------------------------------------------------------------------------
     {

@@ -20,6 +20,7 @@ Changes to the rule logic should be made upstream in the React repository and th
 The following local adaptations have been made to integrate with `eslint-plugin-react-x`:
 
 - `getAdditionalEffectHooksFromSettings` has been replaced by `getSettingsFromContext` from `@eslint-react/shared`, reading `additionalEffectHooks` from the `react-x` settings namespace.
+- The `CallExpression` visitor unwraps the callee with `Extract.unwrap()` before checking `isHook()`, so that hook calls wrapped in TypeScript type expressions — e.g. `(useState as any)()` or `useRef<HTMLDivElement>()!` — are correctly recognized and reported.
 
 ### Additional Files
 

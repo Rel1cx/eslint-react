@@ -2,7 +2,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Enforce shorthand for boolean JSX attributes. */
 export function jsxBooleanValue(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXAttribute(node) {
       const { value } = node;
 
@@ -10,7 +10,8 @@ export function jsxBooleanValue(): RuleFunction {
       if (value?.type !== "JSXExpressionContainer") return;
 
       // › Guard: must be literal true
-      if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+      const expression = ast.unwrap(value.expression);
+      if (expression.type !== "Literal" || expression.value !== true) return;
 
       // › Report: prefer shorthand form
       context.report({

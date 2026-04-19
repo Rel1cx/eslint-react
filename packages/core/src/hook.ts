@@ -117,11 +117,12 @@ export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExp
   if (node.type !== AST.CallExpression) {
     return false;
   }
-  if (node.callee.type === AST.Identifier) {
-    return isHookName(node.callee.name);
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type === AST.Identifier) {
+    return isHookName(callee.name);
   }
-  if (node.callee.type === AST.MemberExpression) {
-    return node.callee.property.type === AST.Identifier && isHookName(node.callee.property.name);
+  if (callee.type === AST.MemberExpression) {
+    return callee.property.type === AST.Identifier && isHookName(callee.property.name);
   }
   return false;
 }
@@ -140,12 +141,13 @@ export function isUseEffectLikeCall(
   if (node.type !== AST.CallExpression) {
     return false;
   }
+  const callee = Extract.unwrap(node.callee);
   return [/^use\w*Effect$/u, additionalEffectHooks].some((regexp) => {
-    if (node.callee.type === AST.Identifier) {
-      return regexp.test(node.callee.name);
+    if (callee.type === AST.Identifier) {
+      return regexp.test(callee.name);
     }
-    if (node.callee.type === AST.MemberExpression) {
-      return node.callee.property.type === AST.Identifier && regexp.test(node.callee.property.name);
+    if (callee.type === AST.MemberExpression) {
+      return callee.property.type === AST.Identifier && regexp.test(callee.property.name);
     }
     return false;
   });
@@ -165,14 +167,15 @@ export function isUseStateLikeCall(
   if (node.type !== AST.CallExpression) {
     return false;
   }
+  const callee = Extract.unwrap(node.callee);
   switch (true) {
-    case node.callee.type === AST.Identifier:
-      return node.callee.name === "useState"
-        || additionalStateHooks.test(node.callee.name);
-    case node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier:
-      return Extract.getPropertyName(node.callee.property) === "useState"
-        || additionalStateHooks.test(node.callee.property.name);
+    case callee.type === AST.Identifier:
+      return callee.name === "useState"
+        || additionalStateHooks.test(callee.name);
+    case callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier:
+      return Extract.getPropertyName(callee.property) === "useState"
+        || additionalStateHooks.test(callee.property.name);
   }
   return false;
 }
@@ -187,9 +190,10 @@ export function isUseStateLikeCall(
  */
 export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
-  return node.parent?.type === AST.CallExpression
-    && node.parent.arguments.at(0) === node
-    && isUseEffectLikeCall(node.parent);
+  const expr = Extract.unwrap(node);
+  return expr.parent?.type === AST.CallExpression
+    && expr.parent.arguments.at(0) === expr
+    && isUseEffectLikeCall(expr.parent);
 }
 
 /**
@@ -198,9 +202,9 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
  */
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
-
-  const returnStatement = Traverse.findParent(node, is(AST.ReturnStatement));
-  const enclosingFunction = Traverse.findParent(node, Check.isFunction);
+  const expr = Extract.unwrap(node);
+  const returnStatement = Traverse.findParent(expr, is(AST.ReturnStatement));
+  const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
   const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 
   if (enclosingFunction !== enclosingFunctionOfReturn) return false;

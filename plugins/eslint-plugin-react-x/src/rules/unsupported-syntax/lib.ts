@@ -1,10 +1,15 @@
-import type { TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export function isEvalCall(node: TSESTree.CallExpression) {
-  return node.callee.type === AST.Identifier && node.callee.name === "eval";
+  const callee = Extract.unwrap(node.callee);
+  return callee.type === AST.Identifier && callee.name === "eval";
 }
 
 export function isIifeCall(node: TSESTreeFunction) {
-  return node.parent.type === AST.CallExpression && node.parent.callee === node;
+  let parent: TSESTree.Node = node.parent;
+  while (Check.isTypeExpression(parent) || parent.type === AST.ChainExpression) {
+    parent = parent.parent;
+  }
+  return parent.type === AST.CallExpression && Extract.unwrap(parent.callee) === node;
 }

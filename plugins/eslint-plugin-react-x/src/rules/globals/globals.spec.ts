@@ -300,6 +300,38 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
     // -------------------------------------------------------------------------
+    // Optional chaining and type expression wrapping (should still report)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        const events = [];
+        function Component() {
+          events?.push(1);
+          return <div>{events.length}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+    },
+    {
+      code: tsx`
+        const events = [];
+        function Component() {
+          (events.push as Function)(1);
+          return <div>{events.length}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          (window.title as any)++;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // -------------------------------------------------------------------------
     // Assignment to module-level let/const
     // -------------------------------------------------------------------------
     {

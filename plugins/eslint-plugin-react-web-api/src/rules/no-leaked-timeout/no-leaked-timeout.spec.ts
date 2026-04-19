@@ -75,6 +75,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            (setTimeout as any)(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedTimeoutId" }],
+    },
   ],
   valid: [
     tsx`
