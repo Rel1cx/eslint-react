@@ -2,7 +2,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow JSX prop spreading the same identifier multiple times. */
 export function jsxPropsNoSpreadMulti(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXOpeningElement(node) {
       const seen = new Set<string>();
 
@@ -11,9 +11,10 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
         // › Extract spread identifier name
+        const argument = ast.unwrap(attr.argument);
         let spreadKey: string;
-        if (attr.argument.type === "Identifier") {
-          spreadKey = attr.argument.name;
+        if (argument.type === "Identifier") {
+          spreadKey = argument.name;
         } else {
           spreadKey = context.sourceCode.getText(attr.argument);
         }

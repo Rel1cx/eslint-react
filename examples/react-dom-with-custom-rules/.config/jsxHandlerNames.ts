@@ -20,7 +20,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
 
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXAttribute(node) {
       // › Guard: must be event handler prop (onXxx)
       if (node.name.type !== "JSXIdentifier") return;
@@ -32,7 +32,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
       // ─── Check expression value ────────────────────
       if (value.type === "JSXExpressionContainer") {
-        const expression = value.expression;
+        const expression = ast.unwrap(value.expression);
 
         // Case: direct reference (onClick={handleClick})
         if (expression.type === "Identifier") {

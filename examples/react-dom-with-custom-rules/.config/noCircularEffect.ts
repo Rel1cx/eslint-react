@@ -5,7 +5,7 @@ import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
 /** Detect circular dependencies between useEffect hooks via useState setters. */
 export function noCircularEffect(): RuleFunction {
-  return (context, { is, settings }) => {
+  return (context, { ast, is, settings }) => {
     // Map: setter Scope.Variable → state Scope.Variable
     const setterToState = new Map<Scope.Variable, Scope.Variable>();
 
@@ -16,16 +16,24 @@ export function noCircularEffect(): RuleFunction {
       CallExpression(node: TSESTree.CallExpression) {
         // 1. Register useState pairs
         if (is.useStateLikeCall(node, settings.additionalStateHooks)) {
-          const { parent } = node;
+          const unwrappedParent = ast.unwrap(node.parent);
+          // If unwrap stripped a wrapper, the result is the call expression itself.
+          // In that case we need to look at the wrapper's parent to find the declarator.
+          const parent = unwrappedParent === node ? ast.unwrap(node.parent.parent) : unwrappedParent;
           if (
             parent.type === "VariableDeclarator"
             && parent.id.type === "ArrayPattern"
           ) {
             const [stateEl, setterEl] = parent.id.elements;
-            if (stateEl?.type === "Identifier" && setterEl?.type === "Identifier") {
+            const unwrappedStateEl = stateEl ? ast.unwrap(stateEl) : null;
+            const unwrappedSetterEl = setterEl ? ast.unwrap(setterEl) : null;
+            if (
+              unwrappedStateEl?.type === "Identifier"
+              && unwrappedSetterEl?.type === "Identifier"
+            ) {
               const scope = context.sourceCode.getScope(node);
-              const stateVar = findVariable(scope, stateEl.name);
-              const setterVar = findVariable(scope, setterEl.name);
+              const stateVar = findVariable(scope, unwrappedStateEl.name);
+              const setterVar = findVariable(scope, unwrappedSetterEl.name);
               if (stateVar != null && setterVar != null) {
                 setterToState.set(setterVar, stateVar);
               }
@@ -57,11 +65,13 @@ export function noCircularEffect(): RuleFunction {
 
           // Extract dependency state variables from the deps array
           const deps: Scope.Variable[] = [];
-          if (depsArg.type === "ArrayExpression") {
-            for (const el of depsArg.elements) {
-              if (el?.type === "Identifier") {
-                const scope = context.sourceCode.getScope(el);
-                const v = findVariable(scope, el.name);
+          const unwrappedDepsArg = ast.unwrap(depsArg);
+          if (unwrappedDepsArg.type === "ArrayExpression") {
+            for (const el of unwrappedDepsArg.elements) {
+              const unwrappedEl = el ? ast.unwrap(el) : null;
+              if (unwrappedEl?.type === "Identifier") {
+                const scope = context.sourceCode.getScope(unwrappedEl);
+                const v = findVariable(scope, unwrappedEl.name);
                 if (v != null && stateVars.has(v)) {
                   deps.push(v);
                 }
@@ -77,10 +87,10 @@ export function noCircularEffect(): RuleFunction {
             for (const ref of setterVar.references) {
               const [refStart, refEnd] = ref.identifier.range;
               if (refStart < cbStart || refEnd > cbEnd) continue;
-              const { parent } = ref.identifier;
+              const parent = ref.identifier.parent ? ast.unwrap(ref.identifier.parent) : null;
               if (
                 parent?.type === "CallExpression"
-                && parent.callee === ref.identifier
+                && ast.unwrap(parent.callee) === ref.identifier
               ) {
                 targets.push(stateVar);
                 break;

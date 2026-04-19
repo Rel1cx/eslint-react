@@ -538,13 +538,17 @@ export function functionComponentDefinition(): RuleFunction {
                     }
 
                     // ─── Case: function expression in variable ───
-                    if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
+                    const unwrappedParent = ast.unwrap(node.parent);
+                    // If unwrap stripped a wrapper, the result is the function expression itself.
+                    // In that case we need to look at the wrapper's parent to find the declarator.
+                    const parent = unwrappedParent === node ? ast.unwrap(node.parent.parent) : unwrappedParent;
+                    if (node.type === "FunctionExpression" && parent.type === "VariableDeclarator") {
                       // dprint-ignore
                       return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
 
                     // ─── Case: object method shorthand ───────────
-                    if (node.type === "FunctionExpression" && node.parent.type === "Property") {
+                    if (node.type === "FunctionExpression" && parent.type === "Property") {
                       // dprint-ignore
                       return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
@@ -571,7 +575,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Enforce shorthand for boolean JSX attributes. */
 export function jsxBooleanValue(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXAttribute(node) {
       const { value } = node;
 
@@ -579,7 +583,8 @@ export function jsxBooleanValue(): RuleFunction {
       if (value?.type !== "JSXExpressionContainer") return;
 
       // › Guard: must be literal true
-      if (value.expression.type !== "Literal" || value.expression.value !== true) return;
+      const expression = ast.unwrap(value.expression);
+      if (expression.type !== "Literal" || expression.value !== true) return;
 
       // › Report: prefer shorthand form
       context.report({
@@ -697,7 +702,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
 
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXAttribute(node) {
       // › Guard: must be event handler prop (onXxx)
       if (node.name.type !== "JSXIdentifier") return;
@@ -709,7 +714,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
       // ─── Check expression value ────────────────────
       if (value.type === "JSXExpressionContainer") {
-        const expression = value.expression;
+        const expression = ast.unwrap(value.expression);
 
         // Case: direct reference (onClick={handleClick})
         if (expression.type === "Identifier") {
@@ -795,14 +800,14 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Prevent inline functions and `.bind()` in JSX props. */
 export function jsxNoBind(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXAttribute(node) {
       const value = node.value;
 
       // › Guard: must be expression container
       if (value?.type !== "JSXExpressionContainer") return;
 
-      const expr = value.expression;
+      const expr = ast.unwrap(value.expression);
 
       // ─── Detect forbidden patterns ─────────────────
       switch (true) {
@@ -810,12 +815,17 @@ export function jsxNoBind(): RuleFunction {
         case expr.type === "FunctionExpression":
           context.report({ node, message: "JSX props should not use inline functions." });
           break;
-        case expr.type === "CallExpression"
-          && expr.callee.type === "MemberExpression"
-          && expr.callee.property.type === "Identifier"
-          && expr.callee.property.name === "bind":
-          context.report({ node, message: "JSX props should not use .bind()." });
+        case expr.type === "CallExpression": {
+          const callee = ast.unwrap(expr.callee);
+          if (
+            callee.type === "MemberExpression"
+            && callee.property.type === "Identifier"
+            && callee.property.name === "bind"
+          ) {
+            context.report({ node, message: "JSX props should not use .bind()." });
+          }
           break;
+        }
       }
     },
   });
@@ -1022,7 +1032,7 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Disallow JSX prop spreading the same identifier multiple times. */
 export function jsxPropsNoSpreadMulti(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     JSXOpeningElement(node) {
       const seen = new Set<string>();
 
@@ -1031,9 +1041,10 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
         // › Extract spread identifier name
+        const argument = ast.unwrap(attr.argument);
         let spreadKey: string;
-        if (attr.argument.type === "Identifier") {
-          spreadKey = attr.argument.name;
+        if (argument.type === "Identifier") {
+          spreadKey = argument.name;
         } else {
           spreadKey = context.sourceCode.getText(attr.argument);
         }
@@ -1131,9 +1142,9 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Forbid this.setState() calls. */
 export function noSetState(): RuleFunction {
-  return (context) => ({
+  return (context, { ast }) => ({
     CallExpression(node) {
-      const { callee } = node;
+      const callee = ast.unwrap(node.callee);
 
       // Check if callee is this.setState
       if (

@@ -219,6 +219,7 @@ The second argument passed to the `RuleFunction` function is a structured `RuleT
 kit
 ├── collect            -> Semantic collectors (components, hooks)
 ├── is                 -> All predicates (component, hook, React API, import source)
+├── ast                -> AST utilities (unwrap type expressions)
 ├── hint               -> Detection hint bit-flags
 ├── flag               -> Component characteristic bit-flags
 ├── settings           -> Normalized ESLint React settings
@@ -349,6 +350,41 @@ for (const component of query.all(program)) {
   }
 }
 ```
+
+### `ast`
+
+Low-level AST utilities for handling TypeScript-specific syntax.
+
+| Method   | Signature        | Description                                                                                                                                                                                                                                  |
+| -------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `unwrap` | `(node) -> Node` | Recursively strips TypeScript type-expression wrappers (`TSAsExpression`, `TSSatisfiesExpression`, `TSNonNullExpression`, `TSTypeAssertion`, `TSInstantiationExpression`) and `ChainExpression` from a node, returning the underlying value. |
+
+`ast.unwrap` is useful when you need to inspect a callee, argument, or initializer that may be wrapped in a TypeScript type assertion:
+
+```ts twoslash
+import type { RuleFunction } from "@eslint-react/kit";
+
+function noLeakedEventListener(): RuleFunction {
+  return (context, { ast }) => ({
+    CallExpression(node) {
+      const callee = ast.unwrap(node.callee);
+      if (
+        callee.type === "MemberExpression"
+        && callee.object.type === "Identifier"
+        && callee.object.name === "window"
+        && callee.property.type === "Identifier"
+        && callee.property.name === "addEventListener"
+      ) {
+        // Report leaked event listener…
+      }
+    },
+  });
+}
+```
+
+Without `unwrap`, the code above would miss calls like `(window.addEventListener as any)("click", handler)` because `node.callee.type` would be `TSAsExpression` instead of `MemberExpression`.
+
+---
 
 ### `settings`
 
