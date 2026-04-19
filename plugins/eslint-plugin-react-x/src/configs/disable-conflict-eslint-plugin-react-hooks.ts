@@ -7,6 +7,7 @@ const conflictingRules = [
   "react-hooks/rules-of-hooks",
   "react-hooks/component-hook-factories",
   "react-hooks/error-boundaries",
+  "react-hooks/globals",
   "react-hooks/immutability",
   "react-hooks/purity",
   "react-hooks/refs",

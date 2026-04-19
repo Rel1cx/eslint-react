@@ -4,6 +4,7 @@
     "component-hook-factories",
     "error-boundaries",
     "exhaustive-deps",
+    "globals",
     "immutability",
     "no-access-state-in-setstate",
     "no-array-index-key",

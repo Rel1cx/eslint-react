@@ -3,6 +3,7 @@ import type { Linter } from "eslint";
 export const name = "@eslint-react/disable-experimental";
 
 export const rules: Linter.RulesRecord = {
+  "@eslint-react/globals": "off",
   "@eslint-react/immutability": "off",
   "@eslint-react/no-duplicate-key": "off",
   "@eslint-react/no-implicit-children": "off",
