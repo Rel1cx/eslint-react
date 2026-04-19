@@ -3,7 +3,7 @@ import { merge } from "@eslint-react/kit";
 
 /** Enforce arrow function definitions for function components. */
 export function functionComponentDefinition(): RuleFunction {
-  return (context, { ast, collect, hint }) => {
+  return (context, { collect, hint }) => {
     const { query, visitor } = collect.components(context, {
       hint: hint.component.Default & ~hint.component.DoNotIncludeFunctionDefinedAsObjectMethod,
     });
@@ -39,17 +39,13 @@ export function functionComponentDefinition(): RuleFunction {
                     }
 
                     // ─── Case: function expression in variable ───
-                    const unwrappedParent = ast.unwrap(node.parent);
-                    // If unwrap stripped a wrapper, the result is the function expression itself.
-                    // In that case we need to look at the wrapper's parent to find the declarator.
-                    const parent = unwrappedParent === node ? ast.unwrap(node.parent.parent) : unwrappedParent;
-                    if (node.type === "FunctionExpression" && parent.type === "VariableDeclarator") {
+                    if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
                       // dprint-ignore
                       return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
 
                     // ─── Case: object method shorthand ───────────
-                    if (node.type === "FunctionExpression" && parent.type === "Property") {
+                    if (node.type === "FunctionExpression" && node.parent.type === "Property") {
                       // dprint-ignore
                       return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
