@@ -133,12 +133,14 @@ export default defineConfig(
   Enable rules for React DOM.
 - `web-api`\
   Enable rules for interacting with Web APIs.
+- `naming-convention`\
+  Enable rules for naming conventions.
 
 ### General Purpose
 
 - `recommended`\
   Enforce rules that are recommended by ESLint React for general-purpose React + React DOM projects.\
-  _This preset includes the `x`, `rsc`, `dom`, and `web-api` presets._
+  _This preset includes the `x`, `jsx`, `rsc`, `dom`, `web-api`, and `naming-convention` presets._
 
 - `strict`\
   Same as the `recommended` preset but enables additional strict rules.
@@ -167,6 +169,8 @@ export default defineConfig(
   Disable rules in the `dom` preset.
 - `disable-web-api`\
   Disable rules in the `web-api` preset.
+- `disable-naming-convention`\
+  Disable rules in the `naming-convention` preset.
 - `disable-experimental`\
   Disable rules that have an "🧪 Experimental" feature flag.
 - `disable-type-checked`\

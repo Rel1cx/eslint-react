@@ -6,11 +6,13 @@ import * as disableConflictEslintPluginReactHooks from "./configs/disable-confli
 import * as disableDomConfig from "./configs/disable-dom";
 import * as disableExperimentalConfig from "./configs/disable-experimental";
 import * as disableJsxConfig from "./configs/disable-jsx";
+import * as disableNamingConventionConfig from "./configs/disable-naming-convention";
 import * as disableRscConfig from "./configs/disable-rsc";
 import * as disableTypeCheckedConfig from "./configs/disable-type-checked";
 import * as disableWebApiConfig from "./configs/disable-web-api";
 import * as domConfig from "./configs/dom";
 import * as jsxConfig from "./configs/jsx";
+import * as namingConventionConfig from "./configs/naming-convention";
 import * as offConfig from "./configs/off";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeCheckedConfig from "./configs/recommended-type-checked";
@@ -29,18 +31,20 @@ type ConfigName =
   | "disable-conflict-eslint-plugin-react"
   | "disable-conflict-eslint-plugin-react-hooks"
   | "disable-dom"
-  | "disable-jsx"
-  | "disable-rsc"
   | "disable-experimental"
+  | "disable-jsx"
+  | "disable-naming-convention"
+  | "disable-rsc"
   | "disable-type-checked"
   | "disable-web-api"
   | "dom"
   | "jsx"
-  | "rsc"
+  | "naming-convention"
   | "off"
   | "recommended"
   | "recommended-type-checked"
   | "recommended-typescript"
+  | "rsc"
   | "strict"
   | "strict-type-checked"
   | "strict-typescript"
@@ -72,11 +76,13 @@ const finalPlugin: ESLint.Plugin & {
     ["disable-dom"]: createConfig(disableDomConfig),
     ["disable-experimental"]: createConfig(disableExperimentalConfig),
     ["disable-jsx"]: createConfig(disableJsxConfig),
+    ["disable-naming-convention"]: createConfig(disableNamingConventionConfig),
     ["disable-rsc"]: createConfig(disableRscConfig),
     ["disable-type-checked"]: createConfig(disableTypeCheckedConfig),
     ["disable-web-api"]: createConfig(disableWebApiConfig),
     ["dom"]: createConfig(domConfig),
     ["jsx"]: createConfig(jsxConfig),
+    ["naming-convention"]: createConfig(namingConventionConfig),
     ["off"]: createConfig(offConfig),
     ["recommended"]: createConfig(recommendedConfig),
     ["recommended-type-checked"]: createConfig(recommendedTypeCheckedConfig),

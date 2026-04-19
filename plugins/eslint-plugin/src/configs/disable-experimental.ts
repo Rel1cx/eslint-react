@@ -18,4 +18,6 @@ export const rules: Linter.RulesRecord = {
   "@eslint-react/jsx-no-namespace": "off",
 
   "@eslint-react/rsc-function-definition": "off",
+
+  "@eslint-react/web-api-no-leaked-fetch": "off",
 };
