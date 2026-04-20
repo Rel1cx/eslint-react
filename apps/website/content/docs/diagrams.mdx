@@ -4,10 +4,16 @@ description: Architecture and sequence diagrams for ESLint React internals
 full: true
 ---
 
-import { FunctionComponentCollectorSequence } from "./diagrams.tsx";
+import { ConfigInheritanceDiagram, FunctionComponentCollectorSequence } from "./diagrams.tsx";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 <InlineTOC items={toc}>Table of Contents</InlineTOC>
+
+## Config Inheritance
+
+The following flowchart illustrates the inheritance relationships between ESLint React plugin configurations (in `plugins/eslint-plugin/src/configs`).
+
+<ConfigInheritanceDiagram />
 
 ## Function Component Collector Sequence
 

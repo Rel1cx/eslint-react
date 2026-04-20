@@ -14,9 +14,6 @@ export const rules: Linter.RulesRecord = {
   "@eslint-react/refs": "off",
   "@eslint-react/set-state-in-render": "off",
 
-  "@eslint-react/jsx-no-key-after-spread": "off",
-  "@eslint-react/jsx-no-namespace": "off",
-
   "@eslint-react/rsc-function-definition": "off",
 
   "@eslint-react/web-api-no-leaked-fetch": "off",

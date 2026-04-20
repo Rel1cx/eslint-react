@@ -7,6 +7,7 @@ export const name = "react-jsx/recommended";
 
 export const rules = {
   "react-jsx/no-children-prop": "warn",
+  "react-jsx/no-children-prop-with-children": "error",
   "react-jsx/no-comment-textnodes": "warn",
   "react-jsx/no-key-after-spread": "error",
   "react-jsx/no-leaked-dollar": "warn",

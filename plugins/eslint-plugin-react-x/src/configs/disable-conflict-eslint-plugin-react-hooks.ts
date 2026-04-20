@@ -13,7 +13,6 @@ const conflictingRules = [
   "react-hooks/refs",
   "react-hooks/set-state-in-effect",
   "react-hooks/set-state-in-render",
-  "react-hooks/static-components",
   "react-hooks/unsupported-syntax",
   "react-hooks/use-memo",
 ] as const;
