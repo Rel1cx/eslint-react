@@ -92,7 +92,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | [`no-children-prop-with-children`](/docs/rules/jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content                                                                                       |         |
 | [`no-comment-textnodes`](/docs/rules/jsx-no-comment-textnodes)                     | 1️⃣ 1️⃣ |           | Prevents comment strings from being accidentally inserted into a JSX element's text nodes                                                                                    |         |
 | [`no-key-after-spread`](/docs/rules/jsx-no-key-after-spread)                       | 2️⃣ 2️⃣ |           | Prevent patterns that cause deoptimization when using the automatic JSX runtime                                                                                              |         |
-| [`no-leaked-dollar`](/docs/rules/jsx-no-leaked-dollar)                             | 0️⃣ 0️⃣ |    `🔧`   | Catches `$` before `{expr}` in JSX — typically from template literal `${expr}` being copy-pasted into JSX without removing the `$`. The `$` "leaks" into the rendered output |         |
+| [`no-leaked-dollar`](/docs/rules/jsx-no-leaked-dollar)                             | 1️⃣ 1️⃣ |    `🔧`   | Catches `$` before `{expr}` in JSX — typically from template literal `${expr}` being copy-pasted into JSX without removing the `$`. The `$` "leaks" into the rendered output |         |
 | [`no-leaked-semicolon`](/docs/rules/jsx-no-leaked-semicolon)                       | 1️⃣ 1️⃣ |    `🔧`   | Catches `;` at the start of JSX text nodes — typically from accidentally placing a statement-ending `;` inside JSX. The `;` "leaks" into the rendered output                 |         |
 | [`no-namespace`](/docs/rules/jsx-no-namespace)                                     | 2️⃣ 2️⃣ |           | Disallow JSX namespace syntax, as React does not support them                                                                                                                |         |
 | [`no-useless-fragment`](/docs/rules/jsx-no-useless-fragment)                       | 0️⃣ 1️⃣ | `🔧` `⚙️` | Disallows useless fragment elements                                                                                                                                          |         |
@@ -138,12 +138,13 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
 </Callout>
 
-| Rule                                                                         |    ✅    |  🌟 | Description                                                                                                                  |
-| :--------------------------------------------------------------------------- | :-----: | :-: | :--------------------------------------------------------------------------------------------------------------------------- |
-| [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |     | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`               |
-| [`no-leaked-interval`](/docs/rules/web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |     | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                          |
-| [`no-leaked-resize-observer`](/docs/rules/web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |     | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()` |
-| [`no-leaked-timeout`](/docs/rules/web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |     | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                            |
+| Rule                                                                         |    ✅    |  🌟  | Description                                                                                                                   |
+| :--------------------------------------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------------------------------------------------------------- |
+| [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |      | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`                |
+| [`no-leaked-fetch`](/docs/rules/web-api-no-leaked-fetch)                     | 1️⃣ 1️⃣ | `🧪` | Enforces that every `fetch` in a component or custom hook has a corresponding `AbortController` abort in the cleanup function |
+| [`no-leaked-interval`](/docs/rules/web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |      | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                           |
+| [`no-leaked-resize-observer`](/docs/rules/web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |      | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`  |
+| [`no-leaked-timeout`](/docs/rules/web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |      | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                             |
 
 ## Naming Convention Rules
 
