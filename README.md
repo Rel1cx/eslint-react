@@ -133,8 +133,6 @@ export default defineConfig(
   Enable rules for React DOM.
 - `web-api`\
   Enable rules for interacting with Web APIs.
-- `naming-convention`\
-  Enable rules for naming conventions.
 
 ### General Purpose
 
@@ -169,8 +167,6 @@ export default defineConfig(
   Disable rules in the `dom` preset.
 - `disable-web-api`\
   Disable rules in the `web-api` preset.
-- `disable-naming-convention`\
-  Disable rules in the `naming-convention` preset.
 - `disable-experimental`\
   Disable rules that have an "🧪 Experimental" feature flag.
 - `disable-type-checked`\
@@ -216,7 +212,7 @@ This project is, and will remain, 90% of its code written by humans.
 A huge thank you to our amazing sponsors who make this project possible.
 
 <p align="center">
-  <a href="##">
+  <a href="https://ko-fi.com/Rel1cx">
     <img src="https://eslint-react.xyz/sponsors.svg" alt="sponsors" />
   </a>
 </p>
