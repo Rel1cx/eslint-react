@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.3.3-beta.0 (2026-04-21)
+
+### 🐞 Fixes
+
+- **configs:** add missing rules to presets, clean up experimental disables, and update docs (#1720) (`c994e55f9`)
+
+### 📝 Documentation
+
+- minor fixes (`3c13fd6b9`)
+
+### 🏗️ Internal
+
+- add missing naming-convention config verification and bump deps (`03694fa66`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.2-beta.0...v5.3.3-beta.0
+
 ## v5.3.2-beta.0 (2026-04-20)
 
 ### 🐞 Fixes
