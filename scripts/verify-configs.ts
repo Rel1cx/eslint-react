@@ -11,6 +11,7 @@ import * as disableExperimentalConfig from "../plugins/eslint-plugin/src/configs
 import * as disableTypeCheckedConfig from "../plugins/eslint-plugin/src/configs/disable-type-checked";
 import * as domConfig from "../plugins/eslint-plugin/src/configs/dom";
 import * as jsxConfig from "../plugins/eslint-plugin/src/configs/jsx";
+import * as namingConventionConfig from "../plugins/eslint-plugin/src/configs/naming-convention";
 import * as recommendedConfig from "../plugins/eslint-plugin/src/configs/recommended";
 import * as rscConfig from "../plugins/eslint-plugin/src/configs/rsc";
 import * as strictConfig from "../plugins/eslint-plugin/src/configs/strict";
@@ -28,10 +29,11 @@ const DOMAINS = [
 ] as const;
 
 const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
+  "naming-convention": namingConventionConfig.rules,
+  "web-api": webApiConfig.rules,
   dom: domConfig.rules,
   jsx: jsxConfig.rules,
   rsc: rscConfig.rules,
-  "web-api": webApiConfig.rules,
 };
 
 interface RegisteredRule {
