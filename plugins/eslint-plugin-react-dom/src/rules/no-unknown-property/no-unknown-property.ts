@@ -4,8 +4,6 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { createRule } from "../../utils";
 import {
   ATTRIBUTE_TAGS_MAP,
-  type StringMap,
-  type TagsMap,
   getStandardName,
   getTagName,
   getText,

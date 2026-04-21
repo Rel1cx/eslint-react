@@ -1,4 +1,4 @@
-import { Check, type TSESTreeClass, type TSESTreeFunction, Traverse, isOneOf } from "@eslint-react/ast";
+import { Check, Traverse, isOneOf } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";

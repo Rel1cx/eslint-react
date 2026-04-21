@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
   type ReportFixFunction,
@@ -94,12 +94,8 @@ export function create(context: RuleContext<MessageID, []>) {
   /**
    * Find function declarations from exports and check them
    * @param id The identifier of the exported function
-   * @param node The export declaration node
    */
-  function findAndCheckExportedFunctionDeclarations(
-    id: TSESTree.Identifier,
-    node: TSESTree.ExportDefaultDeclaration | TSESTree.ExportNamedDeclaration,
-  ) {
+  function findAndCheckExportedFunctionDeclarations(id: TSESTree.Identifier) {
     const initNode = resolve(context, id);
     if (initNode == null) return;
     const unwrapped = Extract.unwrap(initNode);
@@ -123,7 +119,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         if (decl.type === AST.Identifier) {
-          findAndCheckExportedFunctionDeclarations(decl, node);
+          findAndCheckExportedFunctionDeclarations(decl);
         }
       },
       // Handle exported declarations like `export const foo = () => {}` or `export class A {}`
@@ -150,7 +146,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Handle `export { foo }` (local binding)
         if (node.source == null && node.specifiers.length > 0) {
           for (const spec of node.specifiers) {
-            findAndCheckExportedFunctionDeclarations(spec.local, node);
+            findAndCheckExportedFunctionDeclarations(spec.local);
           }
         }
       },

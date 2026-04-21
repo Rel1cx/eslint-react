@@ -6,7 +6,6 @@ import path from "node:path";
 
 import type { RuleContext } from "@eslint-react/eslint";
 import { getOrInsertComputed, identity } from "@local/eff";
-import type { SharedConfigurationSettings } from "@typescript-eslint/utils/ts-eslint";
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
 

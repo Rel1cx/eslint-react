@@ -91,7 +91,7 @@ export function getFunctionComponentCollector(
   };
 
   const api = {
-    getAllComponents(node: TSESTree.Program) {
+    getAllComponents(_: TSESTree.Program) {
       return [...components.values()];
     },
   } as const;

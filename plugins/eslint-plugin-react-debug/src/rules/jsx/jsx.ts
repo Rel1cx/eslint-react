@@ -36,7 +36,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const jsxConfig = getJsxConfig(context);
 
-  function getReportDescriptor(context: RuleContext) {
+  function getReportDescriptor(_: RuleContext) {
     return (node: TSESTreeJSXElementLike) => ({
       data: {
         json: stringify({

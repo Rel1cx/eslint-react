@@ -1,6 +1,6 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 
 // ---------------------------------------------------------------------------
 // Attribute helpers (single JSXAttribute + source text)

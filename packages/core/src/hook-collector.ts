@@ -55,7 +55,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     functionEntries.pop();
   };
   const api = {
-    getAllHooks(node: TSESTree.Program) {
+    getAllHooks(_: TSESTree.Program) {
       return [...hooks.values()];
     },
   } as const;

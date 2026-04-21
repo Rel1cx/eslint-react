@@ -29,7 +29,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
   const components = new Map<string, ClassComponentSemanticNode>();
 
   const api = {
-    getAllComponents(node: TSESTree.Program) {
+    getAllComponents(_: TSESTree.Program) {
       return [...components.values()];
     },
   } as const;

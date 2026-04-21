@@ -1,10 +1,7 @@
 import { Check } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext } from "@eslint-react/eslint";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
-import type ts from "typescript";
 
 export function collectUsedPropKeysOfParameter(
   context: RuleContext,
@@ -86,7 +83,7 @@ export function collectUsedPropKeysOfIdentifier(
     if (ref.identifier === identifier) continue;
 
     if (
-      !collectUsedPropKeysOfReference(context, usedPropKeys, identifier, ref)
+      !collectUsedPropKeysOfReference(context, usedPropKeys, ref)
     ) {
       return false;
     }
@@ -98,15 +95,11 @@ export function collectUsedPropKeysOfIdentifier(
 export function collectUsedPropKeysOfReference(
   context: RuleContext,
   usedPropKeys: Set<string>,
-  identifier: TSESTree.Identifier,
   ref: Reference,
 ): boolean {
   // Walk upward through type-expression wrappers to find the outer value node
   let valueNode: TSESTree.Node = ref.identifier;
-  while (
-    Check.isTypeExpression(valueNode.parent)
-    || valueNode.parent.type === AST.ChainExpression
-  ) {
+  while (Check.isTypeExpression(valueNode.parent) || valueNode.parent.type === AST.ChainExpression) {
     valueNode = valueNode.parent;
   }
   const parent = valueNode.parent;

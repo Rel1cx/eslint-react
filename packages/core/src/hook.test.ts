@@ -2,7 +2,7 @@
 
 import { Check } from "@eslint-react/ast";
 import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";

@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { delimiterCase, replace, toLowerCase } from "string-ts";
+import { delimiterCase, toLowerCase } from "string-ts";
 import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
 
