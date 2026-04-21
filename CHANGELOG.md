@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.3.4-beta.0 (2026-04-21)
+
+### ✨ New
+
+- **eslint-plugin-react-rsc:** add directive position and quote checks to function-definition (#1721) (`9efcd5b4a`)
+
+### 📝 Documentation
+
+- simplify boolean prop naming example with `ts.TypeFlags.BooleanLike` (`54a135930`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.3-beta.0...v5.3.4-beta.0
+
 ## v5.3.3-beta.0 (2026-04-21)
 
 ### 🐞 Fixes
