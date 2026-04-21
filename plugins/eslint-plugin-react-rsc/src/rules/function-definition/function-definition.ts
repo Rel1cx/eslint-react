@@ -14,7 +14,14 @@ import { createRule } from "../../utils";
 
 export const RULE_NAME = "function-definition";
 
-export type MessageID = "file" | "local";
+export type MessageID =
+  | "file"
+  | "fileDirectivePosition"
+  | "fileDirectiveQuote"
+  | "local"
+  | "localDirectivePosition"
+  | "localDirectiveQuote"
+  | "localDirectiveUnexpected";
 
 export const RULE_FEATURES = [
   "FIX",
@@ -31,7 +38,14 @@ export default createRule<[], MessageID>({
     messages: {
       file:
         "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
+      fileDirectivePosition:
+        "The '{{name}}' directive must be at the very beginning of the file, before any imports or other code.",
+      fileDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
       local: "Functions with `use server` directive are React Server Functions and therefore must be async.",
+      localDirectivePosition: "The '{{name}}' directive must be at the very beginning of the function body.",
+      localDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
+      localDirectiveUnexpected:
+        "The '{{name}}' directive can only be used at the top of a file, not inside a function body.",
     },
     schema: [],
   },
@@ -41,8 +55,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  // Fast path: skip if `use server` is not present in the entire file for performance
-  if (!context.sourceCode.text.includes("use server")) return {};
+  const hasUseServer = context.sourceCode.text.includes("use server");
+  const hasUseClient = context.sourceCode.text.includes("use client");
+
+  // Fast path: skip if neither `use server` nor `use client` is present
+  if (!hasUseServer && !hasUseClient) return {};
 
   const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(Check.isDirective("use server"));
 
@@ -103,9 +120,96 @@ export function create(context: RuleContext<MessageID, []>) {
     reportNonAsyncFunction(unwrapped, "file");
   }
 
+  /**
+   * Check file-level directives for correct position and quote style.
+   * Well-formed directives at the beginning of the file will have a `directive` property.
+   * If they appear after other code, the parser will not set `directive`.
+   */
+  function checkFileLevelDirectives() {
+    for (const node of context.sourceCode.ast.body) {
+      if (node.type !== AST.ExpressionStatement) continue;
+
+      if (Check.isLiteral("string")(node.expression)) {
+        const value = node.expression.value;
+        if ((value === "use server" || value === "use client") && node.directive == null) {
+          context.report({
+            data: { name: value },
+            messageId: "fileDirectivePosition",
+            node,
+          });
+        }
+        continue;
+      }
+
+      if (
+        node.expression.type === AST.TemplateLiteral
+        && node.expression.quasis.length === 1
+        && node.expression.expressions.length === 0
+      ) {
+        const value = node.expression.quasis[0]?.value.cooked;
+        if (value === "use server" || value === "use client") {
+          context.report({
+            data: { name: value },
+            messageId: "fileDirectiveQuote",
+            node,
+          });
+        }
+      }
+    }
+  }
+
+  /**
+   * Check function-level directives for correct position and quote style.
+   * @param node The function node to check
+   */
+  function checkFunctionDirectives(
+    node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
+  ) {
+    if (node.body.type !== AST.BlockStatement) return;
+
+    for (const stmt of node.body.body) {
+      if (stmt.type !== AST.ExpressionStatement) continue;
+
+      if (Check.isLiteral("string")(stmt.expression)) {
+        const value = stmt.expression.value;
+        if (value === "use server" && stmt.directive == null) {
+          context.report({
+            data: { name: value },
+            messageId: "localDirectivePosition",
+            node: stmt,
+          });
+        }
+        if (value === "use client") {
+          context.report({
+            data: { name: value },
+            messageId: "localDirectiveUnexpected",
+            node: stmt,
+          });
+        }
+        continue;
+      }
+
+      if (
+        stmt.expression.type === AST.TemplateLiteral
+        && stmt.expression.quasis.length === 1
+        && stmt.expression.expressions.length === 0
+      ) {
+        const value = stmt.expression.quasis[0]?.value.cooked;
+        if (value === "use server" || value === "use client") {
+          context.report({
+            data: { name: value },
+            messageId: "localDirectiveQuote",
+            node: stmt,
+          });
+        }
+      }
+    }
+  }
+
   return merge(
     {
       ArrowFunctionExpression(node) {
+        checkFunctionDirectives(node);
         checkLocalServerFunction(node);
       },
       ExportDefaultDeclaration(node) {
@@ -151,10 +255,15 @@ export function create(context: RuleContext<MessageID, []>) {
         }
       },
       FunctionDeclaration(node) {
+        checkFunctionDirectives(node);
         checkLocalServerFunction(node);
       },
       FunctionExpression(node) {
+        checkFunctionDirectives(node);
         checkLocalServerFunction(node);
+      },
+      Program() {
+        checkFileLevelDirectives();
       },
     },
   );

@@ -270,8 +270,124 @@ ruleTester.run(RULE_NAME, rule, {
         export { serverFunction };
       `,
     },
+    {
+      code: tsx`
+        import React from 'react';
+        'use client';
+      `,
+      errors: [{ messageId: "fileDirectivePosition" }],
+    },
+    {
+      code: tsx`
+        import React from 'react';
+        'use server';
+      `,
+      errors: [{ messageId: "fileDirectivePosition" }],
+    },
+    {
+      code: tsx`
+        const x = 1;
+        'use client';
+      `,
+      errors: [{ messageId: "fileDirectivePosition" }],
+    },
+    {
+      code: tsx`
+        \`use client\`;
+      `,
+      errors: [{ messageId: "fileDirectiveQuote" }],
+    },
+    {
+      code: tsx`
+        \`use server\`;
+      `,
+      errors: [{ messageId: "fileDirectiveQuote" }],
+    },
+    {
+      code: tsx`
+        export function Component() {
+          async function serverFunction() {
+            const x = 1;
+            'use server';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "localDirectivePosition" }],
+    },
+    {
+      code: tsx`
+        export function Component() {
+          async function serverFunction() {
+            \`use server\`;
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "localDirectiveQuote" }],
+    },
+    {
+      code: tsx`
+        export function Component() {
+          function serverFunction() {
+            'use client';
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "localDirectiveUnexpected" }],
+    },
+    {
+      code: tsx`
+        export function Component() {
+          function serverFunction() {
+            \`use client\`;
+            return 42;
+          }
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "localDirectiveQuote" }],
+    },
+    {
+      code: tsx`
+        export const x = 1;
+        'use server';
+      `,
+      errors: [{ messageId: "fileDirectivePosition" }],
+    },
+    {
+      code: tsx`
+        export function Component() {
+          async function serverFunction() {
+            return 42;
+            'use server';
+          }
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "localDirectivePosition" }],
+    },
   ],
   valid: [
+    tsx`
+      "use strict";
+      'use client';
+    `,
+    tsx`
+      'use client';
+      export function clientFunction() {
+        return 42;
+      }
+    `,
     tsx`
       'use server';
       export async function serverFunction() {
@@ -325,6 +441,64 @@ ruleTester.run(RULE_NAME, rule, {
       export function Component() {
         const serverFunction = async () => {
           'use server';
+          return 42;
+        }
+
+        return <div />;
+      }
+    `,
+    tsx`
+      'use client';
+      import { useState } from 'react';
+    `,
+    tsx`
+      // comment
+      'use client';
+    `,
+    tsx`
+      /* comment */
+      'use server';
+      export async function serverFunction() {
+        return 42;
+      }
+    `,
+    tsx`
+      export function Component() {
+        async function serverFunction() {
+          'use strict';
+          'use server';
+          return 42;
+        }
+
+        return <div />;
+      }
+    `,
+    tsx`
+      "use client";
+      import { useState } from 'react';
+    `,
+    tsx`
+      "use server";
+      export async function serverFunction() {
+        return 42;
+      }
+    `,
+    tsx`
+      export function Component() {
+        async function serverFunction() {
+          "use server";
+          return 42;
+        }
+
+        return <div />;
+      }
+    `,
+    tsx`
+      \`use \${"client"}\`;
+    `,
+    tsx`
+      export function Component() {
+        async function serverFunction() {
           return 42;
         }
 
