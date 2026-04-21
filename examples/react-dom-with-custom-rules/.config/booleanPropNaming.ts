@@ -10,13 +10,17 @@ export type BooleanPropNamingOptions = {
 /** Enforce boolean prop naming convention. */
 export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunction {
   const DEFAULT_RULE = "^(is|has|should)[A-Z]([A-Za-z0-9]?)+";
-  const BOOLEAN_LIKE = ts.TypeFlags.Boolean | ts.TypeFlags.BooleanLiteral;
 
   const { rule = DEFAULT_RULE } = options ?? {};
   const regex = new RegExp(rule);
 
-  const flattenTypes = (type: ts.Type): ts.Type[] => type.isUnion() ? type.types.flatMap(flattenTypes) : [type];
-  const isBooleanType = (type: ts.Type): boolean => flattenTypes(type).some(t => !!(t.getFlags() & BOOLEAN_LIKE));
+  function flattenTypes(t: ts.Type): ts.Type[] {
+    return t.isUnion() ? t.types.flatMap(flattenTypes) : [t];
+  }
+
+  function isBooleanLikeType(t: ts.Type) {
+    return flattenTypes(t).some(t => (t.getFlags() & ts.TypeFlags.BooleanLike) > 0);
+  }
 
   return (context, { collect }) => {
     const srv = ESLintUtils.getParserServices(context, false);
@@ -41,7 +45,7 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
             // › Filter: must be boolean
-            if (!isBooleanType(propType)) continue;
+            if (!isBooleanLikeType(propType)) continue;
 
             // › Filter: must match naming pattern
             if (regex.test(prop.name)) continue;
@@ -51,6 +55,7 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
 
             const [decl] = decls;
             if (decl == null) continue;
+
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
             if (declNode == null) continue;
 
