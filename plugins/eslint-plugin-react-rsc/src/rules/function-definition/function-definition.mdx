@@ -38,6 +38,10 @@ react-rsc/function-definition
 It includes the following checks:
 
 1. If a file has a top-level `'use server'` directive, exported functions must be async. Functions with their own `'use server'` directive must also be async.
+2. If a file has a top-level `'use client'` or `'use server'` directive, it must be placed at the very beginning of the file, before any imports or other code. Comments above the directive are allowed.
+3. If a function has a `'use server'` directive, it must be placed at the very beginning of the function body.
+4. `'use client'` and `'use server'` directives must be written with single or double quotes, not backticks.
+5. The `'use client'` directive must not be used inside a function body.
 
 ## Common Violations
 
@@ -119,6 +123,61 @@ export function Component() {
 }
 ```
 
+### Invalid
+
+```tsx
+import { useState } from 'react';
+
+'use client';
+```
+
+```tsx
+export function Component() {
+  const x = 1;
+
+  function serverFunction() {
+    'use server';
+    // ...
+  }
+}
+```
+
+```tsx
+`use client`;
+```
+
+```tsx
+export function Component() {
+  function serverFunction() {
+    'use client';
+    // ...
+  }
+}
+```
+
+### Valid
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+```
+
+```tsx
+export function Component() {
+  async function serverFunction() {
+    'use server';
+    // ...
+  }
+}
+```
+
+```tsx
+"use client";
+
+import { useState } from 'react';
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-rsc/src/rules/function-definition/function-definition.ts)
@@ -126,4 +185,6 @@ export function Component() {
 
 ## Further Reading
 
+- [React Docs: `'use client'` Caveats](https://react.dev/reference/rsc/use-client#caveats)
+- [React Docs: `'use server'` Caveats](https://react.dev/reference/rsc/use-server#caveats)
 - [Next.js Docs: Invalid "use server" Value](https://nextjs.org/docs/messages/invalid-use-server-value).
