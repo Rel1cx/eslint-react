@@ -22,15 +22,19 @@ const CATEGORY_MAP = {
 const CATEGORY_ORDER = ["breaking", "feat", "fix", "perf", "docs"] as const;
 
 interface ParsedCommit {
-  category: string;
-  hash: string;
-  isBreaking: boolean;
-  message: string;
-  scope: string | undefined;
+  readonly category: string;
+  readonly hash: string;
+  readonly isBreaking: boolean;
+  readonly message: string;
+  readonly scope: string | undefined;
+}
+
+interface ParseResult {
+  readonly parsed: ParsedCommit[];
+  readonly skipped: string[];
 }
 
 function parseCommitLine(line: string): ParsedCommit | undefined {
-  // Format: "<hash> <type>(<scope>): <message>" or "<hash> <type>: <message>"
   // eslint-disable-next-line regexp/no-super-linear-backtracking
   const match = /^([a-f0-9]+)\s+(\w+)(?:\(([^)]*)\))?(!)?:\s*(.+)$/u.exec(line.trim());
   if (match == null) return undefined;
@@ -92,12 +96,25 @@ function generateChangelogEntry(ver: string, grouped: Map<string, ParsedCommit[]
   return lines.join("\n");
 }
 
+function parseCommits(lines: string[]): ParseResult {
+  const parsed: ParsedCommit[] = [];
+  const skipped: string[] = [];
+  for (const line of lines) {
+    const commit = parseCommitLine(line);
+    if (commit != null) {
+      parsed.push(commit);
+    } else {
+      skipped.push(line);
+    }
+  }
+  return { parsed, skipped };
+}
+
 const getFromVersion = Effect.gen(function*() {
   const args = process.argv.slice(2);
   if (args[0] != null && args[0].length > 0) {
     return args[0].replace(/^v/, "");
   }
-  // Try to find the latest git tag
   const ce = yield* CommandExecutor.CommandExecutor;
   const tags = yield* ce.string(Command.make("git", "tag", "--sort=-v:refname", "--list", "v*")).pipe(
     Effect.map((s) => s.trim()),
@@ -126,39 +143,48 @@ const getCommitsSince = Effect.fnUntraced(
   },
 );
 
+const prependChangelogEntry = Effect.fnUntraced(
+  function*(entry: string) {
+    const fs = yield* FileSystem.FileSystem;
+    const existingChangelog = yield* fs.readFileString(CHANGELOG_PATH, "utf8").pipe(
+      Effect.catchAll(() => Effect.succeed("")),
+    );
+
+    const marker = "# Changelog";
+    const hasMarker = existingChangelog.startsWith(marker);
+    const newChangelog = hasMarker
+      ? `${marker}\n\n${entry}\n${existingChangelog.slice(marker.length + 1)}`
+      : `${marker}\n\n${entry}\n${existingChangelog}`;
+
+    yield* fs.writeFileString(CHANGELOG_PATH, newChangelog);
+    yield* Effect.log(ansis.bold.green(`Changelog entry prepended to ${CHANGELOG_PATH}.`));
+    yield* Effect.log(ansis.yellow("Please review and edit the generated entry before committing."));
+  },
+);
+
 const program = Effect.gen(function*() {
-  yield* Effect.log(ansis.bold("Generating changelog entry...\n"));
+  yield* Effect.log(ansis.bold("Generating changelog entry..."));
 
   const currentVersion = yield* version;
   yield* Effect.log(`Current version: ${ansis.bold(currentVersion)}`);
 
   const fromVersion = yield* getFromVersion;
-  yield* Effect.log(`Collecting commits since: ${ansis.bold(fromVersion)}\n`);
+  yield* Effect.log(`Collecting commits since: ${ansis.bold(fromVersion)}`);
 
   const commitLines = yield* getCommitsSince(fromVersion);
   if (commitLines.length === 0) {
     yield* Effect.logWarning(ansis.yellow("No commits found since the specified version."));
     return;
   }
-  yield* Effect.log(`Found ${ansis.bold(commitLines.length.toString())} commit(s).\n`);
+  yield* Effect.log(`Found ${ansis.bold(commitLines.length.toString())} commit(s).`);
 
-  const parsed: ParsedCommit[] = [];
-  const skipped: string[] = [];
-  for (const line of commitLines) {
-    const commit = parseCommitLine(line);
-    if (commit != null) {
-      parsed.push(commit);
-    } else {
-      skipped.push(line);
-    }
-  }
+  const { parsed, skipped } = parseCommits(commitLines);
 
   if (skipped.length > 0) {
     yield* Effect.log(ansis.yellow(`Skipped ${skipped.length} non-conventional commit(s):`));
     for (const line of skipped) {
       yield* Effect.log(ansis.dim(`  ${line}`));
     }
-    yield* Effect.log("");
   }
 
   if (parsed.length === 0) {
@@ -169,24 +195,10 @@ const program = Effect.gen(function*() {
   const grouped = groupCommits(parsed);
   const entry = generateChangelogEntry(currentVersion, grouped);
 
-  yield* Effect.log(ansis.bold("Generated changelog entry:\n"));
+  yield* Effect.log(ansis.bold("Generated changelog entry:"));
   yield* Effect.log(ansis.cyan(entry));
 
-  // Prepend to CHANGELOG.md
-  const fs = yield* FileSystem.FileSystem;
-  const existingChangelog = yield* fs.readFileString(CHANGELOG_PATH, "utf8").pipe(
-    Effect.catchAll(() => Effect.succeed("")),
-  );
-
-  const marker = "# Changelog";
-  const hasMarker = existingChangelog.startsWith(marker);
-  const newChangelog = hasMarker
-    ? `${marker}\n\n${entry}\n${existingChangelog.slice(marker.length + 1)}`
-    : `${marker}\n\n${entry}\n${existingChangelog}`;
-
-  yield* fs.writeFileString(CHANGELOG_PATH, newChangelog);
-  yield* Effect.log(ansis.bold.green(`\nChangelog entry prepended to ${CHANGELOG_PATH}.`));
-  yield* Effect.log(ansis.yellow("Please review and edit the generated entry before committing."));
+  yield* prependChangelogEntry(entry);
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);

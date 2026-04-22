@@ -37,9 +37,9 @@ const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
 };
 
 interface RegisteredRule {
-  name: string;
-  configKey: string;
-  domain: string;
+  readonly name: string;
+  readonly configKey: string;
+  readonly domain: string;
 }
 
 function buildConfigKey(domain: string, ruleName: string): string {
@@ -60,7 +60,6 @@ const collectRegisteredRules = Effect.gen(function*() {
 
   for (const file of files) {
     const domain = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
-    // Skip debug plugin as it's not part of the aggregated plugin
     if (domain === "debug") continue;
     const mod = yield* Effect.tryPromise(() => import(`../${file}`));
     const ruleName = mod.RULE_NAME;
@@ -172,7 +171,6 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
       const configKeys = Object.keys(configRules);
       const domainRuleKeys = new Set(domainRules.map((r) => r.configKey));
 
-      // Error: domain config contains a rule that doesn't belong to this domain
       for (const key of configKeys) {
         if (!domainRuleKeys.has(key)) {
           yield* Effect.logError(
@@ -186,7 +184,6 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
         }
       }
 
-      // Info: registered rules not in the domain base config (expected for strict/all-only rules)
       const configKeySet = new Set(configKeys);
       const untrackedRules = domainRules.filter((r) => !configKeySet.has(r.configKey));
       if (untrackedRules.length > 0) {
@@ -207,16 +204,17 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
 );
 
 const program = Effect.gen(function*() {
-  yield* Effect.log(ansis.bold("Verifying config consistency...\n"));
+  yield* Effect.log(ansis.bold("Verifying config consistency..."));
+  yield* Effect.log("");
 
   const rules = yield* collectRegisteredRules;
-  yield* Effect.log(`Found ${ansis.bold(rules.length.toString())} registered rules (excluding debug).\n`);
+  yield* Effect.log(`Found ${ansis.bold(rules.length.toString())} registered rules (excluding debug).`);
+  yield* Effect.log("");
 
-  // 1. All registered rules accounted for in configs
   const accountedErrors = yield* verifyAllRulesAccountedFor(rules);
 
-  // 2. Config keys reference valid rules
-  yield* Effect.log(ansis.bold("\n2. Checking config keys reference valid rules..."));
+  yield* Effect.log("");
+  yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
   const allKeyErrors = yield* verifyConfigKeysValid(rules, "all", allConfig.rules);
   const recommendedKeyErrors = yield* verifyConfigKeysValid(rules, "recommended", recommendedConfig.rules);
   const strictKeyErrors = yield* verifyConfigKeysValid(rules, "strict", strictConfig.rules);
@@ -231,12 +229,11 @@ const program = Effect.gen(function*() {
     disableTypeCheckedConfig.rules,
   );
 
-  // 3. Preset hierarchy
-  yield* Effect.log(ansis.bold("\n3. Checking preset hierarchy..."));
+  yield* Effect.log("");
+  yield* Effect.log(ansis.bold("3. Checking preset hierarchy..."));
   const recStrictErrors = yield* verifyHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules);
   const strictAllErrors = yield* verifyHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
 
-  // 4. Domain config completeness
   yield* Effect.log("");
   const domainErrors = yield* verifyDomainConfigCompleteness(rules);
 
@@ -247,9 +244,11 @@ const program = Effect.gen(function*() {
     + domainErrors;
 
   if (totalErrors === 0) {
-    yield* Effect.log(ansis.bold.green("\nAll config consistency checks passed!"));
+    yield* Effect.log("");
+    yield* Effect.log(ansis.bold.green("All config consistency checks passed!"));
   } else {
-    yield* Effect.log(ansis.bold.red(`\nFound ${totalErrors} error(s).`));
+    yield* Effect.log("");
+    yield* Effect.log(ansis.bold.red(`Found ${totalErrors} error(s).`));
     return yield* Effect.fail(new Error(`Config verification failed with ${totalErrors} error(s).`));
   }
 });
