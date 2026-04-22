@@ -22,10 +22,22 @@ flowchart TB
             Playground["Playground"]:::apps
         end
 
+        %% Examples Subgraph
+        subgraph "Examples"
+            ExampleNext["Next.js Example"]:::examples
+            ExamplePreact["Preact Example"]:::examples
+            ExamplePreactCompat["Preact Compat Example"]:::examples
+            ExampleReactDOM["React DOM Example"]:::examples
+            ExampleReactDOMJS["React DOM JS Example"]:::examples
+            ExampleReactDOMCustom["React DOM Custom Rules Example"]:::examples
+        end
+
         %% Packages Subgraph
         subgraph "Packages"
             Core["Core Functionality"]:::packages
             Shared["Shared Utilities"]:::packages
+            ESLint["ESLint Types & Utils"]:::packages
+            Kit["Kit Module"]:::packages
 
             %% Utilities Subgraph
             subgraph "Utilities Modules"
@@ -42,6 +54,7 @@ flowchart TB
                 ReactDOM["eslint-plugin-react-dom"]:::plugins
                 ReactWebAPI["eslint-plugin-react-web-api"]:::plugins
                 ReactNamingConvention["eslint-plugin-react-naming-convention"]:::plugins
+                ReactDebug["eslint-plugin-react-debug"]:::plugins
                 ReactAggregated["Aggregated Plugin"]:::plugins
             end
         end
@@ -61,6 +74,7 @@ flowchart TB
     Core -->|"dependency"| ReactDOM
     Core -->|"dependency"| ReactWebAPI
     Core -->|"dependency"| ReactNamingConvention
+    Core -->|"dependency"| ReactDebug
 
     Shared -->|"dependency"| ReactX
     Shared -->|"dependency"| ReactJSX
@@ -68,6 +82,7 @@ flowchart TB
     Shared -->|"dependency"| ReactDOM
     Shared -->|"dependency"| ReactWebAPI
     Shared -->|"dependency"| ReactNamingConvention
+    Shared -->|"dependency"| ReactDebug
 
     %% Utilities used by Core and Plugins
     AST ---|"provides"| Core
@@ -79,6 +94,14 @@ flowchart TB
     JSX ---|"provides"| ReactX
     JSX ---|"provides"| ReactDOM
     JSX ---|"provides"| ReactJSX
+    AST ---|"provides"| ReactDebug
+    Var ---|"provides"| ReactDebug
+    JSX ---|"provides"| ReactDebug
+
+    %% Kit dependencies
+    AST ---|"provides"| Kit
+    Core -->|"dependency"| Kit
+    Shared -->|"dependency"| Kit
 
     %% Aggregation of Plugins
     ReactX -->|"aggregated"| ReactAggregated
@@ -95,6 +118,8 @@ flowchart TB
     %% Scripts & CI automation interactions
     Scripts -->|"CI/CD"| Core
     Scripts -->|"CI/CD"| Shared
+    Scripts -->|"CI/CD"| ESLint
+    Scripts -->|"CI/CD"| Kit
     Scripts -->|"CI/CD"| AST
     Scripts -->|"CI/CD"| Var
     Scripts -->|"CI/CD"| JSX
@@ -104,14 +129,23 @@ flowchart TB
     Scripts -->|"CI/CD"| ReactDOM
     Scripts -->|"CI/CD"| ReactWebAPI
     Scripts -->|"CI/CD"| ReactNamingConvention
+    Scripts -->|"CI/CD"| ReactDebug
     Scripts -->|"CI/CD"| ReactAggregated
     Scripts -->|"CI/CD"| Tests
 
     %% Click Events
     click Website "https://github.com/Rel1cx/eslint-react/tree/main/apps/website"
     click Playground "https://github.com/Rel1cx/eslint-react/tree/main/apps/playground"
+    click ExampleNext "https://github.com/Rel1cx/eslint-react/tree/main/examples/next"
+    click ExamplePreact "https://github.com/Rel1cx/eslint-react/tree/main/examples/preact"
+    click ExamplePreactCompat "https://github.com/Rel1cx/eslint-react/tree/main/examples/preact-compat"
+    click ExampleReactDOM "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom"
+    click ExampleReactDOMJS "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-js"
+    click ExampleReactDOMCustom "https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-with-custom-rules"
     click Core "https://github.com/Rel1cx/eslint-react/tree/main/packages/core"
     click Shared "https://github.com/Rel1cx/eslint-react/tree/main/packages/shared"
+    click ESLint "https://github.com/Rel1cx/eslint-react/tree/main/packages/eslint"
+    click Kit "https://github.com/Rel1cx/eslint-react/tree/main/packages/kit"
     click AST "https://github.com/Rel1cx/eslint-react/tree/main/packages/ast"
     click Var "https://github.com/Rel1cx/eslint-react/tree/main/packages/var"
     click JSX "https://github.com/Rel1cx/eslint-react/tree/main/packages/jsx"
@@ -121,12 +155,14 @@ flowchart TB
     click ReactDOM "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom"
     click ReactWebAPI "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api"
     click ReactNamingConvention "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention"
+    click ReactDebug "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug"
     click ReactAggregated "https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin"
     click Scripts "https://github.com/Rel1cx/eslint-react/tree/main/scripts"
     click Tests "https://github.com/Rel1cx/eslint-react/tree/main/test"
 
     %% Styles
     classDef apps fill:#f9e79f,stroke:#7d6608,stroke-width:2px;
+    classDef examples fill:#fad7a0,stroke:#7e5109,stroke-width:2px;
     classDef packages fill:#aed6f1,stroke:#1b4f72,stroke-width:2px;
     classDef utilities fill:#a9dfbf,stroke:#145a32,stroke-width:2px;
     classDef plugins fill:#f5b7b1,stroke:#78281f,stroke-width:2px;
@@ -166,6 +202,15 @@ This section provides a summary of the packages in the monorepo.
   - [`plugins/eslint-plugin-react-naming-convention`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-naming-convention): Naming convention rules
   - [`plugins/eslint-plugin-react-debug`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug): Debugging rules for inspecting React patterns in code
   - [`plugins/eslint-plugin`](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin) (npm: `@eslint-react/eslint-plugin`): A unified plugin that combines all individual plugins into one
+
+### Examples
+
+- [`examples/next`](https://github.com/Rel1cx/eslint-react/tree/main/examples/next): Next.js example
+- [`examples/preact`](https://github.com/Rel1cx/eslint-react/tree/main/examples/preact): Preact example
+- [`examples/preact-compat`](https://github.com/Rel1cx/eslint-react/tree/main/examples/preact-compat): Preact compat example
+- [`examples/react-dom`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom): React DOM example
+- [`examples/react-dom-js`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-js): React DOM JS example
+- [`examples/react-dom-with-custom-rules`](https://github.com/Rel1cx/eslint-react/tree/main/examples/react-dom-with-custom-rules): React DOM with custom rules example
 
 ### Documentation
 
