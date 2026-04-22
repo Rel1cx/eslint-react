@@ -37,7 +37,7 @@
     "eslint": "^10.2.1",
     "tsdown": "^0.21.9",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.11.0",
+    "tsl-dx": "^0.12.0",
     "typedoc": "0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
@@ -46,7 +46,7 @@
   "peerDependencies": {
     "eslint": "^10.2.1",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.11.0",
+    "tsl-dx": "^0.12.0",
     "typedoc": "0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",

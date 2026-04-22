@@ -202,8 +202,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.11.0
-        version: 0.11.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.12.0
+        version: 0.12.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typedoc:
         specifier: 0.28.19
         version: 0.28.19(typescript@6.0.3)
@@ -380,8 +380,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.11.0
-        version: 0.11.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.12.0
+        version: 0.12.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1427,8 +1427,8 @@ importers:
         specifier: ^0.21.9
         version: 0.21.9(oxc-resolver@11.19.1(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(publint@0.3.18)(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.11.0
-        version: 0.11.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.12.0
+        version: 0.12.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
 
 packages:
 
@@ -6452,8 +6452,8 @@ packages:
       unplugin-unused:
         optional: true
 
-  tsl-dx@0.11.0:
-    resolution: {integrity: sha512-ylS0fSzUezCKyGoujoPvhuiMtRAPSFWXfInjz9emAa4t5NbK65xLINQtJQV4twGf14ydzkcWN31Q0fpE73+/Pw==}
+  tsl-dx@0.12.0:
+    resolution: {integrity: sha512-mNoF8VTaaK6T9WR/DK38/Z5QhXuci1eHzHnXMBbC3S8nfqhxVB8lASIVnLhsZMSiQ4vM/IgdgPs3Qd128wdj0g==}
     peerDependencies:
       tsl: ^1.0.30
       typescript: ^6.0.3
@@ -12171,7 +12171,7 @@ snapshots:
       - synckit
       - vue-tsc
 
-  tsl-dx@0.11.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
+  tsl-dx@0.12.0(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
     dependencies:
       ts-pattern: 5.9.0
       tsl: 1.0.30(typescript@6.0.3)
