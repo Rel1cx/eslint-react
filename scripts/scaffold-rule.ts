@@ -5,29 +5,25 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
-const VALID_PLUGINS = ["x", "jsx", "dom", "rsc", "web-api", "naming-convention", "debug"] as const;
+const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention", "debug"] as const;
 
-type PluginName = typeof VALID_PLUGINS[number];
+type PluginDomain = typeof VALID_PLUGINS[number];
 
 function kebabToCamel(str: string): string {
   return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
 
-function getPluginPackageName(plugin: PluginName): string {
-  return `eslint-plugin-react-${plugin}`;
+function buildPluginPrefix(domain: PluginDomain): string {
+  return `react-${domain}`;
 }
 
-function getPluginNpmName(plugin: PluginName): string {
-  return `eslint-plugin-react-${plugin}`;
+function buildConfigKey(domain: PluginDomain, ruleName: string): string {
+  if (domain === "x") return `@eslint-react/${ruleName}`;
+  return `@eslint-react/${domain}-${ruleName}`;
 }
 
-function getSubPluginPrefix(plugin: PluginName): string {
-  return `react-${plugin}`;
-}
-
-function getAggregatedRuleKey(plugin: PluginName, ruleName: string): string {
-  if (plugin === "x") return `@eslint-react/${ruleName}`;
-  return `@eslint-react/${plugin}-${ruleName}`;
+function buildPluginPackageName(domain: PluginDomain): string {
+  return `eslint-plugin-react-${domain}`;
 }
 
 function generateRuleTs(ruleName: string): string {
@@ -86,11 +82,10 @@ function generateRuleSpecTs(ruleName: string): string {
   ].join("\n");
 }
 
-function generateRuleMdx(plugin: PluginName, ruleName: string, description: string): string {
-  const subPluginPrefix = getSubPluginPrefix(plugin);
-  const aggregatedKey = getAggregatedRuleKey(plugin, ruleName);
-  const pluginNpmName = getPluginNpmName(plugin);
-  const pluginPkgName = getPluginPackageName(plugin);
+function generateRuleMdx(domain: PluginDomain, ruleName: string, description: string): string {
+  const pluginPrefix = buildPluginPrefix(domain);
+  const aggregatedKey = buildConfigKey(domain, ruleName);
+  const pluginPkgName = buildPluginPackageName(domain);
   const ruleSourceUrl =
     `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
   const testSourceUrl =
@@ -102,10 +97,10 @@ function generateRuleMdx(plugin: PluginName, ruleName: string, description: stri
     `description: ${description}`,
     `---`,
     ``,
-    `**Full Name in [\`${pluginNpmName}\`](https://npmx.dev/package/${pluginNpmName}/v/latest)**`,
+    `**Full Name in [\`${pluginPkgName}\`](https://npmx.dev/package/${pluginPkgName}/v/latest)**`,
     ``,
     "```plain copy",
-    `${subPluginPrefix}/${ruleName}`,
+    `${pluginPrefix}/${ruleName}`,
     "```",
     ``,
     `**Full Name in [\`@eslint-react/eslint-plugin\`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**`,
@@ -135,7 +130,6 @@ function generateRuleMdx(plugin: PluginName, ruleName: string, description: stri
 }
 
 function findImportInsertionIndex(lines: string[], importLine: string): number {
-  // Find the block of rule imports (lines starting with "import" and containing "./rules/")
   let lastRuleImportIndex = -1;
   for (let i = 0; i < lines.length; i++) {
     if (lines[i]!.startsWith("import ") && lines[i]!.includes("./rules/")) {
@@ -143,13 +137,11 @@ function findImportInsertionIndex(lines: string[], importLine: string): number {
     }
   }
   if (lastRuleImportIndex === -1) {
-    // Fallback: insert after the last import line
     for (let i = lines.length - 1; i >= 0; i--) {
       if (lines[i]!.startsWith("import ")) return i + 1;
     }
     return 0;
   }
-  // Find alphabetical insertion point within the rule import block
   let firstRuleImportIndex = lastRuleImportIndex;
   for (let i = lastRuleImportIndex; i >= 0; i--) {
     if (lines[i]!.startsWith("import ") && lines[i]!.includes("./rules/")) {
@@ -167,7 +159,6 @@ function findImportInsertionIndex(lines: string[], importLine: string): number {
 }
 
 function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number {
-  // Find the "rules: {" line
   let rulesStartIndex = -1;
   let rulesEndIndex = -1;
   for (let i = 0; i < lines.length; i++) {
@@ -177,7 +168,6 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
     }
   }
   if (rulesStartIndex === -1) return -1;
-  // Find the closing brace of the rules object
   let depth = 0;
   for (let i = rulesStartIndex; i < lines.length; i++) {
     for (const ch of lines[i]!) {
@@ -190,11 +180,9 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
     }
   }
   if (rulesEndIndex === -1) return -1;
-  // Find alphabetical insertion point within the rules entries
   for (let i = rulesStartIndex + 1; i < rulesEndIndex; i++) {
     const line = lines[i]!.trim();
     if (line === "" || line.startsWith("//") || line.startsWith("/*")) continue;
-    // Extract the key from the line (handle both "key": and ["key"]: patterns)
     const keyMatch = /^(?:\[?")?([^"[\]]+)(?:"\]?)?:/u.exec(line);
     if (keyMatch?.[1] != null) {
       if (entryKey.localeCompare(keyMatch[1]) < 0) return i;
@@ -203,33 +191,7 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
   return rulesEndIndex;
 }
 
-const updatePluginTs = Effect.fnUntraced(
-  function*(pluginTsPath: string, ruleName: string) {
-    const fs = yield* FileSystem.FileSystem;
-    const content = yield* fs.readFileString(pluginTsPath, "utf8");
-    const lines = content.split("\n");
-
-    const camelName = kebabToCamel(ruleName);
-    const importLine = `import ${camelName} from "./rules/${ruleName}/${ruleName}";`;
-    const rulesEntry = `    "${ruleName}": ${camelName},`;
-
-    // Insert import
-    const importIndex = findImportInsertionIndex(lines, importLine);
-    lines.splice(importIndex, 0, importLine);
-
-    // Insert rules entry
-    const entryIndex = findRulesEntryInsertionIndex(lines, ruleName);
-    if (entryIndex === -1) {
-      return yield* Effect.fail(new Error(`Could not find rules object in ${pluginTsPath}`));
-    }
-    lines.splice(entryIndex, 0, rulesEntry);
-
-    yield* fs.writeFileString(pluginTsPath, lines.join("\n"));
-    yield* Effect.log(ansis.green(`  Updated ${pluginTsPath}`));
-  },
-);
-
-const program = Effect.gen(function*() {
+const parseArgs = Effect.gen(function*() {
   const args = process.argv.slice(2);
   if (args.length < 2) {
     yield* Effect.logError(
@@ -243,65 +205,95 @@ const program = Effect.gen(function*() {
     return yield* Effect.fail(new Error("Missing required arguments."));
   }
 
-  const [pluginArg, ruleName, ...descParts] = args;
+  const [pluginArg, ruleName, ...descParts] = args as [string, string, ...string[]];
   const description = descParts.join(" ") || "TODO: Add rule description.";
 
-  if (!VALID_PLUGINS.includes(pluginArg as PluginName)) {
+  if (!VALID_PLUGINS.includes(pluginArg as PluginDomain)) {
     return yield* Effect.fail(
       new Error(`Invalid plugin "${pluginArg}". Must be one of: ${VALID_PLUGINS.join(", ")}`),
     );
   }
-  const plugin = pluginArg as PluginName;
 
-  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/u.test(ruleName!)) {
+  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/u.test(ruleName)) {
     return yield* Effect.fail(
       new Error(`Invalid rule name "${ruleName}". Must be kebab-case (e.g. no-foo-bar).`),
     );
   }
 
-  const fs = yield* FileSystem.FileSystem;
-  const path = yield* Path.Path;
+  return { domain: pluginArg as PluginDomain, ruleName, description };
+});
 
-  const pluginPkgName = getPluginPackageName(plugin);
-  const pluginDir = path.join("plugins", pluginPkgName);
-  const rulesDir = path.join(pluginDir, "src", "rules", ruleName!);
-  const pluginTsPath = path.join(pluginDir, "src", "plugin.ts");
+const createRuleFiles = Effect.fnUntraced(
+  function*(domain: PluginDomain, ruleName: string, description: string) {
+    const fs = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
 
-  // Check if rule directory already exists
-  const exists = yield* fs.exists(rulesDir);
-  if (exists) {
-    return yield* Effect.fail(new Error(`Rule directory already exists: ${rulesDir}`));
-  }
+    const pluginPkgName = buildPluginPackageName(domain);
+    const pluginDir = path.join("plugins", pluginPkgName);
+    const rulesDir = path.join(pluginDir, "src", "rules", ruleName);
 
-  yield* Effect.log(ansis.bold(`Scaffolding rule ${ansis.cyan(ruleName!)} in ${ansis.cyan(pluginPkgName)}...\n`));
+    const exists = yield* fs.exists(rulesDir);
+    if (exists) {
+      return yield* Effect.fail(new Error(`Rule directory already exists: ${rulesDir}`));
+    }
 
-  // Create rule directory
-  yield* fs.makeDirectory(rulesDir, { recursive: true });
-  yield* Effect.log(ansis.green(`  Created ${rulesDir}/`));
+    yield* fs.makeDirectory(rulesDir, { recursive: true });
+    yield* Effect.log(ansis.green(`  Created ${rulesDir}/`));
 
-  // Write rule implementation
-  const ruleTsPath = path.join(rulesDir, `${ruleName}.ts`);
-  yield* fs.writeFileString(ruleTsPath, generateRuleTs(ruleName!));
-  yield* Effect.log(ansis.green(`  Created ${ruleTsPath}`));
+    const ruleTsPath = path.join(rulesDir, `${ruleName}.ts`);
+    yield* fs.writeFileString(ruleTsPath, generateRuleTs(ruleName));
+    yield* Effect.log(ansis.green(`  Created ${ruleTsPath}`));
 
-  // Write rule test
-  const ruleSpecTsPath = path.join(rulesDir, `${ruleName}.spec.ts`);
-  yield* fs.writeFileString(ruleSpecTsPath, generateRuleSpecTs(ruleName!));
-  yield* Effect.log(ansis.green(`  Created ${ruleSpecTsPath}`));
+    const ruleSpecTsPath = path.join(rulesDir, `${ruleName}.spec.ts`);
+    yield* fs.writeFileString(ruleSpecTsPath, generateRuleSpecTs(ruleName));
+    yield* Effect.log(ansis.green(`  Created ${ruleSpecTsPath}`));
 
-  // Write rule documentation
-  const ruleMdxPath = path.join(rulesDir, `${ruleName}.mdx`);
-  yield* fs.writeFileString(ruleMdxPath, generateRuleMdx(plugin, ruleName!, description));
-  yield* Effect.log(ansis.green(`  Created ${ruleMdxPath}`));
+    const ruleMdxPath = path.join(rulesDir, `${ruleName}.mdx`);
+    yield* fs.writeFileString(ruleMdxPath, generateRuleMdx(domain, ruleName, description));
+    yield* Effect.log(ansis.green(`  Created ${ruleMdxPath}`));
 
-  // Update plugin.ts
-  yield* updatePluginTs(pluginTsPath, ruleName!);
+    return { pluginDir, pluginTsPath: path.join(pluginDir, "src", "plugin.ts"), rulesDir };
+  },
+);
 
-  yield* Effect.log(ansis.bold.green(`\nRule ${ruleName} scaffolded successfully!\n`));
+const updatePluginTs = Effect.fnUntraced(
+  function*(pluginTsPath: string, ruleName: string) {
+    const fs = yield* FileSystem.FileSystem;
+    const content = yield* fs.readFileString(pluginTsPath, "utf8");
+    const lines = content.split("\n");
+
+    const camelName = kebabToCamel(ruleName);
+    const importLine = `import ${camelName} from "./rules/${ruleName}/${ruleName}";`;
+    const rulesEntry = `    "${ruleName}": ${camelName},`;
+
+    const importIndex = findImportInsertionIndex(lines, importLine);
+    lines.splice(importIndex, 0, importLine);
+
+    const entryIndex = findRulesEntryInsertionIndex(lines, ruleName);
+    if (entryIndex === -1) {
+      return yield* Effect.fail(new Error(`Could not find rules object in ${pluginTsPath}`));
+    }
+    lines.splice(entryIndex, 0, rulesEntry);
+
+    yield* fs.writeFileString(pluginTsPath, lines.join("\n"));
+    yield* Effect.log(ansis.green(`  Updated ${pluginTsPath}`));
+  },
+);
+
+const program = Effect.gen(function*() {
+  const { domain, ruleName, description } = yield* parseArgs;
+  const pluginPkgName = buildPluginPackageName(domain);
+
+  yield* Effect.log(ansis.bold(`Scaffolding rule ${ansis.cyan(ruleName)} in ${ansis.cyan(pluginPkgName)}...`));
+
+  const { pluginTsPath } = yield* createRuleFiles(domain, ruleName, description);
+  yield* updatePluginTs(pluginTsPath, ruleName);
+
+  yield* Effect.log(ansis.bold.green(`Rule ${ruleName} scaffolded successfully!`));
   yield* Effect.log(ansis.bold("Next steps:"));
-  yield* Effect.log(`  1. Implement the rule logic in ${ansis.cyan(ruleTsPath)}`);
-  yield* Effect.log(`  2. Add test cases in ${ansis.cyan(ruleSpecTsPath)}`);
-  yield* Effect.log(`  3. Write documentation in ${ansis.cyan(ruleMdxPath)}`);
+  yield* Effect.log(`  1. Implement the rule logic in plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`);
+  yield* Effect.log(`  2. Add test cases in plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`);
+  yield* Effect.log(`  3. Write documentation in plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.mdx`);
   yield* Effect.log(`  4. Add the rule to the appropriate preset configs if needed`);
   yield* Effect.log(`  5. Run ${ansis.cyan("pnpm run build")} and ${ansis.cyan("pnpm run test")} to verify`);
 });
