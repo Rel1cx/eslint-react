@@ -38,9 +38,10 @@ overrides:
   semver: "^7.7.4"
   ts-api-utils: ^2.5.0
   tslib: ^2.8.1
-  typescript: "^6.0.3"
   typescript-eslint: "^8.59.0"
+  typescript: "^6.0.3"
   undici-types: ^8.1.0
   undici: ^8.1.0
+  uuid: ^14.0.0
 
 trustPolicy: "no-downgrade"

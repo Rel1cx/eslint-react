@@ -15,7 +15,7 @@
     "@examples/react-dom-with-custom-rules": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@takumi-rs/image-response": "^1.1.0",
+    "@takumi-rs/image-response": "^1.1.1",
     "@typescript-eslint/types": "^8.59.0",
     "@typescript-eslint/utils": "^8.59.0",
     "beautiful-mermaid": "^1.1.3",
