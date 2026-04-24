@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.4.0-beta.0 (2026-04-25)
+
+### ✨ New
+
+- **eslint-plugin-react-x:** add static-components rule and port Re… (#1723) (`f217198b3`)
+
+### 📝 Documentation
+
+- **website:** add missing modules to contributing architecture diagram (`2c0e47891`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.3.4-beta.0...v5.4.0-beta.0
+
 ## v5.3.4-beta.0 (2026-04-21)
 
 ### ✨ New
