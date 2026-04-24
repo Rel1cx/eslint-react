@@ -70,9 +70,21 @@ export function create(context: RuleContext<MessageID, []>) {
     return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
+  function isUseReducerCall(node: TSESTree.CallExpression): boolean {
+    const callee = Extract.unwrap(node.callee);
+    if (callee.type === AST.Identifier) return callee.name === "useReducer";
+    if (callee.type === AST.MemberExpression) {
+      const root = Extract.getRootIdentifier(callee);
+      if (root?.name === "React") {
+        return Extract.getPropertyName(callee.property) === "useReducer";
+      }
+    }
+    return false;
+  }
+
   /**
    * Return true when `id` is the *value* variable (index 0) produced by a
-   * `useState(…)` call, i.e. the first element of `const [value, setter] = useState(…)`.
+   * `useState(…)` or `useReducer(…)` call.
    * @param id The identifier to check. May be a reference to the state variable, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
    * @returns True if `id` is a state variable, false otherwise.
    */
@@ -80,9 +92,9 @@ export function create(context: RuleContext<MessageID, []>) {
     const initNode = resolve(context, id);
 
     if (initNode == null || initNode.type !== AST.CallExpression) return false;
-    if (!isUseStateCall(initNode)) return false;
+    if (!isUseStateCall(initNode) && !isUseReducerCall(initNode)) return false;
 
-    // If the useState result is not destructured into an array, the entire
+    // If the result is not destructured into an array, the entire
     // result is a state container — treat it as a state value.
     const declarator = initNode.parent;
     if (!("id" in declarator) || declarator.id?.type !== AST.ArrayPattern) {
@@ -90,7 +102,7 @@ export function create(context: RuleContext<MessageID, []>) {
     }
 
     // The identifier must be the first element of the destructuring (the value,
-    // not the setter).
+    // not the setter/dispatch).
     const idx = declarator.id.elements.findIndex(
       (el) => el?.type === AST.Identifier && el.name === id.name,
     );
@@ -98,24 +110,53 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   /**
-   * Return the function node when `id` is a direct (non-destructured) props
-   * parameter at position 0 of any ancestor function; otherwise return `null`.
+   * Check if `name` appears anywhere inside a parameter pattern.
+   * @param pattern
+   * @param name
+   */
+  function identifierExistsInPattern(pattern: TSESTree.Node, name: string): boolean {
+    switch (pattern.type) {
+      case AST.Identifier:
+        return pattern.name === name;
+      case AST.ObjectPattern:
+        return pattern.properties.some((p) => {
+          if (p.type === AST.Property) return identifierExistsInPattern(p.value, name);
+          if (p.type === AST.RestElement) return identifierExistsInPattern(p.argument, name);
+          return false;
+        });
+      case AST.ArrayPattern:
+        return pattern.elements.some((el) => el != null && identifierExistsInPattern(el, name));
+      case AST.RestElement:
+        return identifierExistsInPattern(pattern.argument, name);
+      case AST.AssignmentPattern:
+        return identifierExistsInPattern(pattern.left, name);
+      case AST.MemberExpression: {
+        const root = Extract.getRootIdentifier(pattern);
+        return root?.name === name;
+      }
+      default:
+        return false;
+    }
+  }
+
+  /**
+   * Return the function node when `id` is a parameter of any position in any
+   * ancestor function; otherwise return `null`.
    *
    * The caller must later verify (at Program:exit) that the returned function
    * is actually a component or hook — event handler parameters share the same
    * syntactic shape but should **not** be treated as React props.
    *
-   * Uses scope resolution so that references to `props` inside nested arrow
-   * functions (ex: event handlers) are correctly traced back to the component
-   * parameter, e.g.:
+   * Uses scope resolution so that references to parameters inside nested arrow
+   * functions are correctly traced back to the declaring function, e.g.:
    *
-   *   function Component(props) {        // ← props defined here
+   *   function Component({ items }) {        // ← items defined here
    *     const handleClick = () => {
-   *       props.items.push(4); // ← props resolved via scope to Component's param
+   *       items.push(4); // ← items resolved via scope to Component's param
    *     };
    *   }
-   * @param id The identifier to check. May be a reference to the props parameter, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
-   * @returns The function node where `id` is the first parameter, or `null`.
+   * @param id The identifier to check.
+   * @returns The function node where `id` is a parameter, or `null`.
    */
   function getPropsDefiningFunction(id: TSESTree.Identifier): TSESTreeFunction | null {
     const scope = context.sourceCode.getScope(id);
@@ -123,11 +164,19 @@ export function create(context: RuleContext<MessageID, []>) {
     if (variable == null) return null;
     for (const def of variable.defs) {
       if (def.type !== DefinitionType.Parameter) continue;
-      if (!Check.isFunction(def.node)) continue;
-      const fn = def.node as TSESTreeFunction;
-      const firstParam = fn.params.at(0);
-      if (firstParam?.type === AST.Identifier && firstParam.name === id.name) {
-        return fn;
+
+      // Find the enclosing function (handles destructured params where def.node is the pattern)
+      if (def.node == null) continue;
+      let fn: TSESTree.Node | null = def.node;
+      while (fn != null && !Check.isFunction(fn)) {
+        fn = fn.parent ?? null;
+      }
+      if (fn == null) continue;
+
+      const func = fn as TSESTreeFunction;
+      // Check if id.name appears anywhere in any parameter of this function
+      if (func.params.some((param) => identifierExistsInPattern(param, id.name))) {
+        return func;
       }
     }
     return null;

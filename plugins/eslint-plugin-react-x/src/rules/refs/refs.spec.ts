@@ -593,6 +593,324 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "writeDuringRender",
       }],
     },
+    // Alias tracking: direct alias read
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const alias = ref;
+          const val = alias.current;
+          return <div>{val}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Alias tracking: chained alias read
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const a = ref;
+          const b = a;
+          const val = b.current;
+          return <div>{val}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Alias tracking: alias write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const alias = ref;
+          alias.current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Alias tracking: reassignment alias read
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          let alias = null;
+          alias = ref;
+          const val = alias.current;
+          return <div>{val}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Ref passed to function
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          someFn(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Ref passed to console.log
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          console.log(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Ref passed to function via alias
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const alias = ref;
+          someFn(alias);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-access-ref-during-render.js
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          const value = ref.current;
+          return value;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-disallow-mutating-ref-in-render.js
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref.current = false;
+          return <button ref={ref} />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-pass-ref-to-function.js
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          const x = foo(ref);
+          return x;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-ref-access-render-unary.js
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          const current = !r.current;
+          return <div>{current}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-write-ref-prop-in-render.js
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = props.ref;
+          ref.current = true;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-ref-value-as-props.js
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          return <Foo ref={ref.current} />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Ported from react-main/compiler/.../error.ref-initialization-nonif.js
+    // Hoisted guard variable does NOT protect the ref write
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          const guard = r.current == null;
+          if (guard) {
+            r.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // Ported from react-main/compiler/.../error.ref-initialization-other.js
+    // Guard on one ref does NOT protect writing a different ref
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          const r2 = useRef(null);
+          if (r.current == null) {
+            r2.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // -------------------------------------------------------------------------
+    // FIXME: React Compiler catches these, but ESLint refs rule does not yet
+    // -------------------------------------------------------------------------
+    // FIXME: error.invalid-ref-in-callback-invoked-during-render
+    // Synchronous callbacks (map/forEach) execute during render but are skipped
+    // because the rule treats all nested functions as safe.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          const renderItem = item => {
+            const current = ref.current;
+            return <Foo item={item} current={current} />;
+          };
+          return <Items>{props.items.map(item => renderItem(item))}</Items>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-access-ref-in-state-initializer
+    // State initializer callbacks are treated as nested functions and skipped.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(props.value);
+          const [state] = useState(() => ref.current);
+          return <Stringify state={state} />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-access-ref-in-reducer
+    // Reducer initializer callbacks are treated as nested functions and skipped.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(props.value);
+          const [state] = useReducer(() => ref.current, null);
+          return <Stringify state={state} />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-read-ref-prop-in-render-property-load
+    // The rule only supports Identifier.current, not MemberExpression.current.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const value = props.ref.current;
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-disallow-mutating-refs-in-render-transitive
+    // Requires recursive analysis of nested functions to detect readRefEffect.
+    /*
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const setRef = () => {
+            ref.current = false;
+          };
+          const changeRef = setRef;
+          changeRef();
+          return <button ref={ref} />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-aliased-ref-in-callback-invoked-during-render
+    // Alias inside synchronous callback; skipped due to nested-function blind spot.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          const renderItem = item => {
+            const aliasedRef = ref;
+            const current = aliasedRef.current;
+            return <Foo item={item} current={current} />;
+          };
+          return <Items>{props.items.map(item => renderItem(item))}</Items>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // FIXME: error.invalid-access-ref-in-render-mutate-object-with-ref-function
+    // Object method that reads ref, then called directly in render.
+    /*
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const object = {};
+          object.foo = () => ref.current;
+          const refValue = object.foo();
+          return <div>{refValue}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    */
+    // Computed property access ref["current"]
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const val = ref["current"];
+          return <div>{val}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Computed property write ref["current"] = value
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref["current"] = 42;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -941,16 +1259,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Computed property access ref["current"] — not detected by the rule
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const val = ref["current"];
-          return <div>{val}</div>;
-        }
-      `,
-    },
     // Ref in function expression handler (not arrow)
     {
       code: tsx`
@@ -1267,6 +1575,125 @@ ruleTester.run(RULE_NAME, rule, {
           if ((ref as any).current === null) {
             (ref as any).current = createExpensiveThing();
           }
+          return <div />;
+        }
+      `,
+    },
+    // Alias of non-ref object should not be flagged
+    {
+      code: tsx`
+        function Component() {
+          const box = { current: 42 };
+          const alias = box;
+          const val = alias.current;
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Ref passed to mergeRefs is allowed
+    {
+      code: tsx`
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          const merged = mergeRefs(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+    },
+    // Ref passed in nested function (event handler) is allowed
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const handler = () => {
+            someFn(ref);
+          };
+          return <button onClick={handler}>Click</button>;
+        }
+      `,
+    },
+    // Ported from react-main/compiler/.../allow-ref-initialization.js
+    {
+      code: tsx`
+        function Component() {
+          const r = useRef(null);
+          if (r.current == null) {
+            r.current = 1;
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Ported from react-main/compiler/.../allow-ref-lazy-initialization-with-logical.js
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = props.unknownKey ?? props.value;
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Ported from react-main/compiler/.../allow-mutating-ref-in-callback-passed-to-jsx.tsx
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const onClick = () => {
+            if (ref.current !== null) {
+              ref.current = "";
+            }
+          };
+          return (
+            <>
+              <input ref={ref} />
+              <button onClick={onClick} />
+            </>
+          );
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // FIXME: React Compiler allows these, but ESLint refs rule may false-positive
+    // -------------------------------------------------------------------------
+    // FIXME: allow-passing-ref-to-render-helper
+    // Ref passed to a render helper inside JSX child interpolation.
+    // React Compiler permits this because the helper is component-like.
+    // ESLint rule reports refPassedToFunction for any non-hook CallExpression.
+    /*
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          return <Foo>{props.render(ref)}</Foo>;
+        }
+      `,
+    },
+    */
+    // Guard pattern: !ref.current allows lazy initialization
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!ref.current) {
+            ref.current = computeExpensiveValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Guard pattern: !(ref.current === null) allows lazy initialization
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!(ref.current === null)) {
+            return <div>already initialized</div>;
+          }
+          ref.current = computeExpensiveValue();
           return <div />;
         }
       `,

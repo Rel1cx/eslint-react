@@ -455,6 +455,159 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Ported from react-main/compiler/.../error.modify-state.js
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [state, setState] = useState({});
+          state.foo = 1;
+          return <div>{state.foo}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "state" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Ported from react-main/compiler/.../error.mutate-props.js
+    {
+      code: tsx`
+        function Component(props) {
+          props.test = 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "props" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-mutation-in-closure.js
+    // Mutation of options (first param) inside a nested function
+    {
+      code: tsx`
+        function useInvalidMutation(options) {
+          function test() {
+            options.foo = "bar";
+          }
+          return test;
+        }
+      `,
+      errors: [{
+        data: { name: "options" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-function-expression-mutates-immutable-value.js
+    // State mutated inside event handler callback
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [x, setX] = useState({ value: "" });
+          const onChange = (e) => {
+            x.value = e.target.value;
+            setX(x);
+          };
+          return <input value={x.value} onChange={onChange} />;
+        }
+      `,
+      errors: [{
+        data: { name: "x" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Ported from react-main/compiler/.../error.modify-useReducer-state.js
+    {
+      code: tsx`
+        import { useReducer } from "react";
+
+        function Component() {
+          const [state, dispatch] = useReducer({ foo: 1 });
+          state.foo = 1;
+          return <div>{state.foo}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "state" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Ported from react-main/compiler/.../error.invalid-prop-mutation-indirect.js
+    // Props mutated inside nested function with indirect invocation
+    {
+      code: tsx`
+        function Component(props) {
+          const f = () => {
+            props.value = true;
+          };
+          const g = () => {
+            f();
+          };
+          g();
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "props" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Destructured props mutation
+    {
+      code: tsx`
+        function Component({ items }) {
+          items.push(4);
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "items", method: "push" },
+        messageId: "mutatingArrayMethod",
+      }],
+    },
+    // Destructured props assignment
+    {
+      code: tsx`
+        function Component({ config }) {
+          config.enabled = true;
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "config" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Hook second parameter mutation
+    {
+      code: tsx`
+        function useMyHook(options, config) {
+          config.enabled = true;
+          return config;
+        }
+      `,
+      errors: [{
+        data: { name: "config" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Nested destructured props mutation
+    {
+      code: tsx`
+        function Component({ user: { settings } }) {
+          settings.theme = "dark";
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "settings" },
+        messageId: "mutatingAssignment",
+      }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1171,6 +1324,57 @@ ruleTester.run(RULE_NAME, rule, {
             })(user));
           };
           return <div>{user.name}</div>;
+        }
+      `,
+    },
+    // Ported from react-main/compiler/.../allow-global-mutation-in-effect-indirect.js
+    // Global variable mutation is not tracked by this rule
+    {
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        let someGlobal = {};
+
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+
+          const setGlobal = () => {
+            someGlobal.value = true;
+          };
+          useEffect(() => {
+            setGlobal();
+          }, []);
+
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Event handler parameter mutation is allowed (not a component/hook param)
+    {
+      code: tsx`
+        import { type MouseEvent } from "react";
+
+        function Component() {
+          return (
+            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              e.currentTarget.disabled = true;
+            }}>
+              Click
+            </button>
+          );
+        }
+      `,
+    },
+    // Local function parameter mutation is allowed
+    {
+      code: tsx`
+        function Component() {
+          const helper = (data) => {
+            data.value = 1;
+            return data;
+          };
+          const result = helper({ value: 0 });
+          return <div>{result.value}</div>;
         }
       `,
     },

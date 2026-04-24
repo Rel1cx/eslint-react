@@ -1,7 +1,9 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { IMPURE_CTORS, IMPURE_FUNCS } from "./lib";
 
@@ -31,6 +33,53 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+/**
+ * Recursively resolve an identifier to the root builtin global object name.
+ * Follows simple assignment chains like `const M = Math` or `const w = window`.
+ * Returns `null` if the identifier is locally defined (parameter, import, function declaration, etc.)
+ * or resolves to a non-builtin source.
+ * @param context
+ * @param node
+ * @param visited
+ */
+function resolveBuiltinObjectName(
+  context: RuleContext,
+  node: TSESTree.Identifier,
+  visited = new Set<string>(),
+): string | null {
+  if (visited.has(node.name)) return null;
+  visited.add(node.name);
+
+  const scope = context.sourceCode.getScope(node);
+  const variable = findVariable(scope, node);
+
+  // No variable found -> treat as global
+  if (variable == null) return node.name;
+
+  const def = variable.defs[0];
+  if (def == null) return node.name; // implicit global
+
+  if (def.type === DefinitionType.ImplicitGlobalVariable) {
+    return node.name;
+  }
+
+  if (def.type === DefinitionType.Variable && def.node.init != null) {
+    const init = Extract.unwrap(def.node.init);
+    if (init.type === AST.Identifier) {
+      return resolveBuiltinObjectName(context, init, visited);
+    }
+    if (init.type === AST.MemberExpression) {
+      const rootId = Extract.getRootIdentifier(init);
+      if (rootId != null) {
+        return resolveBuiltinObjectName(context, rootId, visited);
+      }
+    }
+  }
+
+  // Other definitions (Parameter, FunctionName, ImportBinding, etc.) are not builtins
+  return null;
+}
+
 export function create(context: RuleContext<MessageID, []>) {
   const hc = core.getHookCollector(context);
   const fc = core.getFunctionComponentCollector(context);
@@ -50,16 +99,20 @@ export function create(context: RuleContext<MessageID, []>) {
         const expr = Extract.unwrap(node.callee);
         switch (true) {
           case expr.type === AST.Identifier: {
-            if (!IMPURE_FUNCS.get("globalThis")?.has(expr.name)) return;
+            const builtinName = resolveBuiltinObjectName(context, expr);
+            if (builtinName == null) return;
+            if (!IMPURE_FUNCS.get("globalThis")?.has(builtinName)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
             break;
           }
           case expr.type === AST.MemberExpression
-            && expr.object.type === AST.Identifier
             && expr.property.type === AST.Identifier: {
-            const objectName = expr.object.name;
+            const rootId = Extract.getRootIdentifier(expr.object);
+            if (rootId == null) return;
+            const objectName = resolveBuiltinObjectName(context, rootId);
+            if (objectName == null) return;
             const propertyName = expr.property.name;
             if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
             const func = Traverse.findParent(node, Check.isFunction);
@@ -72,10 +125,12 @@ export function create(context: RuleContext<MessageID, []>) {
       NewExpression(node: TSESTree.NewExpression) {
         const expr = Extract.unwrap(node.callee);
         if (expr.type !== AST.Identifier) return;
-        if (!IMPURE_CTORS.has(expr.name)) return;
+        const builtinName = resolveBuiltinObjectName(context, expr);
+        if (builtinName == null) return;
+        if (!IMPURE_CTORS.has(builtinName)) return;
         // `new Date(arg)` with arguments is pure (deterministic),
         // only `new Date()` without arguments is impure (depends on current time).
-        if (expr.name === "Date" && node.arguments.length > 0) return;
+        if (builtinName === "Date" && node.arguments.length > 0) return;
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });

@@ -848,6 +848,105 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // -------------------------------------------------------------------------
+    // Aliased builtins (improved scope-aware resolution)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const M = Math;
+          const id = M.random();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const D = Date;
+          const t = D.now();
+          return <div>{t}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const P = performance;
+          const t = P.now();
+          return <div>{t}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const C = crypto;
+          const id = C.randomUUID();
+          return <div>{id}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const W = window;
+          W.fetch("/api");
+          return <div>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const Alias = Date;
+          const date = new Alias();
+          return <div>{date.toISOString()}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render
+    {
+      code: tsx`
+        function Component() {
+          const date = Date.now();
+          const now = performance.now();
+          const rand = Math.random();
+          return <Foo date={date} now={now} rand={rand} />;
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/timers
+    {
+      code: tsx`
+        function Component(props) {
+          const start = performance.now();
+          const now = Date.now();
+          const time = performance.now() - start;
+          return (
+            <div>
+              rendering took {time} at {now}
+            </div>
+          );
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1381,6 +1480,58 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ year, month, day }: { year: number; month: number; day: number }) {
           const date = new Date(year, month, day);
           return <div>{date.toISOString()}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Local shadowing of builtins (should NOT be flagged)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const Math = { random: () => 0.5 };
+          const id = Math.random();
+          return <div>{id}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component(Date: { now: () => number }) {
+          const t = Date.now();
+          return <div>{t}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          function fetch() { return "mock"; }
+          const result = fetch();
+          return <div>{result}</div>;
+        }
+      `,
+    },
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/renamed-reanimated-math-random
+    {
+      code: tsx`
+        import Animated, { Easing } from "react-native-reanimated";
+
+        function Component({ color }) {
+          const animation = Animated.loop(
+            Animated.timing(value, {
+              toValue: 1,
+              duration: 1000,
+              easing: Easing.inOut(Easing.sin),
+              useNativeDriver: true,
+            }),
+          );
+          return (
+            <Animated.View style={{
+              backgroundColor: color,
+              shadowColor: "red",
+            }} />
+          );
         }
       `,
     },

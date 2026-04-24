@@ -50,6 +50,7 @@
     "rules-of-hooks",
     "set-state-in-effect",
     "set-state-in-render",
+    "static-components",
     "unsupported-syntax",
     "use-memo",
     "use-state",

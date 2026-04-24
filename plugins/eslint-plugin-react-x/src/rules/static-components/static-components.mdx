@@ -1,0 +1,81 @@
+---
+title: static-components
+description: Validates that components are static, not recreated every render.
+---
+
+<Callout type="warning">
+  This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
+</Callout>
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/static-components
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/static-components
+```
+
+**Features**
+
+`🧪`
+
+## Rule Details
+
+Validates that components are static, not recreated every render. Components that are recreated dynamically can reset state and trigger excessive re-rendering.
+
+Components defined inside other components are recreated on every render. React sees each as a brand new component type, unmounting the old one and mounting the new one, destroying all state and DOM nodes in the process.
+
+If you find yourself wanting to define components inside other components to access local variables, that's a sign you should be passing props instead. This makes components more reusable and testable.
+
+## Examples
+
+### Invalid
+
+```tsx
+function Parent() {
+  // 🔴 Never define a component inside another component!
+  const Child = () => <div />;
+
+  return <Child />; // State resets every render
+}
+```
+
+```tsx
+function Parent({ type }) {
+  // 🔴 Dynamically creating components during render
+  const Component = type === "button"
+    ? () => <button>Click</button>
+    : () => <div>Text</div>;
+
+  return <Component />;
+}
+```
+
+### Valid
+
+```tsx
+// ✅ Declare components at the top level
+function Parent() {
+  return <Child />;
+}
+
+function Child() {
+  return <div />;
+}
+```
+
+When a child component needs data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/static-components/static-components.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/static-components/static-components.spec.ts)
+
+## Further Reading
+
+- [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: `static-components` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)

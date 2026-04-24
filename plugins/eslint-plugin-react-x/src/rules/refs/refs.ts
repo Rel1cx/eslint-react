@@ -13,7 +13,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "readDuringRender" | "writeDuringRender";
+export type MessageID = "readDuringRender" | "writeDuringRender" | "refPassedToFunction";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,6 +25,8 @@ export default createRule<[], MessageID>({
     messages: {
       readDuringRender:
         "Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.",
+      refPassedToFunction:
+        "Passing a ref to a function may cause its value to be read during render. Pass 'ref.current' instead if the function only needs the value, or move the call into an effect.",
       writeDuringRender:
         "Do not write to 'ref.current' during render. Refs should only be mutated in effects or event handlers. Move this write into an effect or event handler.",
     },
@@ -34,6 +36,15 @@ export default createRule<[], MessageID>({
   create,
   defaultOptions: [],
 });
+
+function resolveAlias(name: string, aliases: Map<string, string>): string {
+  const visited = new Set<string>();
+  while (aliases.has(name) && !visited.has(name)) {
+    visited.add(name);
+    name = aliases.get(name)!;
+  }
+  return name;
+}
 
 export function create(context: RuleContext<MessageID, []>) {
   const hc = core.getHookCollector(context);
@@ -45,10 +56,54 @@ export function create(context: RuleContext<MessageID, []>) {
   // Identifiers passed to JSX ref props
   const jsxRefIdentifiers = new Set<string>();
 
+  // Variable aliases: aliasName -> originalName
+  const aliases = new Map<string, string>();
+
+  // Ref identifiers passed as arguments to non-hook function calls
+  const refPassedToFunctions: { callNode: TSESTree.CallExpression; node: TSESTree.Identifier }[] = [];
+
   return merge(
     hc.visitor,
     fc.visitor,
     {
+      // Track reassignment aliases: alias = ref;
+      AssignmentExpression(node: TSESTree.AssignmentExpression) {
+        if (node.operator !== "=") return;
+        const left = Extract.unwrap(node.left);
+        const right = Extract.unwrap(node.right);
+        if (left.type !== AST.Identifier || right.type !== AST.Identifier) return;
+        aliases.set(left.name, right.name);
+      },
+      // Track refs passed to non-hook function calls
+      CallExpression(node: TSESTree.CallExpression) {
+        const callee = Extract.unwrap(node.callee);
+        const calleeName = callee.type === AST.Identifier
+          ? callee.name
+          : callee.type === AST.MemberExpression
+          ? Extract.getPropertyName(callee.property)
+          : null;
+        if (
+          calleeName != null && (
+            calleeName.startsWith("use")
+            || calleeName === "mergeRefs"
+          )
+        ) {
+          return;
+        }
+        for (const arg of node.arguments) {
+          const unwrapped = Extract.unwrap(arg);
+          if (unwrapped.type !== AST.Identifier) continue;
+          const resolvedName = resolveAlias(unwrapped.name, aliases);
+          if (
+            resolvedName === "ref"
+            || resolvedName.endsWith("Ref")
+            || jsxRefIdentifiers.has(resolvedName)
+            || isInitializedFromRef(context, resolvedName, context.sourceCode.getScope(unwrapped))
+          ) {
+            refPassedToFunctions.push({ callNode: node, node: unwrapped });
+          }
+        }
+      },
       // Track JSX ref props: <div ref={someRef} />
       JSXAttribute(node: TSESTree.JSXAttribute) {
         switch (true) {
@@ -63,9 +118,9 @@ export function create(context: RuleContext<MessageID, []>) {
           }
         }
       },
-      // Track ref.current accesses
+      // Track ref.current accesses (including computed: ref["current"])
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (!Check.isIdentifier("current")(node.property)) return;
+        if (Extract.getPropertyName(node.property) !== "current") return;
         refAccesses.push({
           isWrite: (() => {
             let parent: TSESTree.Node = node.parent;
@@ -102,10 +157,11 @@ export function create(context: RuleContext<MessageID, []>) {
           // Inline isRefIdentifier — must be accessing .current on a ref
           const obj = Extract.unwrap(node.object);
           if (obj.type !== AST.Identifier) continue;
+          const resolvedName = resolveAlias(obj.name, aliases);
           switch (true) {
-            case obj.name === "ref" || obj.name.endsWith("Ref"):
-            case jsxRefIdentifiers.has(obj.name):
-            case isInitializedFromRef(context, obj.name, context.sourceCode.getScope(node.object)):
+            case resolvedName === "ref" || resolvedName.endsWith("Ref"):
+            case jsxRefIdentifiers.has(resolvedName):
+            case isInitializedFromRef(context, resolvedName, context.sourceCode.getScope(node.object)):
               break;
             default:
               continue;
@@ -126,7 +182,7 @@ export function create(context: RuleContext<MessageID, []>) {
           // Inverted (with early return):
           //   if (ref.current !== null) { return ...; }
           //   ref.current = computeValue();
-          const refName = obj.name;
+          const refName = resolvedName;
           let isLazyInit = isInNullCheckTest(node);
           if (!isLazyInit) {
             let current: TSESTree.Node | null = node.parent;
@@ -187,6 +243,26 @@ export function create(context: RuleContext<MessageID, []>) {
             node,
           });
         }
+
+        // Report refs passed to non-hook functions during render
+        for (const { node } of refPassedToFunctions) {
+          const boundary = Traverse.findParent(node, isCompOrHookFn);
+          if (boundary == null) continue;
+          if (Traverse.findParent(node, Check.isFunction) !== boundary) continue;
+
+          context.report({
+            messageId: "refPassedToFunction",
+            node,
+          });
+        }
+      },
+      // Track simple variable aliases: const alias = ref;
+      VariableDeclarator(node: TSESTree.VariableDeclarator) {
+        if (node.init == null) return;
+        const id = node.id;
+        const init = Extract.unwrap(node.init);
+        if (id.type !== AST.Identifier || init.type !== AST.Identifier) return;
+        aliases.set(id.name, init.name);
       },
     },
   );

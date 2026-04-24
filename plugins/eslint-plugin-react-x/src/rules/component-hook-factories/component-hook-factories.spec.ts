@@ -366,6 +366,47 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/static-components
+    {
+      code: tsx`
+        function Example(props) {
+          function Component() {
+            return <div />;
+          }
+          return <Component />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Component" },
+          messageId: "component",
+        },
+      ],
+    },
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/class-component-with-render-helper
+    {
+      code: tsx`
+        class Component {
+          _renderMessage = () => {
+            const Message = () => {
+              const message = this.state.message;
+              return <div>{message}</div>;
+            };
+            return <Message />;
+          };
+
+          render() {
+            return this._renderMessage();
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Message" },
+          messageId: "component",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -534,6 +575,23 @@ ruleTester.run(RULE_NAME, rule, {
       jest.mock('../path/to/go', () => ({
         MyComponent: ({propX}) => <div data-x={propX} />,
       }));
+    `,
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.todo-hoisted-function-in-unreachable-code
+    tsx`
+      function Component() {
+        return <Foo />;
+        function Foo() {}
+      }
+    `,
+    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/infer-no-component-nested-jsx
+    tsx`
+      function Component(props) {
+        function helper() {
+          return <foo />;
+        }
+        helper();
+        return props;
+      }
     `,
   ],
 });
