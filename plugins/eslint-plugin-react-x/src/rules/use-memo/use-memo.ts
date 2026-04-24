@@ -11,6 +11,8 @@ export const RULE_NAME = "use-memo";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
+  | "asyncOrGeneratorCallback"
+  | "callbackWithParameters"
   | "missingReturnValue"
   | "notAssignedToVariable";
 
@@ -21,6 +23,10 @@ export default createRule<[], MessageID>({
       description: "Validates that 'useMemo' is called with a callback that returns a value.",
     },
     messages: {
+      asyncOrGeneratorCallback:
+        "The callback passed to 'useMemo' must be a regular function. 'useMemo' callbacks are called synchronously by React and must immediately return a value. Async and generator functions are not supported.",
+      callbackWithParameters:
+        "The callback passed to 'useMemo' may not accept parameters. 'useMemo' callbacks are called by React without arguments. Instead, directly reference the props, state, or local variables needed for the computation.",
       missingReturnValue:
         "The callback passed to 'useMemo' must return a value. Without a return value, 'useMemo' always returns 'undefined', which defeats its purpose.",
       notAssignedToVariable:
@@ -80,6 +86,24 @@ export function create(context: RuleContext<MessageID, []>) {
       if (callbackArg == null) return;
       const callback = Extract.unwrap(callbackArg);
       if (!Check.isFunction(callback)) return;
+
+      // useMemo callbacks may not accept parameters
+      if (callback.params.length > 0) {
+        const firstParam = callback.params[0];
+        if (firstParam == null) return;
+        context.report({
+          messageId: "callbackWithParameters",
+          node: firstParam.type === AST.Identifier ? firstParam : callback,
+        });
+      }
+
+      // useMemo callbacks may not be async or generator functions
+      if (callback.async || callback.generator) {
+        context.report({
+          messageId: "asyncOrGeneratorCallback",
+          node: callback,
+        });
+      }
 
       // Arrow functions with a concise body always return a value (ex: `() => expr`)
       if (callback.type === AST.ArrowFunctionExpression && callback.body.type !== AST.BlockStatement) {

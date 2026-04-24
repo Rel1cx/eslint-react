@@ -40,6 +40,7 @@ export const rules = {
   "react-x/rules-of-hooks": "error",
   "react-x/set-state-in-effect": "warn",
   "react-x/set-state-in-render": "error",
+  "react-x/static-components": "error",
   "react-x/unsupported-syntax": "error",
   "react-x/use-memo": "error",
   "react-x/use-state": "warn",

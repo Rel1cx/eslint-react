@@ -135,6 +135,150 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "missingReturnValue" }],
     },
+    // Callback accepting parameters
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo((x) => x * 2, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [{ messageId: "callbackWithParameters" }],
+    },
+    // Callback accepting multiple parameters
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ a, b }) {
+          const result = useMemo(function(x, y) {
+            return x + y;
+          }, [a, b]);
+          return <div>{result}</div>;
+        }
+      `,
+      errors: [{ messageId: "callbackWithParameters" }],
+    },
+    // Async callback
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo(async () => {
+            return await fetch(data);
+          }, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [{ messageId: "asyncOrGeneratorCallback" }],
+    },
+    // Generator callback
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo(function* () {
+            yield data;
+            return data;
+          }, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [{ messageId: "asyncOrGeneratorCallback" }],
+    },
+    // Callback with both parameter and missing return
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo((x) => {
+            console.log(x);
+          }, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "missingReturnValue" },
+        { messageId: "callbackWithParameters" },
+      ],
+    },
+    // React.useMemo async callback (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(a, b) {
+          const x = React.useMemo(async () => {
+            await a;
+          }, []);
+          return x;
+        }
+      `,
+      errors: [
+        { messageId: "asyncOrGeneratorCallback" },
+        { messageId: "missingReturnValue" },
+      ],
+    },
+    // useMemo with no return value — both useMemo and React.useMemo (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const value = useMemo(() => {
+            console.log('computing');
+          }, []);
+          const value2 = React.useMemo(() => {
+            console.log('computing');
+          }, []);
+          return (
+            <div>
+              {value}
+              {value2}
+            </div>
+          );
+        }
+      `,
+      errors: [
+        { messageId: "missingReturnValue" },
+        { messageId: "missingReturnValue" },
+      ],
+    },
+    // useMemo with bare return (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const value = useMemo(() => {
+            return;
+          }, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "missingReturnValue" }],
+    },
+    // useMemo result unused (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          useMemo(() => {
+            return [];
+          }, []);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "notAssignedToVariable" }],
+    },
+    // useMemo callback with args (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(a, b) {
+          const x = useMemo(c => a, []);
+          return x;
+        }
+      `,
+      errors: [{ messageId: "callbackWithParameters" }],
+    },
   ],
   valid: [
     // Arrow function with concise body (always returns)
@@ -249,6 +393,58 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       const use1 = () => useMemo(() => 1, []);
+    `,
+    // Parameterless callback
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const result = useMemo(() => items.length, [items]);
+        return <div>{result}</div>;
+      }
+    `,
+    // FunctionExpression with no parameters
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const result = useMemo(function() {
+          return items.filter(Boolean);
+        }, [items]);
+        return <div>{result}</div>;
+      }
+    `,
+    // Explicit null return (from React Compiler fixtures)
+    tsx`
+      function Component() {
+        const value = useMemo(() => {
+          return null;
+        }, []);
+        return <div>{value}</div>;
+      }
+    `,
+    // If-else with multiple returns (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          if (props.cond) {
+            return makeObject(props.a);
+          }
+          return makeObject(props.b);
+        });
+        return x;
+      }
+    `,
+    // useMemo result used in logical expression (from React Compiler fixtures)
+    tsx`
+      import {useMemo} from 'react';
+      function Component(props) {
+        return (
+          useMemo(() => {
+            return [props.value];
+          }) || []
+        );
+      }
     `,
   ],
 });
