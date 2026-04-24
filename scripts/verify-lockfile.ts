@@ -11,7 +11,7 @@ const program = Effect.gen(function*() {
     return;
   }
   yield* Effect.logError("Detected changes in pnpm-lock.yaml!");
-  yield* Effect.fail(
+  return yield* Effect.fail(
     new Error("Please run `pnpm install --fix-lockfile && pnpm dedupe` to update local dependencies."),
   );
 });
