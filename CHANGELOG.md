@@ -1,5 +1,14 @@
 # Changelog
 
+## v5.5.1-beta.0 (2026-04-25)
+
+### ✨ New
+
+- **kit:** add `ast.findParent` utility (#1726) (`cb61f68a1`)
+- **website,examples,ast:** add Error Boundaries custom rule example (#1725) (`76a79e275`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.0-beta.0...v5.5.1-beta.0
+
 ## v5.5.0-beta.0 (2026-04-25)
 
 ### 💥 Breaking Changes
