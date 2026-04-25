@@ -1,7 +1,6 @@
 {
   "pages": [
     "---X Rules---",
-    "component-hook-factories",
     "error-boundaries",
     "exhaustive-deps",
     "globals",

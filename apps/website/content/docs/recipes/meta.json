@@ -2,7 +2,6 @@
   "title": "Recipes",
   "pages": [
     "---Simple---",
-    "component-hook-factories",
     "function-component-definition",
     "no-circular-effect",
     "no-multiple-children-in-title",
