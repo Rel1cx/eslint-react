@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.5.0-beta.0 (2026-04-25)
+
+### 💥 Breaking Changes
+
+- **eslint-plugin-react-x:** remove `component-hook-factories` rule as the upstream plugin (`eslint-plugin-react-hooks`) has removed the equivalent rule upstream (#1724) (`6e28b16da`)
+
+### 🏗️ Internal
+
+- Return failure from verify-lockfile (`357e901cd`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.4.0-beta.0...v5.5.0-beta.0
+
 ## v5.4.0-beta.0 (2026-04-25)
 
 ### ✨ New
