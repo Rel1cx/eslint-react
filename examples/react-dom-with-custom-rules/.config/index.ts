@@ -1,5 +1,6 @@
 export * from "./booleanPropNaming";
 export * from "./checkedRequiresOnchangeOrReadonly";
+export * from "./errorBoundaries";
 export * from "./forbidComponentProps";
 export * from "./forbidDomProps";
 export * from "./forbidElements";
