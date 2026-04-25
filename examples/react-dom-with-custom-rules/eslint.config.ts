@@ -12,7 +12,6 @@ import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 import {
   booleanPropNaming,
   checkedRequiresOnchangeOrReadonly,
-  componentHookFactories,
   forbidComponentProps,
   forbidDomProps,
   forbidElements,
@@ -89,7 +88,6 @@ export default defineConfig(
         ...eslintReactKit()
           .use(booleanPropNaming)
           .use(checkedRequiresOnchangeOrReadonly)
-          .use(componentHookFactories)
           .use(forbidComponentProps, { forbidden: ["className", "style"] })
           .use(forbidDomProps, { forbidden: ["style", "className"] })
           .use(forbidElements, {

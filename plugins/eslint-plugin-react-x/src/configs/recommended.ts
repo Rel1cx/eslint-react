@@ -6,7 +6,6 @@ import { plugin } from "../plugin";
 export const name = "react-x/recommended";
 
 export const rules = {
-  "react-x/component-hook-factories": "error",
   "react-x/error-boundaries": "error",
   "react-x/exhaustive-deps": "warn",
   "react-x/no-access-state-in-setstate": "error",

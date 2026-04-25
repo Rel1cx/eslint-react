@@ -2,7 +2,6 @@ import type { ESLint } from "eslint";
 
 import { name, version } from "../package.json";
 
-import componentHookFactories from "./rules/component-hook-factories/component-hook-factories";
 import errorBoundaries from "./rules/error-boundaries/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps/exhaustive-deps";
 import globals from "./rules/globals/globals";
@@ -62,7 +61,6 @@ export const plugin = {
     version,
   },
   rules: {
-    "component-hook-factories": componentHookFactories,
     "error-boundaries": errorBoundaries,
     "exhaustive-deps": exhaustiveDeps,
     globals: globals,

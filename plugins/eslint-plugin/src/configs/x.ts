@@ -4,7 +4,6 @@ import type { Linter } from "eslint";
 export const name = "@eslint-react/x";
 
 export const rules = {
-  "@eslint-react/component-hook-factories": "error",
   "@eslint-react/error-boundaries": "error",
   "@eslint-react/exhaustive-deps": "warn",
   "@eslint-react/no-access-state-in-setstate": "error",

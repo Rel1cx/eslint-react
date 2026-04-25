@@ -5,7 +5,6 @@ import type { Linter } from "eslint";
 const conflictingRules = [
   "react-hooks/exhaustive-deps",
   "react-hooks/rules-of-hooks",
-  "react-hooks/component-hook-factories",
   "react-hooks/error-boundaries",
   "react-hooks/globals",
   "react-hooks/immutability",

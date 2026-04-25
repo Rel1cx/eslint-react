@@ -5,7 +5,6 @@ import * as x from "./x";
 export const name = "@eslint-react/all";
 
 export const rules = {
-  "@eslint-react/component-hook-factories": "error",
   "@eslint-react/error-boundaries": "error",
   "@eslint-react/exhaustive-deps": "warn",
   "@eslint-react/globals": "warn",
