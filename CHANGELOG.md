@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.5.1-beta.1 (2026-04-26)
+
+### 🏗️ Internal
+
+- remove unused dependencies and add missing devDependencies (`0862bb744`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.1-beta.0...v5.5.1-beta.1
+
 ## v5.5.1-beta.0 (2026-04-25)
 
 ### ✨ New
