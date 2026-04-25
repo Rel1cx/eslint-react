@@ -1,17 +1,6 @@
 import { type RuleFunction, merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
 
-function findParent(node: TSESTree.Node | null, test: (n: TSESTree.Node) => boolean): TSESTree.Node | null {
-  if (node == null) return null;
-  let current: TSESTree.Node | undefined = node.parent;
-  while (current != null) {
-    if (test(current)) return current;
-    if (current.type === "Program") return null;
-    current = current.parent;
-  }
-  return null;
-}
-
 function isJsxLike(node: TSESTree.Node | null): boolean {
   if (node == null) return false;
   return node.type === "JSXElement" || node.type === "JSXFragment";
@@ -19,7 +8,7 @@ function isJsxLike(node: TSESTree.Node | null): boolean {
 
 /** Validates usage of Error Boundaries instead of try/catch for errors in child components. */
 export function errorBoundaries(): RuleFunction {
-  return (context, { collect, is }) => {
+  return (context, { ast, collect, is }) => {
     // Fast path: skip if `try` is not present in the file
     if (!context.sourceCode.text.includes("try")) return {};
 
@@ -43,8 +32,8 @@ export function errorBoundaries(): RuleFunction {
           const funcs = [...comps, ...hooks];
 
           for (const call of useCalls) {
-            const stmt = findParent(call, (n) => n.type === "TryStatement") as TSESTree.TryStatement | null;
-            const func = findParent(stmt, (n) => funcs.some((f) => f.node === n));
+            const stmt = ast.findParent(call, (n) => n.type === "TryStatement");
+            const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
             if (stmt != null && func != null && !reported.has(stmt)) {
               context.report({
                 node: stmt,
@@ -59,7 +48,7 @@ export function errorBoundaries(): RuleFunction {
             for (const ret of rets) {
               if (ret == null) continue;
               if (!isJsxLike(ret)) continue;
-              const stmt = findParent(ret, (n) => n.type === "TryStatement") as TSESTree.TryStatement | null;
+              const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
               if (stmt != null && !reported.has(stmt)) {
                 context.report({
                   node: stmt,
