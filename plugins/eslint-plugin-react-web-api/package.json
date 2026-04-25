@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-web-api",
-  "version": "5.4.0-beta.0",
+  "version": "5.5.0-next.0",
   "description": "ESLint React's ESLint plugin for interacting with Web APIs",
   "keywords": [
     "react",
