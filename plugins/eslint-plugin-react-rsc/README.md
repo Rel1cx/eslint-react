@@ -1,5 +1,7 @@
 # eslint-plugin-react-rsc
 
+RSC related rules.
+
 ## Install
 
 ```sh

@@ -49,23 +49,20 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.59.0",
-    "@typescript-eslint/type-utils": "^8.59.0",
-    "@typescript-eslint/types": "^8.59.0",
-    "@typescript-eslint/utils": "^8.59.0",
     "eslint-plugin-react-dom": "workspace:*",
     "eslint-plugin-react-jsx": "workspace:*",
     "eslint-plugin-react-naming-convention": "workspace:*",
     "eslint-plugin-react-rsc": "workspace:*",
     "eslint-plugin-react-web-api": "workspace:*",
-    "eslint-plugin-react-x": "workspace:*",
-    "ts-api-utils": "^2.5.0"
+    "eslint-plugin-react-x": "workspace:*"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.2.1",
     "tsdown": "^0.21.10"
   },
   "peerDependencies": {

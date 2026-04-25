@@ -46,13 +46,13 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
     "@eslint-react/shared": "workspace:*",
+    "@typescript-eslint/types": "^8.59.0",
     "@typescript-eslint/utils": "^8.59.0",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@eslint-react/eslint": "workspace:*",
     "@local/configs": "workspace:*",
-    "@local/eff": "workspace:*",
     "eslint": "^10.2.1",
     "tsdown": "^0.21.10"
   },
@@ -66,7 +66,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "inlinedDependencies": {
-    "@local/eff": "workspace:*"
-  }
+  "inlinedDependencies": {}
 }

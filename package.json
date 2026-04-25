@@ -76,6 +76,7 @@
     "@typescript-eslint/types": "^8.59.0",
     "ansis": "^4.2.0",
     "dedent": "^1.7.2",
+    "depcheck": "^1.4.7",
     "dprint": "^0.54.0",
     "effect": "^3.21.2",
     "eslint": "^10.2.1",
