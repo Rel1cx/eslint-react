@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Extract, type TSESTreeFunction, type TSESTreeTypeExpression } from "@eslint-react/ast";
+import { Extract, type TSESTreeFunction, type TSESTreeTypeExpression, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
@@ -31,6 +31,7 @@ export interface CollectorWithContext<T> extends Collector<T> {
 
 export interface RuleToolkit {
   ast: {
+    findParent: typeof Traverse.findParent;
     unwrap(node: TSESTree.Node): Exclude<TSESTree.Node, TSESTreeTypeExpression>;
   };
 
@@ -110,6 +111,7 @@ export interface RuleToolkit {
 function makeRuleToolkit(context: RuleContext): RuleToolkit {
   return {
     ast: {
+      findParent: Traverse.findParent,
       unwrap: Extract.unwrap,
     },
 
