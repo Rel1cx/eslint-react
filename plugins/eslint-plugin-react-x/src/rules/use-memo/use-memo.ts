@@ -26,16 +26,16 @@ export default createRule<[], MessageID>({
       description: "Validates that 'useMemo' is called with a callback that returns a value.",
     },
     messages: {
-      mustReturnAValue:
-        "useMemo() callbacks must return a value. This useMemo() callback doesn't return a value. useMemo() is for computing and caching values, not for arbitrary side effects.",
-      noAsyncOrGeneratorFunctions:
-        "useMemo() callbacks may not be async or generator functions. useMemo() callbacks are called once and must synchronously return a value.",
       noParameters:
-        "useMemo() callbacks may not accept parameters. useMemo() callbacks are called by React to cache calculations across re-renders. They should not take parameters. Instead, directly reference the props, state, or local variables needed for the computation.",
+        "useMemo() callbacks may not accept parameters.\n\nuseMemo() callbacks are called by React to cache calculations across re-renders. They should not take parameters. Instead, directly reference the props, state, or local variables needed for the computation.",
+      noAsyncOrGeneratorFunctions:
+        "useMemo() callbacks may not be async or generator functions.\n\nuseMemo() callbacks are called once and must synchronously return a value.",
       noReassigningOuterVariables:
-        "useMemo() callbacks may not reassign variables declared outside of the callback. useMemo() callbacks must be pure functions and cannot reassign variables defined outside of the callback function.",
+        "useMemo() callbacks may not reassign variables declared outside of the callback.\n\nuseMemo() callbacks must be pure functions and cannot reassign variables defined outside of the callback function.",
+      mustReturnAValue:
+        "useMemo() callbacks must return a value.\n\nThis useMemo() callback doesn't return a value. useMemo() is for computing and caching values, not for arbitrary side effects.",
       resultMustBeUsed:
-        "useMemo() result is unused. This useMemo() value is unused. useMemo() is for computing and caching values, not for arbitrary side effects.",
+        "useMemo() result is unused.\n\nThis useMemo() value is unused. useMemo() is for computing and caching values, not for arbitrary side effects.",
     },
     schema: [],
   },
@@ -95,7 +95,9 @@ export function create(context: RuleContext<MessageID, []>) {
         || parent.type === AST.MemberExpression
         || parent.type === AST.TaggedTemplateExpression
         || parent.type === AST.ChainExpression
-        || parent.type === AST.ArrowFunctionExpression;
+        || parent.type === AST.ArrowFunctionExpression
+        || parent.type === AST.ForOfStatement
+        || parent.type === AST.ForInStatement;
 
       if (!isAssigned) {
         context.report({

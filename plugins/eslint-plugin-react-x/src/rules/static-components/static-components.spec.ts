@@ -19,6 +19,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -34,6 +38,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "ChildComponent" },
           messageId: "default",
@@ -53,6 +61,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -68,6 +80,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "ChildComponent" },
           messageId: "default",
@@ -89,6 +105,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "ChildComponent" },
           messageId: "default",
         },
       ],
@@ -102,6 +122,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "ChildComponent" },
           messageId: "default",
@@ -118,6 +142,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "ChildComponent" },
           messageId: "default",
@@ -138,6 +166,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Nested" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Nested" },
           messageId: "default",
         },
       ],
@@ -155,6 +187,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -167,6 +203,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "Component" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "Component" },
           messageId: "default",
@@ -183,6 +223,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -195,6 +239,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "Component" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "Component" },
           messageId: "default",
@@ -216,6 +264,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
           messageId: "default",
         },
       ],
@@ -229,6 +281,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "B" },
           messageId: "default",
@@ -246,6 +302,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "B" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -259,6 +319,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "B" },
           messageId: "default",
@@ -275,6 +339,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
         {
           data: { name: "B" },
           messageId: "default",

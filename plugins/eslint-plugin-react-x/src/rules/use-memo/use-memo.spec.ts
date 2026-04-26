@@ -567,6 +567,53 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
+    // useMemo as the right-hand side of a for...of loop
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const list = useMemo(() => items, [items]);
+        for (const item of list) {
+          console.log(item);
+        }
+        return <div />;
+      }
+    `,
+    // useMemo as the right-hand side of a for...in loop
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ obj }) {
+        const keys = useMemo(() => Object.keys(obj), [obj]);
+        for (const key of keys) {
+          console.log(key);
+        }
+        return <div />;
+      }
+    `,
+    // Inline useMemo as the right-hand side of a for...of/for...in loop.
+    // This usage pattern is uncommon in practice but is included for rule completeness.
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        for (const item of useMemo(() => items, [items])) {
+          console.log(item);
+        }
+        return <div />;
+      }
+    `,
+    // This usage pattern is uncommon in practice but is included for rule completeness.
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ obj }) {
+        for (const key of useMemo(() => Object.keys(obj), [obj])) {
+          console.log(key);
+        }
+        return <div />;
+      }
+    `,
     // Rule 3 valid: Property mutation is not outer variable reassignment
     tsx`
       import { useMemo, useRef } from "react";
