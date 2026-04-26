@@ -7,6 +7,7 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
+// List of all sub-plugins that have their own directory under plugins/
 const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention", "debug"] as const;
 
 type PluginDomain = typeof VALID_PLUGINS[number];
@@ -28,6 +29,8 @@ function kebabToCamel(str: string): string {
   return str.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
 }
 
+// Build the aggregated config key. The "x" domain is the core plugin and uses the
+// flat "@eslint-react/<rule>" namespace; all other sub-plugins prefix with their domain.
 function buildConfigKey(domain: PluginDomain, ruleName: string): string {
   if (domain === "x") return `@eslint-react/${ruleName}`;
   return `@eslint-react/${domain}-${ruleName}`;
@@ -232,6 +235,9 @@ const updatePluginRegistration = Effect.fnUntraced(
       `["${oldName}"]: ${oldCamel}`,
       `["${newName}"]: ${newCamel}`,
     );
+    // Rules without hyphens (e.g. "no-leak") use the shorthand form `noLeak: noLeak`
+    // in plugin.ts, which the earlier quoted-string replacements won't match.
+    // This regex catches that remaining pattern.
     if (!oldName.includes("-")) {
       content = content.replace(
         new RegExp(`(\\s)${oldName}: ${oldCamel}`, "u"),

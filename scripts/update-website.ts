@@ -8,9 +8,12 @@ import * as Effect from "effect/Effect";
 
 import { glob } from "./lib/glob";
 
+// Collect .mdx files from every sub-plugin's rules directory
 const DOCS_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
+// Parses rule file names like "dom-no-render" into plugin domain + rule name
 const RE_RULE_PREFIX = /^(x|jsx|rsc|dom|web-api|naming-convention|debug)-(.+)$/u;
+// Captures the table body (rows) from the "## Detailed References" section
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
 
 interface RuleMeta {
@@ -59,6 +62,9 @@ const loadRuleRelations = Effect.gen(function*() {
   return parseRuleRelations(content);
 });
 
+// Convert a file-based rule name ("dom-no-render") to the canonical
+// "react-<domain>/<name>" form used in rule-relations-table.md.
+// Falls back to "react-x/<name>" for core-plugin rules (no prefix in filename).
 const getFullRuleName = (meta: RuleMeta): string => {
   const [m0, m1, m2] = RE_RULE_PREFIX.exec(meta.name) ?? [];
   if (m0 == null || m1 == null || m2 == null) return `react-x/${meta.name}`;
@@ -73,9 +79,10 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
     return "";
   }
 
+  // Convert canonical rule names to website file names for the link target.
+  // "react-debug/function-component" -> "debug-function-component"
+  // "react-x/no-clone-element"      -> "no-clone-element" (core plugin, omit "x-" prefix)
   const items = references.map((ref) => {
-    // Convert full rule name to website file name
-    // e.g., "react-debug/function-component" -> "debug-function-component" or just "function-component"
     const [targetPlugin = "", targetName = ""] = ref.targetRule.split("/");
     const prefix = targetPlugin.replace("react-", "");
     const targetFileName = prefix === "x" ? targetName : `${prefix}-${targetName}`;
@@ -85,6 +92,8 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
   return ["", "---", "", "## See Also", "", ...items, ""].join("\n");
 };
 
+// Determines the section order in the generated meta.json.
+// Headings act as section dividers in the website sidebar.
 const orderedCategories = [
   { key: "x", heading: "---X Rules---" },
   { key: "jsx", heading: "---JSX Rules---" },
@@ -102,6 +111,8 @@ const collectDocs = Effect.gen(function*() {
     const catename = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
 
+    // Core plugin "x" uses flat names ("no-clone-element") while
+    // sub-plugins prefix with their domain ("dom-no-render").
     const isPluginX = catename === "x";
 
     const name = isPluginX ? basename : `${catename}-${basename}`;
@@ -181,6 +192,8 @@ const processChangelog = Effect.gen(function*() {
   const targetPath = path.join("apps", "website", "content", "docs", "changelog.md");
 
   const source = yield* fs.readFileString(changelogPath, "utf8");
+  // Wrap with Docusaurus frontmatter and strip the top-level "# Changelog"
+  // heading since the website layout provides its own title.
   const wrapped = [
     "---",
     "title: Changelog",

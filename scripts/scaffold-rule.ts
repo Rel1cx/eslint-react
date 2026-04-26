@@ -5,6 +5,7 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 
+// List of all sub-plugins that have their own directory under plugins/
 const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention", "debug"] as const;
 
 type PluginDomain = typeof VALID_PLUGINS[number];
@@ -17,6 +18,8 @@ function buildPluginPrefix(domain: PluginDomain): string {
   return `react-${domain}`;
 }
 
+// Build the aggregated config key. The "x" domain is the core plugin and uses the
+// flat "@eslint-react/<rule>" namespace; all other sub-plugins prefix with their domain.
 function buildConfigKey(domain: PluginDomain, ruleName: string): string {
   if (domain === "x") return `@eslint-react/${ruleName}`;
   return `@eslint-react/${domain}-${ruleName}`;
@@ -129,6 +132,9 @@ function generateRuleMdx(domain: PluginDomain, ruleName: string, description: st
   ].join("\n");
 }
 
+// Find where to insert the new rule import in plugin.ts, maintaining
+// alphabetical order within the contiguous block of rule imports.
+// Falls back to after the last import if no rule imports exist yet.
 function findImportInsertionIndex(lines: string[], importLine: string): number {
   let lastRuleImportIndex = -1;
   for (let i = 0; i < lines.length; i++) {
@@ -136,12 +142,14 @@ function findImportInsertionIndex(lines: string[], importLine: string): number {
       lastRuleImportIndex = i;
     }
   }
+  // No existing rule imports: insert after the last regular import
   if (lastRuleImportIndex === -1) {
     for (let i = lines.length - 1; i >= 0; i--) {
       if (lines[i]!.startsWith("import ")) return i + 1;
     }
     return 0;
   }
+  // Find the start of the contiguous rule-import block
   let firstRuleImportIndex = lastRuleImportIndex;
   for (let i = lastRuleImportIndex; i >= 0; i--) {
     if (lines[i]!.startsWith("import ") && lines[i]!.includes("./rules/")) {
@@ -150,6 +158,7 @@ function findImportInsertionIndex(lines: string[], importLine: string): number {
       break;
     }
   }
+  // Insert in alphabetical order within the rule-import block
   for (let i = firstRuleImportIndex; i <= lastRuleImportIndex; i++) {
     if (lines[i]!.startsWith("import ") && lines[i]!.includes("./rules/")) {
       if (importLine.localeCompare(lines[i]!) < 0) return i;
@@ -158,7 +167,12 @@ function findImportInsertionIndex(lines: string[], importLine: string): number {
   return lastRuleImportIndex + 1;
 }
 
+// Find where to insert the new rule entry inside the `rules: { ... }` object
+// in plugin.ts, maintaining alphabetical order by rule name.
+// Uses brace-depth tracking to locate the rules object boundaries,
+// then scans entries within to find the correct insertion point.
 function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number {
+  // Locate the opening of the `rules: { ... }` object
   let rulesStartIndex = -1;
   let rulesEndIndex = -1;
   for (let i = 0; i < lines.length; i++) {
@@ -168,6 +182,7 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
     }
   }
   if (rulesStartIndex === -1) return -1;
+  // Find the matching closing brace via depth tracking
   let depth = 0;
   for (let i = rulesStartIndex; i < lines.length; i++) {
     for (const ch of lines[i]!) {
@@ -180,6 +195,7 @@ function findRulesEntryInsertionIndex(lines: string[], entryKey: string): number
     }
   }
   if (rulesEndIndex === -1) return -1;
+  // Insert in alphabetical order, skipping blank lines and comments
   for (let i = rulesStartIndex + 1; i < rulesEndIndex; i++) {
     const line = lines[i]!.trim();
     if (line === "" || line.startsWith("//") || line.startsWith("/*")) continue;
