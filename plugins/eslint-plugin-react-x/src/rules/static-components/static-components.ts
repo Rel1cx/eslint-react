@@ -1,10 +1,10 @@
-import { Check, Extract, Traverse } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { TSESLint } from "@typescript-eslint/utils";
 
 import { createRule } from "../../utils";
+import { findVariableForIdentifier, isDynamicComponent } from "./lib";
 
 export const RULE_NAME = "static-components";
 
@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       default:
-        "Component '{{name}}' is created during render. Components created during render will reset their state each time they are created. Declare components outside of render.",
+        "Cannot create components during render. Components created during render will reset their state each time they are created. Declare components outside of render.",
     },
     schema: [],
   },
@@ -28,62 +28,6 @@ export default createRule<[], MessageID>({
   create,
   defaultOptions: [],
 });
-
-function findVariableForJSXIdentifier(
-  context: RuleContext,
-  jsxId: TSESTree.JSXIdentifier,
-) {
-  let scope: ReturnType<typeof context.sourceCode.getScope> | null = context.sourceCode.getScope(jsxId);
-  while (scope != null) {
-    const variable = scope.variables.find((v) => v.name === jsxId.name);
-    if (variable != null) return variable;
-    scope = scope.upper;
-  }
-  return null;
-}
-
-function isDynamicallyCreatedValue(node: TSESTree.Node): boolean {
-  const expr = Extract.unwrap(node);
-  switch (expr.type) {
-    case AST.FunctionExpression:
-    case AST.ArrowFunctionExpression:
-    case AST.NewExpression:
-    case AST.CallExpression:
-    case AST.ClassExpression:
-      return true;
-    case AST.ConditionalExpression:
-      return isDynamicallyCreatedValue(expr.consequent)
-        || isDynamicallyCreatedValue(expr.alternate);
-    default:
-      return false;
-  }
-}
-
-function hasDynamicAssignment(variable: TSESLint.Scope.Variable): boolean {
-  for (const ref of variable.references) {
-    if (!ref.isWrite()) continue;
-    const id = ref.identifier;
-    if (
-      id.parent?.type === AST.AssignmentExpression
-      && id.parent.left === id
-    ) {
-      if (isDynamicallyCreatedValue(id.parent.right)) return true;
-    }
-  }
-  return false;
-}
-
-function isDynamicallyCreated(node: TSESTree.Node, variable: TSESLint.Scope.Variable | null): boolean {
-  if (node.type === AST.FunctionDeclaration) return true;
-  if (node.type === AST.ClassDeclaration) return true;
-  if (node.type === AST.VariableDeclarator && node.init != null) {
-    return isDynamicallyCreatedValue(node.init);
-  }
-  if (node.type === AST.VariableDeclarator && node.init == null && variable != null) {
-    return hasDynamicAssignment(variable);
-  }
-  return false;
-}
 
 export function create(context: RuleContext<MessageID, []>) {
   const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
@@ -124,9 +68,11 @@ export function create(context: RuleContext<MessageID, []>) {
           });
         }
 
+        const isInsideRender = (node: TSESTree.Node) => getEnclosingComponent(node) != null;
+
         for (const { name, node: jsxNode } of jsxCandidates) {
           const jsxName = jsxNode.name as TSESTree.JSXIdentifier;
-          const variable = findVariableForJSXIdentifier(context, jsxName);
+          const variable = findVariableForIdentifier(context, jsxName);
           if (variable == null || variable.defs.length === 0) continue;
 
           const def = variable.defs.at(0);
@@ -136,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>) {
           const enclosing = getEnclosingComponent(defNode);
           if (enclosing == null) continue;
 
-          if (!isDynamicallyCreated(defNode, variable)) continue;
+          if (!isDynamicComponent(context, variable, isInsideRender)) continue;
 
           context.report({
             data: { name },

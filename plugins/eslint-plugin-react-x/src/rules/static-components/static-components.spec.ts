@@ -220,6 +220,67 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Parent() {
+          const A = () => <div />;
+          const B = A;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          const A = createComponent();
+          const B = A;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          const A = () => <div />;
+          const B = condition ? A : () => <span />;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          let Component = DefaultComponent;
+          Component = createComponent();
+          const B = Component;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -287,6 +348,16 @@ ruleTester.run(RULE_NAME, rule, {
           return (
             <SomeComponent footer={<OutsideDefinedComponent />} />
           );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const External = () => <div />;
+
+        function Parent() {
+          const B = External;
+          return <B />;
         }
       `,
     },
