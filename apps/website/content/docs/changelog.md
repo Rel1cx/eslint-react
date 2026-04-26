@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.5.3-beta.0 (2026-04-26)
+
+### ✨ New
+
+- **eslint-plugin-react-x:** enhance static-components rule with variable reference tracking (#1728) (`3aa068ef2`)
+- **eslint-plugin-react-x:** add createdHere diagnostic to static-components and support for-of/for-in in use-memo (#1729) (`1b4f3d6f2`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.2-beta.0...v5.5.3-beta.0
+
 ## v5.5.2-beta.0 (2026-04-26)
 
 ### ✨ New
