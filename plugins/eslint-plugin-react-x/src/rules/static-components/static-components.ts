@@ -4,13 +4,13 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
-import { findVariableForIdentifier, isDynamicComponent } from "./lib";
+import { findVariableForIdentifier, getDynamicComponentSource } from "./lib";
 
 export const RULE_NAME = "static-components";
 
 export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
-export type MessageID = "default";
+export type MessageID = "default" | "createdHere";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,6 +21,9 @@ export default createRule<[], MessageID>({
     messages: {
       default:
         "Cannot create components during render. Components created during render will reset their state each time they are created. Declare components outside of render.",
+
+      // Subordinate error messages reported at the component creation site.
+      createdHere: "The component is created during render here.",
     },
     schema: [],
   },
@@ -82,13 +85,22 @@ export function create(context: RuleContext<MessageID, []>) {
           const enclosing = getEnclosingComponent(defNode);
           if (enclosing == null) continue;
 
-          if (!isDynamicComponent(context, variable, isInsideRender)) continue;
+          const result = getDynamicComponentSource(context, variable, isInsideRender);
+          if (!result.isDynamic) continue;
 
           context.report({
             data: { name },
             messageId: "default",
             node: jsxNode.name,
           });
+
+          if (result.creationNode != null) {
+            context.report({
+              data: { name },
+              messageId: "createdHere",
+              node: result.creationNode,
+            });
+          }
         }
       },
     },

@@ -3,12 +3,17 @@ import { type RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 
+export interface DynamicComponentResult {
+  creationNode: TSESTree.Node | null;
+  isDynamic: boolean;
+}
+
 function resolveDynamicValue(
   context: RuleContext,
   node: TSESTree.Node,
   isInsideRender: (node: TSESTree.Node) => boolean,
   seen: Set<TSESLint.Scope.Variable>,
-): boolean {
+): TSESTree.Node | null {
   const expr = Extract.unwrap(node);
 
   switch (expr.type) {
@@ -17,18 +22,21 @@ function resolveDynamicValue(
     case AST.NewExpression:
     case AST.CallExpression:
     case AST.ClassExpression:
-      return true;
-    case AST.ConditionalExpression:
-      return resolveDynamicValue(context, expr.consequent, isInsideRender, seen)
-        || resolveDynamicValue(context, expr.alternate, isInsideRender, seen);
+      return expr;
+    case AST.ConditionalExpression: {
+      const consequent = resolveDynamicValue(context, expr.consequent, isInsideRender, seen);
+      if (consequent != null) return consequent;
+      return resolveDynamicValue(context, expr.alternate, isInsideRender, seen);
+    }
     case AST.Identifier:
     case AST.JSXIdentifier: {
       const resolved = findVariableForIdentifier(context, expr);
-      if (resolved == null) return false;
-      return isDynamicComponent(context, resolved, isInsideRender, seen);
+      if (resolved == null) return null;
+      const result = getDynamicComponentSource(context, resolved, isInsideRender, seen);
+      return result.creationNode;
     }
     default:
-      return false;
+      return null;
   }
 }
 
@@ -45,25 +53,32 @@ export function findVariableForIdentifier(
   return null;
 }
 
-export function isDynamicComponent(
+export function getDynamicComponentSource(
   context: RuleContext,
   variable: TSESLint.Scope.Variable,
   isInsideRender: (node: TSESTree.Node) => boolean,
   seen = new Set<TSESLint.Scope.Variable>(),
-): boolean {
-  if (seen.has(variable)) return false;
+): DynamicComponentResult {
+  if (seen.has(variable)) return { isDynamic: false, creationNode: null };
   seen.add(variable);
 
   for (const def of variable.defs) {
     const defNode = def.node;
     if (!isInsideRender(defNode)) continue;
 
-    if (defNode.type === AST.FunctionDeclaration) return true;
-    if (defNode.type === AST.ClassDeclaration) return true;
+    if (defNode.type === AST.FunctionDeclaration) {
+      return { isDynamic: true, creationNode: defNode };
+    }
+    if (defNode.type === AST.ClassDeclaration) {
+      return { isDynamic: true, creationNode: defNode };
+    }
 
     if (defNode.type === AST.VariableDeclarator) {
       if (defNode.init != null) {
-        if (resolveDynamicValue(context, defNode.init, isInsideRender, seen)) return true;
+        const source = resolveDynamicValue(context, defNode.init, isInsideRender, seen);
+        if (source != null) {
+          return { isDynamic: true, creationNode: source };
+        }
       }
 
       for (const ref of variable.references) {
@@ -73,11 +88,23 @@ export function isDynamicComponent(
           id.parent?.type === AST.AssignmentExpression
           && id.parent.left === id
         ) {
-          if (resolveDynamicValue(context, id.parent.right, isInsideRender, seen)) return true;
+          const source = resolveDynamicValue(context, id.parent.right, isInsideRender, seen);
+          if (source != null) {
+            return { isDynamic: true, creationNode: source };
+          }
         }
       }
     }
   }
 
-  return false;
+  return { isDynamic: false, creationNode: null };
+}
+
+export function isDynamicComponent(
+  context: RuleContext,
+  variable: TSESLint.Scope.Variable,
+  isInsideRender: (node: TSESTree.Node) => boolean,
+  seen = new Set<TSESLint.Scope.Variable>(),
+): boolean {
+  return getDynamicComponentSource(context, variable, isInsideRender, seen).isDynamic;
 }
