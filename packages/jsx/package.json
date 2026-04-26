@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "tsdown": "^0.21.10"
   },
   "peerDependencies": {
