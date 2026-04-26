@@ -2,6 +2,24 @@
 title: Changelog
 ---
 
+## v5.5.2-beta.0 (2026-04-26)
+
+### ✨ New
+
+- **eslint-plugin-react-x:** add reassignment check and align message IDs in `use-memo` rule (#1727) (`c9d21bf3f`)
+
+### 📝 Documentation
+
+- update roadmap to reflect completed rules and restructure entries (`7392c4a49`)
+- update roadmap with v5.2.3-v5.5.1 changes and new package (`bbddec6e9`)
+
+### 🏗️ Internal
+
+- relax typedoc version pin and add engines field (`c99f33606`)
+- add documentation comments to rule scripts (`55681ca1e`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.1-beta.1...v5.5.2-beta.0
+
 ## v5.5.1-beta.1 (2026-04-26)
 
 ### 🏗️ Internal
