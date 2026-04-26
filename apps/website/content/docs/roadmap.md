@@ -52,27 +52,20 @@ Minimum supported versions:
 
 ### Removed Rules
 
-- [x] `@eslint-react/no-redundant-should-component-update`: This rule, along with its documentation and tests, has been removed from `eslint-plugin-react-x` and all configuration presets (`all`, `x`, `recommended`, `strict`, etc.).
-- [x] `debug/class-component`: This debug rule has been removed from `eslint-plugin-react-debug` and the `debug/all` configuration.
-- [x] `no-unnecessary-use-callback` (react-x): Removed from all configs.
-- [x] `no-unnecessary-use-memo` (react-x): Removed from all configs.
-- [x] `no-unused-state` (react-x): Removed from all configs.
-- [x] `prefer-destructuring-assignment` (react-x): Removed from all configs.
-- [x] `prefer-namespace-import` (react-dom): Removed from all configs.
-- [x] `prefer-namespace-import` (react-x): Removed from all configs.
 - [x] `react-x/component-hook-factories`: Removed as upstream `eslint-plugin-react-hooks` removed the equivalent rule (v5.5.0).
+- [x] `react-x/no-redundant-should-component-update`: This rule, along with its documentation and tests, has been removed from `eslint-plugin-react-x` and all configuration presets (`all`, `x`, `recommended`, `strict`, etc.).
+- [x] `react-x/no-unnecessary-use-callback`: Removed from all configs.
+- [x] `react-x/no-unnecessary-use-memo`: Removed from all configs.
+- [x] `react-x/no-unused-state`: Removed from all configs.
+- [x] `react-x/prefer-destructuring-assignment`: Removed from all configs.
+- [x] `react-x/prefer-namespace-import`: Removed from all configs.
+- [x] `react-dom/prefer-namespace-import`: Removed from all configs.
+- [x] `debug/class-component`: This debug rule has been removed from `eslint-plugin-react-debug` and the `debug/all` configuration.
 
 ### Class Component Support Deprecation
 
 - [x] All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
 - [x] Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
-
-### AST Package Refactoring
-
-- [x] Renamed `isJSXLike` to `isJSXElementOrFragment` and `isMethodOrProperty` to `isPropertyOrMethod` (v5.3.0).
-- [x] Normalized API naming conventions across the AST package (v5.2.4).
-- [x] Rewrote `Check` helpers for improved clarity and consistency (v5.2.4).
-- [x] Consolidated AST utilities and cleaned up `packages/ast` (v5.2.3).
 
 ### Monorepo Restructuring
 
@@ -81,62 +74,14 @@ Minimum supported versions:
 - [x] Added `publishConfig.access` to packages for correct npm publishing (v5.3.0).
 - [x] Enabled `noUnusedLocals` and `noUnusedParameters` across the monorepo (v5.3.3).
 
-### Config Presets
-
-- [x] Added missing rules to presets and cleaned up experimental rule disables (v5.3.3).
-- [x] Extracted naming-convention preset and fixed config gaps (v5.3.2).
-- [x] Removed TypeScript-specific rule override configs (v5.5.0).
-
-### Rule Refactoring
-
-- [x] Extracted rule helpers into co-located `lib.ts` modules across multiple plugins for better code organization (v5.3.0).
-- [x] Unified import style across packages and plugins (v5.3.0).
-
 ### Documentation
 
 - [x] Added an Examples page (`/docs/examples`), listing all official example projects and links.
-- [x] Added new recipes:
-  - `custom-rules-of-children` recipe for creating custom ESLint rules for React Children API.
-  - `custom-rules-of-context` recipe for creating custom ESLint rules for React Context API.
-  - `no-multiple-children-in-title` rule example.
-  - `prefer-namespace-import` recipe for enforcing namespace imports.
-  - Boolean prop naming custom rule example (v5.3.0).
-  - Error Boundaries custom rule example (v5.5.1).
 - [x] Added migration examples for `no-set-state` and `no-string-refs` rules (v5.3.0).
-- [x] Added 'Requires type checking' legend to rule documentation (v5.3.0).
-- [x] Improved custom rule examples readability and consistency (v5.3.0).
-- [x] Updated kit documentation to reflect API renames and removals.
-- [x] Trimmed kit README and simplified website docs (v5.2.4).
-- [x] Synchronized API documentation across packages.
-- [x] Added beta warning to Configure Project Rules documentation.
-- [x] Added inline TOCs to documentation pages (v5.2.4).
-- [x] Enabled twoslash type-checking for code examples (v5.2.4).
-- [x] Added v4.2.1 release notes (v5.2.4).
-- [x] Fixed broken links, grammar, spacing, and table alignment in documentation (v5.2.4).
-- [x] Added missing `additionalEffectHooks` settings documentation (v5.2.4).
-- [x] Added links to Legacy Config and Flat Config documentation (v5.3.3).
-- [x] Updated the migration guide and roadmap.
 
 ### Website Improvements
 
 - [x] Improved accessibility and unified layout configuration.
-- [x] Added banner for kit beta and disabled inline CSS (v5.3.0).
-- [x] Added Marigold and nodejs.org to community projects (v5.2.4).
-- [x] Added missing modules to contributing architecture diagram (v5.3.4).
-
-### Internal Improvements
-
-- [x] Unified the import style for `@typescript-eslint/types` across the codebase, merging `TSESTree` types and `AST_NODE_TYPES` constants into single-line imports.
-- [x] Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
-- [x] Moved rule-specific JSX helpers into per-rule `lib.ts` files for better code organization.
-- [x] Extracted HOC detection helpers to dedicated `lib.ts` files.
-- [x] Improved consistency and maintainability of CLI tooling scripts (v5.3.4).
-- [x] Updated dependency versions:
-  - Bumped TypeScript to 6.0.3.
-  - Bumped Vite to 8.0.7 across examples.
-  - Updated typescript-eslint to 8.59.0.
-  - Updated `tsl-dx`, `tsdown`, `fumadocs`, `eslint-plugin-react-hooks`, and `@takumi-rs/image-response`.
-  - Updated `esbuild`, `@eslint/compat`, `@types/node`, `undici`.
 
 ## Milestone 4.0
 
