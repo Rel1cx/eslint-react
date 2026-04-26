@@ -1,20 +1,23 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 import { createRule } from "../../utils";
-import { getNestedReturnStatements } from "../no-missing-key/lib";
+import { getNestedReturnStatements, isInsideNestedFunction } from "./lib";
 
 export const RULE_NAME = "use-memo";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "asyncOrGeneratorCallback"
-  | "callbackWithParameters"
-  | "missingReturnValue"
-  | "notAssignedToVariable";
+  | "noParameters"
+  | "noAsyncOrGeneratorFunctions"
+  | "noReassigningOuterVariables"
+  | "mustReturnAValue"
+  | "resultMustBeUsed";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,14 +26,16 @@ export default createRule<[], MessageID>({
       description: "Validates that 'useMemo' is called with a callback that returns a value.",
     },
     messages: {
-      asyncOrGeneratorCallback:
-        "The callback passed to 'useMemo' must be a regular function. 'useMemo' callbacks are called synchronously by React and must immediately return a value. Async and generator functions are not supported.",
-      callbackWithParameters:
-        "The callback passed to 'useMemo' may not accept parameters. 'useMemo' callbacks are called by React without arguments. Instead, directly reference the props, state, or local variables needed for the computation.",
-      missingReturnValue:
-        "The callback passed to 'useMemo' must return a value. Without a return value, 'useMemo' always returns 'undefined', which defeats its purpose.",
-      notAssignedToVariable:
-        "The return value of 'useMemo' must be assigned to a variable. Calling 'useMemo' without capturing its return value is likely a mistake — use 'useEffect' for side effects instead.",
+      mustReturnAValue:
+        "useMemo() callbacks must return a value. This useMemo() callback doesn't return a value. useMemo() is for computing and caching values, not for arbitrary side effects.",
+      noAsyncOrGeneratorFunctions:
+        "useMemo() callbacks may not be async or generator functions. useMemo() callbacks are called once and must synchronously return a value.",
+      noParameters:
+        "useMemo() callbacks may not accept parameters. useMemo() callbacks are called by React to cache calculations across re-renders. They should not take parameters. Instead, directly reference the props, state, or local variables needed for the computation.",
+      noReassigningOuterVariables:
+        "useMemo() callbacks may not reassign variables declared outside of the callback. useMemo() callbacks must be pure functions and cannot reassign variables defined outside of the callback function.",
+      resultMustBeUsed:
+        "useMemo() result is unused. This useMemo() value is unused. useMemo() is for computing and caching values, not for arbitrary side effects.",
     },
     schema: [],
   },
@@ -40,16 +45,35 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  // Fast path: skip if `useMemo` is not present in the file
   if (!context.sourceCode.text.includes("useMemo")) return {};
 
+  function validateNoOuterVariableReassignment(callback: TSESTree.FunctionLike): ReportDescriptor<MessageID>[] {
+    const violations: ReportDescriptor<MessageID>[] = [];
+    const callbackScope = context.sourceCode.getScope(callback);
+    const localVars = new Set(callbackScope.variables.map((v) => v.name));
+    if (callback.body == null) return violations;
+    simpleTraverse(callback.body, {
+      enter(node) {
+        if (node.type !== AST.AssignmentExpression) return;
+        const left = Extract.unwrap(node.left);
+        // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
+        // to match React Compiler's StoreContext semantics.
+        if (left.type !== AST.Identifier) return;
+        if (localVars.has(left.name)) return;
+        if (isInsideNestedFunction(node, callback)) return;
+        violations.push({
+          messageId: "noReassigningOuterVariables",
+          node: left,
+        });
+      },
+    });
+    return violations;
+  }
   return merge({
     CallExpression(node) {
       if (!core.isUseMemoCall(context, node)) return;
 
-      // Check if the useMemo call result is assigned to a variable.
-      // Valid: const x = useMemo(...)
-      // Invalid: useMemo(...) — result discarded (side-effect usage)
+      // Rule 5: Result must be used (not discarded)
       let parent = node.parent;
       while (Check.isTypeExpression(parent)) parent = parent.parent;
       const isAssigned = parent.type === AST.VariableDeclarator
@@ -75,61 +99,62 @@ export function create(context: RuleContext<MessageID, []>) {
 
       if (!isAssigned) {
         context.report({
-          messageId: "notAssignedToVariable",
+          messageId: "resultMustBeUsed",
           node,
         });
         return;
       }
 
-      // Check that the first argument (the factory callback) actually returns a value.
       const [callbackArg] = node.arguments;
       if (callbackArg == null) return;
       const callback = Extract.unwrap(callbackArg);
       if (!Check.isFunction(callback)) return;
 
-      // useMemo callbacks may not accept parameters
+      // Rule 1: No Parameters — useMemo callbacks must not accept parameters
       if (callback.params.length > 0) {
         const firstParam = callback.params[0];
         if (firstParam == null) return;
         context.report({
-          messageId: "callbackWithParameters",
+          messageId: "noParameters",
           node: firstParam.type === AST.Identifier ? firstParam : callback,
         });
       }
 
-      // useMemo callbacks may not be async or generator functions
+      // Rule 2: No Async or Generator Functions — must synchronously return a value
       if (callback.async || callback.generator) {
         context.report({
-          messageId: "asyncOrGeneratorCallback",
+          messageId: "noAsyncOrGeneratorFunctions",
           node: callback,
         });
       }
 
-      // Arrow functions with a concise body always return a value (ex: `() => expr`)
+      // Rule 3: No Reassigning Outer Variables — must be pure
+      for (const violation of validateNoOuterVariableReassignment(callback)) {
+        context.report(violation);
+      }
+
+      // Rule 4: Must Return a Value — useMemo is for computing values, not side effects
+      // Arrow functions with concise body always return a value
       if (callback.type === AST.ArrowFunctionExpression && callback.body.type !== AST.BlockStatement) {
         return;
       }
 
-      // For block-body functions, check that at least one return statement has a value
       const body = callback.body;
       if (body.type !== AST.BlockStatement) return;
 
-      const returnStatements = getNestedReturnStatements(callbackArg);
-
-      // If there are no return statements at all, the function implicitly returns undefined
+      const returnStatements = getNestedReturnStatements(callback);
       if (returnStatements.length === 0) {
         context.report({
-          messageId: "missingReturnValue",
+          messageId: "mustReturnAValue",
           node: callbackArg,
         });
         return;
       }
 
-      // If every return statement lacks a value (bare `return;`), report the node
       const hasValueReturn = returnStatements.some((stmt) => stmt.argument != null);
       if (!hasValueReturn) {
         context.report({
-          messageId: "missingReturnValue",
+          messageId: "mustReturnAValue",
           node: callbackArg,
         });
       }
