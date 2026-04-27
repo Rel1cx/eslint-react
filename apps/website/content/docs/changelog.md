@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.5.3-beta.1 (2026-04-27)
+
+### 📝 Documentation
+
+- add IMPL vs SPEC diff documents for 5 React Compiler aligned rules (`d83ff84c2`)
+- add spec documentation for validation rules (`a69486e34`)
+- update all IMPL vs SPEC diff docs (`2d6575a84`)
+
+### 🪄 Improvements
+
+- expand compiler fixture coverage across 9 rules (`efa367254`)
+- bump postcss to 8.5.12 (`f491962e0`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.3-beta.0...v5.5.3-beta.1
+
 ## v5.5.3-beta.0 (2026-04-26)
 
 ### ✨ New
