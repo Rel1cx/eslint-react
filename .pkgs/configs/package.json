@@ -10,11 +10,11 @@
       "types": "./eslint.d.ts",
       "import": "./eslint.js"
     },
+    "./tsconfig.base.json": "./tsconfig.base.json",
     "./tsdown": {
       "types": "./tsdown.d.ts",
       "import": "./tsdown.js"
     },
-    "./tsconfig.base.json": "./tsconfig.base.json",
     "./tsl.config.ts": "./tsl.config.ts",
     "./typedoc.base.json": "./typedoc.base.json"
   },
@@ -32,7 +32,7 @@
     "eslint-plugin-perfectionist": "^5.9.0",
     "eslint-plugin-regexp": "^3.1.0",
     "eslint-plugin-unicorn": "^64.0.0",
-    "typescript-eslint": "^8.59.0"
+    "typescript-eslint": "^8.59.1"
   },
   "devDependencies": {
     "eslint": "^10.2.1",
@@ -45,9 +45,6 @@
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^6.0.3"
   },
-  "engines": {
-    "node": ">=22.0.0"
-  },
   "peerDependencies": {
     "eslint": "^10.2.1",
     "tsl": "^1.0.30",
@@ -56,5 +53,8 @@
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }

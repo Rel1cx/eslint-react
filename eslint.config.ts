@@ -9,6 +9,7 @@ import {
   strictTypeChecked,
 } from "@local/configs/eslint";
 import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
+import packageJson from "eslint-plugin-package-json";
 import { defineConfig } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
@@ -69,6 +70,8 @@ export default defineConfig(
       "perfectionist/sort-objects": "off",
     },
   },
+  // package.json linting (recommended-publishable preset)
+  packageJson.configs["recommended-publishable"],
   // Disable ESLint core rules that conflict with TypeScript
   disableProblematicEslintJsRules,
 );

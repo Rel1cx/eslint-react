@@ -29,15 +29,15 @@
     "@tsconfig/vite-react": "^7.0.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/types": "^8.59.0",
-    "@typescript-eslint/utils": "^8.59.0",
+    "@typescript-eslint/types": "^8.59.1",
+    "@typescript-eslint/utils": "^8.59.1",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "jiti": "^2.6.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.0",
+    "typescript-eslint": "^8.59.1",
     "vite": "^8.0.10"
   },
   "engines": {

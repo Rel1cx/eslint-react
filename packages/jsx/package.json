@@ -26,8 +26,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "./package.json"
+    "dist"
   ],
   "scripts": {
     "build": "tsdown --dts-resolve",
@@ -41,14 +40,16 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.59.0",
-    "@typescript-eslint/utils": "^8.59.0",
+    "@typescript-eslint/types": "^8.59.1",
+    "@typescript-eslint/utils": "^8.59.1",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "tsdown": "^0.21.10"
+    "eslint": "^10.2.1",
+    "tsdown": "^0.21.10",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "eslint": "^10.2.1",
