@@ -1,110 +1,93 @@
-# immutability: IMPL vs SPEC Diff
+# immutability IMPL vs. SPEC Report
 
-> IMPL: `immutability.ts` — ESLint rule implementation\
-> SPEC: `immutability.spec.md` — React Compiler `ValidateNoFreezingKnownMutableFunctions.ts` specification
-
----
-
-## 1. Underlying Mechanism Differences
-
-| Dimension              | SPEC (React Compiler)                                                                                           | IMPL (ESLint Rule)                                                                                                                           |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Analysis Layer**     | HIR (High-level IR) with effect inference (`AliasingEffect`, `Freeze`, `Mutate`, `MutateTransitive`)            | ESLint AST + Scope analysis (`@typescript-eslint/scope-manager`)                                                                             |
-| **Core Concept**       | A function that mutates captured locals is _itself_ a mutable value and must not be passed to frozen contexts   | Props and state are immutable — direct mutations must be caught at the call/assignment site                                                  |
-| **Detection Target**   | `FunctionExpression` values whose `aliasingEffects` contain `Mutate` / `MutateTransitive` on context variables  | `CallExpression` (mutating array methods) and `AssignmentExpression` (property assignments) whose root identifier resolves to state or props |
-| **Effect Propagation** | Propagates mutation effects across `LoadLocal` and `StoreLocal` instructions via a `contextMutationEffects` Map | No effect propagation; each mutation site is analyzed independently through scope resolution (`resolve`, `findVariable`)                     |
-| **Context Validation** | Triggers when an operand has `Effect.Freeze` (JSX props, hook arguments, hook return values)                    | Triggers when the enclosing function is identified as a component or hook at `Program:exit`                                                  |
+**IMPL**: `immutability.ts` (ESLint rule)\
+**SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
 
 ---
 
-## 2. Rule 1: Mutable Function in Frozen Context (SPEC-only Concept)
+## 1. Underlying Mechanism
 
-| Aspect               | SPEC                                                                                                             | IMPL                                                                                                                                                 |
-| -------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **What is detected** | Functions that mutate captured local variables being passed to JSX props, hook arguments, or returned from hooks | **Not implemented.** IMPL does not track whether a function mutates captured variables, nor does it detect when such functions enter frozen contexts |
-| **Example (SPEC)**   | `const fn = () => { cache.set("k", "v"); }; return <Foo fn={fn} />;` → Error                                     | Would **not** report unless `cache` itself is state/props and is mutated directly                                                                    |
-| **Detection Method** | HIR `FunctionExpression.aliasingEffects` checked against `fn.context`                                            | N/A                                                                                                                                                  |
+The SPEC operates on the React Compiler's HIR with effect inference (`AliasingEffect`, `Freeze`, `Mutate`, `MutateTransitive`). Its core concept is that a function which mutates captured locals is itself a mutable value and must not be passed to frozen contexts. It propagates mutation effects across `LoadLocal` and `StoreLocal` instructions via a `contextMutationEffects` map, triggering when an operand has `Effect.Freeze` (JSX props, hook arguments, hook return values).
 
-**Conclusion**: This entire validation concept from SPEC is **absent** in IMPL. IMPL focuses on direct mutations rather than function-level mutability.
+The IMPL operates on the ESLint AST with `@typescript-eslint/scope-manager`. It treats props and state as immutable and catches direct mutations at the call or assignment site. Each mutation site is analyzed independently through scope resolution (`resolve`, `findVariable`) with no effect propagation. It triggers when the enclosing function is identified as a component or hook at `Program:exit`.
 
 ---
 
-## 3. Rule 2: Direct State/Props Mutation (IMPL-only Concept)
+## 2. Rule 1: Mutable Function in Frozen Context
 
-| Aspect                   | SPEC                                                                                                                                                                                      | IMPL                                                                                                                           |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **What is detected**     | **Not explicitly covered.** The SPEC pass does not flag direct `state.push()` or `state.foo = bar` at the mutation site unless the mutation happens inside a function that is then frozen | Direct mutations of state/props via array methods (`push`, `sort`, `splice`, etc.) or property assignments (`state.foo = bar`) |
-| **State Identification** | Through general HIR context analysis                                                                                                                                                      | Explicit `isStateValue()` helper that traces identifiers back to `useState(…)` or `useReducer(…)` destructured value (index 0) |
-| **Props Identification** | Through `fn.context` (closure-captured variables)                                                                                                                                         | Explicit `getPropsDefiningFunction()` that checks if identifier is a `Parameter` definition of an ancestor function            |
-| **Example (IMPL)**       | N/A                                                                                                                                                                                       | `const [items] = useState([1]); items.push(4);` → Error                                                                        |
+The SPEC detects functions that mutate captured local variables being passed to JSX props, hook arguments, or returned from hooks. It checks `FunctionExpression.aliasingEffects` against `fn.context`.
 
-**Conclusion**: This is the **primary focus** of IMPL and is not directly mapped in SPEC.
+The IMPL does **not** track whether a function mutates captured variables, nor does it detect when such functions enter frozen contexts. It would only report if the mutated object itself is state/props and is mutated directly.
+
+**Verdict**: This entire validation concept from the SPEC is absent in the IMPL. The IMPL focuses on direct mutations rather than function-level mutability.
 
 ---
 
-## 4. Exception Handling Differences
+## 3. Rule 2: Direct State/Props Mutation
 
-| Aspect                        | SPEC                                                          | IMPL                                                                                                                           |
-| ----------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **Ref Mutations**             | Explicitly allowed via `isRefOrRefLikeMutableType` check      | Not explicitly tracked; refs are treated as regular variables unless they happen to match state/props heuristics               |
-| **Immer / Draft**             | Not mentioned                                                 | Explicitly excluded: any mutation whose root identifier is named `draft` is ignored                                            |
-| **Event Handler Parameters**  | N/A (context-based, event handlers are not component context) | Explicitly excluded via `propsDefiningFunc` verification: the parameter's defining function must itself be a component or hook |
-| **Nested Function Mutations** | Covered naturally via `fn.context`                            | Scope resolution traces references through nested closures back to the original parameter/state declaration                    |
+The SPEC does not explicitly flag direct `state.push()` or `state.foo = bar` at the mutation site unless the mutation happens inside a function that is then frozen.
+
+The IMPL detects direct mutations of state/props via:
+
+- Array methods (`push`, `sort`, `splice`, etc.)
+- Property assignments (`state.foo = bar`)
+
+State identification uses an explicit `isStateValue()` helper tracing identifiers back to `useState(…)` or `useReducer(…)` destructured values (index 0). Props identification uses `getPropsDefiningFunction()` checking if an identifier is a `Parameter` definition of an ancestor function.
+
+**Verdict**: This is the primary focus of the IMPL and is not directly mapped in the SPEC.
 
 ---
 
-## 5. Error Reporting Differences
+## 4. Exception Handling
 
-| Aspect                  | SPEC                                                                                                          | IMPL                                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| **Error Locations**     | **Dual-location**: reports both where the mutable function is _used_ (frozen) and where the _mutation_ occurs | **Single-location**: reports only the mutation site (`CallExpression` or `AssignmentExpression`) |
-| **Error Message Style** | "This function may (indirectly) reassign or modify `cache` after render"                                      | "Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead."   |
-| **Diagnostic Category** | `ErrorCategory.Immutability` with `CompilerDiagnostic`                                                        | ESLint `meta.messages` with `mutatingArrayMethod` / `mutatingAssignment`                         |
+- **Ref mutations**: The SPEC explicitly allows them via `isRefOrRefLikeMutableType`. The IMPL does not explicitly track refs; they are treated as regular variables unless they happen to match state/props heuristics.
+- **Immer / Draft**: The SPEC does not mention this. The IMPL explicitly excludes any mutation whose root identifier is named `draft`.
+- **Event handler parameters**: The SPEC naturally excludes them because event handlers are not component context. The IMPL explicitly excludes them via `propsDefiningFunc` verification: the parameter's defining function must itself be a component or hook.
+- **Nested function mutations**: The SPEC covers them naturally via `fn.context`. The IMPL traces references through nested closures back to the original parameter/state declaration.
+
+---
+
+## 5. Error Reporting
+
+The SPEC reports **dual-location**: both where the mutable function is used (frozen) and where the mutation occurs. Its messages describe function-level mutability (e.g., "This function may (indirectly) reassign or modify `cache` after render").
+
+The IMPL reports **single-location**: only the mutation site (`CallExpression` or `AssignmentExpression`). Its messages describe value-level immutability (e.g., "Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead.").
 
 ---
 
 ## 6. Message ID Mapping
 
-There is **no direct one-to-one mapping** between SPEC and IMPL because the rules address fundamentally different violation patterns:
+There is no direct one-to-one mapping because the rules address fundamentally different violation patterns:
 
-| MessageID (IMPL)      | Conceptual Overlap with SPEC                                                                                                             |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `mutatingArrayMethod` | **No SPEC equivalent.** SPEC does not flag array mutations directly; it flags the _function containing them_ when frozen                 |
-| `mutatingAssignment`  | **No SPEC equivalent.** SPEC flags `StoreContext` on captured variables inside functions, not direct property assignments on state/props |
+- `mutatingArrayMethod` — **No SPEC equivalent.** The SPEC does not flag array mutations directly; it flags the function containing them when frozen.
+- `mutatingAssignment` — **No SPEC equivalent.** The SPEC flags `StoreContext` on captured variables inside functions, not direct property assignments on state/props.
 
-SPEC error descriptions (from `CompilerDiagnostic`):
+SPEC error descriptions:
 
 - "Cannot modify local variables after render completes"
 - "This argument is a function which may reassign or mutate [variable] after render..."
 
-These describe **function-level mutability**, whereas IMPL messages describe **value-level immutability**.
+These describe function-level mutability, whereas IMPL messages describe value-level immutability.
 
 ---
 
 ## 7. Test Case Overlap
 
-Several IMPL test cases are annotated as ported from React Compiler fixtures (e.g., `error.modify-state.js`, `error.mutate-props.js`, `error.invalid-mutation-in-closure.js`). However, the **reporting mechanism differs**:
+Several IMPL test cases are ported from React Compiler fixtures (e.g., `error.modify-state.js`, `error.mutate-props.js`, `error.invalid-mutation-in-closure.js`). However, the reporting mechanism differs:
 
-| Fixture Source                         | SPEC Behavior                                                                         | IMPL Behavior                                                        |
-| -------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `error.modify-state.js`                | Likely caught by broader compiler immutability passes                                 | Caught by `mutatingAssignment` on direct `state.foo = 1`             |
-| `error.mutate-props.js`                | Likely caught by broader compiler immutability passes                                 | Caught by `mutatingAssignment` on direct `props.test = 1`            |
-| `error.invalid-mutation-in-closure.js` | Would be caught by `ValidateNoFreezingKnownMutableFunctions` if the closure is frozen | Caught by `mutatingAssignment` because `options` is a hook parameter |
+- `error.modify-state.js` — SPEC: caught by broader compiler immutability passes; IMPL: caught by `mutatingAssignment` on direct `state.foo = 1`.
+- `error.mutate-props.js` — SPEC: caught by broader compiler immutability passes; IMPL: caught by `mutatingAssignment` on direct `props.test = 1`.
+- `error.invalid-mutation-in-closure.js` — SPEC: caught by `ValidateNoFreezingKnownMutableFunctions` if the closure is frozen; IMPL: caught by `mutatingAssignment` because `options` is a hook parameter.
 
 ---
 
-## 8. Summary of Key Gaps / Deviations
+## 8. Key Gaps and Deviations
 
-1. **Fundamental Rule Mismatch**: IMPL does not implement `ValidateNoFreezingKnownMutableFunctions`. Instead, it implements a distinct rule focused on direct state/props mutation. The two specs are conceptually adjacent (both concern immutability) but operationally different.
-
-2. **Missing Frozen-Context Detection**: IMPL has no concept of `Freeze` effects. It does not detect when a mutable function is passed as a JSX prop, hook argument, or hook return value.
-
-3. **Missing Function-Level Mutability Tracking**: IMPL does not analyze whether a function mutates captured locals. It only checks whether the mutated object itself is state/props.
-
-4. **Missing Effect Propagation**: IMPL does not propagate mutation effects through variable assignments. Each mutation is analyzed independently at its AST site.
-
-5. **Missing Dual-Location Diagnostics**: IMPL reports only the mutation site, whereas SPEC reports both the usage location (freeze point) and the mutation location.
-
+1. **Fundamental Rule Mismatch**: The IMPL does not implement `ValidateNoFreezingKnownMutableFunctions`. Instead, it implements a distinct rule focused on direct state/props mutation. The two specs are conceptually adjacent but operationally different.
+2. **Missing Frozen-Context Detection**: The IMPL has no concept of `Freeze` effects. It does not detect when a mutable function is passed as a JSX prop, hook argument, or hook return value.
+3. **Missing Function-Level Mutability Tracking**: The IMPL does not analyze whether a function mutates captured locals. It only checks whether the mutated object itself is state/props.
+4. **Missing Effect Propagation**: The IMPL does not propagate mutation effects through variable assignments. Each mutation is analyzed independently at its AST site.
+5. **Missing Dual-Location Diagnostics**: The IMPL reports only the mutation site, whereas the SPEC reports both the usage location (freeze point) and the mutation location.
 6. **Additional IMPL Capabilities** (not in SPEC):
    - Explicit Immer support via `draft` variable exclusion
    - Explicit event handler parameter exclusion
