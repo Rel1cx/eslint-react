@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.5.3-beta.2 (2026-04-28)
+
+### 📝 Documentation
+
+- Add rule feature docs (`0f453bfc7`)
+- Update roadmap to remove completed Docs and Website items (`d1a8c7881`)
+
+### 🪄 Improvements
+
+- Bump @typescript-eslint packages to 8.59.1 and add typescript as devDep (`7a1dcdc24`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.3-beta.1...v5.5.3-beta.2
+
 ## v5.5.3-beta.1 (2026-04-27)
 
 ### 📝 Documentation
