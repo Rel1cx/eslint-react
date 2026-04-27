@@ -111,8 +111,8 @@ export function create(context: RuleContext<MessageID, []>) {
 
   /**
    * Check if `name` appears anywhere inside a parameter pattern.
-   * @param pattern
-   * @param name
+   * @param pattern - The parameter pattern to search in.
+   * @param name - The identifier name to look for.
    */
   function identifierExistsInPattern(pattern: TSESTree.Node, name: string): boolean {
     switch (pattern.type) {

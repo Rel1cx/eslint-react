@@ -59,7 +59,7 @@ export function getDynamicComponentSource(
   isInsideRender: (node: TSESTree.Node) => boolean,
   seen = new Set<TSESLint.Scope.Variable>(),
 ): DynamicComponentResult {
-  if (seen.has(variable)) return { isDynamic: false, creationNode: null };
+  if (seen.has(variable)) return { creationNode: null, isDynamic: false };
   seen.add(variable);
 
   for (const def of variable.defs) {
@@ -67,17 +67,17 @@ export function getDynamicComponentSource(
     if (!isInsideRender(defNode)) continue;
 
     if (defNode.type === AST.FunctionDeclaration) {
-      return { isDynamic: true, creationNode: defNode };
+      return { creationNode: defNode, isDynamic: true };
     }
     if (defNode.type === AST.ClassDeclaration) {
-      return { isDynamic: true, creationNode: defNode };
+      return { creationNode: defNode, isDynamic: true };
     }
 
     if (defNode.type === AST.VariableDeclarator) {
       if (defNode.init != null) {
         const source = resolveDynamicValue(context, defNode.init, isInsideRender, seen);
         if (source != null) {
-          return { isDynamic: true, creationNode: source };
+          return { creationNode: source, isDynamic: true };
         }
       }
 
@@ -90,14 +90,14 @@ export function getDynamicComponentSource(
         ) {
           const source = resolveDynamicValue(context, id.parent.right, isInsideRender, seen);
           if (source != null) {
-            return { isDynamic: true, creationNode: source };
+            return { creationNode: source, isDynamic: true };
           }
         }
       }
     }
   }
 
-  return { isDynamic: false, creationNode: null };
+  return { creationNode: null, isDynamic: false };
 }
 
 export function isDynamicComponent(

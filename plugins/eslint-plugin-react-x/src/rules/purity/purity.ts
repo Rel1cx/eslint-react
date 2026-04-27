@@ -38,9 +38,9 @@ export default createRule<[], MessageID>({
  * Follows simple assignment chains like `const M = Math` or `const w = window`.
  * Returns `null` if the identifier is locally defined (parameter, import, function declaration, etc.)
  * or resolves to a non-builtin source.
- * @param context
- * @param node
- * @param visited
+ * @param context - The rule context.
+ * @param node - The identifier node to resolve.
+ * @param visited - A set of already visited identifier names to prevent infinite loops.
  */
 function resolveBuiltinObjectName(
   context: RuleContext,
