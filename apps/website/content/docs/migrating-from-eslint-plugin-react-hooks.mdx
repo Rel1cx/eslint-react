@@ -32,24 +32,24 @@ Rules specific to the React Compiler runtime (such as `config`, `gating`, `incom
 
 The following table compares all rules from `eslint-plugin-react-hooks` with their ESLint React equivalents:
 
-| `eslint-plugin-react-hooks` Rule Name                                                                                    | New Rule Name                                            | Prev Status | Status |
-| :----------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- | :---------- | :----- |
-| [`exhaustive-deps`](https://react.dev/reference/eslint-plugin-react-hooks/lints/exhaustive-deps)                         | [`exhaustive-deps`](/docs/rules/exhaustive-deps)         | ✅           | 🔧     |
-| [`rules-of-hooks`](https://react.dev/reference/eslint-plugin-react-hooks/lints/rules-of-hooks)                           | [`rules-of-hooks`](/docs/rules/rules-of-hooks)           | ✅           | 🔧     |
-| [`config`](https://react.dev/reference/eslint-plugin-react-hooks/lints/config)                                           |                                                          | ✅           | ❌      |
-| [`error-boundaries`](https://react.dev/reference/eslint-plugin-react-hooks/lints/error-boundaries)                       | [`error-boundaries`](/docs/rules/error-boundaries)       | ✅           | ✅      |
-| [`gating`](https://react.dev/reference/eslint-plugin-react-hooks/lints/gating)                                           |                                                          | ✅           | ❌      |
-| [`globals`](https://react.dev/reference/eslint-plugin-react-hooks/lints/globals)                                         | [`globals`](/docs/rules/globals)                         | ✅           | 🟡 🧪  |
-| [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability)                               | [`immutability`](/docs/rules/immutability)               | ✅           | 🟡 🧪  |
-| [`incompatible-library`](https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library)               |                                                          | ✅           | ❌      |
-| [`preserve-manual-memoization`](https://react.dev/reference/eslint-plugin-react-hooks/lints/preserve-manual-memoization) |                                                          | ✅           | ❌      |
-| [`purity`](https://react.dev/reference/eslint-plugin-react-hooks/lints/purity)                                           | [`purity`](/docs/rules/purity)                           | ✅           | 🟡 🧪  |
-| [`refs`](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs)                                               | [`refs`](/docs/rules/refs)                               | ✅           | 🟡 🧪  |
-| [`set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect)                 | [`set-state-in-effect`](/docs/rules/set-state-in-effect) | ✅           | ✅      |
-| [`set-state-in-render`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render)                 | [`set-state-in-render`](/docs/rules/set-state-in-render) | ✅           | 🧪     |
-| [`static-components`](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)                     | [`static-components`](/docs/rules/static-components)     | ✅           | 🧪     |
-| [`unsupported-syntax`](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax)                   | [`unsupported-syntax`](/docs/rules/unsupported-syntax)   | ✅           | ✅      |
-| [`use-memo`](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo)                                       | [`use-memo`](/docs/rules/use-memo)                       | ✅           | ✅      |
+| `eslint-plugin-react-hooks` Rule Name                                                                                    | New Rule Name                                            | Prev Status | Status | Diff |
+| :----------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------- | :---------- | :----- | :--- |
+| [`exhaustive-deps`](https://react.dev/reference/eslint-plugin-react-hooks/lints/exhaustive-deps)                         | [`exhaustive-deps`](/docs/rules/exhaustive-deps)         | ✅           | 🔧     | [port](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/exhaustive-deps/README.md) |
+| [`rules-of-hooks`](https://react.dev/reference/eslint-plugin-react-hooks/lints/rules-of-hooks)                           | [`rules-of-hooks`](/docs/rules/rules-of-hooks)           | ✅           | 🔧     | [port](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/rules-of-hooks/README.md) |
+| [`config`](https://react.dev/reference/eslint-plugin-react-hooks/lints/config)                                           |                                                          | ✅           | ❌      |      |
+| [`error-boundaries`](https://react.dev/reference/eslint-plugin-react-hooks/lints/error-boundaries)                       | [`error-boundaries`](/docs/rules/error-boundaries)       | ✅           | ✅      | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.spec.diff.md) |
+| [`gating`](https://react.dev/reference/eslint-plugin-react-hooks/lints/gating)                                           |                                                          | ✅           | ❌      |      |
+| [`globals`](https://react.dev/reference/eslint-plugin-react-hooks/lints/globals)                                         | [`globals`](/docs/rules/globals)                         | ✅           | 🟡 🧪  | todo |
+| [`immutability`](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability)                               | [`immutability`](/docs/rules/immutability)               | ✅           | 🟡 🧪  | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/immutability/immutability.spec.diff.md) |
+| [`incompatible-library`](https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library)               |                                                          | ✅           | ❌      |      |
+| [`preserve-manual-memoization`](https://react.dev/reference/eslint-plugin-react-hooks/lints/preserve-manual-memoization) |                                                          | ✅           | ❌      |      |
+| [`purity`](https://react.dev/reference/eslint-plugin-react-hooks/lints/purity)                                           | [`purity`](/docs/rules/purity)                           | ✅           | 🟡 🧪  | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/purity/purity.spec.diff.md) |
+| [`refs`](https://react.dev/reference/eslint-plugin-react-hooks/lints/refs)                                               | [`refs`](/docs/rules/refs)                               | ✅           | 🟡 🧪  | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/refs/refs.spec.diff.md) |
+| [`set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect)                 | [`set-state-in-effect`](/docs/rules/set-state-in-effect) | ✅           | ✅      | todo |
+| [`set-state-in-render`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-render)                 | [`set-state-in-render`](/docs/rules/set-state-in-render) | ✅           | 🧪     | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/set-state-in-render/set-state-in-render.spec.diff.md) |
+| [`static-components`](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)                     | [`static-components`](/docs/rules/static-components)     | ✅           | 🧪     | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/static-components/static-components.spec.diff.md) |
+| [`unsupported-syntax`](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax)                   | [`unsupported-syntax`](/docs/rules/unsupported-syntax)   | ✅           | ✅      | todo |
+| [`use-memo`](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo)                                       | [`use-memo`](/docs/rules/use-memo)                       | ✅           | ✅      | [diff](https://github.com/Rel1cx/eslint-react/blob/main/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.spec.diff.md) |
 
 ### ESLint React Column
 
@@ -57,6 +57,7 @@ The following table compares all rules from `eslint-plugin-react-hooks` with the
 - Multiple rules separated by `+` indicate that together they provide equivalent functionality
 - Rules marked 🧪 are experimental and their behavior may change in future releases
 - Rules marked ❌ are React Compiler-specific and have no equivalent in ESLint React
+- The **Diff** column links to implementation divergence reports comparing the ESLint rule with the React Compiler specification. `port` means the rule is ported verbatim from `eslint-plugin-react-hooks`. `todo` means the report has not been written yet.
 
 ## Migration Preset
 
