@@ -67,7 +67,7 @@
     "postcss": "^8.5.12",
     "tailwindcss": "^4.2.4",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.12.0",
+    "tsl-dx": "^0.12.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1"
   }

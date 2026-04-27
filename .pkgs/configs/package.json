@@ -39,7 +39,7 @@
     "tinyglobby": "^0.2.16",
     "tsdown": "^0.21.10",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.12.0",
+    "tsl-dx": "^0.12.1",
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
