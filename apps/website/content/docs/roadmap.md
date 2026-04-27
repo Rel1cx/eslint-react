@@ -74,15 +74,6 @@ Minimum supported versions:
 - [x] Added `publishConfig.access` to packages for correct npm publishing (v5.3.0).
 - [x] Enabled `noUnusedLocals` and `noUnusedParameters` across the monorepo (v5.3.3).
 
-### Documentation
-
-- [x] Added an Examples page (`/docs/examples`), listing all official example projects and links.
-- [x] Added migration examples for `no-set-state` and `no-string-refs` rules (v5.3.0).
-
-### Website Improvements
-
-- [x] Improved accessibility and unified layout configuration.
-
 ## Milestone 4.0
 
 ### System Requirements
