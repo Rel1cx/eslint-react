@@ -433,6 +433,261 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
+    // Derived from react-main/compiler allow-modify-global-in-callback-jsx.js
+    {
+      code: tsx`
+        function Component({value}) {
+          const onClick = () => {
+            someGlobal.value = value;
+          };
+          return useMemo(() => {
+            return <div onClick={onClick}>{someGlobal.value}</div>;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo has a missing dependency: 'onClick'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [onClick]`,
+              output: tsx`
+                function Component({value}) {
+                  const onClick = () => {
+                    someGlobal.value = value;
+                  };
+                  return useMemo(() => {
+                    return <div onClick={onClick}>{someGlobal.value}</div>;
+                  }, [onClick]);
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Derived from react-main/compiler array-pattern-spread-creates-array.js
+    {
+      code: tsx`
+        function Component(props) {
+          const x = useMemo(() => makeObject_Primitives(), []);
+          const rest = useMemo(() => {
+            const [_, ...rest] = props.array;
+            rest.push(x);
+            return rest;
+          });
+          return rest;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // Derived from react-main/compiler block-scoping-switch-variable-scoping.js
+    {
+      code: tsx`
+        function Component(props) {
+          const outerHandlers = useMemo(() => {
+            let handlers = {value: props.value};
+            switch (props.test) {
+              case true: {
+                console.log(handlers.value);
+                break;
+              }
+              default: {
+              }
+            }
+            return handlers;
+          });
+          return outerHandlers;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // Derived from react-main/compiler error.invalid-reassign-variable-in-usememo.js
+    {
+      code: tsx`
+        function Component() {
+          let x;
+          const y = useMemo(() => {
+            let z;
+            x = [];
+            z = true;
+            return z;
+          }, []);
+          return [x, y];
+        }
+      `,
+      errors: [
+        {
+          message:
+            `Assignments to the 'x' variable from inside React Hook useMemo will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the '.current' property. Otherwise, you can move this variable directly inside useMemo.`,
+        },
+      ],
+    },
+    // Derived from react-main/compiler useCallback-maybe-modify-free-variable-dont-preserve-memoization-guarantee.js
+    {
+      code: tsx`
+        function Component(props) {
+          const free = makeObject_Primitives();
+          const free2 = makeObject_Primitives();
+          const part = free2.part;
+          useHook();
+          const callback = useCallback(() => {
+            const x = makeObject_Primitives();
+            x.value = props.value;
+            mutate(x, free, part);
+          }, [props.value]);
+          mutate(free, part);
+          return callback;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useCallback has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [free, part, props.value]`,
+              output: tsx`
+                function Component(props) {
+                  const free = makeObject_Primitives();
+                  const free2 = makeObject_Primitives();
+                  const part = free2.part;
+                  useHook();
+                  const callback = useCallback(() => {
+                    const x = makeObject_Primitives();
+                    x.value = props.value;
+                    mutate(x, free, part);
+                  }, [free, part, props.value]);
+                  mutate(free, part);
+                  return callback;
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Derived from react-main/compiler useMemo-mabye-modified-free-variable-dont-preserve-memoization-guarantees.js
+    {
+      code: tsx`
+        function Component(props) {
+          const free = makeObject_Primitives();
+          const free2 = makeObject_Primitives();
+          const part = free2.part;
+          useHook();
+          const object = useMemo(() => {
+            const x = makeObject_Primitives();
+            x.value = props.value;
+            mutate(x, free, part);
+            return x;
+          }, [props.value]);
+          identity(free);
+          identity(part);
+          return object;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [free, part, props.value]`,
+              output: tsx`
+                function Component(props) {
+                  const free = makeObject_Primitives();
+                  const free2 = makeObject_Primitives();
+                  const part = free2.part;
+                  useHook();
+                  const object = useMemo(() => {
+                    const x = makeObject_Primitives();
+                    x.value = props.value;
+                    mutate(x, free, part);
+                    return x;
+                  }, [free, part, props.value]);
+                  identity(free);
+                  identity(part);
+                  return object;
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Derived from react-main/compiler useMemo-with-optional.js
+    {
+      code: tsx`
+        function Component(props) {
+          return (
+            useMemo(() => {
+              return [props.value];
+            }) || []
+          );
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // Derived from react-main/compiler useCallback-set-ref-nested-property.js
+    {
+      code: tsx`
+        function Component({}) {
+          const ref = useRef({inner: null});
+          const onChange = useCallback(event => {
+            ref.current.inner = event.target.value;
+          });
+          return <input onChange={onChange} />;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+        },
+      ],
+    },
+    // Derived from react-main/compiler error.invalid-useMemo-callback-args.js
+    {
+      code: tsx`
+        function component(a, b) {
+          let x = useMemo(c => a, []);
+          return x;
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook useMemo has a missing dependency: 'a'. Either include it or remove the dependency array.`,
+          suggestions: [
+            {
+              desc: `Update the dependencies array to be: [a]`,
+              output: tsx`
+                function component(a, b) {
+                  let x = useMemo(c => a, [a]);
+                  return x;
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     // Empty dependency array with no external deps
@@ -610,6 +865,177 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
       options: [{ additionalHooks: "use(Data|Custom)Effect" }],
+    },
+    // Derived from react-main/compiler drop-methodcall-usecallback.js
+    // useCallback with correct deps
+    {
+      code: tsx`
+        function Component(props) {
+          const onClick = React.useCallback(() => {
+            console.log(props.value);
+          }, [props.value]);
+          return <div onClick={onClick} />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler drop-methodcall-usememo.js
+    // useMemo with correct deps
+    {
+      code: tsx`
+        function Component(props) {
+          const x = React.useMemo(() => {
+            const x = [];
+            x.push(props.value);
+            return x;
+          }, [props.value]);
+          return x;
+        }
+      `,
+    },
+    // Derived from react-main/compiler babel-existing-react-import.js
+    // useMemo with correct deps
+    {
+      code: tsx`
+        function Component(props) {
+          const [x] = useState(0);
+          const expensiveNumber = useMemo(() => calculateExpensiveNumber(x), [x]);
+          return <div>{expensiveNumber}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-ref-access-in-effect.js
+    // ref mutation in effect with empty deps (ref is stable)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const [state, setState] = useState(false);
+          useEffect(() => {
+            ref.current = 'Ok';
+          }, []);
+          useEffect(() => {
+            setState(true);
+          }, []);
+          return <Child key={String(state)} ref={ref} />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-ref-access-in-unused-callback-nested.js
+    // ref mutation in nested callback inside effect with empty deps
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const [state, setState] = useState(false);
+          useEffect(() => {
+            const callback = () => {
+              ref.current = 'Ok';
+            };
+          }, []);
+          useEffect(() => {
+            setState(true);
+          }, []);
+          return <Child key={String(state)} ref={ref} />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-global-mutation-unused-usecallback.js
+    // useCallback modifying global with empty deps
+    {
+      code: tsx`
+        function Component() {
+          const callback = useCallback(() => {
+            window.foo = true;
+          }, []);
+          return <div>Ok</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.invalid-hoisting-setstate.js
+    // setState in effect with empty deps (setState is stable)
+    {
+      code: tsx`
+        function Foo() {
+          useEffect(() => setState(2), []);
+          const [state, setState] = useState(0);
+          return <div>{state}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler useCallback-maybe-modify-free-variable-preserve-memoization-guarantee.js
+    // useCallback with correct deps
+    {
+      code: tsx`
+        function Component(props) {
+          const free = makeObject_Primitives();
+          const free2 = makeObject_Primitives();
+          const part = free2.part;
+          useHook();
+          const callback = useCallback(() => {
+            const x = makeObject_Primitives();
+            x.value = props.value;
+            mutate(x, free, part);
+          }, [props.value, free, part]);
+          mutate(free, part);
+          return callback;
+        }
+      `,
+    },
+    // Derived from react-main/compiler useMemo-mabye-modified-free-variable-preserve-memoization-guarantees.js
+    // useMemo with correct deps
+    {
+      code: tsx`
+        function Component(props) {
+          const free = makeObject_Primitives();
+          const free2 = makeObject_Primitives();
+          const part = free2.part;
+          useHook();
+          const object = useMemo(() => {
+            const x = makeObject_Primitives();
+            x.value = props.value;
+            mutate(x, free, part);
+            return x;
+          }, [props.value, free, part]);
+          identity(free);
+          identity(part);
+          return object;
+        }
+      `,
+    },
+    // Derived from react-main/compiler useMemo-arrow-implicit-return.js
+    // useMemo with empty deps and no external values
+    {
+      code: tsx`
+        function Component() {
+          const value = useMemo(() => computeValue(), []);
+          return <div>{value}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler preserve-use-memo-unused-state.js
+    // setState setter in useCallback with empty deps (stable)
+    {
+      code: tsx`
+        function useFoo() {
+          const [, setState] = useState();
+          return useCallback(() => {
+            setState(x => x + 1);
+          }, []);
+        }
+      `,
+    },
+    // Derived from react-main/compiler repro-preserve-memoization-inner-destructured-value-mistaken-as-dependency.js
+    // useMemo with correct deps
+    {
+      code: tsx`
+        function useInputValue(input) {
+          const object = React.useMemo(() => {
+            const {value} = identity(input);
+            return {value};
+          }, [input]);
+          return object;
+        }
+      `,
     },
   ],
 });

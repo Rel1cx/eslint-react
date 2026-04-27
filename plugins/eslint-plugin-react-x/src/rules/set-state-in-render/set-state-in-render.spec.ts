@@ -251,6 +251,48 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Aliased setState call (from React Compiler fixtures)
+    // NOTE: The IMPL only flags the direct setState call (setX), not the alias
+    // (aliased). The SPEC flags both because it tracks all references to the
+    // state setter through HIR StoreLocal/LoadLocal propagation.
+    {
+      code: tsx`
+        function Component(props) {
+          const [x, setX] = useState(0);
+          const aliased = setX;
+          setX(1);
+          aliased(2);
+          return x;
+        }
+      `,
+      errors: [
+        { data: { name: "setX" }, messageId: "default" },
+      ],
+    },
+    // Unbound state destructuring (hole in array pattern) (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          let [, setState] = useState();
+          setState(1);
+          return props.foo;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
+    // setState after a loop (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          const [state, setState] = useState(false);
+          for (const _ of props) {
+          }
+          setState(true);
+          return state;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -518,6 +560,81 @@ ruleTester.run(RULE_NAME, rule, {
           setPrevItems(items);
           return <div>changed</div>;
         };
+      `,
+    },
+    // setState inside lambda called during render (from React Compiler fixtures)
+    // NOTE: The IMPL does not flag this because setState is inside a nested function.
+    // The rule only checks if the CallExpression is directly in a conditional/event handler.
+    // The SPEC flags it because the lambda is invoked synchronously during render.
+    {
+      code: tsx`
+        function Component(props) {
+          const [x, setX] = useState(0);
+          const foo = () => {
+            setX(1);
+          };
+          foo();
+          return [x];
+        }
+      `,
+    },
+    // setState inside nested lambdas called during render (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          const [x, setX] = useState(0);
+          const foo = () => {
+            setX(1);
+          };
+          const bar = () => {
+            foo();
+          };
+          const baz = () => {
+            bar();
+          };
+          baz();
+          return [x];
+        }
+      `,
+    },
+    // Uncalled callback with setState inside switch (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          const [currentStep, setCurrentStep] = useState(0);
+          const onSubmit = errorEvent => {
+            setCurrentStep(1);
+          };
+          switch (currentStep) {
+            case 0:
+              return <div />;
+            case 1:
+              return <div onSubmit={onSubmit} />;
+            default:
+              return <div />;
+          }
+        }
+      `,
+    },
+    // Nested lambda with conditional setState call chain (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          const [x, setX] = useState(0);
+          const foo = () => {
+            setX(1);
+          };
+          const bar = () => {
+            if (props.cond) {
+              foo();
+            }
+          };
+          const baz = () => {
+            bar();
+          };
+          baz();
+          return [x];
+        }
       `,
     },
   ],

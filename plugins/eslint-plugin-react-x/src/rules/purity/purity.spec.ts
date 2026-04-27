@@ -947,6 +947,27 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // globalThis.fetch called during render (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          globalThis.fetch("/api");
+          return <div>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Aliased globalThis calling impure function during render (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const g = globalThis;
+          g.fetch("/api");
+          return <div>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1532,6 +1553,35 @@ ruleTester.run(RULE_NAME, rule, {
               shadowColor: "red",
             }} />
           );
+        }
+      `,
+    },
+    // Math.random inside onPress callback (from React Compiler fixtures)
+    {
+      code: tsx`
+        import {useSharedValue} from 'react-native-reanimated';
+
+        function SomeComponent() {
+          const sharedVal = useSharedValue(0);
+          return (
+            <Button
+              onPress={() => (sharedVal.value = Math.random())}
+              title="Randomize"
+            />
+          );
+        }
+      `,
+    },
+    // globalThis alias for setTimeout in effect (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          useEffect(() => {
+            const g = globalThis;
+            const id = g.setTimeout(() => {}, 1000);
+            return () => g.clearTimeout(id);
+          }, []);
+          return <div>Content</div>;
         }
       `,
     },

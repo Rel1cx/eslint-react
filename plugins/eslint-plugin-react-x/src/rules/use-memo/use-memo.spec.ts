@@ -567,6 +567,173 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
+    // useMemo with switch statement and returns (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          let y;
+          switch (props.switch) {
+            case 'foo': {
+              return 'foo';
+            }
+            case 'bar': {
+              y = 'bar';
+              break;
+            }
+            default: {
+              y = props.y;
+            }
+          }
+          return y;
+        });
+        return x;
+      }
+    `,
+    // useMemo with switch statement and no fallthrough (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          switch (props.key) {
+            case 'key': {
+              return props.value;
+            }
+            default: {
+              return props.defaultValue;
+            }
+          }
+        });
+        return x;
+      }
+    `,
+    // useMemo with labeled statement and unconditional return (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          label: {
+            return props.value;
+          }
+        });
+        return x;
+      }
+    `,
+    // useMemo with nested ifs and return (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          if (props.cond) {
+            if (props.cond) {
+              return props.value;
+            }
+          }
+        }, [props.cond]);
+        return x;
+      }
+    `,
+    // useMemo with logical expression concise body (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => props.a && props.b);
+        return x;
+      }
+    `,
+    // useMemo with multiple if-else and return (from React Compiler fixtures)
+    tsx`
+      import {useMemo} from 'react';
+
+      function Component(props) {
+        const x = useMemo(() => {
+          let y = [];
+          if (props.cond) {
+            y.push(props.a);
+          }
+          if (props.cond2) {
+            return y;
+          }
+          y.push(props.b);
+          return y;
+        });
+        return x;
+      }
+    `,
+    // useMemo with multiple returns in loop (from React Compiler fixtures)
+    tsx`
+      function Component({items}) {
+        const value = useMemo(() => {
+          for (let item of items) {
+            if (item.match) return item;
+          }
+          return null;
+        }, [items]);
+        return <div>{value}</div>;
+      }
+    `,
+    // useMemo with inverted if (labeled block with break) (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const x = useMemo(() => {
+          label: {
+            if (props.cond) {
+              break label;
+            }
+            return props.a;
+          }
+          return props.b;
+        });
+        return x;
+      }
+    `,
+    // Consecutive useMemo calls in hook (from React Compiler fixtures)
+    tsx`
+      import {useMemo} from 'react';
+
+      function useHook({a, b}) {
+        const valA = useMemo(() => identity({a}), [a]);
+        const valB = useMemo(() => identity([b]), [b]);
+        return [valA, valB];
+      }
+    `,
+    // useMemo returning independently memoizeable array (from React Compiler fixtures)
+    tsx`
+      function Component(props) {
+        const [a, b] = useMemo(() => {
+          const items = [];
+          const a = makeObject(props.a);
+          const b = makeObject(props.b);
+          return [a, b];
+        });
+        return [a, b];
+      }
+    `,
+    // React.useMemo returning object with destructured value (from React Compiler fixtures)
+    tsx`
+      function useInputValue(input) {
+        const object = React.useMemo(() => {
+          const {value} = identity(input);
+          return {value};
+        }, [input]);
+        return object;
+      }
+    `,
+    // useMemo with inlining block return (from React Compiler fixtures)
+    tsx`
+      function component(a, b) {
+        let x = useMemo(() => {
+          if (a) {
+            return {b};
+          }
+        }, [a, b]);
+        return x;
+      }
+    `,
+    // useMemo with identifier callback (not a function expression) (from React Compiler fixtures)
+    tsx`
+      import {useMemo} from 'react';
+
+      function Component() {
+        const x = useMemo(makeArray, []);
+        return x;
+      }
+    `,
     // useMemo as the right-hand side of a for...of loop
     tsx`
       import { useMemo } from "react";

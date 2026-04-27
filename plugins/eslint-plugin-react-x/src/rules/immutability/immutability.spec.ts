@@ -608,6 +608,69 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
+    // Derived from react-main/compiler error.modify-state.js
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Foo() {
+          const [state, setState] = useState({});
+          state.foo = 1;
+          return <div>{state.foo}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "state" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Derived from react-main/compiler error.modify-useReducer-state.js
+    {
+      code: tsx`
+        import { useReducer } from "react";
+        function Foo() {
+          const [state, setState] = useReducer({foo: 1});
+          state.foo = 1;
+          return <div>{state.foo}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "state" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Derived from react-main/compiler error.mutate-props.js
+    {
+      code: tsx`
+        function Foo(props) {
+          props.test = 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "props" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Derived from react-main/compiler error.mutate-hook-argument.js
+    {
+      code: tsx`
+        function useHook(a, b) {
+          b.test = 1;
+          a.test = 2;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "b" },
+          messageId: "mutatingAssignment",
+        },
+        {
+          data: { name: "a" },
+          messageId: "mutatingAssignment",
+        },
+      ],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1375,6 +1438,72 @@ ruleTester.run(RULE_NAME, rule, {
           };
           const result = helper({ value: 0 });
           return <div>{result.value}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.modify-state-2.js
+    // Mutating a local alias of state is not detected by this rule
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Foo() {
+          const [state, setState] = useState({foo: {bar: 3}});
+          const foo = state.foo;
+          foo.bar = 1;
+          return <div>{foo.bar}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.invalid-mutate-props-via-for-of-iterator.js
+    // Mutating for-of iterator variable is not detected by this rule
+    {
+      code: tsx`
+        function Component(props) {
+          const items = [];
+          for (const x of props.items) {
+            x.modified = true;
+            items.push(x);
+          }
+          return <div>{items.length}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.invalid-mutation-of-possible-props-phi-indirect.js
+    // Mutating local variable is not detected by this rule
+    {
+      code: tsx`
+        function Component(props) {
+          let x = cond ? someGlobal : props.foo;
+          const mutatePhiThatCouldBeProps = () => {
+            x.y = true;
+          };
+          const indirectMutateProps = () => {
+            mutatePhiThatCouldBeProps();
+          };
+          useEffect(() => indirectMutateProps(), []);
+          return <div />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.invalid-mutate-props-in-effect-fixpoint.js
+    // Mutating local variable in effect callback is not detected by this rule
+    {
+      code: tsx`
+        import { useEffect } from "react";
+        function Component(props) {
+          let x = null;
+          while (x == null) {
+            x = props.value;
+          }
+          let y = x;
+          let mutateProps = () => {
+            y.foo = true;
+          };
+          let mutatePropsIndirect = () => {
+            mutateProps();
+          };
+          useEffect(() => mutatePropsIndirect(), [mutatePropsIndirect]);
+          return <div />;
         }
       `,
     },

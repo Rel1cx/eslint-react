@@ -344,6 +344,53 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobal" }],
     },
+    // Derived from react-main/compiler error.mutate-global-increment-op-invalid-react.js
+    {
+      code: tsx`
+        let renderCount = 0;
+        function NoHooks() {
+          renderCount++;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    // Derived from react-main/compiler error.store-property-in-global.js
+    {
+      code: tsx`
+        let wat = {};
+        function Component() {
+          wat.test = 1;
+          return <div>{wat.test}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // Derived from react-main/compiler error.reassignment-to-global.js
+    {
+      code: tsx`
+        function Component() {
+          someUnknownGlobal = true;
+          moduleLocal = true;
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "mutatingGlobal" },
+        { messageId: "mutatingGlobal" },
+      ],
+    },
+    // Derived from react-main/compiler error.update-global-should-bailout.tsx
+    {
+      code: tsx`
+        let renderCount = 0;
+        function useFoo() {
+          renderCount += 1;
+          return renderCount;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -612,6 +659,152 @@ ruleTester.run(RULE_NAME, rule, {
             count++;
           };
           return <button onClick={helper}>Click</button>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-global-reassignment-in-effect.js
+    {
+      code: tsx`
+        let someGlobal = false;
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          useEffect(() => {
+            someGlobal = true;
+          }, []);
+          useEffect(() => {
+            setState(someGlobal);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-global-mutation-in-effect-indirect.js
+    {
+      code: tsx`
+        let someGlobal = {};
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          const setGlobal = () => {
+            someGlobal.value = true;
+          };
+          useEffect(() => {
+            setGlobal();
+          }, []);
+          useEffect(() => {
+            setState(someGlobal.value);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-global-mutation-unused-usecallback.js
+    {
+      code: tsx`
+        function Component() {
+          const callback = useCallback(() => {
+            window.foo = true;
+          }, []);
+          return <div>Ok</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-modify-global-in-callback-jsx.js
+    {
+      code: tsx`
+        const someGlobal = {value: 0};
+        function Component({value}) {
+          const onClick = () => {
+            someGlobal.value = value;
+          };
+          return useMemo(() => {
+            return <div onClick={onClick}>{someGlobal.value}</div>;
+          }, []);
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-reassignment-to-global-function-jsx-prop.js
+    {
+      code: tsx`
+        function Component() {
+          const onClick = () => {
+            someUnknownGlobal = true;
+            moduleLocal = true;
+          };
+          return <div onClick={onClick} />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.not-useEffect-external-mutate.js
+    {
+      code: tsx`
+        let x = {a: 42};
+        function Component(props) {
+          foo(() => {
+            x.a = 10;
+            x.a = 20;
+          });
+        }
+      `,
+    },
+    // Derived from react-main/compiler error.mutable-range-shared-inner-outer-function.js
+    {
+      code: tsx`
+        let cond = true;
+        function Component(props) {
+          let a;
+          let b;
+          const f = () => {
+            if (cond) {
+              a = {};
+              b = [];
+            } else {
+              a = {};
+              b = [];
+            }
+            a.property = true;
+            b.push(false);
+          };
+          return <div onClick={f} />;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-mutate-global-in-effect-fixpoint.js
+    {
+      code: tsx`
+        let someGlobal = {value: null};
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          let x = someGlobal;
+          while (x == null) {
+            x = someGlobal;
+          }
+          const y = x;
+          useEffect(() => {
+            y.value = 'hello';
+          });
+          useEffect(() => {
+            setState(someGlobal.value);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Derived from react-main/compiler allow-global-mutation-in-effect-indirect-usecallback.js
+    {
+      code: tsx`
+        let someGlobal = {};
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          const setGlobal = useCallback(() => {
+            someGlobal.value = true;
+          }, []);
+          useEffect(() => {
+            setGlobal();
+          }, []);
+          useEffect(() => {
+            setState(someGlobal.value);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
         }
       `,
     },

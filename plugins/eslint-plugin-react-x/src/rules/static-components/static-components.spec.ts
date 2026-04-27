@@ -349,6 +349,51 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Component tag function that does not return JSX (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const Foo = () => {
+            someGlobal = true;
+          };
+          return <Foo />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Foo" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Foo" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Context variable reassigned via useMemo then used as JSX tag (from React Compiler fixtures)
+    // NOTE: The IMPL flags this as dynamic because it sees the CallExpression (useMemo)
+    // in the reassignment, even though the result is an external component.
+    {
+      code: tsx`
+        function Component(props) {
+          let Component = Stringify;
+          Component = useMemo(() => {
+            return Component;
+          }, [Component]);
+          return <Component {...props} />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -426,6 +471,39 @@ ruleTester.run(RULE_NAME, rule, {
         function Parent() {
           const B = External;
           return <B />;
+        }
+      `,
+    },
+    // Class component with render helper containing nested component (from React Compiler fixtures)
+    // NOTE: The IMPL does not flag this because the class-field arrow _renderMessage is not
+    // recognized as a function-component boundary, and the nested Message definition is traced
+    // through class-component detection in a way that does not surface here.
+    {
+      code: tsx`
+        class Component {
+          _renderMessage = () => {
+            const Message = () => {
+              const message = this.state.message;
+              return <div>{message}</div>;
+            };
+            return <Message />;
+          };
+
+          render() {
+            return this._renderMessage();
+          }
+        }
+      `,
+    },
+    // External component aliased in lambda callback (from React Compiler fixtures)
+    {
+      code: tsx`
+        function useFoo() {
+          const MyLocal = Stringify;
+          const callback = () => {
+            return <MyLocal value={4} />;
+          };
+          return callback();
         }
       `,
     },

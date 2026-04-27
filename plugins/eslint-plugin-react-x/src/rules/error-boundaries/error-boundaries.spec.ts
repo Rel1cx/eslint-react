@@ -211,6 +211,54 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
+    // Derived from react-main/compiler try-catch-logical-and-optional.js
+    {
+      code: tsx`
+        function Component({ cond, obj, items }) {
+          try {
+            const result = cond && obj?.value && items.length;
+            return <div>{String(result)}</div>;
+          } catch {
+            return <div>error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
+    // Derived from react-main/compiler try-catch-multiple-value-blocks.js
+    {
+      code: tsx`
+        function Component({ a, b, cond, items }) {
+          try {
+            const x = a?.value;
+            const y = cond ? b?.first : items.length;
+            const z = x && y;
+            return (
+              <div>
+                {String(x)}-{String(y)}-{String(z)}
+              </div>
+            );
+          } catch {
+            return <div>error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
+    // Derived from react-main/compiler try-catch-nullish-coalescing.js
+    {
+      code: tsx`
+        function Component({ a, b, fallback }) {
+          try {
+            const result = a ?? b ?? fallback.value;
+            return <span>{result}</span>;
+          } catch {
+            return <span>error</span>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
   ],
   valid: [
     // Error boundary usage
@@ -355,6 +403,182 @@ ruleTester.run(RULE_NAME, rule, {
           x = null;
         }
         return <div>{x}</div>;
+      }
+    `,
+    // Derived from react-main/compiler try-catch.js
+    // try/catch around non-JSX operations in component
+    tsx`
+      function Component(props) {
+        let x;
+        try {
+          x = JSON.parse(text);
+        } catch {
+          x = null;
+        }
+        return x;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-with-return.js
+    // try returns primitive/undefined, catch returns null - no JSX in try
+    tsx`
+      function Component(props) {
+        let x = [];
+        try {
+          const y = shallowCopy({});
+          if (y == null) {
+            return;
+          }
+          x.push(throwInput(y));
+        } catch {
+          return null;
+        }
+        return x;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-ternary-expression.js
+    // try/catch around non-JSX operations
+    tsx`
+      function Component(props) {
+        let result;
+        try {
+          result = props.cond ? props.a : props.fallback.value;
+        } catch (e) {
+          result = "error";
+        }
+        return result;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-try-immediately-returns.js
+    // try returns primitive value
+    tsx`
+      function Component(props) {
+        let x = props.default;
+        try {
+          const y = 42;
+          return y;
+        } catch (e) {
+          x = e;
+        }
+        return x;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-empty-try.js
+    tsx`
+      function Component(props) {
+        let x = props.default;
+        try {
+        } catch (e) {
+          x = e;
+        }
+        return x;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-mutate-outer-value.js
+    // try/catch mutates outer value but does not return JSX
+    tsx`
+      function Component(props) {
+        const x = [];
+        try {
+          x.push(throwErrorWithMessage("oops"));
+        } catch {
+          x.push(shallowCopy({ a: props.a }));
+        }
+        return x;
+      }
+    `,
+    // Derived from react-main/compiler try-catch-within-function-expression.js
+    // try/catch in nested arrow function
+    tsx`
+      function Component(props) {
+        const callback = () => {
+          try {
+            return [];
+          } catch (e) {
+            return;
+          }
+        };
+        return callback();
+      }
+    `,
+    // Derived from react-main/compiler try-catch-within-object-method.js
+    // try/catch in object method
+    tsx`
+      function Component(props) {
+        const object = {
+          foo() {
+            try {
+              return [];
+            } catch (e) {
+              return;
+            }
+          },
+        };
+        return object.foo();
+      }
+    `,
+    // Derived from react-main/compiler invalid-jsx-in-try-with-catch.js
+    // JSX is assigned in try but returned outside try - not caught by this rule
+    tsx`
+      function Component(props) {
+        let el;
+        try {
+          el = <div />;
+        } catch {
+          return null;
+        }
+        return el;
+      }
+    `,
+    // Derived from react-main/compiler repro-preds-undefined-try-catch-return-primitive.js
+    // try/catch in useMemo callback returning primitive
+    tsx`
+      function useSupportsTouchEvent() {
+        return useMemo(() => {
+          if (checkforTouchEvents) {
+            try {
+              document.createEvent("TouchEvent");
+              return true;
+            } catch {
+              return false;
+            }
+          }
+        }, []);
+      }
+    `,
+    // Derived from react-main/compiler repro-unreachable-code-early-return-in-useMemo.js
+    // try/catch in useMemo callback returning object
+    tsx`
+      function Component({ value }) {
+        const result = useMemo(() => {
+          if (value == null) {
+            return null;
+          }
+          try {
+            return { value };
+          } catch (e) {
+            return null;
+          }
+        }, [value]);
+        return <div>{result}</div>;
+      }
+    `,
+    // Derived from react-main/compiler repro-nested-try-catch-in-usememo.js
+    // nested try/catch in useMemo callback
+    tsx`
+      function useFoo(text) {
+        return useMemo(() => {
+          try {
+            let formattedText = "";
+            try {
+              formattedText = format(text);
+            } catch {
+              formattedText = text;
+            }
+            return formattedText || "";
+          } catch (e) {
+            return "";
+          }
+        }, [text]);
       }
     `,
   ],

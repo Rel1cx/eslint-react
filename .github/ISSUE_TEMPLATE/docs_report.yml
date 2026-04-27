@@ -1,0 +1,44 @@
+name: 📚 Docs Report
+title: "[docs] "
+description: Report a documentation issue or suggest improvements
+labels: ["type: documentation"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## First of all
+        1. Please search for [existing issues](https://github.com/Rel1cx/eslint-react/issues?q=is%3Aissue) about this documentation first.
+        2. Make sure you are looking at the latest version of the documentation.
+        3. Remember to follow our community guidelines and be friendly.
+
+  - type: input
+    id: page
+    attributes:
+      label: Documentation page
+      description: A link to the page or file where you found the issue.
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the issue
+      description: A clear description of what's wrong, unclear, or missing in the documentation.
+      placeholder: "The section about ... is unclear because ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: If you have a suggestion for how to fix or improve the documentation, please describe it here.
+      placeholder: "It would be clearer if ..."
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the documentation issue here.

@@ -911,6 +911,33 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
+    // Nested property write and read (from React Compiler fixtures)
+    // NOTE: The IMPL reports readDuringRender for ref.current.inner = ...
+    // because it only tracks direct .current assignment, not nested property writes.
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef({inner: null});
+          ref.current.inner = props.value;
+          return ref.current.inner;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "readDuringRender" },
+      ],
+    },
+    // Inferred ref (name ends with Ref but not from useRef) (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Example() {
+          const fooRef = makeObject_Primitives();
+          fooRef.current = true;
+          return <Stringify foo={fooRef} />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -1695,6 +1722,74 @@ ruleTester.run(RULE_NAME, rule, {
           }
           ref.current = computeExpensiveValue();
           return <div />;
+        }
+      `,
+    },
+    // Lazy initialization with logical expression (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = props.unknownKey ?? props.value;
+          }
+          return <Child ref={ref} />;
+        }
+      `,
+    },
+    // Mutating ref property in callback passed to JSX (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const onClick = () => {
+            if (ref.current !== null) {
+              ref.current.value = '';
+            }
+          };
+          return (
+            <>
+              <input ref={ref} />
+              <button onClick={onClick} />
+            </>
+          );
+        }
+      `,
+    },
+    // Indirect ref access via useCallback + useEffect (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const setRef = useCallback(() => {
+            ref.current = 'Ok';
+          }, []);
+          useEffect(() => {
+            setRef();
+          }, []);
+          return <Child ref={ref} />;
+        }
+      `,
+    },
+    // Prefix/postfix operators on ref.current inside callbacks (from React Compiler fixtures)
+    {
+      code: tsx`
+        function useFoo() {
+          const count = useRef(0);
+          const updateCountPostfix = () => {
+            const id = count.current++;
+            return id;
+          };
+          const updateCountPrefix = () => {
+            const id = ++count.current;
+            return id;
+          };
+          useEffect(() => {
+            const id = updateCountPostfix();
+            console.log(\`id = \${id}\`);
+            console.log(\`count = \${count.current}\`);
+          }, []);
+          return {count, updateCountPostfix, updateCountPrefix};
         }
       `,
     },

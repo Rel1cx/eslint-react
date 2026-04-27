@@ -81,14 +81,30 @@ Several IMPL test cases are ported from React Compiler fixtures (e.g., `error.mo
 
 ---
 
-## 8. Key Gaps and Deviations
+## 8. Local Variable Aliases
+
+The IMPL identifies mutations by resolving the root identifier of a `MemberExpression` (e.g., `state` in `state.foo = 1`). If the root identifier is a local variable that was assigned from state/props (e.g., `const foo = state.foo; foo.bar = 1`), the IMPL does **not** flag it because `foo` is a local `VariableDeclarator`, not a destructured `useState`/`useReducer` value or a component/hook parameter.
+
+Examples that are **valid** under the IMPL but may be caught by the compiler's broader immutability passes:
+
+- `const foo = state.foo; foo.bar = 1;` — `foo` is a local alias.
+- `for (const x of props.items) { x.modified = true; }` — `x` is a for-of iterator variable.
+- `let y = props.value; y.foo = true;` — `y` is a local variable reassigned from props.
+
+**Verdict**: The IMPL does not track aliasing through local variable assignments. It only checks the immediate root identifier at the mutation site.
+
+---
+
+## 9. Key Gaps and Deviations
 
 1. **Fundamental Rule Mismatch**: The IMPL does not implement `ValidateNoFreezingKnownMutableFunctions`. Instead, it implements a distinct rule focused on direct state/props mutation. The two specs are conceptually adjacent but operationally different.
 2. **Missing Frozen-Context Detection**: The IMPL has no concept of `Freeze` effects. It does not detect when a mutable function is passed as a JSX prop, hook argument, or hook return value.
 3. **Missing Function-Level Mutability Tracking**: The IMPL does not analyze whether a function mutates captured locals. It only checks whether the mutated object itself is state/props.
 4. **Missing Effect Propagation**: The IMPL does not propagate mutation effects through variable assignments. Each mutation is analyzed independently at its AST site.
 5. **Missing Dual-Location Diagnostics**: The IMPL reports only the mutation site, whereas the SPEC reports both the usage location (freeze point) and the mutation location.
-6. **Additional IMPL Capabilities** (not in SPEC):
+6. **Local Variable Alias Blindness**: The IMPL does not detect mutations made through local variable aliases of state or props (e.g., `const foo = state.foo; foo.bar = 1`).
+7. **For-Of Iterator Blindness**: The IMPL does not detect mutations on `for-of` iterator variables, even when the iterated collection comes from props.
+8. **Additional IMPL Capabilities** (not in SPEC):
    - Explicit Immer support via `draft` variable exclusion
    - Explicit event handler parameter exclusion
    - Granular array method allow-list (`MUTATING_ARRAY_METHODS`)

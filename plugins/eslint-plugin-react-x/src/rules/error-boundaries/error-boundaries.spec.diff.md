@@ -68,6 +68,14 @@ The SPEC implicitly limits scope via `HIRFunction`. The IMPL explicitly filters 
 
 **Verdict**: Both are effectively limited to component-like functions, but the IMPL achieves this explicitly via collectors.
 
+### Nested Functions and Hook Callbacks
+
+A corollary of the above: the IMPL does **not** inspect `ReturnStatement` nodes inside nested function expressions, arrow functions, object methods, or hook callbacks (e.g., `useMemo(() => { try { return <div />; } catch {} })`). Because these nested functions are not themselves components or hooks, their returns are never examined for JSX-in-try violations.
+
+The SPEC, operating on the full HIR of the component, would still flag JSX constructed inside a try block regardless of whether it appears in a nested callback.
+
+**Verdict**: IMPL misses try/catch JSX inside nested callbacks; SPEC catches them uniformly.
+
 ---
 
 ## 6. Message ID Mapping
