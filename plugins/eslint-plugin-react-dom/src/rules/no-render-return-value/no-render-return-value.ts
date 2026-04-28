@@ -1,6 +1,6 @@
 import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 import { createRule } from "../../utils";
 
