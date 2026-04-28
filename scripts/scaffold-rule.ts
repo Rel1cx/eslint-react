@@ -33,7 +33,7 @@ function generateRuleTs(ruleName: string): string {
   return [
     `import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";`,
     ``,
-    `import { createRule } from "../../utils";`,
+    `import { createRule } from "../../utils/create-rule";`,
     ``,
     `export const RULE_NAME = "${ruleName}";`,
     ``,

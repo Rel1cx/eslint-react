@@ -14,7 +14,7 @@ import { P, match } from "ts-pattern";
 
 import { report } from "./lib";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 

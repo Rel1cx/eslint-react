@@ -7,7 +7,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 import { getNestedReturnStatements, report } from "./lib";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-missing-key";
 

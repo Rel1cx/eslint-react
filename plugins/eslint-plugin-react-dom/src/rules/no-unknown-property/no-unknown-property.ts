@@ -1,7 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 import {
   ATTRIBUTE_TAGS_MAP,
   getStandardName,

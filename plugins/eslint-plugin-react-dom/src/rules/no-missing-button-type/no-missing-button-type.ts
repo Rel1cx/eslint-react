@@ -1,7 +1,8 @@
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 
-import { createJsxElementResolver, createRule } from "../../utils";
+import { createJsxElementResolver } from "../../utils/create-jsx-element-resolver";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-missing-button-type";
 

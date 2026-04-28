@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR } from "./lib";
 

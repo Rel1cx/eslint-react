@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 import { getChildrenContentRange, getPropRemovalRange } from "./lib";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-children-prop-with-children";
 

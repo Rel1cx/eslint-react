@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type ts from "typescript";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 import { collectUsedPropKeysOfParameter } from "./lib";
 
 export const RULE_NAME = "no-unused-props";

@@ -4,7 +4,7 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 import { isInNullCheckTest, isInitializedFromRef, isRefCurrentNullCheck } from "./lib";
 
 export const RULE_NAME = "refs";

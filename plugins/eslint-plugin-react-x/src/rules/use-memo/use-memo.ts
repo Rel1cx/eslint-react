@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 import { getNestedReturnStatements, isInsideNestedFunction } from "./lib";
 
 export const RULE_NAME = "use-memo";

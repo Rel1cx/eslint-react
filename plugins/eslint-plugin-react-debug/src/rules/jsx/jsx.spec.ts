@@ -4,7 +4,7 @@ import tsx from "dedent";
 
 import { JsxEmit } from "@eslint-react/jsx";
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "../../../../../test";
-import { stringify } from "../../utils";
+import { stringify } from "../../utils/stringify";
 import rule, { RULE_NAME } from "./jsx";
 
 const ruleTester = new RuleTester({

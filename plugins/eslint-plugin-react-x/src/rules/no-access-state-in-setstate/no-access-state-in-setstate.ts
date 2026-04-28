@@ -5,7 +5,7 @@ import { constFalse, constTrue } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-access-state-in-setstate";
 

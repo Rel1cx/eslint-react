@@ -7,7 +7,8 @@ import { P, match } from "ts-pattern";
 
 import { report } from "./lib";
 
-import { createRule, stringify } from "../../utils";
+import { createRule } from "../../utils/create-rule";
+import { stringify } from "../../utils/stringify";
 
 export const RULE_NAME = "jsx";
 

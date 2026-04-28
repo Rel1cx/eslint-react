@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
 
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "../../types";
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 // #region Rule Metadata
 

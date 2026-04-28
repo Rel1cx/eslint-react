@@ -2,7 +2,8 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { createJsxElementResolver, createRule } from "../../utils";
+import { createJsxElementResolver } from "../../utils/create-jsx-element-resolver";
+import { createRule } from "../../utils/create-rule";
 import { isExternalLinkLike, isSafeRel } from "./lib";
 
 export const RULE_NAME = "no-unsafe-target-blank";

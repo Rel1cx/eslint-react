@@ -7,7 +7,7 @@ import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { P, match } from "ts-pattern";
 
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 
 export const RULE_NAME = "no-forward-ref";
 

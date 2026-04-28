@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
 import { ruleTester } from "../../../../../test";
-import { stringify } from "../../utils";
+import { stringify } from "../../utils/stringify";
 import rule, { RULE_NAME } from "./is-from-react";
 
 ruleTester.run(RULE_NAME, rule, {

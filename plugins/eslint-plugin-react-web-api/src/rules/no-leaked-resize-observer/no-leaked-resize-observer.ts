@@ -11,7 +11,7 @@ import {
   type ObserverEntry,
   getPhaseKindOfFunction,
 } from "../../types";
-import { createRule } from "../../utils";
+import { createRule } from "../../utils/create-rule";
 import { isConditional, isFromObserver, isNewResizeObserver } from "./lib";
 
 // #region Rule Metadata
