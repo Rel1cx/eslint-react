@@ -75,4 +75,44 @@ describe("resolveImportSource", () => {
 
     expect(result).toBeNull();
   });
+
+  it("should resolve require call wrapped in TSAsExpression", () => {
+    const code = `const React = require("react") as any;`;
+    const { scopeManager } = parse(code);
+    const moduleScope = scopeManager.globalScope!.childScopes[0]!;
+
+    const result = resolveImportSource("React", moduleScope);
+
+    expect(result).toBe("react");
+  });
+
+  it("should resolve identifier alias wrapped in TSAsExpression", () => {
+    const code = `import { useState } from "react";\nconst x = useState as any;`;
+    const { scopeManager } = parse(code);
+    const moduleScope = scopeManager.globalScope!.childScopes[0]!;
+
+    const result = resolveImportSource("x", moduleScope);
+
+    expect(result).toBe("react");
+  });
+
+  it("should resolve member expression alias wrapped in TSAsExpression", () => {
+    const code = `import * as React from "react";\nconst useState = React.useState as any;`;
+    const { scopeManager } = parse(code);
+    const moduleScope = scopeManager.globalScope!.childScopes[0]!;
+
+    const result = resolveImportSource("useState", moduleScope);
+
+    expect(result).toBe("react");
+  });
+
+  it("should resolve require call wrapped in TSAsExpression with member access", () => {
+    const code = `const x = (require("react") as any).useState;`;
+    const { scopeManager } = parse(code);
+    const moduleScope = scopeManager.globalScope!.childScopes[0]!;
+
+    const result = resolveImportSource("x", moduleScope);
+
+    expect(result).toBe("react");
+  });
 });

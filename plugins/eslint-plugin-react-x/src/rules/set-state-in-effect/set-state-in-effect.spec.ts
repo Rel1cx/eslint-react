@@ -989,6 +989,51 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    {
+      code: tsx`
+        function Component() {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            (setCount as any)(1);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const state = useState(0);
+          useEffect(() => {
+            (state.at(1) as any)(1);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const [count, setCount] = (useState as any)(0);
+          useEffect(() => {
+            setCount(1);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const [count, setCount] = useState(0);
+          const fn = () => setCount(1);
+          useEffect(() => {
+            (fn as any)();
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     {

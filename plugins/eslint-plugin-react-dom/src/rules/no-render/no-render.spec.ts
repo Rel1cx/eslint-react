@@ -79,6 +79,18 @@ ruleTester.run(RULE_NAME, rule, {
         createRoot(rootEl).render(<Component />);
       `,
     },
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        (render as any)(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { createRoot } from "react-dom/client";
+        import { render } from "react-dom";
+        createRoot(document.body).render(<div />);
+      `,
+    },
   ],
   valid: [
     tsx`

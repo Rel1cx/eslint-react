@@ -216,6 +216,34 @@ ruleTester.run(RULE_NAME, rule, {
       }],
       options: [{ safeDefaultProps: ["Vector3"] }],
     },
+    {
+      code: tsx`
+        function Component({ items = (Array as any)(5).fill(0) }) {
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "call expression",
+          propName: "items",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function Component({ items = new (Array as any)(5) }) {
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "new expression",
+          propName: "items",
+        },
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     {
@@ -340,6 +368,14 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       export default function NonComponent({ foo = {} }) {}
     `,
+    {
+      code: tsx`
+        function Component({ items = (Array as any)(5) }) {
+          return <div />;
+        }
+      `,
+      options: [{ safeDefaultProps: ["Array"] }],
+    },
     tsx`
       export function DrawerItem(props: Props) {
         const { colors, fonts } = useTheme();

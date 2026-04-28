@@ -1,4 +1,4 @@
-import { Check, is } from "@eslint-react/ast";
+import { Check, Extract, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
@@ -91,9 +91,10 @@ export function create(context: RuleContext<MessageID, []>) {
       CallExpression(node) {
         inChildrenToArray ||= core.isChildrenToArrayCall(context, node);
         if (inChildrenToArray) return;
-        if (node.callee.type !== AST.MemberExpression) return;
-        if (node.callee.property.type !== AST.Identifier) return;
-        const name = node.callee.property.name;
+        const callee = Extract.unwrap(node.callee);
+        if (callee.type !== AST.MemberExpression) return;
+        if (callee.property.type !== AST.Identifier) return;
+        const name = callee.property.name;
         const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
         if (idx < 0) return;
         const cb = node.arguments[idx];

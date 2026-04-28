@@ -1,4 +1,4 @@
-import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -67,41 +67,42 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
-    switch (node.callee.type) {
+    const callee = Extract.unwrap(node.callee);
+    switch (callee.type) {
       // const data = useState();
       // data.at(1)();
       case AST.CallExpression: {
-        const { callee } = node.callee;
-        if (callee.type !== AST.MemberExpression) {
+        const innerCallee = Extract.unwrap(callee.callee);
+        if (innerCallee.type !== AST.MemberExpression) {
           return false;
         }
-        if (!("name" in callee.object)) {
+        if (!("name" in innerCallee.object)) {
           return false;
         }
-        const isAt = callee.property.type === AST.Identifier && callee.property.name === "at";
-        const [index] = node.callee.arguments;
+        const isAt = innerCallee.property.type === AST.Identifier && innerCallee.property.name === "at";
+        const [index] = callee.arguments;
         if (!isAt || index == null) {
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
-        return indexValue === 1 && isIdFromUseStateCall(callee.object);
+        return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
       // const [data, setData] = useState();
       // setData();
       case AST.Identifier: {
-        return isIdFromUseStateCall(node.callee, 1);
+        return isIdFromUseStateCall(callee, 1);
       }
       // const data = useState();
       // data[1]();
       case AST.MemberExpression: {
-        if (!("name" in node.callee.object)) {
+        if (!("name" in callee.object)) {
           return false;
         }
-        const property = node.callee.property;
+        const property = callee.property;
         const propertyScope = context.sourceCode.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
-        return propertyValue === 1 && isIdFromUseStateCall(node.callee.object, 1);
+        return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
       default: {
         return false;
@@ -150,7 +151,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (componentHasEarlyReturn.current) return;
         context.report({
           data: {
-            name: context.sourceCode.getText(node.callee),
+            name: context.sourceCode.getText(Extract.unwrap(node.callee)),
           },
           messageId: "default",
           node,

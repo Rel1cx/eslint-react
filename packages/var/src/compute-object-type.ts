@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -116,29 +116,30 @@ export function computeObjectType(
       );
     }
     case AST.CallExpression: {
+      const callee = Extract.unwrap(node.callee);
       switch (true) {
-        case Check.isIdentifier("Boolean")(node.callee):
+        case Check.isIdentifier("Boolean")(callee):
           return null;
-        case Check.isIdentifier("String")(node.callee):
+        case Check.isIdentifier("String")(callee):
           return null;
-        case Check.isIdentifier("Number")(node.callee):
+        case Check.isIdentifier("Number")(callee):
           return null;
-        case Check.isIdentifier("Object")(node.callee):
+        case Check.isIdentifier("Object")(callee):
           return { kind: "plain", node } as const;
-        case Check.isIdentifier("Array")(node.callee):
+        case Check.isIdentifier("Array")(callee):
           return { kind: "array", node } as const;
-        case Check.isIdentifier("RegExp")(node.callee):
+        case Check.isIdentifier("RegExp")(callee):
           return { kind: "regexp", node } as const;
       }
 
       // Handle static factory methods (e.g. Array.from(), Object.create())
       if (
-        node.callee.type === AST.MemberExpression
-        && node.callee.object.type === AST.Identifier
-        && node.callee.property.type === AST.Identifier
+        callee.type === AST.MemberExpression
+        && callee.object.type === AST.Identifier
+        && callee.property.type === AST.Identifier
       ) {
-        const objName = node.callee.object.name;
-        const methodName = node.callee.property.name;
+        const objName = callee.object.name;
+        const methodName = callee.property.name;
         switch (objName) {
           case "Array":
             if (methodName === "from" || methodName === "of") {

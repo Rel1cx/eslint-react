@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -97,12 +97,13 @@ export function isJsxLike(
       if (hint & Hint.DoNotIncludeJsxWithCreateElementValue) {
         return false;
       }
-      switch (node.callee.type) {
+      const callee = Extract.unwrap(node.callee);
+      switch (callee.type) {
         case AST.Identifier:
-          return node.callee.name === "createElement";
+          return callee.name === "createElement";
         case AST.MemberExpression:
-          return node.callee.property.type === AST.Identifier
-            && node.callee.property.name === "createElement";
+          return callee.property.type === AST.Identifier
+            && callee.property.name === "createElement";
       }
       return false;
     }

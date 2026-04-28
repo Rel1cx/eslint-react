@@ -1,6 +1,5 @@
-import { identity } from "@local/eff";
+import { Extract } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { P, match } from "ts-pattern";
 
 /**
  * Get the arguments of a require expression
@@ -9,26 +8,15 @@ import { P, match } from "ts-pattern";
  * @internal
  */
 export function getRequireExpressionArguments(node: TSESTree.Node) {
-  return match<typeof node, TSESTree.CallExpressionArgument[] | null>(node)
-    .with(
-      {
-        // require("source")
-        type: AST.CallExpression,
-        arguments: P.select(),
-        callee: {
-          type: AST.Identifier,
-          name: "require",
-        },
-      },
-      identity,
-    )
-    .with(
-      {
-        // require("source").variable
-        type: AST.MemberExpression,
-        object: P.select(),
-      },
-      getRequireExpressionArguments,
-    )
-    .otherwise(() => null);
+  const unwrapped = Extract.unwrap(node);
+  if (unwrapped.type === AST.CallExpression) {
+    const callee = Extract.unwrap(unwrapped.callee);
+    if (callee.type === AST.Identifier && callee.name === "require") {
+      return unwrapped.arguments;
+    }
+  }
+  if (unwrapped.type === AST.MemberExpression) {
+    return getRequireExpressionArguments(unwrapped.object);
+  }
+  return null;
 }

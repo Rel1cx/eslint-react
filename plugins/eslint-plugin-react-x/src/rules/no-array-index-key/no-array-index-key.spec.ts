@@ -247,6 +247,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`(foo.map as any)((bar, i) => <Foo key={i} />)`,
       errors: [{ messageId: "default" }],
     },
+    {
+      code: tsx`foo.map((value, index) => <Foo key={(index.toString as any)()} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`foo.map((value, index) => <Foo key={(String as any)(index)} />)`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [],
 });

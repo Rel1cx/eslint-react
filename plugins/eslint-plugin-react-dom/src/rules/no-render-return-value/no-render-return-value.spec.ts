@@ -67,6 +67,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        const result = (render as any)(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        const result = (render(<div />, document.body) as any);
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "ReactDOM.render(<div />, document.body);",

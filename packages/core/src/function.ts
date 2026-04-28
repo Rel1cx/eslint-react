@@ -1,4 +1,4 @@
-import { Check, type TSESTreeDirective, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 import type { SemanticFunc } from "./semantic";
@@ -234,7 +234,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
       return false;
     }
 
-    const { callee } = node;
+    const callee = Extract.unwrap(node.callee);
 
     // Check direct function calls: memo(...)
     if (callee.type === AST.Identifier) {

@@ -82,9 +82,10 @@ export function create(context: RuleContext<MessageID, []>) {
   };
 
   function isThenCall(node: TSESTree.CallExpression) {
-    return node.callee.type === AST.MemberExpression
-      && node.callee.property.type === AST.Identifier
-      && node.callee.property.name === "then";
+    const callee = Extract.unwrap(node.callee);
+    return callee.type === AST.MemberExpression
+      && callee.property.type === AST.Identifier
+      && callee.property.name === "then";
   }
 
   function isUseStateCall(node: TSESTree.Node) {
@@ -151,41 +152,42 @@ export function create(context: RuleContext<MessageID, []>) {
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
-    switch (node.callee.type) {
+    const callee = Extract.unwrap(node.callee);
+    switch (callee.type) {
       // const data = useState();
       // data.at(1)();
       case AST.CallExpression: {
-        const { callee } = node.callee;
-        if (callee.type !== AST.MemberExpression) {
+        const innerCallee = Extract.unwrap(callee.callee);
+        if (innerCallee.type !== AST.MemberExpression) {
           return false;
         }
-        if (!("name" in callee.object)) {
+        if (!("name" in innerCallee.object)) {
           return false;
         }
-        const isAt = callee.property.type === AST.Identifier && callee.property.name === "at";
-        const [index] = node.callee.arguments;
+        const isAt = innerCallee.property.type === AST.Identifier && innerCallee.property.name === "at";
+        const [index] = callee.arguments;
         if (!isAt || index == null) {
           return false;
         }
         const indexScope = context.sourceCode.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
-        return indexValue === 1 && isIdFromUseStateCall(callee.object);
+        return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
       // const [data, setData] = useState();
       // setData();
       case AST.Identifier: {
-        return isIdFromUseStateCall(node.callee, 1);
+        return isIdFromUseStateCall(callee, 1);
       }
       // const data = useState();
       // data[1]();
       case AST.MemberExpression: {
-        if (!("name" in node.callee.object)) {
+        if (!("name" in callee.object)) {
           return false;
         }
-        const property = node.callee.property;
+        const property = callee.property;
         const propertyScope = context.sourceCode.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
-        return propertyValue === 1 && isIdFromUseStateCall(node.callee.object, 1);
+        return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
       default: {
         return false;
@@ -267,7 +269,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 if (isRefGatedContext(context, node)) return;
                 context.report({
                   data: {
-                    name: context.sourceCode.getText(node.callee),
+                    name: context.sourceCode.getText(Extract.unwrap(node.callee)),
                   },
                   messageId: "default",
                   node,
@@ -367,10 +369,11 @@ export function create(context: RuleContext<MessageID, []>) {
           }
         }
         for (const { callee } of trackedFnCalls) {
-          if (!("name" in callee)) {
+          const unwrappedCallee = Extract.unwrap(callee);
+          if (unwrappedCallee.type !== AST.Identifier) {
             continue;
           }
-          const setStateCalls = getSetStateCalls(context, callee);
+          const setStateCalls = getSetStateCalls(context, unwrappedCallee);
           for (const setStateCall of setStateCalls) {
             if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
             context.report({

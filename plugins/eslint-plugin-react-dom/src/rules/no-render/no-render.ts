@@ -1,3 +1,4 @@
+import { Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -46,10 +47,11 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       // Visitor for call expressions, e.g., render() or ReactDOM.render()
       CallExpression(node) {
+        const callee = Extract.unwrap(node.callee);
         switch (true) {
           // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
-          case node.callee.type === AST.Identifier
-            && renderNames.has(node.callee.name):
+          case callee.type === AST.Identifier
+            && renderNames.has(callee.name):
             context.report({
               fix: getFix(context, node),
               messageId: "default",
@@ -57,11 +59,11 @@ export function create(context: RuleContext<MessageID, []>) {
             });
             return;
           // Case 2: Member expression call, e.g., `ReactDOM.render()`
-          case node.callee.type === AST.MemberExpression
-            && node.callee.object.type === AST.Identifier
-            && node.callee.property.type === AST.Identifier
-            && node.callee.property.name === "render"
-            && reactDomNames.has(node.callee.object.name):
+          case callee.type === AST.MemberExpression
+            && callee.object.type === AST.Identifier
+            && callee.property.type === AST.Identifier
+            && callee.property.name === "render"
+            && reactDomNames.has(callee.object.name):
             context.report({
               fix: getFix(context, node),
               messageId: "default",

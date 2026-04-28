@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -16,7 +16,7 @@ export function resolveImportSource(
   if (latestDef == null) return null;
   const { node, parent } = latestDef;
   if (node.type === AST.VariableDeclarator && node.init != null) {
-    const { init } = node;
+    const init = Extract.unwrap(node.init);
     // check for: variable = Source.variable
     if (init.type === AST.MemberExpression && init.object.type === AST.Identifier) {
       return resolveImportSource(init.object.name, initialScope, visited);

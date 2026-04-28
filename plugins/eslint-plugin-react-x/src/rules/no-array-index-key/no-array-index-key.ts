@@ -1,3 +1,4 @@
+import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -76,20 +77,21 @@ export function create(context: RuleContext<MessageID, []>) {
       }
       // Case: key={index.toString()} or key={String(index)}
       case AST.CallExpression: {
+        const callee = Extract.unwrap(node.callee);
         switch (true) {
           // Case: key={index.toString()}
-          case node.callee.type === AST.MemberExpression
-            && node.callee.property.type === AST.Identifier
-            && node.callee.property.name === "toString"
-            && isArrayIndex(node.callee.object): {
+          case callee.type === AST.MemberExpression
+            && callee.property.type === AST.Identifier
+            && callee.property.name === "toString"
+            && isArrayIndex(callee.object): {
             return [{
               messageId: "default",
-              node: node.callee.object,
+              node: callee.object,
             }];
           }
           // Case: key={String(index)}
-          case node.callee.type === AST.Identifier
-            && node.callee.name === "String"
+          case callee.type === AST.Identifier
+            && callee.name === "String"
             && node.arguments[0] != null
             && isArrayIndex(node.arguments[0]): {
             return [{

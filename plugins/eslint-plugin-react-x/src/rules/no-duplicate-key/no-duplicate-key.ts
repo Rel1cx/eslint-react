@@ -78,12 +78,13 @@ export function create(context: RuleContext<MessageID, []>) {
           default: {
             const call = Traverse.findParent(
               jsxElement,
-              (n): n is TSESTree.CallExpression => (
-                n.type === AST.CallExpression
-                && n.callee.type === AST.MemberExpression
-                && n.callee.property.type === AST.Identifier
-                && n.callee.property.name === "map"
-              ),
+              (n): n is TSESTree.CallExpression => {
+                if (n.type !== AST.CallExpression) return false;
+                const callee = Extract.unwrap(n.callee);
+                return callee.type === AST.MemberExpression
+                  && callee.property.type === AST.Identifier
+                  && callee.property.name === "map";
+              },
             );
             const iter = Traverse.findParent(jsxElement, (n) => n === call || Check.isFunction(n));
             if (!Check.isFunction(iter)) return;

@@ -293,6 +293,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ data: { name: "setState" }, messageId: "default" }],
     },
+    {
+      code: tsx`
+        function Component(props) {
+          const [state, setState] = useState(false);
+          (setState as any)(true);
+          return state;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
   ],
   valid: [
     {

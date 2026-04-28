@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -140,12 +140,13 @@ export function isHookDecl(node: TSESTree.Node): node is
   if (node.id.type !== AST.Identifier) return false;
   const init = node.init;
   if (init == null || init.type !== AST.CallExpression) return false;
-  switch (init.callee.type) {
+  const callee = Extract.unwrap(init.callee);
+  switch (callee.type) {
     case AST.Identifier:
-      return core.isHookName(init.callee.name);
+      return core.isHookName(callee.name);
     case AST.MemberExpression:
-      return init.callee.property.type === AST.Identifier
-        && core.isHookName(init.callee.property.name);
+      return callee.property.type === AST.Identifier
+        && core.isHookName(callee.property.name);
     default:
       return false;
   }
