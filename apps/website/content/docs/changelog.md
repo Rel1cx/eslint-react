@@ -2,13 +2,13 @@
 title: Changelog
 ---
 
-## v5.5.5-beta.0 (2026-04-28)
+## v5.5.5-beta.1 (2026-04-28)
 
 ### 🪄 Improvements
 
 - **eslint-plugin-react-x:** improve `set-state-in-effect` validation (#1731) (`081ef976b`)
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.4-beta.0...v5.5.5-beta.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.4-beta.0...v5.5.5-beta.1
 
 ## v5.5.4-beta.0 (2026-04-28)
 
