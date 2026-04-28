@@ -33,6 +33,20 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+function getEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null {
+  const tryStmt = Traverse.findParent(node, is(AST.TryStatement));
+  if (tryStmt == null) return null;
+
+  // Check if the node is inside the try block rather than catch/finally.
+  // Traverse.findParent is called again to distinguish try/catch/finally
+  // descendants within nested try statements.
+  const inTryBlock = Traverse.findParent(node, (n) => n === tryStmt.block);
+  if (inTryBlock != null) return tryStmt;
+
+  // Node is in catch or finally, look for an outer try
+  return getEnclosingTryBlock(tryStmt);
+}
+
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
@@ -65,7 +79,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of useCalls) {
-          const stmt = Traverse.findParent(call, is(AST.TryStatement));
+          const stmt = getEnclosingTryBlock(call);
           const func = Traverse.findParent(stmt, (n) => funcs.some((f) => f.node === n));
           if (stmt != null && func != null && !reported.has(stmt)) {
             context.report({
@@ -80,7 +94,7 @@ export function create(context: RuleContext<MessageID, []>) {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
             if (!isJsxLike(context, ret, hint)) continue;
-            const stmt = Traverse.findParent(ret, is(AST.TryStatement));
+            const stmt = getEnclosingTryBlock(ret);
             if (stmt != null && !reported.has(stmt)) {
               context.report({
                 messageId: "tryCatchWithJsx",
