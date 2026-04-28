@@ -2,6 +2,24 @@
 
 Every rule in ESLint React declares a `RULE_FEATURES` constant. This is not merely documentation—it is a **typed metadata system** that drives preset generation, documentation, and rule categorization.
 
+## Table of Contents
+
+- [The `RuleFeature` Type](#the-rulefeature-type)
+- [Feature Definitions](#feature-definitions)
+- [Declaring Features](#declaring-features)
+- [How Features Drive Presets](#how-features-drive-presets)
+  - [`disable-type-checked.ts`](#disable-type-checkedts)
+  - [`disable-experimental.ts`](#disable-experimentalts)
+- [Feature Selection Guidelines](#feature-selection-guidelines)
+  - [Does the rule need TypeScript type information?](#does-the-rule-need-typescript-type-information)
+  - [Is the rule ready for stable use?](#is-the-rule-ready-for-stable-use)
+  - [Does the rule provide auto-fixes?](#does-the-rule-provide-auto-fixes)
+  - [Does the rule accept options?](#does-the-rule-accept-options)
+- [Multi-Feature Rules](#multi-feature-rules)
+- [Feature Metadata Consumption](#feature-metadata-consumption)
+- [Graduating an Experimental Rule](#graduating-an-experimental-rule)
+- [Summary](#summary)
+
 ## The `RuleFeature` Type
 
 ```ts

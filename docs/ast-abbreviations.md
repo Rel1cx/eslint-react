@@ -4,6 +4,34 @@ This document is compiled from naming conventions in AST-related source code, de
 
 ---
 
+## Table of Contents
+
+- [A](#a)
+- [B](#b)
+- [C](#c)
+- [D](#d)
+- [E](#e)
+- [F](#f)
+- [G](#g)
+- [H](#h)
+- [I](#i)
+- [J](#j)
+- [K](#k)
+- [L](#l)
+- [M](#m)
+- [N](#n)
+- [O](#o)
+- [P](#p)
+- [Q](#q)
+- [R](#r)
+- [S](#s)
+- [T](#t)
+- [U](#u)
+- [V](#v)
+- [W](#w)
+- [X](#x)
+- [Full Table of Abbreviations](#full-table-of-abbreviations)
+
 ## A
 
 | Abbreviation           | Full Name                         | Description & Examples                                  |

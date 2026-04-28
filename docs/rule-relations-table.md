@@ -1,5 +1,12 @@
 # Rule Relations Table
 
+## Table of Contents
+
+- [Forward References](#forward-references)
+- [Reverse References (Who references this rule)](#reverse-references-who-references-this-rule)
+- [Bidirectional Relations](#bidirectional-relations)
+- [Detailed References](#detailed-references)
+
 ## Forward References
 
 <!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->

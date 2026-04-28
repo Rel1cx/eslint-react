@@ -9,6 +9,31 @@ Used as reference when:
 
 ---
 
+## Table of Contents
+
+- [Part A — Rename a Rule (same plugin, new name)](#part-a--rename-a-rule-same-plugin-new-name)
+  - [A1. Source Files](#a1-source-files)
+  - [A2. Rule Implementation](#a2-rule-implementation)
+  - [A3. Test File](#a3-test-file)
+  - [A4. Documentation](#a4-documentation)
+  - [A5. Plugin Registration](#a5-plugin-registration)
+  - [A6. Preset Configs (eslint-plugin-react-x)](#a6-preset-configs-eslint-plugin-react-x)
+  - [A7. Preset Configs (@eslint-react/eslint-plugin)](#a7-preset-configs-eslint-reacteslint-plugin)
+  - [A8. CHANGELOG](#a8-changelog)
+  - [A9. Verify](#a9-verify)
+- [Part B — Move a Rule (different source plugin -> `eslint-plugin-react-x`)](#part-b--move-a-rule-different-source-plugin---eslint-plugin-react-x)
+  - [B1. Dependencies](#b1-dependencies)
+  - [B2. New Source Files](#b2-new-source-files)
+  - [B3. Plugin Registration](#b3-plugin-registration)
+  - [B4. Preset Configs (eslint-plugin-react-x)](#b4-preset-configs-eslint-plugin-react-x)
+  - [B5. Preset Configs (@eslint-react/eslint-plugin)](#b5-preset-configs-eslint-reacteslint-plugin)
+  - [B6. Source Plugin Cleanup](#b6-source-plugin-cleanup)
+  - [B7. CHANGELOG](#b7-changelog)
+  - [B8. Verify](#b8-verify)
+- [MDX Documentation Template](#mdx-documentation-template)
+
+---
+
 ## Part A — Rename a Rule (same plugin, new name)
 
 ### A1. Source Files

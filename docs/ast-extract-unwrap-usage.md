@@ -2,6 +2,16 @@
 
 `Extract.unwrap` is defined in `@eslint-react/ast` and is used to strip away wrapper nodes that do not change the semantic meaning of an expression.
 
+## Table of Contents
+
+- [Definition](#definition)
+- [When to Use](#when-to-use)
+  - [Scenario 1: Inspecting `node.callee.type`](#scenario-1-inspecting-nodecalleetype)
+  - [Scenario 2: Resolving a node and inspecting its type](#scenario-2-resolving-a-node-and-inspecting-its-type)
+  - [Scenario 3: Inspecting `node.parent` or `node.init`](#scenario-3-inspecting-nodeparent-or-nodeinit)
+- [Common Patterns That Are Already Safe](#common-patterns-that-are-already-safe)
+- [Checklist Before Committing](#checklist-before-committing)
+
 ## Definition
 
 ```ts
