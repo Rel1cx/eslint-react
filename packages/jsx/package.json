@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "5.5.3-beta.2",
+  "version": "5.5.4-next.0",
   "description": "ESLint React's TSESTree JSX utility module for static analysis of JSX patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
