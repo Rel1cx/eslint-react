@@ -817,29 +817,12 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      name: "setState with ref.current inside conditional expression (rule does not detect ref in conditional)",
-      code: tsx`
-        import { useEffect, useState, useRef } from "react";
-
-        function Component() {
-          const ref = useRef(0);
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            setData(flag ? ref.current : 0);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-    },
+    // This case was previously reported because the rule did not detect ref in conditional
+    // expressions. Now it is correctly allowed since ref.current is used as an argument.
+    // {
+    //   name: "setState with ref.current inside conditional expression",
+    //   ...
+    // }
     {
       name: "setState with ref value inside computed member expression (rule does not detect ref in computed property)",
       code: tsx`
@@ -862,6 +845,149 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
         },
       ],
+    },
+    // --- Namespace import cases ---
+    {
+      name: "setState in React.useEffect with namespace import",
+      code: tsx`
+        import * as React from "react";
+
+        function Component() {
+          const [data, setData] = React.useState(0);
+          React.useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "setData" },
+          messageId: "default",
+        },
+      ],
+    },
+    // --- useEffectEvent cases ---
+    {
+      name: "setState via useEffectEvent called in effect",
+      code: tsx`
+        import { useEffect, useState, useEffectEvent } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const handler = useEffectEvent(() => {
+            setData(1);
+          });
+          useEffect(() => {
+            handler();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "setData" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "setState via useEffectEvent passed directly to useEffect",
+      code: tsx`
+        import { useEffect, useState, useEffectEvent } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const handler = useEffectEvent(() => {
+            setData(1);
+          });
+          useEffect(handler, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "setData" },
+          messageId: "default",
+        },
+      ],
+    },
+    // --- Dependency array cases ---
+    {
+      name: "setState in effect deps should still report",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ prop }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(prop);
+          }, [prop, setData]);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "setData" },
+          messageId: "default",
+        },
+      ],
+    },
+    // --- Prop-gated conditional (should still report) ---
+    {
+      name: "setState inside prop-gated if statement should still report",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ prop }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (prop !== data) {
+              setData(prop);
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "setData" },
+          messageId: "default",
+        },
+      ],
+    },
+    // --- React Compiler fixtures: invalid ---
+    {
+      name: "setState in effect with NewExpression default param",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ value = new Number() }) {
+          const [state, setState] = useState(0);
+          useEffect(() => {
+            setState(s => s + 1);
+          });
+          return state;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "conditional setState from props in effect (derived event pattern)",
+      code: tsx`
+        import { useState, useEffect } from "react";
+
+        function VideoPlayer({ isPlaying }) {
+          const [wasPlaying, setWasPlaying] = useState(isPlaying);
+          useEffect(() => {
+            if (isPlaying !== wasPlaying) {
+              setWasPlaying(isPlaying);
+            }
+          }, [isPlaying, wasPlaying]);
+          return <video />;
+        }
+      `,
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [
@@ -1432,6 +1558,189 @@ ruleTester.run(RULE_NAME, rule, {
               )
             });
           }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
+        }
+      `,
+    },
+    // --- Namespace import valid cases ---
+    {
+      name: "setState with ref via namespace import",
+      code: tsx`
+        import * as React from "react";
+
+        function Component() {
+          const [data, setData] = React.useState(0);
+          const ref = React.useRef(0);
+          React.useEffect(() => {
+            setData(ref.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // --- Ref-gated conditional valid cases ---
+    {
+      name: "setState inside ref-gated if statement",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const prevRef = useRef(0);
+          useEffect(() => {
+            if (prevRef.current !== data) {
+              setData(prevRef.current);
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState inside ref-gated conditional expression",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const flagRef = useRef(false);
+          useEffect(() => {
+            flagRef.current ? setData(1) : setData(0);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref.current inside conditional expression",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const ref = useRef(0);
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData(flag ? ref.current : 0);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // --- React Compiler fixtures: valid ---
+    {
+      name: "setState with ref in useLayoutEffect",
+      code: tsx`
+        import { useState, useRef, useLayoutEffect } from "react";
+
+        function Tooltip() {
+          const ref = useRef(null);
+          const [tooltipHeight, setTooltipHeight] = useState(0);
+          useLayoutEffect(() => {
+            const { height } = ref.current.getBoundingClientRect();
+            setTooltipHeight(height);
+          }, []);
+          return tooltipHeight;
+        }
+      `,
+    },
+    {
+      name: "setState with ref value via arithmetic",
+      code: tsx`
+        import { useState, useRef, useLayoutEffect } from "react";
+
+        function Component() {
+          const ref = useRef({ size: 5 });
+          const [computedSize, setComputedSize] = useState(0);
+          useLayoutEffect(() => {
+            setComputedSize(ref.current.size * 10);
+          }, []);
+          return computedSize;
+        }
+      `,
+    },
+    {
+      name: "setState with ref value via array index",
+      code: tsx`
+        import { useState, useRef, useEffect } from "react";
+
+        function Component() {
+          const ref = useRef([1, 2, 3, 4, 5]);
+          const [value, setValue] = useState(0);
+          useEffect(() => {
+            const index = 2;
+            setValue(ref.current[index]);
+          }, []);
+          return value;
+        }
+      `,
+    },
+    {
+      name: "setState with ref value via function call",
+      code: tsx`
+        import { useState, useRef, useEffect } from "react";
+
+        function Component() {
+          const ref = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            function getBoundingRect(ref) {
+              if (ref.current) {
+                return ref.current.getBoundingClientRect?.()?.width ?? 100;
+              }
+              return 100;
+            }
+            setWidth(getBoundingRect(ref));
+          }, []);
+          return width;
+        }
+      `,
+    },
+    {
+      name: "setState in transitive listener via setTimeout",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [state, setState] = useState(0);
+          useEffect(() => {
+            const f = () => {
+              setState();
+            };
+            setTimeout(() => f(), 10);
+          });
+          return state;
+        }
+      `,
+    },
+    {
+      name: "setState controlled by ref value with external functions",
+      code: tsx`
+        import { useState, useRef, useEffect } from "react";
+
+        function Component({ x, y }) {
+          const previousXRef = useRef(null);
+          const previousYRef = useRef(null);
+          const [data, setData] = useState(null);
+
+          useEffect(() => {
+            const previousX = previousXRef.current;
+            previousXRef.current = x;
+            const previousY = previousYRef.current;
+            previousYRef.current = y;
+            if (!areEqual(x, previousX) || !areEqual(y, previousY)) {
+              const data = load({ x, y });
+              setData(data);
+            }
+          }, [x, y]);
+
+          return data;
+        }
+
+        function areEqual(a, b) {
+          return a === b;
+        }
+
+        function load({ x, y }) {
+          return x * y;
         }
       `,
     },
