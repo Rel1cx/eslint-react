@@ -92,22 +92,3 @@ When you write or review code that inspects AST node types, verify:
 2. [ ] Any resolved node (`resolve()`, `findParent()`, etc.) is unwrapped before `.type` inspection.
 3. [ ] Any `node.init`, `node.parent`, or similar property accessed for type inspection is unwrapped.
 4. [ ] Existing helper functions (`isHookCall`, `isAPICall`, etc.) are used instead of re-implementing callee checks.
-
-## Example: Before and After
-
-```ts
-// Before — silently misses wrapped calls
-function isThenCall(node: TSESTree.CallExpression) {
-  return node.callee.type === AST.MemberExpression
-    && node.callee.property.type === AST.Identifier
-    && node.callee.property.name === "then";
-}
-
-// After — correctly handles (promise.then as any)() and (promise?.then)()
-function isThenCall(node: TSESTree.CallExpression) {
-  const callee = Extract.unwrap(node.callee);
-  return callee.type === AST.MemberExpression
-    && callee.property.type === AST.Identifier
-    && callee.property.name === "then";
-}
-```
