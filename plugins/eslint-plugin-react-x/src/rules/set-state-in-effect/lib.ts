@@ -151,7 +151,7 @@ export function isHookDecl(node: TSESTree.Node): node is
   }
 }
 
-export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope) {
+export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope): boolean {
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
