@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.5.6-beta.0 (2026-04-28)
+
+### 🪄 Improvements
+
+- Register `static-components` rule in `all`, `x`, and `disable-experimental` configs (`1d179849c`)
+
+### 🏗️ Internal
+
+- Add major release checklist to internal docs (`1d179849c`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.5-beta.1...v5.5.6-beta.0
+
 ## v5.5.5-beta.1 (2026-04-28)
 
 ### 🪄 Improvements
