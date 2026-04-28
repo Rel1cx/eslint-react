@@ -259,6 +259,41 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
+    // JSX in catch block nested inside outer try - should report outer try
+    {
+      code: tsx`
+        function Component() {
+          try {
+            try {
+              doSomething();
+            } catch (error) {
+              return <div>Error occurred</div>;
+            }
+          } catch (error2) {
+            return <div>Outer error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
+    // use() in catch block nested inside outer try - should report outer try
+    {
+      code: tsx`
+        function Component({ promise }) {
+          try {
+            try {
+              doSomething();
+            } catch (error) {
+              const data = use(promise);
+              return <div>{data}</div>;
+            }
+          } catch (error2) {
+            return <div>Outer error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithUse" }],
+    },
   ],
   valid: [
     // Error boundary usage
@@ -527,6 +562,27 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         }
         return el;
+      }
+    `,
+    // JSX in catch block without outer try - allowed by SPEC
+    tsx`
+      function Component() {
+        try {
+          doSomething();
+        } catch (error) {
+          return <div>Error occurred</div>;
+        }
+      }
+    `,
+    // use() in catch block without outer try - allowed
+    tsx`
+      function Component({ promise }) {
+        try {
+          doSomething();
+        } catch (error) {
+          const data = use(promise);
+          return <div>{data}</div>;
+        }
       }
     `,
     // Derived from react-main/compiler repro-preds-undefined-try-catch-return-primitive.js

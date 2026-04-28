@@ -27,20 +27,20 @@ The IMPL only inspects `ReturnStatement` nodes with a `TryStatement` ancestor. I
 
 The SPEC maintains an `activeTryBlocks` stack and explicitly removes catch handler blocks from the stack at block start. JSX inside a catch block is outside the try scope when there is no enclosing outer try.
 
-The IMPL uses `Traverse.findParent(ret, is(TryStatement))`. Any `ReturnStatement` that is a descendant of a `TryStatement` is flagged, regardless of whether it sits in the `try`, `catch`, or `finally` block.
+The IMPL now uses repeated `Traverse.findParent` calls to determine whether a `ReturnStatement` sits inside the `try` block or inside the `catch` / `finally` block of its nearest ancestor `TryStatement`. If the node is in `catch` / `finally`, the traversal continues upward to check for an enclosing outer `TryStatement`.
 
 Key behavioral difference:
 
-- JSX in catch (no outer try): **Allowed** by SPEC; **reported** by IMPL.
+- JSX in catch (no outer try): **Allowed** by both.
 - JSX in catch (nested in outer try): **Error** for both.
 
-**Verdict**: IMPL is stricter for catch blocks because it does not distinguish `try`, `catch`, and `finally` descendants.
+**Verdict**: Both now align on catch-block exemptions.
 
 ### Nested Try/Catch
 
-The SPEC's `activeTryBlocks` stack naturally handles nesting depth. The IMPL's `findParent` resolves to the nearest ancestor `TryStatement`, so nested returns are still flagged.
+The SPEC's `activeTryBlocks` stack naturally handles nesting depth. The IMPL now resolves nested structures by walking up through successive `TryStatement` ancestors, skipping those whose `catch` / `finally` blocks contain the node, until it finds one whose `try` block does.
 
-**Verdict**: Both handle nested structures, but via different mechanisms. The IMPL lacks the fine-grained block-tracking that lets the SPEC exempt un-nested catch blocks.
+**Verdict**: Both handle nested structures correctly and align on catch-block exemptions.
 
 ---
 
@@ -94,6 +94,5 @@ Error text is aligned in intent (recommending Error Boundaries) but the IMPL add
 ## 7. Key Gaps and Deviations
 
 1. **Narrower JSX Detection**: The IMPL only catches JSX in `ReturnStatement` nodes, missing intermediate assignments such as `el = <div />` inside try blocks.
-2. **Catch Block Over-Reporting**: The SPEC explicitly allows JSX in catch blocks when there is no outer try. The IMPL reports these because it does not distinguish `try`, `catch`, or `finally` descendants.
-3. **`use` Hook Extension**: The IMPL adds `tryCatchWithUse`, a rule with no equivalent in the compiler SPEC.
-4. **Finally Handling**: The SPEC documents TODOs for finally blocks; the IMPL provides implicit coverage via AST ancestry but does not document any gaps.
+2. **`use` Hook Extension**: The IMPL adds `tryCatchWithUse`, a rule with no equivalent in the compiler SPEC.
+3. **Finally Handling**: The SPEC documents TODOs for finally blocks; the IMPL provides implicit coverage via AST ancestry but does not document any gaps.
