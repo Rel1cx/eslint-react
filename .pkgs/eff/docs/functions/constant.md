@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / constant
+[@local/eff](../README.md) / constant
 
 # Function: constant()
 
@@ -24,10 +24,4 @@ Returns a function that always returns the same value.
 
 A function that always returns the given value.
 
-```ts
-(): T;
-```
-
-### Returns
-
-`T`
+() => `T`

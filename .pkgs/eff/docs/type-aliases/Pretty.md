@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / Pretty
+[@local/eff](../README.md) / Pretty
 
 # Type Alias: Pretty\<T\>
 

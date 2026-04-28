@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / constNull
+[@local/eff](../README.md) / constNull
 
 # Function: constNull()
 

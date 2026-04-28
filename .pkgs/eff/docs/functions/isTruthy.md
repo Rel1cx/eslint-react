@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / isTruthy
+[@local/eff](../README.md) / isTruthy
 
 # Function: isTruthy()
 

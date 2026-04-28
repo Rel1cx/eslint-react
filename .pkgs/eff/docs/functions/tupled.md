@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / tupled
+[@local/eff](../README.md) / tupled
 
 # Function: tupled()
 
@@ -25,19 +25,7 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 A new function that accepts a single tuple argument.
 
-```ts
-(a: A): B;
-```
-
-### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
-
-### Returns
-
-`B`
+(`a`: `A`) => `B`
 
 ## Example
 

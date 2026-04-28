@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / isFunction
+[@local/eff](../README.md) / isFunction
 
 # Function: isFunction()
 

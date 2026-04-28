@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / untupled
+[@local/eff](../README.md) / untupled
 
 # Function: untupled()
 
@@ -25,19 +25,7 @@ Inverse function of `tupled`.
 
 A new function that accepts spread arguments instead of a tuple.
 
-```ts
-(...a: A): B;
-```
-
-### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-### Returns
-
-`B`
+(...`a`: `A`) => `B`
 
 ## Example
 

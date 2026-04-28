@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / NarrowedTo
+[@local/eff](../README.md) / NarrowedTo
 
 # Type Alias: NarrowedTo\<T, Base\>
 

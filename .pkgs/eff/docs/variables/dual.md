@@ -1,6 +1,6 @@
-[@eslint-react/eff](../README.md) / dual
+[@local/eff](../README.md) / dual
 
-# Variable: dual()
+# Variable: dual
 
 ```ts
 const dual: {

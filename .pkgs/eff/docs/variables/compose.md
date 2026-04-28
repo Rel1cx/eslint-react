@@ -1,6 +1,6 @@
-[@eslint-react/eff](../README.md) / compose
+[@local/eff](../README.md) / compose
 
-# Variable: compose()
+# Variable: compose
 
 ```ts
 const compose: {
@@ -33,37 +33,7 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ### Returns
 
-```ts
-<A>(self: (a: A) => B): (a: A) => C;
-```
-
-#### Type Parameters
-
-| Type Parameter |
-| -------------- |
-| `A`            |
-
-#### Parameters
-
-| Parameter | Type              |
-| --------- | ----------------- |
-| `self`    | (`a`: `A`) => `B` |
-
-#### Returns
-
-```ts
-(a: A): C;
-```
-
-##### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
-
-##### Returns
-
-`C`
+\<`A`\>(`self`: (`a`: `A`) => `B`) => (`a`: `A`) => `C`
 
 ## Call Signature
 
@@ -88,19 +58,7 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ### Returns
 
-```ts
-(a: A): C;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `a`       | `A`  |
-
-#### Returns
-
-`C`
+(`a`: `A`) => `C`
 
 ## Param
 

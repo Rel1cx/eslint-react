@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / identity
+[@local/eff](../README.md) / identity
 
 # Function: identity()
 

@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / not
+[@local/eff](../README.md) / not
 
 # Function: not()
 
@@ -27,19 +27,7 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 A guard function that negates the given predicate.
 
-```ts
-(data: T): data is Exclude<T, S>;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-`data is Exclude<T, S>`
+(`data`: `T`) => `data is Exclude<T, S>`
 
 ## Call Signature
 
@@ -65,16 +53,4 @@ A function that takes a guard function as predicate and returns a guard that neg
 
 A guard function that negates the given predicate.
 
-```ts
-(data: T): boolean;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-`boolean`
+(`data`: `T`) => `boolean`

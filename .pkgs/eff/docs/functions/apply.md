@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / apply
+[@local/eff](../README.md) / apply
 
 # Function: apply()
 
@@ -24,25 +24,7 @@ Apply a function to a given value.
 
 A function that takes a function and applies it to the given value.
 
-```ts
-<B>(self: (a: A) => B): B;
-```
-
-### Type Parameters
-
-| Type Parameter |
-| -------------- |
-| `B`            |
-
-### Parameters
-
-| Parameter | Type              |
-| --------- | ----------------- |
-| `self`    | (`a`: `A`) => `B` |
-
-### Returns
-
-`B`
+\<`B`\>(`self`: (`a`: `A`) => `B`) => `B`
 
 ## Example
 

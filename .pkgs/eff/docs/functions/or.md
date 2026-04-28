@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / or
+[@local/eff](../README.md) / or
 
 # Function: or()
 
@@ -29,19 +29,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 A guard function that checks if either predicate is true.
 
-```ts
-(data: T): data is S | U;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-data is S \| U
+(`data`: `T`) => data is S \| U
 
 ## Call Signature
 
@@ -69,19 +57,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 A guard function that checks if either predicate is true.
 
-```ts
-(data: T): data is S;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-`data is S`
+(`data`: `T`) => `data is S`
 
 ## Call Signature
 
@@ -109,19 +85,7 @@ A function that takes two guard functions as predicates and returns a guard that
 
 A guard function that checks if either predicate is true.
 
-```ts
-(data: T): data is U;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-`data is U`
+(`data`: `T`) => `data is U`
 
 ## Call Signature
 
@@ -148,16 +112,4 @@ A function that takes two guard functions as predicates and returns a guard that
 
 A guard function that checks if either predicate is true.
 
-```ts
-(data: T): boolean;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| `data`    | `T`  |
-
-#### Returns
-
-`boolean`
+(`data`: `T`) => `boolean`

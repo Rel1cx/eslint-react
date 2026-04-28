@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / flip
+[@local/eff](../README.md) / flip
 
 # Function: flip()
 
@@ -26,31 +26,7 @@ Reverses the order of arguments for a curried function.
 
 A new function with the argument order reversed.
 
-```ts
-(...b: B): (...a: A) => C;
-```
-
-### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`b`    | `B`  |
-
-### Returns
-
-```ts
-(...a: A): C;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`C`
+(...`b`: `B`) => (...`a`: `A`) => `C`
 
 ## Example
 

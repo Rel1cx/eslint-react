@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / flow
+[@local/eff](../README.md) / flow
 
 # Function: flow()
 
@@ -29,19 +29,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): B;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`B`
+(...`a`: `A`) => `B`
 
 ### Example
 
@@ -90,19 +78,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): C;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`C`
+(...`a`: `A`) => `C`
 
 ### Example
 
@@ -157,19 +133,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): D;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`D`
+(...`a`: `A`) => `D`
 
 ### Example
 
@@ -227,19 +191,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): E;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`E`
+(...`a`: `A`) => `E`
 
 ### Example
 
@@ -300,19 +252,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): F;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`F`
+(...`a`: `A`) => `F`
 
 ### Example
 
@@ -376,19 +316,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): G;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`G`
+(...`a`: `A`) => `G`
 
 ### Example
 
@@ -455,19 +383,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): H;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`H`
+(...`a`: `A`) => `H`
 
 ### Example
 
@@ -537,19 +453,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): I;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`I`
+(...`a`: `A`) => `I`
 
 ### Example
 
@@ -622,19 +526,7 @@ See also [`pipe`](#pipe).
 
 A composed function that applies all given functions in sequence.
 
-```ts
-(...a: A): J;
-```
-
-#### Parameters
-
-| Parameter | Type |
-| --------- | ---- |
-| ...`a`    | `A`  |
-
-#### Returns
-
-`J`
+(...`a`: `A`) => `J`
 
 ### Example
 

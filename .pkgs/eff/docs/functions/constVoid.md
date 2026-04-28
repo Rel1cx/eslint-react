@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / constVoid
+[@local/eff](../README.md) / constVoid
 
 # Function: constVoid()
 

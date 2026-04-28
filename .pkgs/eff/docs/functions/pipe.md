@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / pipe
+[@local/eff](../README.md) / pipe
 
 # Function: pipe()
 

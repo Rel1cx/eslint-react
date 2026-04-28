@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / constFalse
+[@local/eff](../README.md) / constFalse
 
 # Function: constFalse()
 

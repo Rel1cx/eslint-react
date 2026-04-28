@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / isArray
+[@local/eff](../README.md) / isArray
 
 # Function: isArray()
 

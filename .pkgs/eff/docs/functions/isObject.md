@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / isObject
+[@local/eff](../README.md) / isObject
 
 # Function: isObject()
 

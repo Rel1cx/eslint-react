@@ -1,4 +1,4 @@
-[@eslint-react/eff](../README.md) / absurd
+[@local/eff](../README.md) / absurd
 
 # Function: absurd()
 
