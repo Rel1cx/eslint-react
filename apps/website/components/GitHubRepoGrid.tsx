@@ -1,5 +1,5 @@
-import { GitHubRepo } from "#/components/GitHubRepo";
-import { cn } from "#/lib/cn";
+import { GitHubRepo } from "@/components/GitHubRepo";
+import { cn } from "@/lib/cn";
 
 interface GitHubRepoGridProps {
   className?: string;

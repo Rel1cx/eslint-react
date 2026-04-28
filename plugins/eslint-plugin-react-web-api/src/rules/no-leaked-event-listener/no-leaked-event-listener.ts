@@ -10,8 +10,8 @@ import {
   ComponentPhaseRelevance,
   type EventListenerEntry,
   getPhaseKindOfFunction,
-} from "../../types";
-import { createRule } from "../../utils/create-rule";
+} from "@/types";
+import { createRule } from "@/utils/create-rule";
 import { defaultOptions, getOptions } from "./lib";
 
 // #region Rule Metadata

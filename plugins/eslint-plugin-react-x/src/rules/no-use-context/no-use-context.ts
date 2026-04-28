@@ -4,7 +4,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-use-context";
 

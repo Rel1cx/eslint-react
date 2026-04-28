@@ -1,6 +1,6 @@
-import { getMDXComponents } from "#/components/mdx";
-import { gitConfig } from "#/lib/shared";
-import { getPageImage, getPageMarkdownUrl, source } from "#/lib/source";
+import { getMDXComponents } from "@/components/mdx";
+import { gitConfig } from "@/lib/shared";
+import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
 import {
   DocsBody,
   DocsDescription,

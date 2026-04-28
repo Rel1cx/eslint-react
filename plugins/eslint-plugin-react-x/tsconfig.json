@@ -19,7 +19,13 @@
     "noImplicitThis": true,
     "exactOptionalPropertyTypes": true,
     "composite": false,
-    "stripInternal": false
+    "stripInternal": false,
+    "paths": {
+      "@": ["./src"],
+      "#": ["../.."],
+      "@/*": ["./src/*"],
+      "#/*": ["../../*"]
+    }
   },
   "exclude": [
     "node_modules",

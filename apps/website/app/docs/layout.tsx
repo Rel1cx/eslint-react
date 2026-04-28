@@ -1,4 +1,4 @@
-import { source } from "#/lib/source";
+import { source } from "@/lib/source";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import { baseOptions } from "../layout.config";
 

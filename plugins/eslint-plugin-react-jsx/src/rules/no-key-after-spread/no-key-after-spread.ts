@@ -2,7 +2,7 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { JsxEmit, getJsxConfig } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-key-after-spread";
 

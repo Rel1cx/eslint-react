@@ -3,19 +3,20 @@ import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
+import * as NodePath from "node:path";
 
 import { glob } from "./lib/glob";
 
-import * as allConfig from "../plugins/eslint-plugin/src/configs/all";
-import * as disableExperimentalConfig from "../plugins/eslint-plugin/src/configs/disable-experimental";
-import * as disableTypeCheckedConfig from "../plugins/eslint-plugin/src/configs/disable-type-checked";
-import * as domConfig from "../plugins/eslint-plugin/src/configs/dom";
-import * as jsxConfig from "../plugins/eslint-plugin/src/configs/jsx";
-import * as namingConventionConfig from "../plugins/eslint-plugin/src/configs/naming-convention";
-import * as recommendedConfig from "../plugins/eslint-plugin/src/configs/recommended";
-import * as rscConfig from "../plugins/eslint-plugin/src/configs/rsc";
-import * as strictConfig from "../plugins/eslint-plugin/src/configs/strict";
-import * as webApiConfig from "../plugins/eslint-plugin/src/configs/web-api";
+import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
+import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";
+import * as disableTypeCheckedConfig from "#/plugins/eslint-plugin/src/configs/disable-type-checked";
+import * as domConfig from "#/plugins/eslint-plugin/src/configs/dom";
+import * as jsxConfig from "#/plugins/eslint-plugin/src/configs/jsx";
+import * as namingConventionConfig from "#/plugins/eslint-plugin/src/configs/naming-convention";
+import * as recommendedConfig from "#/plugins/eslint-plugin/src/configs/recommended";
+import * as rscConfig from "#/plugins/eslint-plugin/src/configs/rsc";
+import * as strictConfig from "#/plugins/eslint-plugin/src/configs/strict";
+import * as webApiConfig from "#/plugins/eslint-plugin/src/configs/web-api";
 
 const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 
@@ -61,7 +62,7 @@ const collectRegisteredRules = Effect.gen(function*() {
   for (const file of files) {
     const domain = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
     if (domain === "debug") continue;
-    const mod = yield* Effect.tryPromise(() => import(`../${file}`));
+    const mod = yield* Effect.tryPromise(() => import(NodePath.resolve(file)));
     const ruleName = mod.RULE_NAME;
     if (typeof ruleName !== "string") continue;
     const configKey = buildConfigKey(domain, ruleName);

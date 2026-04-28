@@ -1,4 +1,4 @@
-import { cn } from "#/lib/cn";
+import { cn } from "@/lib/cn";
 import { Post } from "bsky-react-post";
 import "bsky-react-post/theme.css";
 

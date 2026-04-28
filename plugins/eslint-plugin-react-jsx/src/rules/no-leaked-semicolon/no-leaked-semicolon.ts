@@ -2,7 +2,7 @@ import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-leaked-semicolon";
 

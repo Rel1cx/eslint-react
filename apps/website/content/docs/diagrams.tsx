@@ -1,4 +1,4 @@
-import { MermaidDiagram } from "#/components/ui/MermaidDiagram";
+import { MermaidDiagram } from "@/components/ui/MermaidDiagram";
 import mermaid from "dedent";
 
 const functionComponentCollectorSequence = mermaid`

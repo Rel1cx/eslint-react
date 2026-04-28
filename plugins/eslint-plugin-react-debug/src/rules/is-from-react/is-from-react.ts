@@ -2,8 +2,8 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-import { createRule } from "../../utils/create-rule";
-import { stringify } from "../../utils/stringify";
+import { createRule } from "@/utils/create-rule";
+import { stringify } from "@/utils/stringify";
 import { isFromReact } from "./lib";
 
 export const RULE_NAME = "is-from-react";

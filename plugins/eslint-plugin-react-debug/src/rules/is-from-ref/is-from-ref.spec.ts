@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
-import { stringify } from "../../utils/stringify";
+import { ruleTester } from "#/test";
+import { stringify } from "@/utils/stringify";
 import rule, { RULE_NAME } from "./is-from-ref";
 
 ruleTester.run(RULE_NAME, rule, {

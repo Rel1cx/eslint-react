@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { isEvalCall, isIifeCall } from "./lib";
 
 export const RULE_NAME = "unsupported-syntax";

@@ -7,7 +7,7 @@ import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { isComponentOrHookLikeFunction, isInsideConditional, isInsideEventHandler } from "./lib";
 
 export const RULE_NAME = "set-state-in-render";

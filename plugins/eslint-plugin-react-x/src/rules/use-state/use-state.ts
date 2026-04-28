@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { LAZY_INIT_ALLOW_LIST, getNestedCallExpressions, getNestedNewExpressions } from "./lib";
 
 export const RULE_NAME = "use-state";

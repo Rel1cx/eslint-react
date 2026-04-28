@@ -2,7 +2,7 @@ import { HomeLayout } from "fumadocs-ui/layouts/home";
 import type { LinkItemType } from "fumadocs-ui/layouts/shared";
 import type { ReactNode } from "react";
 
-import { baseOptions } from "#/app/layout.config";
+import { baseOptions } from "@/app/layout.config";
 
 const links = [
   {

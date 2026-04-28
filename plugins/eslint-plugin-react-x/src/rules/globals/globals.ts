@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { MUTATING_ARRAY_METHODS } from "./lib";
 
 export const RULE_NAME = "globals";

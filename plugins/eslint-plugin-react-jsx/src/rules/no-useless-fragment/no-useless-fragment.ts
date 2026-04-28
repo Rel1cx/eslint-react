@@ -13,7 +13,7 @@ import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 
 import { getChildrenSourceText, trimLikeReact } from "./lib";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-useless-fragment";
 

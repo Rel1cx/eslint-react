@@ -4,7 +4,7 @@ import { getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-context-provider";
 

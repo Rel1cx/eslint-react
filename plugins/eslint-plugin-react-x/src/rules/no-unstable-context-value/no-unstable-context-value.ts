@@ -8,7 +8,7 @@ import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { isContextName } from "./lib";
 
 export const RULE_NAME = "no-unstable-context-value";

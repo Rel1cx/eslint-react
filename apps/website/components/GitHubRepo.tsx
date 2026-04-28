@@ -1,4 +1,4 @@
-import { cn } from "#/lib/cn";
+import { cn } from "@/lib/cn";
 import { GithubInfo } from "fumadocs-ui/components/github-info";
 
 export function GitHubRepo({ className, token, ...rest }: Parameters<typeof GithubInfo>[0]) {

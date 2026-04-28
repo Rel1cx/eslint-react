@@ -7,7 +7,7 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 import { IMPURE_CTORS, IMPURE_FUNCS } from "./lib";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "purity";
 
