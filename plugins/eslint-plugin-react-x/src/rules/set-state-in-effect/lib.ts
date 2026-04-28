@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { Scope } from "@typescript-eslint/scope-manager";
@@ -165,7 +166,58 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
       case init.type === AST.CallExpression
         && core.isUseRefCall(context, init):
         return true;
+      // const { foo } = ref.current.getBoundingClientRect();
+      case init.type === AST.CallExpression:
+        return getNestedIdentifiers(init).some((id) =>
+          isInitializedFromRef(context, id.name, context.sourceCode.getScope(id))
+        );
     }
   }
   return false;
+}
+
+/**
+ * Check if a setState call is inside a conditional block whose test expression
+ * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`).
+ * @param context The ESLint rule context
+ * @param node The AST node to check
+ * @returns `true` if the node is inside a ref-gated conditional block
+ */
+export function isRefGatedContext(
+  context: RuleContext,
+  node: TSESTree.Node,
+): boolean {
+  let current: TSESTree.Node | undefined = node.parent;
+  while (current != null) {
+    if (Check.isFunction(current)) break;
+    if (current.type === AST.IfStatement) {
+      if (isRefInExpression(context, current.test)) return true;
+    }
+    if (current.type === AST.ConditionalExpression) {
+      if (isRefInExpression(context, current.test)) return true;
+    }
+    current = current.parent;
+  }
+  return false;
+}
+
+function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
+  return getNestedIdentifiers(node).some((id) =>
+    isInitializedFromRef(context, id.name, context.sourceCode.getScope(id))
+  );
+}
+
+/**
+ * Get the actual CallExpression node from a setState call reference.
+ * When the node is an Identifier that is the callee of a CallExpression,
+ * returns the parent CallExpression; otherwise returns the node itself.
+ * @param node The setState call node (CallExpression or Identifier)
+ * @returns The actual CallExpression node
+ */
+export function getSetStateCallExpression(
+  node: TSESTree.CallExpression | TSESTree.Identifier,
+): TSESTree.CallExpression | TSESTree.Identifier {
+  return node.type === AST.Identifier && node.parent?.type === AST.CallExpression
+    ? node.parent
+    : node;
 }

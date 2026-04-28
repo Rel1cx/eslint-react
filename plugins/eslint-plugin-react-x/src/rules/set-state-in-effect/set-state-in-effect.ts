@@ -9,7 +9,13 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
 import { createRule } from "../../utils";
-import { getNestedIdentifiers, isHookDecl, isInitializedFromRef } from "./lib";
+import {
+  getNestedIdentifiers,
+  getSetStateCallExpression,
+  isHookDecl,
+  isInitializedFromRef,
+  isRefGatedContext,
+} from "./lib";
 
 export const RULE_NAME = "set-state-in-effect";
 
@@ -232,6 +238,18 @@ export function create(context: RuleContext<MessageID, []>) {
                         return isUsingRefValue(n.object);
                       case AST.CallExpression:
                         return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
+                      case AST.BinaryExpression:
+                      case AST.LogicalExpression:
+                        return isUsingRefValue(n.left) || isUsingRefValue(n.right);
+                      case AST.UnaryExpression:
+                      case AST.UpdateExpression:
+                        return isUsingRefValue(n.argument);
+                      case AST.ConditionalExpression:
+                        return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
+                      case AST.SequenceExpression:
+                        return n.expressions.some(isUsingRefValue);
+                      case AST.AssignmentExpression:
+                        return isUsingRefValue(n.right);
                       default:
                         return false;
                     }
@@ -246,6 +264,7 @@ export function create(context: RuleContext<MessageID, []>) {
                       .some((r) => isUsingRefValue(r.identifier));
                 }
                 if (isArgumentUsingRefValue(context, args0)) return;
+                if (isRefGatedContext(context, node)) return;
                 context.report({
                   data: {
                     name: context.sourceCode.getText(node.callee),
@@ -337,6 +356,7 @@ export function create(context: RuleContext<MessageID, []>) {
         };
         for (const [, calls] of setStateInEffectSetup) {
           for (const call of calls) {
+            if (isRefGatedContext(context, getSetStateCallExpression(call))) continue;
             context.report({
               data: {
                 name: call.name,
@@ -352,6 +372,7 @@ export function create(context: RuleContext<MessageID, []>) {
           }
           const setStateCalls = getSetStateCalls(context, callee);
           for (const setStateCall of setStateCalls) {
+            if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
             context.report({
               data: {
                 name: getCallName(setStateCall),
@@ -364,6 +385,7 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const id of setupFnIds) {
           const setStateCalls = getSetStateCalls(context, id);
           for (const setStateCall of setStateCalls) {
+            if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
             context.report({
               data: {
                 name: getCallName(setStateCall),
