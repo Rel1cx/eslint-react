@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.6.0-beta.0 (2026-04-28)
+
+### 🐞 Fixes
+
+- fix: unwrap type expressions before inspecting AST node types (#1732) (`c5290fcb3`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.6-beta.0...v5.6.0-beta.0
+
 ## v5.5.6-beta.0 (2026-04-28)
 
 ### 🪄 Improvements
