@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.5.4-beta.0 (2026-04-28)
+
+### 🐞 Fixes
+
+- **eslint-plugin-react-x:** resolve catch block over-reporting in `error-boundaries` rule (#1730) (`68b36a6ce`)
+
+### 🪄 Improvements
+
+- Bump tsl-dx to 0.12.1 across multiple packages (`6438ea58f`)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.5.3-beta.2...v5.5.4-beta.0
+
 ## v5.5.3-beta.2 (2026-04-28)
 
 ### 📝 Documentation
