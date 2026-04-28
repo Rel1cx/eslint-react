@@ -48,6 +48,7 @@ export const rules = {
   "@eslint-react/rules-of-hooks": "error",
   "@eslint-react/set-state-in-effect": "warn",
   "@eslint-react/set-state-in-render": "error",
+  "@eslint-react/static-components": "error",
   "@eslint-react/unsupported-syntax": "error",
   "@eslint-react/use-memo": "error",
   "@eslint-react/use-state": "warn",

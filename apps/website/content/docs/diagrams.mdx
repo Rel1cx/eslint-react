@@ -4,7 +4,13 @@ description: Architecture and sequence diagrams for ESLint React internals
 full: true
 ---
 
-import { ConfigInheritanceDiagram, FunctionComponentCollectorSequence } from "./diagrams.tsx";
+import {
+  ConfigInheritanceDiagram,
+  FunctionComponentCollectorSequence,
+  ReleaseAutomationPipelineDiagram,
+  RuleDocumentationPipelineDiagram,
+  VerificationDataFlowDiagram,
+} from "./diagrams.tsx";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 <InlineTOC items={toc}>Table of Contents</InlineTOC>
@@ -20,3 +26,28 @@ The following flowchart illustrates the inheritance relationships between ESLint
 The following sequence diagram illustrates how `getFunctionComponentCollector` (in `packages/core/src/function-component-collector.ts`) collects function components during an ESLint rule's AST traversal.
 
 <FunctionComponentCollectorSequence />
+
+---
+
+## Release Automation Pipeline
+
+The following flowchart illustrates how the release automation scripts (`update-version.ts`, `update-readme.ts`, `update-website.ts`) transform source inputs into generated outputs during a release.
+
+<ReleaseAutomationPipelineDiagram />
+
+---
+
+## Rule Documentation Pipeline
+
+The following flowchart illustrates how `update-website.ts` collects rule documentation from the plugin source directories, enriches it with cross-reference data, and generates the website's rules section.
+
+<RuleDocumentationPipelineDiagram />
+
+---
+
+## Verification Data Flow
+
+The following flowchart illustrates the data sources and validation steps performed by `verify-configs.ts` and `verify-rule-docs.ts`.
+
+<VerificationDataFlowDiagram />
+

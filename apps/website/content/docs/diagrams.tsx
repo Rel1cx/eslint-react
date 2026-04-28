@@ -135,3 +135,123 @@ const configInheritance = mermaid`
 export function ConfigInheritanceDiagram() {
   return <MermaidDiagram code={configInheritance} />;
 }
+
+const releaseAutomationPipeline = mermaid`
+  flowchart TB
+    subgraph inputs["📥 Release Inputs"]
+      VERSION["VERSION file"]
+      CHANGELOG["CHANGELOG.md"]
+      README_SRC["README.md"]
+      RULE_DOCS["plugins/*/src/rules/*/*.mdx"]
+      RELATIONS["docs/rule-relations-table.md"]
+    end
+
+    subgraph scripts["🔧 Automation Scripts"]
+      UV["update-version.ts"]
+      UR["update-readme.ts"]
+      UW["update-website.ts"]
+    end
+
+    subgraph outputs["📤 Generated Outputs"]
+      PKG["package.json<br/>packages/*/package.json<br/>plugins/*/package.json"]
+      README_DST["README.md<br/>plugins/eslint-plugin/README.md"]
+      WEB_RULES["apps/website/content/docs/rules/*.mdx"]
+      META["apps/website/content/docs/rules/meta.json"]
+      WEB_CL["apps/website/content/docs/changelog.md"]
+    end
+
+    VERSION -->|"reads version"| UV
+    UV -->|"writes"| PKG
+
+    README_SRC -->|"reads"| UR
+    UR -->|"updates badges & links"| README_DST
+
+    RULE_DOCS -->|"collects"| UW
+    RELATIONS -->|"parses See Also"| UW
+    CHANGELOG -->|"wraps frontmatter"| UW
+    UW -->|"copies + generates"| WEB_RULES
+    UW -->|"generates"| META
+    UW -->|"syncs"| WEB_CL
+`;
+
+export function ReleaseAutomationPipelineDiagram() {
+  return <MermaidDiagram code={releaseAutomationPipeline} />;
+}
+
+const ruleDocumentationPipeline = mermaid`
+  flowchart LR
+    subgraph sources["📥 Rule Sources"]
+      MDX["plugins/*/src/rules/*/*.mdx"]
+      REL["docs/rule-relations-table.md<br/>Detailed References"]
+      CL["CHANGELOG.md"]
+    end
+
+    subgraph process["🔧 update-website.ts"]
+      COLLECT["collectDocs()<br/>Gather rule metadata"]
+      COPY["copyRuleDoc()<br/>Copy .mdx + append See Also"]
+      META["generateRuleMetaJson()<br/>Build sidebar meta.json"]
+      PROC_CL["processChangelog()<br/>Wrap with frontmatter"]
+    end
+
+    subgraph outputs["📤 Website Outputs"]
+      WEB_MDX["apps/website/content/docs/rules/*.mdx"]
+      WEB_META["apps/website/content/docs/rules/meta.json"]
+      WEB_CL["apps/website/content/docs/changelog.md"]
+    end
+
+    MDX --> COLLECT
+    COLLECT --> COPY
+    REL --> COPY
+    COPY --> WEB_MDX
+
+    COLLECT --> META
+    META --> WEB_META
+
+    CL --> PROC_CL
+    PROC_CL --> WEB_CL
+`;
+
+export function RuleDocumentationPipelineDiagram() {
+  return <MermaidDiagram code={ruleDocumentationPipeline} />;
+}
+
+const verificationDataFlow = mermaid`
+  flowchart TB
+    subgraph rule_src["📥 Rule Source Files"]
+      RULE_TS["plugins/*/src/rules/*/*.ts<br/>(excluding .spec.ts, .test.ts, lib.ts)"]
+      RULE_MDX["plugins/*/src/rules/*/*.mdx"]
+    end
+
+    subgraph verify_configs["🔍 verify-configs.ts"]
+      A1["1. Collect registered rules<br/>from plugin.ts exports"]
+      A2["2. Check all rules accounted for<br/>in all / disable-experimental /<br/>disable-type-checked"]
+      A3["3. Validate config keys<br/>against registered rules"]
+      A4["4. Verify preset hierarchy<br/>recommended ⊂ strict ⊂ all"]
+      A5["5. Check domain configs<br/>dom / jsx / rsc / web-api /<br/>naming-convention"]
+    end
+
+    subgraph verify_docs["🔍 verify-rule-docs.ts"]
+      B1["Check description<br/>matches meta.docs.description"]
+      B2["Check features emoji<br/>matches RULE_FEATURES"]
+      B3["Check presets severity<br/>matches recommended/strict"]
+      B4["Check resources links<br/>Rule Source + Test Source"]
+      B5["Verify rules/index.mdx<br/>View by Domain table"]
+    end
+
+    RULE_TS --> A1
+    A1 --> A2
+    A1 --> A3
+    A1 --> A5
+    A3 --> A4
+
+    RULE_TS --> B1
+    RULE_TS --> B2
+    RULE_TS --> B3
+    RULE_MDX --> B4
+    RULE_TS --> B5
+    RULE_MDX --> B5
+`;
+
+export function VerificationDataFlowDiagram() {
+  return <MermaidDiagram code={verificationDataFlow} />;
+}
