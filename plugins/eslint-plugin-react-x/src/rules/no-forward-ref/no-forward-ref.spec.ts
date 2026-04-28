@@ -601,6 +601,64 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        import { forwardRef } from 'react'
+        const Component = (forwardRef as any)((props) => {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = ({ ref, ...props }) => {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import * as React from 'react'
+        const Component = (React.forwardRef as any)((props) => {
+          return null;
+        });
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import * as React from 'react'
+                const Component = ({ ref, ...props }) => {
+                  return null;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
   ],
   valid: [
     {

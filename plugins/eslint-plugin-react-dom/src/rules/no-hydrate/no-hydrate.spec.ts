@@ -59,6 +59,18 @@ ruleTester.run(RULE_NAME, rule, {
         hydrateRoot(rootEl, <Component />);
       `,
     },
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        (hydrate as any)(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { hydrateRoot } from "react-dom/client";
+        import { hydrate } from "react-dom";
+        hydrateRoot(document.body, <div />);
+      `,
+    },
   ],
   valid: [
     tsx`

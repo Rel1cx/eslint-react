@@ -146,6 +146,18 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        (useFormState as any)(action);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { useActionState } from "react";
+        import { useFormState } from "react-dom";
+        (useActionState)(action);
+      `,
+    },
   ],
   valid: [
     tsx`

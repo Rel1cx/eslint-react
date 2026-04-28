@@ -210,6 +210,26 @@ ruleTester.run(RULE_NAME, rule, {
     //     { messageId: "default" },
     //   ],
     // },
+    {
+      code: tsx`
+        const App = () => {
+          return (data.map as any)(x => <App />);
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      code: tsx`
+        const App = () => {
+          return (Array.from as any)(null, x => <App />);
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     "fn()",

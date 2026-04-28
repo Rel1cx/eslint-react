@@ -1092,6 +1092,9 @@ importers:
 
   plugins/eslint-plugin-react-dom:
     dependencies:
+      '@eslint-react/ast':
+        specifier: workspace:*
+        version: link:../../packages/ast
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint

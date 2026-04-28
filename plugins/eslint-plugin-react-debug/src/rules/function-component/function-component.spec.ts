@@ -1994,6 +1994,13 @@ ruleTester.run(RULE_NAME, rule, {
     "items.map((() => <div />) as any)",
     "items.map((() => <div />) satisfies any)",
     "items.map((() => <div />)! as any)",
+    // Callee of .map() wrapped in type expressions — excluded by
+    // DoNotIncludeFunctionDefinedAsArrayMapCallback
+    "(items.map as any)((x) => <div />)",
+    "(items.map satisfies typeof items.map)((x) => <div />)",
+    // Named function passed to createElement wrapped in type expression
+    // (node.parent is TSAsExpression, not CallExpression, so L282-289 misses it)
+    "React.createElement('div', null, (function App() { return <div />; }) as any)",
     // Anonymous function in .flatMap() wrapped in type expressions — excluded by
     // DoNotIncludeFunctionDefinedAsArrayFlatMapCallback
     "items.flatMap((() => <div />) as any)",

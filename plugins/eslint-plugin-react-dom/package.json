@@ -43,6 +43,7 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
+    "@eslint-react/ast": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",

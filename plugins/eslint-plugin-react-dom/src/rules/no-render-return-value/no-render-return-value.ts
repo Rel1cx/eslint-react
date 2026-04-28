@@ -1,3 +1,4 @@
+import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -17,6 +18,12 @@ const banParentTypes = [
   AST.ArrowFunctionExpression,
   AST.AssignmentExpression,
 ];
+
+function isReturnValueUsed(node: TSESTree.CallExpression) {
+  let parent = node.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  return banParentTypes.includes(parent.type);
+}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -43,25 +50,26 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
       CallExpression(node) {
+        const callee = Extract.unwrap(node.callee);
         switch (true) {
           // Handles direct calls to 'render' (ex: from `import { render } from 'react-dom'`)
-          case node.callee.type === AST.Identifier
-            && renderNames.has(node.callee.name)
+          case callee.type === AST.Identifier
+            && renderNames.has(callee.name)
             // Check if the return value is being used
-            && banParentTypes.includes(node.parent.type):
+            && isReturnValueUsed(node):
             context.report({
               messageId: "default",
               node,
             });
             return;
           // Handles member expression calls like 'ReactDOM.render'
-          case node.callee.type === AST.MemberExpression
-            && node.callee.object.type === AST.Identifier
-            && node.callee.property.type === AST.Identifier
-            && node.callee.property.name === "render"
-            && reactDomNames.has(node.callee.object.name)
+          case callee.type === AST.MemberExpression
+            && callee.object.type === AST.Identifier
+            && callee.property.type === AST.Identifier
+            && callee.property.name === "render"
+            && reactDomNames.has(callee.object.name)
             // Check if the return value is being used
-            && banParentTypes.includes(node.parent.type):
+            && isReturnValueUsed(node):
             context.report({
               messageId: "default",
               node,

@@ -1,4 +1,4 @@
-import { Check, type TSESTreeDirective, type TSESTreeFunction, Traverse, isOneOf } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse, isOneOf } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
@@ -279,10 +279,14 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   }
 
   // 2. Check immediate contextual exclusions
+  const isCreateElementArg = ((): boolean => {
+    let p = node.parent;
+    while (Check.isTypeExpression(p)) p = p.parent;
+    if (p.type !== AST.CallExpression || !isCreateElementCall(context, p)) return false;
+    return p.arguments.slice(2).some((arg) => Extract.unwrap(arg) === node);
+  })();
   switch (true) {
-    case node.parent.type === AST.CallExpression
-      && isCreateElementCall(context, node.parent)
-      && node.parent.arguments.slice(2).some((arg: TSESTree.Node) => arg === node):
+    case isCreateElementArg:
       return false;
     case isRenderMethodCallback(node):
       return false;
@@ -293,6 +297,9 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   while (Check.isTypeExpression(parent)) parent = parent.parent;
 
   // 4. Apply contextual exclusions via hints
+  const parentCallee = parent.type === AST.CallExpression
+    ? Extract.unwrap(parent.callee)
+    : null;
   switch (true) {
     case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
@@ -313,16 +320,16 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
     case parent.type === AST.ArrayExpression:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement) return false;
       break;
-    case parent.type === AST.CallExpression
-      && parent.callee.type === AST.MemberExpression
-      && parent.callee.property.type === AST.Identifier
-      && parent.callee.property.name === "map":
+    case parentCallee != null
+      && parentCallee.type === AST.MemberExpression
+      && parentCallee.property.type === AST.Identifier
+      && parentCallee.property.name === "map":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback) return false;
       break;
-    case parent.type === AST.CallExpression
-      && parent.callee.type === AST.MemberExpression
-      && parent.callee.property.type === AST.Identifier
-      && parent.callee.property.name === "flatMap":
+    case parentCallee != null
+      && parentCallee.type === AST.MemberExpression
+      && parentCallee.property.type === AST.Identifier
+      && parentCallee.property.name === "flatMap":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
     case parent.type === AST.CallExpression

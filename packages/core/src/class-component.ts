@@ -179,7 +179,7 @@ export function isRenderMethodCallback(node: TSESTreeFunction) {
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isThisSetStateCall(node: TSESTree.CallExpression) {
-  const { callee } = node;
+  const callee = Extract.unwrap(node.callee);
   return (
     callee.type === AST.MemberExpression
     && callee.object.type === AST.ThisExpression

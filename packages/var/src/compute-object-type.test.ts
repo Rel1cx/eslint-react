@@ -276,5 +276,27 @@ describe("computeObjectType", () => {
         return null;
       });
     });
+
+    it("FIXED: CallExpression callee wrapped in TSAsExpression is recognized", () => {
+      const code = "const x = (Array as any)();";
+      const result = runInRule(code, (context, ast) => {
+        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        expect(node).toBeDefined();
+        return computeObjectType(context, node!);
+      });
+      expect(result).not.toBeNull();
+      expect(result!.kind).toBe("array");
+    });
+
+    it("FIXED: CallExpression callee wrapped in TSSatisfiesExpression is recognized", () => {
+      const code = "const x = (Array.from satisfies typeof Array.from)([1, 2]);";
+      const result = runInRule(code, (context, ast) => {
+        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        expect(node).toBeDefined();
+        return computeObjectType(context, node!);
+      });
+      expect(result).not.toBeNull();
+      expect(result!.kind).toBe("array");
+    });
   });
 });

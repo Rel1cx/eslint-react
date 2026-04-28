@@ -1,4 +1,4 @@
-import { Check, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -84,12 +84,13 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   const initialScope = context.sourceCode.getScope(node);
   // Check if the callee is `forwardRef` or `React.forwardRef`
-  switch (node.callee.type) {
+  const callee = Extract.unwrap(node.callee);
+  switch (callee.type) {
     case AST.Identifier:
-      return core.isAPIFromReact(node.callee.name, initialScope, importSource);
+      return core.isAPIFromReact(callee.name, initialScope, importSource);
     case AST.MemberExpression:
-      return node.callee.object.type === AST.Identifier
-        && core.isAPIFromReact(node.callee.object.name, initialScope, importSource);
+      return callee.object.type === AST.Identifier
+        && core.isAPIFromReact(callee.object.name, initialScope, importSource);
     default:
       return false;
   }

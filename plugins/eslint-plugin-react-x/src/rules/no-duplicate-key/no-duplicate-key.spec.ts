@@ -193,6 +193,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        const App = () => {
+          return (data.map as any)(x => <div key="dup" />);
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     tsx`
