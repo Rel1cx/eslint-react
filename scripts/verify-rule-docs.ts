@@ -6,6 +6,7 @@ import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
+import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
@@ -59,7 +60,7 @@ const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
     const filename = `plugins/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
     const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() =>
-      import(NodePath.resolve(filename))
+      import(pathToFileURL(NodePath.resolve(filename)).href)
     );
 
     // Extract description from the rule's meta.docs

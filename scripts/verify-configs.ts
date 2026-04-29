@@ -4,6 +4,7 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { glob } from "./lib/glob";
 
@@ -62,7 +63,7 @@ const collectRegisteredRules = Effect.gen(function*() {
   for (const file of files) {
     const domain = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
     if (domain === "debug") continue;
-    const mod = yield* Effect.tryPromise(() => import(NodePath.resolve(file)));
+    const mod = yield* Effect.tryPromise(() => import(pathToFileURL(NodePath.resolve(file)).href));
     const ruleName = mod.RULE_NAME;
     if (typeof ruleName !== "string") continue;
     const configKey = buildConfigKey(domain, ruleName);
