@@ -1,0 +1,133 @@
+---
+title: "Announcing v5.6.0"
+description: "A major release featuring core API refactoring, kit API simplification, new rules, and class component support deprecation"
+---
+
+<Callout type="info">
+  This release consolidates all changes since v4.2.1.
+</Callout>
+
+## **Core API Refactoring**
+
+The `@eslint-react/core` package underwent a large-scale flattening refactor. Modules previously scattered across subdirectories like `component/`, `function/`, `hook/`, `semantic/`, and `api/` have been merged into the root directory. Several core APIs have been renamed:
+
+| Before                         | After                            |
+| :----------------------------- | :------------------------------- |
+| `isReactAPI`                   | `isAPI`                          |
+| `isReactAPICall`               | `isAPICall`                      |
+| `isInitializedFromReact`       | `isAPIFromReact`                 |
+| `isInitializedFromReactNative` | `isAPIFromReactNative`           |
+| `ComponentDetectionHint`       | `FunctionComponentDetectionHint` |
+| `ComponentFlag`                | `FunctionComponentFlag`          |
+| `getComponentCollector`        | `getFunctionComponentCollector`  |
+| `getComponentCollectorLegacy`  | `getClassComponentCollector`     |
+
+Type utilities (`type-is`, `type-name`, `type-variant`) have been migrated from `eslint-plugin-react-x` to `@eslint-react/core`, and the `Toolkit` interface in `@eslint-react/kit` has been updated to reflect these naming changes.
+
+## **Kit API Simplification**
+
+The `@eslint-react/kit` package has been streamlined:
+
+- **Simplified `RuleToolkit.is` API**: Pre-built identifier predicates (`memo`, `lazy`, `forwardRef`, etc.) have been removed. Only `*Call` variants and `API`/`APICall` factories remain.
+- **Renamed initialization checkers**:
+
+| Before                       | After                |
+| :--------------------------- | :------------------- |
+| `initializedFromReact`       | `APIFromReact`       |
+| `initializedFromReactNative` | `APIFromReactNative` |
+
+Code using `is.memo(node)`, `is.lazy(node)`, etc. must migrate to `is.memoCall(node)` or use `is.API("memo")(node)`.
+
+## **Removed Rules**
+
+The following rules have been removed from their respective packages:
+
+| Rule                                   | Package       | Notes                    |
+| :------------------------------------- | :------------ | :----------------------- |
+| `component-hook-factories`             | `react-x`     | Removed from all configs |
+| `no-redundant-should-component-update` | `react-x`     | Removed from all configs |
+| `no-unnecessary-use-callback`          | `react-x`     | Removed from all configs |
+| `no-unnecessary-use-memo`              | `react-x`     | Removed from all configs |
+| `no-unused-state`                      | `react-x`     | Removed from all configs |
+| `prefer-destructuring-assignment`      | `react-x`     | Removed from all configs |
+| `prefer-namespace-import`              | `react-x`     | Removed from all configs |
+| `prefer-namespace-import`              | `react-dom`   | Removed from all configs |
+| `debug/class-component`                | `react-debug` | Removed from all configs |
+
+## **Class Component Support Deprecation**
+
+All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
+
+Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
+
+## **New Rules**
+
+- **`react-x/globals`**: Restricts usage of global variables in React components.
+- **`react-x/static-components`**: Enforces static component definitions. Enhanced with variable reference tracking and a `createdHere` diagnostic to reduce false positives.
+- **`react-web-api/no-leaked-fetch`**: Detects leaked `fetch` calls in effects, closing #1714.
+
+## **Kit Enhancements**
+
+- Added `ast.findParent` utility for traversing AST ancestors.
+- Added support for **Universally Unique Lexicographically Sortable Identifiers (ULID)** for anonymous rules (later migrated to `node:crypto randomBytes`).
+
+## **Bug Fixes**
+
+- **`react-x/error-boundaries`**: Fixed false positives on non-React code and resolved catch block over-reporting.
+- **`react-x/set-state-in-effect`**: Improved validation accuracy.
+- **`react-x/use-memo`**: Added reassignment check, aligned message IDs, and added support for `for-of`/`for-in` loops.
+- **Configs**: Added missing rules to presets, cleaned up experimental disables, and updated documentation.
+- **Type expressions**: Added missing `Extract.unwrap` for type expressions and chain expressions; unwrapped type expressions before inspecting AST node types.
+
+## **Improvements**
+
+- **`ast`**: Normalized API naming conventions; renamed `isJSXLike` → `isJSXElementOrFragment` and `isMethodOrProperty` → `isPropertyOrMethod`; rewrote Check helpers.
+- Extracted ESLint types and utilities into the `@eslint-react/eslint` package.
+- Extracted `@eslint-react/jsx` from `@eslint-react/core` into a standalone utility package for static analysis of JSX patterns.
+- Migrated to `@` and `#` path aliases and replaced `tsx` with `vite-node`.
+- Moved pattern utilities to rule directories and extracted rule helpers into co-located `lib.ts` modules across multiple plugins.
+- Replaced `RuleConfig` with `Linter.RulesRecord` from ESLint.
+- Restructured monorepo packages directory layout.
+- **`react-rsc/function-definition`**: Added directive position and quote checks.
+- **Website**: Added inline TOCs, improved navigation, enabled twoslash type-checking for code examples, improved accessibility, and unified layout configuration.
+- **Testing**: Expanded compiler fixture coverage across 9 rules; added comprehensive unit tests for component/hook detection utilities.
+
+## **Migration Guide**
+
+### Core API migration (for custom rule authors)
+
+- [ ] Replace `isReactAPI` with `isAPI`.
+- [ ] Replace `isReactAPICall` with `isAPICall`.
+- [ ] Replace `isInitializedFromReact` with `isAPIFromReact`.
+- [ ] Replace `isInitializedFromReactNative` with `isAPIFromReactNative`.
+- [ ] Replace `ComponentDetectionHint` with `FunctionComponentDetectionHint`.
+- [ ] Replace `ComponentFlag` with `FunctionComponentFlag`.
+- [ ] Replace `getComponentCollector` with `getFunctionComponentCollector`.
+- [ ] Replace `getComponentCollectorLegacy` with `getClassComponentCollector`.
+
+### Kit API migration
+
+- [ ] Replace `is.memo(node)`, `is.lazy(node)`, etc. with `is.memoCall(node)` or `is.API("memo")(node)`.
+- [ ] Replace `initializedFromReact` with `APIFromReact`.
+- [ ] Replace `initializedFromReactNative` with `APIFromReactNative`.
+- [ ] Replace `RuleDefinition` type with `RuleFunction`.
+
+### Removed rules
+
+- [ ] Remove `react-x/component-hook-factories`.
+- [ ] Remove `react-x/no-redundant-should-component-update`.
+- [ ] Remove `react-x/no-unnecessary-use-callback`.
+- [ ] Remove `react-x/no-unnecessary-use-memo`.
+- [ ] Remove `react-x/no-unused-state`.
+- [ ] Remove `react-x/prefer-destructuring-assignment`.
+- [ ] Remove `react-x/prefer-namespace-import` and `react-dom/prefer-namespace-import`.
+- [ ] Remove `react-debug/class-component`.
+
+### Class Component deprecation
+
+- [ ] Review any reliance on Class Component lifecycle detection in `react-web-api/no-leaked-event-listener`, `react-web-api/no-leaked-interval`, and `react-web-api/no-leaked-timeout`. These rules now only report on Hook Effects.
+
+## **References**
+
+- Changelog: [v5.6.0](/docs/changelog#v560-2026-04-29)
+- Full Changelog: [v4.2.1...v5.6.0](https://github.com/Rel1cx/eslint-react/compare/v4.2.1...v5.6.0)
