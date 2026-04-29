@@ -35,10 +35,7 @@ export function preferStateUpdaterFunction(): RuleFunction {
           const { parent } = node;
           if (parent.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
             const [stateEl, setterEl] = parent.id.elements;
-            if (
-              stateEl?.type === "Identifier"
-              && setterEl?.type === "Identifier"
-            ) {
+            if (stateEl?.type === "Identifier" && setterEl?.type === "Identifier") {
               const scope = context.sourceCode.getScope(node);
               const stateVar = findVariable(scope, stateEl.name);
               const setterVar = findVariable(scope, setterEl.name);
