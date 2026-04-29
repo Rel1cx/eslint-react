@@ -80,7 +80,7 @@
     "effect": "^3.21.2",
     "eslint": "^10.2.1",
     "eslint-plugin-fast-import": "^2.2.1",
-    "eslint-plugin-package-json": "^0.91.1",
+    "eslint-plugin-package-json": "^0.91.2",
     "mdxlint": "^1.0.0",
     "preact": "^10.29.1",
     "publint": "^0.3.18",

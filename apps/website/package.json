@@ -28,7 +28,7 @@
     "fumadocs-twoslash": "3.2.0",
     "fumadocs-typescript": "5.2.6",
     "fumadocs-ui": "16.8.5",
-    "lucide-react": "^1.11.0",
+    "lucide-react": "^1.12.0",
     "next": "16.2.4",
     "next-view-transitions": "^0.3.5",
     "react": "^19.2.5",
