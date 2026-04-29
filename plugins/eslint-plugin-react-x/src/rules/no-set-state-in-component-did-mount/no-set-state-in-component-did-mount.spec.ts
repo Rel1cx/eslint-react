@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
+import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-set-state-in-component-did-mount";
 
 ruleTester.run(RULE_NAME, rule, {

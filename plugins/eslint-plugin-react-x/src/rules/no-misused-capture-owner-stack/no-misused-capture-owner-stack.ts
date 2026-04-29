@@ -1,9 +1,9 @@
+import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { createRule } from "../../utils/create-rule";
 
 import { isDevelopmentOnlyCheck } from "./lib";
 

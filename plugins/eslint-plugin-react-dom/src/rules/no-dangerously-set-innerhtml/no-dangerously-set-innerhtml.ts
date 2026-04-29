@@ -1,7 +1,7 @@
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
 

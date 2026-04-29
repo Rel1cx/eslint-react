@@ -1,4 +1,4 @@
-import { docsContentRoute, docsRoute } from "#/lib/shared";
+import { docsContentRoute, docsRoute } from "@/lib/shared";
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
 import { NextRequest, NextResponse } from "next/server";
 

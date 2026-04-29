@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching } from "ts-pattern";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { getIdentifiersFromBinaryExpression, getMapIndexParamName, report } from "./lib";
 
 export const RULE_NAME = "no-array-index-key";

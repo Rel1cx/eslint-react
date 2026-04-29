@@ -8,7 +8,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import {
   getNestedIdentifiers,
   getSetStateCallExpression,

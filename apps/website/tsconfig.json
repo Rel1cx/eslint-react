@@ -16,8 +16,8 @@
     "incremental": true,
     "erasableSyntaxOnly": true,
     "paths": {
-      "#": ["."],
-      "#/*": ["./*"],
+      "@": ["."],
+      "@/*": ["./*"],
       "collections/*": ["./.source/*"]
     },
     "plugins": [

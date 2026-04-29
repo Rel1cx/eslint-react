@@ -1,4 +1,4 @@
-import logo from "#/assets/logo.svg";
+import logo from "@/assets/logo.svg";
 import Image, { type StaticImageData } from "next/image";
 
 export function ESLintReact() {

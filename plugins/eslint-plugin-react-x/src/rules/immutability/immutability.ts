@@ -7,7 +7,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 import { MUTATING_ARRAY_METHODS } from "./lib";
 
 export const RULE_NAME = "immutability";

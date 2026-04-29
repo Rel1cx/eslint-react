@@ -5,12 +5,14 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
+import * as NodePath from "node:path";
+import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
 
 import { glob } from "./lib/glob";
 
-import * as config0 from "../plugins/eslint-plugin/src/configs/recommended-typescript";
-import * as config1 from "../plugins/eslint-plugin/src/configs/strict-typescript";
+import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
+import * as config1 from "#/plugins/eslint-plugin/src/configs/strict-typescript";
 
 const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
@@ -57,7 +59,9 @@ const getFeatureIcon = (x: unknown) =>
 const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
     const filename = `plugins/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
-    const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(`../${filename}`));
+    const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() =>
+      import(pathToFileURL(NodePath.resolve(filename)).href)
+    );
 
     // Extract description from the rule's meta.docs
     const description = match(mod)

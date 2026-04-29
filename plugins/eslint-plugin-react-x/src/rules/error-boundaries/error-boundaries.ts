@@ -4,7 +4,7 @@ import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint"
 import { JsxDetectionHint, isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-import { createRule } from "../../utils/create-rule";
+import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "error-boundaries";
 

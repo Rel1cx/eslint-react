@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
+import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-children-to-array";
 
 ruleTester.run(RULE_NAME, rule, {

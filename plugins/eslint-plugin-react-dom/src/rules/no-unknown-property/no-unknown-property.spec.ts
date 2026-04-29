@@ -1,7 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/tests/lib/rules/no-unknown-property.js
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
+import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-unknown-property";
 
 ruleTester.run(RULE_NAME, rule, {

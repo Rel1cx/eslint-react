@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
+import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-clone-element";
 
 ruleTester.run(RULE_NAME, rule, {

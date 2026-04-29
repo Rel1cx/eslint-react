@@ -13,7 +13,7 @@ const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention",
 type PluginDomain = typeof VALID_PLUGINS[number];
 
 const USAGE = [
-  "Usage: tsx ./scripts/rename-rule.ts <plugin> <old-name> <new-name>",
+  "Usage: vite-node ./scripts/rename-rule.ts <plugin> <old-name> <new-name>",
   "",
   "Arguments:",
   "  plugin     Plugin domain: x, dom, jsx, rsc, web-api, naming-convention, debug",
@@ -21,8 +21,8 @@ const USAGE = [
   "  new-name   New rule name (kebab-case, e.g. no-clone-element-usage)",
   "",
   "Examples:",
-  "  tsx ./scripts/rename-rule.ts x no-clone-element no-clone-element-usage",
-  "  tsx ./scripts/rename-rule.ts dom no-render no-render-call",
+  "  vite-node ./scripts/rename-rule.ts x no-clone-element no-clone-element-usage",
+  "  vite-node ./scripts/rename-rule.ts dom no-render no-render-call",
 ].join("\n");
 
 function kebabToCamel(str: string): string {

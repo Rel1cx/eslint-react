@@ -1,4 +1,4 @@
-import { cn } from "#/lib/cn";
+import { cn } from "@/lib/cn";
 import type { Pretty } from "@local/eff";
 import { Callout as FDCallout } from "fumadocs-ui/components/callout";
 import type React from "react";

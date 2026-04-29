@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
-import { ruleTester } from "../../../../../test";
+import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-misused-capture-owner-stack";
 
 ruleTester.run(RULE_NAME, rule, {

@@ -1,3 +1,4 @@
+import { globSync } from "tinyglobby";
 import { core, defineConfig } from "tsl";
 import {
   noDuplicateExports,
@@ -6,17 +7,15 @@ import {
   nullish,
 } from "tsl-dx";
 
-import { glob } from "../../scripts/lib/glob";
-
 export default defineConfig({
   ignore: [
-    ...glob([
+    ...globSync([
       "**/*.d.ts",
       "**/dist/**",
       "**/build/**",
       "src/rules/exhaustive-deps/*.ts",
       "src/rules/rules-of-hooks/*.ts",
-    ]),
+    ], { ignore: ["**/node_modules/**"] }),
     ``,
   ],
   rules: [

@@ -33,7 +33,7 @@ function generateRuleTs(ruleName: string): string {
   return [
     `import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";`,
     ``,
-    `import { createRule } from "../../utils/create-rule";`,
+    `import { createRule } from "@/utils/create-rule";`,
     ``,
     `export const RULE_NAME = "${ruleName}";`,
     ``,
@@ -70,7 +70,7 @@ function generateRuleSpecTs(ruleName: string): string {
   return [
     `import tsx from "dedent";`,
     ``,
-    `import { ruleTester } from "../../../../../../test";`,
+    `import { ruleTester } from "#/test";`,
     `import rule, { RULE_NAME } from "./${ruleName}";`,
     ``,
     `ruleTester.run(RULE_NAME, rule, {`,
@@ -212,7 +212,7 @@ const parseArgs = Effect.gen(function*() {
   if (args.length < 2) {
     yield* Effect.logError(
       ansis.red(
-        `Usage: tsx ./scripts/scaffold-rule.ts <plugin> <rule-name> [description]\n`
+        `Usage: vite-node ./scripts/scaffold-rule.ts <plugin> <rule-name> [description]\n`
           + `  plugin: ${VALID_PLUGINS.join(", ")}\n`
           + `  rule-name: kebab-case rule name (e.g. no-foo-bar)\n`
           + `  description: optional rule description`,
