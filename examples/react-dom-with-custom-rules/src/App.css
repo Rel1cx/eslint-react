@@ -31,7 +31,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a>.logo {
+  a > .logo {
     animation: logo-spin infinite 20s linear;
   }
 }

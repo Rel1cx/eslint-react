@@ -1,9 +1,9 @@
 [aria-roledescription="flowchart-v2"] span.nodeLabel {
-	filter: brightness(0.5);
+  filter: brightness(0.5);
 }
 
 .bsky-post [class*="embed-module_external"] {
-	display: none;
+  display: none;
 }
 
 .bsky-post [class*="post-content-module_content"] {
