@@ -33,10 +33,7 @@ export function preferStateUpdaterFunction(): RuleFunction {
         // Register useState pairs.
         if (is.useStateLikeCall(node, settings.additionalStateHooks)) {
           const { parent } = node;
-          if (
-            parent.type === "VariableDeclarator"
-            && parent.id.type === "ArrayPattern"
-          ) {
+          if (parent.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
             const [stateEl, setterEl] = parent.id.elements;
             if (
               stateEl?.type === "Identifier"
