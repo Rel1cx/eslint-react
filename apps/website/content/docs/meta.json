@@ -2,6 +2,7 @@
   "title": "Documentation",
   "pages": [
     "getting-started",
+    "!migration",
     "migrating-from-eslint-plugin-react",
     "migrating-from-eslint-plugin-react-hooks",
     "---Core Reference---",
