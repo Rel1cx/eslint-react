@@ -1934,6 +1934,109 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    {
+      code: tsx`
+        const Components = {
+          Nav() {
+            return <div />;
+          },
+          SidePanel: () => <div />,
+        };
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Nav",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            json: stringify({
+              name: "SidePanel",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class Widget {
+          Header = () => <div />;
+          render() {
+            return <this.Header />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Header",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ComponentWithMultipleHooks() {
+          const [state] = useState(0);
+          useEffect(() => {});
+          useCallback(() => {}, []);
+          return <div>{state}</div>;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ComponentWithMultipleHooks",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 3,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const ExpressionBody = () => <div />;
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ExpressionBody",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`

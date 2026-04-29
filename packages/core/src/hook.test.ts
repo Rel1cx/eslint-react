@@ -8,7 +8,16 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../test";
-import { isHookCall, isHookDefinition } from "./hook";
+import {
+  isHookCall,
+  isHookDefinition,
+  isHookId,
+  isHookName,
+  isUseEffectCleanupCallback,
+  isUseEffectLikeCall,
+  isUseEffectSetupCallback,
+  isUseStateLikeCall,
+} from "./hook";
 
 function parse(code: string) {
   return parseForESLint(code, {
@@ -16,6 +25,43 @@ function parse(code: string) {
     filePath: path.join(getFixturesRootDir(), "estree.tsx"),
   });
 }
+
+describe("isHookName", () => {
+  it.each([
+    ["useState", true],
+    ["useEffect", true],
+    ["use", true],
+    ["useCustomHook", true],
+    ["use123", true],
+    ["user", false],
+    ["use", true],
+    ["use_lowercase", false],
+    ["notAHook", false],
+  ])("isHookName(%s) === %s", (name, expected) => {
+    expect(isHookName(name)).toBe(expected);
+  });
+});
+
+describe("isHookId", () => {
+  it.each([
+    ["useState", true],
+    ["React.useState", true],
+    ["notAHook", false],
+    ["user", false],
+  ])("isHookId for %s === %s", (expr, expected) => {
+    const code = `${expr}()`;
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isHookId(node.callee)).toBe(expected);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+});
 
 describe("isHookDefinition", () => {
   it.each([
@@ -150,5 +196,153 @@ describe("isHookCall", () => {
       },
     }, true);
     expect(found).toBe(true);
+  });
+});
+
+describe("isUseEffectLikeCall", () => {
+  it.each([
+    ["useEffect(() => {})", true],
+    ["useLayoutEffect(() => {})", true],
+    ["useInsertionEffect(() => {})", true],
+    ["React.useEffect(() => {})", true],
+    ["useState()", false],
+    ["useMemo(() => {}, [])", false],
+    ["customHook()", false],
+  ])("isUseEffectLikeCall(%s) === %s", (code, expected) => {
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isUseEffectLikeCall(node)).toBe(expected);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should support custom effect hooks via regex", () => {
+    const code = "useCustomEffect(() => {})";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isUseEffectLikeCall(node, /^useCustomEffect$/u)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for null", () => {
+    expect(isUseEffectLikeCall(null)).toBe(false);
+  });
+});
+
+describe("isUseStateLikeCall", () => {
+  it.each([
+    ["useState()", true],
+    ["useState(0)", true],
+    ["React.useState()", true],
+    ["useEffect(() => {})", false],
+    ["useReducer(() => {}, {})", false],
+  ])("isUseStateLikeCall(%s) === %s", (code, expected) => {
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isUseStateLikeCall(node)).toBe(expected);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should support custom state hooks via regex", () => {
+    const code = "useCustomState()";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.CallExpression) {
+          expect(isUseStateLikeCall(node, /^useCustomState$/u)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for null", () => {
+    expect(isUseStateLikeCall(null)).toBe(false);
+  });
+});
+
+describe("isUseEffectSetupCallback", () => {
+  it("should return true for first argument of useEffect", () => {
+    const code = "useEffect(() => {})";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression) {
+          expect(isUseEffectSetupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for second argument of useEffect", () => {
+    const code = "useEffect(() => {}, [])";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrayExpression) {
+          expect(isUseEffectSetupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for null", () => {
+    expect(isUseEffectSetupCallback(null)).toBe(false);
+  });
+});
+
+describe("isUseEffectCleanupCallback", () => {
+  it("should return true for cleanup function returned from useEffect setup", () => {
+    const code = "useEffect(() => { return () => {}; })";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for unrelated nested functions", () => {
+    const code = "const fn = () => { return () => {}; }";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for null", () => {
+    expect(isUseEffectCleanupCallback(null)).toBe(false);
   });
 });

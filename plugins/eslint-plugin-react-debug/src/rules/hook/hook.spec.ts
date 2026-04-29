@@ -216,6 +216,79 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        const useExpressionBody = () => useState(0);
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useExpressionBody",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function useMultipleHooks() {
+          const [state] = useState(0);
+          useEffect(() => {});
+          useCallback(() => {}, []);
+          return state;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useMultipleHooks",
+              hookCalls: 3,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function useData(promise) {
+          return use(promise);
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useData",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const useExpressionHook = function() {
+          return useState(0);
+        };
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useExpressionHook",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [],
 });
