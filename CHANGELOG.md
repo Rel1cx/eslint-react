@@ -1,5 +1,168 @@
 # Changelog
 
+## v5.6.0 (2026-04-29)
+
+This release consolidates all changes since v4.2.1.
+
+### 💥 Breaking Changes
+
+#### Core API Refactoring (@eslint-react/core)
+
+- Performed a large-scale flattening refactor of the core package's internal structure, merging modules previously scattered across subdirectories like `component/`, `function/`, `hook/`, `semantic/`, and `api/` into the root directory.
+- Renamed several core APIs:
+  - `isReactAPI` → `isAPI`
+  - `isReactAPICall` → `isAPICall`
+  - `isInitializedFromReact` → `isAPIFromReact`
+  - `isInitializedFromReactNative` → `isAPIFromReactNative`
+  - `ComponentDetectionHint` → `FunctionComponentDetectionHint`
+  - `ComponentFlag` → `FunctionComponentFlag`
+  - `getComponentCollector` → `getFunctionComponentCollector`
+  - `getComponentCollectorLegacy` → `getClassComponentCollector`
+- Migrated type utilities (`type-is`, `type-name`, `type-variant`) from `eslint-plugin-react-x` to `@eslint-react/core`.
+- Updated the `Toolkit` interface in `@eslint-react/kit` to reflect the naming changes above.
+
+#### Kit API Simplification (@eslint-react/kit)
+
+- **Simplified `RuleToolkit.is` API**: Removed pre-built identifier predicates (`memo`, `lazy`, `forwardRef`, etc.) from `RuleToolkit.is`. Only `*Call` variants and `API`/`APICall` factories are now available.
+- **Renamed initialization checkers**:
+  - `initializedFromReact` → `APIFromReact`
+  - `initializedFromReactNative` → `APIFromReactNative`
+- Code using `is.memo(node)`, `is.lazy(node)`, etc. must migrate to `is.memoCall(node)` or use `is.API("memo")(node)`.
+
+#### Type Alias Removal
+
+- **Removed deprecated `RuleDefinition` type alias**: The `RuleDefinition` type has been completely removed from `@eslint-react/kit`. Use `RuleFunction` instead.
+
+#### Removed Rules
+
+The following rules have been removed from `eslint-plugin-react-x`, `eslint-plugin-react-dom`, and `eslint-plugin-react-debug`:
+
+| Rule                                   | Package       | Notes                    |
+| -------------------------------------- | ------------- | ------------------------ |
+| `component-hook-factories`             | `react-x`     | Removed from all configs |
+| `no-redundant-should-component-update` | `react-x`     | Removed from all configs |
+| `no-unnecessary-use-callback`          | `react-x`     | Removed from all configs |
+| `no-unnecessary-use-memo`              | `react-x`     | Removed from all configs |
+| `no-unused-state`                      | `react-x`     | Removed from all configs |
+| `prefer-destructuring-assignment`      | `react-x`     | Removed from all configs |
+| `prefer-namespace-import`              | `react-x`     | Removed from all configs |
+| `prefer-namespace-import`              | `react-dom`   | Removed from all configs |
+| `debug/class-component`                | `react-debug` | Removed from all configs |
+
+#### Class Component Support Deprecation
+
+- All Class Component-related detection functions in the core package (such as `isClassComponent`, `isPureComponent`, and various lifecycle checkers) have been marked as `@deprecated`, retaining only minimal compatibility support for existing rules.
+- Rules in `eslint-plugin-react-web-api`, including `no-leaked-event-listener`, `no-leaked-interval`, and `no-leaked-timeout`, have removed detection for Class Component lifecycles (`componentDidMount` / `componentWillUnmount`) and now only report on Hook Effects (`useEffect`, etc.).
+
+### ✨ New
+
+#### New Rules
+
+- **`react-x/globals`**: New rule for restricting usage of global variables in React components.
+- **`react-x/static-components`**: New rule for enforcing static component definitions. Enhanced with variable reference tracking and a `createdHere` diagnostic to reduce false positives.
+- **`react-web-api/no-leaked-fetch`**: New rule that detects leaked `fetch` calls in effects, closing #1714.
+
+#### Kit Enhancements
+
+- Added `ast.findParent` utility to `@eslint-react/kit` for traversing AST ancestors.
+- Added support for **Universally Unique Lexicographically Sortable Identifiers (ULID)** for anonymous rules (later migrated to `node:crypto randomBytes`).
+
+#### Custom Rule Examples
+
+- Added Error Boundaries custom rule example.
+- Added boolean prop naming custom rule and documentation.
+
+### 🐞 Fixes
+
+#### Rule Fixes
+
+- **`react-x/error-boundaries`**: Fixed false positives on non-React code and resolved catch block over-reporting.
+- **`react-x/set-state-in-effect`**: Improved validation accuracy.
+- **`react-x/use-memo`**: Added reassignment check, aligned message IDs, and added support for `for-of`/`for-in` loops.
+
+#### Config Fixes
+
+- Added missing rules to presets, cleaned up experimental disables, and updated documentation.
+- Extracted naming-convention preset and fixed config gaps.
+
+#### Type Expression Fixes
+
+- Added missing `Extract.unwrap` for type expressions and chain expressions.
+- Unwrapped type expressions before inspecting AST node types.
+
+### 🪄 Improvements
+
+#### API & Refactoring
+
+- **`ast`**: Normalized API naming conventions and rewrote Check helpers.
+- **`ast`**: Renamed `isJSXLike` → `isJSXElementOrFragment` and `isMethodOrProperty` → `isPropertyOrMethod`.
+- Extracted ESLint types and utilities into the `@eslint-react/eslint` package.
+- Extracted `@eslint-react/jsx` from `@eslint-react/core` into a standalone utility package for static analysis of JSX patterns.
+- Migrated to `@` and `#` path aliases and replaced `tsx` with `vite-node`.
+- Moved pattern utilities to rule directories and extracted rule helpers into co-located `lib.ts` modules across multiple plugins.
+- Reorganized imports across the codebase.
+- Replaced `RuleConfig` with `Linter.RulesRecord` from ESLint.
+- Restructured monorepo packages directory layout.
+- Unified import style across packages and plugins.
+
+#### Core & AST Improvements
+
+- **`ast`**: Updated `FunctionInitPath` types to support method definitions and property arrow functions in class expressions.
+- **`ast/isNodeEqual`**: Fixed `JSXNamespacedName` comparison logic.
+
+#### Rule Improvements
+
+- **`react-x/static-components`**: Registered in `all`, `x`, and `disable-experimental` configs.
+- **`react-rsc/function-definition`**: Added directive position and quote checks.
+- Extracted HOC detection helpers to dedicated `lib.ts` files.
+
+#### Website & Documentation Improvements
+
+- Added LLM routes (`/llms.txt`, `/llms-full.txt`, `/llms.mdx`).
+- Added inline TOCs and improved navigation.
+- Enabled twoslash type-checking for code examples.
+- Improved accessibility and unified layout configuration.
+
+#### Testing
+
+- Expanded compiler fixture coverage across 9 rules.
+- Added comprehensive unit tests for component/hook detection utilities.
+
+#### Dependencies
+
+- Bumped TypeScript to 6.0.3.
+- Bumped Vite to ^8.0.7 in examples.
+- Bumped `@typescript-eslint` packages to 8.59.1.
+- Bumped `tsl-dx`, `tsdown`, `fumadocs`, `postcss`, `lucide-react`, `eslint-plugin-package-json`, and other dependencies.
+
+### 📝 Documentation
+
+- Added custom rule recipes for React Children API, Context API, props, state, boolean prop naming, and error boundaries.
+- Added migration examples (`no-set-state`, `no-string-refs`).
+- Added IMPL vs SPEC diff documents for 5 React Compiler aligned rules.
+- Added spec documentation for validation rules.
+- Added rule feature docs.
+- Added table of contents to multiple documentation files.
+- Updated migrating-from-eslint-plugin-react guide.
+- Updated local packages docs.
+- Updated roadmap and contributing architecture diagram.
+
+### 🏗️ Internal
+
+- Added `build:plugins` script and updated build path patterns.
+- Added `publishConfig.access` to packages and marked `@local/eff` as private.
+- Added documentation comments to rule scripts.
+- Added typedoc docs and engines field.
+- Extracted shared tsdown config.
+- Fixed high-priority build, lockfile, script and doc inconsistencies.
+- Removed "Naming Pattern Quick Reference" from AST abbreviations doc.
+- Removed `major-release-checklist.md`.
+- Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
+- Removed barrel exports for utils.
+- Removed unused dependencies and added missing devDependencies.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v4.2.1...v5.6.0
+
 ## v5.6.0-beta.1 (2026-04-28)
 
 ### 🐞 Fixes
