@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as x from "./x";
 
 export const name = "@eslint-react/web-api";

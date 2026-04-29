@@ -1,14 +1,12 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 /// <reference types="node" />
-import module from "node:module";
-import path from "node:path";
-
 import type { RuleContext } from "@eslint-react/eslint";
 import { getOrInsertComputed, identity } from "@local/eff";
+import module from "node:module";
+import path from "node:path";
 import { P, match } from "ts-pattern";
 import { z } from "zod/v4";
-
 import { type RegExpLike, toRegExp } from "./regexp";
 
 /**

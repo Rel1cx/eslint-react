@@ -1,11 +1,10 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-
-import { createRule } from "@/utils/create-rule";
 import { getNestedReturnStatements, isInsideNestedFunction } from "./lib";
 
 export const RULE_NAME = "use-memo";

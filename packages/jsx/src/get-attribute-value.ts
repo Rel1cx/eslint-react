@@ -1,6 +1,5 @@
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
-
 import { findAttribute } from "./find-attribute";
 import type { JsxAttributeValue } from "./jsx-attribute-value";
 import { resolveAttributeValue } from "./resolve-attribute-value";

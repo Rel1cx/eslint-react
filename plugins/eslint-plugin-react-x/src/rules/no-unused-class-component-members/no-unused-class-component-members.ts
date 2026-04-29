@@ -1,9 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 import { LIFECYCLE_METHODS, type Property, isKeyLiteral } from "./lib";
 
 export const RULE_NAME = "no-unused-class-component-members";

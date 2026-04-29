@@ -1,3 +1,4 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import {
@@ -9,8 +10,6 @@ import {
 } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "function-definition";
 

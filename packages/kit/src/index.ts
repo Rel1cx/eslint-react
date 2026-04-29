@@ -9,9 +9,7 @@ import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";
 import { randomBytes } from "node:crypto";
 import { kebabCase } from "string-ts";
-
 import pkg from "../package.json";
-
 export { merge } from "@eslint-react/eslint";
 
 export type { RuleFix, RuleFixer, RuleListener };

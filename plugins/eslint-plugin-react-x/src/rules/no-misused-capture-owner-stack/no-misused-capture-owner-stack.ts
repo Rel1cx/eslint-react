@@ -4,7 +4,6 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-
 import { isDevelopmentOnlyCheck } from "./lib";
 
 export const RULE_NAME = "no-misused-capture-owner-stack";

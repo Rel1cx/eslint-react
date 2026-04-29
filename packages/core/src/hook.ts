@@ -2,7 +2,6 @@ import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
 import { type FunctionID, getFunctionId } from "./function";
 import type { SemanticNode } from "./semantic";
 

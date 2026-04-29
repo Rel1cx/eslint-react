@@ -3,7 +3,6 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
-
 import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId } from "./hook";
 

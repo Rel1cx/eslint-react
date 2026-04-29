@@ -1,7 +1,5 @@
 import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
-
 import noLeakedEventListener from "./rules/no-leaked-event-listener/no-leaked-event-listener";
 import noLeakedFetch from "./rules/no-leaked-fetch/no-leaked-fetch";
 import noLeakedInterval from "./rules/no-leaked-interval/no-leaked-interval";

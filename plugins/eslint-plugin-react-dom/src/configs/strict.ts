@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as recommendedConfig from "./recommended";
 
 export const name = "react-dom/strict";

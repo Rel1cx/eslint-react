@@ -1,10 +1,9 @@
+import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-render";
 

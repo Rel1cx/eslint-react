@@ -1,10 +1,9 @@
+import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type ts from "typescript";
-
-import { createRule } from "@/utils/create-rule";
 import { collectUsedPropKeysOfParameter } from "./lib";
 
 export const RULE_NAME = "no-unused-props";

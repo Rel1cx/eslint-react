@@ -1,3 +1,4 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -7,8 +8,6 @@ import { type ObjectType, computeObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
-
-import { createRule } from "@/utils/create-rule";
 import { isContextName } from "./lib";
 
 export const RULE_NAME = "no-unstable-context-value";

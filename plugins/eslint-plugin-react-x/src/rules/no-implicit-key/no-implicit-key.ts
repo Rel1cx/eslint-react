@@ -1,10 +1,9 @@
+import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { ESLintUtils } from "@typescript-eslint/utils";
 import { unionConstituents } from "ts-api-utils";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-implicit-key";
 

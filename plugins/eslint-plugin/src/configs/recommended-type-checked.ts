@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as recommendedTypeScript from "./recommended-typescript";
 
 export const name = "@eslint-react/recommended-type-checked";

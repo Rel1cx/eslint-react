@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { rules as namingConventionRules } from "./naming-convention";
 
 export const name = "@eslint-react/disable-naming-convention";

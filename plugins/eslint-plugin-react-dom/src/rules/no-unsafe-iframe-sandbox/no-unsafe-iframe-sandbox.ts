@@ -1,8 +1,7 @@
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
-
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
 import { isUnsafeSandboxCombination } from "./lib";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";

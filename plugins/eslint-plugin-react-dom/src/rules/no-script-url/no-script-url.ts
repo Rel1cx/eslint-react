@@ -1,9 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { resolveAttributeValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-script-url";
 

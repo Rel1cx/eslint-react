@@ -1,10 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-
 import { getChildrenPropText, getPropRemovalRange } from "./lib";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-children-prop";
 

@@ -1,9 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-set-state-in-component-did-mount";
 

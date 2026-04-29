@@ -1,6 +1,5 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
 import { getElementFullType } from "./get-element-type";
 
 /**

@@ -3,7 +3,6 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
-
 import type { JsxAttributeValue } from "./jsx-attribute-value";
 
 /**

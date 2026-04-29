@@ -1,12 +1,11 @@
+import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "@/types";
+import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
-
-import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "@/types";
-import { createRule } from "@/utils/create-rule";
 import { isConditional, isFromObserver, isNewResizeObserver } from "./lib";
 
 // #region Rule Metadata

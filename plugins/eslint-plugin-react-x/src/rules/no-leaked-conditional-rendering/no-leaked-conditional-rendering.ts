@@ -1,3 +1,4 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -11,10 +12,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
-
 import { report } from "./lib";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 

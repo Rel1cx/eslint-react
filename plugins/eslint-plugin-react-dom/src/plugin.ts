@@ -1,7 +1,5 @@
 import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
-
 import noDangerouslySetInnerHTMLWithChildren from "./rules/no-dangerously-set-innerhtml-with-children/no-dangerously-set-innerhtml-with-children";
 import noDangerouslySetInnerHTML from "./rules/no-dangerously-set-innerhtml/no-dangerously-set-innerhtml";
 import noFindDomNode from "./rules/no-find-dom-node/no-find-dom-node";

@@ -1,7 +1,5 @@
 import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
-
 import errorBoundaries from "./rules/error-boundaries/error-boundaries";
 import exhaustiveDeps from "./rules/exhaustive-deps/exhaustive-deps";
 import globals from "./rules/globals/globals";

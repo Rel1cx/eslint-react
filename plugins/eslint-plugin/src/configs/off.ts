@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { rules as allRules } from "./all";
 import { rules as disableTypeCheckedRules } from "./disable-type-checked";
 

@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { rules as jsxRules } from "./jsx";
 
 export const name = "@eslint-react/disable-jsx";

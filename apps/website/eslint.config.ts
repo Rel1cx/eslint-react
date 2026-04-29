@@ -7,7 +7,6 @@ import pluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import path from "node:path";
 import tseslint from "typescript-eslint";
-
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
 
 const GLOB_TS = ["**/*.ts", "**/*.tsx"];

@@ -4,7 +4,6 @@ import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
-
 import { SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT, getFunctionDirectives, getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,

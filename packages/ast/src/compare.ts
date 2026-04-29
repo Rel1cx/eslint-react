@@ -1,6 +1,5 @@
 import { dual } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
 import * as Check from "./check";
 import * as Extract from "./extract";
 

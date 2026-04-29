@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { rules as rscRules } from "./rsc";
 
 export const name = "@eslint-react/disable-rsc";

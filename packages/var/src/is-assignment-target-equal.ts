@@ -1,7 +1,6 @@
 import { Compare } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
-
 import { isValueEqual } from "./is-value-equal";
 
 /**

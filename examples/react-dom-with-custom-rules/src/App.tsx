@@ -5,9 +5,7 @@
 /* eslint-disable @eslint-react/kit/jsx-no-literals */
 /* eslint-disable @eslint-react/kit/no-multi-comp */
 import "./App.css";
-
 import { useState } from "react";
-
 import logo from "./assets/eslint-react.svg";
 
 // ✅ Correct — defined with an arrow function.

@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { plugin } from "../plugin";
 
 export const name = "react-naming-convention/recommended";

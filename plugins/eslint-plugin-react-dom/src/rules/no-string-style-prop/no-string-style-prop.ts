@@ -1,7 +1,6 @@
+import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-string-style-prop";
 

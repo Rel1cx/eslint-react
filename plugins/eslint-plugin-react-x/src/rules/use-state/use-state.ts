@@ -1,5 +1,6 @@
 import { Check, Traverse } from "@eslint-react/ast";
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
+import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -7,8 +8,6 @@ import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
-
-import { createRule } from "@/utils/create-rule";
 import { LAZY_INIT_ALLOW_LIST, getNestedCallExpressions, getNestedNewExpressions } from "./lib";
 
 export const RULE_NAME = "use-state";

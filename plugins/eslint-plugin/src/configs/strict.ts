@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as recommended from "./recommended";
 
 export const name = "@eslint-react/strict";

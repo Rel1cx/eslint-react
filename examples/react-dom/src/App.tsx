@@ -1,7 +1,5 @@
 import "./App.css";
-
 import { useState } from "react";
-
 import logo from "./assets/eslint-react.svg";
 
 function App() {

@@ -1,5 +1,4 @@
 import type { ESLint, Linter } from "eslint";
-
 import * as allConfig from "./configs/all";
 import { plugin } from "./plugin";
 

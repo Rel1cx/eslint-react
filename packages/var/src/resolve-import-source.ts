@@ -2,7 +2,6 @@ import { Check, Extract } from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-
 import { getRequireExpressionArguments } from "./get-require-expression-arguments";
 
 export function resolveImportSource(

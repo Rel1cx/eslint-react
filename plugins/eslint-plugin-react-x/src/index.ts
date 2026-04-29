@@ -1,5 +1,4 @@
 import type { ESLint, Linter } from "eslint";
-
 import * as disableConflictEslintPluginReactConfig from "./configs/disable-conflict-eslint-plugin-react";
 import * as disableConflictEslintPluginReactHooksConfig from "./configs/disable-conflict-eslint-plugin-react-hooks";
 import * as disableExperimentalConfig from "./configs/disable-experimental";
@@ -10,7 +9,6 @@ import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";
 import * as strictConfig from "./configs/strict";
 import * as strictTypeCheckedConfig from "./configs/strict-type-checked";
 import * as strictTypeScriptConfig from "./configs/strict-typescript";
-
 import { plugin } from "./plugin";
 
 type ConfigName =

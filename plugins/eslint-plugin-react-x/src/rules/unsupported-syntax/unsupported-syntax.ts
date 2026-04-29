@@ -1,9 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 import { isEvalCall, isIifeCall } from "./lib";
 
 export const RULE_NAME = "unsupported-syntax";

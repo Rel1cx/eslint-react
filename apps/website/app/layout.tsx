@@ -3,7 +3,6 @@ import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
 import { Link, ViewTransitions } from "next-view-transitions";
-
 import "@/app/app.css";
 import "@/app/app.override.css";
 

@@ -1,5 +1,4 @@
 import type { ESLint, Linter } from "eslint";
-
 import * as disableExperimentalConfig from "./configs/disable-experimental";
 import * as recommendedConfig from "./configs/recommended";
 import * as recommendedTypeScriptConfig from "./configs/recommended-typescript";

@@ -1,9 +1,8 @@
+import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-missing-context-display-name";
 

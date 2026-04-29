@@ -1,6 +1,5 @@
 import dedent from "dedent";
 import { TypeTable } from "fumadocs-ui/components/type-table";
-
 import { Link } from "next-view-transitions";
 
 export function JSXConfigTypeTable() {

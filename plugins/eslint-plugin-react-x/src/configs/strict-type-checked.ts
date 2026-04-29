@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as strictTypeScript from "./strict-typescript";
 
 export const name = "react-x/strict-type-checked";

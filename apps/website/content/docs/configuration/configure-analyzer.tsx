@@ -1,6 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
 import { TypeTable } from "fumadocs-ui/components/type-table";
-
 import { Link } from "next-view-transitions";
 
 const properties = {

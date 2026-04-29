@@ -1,7 +1,6 @@
+import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-leaked-dollar";
 

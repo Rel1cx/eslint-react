@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as dom from "./dom";
 import * as jsx from "./jsx";
 import * as namingConvention from "./naming-convention";

@@ -1,10 +1,3 @@
-import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { isValueEqual } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { P, isMatching, match } from "ts-pattern";
-
 import {
   type ComponentPhaseKind,
   ComponentPhaseRelevance,
@@ -12,6 +5,12 @@ import {
   getPhaseKindOfFunction,
 } from "@/types";
 import { createRule } from "@/utils/create-rule";
+import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
+import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { isValueEqual } from "@eslint-react/var";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { P, isMatching, match } from "ts-pattern";
 import { defaultOptions, getOptions } from "./lib";
 
 // #region Rule Metadata

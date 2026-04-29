@@ -1,7 +1,5 @@
 import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
-
 import noChildrenPropWithChildren from "./rules/no-children-prop-with-children/no-children-prop-with-children";
 import noChildrenProp from "./rules/no-children-prop/no-children-prop";
 import noCommentTextnodes from "./rules/no-comment-textnodes/no-comment-textnodes";

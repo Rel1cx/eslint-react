@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import { rules as domRules } from "./dom";
 
 export const name = "@eslint-react/disable-dom";

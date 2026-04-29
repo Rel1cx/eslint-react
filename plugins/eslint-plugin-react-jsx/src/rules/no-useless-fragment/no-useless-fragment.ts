@@ -1,3 +1,4 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
 import {
@@ -10,10 +11,7 @@ import {
 } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-
 import { getChildrenSourceText, trimLikeReact } from "./lib";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-useless-fragment";
 

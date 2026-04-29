@@ -1,5 +1,4 @@
 import type { Linter } from "eslint";
-
 import * as strict from "./strict";
 
 export const name = "react-rsc/strict-typescript";

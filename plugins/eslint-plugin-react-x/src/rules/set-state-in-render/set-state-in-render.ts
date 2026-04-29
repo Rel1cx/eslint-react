@@ -1,3 +1,4 @@
+import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
@@ -6,8 +7,6 @@ import { resolve } from "@eslint-react/var";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
-
-import { createRule } from "@/utils/create-rule";
 import { isComponentOrHookLikeFunction, isInsideConditional, isInsideEventHandler } from "./lib";
 
 export const RULE_NAME = "set-state-in-render";

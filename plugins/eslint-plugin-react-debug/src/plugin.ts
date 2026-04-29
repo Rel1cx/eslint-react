@@ -1,7 +1,5 @@
 import type { ESLint } from "eslint";
-
 import { name, version } from "../package.json";
-
 import functionComponent from "./rules/function-component/function-component";
 import hook from "./rules/hook/hook";
 import isFromReact from "./rules/is-from-react/is-from-react";

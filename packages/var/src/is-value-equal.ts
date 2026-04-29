@@ -2,7 +2,6 @@ import { Check, Compare, Extract, Traverse, isOneOf } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
-
 import { resolve } from "./resolve";
 
 const thisBlockTypes = [

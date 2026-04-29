@@ -1,5 +1,4 @@
 import type { TSESTree } from "@typescript-eslint/types";
-
 import type { ComponentPhaseKind } from "./component-phase";
 
 export type TimerKind =

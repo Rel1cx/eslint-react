@@ -1,8 +1,7 @@
+import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-create-ref";
 

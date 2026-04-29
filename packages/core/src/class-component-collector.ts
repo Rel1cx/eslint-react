@@ -3,7 +3,6 @@ import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
-
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
 

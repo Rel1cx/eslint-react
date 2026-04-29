@@ -1,14 +1,12 @@
+import { createRule } from "@/utils/create-rule";
+import { stringify } from "@/utils/stringify";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { JsxEmit, getElementFullType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
-
 import { report } from "./lib";
-
-import { createRule } from "@/utils/create-rule";
-import { stringify } from "@/utils/stringify";
 
 export const RULE_NAME = "jsx";
 

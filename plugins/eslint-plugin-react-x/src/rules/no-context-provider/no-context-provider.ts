@@ -1,10 +1,9 @@
+import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
-
-import { createRule } from "@/utils/create-rule";
 
 export const RULE_NAME = "no-context-provider";
 
