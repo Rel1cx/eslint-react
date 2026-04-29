@@ -21,6 +21,7 @@ const config = {
   ],
   async redirects() {
     return [
+      // 1. Strip file extensions first
       {
         source: "/:path*.md",
         destination: "/:path*",
@@ -31,14 +32,10 @@ const config = {
         destination: "/:path*",
         permanent: false,
       },
+      // 2. Exact path redirects (alphabetical by source)
       {
         source: "/docs",
         destination: "/docs/getting-started",
-        permanent: true,
-      },
-      {
-        source: "/docs/rules/overview",
-        destination: "/docs/rules",
         permanent: true,
       },
       {
@@ -47,18 +44,24 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/overview",
+        destination: "/docs/rules",
+        permanent: true,
+      },
+      {
         source: "/faq",
         destination: "/docs/faq",
+        permanent: true,
+      },
+      // 3. Wildcard redirects (alphabetical by source)
+      {
+        source: "/presets/:wildcard",
+        destination: "/docs/presets/:wildcard",
         permanent: true,
       },
       {
         source: "/rules/:wildcard",
         destination: "/docs/rules/:wildcard",
-        permanent: true,
-      },
-      {
-        source: "/presets/:wildcard",
-        destination: "/docs/presets/:wildcard",
         permanent: true,
       },
     ];
