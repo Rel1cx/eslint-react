@@ -7,10 +7,10 @@ description: Validates JSX props. Includes checks for duplicate props, mixing co
 
 This recipe contains four custom rules for validating JSX props:
 
-1. **`noDuplicateProps`**: Reports duplicate props on a JSX element.
-2. **`noDirectAccessProps`**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
-3. **`noExplicitSpreadProps`**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
-4. **`noMixingControlledAndUncontrolledProps`**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
+1. **[`noDuplicateProps`](#noduplicateprops)**: Reports duplicate props on a JSX element.
+2. **[`noDirectAccessProps`](#nodirectaccessprops)**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
+3. **[`noExplicitSpreadProps`](#noexplicitspreadprops)**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
+4. **[`noMixingControlledAndUncontrolledProps`](#nomixingcontrolledanduncontrolledprops)**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
 
 ## noDuplicateProps
 
