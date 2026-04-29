@@ -18,6 +18,7 @@ export * from "./jsxPropsNoSpreading";
 export * from "./maxComponentPerFile";
 export * from "./noAdjacentInlineElements";
 export * from "./noCircularEffect";
+export * from "./noDirectAccessProps";
 export * from "./noMultiComp";
 export * from "./noMultipleChildrenInTitle";
 export * from "./noSetState";

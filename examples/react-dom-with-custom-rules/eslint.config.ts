@@ -26,6 +26,7 @@ import {
   maxComponentPerFile,
   noAdjacentInlineElements,
   noCircularEffect,
+  noDirectAccessProps,
   noMultiComp,
   noMultipleChildrenInTitle,
   noSetState,
@@ -112,6 +113,7 @@ export default defineConfig(
           .use(maxComponentPerFile, { max: 100 })
           .use(noAdjacentInlineElements)
           .use(noCircularEffect)
+          .use(noDirectAccessProps)
           .use(noMultiComp)
           .use(noMultipleChildrenInTitle)
           .use(noSetState)
