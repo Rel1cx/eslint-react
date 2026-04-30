@@ -356,6 +356,42 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        class Foo extends React.PureComponent {
+          shouldComponentUpdate() {
+            return true;
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "shouldComponentUpdate" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class Foo extends PureComponent {
+          shouldComponentUpdate = () => {
+            return true;
+          }
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "shouldComponentUpdate" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`

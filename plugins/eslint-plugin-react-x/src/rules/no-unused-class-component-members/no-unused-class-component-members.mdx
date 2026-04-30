@@ -25,6 +25,8 @@ react-x/no-unused-class-component-members
 
 This rule warns about class component methods and properties that are defined but never used. Removing unused members helps keep the codebase clean and reduces confusion.
 
+Note that `shouldComponentUpdate` is considered unused when defined in a class extending `PureComponent`, since `PureComponent` implements its own `shouldComponentUpdate` with shallow prop and state comparison.
+
 ## Common Violations
 
 ### Invalid
