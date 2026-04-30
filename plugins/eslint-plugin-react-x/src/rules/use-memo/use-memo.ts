@@ -4,8 +4,9 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getNestedReturnStatements, isInsideNestedFunction } from "./lib";
+import { getNestedReturnStatements, isDeclaredInsideCallback, isInsideNestedFunction } from "./lib";
 
 export const RULE_NAME = "use-memo";
 
@@ -48,8 +49,6 @@ export function create(context: RuleContext<MessageID, []>) {
 
   function validateNoOuterVariableReassignment(callback: TSESTree.FunctionLike): ReportDescriptor<MessageID>[] {
     const violations: ReportDescriptor<MessageID>[] = [];
-    const callbackScope = context.sourceCode.getScope(callback);
-    const localVars = new Set(callbackScope.variables.map((v) => v.name));
     if (callback.body == null) return violations;
     simpleTraverse(callback.body, {
       enter(node) {
@@ -58,8 +57,14 @@ export function create(context: RuleContext<MessageID, []>) {
         // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
         // to match React Compiler's StoreContext semantics.
         if (left.type !== AST.Identifier) return;
-        if (localVars.has(left.name)) return;
         if (isInsideNestedFunction(node, callback)) return;
+
+        const scope = context.sourceCode.getScope(left);
+        const variable = findVariable(scope, left);
+        if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
+          return;
+        }
+
         violations.push({
           messageId: "noReassigningOuterVariables",
           node: left,
