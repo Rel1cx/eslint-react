@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.6.4 (2026-05-01)
+
+### ✨ New
+
+- **`react-x/no-unused-class-component-members`**: Now flags `shouldComponentUpdate` methods defined in classes extending `PureComponent` as unused, since `PureComponent` implements its own `shouldComponentUpdate` with shallow prop and state comparison (#1738).
+
+### 📝 Documentation
+
+- Added `jsx` preset documentation to multiple rule docs.
+- Removed empty Presets sections from rule documentation.
+
+### 🏗️ Internal
+
+- **`ast`**: Added an optional `stop` predicate to `findParent` utility for more control over ancestor traversal (#1736).
+- Replaced `skott` with `sentrux` for architecture linting.
+- Updated sentrux rules and baseline metrics.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.3-beta.0...v5.6.4
+
 ## v5.6.3-beta.0 (2026-04-30)
 
 ### 🏗️ Internal
