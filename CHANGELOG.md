@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.6.3-beta.0 (2026-04-30)
+
+### 🏗️ Internal
+
+- **JSX detection utilities moved to `@eslint-react/core`**: `isJsxLike`, `JsxConfig`, `JsxDetectionHint`, and related types now import from `@eslint-react/core`. The old `@eslint-react/jsx` module no longer re-exports these symbols. `isJsxText` and `JsxEmit` have been removed in favor of core equivalents.
+- Added Nx and set up project graph caching.
+- Added architectural boundaries for app and package dependencies.
+- Added devtools verification script.
+- Added sentrux layer architecture and dependency rules.
+- Updated sentrux baseline timestamps.
+- Upgraded `zod` from 4.3.6 to 4.4.1.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.2...v5.6.3-beta.0
+
 ## v5.6.2 (2026-04-30)
 
 ### 🐞 Fixes
