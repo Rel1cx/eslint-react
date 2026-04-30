@@ -203,6 +203,16 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    {
+      code: tsx`
+        const App = () => {
+          return [1, 2, 3].map(function(item) { return <div key="1">{item}</div> })
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     tsx`

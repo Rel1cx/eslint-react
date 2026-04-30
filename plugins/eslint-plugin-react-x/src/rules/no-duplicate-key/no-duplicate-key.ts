@@ -85,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>) {
                   && callee.property.name === "map";
               },
             );
-            const iter = Traverse.findParent(jsxElement, (n) => n === call || Check.isFunction(n));
+            const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
             if (!Check.isFunction(iter)) return;
             const arg0 = call?.arguments[0];
             if (call == null || arg0 == null) return;

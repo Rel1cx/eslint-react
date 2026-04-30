@@ -353,6 +353,22 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noReassigningOuterVariables" },
       ],
     },
+    // Rule 3: Reassigning outer variable inside FunctionExpression callback (boundary itself is a function, stop must win)
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component() {
+          let outer;
+          const y = useMemo(function() {
+            outer = 1;
+            return outer;
+          }, []);
+          return [outer, y];
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
   ],
   valid: [
     // Arrow function with concise body (always returns)
@@ -866,6 +882,22 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }, [type, value]);
         return <div>{result}</div>;
+      }
+    `,
+    // Rule 3 valid: Reassigning outer variable inside nested function within FunctionExpression callback (findParent matches nested before stop)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component() {
+        let outer;
+        const y = useMemo(function() {
+          const helper = () => {
+            outer = 1;
+          };
+          helper();
+          return outer;
+        }, []);
+        return [outer, y];
       }
     `,
   ],

@@ -363,5 +363,12 @@ ruleTester.run(RULE_NAME, rule, {
        Match.exhaustive
       )}
     `,
+    // JSX inside a nested function within the map callback should not be reported
+    tsx`
+      [1, 2, 3].map(function(x) {
+        const helper = () => <App />;
+        return helper();
+      });
+    `,
   ],
 });

@@ -5,7 +5,10 @@
 ## Call Signature
 
 ```ts
-function findParent<T>(node: Node | null, test: Predicate<T>): T | null;
+function findParent<T>(
+   node: Node | null, 
+   test: Predicate<T>, 
+   stop?: NodePredicate): T | null;
 ```
 
 ### Type Parameters
@@ -20,6 +23,7 @@ function findParent<T>(node: Node | null, test: Predicate<T>): T | null;
 | ------ | ------ |
 | `node` | `Node` \| `null` |
 | `test` | `Predicate`\<`T`\> |
+| `stop?` | `NodePredicate` |
 
 ### Returns
 
@@ -28,7 +32,10 @@ function findParent<T>(node: Node | null, test: Predicate<T>): T | null;
 ## Call Signature
 
 ```ts
-function findParent(node: Node | null, test: NodePredicate): Node | null;
+function findParent(
+   node: Node | null, 
+   test: NodePredicate, 
+   stop?: NodePredicate): Node | null;
 ```
 
 ### Parameters
@@ -37,6 +44,7 @@ function findParent(node: Node | null, test: NodePredicate): Node | null;
 | ------ | ------ |
 | `node` | `Node` \| `null` |
 | `test` | `NodePredicate` |
+| `stop?` | `NodePredicate` |
 
 ### Returns
 
