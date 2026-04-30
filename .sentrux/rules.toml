@@ -67,3 +67,83 @@ order = 9
 from = "plugins/**/*"
 to = "apps/**/*"
 reason = "Plugins must not depend on applications"
+
+# Applications must not depend on each other
+[[boundaries]]
+from = "apps/website/**/*"
+to = "apps/playground/**/*"
+reason = "Applications must remain independent"
+
+[[boundaries]]
+from = "apps/playground/**/*"
+to = "apps/website/**/*"
+reason = "Applications must remain independent"
+
+# Individual ESLint plugins must not depend on each other
+[[boundaries]]
+from = "plugins/eslint-plugin-react-*/**/*"
+to = "plugins/eslint-plugin-react-*/**/*"
+reason = "Plugins must remain independent; use the aggregating plugin for composition"
+
+# Plugins must not depend on kit directly; use core and lower-level packages instead
+[[boundaries]]
+from = "plugins/**/*"
+to = "packages/kit/**/*"
+reason = "Plugins must not depend on kit; use core, ast, jsx, var, or shared instead"
+
+# Infra layer must not depend on other workspace packages to stay a pure foundation
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/ast/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/core/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/jsx/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/kit/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/shared/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+[[boundaries]]
+from = "packages/eslint/**/*"
+to = "packages/var/**/*"
+reason = "Infra layer must remain pure and not depend on other workspace packages"
+
+# AST is a foundational layer and must not depend on higher-level packages
+[[boundaries]]
+from = "packages/ast/**/*"
+to = "packages/core/**/*"
+reason = "AST is a foundational layer and must not depend on higher-level packages"
+
+[[boundaries]]
+from = "packages/ast/**/*"
+to = "packages/jsx/**/*"
+reason = "AST is a foundational layer and must not depend on higher-level packages"
+
+[[boundaries]]
+from = "packages/ast/**/*"
+to = "packages/kit/**/*"
+reason = "AST is a foundational layer and must not depend on higher-level packages"
+
+[[boundaries]]
+from = "packages/ast/**/*"
+to = "packages/shared/**/*"
+reason = "AST is a foundational layer and must not depend on higher-level packages"
+
+[[boundaries]]
+from = "packages/ast/**/*"
+to = "packages/var/**/*"
+reason = "AST is a foundational layer and must not depend on higher-level packages"
