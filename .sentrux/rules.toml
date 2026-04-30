@@ -1,0 +1,69 @@
+[constraints]
+max_cycles = 0 # zero tolerance for circular dependencies
+max_coupling = "B" # maximum coupling grade
+max_cc = 300 # raised to avoid noise from legacy complex functions; focus is on layer architecture
+
+# ─────────────────────────────────────────────
+# Layer ordering
+# ─────────────────────────────────────────────
+# sentrux layer_direction rule (observed behavior in v0.5.7):
+#   source layer order must be <= target layer order.
+# Therefore, order increases from the topmost application layer down to the bottommost infrastructure layer.
+# ─────────────────────────────────────────────
+
+[[layers]]
+name = "apps"
+paths = ["apps/**/*"]
+order = 0
+
+[[layers]]
+name = "plugins"
+paths = ["plugins/**/*"]
+order = 1
+
+[[layers]]
+name = "rule-kit"
+paths = ["packages/kit/**/*"]
+order = 2
+
+[[layers]]
+name = "react-core"
+paths = ["packages/core/**/*"]
+order = 3
+
+[[layers]]
+name = "jsx-dsl"
+paths = ["packages/jsx/**/*"]
+order = 4
+
+[[layers]]
+name = "base-services"
+paths = ["packages/shared/**/*", "packages/var/**/*"]
+order = 5
+
+[[layers]]
+name = "infra"
+paths = ["packages/eslint/**/*", "packages/ast/**/*"]
+order = 6
+
+[[layers]]
+name = "local-infra"
+paths = [".pkgs/**/*"]
+order = 7
+
+# ─────────────────────────────────────────────
+# Boundary rules
+# ─────────────────────────────────────────────
+
+# Keep the shared config layer free of variable-analysis implementation details.
+[[boundaries]]
+from = "packages/shared/**/*"
+to = "packages/var/**/*"
+reason = "Shared config layer must not depend on variable analysis internals"
+
+# Prevent plugins from reverse-depending on applications.
+# (Layer ordering already blocks this; the boundary makes it explicit.)
+[[boundaries]]
+from = "plugins/**/*"
+to = "apps/**/*"
+reason = "Plugins must not depend on applications"
