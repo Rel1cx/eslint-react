@@ -74,7 +74,7 @@ function Component() {
   let x;
   const y = useMemo(() => {
     x = [];
-    // ^ Cannot reassign variable
+    // ^^^ Cannot reassign variable
     return true;
   }, []);
   return <div>{x}{y}</div>;
