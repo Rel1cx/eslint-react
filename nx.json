@@ -1,0 +1,72 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "nxCloudAccessToken": null,
+  "parallel": 8,
+  "cacheDirectory": ".nx/cache",
+  "defaultBase": "main",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/pnpm-lock.yaml",
+      "{workspaceRoot}/pnpm-workspace.yaml"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.test.ts",
+      "!{projectRoot}/dist"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production",
+        "{workspaceRoot}/.pkgs/configs/tsdown.js",
+        "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "cache": true
+    },
+    "build:docs": {
+      "dependsOn": [],
+      "inputs": [
+        "production",
+        "{projectRoot}/typedoc.json",
+        "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+      ],
+      "outputs": [
+        "{projectRoot}/docs"
+      ],
+      "cache": true
+    },
+    "lint:ts": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+        "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+      ],
+      "cache": true
+    },
+    "lint:publish": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "default",
+        "{projectRoot}/dist",
+        "{projectRoot}/package.json"
+      ],
+      "cache": true
+    }
+  },
+  "analytics": true
+}

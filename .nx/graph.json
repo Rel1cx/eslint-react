@@ -1,0 +1,3387 @@
+{
+  "graph": {
+    "nodes": {
+      "eslint-plugin-react-naming-convention": {
+        "name": "eslint-plugin-react-naming-convention",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-naming-convention",
+          "name": "eslint-plugin-react-naming-convention",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:naming-convention",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-naming-convention"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for naming convention related rules.",
+            "js": {
+              "packageName": "eslint-plugin-react-naming-convention",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/react-dom-with-custom-rules": {
+        "name": "@examples/react-dom-with-custom-rules",
+        "type": "app",
+        "data": {
+          "root": "examples/react-dom-with-custom-rules",
+          "name": "@examples/react-dom-with-custom-rules",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/react-dom-with-custom-rules",
+              "packageVersion": "0.0.0",
+              "packageExports": {
+                ".": {
+                  "types": "./.config/index.ts",
+                  "import": "./.config/index.ts"
+                },
+                "./package.json": "./package.json"
+              },
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-web-api": {
+        "name": "eslint-plugin-react-web-api",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-web-api",
+          "name": "eslint-plugin-react-web-api",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:web-api",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-web-api"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for interacting with Web APIs",
+            "js": {
+              "packageName": "eslint-plugin-react-web-api",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-debug": {
+        "name": "eslint-plugin-react-debug",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-debug",
+          "name": "eslint-plugin-react-debug",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:debug",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-debug"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for debugging related rules.",
+            "js": {
+              "packageName": "eslint-plugin-react-debug",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-dom": {
+        "name": "eslint-plugin-react-dom",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-dom",
+          "name": "eslint-plugin-react-dom",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:dom",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-dom"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for DOM related rules.",
+            "js": {
+              "packageName": "eslint-plugin-react-dom",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-jsx": {
+        "name": "eslint-plugin-react-jsx",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-jsx",
+          "name": "eslint-plugin-react-jsx",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:jsx",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-jsx"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for React Flavored JSX rules.",
+            "js": {
+              "packageName": "eslint-plugin-react-jsx",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-rsc": {
+        "name": "eslint-plugin-react-rsc",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-rsc",
+          "name": "eslint-plugin-react-rsc",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-rsc"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint plugin for RSC related rules.",
+            "js": {
+              "packageName": "eslint-plugin-react-rsc",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "eslint-plugin-react-x": {
+        "name": "eslint-plugin-react-x",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin-react-x",
+          "name": "eslint-plugin-react-x",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-x"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
+            "js": {
+              "packageName": "eslint-plugin-react-x",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/preact-compat": {
+        "name": "@examples/preact-compat",
+        "type": "app",
+        "data": {
+          "root": "examples/preact-compat",
+          "name": "@examples/preact-compat",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/preact-compat",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/eslint-plugin": {
+        "name": "@eslint-react/eslint-plugin",
+        "type": "lib",
+        "data": {
+          "root": "plugins/eslint-plugin",
+          "name": "@eslint-react/eslint-plugin",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:eslint-plugin",
+            "npm:eslint-plugin-react-x",
+            "npm:eslint-plugin-react-jsx",
+            "npm:eslint-plugin-react-rsc",
+            "npm:eslint-plugin-react-dom",
+            "npm:eslint-plugin-react-web-api",
+            "npm:eslint-plugin-react-naming-convention",
+            "npm:@eslint-react/eslint-plugin"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "The all-in-one, blazing fast ESLint plugin for React. Get complete, out-of-the-box rule coverage with instant feedback.",
+            "js": {
+              "packageName": "@eslint-react/eslint-plugin",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/react-dom-js": {
+        "name": "@examples/react-dom-js",
+        "type": "app",
+        "data": {
+          "root": "examples/react-dom-js",
+          "name": "@examples/react-dom-js",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/react-dom-js",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/react-dom": {
+        "name": "@examples/react-dom",
+        "type": "app",
+        "data": {
+          "root": "examples/react-dom",
+          "name": "@examples/react-dom",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/react-dom",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/eslint": {
+        "name": "@eslint-react/eslint",
+        "type": "lib",
+        "data": {
+          "root": "packages/eslint",
+          "name": "@eslint-react/eslint",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint types and utils.",
+            "js": {
+              "packageName": "@eslint-react/eslint",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/shared": {
+        "name": "@eslint-react/shared",
+        "type": "lib",
+        "data": {
+          "root": "packages/shared",
+          "name": "@eslint-react/shared",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's Shared constants and functions.",
+            "js": {
+              "packageName": "@eslint-react/shared",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/preact": {
+        "name": "@examples/preact",
+        "type": "app",
+        "data": {
+          "root": "examples/preact",
+          "name": "@examples/preact",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "preview"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/preact",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc && vite build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "vite",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "preview": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "preview"
+              },
+              "metadata": {
+                "scriptContent": "vite preview",
+                "runCommand": "pnpm run preview"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/core": {
+        "name": "@eslint-react/core",
+        "type": "lib",
+        "data": {
+          "root": "packages/core",
+          "name": "@eslint-react/core",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's ESLint utility module for static analysis of React core APIs and patterns.",
+            "js": {
+              "packageName": "@eslint-react/core",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@examples/next": {
+        "name": "@examples/next",
+        "type": "app",
+        "data": {
+          "root": "examples/next",
+          "name": "@examples/next",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "lint",
+                "start"
+              ]
+            },
+            "js": {
+              "packageName": "@examples/next",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "next build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "next dev",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "lint": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint"
+              },
+              "metadata": {
+                "scriptContent": "eslint . --concurrency=auto",
+                "runCommand": "pnpm run lint"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "start": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "start"
+              },
+              "metadata": {
+                "scriptContent": "next start",
+                "runCommand": "pnpm run start"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@local/configs": {
+        "name": "@local/configs",
+        "type": "lib",
+        "data": {
+          "root": ".pkgs/configs",
+          "name": "@local/configs",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "lint:publish",
+                "lint:ts"
+              ]
+            },
+            "description": "Local config bases for use in the workspace",
+            "js": {
+              "packageName": "@local/configs",
+              "packageVersion": "0.0.0",
+              "packageExports": {
+                "./eslint": {
+                  "types": "./eslint.d.ts",
+                  "import": "./eslint.js"
+                },
+                "./tsconfig.base.json": "./tsconfig.base.json",
+                "./tsdown": {
+                  "types": "./tsdown.d.ts",
+                  "import": "./tsdown.js"
+                },
+                "./tsl.config.ts": "./tsl.config.ts",
+                "./typedoc.base.json": "./typedoc.base.json"
+              },
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsc -p tsconfig.json",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/ast": {
+        "name": "@eslint-react/ast",
+        "type": "lib",
+        "data": {
+          "root": "packages/ast",
+          "name": "@eslint-react/ast",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's TSESTree AST utility module.",
+            "js": {
+              "packageName": "@eslint-react/ast",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/jsx": {
+        "name": "@eslint-react/jsx",
+        "type": "lib",
+        "data": {
+          "root": "packages/jsx",
+          "name": "@eslint-react/jsx",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's TSESTree JSX utility module for static analysis of JSX patterns.",
+            "js": {
+              "packageName": "@eslint-react/jsx",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/kit": {
+        "name": "@eslint-react/kit",
+        "type": "lib",
+        "data": {
+          "root": "packages/kit",
+          "name": "@eslint-react/kit",
+          "tags": [
+            "npm:public",
+            "npm:react",
+            "npm:eslint",
+            "npm:eslint-react",
+            "npm:@eslint-react/kit"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's utility module for building custom React rules with JavaScript functions.",
+            "js": {
+              "packageName": "@eslint-react/kit",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@eslint-react/var": {
+        "name": "@eslint-react/var",
+        "type": "lib",
+        "data": {
+          "root": "packages/var",
+          "name": "@eslint-react/var",
+          "tags": [
+            "npm:public"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "ESLint React's TSESTree AST utility module for static analysis of variables.",
+            "js": {
+              "packageName": "@eslint-react/var",
+              "packageVersion": "5.6.2",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "website": {
+        "name": "website",
+        "type": "app",
+        "data": {
+          "root": "apps/website",
+          "name": "website",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "dev",
+                "postinstall",
+                "prepare",
+                "start",
+                "types:check"
+              ]
+            },
+            "js": {
+              "packageName": "website",
+              "packageVersion": "0.0.0",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "next build",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "dev": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "dev"
+              },
+              "metadata": {
+                "scriptContent": "next dev",
+                "runCommand": "pnpm run dev"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "postinstall": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "postinstall"
+              },
+              "metadata": {
+                "scriptContent": "fumadocs-mdx",
+                "runCommand": "pnpm run postinstall"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepare": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepare"
+              },
+              "metadata": {
+                "scriptContent": "fumadocs-mdx && next typegen",
+                "runCommand": "pnpm run prepare"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "start": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "start"
+              },
+              "metadata": {
+                "scriptContent": "next start",
+                "runCommand": "pnpm run start"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "types:check": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "types:check"
+              },
+              "metadata": {
+                "scriptContent": "fumadocs-mdx && next typegen && tsc --noEmit",
+                "runCommand": "pnpm run types:check"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      },
+      "@local/eff": {
+        "name": "@local/eff",
+        "type": "lib",
+        "data": {
+          "root": ".pkgs/eff",
+          "name": "@local/eff",
+          "tags": [
+            "npm:private"
+          ],
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "build",
+                "build:docs",
+                "lint:publish",
+                "lint:ts",
+                "publish"
+              ]
+            },
+            "description": "JavaScript and TypeScript utilities (previously some re-exports of the effect library).",
+            "js": {
+              "packageName": "@local/eff",
+              "packageVersion": "3.0.0-beta.72",
+              "packageExports": {
+                ".": {
+                  "types": "./dist/index.d.ts",
+                  "import": "./dist/index.js"
+                },
+                "./package.json": "./package.json"
+              },
+              "packageMain": "./dist/index.js",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "build": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build"
+              },
+              "metadata": {
+                "scriptContent": "tsdown --dts-resolve",
+                "runCommand": "pnpm run build"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^build"
+              ],
+              "inputs": [
+                "production",
+                "^production",
+                "{workspaceRoot}/.pkgs/configs/tsdown.js",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/dist"
+              ],
+              "cache": true
+            },
+            "build:docs": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "build:docs"
+              },
+              "metadata": {
+                "scriptContent": "typedoc",
+                "runCommand": "pnpm run build:docs"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [],
+              "inputs": [
+                "production",
+                "{projectRoot}/typedoc.json",
+                "{workspaceRoot}/.pkgs/configs/typedoc.base.json"
+              ],
+              "outputs": [
+                "{projectRoot}/docs"
+              ],
+              "cache": true
+            },
+            "lint:publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:publish"
+              },
+              "metadata": {
+                "scriptContent": "publint",
+                "runCommand": "pnpm run lint:publish"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "build"
+              ],
+              "inputs": [
+                "default",
+                "{projectRoot}/dist",
+                "{projectRoot}/package.json"
+              ],
+              "cache": true
+            },
+            "lint:ts": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "lint:ts"
+              },
+              "metadata": {
+                "scriptContent": "tsl",
+                "runCommand": "pnpm run lint:ts"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "default",
+                "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
+                "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+              ],
+              "cache": true
+            },
+            "publish": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "publish"
+              },
+              "metadata": {
+                "scriptContent": "pnpm run build && pnpm run lint:publish",
+                "runCommand": "pnpm run publish"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "implicitDependencies": []
+        }
+      }
+    },
+    "dependencies": {
+      "eslint-plugin-react-naming-convention": [
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-naming-convention",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "@examples/react-dom-with-custom-rules": [
+        {
+          "source": "@examples/react-dom-with-custom-rules",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        },
+        {
+          "source": "@examples/react-dom-with-custom-rules",
+          "target": "@eslint-react/kit",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-web-api": [
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-web-api",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-debug": [
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@eslint-react/jsx",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-debug",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-dom": [
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@eslint-react/jsx",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-dom",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-jsx": [
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@eslint-react/jsx",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-jsx",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-rsc": [
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-rsc",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "eslint-plugin-react-x": [
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/jsx",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "eslint-plugin-react-x",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "@examples/preact-compat": [
+        {
+          "source": "@examples/preact-compat",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/eslint-plugin": [
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-dom",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-jsx",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-naming-convention",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-rsc",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-web-api",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/eslint-plugin",
+          "target": "eslint-plugin-react-x",
+          "type": "static"
+        }
+      ],
+      "@examples/react-dom-js": [
+        {
+          "source": "@examples/react-dom-js",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        }
+      ],
+      "@examples/react-dom": [
+        {
+          "source": "@examples/react-dom",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/eslint": [
+        {
+          "source": "@eslint-react/eslint",
+          "target": "@local/configs",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/shared": [
+        {
+          "source": "@eslint-react/shared",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/shared",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/shared",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        }
+      ],
+      "@examples/preact": [
+        {
+          "source": "@examples/preact",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/core": [
+        {
+          "source": "@eslint-react/core",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@eslint-react/jsx",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/core",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "@examples/next": [
+        {
+          "source": "@examples/next",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        }
+      ],
+      "@local/configs": [],
+      "@eslint-react/ast": [
+        {
+          "source": "@eslint-react/ast",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/ast",
+          "target": "@local/eff",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/jsx": [
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/jsx",
+          "target": "@eslint-react/var",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/kit": [
+        {
+          "source": "@eslint-react/kit",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/kit",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/kit",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/kit",
+          "target": "@eslint-react/core",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/kit",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        }
+      ],
+      "@eslint-react/var": [
+        {
+          "source": "@eslint-react/var",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/var",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/var",
+          "target": "@eslint-react/ast",
+          "type": "static"
+        },
+        {
+          "source": "@eslint-react/var",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        }
+      ],
+      "website": [
+        {
+          "source": "website",
+          "target": "@eslint-react/eslint",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@eslint-react/eslint-plugin",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@eslint-react/shared",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@local/configs",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@local/eff",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@eslint-react/kit",
+          "type": "static"
+        },
+        {
+          "source": "website",
+          "target": "@examples/react-dom-with-custom-rules",
+          "type": "static"
+        }
+      ],
+      "@local/eff": [
+        {
+          "source": "@local/eff",
+          "target": "@local/configs",
+          "type": "static"
+        }
+      ]
+    }
+  }
+}

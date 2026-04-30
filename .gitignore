@@ -38,6 +38,9 @@ yarn-error.log*
 .turbo
 
 # vercel
+
+# Nx local cache
+.nx/cache
 .vercel
 stats.html
 *.config-*.mjs
