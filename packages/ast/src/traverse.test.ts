@@ -103,10 +103,9 @@ describe("findParent", () => {
   it("should find the match when stop is not an ancestor", () => {
     const ast = parseAst("function foo() { const x = 1; } function bar() {}");
     const ids = collectNodes<TSESTree.Identifier>(ast, AST.Identifier);
-    const [, x] = ids;
+    const x = ids[1]!;
     const [, bar] = collectNodes<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
     const parent = findParent(
-      // @ts-expect-error
       x,
       (n) => n.type === AST.FunctionDeclaration,
       (n) => n === bar,
