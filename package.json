@@ -54,6 +54,7 @@
     "update:version": "vite-node ./scripts/update-version.ts",
     "update:website": "vite-node ./scripts/update-website.ts",
     "verify:configs": "vite-node -c vitest.config.ts ./scripts/verify-configs.ts",
+    "verify:devtools": "vite-node ./scripts/verify-devtools.ts",
     "verify:rule-docs": "vite-node -c vitest.config.ts ./scripts/verify-rule-docs.ts"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "@typescript-eslint/rule-tester": "^8.59.1",
     "@typescript-eslint/types": "^8.59.1",
     "ansis": "^4.2.0",
+    "compare-versions": "^6.1.1",
     "dedent": "^1.7.2",
     "depcheck": "^1.4.7",
     "dprint": "^0.54.0",

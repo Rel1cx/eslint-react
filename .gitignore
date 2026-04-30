@@ -41,6 +41,7 @@ yarn-error.log*
 
 # Nx local cache
 .nx/cache
+.nx/workspace-data
 .vercel
 stats.html
 *.config-*.mjs
