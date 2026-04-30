@@ -1,7 +1,8 @@
 [constraints]
 max_cycles = 0 # zero tolerance for circular dependencies
 max_coupling = "B" # maximum coupling grade
-max_cc = 300 # raised to avoid noise from legacy complex functions; focus is on layer architecture
+max_cc = 50 # raised to avoid noise from legacy complex functions; focus is on layer architecture
+max_god_file_count = 2
 
 # ─────────────────────────────────────────────
 # Layer ordering
