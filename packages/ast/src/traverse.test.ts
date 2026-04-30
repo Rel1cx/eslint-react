@@ -40,8 +40,7 @@ function collectNodes<T extends TSESTree.Node>(ast: TSESTree.Node, type: AST): T
 describe("findParent", () => {
   it("should return the first matching ancestor", () => {
     const ast = parseAst("function foo() { const x = 1; }");
-    const [, identifier] = collectNodes<TSESTree.Identifier>(ast, AST.Identifier);
-    // @ts-expect-error
+    const identifier = collectNodes<TSESTree.Identifier>(ast, AST.Identifier)[1]!;
     const parent = findParent(identifier, (n) => n.type === AST.FunctionDeclaration);
     expect(parent).not.toBeNull();
     expect(parent!.type).toBe(AST.FunctionDeclaration);
