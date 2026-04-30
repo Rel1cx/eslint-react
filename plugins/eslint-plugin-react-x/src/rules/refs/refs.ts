@@ -172,7 +172,7 @@ export function create(context: RuleContext<MessageID, []>) {
           // Not inside a component or hook - could be a ref used in a non-React function, which is fine
           if (boundary == null) continue;
 
-          if (Traverse.findParent(node, Check.isFunction) !== boundary) continue;
+          if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) continue;
 
           //
           // Standard:
@@ -247,7 +247,7 @@ export function create(context: RuleContext<MessageID, []>) {
         for (const { node } of refPassedToFunctions) {
           const boundary = Traverse.findParent(node, isCompOrHookFn);
           if (boundary == null) continue;
-          if (Traverse.findParent(node, Check.isFunction) !== boundary) continue;
+          if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) continue;
 
           context.report({
             messageId: "refPassedToFunction",

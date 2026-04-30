@@ -3,18 +3,6 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
-export function isInsideNestedFunction(
-  node: TSESTree.Node,
-  boundary: TSESTree.FunctionLike,
-): boolean {
-  let current = node.parent;
-  while (current && current !== boundary) {
-    if (Check.isFunction(current)) return true;
-    current = current.parent;
-  }
-  return false;
-}
-
 export function isDeclaredInsideCallback(variable: Scope.Variable, callback: TSESTree.FunctionLike): boolean {
   let scope: Scope.Scope | null = variable.scope;
   while (scope != null) {
@@ -41,8 +29,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
       if (node.type !== AST.ReturnStatement) {
         return;
       }
-      const parentFunction = Traverse.findParent(node, Check.isFunction);
-      if (parentFunction !== boundaryNode) {
+      if (Traverse.findParent(node, Check.isFunction, (n) => n === boundaryNode) != null) {
         return;
       }
       statements.push(node);

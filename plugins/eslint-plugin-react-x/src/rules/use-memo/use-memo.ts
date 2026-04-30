@@ -1,12 +1,12 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getNestedReturnStatements, isDeclaredInsideCallback, isInsideNestedFunction } from "./lib";
+import { getNestedReturnStatements, isDeclaredInsideCallback } from "./lib";
 
 export const RULE_NAME = "use-memo";
 
@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
         // to match React Compiler's StoreContext semantics.
         if (left.type !== AST.Identifier) return;
-        if (isInsideNestedFunction(node, callback)) return;
+        if (Traverse.findParent(node, Check.isFunction, (n) => n === callback)) return;
 
         const scope = context.sourceCode.getScope(left);
         const variable = findVariable(scope, left);

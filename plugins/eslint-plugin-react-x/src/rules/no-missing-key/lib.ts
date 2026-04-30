@@ -33,8 +33,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
       if (node.type !== AST.ReturnStatement) {
         return;
       }
-      const parentFunction = Traverse.findParent(node, Check.isFunction);
-      if (parentFunction !== boundaryNode) {
+      if (Traverse.findParent(node, Check.isFunction, (n) => n === boundaryNode) != null) {
         return;
       }
       statements.push(node);

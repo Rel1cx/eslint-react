@@ -938,6 +938,17 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
+    // Ref read directly inside memo-wrapped arrow function component (boundary is ArrowFunctionExpression, stop must win)
+    {
+      code: tsx`
+        const Component = memo(() => {
+          const ref = useRef(null);
+          const val = ref.current;
+          return <div>{val}</div>;
+        });
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -1791,6 +1802,18 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
           return {count, updateCountPostfix, updateCountPrefix};
         }
+      `,
+    },
+    // Ref access inside nested function within memo-wrapped arrow component (findParent matches nested before stop at boundary)
+    {
+      code: tsx`
+        const Component = memo(() => {
+          const ref = useRef(null);
+          const handler = () => {
+            console.log(ref.current);
+          };
+          return <button onClick={handler}>Click</button>;
+        });
       `,
     },
   ],
