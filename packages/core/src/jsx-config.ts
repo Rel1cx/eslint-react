@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "@eslint-react/eslint";
 import {
   RE_ANNOTATION_JSX,

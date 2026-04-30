@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "nxCloudAccessToken": null,
   "parallel": 8,
   "cacheDirectory": ".nx/cache",
   "defaultBase": "main",
@@ -34,7 +33,7 @@
       "outputs": [
         "{projectRoot}/dist"
       ],
-      "cache": true
+      "cache": false
     },
     "build:docs": {
       "dependsOn": [],
@@ -46,7 +45,7 @@
       "outputs": [
         "{projectRoot}/docs"
       ],
-      "cache": true
+      "cache": false
     },
     "lint:ts": {
       "inputs": [
@@ -54,7 +53,7 @@
         "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
         "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
       ],
-      "cache": true
+      "cache": false
     },
     "lint:publish": {
       "dependsOn": [
@@ -65,8 +64,8 @@
         "{projectRoot}/dist",
         "{projectRoot}/package.json"
       ],
-      "cache": true
+      "cache": false
     }
   },
-  "analytics": true
+  "analytics": false
 }
