@@ -1,5 +1,28 @@
 # Changelog
 
+## v5.6.2 (2026-04-30)
+
+### 🐞 Fixes
+
+- **`react-x/use-memo`**: Fixed false positives in `useMemo` dependency analysis by using reference/definition analysis (#1735).
+
+### 📝 Documentation
+
+- Added anchor links to rule names in recipe docs.
+- Added migration overview page with sidebar entry.
+- Added naming-convention preset configuration documentation.
+- Simplified conditional formatting in `custom-rules-of-state` recipe.
+- Updated migration guide and added `noDirectAccessProps` custom rule example.
+
+### 🏗️ Internal
+
+- Removed unused diagram components and imports.
+- Reordered redirects with comments for clarity.
+- Bumped `lucide-react` from 1.12.0 to 1.14.0.
+- Updated `baseline-browser-mapping` to 2.10.24.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.0...v5.6.2
+
 ## v5.6.0 (2026-04-29)
 
 This release consolidates all changes since v4.2.1.
