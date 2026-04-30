@@ -794,5 +794,79 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
+    // Rule 3 valid: Reassigning block-scoped variable inside for…of loop (issue #1734)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ columns }) {
+        const widths = useMemo(() => {
+          const result = [];
+          for (const column of columns) {
+            let width = column.defaultWidth;
+            if (typeof width === "number") {
+              width = Math.min(width, column.maxWidth);
+            } else {
+              width = column.minWidth;
+            }
+            result.push(width);
+          }
+          return result;
+        }, [columns]);
+        return <div>{widths.join(", ")}</div>;
+      }
+    `,
+    // Rule 3 valid: Reassigning block-scoped variable inside for loop
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const sum = useMemo(() => {
+          let total = 0;
+          for (let i = 0; i < items.length; i++) {
+            let value = items[i];
+            value = value * 2;
+            total += value;
+          }
+          return total;
+        }, [items]);
+        return <div>{sum}</div>;
+      }
+    `,
+    // Rule 3 valid: Reassigning block-scoped variable inside if block
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ flag, a, b }) {
+        const value = useMemo(() => {
+          if (flag) {
+            let temp = a;
+            temp = temp + 1;
+            return temp;
+          }
+          return b;
+        }, [flag, a, b]);
+        return <div>{value}</div>;
+      }
+    `,
+    // Rule 3 valid: Reassigning block-scoped variable inside switch case
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ type, value }) {
+        const result = useMemo(() => {
+          switch (type) {
+            case "number": {
+              let n = value;
+              n = n * 2;
+              return n;
+            }
+            default: {
+              return value;
+            }
+          }
+        }, [type, value]);
+        return <div>{result}</div>;
+      }
+    `,
   ],
 });
