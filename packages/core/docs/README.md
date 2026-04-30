@@ -18,6 +18,7 @@
 | [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md) | Represents a client function semantic node. |
 | [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component |
 | [HookSemanticNode](interfaces/HookSemanticNode.md) | Represents a semantic hook node in the AST |
+| [JsxConfig](interfaces/JsxConfig.md) | Resolved JSX configuration derived from compiler options and / or pragma annotations found in the source file. |
 | [SemanticFunc](interfaces/SemanticFunc.md) | Represents a semantic function node in the AST This interface extends SemanticNode and provides additional properties for function analysis |
 | [SemanticNode](interfaces/SemanticNode.md) | Represents a semantic node in the AST This is the base interface for all semantic nodes in the React semantic analysis |
 | [ServerFunctionSemanticNode](interfaces/ServerFunctionSemanticNode.md) | Represents a server function semantic node. |
@@ -32,6 +33,7 @@
 | [FunctionInitPath](type-aliases/FunctionInitPath.md) | Represents various AST paths for function declarations. Each tuple type represents a specific function definition pattern. |
 | [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a function. |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a function semantic node. |
+| [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior. |
 | [TypeVariant](type-aliases/TypeVariant.md) | - |
 
 ## Variables
@@ -39,6 +41,7 @@
 | Variable | Description |
 | ------ | ------ |
 | [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
+| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration. |
 | [FunctionComponentDetectionHint](variables/FunctionComponentDetectionHint.md) | Hints for component collector |
 | [FunctionComponentFlag](variables/FunctionComponentFlag.md) | Component flag constants |
 | [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
@@ -123,6 +126,7 @@
 | [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md) | - |
 | [isUseTransition](variables/isUseTransition.md) | - |
 | [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
+| [JsxDetectionHint](variables/JsxDetectionHint.md) | - |
 | [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
 | [SEL\_FUNCTION\_DISPLAY\_NAME\_ASSIGNMENT](variables/SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT.md) | - |
 
@@ -138,6 +142,9 @@
 | [getFunctionId](functions/getFunctionId.md) | Gets the static identifier of a function AST node. |
 | [getFunctionInitPath](functions/getFunctionInitPath.md) | Identifies the initialization path of a function node in the AST. |
 | [getHookCollector](functions/getHookCollector.md) | Get an api and visitor object for the rule to collect hooks |
+| [getJsxConfig](functions/getJsxConfig.md) | Get the fully‑merged JSX configuration for the current file. |
+| [getJsxConfigFromAnnotation](functions/getJsxConfigFromAnnotation.md) | Extract JSX configuration from `@jsx`, `@jsxFrag`, `@jsxRuntime` and `@jsxImportSource` pragma comments in the source file. |
+| [getJsxConfigFromCompilerOptions](functions/getJsxConfigFromCompilerOptions.md) | Read JSX configuration from the TypeScript compiler options exposed by the parser services. |
 | [isAPI](functions/isAPI.md) | Check if the node is a React API identifier or member expression |
 | [isAPICall](functions/isAPICall.md) | Check if the node is a call expression to a specific React API |
 | [isAPIFromReact](functions/isAPIFromReact.md) | Check if a variable is initialized from React import |
@@ -159,6 +166,7 @@
 | [isHookDefinition](functions/isHookDefinition.md) | Determine if a function node is a React Hook based on its name. |
 | [isHookId](functions/isHookId.md) | Checks if the given node is a hook identifier |
 | [isHookName](functions/isHookName.md) | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user". |
+| [isJsxLike](functions/isJsxLike.md) | Determine whether a node represents JSX-like content based on heuristics. |
 | [~~isPureComponent~~](functions/isPureComponent.md) | - |
 | [isRenderMethodCallback](functions/isRenderMethodCallback.md) | - |
 | [~~isRenderMethodLike~~](functions/isRenderMethodLike.md) | - |

@@ -6,25 +6,11 @@ import {
   RE_ANNOTATION_JSX_IMPORT_SOURCE,
   RE_ANNOTATION_JSX_RUNTIME,
 } from "@eslint-react/shared";
+import ts from "typescript";
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-/**
- * TypeScript `jsx` compiler option values.
- *
- * Mirrors `ts.JsxEmit` so that consumers do not need a direct dependency on
- * the TypeScript compiler.
- */
-export const JsxEmit = {
-  None: 0,
-  Preserve: 1,
-  React: 2,
-  ReactNative: 3,
-  ReactJSX: 4,
-  ReactJSXDev: 5,
-} as const;
 
 /**
  * Resolved JSX configuration derived from compiler options and / or pragma
@@ -69,7 +55,7 @@ const mergedCache = new WeakMap<RuleContext["sourceCode"], Required<JsxConfig>>(
 export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig> {
   const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
   return {
-    jsx: options.jsx ?? JsxEmit.ReactJSX,
+    jsx: options.jsx ?? ts.JsxEmit.ReactJSX,
     jsxFactory: options.jsxFactory ?? "React.createElement",
     jsxFragmentFactory: options.jsxFragmentFactory ?? "React.Fragment",
     jsxImportSource: options.jsxImportSource ?? "react",
@@ -112,7 +98,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
 
   if (jsx != null) options.jsxFactory = jsx;
   if (jsxFrag != null) options.jsxFragmentFactory = jsxFrag;
-  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? JsxEmit.React : JsxEmit.ReactJSX;
+  if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? ts.JsxEmit.React : ts.JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
 
   annotationCache.set(context.sourceCode, options);

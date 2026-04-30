@@ -7,6 +7,8 @@ export * from "./function-component";
 export * from "./function-component-collector";
 export * from "./hook";
 export * from "./hook-collector";
+export * from "./jsx";
+export * from "./jsx-config";
 export * from "./semantic";
 export * from "./type-is";
 export * from "./type-name";

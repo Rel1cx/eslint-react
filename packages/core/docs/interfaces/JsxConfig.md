@@ -1,4 +1,4 @@
-[@eslint-react/jsx](../README.md) / JsxConfig
+[@eslint-react/core](../README.md) / JsxConfig
 
 # Interface: JsxConfig
 

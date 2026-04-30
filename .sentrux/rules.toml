@@ -22,44 +22,44 @@ paths = ["plugins/**/*"]
 order = 1
 
 [[layers]]
-name = "rule-kit"
+name = "kit"
 paths = ["packages/kit/**/*"]
 order = 2
 
 [[layers]]
-name = "react-core"
+name = "core"
 paths = ["packages/core/**/*"]
 order = 3
 
 [[layers]]
-name = "jsx-dsl"
-paths = ["packages/jsx/**/*"]
+name = "shared"
+paths = ["packages/shared/**/*"]
 order = 4
 
 [[layers]]
-name = "base-services"
-paths = ["packages/shared/**/*", "packages/var/**/*"]
+name = "jsx"
+paths = ["packages/jsx/**/*"]
 order = 5
 
 [[layers]]
-name = "infra"
-paths = ["packages/eslint/**/*", "packages/ast/**/*"]
+name = "var"
+paths = ["packages/var/**/*"]
 order = 6
 
 [[layers]]
-name = "local-infra"
-paths = [".pkgs/**/*"]
+name = "ast"
+paths = ["packages/ast/**/*"]
 order = 7
 
-# ─────────────────────────────────────────────
-# Boundary rules
-# ─────────────────────────────────────────────
+[[layers]]
+name = "infra"
+paths = ["packages/eslint/**/*"]
+order = 8
 
-# Keep the shared config layer free of variable-analysis implementation details.
-[[boundaries]]
-from = "packages/shared/**/*"
-to = "packages/var/**/*"
-reason = "Shared config layer must not depend on variable analysis internals"
+[[layers]]
+name = "local"
+paths = [".pkgs/**/*"]
+order = 9
 
 # Prevent plugins from reverse-depending on applications.
 # (Layer ordering already blocks this; the boundary makes it explicit.)

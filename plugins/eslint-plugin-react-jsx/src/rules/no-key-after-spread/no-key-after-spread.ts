@@ -1,7 +1,8 @@
 import { createRule } from "@/utils/create-rule";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { JsxEmit, getJsxConfig } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import ts from "typescript";
 
 export const RULE_NAME = "no-key-after-spread";
 
@@ -27,9 +28,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { jsx } = getJsxConfig(context);
+  const { jsx } = core.getJsxConfig(context);
 
-  const isAutomaticRuntime = jsx === JsxEmit.ReactJSX || jsx === JsxEmit.ReactJSXDev;
+  const isAutomaticRuntime = jsx === ts.JsxEmit.ReactJSX || jsx === ts.JsxEmit.ReactJSXDev;
 
   if (!isAutomaticRuntime) {
     return {};

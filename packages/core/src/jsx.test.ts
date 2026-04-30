@@ -7,7 +7,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../test";
-import { isJsxLike } from "./is-jsx-like";
+import { isJsxLike } from "./jsx";
 
 function parse(code: string) {
   return parseForESLint(code, {

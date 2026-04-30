@@ -1,4 +1,4 @@
-[@eslint-react/jsx](../README.md) / isJsxLike
+[@eslint-react/core](../README.md) / isJsxLike
 
 # Function: isJsxLike()
 
@@ -31,7 +31,7 @@ Whether the node is considered JSX-like.
 ## Example
 
 ```ts
-import { isJsxLike } from "@eslint-react/jsx";
+import { isJsxLike } from "@eslint-react/core";
 
 if (isJsxLike(context, node)) {
   // node looks like it evaluates to a React element

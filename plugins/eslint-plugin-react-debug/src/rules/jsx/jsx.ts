@@ -1,11 +1,13 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { JsxEmit, getElementFullType, getJsxConfig, isFragmentElement } from "@eslint-react/jsx";
+import { getElementFullType, isFragmentElement } from "@eslint-react/jsx";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
+import ts from "typescript";
 import { report } from "./lib";
 
 export const RULE_NAME = "jsx";
@@ -33,7 +35,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const jsxConfig = getJsxConfig(context);
+  const jsxConfig = core.getJsxConfig(context);
 
   function getReportDescriptor(_: RuleContext) {
     return (node: TSESTreeJSXElementLike) => ({
@@ -48,18 +50,18 @@ export function create(context: RuleContext<MessageID, []>) {
             .exhaustive(),
           type: getElementFullType(node),
           jsx: match(jsxConfig.jsx)
-            .with(JsxEmit.None, () => "none")
-            .with(JsxEmit.ReactJSX, () => "react-jsx")
-            .with(JsxEmit.ReactJSXDev, () => "react-jsx-dev")
-            .with(JsxEmit.React, () => "react")
-            .with(JsxEmit.ReactNative, () => "react-native")
-            .with(JsxEmit.Preserve, () => "preserve")
+            .with(ts.JsxEmit.None, () => "none")
+            .with(ts.JsxEmit.ReactJSX, () => "react-jsx")
+            .with(ts.JsxEmit.ReactJSXDev, () => "react-jsx-dev")
+            .with(ts.JsxEmit.React, () => "react")
+            .with(ts.JsxEmit.ReactNative, () => "react-native")
+            .with(ts.JsxEmit.Preserve, () => "preserve")
             .otherwise(() => "unknown"),
           jsxFactory: jsxConfig.jsxFactory,
           jsxFragmentFactory: jsxConfig.jsxFragmentFactory,
           jsxImportSource: jsxConfig.jsxImportSource,
           jsxRuntime: match(jsxConfig.jsx)
-            .with(P.union(JsxEmit.None, JsxEmit.ReactJSX, JsxEmit.ReactJSXDev), () => "automatic")
+            .with(P.union(ts.JsxEmit.None, ts.JsxEmit.ReactJSX, ts.JsxEmit.ReactJSXDev), () => "automatic")
             .otherwise(() => "classic"),
         }),
       },

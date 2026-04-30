@@ -1,6 +1,5 @@
 import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { isJsxLike } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
@@ -15,6 +14,7 @@ import {
   isFunctionWithLooseComponentName,
 } from "./function-component";
 import { isHookCall } from "./hook";
+import { isJsxLike } from "./jsx";
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
   isFunctionComponentDefinition: boolean;

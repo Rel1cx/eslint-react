@@ -1,8 +1,7 @@
-import { JsxEmit } from "@eslint-react/jsx";
+import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "#/test";
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
-
-import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "#/test";
+import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";
 
 // Default ruleTester tests (auto-detect runtime from tsconfig)

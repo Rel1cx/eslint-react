@@ -1,10 +1,8 @@
-import { RuleTester } from "@typescript-eslint/rule-tester";
-
-import tsx from "dedent";
-
 import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "#/test";
 import { stringify } from "@/utils/stringify";
-import { JsxEmit } from "@eslint-react/jsx";
+import { RuleTester } from "@typescript-eslint/rule-tester";
+import tsx from "dedent";
+import ts from "typescript";
 import rule, { RULE_NAME } from "./jsx";
 
 const ruleTester = new RuleTester({
@@ -12,7 +10,7 @@ const ruleTester = new RuleTester({
     ...defaultLanguageOptionsWithTypes,
     parserOptions: {
       ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxEmit(JsxEmit.ReactJSX),
+      project: getProjectForJsxEmit(ts.JsxEmit.ReactJSX),
       projectService: false,
     },
   },

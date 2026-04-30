@@ -1,4 +1,4 @@
-[@eslint-react/jsx](../README.md) / getJsxConfig
+[@eslint-react/core](../README.md) / getJsxConfig
 
 # Function: getJsxConfig()
 

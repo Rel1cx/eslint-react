@@ -2,7 +2,53 @@ import { Check, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { DEFAULT_JSX_DETECTION_HINT, type JsxDetectionHint, JsxDetectionHint as Hint } from "./jsx-detection-hint";
+
+/**
+ * BitFlags for configuring JSX detection behavior.
+ *
+ * Used by {@link isJsxLike} to control which AST node kinds are
+ * considered "JSX-like". Combine flags with the `|` operator.
+ *
+ * @example
+ * ```ts
+ * const hint = JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+ *   | JsxDetectionHint.DoNotIncludeJsxWithStringValue;
+ *
+ * isJsxLike(context, node, hint);
+ * ```
+ */
+export type JsxDetectionHint = bigint;
+
+/* eslint-disable perfectionist/sort-objects */
+export const JsxDetectionHint = {
+  None: 0n,
+  DoNotIncludeJsxWithNullValue: 1n << 0n,
+  DoNotIncludeJsxWithNumberValue: 1n << 1n,
+  DoNotIncludeJsxWithBigIntValue: 1n << 2n,
+  DoNotIncludeJsxWithStringValue: 1n << 3n,
+  DoNotIncludeJsxWithBooleanValue: 1n << 4n,
+  DoNotIncludeJsxWithUndefinedValue: 1n << 5n,
+  DoNotIncludeJsxWithEmptyArrayValue: 1n << 6n,
+  DoNotIncludeJsxWithCreateElementValue: 1n << 7n,
+  RequireAllArrayElementsToBeJsx: 1n << 8n,
+  RequireBothSidesOfLogicalExpressionToBeJsx: 1n << 9n,
+  RequireBothBranchesOfConditionalExpressionToBeJsx: 1n << 10n,
+} as const;
+/* eslint-enable perfectionist/sort-objects */
+
+/**
+ * Default JSX detection configuration.
+ *
+ * Skips number, bigint, boolean, string, and undefined literals –
+ * the value types that are commonly returned alongside JSX in React
+ * components but are not themselves renderable elements.
+ */
+export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
+  | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
+  | JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
+  | JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+  | JsxDetectionHint.DoNotIncludeJsxWithStringValue
+  | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue;
 
 /**
  * Determine whether a node represents JSX-like content based on heuristics.
@@ -18,7 +64,7 @@ import { DEFAULT_JSX_DETECTION_HINT, type JsxDetectionHint, JsxDetectionHint as 
  *
  * @example
  * ```ts
- * import { isJsxLike } from "@eslint-react/jsx";
+ * import { isJsxLike } from "@eslint-react/core";
  *
  * if (isJsxLike(context, node)) {
  *   // node looks like it evaluates to a React element
@@ -39,36 +85,36 @@ export function isJsxLike(
     case AST.Literal: {
       switch (typeof node.value) {
         case "boolean":
-          return !(hint & Hint.DoNotIncludeJsxWithBooleanValue);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBooleanValue);
         case "string":
-          return !(hint & Hint.DoNotIncludeJsxWithStringValue);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
         case "number":
-          return !(hint & Hint.DoNotIncludeJsxWithNumberValue);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithNumberValue);
         case "bigint":
-          return !(hint & Hint.DoNotIncludeJsxWithBigIntValue);
+          return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBigIntValue);
       }
       if (node.value == null) {
-        return !(hint & Hint.DoNotIncludeJsxWithNullValue);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithNullValue);
       }
       return false;
     }
 
     case AST.TemplateLiteral: {
-      return !(hint & Hint.DoNotIncludeJsxWithStringValue);
+      return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
     }
 
     case AST.ArrayExpression: {
       if (node.elements.length === 0) {
-        return !(hint & Hint.DoNotIncludeJsxWithEmptyArrayValue);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
       }
-      if (hint & Hint.RequireAllArrayElementsToBeJsx) {
+      if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
         return node.elements.every((n) => isJsxLike(context, n, hint));
       }
       return node.elements.some((n) => isJsxLike(context, n, hint));
     }
 
     case AST.LogicalExpression: {
-      if (hint & Hint.RequireBothSidesOfLogicalExpressionToBeJsx) {
+      if (hint & JsxDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx) {
         return isJsxLike(context, node.left, hint) && isJsxLike(context, node.right, hint);
       }
       return isJsxLike(context, node.left, hint) || isJsxLike(context, node.right, hint);
@@ -81,7 +127,7 @@ export function isJsxLike(
 
       const alternateIsJsx = isJsxLike(context, node.alternate, hint);
 
-      if (hint & Hint.RequireBothBranchesOfConditionalExpressionToBeJsx) {
+      if (hint & JsxDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx) {
         return consequentIsJsx && alternateIsJsx;
       }
       return consequentIsJsx || alternateIsJsx;
@@ -93,7 +139,7 @@ export function isJsxLike(
     }
 
     case AST.CallExpression: {
-      if (hint & Hint.DoNotIncludeJsxWithCreateElementValue) {
+      if (hint & JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue) {
         return false;
       }
       const callee = Extract.unwrap(node.callee);
@@ -109,7 +155,7 @@ export function isJsxLike(
 
     case AST.Identifier: {
       if (node.name === "undefined") {
-        return !(hint & Hint.DoNotIncludeJsxWithUndefinedValue);
+        return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
       }
       if (Check.isJSXTagNameExpression(node)) {
         return true;
@@ -131,9 +177,9 @@ function checkArray(
   hint: JsxDetectionHint,
 ): boolean {
   if (elements.length === 0) {
-    return !(hint & Hint.DoNotIncludeJsxWithEmptyArrayValue);
+    return !(hint & JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue);
   }
-  if (hint & Hint.RequireAllArrayElementsToBeJsx) {
+  if (hint & JsxDetectionHint.RequireAllArrayElementsToBeJsx) {
     return elements.every((n) => isJsxLike(context, n, hint));
   }
   return elements.some((n) => isJsxLike(context, n, hint));
