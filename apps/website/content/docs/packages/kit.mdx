@@ -108,7 +108,7 @@ When you use an **anonymous function** (arrow function without a name) with `.us
 ```ts
 // Registered as `@eslint-react/kit/a1b2c3d4e5f67890`
 eslintReactKit().use(() => (context) => ({
-  JSXOpeningElement(node) {
+  CallExpression(node) {
     // Critical check that cannot be easily disabled
   },
 }));
@@ -118,13 +118,13 @@ Anonymous rules are ideal for checks that are **critical to code quality or secu
 
 ```ts
 // This critical security check cannot be easily disabled by developers
-eslintReactKit().use(() => (context, { is }) => ({
-  CallExpression(node) {
-    // Prevent dangerous API calls that could lead to XSS
-    if (is.createElementCall(node) && isUnsafeArguments(node.arguments)) {
+eslintReactKit().use(() => (context) => ({
+  Property(node) {
+    // Prevent direct construction of '__html' objects in product code
+    if (node.key.type === "Identifier" && node.key.name === "__html") {
       context.report({
         node,
-        message: "Potential XSS vulnerability detected. This issue must be fixed.",
+        message: "Do not construct '__html' objects directly. Use a sanitization library or receive them from server-side code.",
       });
     }
   },
