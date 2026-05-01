@@ -43,6 +43,7 @@
     "no-unstable-default-props",
     "no-unused-class-component-members",
     "no-unused-props",
+    "no-unused-state",
     "no-use-context",
     "purity",
     "refs",

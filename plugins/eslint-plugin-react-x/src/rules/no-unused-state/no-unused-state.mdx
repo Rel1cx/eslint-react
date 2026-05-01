@@ -1,0 +1,98 @@
+---
+title: no-unused-state
+description: Warns about state variables that are defined but never used, or only used in effects.
+---
+
+<Callout type="warning">
+  This rule is not yet implemented.
+</Callout>
+
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
+
+```plain copy
+react-x/no-unused-state
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/no-unused-state
+```
+
+**Features**
+
+`🧪`
+
+## Rule Details
+
+This rule warns about state variables declared via `useState` (or similar state hooks) that are assigned but never read, or only read inside an effect or effect dependency array. State that is only used in effects often indicates missing logic in the render output or a state value that can be derived from props instead.
+
+## Common Violations
+
+### Invalid
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [data, setData] = useState(0);
+  return <div />;
+}
+```
+
+```tsx
+import { useEffect, useState } from "react";
+
+function Component() {
+  const [data, setData] = useState(0);
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+  return <div />;
+}
+```
+
+### Valid
+
+```tsx
+import { useState } from "react";
+
+function Component() {
+  const [data, setData] = useState(0);
+  return <div>{data}</div>;
+}
+```
+
+```tsx
+import { useCallback, useState } from "react";
+
+function Component() {
+  const [data, setData] = useState(0);
+  const handleClick = useCallback(() => {
+    console.log(data);
+  }, [data]);
+  return <div onClick={handleClick} />;
+}
+```
+
+## Options
+
+### Shared Settings
+
+Custom effect hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalStateHooks": "/^(useMyState|useCustomState)$/u"
+      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u"
+    }
+  }
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-unused-state/no-unused-state.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-unused-state/no-unused-state.spec.ts)

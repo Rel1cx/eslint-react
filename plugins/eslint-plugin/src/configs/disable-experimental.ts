@@ -11,6 +11,7 @@ export const rules: Linter.RulesRecord = {
   "@eslint-react/no-implicit-ref": "off",
   "@eslint-react/no-misused-capture-owner-stack": "off",
   "@eslint-react/no-unused-props": "off",
+  "@eslint-react/no-unused-state": "off",
   "@eslint-react/refs": "off",
   "@eslint-react/set-state-in-render": "off",
   "@eslint-react/static-components": "off",
