@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.6.6 (2026-05-01)
+
+### ✨ New
+
+- **`react-x/no-unused-state`**: Re-add the `react-x/no-unused-state` rule that was removed in `5.0.0` as a no-op rule for detecting unused state in function components in a future release.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.4...v5.6.6
+
 ## v5.6.4 (2026-05-01)
 
 ### ✨ New
