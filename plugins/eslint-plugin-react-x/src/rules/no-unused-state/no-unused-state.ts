@@ -9,7 +9,7 @@ export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
-    type: "suggestion",
+    type: "problem",
     docs: {
       description: "Warns about state variables that are defined but never used, or only used in effects.",
     },
