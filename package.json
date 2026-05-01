@@ -80,7 +80,7 @@
     "depcheck": "^1.4.7",
     "dprint": "^0.54.0",
     "effect": "^3.21.2",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-plugin-fast-import": "^2.2.1",
     "eslint-plugin-package-json": "^0.91.2",
     "mdxlint": "^1.0.0",
