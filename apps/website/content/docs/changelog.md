@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.7.0 (2026-05-02)
+
+### ✨ New
+
+- **`react-x/no-unused-state`**: The rule re-added as a no-op in `v5.6.6` is now fully implemented. It detects state variables declared via `useState` (or similar state hooks) that are assigned but never read, or only read inside an effect or effect dependency array (#1741).
+
+### 📝 Documentation
+
+- Updated minimum version requirements in README and docs (ESLint 10.2.1, TypeScript 6.0.3, pnpm 10.33.2).
+- Fixed `no-unused-state` migration docs and removed rule reasons.
+
+> **LTS Maintenance Mode**: Starting with v5.7.0, the project has entered a Long-Term Support (LTS) maintenance mode. New feature development is temporarily on hold while the project prioritizes bug fixes, rule improvements, and documentation updates. See [#1740](https://github.com/Rel1cx/eslint-react/issues/1740) for details.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.6...v5.7.0
+
 ## v5.6.6 (2026-05-01)
 
 ### ✨ New
