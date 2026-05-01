@@ -31,7 +31,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | `react-x/no-forbidden-props`                                 | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.3.2      | deprecated       |
 | `react-x/no-nested-components`                               | [`react-x/no-nested-component-definitions`](/docs/rules/no-nested-component-definitions)              | 2.0.0      | renamed          |
 | `react-x/no-prop-types`                                      | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.9.3      | deprecated       |
-| `react-x/no-redundant-should-component-update`               | [`no-unused-class-component-members`](/docs/rules/no-unused-class-component-members)                  | 5.0.0      | deprecated       |
+| `react-x/no-redundant-should-component-update`               | [`no-unused-class-component-members`](/docs/rules/no-unused-class-component-members)                  | 5.0.0      | consolidated     |
 | `react-x/no-string-refs`                                     | [`no-restricted-syntax`](https://eslint.org/docs/latest/rules/no-restricted-syntax)                   | 2.9.3      | deprecated       |
 | `react-x/no-unnecessary-key`                                 |                                                                                                       | 3.0.0      | discontinued     |
 | `react-x/no-unnecessary-use-callback`                        | N/A (Rule deprecated due to being inherently incompatible with React Compiler)                        | 5.0.0      | deprecated       |
