@@ -169,12 +169,10 @@ export function isUseStateLikeCall(
   const callee = Extract.unwrap(node.callee);
   switch (true) {
     case callee.type === AST.Identifier:
-      return callee.name === "useState"
-        || additionalStateHooks.test(callee.name);
+      return callee.name === "useState" || additionalStateHooks.test(callee.name);
     case callee.type === AST.MemberExpression
       && callee.property.type === AST.Identifier:
-      return Extract.getPropertyName(callee.property) === "useState"
-        || additionalStateHooks.test(callee.property.name);
+      return Extract.getPropertyName(callee.property) === "useState" || additionalStateHooks.test(callee.property.name);
   }
   return false;
 }
