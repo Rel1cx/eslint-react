@@ -455,7 +455,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Ported from react-main/compiler/.../error.modify-state.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.modify-state.js
     {
       code: tsx`
         import { useState } from "react";
@@ -471,7 +471,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Ported from react-main/compiler/.../error.mutate-props.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.mutate-props.js
     {
       code: tsx`
         function Component(props) {
@@ -484,7 +484,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Ported from react-main/compiler/.../error.invalid-mutation-in-closure.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-mutation-in-closure.js
     // Mutation of options (first param) inside a nested function
     {
       code: tsx`
@@ -500,7 +500,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Ported from react-main/compiler/.../error.invalid-function-expression-mutates-immutable-value.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-function-expression-mutates-immutable-value.js
     // State mutated inside event handler callback
     {
       code: tsx`
@@ -520,7 +520,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Ported from react-main/compiler/.../error.modify-useReducer-state.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.modify-useReducer-state.js
     {
       code: tsx`
         import { useReducer } from "react";
@@ -536,7 +536,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Ported from react-main/compiler/.../error.invalid-prop-mutation-indirect.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-prop-mutation-indirect.js
     // Props mutated inside nested function with indirect invocation
     {
       code: tsx`
@@ -608,7 +608,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Derived from react-main/compiler error.modify-state.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-state.js
     {
       code: tsx`
         import { useState } from "react";
@@ -623,7 +623,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Derived from react-main/compiler error.modify-useReducer-state.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-useReducer-state.js
     {
       code: tsx`
         import { useReducer } from "react";
@@ -638,7 +638,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Derived from react-main/compiler error.mutate-props.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-props.js
     {
       code: tsx`
         function Foo(props) {
@@ -651,7 +651,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
-    // Derived from react-main/compiler error.mutate-hook-argument.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-hook-argument.js
     {
       code: tsx`
         function useHook(a, b) {
@@ -1390,7 +1390,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ported from react-main/compiler/.../allow-global-mutation-in-effect-indirect.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../allow-global-mutation-in-effect-indirect.js
     // Global variable mutation is not tracked by this rule
     {
       code: tsx`
@@ -1441,7 +1441,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.modify-state-2.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-state-2.js
     // Mutating a local alias of state is not detected by this rule
     {
       code: tsx`
@@ -1454,7 +1454,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.invalid-mutate-props-via-for-of-iterator.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-props-via-for-of-iterator.js
     // Mutating for-of iterator variable is not detected by this rule
     {
       code: tsx`
@@ -1468,7 +1468,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.invalid-mutation-of-possible-props-phi-indirect.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutation-of-possible-props-phi-indirect.js
     // Mutating local variable is not detected by this rule
     {
       code: tsx`
@@ -1485,7 +1485,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.invalid-mutate-props-in-effect-fixpoint.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-props-in-effect-fixpoint.js
     // Mutating local variable in effect callback is not detected by this rule
     {
       code: tsx`

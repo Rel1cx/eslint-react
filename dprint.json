@@ -22,8 +22,7 @@
     "**/dist",
     "**/node_modules",
     "**/test/fixtures",
-    "packages/**/docs",
-    "./react-main"
+    "packages/**/docs"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.95.15.wasm",
