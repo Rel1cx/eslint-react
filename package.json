@@ -65,7 +65,7 @@
     "@eslint/compat": "^2.0.5",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@rbxts/react": "^17.3.7-ts.1",
+    "@rbxts/react": "17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.6.0",
