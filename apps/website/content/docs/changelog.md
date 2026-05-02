@@ -6,7 +6,7 @@ title: Changelog
 
 ### ✨ New
 
-- **`react-x/no-unused-state`**: The rule re-added as a no-op in `v5.6.6` is now fully implemented. It detects state variables declared via `useState` (or similar state hooks) that are assigned but never read, or only read inside an effect or effect dependency array (#1741).
+- **`react-x/no-unused-state`**: The rule re-added as a no-op in `v5.6.6` is now fully implemented. It detects state variables declared via `useState` (or similar state hooks) that are defined but never read, or only read inside an effect or effect dependency array (#1741).
 
 ### 📝 Documentation
 
