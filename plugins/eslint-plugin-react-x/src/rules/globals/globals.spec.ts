@@ -344,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobal" }],
     },
-    // Derived from react-main/compiler error.mutate-global-increment-op-invalid-react.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-global-increment-op-invalid-react.js
     {
       code: tsx`
         let renderCount = 0;
@@ -355,7 +355,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobal" }],
     },
-    // Derived from react-main/compiler error.store-property-in-global.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.store-property-in-global.js
     {
       code: tsx`
         let wat = {};
@@ -366,7 +366,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
-    // Derived from react-main/compiler error.reassignment-to-global.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global.js
     {
       code: tsx`
         function Component() {
@@ -380,7 +380,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "mutatingGlobal" },
       ],
     },
-    // Derived from react-main/compiler error.update-global-should-bailout.tsx
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.update-global-should-bailout.tsx
     {
       code: tsx`
         let renderCount = 0;
@@ -662,7 +662,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-global-reassignment-in-effect.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-reassignment-in-effect.js
     {
       code: tsx`
         let someGlobal = false;
@@ -678,7 +678,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-global-mutation-in-effect-indirect.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-mutation-in-effect-indirect.js
     {
       code: tsx`
         let someGlobal = {};
@@ -697,7 +697,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-global-mutation-unused-usecallback.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-mutation-unused-usecallback.js
     {
       code: tsx`
         function Component() {
@@ -708,7 +708,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-modify-global-in-callback-jsx.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-modify-global-in-callback-jsx.js
     {
       code: tsx`
         const someGlobal = {value: 0};
@@ -722,7 +722,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-reassignment-to-global-function-jsx-prop.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-reassignment-to-global-function-jsx-prop.js
     {
       code: tsx`
         function Component() {
@@ -734,7 +734,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.not-useEffect-external-mutate.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.not-useEffect-external-mutate.js
     {
       code: tsx`
         let x = {a: 42};
@@ -746,7 +746,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler error.mutable-range-shared-inner-outer-function.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutable-range-shared-inner-outer-function.js
     {
       code: tsx`
         let cond = true;
@@ -768,7 +768,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-mutate-global-in-effect-fixpoint.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-mutate-global-in-effect-fixpoint.js
     {
       code: tsx`
         let someGlobal = {value: null};
@@ -789,7 +789,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Derived from react-main/compiler allow-global-mutation-in-effect-indirect-usecallback.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-mutation-in-effect-indirect-usecallback.js
     {
       code: tsx`
         let someGlobal = {};

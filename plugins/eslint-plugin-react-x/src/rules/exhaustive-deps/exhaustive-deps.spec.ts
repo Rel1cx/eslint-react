@@ -433,7 +433,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler allow-modify-global-in-callback-jsx.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-modify-global-in-callback-jsx.js
     {
       code: tsx`
         function Component({value}) {
@@ -467,7 +467,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler array-pattern-spread-creates-array.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler array-pattern-spread-creates-array.js
     {
       code: tsx`
         function Component(props) {
@@ -487,7 +487,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler block-scoping-switch-variable-scoping.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler block-scoping-switch-variable-scoping.js
     {
       code: tsx`
         function Component(props) {
@@ -513,7 +513,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler error.invalid-reassign-variable-in-usememo.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-reassign-variable-in-usememo.js
     {
       code: tsx`
         function Component() {
@@ -534,7 +534,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler useCallback-maybe-modify-free-variable-dont-preserve-memoization-guarantee.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useCallback-maybe-modify-free-variable-dont-preserve-memoization-guarantee.js
     {
       code: tsx`
         function Component(props) {
@@ -578,7 +578,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler useMemo-mabye-modified-free-variable-dont-preserve-memoization-guarantees.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useMemo-mabye-modified-free-variable-dont-preserve-memoization-guarantees.js
     {
       code: tsx`
         function Component(props) {
@@ -626,7 +626,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler useMemo-with-optional.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useMemo-with-optional.js
     {
       code: tsx`
         function Component(props) {
@@ -644,7 +644,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler useCallback-set-ref-nested-property.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useCallback-set-ref-nested-property.js
     {
       code: tsx`
         function Component({}) {
@@ -662,7 +662,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // Derived from react-main/compiler error.invalid-useMemo-callback-args.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-useMemo-callback-args.js
     {
       code: tsx`
         function component(a, b) {
@@ -866,7 +866,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       options: [{ additionalHooks: "use(Data|Custom)Effect" }],
     },
-    // Derived from react-main/compiler drop-methodcall-usecallback.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler drop-methodcall-usecallback.js
     // useCallback with correct deps
     {
       code: tsx`
@@ -878,7 +878,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler drop-methodcall-usememo.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler drop-methodcall-usememo.js
     // useMemo with correct deps
     {
       code: tsx`
@@ -892,7 +892,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler babel-existing-react-import.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler babel-existing-react-import.js
     // useMemo with correct deps
     {
       code: tsx`
@@ -903,7 +903,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler allow-ref-access-in-effect.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-ref-access-in-effect.js
     // ref mutation in effect with empty deps (ref is stable)
     {
       code: tsx`
@@ -920,7 +920,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler allow-ref-access-in-unused-callback-nested.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-ref-access-in-unused-callback-nested.js
     // ref mutation in nested callback inside effect with empty deps
     {
       code: tsx`
@@ -939,7 +939,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler allow-global-mutation-unused-usecallback.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-mutation-unused-usecallback.js
     // useCallback modifying global with empty deps
     {
       code: tsx`
@@ -951,7 +951,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler error.invalid-hoisting-setstate.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-hoisting-setstate.js
     // setState in effect with empty deps (setState is stable)
     {
       code: tsx`
@@ -962,7 +962,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler useCallback-maybe-modify-free-variable-preserve-memoization-guarantee.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useCallback-maybe-modify-free-variable-preserve-memoization-guarantee.js
     // useCallback with correct deps
     {
       code: tsx`
@@ -981,7 +981,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler useMemo-mabye-modified-free-variable-preserve-memoization-guarantees.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useMemo-mabye-modified-free-variable-preserve-memoization-guarantees.js
     // useMemo with correct deps
     {
       code: tsx`
@@ -1002,7 +1002,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler useMemo-arrow-implicit-return.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler useMemo-arrow-implicit-return.js
     // useMemo with empty deps and no external values
     {
       code: tsx`
@@ -1012,7 +1012,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler preserve-use-memo-unused-state.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler preserve-use-memo-unused-state.js
     // setState setter in useCallback with empty deps (stable)
     {
       code: tsx`
@@ -1024,7 +1024,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Derived from react-main/compiler repro-preserve-memoization-inner-destructured-value-mistaken-as-dependency.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-preserve-memoization-inner-destructured-value-mistaken-as-dependency.js
     // useMemo with correct deps
     {
       code: tsx`

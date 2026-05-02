@@ -211,7 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
-    // Derived from react-main/compiler try-catch-logical-and-optional.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-logical-and-optional.js
     {
       code: tsx`
         function Component({ cond, obj, items }) {
@@ -225,7 +225,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
-    // Derived from react-main/compiler try-catch-multiple-value-blocks.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-multiple-value-blocks.js
     {
       code: tsx`
         function Component({ a, b, cond, items }) {
@@ -245,7 +245,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "tryCatchWithJsx" }],
     },
-    // Derived from react-main/compiler try-catch-nullish-coalescing.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-nullish-coalescing.js
     {
       code: tsx`
         function Component({ a, b, fallback }) {
@@ -440,7 +440,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{x}</div>;
       }
     `,
-    // Derived from react-main/compiler try-catch.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch.js
     // try/catch around non-JSX operations in component
     tsx`
       function Component(props) {
@@ -453,7 +453,7 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
-    // Derived from react-main/compiler try-catch-with-return.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-with-return.js
     // try returns primitive/undefined, catch returns null - no JSX in try
     tsx`
       function Component(props) {
@@ -470,7 +470,7 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
-    // Derived from react-main/compiler try-catch-ternary-expression.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-ternary-expression.js
     // try/catch around non-JSX operations
     tsx`
       function Component(props) {
@@ -483,7 +483,7 @@ ruleTester.run(RULE_NAME, rule, {
         return result;
       }
     `,
-    // Derived from react-main/compiler try-catch-try-immediately-returns.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-try-immediately-returns.js
     // try returns primitive value
     tsx`
       function Component(props) {
@@ -497,7 +497,7 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
-    // Derived from react-main/compiler try-catch-empty-try.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-empty-try.js
     tsx`
       function Component(props) {
         let x = props.default;
@@ -508,7 +508,7 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
-    // Derived from react-main/compiler try-catch-mutate-outer-value.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-mutate-outer-value.js
     // try/catch mutates outer value but does not return JSX
     tsx`
       function Component(props) {
@@ -521,7 +521,7 @@ ruleTester.run(RULE_NAME, rule, {
         return x;
       }
     `,
-    // Derived from react-main/compiler try-catch-within-function-expression.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-within-function-expression.js
     // try/catch in nested arrow function
     tsx`
       function Component(props) {
@@ -535,7 +535,7 @@ ruleTester.run(RULE_NAME, rule, {
         return callback();
       }
     `,
-    // Derived from react-main/compiler try-catch-within-object-method.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-within-object-method.js
     // try/catch in object method
     tsx`
       function Component(props) {
@@ -551,7 +551,7 @@ ruleTester.run(RULE_NAME, rule, {
         return object.foo();
       }
     `,
-    // Derived from react-main/compiler invalid-jsx-in-try-with-catch.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler invalid-jsx-in-try-with-catch.js
     // JSX is assigned in try but returned outside try - not caught by this rule
     tsx`
       function Component(props) {
@@ -585,7 +585,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    // Derived from react-main/compiler repro-preds-undefined-try-catch-return-primitive.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-preds-undefined-try-catch-return-primitive.js
     // try/catch in useMemo callback returning primitive
     tsx`
       function useSupportsTouchEvent() {
@@ -601,7 +601,7 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
-    // Derived from react-main/compiler repro-unreachable-code-early-return-in-useMemo.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-unreachable-code-early-return-in-useMemo.js
     // try/catch in useMemo callback returning object
     tsx`
       function Component({ value }) {
@@ -618,7 +618,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{result}</div>;
       }
     `,
-    // Derived from react-main/compiler repro-nested-try-catch-in-usememo.js
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-nested-try-catch-in-usememo.js
     // nested try/catch in useMemo callback
     tsx`
       function useFoo(text) {
