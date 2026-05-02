@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.7.1 (2026-05-02)
+
+### 🐞 Fixes
+
+- **`all` preset**: Fixed an issue where the `all` preset accidentally included rules requiring type information (#1744).
+
+### 📝 Documentation
+
+- Fixed a typo in the shared settings description.
+- Fixed missing trailing commas in ESLint settings examples.
+- Updated `no-unused-state` rule wording and examples.
+- Added a Resources section with AST Explorer, ESLint Developer Guide, and TypeScript Compiler API links to kit-related documentation pages.
+
+### 🏗️ Internal
+
+- Pinned dependency versions for `next` and `@rbxts/react`.
+- Added `react-compiler-fixtures-all-preset.jsonl` snapshot generation.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.0...v5.7.1
+
 ## v5.7.0 (2026-05-02)
 
 ### ✨ New
