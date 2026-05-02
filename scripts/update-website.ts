@@ -210,64 +210,64 @@ const processChangelog = Effect.gen(function*() {
 
 // ── Documentation Resources ─────────────────────────────────────────────
 
-const DOCS_RESOURCES_GLOB = ["apps/website/content/docs/**/*.mdx"];
+// const DOCS_RESOURCES_GLOB = ["apps/website/content/docs/**/*.mdx"];
 
-/** [label, shortUrl, fullUrl] */
-type DocResource = readonly [string, string, string];
+// /** [label, shortUrl, fullUrl] */
+// type DocResource = readonly [string, string, string];
 
-/** Resources that may use a short URL in docs but should be expanded to the canonical full URL. */
-const RESOURCES: readonly DocResource[] = [
-  [
-    "AST Explorer",
-    "https://ast-explorer.dev/",
-    "https://ast-explorer.dev/#eNpNkE9PwzAMxb+K5dMmDbiXrQeQOCIEEqdcQuqJjDSpEncCVf3u2Al/donk3/Pzi71gwA5P9myLy35i3OEkgL8mauCKSvBRuRPuxyllhmeyjuGY0wgGsxYGb000UX1wNzOn+JTTVOAAi4kA7t2HIVPsmvW6vo9pIHEBpHgfvPvoYLOFQw/n5Afha614nKNjn+LP1M3yNwvW7jJq25Iy8Zwj7N+qAvqhg8FWGeyXX/e6v2mw1ygTZcEkC9YZBsmN9pVykWCDnYBgmYpsufvXH8hKFBVtqDYVTuVTa84z1VZlcrTgaXjh7PVQTVVRYldcvwGs9YT5)",
-  ],
-];
+// /** Resources that may use a short URL in docs but should be expanded to the canonical full URL. */
+// const RESOURCES: readonly DocResource[] = [
+//   [
+//     "AST Explorer",
+//     "https://ast-explorer.dev/",
+//     "https://ast-explorer.dev/#eNpNkE9PwzAMxb+K5dMmDbiXrQeQOCIEEqdcQuqJjDSpEncCVf3u2Al/donk3/Pzi71gwA5P9myLy35i3OEkgL8mauCKSvBRuRPuxyllhmeyjuGY0wgGsxYGb000UX1wNzOn+JTTVOAAi4kA7t2HIVPsmvW6vo9pIHEBpHgfvPvoYLOFQw/n5Afha514nKNjn+LP1M3yNwvW7jJq25Iy8Zwj7N+qAvqhg8FWGeyXX/e6v2mw1ygTZcEkC9YZBsmN9pVykWCDnYBgmYpsufvXH8hKFBVtqDYVTuVTa84z1VZlcrTgaXjh7PVQTVVRYldcvwGs9YT5",
+//   ],
+// ];
 
-function buildMarkdownLink(label: string, url: string): string {
-  return `[${label}](${url})`;
-}
+// function buildMarkdownLink(label: string, url: string): string {
+//   return `[${label}](${url})`;
+// }
 
-const processDocsResources = Effect.fnUntraced(
-  function*(filename: string) {
-    const fs = yield* FileSystem.FileSystem;
-    const content = yield* fs.readFileString(filename, "utf8");
+// const processDocsResources = Effect.fnUntraced(
+//   function*(filename: string) {
+//     const fs = yield* FileSystem.FileSystem;
+//     const content = yield* fs.readFileString(filename, "utf8");
 
-    let updated = content;
-    let hasChanges = false;
+//     let updated = content;
+//     let hasChanges = false;
 
-    for (const [label, shortUrl, fullUrl] of RESOURCES) {
-      const shortLink = buildMarkdownLink(label, shortUrl);
-      const fullLink = buildMarkdownLink(label, fullUrl);
-      if (updated.includes(shortLink)) {
-        updated = updated.replaceAll(shortLink, fullLink);
-        hasChanges = true;
-      }
-    }
+//     for (const [label, shortUrl, fullUrl] of RESOURCES) {
+//       const shortLink = buildMarkdownLink(label, shortUrl);
+//       const fullLink = buildMarkdownLink(label, fullUrl);
+//       if (updated.includes(shortLink)) {
+//         updated = updated.replaceAll(shortLink, fullLink);
+//         hasChanges = true;
+//       }
+//     }
 
-    if (!hasChanges) {
-      return false;
-    }
+//     if (!hasChanges) {
+//       return false;
+//     }
 
-    yield* fs.writeFileString(filename, updated);
-    yield* Effect.log(ansis.green(`Updated resources in ${filename}`));
-    return true;
-  },
-);
+//     yield* fs.writeFileString(filename, updated);
+//     yield* Effect.log(ansis.green(`Updated resources in ${filename}`));
+//     return true;
+//   },
+// );
 
-const updateDocsResources = Effect.gen(function*() {
-  yield* Effect.log(ansis.bold("Updating documentation resources..."));
+// const updateDocsResources = Effect.gen(function*() {
+//   yield* Effect.log(ansis.bold("Updating documentation resources..."));
 
-  const files = yield* Effect.sync(() => glob(DOCS_RESOURCES_GLOB));
-  const results = yield* Effect.all(files.map(processDocsResources), { concurrency: 8 });
-  const updatedCount = results.filter(Boolean).length;
+//   const files = yield* Effect.sync(() => glob(DOCS_RESOURCES_GLOB));
+//   const results = yield* Effect.all(files.map(processDocsResources), { concurrency: 8 });
+//   const updatedCount = results.filter(Boolean).length;
 
-  yield* Effect.log(
-    updatedCount === 0
-      ? ansis.yellow("No documentation resources needed updating.")
-      : ansis.bold.green(`Updated documentation resources in ${updatedCount} file(s).`),
-  );
-});
+//   yield* Effect.log(
+//     updatedCount === 0
+//       ? ansis.yellow("No documentation resources needed updating.")
+//       : ansis.bold.green(`Updated documentation resources in ${updatedCount} file(s).`),
+//   );
+// });
 
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Processing rule documentation..."));
@@ -294,7 +294,7 @@ const program = Effect.gen(function*() {
   yield* processChangelog;
 
   // Pass 5: Update documentation resources
-  yield* updateDocsResources;
+  // yield* updateDocsResources;
 
   yield* Effect.log(ansis.bold.green("Documentation processing completed."));
 });
