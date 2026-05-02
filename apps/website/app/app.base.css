@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@import "fumadocs-twoslash/twoslash.css";
+@plugin "tailwindcss-animate";
+
+@source inline("{hover:,focus:,focus-within:,focus-visible:,active:,visited:,target:}");
+@source "../node_modules/fumadocs-ui/dist";
+@source ".";
+@source "../components";
+@source "../content";
+@source "./components/**/*.{js,ts,jsx,tsx,mdx}";
+
+:root {
+  --font-family-body:
+    "SF Pro Text",
+    "SF Pro Icons",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --font-family-ui:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --font-family-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  font-family: var(--font-family-body);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-family-mono);
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+:focus-visible:not([class*="outline-none"]) {
+  outline: 2px solid var(--color-fd-primary);
+  outline-offset: -2px;
+}
+
+[role="tabpanel"]:focus-visible {
+  outline: none;
+}
+
+#nd-home-layout {
+  position: relative;
+}
