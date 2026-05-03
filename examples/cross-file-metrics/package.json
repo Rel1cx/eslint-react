@@ -1,0 +1,18 @@
+{
+  "name": "@examples/cross-file-metrics",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Experimental PoC for cross-file analysis: ESLint rules collect per-file metrics into isolated JSON files, and a standalone script aggregates them after linting.",
+  "type": "module",
+  "scripts": {
+    "lint": "pnpm run lint:collect && pnpm run lint:analyze",
+    "lint:analyze": "node scripts/analyze-metrics.js",
+    "lint:collect": "rm -rf node_modules/.tmp/metrics && eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^10.2.1"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

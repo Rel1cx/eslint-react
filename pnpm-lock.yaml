@@ -410,6 +410,12 @@ importers:
         specifier: ^8.59.1
         version: 8.59.1(eslint@10.3.0(jiti@2.6.1))(typescript@6.0.3)
 
+  examples/cross-file-metrics:
+    devDependencies:
+      eslint:
+        specifier: ^10.2.1
+        version: 10.2.1(jiti@2.6.1)
+
   examples/next:
     dependencies:
       next:
