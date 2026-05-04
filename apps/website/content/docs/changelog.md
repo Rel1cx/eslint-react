@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v5.7.2 (2026-05-04)
+
+### 🐞 Fixes
+
+- **`react-x/no-unused-state`**: Removed the rule from the `recommended` preset for now (#1747, #1748).
+
+### 📝 Documentation
+
+- Added individual CHANGELOG.md files for all rules (#1746).
+- Added rule changelog links to all rule documentation pages.
+- Updated AST Explorer links in docs.
+- Various documentation cleanups.
+
+### 🏗️ Internal
+
+- Updated baseline metrics.
+- Updated roadmap milestone labels.
+- Upgraded dprint biome plugin from 0.12.9 to 0.12.10.
+- Cleaned up snapshot generation script and snapshot file.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.1...v5.7.2
+
 ## v5.7.1 (2026-05-02)
 
 ### 🐞 Fixes
