@@ -51,4 +51,4 @@ stats.html
 eslint-results.sarif
 
 # facebook/react local clone
-/react-main
+/test/fixtures/react-*

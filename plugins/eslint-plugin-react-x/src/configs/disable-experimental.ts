@@ -11,6 +11,7 @@ export const rules: Linter.RulesRecord = {
   "react-x/no-implicit-ref": "off",
   "react-x/no-misused-capture-owner-stack": "off",
   "react-x/no-unused-props": "off",
+  "react-x/no-unused-state": "off",
   "react-x/refs": "off",
   "react-x/set-state-in-render": "off",
 };

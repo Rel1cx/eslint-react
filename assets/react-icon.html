@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frutiger Aero React Icon</title>
+    <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #a8edea 0%, #7ee8fa 30%, #80d0c7 70%, #5ee7df 100%);
+      overflow: hidden;
+    }
+    .icon-container {
+      width: 512px;
+      height: 512px;
+      filter: drop-shadow(0 20px 40px rgba(0, 120, 150, 0.3));
+    }
+    </style>
+  </head>
+  <body>
+    <div class="icon-container">
+      <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Background glow -->
+          <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.6)" />
+            <stop offset="50%" stop-color="rgba(180,240,255,0.3)" />
+            <stop offset="100%" stop-color="rgba(100,220,240,0)" />
+          </radialGradient>
+
+          <!-- Elliptical orbit gradient -->
+          <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d4ff" />
+            <stop offset="40%" stop-color="#00a8cc" />
+            <stop offset="70%" stop-color="#008ba3" />
+            <stop offset="100%" stop-color="#005f73" />
+          </linearGradient>
+
+          <!-- Elliptical highlight -->
+          <linearGradient id="orbitHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.85)" />
+            <stop offset="30%" stop-color="rgba(255,255,255,0.2)" />
+            <stop offset="60%" stop-color="rgba(255,255,255,0)" />
+            <stop offset="100%" stop-color="rgba(0,150,180,0.1)" />
+          </linearGradient>
+
+          <!-- Core sphere gradient -->
+          <radialGradient id="coreGrad" cx="35%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="20%" stop-color="#b8f4ff" />
+            <stop offset="50%" stop-color="#00d4ff" />
+            <stop offset="85%" stop-color="#0077b6" />
+            <stop offset="100%" stop-color="#004f6e" />
+          </radialGradient>
+
+          <!-- Core sphere bottom reflection -->
+          <radialGradient id="coreReflect" cx="50%" cy="85%" r="50%">
+            <stop offset="0%" stop-color="rgba(0,180,220,0.4)" />
+            <stop offset="100%" stop-color="rgba(0,120,160,0)" />
+          </radialGradient>
+
+          <!-- Strong highlight -->
+          <linearGradient id="glossGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+            <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+          </linearGradient>
+
+          <!-- Shadow filter -->
+          <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#004f6e" flood-opacity="0.25" />
+          </filter>
+
+          <filter id="innerGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <!-- Background glow -->
+        <circle cx="256" cy="256" r="220" fill="url(#bgGlow)" />
+
+        <!-- Outer ambient light -->
+        <circle cx="256" cy="256" r="180" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" />
+
+        <!-- 1st elliptical orbit (horizontal) -->
+        <g filter="url(#softShadow)">
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitGrad)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitHighlight)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <!-- Gloss reflection on orbit -->
+          <path
+            d="M 96 256 A 160 60 0 0 1 150 210"
+            fill="none"
+            stroke="rgba(255,255,255,0.6)"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </g>
+
+        <!-- 2nd elliptical orbit (rotated 60°) -->
+        <g transform="rotate(60 256 256)" filter="url(#softShadow)">
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitGrad)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitHighlight)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <path
+            d="M 96 256 A 160 60 0 0 1 150 210"
+            fill="none"
+            stroke="rgba(255,255,255,0.6)"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </g>
+
+        <!-- 3rd elliptical orbit (rotated 120°) -->
+        <g transform="rotate(120 256 256)" filter="url(#softShadow)">
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitGrad)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <ellipse
+            cx="256"
+            cy="256"
+            rx="160"
+            ry="60"
+            fill="none"
+            stroke="url(#orbitHighlight)"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+          <path
+            d="M 96 256 A 160 60 0 0 1 150 210"
+            fill="none"
+            stroke="rgba(255,255,255,0.6)"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </g>
+
+        <!-- Core sphere -->
+        <g filter="url(#softShadow)">
+          <circle cx="256" cy="256" r="32" fill="url(#coreGrad)" />
+          <!-- Bottom ambient reflection -->
+          <circle cx="256" cy="256" r="32" fill="url(#coreReflect)" />
+          <!-- Strong highlight -->
+          <ellipse cx="244" cy="242" rx="14" ry="10" fill="url(#glossGrad)" transform="rotate(-30 244 242)" />
+          <!-- Small highlight spot -->
+          <ellipse cx="248" cy="246" rx="5" ry="3" fill="white" opacity="0.95" transform="rotate(-30 248 246)" />
+        </g>
+
+        <!-- Highlight emphasis at orbit intersections (enhances crystal feel) -->
+        <circle cx="256" cy="196" r="4" fill="white" opacity="0.7" />
+        <circle cx="256" cy="316" r="4" fill="white" opacity="0.4" />
+      </svg>
+    </div>
+  </body>
+</html>

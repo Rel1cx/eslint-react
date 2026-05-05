@@ -128,7 +128,7 @@ Minimum supported versions:
 - [x] `getElementType()` -> `getElementFullType()` in `@eslint-react/jsx`
 - [x] `getElementSelfName()` -> `getElementSelfType()` in `@eslint-react/jsx`
 
-## Milestone 3.0 (RC)
+## Milestone 3.0
 
 ### System Requirements
 
@@ -183,7 +183,7 @@ Minimum supported versions:
 
 - [x] `eslint-plugin-react-hooks-extra` - Migrated to `eslint-plugin-react-x`
 
-## Milestone 2.0 (2025-09-26)
+## Milestone 2.0
 
 ### System Requirements
 

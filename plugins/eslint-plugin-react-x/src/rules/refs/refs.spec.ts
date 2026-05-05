@@ -677,7 +677,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "refPassedToFunction" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-access-ref-during-render.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-access-ref-during-render.js
     {
       code: tsx`
         function Component(props) {
@@ -688,7 +688,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-disallow-mutating-ref-in-render.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-disallow-mutating-ref-in-render.js
     {
       code: tsx`
         function Component() {
@@ -699,7 +699,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-pass-ref-to-function.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-pass-ref-to-function.js
     {
       code: tsx`
         function Component(props) {
@@ -710,7 +710,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "refPassedToFunction" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-ref-access-render-unary.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-ref-access-render-unary.js
     {
       code: tsx`
         function Component() {
@@ -721,7 +721,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-write-ref-prop-in-render.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-write-ref-prop-in-render.js
     {
       code: tsx`
         function Component(props) {
@@ -732,7 +732,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
-    // Ported from react-main/compiler/.../error.invalid-ref-value-as-props.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-ref-value-as-props.js
     {
       code: tsx`
         function Component(props) {
@@ -742,7 +742,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    // Ported from react-main/compiler/.../error.ref-initialization-nonif.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.ref-initialization-nonif.js
     // Hoisted guard variable does NOT protect the ref write
     {
       code: tsx`
@@ -760,7 +760,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "writeDuringRender" },
       ],
     },
-    // Ported from react-main/compiler/.../error.ref-initialization-other.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.ref-initialization-other.js
     // Guard on one ref does NOT protect writing a different ref
     {
       code: tsx`
@@ -1651,7 +1651,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ported from react-main/compiler/.../allow-ref-initialization.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../allow-ref-initialization.js
     {
       code: tsx`
         function Component() {
@@ -1663,7 +1663,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ported from react-main/compiler/.../allow-ref-lazy-initialization-with-logical.js
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../allow-ref-lazy-initialization-with-logical.js
     {
       code: tsx`
         function Component(props) {
@@ -1675,7 +1675,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ported from react-main/compiler/.../allow-mutating-ref-in-callback-passed-to-jsx.tsx
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../allow-mutating-ref-in-callback-passed-to-jsx.tsx
     {
       code: tsx`
         function Component() {

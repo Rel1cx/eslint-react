@@ -174,7 +174,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/static-components
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/static-components
     {
       code: tsx`
         function Example(props) {

@@ -1,5 +1,89 @@
 # Changelog
 
+## v5.7.2 (2026-05-04)
+
+### 🐞 Fixes
+
+- **`react-x/no-unused-state`**: Removed the rule from the `recommended` preset for now (#1747, #1748).
+
+### 📝 Documentation
+
+- Added individual CHANGELOG.md files for all rules (#1746).
+- Added rule changelog links to all rule documentation pages.
+- Updated AST Explorer links in docs.
+- Various documentation cleanups.
+
+### 🏗️ Internal
+
+- Updated baseline metrics.
+- Updated roadmap milestone labels.
+- Upgraded dprint biome plugin from 0.12.9 to 0.12.10.
+- Cleaned up snapshot generation script and snapshot file.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.1...v5.7.2
+
+## v5.7.1 (2026-05-02)
+
+### 🐞 Fixes
+
+- **`all` preset**: Fixed an issue where the `all` preset accidentally included rules requiring type information (#1744).
+
+### 📝 Documentation
+
+- Fixed a typo in the shared settings description.
+- Fixed missing trailing commas in ESLint settings examples.
+- Updated `no-unused-state` rule wording and examples.
+- Added a Resources section with AST Explorer, ESLint Developer Guide, and TypeScript Compiler API links to kit-related documentation pages.
+
+### 🏗️ Internal
+
+- Pinned dependency versions for `next` and `@rbxts/react`.
+- Added `react-compiler-fixtures-all-preset.jsonl` snapshot generation.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.0...v5.7.1
+
+## v5.7.0 (2026-05-02)
+
+### ✨ New
+
+- **`react-x/no-unused-state`**: The rule re-added as a no-op in `v5.6.6` is now fully implemented. It detects state variables declared via `useState` (or similar state hooks) that are defined but never read, or only read inside an effect or effect dependency array (#1741).
+
+### 📝 Documentation
+
+- Updated minimum version requirements in README and docs (ESLint 10.2.1, TypeScript 6.0.3, pnpm 10.33.2).
+- Fixed `no-unused-state` migration docs and removed rule reasons.
+
+> **LTS Maintenance Mode**: Starting with v5.7.0, the project has entered a Long-Term Support (LTS) maintenance mode. New feature development is temporarily on hold while the project prioritizes bug fixes, rule improvements, and documentation updates. See [#1740](https://github.com/Rel1cx/eslint-react/issues/1740) for details.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.6...v5.7.0
+
+## v5.6.6 (2026-05-01)
+
+### ✨ New
+
+- **`react-x/no-unused-state`**: Re-add the `react-x/no-unused-state` rule that was removed in `5.0.0` as a no-op rule for detecting unused state in function components in a future release.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.4...v5.6.6
+
+## v5.6.4 (2026-05-01)
+
+### ✨ New
+
+- **`react-x/no-unused-class-component-members`**: Now flags `shouldComponentUpdate` methods defined in classes extending `PureComponent` as unused, since `PureComponent` implements its own `shouldComponentUpdate` with shallow prop and state comparison (#1738).
+
+### 📝 Documentation
+
+- Added `jsx` preset documentation to multiple rule docs.
+- Removed empty Presets sections from rule documentation.
+
+### 🏗️ Internal
+
+- **`ast`**: Added an optional `stop` predicate to `findParent` utility for more control over ancestor traversal (#1736).
+- Replaced `skott` with `sentrux` for architecture linting.
+- Updated sentrux rules and baseline metrics.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.6.3-beta.0...v5.6.4
+
 ## v5.6.3-beta.0 (2026-04-30)
 
 ### 🏗️ Internal

@@ -108,7 +108,7 @@ When you use an **anonymous function** (arrow function without a name) with `.us
 ```ts
 // Registered as `@eslint-react/kit/a1b2c3d4e5f67890`
 eslintReactKit().use(() => (context) => ({
-  JSXOpeningElement(node) {
+  CallExpression(node) {
     // Critical check that cannot be easily disabled
   },
 }));
@@ -118,13 +118,13 @@ Anonymous rules are ideal for checks that are **critical to code quality or secu
 
 ```ts
 // This critical security check cannot be easily disabled by developers
-eslintReactKit().use(() => (context, { is }) => ({
-  CallExpression(node) {
-    // Prevent dangerous API calls that could lead to XSS
-    if (is.createElementCall(node) && isUnsafeArguments(node.arguments)) {
+eslintReactKit().use(() => (context) => ({
+  Property(node) {
+    // Prevent direct construction of '__html' objects in product code
+    if (node.key.type === "Identifier" && node.key.name === "__html") {
       context.report({
         node,
-        message: "Potential XSS vulnerability detected. This issue must be fixed.",
+        message: "Do not construct '__html' objects directly. Use a sanitization library or receive them from server-side code.",
       });
     }
   },
@@ -672,5 +672,11 @@ export default [
   },
 ];
 ```
+
+## Resources
+
+- [AST Explorer](https://ast-explorer.dev/#eNpNkE9PwzAMxb+K5dMmDbiXrQeQOCIEEqdcQuqJjDSpEncCVf3u2Al/donk3/Pzi71gwA5P9myLy35i3OEkgL8mauCKSvBRuRPuxyllhmeyjuGY0wgGsxYGb000UX1wNzOn+JTTVOAAi4kA7t2HIVPsmvW6vo9pIHEBpHgfvPvoYLOFQw/n5Afha514nKNjn+LP1M3yNwvW7jJq25Iy8Zwj7N+qAvqhg8FWGeyXX/e6v2mw1ygTZcEkC9YZBsmN9pVykWCDnYBgmYpsufvXH8hKFBVtqDYVTuVTa84z1VZlcrTgaXjh7PVQTVVRYldcvwGs9YT5) - A tool for exploring the abstract syntax tree (AST) of JavaScript code, which is essential for writing custom rules.
+- [ESLint Developer Guide](https://eslint.org/docs/latest/extend/custom-rules) - Official ESLint documentation for creating custom rules.
+- [Using the TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#type-checker-apis) - TypeScript compiler API documentation for working with type information in custom rules.
 
 <AutoClick selector={`button[aria-label="Close Banner"]`} />

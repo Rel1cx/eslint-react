@@ -25,9 +25,9 @@ Before you begin, make sure you have the following installed:
 | Requirement | Version  |
 | ----------- | -------- |
 | Node.js     | ≥ 22.0.0 |
-| pnpm        | 10.33.0  |
-| TypeScript  | ≥ 5.0    |
-| ESLint      | ≥ 10     |
+| pnpm        | 10.33.2  |
+| TypeScript  | ≥ 6.0.3  |
+| ESLint      | ≥ 10.2.1 |
 
 > [!TIP]
 > If you use [corepack](https://nodejs.org/api/corepack.html), running `corepack enable` in the repo root will automatically configure the correct pnpm version.

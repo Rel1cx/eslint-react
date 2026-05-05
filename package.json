@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.6.4-beta.0",
+  "version": "5.7.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -65,7 +65,7 @@
     "@eslint/compat": "^2.0.5",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@rbxts/react": "^17.3.7-ts.1",
+    "@rbxts/react": "17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@types/node": "^25.6.0",
@@ -80,7 +80,7 @@
     "depcheck": "^1.4.7",
     "dprint": "^0.54.0",
     "effect": "^3.21.2",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-plugin-fast-import": "^2.2.1",
     "eslint-plugin-package-json": "^0.91.2",
     "mdxlint": "^1.0.0",

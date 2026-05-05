@@ -66,9 +66,18 @@ export function create(context: RuleContext<MessageID, []>) {
       if (methodName == null) {
         continue;
       }
-      // If a member is used or is a lifecycle method, skip it
-      if (((usages?.has(methodName)) ?? false) || LIFECYCLE_METHODS.has(methodName)) {
+      // If a member is used, skip it
+      if (usages?.has(methodName) ?? false) {
         continue;
+      }
+      // If a member is a lifecycle method, skip it
+      // except for shouldComponentUpdate in PureComponent, which is implicitly unused
+      if (LIFECYCLE_METHODS.has(methodName)) {
+        if (methodName === "shouldComponentUpdate" && core.isPureComponent(currentClass)) {
+          // shouldComponentUpdate is unused in PureComponent
+        } else {
+          continue;
+        }
       }
       // Report members that are defined but not used
       context.report({

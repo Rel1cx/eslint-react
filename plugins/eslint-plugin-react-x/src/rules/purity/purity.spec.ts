@@ -911,7 +911,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render
     {
       code: tsx`
         function Component() {
@@ -927,7 +927,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/timers
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/timers
     {
       code: tsx`
         function Component(props) {
@@ -1533,7 +1533,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ported from react-main/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/renamed-reanimated-math-random
+    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/renamed-reanimated-math-random
     {
       code: tsx`
         import Animated, { Easing } from "react-native-reanimated";

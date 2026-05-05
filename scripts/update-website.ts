@@ -211,6 +211,7 @@ const processChangelog = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Processing rule documentation..."));
 
+  // Pass 1: Collect rule documentation metadata and relations
   const metas = yield* collectDocs;
   const relations = yield* loadRuleRelations;
 
@@ -222,11 +223,17 @@ const program = Effect.gen(function*() {
 
   yield* Effect.log(`Loaded ${ansis.bold(relations.size.toString())} rule relations.`);
 
+  // Pass 2: Copy rule docs to website with See Also sections
   yield* Effect.forEach(metas, (meta) => copyRuleDoc(meta, relations), { concurrency: 8 });
 
+  // Pass 3: Generate rules meta.json
   yield* generateRuleMetaJson(metas);
 
+  // Pass 4: Process changelog
   yield* processChangelog;
+
+  // Pass 5: Update documentation resources
+  // yield* updateDocsResources;
 
   yield* Effect.log(ansis.bold.green("Documentation processing completed."));
 });

@@ -42,6 +42,7 @@ import noUnstableContextValue from "./rules/no-unstable-context-value/no-unstabl
 import noUnstableDefaultProps from "./rules/no-unstable-default-props/no-unstable-default-props";
 import noUnusedClassComponentMembers from "./rules/no-unused-class-component-members/no-unused-class-component-members";
 import noUnusedProps from "./rules/no-unused-props/no-unused-props";
+import noUnusedState from "./rules/no-unused-state/no-unused-state";
 import noUseContext from "./rules/no-use-context/no-use-context";
 import purity from "./rules/purity/purity";
 import refs from "./rules/refs/refs";
@@ -101,6 +102,7 @@ export const plugin = {
     "no-unstable-default-props": noUnstableDefaultProps,
     "no-unused-class-component-members": noUnusedClassComponentMembers,
     "no-unused-props": noUnusedProps,
+    "no-unused-state": noUnusedState,
     "no-use-context": noUseContext,
     purity: purity,
     refs: refs,
