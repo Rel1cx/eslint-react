@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.7.3 (2026-05-06)
+
+### 🐞 Fixes
+
+- **`react-x/immutability`**: Exempted ref mutations via a naming heuristic — any object whose identifier is `ref` or ends with `Ref` is treated as a mutable ref and skipped from immutability checks. This fixes false positives when mutating `RefObject<T>` values received as props (#1752, #1751).
+- **`react-x/immutability`**: Added `noRefLikeStateName` diagnostic to prevent state variables from being named `ref` or ending with `Ref`, which would otherwise bypass the ref exemption heuristic (#1752).
+
+### 📝 Documentation
+
+- Fixed the full rule name in `react-jsx/no-key-after-spread` documentation (`jsx/no-key-after-spread` → `jsx-no-key-after-spread`) (#1750).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.2...v5.7.3
+
 ## v5.7.2 (2026-05-04)
 
 ### 🐞 Fixes

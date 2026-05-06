@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.7.3]
+
 ### Added
 
 - Added `noRefLikeStateName` diagnostic to prevent state variables from being named `ref` or ending with `Ref`, which would otherwise bypass the ref exemption heuristic.
