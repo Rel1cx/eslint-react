@@ -40,7 +40,7 @@ State identification uses an explicit `isStateValue()` helper tracing identifier
 
 ## 4. Exception Handling
 
-- **Ref mutations**: The SPEC explicitly allows them via `isRefOrRefLikeMutableType`. The IMPL does not explicitly track refs; they are treated as regular variables unless they happen to match state/props heuristics.
+- **Ref mutations**: The SPEC explicitly allows them via `isRefOrRefLikeMutableType`. The IMPL exempts refs via a naming heuristic (`hasRefLikeNameInChain()`): any object whose identifier is `ref` or ends with `Ref` is treated as a ref and skipped. This covers `ref.current = x`, `myRef.current.push(1)`, and `props.myRef.current = x`.
 - **Immer / Draft**: The SPEC does not mention this. The IMPL explicitly excludes any mutation whose root identifier is named `draft`.
 - **Event handler parameters**: The SPEC naturally excludes them because event handlers are not component context. The IMPL explicitly excludes them via `propsDefiningFunc` verification: the parameter's defining function must itself be a component or hook.
 - **Nested function mutations**: The SPEC covers them naturally via `fn.context`. The IMPL traces references through nested closures back to the original parameter/state declaration.
@@ -61,6 +61,7 @@ There is no direct one-to-one mapping because the rules address fundamentally di
 
 - `mutatingArrayMethod` — **No SPEC equivalent.** The SPEC does not flag array mutations directly; it flags the function containing them when frozen.
 - `mutatingAssignment` — **No SPEC equivalent.** The SPEC flags `StoreContext` on captured variables inside functions, not direct property assignments on state/props.
+- `noRefLikeStateName` — **No SPEC equivalent.** The SPEC has no naming-convention checks. This is an IMPL-only diagnostic that prevents state variables from `useState`, `useReducer`, or `additionalStateHooks`-configured custom hooks from being named `ref` or ending with `Ref`, which would otherwise bypass the naming-heuristic ref exemption.
 
 SPEC error descriptions:
 
@@ -107,5 +108,7 @@ Examples that are **valid** under the IMPL but may be caught by the compiler's b
 8. **Additional IMPL Capabilities** (not in SPEC):
    - Explicit Immer support via `draft` variable exclusion
    - Explicit event handler parameter exclusion
+   - Explicit ref mutation exemption via naming heuristic (`ref` or `*Ref`)
    - Granular array method allow-list (`MUTATING_ARRAY_METHODS`)
    - Support for `useReducer` state identification
+   - Support for custom state hooks via shared settings (`additionalStateHooks`)
