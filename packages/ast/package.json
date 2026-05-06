@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "description": "ESLint React's TSESTree AST utility module.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -36,15 +36,15 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/types": "^8.59.1",
-    "@typescript-eslint/typescript-estree": "^8.59.1",
-    "@typescript-eslint/utils": "^8.59.1",
+    "@typescript-eslint/types": "^8.59.2",
+    "@typescript-eslint/typescript-estree": "^8.59.2",
+    "@typescript-eslint/utils": "^8.59.2",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@typescript-eslint/parser": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.2",
     "eslint": "^10.3.0",
     "tsdown": "^0.21.10",
     "typescript": "^6.0.3",

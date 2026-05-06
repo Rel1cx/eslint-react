@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@eslint-react/eslint": "workspace:*",
-    "@typescript-eslint/utils": "^8.59.1",
+    "@typescript-eslint/utils": "^8.59.2",
     "ts-pattern": "^5.9.0",
     "zod": "^4.4.3"
   },

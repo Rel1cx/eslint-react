@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.7.2",
+  "version": "5.7.3",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -71,9 +71,9 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/parser": "^8.59.1",
-    "@typescript-eslint/rule-tester": "^8.59.1",
-    "@typescript-eslint/types": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.2",
+    "@typescript-eslint/rule-tester": "^8.59.2",
+    "@typescript-eslint/types": "^8.59.2",
     "ansis": "^4.2.0",
     "compare-versions": "^6.1.1",
     "dedent": "^1.7.2",
@@ -86,7 +86,7 @@
     "mdxlint": "^1.0.0",
     "nx": "^22.7.1",
     "preact": "^10.29.1",
-    "publint": "^0.3.18",
+    "publint": "^0.3.19",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "remark-frontmatter": "^5.0.0",
@@ -100,11 +100,11 @@
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.1",
+    "typescript-eslint": "^8.59.2",
     "vite-node": "^6.0.0",
     "vitest": "^4.1.5"
   },
-  "packageManager": "pnpm@10.33.2",
+  "packageManager": "pnpm@10.33.4",
   "engines": {
     "node": ">=22.0.0"
   }
