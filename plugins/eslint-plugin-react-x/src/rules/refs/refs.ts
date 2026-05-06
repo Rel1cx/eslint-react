@@ -81,14 +81,7 @@ export function create(context: RuleContext<MessageID, []>) {
           : callee.type === AST.MemberExpression
           ? Extract.getPropertyName(callee.property)
           : null;
-        if (
-          calleeName != null && (
-            calleeName.startsWith("use")
-            || calleeName === "mergeRefs"
-          )
-        ) {
-          return;
-        }
+        if (calleeName != null && (calleeName.startsWith("use") || calleeName === "mergeRefs")) return;
         for (const arg of node.arguments) {
           const unwrapped = Extract.unwrap(arg);
           if (unwrapped.type !== AST.Identifier) continue;

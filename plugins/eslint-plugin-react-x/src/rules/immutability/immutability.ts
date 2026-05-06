@@ -7,7 +7,7 @@ import { resolve } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import { MUTATING_ARRAY_METHODS } from "./lib";
+import { MUTATING_ARRAY_METHODS, hasRefLikeNameInChain, identifierExistsInPattern, isRefLikeName } from "./lib";
 
 export const RULE_NAME = "immutability";
 
@@ -17,7 +17,8 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "mutatingArrayMethod"
-  | "mutatingAssignment";
+  | "mutatingAssignment"
+  | "noRefLikeStateName";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -30,6 +31,8 @@ export default createRule<[], MessageID>({
         "Do not call '{{method}}()' on '{{name}}'. Props and state are immutable — create a new array instead.",
       mutatingAssignment:
         "Do not mutate '{{name}}' directly. Props and state are immutable — create a new object instead.",
+      noRefLikeStateName:
+        "State variable '{{name}}' should not be named 'ref' or end with 'Ref'. Use a different name to avoid confusion with mutable refs.",
     },
     schema: [],
   },
@@ -69,18 +72,6 @@ export function create(context: RuleContext<MessageID, []>) {
     return core.isUseStateLikeCall(node, additionalStateHooks);
   }
 
-  function isUseReducerCall(node: TSESTree.CallExpression): boolean {
-    const callee = Extract.unwrap(node.callee);
-    if (callee.type === AST.Identifier) return callee.name === "useReducer";
-    if (callee.type === AST.MemberExpression) {
-      const root = Extract.getRootIdentifier(callee);
-      if (root?.name === "React") {
-        return Extract.getPropertyName(callee.property) === "useReducer";
-      }
-    }
-    return false;
-  }
-
   /**
    * Return true when `id` is the *value* variable (index 0) produced by a
    * `useState(…)` or `useReducer(…)` call.
@@ -91,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>) {
     const initNode = resolve(context, id);
 
     if (initNode == null || initNode.type !== AST.CallExpression) return false;
-    if (!isUseStateCall(initNode) && !isUseReducerCall(initNode)) return false;
+    if (!isUseStateCall(initNode) && !core.isUseReducerCall(context, initNode)) return false;
 
     // If the result is not destructured into an array, the entire
     // result is a state container — treat it as a state value.
@@ -106,36 +97,6 @@ export function create(context: RuleContext<MessageID, []>) {
       (el) => el?.type === AST.Identifier && el.name === id.name,
     );
     return idx === 0;
-  }
-
-  /**
-   * Check if `name` appears anywhere inside a parameter pattern.
-   * @param pattern - The parameter pattern to search in.
-   * @param name - The identifier name to look for.
-   */
-  function identifierExistsInPattern(pattern: TSESTree.Node, name: string): boolean {
-    switch (pattern.type) {
-      case AST.Identifier:
-        return pattern.name === name;
-      case AST.ObjectPattern:
-        return pattern.properties.some((p) => {
-          if (p.type === AST.Property) return identifierExistsInPattern(p.value, name);
-          if (p.type === AST.RestElement) return identifierExistsInPattern(p.argument, name);
-          return false;
-        });
-      case AST.ArrayPattern:
-        return pattern.elements.some((el) => el != null && identifierExistsInPattern(el, name));
-      case AST.RestElement:
-        return identifierExistsInPattern(pattern.argument, name);
-      case AST.AssignmentPattern:
-        return identifierExistsInPattern(pattern.left, name);
-      case AST.MemberExpression: {
-        const root = Extract.getRootIdentifier(pattern);
-        return root?.name === name;
-      }
-      default:
-        return false;
-    }
   }
 
   /**
@@ -200,6 +161,21 @@ export function create(context: RuleContext<MessageID, []>) {
        * @param node The CallExpression node to analyze.
        */
       CallExpression(node: TSESTree.CallExpression) {
+        // Detect useState/useReducer state variables named ref or *Ref
+        if (isUseStateCall(node) || core.isUseReducerCall(context, node)) {
+          const declarator = node.parent;
+          if (declarator?.type === AST.VariableDeclarator && declarator.id?.type === AST.ArrayPattern) {
+            const [firstElement] = declarator.id.elements;
+            if (firstElement?.type === AST.Identifier && isRefLikeName(firstElement.name)) {
+              context.report({
+                data: { name: firstElement.name },
+                messageId: "noRefLikeStateName",
+                node: firstElement,
+              });
+            }
+          }
+        }
+
         const callee = Extract.unwrap(node.callee);
         if (callee.type !== AST.MemberExpression) return;
         const { object, property } = callee;
@@ -210,6 +186,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const rootId = Extract.getRootIdentifier(object);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
+        if (hasRefLikeNameInChain(object)) return;
 
         const enclosingFn = Traverse.findParent(node, Check.isFunction);
         if (enclosingFn == null) return;
@@ -244,6 +221,7 @@ export function create(context: RuleContext<MessageID, []>) {
         const rootId = Extract.getRootIdentifier(node.left);
         if (rootId == null) return;
         if (rootId.name === "draft") return;
+        if (hasRefLikeNameInChain(node.left.object)) return;
 
         const enclosingFn = Traverse.findParent(node, Check.isFunction);
         if (enclosingFn == null) return;
