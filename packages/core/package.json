@@ -57,7 +57,7 @@
     "vitest": "^4.1.5"
   },
   "peerDependencies": {
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "typescript": "*"
   },
   "engines": {
