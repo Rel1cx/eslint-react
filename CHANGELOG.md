@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.7.4 (2026-05-07)
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from 8.59.1 to 8.59.2.
+- Bumped `react` and `react-dom` from 19.2.5 to 19.2.6.
+- Bumped `next` from 16.2.4 to 16.2.5.
+- Bumped `nx` from 22.7.1 to 23.0.0-canary.20260506-b594537.
+- Bumped `fumadocs-core` and `fumadocs-ui` from 16.8.5 to 16.8.7.
+- Bumped `postcss` from 8.5.13 to 8.5.14.
+- Bumped `publint` from 0.3.18 to 0.3.19.
+- Bumped `pnpm` from 10.33.2 to 10.33.4.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.3...v5.7.4
+
 ## v5.7.3 (2026-05-06)
 
 ### 🐞 Fixes
