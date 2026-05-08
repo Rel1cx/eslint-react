@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.7.5 (2026-05-08)
+
+### 🏗️ Internal
+
+- Bumped `@eslint/compat` from 2.0.5 to 2.1.0.
+- Bumped `@types/node` from 25.6.0 to 25.6.2.
+- Bumped `next` from 16.2.5 to 16.2.6.
+- Bumped `publint` from 0.3.19 to 0.3.20.
+- Bumped `tsdown` from 0.21.10 to 0.22.0.
+- Bumped `pnpm` from 10.33.4 to 11.0.8.
+- Adjusted website styles.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.4...v5.7.5
+
 ## v5.7.4 (2026-05-07)
 
 ### 🏗️ Internal
