@@ -11,14 +11,14 @@ Apply a function to a given value.
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `a` | `A` | The value to apply. |
+| Parameter | Type | Description         |
+| --------- | ---- | ------------------- |
+| `a`       | `A`  | The value to apply. |
 
 ## Returns
 
@@ -29,11 +29,11 @@ A function that takes a function and applies it to the given value.
 ## Example
 
 ```ts
-import * as assert from "node:assert"
-import { pipe, apply } from "effect/Function"
-import { length } from "effect/String"
+import { apply, pipe } from "effect/Function";
+import { length } from "effect/String";
+import * as assert from "node:assert";
 
-assert.deepStrictEqual(pipe(length, apply("hello")), 5)
+assert.deepStrictEqual(pipe(length, apply("hello")), 5);
 ```
 
 ## Since

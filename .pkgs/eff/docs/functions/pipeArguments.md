@@ -12,15 +12,15 @@ to the next one in sequence.
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `self` | `A` | The value to pipe. |
-| `args` | `IArguments` | The functions to apply. |
+| Parameter | Type         | Description             |
+| --------- | ------------ | ----------------------- |
+| `self`    | `A`          | The value to pipe.      |
+| `args`    | `IArguments` | The functions to apply. |
 
 ## Returns
 

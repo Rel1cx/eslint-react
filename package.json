@@ -62,13 +62,13 @@
     "@effect/platform": "^0.96.1",
     "@effect/platform-node": "^0.106.0",
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@rbxts/react": "17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/parser": "^8.59.2",
@@ -86,7 +86,7 @@
     "mdxlint": "^1.0.0",
     "nx": "^23.0.0-canary.20260506-b594537",
     "preact": "^10.29.1",
-    "publint": "^0.3.19",
+    "publint": "^0.3.20",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "remark-frontmatter": "^5.0.0",
@@ -94,7 +94,7 @@
     "sort-package-json": "^3.6.1",
     "tinyglobby": "^0.2.16",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "tsl": "^1.0.30",
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
@@ -104,7 +104,7 @@
     "vite-node": "^6.0.0",
     "vitest": "^4.1.5"
   },
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@11.0.8",
   "engines": {
     "node": ">=22.0.0"
   }

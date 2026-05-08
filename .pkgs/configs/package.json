@@ -24,9 +24,9 @@
     "lint:ts": "tsl"
   },
   "dependencies": {
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint-plugin-de-morgan": "^2.1.1",
+    "eslint-plugin-de-morgan": "^2.1.2",
     "eslint-plugin-function": "^0.10.3",
     "eslint-plugin-jsdoc": "^62.9.0",
     "eslint-plugin-perfectionist": "^5.9.0",

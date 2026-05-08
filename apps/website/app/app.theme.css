@@ -90,7 +90,7 @@
     border: none;
     padding: 0.125rem 0.25em;
     font-size: 14px;
-    background-color: var(--color-fd-secondary);
+    background-color: color-mix(in oklab, var(--color-fd-ring) 10%, transparent);
   }
 
   h1,

@@ -11,14 +11,14 @@ Returns a function that always returns the same value.
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `x` | `T` | The value to return. |
+| Parameter | Type | Description          |
+| --------- | ---- | -------------------- |
+| `x`       | `T`  | The value to return. |
 
 ## Returns
 

@@ -10,16 +10,16 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` *extends* readonly `unknown`[] |
-| `B` |
+| Type Parameter                     |
+| ---------------------------------- |
+| `A` _extends_ readonly `unknown`[] |
+| `B`                                |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `f` | (...`a`: `A`) => `B` | The function to be converted. |
+| Parameter | Type                 | Description                   |
+| --------- | -------------------- | ----------------------------- |
+| `f`       | (...`a`: `A`) => `B` | The function to be converted. |
 
 ## Returns
 
@@ -30,12 +30,12 @@ A new function that accepts a single tuple argument.
 ## Example
 
 ```ts
-import * as assert from "node:assert"
-import { tupled } from "effect/Function"
+import { tupled } from "effect/Function";
+import * as assert from "node:assert";
 
-const sumTupled = tupled((x: number, y: number): number => x + y)
+const sumTupled = tupled((x: number, y: number): number => x + y);
 
-assert.deepStrictEqual(sumTupled([1, 2]), 3)
+assert.deepStrictEqual(sumTupled([1, 2]), 3);
 ```
 
 ## Since

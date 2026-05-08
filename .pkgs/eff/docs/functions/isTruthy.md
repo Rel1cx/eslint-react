@@ -11,14 +11,14 @@ A function that checks if the passed parameter is truthy and narrows its type ac
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `data` | `T` | The variable to check. |
+| Parameter | Type | Description            |
+| --------- | ---- | ---------------------- |
+| `data`    | `T`  | The variable to check. |
 
 ## Returns
 
