@@ -10,9 +10,9 @@ Tests if a value is a `function`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `input` | `unknown` | The value to test. |
+| Parameter | Type      | Description        |
+| --------- | --------- | ------------------ |
+| `input`   | `unknown` | The value to test. |
 
 ## Returns
 
@@ -23,11 +23,11 @@ Tests if a value is a `function`.
 ## Example
 
 ```ts
-import * as assert from "node:assert"
-import { isFunction } from "effect/Predicate"
+import { isFunction } from "effect/Predicate";
+import * as assert from "node:assert";
 
-assert.deepStrictEqual(isFunction(isFunction), true)
-assert.deepStrictEqual(isFunction("function"), false)
+assert.deepStrictEqual(isFunction(isFunction), true);
+assert.deepStrictEqual(isFunction("function"), false);
 ```
 
 ## Since

@@ -10,17 +10,17 @@ Reverses the order of arguments for a curried function.
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `A` *extends* `unknown`[] |
-| `B` *extends* `unknown`[] |
-| `C` |
+| Type Parameter            |
+| ------------------------- |
+| `A` _extends_ `unknown`[] |
+| `B` _extends_ `unknown`[] |
+| `C`                       |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `f` | (...`a`: `A`) => (...`b`: `B`) => `C` | The function to flip. |
+| Parameter | Type                                  | Description           |
+| --------- | ------------------------------------- | --------------------- |
+| `f`       | (...`a`: `A`) => (...`b`: `B`) => `C` | The function to flip. |
 
 ## Returns
 
@@ -31,12 +31,12 @@ A new function with the argument order reversed.
 ## Example
 
 ```ts
-import * as assert from "node:assert"
-import { flip } from "effect/Function"
+import { flip } from "effect/Function";
+import * as assert from "node:assert";
 
-const f = (a: number) => (b: string) => a - b.length
+const f = (a: number) => (b: string) => a - b.length;
 
-assert.deepStrictEqual(flip(f)('aaa')(2), -1)
+assert.deepStrictEqual(flip(f)("aaa")(2), -1);
 ```
 
 ## Since

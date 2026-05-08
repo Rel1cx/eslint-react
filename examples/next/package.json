@@ -10,19 +10,19 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^16.2.5",
+    "next": "^16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@eslint/js": "^10.0.1",
-    "@next/eslint-plugin-next": "^16.2.5",
+    "@next/eslint-plugin-next": "^16.2.6",
     "@tsconfig/next": "^2.0.6",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.3.0",
