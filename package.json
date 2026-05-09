@@ -84,7 +84,7 @@
     "eslint-plugin-fast-import": "^2.2.1",
     "eslint-plugin-package-json": "^0.91.2",
     "mdxlint": "^1.0.0",
-    "nx": "^23.0.0-pr.35465.2bc2643",
+    "nx": "^23.0.0-beta.9",
     "preact": "^10.29.1",
     "publint": "^0.3.20",
     "react": "^19.2.6",
