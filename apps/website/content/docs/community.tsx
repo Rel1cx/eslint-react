@@ -17,6 +17,7 @@ export const projects = [
   { owner: "letstri", repo: "permix" },
   { owner: "marigold-ui", repo: "marigold" },
   { owner: "mcp-use", repo: "mcp-use" },
+  { owner: "mikotoIO", repo: "mikoto" },
   { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "nodejs", repo: "nodejs.org" },
   { owner: "npmgraph", repo: "npmgraph" },
