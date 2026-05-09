@@ -42,17 +42,11 @@ body {
   font-family: var(--font-family-body);
 }
 
-code,
-kbd,
-pre,
-samp {
-  font-family: var(--font-family-mono);
-}
-
 button {
   cursor: pointer;
 }
 
+/* Focus */
 :focus-visible {
   outline: none;
 }
@@ -66,19 +60,112 @@ button {
   outline: none;
 }
 
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-family-mono);
+}
+
+/* Prose content (docs, articles) */
+.prose {
+  font-family: var(--font-family-body);
+  --tw-prose-links: var(--color-fd-primary);
+
+  .shiki {
+    box-shadow: none;
+    background-color: color-mix(
+      in oklab,
+      var(--color-fd-secondary) 25%,
+      transparent
+    );
+  }
+
+  .shiki,
+  [data-radix-scroll-area-viewport],
+  [data-radix-scroll-area-viewport] > div {
+    outline: none;
+  }
+
+  :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    border: none;
+    padding: 0.125rem 0.25em;
+    font-size: 14px;
+    background-color: color-mix(in oklab, var(--color-fd-ring) 10%, transparent);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    code {
+      padding: 0.125rem 0.25em;
+      font-size: 0.875em;
+    }
+  }
+
+  table {
+    font-size: 1em;
+
+    thead tr th code,
+    tbody tr td code {
+      white-space: nowrap;
+    }
+  }
+
+  blockquote {
+    font-style: normal;
+  }
+}
+
+.prose > p > code {
+  white-space: nowrap;
+}
+
 #nd-home-layout {
   position: relative;
 }
 
+#nd-sidebar {
+  a[data-active] {
+    font-weight: 400;
+  }
+
+  div[data-state],
+  a[data-active] {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* Bluesky embed */
+.bsky-post {
+  [class*="embed-module_external"] {
+    display: none;
+  }
+
+  [class*="post-content-module_content"] {
+    font-size: 1em;
+    line-height: inherit;
+  }
+}
+
+/* Mermaid flowchart */
 [aria-roledescription="flowchart-v2"] span.nodeLabel {
   filter: brightness(0.5);
 }
 
-.bsky-post [class*="embed-module_external"] {
-  display: none;
-}
-
-.bsky-post [class*="post-content-module_content"] {
-  font-size: 1em;
-  line-height: inherit;
+.dark {
+  .shadow-2xs,
+  .shadow-xs,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: 0 0 #0000;
+  }
 }
