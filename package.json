@@ -55,7 +55,7 @@
     "update:website": "vite-node ./scripts/update-website.ts",
     "verify:configs": "vite-node -c vitest.config.ts ./scripts/verify-configs.ts",
     "verify:devtools": "vite-node ./scripts/verify-devtools.ts",
-    "verify:rule-docs": "vite-node -c vitest.config.ts ./scripts/verify-rule-docs.ts"
+    "verify:docs": "vite-node -c vitest.config.ts ./scripts/verify-docs.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.85.1",

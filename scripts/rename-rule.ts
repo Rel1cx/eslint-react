@@ -420,7 +420,7 @@ const program = Effect.gen(function*() {
   yield* Effect.log("  1. Update CHANGELOG.md with the rename entry");
   yield* Effect.log("  2. Run `pnpm run build` to verify the build");
   yield* Effect.log(`  3. Run \`pnpm vitest run src/rules/${newName}/${newName}.spec.ts\` to verify tests`);
-  yield* Effect.log("  4. Run `pnpm run verify:rule-docs` to verify documentation");
+  yield* Effect.log("  4. Run `pnpm run verify:docs` to verify documentation");
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);

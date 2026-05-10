@@ -141,7 +141,7 @@ pnpm run rename:rule
 pnpm run verify:configs
 
 # Verify rule documentation matches source metadata
-pnpm run verify:rule-docs
+pnpm run verify:docs
 ```
 
 ## Reporting Issues
@@ -252,8 +252,8 @@ Write the rule documentation in `<rule-name>.mdx`:
 pnpm run build
 pnpm run test
 pnpm run lint
+pnpm run verify:docs
 pnpm run verify:configs
-pnpm run verify:rule-docs
 ```
 
 Submit a pull request with a clear description linking back to the original issue.
