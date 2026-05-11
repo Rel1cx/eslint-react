@@ -55,4 +55,4 @@ overrides:
   undici: ^8.2.0
   uuid: ^14.0.0
 
-trustPolicy: "no-downgrade"
+# trustPolicy: "no-downgrade"
