@@ -154,19 +154,16 @@ function parseChangelogVersions(content: string): ChangelogVersion[] {
   }
   if (current != null) versions.push(current);
 
-  return versions.map((v) => ({
-    title: v.title,
-    body: v.body.join("\n").trim(),
-  }));
+  return versions
+    .map((v) => ({
+      title: v.title,
+      body: v.body.join("\n").trim(),
+    }))
+    .filter((v) => v.body !== "");
 }
 
 function generateVersionsAccordion(versions: ChangelogVersion[]): string {
-  const items = versions.map((v) => {
-    if (v.body !== "") {
-      return `<Accordion title="${v.title}">\n\n${v.body}\n\n</Accordion>`;
-    }
-    return `<Accordion title="${v.title}">\n\n</Accordion>`;
-  });
+  const items = versions.map((v) => `<Accordion title="${v.title}">\n\n${v.body}\n\n</Accordion>`);
 
   return ["", "## Versions", "", "<Accordions>", ...items, "</Accordions>", ""].join("\n");
 }
