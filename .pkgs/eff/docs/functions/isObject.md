@@ -11,14 +11,14 @@ Checks if the given parameter is of type `"object"` via `typeof`, excluding `nul
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `data` | `object` \| `T` | The variable to be checked for being an object type. |
+| Parameter | Type            | Description                                          |
+| --------- | --------------- | ---------------------------------------------------- |
+| `data`    | `object` \| `T` | The variable to be checked for being an object type. |
 
 ## Returns
 

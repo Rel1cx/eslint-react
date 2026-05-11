@@ -1,5 +1,33 @@
 # Changelog
 
+## v5.7.6 (2026-05-12)
+
+### 📝 Documentation
+
+- Migrated the website to the fumadocs solar theme; removed the WIP Frutiger Aero variant and consolidated theme overrides.
+- Each rule documentation page now lists prior versions in a `Versions` accordion sourced from per-rule `CHANGELOG.md`.
+- Added the `mikoto` project to the community showcase.
+- Updated README badges to use `@eslint-react/core`.
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from 8.59.2 to 8.59.3.
+- Bumped `fumadocs-core` and `fumadocs-ui` from 16.8.7 to 16.8.10.
+- Bumped `fumadocs-mdx` from 14.3.2 to 15.0.3.
+- Bumped `tailwindcss` and `@tailwindcss/postcss` from 4.2.4 to 4.3.0.
+- Bumped `tailwind-merge` from 3.5.0 to 3.6.0.
+- Bumped `vitest` from 4.1.5 to 4.1.6.
+- Bumped `ansis` from 4.2.0 to 4.3.0.
+- Bumped `semver` from 7.7.4 to 7.8.0.
+- Bumped `pnpm` from 11.0.8 to 11.0.9.
+- Upgraded dprint biome plugin from 0.12.10 to 0.12.11.
+- Reverted `nx` from a 23.0.0 canary back to 22.7.1 stable.
+- Renamed the `verify:rule-docs` script to `verify:docs`.
+- Removed unused `assets/logo.html` and `assets/react-icon.html` (#1755, #1756).
+- Updated Sentrux baseline metrics.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.5...v5.7.6
+
 ## v5.7.5 (2026-05-08)
 
 ### 🏗️ Internal

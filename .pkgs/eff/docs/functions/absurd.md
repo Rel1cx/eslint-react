@@ -14,14 +14,14 @@ This function is particularly useful when it's necessary to specify that certain
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
+| -------------- |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `_` | `never` | The value of type `never` that is passed to the function. |
+| Parameter | Type    | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| `_`       | `never` | The value of type `never` that is passed to the function. |
 
 ## Returns
 

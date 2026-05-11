@@ -4,8 +4,8 @@
 
 ```ts
 const compose: {
-<B, C>  (bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
-<A, B, C>  (self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
+  <B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
+  <A, B, C>(self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
 };
 ```
 
@@ -21,15 +21,15 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `B` |
-| `C` |
+| -------------- |
+| `B`            |
+| `C`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `bc` | (`b`: `B`) => `C` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `bc`      | (`b`: `B`) => `C` |
 
 ### Returns
 
@@ -44,17 +44,17 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 ### Type Parameters
 
 | Type Parameter |
-| ------ |
-| `A` |
-| `B` |
-| `C` |
+| -------------- |
+| `A`            |
+| `B`            |
+| `C`            |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `self` | (`a`: `A`) => `B` |
-| `bc` | (`b`: `B`) => `C` |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `self`    | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
 
 ### Returns
 
@@ -75,8 +75,8 @@ A composed function that applies both functions in sequence.
 ## Example
 
 ```ts
-import * as assert from "node:assert"
-import { compose } from "effect/Function"
+import { compose } from "effect/Function";
+import * as assert from "node:assert";
 
 const increment = (n: number) => n + 1;
 const square = (n: number) => n * n;

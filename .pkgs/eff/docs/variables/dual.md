@@ -4,8 +4,8 @@
 
 ```ts
 const dual: {
-<DataLast, DataFirst>  (arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
-<DataLast, DataFirst>  (isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
+  <DataLast, DataFirst>(arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
+  <DataLast, DataFirst>(isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
 };
 ```
 
@@ -28,46 +28,46 @@ data-last style.
 **Example** (Using arity to determine data-first or data-last style)
 
 ```ts
-import { dual, pipe } from "effect/Function"
+import { dual, pipe } from "effect/Function";
 
 const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
->(2, (self, that) => self + that)
+>(2, (self, that) => self + that);
 
-console.log(sum(2, 3)) // 5
-console.log(pipe(2, sum(3))) // 5
+console.log(sum(2, 3)); // 5
+console.log(pipe(2, sum(3))); // 5
 ```
 
 **Example** (Using call signatures to define the overloads)
 
 ```ts
-import { dual, pipe } from "effect/Function"
+import { dual, pipe } from "effect/Function";
 
 const sum: {
-  (that: number): (self: number) => number
-  (self: number, that: number): number
-} = dual(2, (self: number, that: number): number => self + that)
+  (that: number): (self: number) => number;
+  (self: number, that: number): number;
+} = dual(2, (self: number, that: number): number => self + that);
 
-console.log(sum(2, 3)) // 5
-console.log(pipe(2, sum(3))) // 5
+console.log(sum(2, 3)); // 5
+console.log(pipe(2, sum(3))); // 5
 ```
 
 **Example** (Using a predicate to determine data-first or data-last style)
 
 ```ts
-import { dual, pipe } from "effect/Function"
+import { dual, pipe } from "effect/Function";
 
 const sum = dual<
   (that: number) => (self: number) => number,
   (self: number, that: number) => number
 >(
   (args) => args.length === 2,
-  (self, that) => self + that
-)
+  (self, that) => self + that,
+);
 
-console.log(sum(2, 3)) // 5
-console.log(pipe(2, sum(3))) // 5
+console.log(sum(2, 3)); // 5
+console.log(pipe(2, sum(3))); // 5
 ```
 
 ## Call Signature
@@ -78,17 +78,17 @@ console.log(pipe(2, sum(3))) // 5
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `DataLast` *extends* (...`args`: `any`[]) => `any` |
-| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
+| Type Parameter                                      |
+| --------------------------------------------------- |
+| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
+| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `arity` | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\] |
-| `body` | `DataFirst` |
+| Parameter | Type                                                                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `arity`   | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`DataFirst`\>\[`"length"`\] |
+| `body`    | `DataFirst`                                                                                                                 |
 
 ### Returns
 
@@ -102,17 +102,17 @@ console.log(pipe(2, sum(3))) // 5
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `DataLast` *extends* (...`args`: `any`[]) => `any` |
-| `DataFirst` *extends* (...`args`: `any`[]) => `any` |
+| Type Parameter                                      |
+| --------------------------------------------------- |
+| `DataLast` _extends_ (...`args`: `any`[]) => `any`  |
+| `DataFirst` _extends_ (...`args`: `any`[]) => `any` |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter     | Type                                |
+| ------------- | ----------------------------------- |
 | `isDataFirst` | (`args`: `IArguments`) => `boolean` |
-| `body` | `DataFirst` |
+| `body`        | `DataFirst`                         |
 
 ### Returns
 

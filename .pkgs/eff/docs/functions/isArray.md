@@ -11,14 +11,14 @@ A function that checks if the passed parameter is an Array and narrows its type 
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
+| -------------- |
+| `T`            |
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `data` | `T` \| `ArrayLike`\<`unknown`\> | The variable to check. |
+| Parameter | Type                            | Description            |
+| --------- | ------------------------------- | ---------------------- |
+| `data`    | `T` \| `ArrayLike`\<`unknown`\> | The variable to check. |
 
 ## Returns
 

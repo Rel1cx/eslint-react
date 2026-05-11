@@ -12,9 +12,9 @@ in order to narrow the `unknown` case.
 ## Type Parameters
 
 | Type Parameter |
-| ------ |
-| `T` |
-| `Base` |
+| -------------- |
+| `T`            |
+| `Base`         |
 
 ## Example
 
