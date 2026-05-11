@@ -48,15 +48,15 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/types": "^8.59.2",
-    "@typescript-eslint/utils": "^8.59.2"
+    "@typescript-eslint/types": "^8.59.3",
+    "@typescript-eslint/utils": "^8.59.3"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/rule-tester": "^8.59.2",
+    "@typescript-eslint/rule-tester": "^8.59.3",
     "dedent": "^1.7.2",
     "eslint": "^10.3.0",
     "tsdown": "^0.22.0",

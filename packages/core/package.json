@@ -41,20 +41,20 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.59.2",
-    "@typescript-eslint/types": "^8.59.2",
-    "@typescript-eslint/utils": "^8.59.2",
+    "@typescript-eslint/scope-manager": "^8.59.3",
+    "@typescript-eslint/types": "^8.59.3",
+    "@typescript-eslint/utils": "^8.59.3",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@typescript-eslint/parser": "^8.59.2",
-    "@typescript-eslint/typescript-estree": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.3",
+    "@typescript-eslint/typescript-estree": "^8.59.3",
     "eslint": "^10.3.0",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.6"
   },
   "peerDependencies": {
     "eslint": "^10.3.0",

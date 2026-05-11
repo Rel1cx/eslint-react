@@ -47,8 +47,8 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/types": "^8.59.2",
-    "@typescript-eslint/utils": "^8.59.2",
+    "@typescript-eslint/types": "^8.59.3",
+    "@typescript-eslint/utils": "^8.59.3",
     "compare-versions": "^6.1.1"
   },
   "devDependencies": {
