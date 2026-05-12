@@ -58,7 +58,7 @@
     "verify:docs": "vite-node -c vitest.config.ts ./scripts/verify-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.85.1",
+    "@effect/language-service": "^0.86.0",
     "@effect/platform": "^0.96.1",
     "@effect/platform-node": "^0.106.0",
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -104,7 +104,7 @@
     "vite-node": "^6.0.0",
     "vitest": "^4.1.6"
   },
-  "packageManager": "pnpm@11.1.0",
+  "packageManager": "pnpm@11.1.1",
   "engines": {
     "node": ">=22.0.0"
   }
