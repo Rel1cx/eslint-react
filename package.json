@@ -68,7 +68,7 @@
     "@rbxts/react": "17.3.7-ts.1",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/node": "^25.6.2",
+    "@types/node": "^25.7.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/parser": "^8.59.3",
@@ -104,7 +104,7 @@
     "vite-node": "^6.0.0",
     "vitest": "^4.1.6"
   },
-  "packageManager": "pnpm@11.0.9",
+  "packageManager": "pnpm@11.1.0",
   "engines": {
     "node": ">=22.0.0"
   }
