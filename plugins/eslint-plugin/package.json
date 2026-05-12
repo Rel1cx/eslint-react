@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "5.7.2",
+  "version": "5.7.7",
   "description": "The all-in-one, blazing fast ESLint plugin for React. Get complete, out-of-the-box rule coverage with instant feedback.",
   "keywords": [
     "react",
@@ -62,11 +62,11 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.3.0",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "typescript": "*"
   },
   "engines": {

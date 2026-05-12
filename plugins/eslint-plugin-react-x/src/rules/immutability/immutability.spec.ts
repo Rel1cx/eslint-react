@@ -6,6 +6,51 @@ import rule, { RULE_NAME } from "./immutability";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     // -------------------------------------------------------------------------
+    // State variables named ref or ending with Ref
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [ref, setRef] = useState(0);
+          return <div>{ref}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "ref" },
+        messageId: "noRefLikeStateName",
+      }],
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [itemsRef, setItemsRef] = useState([1, 2, 3]);
+          return <div>{itemsRef.length}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "itemsRef" },
+        messageId: "noRefLikeStateName",
+      }],
+    },
+    {
+      code: tsx`
+        import { useReducer } from "react";
+
+        function Component() {
+          const [stateRef, dispatch] = useReducer(reducer, {});
+          return <div>{stateRef}</div>;
+        }
+      `,
+      errors: [{
+        data: { name: "stateRef" },
+        messageId: "noRefLikeStateName",
+      }],
+    },
+    // -------------------------------------------------------------------------
     // Mutating array methods on state
     // -------------------------------------------------------------------------
     {
@@ -1425,6 +1470,73 @@ ruleTester.run(RULE_NAME, rule, {
               Click
             </button>
           );
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Ref mutations are allowed (refs are mutable by design)
+    // The rule uses a naming heuristic: any object named `ref` or ending in
+    // `Ref` is treated as a ref and exempted from immutability checks.
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const ref = { current: null };
+          ref.current = 1;
+          return <div>{ref.current}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = { current: { count: 0 } };
+          ref.current.count = 1;
+          return <div>{ref.current.count}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = { current: [1, 2, 3] };
+          ref.current.push(4);
+          ref.current.sort();
+          return <div>{ref.current.length}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const inputRef = { current: null };
+          inputRef.current = "value";
+          return <div>{inputRef.current}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function useMyHook() {
+          const counterRef = { current: 0 };
+          counterRef.current += 1;
+          return counterRef.current;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component(props) {
+          props.myRef.current = 1;
+          return <div>{props.myRef.current}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component(props) {
+          props.itemsRef.push(4);
+          return <div>{props.itemsRef.length}</div>;
         }
       `,
     },

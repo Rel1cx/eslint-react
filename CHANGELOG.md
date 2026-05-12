@@ -1,5 +1,94 @@
 # Changelog
 
+## v5.7.7 (2026-05-12)
+
+### 🐞 Fixes
+
+- Fixed the rule documentation URLs returned by `eslint-plugin-react-jsx` and `eslint-plugin-react-rsc` to include the `jsx-` / `rsc-` prefixes so editor `Open documentation` links resolve correctly (#1757) — by @kasmacioma.
+
+### 🏗️ Internal
+
+- Bumped `@types/node` from 25.6.2 to 25.7.0.
+- Bumped `pnpm` from 11.0.9 to 11.1.0.
+- Bumped `mermaid` from 11.14.0 to 11.15.0 and pinned it via `pnpm-workspace.yaml` overrides, dropping the transitive `chevrotain@12.0.0` chain in favor of `@chevrotain/types@11.1.2`.
+- Enabled `trustPolicy: "no-downgrade"` in `pnpm-workspace.yaml`.
+
+## New Contributors
+
+- @kasmacioma made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1757
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.6...v5.7.7
+
+## v5.7.6 (2026-05-12)
+
+### 📝 Documentation
+
+- Migrated the website to the fumadocs solar theme; removed the WIP Frutiger Aero variant and consolidated theme overrides.
+- Each rule documentation page now lists prior versions in a `Versions` accordion sourced from per-rule `CHANGELOG.md`.
+- Added the `mikoto` project to the community showcase.
+- Updated README badges to use `@eslint-react/core`.
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from 8.59.2 to 8.59.3.
+- Bumped `fumadocs-core` and `fumadocs-ui` from 16.8.7 to 16.8.10.
+- Bumped `fumadocs-mdx` from 14.3.2 to 15.0.3.
+- Bumped `tailwindcss` and `@tailwindcss/postcss` from 4.2.4 to 4.3.0.
+- Bumped `tailwind-merge` from 3.5.0 to 3.6.0.
+- Bumped `vitest` from 4.1.5 to 4.1.6.
+- Bumped `ansis` from 4.2.0 to 4.3.0.
+- Bumped `semver` from 7.7.4 to 7.8.0.
+- Bumped `pnpm` from 11.0.8 to 11.0.9.
+- Upgraded dprint biome plugin from 0.12.10 to 0.12.11.
+- Reverted `nx` from a 23.0.0 canary back to 22.7.1 stable.
+- Renamed the `verify:rule-docs` script to `verify:docs`.
+- Removed unused `assets/logo.html` and `assets/react-icon.html` (#1755, #1756).
+- Updated Sentrux baseline metrics.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.5...v5.7.6
+
+## v5.7.5 (2026-05-08)
+
+### 🏗️ Internal
+
+- Bumped `@eslint/compat` from 2.0.5 to 2.1.0.
+- Bumped `@types/node` from 25.6.0 to 25.6.2.
+- Bumped `next` from 16.2.5 to 16.2.6.
+- Bumped `publint` from 0.3.19 to 0.3.20.
+- Bumped `tsdown` from 0.21.10 to 0.22.0.
+- Bumped `pnpm` from 10.33.4 to 11.0.8.
+- Adjusted website styles.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.4...v5.7.5
+
+## v5.7.4 (2026-05-07)
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from 8.59.1 to 8.59.2.
+- Bumped `react` and `react-dom` from 19.2.5 to 19.2.6.
+- Bumped `next` from 16.2.4 to 16.2.5.
+- Bumped `nx` from 22.7.1 to 23.0.0-canary.20260506-b594537.
+- Bumped `fumadocs-core` and `fumadocs-ui` from 16.8.5 to 16.8.7.
+- Bumped `postcss` from 8.5.13 to 8.5.14.
+- Bumped `publint` from 0.3.18 to 0.3.19.
+- Bumped `pnpm` from 10.33.2 to 10.33.4.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.3...v5.7.4
+
+## v5.7.3 (2026-05-06)
+
+### 🐞 Fixes
+
+- **`react-x/immutability`**: Exempted ref mutations via a naming heuristic — any object whose identifier is `ref` or ends with `Ref` is treated as a mutable ref and skipped from immutability checks. This fixes false positives when mutating `RefObject<T>` values received as props (#1752, #1751).
+- **`react-x/immutability`**: Added `noRefLikeStateName` diagnostic to prevent state variables from being named `ref` or ending with `Ref`, which would otherwise bypass the ref exemption heuristic (#1752).
+
+### 📝 Documentation
+
+- Fixed the full rule name in `react-jsx/no-key-after-spread` documentation (`jsx/no-key-after-spread` → `jsx-no-key-after-spread`) (#1750).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.2...v5.7.3
+
 ## v5.7.2 (2026-05-04)
 
 ### 🐞 Fixes

@@ -4,6 +4,8 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+## v5.7.6 (2026-05-12)
+
 ### ✨ New Features
 
 - **Analyzer Configuration**
@@ -41,6 +43,7 @@ All notable changes to the `apps/website` documentation and its content.
 
 - **Release Notes**
   - Added release notes page for v5.6.0 documenting core API refactoring, kit API simplification, removed rules, class component deprecation, and new rules.
+  - Added release notes page for v5.7.0 documenting the `no-unused-state` rule, `all` preset fix, and various documentation improvements.
 
 ### 📝 Documentation
 
@@ -55,10 +58,15 @@ All notable changes to the `apps/website` documentation and its content.
   - Removed `component-hook-factories` from recipes index and meta.
   - Reordered redirects in `next.config.ts` with comments and alphabetical ordering.
   - Replaced static manual table-of-contents in migration guides with the `InlineTOC` component from `fumadocs-ui`.
+  - Migrated the website to the **fumadocs solar theme**; removed the WIP Frutiger Aero variant and consolidated theme overrides into `app.override.css`.
+  - Each rule documentation page now lists prior versions in a `Versions` accordion sourced from per-rule `CHANGELOG.md`.
   - Updated rules `meta.json` and `index.mdx` to add/remove rules (`globals`, `no-unused-state`, `static-components` in; `component-hook-factories` out).
 
 - **Content Updates**
   - Added `marigold-ui/marigold` and `nodejs/nodejs.org` to the community projects list.
+  - Added the `mikoto` project to the community projects list.
+  - Added **Resources** section with AST Explorer, ESLint Developer Guide, and TypeScript Compiler API links to kit-related documentation pages.
+  - Updated AST Explorer links across documentation to use canonical full URLs.
   - Simplified boolean prop naming example with `ts.TypeFlags.BooleanLike`.
   - Updated FAQ to link Legacy Config and Flat Config documentation.
   - Updated `presets.mdx` to reflect `recommended` preset changes and added `disable-naming-convention` preset.
@@ -68,6 +76,7 @@ All notable changes to the `apps/website` documentation and its content.
   - Updated minimum ESLint version requirement from `10.0.0` to `10.2.0` in getting-started guides.
   - Updated monorepo package paths in `contributing.mdx` and `faq.mdx` (`packages/utilities/*` → `packages/*`, `packages/plugins/*` → `plugins/*`).
   - Updated roadmap with v5.2.3–v5.5.1 changes: new `@eslint-react/eslint` package, new rules, collector renames, monorepo restructuring, and kit API changes.
+  - Updated README badges to use `@eslint-react/core`.
 
 ### 🏗️ Internal
 
@@ -75,4 +84,6 @@ All notable changes to the `apps/website` documentation and its content.
 - Migrated website path aliases from `#/` to `@/` across app, components, and MDX files.
 - Reformatted files with dprint formatter.
 - Reorganized imports across the website codebase.
-- Updated dependencies: `lucide-react`, `tailwindcss`, `typescript-eslint`, `tsl-dx`, `postcss`, `@takumi-rs/image-response`, `uuid`.
+- Renamed the `verify:rule-docs` script to `verify:docs`.
+- Removed unused `assets/logo.html` and `assets/react-icon.html`.
+- Updated dependencies: `@typescript-eslint`, `ansis`, `fumadocs-core`, `fumadocs-mdx`, `fumadocs-ui`, `lucide-react`, `postcss`, `tailwindcss`, `tailwind-merge`, `tsl-dx`, `@takumi-rs/image-response`, `uuid`, `vitest`.

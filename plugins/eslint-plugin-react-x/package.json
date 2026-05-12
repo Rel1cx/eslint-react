@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-x",
-  "version": "5.7.2",
+  "version": "5.7.7",
   "description": "A set of composable ESLint rules for libraries and frameworks that use React as a UI runtime.",
   "keywords": [
     "react",
@@ -48,11 +48,11 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.59.1",
-    "@typescript-eslint/type-utils": "^8.59.1",
-    "@typescript-eslint/types": "^8.59.1",
-    "@typescript-eslint/typescript-estree": "^8.59.1",
-    "@typescript-eslint/utils": "^8.59.1",
+    "@typescript-eslint/scope-manager": "^8.59.3",
+    "@typescript-eslint/type-utils": "^8.59.3",
+    "@typescript-eslint/types": "^8.59.3",
+    "@typescript-eslint/typescript-estree": "^8.59.3",
+    "@typescript-eslint/utils": "^8.59.3",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.3.1",
     "ts-api-utils": "^2.5.0",
@@ -65,15 +65,15 @@
     "@types/react-dom": "^19.2.3",
     "dedent": "^1.7.2",
     "eslint": "^10.3.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "tsdown": "^0.21.10",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tsdown": "^0.22.0",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.12.1",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "typescript": "*"
   },
   "engines": {

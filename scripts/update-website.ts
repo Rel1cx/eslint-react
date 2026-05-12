@@ -28,25 +28,31 @@ interface RuleReference {
   targetRule: string;
 }
 
+interface ChangelogVersion {
+  title: string;
+  body: string;
+}
+
 type RuleRelationsMap = Map<string, RuleReference[]>;
 
 function parseRuleRelations(content: string): RuleRelationsMap {
   const relations: RuleRelationsMap = new Map();
   const match = RE_DETAILED_REFERENCES.exec(content);
-  if (!match?.[1]) return relations;
+  if (match?.[1] == null) return relations;
 
   const tableBody = match[1];
   const rows = tableBody.split("\n").filter((line) => line.trim().startsWith("|"));
 
   for (const row of rows) {
     const cells = row.split("|").map((cell) => cell.trim()).filter(Boolean);
-    if (cells.length < 3) continue;
+    const [rawSource, rawTarget, rawDesc] = cells;
+    if (rawSource == null || rawTarget == null || rawDesc == null) continue;
 
-    const sourceRule = cells[0]!.replace(/`/g, "").trim();
-    const targetRule = cells[1]!.replace(/`/g, "").trim();
-    const description = cells[2]!.trim();
+    const sourceRule = rawSource.replace(/`/g, "").trim();
+    const targetRule = rawTarget.replace(/`/g, "").trim();
+    const description = rawDesc.trim();
 
-    if (!sourceRule || !targetRule) continue;
+    if (sourceRule == null || targetRule == null) continue;
 
     const refs = relations.get(sourceRule) ?? [];
     refs.push({ description, targetRule });
@@ -75,7 +81,7 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
   const fullRuleName = getFullRuleName(meta);
   const references = relations.get(fullRuleName);
 
-  if (!references || references.length === 0) {
+  if (references == null || references.length === 0) {
     return "";
   }
 
@@ -129,13 +135,99 @@ const collectDocs = Effect.gen(function*() {
   });
 });
 
+function parseChangelogVersions(content: string): ChangelogVersion[] {
+  const lines = content.split("\n");
+  const versions: Array<{ title: string; body: string[] }> = [];
+  let current: { title: string; body: string[] } | null = null;
+
+  for (const line of lines) {
+    // eslint-disable-next-line regexp/no-super-linear-backtracking
+    const match = /^## (\[.+\].*)$/.exec(line);
+    if (match != null) {
+      const [, title] = match;
+      if (title == null) continue;
+      if (current != null) versions.push(current);
+      current = { title, body: [] };
+    } else if (current != null) {
+      current.body.push(line);
+    }
+  }
+  if (current != null) versions.push(current);
+
+  return versions
+    .map((v) => ({
+      title: v.title,
+      body: v.body.join("\n").trim(),
+    }))
+    .filter((v) => v.body !== "");
+}
+
+function generateVersionsAccordion(versions: ChangelogVersion[]): string {
+  const items = versions.map((v) => `<Accordion title="${v.title}">\n\n${v.body}\n\n</Accordion>`);
+
+  return ["", "## Versions", "", "<Accordions>", ...items, "</Accordions>", ""].join("\n");
+}
+
+function addAccordionImport(content: string): string {
+  if (content.includes('from "fumadocs-ui/components/accordion"')) return content;
+
+  const frontmatterEnd = /^---\n[\s\S]*?\n---\n/.exec(content);
+  if (frontmatterEnd != null) {
+    const index = frontmatterEnd.index + frontmatterEnd[0].length;
+    return `${content.slice(0, index)}import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n${
+      content.slice(index)
+    }`;
+  }
+
+  return `import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n\n${content}`;
+}
+
+function insertVersionsSection(content: string, versionsSection: string): string {
+  const resourcesMatch = /\n## Resources\n/.exec(content);
+  if (resourcesMatch != null) {
+    const index = resourcesMatch.index;
+    return `${content.slice(0, index)}${versionsSection}${content.slice(index)}`;
+  }
+
+  const seeAlsoMatch = /\n---\n\n## See Also\n/.exec(content);
+  if (seeAlsoMatch != null) {
+    const index = seeAlsoMatch.index;
+    return `${content.slice(0, index)}${versionsSection}\n${content.slice(index)}`;
+  }
+
+  return `${content}${versionsSection}`;
+}
+
+const generateRuleVersions = Effect.fnUntraced(
+  function*(meta: RuleMeta) {
+    const fs = yield* FileSystem.FileSystem;
+    const path = yield* Path.Path;
+    const changelogPath = path.join(path.dirname(meta.source), "CHANGELOG.md");
+    const exists = yield* fs.exists(changelogPath);
+    if (!exists) return "";
+
+    const changelogContent = yield* fs.readFileString(changelogPath, "utf8");
+    const versions = parseChangelogVersions(changelogContent);
+    if (versions.length === 0) return "";
+
+    return generateVersionsAccordion(versions);
+  },
+);
+
 const copyRuleDoc = Effect.fnUntraced(
-  function*(meta: RuleMeta, relations: RuleRelationsMap) {
+  function*(meta: RuleMeta, relations: RuleRelationsMap, versionsMap: Map<string, string>) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const dir = path.dirname(meta.destination);
     yield* fs.makeDirectory(dir, { recursive: true });
-    const content = yield* fs.readFileString(meta.source, "utf8");
+    let content = yield* fs.readFileString(meta.source, "utf8");
+
+    const versionsSection = versionsMap.get(meta.name);
+    if (versionsSection != null && versionsSection !== "") {
+      content = addAccordionImport(content);
+      content = insertVersionsSection(content, versionsSection);
+    }
+
     const contentWithSeeAlsoSection = content + generateSeeAlsoSection(meta, relations);
     yield* fs.writeFileString(meta.destination, contentWithSeeAlsoSection);
     yield* Effect.logDebug(ansis.green(`Copied ${meta.source} -> ${meta.destination}`));
@@ -154,7 +246,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
 
     const grouped = metas.reduce<Grouped>((acc, meta) => {
       const catename = meta.title.includes("/") ? meta.title.split("/", 1)[0] : "x";
-      if (catename == null) return acc;
+      if (catename == null || catename === "") return acc;
       const list = acc[catename] ?? [];
       return {
         ...acc,
@@ -164,7 +256,7 @@ const generateRuleMetaJson = Effect.fnUntraced(
 
     const pages = orderedCategories.reduce<string[]>((acc, cat) => {
       const rules = grouped[cat.key];
-      if (!rules || rules.length === 0) return acc;
+      if (rules == null || rules.length === 0) return acc;
 
       // Sort rules alphabetically
       const sortedRules = rules.toSorted((a, b) => a.localeCompare(b, "en"));
@@ -211,7 +303,7 @@ const processChangelog = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Processing rule documentation..."));
 
-  // Pass 1: Collect rule documentation metadata and relations
+  // Pass 1: Collect rule documentation metadata, relations, and versions
   const metas = yield* collectDocs;
   const relations = yield* loadRuleRelations;
 
@@ -223,16 +315,26 @@ const program = Effect.gen(function*() {
 
   yield* Effect.log(`Loaded ${ansis.bold(relations.size.toString())} rule relations.`);
 
-  // Pass 2: Copy rule docs to website with See Also sections
-  yield* Effect.forEach(metas, (meta) => copyRuleDoc(meta, relations), { concurrency: 8 });
+  const versionsSections = yield* Effect.forEach(metas, (meta) => generateRuleVersions(meta), { concurrency: 8 });
+  const versionsMap = versionsSections.reduce((map, section, i) => {
+    const meta = metas[i];
+    if (meta != null && section != null && section !== "") map.set(meta.name, section);
+    return map;
+  }, new Map<string, string>());
 
-  // Pass 3: Generate rules meta.json
-  yield* generateRuleMetaJson(metas);
+  yield* Effect.log(
+    versionsMap.size === 0
+      ? ansis.yellow("No rule changelogs found.")
+      : `Generated versions sections for ${ansis.bold(versionsMap.size.toString())} rule(s).`,
+  );
 
-  // Pass 4: Process changelog
-  yield* processChangelog;
+  // Pass 2: Copy rule docs to website with Versions and See Also sections
+  yield* Effect.forEach(metas, (meta) => copyRuleDoc(meta, relations, versionsMap), { concurrency: 8 });
 
-  // Pass 5: Update documentation resources
+  // Pass 3: Generate rules meta.json and process changelog (independent)
+  yield* Effect.all([generateRuleMetaJson(metas), processChangelog], { concurrency: 2 });
+
+  // Pass 6: Update documentation resources
   // yield* updateDocsResources;
 
   yield* Effect.log(ansis.bold.green("Documentation processing completed."));

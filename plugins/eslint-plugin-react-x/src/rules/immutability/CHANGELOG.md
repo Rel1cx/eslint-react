@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.7.3]
+
+### Added
+
+- Added `noRefLikeStateName` diagnostic to prevent state variables from being named `ref` or ending with `Ref`, which would otherwise bypass the ref exemption heuristic.
+- Added ref mutation exemption via a naming heuristic: any object whose identifier is `ref` or ends with `Ref` is treated as a mutable ref and skipped from immutability checks. This covers both local refs and refs received as props (e.g., `inputRef.current = x`, `props.myRef.current.push(1)`).
+
+### Changed
+
+- `isUseReducerCall` detection now delegates to `core.isUseReducerCall` instead of a local implementation.
+
+### Fixed
+
+- Fixed false positives when mutating `RefObject<T>` values received as props. Closes #1751. (#1751)
+
 ## [5.5.3-beta.1] - 2026-04-27
 
 ### Added

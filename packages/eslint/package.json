@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint",
-  "version": "5.7.2",
+  "version": "5.7.7",
   "description": "ESLint React's ESLint types and utils.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -36,18 +36,18 @@
     "publish": "pnpm run build && pnpm run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.59.1"
+    "@typescript-eslint/utils": "^8.59.3"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.7.0",
     "eslint": "^10.3.0",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "typescript": "*"
   },
   "engines": {

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-jsx",
-  "version": "5.7.2",
+  "version": "5.7.7",
   "description": "ESLint React's ESLint plugin for React Flavored JSX rules.",
   "keywords": [
     "react",
@@ -48,22 +48,22 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
-    "@typescript-eslint/types": "^8.59.1",
-    "@typescript-eslint/utils": "^8.59.1"
+    "@typescript-eslint/types": "^8.59.3",
+    "@typescript-eslint/utils": "^8.59.3"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/rule-tester": "^8.59.1",
+    "@typescript-eslint/rule-tester": "^8.59.3",
     "dedent": "^1.7.2",
     "eslint": "^10.3.0",
-    "tsdown": "^0.21.10",
+    "tsdown": "^0.22.0",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "typescript": "*"
   },
   "engines": {
