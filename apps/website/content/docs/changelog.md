@@ -15,6 +15,10 @@ title: Changelog
 - Bumped `mermaid` from 11.14.0 to 11.15.0 and pinned it via `pnpm-workspace.yaml` overrides, dropping the transitive `chevrotain@12.0.0` chain in favor of `@chevrotain/types@11.1.2`.
 - Enabled `trustPolicy: "no-downgrade"` in `pnpm-workspace.yaml`.
 
+## New Contributors
+
+- @kasmacioma made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1757
+
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.6...v5.7.7
 
 ## v5.7.6 (2026-05-12)
