@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.7.7 (2026-05-12)
+
+### 🐞 Fixes
+
+- Fixed the rule documentation URLs returned by `eslint-plugin-react-jsx` and `eslint-plugin-react-rsc` to include the `jsx-` / `rsc-` prefixes so editor `Open documentation` links resolve correctly (#1757) — by @kasmacioma.
+
+### 🏗️ Internal
+
+- Bumped `@types/node` from 25.6.2 to 25.7.0.
+- Bumped `pnpm` from 11.0.9 to 11.1.0.
+- Bumped `mermaid` from 11.14.0 to 11.15.0 and pinned it via `pnpm-workspace.yaml` overrides, dropping the transitive `chevrotain@12.0.0` chain in favor of `@chevrotain/types@11.1.2`.
+- Enabled `trustPolicy: "no-downgrade"` in `pnpm-workspace.yaml`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.6...v5.7.7
+
 ## v5.7.6 (2026-05-12)
 
 ### 📝 Documentation
