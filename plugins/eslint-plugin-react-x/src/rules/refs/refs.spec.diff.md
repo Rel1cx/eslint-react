@@ -44,7 +44,7 @@ The IMPL allows ref writes inside null-check if blocks via `isRefCurrentNullChec
 | `if (r.current == null) { r.current = 42; }`                 | Allowed                                                | Allowed                            |
 | `if (r.current == null) { r.current = 42; r.current = 42; }` | **Second write disallowed**                            | **Both allowed**                   |
 | `if (r.current == null) { f(r.current); }`                   | **Disallowed** (passing ref to function in init block) | **Allowed** (treated as lazy init) |
-| `if (r.current == DEFAULT_VALUE) { r.current = 1; }`         | Allowed (conditional block)                            | **Disallowed** (not a null check)  |
+| `if (r.current == DEFAULT_VALUE) { r.current = 1; }`         | Allowed (conditional block) [NEEDS VERIFICATION]       | **Disallowed** (not a null check)  |
 | `if (!(r.current === null)) return; r.current = value;`      | Allowed                                                | Allowed                            |
 
 **Verdict**: The SPEC is stricter about what happens inside lazy-init blocks (only one assignment, no reads passed to functions). The IMPL treats the entire if-block as a protected region.
@@ -74,7 +74,7 @@ The IMPL detects:
 2. It explicitly allows `mergeRefs` calls
 3. It does **not** distinguish render helpers from other functions
 
-**Key Difference**: `props.render(ref)` is allowed by the SPEC (render helper pattern) but flagged by the IMPL as `refPassedToFunction`.
+**Key Difference**: `props.render(ref)` is allowed by the SPEC (render helper pattern) [NEEDS VERIFICATION] but flagged by the IMPL as `refPassedToFunction`.
 
 ---
 
@@ -104,7 +104,7 @@ The IMPL only tracks direct `.current` assignments. `ref.current.inner = value` 
 
 1. **Lazy Init Block Strictness**: The SPEC allows only a single assignment inside a lazy-init block and disallows passing the ref to functions within that block. The IMPL protects the entire if-block uniformly.
 2. **Nested Property Writes**: The IMPL does not detect `ref.current.inner = value` as a write; it reports it as a read.
-3. **Render Helper False Positive**: The IMPL flags `props.render(ref)` as `refPassedToFunction`, but the SPEC allows passing refs to render helpers.
+3. **Render Helper False Positive**: The IMPL flags `props.render(ref)` as `refPassedToFunction`, but the SPEC allows passing refs to render helpers. [NEEDS VERIFICATION]
 4. **Synchronously Invoked Callbacks**: The IMPL skips all nested functions, missing ref accesses in lambdas that are immediately invoked during render (e.g., `const fn = () => ref.current; fn();`).
 5. **State Initializer / Reducer Blind Spots**: The IMPL skips ref accesses inside `useState(() => ref.current)` and `useReducer(() => ref.current)` because they are nested functions. The SPEC catches these.
 6. **MemberExpression.current Support**: The IMPL only supports `Identifier.current` (e.g., `ref.current`). It does not support `props.ref.current` where the base is a MemberExpression.
