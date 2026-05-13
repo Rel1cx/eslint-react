@@ -33,7 +33,7 @@
       "outputs": [
         "{projectRoot}/dist"
       ],
-      "cache": false
+      "cache": true
     },
     "build:docs": {
       "dependsOn": [],
@@ -45,7 +45,7 @@
       "outputs": [
         "{projectRoot}/docs"
       ],
-      "cache": false
+      "cache": true
     },
     "lint:ts": {
       "inputs": [
@@ -53,7 +53,7 @@
         "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
         "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
       ],
-      "cache": false
+      "cache": true
     },
     "lint:publish": {
       "dependsOn": [
@@ -64,7 +64,7 @@
         "{projectRoot}/dist",
         "{projectRoot}/package.json"
       ],
-      "cache": false
+      "cache": true
     }
   },
   "tui": {
