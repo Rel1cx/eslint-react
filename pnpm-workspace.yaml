@@ -35,7 +35,7 @@ overrides:
   axios: ^1.16.0 # Transitive dependency axios 1.15.0 is introduced via nx 22.7.1
   chokidar: ^5.0.0
   defu: ^6.1.7
-  dompurify: ^3.4.2
+  dompurify: ^3.4.3
   esbuild: ^0.28.0
   follow-redirects: ^1.16.0
   lodash-es: ^4.18.1
