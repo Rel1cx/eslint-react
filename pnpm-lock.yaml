@@ -44,8 +44,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.86.0
-        version: 0.86.0
+        specifier: ^0.86.1
+        version: 0.86.1
       '@effect/platform':
         specifier: ^0.96.1
         version: 0.96.1(effect@3.21.2)
@@ -128,8 +128,8 @@ importers:
         specifier: ^10.29.1
         version: 10.29.1
       publint:
-        specifier: ^0.3.20
-        version: 0.3.20
+        specifier: ^0.3.21
+        version: 0.3.21
       react:
         specifier: ^19.2.6
         version: 19.2.6
@@ -153,7 +153,7 @@ importers:
         version: 5.9.0
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
@@ -217,7 +217,7 @@ importers:
         version: 0.2.16
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
@@ -244,7 +244,7 @@ importers:
         version: link:../configs
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
 
   apps/website:
     dependencies:
@@ -288,8 +288,8 @@ importers:
         specifier: ^3.0.10
         version: 3.0.10(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.8.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.14.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(mdast-util-mdx@3.0.0)
       fumadocs-mdx:
-        specifier: ^15.0.3
-        version: 15.0.3(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.8.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.14.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+        specifier: ^15.0.4
+        version: 15.0.4(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.8.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.14.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.0)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
       fumadocs-twoslash:
         specifier: ^3.2.0
         version: 3.2.0(ebe32f6333c2d8457d18e170861e3da3)
@@ -328,8 +328,8 @@ importers:
         version: 0.3.8(typescript@6.0.3)
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.86.0
-        version: 0.86.0
+        specifier: ^0.86.1
+        version: 0.86.1
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint
@@ -741,7 +741,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -796,7 +796,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -824,7 +824,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -864,7 +864,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -901,7 +901,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -941,7 +941,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -984,7 +984,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1033,7 +1033,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1091,7 +1091,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1140,7 +1140,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1192,7 +1192,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1241,7 +1241,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1290,7 +1290,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1345,7 +1345,7 @@ importers:
         version: 10.3.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1424,7 +1424,7 @@ importers:
         version: 19.2.6(react@19.2.6)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3)
+        version: 0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
@@ -1651,8 +1651,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.86.0':
-    resolution: {integrity: sha512-K+G44BH//ILbgms7ZcXlL1hTP/hEHBZ1IH/QonSsIHnJRyrXAh7V2VB61sidfvqWNZqzvy6Y5JSqwisX6wvodA==}
+  '@effect/language-service@0.86.1':
+    resolution: {integrity: sha512-jfUuFdtNPKRZ4ZSrgTnfMHPIVq8L9cM+YGEylQ1lhIgNY23ZvfdPg0cUlWESd4q9aGvOWSA8E79AS0qe3j4ROw==}
     hasBin: true
 
   '@effect/platform-node-shared@0.59.0':
@@ -2733,8 +2733,8 @@ packages:
   '@prefresh/babel-plugin@0.5.3':
     resolution: {integrity: sha512-57LX2SHs4BX2s1IwCjNzTE2OJeEepRCNf1VTEpbNcUyHfMO68eeOWGDIt4ob9aYlW6PEWZ1SuwNikuoIXANDtQ==}
 
-  '@prefresh/core@1.5.9':
-    resolution: {integrity: sha512-IKBKCPaz34OFVC+adiQ2qaTF5qdztO2/4ZPf4KsRTgjKosWqxVXmEbxCiUydYZRY8GVie+DQlKzQr9gt6HQ+EQ==}
+  '@prefresh/core@1.5.10':
+    resolution: {integrity: sha512-7yPTFbG56sutaFu8krp3B4a200KOFUvrtlllKWRuLjsYXo9UUucHOZRcer+gtgMkFTpv6ob8TGcTwA32bSwa1w==}
     peerDependencies:
       preact: ^10.0.0 || ^11.0.0-0
 
@@ -3678,8 +3678,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@22.19.18':
-    resolution: {integrity: sha512-9v00a+dn2yWVsYDEunWC4g/TcRKVq3r8N5FuZp7u0SGrPvdN9c2yXI9bBuf5Fl0hNCb+QTIePTn5pJs2pwBOQQ==}
+  '@types/node@22.19.19':
+    resolution: {integrity: sha512-dyh/xO2Fh5bYrfWaaqGrRQQGkNdmYw6AmaAUvYeUMNTWQtvb796ikLdmTchRmOlOiIJ1TDXfWgVx1QkUlQ6Hew==}
 
   '@types/node@25.7.0':
     resolution: {integrity: sha512-z+pdZyxE+RTQE9AcboAZCb4otwcrvgHD+GlBpPgn0emDVt0ohrTMhAwlr2Wd9nZ+nihhYFxO2pThz3C5qSu2Eg==}
@@ -4492,8 +4492,8 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-  enhanced-resolve@5.21.2:
-    resolution: {integrity: sha512-xe9vQb5kReirPUxgQrXA3ihgbCqssmTiM7cOZ+Gzu+VeGWgpV98lLZvp0dl4yriyAePcewxGUs9UpKD8PET9KQ==}
+  enhanced-resolve@5.21.3:
+    resolution: {integrity: sha512-QyL119InA+XXEkNLNTPCXPugSvOfhwv0JOlGNzvxs0hZaiHLNvXSpudUWsOlsXGWJh8G6ckCScEkVHfX3kw/2Q==}
     engines: {node: '>=10.13.0'}
 
   enquirer@2.3.6:
@@ -4920,8 +4920,8 @@ packages:
       mdast-util-mdx:
         optional: true
 
-  fumadocs-mdx@15.0.3:
-    resolution: {integrity: sha512-TxttSMwgBA13jyFAQgNH41tpRXLYMNJuE0nZrafrSEacgu1re4pOVBijCvs7GM6i6Uae5E39FI/Yw8fIBs4P5Q==}
+  fumadocs-mdx@15.0.4:
+    resolution: {integrity: sha512-swJ7VB9x8fPjVAcH4xMg7qplgm7m6Hy3woB5s/yssBWVPkvET7wGOHoYZ05iW9TDIWruk5vyqwEDrwq3t4PZUw==}
     hasBin: true
     peerDependencies:
       '@types/mdast': '*'
@@ -4931,6 +4931,7 @@ packages:
       mdast-util-directive: '*'
       next: ^16.2.6
       react: ^19.2.6
+      rolldown: '*'
       vite: 7.x.x || 8.x.x
     peerDependenciesMeta:
       '@types/mdast':
@@ -4944,6 +4945,8 @@ packages:
       next:
         optional: true
       react:
+        optional: true
+      rolldown:
         optional: true
       vite:
         optional: true
@@ -5827,8 +5830,8 @@ packages:
   node-html-parser@6.1.13:
     resolution: {integrity: sha512-qIsTMOY4C/dAa5Q5vsobRpOOvPfC4pB61UVW2uSwZNUp0QU/jCekTal1vMmbO0DgdHeLUJpv/ARmDqErVxA3Sg==}
 
-  node-releases@2.0.38:
-    resolution: {integrity: sha512-3qT/88Y3FbH/Kx4szpQQ4HzUbVrHPKTLVpVocKiLfoYvw9XSGOX2FmD2d6DrXbVYyAQTF2HeF6My8jmzx7/CRw==}
+  node-releases@2.0.44:
+    resolution: {integrity: sha512-5WUyunoPMsvvEhS8AxHtRzP+oA8UCkJ7YRxatWKjngndhDGLiqEVAQKWjFAiAiuL8zMRGzGSJxFnLetoa43qGQ==}
 
   nopt@7.2.1:
     resolution: {integrity: sha512-taM24ViiimT/XntxbPyJQzCG+p4EKOpgD3mxFwW38mGjVUrfERQOeY4EDHjdnptttfHuHQXFx+lTP08Q+mLa/w==}
@@ -6057,8 +6060,8 @@ packages:
     resolution: {integrity: sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==}
     engines: {node: '>=10'}
 
-  publint@0.3.20:
-    resolution: {integrity: sha512-UWqFYP7VBVCe9l/leEEGJrDs6Am4K4KapLmLi5qbt+9fA+Ny38ghdW+bw1nYfVqCK8/3kgsxjjhFjTYqYYRpyw==}
+  publint@0.3.21:
+    resolution: {integrity: sha512-OqejcnMV6E9zel2oCrUOJEiiFkGiAAni0A6ibfQNh1k9Gu5z4F+Yso8lllam7AzmV6Do0vp7u3UpZNRBwuXaHQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7187,7 +7190,7 @@ snapshots:
       effect: 3.21.2
       uuid: 14.0.0
 
-  '@effect/language-service@0.86.0': {}
+  '@effect/language-service@0.86.1': {}
 
   '@effect/platform-node-shared@0.59.0(@effect/cluster@0.58.2(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.75.1(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/sql@0.51.1(@effect/experimental@0.60.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/workflow@0.18.1(@effect/experimental@0.60.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.75.1(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(@effect/rpc@0.75.1(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/sql@0.51.1(@effect/experimental@0.60.0(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(@effect/platform@0.96.1(effect@3.21.2))(effect@3.21.2))(effect@3.21.2)':
     dependencies:
@@ -8013,7 +8016,7 @@ snapshots:
 
   '@prefresh/babel-plugin@0.5.3': {}
 
-  '@prefresh/core@1.5.9(preact@10.29.1)':
+  '@prefresh/core@1.5.10(preact@10.29.1)':
     dependencies:
       preact: 10.29.1
 
@@ -8023,7 +8026,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0
       '@prefresh/babel-plugin': 0.5.3
-      '@prefresh/core': 1.5.9(preact@10.29.1)
+      '@prefresh/core': 1.5.10(preact@10.29.1)
       '@prefresh/utils': 1.2.1
       '@rollup/pluginutils': 4.2.1
       preact: 10.29.1
@@ -8612,7 +8615,7 @@ snapshots:
   '@tailwindcss/node@4.3.0':
     dependencies:
       '@jridgewell/remapping': 2.3.5
-      enhanced-resolve: 5.21.2
+      enhanced-resolve: 5.21.3
       jiti: 2.7.0
       lightningcss: 1.32.0
       magic-string: 0.30.21
@@ -8773,7 +8776,7 @@ snapshots:
 
   '@types/concat-stream@2.0.3':
     dependencies:
-      '@types/node': 22.19.18
+      '@types/node': 25.7.0
 
   '@types/d3-array@3.2.2': {}
 
@@ -8928,7 +8931,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@22.19.18':
+  '@types/node@22.19.19':
     dependencies:
       undici-types: 8.2.0
 
@@ -9277,7 +9280,7 @@ snapshots:
       baseline-browser-mapping: 2.10.29
       caniuse-lite: 1.0.30001792
       electron-to-chromium: 1.5.353
-      node-releases: 2.0.38
+      node-releases: 2.0.44
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
   bsky-react-post@0.1.7(react@19.2.6)(swr@2.4.1(react@19.2.6)):
@@ -9781,7 +9784,7 @@ snapshots:
     dependencies:
       once: 1.4.0
 
-  enhanced-resolve@5.21.2:
+  enhanced-resolve@5.21.3:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.3
@@ -10280,7 +10283,7 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  fumadocs-mdx@15.0.3(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.8.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.14.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)):
+  fumadocs-mdx@15.0.4(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.14)(fumadocs-core@16.8.10(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@1.14.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.0)(vite@8.0.12(@types/node@25.7.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.1.0
@@ -10305,6 +10308,7 @@ snapshots:
       '@types/react': 19.2.14
       next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react: 19.2.6
+      rolldown: 1.0.0
       vite: 8.0.12(@types/node@25.7.0)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
@@ -11507,7 +11511,7 @@ snapshots:
       css-select: 5.2.2
       he: 1.2.0
 
-  node-releases@2.0.38: {}
+  node-releases@2.0.44: {}
 
   nopt@7.2.1:
     dependencies:
@@ -11905,7 +11909,7 @@ snapshots:
 
   proxy-from-env@2.1.0: {}
 
-  publint@0.3.20:
+  publint@0.3.21:
     dependencies:
       '@publint/pack': 0.1.4
       package-manager-detector: 1.6.0
@@ -12465,7 +12469,7 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.22.0(publint@0.3.20)(tsx@4.21.0)(typescript@6.0.3):
+  tsdown@0.22.0(publint@0.3.21)(tsx@4.21.0)(typescript@6.0.3):
     dependencies:
       ansis: 4.3.0
       cac: 7.0.0
@@ -12483,7 +12487,7 @@ snapshots:
       tree-kill: 1.2.2
       unconfig-core: 7.5.0
     optionalDependencies:
-      publint: 0.3.20
+      publint: 0.3.21
       tsx: 4.21.0
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -12592,7 +12596,7 @@ snapshots:
       '@types/concat-stream': 2.0.3
       '@types/debug': 4.1.13
       '@types/is-empty': 1.2.3
-      '@types/node': 22.19.18
+      '@types/node': 22.19.19
       '@types/unist': 3.0.3
       concat-stream: 2.0.0
       debug: 4.4.3

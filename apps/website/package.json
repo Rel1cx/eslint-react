@@ -24,7 +24,7 @@
     "effect": "^3.21.2",
     "fumadocs-core": "^16.8.10",
     "fumadocs-docgen": "^3.0.10",
-    "fumadocs-mdx": "^15.0.3",
+    "fumadocs-mdx": "^15.0.4",
     "fumadocs-twoslash": "^3.2.0",
     "fumadocs-typescript": "^5.2.6",
     "fumadocs-ui": "^16.8.10",
@@ -39,7 +39,7 @@
     "twoslash": "^0.3.8"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.86.0",
+    "@effect/language-service": "^0.86.1",
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/shared": "workspace:*",
