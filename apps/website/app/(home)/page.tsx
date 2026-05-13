@@ -1,4 +1,5 @@
 import { ESLintReact } from "@/components/ESLintReact";
+import { Hint } from "@/components/ui/Hint";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
@@ -62,7 +63,12 @@ export default function HomePage() {
           </Link>{" "}
           project or team, nor is it endorsed or sponsored by them.
 
-          This project is, and will remain, 90% of its code written by humans.
+          <Hint
+            content="10 in every 100 rules are written or ported by LLMs and reviewed by humans; the rest are written or ported by humans and reviewed by LLMs."
+            label="What does 90% human-written mean?"
+          >
+            This project is, and will remain, 90% of its code written by humans.
+          </Hint>
         </small>
       </footer>
     </main>
