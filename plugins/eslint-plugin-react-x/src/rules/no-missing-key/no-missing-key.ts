@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, is } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeJSXElementLike, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
@@ -14,8 +14,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID =
   | "default"
   | "unexpectedFragmentSyntax";
-
-type Descriptor = ReportDescriptor<MessageID>;
 
 export default createRule<[], MessageID>({
   meta: {
@@ -35,6 +33,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
+  type Descriptor = ReportDescriptor<MessageID> & { node: TSESTreeJSXElementLike };
+
   let inChildrenToArray = false;
 
   function check(node: TSESTree.Node): Descriptor | null {

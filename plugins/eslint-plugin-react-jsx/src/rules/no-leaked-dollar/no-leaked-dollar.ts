@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
+import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
 
@@ -37,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>) {
    * Visitor function for JSXElement and JSXFragment nodes
    * @param node The JSXElement or JSXFragment node to be checked
    */
-  const visitorFunction = (node: TSESTree.JSXElement | TSESTree.JSXFragment) => {
+  const visitorFunction = (node: TSESTreeJSXElementLike) => {
     for (const [index, child] of node.children.entries()) {
       if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
       // Ensure the next sibling is a JSXExpressionContainer
