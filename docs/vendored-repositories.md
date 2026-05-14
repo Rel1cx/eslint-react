@@ -124,52 +124,52 @@ The following files were modified to exclude `.repos/` from toolchains, editors,
 
 ### CI / GitHub Actions
 
-| File | Change |
-|------|--------|
-| `.github/workflows/check.yml` | `actions/checkout` — added `sparse-checkout` to exclude `.repos/` |
-| `.github/workflows/test.yml` | `actions/checkout` — added `sparse-checkout` to exclude `.repos/` |
-| `.github/workflows/publish.yml` | `actions/checkout` — added `sparse-checkout` to exclude `.repos/` |
+| File                                     | Change                                                                                                  |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `.github/workflows/check.yml`            | `actions/checkout` — added `sparse-checkout` to exclude `.repos/`                                       |
+| `.github/workflows/test.yml`             | `actions/checkout` — added `sparse-checkout` to exclude `.repos/`                                       |
+| `.github/workflows/publish.yml`          | `actions/checkout` — added `sparse-checkout` to exclude `.repos/`                                       |
 | `.github/workflows/check-provenance.yml` | `actions/checkout` — added `sparse-checkout` to exclude `.repos/` (on top of existing `fetch-depth: 0`) |
 
 ### Git Ignore
 
-| File | Change |
-|------|--------|
-| `.gitignore` | Added `.repos/` |
+| File                       | Change          |
+| -------------------------- | --------------- |
+| `.gitignore`               | Added `.repos/` |
 | `.pkgs/configs/.gitignore` | Added `.repos/` |
 
 ### TypeScript
 
-| File | Change |
-|------|--------|
+| File            | Change                                                                |
+| --------------- | --------------------------------------------------------------------- |
 | `tsconfig.json` | `exclude` — added `".*"` (matches `.repos` and other dot-directories) |
 
 ### Lint & Format
 
-| File | Change |
-|------|--------|
-| `eslint.config.ts` | `buildIgnoreConfig` `extra` array — added `".*/**"` |
-| `dprint.json` | `excludes` — added `.repos/**` |
-| `.pkgs/configs/tsl.config.ts` | `globSync` `ignore` option — added `".repos/**"` |
+| File                          | Change                                              |
+| ----------------------------- | --------------------------------------------------- |
+| `eslint.config.ts`            | `buildIgnoreConfig` `extra` array — added `".*/**"` |
+| `dprint.json`                 | `excludes` — added `.repos/**`                      |
+| `.pkgs/configs/tsl.config.ts` | `globSync` `ignore` option — added `".repos/**"`    |
 
 ### Testing
 
-| File | Change |
-|------|--------|
+| File               | Change                                                        |
+| ------------------ | ------------------------------------------------------------- |
 | `vitest.config.ts` | `test.exclude` — changed from `**/react-main/**` to `".*/**"` |
 
 ### Package Management & Build
 
-| File | Change |
-|------|--------|
-| `.tazerc.json` | `ignorePaths` — added `.repos` |
-| `nx.json` | `namedInputs.default` — added `"!{workspaceRoot}/.repos/**"` |
+| File           | Change                                                                                            |
+| -------------- | ------------------------------------------------------------------------------------------------- |
+| `.tazerc.json` | `ignorePaths` — added `.repos`                                                                    |
+| `nx.json`      | `namedInputs.default` — added `"!{workspaceRoot}/.repos/**"`                                      |
 | `package.json` | `lint:mdx` script — changed from `mdxlint **/*.mdx` to scoped `plugins/**/*.mdx && apps/**/*.mdx` |
 
 ### Editor Settings
 
-| File | Change | Status |
-|------|--------|--------|
+| File                    | Change                                                                    | Status                    |
+| ----------------------- | ------------------------------------------------------------------------- | ------------------------- |
 | `.vscode/settings.json` | Created with `.repos/**` exclusions for search, watcher, and auto-imports | Removed in a later commit |
 
 > **Note:** `.zed/settings.json` was also modified in the same commit, but only to add generic `file_scan_exclusions` (e.g. `.git`, `.DS_Store`). It does **not** contain `.repos`-specific rules.
