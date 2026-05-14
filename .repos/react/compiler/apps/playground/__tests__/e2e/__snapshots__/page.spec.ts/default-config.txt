@@ -1,3 +1,0 @@
-{
-  //compilationMode: "all"
-}
