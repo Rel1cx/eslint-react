@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 24
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@11
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v5.0.0
       - name: Install front-end dependencies
