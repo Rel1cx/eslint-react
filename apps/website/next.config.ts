@@ -39,6 +39,31 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/jsx-no-duplicate-props",
+        destination: "/docs/removed#rules",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/jsx-no-iife",
+        destination: "/docs/unsupported-syntax#rules",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/jsx-no-undef",
+        destination: "/docs/removed#rules",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/jsx-uses-react",
+        destination: "/docs/removed#rules",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/jsx-uses-vars",
+        destination: "/docs/removed#rules",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
         destination: "/docs/rules/set-state-in-effect",
         permanent: true,
