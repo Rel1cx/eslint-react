@@ -168,11 +168,7 @@ The following files were modified to exclude `.repos/` from toolchains, editors,
 
 ### Editor Settings
 
-| File                    | Change                                                                    | Status                    |
-| ----------------------- | ------------------------------------------------------------------------- | ------------------------- |
-| `.vscode/settings.json` | Created with `.repos/**` exclusions for search, watcher, and auto-imports | Removed in a later commit |
-
-> **Note:** `.zed/settings.json` was also modified in the same commit, but only to add generic `file_scan_exclusions` (e.g. `.git`, `.DS_Store`). It does **not** contain `.repos`-specific rules.
+TODO
 
 ---
 
