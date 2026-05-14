@@ -1,5 +1,34 @@
 # Changelog
 
+## v5.7.8 (2026-05-14)
+
+### 🐞 Fixes
+
+- **`react-x/no-missing-key`**: Fixed the rule not detecting `ConditionalExpression`/`LogicalExpression` returned from block-bodied `.map`/`Array.from` callbacks. The rule now reports both branches when both lack a `key`, instead of only the first (#1767, #1766).
+
+### 📝 Documentation
+
+- Added `[NEEDS VERIFICATION]` markers to spec diffs for React Compiler aligned rules.
+- Added Issue Labels Design Doc and migration scripts.
+- Added a `Hint` component to the website and used it on the home page.
+
+### 🏗️ Internal
+
+- Bumped `@effect/language-service` to 0.86.0.
+- Bumped `dompurify` to 3.4.3.
+- Bumped `fumadocs-mdx` to 15.0.4 and related dependencies.
+- Bumped `pnpm` from 11.1.0 to 11.1.1.
+- Enabled caching for Nx targets.
+- Removed `experimental.useFlatConfig` from Zed settings.
+- Removed two dprint plugins from `dprint.json`.
+- Updated Sentrux baseline metrics.
+
+## New Contributors
+
+- @lixiaoyan made their first contribution in https://github.com/Rel1cx/eslint-react/pull/1767
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.7...v5.7.8
+
 ## v5.7.7 (2026-05-12)
 
 ### 🐞 Fixes
