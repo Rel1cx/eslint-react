@@ -27,7 +27,7 @@ const DEVTOOLS: readonly DevToolRequirement[] = [
     command: "pnpm",
     args: ["--version"],
     versionPattern: /(\S+)/,
-    requiredVersion: "10.33.2",
+    requiredVersion: "11.1.1",
   },
   {
     name: "sentrux",
