@@ -15,6 +15,7 @@ export const projects = [
   { owner: "langgenius", repo: "dify" },
   { owner: "laravel", repo: "echo" },
   { owner: "letstri", repo: "permix" },
+  { owner: "logancyang", repo: "obsidian-copilot" },
   { owner: "marigold-ui", repo: "marigold" },
   { owner: "mcp-use", repo: "mcp-use" },
   { owner: "mikotoIO", repo: "mikoto" },
