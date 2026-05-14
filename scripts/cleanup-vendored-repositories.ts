@@ -126,19 +126,25 @@ const FILE_PATTERNS_TO_REMOVE = [
 
 interface CleanupTarget {
   readonly type: "dir" | "file";
-  readonly relativePath: string;
   readonly fullPath: string;
+  readonly relativePath: string;
   readonly size: number;
 }
 
-/** Check whether a relative path sits inside any directory that will be removed. */
+/**
+ * Check whether a relative path sits inside any directory that will be removed.
+ * @param relativePath - The path relative to the vendored root to check.
+ */
 function isUnderRemovedDir(relativePath: string): boolean {
   return DIRECTORIES_TO_REMOVE.some(
     (dir) => relativePath === dir || relativePath.startsWith(`${dir}/`),
   );
 }
 
-/** Recursively calculate the total byte size of a file or directory. */
+/**
+ * Recursively calculate the total byte size of a file or directory.
+ * @param targetPath - The absolute path to the file or directory.
+ */
 function getSizeSync(targetPath: string): number {
   const stat = NodeFs.statSync(targetPath, { throwIfNoEntry: false });
   if (stat == null) return 0;
