@@ -23,6 +23,11 @@ jobs:
         run: npm install -g pnpm@11
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v5.0.0
+        with:
+          sparse-checkout: |
+            /*
+            !.repos/
+          sparse-checkout-cone-mode: false
       - name: Install front-end dependencies
         run: pnpm install
       - name: Build front-end assets

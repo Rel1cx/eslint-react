@@ -9,7 +9,7 @@ import {
 
 export default defineConfig({
   ignore: [
-    ...globSync(["**/*.d.ts", "**/dist/**", "**/build/**"], { ignore: ["**/node_modules/**"] }),
+    ...globSync(["**/*.d.ts", "**/dist/**", "**/build/**"], { ignore: ["**/node_modules/**", ".repos/**"] }),
   ],
   rules: [
     ...core.all(),
