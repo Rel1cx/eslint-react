@@ -49,17 +49,19 @@ export function create(context: RuleContext<MessageID, []>) {
     return null;
   }
 
-  function checkExpr(node: TSESTree.Expression): Descriptor | null {
+  function checkExpr(node: TSESTree.Expression): Descriptor[] {
     switch (node.type) {
       case AST.ConditionalExpression:
-        return check(node.consequent) ?? check(node.alternate);
+        return [...checkExpr(node.consequent), ...checkExpr(node.alternate)];
       case AST.LogicalExpression:
-        return check(node.left) ?? check(node.right);
+        return [...checkExpr(node.left), ...checkExpr(node.right)];
       case AST.JSXElement:
-      case AST.JSXFragment:
-        return check(node);
+      case AST.JSXFragment: {
+        const desc = check(node);
+        return desc == null ? [] : [desc];
+      }
       default:
-        return null;
+        return [];
     }
   }
 
@@ -67,9 +69,7 @@ export function create(context: RuleContext<MessageID, []>) {
     const descriptors: Descriptor[] = [];
     for (const stmt of getNestedReturnStatements(node)) {
       if (stmt.argument == null) continue;
-      const desc = check(stmt.argument);
-      if (desc == null) continue;
-      descriptors.push(desc);
+      descriptors.push(...checkExpr(stmt.argument));
     }
     return descriptors;
   }
@@ -100,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (cb.body.type === AST.BlockStatement) {
           checkBlock(cb.body).forEach(report(context));
         } else {
-          report(context)(checkExpr(cb.body));
+          checkExpr(cb.body).forEach(report(context));
         }
       },
       "CallExpression:exit"(node) {

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed `no-missing-key` not detecting `ConditionalExpression`/`LogicalExpression` returned from block-bodied `.map`/`Array.from` callbacks. Closes #1766.
+- `no-missing-key` now reports both branches of a `ConditionalExpression`/`LogicalExpression` when both lack a `key`, instead of only the first.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

@@ -42,6 +42,26 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
+      code: tsx`[1, 2 ,3].map(x => { return x && <App x={x} /> });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '[1, 2 ,3].map(x => { return x ? <App x={x} key="1" /> : <OtherApp x={x} /> });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '[1, 2 ,3].map(x => { return x ? <App x={x} /> : <OtherApp x={x} key="2" /> });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`[1, 2 ,3].map(x => { return x ? <App /> : <OtherApp /> });`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      code: tsx`[1, 2 ,3].map(x => x ? <App /> : <OtherApp />);`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
       code: tsx`Array.from([1, 2 ,3], function(x) { return <App /> });`,
       errors: [{ messageId: "default" }],
     },
@@ -241,6 +261,8 @@ ruleTester.run(RULE_NAME, rule, {
     "[1, 2 ,3].map(x => x && <App x={x} key={x} />);",
     '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} key="2" />);',
     "[1, 2, 3].map(x => { return <App key={x} /> });",
+    "[1, 2 ,3].map(x => { return x && <App x={x} key={x} /> });",
+    '[1, 2 ,3].map(x => { return x ? <App x={x} key="1" /> : <OtherApp x={x} key="2" /> });',
     "Array.from([1, 2, 3], function(x) { return <App key={x} /> });",
     "Array.from([1, 2, 3], (x => <App key={x} />));",
     "Array.from([1, 2, 3], (x => {return <App key={x} />}));",
