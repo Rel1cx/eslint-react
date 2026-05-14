@@ -3,7 +3,7 @@ import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
 import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
-import * as Arr from "effect/Array";
+
 import * as Effect from "effect/Effect";
 import * as NodeFs from "node:fs";
 import * as NodePath from "node:path";
@@ -218,7 +218,7 @@ const program = Effect.gen(function*() {
     return;
   }
 
-  const sorted = Arr.sort(targets, (a, b) => b.size - a.size);
+  const sorted = targets.toSorted((a, b) => b.size - a.size);
   const totalSize = sorted.reduce((sum, t) => sum + t.size, 0);
   const totalDirs = sorted.filter((t) => t.type === "dir").length;
   const totalFiles = sorted.filter((t) => t.type === "file").length;
