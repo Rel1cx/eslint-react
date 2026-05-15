@@ -100,6 +100,28 @@ function pullSubtree(repo: VendoredRepo) {
       ),
     );
     if (pullResult !== 0) {
+      // Check for unresolved merge conflicts
+      const conflictFiles = yield* ce.string(
+        Command.make("git", "diff", "--name-only", "--diff-filter=U"),
+      );
+      if (conflictFiles.trim().length > 0) {
+        yield* Effect.log(
+          ansis.yellow(`  ⚠️  Merge conflicts detected. Resolving with -X theirs strategy...`),
+        );
+        // Accept all upstream (theirs) changes for the subtree
+        yield* ce.exitCode(Command.make("git", "checkout", "--theirs", "--", repo.prefix));
+        yield* ce.exitCode(Command.make("git", "add", "--", repo.prefix));
+        // Complete the merge
+        const commitResult = yield* ce.exitCode(
+          Command.make("git", "commit", "-m", `Merge subtree update for ${repo.prefix}`),
+        );
+        if (commitResult !== 0) {
+          yield* Effect.log(ansis.red(`  ✗ Failed to commit merge resolution`));
+          return false;
+        }
+        yield* Effect.log(ansis.green("  ✓ Subtree updated (conflicts auto-resolved with -X theirs)"));
+        return true;
+      }
       yield* Effect.log(ansis.red(`  ✗ git subtree pull failed with exit code ${pullResult}`));
       return false;
     }
