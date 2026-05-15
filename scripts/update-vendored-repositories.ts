@@ -5,7 +5,6 @@ import * as CommandExecutor from "@effect/platform/CommandExecutor";
 import * as FileSystem from "@effect/platform/FileSystem";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-import * as Str from "effect/String";
 
 /**
  * Update script for vendored repositories under `.repos/`.
@@ -37,9 +36,9 @@ function checkWorkingTreeClean() {
 
 interface VendoredRepo {
   readonly name: string;
+  readonly branch: string;
   readonly prefix: string;
   readonly url: string;
-  readonly branch: string;
 }
 
 const REPOSITORIES: readonly VendoredRepo[] = [
