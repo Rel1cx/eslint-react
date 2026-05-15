@@ -2,6 +2,31 @@
 title: Changelog
 ---
 
+## v5.7.9 (2026-05-16)
+
+### 🐞 Fixes
+
+- **`react-x/no-leaked-conditional-rendering`**, **`react-x/set-state-in-effect`**: Added cycle detection to prevent stack overflow in recursive function analysis (#1769).
+
+### 📝 Documentation
+
+- Added `third-party-plugins.mdx` documentation page.
+- Added spec diff and compiler test fixtures for `react-x/globals` rule.
+- Updated ESLint Stylistic link to rules anchor.
+- Updated community projects (added Obsidian Copilot).
+- Added redirects and simplified removed docs page.
+
+### 🏗️ Internal
+
+- **`react-x/error-boundaries`**: Simplified `getEnclosingTryBlock` implementation.
+- Added `minimumReleaseAge` and `minimumReleaseAgeExclude` entries to `pnpm-workspace.yaml`.
+- Bumped `fumadocs-core` and `fumadocs-ui` to 16.8.11.
+- Marked `.repos` as `linguist-vendored` to exclude from GitHub language stats.
+- Pinned pnpm to v11 in CI and adjusted install hooks.
+- Vendored `facebook/react` as git subtree under `.repos`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.8...v5.7.9
+
 ## v5.7.8 (2026-05-14)
 
 ### 🐞 Fixes
