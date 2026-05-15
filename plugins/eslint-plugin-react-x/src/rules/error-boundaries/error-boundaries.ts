@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse, is } from "@eslint-react/ast";
+import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -31,18 +31,26 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+/**
+ * Finds the nearest TryStatement whose `try` block (not catch/finally)
+ * encloses the given node.
+ * @param node The node to check.
+ * @returns The enclosing TryStatement, or null if none is found.
+ */
 function getEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null {
-  const tryStmt = Traverse.findParent(node, is(AST.TryStatement));
-  if (tryStmt == null) return null;
-
-  // Check if the node is inside the try block rather than catch/finally.
-  // Traverse.findParent is called again to distinguish try/catch/finally
-  // descendants within nested try statements.
-  const inTryBlock = Traverse.findParent(node, (n) => n === tryStmt.block);
-  if (inTryBlock != null) return tryStmt;
-
-  // Node is in catch or finally, look for an outer try
-  return getEnclosingTryBlock(tryStmt);
+  let current = node.parent;
+  while (current != null) {
+    if (current.type === AST.TryStatement) {
+      let n: TSESTree.Node | null | undefined = node;
+      while (n != null && n !== current) {
+        if (n === current.block) return current;
+        n = n.parent;
+      }
+    }
+    if (current.type === "Program") return null;
+    current = current.parent;
+  }
+  return null;
 }
 
 export function create(context: RuleContext<MessageID, []>) {
