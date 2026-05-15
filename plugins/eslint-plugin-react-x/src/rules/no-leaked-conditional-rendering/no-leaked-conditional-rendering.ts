@@ -76,12 +76,13 @@ export function create(context: RuleContext<MessageID, []>) {
       | null
       | TSESTree.JSXExpressionContainer
       | TSESTree.JSXExpressionContainer["expression"],
+    visited = new Set<string>(),
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression);
+    if (is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, visited);
     if (Check.isJSX(node)) return null;
-    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression);
+    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression, visited);
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -90,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // If the left side is a negation, it's always a boolean, which is safe
         // Recursively check the right side
         if (left.type === AST.UnaryExpression && left.operator === "!") {
-          return getReportDescriptor(right);
+          return getReportDescriptor(right, visited);
         }
 
         const initialScope = context.sourceCode.getScope(left);
@@ -113,7 +114,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
         // If the left side is valid, the expression is safe. Recursively check the right side
         if (isLeftValid) {
-          return getReportDescriptor(right);
+          return getReportDescriptor(right, visited);
         }
 
         // If the left side is not valid, report an error
@@ -125,14 +126,19 @@ export function create(context: RuleContext<MessageID, []>) {
       })
       // Handle ternary expressions. Recursively check both branches
       .with({ type: AST.ConditionalExpression }, ({ alternate, consequent }) => {
-        return getReportDescriptor(consequent) ?? getReportDescriptor(alternate);
+        return getReportDescriptor(consequent, visited) ?? getReportDescriptor(alternate, visited);
       })
       // Handle identifiers. Try to find their definition and check the initial value
       .with({ type: AST.Identifier }, (n) => {
+        if (visited.has(n.name)) return null;
+        visited.add(n.name);
         const variable = findVariable(context.sourceCode.getScope(n), n.name);
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
-          .with({ init: P.select({ type: P.not(AST.VariableDeclaration) }) }, getReportDescriptor)
+          .with(
+            { init: P.select({ type: P.not(AST.VariableDeclaration) }) },
+            (init) => getReportDescriptor(init, visited),
+          )
           .otherwise(() => null);
       })
       // For all other node types, assume they are safe
