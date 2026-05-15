@@ -20,6 +20,21 @@ import * as Str from "effect/String";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
+function checkWorkingTreeClean() {
+  return Effect.gen(function*() {
+    const ce = yield* CommandExecutor.CommandExecutor;
+    const exitCode = yield* ce.exitCode(
+      Command.make("git", "diff-index", "--quiet", "HEAD", "--"),
+    );
+    if (exitCode !== 0) {
+      yield* Effect.log(
+        ansis.red("✗ Working tree has modifications. Commit or stash them before updating subtrees."),
+      );
+      return yield* Effect.fail(new Error("Dirty working tree"));
+    }
+  });
+}
+
 interface VendoredRepo {
   readonly name: string;
   readonly prefix: string;
@@ -123,6 +138,8 @@ const program = Effect.gen(function*() {
     yield* Effect.log(ansis.yellow("No vendored repositories configured."));
     return;
   }
+
+  yield* checkWorkingTreeClean();
 
   yield* Effect.log(
     ansis.bold(`Updating ${REPOSITORIES.length} vendored repository(s)...`),
