@@ -51,6 +51,7 @@
     "test": "vitest run --logHeapUsage",
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
     "update:readme": "vite-node ./scripts/update-readme.ts",
+    "update:vendored": "vite-node ./scripts/update-vendored-repositories.ts",
     "update:version": "vite-node ./scripts/update-version.ts",
     "update:website": "vite-node ./scripts/update-website.ts",
     "verify:configs": "vite-node -c vitest.config.ts ./scripts/verify-configs.ts",
