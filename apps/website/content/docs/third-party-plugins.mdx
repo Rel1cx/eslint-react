@@ -18,7 +18,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 <GitHubRepoGrid repos={plugins.jsxStylistic} />
 
-**[ESLint Stylistic](https://eslint.style)** (`@stylistic/eslint-plugin`) provides **19 JSX-specific rules**, including:
+**[ESLint Stylistic](https://eslint.style/rules?filter=jsx)** (`@stylistic/eslint-plugin`) provides **19 JSX-specific rules**, including:
 
 | Rule                                                                                              | Description                                              |
 | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -35,8 +35,6 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 | [`jsx-self-closing-comp`](https://eslint.style/rules/default/jsx-self-closing-comp)               | Require self-closing for components without children     |
 | [`jsx-tag-spacing`](https://eslint.style/rules/default/jsx-tag-spacing)                           | Enforce whitespace around JSX tags                       |
 | [`jsx-wrap-multilines`](https://eslint.style/rules/default/jsx-wrap-multilines)                   | Require parentheses around multiline JSX                 |
-
-**Why not in ESLint React?** ESLint React focuses on semantic correctness and React-specific best practices. Stylistic concerns (indentation, spacing, line breaks) are orthogonal and better handled by a dedicated stylistic plugin or a formatter like Prettier.
 
 ### JSX Accessibility
 
@@ -63,17 +61,15 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 **[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that your components can be safely updated with Fast Refresh (hot reloading).
 
-| Rule                                                                                                                                  | Description                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [`only-export-components`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh/blob/main/docs/rules/only-export-components.md) | Ensures files only export React components to avoid Fast Refresh boundaries breaking |
+| Rule                                                                                                   | Description                                                                          |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| [`only-export-components`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh/tree/main#usage) | Ensures files only export React components to avoid Fast Refresh boundaries breaking |
 
 **Key features**:
 
 - Single, focused rule that catches common Fast Refresh pitfalls
 - Built-in presets for **Vite** (`allowConstantExport`) and **Next.js** (allows exports like `revalidate` and `fetchCache`)
 - Configurable options for custom HOCs (`extraHOCs`) and framework-specific exports (`allowExportNames`)
-
-**Why not in ESLint React?** Fast Refresh is a bundler integration concern, not a React core pattern. The rule relies on naming conventions and bundler-specific behavior that are better maintained by a dedicated plugin.
 
 ### React Import Style
 
@@ -89,9 +85,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ---
 
-## Why These Plugins?
-
-ESLint React focuses on **core React patterns, JSX semantics, DOM safety, Web APIs, and the most basic naming conventions**. We intentionally avoid stylistic and accessibility rules that are better handled by specialized community plugins.
+## Summary of Scope and Relationship
 
 | Plugin                        | Scope                                                           | Relationship with ESLint React                                                              |
 | ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |

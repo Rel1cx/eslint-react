@@ -1,15 +1,3 @@
-import * as NodeContext from "@effect/platform-node/NodeContext";
-import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as FileSystem from "@effect/platform/FileSystem";
-import * as Path from "@effect/platform/Path";
-import ansis from "ansis";
-
-import * as Effect from "effect/Effect";
-import * as NodeFs from "node:fs";
-import * as NodePath from "node:path";
-
-import { glob } from "./lib/glob";
-
 /**
  * Cleanup script for vendored repositories under `.repos/`.
  *
@@ -22,9 +10,21 @@ import { glob } from "./lib/glob";
  * re-run this script after updating the vendored repository.
  *
  * Usage:
- *   vite-node ./scripts/cleanup-vendored-repositories.ts        # perform cleanup
+ *   vite-node ./scripts/cleanup-vendored-repositories.ts            # perform cleanup
  *   vite-node ./scripts/cleanup-vendored-repositories.ts --dry-run  # preview only
  */
+
+import * as NodeContext from "@effect/platform-node/NodeContext";
+import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
+import * as FileSystem from "@effect/platform/FileSystem";
+import * as Path from "@effect/platform/Path";
+import ansis from "ansis";
+
+import * as Effect from "effect/Effect";
+import * as NodeFs from "node:fs";
+import * as NodePath from "node:path";
+
+import { glob } from "./lib/glob";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 
