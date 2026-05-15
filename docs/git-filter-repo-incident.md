@@ -10,9 +10,9 @@ On 2026-05-15 we attempted to reduce the `.git` repository size by removing the 
 
 We had recently vendored `facebook/react` into the monorepo under `.repos/react` using `git subtree add --squash`.
 
-- **`.git` size before vendoring:** ~170 MB  
-- **`.git` size after vendoring:** ~228 MB  
-- **`.repos/react` working tree:** ~31 MB (after cleanup)  
+- **`.git` size before vendoring:** ~170 MB
+- **`.git` size after vendoring:** ~228 MB
+- **`.repos/react` working tree:** ~31 MB (after cleanup)
 
 To reclaim the ~55 MB of blob objects introduced by the squash commit, we decided to run `git filter-repo --path .repos --invert-paths` on `main`, followed by re-adding the subtree and running cleanup again.
 
@@ -81,8 +81,7 @@ gh api repos/Rel1cx/eslint-react/events \
 Output:
 
 ```json
-{"before":"178e681729f80156f062e6a18fb51a194ce9c9ae",
- "head":"0af8529952ce150d2ec9cf61085b88be1b742afa"}
+{ "before": "178e681729f80156f062e6a18fb51a194ce9c9ae", "head": "0af8529952ce150d2ec9cf61085b88be1b742afa" }
 ```
 
 ### Step 2 — Verify the old commit still existed locally
@@ -109,11 +108,11 @@ git push --force --progress origin main
 
 ### Step 4 — Verify restoration
 
-| Metric | After `filter-repo` | After rollback |
-|--------|--------------------|----------------|
-| Unsigned violations | **7,032** | **30** (pre-existing) |
-| `.git` size | 62 MB | 70 MB |
-| Signature chain | Broken | Restored |
+| Metric              | After `filter-repo` | After rollback        |
+| ------------------- | ------------------- | --------------------- |
+| Unsigned violations | **7,032**           | **30** (pre-existing) |
+| `.git` size         | 62 MB               | 70 MB                 |
+| Signature chain     | Broken              | Restored              |
 
 ---
 
@@ -131,12 +130,12 @@ git push --force --progress origin main
 
 ## Safer Alternatives for Managing Vendored Code Size
 
-| Approach | Impact on `.git` | Impact on signatures | Complexity |
-|----------|-----------------|----------------------|------------|
-| **Accept the bloat** | None | None | Zero |
-| **Vendored branch** (`vendor/react`) | `main` stays lean | `main` signatures preserved | Medium |
-| **Sparse-checkout in CI** | `main` stays lean | `main` signatures preserved | Low |
-| **`git filter-repo` on `main`** | Shrinks `.git` | **Destroys signatures** | High risk |
+| Approach                             | Impact on `.git`  | Impact on signatures        | Complexity |
+| ------------------------------------ | ----------------- | --------------------------- | ---------- |
+| **Accept the bloat**                 | None              | None                        | Zero       |
+| **Vendored branch** (`vendor/react`) | `main` stays lean | `main` signatures preserved | Medium     |
+| **Sparse-checkout in CI**            | `main` stays lean | `main` signatures preserved | Low        |
+| **`git filter-repo` on `main`**      | Shrinks `.git`    | **Destroys signatures**     | High risk  |
 
 ### Recommended: Vendored Branch Strategy
 
@@ -166,4 +165,4 @@ git push --force origin main
 
 ---
 
-*Report compiled 2026-05-15. If you have questions about vendoring strategy or Git history rewriting, discuss in #internals before executing any destructive commands on `main`.*
+_Report compiled 2026-05-15. If you have questions about vendoring strategy or Git history rewriting, discuss in #internals before executing any destructive commands on `main`._
