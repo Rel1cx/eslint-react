@@ -6,6 +6,7 @@
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
+      "!{workspaceRoot}/.repos/**",
       "sharedGlobals"
     ],
     "sharedGlobals": [

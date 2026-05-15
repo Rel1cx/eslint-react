@@ -6,5 +6,5 @@
   "update": true,
   "recursive": true,
   "includeLocked": true,
-  "ignorePaths": ["test"]
+  "ignorePaths": [".repos", "test"]
 }

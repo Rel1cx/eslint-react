@@ -50,5 +50,5 @@ stats.html
 *.tgz
 eslint-results.sarif
 
-# facebook/react local clone
-/test/fixtures/react-*
+# vendored subtrees
+.repos/
