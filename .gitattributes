@@ -1,2 +1,4 @@
 * text=auto eol=lf
+*.md linguist-documentation
+*.mdx linguist-documentation
 .repos/** linguist-vendored

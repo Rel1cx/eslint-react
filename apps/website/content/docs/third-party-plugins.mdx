@@ -1,0 +1,103 @@
+---
+title: Third-Party Plugins
+description: "High-quality third-party React ESLint plugins that complement ESLint React"
+full: true
+---
+
+import { GitHubRepoGrid } from "@/components/GitHubRepoGrid";
+import { plugins } from "./third-party-plugins.tsx";
+import { InlineTOC } from "fumadocs-ui/components/inline-toc";
+
+<InlineTOC items={toc}>Table of Contents</InlineTOC>
+
+## Recommended Third-Party Plugins
+
+The following plugins cover areas not currently addressed by ESLint React and are recommended for specific use cases.
+
+### JSX Stylistic
+
+<GitHubRepoGrid repos={plugins.jsxStylistic} />
+
+**[ESLint Stylistic](https://eslint.style)** (`@stylistic/eslint-plugin`) is the de facto standard for enforcing JSX formatting through ESLint. It provides **19 JSX-specific rules**, including:
+
+| Rule                                                                                              | Description                                              |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| [`jsx-closing-bracket-location`](https://eslint.style/rules/default/jsx-closing-bracket-location) | Enforce closing bracket location in JSX                  |
+| [`jsx-closing-tag-location`](https://eslint.style/rules/default/jsx-closing-tag-location)         | Enforce closing tag location for multiline JSX           |
+| [`jsx-curly-brace-presence`](https://eslint.style/rules/default/jsx-curly-brace-presence)         | Disallow unnecessary curly braces around string literals |
+| [`jsx-curly-spacing`](https://eslint.style/rules/default/jsx-curly-spacing)                       | Enforce or disallow spaces inside JSX curly braces       |
+| [`jsx-equals-spacing`](https://eslint.style/rules/default/jsx-equals-spacing)                     | Enforce or disallow spaces around `=` in JSX attributes  |
+| [`jsx-first-prop-new-line`](https://eslint.style/rules/default/jsx-first-prop-new-line)           | Enforce first prop position in multiline JSX             |
+| [`jsx-indent-props`](https://eslint.style/rules/default/jsx-indent-props)                         | Enforce props indentation                                |
+| [`jsx-max-props-per-line`](https://eslint.style/rules/default/jsx-max-props-per-line)             | Limit props per line                                     |
+| [`jsx-pascal-case`](https://eslint.style/rules/default/jsx-pascal-case)                           | Enforce PascalCase for user-defined components           |
+| [`jsx-quotes`](https://eslint.style/rules/default/jsx-quotes)                                     | Enforce single or double quotes in JSX attributes        |
+| [`jsx-self-closing-comp`](https://eslint.style/rules/default/jsx-self-closing-comp)               | Require self-closing for components without children     |
+| [`jsx-tag-spacing`](https://eslint.style/rules/default/jsx-tag-spacing)                           | Enforce whitespace around JSX tags                       |
+| [`jsx-wrap-multilines`](https://eslint.style/rules/default/jsx-wrap-multilines)                   | Require parentheses around multiline JSX                 |
+
+**Why not in ESLint React?** ESLint React focuses on semantic correctness and React-specific best practices. Stylistic concerns (indentation, spacing, line breaks) are orthogonal and better handled by a dedicated stylistic plugin or a formatter like Prettier.
+
+### JSX Accessibility
+
+<GitHubRepoGrid repos={plugins.a11y} />
+
+**[`eslint-plugin-jsx-a11y-x`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x)** by [es-tooling](https://github.com/es-tooling) is a static AST checker for accessibility rules on JSX elements. It is a modern, actively maintained alternative to the classic `eslint-plugin-jsx-a11y`, with first-class support for ESLint Flat Config.
+
+| Rule                                                                                                                                              | Description                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`alt-text`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/alt-text.md)                                             | Enforce meaningful alternative text on images                        |
+| [`anchor-is-valid`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/anchor-is-valid.md)                               | Enforce all anchors are valid, navigable elements                    |
+| [`aria-props`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-props.md)                                         | Enforce all `aria-*` props are valid                                 |
+| [`aria-role`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/aria-role.md)                                           | Enforce valid, non-abstract ARIA roles                               |
+| [`click-events-have-key-events`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/click-events-have-key-events.md)     | Enforce clickable elements have keyboard event listeners             |
+| [`interactive-supports-focus`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/interactive-supports-focus.md)         | Enforce interactive handlers are on focusable elements               |
+| [`label-has-associated-control`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/label-has-associated-control.md)     | Enforce `label` tags have text label and associated control          |
+| [`no-autofocus`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-autofocus.md)                                     | Disallow `autoFocus` prop                                            |
+| [`no-static-element-interactions`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/no-static-element-interactions.md) | Enforce non-interactive visible elements with handlers have a `role` |
+| [`prefer-tag-over-role`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x/blob/main/docs/rules/prefer-tag-over-role.md)                     | Enforce semantic DOM elements over ARIA `role` property              |
+
+### React Refresh
+
+<GitHubRepoGrid repos={plugins.fastRefresh} />
+
+**[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that your components can be safely updated with Fast Refresh (hot reloading).
+
+| Rule                                                                                                                                  | Description                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [`only-export-components`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh/blob/main/docs/rules/only-export-components.md) | Ensures files only export React components to avoid Fast Refresh boundaries breaking |
+
+**Key features**:
+
+- Single, focused rule that catches common Fast Refresh pitfalls
+- Built-in presets for **Vite** (`allowConstantExport`) and **Next.js** (allows exports like `revalidate` and `fetchCache`)
+- Configurable options for custom HOCs (`extraHOCs`) and framework-specific exports (`allowExportNames`)
+
+**Why not in ESLint React?** Fast Refresh is a bundler integration concern, not a React core pattern. The rule relies on naming conventions and bundler-specific behavior that are better maintained by a dedicated plugin.
+
+### React Import Style
+
+<GitHubRepoGrid repos={plugins.importStyle} />
+
+**[`eslint-plugin-react-import`](https://github.com/marcalexiei/eslint-plugin-react-import)** by [@marcalexiei](https://github.com/marcalexiei) enforces consistent React import patterns across your codebase.
+
+| Rule                                                                                                                       | Description                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [`consistent-syntax`](https://github.com/marcalexiei/eslint-plugin-react-import/blob/main/docs/rules/consistent-syntax.md) | Enforces a uniform React import style (namespace, default, or named imports) |
+
+**Use case**: Ideal for teams standardizing on `import * as React from "react"` or any single import convention.
+
+---
+
+## Why These Plugins?
+
+ESLint React focuses on **core React patterns, JSX semantics, DOM safety, Web APIs, and the most basic naming conventions**. We intentionally avoid stylistic and accessibility rules that are better handled by specialized community plugins.
+
+| Plugin                        | Scope                                                           | Relationship with ESLint React                                                              |
+| ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `@stylistic/eslint-plugin`    | JSX & JS stylistic rules (indent, spacing, quotes, line breaks) | Complementary — covers formatting we deliberately exclude                                   |
+| `eslint-plugin-jsx-a11y-x`    | JSX accessibility (ARIA, alt text, focus, semantics)            | Complementary — covers a11y static analysis; pair with `@axe-core/react` for runtime checks |
+| `eslint-plugin-react-import`  | React import syntax consistency                                 | Complementary — covers module conventions not in core                                       |
+| `eslint-plugin-react-refresh` | Fast Refresh / HMR compatibility                                | Complementary — covers bundler integration concerns outside React core patterns             |
+
+If you maintain or know of a plugin that should be listed here, feel free to [open an issue](https://github.com/Rel1cx/eslint-react/issues/new).
