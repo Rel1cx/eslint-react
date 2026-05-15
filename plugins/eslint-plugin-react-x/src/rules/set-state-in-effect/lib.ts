@@ -152,7 +152,14 @@ export function isHookDecl(node: TSESTree.Node): node is
   }
 }
 
-export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope): boolean {
+export function isInitializedFromRef(
+  context: RuleContext,
+  name: string,
+  initialScope: Scope,
+  visited = new Set<string>(),
+): boolean {
+  if (visited.has(name)) return false;
+  visited.add(name);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
@@ -170,7 +177,7 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
       // const { foo } = ref.current.getBoundingClientRect();
       case init.type === AST.CallExpression:
         return getNestedIdentifiers(init).some((id) =>
-          isInitializedFromRef(context, id.name, context.sourceCode.getScope(id))
+          isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), visited)
         );
     }
   }
