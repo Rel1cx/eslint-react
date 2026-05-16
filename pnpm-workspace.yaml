@@ -65,3 +65,4 @@ minimumReleaseAgeExclude:
   - fumadocs-twoslash
   - fumadocs-typescript
   - fumadocs-ui
+  - import-integrity-lint

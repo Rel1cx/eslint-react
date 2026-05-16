@@ -1,10 +1,10 @@
 import react from "@eslint-react/eslint-plugin";
 import { includeIgnoreFile } from "@eslint/compat";
 import { disableTypeChecked, strictTypeChecked } from "@local/configs/eslint";
-import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
+import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
 import tseslint from "typescript-eslint";
 import TSCONFIG from "./tsconfig.json" with { type: "json" };
@@ -28,16 +28,19 @@ export default defineConfig(
   {
     extends: [
       strictTypeChecked,
-      // @ts-expect-error - types issue
-      fastImportRecommended({ rootDir: import.meta.dirname }),
+      importIntegrityPlugin.configs.recommended,
     ],
     files: GLOB_TS,
     rules: {
       "no-restricted-syntax": "off",
-      "fast-import/consistent-file-extensions": "off",
-      "fast-import/no-unresolved-imports": "off",
-      "fast-import/no-unused-exports": "off",
-      "fast-import/prefer-alias-imports": "off",
+      "import-integrity/no-unresolved-imports": "off",
+      "import-integrity/no-unused-exports": "off",
+      "import-integrity/prefer-alias-imports": "off",
+    },
+    settings: {
+      "import-integrity": {
+        packageRootDir: import.meta.dirname,
+      },
     },
   },
   {

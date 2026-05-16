@@ -8,9 +8,9 @@ import {
   disableTypeChecked,
   strictTypeChecked,
 } from "@local/configs/eslint";
-import { recommended as fastImportRecommended } from "eslint-plugin-fast-import";
 import packageJson from "eslint-plugin-package-json";
 import { defineConfig } from "eslint/config";
+import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
 import tseslint from "typescript-eslint";
 
@@ -37,8 +37,8 @@ export default defineConfig(
   {
     extends: [
       strictTypeChecked,
-      // @ts-expect-error - types issue
-      fastImportRecommended({ rootDir: import.meta.dirname }),
+      // @ts-expect-error - TODO: remove when type issue is resolved
+      importIntegrityPlugin.configs.recommended,
     ],
     files: GLOB_TS,
     languageOptions: {
@@ -49,9 +49,14 @@ export default defineConfig(
       },
     },
     rules: {
-      "fast-import/consistent-file-extensions": ["error", { mode: "never" }],
-      "fast-import/no-unresolved-imports": "off",
-      "fast-import/no-unused-exports": "off",
+      "import-integrity/no-test-only-imports": "off",
+      "import-integrity/no-unresolved-imports": "off",
+      "import-integrity/no-unused-exports": "off",
+    },
+    settings: {
+      "import-integrity": {
+        packageRootDir: import.meta.dirname,
+      },
     },
   },
   // Relaxed config for scripts and config files (no type checking)
