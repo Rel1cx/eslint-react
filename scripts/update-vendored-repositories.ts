@@ -39,6 +39,8 @@ interface VendoredRepo {
   readonly branch: string;
   readonly prefix: string;
   readonly url: string;
+  /** Optional pinned commit SHA to verify after fetch */
+  readonly commit?: string;
 }
 
 const REPOSITORIES: readonly VendoredRepo[] = [
@@ -47,6 +49,7 @@ const REPOSITORIES: readonly VendoredRepo[] = [
     prefix: ".repos/react",
     url: "https://github.com/facebook/react.git",
     branch: "main",
+    commit: "f2bbb2770407b8045b229d7e95f8be44b3c65894",
   },
 ];
 
@@ -83,7 +86,18 @@ function pullSubtree(repo: VendoredRepo) {
       yield* Effect.log(ansis.red(`  ✗ git fetch failed with exit code ${fetchResult}`));
       return false;
     }
-    yield* Effect.log(ansis.green("  ✓ Fetched"));
+    const fetchedCommit = (yield* ce.string(
+      Command.make("git", "rev-parse", "FETCH_HEAD"),
+    )).trim();
+    if (repo.commit && fetchedCommit !== repo.commit) {
+      yield* Effect.log(
+        ansis.red(
+          `  ✗ Fetched commit ${fetchedCommit} does not match pinned commit ${repo.commit}. Update the commit field in the script to intentionally upgrade.`,
+        ),
+      );
+      return false;
+    }
+    yield* Effect.log(ansis.green(`  ✓ Fetched ${fetchedCommit.slice(0, 7)}`));
 
     // 2. Subtree pull
     yield* Effect.log(ansis.gray("  → Pulling subtree..."));
