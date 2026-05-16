@@ -48,7 +48,3 @@ stats.html
 /eslint-config.json
 *.bundled_*.mjs
 *.tgz
-eslint-results.sarif
-
-# facebook/react local clone
-/test/fixtures/react-*

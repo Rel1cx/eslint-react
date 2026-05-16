@@ -391,6 +391,27 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobal" }],
     },
+    // -------------------------------------------------------------------------
+    // Global mutation on globalThis / window via UpdateExpression
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          globalThis.counter++;
+          return <div>{globalThis.counter}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          window.title++;
+          return <div>{window.title}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -805,6 +826,216 @@ ruleTester.run(RULE_NAME, rule, {
             setState(someGlobal.value);
           }, [someGlobal]);
           return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Nested function mutations (IMPL does not detect because enclosing
+    // function is not a component/hook)
+    // -------------------------------------------------------------------------
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global-indirect.js
+    {
+      code: tsx`
+        function Component() {
+          const foo = () => {
+            someUnknownGlobal = true;
+            moduleLocal = true;
+          };
+          foo();
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-global-reassignment-indirect.js
+    {
+      code: tsx`
+        import { useEffect, useState } from "react";
+        let someGlobal = false;
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          const setGlobal = () => {
+            someGlobal = true;
+          };
+          const indirectSetGlobal = () => {
+            setGlobal();
+          };
+          indirectSetGlobal();
+          useEffect(() => {
+            setState(someGlobal);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassign-global-fn-arg.js
+    {
+      code: tsx`
+        let b = 1;
+        function MyApp() {
+          const fn = () => {
+            b = 2;
+          };
+          return foo(fn);
+        }
+        function foo(fn) {}
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassign-global-hook-arg.js
+    {
+      code: tsx`
+        let b = 1;
+        function MyApp() {
+          const fn = () => {
+            b = 2;
+          };
+          return useFoo(fn);
+        }
+        function useFoo(fn) {}
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassign-global-return.js
+    {
+      code: tsx`
+        let b = 1;
+        function useMyHook() {
+          const fn = () => {
+            b = 2;
+          };
+          return fn;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-global-in-render-helper-prop.js
+    {
+      code: tsx`
+        function Component() {
+          const renderItem = item => {
+            global.property = true;
+            return <Item item={item} value={rand} />;
+          };
+          return <ItemList renderItem={renderItem} />;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-global-in-render-helper-phi-return-prop.js
+    {
+      code: tsx`
+        function Component() {
+          const renderItem = item => {
+            if (item == null) {
+              return null;
+            }
+            global.property = true;
+            return <Item item={item} value={rand} />;
+          };
+          return <ItemList renderItem={renderItem} />;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-property-from-global.js
+    {
+      code: tsx`
+        let wat = {};
+        function Foo() {
+          delete wat.foo;
+          return wat;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-destructure-assignment-to-global.js
+    {
+      code: tsx`
+        function useFoo(props) {
+          [x] = props;
+          return { x };
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-destructure-to-local-global-variables.js
+    {
+      code: tsx`
+        function Component(props) {
+          let a;
+          [a, b] = props.value;
+          return [a, b];
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.assign-global-in-jsx-children.js
+    {
+      code: tsx`
+        function Component() {
+          const foo = () => {
+            someGlobal = true;
+          };
+          return <Foo>{foo}</Foo>;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-assigning-to-global-in-function-spread-as-jsx.js
+    {
+      code: tsx`
+        function Component() {
+          const foo = () => {
+            someGlobal = true;
+          };
+          return <div {...foo} />;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler allow-global-reassignment-in-effect-indirect.js
+    {
+      code: tsx`
+        import { useEffect, useState } from "react";
+        let someGlobal = false;
+        function Component() {
+          const [state, setState] = useState(someGlobal);
+          const setGlobal = () => {
+            someGlobal = true;
+          };
+          useEffect(() => {
+            setGlobal();
+          }, []);
+          useEffect(() => {
+            setState(someGlobal);
+          }, [someGlobal]);
+          return <div>{String(state)}</div>;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler const-propagation-into-function-expression-global.js
+    {
+      code: tsx`
+        function foo() {
+          const isX = GLOBAL_IS_X;
+          const getJSX = () => {
+            return <Child x={isX}></Child>;
+          };
+          const result = getJSX();
+          return result;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler destructure-capture-global.js
+    {
+      code: tsx`
+        let someGlobal = {};
+        function component(a) {
+          let x = { a, someGlobal };
+          return x;
+        }
+      `,
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler globals-dont-resolve-local-useState.js
+    {
+      code: tsx`
+        import { useState as _useState, useCallback, useEffect } from "react";
+        function useState(value) {
+          const [state, setState] = _useState(value);
+          return [state, setState];
+        }
+        function Component() {
+          const [state, setState] = useState("hello");
+          return <div onClick={() => setState("goodbye")}>{state}</div>;
         }
       `,
     },

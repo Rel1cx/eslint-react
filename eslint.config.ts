@@ -15,6 +15,7 @@ import path from "node:path";
 import tseslint from "typescript-eslint";
 
 const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
+  ".*/**",
   "apps",
   "docs",
   "test",

@@ -64,7 +64,7 @@ export default function HomePage() {
           project or team, nor is it endorsed or sponsored by them.
 
           <Hint
-            content="10 in every 100 rules are written or ported by LLMs and reviewed by humans; the rest are written or ported by humans and reviewed by LLMs."
+            content="Of every 100 rules, 10 are written or ported by LLMs and reviewed by humans, while 90 are written or ported by humans and reviewed by LLMs."
             label="What does 90% human-written mean?"
           >
             This project is, and will remain, 90% of its code written by humans.

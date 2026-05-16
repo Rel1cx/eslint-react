@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.7.8",
+  "version": "5.7.10-next.0",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -41,7 +41,7 @@
     "lint:arch": "sentrux gate",
     "lint:es": "eslint . --max-warnings 100 --concurrency=auto",
     "lint:examples": "pnpm m -F \"./examples/*\" run lint",
-    "lint:mdx": "mdxlint **/*.mdx -o",
+    "lint:mdx": "mdxlint plugins/**/*.mdx -o && mdxlint apps/**/*.mdx -o",
     "lint:publish": "nx run-many -t lint:publish --parallel",
     "lint:ts": "nx run-many -t lint:ts --parallel",
     "lint:website": "pnpm -F \"./apps/website\" run lint",

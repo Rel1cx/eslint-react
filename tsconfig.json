@@ -29,6 +29,7 @@
     "."
   ],
   "exclude": [
+    ".*",
     "apps",
     "examples",
     "node_modules",
