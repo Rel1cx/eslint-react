@@ -1,6 +1,6 @@
 # Changelog
 
-## v5.7.9 (2026-05-16)
+## v5.7.10 (2026-05-16)
 
 ### 🐞 Fixes
 
@@ -19,11 +19,9 @@
 - **`react-x/error-boundaries`**: Simplified `getEnclosingTryBlock` implementation.
 - Added `minimumReleaseAge` and `minimumReleaseAgeExclude` entries to `pnpm-workspace.yaml`.
 - Bumped `fumadocs-core` and `fumadocs-ui` to 16.8.11.
-- Marked `.repos` as `linguist-vendored` to exclude from GitHub language stats.
 - Pinned pnpm to v11 in CI and adjusted install hooks.
-- Vendored `facebook/react` as git subtree under `.repos`.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.8...v5.7.9
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.8...v5.7.10
 
 ## v5.7.8 (2026-05-14)
 
