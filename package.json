@@ -82,7 +82,7 @@
     "effect": "^3.21.2",
     "eslint": "^10.3.0",
     "eslint-plugin-package-json": "^0.91.2",
-    "import-integrity-lint": "^1.0.0",
+    "import-integrity-lint": "^1.0.1",
     "mdxlint": "^1.0.0",
     "nx": "^22.7.1",
     "preact": "^10.29.1",
