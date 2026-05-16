@@ -20,6 +20,7 @@
 - Added `minimumReleaseAge` and `minimumReleaseAgeExclude` entries to `pnpm-workspace.yaml`.
 - Bumped `fumadocs-core` and `fumadocs-ui` to 16.8.11.
 - Pinned pnpm to v11 in CI and adjusted install hooks.
+- Fixed the git diff noise issue caused by a large number of external repository files introduced by "Vendored `facebook/react` as git subtree under `.repos`" in v5.7.9 (re-released as v5.7.10, closes #1772).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.8...v5.7.10
 
