@@ -5,7 +5,6 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as Fn from "effect/Function";
 import { P, isMatching, match } from "ts-pattern";
-
 import { glob } from "./lib/glob";
 import { ignores } from "./lib/ignores";
 import { version } from "./lib/version";

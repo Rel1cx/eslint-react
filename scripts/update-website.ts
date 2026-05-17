@@ -5,7 +5,6 @@ import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 // import { P, match } from "ts-pattern";
-
 import { glob } from "./lib/glob";
 
 // Collect .mdx files from every sub-plugin's rules directory
