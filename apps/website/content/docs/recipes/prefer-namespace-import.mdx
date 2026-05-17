@@ -11,7 +11,7 @@ The rule respects:
 
 - The configured `importSource` from React settings (e.g., `"@pika/react"`)
 - Type imports (`import type React from 'react'` → `import type * as React from 'react'`)
-- Quote style (single vs double)
+- Quote style (single or double)
 - Semicolon usage style
 
 ## Rule
@@ -85,29 +85,29 @@ export default [
 
 ## Examples
 
-### Invalid
+### Default import from React
 
 ```tsx
-// Default import — will be reported
+// Problem: default import is discouraged.
 import React from 'react';
 //     ^^^^ Prefer importing React as 'import * as React from "react"';
 ```
 
 ```tsx
-// Default import with other specifiers — will be reported
+// Problem: default import is discouraged.
 import React, { useState, useEffect } from 'react';
 //     ^^^^ Prefer importing React as 'import * as React from "react"';
 ```
 
-### Valid
+### Namespace import from React
 
 ```tsx
-// Namespace import — OK
+// Recommended: namespace import is preferred.
 import * as React from 'react';
 ```
 
 ```tsx
-// Named imports only — OK
+// OK: named imports without default import are fine.
 import { useState, useEffect } from 'react';
 ```
 

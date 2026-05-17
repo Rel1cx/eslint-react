@@ -80,7 +80,7 @@ This document defines the issue and pull request label system for `Rel1cx/eslint
 
 **Rationale**
 
-- The previous system had no priority dimension. With 21 open issues and growing, maintainers need a quick way to decide what lands in the next patch vs. the next minor.
+- The previous system had no priority dimension. With 21 open issues and growing, maintainers need a quick way to decide whether an issue belongs in the next patch or the next minor.
 
 ---
 
