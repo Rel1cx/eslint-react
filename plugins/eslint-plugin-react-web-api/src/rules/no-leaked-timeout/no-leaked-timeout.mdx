@@ -29,9 +29,9 @@ react-web-api/no-leaked-timeout
 
 Scheduling a timeout within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setTimeout` callback executions and may also result in stale values captured by previous renders' effects after each subsequent re-render.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Setting timeout without cleanup in useEffect
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -40,6 +40,7 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // Problem: A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
     const timeoutId = setTimeout(() => console.log(count), 1000);
     //                ^^^ A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
   }, []);
@@ -48,7 +49,7 @@ function MyComponent() {
 }
 ```
 
-### Valid
+### Clearing timeout in useEffect cleanup
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -57,7 +58,9 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // Recommended: Store the timeout ID
     const timeoutId = setTimeout(() => console.log(count), 1000);
+    // Recommended: Clear the timeout in the cleanup function
     return () => clearTimeout(timeoutId);
   }, []);
 

@@ -32,49 +32,61 @@ The following cases are **allowed** and will not be reported:
 1. The `children` property originates from React's own type definitions (ex: `React.DOMAttributes.children`, `React.PropsWithChildren.children`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, `React.PropsWithChildren<T>`, or similar React-provided types.
 2. The `children` property's **type** is a React-defined children type alias, such as `React.ReactNode`, `React.ReactElement`, `React.ReactPortal`, or `JSX.Element`, even if the property is declared in a user-defined type.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Implicitly passing children via the spread operator
+
+Spreading an object that contains `children` directly onto a component makes the source of `children` unclear.
 
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; children: string };
 
+// Problem: Implicitly passing children when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
   //          ^^^ This spread attribute implicitly passes the 'children' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'children' prop, use 'children={value}'.
 }
 ```
 
-### Valid
-
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; children: string };
 
+// Recommended: Explicitly destructure and pass children
 function MyComponent() {
   const { children, ...rest } = someValues;
-  //      ^^^ Dropping the 'children' prop from the spread attributes to prevent implicitly passing it to the component.
   return <div {...rest}>{children}</div>;
+  //      ^^^ Dropping the 'children' prop from the spread attributes to prevent implicitly passing it to the component.
 }
 ```
+
+### children type is a React built-in type
+
+When the `children` type is a React built-in children type alias, spreading is allowed.
 
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; children: React.ReactNode };
 
+// OK: children type is React.ReactNode, which is a React built-in type alias
 function MyComponent() {
   return <div {...someValues} data-slot="my-component" />;
   //          ^^^ The 'children' property is typed as React.ReactNode, which is a React-defined type alias. Allowed.
 }
 ```
 
+### Spreading React built-in component props
+
+When spreading props from React built-in types (such as `React.ComponentProps`), the `children` originates from React's type definitions and is allowed.
+
 ```tsx
 import React from "react";
 
+// OK: props come from React.ComponentProps, children originates from React.DOMAttributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
   //                                     ^^^ The 'children' property originates from React.DOMAttributes.children. Allowed.

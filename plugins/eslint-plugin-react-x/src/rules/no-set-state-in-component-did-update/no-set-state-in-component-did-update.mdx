@@ -29,11 +29,12 @@ react-x/no-set-state-in-component-did-update
 
 Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Calling setState directly in componentDidUpdate
 
 ```tsx
+// Problem: Calling setState directly in componentDidUpdate triggers another render and can easily cause infinite loops or layout thrashing
 import React from "react";
 
 interface MyComponentProps {}

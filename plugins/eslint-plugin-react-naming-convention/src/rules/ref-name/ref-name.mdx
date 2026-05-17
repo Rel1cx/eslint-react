@@ -28,40 +28,47 @@ react-naming-convention/ref-name
 
 Enforces identifier names assigned from `useRef` calls to be either `ref` or end with `Ref`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Assigning `useRef` to a variable without the `Ref` suffix
 
 ```tsx
+// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
 const count = useRef(0);
 //    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
 ```tsx
+// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
 const input = useRef<HTMLInputElement>(null);
 //    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
 ```tsx
+// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
 const value = useRef(null);
 //    ^^^ A ref identifier must be named 'ref' or end in 'Ref'.
 ```
 
-### Valid
+### Assigning `useRef` to a properly named variable
 
 ```tsx
+// Recommended: Simple 'ref' name
 const ref = useRef(0);
 ```
 
 ```tsx
+// Recommended: Descriptive name ending with 'Ref'
 const countRef = useRef(0);
 ```
 
 ```tsx
+// Recommended: Descriptive name ending with 'Ref'
 const inputRef = useRef<HTMLInputElement>(null);
 ```
 
 ```tsx
+// Recommended: Descriptive name ending with 'Ref'
 const valueRef = useRef(null);
 ```
 

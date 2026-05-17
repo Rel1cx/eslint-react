@@ -1,4 +1,4 @@
-# error-boundaries IMPL vs. SPEC Report
+# error-boundaries IMPL–SPEC Diff Report
 
 **IMPL**: `error-boundaries.ts` (ESLint rule)\
 **SPEC**: `error-boundaries.spec.md` (React Compiler `ValidateNoJSXInTryStatement`)

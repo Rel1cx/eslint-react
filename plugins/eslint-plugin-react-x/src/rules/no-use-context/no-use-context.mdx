@@ -35,11 +35,14 @@ In React 19, `use` is preferred over `useContext` because it is more flexible.
 
 In addition, enable the [`naming-convention/context-name`](./naming-convention-context-name) rule to enforce consistent naming conventions for contexts.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Still using useContext in React 19
+
+React 19 introduced the more general `use` API, which can replace `useContext` and supports being called in conditional statements and loops. New code should prefer `use`.
 
 ```tsx
+// Problem: use should be preferred over useContext in React 19
 import { useContext } from "react";
 
 function Button() {
@@ -48,9 +51,8 @@ function Button() {
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: use the React 19 use API
 import { use } from "react";
 
 function Button() {

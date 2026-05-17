@@ -27,11 +27,14 @@ react-x/no-duplicate-key
 
 React uses keys to identify elements in an array. If two elements have the same key, React will not be able to distinguish them. This can lead to issues with state and rendering.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Returning sibling elements with duplicate keys in an array
+
+When multiple elements in an array use the same `key`, React cannot distinguish them correctly.
 
 ```tsx
+// Problem: Duplicate keys on sibling elements in an array
 function MyComponent () {
   return [
     <li key="1">Item 1</li>
@@ -42,6 +45,21 @@ function MyComponent () {
 ```
 
 ```tsx
+// Recommended: Assign a unique key to each sibling element
+function MyComponent () {
+  return [
+    <li key="1">Item 1</li>
+    <li key="2">Item 2</li>
+  ]
+};
+```
+
+### Writing sibling elements with duplicate keys in JSX
+
+Sibling elements written directly in JSX with the same key will also cause React identification issues.
+
+```tsx
+// Problem: Duplicate keys on sibling elements in JSX
 function MyComponent() {
   return (
     <ul>
@@ -54,28 +72,7 @@ function MyComponent() {
 ```
 
 ```tsx
-function MyComponent() {
-  return (
-    <ul>
-      {["a", "b"].map((id) => <li key="1">{id}</li>)}
-    </ul>
-  );
-  //                                     ^^^ The 'key' prop must be unique to its sibling elements.
-}
-```
-
-### Valid
-
-```tsx
-function MyComponent () {
-  return [
-    <li key="1">Item 1</li>
-    <li key="2">Item 2</li>
-  ]
-};
-```
-
-```tsx
+// Recommended: Ensure keys are unique among sibling elements
 function MyComponent() {
   return (
     <ul>
@@ -86,7 +83,24 @@ function MyComponent() {
 }
 ```
 
+### Using a fixed key value in a map loop
+
+Using a fixed string as a key in loops like `map` causes every iteration to produce elements with the same key.
+
 ```tsx
+// Problem: All elements in a map loop use the same key
+function MyComponent() {
+  return (
+    <ul>
+      {["a", "b"].map((id) => <li key="1">{id}</li>)}
+      //                                     ^^^ The 'key' prop must be unique to its sibling elements.
+    </ul>
+  );
+}
+```
+
+```tsx
+// Recommended: Use a unique identifier from the data as the key
 function MyComponent() {
   return (
     <ul>

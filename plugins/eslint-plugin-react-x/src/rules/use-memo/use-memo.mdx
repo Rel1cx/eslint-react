@@ -3,13 +3,13 @@ title: use-memo
 description: Validates that 'useMemo' is called with a callback that returns a value.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/use-memo
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/use-memo
@@ -35,25 +35,38 @@ This rule ensures that `useMemo()` callbacks follow React's requirements. It che
 4. Callbacks should return a value (useMemo is for computing values, not side effects)
 5. The result of useMemo should be used (not discarded)
 
-## Common Violations
+## Examples
 
-### Invalid
+### useMemo callback receiving parameters
 
-#### Callback with parameters
+`useMemo` callbacks do not accept any parameters. All required data should be captured via closure.
 
 ```tsx
+// Problem: callback receives parameter c
 import { useMemo } from "react";
 
 function Component({ a, b }) {
   const x = useMemo((c) => a + c, [a]);
-  //                 ^^ Callbacks with parameters are not supported
   return <div>{x}</div>;
 }
 ```
 
-#### Async or generator callback
+```tsx
+// Recommended: use external variables directly via closure
+import { useMemo } from "react";
+
+function Component({ a, b }) {
+  const x = useMemo(() => a + b, [a, b]);
+  return <div>{x}</div>;
+}
+```
+
+### Using async or generator functions in useMemo
+
+`useMemo` is for synchronous value computation and does not support async or generator functions.
 
 ```tsx
+// Problem: using an async callback
 import { useMemo } from "react";
 
 function Component({ a }) {
@@ -65,9 +78,12 @@ function Component({ a }) {
 }
 ```
 
-#### Reassigning outer variables
+### Reassigning external variables in a useMemo callback
+
+`useMemo` callbacks must be pure functions and should not modify variables in the outer scope.
 
 ```tsx
+// Problem: callback reassigns external variable x
 import { useMemo } from "react";
 
 function Component() {
@@ -81,23 +97,50 @@ function Component() {
 }
 ```
 
-#### No return value
+```tsx
+// Recommended: only read external variables, do not modify them
+import { useMemo } from "react";
+
+function Component({ a, b }) {
+  const sum = useMemo(() => a + b, [a, b]);
+  return <div>{sum}</div>;
+}
+```
+
+### useMemo callback without a return value
+
+The purpose of `useMemo` is to cache computed results, so the callback must explicitly return a value.
 
 ```tsx
+// Problem: callback has no return, result is always undefined
 import { useMemo } from "react";
 
 function Component({ data }) {
   const processed = useMemo(() => {
     data.forEach((item) => console.log(item));
-    // Missing return! Callback must return a value.
   }, [data]);
-  return <div>{processed}</div>; // Always undefined
+  return <div>{processed}</div>;
 }
 ```
 
-#### Result not assigned
+```tsx
+// Recommended: return the computed value
+import { useMemo } from "react";
+
+function Component({ data }) {
+  const processed = useMemo(() => {
+    return data.map((item) => item * 2);
+  }, [data]);
+  return <div>{processed}</div>;
+}
+```
+
+### Calling useMemo but not using its return value
+
+If the result of `useMemo` is not assigned or used, caching is pointless.
 
 ```tsx
+// Problem: useMemo return value is discarded
 import { useMemo } from "react";
 
 function Component({ user }) {
@@ -109,11 +152,22 @@ function Component({ user }) {
 }
 ```
 
-### Valid
+```tsx
+// Recommended: assign the result to a variable and use it in JSX
+import { useMemo } from "react";
 
-#### Returns a computed value
+function Component({ items }) {
+  const sorted = useMemo(() => [...items].sort(), [items]);
+  return <div>{sorted.join(", ")}</div>;
+}
+```
+
+### Correctly returning computed values
+
+When the callback correctly returns a synchronous computed value, `useMemo` works as expected.
 
 ```tsx
+// OK: returning a mapped array
 import { useMemo } from "react";
 
 function Component({ data }) {
@@ -124,25 +178,17 @@ function Component({ data }) {
 }
 ```
 
-#### Arrow function with concise body
+### Using concise arrow functions
+
+Using arrow functions with implicit return makes `useMemo` callbacks more concise.
 
 ```tsx
+// OK: concise arrow function directly returns the computed result
 import { useMemo } from "react";
 
 function Component({ items }) {
   const sorted = useMemo(() => [...items].sort(), [items]);
   return <div>{sorted.join(", ")}</div>;
-}
-```
-
-#### Reads outer variables without reassigning
-
-```tsx
-import { useMemo } from "react";
-
-function Component({ a, b }) {
-  const sum = useMemo(() => a + b, [a, b]);
-  return <div>{sum}</div>;
 }
 ```
 

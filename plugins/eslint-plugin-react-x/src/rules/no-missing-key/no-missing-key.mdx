@@ -29,11 +29,12 @@ react-x/no-missing-key
 
 React needs keys to identify items in the list. If you don’t specify a key, React will use the array index as a key, which often leads to subtle and confusing bugs.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Missing key in list rendering
 
 ```tsx
+// Problem: When a key is missing, React uses the array index as the default key, which can lead to state mismatch or performance issues
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }
@@ -47,9 +48,10 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
-### Valid
+### Using a unique key in list rendering
 
 ```tsx
+// Recommended: Provide a stable and unique key for each item in the list to help React correctly track element identity
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }

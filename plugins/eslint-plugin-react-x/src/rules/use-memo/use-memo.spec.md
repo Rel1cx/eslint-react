@@ -208,7 +208,7 @@ function hasNonVoidReturn(func: HIRFunction): boolean {
 
 ## Edge Cases
 
-### React.useMemo vs useMemo
+### React.useMemo and useMemo
 
 The pass handles both import styles:
 

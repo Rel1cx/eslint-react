@@ -23,19 +23,21 @@ react-x/no-missing-context-display-name
 
 Context `displayName` property is used by React DevTools to identify the context in the component tree. Without it, debugging becomes difficult as contexts appear as "Context" or "Context.Provider" without any distinguishing information.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Creating a Context without setting displayName
 
 ```tsx
+// Problem: Different contexts cannot be distinguished in React DevTools, making debugging difficult
 import React from "react";
 
 const MyContext = React.createContext();
 ```
 
-### Valid
+### Creating a Context and adding displayName
 
 ```tsx
+// Recommended: Assign displayName immediately after creating the Context so it can be identified in DevTools
 import React from "react";
 
 const MyContext = React.createContext();

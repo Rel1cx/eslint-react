@@ -33,13 +33,16 @@ react-x/no-component-will-receive-props
 
 This API was renamed from `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using the legacy lifecycle method name in class components
+
+React has renamed `componentWillReceiveProps` to `UNSAFE_componentWillReceiveProps`. The old name will no longer work in future versions.
 
 ```tsx
 import React from "react";
 
+// Problem: Continuing to use the deprecated componentWillReceiveProps
 class MyComponent extends React.Component {
   componentWillReceiveProps() {
     // ...
@@ -47,11 +50,10 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Valid
-
 ```tsx
 import React from "react";
 
+// Recommended: Use UNSAFE_componentWillReceiveProps instead
 class MyComponent extends React.Component {
   UNSAFE_componentWillReceiveProps() {
     // ...

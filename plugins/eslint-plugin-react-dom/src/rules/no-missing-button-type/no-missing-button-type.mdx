@@ -31,20 +31,22 @@ The default `type` of a button is `submit`, which causes the submission of a for
 
 Allowed button types are `submit`, `button`, or `reset`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Rendering a `<button>` without an explicit `type`
+
+A button without a `type` attribute defaults to `submit`, which can unintentionally submit forms.
 
 ```tsx
+// Problem: missing explicit type; defaults to submit.
 function MyComponent() {
   return <button>Click me</button>;
   //     ^^^ Missing 'type' attribute on button component.
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: explicitly declare the button type.
 function MyComponent() {
   return <button type="button">Click me</button>;
 }

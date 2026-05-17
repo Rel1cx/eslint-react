@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/npm/l/@eslint-react/core?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
 [![Build with](https://img.shields.io/badge/built_with-tsdown@0.22.0-000000?style=flat)](https://tsdown.dev)
 
-4-7x faster, composable ESLint rules for React and friends.
+Performant, composable ESLint rules for React and friends.
 
 ## Table of Contents
 
@@ -25,7 +25,6 @@
   - [TypeScript Specialized](#typescript-specialized)
   - [Other](#other)
 - [Rules](#rules)
-- [Benchmark](#benchmark)
 - [FAQ](#faq)
 - [Migration](#migration)
 - [Changelog](#changelog)
@@ -38,7 +37,7 @@
 
 - **Modern**: First-class support for **TypeScript**, **React 19**, and more.
 - **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
-- **Performant**: Built with performance in mind, optimized for large codebases, [**4-7x faster**](https://github.com/Rel1cx/eslint-react-benchmark) than other ESLint plugins.
+- **Performant**: Built with performance in mind, optimized for large codebases, code editor responsiveness, and CI pipelines.
 - **Context-aware linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
 ## Public Packages
@@ -188,18 +187,14 @@ export default defineConfig(
 
 [Rules ↗](https://eslint-react.xyz/docs/rules)
 
-## Benchmark
-
-[Benchmark Results ↗](https://github.com/Rel1cx/eslint-react-benchmark)
-
 ## FAQ
 
 [Frequently Asked Questions ↗](https://eslint-react.xyz/docs/faq)
 
 ## Migration
 
-- [Migrating from eslint-plugin-react ↗](https://beta.eslint-react.xyz/docs/migrating-from-eslint-plugin-react)
-- [Migrating from eslint-plugin-react-hooks ↗](https://beta.eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks)
+- [Migrating from eslint-plugin-react ↗](https://eslint-react.xyz/docs/migrating-from-eslint-plugin-react)
+- [Migrating from eslint-plugin-react-hooks ↗](https://eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks)
 
 ## Changelog
 

@@ -27,13 +27,16 @@ react-x/no-unsafe-component-will-receive-props
 
 ## Rule Details
 
-Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes your component's behavior less predictable and more likely to cause bugs.
+Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes your component's behavior less predictable and more likely to cause bugs. Consider using `getDerivedStateFromProps` or `componentDidUpdate` instead.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `UNSAFE_componentWillReceiveProps` in class components
+
+`UNSAFE_componentWillReceiveProps` is a deprecated lifecycle method. If you need to update state when props change, use the static method `getDerivedStateFromProps`; if you need to perform side effects, use `componentDidUpdate`.
 
 ```tsx
+// Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {

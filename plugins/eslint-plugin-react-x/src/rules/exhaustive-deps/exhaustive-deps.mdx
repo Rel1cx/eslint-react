@@ -3,13 +3,13 @@ title: exhaustive-deps
 description: Verifies the list of dependencies for Hooks like 'useEffect' and similar.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/exhaustive-deps
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/exhaustive-deps
@@ -33,11 +33,13 @@ react-x/exhaustive-deps
 
 React hooks like `useEffect`, `useMemo`, and `useCallback` accept dependency arrays. When a value referenced inside these hooks is not included in the dependency array, React won't re-run the effect or recalculate the value when that dependency changes. This causes stale closures where the hook uses outdated values.
 
-## Common Violations
-
 If you find yourself fighting with this rule, you likely need to restructure your code rather than suppress the warning. See [Removing Effect Dependencies](https://react.dev/learn/removing-effect-dependencies) to learn how.
 
-### Invalid
+## Examples
+
+### Missing dependencies in `useEffect`
+
+When a prop or state value is used inside `useEffect` but omitted from the dependency array, the effect will see a stale value after the component re-renders.
 
 ```tsx
 import { useEffect } from "react";
@@ -51,6 +53,20 @@ function MyComponent({ userId }) {
 ```
 
 ```tsx
+import { useEffect } from "react";
+
+function MyComponent({ userId }) {
+  useEffect(() => {
+    fetchUser(userId);
+  }, [userId]);
+}
+```
+
+### Missing dependencies in `useMemo`
+
+`useMemo` will return a cached result until its dependencies change. Omitting a dependency means the memoized value won't update when that input changes.
+
+```tsx
 import { useMemo } from "react";
 
 function MyComponent({ items, sortOrder }) {
@@ -58,29 +74,6 @@ function MyComponent({ items, sortOrder }) {
     return items.sort(sortOrder);
     //                ^^^ 'sortOrder' is missing from the dependency array.
   }, [items]); // Missing 'sortOrder'
-}
-```
-
-```tsx
-import { useCallback } from "react";
-
-function MyComponent({ onSave, value }) {
-  const handleClick = useCallback(() => {
-    onSave(value);
-    //     ^^^ 'value' is missing from the dependency array.
-  }, [onSave]); // Missing 'value'
-}
-```
-
-### Valid
-
-```tsx
-import { useEffect } from "react";
-
-function MyComponent({ userId }) {
-  useEffect(() => {
-    fetchUser(userId);
-  }, [userId]);
 }
 ```
 
@@ -94,6 +87,21 @@ function MyComponent({ items, sortOrder }) {
 }
 ```
 
+### Missing dependencies in `useCallback`
+
+A `useCallback` with incomplete dependencies may call a handler with stale prop or state values.
+
+```tsx
+import { useCallback } from "react";
+
+function MyComponent({ onSave, value }) {
+  const handleClick = useCallback(() => {
+    onSave(value);
+    //     ^^^ 'value' is missing from the dependency array.
+  }, [onSave]); // Missing 'value'
+}
+```
+
 ```tsx
 import { useCallback } from "react";
 
@@ -104,14 +112,12 @@ function MyComponent({ onSave, value }) {
 }
 ```
 
-## Troubleshooting
-
 ### Adding a function dependency causes infinite loops
 
-When a function is defined in the component body, it is recreated on every render, causing the effect to re-run endlessly:
+When a function is defined in the component body, it is recreated on every render. Adding it to a dependency array causes the effect to re-run endlessly.
 
 ```tsx
-// ❌ Causes infinite loop — logItems is a new reference on every render
+// Problem: logItems is a new reference on every render, causing an infinite loop
 function MyComponent({ items }) {
   const logItems = () => {
     console.log(items);
@@ -126,7 +132,7 @@ function MyComponent({ items }) {
 In most cases, move the function call out of the effect or inline the logic directly:
 
 ```tsx
-// ✅ Inline the logic inside the effect
+// Recommended: Inline the logic directly into the effect
 function MyComponent({ items }) {
   useEffect(() => {
     console.log(items);
@@ -137,7 +143,7 @@ function MyComponent({ items }) {
 If the function is genuinely needed as a stable reference, wrap it with `useCallback`:
 
 ```tsx
-// ✅ useCallback keeps the function reference stable
+// Recommended: Use useCallback to keep the function reference stable
 function MyComponent({ items }) {
   const logItems = useCallback(() => {
     console.log(items);
@@ -151,10 +157,10 @@ function MyComponent({ items }) {
 
 ### Running an effect only once on mount
 
-You want to run an effect once on mount, but the linter complains about missing dependencies:
+You want to run an effect once on mount, but the linter complains about missing dependencies. Omitting a dependency that is used inside the effect means the effect will see a stale value when that prop changes.
 
 ```tsx
-// ❌ Missing dependency
+// Problem: missing dependency causes stale closure
 function MyComponent({ userId }) {
   useEffect(() => {
     sendAnalytics(userId);
@@ -165,7 +171,7 @@ function MyComponent({ userId }) {
 The recommended fix is to include the dependency. If `userId` changes and you want the effect to re-run, this is the correct behavior:
 
 ```tsx
-// ✅ Include the dependency
+// Recommended: Include all dependencies
 function MyComponent({ userId }) {
   useEffect(() => {
     sendAnalytics(userId);
@@ -176,7 +182,7 @@ function MyComponent({ userId }) {
 If you truly need to run once and read the latest value without reacting to changes, use a ref:
 
 ```tsx
-// ✅ Use a ref guard if you only want to run once
+// Recommended: Use a ref as a run-once guard
 function MyComponent({ userId }) {
   const sent = useRef(false);
 

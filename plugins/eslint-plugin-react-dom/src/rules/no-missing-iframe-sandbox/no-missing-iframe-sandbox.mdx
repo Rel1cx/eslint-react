@@ -29,20 +29,22 @@ react-dom/no-missing-iframe-sandbox
 
 The sandbox attribute enables an extra set of restrictions for the content in the iframe. Using the sandbox attribute is considered a good security practice.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Rendering an `<iframe>` without a `sandbox` attribute
+
+An iframe without `sandbox` allows the embedded content unrestricted capabilities, which is a security risk.
 
 ```tsx
+// Problem: missing sandbox attribute leaves the iframe unrestricted.
 function MyComponent() {
   return <iframe src="https://eslint-react.xyz" />;
   //     ^^^ Missing 'sandbox' attribute on iframe component.
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: add a sandbox attribute to restrict the iframe's capabilities.
 function MyComponent() {
   return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }

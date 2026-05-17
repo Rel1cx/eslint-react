@@ -29,13 +29,16 @@ react-x/no-create-ref
 
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using createRef in function components
+
+In function components, prefer the Hook `useRef` over `createRef`, which was designed for class components.
 
 ```tsx
 import React, { createRef } from "react";
 
+// Problem: Using createRef in a function component
 function MyComponent() {
   const ref = React.createRef<HTMLDivElement>();
   //          ^^^ [Deprecated] Use 'useRef' instead.
@@ -44,11 +47,10 @@ function MyComponent() {
 }
 ```
 
-### Valid
-
 ```tsx
 import React, { useRef } from "react";
 
+// Recommended: Use useRef in function components
 function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -56,9 +58,14 @@ function MyComponent() {
 }
 ```
 
+### Using createRef in class components
+
+`createRef` can still be used in class components, which is the intended use of this API.
+
 ```tsx
 import React, { createRef } from "react";
 
+// OK: Using createRef in a class component is the intended use
 class MyComponent extends React.Component {
   inputRef = createRef();
   // ...

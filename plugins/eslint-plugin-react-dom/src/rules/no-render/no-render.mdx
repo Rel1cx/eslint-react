@@ -31,23 +31,23 @@ react-dom/no-render
 
 ## Rule Details
 
-## Common Violations
+## Examples
 
-### Invalid
+### Bootstrapping a React app with the legacy API
 
 ```tsx
 import Component from "Component";
 import ReactDOM from "react-dom";
 
+// Problem: ReactDOM.render() is the legacy API and will be removed in React 18+
 ReactDOM.render(<Component />, document.getElementById("app"));
 ```
-
-### Valid
 
 ```tsx
 import Component from "Component";
 import { createRoot } from "react-dom/client";
 
+// Recommended: Use createRoot() from "react-dom/client" instead
 createRoot(document.getElementById("app")).render(<Component />);
 ```
 

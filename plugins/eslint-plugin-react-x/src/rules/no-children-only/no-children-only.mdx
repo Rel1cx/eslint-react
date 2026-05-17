@@ -29,11 +29,14 @@ react-x/no-children-only
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Enforcing a single child
+
+Using `Children.only` to assert that a component receives exactly one child is fragile. If you need to restrict children, consider documenting the prop type or using a different API design.
 
 ```tsx
+// Problem: Using Children.only to enforce a single child
 import React, { Children } from "react";
 
 interface MyComponentProps {

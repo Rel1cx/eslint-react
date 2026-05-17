@@ -28,36 +28,42 @@ react-naming-convention/id-name
 
 Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Assigning `useId` to a variable without the `Id` suffix
 
 ```tsx
+// Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const value = useId();
 //    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
+// Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const unique = useId();
 //    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
+// Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const foo = useId();
-//    ^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
-### Valid
+### Assigning `useId` to a properly named variable
 
 ```tsx
+// Recommended: Simple 'id' name
 const id = useId();
 ```
 
 ```tsx
+// Recommended: Descriptive name ending with 'Id'
 const inputId = useId();
 ```
 
 ```tsx
+// Recommended: Descriptive name ending with 'Id'
 const dialogTitleId = useId();
 ```
 
