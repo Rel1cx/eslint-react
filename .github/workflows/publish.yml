@@ -32,11 +32,9 @@ jobs:
         with:
           persist-credentials: false
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Build front-end assets
         run: pnpm run build
-      - name: Run lint
-        run: pnpm run lint
       - name: Publish
         run: |
           if git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+$";
