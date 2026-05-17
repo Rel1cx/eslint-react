@@ -1,8 +1,9 @@
 import { createRule } from "@/utils/create-rule";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { getChildrenContentRange, getPropRemovalRange } from "./lib";
+import { findChildrenProperty, getChildrenContentRange, getPropRemovalRange } from "./lib";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
@@ -38,6 +39,23 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   return merge({
+    CallExpression(node) {
+      if (!core.isCreateElementCall(context, node)) return;
+
+      const [, propsArg, firstExtra] = node.arguments;
+      if (propsArg == null || propsArg.type !== AST.ObjectExpression) return;
+
+      const childrenProp = findChildrenProperty(propsArg);
+      if (childrenProp == null) return;
+
+      // createElement has extra children arguments when there are extra args
+      if (firstExtra == null) return;
+
+      context.report({
+        messageId: "default",
+        node: childrenProp,
+      });
+    },
     JSXElement(node) {
       const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;

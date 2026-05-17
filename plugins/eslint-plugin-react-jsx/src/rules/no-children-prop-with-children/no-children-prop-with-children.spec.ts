@@ -265,6 +265,27 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // createElement
+    {
+      code: 'React.createElement("div", { children: "Children" }, "Children");',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'createElement("div", { children: "Children" }, "Children");',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { className: "x", children: "Children" }, "Children");',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: <span /> }, <span />);',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: "Children" }, "a", "b");',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div />;",
@@ -296,5 +317,12 @@ ruleTester.run(RULE_NAME, rule, {
     "<div children></div>;",
     // Whitespace-only tab characters
     tsx`<div children="x">\t\t</div>;`,
+    // createElement with children as extra args only
+    'React.createElement("div", null, "Children");',
+    'React.createElement("div", { className: "x" }, "Children");',
+    'createElement("div", null, "Children");',
+    // createElement with children prop only
+    'React.createElement("div", { children: "Children" });',
+    'createElement("div", { children: "Children" });',
   ],
 });
