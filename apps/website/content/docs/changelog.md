@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.8.1 (2026-05-18)
+
+### 📝 Documentation
+
+- Restructured rule documentation across all plugins (`eslint-plugin-react-x`, `eslint-plugin-react-dom`, `eslint-plugin-react-jsx`, `eslint-plugin-react-web-api`, `eslint-plugin-react-naming-convention`, `eslint-plugin-react-debug`, `eslint-plugin-react-rsc`) from the `Common Violations / Invalid / Valid` format to the new `Examples / scenario-based / Troubleshooting / Further Reading` format (#1784).
+- Updated README tagline and description, removed the Benchmark section, and fixed migration guide links (#1783).
+- Updated website recipe docs, FAQ, and third-party plugins page (#1783).
+
+### 🏗️ Internal
+
+- Updated `scripts/scaffold-rule.ts` and the rule request issue template to match the new documentation structure (#1782).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.0...v5.8.1
+
 ## v5.8.0 (2026-05-17)
 
 ### 🪄 Improvements
