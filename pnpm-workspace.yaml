@@ -57,7 +57,7 @@ overrides:
   uuid: ^14.0.0
 
 trustPolicy: "no-downgrade"
-minimumReleaseAge: 1440
+minimumReleaseAge: 4320 # 3 days
 minimumReleaseAgeExclude:
   - fumadocs-core
   - fumadocs-docgen
