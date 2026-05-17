@@ -36,6 +36,12 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 | [`jsx-tag-spacing`](https://eslint.style/rules/default/jsx-tag-spacing)                           | Enforce whitespace around JSX tags                       |
 | [`jsx-wrap-multilines`](https://eslint.style/rules/default/jsx-wrap-multilines)                   | Require parentheses around multiline JSX                 |
 
+**[`eslint-plugin-perfectionist`](https://github.com/azat-io/eslint-plugin-perfectionist)** by [@azat-io](https://github.com/azat-io) is an ESLint plugin for sorting various data such as objects, imports, types, enums, and JSX props. All rules are automatically fixable.
+
+| Rule                                                                                             | Description                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------ |
+| [`sort-jsx-props`](https://perfectionist.dev/rules/sort-jsx-props)                               | Enforce sorted JSX props             |
+
 ### JSX Accessibility
 
 <GitHubRepoGrid repos={plugins.a11y} />
@@ -91,6 +97,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 | ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `@stylistic/eslint-plugin`    | JSX & JS stylistic rules (indent, spacing, quotes, line breaks) | Complementary — covers formatting we deliberately exclude                                   |
 | `eslint-plugin-jsx-a11y-x`    | JSX accessibility (ARIA, alt text, focus, semantics)            | Complementary — covers a11y static analysis; pair with `@axe-core/react` for runtime checks |
+| `eslint-plugin-perfectionist` | Sorting JSX props, imports, objects, types, enums               | Complementary — covers sorting and ordering we deliberately exclude                         |
 | `eslint-plugin-react-import`  | React import syntax consistency                                 | Complementary — covers module conventions not in core                                       |
 | `eslint-plugin-react-refresh` | Fast Refresh / HMR compatibility                                | Complementary — covers bundler integration concerns outside React core patterns             |
 
