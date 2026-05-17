@@ -74,28 +74,28 @@ export default [
 
 ## Examples
 
-#### Invalid
+#### Multiple children in <title>
 
 ```tsx
 function ResultsPage({ pageNumber }) {
   return (
     <>
       <title>Results page {pageNumber}</title>
-      {/* 🔴 Problem: This creates an array of children ["Results page ", pageNumber] */}
+      {/* Problem: This creates an array of children ["Results page ", pageNumber] */}
       <div>...</div>
     </>
   );
 }
 ```
 
-#### Valid
+#### Single string child in <title>
 
 ```tsx
 function ResultsPage({ pageNumber }) {
   return (
     <>
       <title>{`Results page ${pageNumber}`}</title>
-      {/* ✅ Correct: A single string via template literal */}
+      {/* Recommended: A single string via template literal */}
       <div>...</div>
     </>
   );

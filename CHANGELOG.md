@@ -424,7 +424,7 @@ The following rules have been removed from `eslint-plugin-react-x`, `eslint-plug
 
 - Added custom rule recipes for React Children API, Context API, props, state, boolean prop naming, and error boundaries.
 - Added migration examples (`no-set-state`, `no-string-refs`).
-- Added IMPL vs SPEC diff documents for 5 React Compiler aligned rules.
+- Added IMPL–SPEC diff documents for 5 React Compiler aligned rules.
 - Added spec documentation for validation rules.
 - Added rule feature docs.
 - Added table of contents to multiple documentation files.
@@ -505,9 +505,9 @@ The following rules have been removed from `eslint-plugin-react-x`, `eslint-plug
 
 ### 📝 Documentation
 
-- add IMPL vs SPEC diff documents for 5 React Compiler aligned rules (`d83ff84c2`)
+- add IMPL–SPEC diff documents for 5 React Compiler aligned rules (`d83ff84c2`)
 - add spec documentation for validation rules (`a69486e34`)
-- update all IMPL vs SPEC diff docs (`2d6575a84`)
+- update all IMPL–SPEC diff docs (`2d6575a84`)
 
 ### 🪄 Improvements
 

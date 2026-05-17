@@ -78,25 +78,29 @@ export default [
 
 ### Examples
 
-#### Invalid
+#### Duplicate props on a JSX element
 
 ```tsx
+// Problem: duplicate props silently discard earlier values.
 <div id="a" id="b" />;
 //          ^^^ Prop `id` is specified more than once. Only the last one will take effect.
 ```
 
 ```tsx
+// Problem: duplicate props silently discard earlier values.
 <div onClick={handleA} onClick={handleB} />;
 //                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
 ```
 
-#### Valid
+#### Unique props or conditional spreads
 
 ```tsx
+// Recommended: each prop appears only once.
 <div id="a" className="b" />;
 ```
 
 ```tsx
+// OK: spreading a variable is a common and valid pattern.
 <div id="a" {...props} />;
 ```
 
@@ -162,10 +166,10 @@ export default [
 
 ### Examples
 
-#### Invalid
+#### Accessing props via member expression
 
 ```tsx
-// Member expression access — will be reported
+// Problem: accessing props via member expression.
 function MyComponent(props) {
   return <div>Hello, {props.name}!</div>;
   //                     ^^^^^^^^^ Use destructuring assignment for component props.
@@ -173,24 +177,24 @@ function MyComponent(props) {
 ```
 
 ```tsx
-// Member expression access — will be reported
+// Problem: accessing props via member expression.
 const MyComponent = (props) => {
   return <div>{props.title}</div>;
   //            ^^^^^^^^^^^ Use destructuring assignment for component props.
 };
 ```
 
-#### Valid
+#### Destructured props
 
 ```tsx
-// Destructured props — OK
+// Recommended: destructure props in the function signature.
 function MyComponent({ name }: { name: string }) {
   return <div>Hello, {name}!</div>;
 }
 ```
 
 ```tsx
-// Destructured props — OK
+// Recommended: destructure props in the function signature.
 const MyComponent = ({ title }: { title: string }) => {
   return <div>{title}</div>;
 };
@@ -245,25 +249,29 @@ export default [
 
 ### Examples
 
-#### Invalid
+#### Spreading object literals in JSX
 
 ```tsx
+// Problem: spreading an object literal hides props from view.
 <MyComponent {...{ foo, bar, baz }} />;
 //            ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
 ```tsx
+// Problem: spreading an object literal hides props from view.
 <input {...{ disabled: true, readOnly: true }} />;
 //      ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
-#### Valid
+#### Spreading variables or conditional expressions
 
 ```tsx
+// OK: spreading a variable is a common and valid pattern.
 <div {...props} />;
 ```
 
 ```tsx
+// OK: conditional expressions serve legitimate purposes.
 <Comp {...(cond ? { a: "b" } : {})} />;
 ```
 
@@ -337,25 +345,29 @@ export default [
 
 ### Examples
 
-#### Invalid
+#### Mixing controlled and uncontrolled props
 
 ```tsx
+// Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input value={name} defaultValue="World" />;
 //                  ^^^ 'value' and 'defaultValue' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
 ```tsx
+// Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input type="checkbox" checked={isChecked} defaultChecked />;
 //                                         ^^^ 'checked' and 'defaultChecked' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
-#### Valid
+#### Using either controlled or uncontrolled mode
 
 ```tsx
+// Recommended: controlled mode with explicit handler.
 <input value={name} onChange={handleChange} />;
 ```
 
 ```tsx
+// Recommended: uncontrolled mode with default value.
 <input defaultValue="World" />;
 ```
 

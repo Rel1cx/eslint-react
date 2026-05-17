@@ -184,7 +184,7 @@ export default [
 
 ## Examples
 
-### Invalid
+### Circular effect dependencies
 
 Circular effect with depth 1. An effect depends on `items` and also sets `items`:
 
@@ -255,7 +255,7 @@ function CircularEffect3() {
 }
 ```
 
-### Valid
+### Non-circular effect dependencies
 
 Effects without circular dependencies:
 
@@ -266,7 +266,7 @@ function ValidComponent() {
   const [count, setCount] = useState(0);
   const [label, setLabel] = useState("");
 
-  // ✅ Depends on `count`, sets `label`. No cycle.
+  // Recommended: Depends on `count`, sets `label`. No cycle.
   useEffect(() => {
     setLabel(`Count is ${count}`);
   }, [count]);
@@ -283,7 +283,7 @@ import { useEffect, useState } from "react";
 function ValidComponent2() {
   const [count, setCount] = useState(0);
 
-  // ✅ No dependency array. Not a circular pattern.
+  // OK: No dependency array. Not a circular pattern.
   useEffect(() => {
     setCount(0);
   });
