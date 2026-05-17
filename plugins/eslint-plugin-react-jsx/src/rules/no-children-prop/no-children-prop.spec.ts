@@ -271,6 +271,27 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // createElement
+    {
+      code: 'React.createElement("div", { children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'createElement("div", { children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { className: "x", children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: <span /> });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: "Children" }, "extra");',
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div />;",
@@ -288,5 +309,8 @@ ruleTester.run(RULE_NAME, rule, {
     "<Foo.Bar>Children</Foo.Bar>;",
     '<div id="a" className="b" />;',
     "<xml:svg></xml:svg>;",
+    'React.createElement("div", null, "Children");',
+    'React.createElement("div", { className: "x" }, "Children");',
+    'createElement("div", null, "Children");',
   ],
 });
