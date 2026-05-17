@@ -1,5 +1,27 @@
 # Changelog
 
+## v5.8.0 (2026-05-17)
+
+### 🪄 Improvements
+
+- **`react-jsx/no-children-prop`**, **`react-jsx/no-children-prop-with-children`**: Added support for `createElement` calls in addition to JSX elements (#1780).
+
+### 📝 Documentation
+
+- Added `eslint-plugin-perfectionist` to the third-party plugins documentation page (#1778).
+
+### 🏗️ Internal
+
+- Bumped `import-integrity-lint` to 1.0.1.
+- Fixed multiple versions of `typescript-eslint` and `import-integrity-lint` in the workspace (#1776).
+- Increased pnpm `minimumReleaseAge` to 3 days and updated lockfile (#1779).
+- Removed `.repos` directory references from config files (#1773).
+- Removed obsolete maintenance scripts (`create-spec-alignment-issues.sh`, `migrate-labels.sh`) (#1777).
+- Replaced `eslint-plugin-fast-import` with `import-integrity-lint` (#1774).
+- Simplified the publish CI workflow by skipping install scripts and removing the lint step (#1775).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.7.10...v5.8.0
+
 ## v5.7.10 (2026-05-16)
 
 ### 🐞 Fixes
