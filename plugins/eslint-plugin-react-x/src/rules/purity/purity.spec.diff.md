@@ -1,4 +1,4 @@
-# purity IMPL vs. SPEC Report
+# purity IMPL–SPEC Diff Report
 
 **IMPL**: `purity.ts` (ESLint rule)\
 **SPEC**: `purity.spec.md` (React Compiler `ValidateNoImpureValuesInRender`)
@@ -84,7 +84,7 @@ The SPEC does not use message IDs but has a single error category:
 
 - `ImpureValues` — "Cannot access impure value during render".
 
-Error message text is conceptually aligned but structurally different due to single vs. dual reporting.
+Error message text is conceptually aligned but structurally different due to single-location rather than dual-location reporting.
 
 ---
 

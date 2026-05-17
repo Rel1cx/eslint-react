@@ -26,48 +26,56 @@ react-x/no-unnecessary-use-prefix
 
 ## Rule Details
 
-If your function doesn’t call any Hooks, avoid the `use` prefix. Instead, write it as a regular function without the `use` prefix. For example, `useSorted` below doesn’t call Hooks, so call it `getSorted` instead:
+If your function doesn't call any Hooks, avoid the `use` prefix and write it as a regular function. This allows the function to be called anywhere, including in conditions. You should only use the `use` prefix when the function calls at least one Hook inside it.
+
+Technically, React does not enforce this. In principle, you could make a Hook that doesn't call other Hooks, but this is often confusing and limiting. However, there may be rare cases where it is helpful, such as when you plan to add Hook calls in the future. In that case, naming it with the `use` prefix makes sense so that components won't be able to call it conditionally once Hooks are added. If you don't plan to use Hooks inside it (now or later), don't make it a Hook.
+
+## Examples
+
+### Using the `use` prefix without calling any Hooks
+
+Functions with the `use` prefix are treated as Hooks and must follow Hook rules (for example, they cannot be called conditionally). If a function doesn't call any Hooks, remove the `use` prefix and make it a regular function.
 
 ```tsx
-// 🔴 Avoid: A Hook that doesn't use Hooks
+// Problem: The function doesn't call any Hooks but uses the use prefix
 function useSorted(items) {
   return items.slice().sort();
 }
 ```
 
 ```tsx
-// ✅ Good: A regular function that doesn't use Hooks
+// Recommended: Convert it to a regular function so it can be called anywhere
 function getSorted(items) {
   return items.slice().sort();
 }
 ```
 
-This ensures that your code can call this regular function anywhere, including in conditions:
+As a regular function, it can safely be called inside conditional statements:
 
 ```tsx
+// OK: Regular functions allow conditional calls
 function List({ items, shouldSort }) {
   let displayedItems = items;
   if (shouldSort) {
-    // ✅ It's OK to call getSorted() conditionally because it's not a Hook
     displayedItems = getSorted(items);
   }
   // ...
 }
 ```
 
-You should give the `use` prefix to a function (and thus make it a Hook) if it uses at least one Hook inside it:
+### Not using Hooks now, but planning to add them later
+
+If a function doesn't currently call any Hooks but you plan to add Hook calls later, you can keep the `use` prefix. It's recommended to add a TODO comment explaining your intent to avoid false positives.
 
 ```tsx
-// ✅ Good: A Hook that uses other Hooks
+// Problem: No Hooks are used and there is no comment explaining future plans
 function useAuth() {
-  return useContext(Auth);
+  return TEST_USER;
 }
 ```
 
-Technically, this isn’t enforced by React. In principle, you could make a Hook that doesn’t call other Hooks. This is often confusing and limiting, so it's best to avoid that pattern. However, there may be rare cases where it is helpful. For example, maybe your function doesn’t use any Hooks right now but you plan to add some Hook calls to it in the future. Then it makes sense to name it with the `use` prefix:
-
 ```tsx
-// ✅ Good: A Hook that will likely use some other Hooks later
+// Recommended: Add an explicit TODO explaining it will be replaced with a Hook later
 function useAuth() {
   // TODO: Replace with this line when authentication is implemented:
   // return useContext(Auth);
@@ -75,48 +83,23 @@ function useAuth() {
 }
 ```
 
-Then components won’t be able to call it conditionally. This will become important when you actually add Hook calls inside. If you don’t plan to use Hooks inside it (now or later), don’t make it a Hook.
+### The function does call other Hooks
 
-## Common Violations
-
-### Invalid
+When a function calls Hooks internally, using the `use` prefix is correct and necessary.
 
 ```tsx
-function useSorted(items) {
-  return items.slice().sort();
-}
-```
-
-```tsx
-// No 'TODO' and 'useContext()' comments inside function body
-function useAuth() {
-  return TEST_USER;
-}
-```
-
-### Valid
-
-```tsx
-function getSorted(items) {
-  return items.slice().sort();
-}
-```
-
-```tsx
+// Recommended: Uses useContext, which follows Hook naming conventions
 function useAuth() {
   return useContext(Auth);
 }
 ```
 
-```tsx
-function useAuth() {
-  // TODO: Replace with this line when authentication is implemented:
-  // return useContext(Auth);
-  return TEST_USER;
-}
-```
+### MDX component factory functions
+
+Some framework conventions (such as MDX) require factory functions with the `use` prefix. These functions are acceptable even if they don't call any Hooks.
 
 ```tsx
+// OK: Component mapping function that follows MDX conventions
 export function useMDXComponents(components) {
   return {
     ...components,

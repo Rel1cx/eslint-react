@@ -1,4 +1,4 @@
-# use-memo IMPL vs. SPEC Report
+# use-memo IMPL–SPEC Diff Report
 
 **IMPL**: `use-memo.ts` (ESLint rule)\
 **SPEC**: `use-memo.spec.md` (React Compiler `ValidateUseMemo.ts`)

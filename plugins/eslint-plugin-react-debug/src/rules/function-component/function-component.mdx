@@ -15,43 +15,68 @@ react-debug/function-component
 
 ## Rule Details
 
+This rule reports all function components in JSON format. It detects function declarations, arrow functions, components wrapped with `React.memo` or `React.forwardRef`, components that call Hooks, and components containing the `"use memo"` or `"use no memo"` directive.
+
+## Examples
+
+### Function declaration as a component
+
 ```tsx
+// This rule reports function declarations that return JSX.
 function MyComponent() {
   return <button />;
 }
 ```
 
+### Arrow function as a component
+
 ```tsx
+// This rule reports arrow functions that return JSX.
 const MyComponent = () => <button />;
 ```
 
+### Component wrapped with React.memo
+
 ```tsx
 import React from "react";
 
+// This rule reports components wrapped with React.memo.
 const MyComponent = React.memo(() => <button />);
 ```
 
+### Component wrapped with React.forwardRef
+
 ```tsx
 import React from "react";
 
+// This rule reports components wrapped with React.forwardRef.
 const MyComponent = React.forwardRef(() => <button />);
 ```
 
-```tsx
-import React,{ useEffect } from "react";
+### Component that calls a Hook inside
 
+```tsx
+import React, { useEffect } from "react";
+
+// This rule reports function components that use React Hooks.
 function MyComponent() {
-  useEffect(() => {}}, []);
+  useEffect(() => {}, []);
 }
 ```
 
+### Component with the "use memo" directive
+
 ```tsx
+// This rule reports components that contain the "use memo" directive.
 function MyComponent() {
   "use memo";
 }
 ```
 
+### Component with the "use no memo" directive
+
 ```tsx
+// This rule reports components that contain the "use no memo" directive.
 function MyComponent() {
   "use no memo";
 }

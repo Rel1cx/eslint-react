@@ -27,13 +27,16 @@ react-x/no-unsafe-component-will-mount
 
 ## Rule Details
 
-Using unsafe lifecycle methods like `UNSAFE_componentWillMount` makes your component's behavior less predictable and more likely to cause bugs.
+Using unsafe lifecycle methods like `UNSAFE_componentWillMount` makes your component's behavior less predictable and more likely to cause bugs. Consider using `constructor` or `componentDidMount` instead.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `UNSAFE_componentWillMount` in class components
+
+`UNSAFE_componentWillMount` is a deprecated lifecycle method and may be removed in a future version of React. Initialization logic should go in the `constructor`, and side effects should go in `componentDidMount`.
 
 ```tsx
+// Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {

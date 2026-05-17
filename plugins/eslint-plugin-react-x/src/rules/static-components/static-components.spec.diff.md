@@ -1,4 +1,4 @@
-# static-components IMPL vs. SPEC Report
+# static-components IMPL–SPEC Diff Report
 
 **IMPL**: `static-components.ts` + `lib.ts` (ESLint rule)\
 **SPEC**: `static-components.spec.md` (React Compiler `ValidateStaticComponents`)

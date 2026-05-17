@@ -15,13 +15,34 @@ react-debug/is-from-ref
 
 ## Rule Details
 
+This rule reports all identifiers initialized or derived from refs in JSON format. It detects variables assigned from `useRef` and values read from `ref.current`.
+
+## Examples
+
+### Ref initialized with useRef
+
+```tsx
+import React from "react";
+
+function MyComponent() {
+  // This rule reports identifiers initialized from a ref.
+  const myRef = React.useRef(42);
+  //    ^^^^^
+  //    - {"name": "myRef", "init": "React.useRef(42)"}
+
+  return null;
+}
+```
+
+### Value read from a ref
+
 ```tsx
 import React from "react";
 
 function MyComponent() {
   const myRef = React.useRef(42);
-  //    ^^^^^
-  //    - {"name": "myRef", "init": "React.useRef(42)"}
+
+  // This rule reports identifiers derived from reading ref.current.
   const value = myRef.current;
   //    ^^^^^
   //    - {"name": "value", "init": "myRef.current"}

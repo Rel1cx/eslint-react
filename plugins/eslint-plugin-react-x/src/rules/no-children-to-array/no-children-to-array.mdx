@@ -29,11 +29,14 @@ react-x/no-children-to-array
 
 Using `Children.toArray` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Converting children to an array for manipulation
+
+Using `Children.toArray` to turn children into an array assumes internal React details that may change. If you need to reorder or filter items, accept structured data as props instead.
 
 ```tsx
+// Problem: Using Children.toArray to convert children into an array for manipulation
 import React, { Children } from "react";
 
 interface MyComponentProps {

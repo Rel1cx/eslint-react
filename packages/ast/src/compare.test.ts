@@ -127,7 +127,7 @@ describe("isEqual", () => {
       expect(isEqual(attrs1[0]!, attrs2[0]!)).toBe(false);
     });
 
-    it("should return false for namespaced vs simple attribute", () => {
+    it("should return false for namespaced and simple attributes", () => {
       const attrs1 = collectJSXAttributes('<svg xmlns:xlink="url" />');
       const attrs2 = collectJSXAttributes('<svg className="foo" />');
       expect(isEqual(attrs1[0]!, attrs2[0]!)).toBe(false);

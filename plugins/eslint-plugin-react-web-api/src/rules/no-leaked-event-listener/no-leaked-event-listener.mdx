@@ -29,15 +29,16 @@ react-web-api/no-leaked-event-listener
 
 Adding an event listener without removing it can lead to memory leaks and unexpected behavior because the event listener will continue to exist even after the component or hook is unmounted.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Adding event listener without cleanup in class components
 
 ```tsx
 import React, { Component } from "react";
 
 class MyComponent extends Component {
   componentDidMount() {
+    // Problem: An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in the 'componentWillUnmount' method.
     document.addEventListener("click", this.handleClick);
     //                                 ^^^ An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in the 'componentWillUnmount' method.
   }
@@ -52,6 +53,8 @@ class MyComponent extends Component {
 }
 ```
 
+### Adding event listener without cleanup in useEffect
+
 ```tsx
 import React, { useEffect } from "react";
 
@@ -61,6 +64,7 @@ function MyComponent() {
       console.log("clicked");
     };
 
+    // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
     document.addEventListener("click", handleClick);
     //                                 ^^^ An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
@@ -69,11 +73,14 @@ function MyComponent() {
 }
 ```
 
+### Using inline listener functions
+
 ```tsx
 import React, { useEffect } from "react";
 
 function MyComponent() {
   useEffect(() => {
+    // Problem: An 'addEventListener' should not have an inline listener function.
     document.addEventListener("click", () => console.log("clicked"));
     //                                 ^^^ An 'addEventListener' should not have an inline listener function.
   }, []);
@@ -81,6 +88,8 @@ function MyComponent() {
   return null;
 }
 ```
+
+### Mismatched options between add and remove
 
 ```tsx
 import React, { useEffect } from "react";
@@ -92,9 +101,11 @@ function MyComponent() {
     };
 
     document.addEventListener("click", handleClick, { capture: true });
+    // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
     //                                 ^^^ An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
 
     return () => {
+      // Problem: Options don't match — removeEventListener must use the same capture value
       document.removeEventListener("click", handleClick, { capture: false });
     };
   }, []);
@@ -103,18 +114,7 @@ function MyComponent() {
 }
 ```
 
-```tsx
-function useCustomHook() {
-  useEffect(() => {
-    const handleClick = () => {
-      console.log("clicked");
-    };
-
-    document.addEventListener("click", handleClick);
-    //                                 ^^^ An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
-  }, []);
-}
-```
+### Dynamic entries that may differ between setup and cleanup
 
 ```tsx
 import { useEffect } from "react";
@@ -124,13 +124,15 @@ function MyComponent() {
     if (!el) {
       return;
     }
-    // The following cases are intentionally considered possible leaks:
+
+    // Problem: The entries are not guaranteed to be the same as those in the effect cleanup function.
     for (const [name, handler] of Object.entries(handlers)) {
       //                          ^^^ The entries are not guaranteed to be the same as those in the effect cleanup function.
       el.addEventListener(name, handler);
     }
 
     return () => {
+      // Problem: The entries are not guaranteed to be the same as those in the effect setup function.
       for (const [name, handler] of Object.entries(handlers)) {
         //                          ^^^ The entries are not guaranteed to be the same as those in the effect setup function.
         el.removeEventListener(name, handler);
@@ -142,17 +144,19 @@ function MyComponent() {
 }
 ```
 
-### Valid
+### Proper cleanup in class components
 
 ```tsx
 import React, { Component } from "react";
 
 class MyComponent extends Component {
   componentDidMount() {
+    // Recommended: Add listener in mount
     document.addEventListener("click", this.handleClick);
   }
 
   componentWillUnmount() {
+    // Recommended: Remove listener in unmount
     document.removeEventListener("click", this.handleClick);
   }
 
@@ -166,6 +170,8 @@ class MyComponent extends Component {
 }
 ```
 
+### Proper cleanup in useEffect
+
 ```tsx
 import React, { useEffect } from "react";
 
@@ -175,9 +181,11 @@ function MyComponent() {
       console.log("clicked");
     };
 
+    // Recommended: Add listener in effect setup
     document.addEventListener("click", handleClick);
 
     return () => {
+      // Recommended: Remove listener in effect cleanup
       document.removeEventListener("click", handleClick);
     };
   }, []);
@@ -185,6 +193,8 @@ function MyComponent() {
   return null;
 }
 ```
+
+### Matching options between add and remove
 
 ```tsx
 import React, { useEffect } from "react";
@@ -198,6 +208,7 @@ function MyComponent() {
     document.addEventListener("click", handleClick, { capture: true });
 
     return () => {
+      // Recommended: Use identical options in both add and remove
       document.removeEventListener("click", handleClick, { capture: true });
     };
   }, []);
@@ -205,6 +216,8 @@ function MyComponent() {
   return null;
 }
 ```
+
+### Using stable arrays for multiple listeners
 
 ```tsx
 import { useEffect } from "react";
@@ -221,6 +234,7 @@ function MyComponent() {
     const handleActivity = () => {};
 
     events.forEach((event) => {
+      // Recommended: Use a stable array for consistent setup and cleanup
       window.addEventListener(event, handleActivity);
     });
 
@@ -235,46 +249,7 @@ function MyComponent() {
 }
 ```
 
-```tsx
-import { useEffect } from "react";
-
-function MyComponent() {
-  useEffect(() => {
-    const events = [
-      ["mousemove", () => {}],
-      ["mousedown", () => {}],
-    ];
-
-    for (const [event, handler] of events) {
-      window.addEventListener(event, handler);
-    }
-
-    return () => {
-      for (const [event, handler] of events) {
-        window.removeEventListener(event, handler);
-      }
-    };
-  }, []);
-
-  return null;
-}
-```
-
-```tsx
-function useCustomHook() {
-  useEffect(() => {
-    const handleClick = () => {
-      console.log("clicked");
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
-}
-```
+### Pre-computing entries for consistency
 
 ```tsx
 import { useEffect } from "react";
@@ -285,7 +260,7 @@ function MyComponent() {
       return;
     }
 
-    // Instead, always use the same entries in both the setup and cleanup functions:
+    // Recommended: Always use the same entries in both the setup and cleanup functions:
     const handlerEntries = Object.entries(handlers); // <- Use the same entries array
 
     for (const [name, handler] of handlerEntries) {

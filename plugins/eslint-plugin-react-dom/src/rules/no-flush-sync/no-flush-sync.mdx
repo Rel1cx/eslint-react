@@ -31,11 +31,14 @@ react-dom/no-flush-sync
 
 Most of the time, `flushSync` can be avoided, so use `flushSync` as a last resort.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `flushSync` to force synchronous updates
+
+`flushSync` forces React to flush pending work synchronously, which can degrade performance and cause Suspense fallbacks to appear unexpectedly.
 
 ```tsx
+// Problem: flushSync hurts performance and can trigger unexpected fallback states.
 import { flushSync } from "react-dom";
 
 flushSync(() => {

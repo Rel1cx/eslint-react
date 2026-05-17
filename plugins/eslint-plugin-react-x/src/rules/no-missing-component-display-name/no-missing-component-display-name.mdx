@@ -19,11 +19,12 @@ react-x/no-missing-component-display-name
 
 When defining a React component, if you specify its component name in a way that React can't infer its `displayName`, it will show up as an `anonymous` component in DevTools, which makes debugging more difficult.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Wrapping an anonymous arrow function with React.memo
 
 ```tsx
+// Problem: React cannot infer displayName from an anonymous arrow function; it will show as anonymous in DevTools
 import React from "react";
 
 const Button = React.memo(() => <div />);
@@ -31,24 +32,7 @@ const Button = React.memo(() => <div />);
 ```
 
 ```tsx
-import React from "react";
-
-const Button = React.forwardRef(() => <div />);
-//                              ^^^ Add missing 'displayName' for component.
-```
-
-(Not supported yet)
-
-```tsx
-import React from "react";
-
-export default () => <div />;
-//             ^^^ Add missing 'displayName' for component.
-```
-
-### Valid
-
-```tsx
+// Recommended: Use a named function or manually add displayName after assignment
 import React from "react";
 
 const Button = React.memo(function Button() {
@@ -63,7 +47,18 @@ const Button = React.memo(() => <div />);
 Button.displayName = "Button";
 ```
 
+### Wrapping an anonymous arrow function with React.forwardRef
+
 ```tsx
+// Problem: When forwardRef wraps an anonymous function, React cannot automatically infer the component name
+import React from "react";
+
+const Button = React.forwardRef(() => <div />);
+//                              ^^^ Add missing 'displayName' for component.
+```
+
+```tsx
+// Recommended: Use a named function or manually set the displayName property
 import React from "react";
 
 const Button = React.forwardRef(function Button() {
@@ -78,7 +73,18 @@ const Button = React.forwardRef(() => <div />);
 Button.displayName = "Button";
 ```
 
+### Default exporting an anonymous arrow function
+
 ```tsx
+// Problem: When default-exporting an anonymous function, the component has no recognizable name in DevTools
+import React from "react";
+
+export default () => <div />;
+//             ^^^ Add missing 'displayName' for component.
+```
+
+```tsx
+// Recommended: Change the default export to a named function declaration
 import React from "react";
 
 export default function Button() {

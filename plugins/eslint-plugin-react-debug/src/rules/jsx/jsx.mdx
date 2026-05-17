@@ -15,6 +15,12 @@ react-debug/jsx
 
 ## Rule Details
 
+This rule reports all JSX elements and fragments in JSON format. It includes information about the JSX runtime (automatic or classic), factory, fragment factory, and import source derived from `tsconfig.json` or pragma comments.
+
+## Examples
+
+### Automatic runtime JSX
+
 ```json title="tsconfig.json"
 {
   "compilerOptions": {
@@ -29,10 +35,13 @@ react-debug/jsx
 ```tsx
 import React from "react";
 
+// This rule reports JSX elements and includes automatic runtime information.
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
 //              - [jsx element] jsx: 'react-jsx', jsxFactory: 'React.createElement', jsxFragmentFactory: 'React.Fragment', jsxRuntime: 'automatic', jsxImportSource: 'react'
 ```
+
+### Classic runtime with pragma comments
 
 ```tsx
 /** @jsx Preact.h */
@@ -42,6 +51,7 @@ const element = <div>Hello World</div>;
 
 import Preact from "preact";
 
+// This rule reports JSX elements and includes classic runtime information from pragma comments.
 const element = <div>Hello World</div>;
 //              ^^^^^^^^^^^^^^^^^^^^^^
 //              - [jsx element] jsx: 'react', jsxFactory: 'Preact.h', jsxFragmentFactory: 'Preact.Fragment', jsxRuntime: 'classic', jsxImportSource: 'preact'

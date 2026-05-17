@@ -15,13 +15,23 @@ react-debug/is-from-react
 
 ## Rule Details
 
+This rule reports all identifiers initialized from React in JSON format. It tracks named imports, default imports, namespace accesses, and chained member accesses originating from the configured React `importSource`.
+
+## Examples
+
+### Named imports from React
+
 ```tsx
+// This rule reports named imports that originate from React.
 import { useState } from "react";
 //       ^^^^^^^^
 //       - [initialized from react] name: 'useState', import source: 'react'.
 ```
 
+### Default import and namespace access
+
 ```tsx
+// This rule reports the default React import and member accesses.
 import React from "react";
 //     ^^^^^
 //     - [initialized from react] name: 'React', import source: 'react'.
@@ -31,7 +41,12 @@ const Children = React.Children;
 //    |          |     - [initialized from react] name: 'Children', import source: 'react'.
 //    |          - [initialized from react] name: 'React', import source: 'react'.
 //    - [initialized from react] name: 'Children', import source: 'react'.
+```
 
+### Chained member access from React imports
+
+```tsx
+// This rule reports identifiers derived from React through chained access.
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
 //    |         |        - [initialized from react] name: 'toArray', import source: 'react'.
@@ -39,9 +54,12 @@ const toArray = Children.toArray;
 //    - [initialized from react] name: 'Children', import source: 'react'.
 ```
 
-### When [`settings["react-x"].importSource`](https://eslint-react.xyz/docs/configuration#importsource) is set to `"@pika/react"`
+### Custom React import source
+
+When [`settings["react-x"].importSource`](https://eslint-react.xyz/docs/configuration#importsource) is set to `"@pika/react"`:
 
 ```tsx
+// This rule respects the custom importSource setting.
 import { useState } from "@pika/react";
 //       ^^^^^^^^
 //       - [initialized from react] name: 'useState', import source: '@pika/react'.
@@ -57,7 +75,9 @@ const Children = React.Children;
 //    |          |     - [initialized from react] name: 'Children', import source: '@pika/react'.
 //    |          - [initialized from react] name: 'React', import source: '@pika/react'.
 //    - [initialized from react] name: 'Children', import source: '@pika/react'.
+```
 
+```tsx
 const toArray = Children.toArray;
 //    ^^^^^^^   ^^^^^^^^ ^^^^^^^
 //    |         |        - [initialized from react] name: 'toArray', import source: '@pika/react'.

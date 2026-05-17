@@ -15,9 +15,16 @@ react-debug/hook
 
 ## Rule Details
 
+This rule reports all React Hooks in JSON format. It detects built-in Hooks (such as `useState`, `useEffect`) as well as custom Hooks that follow the `use` prefix naming convention.
+
+## Examples
+
+### Built-in hook used inside a custom hook
+
 ```tsx
 import React, { useState } from "react";
 
+// This rule reports calls to built-in React Hooks.
 function useToggle() {
   const [value, setValue] = useState(false);
 

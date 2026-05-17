@@ -27,11 +27,14 @@ This rule warns about class component methods and properties that are defined bu
 
 Note that `shouldComponentUpdate` is considered unused when defined in a class extending `PureComponent`, since `PureComponent` implements its own `shouldComponentUpdate` with shallow prop and state comparison.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Class component methods defined but never used
+
+Defining a method in a class component that is never called (including in lifecycles, render, or other methods) increases maintenance overhead and causes confusion.
 
 ```tsx
+// Problem: handleClick is never called
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -42,9 +45,12 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Valid
+### Class component members called by other methods or lifecycles
+
+If a method is explicitly called in a lifecycle (such as componentDidMount) or by other members, it is not considered unused.
 
 ```tsx
+// OK: action is called in componentDidMount
 import React from "react";
 
 class MyComponent extends React.Component {

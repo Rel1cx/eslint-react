@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added spec documentation (`purity.spec.md`) documenting algorithms, validation rules, edge cases, and examples.
-- Added IMPL vs SPEC diff document (`purity.spec.diff.md`) for tracking deviations from the React Compiler specification.
+- Added IMPL–SPEC diff document (`purity.spec.diff.md`) for tracking deviations from the React Compiler specification.
 
 ### Changed
 

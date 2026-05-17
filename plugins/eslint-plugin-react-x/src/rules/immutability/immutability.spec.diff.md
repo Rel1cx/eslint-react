@@ -1,4 +1,4 @@
-# immutability IMPL vs. SPEC Report
+# immutability IMPL–SPEC Diff Report
 
 **IMPL**: `immutability.ts` (ESLint rule)\
 **SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)

@@ -3,13 +3,13 @@ title: set-state-in-effect
 description: Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/set-state-in-effect
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/set-state-in-effect
@@ -27,7 +27,7 @@ react-x/set-state-in-effect
 
 ## Rule Details
 
-Setting state immediately inside an effect forces React to restart the entire render cycle. When you update state in an effect, React must re-render your component, apply changes to the DOM, and then run effects again. This creates an extra render pass that could have been avoided by transforming data directly during render or deriving state from props. Transform data at the top level of your component instead. This code will naturally re-run when props or state change without triggering additional render cycles.
+Setting state immediately inside an effect forces React to restart the entire render cycle. When you update state in an effect, React must re-render your component, apply changes to the DOM, and then run effects again. This creates an extra render pass that could have been avoided by transforming data directly during render or deriving state from props.
 
 Synchronous `setState` calls in effects trigger immediate re-renders before the browser can paint, causing performance issues and visual jank. React has to render twice: once to apply the state update, then again after effects run. This double rendering is wasteful when the same result could be achieved with a single render.
 
@@ -35,130 +35,25 @@ Synchronous `setState` calls in effects trigger immediate re-renders before the 
 
 In many cases, you may also not need an effect at all. Please see [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect) for more information.
 
-### Common Violations
+## Examples
 
-This rule catches several patterns where synchronous `setState` is used unnecessarily:
+### Transforming data in effects instead of render
 
-- Transforming data in effects instead of render
-- Deriving state from props in effects
-- Setting loading state synchronously
-
-### What is allowed?
-
-The rule does not flag indirect calls, such as:
-
-- Inside event handlers.
-- Inside `async` functions.
-- Inside `setTimeout`, `setInterval`, `Promise.then`, etc.
-
-### Known Limitations
-
-- It doesn’t check `set` calls in `useEffect` cleanup functions.
-
-  ```tsx {2}
-  useEffect(() => {
-    return () => {
-      setFullName(firstName + " " + lastName); // ❌ Direct call
-    };
-  }, [firstName, lastName]);
-  ```
-
-- It doesn’t detect `set` calls in `async` functions that are called before the `await` statement.
-
-  ```tsx {2}
-  useEffect(() => {
-    const fetchData = async () => {
-      setFullName(data.name); // ❌ Direct call
-    };
-    fetchData();
-  }, []);
-  ```
-
-### Valid
-
-The following example from the [React Docs](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) demonstrates that `setState` in an effect is fine if the value comes from a ref, since it cannot be calculated during rendering:
+When data can be derived directly from props, putting it in state inside an effect creates an unnecessary render cycle.
 
 ```tsx
-import { useLayoutEffect, useRef, useState } from "react";
-
-function Tooltip() {
-  const ref = useRef(null);
-  const [tooltipHeight, setTooltipHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    const { height } = ref.current.getBoundingClientRect();
-    setTooltipHeight(height);
-  }, []);
-  // ...
-}
-```
-
-The following cases are common valid use cases because they do not call the `set` function directly in `useEffect`:
-
-```tsx
-import { useEffect, useState } from "react";
-
-export default function Counter() {
-  const [count, setCount] = useState(0);
+// Problem: transforming data in an effect
+function Component({ rawData }) {
+  const [processed, setProcessed] = useState([]);
 
   useEffect(() => {
-    const handler = () => setCount((c) => c + 1);
-    window.addEventListener("click", handler);
-    return () => window.removeEventListener("click", handler);
-  }, []);
-
-  return <h1>{count}</h1>;
+    setProcessed(rawData.map(transform)); // extra render, should compute directly during rendering
+  }, [rawData]);
 }
 ```
 
 ```tsx
-import { useEffect, useState } from "react";
-
-export default function Counter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, []);
-
-  return <h1>{count}</h1>;
-}
-```
-
-```tsx
-import { useEffect, useState } from "react";
-
-export default function RemoteContent() {
-  const [content, setContent] = useState("");
-
-  useEffect(() => {
-    let discarded = false;
-    fetch("https://eslint-react.xyz/content")
-      .then((resp) => resp.text())
-      .then((text) => {
-        if (discarded) return;
-        setContent(text);
-      });
-    return () => {
-      discarded = true;
-    };
-  }, []);
-
-  return <h1>{count}</h1>;
-}
-```
-
-<Callout title="TIP">
-  If you need to fetch remote data within the component, consider using libraries like [TanStack Query](https://tanstack.com/query/v3/) or [SWR](https://swr.vercel.app/). They handle caching, re-fetching, and state management for you, making your code cleaner and more efficient.
-</Callout>
-
-```tsx
-import { useMemo, useState } from "react";
-
-// ✅ Calculate during render
+// Recommended: compute directly during rendering
 function Component({ rawData }) {
   const processed = useMemo(() => rawData.map(transform), [rawData]);
   // ...
@@ -166,106 +61,19 @@ function Component({ rawData }) {
 ```
 
 ```tsx
-// ✅ Calculate during render
+// Recommended: simple computations can be done directly during rendering
 function Component({ selectedId, items }) {
   const selected = items.find((i) => i.id === selectedId);
   return <div>{selected?.name}</div>;
 }
 ```
 
-```tsx
-import { useState } from "react";
+### Deriving state from props in effects
 
-export default function ProfilePage({ userId }) {
-  return <Profile userId={userId} key={userId} />;
-}
-
-function Profile({ userId }) {
-  // ✅ This and any other state below will reset on key change automatically
-  const [comment, setComment] = useState("");
-  // ...
-}
-```
+Synchronously setting state based on props in an effect is a common anti-pattern that causes extra renders.
 
 ```tsx
-import { useState } from "react";
-
-function List({ items }) {
-  const [isReverse, setIsReverse] = useState(false);
-  const [selection, setSelection] = useState(null);
-
-  // Better: Adjust the state while rendering
-  const [prevItems, setPrevItems] = useState(items);
-  if (items !== prevItems) {
-    setPrevItems(items);
-    setSelection(null);
-  }
-  // ...
-}
-```
-
-```tsx
-import { useState } from "react";
-
-function List({ items }) {
-  const [isReverse, setIsReverse] = useState(false);
-  const [selectedId, setSelectedId] = useState(null);
-  // ✅ Best: Calculate everything during rendering
-  const selection = items.find((item) => item.id === selectedId) ?? null;
-  // ...
-}
-```
-
-## Common Violations
-
-### Invalid
-
-The following examples are derived from the [React Docs: `set-state-in-effect`](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) and the [React Docs: You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect):
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Synchronous setState in effect
-function Component({ data }) {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    setItems(data); // Extra render, use initial state instead
-  }, [data]);
-}
-```
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Setting loading state synchronously
-function Component() {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true); // Synchronous, causes extra render
-    fetchData().then(() => setLoading(false));
-  }, []);
-}
-```
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Transforming data in effect
-function Component({ rawData }) {
-  const [processed, setProcessed] = useState([]);
-
-  useEffect(() => {
-    setProcessed(rawData.map(transform)); // Should derive in render
-  }, [rawData]);
-}
-```
-
-```tsx
-import { useEffect, useState } from "react";
-
-// ❌ Deriving state from props
+// Problem: setting state based on props in an effect
 function Component({ selectedId, items }) {
   const [selected, setSelected] = useState(null);
 
@@ -276,31 +84,135 @@ function Component({ selectedId, items }) {
 ```
 
 ```tsx
-import { useEffect, useState } from "react";
-
-export default function ProfilePage({ userId }) {
-  const [comment, setComment] = useState("");
-
-  // 🔴 Avoid: Resetting state on prop change in an Effect
-  useEffect(() => {
-    setComment("");
-  }, [userId]);
+// Recommended: derive values during rendering
+function Component({ selectedId, items }) {
+  const selection = items.find((item) => item.id === selectedId) ?? null;
   // ...
 }
 ```
 
+### Resetting state on prop changes
+
+Using an effect to reset state when a prop changes causes an extra render. Instead, use the `key` prop to reset state automatically.
+
 ```tsx
-import { useEffect, useState } from "react";
+// Problem: resetting state in an effect
+function ProfilePage({ userId }) {
+  const [comment, setComment] = useState("");
 
-function List({ items }) {
-  const [isReverse, setIsReverse] = useState(false);
-  const [selection, setSelection] = useState(null);
-
-  // 🔴 Avoid: Adjusting state on prop change in an Effect
   useEffect(() => {
-    setSelection(null);
-  }, [items]);
-  // ...
+    setComment(""); // extra render
+  }, [userId]);
+}
+```
+
+```tsx
+// Recommended: use the key prop to reset state automatically
+function ProfilePage({ userId }) {
+  return <Profile userId={userId} key={userId} />;
+}
+
+function Profile({ userId }) {
+  const [comment, setComment] = useState("");
+  // automatically resets when key changes
+}
+```
+
+### Setting synchronous loading state
+
+Toggling a loading flag synchronously at the start of an effect causes an immediate re-render before any actual work begins.
+
+```tsx
+// Problem: setting loading state synchronously
+function Component() {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true); // synchronously triggers extra render
+    fetchData().then(() => setLoading(false));
+  }, []);
+}
+```
+
+```tsx
+// Recommended: initialize loading state to true so no synchronous setState is needed
+function Component() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData().then(() => setLoading(false));
+  }, []);
+}
+```
+
+### Indirect setState calls are allowed
+
+The rule does not flag indirect calls, such as inside event handlers, async functions, or timers. These run outside of the synchronous effect execution and do not cause the same immediate re-render problem.
+
+```tsx
+// OK: setState in an event handler
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const handler = () => setCount((c) => c + 1);
+    window.addEventListener("click", handler);
+    return () => window.removeEventListener("click", handler);
+  }, []);
+}
+```
+
+```tsx
+// OK: setState in an async function
+function RemoteContent() {
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    let discarded = false;
+    fetch("https://eslint-react.xyz/content")
+      .then((resp) => resp.text())
+      .then((text) => {
+        if (discarded) return;
+        setContent(text); // allowed in async callback
+      });
+    return () => {
+      discarded = true;
+    };
+  }, []);
+}
+```
+
+## Known Limitations
+
+### Cleanup functions
+
+The rule does not check `set` calls inside `useEffect` cleanup functions.
+
+```tsx
+// Note: setState in a cleanup function is not flagged
+function Component({ firstName, lastName }) {
+  useEffect(() => {
+    return () => {
+      setFullName(firstName + " " + lastName); // not detected
+    };
+  }, [firstName, lastName]);
+}
+```
+
+### Async functions before await
+
+The rule does not detect `set` calls in `async` functions that are called before the first `await` statement.
+
+```tsx
+// Note: setState before await in an async function is not flagged
+function Component({ data }) {
+  useEffect(() => {
+    const fetchData = async () => {
+      setFullName(data.name); // not detected
+      await syncToServer(data);
+    };
+    fetchData();
+  }, [data]);
 }
 ```
 
@@ -315,7 +227,7 @@ Custom state and effect hooks can also be configured via shared ESLint settings,
   "settings": {
     "react-x": {
       "additionalStateHooks": "/^(useMyState|useCustomState)$/u",
-      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u",
+      "additionalEffectHooks": "/^(useMyEffect|useCustomEffect)$/u"
     }
   }
 }

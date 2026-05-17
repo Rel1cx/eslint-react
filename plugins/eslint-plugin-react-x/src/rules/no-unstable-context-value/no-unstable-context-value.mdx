@@ -25,11 +25,14 @@ react-x/no-unstable-context-value
 
 React will re-render all consumers of a context whenever the context value changes, and if the value is not stable this can lead to unnecessary re-renders.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Creating a new object as the Context value on every render
+
+JavaScript objects and functions get a new reference every time they are recreated. If you pass an object literal directly in JSX, the Provider will think the value has changed on every render, causing all consumers to re-render unnecessarily.
 
 ```tsx
+// Problem: Object literals create a new reference on every render
 import React from "react";
 
 const MyContext = React.createContext({});
@@ -45,9 +48,8 @@ function MyComponentProvider() {
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: Lift the value to module scope or use useMemo to keep the reference stable
 import React, { useMemo } from "react";
 
 const MyContext = React.createContext({});
@@ -63,7 +65,12 @@ function MyComponentProvider() {
 }
 ```
 
+### Using the React 19 `use memo` directive
+
+In React 19, if a component uses the `"use memo"` directive, the compiler automatically keeps object references stable, so passing object literals directly is acceptable.
+
 ```tsx
+// OK: With the use memo directive, the compiler automatically optimizes references
 import React from "react";
 
 const MyContext = React.createContext({});

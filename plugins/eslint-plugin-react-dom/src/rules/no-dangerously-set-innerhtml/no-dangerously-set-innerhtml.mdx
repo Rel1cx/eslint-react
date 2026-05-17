@@ -27,15 +27,18 @@ react-dom/no-dangerously-set-innerhtml
 
 ## Rule Details
 
-This should be used with extreme caution! If the HTML inside isn’t trusted (for example, if it’s based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
+This should be used with extreme caution! If the HTML inside isn't trusted (for example, if it's based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability.
 
 Read more about using [dangerouslySetInnerHTML](https://react.dev/reference/react-dom/components/common#dangerously-setting-the-inner-html).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `dangerouslySetInnerHTML` to render raw HTML
+
+Using `dangerouslySetInnerHTML` bypasses React's built-in XSS protections and should be avoided whenever possible.
 
 ```tsx
+// Problem: dangerouslySetInnerHTML exposes the application to XSS risks.
 function MyComponent() {
   return <div dangerouslySetInnerHTML={{ __html: "Hello, World!" }} />;
 }

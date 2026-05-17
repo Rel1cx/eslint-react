@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added IMPL vs SPEC diff document (`static-components.spec.diff.md`) for tracking deviations from the React Compiler specification.
+- Added IMPL–SPEC diff document (`static-components.spec.diff.md`) for tracking deviations from the React Compiler specification.
 
 ### Changed
 

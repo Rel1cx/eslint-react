@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added spec documentation (`error-boundaries.spec.md`) documenting algorithms, validation rules, edge cases, and examples.
-- Added IMPL vs SPEC diff document (`error-boundaries.spec.diff.md`) for tracking deviations from the React Compiler specification.
+- Added IMPL–SPEC diff document (`error-boundaries.spec.diff.md`) for tracking deviations from the React Compiler specification.
 
 ### Changed
 

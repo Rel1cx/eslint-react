@@ -7,13 +7,13 @@ description: Validates against mutating props, state, and other values that are 
   This is an evaluation implementation and may contain false positives or negatives that have not yet been fully audited. Review each report carefully before applying fixes.
 </Callout>
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/immutability
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/immutability
@@ -29,46 +29,26 @@ A component's props and state are immutable snapshots. Never mutate them directl
 
 Mutations are invisible to React — because the object or array reference hasn't changed, React has no way to know that something changed. As a result, the UI won't re-render, and your app will show stale data.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Adding items to an array
+
+Array methods like `push()` mutate the original array in place. React cannot detect this change because the array reference remains the same.
 
 ```tsx
-// ❌ Array push mutation
+// Problem: Mutating the array directly
 function Component() {
   const [items, setItems] = useState([1, 2, 3]);
   const addItem = () => {
-    items.push(4); // Mutating!
-    setItems(items); // Same reference, no re-render
+    items.push(4); // Directly mutating the original array
+    // ^^^ Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead.
+    setItems(items); // Same reference, won't trigger a re-render
   };
 }
 ```
 
 ```tsx
-// ❌ Object property assignment
-function Component() {
-  const [user, setUser] = useState({ name: "Alice" });
-  const updateName = () => {
-    user.name = "Bob"; // Mutating!
-    setUser(user); // Same reference
-  };
-}
-```
-
-```tsx
-// ❌ Sort without spreading
-function Component() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sortItems = () => {
-    setItems(items.sort()); // sort mutates!
-  };
-}
-```
-
-### Valid
-
-```tsx
-// ✅ Create new array
+// Recommended: Create a new array
 function Component() {
   const [items, setItems] = useState([1, 2, 3]);
   const addItem = () => {
@@ -77,8 +57,24 @@ function Component() {
 }
 ```
 
+### Updating object properties
+
+Directly assigning to an object's property mutates the existing object. React compares object references, not their contents, so the update is ignored.
+
 ```tsx
-// ✅ Create new object
+// Problem: Mutating object properties directly
+function Component() {
+  const [user, setUser] = useState({ name: "Alice" });
+  const updateName = () => {
+    user.name = "Bob"; // Directly mutating the original object
+    // ^^^ Do not mutate 'user' directly. Props and state are immutable — create a new object instead.
+    setUser(user); // Same reference
+  };
+}
+```
+
+```tsx
+// Recommended: Create a new object
 function Component() {
   const [user, setUser] = useState({ name: "Alice" });
   const updateName = () => {
@@ -87,8 +83,22 @@ function Component() {
 }
 ```
 
+### Sorting or reversing lists
+
+`Array.prototype.sort()` and `Array.prototype.reverse()` mutate the array in place. If you call them directly on state, you mutate React's internal snapshot.
+
 ```tsx
-// ✅ Spread before sorting
+// Problem: sort mutates the original array
+function Component() {
+  const [items, setItems] = useState([3, 1, 2]);
+  const sortItems = () => {
+    setItems(items.sort()); // sort mutates the original array
+  };
+}
+```
+
+```tsx
+// Recommended: Spread into a new array before sorting
 function Component() {
   const [items, setItems] = useState([3, 1, 2]);
   const sortItems = () => {
@@ -97,82 +107,30 @@ function Component() {
 }
 ```
 
-## Troubleshooting
+### Updating nested objects
 
-### I need to add items to an array
-
-Mutating arrays with methods like `push()` won't trigger re-renders:
+Mutating nested properties doesn't change the top-level object reference, so React won't detect the update at any level.
 
 ```tsx
-// ❌ Wrong: Mutating the array
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const addTodo = (id, text) => {
-    todos.push({ id, text });
-    setTodos(todos); // Same array reference!
-  };
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.text}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-Create a new array instead:
-
-```tsx
-// ✅ Better: Create a new array
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const addTodo = (id, text) => {
-    setTodos([...todos, { id, text }]);
-    // Or: setTodos((todos) => [...todos, { id: Date.now(), text }])
-  };
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.text}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-### I need to update nested objects
-
-Mutating nested properties doesn't trigger re-renders:
-
-```tsx
-// ❌ Wrong: Mutating nested object
+// Problem: Mutating a nested object
 function UserProfile() {
   const [user, setUser] = useState({
     name: "Alice",
-    settings: {
-      theme: "light",
-      notifications: true,
-    },
+    settings: { theme: "light", notifications: true },
   });
   const toggleTheme = () => {
-    user.settings.theme = "dark"; // Mutation!
+    user.settings.theme = "dark"; // Mutating a nested property
     setUser(user); // Same object reference
   };
 }
 ```
 
-Spread at each level that needs updating:
-
 ```tsx
-// ✅ Better: Create new objects at each level
+// Recommended: Create new objects at every level
 function UserProfile() {
   const [user, setUser] = useState({
     name: "Alice",
-    settings: {
-      theme: "light",
-      notifications: true,
-    },
+    settings: { theme: "light", notifications: true },
   });
   const toggleTheme = () => {
     setUser({
@@ -186,12 +144,67 @@ function UserProfile() {
 }
 ```
 
-### I need to sort or reverse a list
+### Mutating props directly
 
-`Array.prototype.sort()` and `Array.prototype.reverse()` sort and reverse the array in place, mutating the original:
+Props are owned by the parent component. A child should never modify its props.
 
 ```tsx
-// ❌ Wrong: sort/reverse mutates the state array
+// Problem: Mutating props directly
+function Component(props) {
+  props.name = "Bob"; // Child components should not mutate props
+  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
+  return <div>{props.name}</div>;
+}
+```
+
+```tsx
+// Recommended: Notify the parent via a callback
+function Component({ name, onNameChange }) {
+  return <button onClick={() => onNameChange("Bob")}>{name}</button>;
+}
+```
+
+### Complete component examples
+
+Real components often mix state updates with JSX. Here are fuller examples showing how mutations silently break rendering in complete component contexts.
+
+```tsx
+// Problem: Mutating the array in a list component
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const addTodo = (id, text) => {
+    todos.push({ id, text }); // Directly mutating the original array
+    setTodos(todos); // Same reference, won't trigger a re-render
+  };
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+```tsx
+// Recommended: Create a new array so React detects the change
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const addTodo = (id, text) => {
+    setTodos([...todos, { id, text }]); // New array
+  };
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+```tsx
+// Problem: sort mutates the state array inside a button handler
 function SortedList() {
   const [items, setItems] = useState([3, 1, 2]);
   const sort = () => {
@@ -201,94 +214,14 @@ function SortedList() {
 }
 ```
 
-Spread into a new array first:
-
 ```tsx
-// ✅ Correct: spread into a new array before sorting
+// Recommended: Spread into a new array before sorting
 function SortedList() {
   const [items, setItems] = useState([3, 1, 2]);
   const sort = () => {
     setItems([...items].sort());
   };
   return <button onClick={sort}>Sort</button>;
-}
-```
-
-## Common Violations
-
-### Invalid
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [items, setItems] = useState([1, 2, 3]);
-  const addItem = () => {
-    items.push(4);
-    // ^^^ Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead.
-    setItems(items);
-  };
-  return <div>{items.length}</div>;
-}
-```
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [user, setUser] = useState({ name: "Alice" });
-  const updateName = () => {
-    user.name = "Bob";
-    // ^^^ Do not mutate 'user' directly. Props and state are immutable — create a new object instead.
-    setUser(user);
-  };
-  return <div>{user.name}</div>;
-}
-```
-
-```tsx
-function Component(props) {
-  props.name = "Bob";
-  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
-  return <div>{props.name}</div>;
-}
-```
-
-### Valid
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [items, setItems] = useState([1, 2, 3]);
-  const addItem = () => {
-    setItems([...items, 4]); // ✅ New array
-  };
-  return <div>{items.length}</div>;
-}
-```
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [user, setUser] = useState({ name: "Alice" });
-  const updateName = () => {
-    setUser({ ...user, name: "Bob" }); // ✅ New object
-  };
-  return <div>{user.name}</div>;
-}
-```
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sortItems = () => {
-    setItems([...items].sort()); // ✅ Spread first, then sort
-  };
-  return <div>{items.length}</div>;
 }
 ```
 
@@ -302,7 +235,7 @@ Custom state hooks can also be configured via shared ESLint settings, which appl
 {
   "settings": {
     "react-x": {
-      "additionalStateHooks": "/^(useMyState|useCustomState)$/u",
+      "additionalStateHooks": "/^(useMyState|useCustomState)$/u"
     }
   }
 }

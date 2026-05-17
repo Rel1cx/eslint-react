@@ -28,11 +28,12 @@ react-x/no-leaked-conditional-rendering
 
 Using the `&&` operator to render an element conditionally in JSX can cause unexpected values to be rendered or even crash the rendering.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using a number directly as a condition
 
 ```tsx
+// Problem: When count is 0, 0 will be rendered directly on the page
 interface MyComponentProps {
   count: number;
 }
@@ -44,6 +45,20 @@ function MyComponent({ count }: MyComponentProps) {
 ```
 
 ```tsx
+// Recommended: Use a comparison expression or ternary operator to ensure only boolean evaluation results are rendered
+interface MyComponentProps {
+  count: number;
+}
+
+function MyComponent({ count }: MyComponentProps) {
+  return <div>{count > 0 && <span>There are {count} results</span>}</div>;
+}
+```
+
+### Using array length as a condition
+
+```tsx
+// Problem: When items.length is 0, 0 may leak into the DOM
 interface MyComponentProps {
   items: string[];
 }
@@ -55,77 +70,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-interface MyComponentProps {
-  items: string[];
-}
-
-function MyComponent({ items }: MyComponentProps) {
-  return <div>{items[0] && <List items={items} />}</div>;
-  //           ^^^ Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
-}
-```
-
-```tsx
-interface MyComponentProps {
-  numberA: number;
-  numberB: number;
-}
-
-function MyComponent({ numberA, numberB }: MyComponentProps) {
-  return (
-    <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
-    //    ^^^ Potential leaked value '(numberA || numberB)' that might cause unintentionally rendered values or rendering crashes.
-  );
-}
-```
-
-### Valid
-
-```tsx
-interface MyComponentProps {
-  items: string[];
-}
-
-function MyComponent({ items }: MyComponentProps) {
-  return <div>{items}</div>;
-}
-```
-
-```tsx
-interface MyComponentProps {
-  customTitle: string;
-}
-
-const defaultTitle = "Default Title";
-
-// An OR condition is considered valid since it's assumed to be a way to render some fallback if the first value is falsy, not to render something conditionally.
-function MyComponent({ customTitle }: MyComponentProps) {
-  return <div>{customTitle || defaultTitle}</div>;
-}
-```
-
-```tsx
-interface MyComponentProps {
-  items: string[];
-}
-
-function MyComponent({ items }: MyComponentProps) {
-  return <div>There are {items.length} items</div>;
-}
-```
-
-```tsx
-interface MyComponentProps {
-  items: string[];
-  count: number;
-}
-
-function MyComponent({ items, count }: MyComponentProps) {
-  return <div>{!count && "No results found"}</div>;
-}
-```
-
-```tsx
+// Recommended: Use !!, Boolean(), or a comparison expression to avoid leaking
 interface MyComponentProps {
   items: string[];
 }
@@ -172,6 +117,89 @@ interface MyComponentProps {
 
 function MyComponent({ items }: MyComponentProps) {
   return <div>{items.length ? <List items={items} /> : <EmptyList />}</div>;
+}
+```
+
+### Using an array element as a condition
+
+```tsx
+// Problem: When items\[0] is an empty string or 0, that value may be rendered unexpectedly
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items[0] && <List items={items} />}</div>;
+  //           ^^^ Potential leaked value 'items[0]' that might cause unintentionally rendered values or rendering crashes.
+}
+```
+
+### Using a logical OR expression as a condition
+
+```tsx
+// Problem: (numberA || numberB) may return 0 or another falsy value and leak onto the page
+interface MyComponentProps {
+  numberA: number;
+  numberB: number;
+}
+
+function MyComponent({ numberA, numberB }: MyComponentProps) {
+  return (
+    <div>{(numberA || numberB) && <Results>{numberA + numberB}</Results>}</div>
+    //    ^^^ Potential leaked value '(numberA || numberB)' that might cause unintentionally rendered values or rendering crashes.
+  );
+}
+```
+
+### Rendering arrays or strings directly
+
+```tsx
+// OK: Directly rendering values known to be React nodes does not require conditional checks
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>{items}</div>;
+}
+```
+
+```tsx
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return <div>There are {items.length} items</div>;
+}
+```
+
+### Using a default value fallback
+
+```tsx
+// OK: Using `||` to provide a fallback value is a common default-value pattern, not conditional rendering
+interface MyComponentProps {
+  customTitle: string;
+}
+
+const defaultTitle = "Default Title";
+
+function MyComponent({ customTitle }: MyComponentProps) {
+  return <div>{customTitle || defaultTitle}</div>;
+}
+```
+
+### Using negation for conditional rendering
+
+```tsx
+// OK: When the condition expression explicitly produces a boolean result, no value will leak
+interface MyComponentProps {
+  items: string[];
+  count: number;
+}
+
+function MyComponent({ items, count }: MyComponentProps) {
+  return <div>{!count && "No results found"}</div>;
 }
 ```
 

@@ -29,11 +29,14 @@ react-x/no-children-map
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Wrapping each child in a layout element
+
+Using `Children.map` to wrap children assumes a specific React internals structure that may break. Instead, accept an array of data or let the parent map over items directly.
 
 ```tsx
+// Problem: Using Children.map to wrap each child in a styled container
 import React, { Children } from "react";
 
 interface MyComponentProps {

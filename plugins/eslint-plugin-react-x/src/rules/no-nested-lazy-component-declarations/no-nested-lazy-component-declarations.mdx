@@ -36,27 +36,27 @@ When a component is defined inside another component:
 - It defeats props memoization and optimization techniques
 - It creates new function references on every render
 
-## Common Violations
+## Examples
 
-### Invalid
+### Declaring lazy components inside a component
 
 ```tsx
+// Problem: Declaring MarkdownPreview inside Editor causes the lazy component to be recreated on every render, resetting its state unexpectedly
 import { lazy } from "react";
 
 function Editor() {
-  // 🔴 Bad: This will cause all state to be reset on re-renders
   const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
   //    ^^^ Do not declare lazy components inside other components. Instead, always declare them at the top level of your module.
   // ...
 }
 ```
 
-### Valid
+### Declaring lazy components at the module level
 
 ```tsx
+// Recommended: Declare lazy components at the module level to keep references stable and state persistent
 import { lazy } from "react";
 
-// ✅ Good: Declare lazy components outside of your components
 const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
 
 function Editor() {

@@ -23,15 +23,18 @@ react-x/no-class-component
 
 ## Rule Details
 
-Component is the base class for React components defined as JavaScript classes. Class components are still supported by React, but we don’t recommend using them in new code.
+Component is the base class for React components defined as JavaScript classes. Class components are still supported by React, but we don't recommend using them in new code.
 
 We recommend defining components as functions instead of classes. [See how to migrate](https://react.dev/reference/react/Component#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Writing a new component
+
+For new code, prefer function components with Hooks. They are simpler, easier to compose, and align with React's current direction.
 
 ```tsx
+// Problem: Using a class component for new logic
 import React from "react";
 
 interface MyComponentProps {
@@ -45,9 +48,8 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: Use a function component instead
 interface MyComponentProps {
   name: string;
 }
@@ -57,14 +59,18 @@ function MyComponent({ name }: MyComponentProps) {
 }
 ```
 
+### Defining an error boundary
+
+Error boundaries must currently be implemented as class components because `componentDidCatch` and `getDerivedStateFromError` have no function-component equivalent. This is an allowed exception.
+
 ```tsx
+// OK: Error boundaries must be implemented as class components
 import React, { Component } from "react";
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
 
-// This is an exception to the rule, as ErrorBoundary is a special case.
 class ErrorBoundary extends Component<ErrorBoundaryProps> {
   state = { hasError: false };
 

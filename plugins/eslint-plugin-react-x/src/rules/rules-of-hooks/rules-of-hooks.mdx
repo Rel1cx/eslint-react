@@ -3,13 +3,13 @@ title: rules-of-hooks
 description: Enforces the Rules of Hooks.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/rules-of-hooks
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/rules-of-hooks
@@ -33,38 +33,70 @@ react-x/rules-of-hooks
 
 React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Calling hooks conditionally
+
+Hooks must be called in the exact same order on every render. Placing a hook inside an `if` statement breaks this contract because the hook may be skipped on some renders.
 
 ```tsx
-// ❌ Hook in condition
+// Problem: calling hook conditionally
 function MyComponent({ isLoggedIn }) {
   if (isLoggedIn) {
     const [user, setUser] = useState(null);
-    //    ^^^ React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+    //    ^^^ React Hook "useState" is called conditionally.
   }
 }
 ```
 
 ```tsx
-// ❌ Hook after early return
+// Recommended: call hooks unconditionally and handle conditions inside
+function MyComponent({ isLoggedIn }) {
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserData();
+    }
+  }, [isLoggedIn]);
+}
+```
+
+### Hooks after early return
+
+An early return before a hook call also makes the hook conditional — it won't run on renders that hit the return statement.
+
+```tsx
+// Problem: early return causes conditional hook execution
 function MyComponent({ data }) {
   if (!data) return <Loading />;
 
   const [processed, setProcessed] = useState(data);
-  //    ^^^ React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.
+  //    ^^^ React Hook "useState" is called conditionally.
 }
 ```
 
 ```tsx
-// ❌ Hook in callback
+// Recommended: move hooks to the top of the component and handle conditions in JSX
+function MyComponent({ data }) {
+  const [processed, setProcessed] = useState(data);
+
+  if (!data) return <Loading />;
+
+  return <div>{processed}</div>;
+}
+```
+
+### Hooks inside callbacks or loops
+
+Hooks must be called at the top level of a React function component or custom hook. Calling them inside callbacks, loops, or nested functions means they won't be called in a predictable order.
+
+```tsx
+// Problem: calling hook inside a callback
 function MyComponent() {
   return (
     <button
       onClick={() => {
         const [clicked, setClicked] = useState(false);
-        //    ^^^ React Hook "useState" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function.
+        //    ^^^ React Hook "useState" cannot be called inside a callback.
       }}
     />
   );
@@ -72,31 +104,79 @@ function MyComponent() {
 ```
 
 ```tsx
-// ❌ Hook in loop
+// Problem: calling hook inside a loop
 function MyComponent({ items }) {
   for (const item of items) {
     const [selected, setSelected] = useState(false);
-    //    ^^^ React Hook "useState" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.
+    //    ^^^ React Hook "useState" may be executed more than once.
   }
 }
 ```
 
 ```tsx
-// ❌ `use` in try/catch
+// Recommended: call hooks at the top level of the component and use state updater functions in callbacks
+function MyComponent() {
+  const [clicked, setClicked] = useState(false);
+  return <button onClick={() => setClicked(true)}>Click</button>;
+}
+```
+
+### `use` in try/catch blocks
+
+The `use` hook cannot be called from inside a `try` block because React needs to be able to suspend the component, and try/catch interferes with React's internal exception handling for Suspense.
+
+```tsx
+// Problem: calling use inside a try block
 function MyComponent({ promise }) {
   try {
     const data = use(promise);
-    //           ^^^ React Hook "use" cannot be called from a try block. Call it outside of the try block.
+    //           ^^^ React Hook "use" cannot be called from a try block.
   } catch (e) {
     // error handling
   }
 }
 ```
 
-### Valid
+```tsx
+// Recommended: call use outside the try block
+function MyComponent({ promise }) {
+  const data = use(promise);
+  // ...
+}
+```
+
+### Conditionally initializing state
+
+You may be tempted to call `useState` inside a condition when you want different initial values for different scenarios. This breaks the Rules of Hooks because the number of hook calls changes between renders.
 
 ```tsx
-// ✅ Hooks at top level
+// Problem: conditionally initializing state
+function MyComponent({ userType, adminPerms, userPerms }) {
+  if (userType === "admin") {
+    const [permissions, setPermissions] = useState(adminPerms);
+    //    ^^^ React Hook "useState" is called conditionally.
+  } else {
+    const [permissions, setPermissions] = useState(userPerms);
+    //    ^^^ React Hook "useState" is called conditionally.
+  }
+}
+```
+
+```tsx
+// Recommended: call useState unconditionally and set the initial value conditionally
+function MyComponent({ userType, adminPerms, userPerms }) {
+  const [permissions, setPermissions] = useState(
+    userType === "admin" ? adminPerms : userPerms,
+  );
+}
+```
+
+### Hooks at top level
+
+When all hooks are called unconditionally at the top level, React can reliably match each hook call to its corresponding state across renders.
+
+```tsx
+// Recommended: call hooks unconditionally at the top level in a fixed order
 function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("");
@@ -106,7 +186,6 @@ function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
   }
 
   if (shouldFetch) {
-    // ✅ `use` can be conditional
     const data = use(fetchPromise);
     return <div>{data}</div>;
   }
@@ -120,7 +199,7 @@ function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
 ```
 
 ```tsx
-// ✅ Custom hook calling other hooks at top level
+// Recommended: custom hooks should also call other hooks at the top level
 function useUserData(userId) {
   const [user, setUser] = useState(null);
 
@@ -129,62 +208,6 @@ function useUserData(userId) {
   }, [userId]);
 
   return user;
-}
-```
-
-## Troubleshooting
-
-### I want to fetch data based on some condition
-
-You're trying to conditionally call `useEffect`:
-
-```tsx
-// ❌ Conditional hook
-function MyComponent({ isLoggedIn }) {
-  if (isLoggedIn) {
-    useEffect(() => {
-      fetchUserData();
-    }, []);
-  }
-}
-```
-
-Call the hook unconditionally, and check the condition inside:
-
-```tsx
-// ✅ Condition inside hook
-function MyComponent({ isLoggedIn }) {
-  useEffect(() => {
-    if (isLoggedIn) {
-      fetchUserData();
-    }
-  }, [isLoggedIn]);
-}
-```
-
-### I need different state for different scenarios
-
-You're trying to conditionally initialize state:
-
-```tsx
-// ❌ Conditional state
-function MyComponent({ userType, adminPerms, userPerms }) {
-  if (userType === "admin") {
-    const [permissions, setPermissions] = useState(adminPerms);
-  } else {
-    const [permissions, setPermissions] = useState(userPerms);
-  }
-}
-```
-
-Always call `useState` unconditionally, and set the initial value conditionally:
-
-```tsx
-// ✅ Conditional initial value
-function MyComponent({ userType, adminPerms, userPerms }) {
-  const [permissions, setPermissions] = useState(
-    userType === "admin" ? adminPerms : userPerms,
-  );
 }
 ```
 
