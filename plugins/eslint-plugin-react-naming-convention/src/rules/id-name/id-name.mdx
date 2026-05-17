@@ -35,19 +35,16 @@ Enforces identifier names assigned from `useId` calls to be either `id` or end w
 ```tsx
 // Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const value = useId();
-//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
 // Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const unique = useId();
-//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ```tsx
 // Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 const foo = useId();
-//    ^^^ A variable assigned from `useId()` must be named 'id' or end with 'Id'.
 ```
 
 ### Assigning `useId` to a properly named variable
