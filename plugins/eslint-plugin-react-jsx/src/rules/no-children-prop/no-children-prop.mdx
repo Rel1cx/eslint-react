@@ -35,9 +35,9 @@ Most of the time, `children` should be actual children, not passed in as a prop.
 
 When using JSX, `children` should be nested between the opening and closing tags. When not using JSX, `children` should be passed as additional arguments to `React.createElement`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Passing children as a prop
 
 ```tsx
 interface MyComponentProps {
@@ -45,12 +45,13 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
+  // Problem: Children should always be actual children, not passed in as a prop.
   return <div children={children} />;
   //          ^^^ Children should always be actual children, not passed in as a prop.
 }
 ```
 
-### Valid
+### Passing children as nested content
 
 ```tsx
 interface MyComponentProps {
@@ -58,6 +59,7 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
+  // Recommended: Nest children between opening and closing tags
   return <div>{children}</div>;
 }
 ```

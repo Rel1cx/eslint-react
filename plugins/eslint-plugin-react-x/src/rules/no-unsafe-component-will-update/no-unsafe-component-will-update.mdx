@@ -27,13 +27,16 @@ react-x/no-unsafe-component-will-update
 
 ## Rule Details
 
-Using unsafe lifecycle methods like `UNSAFE_componentWillUpdate` makes your component's behavior less predictable and is more likely to cause bugs.
+Using unsafe lifecycle methods like `UNSAFE_componentWillUpdate` makes your component's behavior less predictable and is more likely to cause bugs. Consider using `componentDidUpdate` instead.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `UNSAFE_componentWillUpdate` in class components
+
+`UNSAFE_componentWillUpdate` is a deprecated lifecycle method. If you need to perform side effects or DOM operations after an update, use `componentDidUpdate`.
 
 ```tsx
+// Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {

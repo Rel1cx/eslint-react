@@ -95,10 +95,10 @@ export default [
 
 ## Examples
 
-### Invalid
+### Function declaration or expression as component
 
 ```tsx
-// Function declaration — will be reported
+// Problem: Function components must be defined with arrow functions.
 function MyComponent({ name }: { name: string }) {
 //      ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
@@ -106,17 +106,17 @@ function MyComponent({ name }: { name: string }) {
 ```
 
 ```tsx
-// Function expression — will be reported
+// Problem: Function components must be defined with arrow functions.
 const MyComponent = function({ name }: { name: string }) {
 //                  ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
 };
 ```
 
-### Valid
+### Arrow function as component
 
 ```tsx
-// Arrow function — OK
+// Recommended: Arrow function syntax for component definitions.
 const MyComponent = ({ name }: { name: string }) => {
   return <div>Hello, {name}!</div>;
 };

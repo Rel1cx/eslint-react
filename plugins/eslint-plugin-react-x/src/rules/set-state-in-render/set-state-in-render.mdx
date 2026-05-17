@@ -7,13 +7,13 @@ description: Validates against unconditionally setting state during render, whic
   This rule is experimental and may change in the future or be removed. It is not recommended for use in production code at this time.
 </Callout>
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/set-state-in-render
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/set-state-in-render
@@ -37,31 +37,31 @@ react-x/set-state-in-render
 
 Calling `setState` during render unconditionally triggers another render before the current one finishes. This creates an infinite loop that crashes your app.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Unconditional setState in render
+
+Calling a state setter directly in the component body, without any guard condition, will trigger a re-render immediately, leading to an infinite loop.
 
 ```tsx
-// ❌ Unconditional setState directly in render
+// Problem: unconditionally calling setState during render
 function Component({ value }) {
   const [count, setCount] = useState(0);
-  setCount(value); // Infinite loop!
+  setCount(value); // infinite loop!
   return <div>{count}</div>;
 }
 ```
 
-### Valid
-
 ```tsx
-// ✅ Derive during render
+// Recommended: derive values directly during rendering
 function Component({ items }) {
-  const sorted = [...items].sort(); // Just calculate it in render
+  const sorted = [...items].sort();
   return <ul>{sorted.map(/*...*/)}</ul>;
 }
 ```
 
 ```tsx
-// ✅ Set state in event handler
+// Recommended: set state in event handlers
 function Component() {
   const [count, setCount] = useState(0);
   return (
@@ -72,23 +72,65 @@ function Component() {
 }
 ```
 
+### Deriving values from props
+
+If you only need to transform props before displaying them, compute the value directly during rendering instead of copying it into state.
+
 ```tsx
-// ✅ Derive from props instead of setting state
+// Recommended: derive values directly during rendering
 function Component({ user }) {
-  const name = user?.name || '';
-  const email = user?.email || '';
+  const name = user?.name || "";
+  const email = user?.email || "";
   return <div>{name}</div>;
 }
 ```
 
+### Syncing state to a prop
+
+A common mistake is trying to "fix" state after it renders. For example, clamping a counter to a `max` prop during render causes an infinite loop as soon as the value exceeds the limit.
+
 ```tsx
-// ✅ Conditionally derive state from props and state from previous renders
+// Problem: adjusting state during render
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  if (count > max) {
+    setCount(max); // triggers infinite loop when exceeding max
+  }
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      {count}
+    </button>
+  );
+}
+```
+
+```tsx
+// Recommended: limit the value when updating
+function Counter({ max }) {
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+    setCount(current => Math.min(current + 1, max));
+  };
+
+  return <button onClick={increment}>{count}</button>;
+}
+```
+
+### Conditional state updates during render
+
+In rare cases, you may need to adjust state based on information from previous renders. This is valid only when guarded by a condition that prevents infinite loops.
+
+```tsx
+// OK: conditionally updating state based on information from the previous render
 function Component({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selection, setSelection] = useState(null);
 
   const [prevItems, setPrevItems] = useState(items);
-  if (items !== prevItems) { // This condition makes it valid
+  if (items !== prevItems) { // condition prevents infinite loop
     setPrevItems(items);
     setSelection(null);
   }
@@ -96,111 +138,12 @@ function Component({ items }) {
 }
 ```
 
-## Troubleshooting
-
-### I want to sync state to a prop
-
-A common problem is trying to "fix" state after it renders. Suppose you want to keep a counter from exceeding a `max` prop:
-
 ```tsx
-// ❌ Wrong: clamps during render
-function Counter({ max }) {
-  const [count, setCount] = useState(0);
-
-  if (count > max) {
-    setCount(max);
-  }
-
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-}
-```
-
-As soon as `count` exceeds `max`, an infinite loop is triggered.
-
-Instead, it's often better to move this logic to the event (the place where the state is first set). For example, you can enforce the maximum at the moment you update state:
-
-```tsx
-// ✅ Clamp when updating
-function Counter({ max }) {
-  const [count, setCount] = useState(0);
-
-  const increment = () => {
-    setCount(current => Math.min(current + 1, max));
-  };
-
-  return <button onClick={increment}>{count}</button>;
-}
-```
-
-Now the setter only runs in response to the click, React finishes the render normally, and `count` never crosses `max`.
-
-In rare cases, you may need to adjust state based on information from previous renders. For those, follow the pattern of [setting state conditionally](https://react.dev/reference/react/useState#storing-information-from-previous-renders).
-
-## Common Violations
-
-### Invalid
-
-```tsx
-import { useState } from "react";
-
-function Component({ value }) {
-  const [count, setCount] = useState(0);
-  // 🔴 Unconditional setState directly in render
-  setCount(value);
-  return <div>{count}</div>;
-}
-```
-
-### Valid
-
-```tsx
-import { useState } from "react";
-
-function Component() {
-  const [count, setCount] = useState(0);
-  // ✅ Set state in event handler
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-}
-```
-
-### Valid (Event Handler)
-
-```tsx
-import { useState } from "react";
-
-function Counter({ max }) {
-  const [count, setCount] = useState(0);
-  // ✅ Clamp when updating
-  const increment = () => {
-    setCount(current => Math.min(current + 1, max));
-  };
-  return <button onClick={increment}>{count}</button>;
-}
-```
-
-### Valid (Conditional State Update)
-
-```tsx
-import { useState } from "react";
-
+// Recommended: compute directly during rendering whenever possible
 function Component({ items }) {
   const [isReverse, setIsReverse] = useState(false);
-  const [selection, setSelection] = useState(null);
-
-  // ✅ Conditionally derive state from props and state from previous renders
-  const [prevItems, setPrevItems] = useState(items);
-  if (items !== prevItems) {
-    setPrevItems(items);
-    setSelection(null);
-  }
+  const [selectedId, setSelectedId] = useState(null);
+  const selection = items.find((item) => item.id === selectedId) ?? null;
   // ...
 }
 ```
@@ -215,7 +158,7 @@ Custom state hooks can also be configured via shared ESLint settings, which appl
 {
   "settings": {
     "react-x": {
-      "additionalStateHooks": "(useMyState|useCustomState)",
+      "additionalStateHooks": "(useMyState|useCustomState)"
     }
   }
 }

@@ -29,9 +29,9 @@ react-web-api/no-leaked-resize-observer
 
 Creating a `ResizeObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Creating ResizeObserver without disconnecting in useEffect
 
 ```tsx
 import React, { useEffect, useRef } from "react";
@@ -41,6 +41,7 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
+    // Problem: A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
     const ro = new ResizeObserver(() => console.log("resize"));
     //         ^^^ A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
     ro.observe(ref.current);
@@ -50,7 +51,7 @@ function MyComponent() {
 }
 ```
 
-### Valid
+### Disconnecting ResizeObserver in useEffect cleanup
 
 ```tsx
 import React, { useEffect, useRef } from "react";
@@ -60,8 +61,10 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
+    // Recommended: Create and use ResizeObserver
     const ro = new ResizeObserver(() => console.log("resize"));
     ro.observe(ref.current);
+    // Recommended: Disconnect in the cleanup function
     return () => ro.disconnect();
   }, []);
 

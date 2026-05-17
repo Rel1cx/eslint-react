@@ -37,13 +37,16 @@ In React 19, you can render `<Context>` as a provider instead of `<Context.Provi
   This rule works best in codebases that follow the [`naming-convention/context-name`](./naming-convention-context-name) rule.
 </Callout>
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using a Context Provider in React 19
+
+Starting from React 19, Context itself can be used directly as a provider, so you no longer need to write `.Provider`.
 
 ```tsx
 import ThemeContext from "./ThemeContext";
 
+// Problem: Continuing to use the legacy `<Context.Provider>` syntax
 function App({ children }) {
   return (
     <ThemeContext.Provider value="light">
@@ -53,11 +56,10 @@ function App({ children }) {
 }
 ```
 
-### Valid
-
 ```tsx
 import ThemeContext from "./ThemeContext";
 
+// Recommended: Use `<Context>` directly as a provider
 function App({ children }) {
   return (
     <ThemeContext value="dark">

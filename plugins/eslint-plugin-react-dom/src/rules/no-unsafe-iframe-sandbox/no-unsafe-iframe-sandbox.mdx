@@ -25,13 +25,15 @@ react-dom/no-unsafe-iframe-sandbox
 
 This rule reports cases where the attribute contains `allow-scripts` and `allow-same-origin` at the same time, as this combination allows the embedded document to remove the sandbox attribute and bypass the restrictions.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Sandboxing third-party content in an iframe
 
 ```tsx
 function MyComponent() {
   return (
+    // Problem: allow-scripts together with allow-same-origin lets the embedded
+    // document escape the sandbox by removing the attribute via JavaScript
     <iframe
       src="https://eslint-react.xyz"
       sandbox="allow-scripts allow-same-origin"
@@ -40,10 +42,9 @@ function MyComponent() {
 }
 ```
 
-### Valid
-
 ```tsx
 function MyComponent() {
+  // Recommended: Use a safer sandbox value that does not combine both flags
   return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }
 ```

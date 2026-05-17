@@ -29,20 +29,22 @@ react-dom/no-render-return-value
 
 `ReactDOM.render()` currently returns a reference to the root React component instance. However, using this return value is legacy and should be avoided because future versions of React may render components asynchronously in some cases. If you need a reference to the root React component instance, the preferred solution is to attach a [callback ref](https://react.dev/learn/manipulating-the-dom-with-refs) to the root element.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Capturing the return value of `ReactDOM.render()`
+
+The return value of `ReactDOM.render()` is considered legacy and may break with future React updates.
 
 ```tsx
+// Problem: depending on the return value of ReactDOM.render().
 import ReactDOM from "react-dom";
 
 const instance = ReactDOM.render(<div id="app" />, document.body);
 //    ^^^ Do not depend on the return value from '{{objectName}}.render'.
 ```
 
-### Valid
-
 ```tsx
+// Recommended: use a callback ref on the root element instead.
 import ReactDOM from "react-dom";
 
 function doSomethingWithInst(inst: HTMLDivElement | null) {

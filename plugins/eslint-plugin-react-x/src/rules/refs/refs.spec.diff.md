@@ -1,4 +1,4 @@
-# refs IMPL vs. SPEC Report
+# refs IMPL–SPEC Diff Report
 
 **IMPL**: `refs.ts` + `lib.ts` (ESLint rule)\
 **SPEC**: `refs.spec.md` (React Compiler `ValidateNoRefAccessInRender`)

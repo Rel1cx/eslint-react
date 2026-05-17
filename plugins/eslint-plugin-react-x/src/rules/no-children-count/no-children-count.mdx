@@ -29,11 +29,14 @@ react-x/no-children-count
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Counting children to conditionally render
+
+Relying on `Children.count` makes your component tightly coupled to React's internal children representation. Instead, let the parent decide what to render or use standard JavaScript patterns.
 
 ```tsx
+// Problem: Using Children.count to determine the number of children
 import React, { Children } from "react";
 
 interface MyComponentProps {

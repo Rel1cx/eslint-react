@@ -1,4 +1,4 @@
-# set-state-in-effect IMPL vs. SPEC Report
+# set-state-in-effect IMPL–SPEC Diff Report
 
 **IMPL**: `set-state-in-effect.ts` + `lib.ts` (ESLint rule)\
 **SPEC**: `46-validateNoSetStateInEffects.md` (React Compiler `ValidateNoSetStateInEffects`)

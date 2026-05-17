@@ -7,13 +7,13 @@ description: Validates correct usage of refs by checking that 'ref.current' is n
   This is an evaluation implementation and may contain false positives or negatives that have not yet been fully audited. Review each report carefully before applying fixes.
 </Callout>
 
-**Full Name in [`eslint-plugin-react-x@rc`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/refs
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin@rc`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/refs
@@ -51,140 +51,73 @@ The lint only applies these rules to values it knows are refs. A value is inferr
 
 Once something is marked as a ref, the lint surfaces violations when `ref.current` is accessed directly in the render phase of a component or hook body (i.e. not inside effects, event handlers, callbacks, or other nested functions).
 
-## Common Violations
+## Examples
 
-- Reading `ref.current` during render
-- Updating `refs` during render
-- Using `refs` for values that should be state
+### Reading `ref.current` during render
 
-### Invalid
+Refs are not guaranteed to be initialized during render. Reading them in the component body may return `null` or a stale value from a previous render cycle.
 
 ```tsx
-// ❌ Reading ref during render
+// Problem: reading ref during render
 function Component() {
   const ref = useRef(0);
-  const value = ref.current; // Don't read during render
-  return <div>{value}</div>;
-}
-```
-
-```tsx
-// ❌ Modifying ref during render
-function Component({ value }) {
-  const ref = useRef(null);
-  ref.current = value; // Don't modify during render
-  return <div />;
-}
-```
-
-### Valid
-
-```tsx
-// ✅ Read ref in effects/handlers
-function Component() {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (ref.current) {
-      console.log(ref.current.offsetWidth); // OK in effect
-    }
-  });
-  return <div ref={ref} />;
-}
-```
-
-```tsx
-// ✅ Use state for UI values
-function Component() {
-  const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      {count}
-    </button>
-  );
-}
-```
-
-```tsx
-// ✅ Lazy initialization of ref value
-function Component() {
-  const ref = useRef(null);
-  // Initialize only once on first use
-  if (ref.current === null) {
-    ref.current = expensiveComputation(); // OK - lazy initialization
-  }
-  const handleClick = () => {
-    console.log(ref.current); // Use the initialized value
-  };
-  return <button onClick={handleClick}>Click</button>;
-}
-```
-
-## Troubleshooting
-
-### The lint flagged my plain object with `.current`
-
-The name heuristic intentionally treats `ref.current` and `fooRef.current` as real refs. If you're modeling a custom container object, pick a different name (for example, `box`) or move the mutable value into state. Renaming avoids the lint because the compiler stops inferring it as a ref.
-
-### I need to read a ref value in JSX
-
-Refs are meant for values that don't affect rendering output. If you need to display a value in JSX, use state instead:
-
-```tsx
-// ❌ Wrong: Reading ref in JSX
-function Component() {
-  const ref = useRef(0);
-  return <div>{ref.current}</div>;
-}
-```
-
-```tsx
-// ✅ Correct: Use state for rendered values
-function Component() {
-  const [count, setCount] = useState(0);
-  return <div>{count}</div>;
-}
-```
-
-### Invalid
-
-```tsx
-function Component() {
-  const ref = useRef(0);
-  const value = ref.current;
+  const value = ref.current; // read during render
   //            ^^^ Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.
   return <div>{value}</div>;
 }
 ```
 
 ```tsx
+// Recommended: use state to display values
+function Component() {
+  const [count, setCount] = useState(0);
+  return <div>{count}</div>;
+}
+```
+
+### Reading `ref.current` in custom hooks
+
+Custom hooks follow the same rules as components. Reading `ref.current` during the execution of a custom hook is still part of the render phase.
+
+```tsx
+// Problem: reading ref.current inside a custom hook during render
+function useMyHook() {
+  const ref = useRef(0);
+  const value = ref.current;
+  //            ^^^ Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.
+  return value;
+}
+```
+
+```tsx
+// Recommended: pass the ref to a component and read it in an effect
+function Component() {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current) {
+      console.log(ref.current.offsetWidth);
+    }
+  }, []);
+  return <div ref={ref} />;
+}
+```
+
+### Modifying `ref.current` during render
+
+Writing to a ref during render is a side effect. React may invoke your component multiple times before committing, so the ref write may happen more often than you expect.
+
+```tsx
+// Problem: modifying ref during render
 function Component({ value }) {
   const ref = useRef(null);
-  ref.current = value;
+  ref.current = value; // modified during render
   // ^^^ Do not write to 'ref.current' during render. Refs should only be mutated in effects or event handlers. Move this write into an effect or event handler.
   return <div />;
 }
 ```
 
 ```tsx
-function Component() {
-  const ref = useRef(0);
-  return <div>{ref.current}</div>;
-  //          ^^^ Do not read 'ref.current' during render.
-}
-```
-
-```tsx
-function useMyHook() {
-  const ref = useRef(0);
-  const value = ref.current;
-  //            ^^^ Do not read 'ref.current' during render.
-  return value;
-}
-```
-
-### Valid
-
-```tsx
+// Recommended: modify refs in effects or event handlers
 function Component() {
   const ref = useRef(null);
   useEffect(() => {
@@ -197,26 +130,7 @@ function Component() {
 ```
 
 ```tsx
-function Component() {
-  const ref = useRef(null);
-  const handleClick = () => {
-    console.log(ref.current);
-  };
-  return <button onClick={handleClick}>Click</button>;
-}
-```
-
-```tsx
-function Component() {
-  const ref = useRef(null);
-  if (ref.current === null) {
-    ref.current = expensiveComputation();
-  }
-  return <div />;
-}
-```
-
-```tsx
+// Recommended: use useLayoutEffect when you need to measure DOM nodes before paint
 function Component() {
   const ref = useRef(null);
   useLayoutEffect(() => {
@@ -225,6 +139,51 @@ function Component() {
   return <div ref={ref} />;
 }
 ```
+
+### Lazy initialization of ref value
+
+There is one exception: lazy initialization of a ref value on first access is a common and safe pattern, as long as it only runs once.
+
+```tsx
+// OK: lazy initialization of ref value
+function Component() {
+  const ref = useRef(null);
+  if (ref.current === null) {
+    ref.current = expensiveComputation(); // lazy initialization
+  }
+  const handleClick = () => {
+    console.log(ref.current);
+  };
+  return <button onClick={handleClick}>Click</button>;
+}
+```
+
+### Using refs for rendered values
+
+If a value affects what is shown on screen, it should be state, not a ref. Refs are meant for values that don't affect rendering output.
+
+```tsx
+// Problem: using a ref to store a value that needs to be displayed in JSX
+function Component() {
+  const ref = useRef(0);
+  return <div>{ref.current}</div>;
+  //          ^^^ Do not read 'ref.current' during render.
+}
+```
+
+```tsx
+// Recommended: use state to store rendered values
+function Component() {
+  const [count, setCount] = useState(0);
+  return <div>{count}</div>;
+}
+```
+
+## Troubleshooting
+
+### The lint flagged my plain object with `.current`
+
+The name heuristic intentionally treats `ref.current` and `fooRef.current` as real refs. If you're modeling a custom container object, pick a different name (for example, `box`) or move the mutable value into state. Renaming avoids the lint because the compiler stops inferring it as a ref.
 
 ## Resources
 
