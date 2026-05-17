@@ -62,7 +62,7 @@
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "import-integrity-lint": "^1.0.0",
+    "import-integrity-lint": "^1.0.1",
     "importx": "^0.5.2",
     "postcss": "^8.5.14",
     "tailwindcss": "^4.3.0",
