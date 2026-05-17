@@ -10,5 +10,6 @@ export const plugins = {
   ],
   jsxStylistic: [
     { owner: "eslint-stylistic", repo: "eslint-stylistic" },
+    { owner: "azat-io", repo: "eslint-plugin-perfectionist" },
   ],
 };
