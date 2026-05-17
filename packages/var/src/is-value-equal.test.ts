@@ -138,8 +138,8 @@ describe("isValueEqual", () => {
     it("FIXED: MemberExpression computed property now uses value equality", () => {
       // Previously `isValueEqual` used `Compare.areEqual(a.property, b.property)` for
       // MemberExpression properties, which is structural equality. For computed properties
-      // like `obj[1 + 1]` vs `obj[2]`, the property nodes are structurally different
-      // (BinaryExpression vs Literal) even though they evaluate to the same value.
+      // the property nodes of `obj[1 + 1]` and `obj[2]` are structurally different
+      // (BinaryExpression and Literal, respectively) even though they evaluate to the same value.
       // The fix uses `isValueEqual` for computed properties, which falls through to
       // `getStaticValue` and correctly evaluates both to `2`.
       const code = [
