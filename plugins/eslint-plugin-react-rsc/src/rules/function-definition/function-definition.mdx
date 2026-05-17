@@ -43,11 +43,12 @@ It includes the following checks:
 4. `'use client'` and `'use server'` directives must be written with single or double quotes, not backticks.
 5. The `'use client'` directive must not be used inside a function body.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Server functions not marked as async
 
 ```tsx
+// Problem: Exported server functions must be async
 'use server';
 
 export function serverFunction1() {
@@ -64,6 +65,7 @@ export const serverFunction3 = () => {
 ```
 
 ```tsx
+// Problem: Server functions inside components must be async
 export function Component() {
   function serverFunction1() {
     'use server';
@@ -84,9 +86,10 @@ export function Component() {
 }
 ```
 
-### Valid
+### Correctly marking server functions as async
 
 ```tsx
+// Recommended: Exported async server functions
 'use server';
 
 export async function serverFunction1() {
@@ -103,6 +106,7 @@ export const serverFunction3 = async () => {
 ```
 
 ```tsx
+// Recommended: Async server functions inside components
 export function Component() {
   async function serverFunction1() {
     'use server';
@@ -123,15 +127,17 @@ export function Component() {
 }
 ```
 
-### Invalid
+### Incorrect directive placement or syntax
 
 ```tsx
+// Problem: Directive must be at the very beginning of the file, before imports
 import { useState } from 'react';
 
 'use client';
 ```
 
 ```tsx
+// Problem: Directive must be at the very beginning of the function body
 export function Component() {
   const x = 1;
 
@@ -143,10 +149,12 @@ export function Component() {
 ```
 
 ```tsx
+// Problem: Directives must use single or double quotes, not backticks
 `use client`;
 ```
 
 ```tsx
+// Problem: 'use client' must not be used inside a function body
 export function Component() {
   function serverFunction() {
     'use client';
@@ -155,15 +163,17 @@ export function Component() {
 }
 ```
 
-### Valid
+### Correct directive placement and syntax
 
 ```tsx
+// Recommended: Directive at the top of the file before imports
 'use client';
 
 import { useState } from 'react';
 ```
 
 ```tsx
+// Recommended: Directive at the beginning of the function body
 export function Component() {
   async function serverFunction() {
     'use server';
@@ -173,6 +183,7 @@ export function Component() {
 ```
 
 ```tsx
+// Recommended: Double quotes are also acceptable
 "use client";
 
 import { useState } from 'react';

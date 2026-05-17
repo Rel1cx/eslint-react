@@ -38,11 +38,12 @@ When a component is defined inside another component:
 
 Instead, define every component at the top level.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Nesting a child component definition inside another component
 
 ```tsx
+// Problem: Profile is recreated on every render of Gallery, causing child component state loss and preventing memo optimization
 function Gallery() {
   // 🔴 Never define a component inside another component!
   function Profile() {
@@ -52,9 +53,10 @@ function Gallery() {
 }
 ```
 
-### Valid
+### Defining components at the top level of the module and passing data via props
 
 ```tsx
+// Recommended: Define all components at the top level; pass data via props when needed
 // ✅ Declare components at the top level
 function Gallery() {
   // ...

@@ -23,36 +23,44 @@ react-dom/no-unknown-property
 
 In JSX, most DOM properties and attributes should be camel-cased to be consistent with standard JavaScript style. This can be a source of error if you are used to writing plain HTML. Only `data-*` and `aria-*` attributes use hyphens and lowercase letters in JSX.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Writing standard HTML attributes in JSX
 
 ```tsx
+// Problem: HTML attributes like `class` must be written as `className` in JSX
 const Hello = <div class="hello">Hello World</div>;
 const Alphabet = <div abc="something">Alphabet</div>;
-
-// Invalid aria-* attribute
-const IconButton = <div aria-foo="bar" />;
 ```
 
-### Valid
-
 ```tsx
+// Recommended: Use React's camelCase property names for DOM elements
 const Hello = <div className="hello">Hello World</div>;
 const Button = <button disabled>Cannot click me</button>;
 const Img = <img src={catImage} alt="A cat sleeping on a keyboard" />;
+```
 
-// aria-* attributes
+### Using ARIA and data attributes
+
+```tsx
+// Problem: Non-standard aria-* attributes are not valid
+const IconButton = <div aria-foo="bar" />;
+```
+
+```tsx
+// Recommended: Use valid aria-* and data-* attributes
 const IconButton = <button aria-label="Close" onClick={this.close}>{closeIcon}</button>;
-
-// data-* attributes
 const Data = <div data-index={12}>Some data</div>;
+```
 
-// React components are ignored
+### Passing arbitrary props to React components and custom elements
+
+```tsx
+// OK: React components can accept any props you define
 const MyComponent = <App class="foo-bar" />;
 const AnotherComponent = <Foo.bar for="bar" />;
 
-// Custom web components are ignored
+// OK: Custom web components are also ignored
 const MyElem = <div class="foo" is="my-elem"></div>;
 const AtomPanel = <atom-panel class="foo"></atom-panel>;
 ```

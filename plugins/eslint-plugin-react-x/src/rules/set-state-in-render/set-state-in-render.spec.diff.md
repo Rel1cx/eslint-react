@@ -1,4 +1,4 @@
-# set-state-in-render IMPL vs. SPEC Report
+# set-state-in-render IMPL–SPEC Diff Report
 
 **IMPL**: `set-state-in-render.ts` + `lib.ts` (ESLint rule)\
 **SPEC**: `set-state-in-render.spec.md` (React Compiler `ValidateNoSetStateInRender`)
@@ -30,7 +30,7 @@ The IMPL operates on the ESLint AST. It detects `setState` calls by tracing vari
 
 ---
 
-## 3. Conditional vs. Unconditional Execution
+## 3. Conditional and Unconditional Execution
 
 The SPEC uses `computeUnconditionalBlocks` (post-dominator tree) to determine exactly which code blocks always execute. A `setState` call is only flagged if it resides in an unconditional block.
 

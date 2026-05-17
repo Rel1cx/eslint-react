@@ -28,41 +28,44 @@ react-naming-convention/context-name
 
 Enforces that the context has a valid component name with the suffix `Context`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Naming context without the `Context` suffix
 
 ```tsx
+// Problem: Context name should end with 'Context'
 const theme = createContext("");
 ```
 
 ```tsx
+// Problem: Context name should end with 'Context'
 const Theme = createContext("");
 ```
 
 ```tsx
+// Problem: Context name should be PascalCase and end with 'Context'
 const themecontext = createContext("");
 ```
 
 ```tsx
+// Problem: Context name should be PascalCase and end with 'Context'
 const themeContext = createContext("");
 ```
 
-### Valid
-
 ```tsx
-const ThemeContext = createContext("");
-```
-
-### Invalid
-
-```tsx
+// Problem: Context name should be PascalCase and end with 'Context'
 const context = createContext("");
 ```
 
-### Valid
+### Naming context correctly
 
 ```tsx
+// Recommended: PascalCase with 'Context' suffix
+const ThemeContext = createContext("");
+```
+
+```tsx
+// Recommended: PascalCase with 'Context' suffix
 const Context = createContext("");
 ```
 

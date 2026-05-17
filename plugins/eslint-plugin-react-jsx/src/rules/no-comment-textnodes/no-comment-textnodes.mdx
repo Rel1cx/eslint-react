@@ -31,28 +31,28 @@ This rule prevents comment strings (ex: beginning with `//` or `/*`) from being 
 
 Comments inside JSX elements should be placed inside braces (`{/* comment */}`) to prevent them from being rendered as text.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Writing JavaScript-style comments directly inside JSX
 
 ```tsx
 function MyComponent() {
   return (
     <div>
-      // This will be rendered as text
-      /* This will also be rendered as text */
+      // Problem: This will be rendered as text
+      /* Problem: This will also be rendered as text */
     </div>
   );
 }
 ```
 
-### Valid
+### Using proper JSX comment syntax
 
 ```tsx
 function MyComponent() {
   return (
     <div>
-      {/* This is a valid comment inside JSX */}
+      {/* Recommended: This is a valid comment inside JSX */}
       <span>Hello</span>
     </div>
   );

@@ -31,20 +31,26 @@ When using the JSX automatic runtime, `key` is a special prop in the JSX transfo
 
 If the `key` prop is before any spread props, it is passed as the `key` argument of the `_jsx` / `_jsxs` / `_jsxDev` function. But if the `key` prop is after spread props, the compiler uses `createElement` instead and passes `key` as a regular prop.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using `key` after spread props
 
 ```tsx
+// Problem: The 'key' prop must be placed before any spread props when using the new JSX transform.
 <div {...props} key="2" />;
 //              ^^^ The 'key' prop must be placed before any spread props when using the new JSX transform.
 ```
 
-### Valid
+### Using `key` before or without spread props
 
 ```tsx
+// Recommended: 'key' placed before spread props
 <div key="1" {...props} />;
+
+// Recommended: 'key' without spread props
 <div key="3" className="" />;
+
+// OK: 'key' can also appear after regular props
 <div className="" key="3" />;
 ```
 

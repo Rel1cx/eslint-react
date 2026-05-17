@@ -33,11 +33,14 @@ react-x/no-component-will-mount
 
 This API was renamed from `componentWillMount` to `UNSAFE_componentWillMount`. The old name has been deprecated. In a future major version of React, only the new name will work.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Using the deprecated lifecycle name
+
+If your codebase still references `componentWillMount`, you should rename it to `UNSAFE_componentWillMount` to stay compatible with future React versions. Eventually, consider migrating side effects to `componentDidMount` or function components with `useEffect`.
 
 ```tsx
+// Problem: Using the deprecated componentWillMount name
 import React from "react";
 
 interface MyComponentProps {
@@ -51,9 +54,8 @@ class MyComponent extends React.Component<MyComponentProps> {
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: Use UNSAFE_componentWillMount instead of the old name
 import React from "react";
 
 interface MyComponentProps {

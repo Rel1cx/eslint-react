@@ -42,9 +42,9 @@ re-runs on a dependency change. If the resolved handler calls `setState` or
 writes to a ref the component reads, the UI will display data for a component
 instance that no longer exists, or overwrite fresh data with stale data.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Starting fetch without an AbortController
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -53,6 +53,7 @@ function UserProfile({ id }: { id: string }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Problem: A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
     fetch(`/api/user/${id}`)
     // ^^^ A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
       .then((r) => r.json())
@@ -63,7 +64,7 @@ function UserProfile({ id }: { id: string }) {
 }
 ```
 
-### Valid
+### Using AbortController with fetch
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -72,10 +73,12 @@ function UserProfile({ id }: { id: string }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Recommended: Create an AbortController and pass its signal to fetch
     const ctrl = new AbortController();
     fetch(`/api/user/${id}`, { signal: ctrl.signal })
       .then((r) => r.json())
       .then(setUser);
+    // Recommended: Abort the request in the cleanup function
     return () => ctrl.abort();
   }, [id]);
 

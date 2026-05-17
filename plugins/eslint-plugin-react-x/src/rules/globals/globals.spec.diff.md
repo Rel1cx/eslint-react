@@ -1,4 +1,4 @@
-# globals IMPL vs. SPEC Report
+# globals IMPL–SPEC Diff Report
 
 **IMPL**: `globals.ts` (ESLint rule)\
 **SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects` — `StoreGlobal` / `MutateGlobal`)

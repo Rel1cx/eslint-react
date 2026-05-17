@@ -29,11 +29,14 @@ react-x/no-clone-element
 
 Using `cloneElement` is uncommon and can lead to fragile code. It also makes it harder to trace data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Augmenting an element's props dynamically
+
+Using `cloneElement` to inject props into a child element hides the data flow and breaks component encapsulation. Prefer passing props explicitly through render props or composition patterns.
 
 ```tsx
+// Problem: Using cloneElement to dynamically inject props into a child element
 import { cloneElement } from "react";
 
 const clonedElement = cloneElement(

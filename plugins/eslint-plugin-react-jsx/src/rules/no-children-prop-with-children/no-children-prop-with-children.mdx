@@ -33,9 +33,9 @@ react-jsx/no-children-prop-with-children
 
 When using JSX, `children` should be passed either as a prop or as nested content between the opening and closing tags, but not both. Passing `children` both ways is redundant and can lead to confusion about which children will actually be rendered.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Passing children both as a prop and as nested content
 
 ```tsx
 interface MyComponentProps {
@@ -43,17 +43,17 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // ❌ Don't use children prop when element already has nested children
+  // Problem: Don't use children prop when element already has nested children
   return <div children={children}>{children}</div>;
 }
 ```
 
 ```tsx
-// ❌ Don't use children prop when element already has nested children
+// Problem: Don't use children prop when element already has nested children
 <Component children="text">text</Component>
 ```
 
-### Valid
+### Passing children only as nested content
 
 ```tsx
 interface MyComponentProps {
@@ -61,16 +61,20 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // ✅ Use nested children
+  // Recommended: Use nested children
   return <div>{children}</div>;
 }
 ```
 
 ```tsx
-// ✅ Use nested children
+// Recommended: Use nested children
 <Component>text</Component>
+```
 
-// ✅ Or use children prop (when no nested children)
+### Passing children only as a prop
+
+```tsx
+// OK: Use children prop when no nested children
 <Component children="text" />
 ```
 

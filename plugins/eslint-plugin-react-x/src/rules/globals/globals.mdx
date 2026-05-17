@@ -7,13 +7,13 @@ description: Validates against assignment/mutation of globals during render, par
   This is an evaluation implementation and may contain false positives or negatives that have not yet been fully audited. Review each report carefully before applying fixes.
 </Callout>
 
-**Full Name in [`eslint-plugin-react-x@rc`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/globals
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin@rc`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/globals
@@ -25,53 +25,25 @@ react-x/globals
 
 ## Rule Details
 
-Global variables exist outside React's control. When you modify them during render, you break React's assumption that rendering is pure. This can cause components to behave differently in development vs production, break Fast Refresh, and make your app impossible to optimize with features like React Compiler.
+Global variables exist outside React's control. When you modify them during render, you break React's assumption that rendering is pure. This can cause components to behave differently between development and production, break Fast Refresh, and make your app impossible to optimize with features like React Compiler.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Mutating module-level variables during render
+
+Module-level variables are shared across all component instances. Mutating them during render creates hidden shared state that React cannot track.
 
 ```tsx
-// ❌ Global counter
+// Problem: Global counter
 let renderCount = 0;
 function Component() {
-  renderCount++; // Mutating global
+  renderCount++; // Mutating a global variable during render
   return <div>Count: {renderCount}</div>;
 }
 ```
 
 ```tsx
-// ❌ Modifying window properties
-function Component({ userId }) {
-  window.currentUser = userId; // Global mutation
-  return <div>User: {userId}</div>;
-}
-```
-
-```tsx
-// ❌ Global array push
-const events = [];
-function Component({ event }) {
-  events.push(event); // Mutating global array
-  return <div>Events: {events.length}</div>;
-}
-```
-
-```tsx
-// ❌ Cache manipulation
-const cache = {};
-function Component({ id }) {
-  if (!cache[id]) {
-    cache[id] = fetchData(id); // Modifying cache during render
-  }
-  return <div>{cache[id]}</div>;
-}
-```
-
-### Valid
-
-```tsx
-// ✅ Use state for counters
+// Recommended: Use useState to manage the count
 function Component() {
   const [clickCount, setClickCount] = useState(0);
   const handleClick = () => {
@@ -85,21 +57,69 @@ function Component() {
 }
 ```
 
+### Modifying `window` or DOM globals during render
+
+Writing to browser globals during render causes side effects that leak outside the component and may behave differently between server and client.
+
 ```tsx
-// ✅ Use context for global values
+// Problem: Modifying a window property
+function Component({ userId }) {
+  window.currentUser = userId; // Global side effect
+  return <div>User: {userId}</div>;
+}
+```
+
+```tsx
+// Recommended: Sync external state in an effect
+function Component({ title }) {
+  useEffect(() => {
+    document.title = title; // Side effect moved out of the render phase
+  }, [title]);
+  return <div>Page: {title}</div>;
+}
+```
+
+### Mutating global arrays or objects
+
+Pushing to or modifying global collections during render makes their state unpredictable across renders and component instances.
+
+```tsx
+// Problem: Mutating a global array
+const events = [];
+function Component({ event }) {
+  events.push(event); // Global array mutation
+  return <div>Events: {events.length}</div>;
+}
+```
+
+```tsx
+// Recommended: Use Context to pass global values
 function Component() {
   const user = useContext(UserContext);
   return <div>User: {user.id}</div>;
 }
 ```
 
+### Cache manipulation during render
+
+Even caches that seem local can be mutated during render, making their contents depend on render order rather than predictable data flow.
+
 ```tsx
-// ✅ Synchronize external state with React
-function Component({ title }) {
-  useEffect(() => {
-    document.title = title; // OK in effect
-  }, [title]);
-  return <div>Page: {title}</div>;
+// Problem: Modifying a cache during render
+const cache = {};
+function Component({ id }) {
+  if (!cache[id]) {
+    cache[id] = fetchData(id); // Mutating the cache during render
+  }
+  return <div>{cache[id]}</div>;
+}
+```
+
+```tsx
+// Recommended: Use useMemo to compute and cache the value
+function Component({ id }) {
+  const data = useMemo(() => fetchData(id), [id]);
+  return <div>{data}</div>;
 }
 ```
 

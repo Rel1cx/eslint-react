@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Improved validation accuracy with enhanced detection logic.
-- Added IMPL vs SPEC diff document (`set-state-in-effect.spec.diff.md`) for tracking deviations from the React Compiler specification.
+- Added IMPL–SPEC diff document (`set-state-in-effect.spec.diff.md`) for tracking deviations from the React Compiler specification.
 - Extracted rule helpers into co-located `lib.ts` module.
 
 ## [5.5.3-beta.1] - 2026-04-26

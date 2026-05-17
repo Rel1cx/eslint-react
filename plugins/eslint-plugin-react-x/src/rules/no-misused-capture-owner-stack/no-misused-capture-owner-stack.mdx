@@ -37,11 +37,12 @@ react-x/no-misused-capture-owner-stack
 2. Conditionally accessed within an `if (process.env.NODE_ENV !== 'production') { ... }` block to prevent execution in production environments.
 3. Called inside a React-controlled function (**not implemented yet**).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Directly importing captureOwnerStack as a named import
 
 ```tsx
+// Problem: Named imports may cause errors when bundled for production; use a namespace import instead
 // Failing: Using a named import directly
 import { captureOwnerStack } from "react";
 //       ^^^ Don't use named imports of `captureOwnerStack` in files that are bundled for development and production. Use a namespace import instead.
@@ -52,7 +53,10 @@ if (process.env.NODE_ENV !== "production") {
 }
 ```
 
+### Calling directly without an environment check
+
 ```tsx
+// Problem: captureOwnerStack is only available in development builds; calling it directly in production will cause errors
 // Failing: Missing environment check
 import * as React from "react";
 
@@ -61,9 +65,10 @@ const ownerStack = React.captureOwnerStack();
 console.log(ownerStack);
 ```
 
-### Valid
+### Correctly using a namespace import with an environment check
 
 ```tsx
+// Recommended: Import via a namespace and call inside a non-production environment block
 // Passing: Correct namespace import with environment check
 import * as React from "react";
 

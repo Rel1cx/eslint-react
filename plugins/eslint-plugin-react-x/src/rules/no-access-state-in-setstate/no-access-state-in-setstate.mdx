@@ -29,11 +29,14 @@ react-x/no-access-state-in-setstate
 
 Using `this.state` inside `setState` calls might result in errors when two state updates are batched, causing references to the old state rather than the current state.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Incrementing state based on the previous value
+
+When multiple `setState` calls are batched together, reading `this.state` directly may give you a stale value. The updater function receives the latest state as an argument, ensuring correctness even with batching.
 
 ```tsx
+// Problem: Reading this.state directly inside setState may get a stale value when batched
 import React from "react";
 
 interface MyComponentProps {}
@@ -56,9 +59,8 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-### Valid
-
 ```tsx
+// Recommended: Use an updater function; React passes the latest state
 import React from "react";
 
 interface MyComponentProps {}

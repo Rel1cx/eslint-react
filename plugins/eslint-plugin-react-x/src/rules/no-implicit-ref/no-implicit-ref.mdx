@@ -32,49 +32,61 @@ The following cases are **allowed** and will not be reported:
 1. The `ref` property originates from React's own type definitions (ex: `React.ClassAttributes.ref`), such as when spreading `React.ComponentProps<"div">`, `React.HTMLAttributes<T>`, or similar React-provided types.
 2. The `ref` property's **type** is a React-defined ref type alias, such as `React.Ref`, `React.RefObject`, `React.RefCallback`, or `React.LegacyRef`, even if the property is declared in a user-defined type.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Implicitly passing ref via the spread operator
+
+Spreading an object that contains `ref` directly onto a component makes the source and target of `ref` unclear.
 
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; ref: null };
 
+// Problem: Implicitly passing ref when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
   //          ^^^ This spread attribute implicitly passes the 'ref' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'ref' prop, use 'ref={value}'.
 }
 ```
 
-### Valid
-
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; ref: null };
 
+// Recommended: Explicitly destructure and pass ref
 function MyComponent() {
   const { ref, ...rest } = someValues;
-  //      ^^^ Dropping the 'ref' prop from the spread attributes to prevent implicitly passing it to the component.
   return <div ref={ref} {...rest} />;
+  //      ^^^ Dropping the 'ref' prop from the spread attributes to prevent implicitly passing it to the component.
 }
 ```
+
+### ref type is a React built-in ref type
+
+When the `ref` type is a React built-in ref type alias, spreading is allowed.
 
 ```tsx
 import React from "react";
 
 declare let someValues: { id: string; className: string; ref: React.Ref<HTMLDivElement> };
 
+// OK: ref type is React.Ref, which is a React built-in type alias
 function MyComponent() {
   return <div {...someValues} data-slot="pagination-item" />;
   //          ^^^ The 'ref' property is typed as React.Ref, which is a React-defined type alias. Allowed.
 }
 ```
 
+### Spreading React built-in component props
+
+When spreading props from React built-in types (such as `React.ComponentProps`), the `ref` originates from React's type definitions and is allowed.
+
 ```tsx
 import React from "react";
 
+// OK: props come from React.ComponentProps, ref originates from React.ClassAttributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
   //                                     ^^^ The 'ref' property originates from React.ClassAttributes.ref. Allowed.

@@ -3,13 +3,13 @@ title: use-state
 description: Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.
 ---
 
-**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x)**
+**Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
 ```plain copy
 react-x/use-state
 ```
 
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin)**
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
 
 ```plain copy
 @eslint-react/use-state
@@ -39,14 +39,14 @@ This rule covers three concerns:
 
 > Lazy initialization behavior was previously a standalone `prefer-use-state-lazy-initialization` rule. That rule has been merged into `use-state` and removed.
 
-## Common Violations
+## Examples
 
-### Assignment (Destructuring)
+### Not destructuring the useState return value
 
-#### Invalid
+`useState` must return a `[value, setter]` array pattern. Assigning directly to a single variable prevents calling the setter to update state.
 
 ```tsx
-// ❌ Not destructured (enforceAssignment: true)
+// Problem: not destructured into a [value, setter] pair
 import { useState } from "react";
 
 function Counter() {
@@ -56,10 +56,10 @@ function Counter() {
 }
 ```
 
-#### Valid
+If only the state value is needed and not the setter, you can destructure just the value:
 
 ```tsx
-// ✅ Only value destructured — setter omitted
+// OK: destructure only the value, omitting the setter
 import { useState } from "react";
 
 function Component() {
@@ -68,12 +68,12 @@ function Component() {
 }
 ```
 
-### Setter Naming (Symmetry)
+### Setter name does not follow the symmetric naming convention
 
-#### Invalid
+The setter name should be `set` followed by the capitalized state variable name, for example `count` corresponds to `setCount`. Snake\_case names also allow symmetric forms.
 
 ```tsx
-// ❌ Setter name does not match value name
+// Problem: setter name is not symmetric with the state name
 import { useState } from "react";
 
 function Counter() {
@@ -84,7 +84,7 @@ function Counter() {
 ```
 
 ```tsx
-// ❌ Setter prefix is correct but capitalization is wrong
+// Problem: correct prefix but case mismatch
 import { useState } from "react";
 
 function Counter() {
@@ -93,10 +93,8 @@ function Counter() {
 }
 ```
 
-#### Valid
-
 ```tsx
-// ✅ Symmetric camelCase naming
+// Recommended: use symmetric camelCase naming
 import { useState } from "react";
 
 function Counter() {
@@ -106,7 +104,7 @@ function Counter() {
 ```
 
 ```tsx
-// ✅ Snake_case value and setter
+// OK: symmetric snake_case naming
 import { useState } from "react";
 
 function Counter() {
@@ -115,8 +113,12 @@ function Counter() {
 }
 ```
 
+### Using complex objects as state with plain identifiers
+
+The state value itself must be a plain identifier and cannot be a destructuring pattern. However, storing objects or arrays as the state value is completely allowed.
+
 ```tsx
-// ✅ Object state stored under a plain identifier
+// OK: object state stored under a plain identifier
 import { useState } from "react";
 
 function Form() {
@@ -125,12 +127,12 @@ function Form() {
 }
 ```
 
-### Lazy Initialization
+### Passing a function call directly as the initial value
 
-#### Invalid
+If the initial value needs to be computed by a function, passing the function call directly causes it to re-execute on every render. It should be wrapped in a lazy initializer function.
 
 ```tsx
-// ❌ Function call passed directly as initial state (enforceLazyInitialization: true)
+// Problem: generateTodos is called on every render
 import { useState } from "react";
 
 function MyComponent() {
@@ -142,10 +144,8 @@ function MyComponent() {
 declare function generateTodos(): string[];
 ```
 
-#### Valid
-
 ```tsx
-// ✅ Lazy initializer wrapping an expensive function call
+// Recommended: use a lazy initializer function that only runs on the first render
 import { useState } from "react";
 
 function MyComponent() {
@@ -156,8 +156,10 @@ function MyComponent() {
 declare function generateTodos(): string[];
 ```
 
+React's `use()` Hook is safe as an initial value because it has special handling semantics:
+
 ```tsx
-// ✅ use() calls are always allowed as initial state
+// OK: use() calls as the initial value are always allowed
 import { useState, use } from "react";
 
 function Component({ promise }) {

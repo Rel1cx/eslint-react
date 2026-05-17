@@ -29,11 +29,14 @@ react-x/no-children-for-each
 
 Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
-## Common Violations
+## Examples
 
-### Invalid
+### Iterating over children to augment them
+
+Using `Children.forEach` to walk through and transform children is brittle because it relies on React's internal children structure. Prefer letting the parent handle iteration with standard array methods or restructuring your component API.
 
 ```tsx
+// Problem: Using Children.forEach to iterate over and transform children
 import React, { Children } from "react";
 
 interface MyComponentProps {

@@ -27,11 +27,11 @@ react-web-api/no-leaked-interval
 
 ## Rule Details
 
-Scheduling an interval within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setInterval` callback executions and may also result in using stale values captured by previous renders’ effects after each subsequent re-render.
+Scheduling an interval within the setup function of `useEffect` without canceling it in the cleanup function can lead to unwanted `setInterval` callback executions and may also result in using stale values captured by previous renders' effects after each subsequent re-render.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Setting interval without cleanup in useEffect
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -40,6 +40,7 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // Problem: A 'setInterval' created in 'useEffect' must be cleared in the cleanup function.
     const intervalId = setInterval(() => console.log(count), 1000);
     //                 ^^^ A 'setInterval' created in 'useEffect' must be cleared in the cleanup function.
   }, []);
@@ -48,7 +49,7 @@ function MyComponent() {
 }
 ```
 
-### Valid
+### Clearing interval in useEffect cleanup
 
 ```tsx
 import React, { useEffect, useState } from "react";
@@ -57,7 +58,9 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    // Recommended: Store the interval ID
     const intervalId = setInterval(() => console.log(count), 1000);
+    // Recommended: Clear the interval in the cleanup function
     return () => clearInterval(intervalId);
   }, []);
 

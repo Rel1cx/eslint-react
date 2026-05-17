@@ -31,9 +31,11 @@ Never mutate `this.state` directly, as calling `setState()` afterward may replac
 
 The only place it's acceptable to assign `this.state` is in a class component's `constructor`.
 
-## Common Violations
+## Examples
 
-### Invalid
+### Mutating this.state directly in an event handler
+
+Mutating `this.state` directly does not trigger a re-render, and a subsequent `setState` may overwrite the change.
 
 ```tsx
 import React from "react";
@@ -44,6 +46,7 @@ interface MyComponentState {
   foo: string;
 }
 
+// Problem: Assigning to this.state directly
 class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
@@ -64,8 +67,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
-### Valid
-
 ```tsx
 import React from "react";
 
@@ -75,6 +76,7 @@ interface MyComponentState {
   foo: string;
 }
 
+// Recommended: Update state via setState
 class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
