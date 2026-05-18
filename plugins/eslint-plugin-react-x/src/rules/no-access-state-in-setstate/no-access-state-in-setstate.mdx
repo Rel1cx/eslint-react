@@ -31,6 +31,29 @@ Using `this.state` inside `setState` calls might result in errors when two state
 
 ## Examples
 
+### Reading this.state inside setState may return a stale value
+
+React batches state updates. When you read `this.state` immediately after calling `setState`, it still holds the old value. This demonstrates why the updater function is safer.
+
+```tsx
+// Problem: this.state is not updated immediately after setState
+import React from "react";
+
+class MyComponent extends React.Component {
+  state = { name: "Taylor" };
+
+  handleClick = () => {
+    console.log(this.state.name); // "Taylor"
+    this.setState({ name: "Robin" });
+    console.log(this.state.name); // Still "Taylor"!
+  };
+
+  render() {
+    return <button onClick={this.handleClick}>Change name</button>;
+  }
+}
+```
+
 ### Incrementing state based on the previous value
 
 When multiple `setState` calls are batched together, reading `this.state` directly may give you a stale value. The updater function receives the latest state as an argument, ensuring correctness even with batching.
@@ -89,3 +112,8 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/no-access-state-in-setstate.spec.ts)
 - [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-access-state-in-setstate/CHANGELOG.md)
+
+## Further Reading
+
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
+- [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)

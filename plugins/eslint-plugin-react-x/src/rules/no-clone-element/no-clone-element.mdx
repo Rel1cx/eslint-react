@@ -48,6 +48,62 @@ const clonedElement = cloneElement(
 console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye</Row>
 ```
 
+### Wrapping children with injected props
+
+Using `cloneElement` inside `Children.map` hides which props a child receives and breaks encapsulation. Prefer passing data explicitly via render props or by restructuring your component API.
+
+```tsx
+// Problem: Using cloneElement to inject props into each child
+import { Children, cloneElement, useState } from "react";
+
+function List({ children }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <div className="List">
+      {Children.map(children, (child, index) =>
+        cloneElement(child, {
+          isHighlighted: index === selectedIndex,
+        }),
+      )}
+      <button onClick={() => setSelectedIndex((i) => (i + 1) % Children.count(children))}>
+        Next
+      </button>
+    </div>
+  );
+}
+```
+
+```tsx
+// Recommended: Pass isHighlighted explicitly via render props
+import { useState } from "react";
+
+function List({ items, renderItem }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  return (
+    <div className="List">
+      {items.map((item, index) => {
+        const isHighlighted = index === selectedIndex;
+        return renderItem(item, isHighlighted);
+      })}
+      <button onClick={() => setSelectedIndex((i) => (i + 1) % items.length)}>
+        Next
+      </button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <List
+      items={products}
+      renderItem={(product, isHighlighted) => (
+        <Row key={product.id} title={product.title} isHighlighted={isHighlighted} />
+      )}
+    />
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-clone-element/no-clone-element.ts)
@@ -57,3 +113,4 @@ console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye
 ## Further Reading
 
 - [Legacy React APIs: `cloneElement`](https://react.dev/reference/react/cloneElement)
+- [React Docs: `cloneElement` Alternatives](https://react.dev/reference/react/cloneElement#alternatives)

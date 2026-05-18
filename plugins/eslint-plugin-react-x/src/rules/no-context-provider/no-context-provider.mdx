@@ -69,6 +69,42 @@ function App({ children }) {
 }
 ```
 
+### Nesting multiple context providers
+
+When multiple contexts are provided to the same subtree, the legacy `.Provider` syntax adds unnecessary noise. React 19 allows each context to be used directly.
+
+```tsx
+// Problem: Nested legacy providers
+import ThemeContext from "./ThemeContext";
+import AuthContext from "./AuthContext";
+
+function App({ children }) {
+  return (
+    <ThemeContext.Provider value="dark">
+      <AuthContext.Provider value={currentUser}>
+        {children}
+      </AuthContext.Provider>
+    </ThemeContext.Provider>
+  );
+}
+```
+
+```tsx
+// Recommended: Use contexts directly as providers
+import ThemeContext from "./ThemeContext";
+import AuthContext from "./AuthContext";
+
+function App({ children }) {
+  return (
+    <ThemeContext value="dark">
+      <AuthContext value={currentUser}>
+        {children}
+      </AuthContext>
+    </ThemeContext>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-context-provider/no-context-provider.ts)
@@ -78,3 +114,4 @@ function App({ children }) {
 ## Further Reading
 
 - [React Docs: Blog: `<Context>` as a provider](https://react.dev/blog/2024/12/05/react-19#context-as-a-provider)
+- [React Docs: `createContext`](https://react.dev/reference/react/createContext)

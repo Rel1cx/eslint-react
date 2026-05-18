@@ -121,6 +121,37 @@ function Component() {
 }
 ```
 
+## Troubleshooting
+
+### Why is the linter telling me not to wrap `use` in `try`/`catch`?
+
+The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. Only Suspense and Error Boundaries can handle these cases. The linter warns against `try`/`catch` around `use` to prevent confusion as the `catch` block would never run.
+
+```tsx
+// Problem: try/catch around `use` hook
+function Component({ promise }) {
+  try {
+    const data = use(promise); // Won't catch — `use` suspends, not throws
+    return <div>{data}</div>;
+  } catch (error) {
+    return <div>Failed to load</div>; // Unreachable
+  }
+}
+```
+
+```tsx
+// Recommended: Use an Error Boundary with Suspense
+function App() {
+  return (
+    <ErrorBoundary fallback={<div>Failed to load</div>}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <DataComponent promise={fetchData()} />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/error-boundaries/error-boundaries.ts)

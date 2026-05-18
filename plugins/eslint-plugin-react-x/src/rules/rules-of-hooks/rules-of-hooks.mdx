@@ -1,6 +1,6 @@
 ---
 title: rules-of-hooks
-description: Enforces the Rules of Hooks.
+description: Validates that components and hooks follow the Rules of Hooks.
 ---
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
@@ -34,6 +34,39 @@ react-x/rules-of-hooks
 React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
 
 ## Examples
+
+### The `use` hook
+
+The `use` hook is different from other React hooks. You can call it conditionally and in loops:
+
+```tsx
+// ✅ `use` can be conditional
+function Component({ shouldFetch, fetchPromise }) {
+  if (shouldFetch) {
+    const data = use(fetchPromise);
+    return <div>{data}</div>;
+  }
+  return <div>Nothing to fetch</div>;
+}
+```
+
+```tsx
+// ✅ `use` can be in loops
+function Component({ promises }) {
+  const results = [];
+  for (const promise of promises) {
+    results.push(use(promise));
+  }
+  return <div>{results.join(", ")}</div>;
+}
+```
+
+However, `use` still has restrictions:
+
+- Can't be wrapped in try/catch
+- Must be called inside a component or hook
+
+Learn more: [`use` API Reference](https://react.dev/reference/react/use)
 
 ### Calling hooks conditionally
 

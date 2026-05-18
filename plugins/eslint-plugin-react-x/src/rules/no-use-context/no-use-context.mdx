@@ -61,6 +61,32 @@ function Button() {
 }
 ```
 
+### Calling context reads conditionally
+
+Unlike `useContext`, `use` can be called inside conditions and loops. This lets you read context only when needed.
+
+```tsx
+// Problem: useContext must be called at the top level, even when not needed
+import { useContext } from "react";
+
+function Toolbar({ showTooltip, tooltipContext }) {
+  const tooltip = useContext(tooltipContext); // Always called
+  if (!showTooltip) return null;
+  return <Tooltip content={tooltip} />;
+}
+```
+
+```tsx
+// Recommended: use can be called conditionally
+import { use } from "react";
+
+function Toolbar({ showTooltip, tooltipContext }) {
+  if (!showTooltip) return null;
+  const tooltip = use(tooltipContext); // Called only when needed
+  return <Tooltip content={tooltip} />;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-use-context/no-use-context.ts)

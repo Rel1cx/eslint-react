@@ -35,6 +35,21 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 Using `Children.only` to assert that a component receives exactly one child is fragile. If you need to restrict children, consider documenting the prop type or using a different API design.
 
+For example, if your component needs exactly one child element, you can type the prop as a single `ReactElement` instead of `React.ReactNode`:
+
+```tsx
+// Recommended: type the children prop to enforce a single child at compile time
+import { type ReactElement } from "react";
+
+interface MyComponentProps {
+  children: ReactElement;
+}
+
+function MyComponent({ children }: MyComponentProps) {
+  return <div>{children}</div>;
+}
+```
+
 ```tsx
 // Problem: Using Children.only to enforce a single child
 import React, { Children } from "react";

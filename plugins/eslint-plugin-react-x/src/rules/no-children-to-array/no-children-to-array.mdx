@@ -35,6 +35,26 @@ Using `Children.toArray` is uncommon and can lead to fragile code. [See common a
 
 Using `Children.toArray` to turn children into an array assumes internal React details that may change. If you need to reorder or filter items, accept structured data as props instead.
 
+For example, if you need to reverse a list, let the parent pass an array prop and use standard array methods:
+
+```tsx
+// Recommended: accept data as an array prop and manipulate it directly
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  const reversed = [...items].reverse();
+  return (
+    <>
+      {reversed.map((item) => (
+        <div key={item}>{item}</div>
+      ))}
+    </>
+  );
+}
+```
+
 ```tsx
 // Problem: Using Children.toArray to convert children into an array for manipulation
 import React, { Children } from "react";

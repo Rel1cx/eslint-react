@@ -29,6 +29,8 @@ react-x/no-set-state-in-component-did-mount
 
 Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
 
+For class components, prefer setting the initial state in the constructor or via a class field initializer. If you need to perform side effects, consider using `useEffect` after migrating to function components.
+
 ## Examples
 
 ### Calling setState directly in componentDidMount
@@ -55,6 +57,38 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
+### Setting initial state correctly
+
+Set the initial state in the constructor or via a class field. Use `componentDidMount` only for side effects like subscriptions or data fetching, and only call `setState` inside callbacks (e.g., event handlers or network responses).
+
+```tsx
+// Recommended: Initialize state in the constructor or as a class field
+import React from "react";
+
+interface MyComponentProps {}
+
+interface MyComponentState {
+  name: string;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  state = {
+    name: "John",
+  };
+
+  componentDidMount() {
+    // Side effects like fetching data are fine here
+    fetchData().then((data) => {
+      this.setState({ name: data.name }); // OK inside a callback
+    });
+  }
+
+  render() {
+    return <div>Hello {this.state.name}</div>;
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-mount/no-set-state-in-component-did-mount.ts)
@@ -63,5 +97,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 ## Further Reading
 
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
 - [Legacy React APIs: `componentDidMount`](https://react.dev/reference/react/Component#componentdidmount)
 - [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)

@@ -96,8 +96,55 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
+### Mutating state in function components
+
+Directly mutating a state object or array in a function component does not trigger a re-render and breaks React's state management.
+
+```tsx
+// Problem: Mutating a state object directly instead of using the setter
+import { useState } from "react";
+
+function UserProfile() {
+  const [user, setUser] = useState({ name: "Taylor", age: 25 });
+
+  function handleClick() {
+    user.age = user.age + 1; // Mutates state directly — won't re-render!
+  }
+
+  return (
+    <button onClick={handleClick}>
+      {user.name} is {user.age} years old
+    </button>
+  );
+}
+```
+
+```tsx
+// Recommended: Always use the setter function with a new object
+import { useState } from "react";
+
+function UserProfile() {
+  const [user, setUser] = useState({ name: "Taylor", age: 25 });
+
+  function handleClick() {
+    setUser({ ...user, age: user.age + 1 });
+  }
+
+  return (
+    <button onClick={handleClick}>
+      {user.name} is {user.age} years old
+    </button>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/no-direct-mutation-state.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/no-direct-mutation-state.spec.ts)
 - [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/CHANGELOG.md)
+
+## Further Reading
+
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
+- [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)
