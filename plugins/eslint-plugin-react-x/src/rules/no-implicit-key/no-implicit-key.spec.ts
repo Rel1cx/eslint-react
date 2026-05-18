@@ -356,7 +356,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function MyComponent() {
         return <div {...someValues} data-slot="pagination-item" />;
-        //          ^^^ Passing-through React internally defined keys are allowed.
       }
     `,
     tsx`

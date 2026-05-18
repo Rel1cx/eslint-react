@@ -45,7 +45,6 @@ This rule checks for the following unsupported patterns:
 // Problem: using eval in a component
 function Component({ code }) {
   const result = eval(code); // cannot be statically analyzed
-  //             ^^^ Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.
   return <div>{result}</div>;
 }
 ```
@@ -74,7 +73,6 @@ The `with` statement dynamically modifies the scope chain at runtime. Static ana
 // Problem: using with in a component
 function Component() {
   with (Math) { // dynamically changes scope
-  // ^^^ Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.
     return <div>{sin(PI / 2)}</div>;
   }
 }
@@ -96,8 +94,7 @@ Immediately-invoked function expressions inside JSX prevent the compiler from an
 function MyComponent() {
   return (
     <SomeJsx>
-      {(() => {
-      // ^^^ Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.
+      {(() => { // Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.
         const filteredThings = things.filter(callback);
 
         if (filteredThings.length === 0) {

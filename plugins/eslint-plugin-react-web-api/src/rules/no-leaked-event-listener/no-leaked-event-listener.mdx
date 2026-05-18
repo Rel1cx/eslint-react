@@ -40,7 +40,6 @@ class MyComponent extends Component {
   componentDidMount() {
     // Problem: An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in the 'componentWillUnmount' method.
     document.addEventListener("click", this.handleClick);
-    //                                 ^^^ An 'addEventListener' in 'componentDidMount' should have a corresponding 'removeEventListener' in the 'componentWillUnmount' method.
   }
 
   handleClick() {
@@ -66,7 +65,6 @@ function MyComponent() {
 
     // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
     document.addEventListener("click", handleClick);
-    //                                 ^^^ An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
   }, []);
 
   return null;
@@ -82,7 +80,6 @@ function MyComponent() {
   useEffect(() => {
     // Problem: An 'addEventListener' should not have an inline listener function.
     document.addEventListener("click", () => console.log("clicked"));
-    //                                 ^^^ An 'addEventListener' should not have an inline listener function.
   }, []);
 
   return null;
@@ -102,7 +99,6 @@ function MyComponent() {
 
     document.addEventListener("click", handleClick, { capture: true });
     // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
-    //                                 ^^^ An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
 
     return () => {
       // Problem: Options don't match — removeEventListener must use the same capture value
@@ -127,14 +123,12 @@ function MyComponent() {
 
     // Problem: The entries are not guaranteed to be the same as those in the effect cleanup function.
     for (const [name, handler] of Object.entries(handlers)) {
-      //                          ^^^ The entries are not guaranteed to be the same as those in the effect cleanup function.
       el.addEventListener(name, handler);
     }
 
     return () => {
       // Problem: The entries are not guaranteed to be the same as those in the effect setup function.
       for (const [name, handler] of Object.entries(handlers)) {
-        //                          ^^^ The entries are not guaranteed to be the same as those in the effect setup function.
         el.removeEventListener(name, handler);
       }
     };

@@ -83,13 +83,11 @@ export default [
 ```tsx
 // Problem: duplicate props silently discard earlier values.
 <div id="a" id="b" />;
-//          ^^^ Prop `id` is specified more than once. Only the last one will take effect.
 ```
 
 ```tsx
 // Problem: duplicate props silently discard earlier values.
 <div onClick={handleA} onClick={handleB} />;
-//                      ^^^ Prop `onClick` is specified more than once. Only the last one will take effect.
 ```
 
 #### Unique props or conditional spreads
@@ -254,13 +252,11 @@ export default [
 ```tsx
 // Problem: spreading an object literal hides props from view.
 <MyComponent {...{ foo, bar, baz }} />;
-//            ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
 ```tsx
 // Problem: spreading an object literal hides props from view.
 <input {...{ disabled: true, readOnly: true }} />;
-//      ^^^ Don't spread an object literal in JSX. Write each property as a separate prop instead.
 ```
 
 #### Spreading variables or conditional expressions
@@ -350,13 +346,11 @@ export default [
 ```tsx
 // Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input value={name} defaultValue="World" />;
-//                  ^^^ 'value' and 'defaultValue' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
 ```tsx
 // Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input type="checkbox" checked={isChecked} defaultChecked />;
-//                                         ^^^ 'checked' and 'defaultChecked' should not be used together. Use either controlled or uncontrolled mode, not both.
 ```
 
 #### Using either controlled or uncontrolled mode
