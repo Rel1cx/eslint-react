@@ -1,6 +1,6 @@
 ---
 title: use-memo
-description: Validates that 'useMemo' is called with a callback that returns a value.
+description: Validates that the `useMemo` hook is used with a return value.
 ---
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
@@ -192,6 +192,55 @@ function Component({ items }) {
 }
 ```
 
+## Troubleshooting
+
+### I need to run side effects when dependencies change
+
+You might try to use `useMemo` for side effects:
+
+```tsx
+// Problem: Side effects in useMemo
+function Component({ user }) {
+  // No return value, just side effect
+  useMemo(() => {
+    analytics.track("UserViewed", { userId: user.id });
+  }, [user.id]);
+
+  // Not assigned to a variable
+  useMemo(() => {
+    return analytics.track("UserViewed", { userId: user.id });
+  }, [user.id]);
+}
+```
+
+If the side effect needs to happen in response to user interaction, it's best to colocate the side effect with the event:
+
+```tsx
+// Recommended: Side effects in event handlers
+function Component({ user }) {
+  const handleClick = () => {
+    analytics.track("ButtonClicked", { userId: user.id });
+    // Other click logic...
+  };
+
+  return <button onClick={handleClick}>Click me</button>;
+}
+```
+
+If the side effect synchronizes React state with some external state (or vice versa), use `useEffect`:
+
+```tsx
+// Recommended: Synchronization in useEffect
+function Component({ theme }) {
+  useEffect(() => {
+    localStorage.setItem("preferredTheme", theme);
+    document.body.className = theme;
+  }, [theme]);
+
+  return <div>Current theme: {theme}</div>;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.ts)
@@ -201,4 +250,5 @@ function Component({ items }) {
 ## Further Reading
 
 - [React Docs: `useMemo`](https://react.dev/reference/react/useMemo)
+- [React Docs: `use-memo` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo)
 - [React Compiler: `validateUseMemo`](https://github.com/facebook/react/tree/main/compiler/packages/babel-plugin-react-compiler/docs/passes/40-validateUseMemo.md)

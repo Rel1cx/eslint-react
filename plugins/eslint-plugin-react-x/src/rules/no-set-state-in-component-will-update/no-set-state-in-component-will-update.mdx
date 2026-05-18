@@ -27,7 +27,7 @@ react-x/no-set-state-in-component-will-update
 
 ## Rule Details
 
-Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
+Updating the state in `componentWillUpdate` is not allowed because the component is already about to re-render. It can lead to infinite loops and inconsistent state.
 
 ## Examples
 
@@ -55,6 +55,39 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
+### Preparing for an update without setState
+
+If you need to compute something before an update, store it in an instance variable or derive it during `render`. Never call `setState` in `componentWillUpdate` because the component is already about to re-render.
+
+```tsx
+// Recommended: Use instance variables or derive values during render
+import React from "react";
+
+interface MyComponentProps {
+  value: number;
+}
+
+interface MyComponentState {
+  prevValue: number;
+}
+
+class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
+  state = {
+    prevValue: 0,
+  };
+
+  componentWillUpdate(nextProps: MyComponentProps) {
+    // Store previous value in an instance variable, not state
+    this.previousValue = this.props.value;
+  }
+
+  render() {
+    const hasIncreased = this.props.value > this.state.prevValue;
+    return <div>Value increased: {hasIncreased ? "Yes" : "No"}</div>;
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-will-update/no-set-state-in-component-will-update.ts)
@@ -63,5 +96,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 ## Further Reading
 
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
 - [Legacy React APIs: `componentWillUpdate`](https://react.dev/reference/react/Component#componentwillupdate)
 - [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)

@@ -72,6 +72,50 @@ class MyComponent extends React.Component {
 }
 ```
 
+### Migrating from createRef to useRef
+
+When migrating a class component to a function component, replace `createRef` with `useRef`.
+
+```tsx
+// Problem: createRef inside a function component creates a new ref on every render
+import { createRef } from "react";
+
+function Form() {
+  const inputRef = createRef(); // Does not persist across renders
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={handleClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+```tsx
+// Recommended: useRef persists the same ref object across renders
+import { useRef } from "react";
+
+function Form() {
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={handleClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-create-ref/no-create-ref.ts)
@@ -80,4 +124,6 @@ class MyComponent extends React.Component {
 
 ## Further Reading
 
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
 - [Legacy React APIs: `createRef`](https://react.dev/reference/react/createRef)
+- [React Docs: `useRef`](https://react.dev/reference/react/useRef)

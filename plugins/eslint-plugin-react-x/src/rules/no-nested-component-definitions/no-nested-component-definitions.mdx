@@ -36,6 +36,8 @@ When a component is defined inside another component:
 - It defeats prop memoization and optimization techniques
 - It creates new function references on every render
 
+React is responsible for rendering components when necessary to optimize the user experience. It is declarative: you tell React what to render in your component's logic, and React will figure out how best to display it to your user. Components should only be used in JSX. Don't call them as regular functions — React should call them.
+
 Instead, define every component at the top level.
 
 ## Examples
@@ -68,6 +70,31 @@ function Profile() {
 
 When a child component needs data from a parent, [pass it by props](https://react.dev/learn/passing-props-to-a-component) instead of nesting definitions.
 
+### Calling components as regular functions
+
+Components should only be used in JSX. Don't call them as regular functions. React must decide when your component function is called during rendering. In React, you do this using JSX.
+
+```tsx
+// Problem: calling a component as a regular function
+function BlogPost() {
+  return <Layout>{Article()}</Layout>;
+  //                        ^^^ Never call component functions directly.
+}
+```
+
+```tsx
+// Recommended: use components in JSX
+function BlogPost() {
+  return (
+    <Layout>
+      <Article />
+    </Layout>
+  );
+}
+```
+
+If a component contains Hooks, calling it directly can easily violate the Rules of Hooks when called in a loop or conditionally. Letting React orchestrate rendering also allows components to participate in reconciliation, enables local state through Hooks, and allows React to skip over components that don't need re-rendering.
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-nested-component-definitions/no-nested-component-definitions.ts)
@@ -77,4 +104,5 @@ When a child component needs data from a parent, [pass it by props](https://reac
 ## Further Reading
 
 - [React Docs: Nesting and organizing components](https://react.dev/learn/your-first-component#nesting-and-organizing-components)
+- [React Docs: React calls Components and Hooks](https://react.dev/reference/rules/react-calls-components-and-hooks)
 - [React Docs: `static-components` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/static-components)

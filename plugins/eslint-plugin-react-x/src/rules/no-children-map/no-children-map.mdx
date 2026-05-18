@@ -35,6 +35,27 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 Using `Children.map` to wrap children assumes a specific React internals structure that may break. Instead, accept an array of data or let the parent map over items directly.
 
+For example, if you need to wrap items in a styled container, accept an array of data as a prop and map over it:
+
+```tsx
+// Recommended: accept data as an array prop and map over it
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <div className="RowList">
+      {items.map((item) => (
+        <div className="Row" key={item}>
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
 ```tsx
 // Problem: Using Children.map to wrap each child in a styled container
 import React, { Children } from "react";

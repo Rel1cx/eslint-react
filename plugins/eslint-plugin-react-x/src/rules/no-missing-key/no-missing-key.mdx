@@ -65,6 +65,36 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
+### Missing key when returning multiple elements per iteration
+
+When you map over data and return multiple sibling elements, wrapping them in `<></>` loses the ability to assign a key. You must use the explicit `Fragment` syntax.
+
+```tsx
+// Problem: Fragment shorthand (<>) does not support keys
+function Blog({ posts }) {
+  return posts.map((post) => (
+    <>
+      <PostTitle title={post.title} />
+      <PostBody body={post.body} />
+    </>
+  ));
+}
+```
+
+```tsx
+// Recommended: Use explicit Fragment with a key
+import { Fragment } from "react";
+
+function Blog({ posts }) {
+  return posts.map((post) => (
+    <Fragment key={post.id}>
+      <PostTitle title={post.title} />
+      <PostBody body={post.body} />
+    </Fragment>
+  ));
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-missing-key/no-missing-key.ts)
@@ -74,3 +104,5 @@ function MyComponent({ items }: MyComponentProps) {
 ## Further Reading
 
 - [React Docs: Why does React need keys?](https://react.dev/learn/rendering-lists#why-does-react-need-keys)
+- [React Docs: Rendering Lists](https://react.dev/learn/rendering-lists)
+- [React Docs: `Fragment`](https://react.dev/reference/react/Fragment)

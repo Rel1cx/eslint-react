@@ -35,6 +35,28 @@ Using `Children` is uncommon and can lead to fragile code. [See common alternati
 
 Using `Children.forEach` to walk through and transform children is brittle because it relies on React's internal children structure. Prefer letting the parent handle iteration with standard array methods or restructuring your component API.
 
+For example, if you need to interleave separators between children, let the parent pass an array directly and use `.map()`:
+
+```tsx
+// Recommended: accept data as an array prop and use standard JS methods
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <>
+      {items.map((item, index) => (
+        <div key={item}>
+          {item}
+          {index < items.length - 1 && <hr />}
+        </div>
+      ))}
+    </>
+  );
+}
+```
+
 ```tsx
 // Problem: Using Children.forEach to iterate over and transform children
 import React, { Children } from "react";

@@ -46,6 +46,19 @@ class MyComponent extends React.Component {
 }
 ```
 
+```tsx
+// Recommended: use componentDidUpdate for side effects after an update
+import React from "react";
+
+class MyComponent extends React.Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.value !== prevProps.value) {
+      // Perform side effects here
+    }
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-unsafe-component-will-update/no-unsafe-component-will-update.ts)
@@ -54,4 +67,7 @@ class MyComponent extends React.Component {
 
 ## Further Reading
 
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
 - [Legacy React APIs: `componentWillUpdate`](https://react.dev/reference/react/Component#componentwillupdate)
+- [React Docs: `UNSAFE_componentWillUpdate`](https://react.dev/reference/react/Component#unsafe_componentwillupdate)
+- [React Docs: Updating to Async Rendering](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html)

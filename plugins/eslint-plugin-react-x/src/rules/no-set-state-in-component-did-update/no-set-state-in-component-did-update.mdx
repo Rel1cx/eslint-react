@@ -27,7 +27,7 @@ react-x/no-set-state-in-component-did-update
 
 ## Rule Details
 
-Updating the state after a component mounts will trigger a second `render()` call and can lead to property/layout thrashing.
+Updating the state after a component updates will trigger an additional `render()` call and can lead to property/layout thrashing or infinite loops.
 
 ## Examples
 
@@ -55,6 +55,52 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 }
 ```
 
+### Responding to prop changes without extra state
+
+If you need to perform side effects when props change, do so conditionally and avoid synchronous `setState` calls that trigger additional renders.
+
+```tsx
+// Recommended: Perform conditional side effects without synchronous setState
+import React from "react";
+
+interface MyComponentProps {
+  roomId: string;
+}
+
+interface MyComponentState {
+  serverUrl: string;
+}
+
+class ChatRoom extends React.Component<MyComponentProps, MyComponentState> {
+  state = {
+    serverUrl: "https://localhost:1234",
+  };
+
+  componentDidUpdate(prevProps: MyComponentProps) {
+    if (this.props.roomId !== prevProps.roomId) {
+      this.destroyConnection();
+      this.setupConnection(); // Side effect, not setState
+    }
+  }
+
+  componentWillUnmount() {
+    this.destroyConnection();
+  }
+
+  setupConnection() {
+    /* ... */
+  }
+
+  destroyConnection() {
+    /* ... */
+  }
+
+  render() {
+    return <div>Room: {this.props.roomId}</div>;
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-set-state-in-component-did-update/no-set-state-in-component-did-update.ts)
@@ -63,5 +109,6 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 
 ## Further Reading
 
+- [React Docs: How to migrate to a function component](https://react.dev/reference/react/Component#alternatives)
 - [Legacy React APIs: `componentDidUpdate`](https://react.dev/reference/react/Component#componentdidupdate)
 - [Legacy React APIs: `setState`](https://react.dev/reference/react/Component#setstate)
