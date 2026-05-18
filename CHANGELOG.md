@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### 📝 Documentation
+
+- Improved `eslint-plugin-react-x` rule documentation with scenario-based examples, Troubleshooting sections, and Further Reading links across 48 rule docs (#1786).
+- Added React 19 `use` hook guidance to `error-boundaries`, `rules-of-hooks`, and `no-use-context` docs.
+- Added migration examples and corrected rule descriptions for class-component-related rules.
+- Removed inline ESLint error annotations (`^^^`) from documentation examples for better readability (#1785).
+
+### 🏗️ Internal
+
+- Updated `pnpm-lock.yaml`: bumped `nx` to 22.7.2 and `brace-expansion` to 5.0.5.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.1...HEAD
+
 ## v5.8.1 (2026-05-18)
 
 ### 📝 Documentation
