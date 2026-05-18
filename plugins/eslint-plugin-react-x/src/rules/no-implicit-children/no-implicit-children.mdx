@@ -46,7 +46,6 @@ declare let someValues: { id: string; className: string; children: string };
 // Problem: Implicitly passing children when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
-  //          ^^^ This spread attribute implicitly passes the 'children' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'children' prop, use 'children={value}'.
 }
 ```
 
@@ -59,7 +58,6 @@ declare let someValues: { id: string; className: string; children: string };
 function MyComponent() {
   const { children, ...rest } = someValues;
   return <div {...rest}>{children}</div>;
-  //      ^^^ Dropping the 'children' prop from the spread attributes to prevent implicitly passing it to the component.
 }
 ```
 
@@ -75,7 +73,6 @@ declare let someValues: { id: string; className: string; children: React.ReactNo
 // OK: children type is React.ReactNode, which is a React built-in type alias
 function MyComponent() {
   return <div {...someValues} data-slot="my-component" />;
-  //          ^^^ The 'children' property is typed as React.ReactNode, which is a React-defined type alias. Allowed.
 }
 ```
 
@@ -89,7 +86,6 @@ import React from "react";
 // OK: props come from React.ComponentProps, children originates from React.DOMAttributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-  //                                     ^^^ The 'children' property originates from React.DOMAttributes.children. Allowed.
 }
 ```
 

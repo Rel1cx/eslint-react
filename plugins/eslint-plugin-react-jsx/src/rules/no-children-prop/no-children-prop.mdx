@@ -47,7 +47,6 @@ interface MyComponentProps {
 function MyComponent({ children }: MyComponentProps) {
   // Problem: Children should always be actual children, not passed in as a prop.
   return <div children={children} />;
-  //          ^^^ Children should always be actual children, not passed in as a prop.
 }
 ```
 

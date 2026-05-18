@@ -48,7 +48,6 @@ declare let someValues: { foo: string; bar: string; key: string };
 // Problem: Implicitly passing key when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
-  //          ^^^ This spread attribute implicitly passes the 'key' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'key' prop, use 'key={value}'.
 }
 ```
 
@@ -61,7 +60,6 @@ declare let someValues: { id: string; className: string; key: string };
 function MyComponent() {
   const { key, ...rest } = someValues;
   return <div key={key} {...rest} />;
-  //      ^^^ Dropping the 'key' prop from the spread attributes to prevent implicitly passing it to the component.
 }
 ```
 
@@ -77,7 +75,6 @@ declare let someValues: { id: string; className: string; key: React.Key };
 // OK: key type is React.Key, which is a React built-in type
 function MyComponent() {
   return <div {...someValues} data-slot="pagination-item" />;
-  //          ^^^ The 'key' property is typed as React.Key, which is a React-defined type alias. Allowed.
 }
 ```
 
@@ -91,7 +88,6 @@ import React from "react";
 // OK: props come from React.ComponentProps, key originates from React.Attributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-  //                                     ^^^ The 'key' property originates from React.Attributes.key. Allowed.
 }
 ```
 

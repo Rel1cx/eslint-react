@@ -46,7 +46,6 @@ declare let someValues: { id: string; className: string; ref: null };
 // Problem: Implicitly passing ref when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
-  //          ^^^ This spread attribute implicitly passes the 'ref' prop to a component, this could lead to unexpected behavior. If you intend to pass the 'ref' prop, use 'ref={value}'.
 }
 ```
 
@@ -59,7 +58,6 @@ declare let someValues: { id: string; className: string; ref: null };
 function MyComponent() {
   const { ref, ...rest } = someValues;
   return <div ref={ref} {...rest} />;
-  //      ^^^ Dropping the 'ref' prop from the spread attributes to prevent implicitly passing it to the component.
 }
 ```
 
@@ -75,7 +73,6 @@ declare let someValues: { id: string; className: string; ref: React.Ref<HTMLDivE
 // OK: ref type is React.Ref, which is a React built-in type alias
 function MyComponent() {
   return <div {...someValues} data-slot="pagination-item" />;
-  //          ^^^ The 'ref' property is typed as React.Ref, which is a React-defined type alias. Allowed.
 }
 ```
 
@@ -89,7 +86,6 @@ import React from "react";
 // OK: props come from React.ComponentProps, ref originates from React.ClassAttributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-  //                                     ^^^ The 'ref' property originates from React.ClassAttributes.ref. Allowed.
 }
 ```
 

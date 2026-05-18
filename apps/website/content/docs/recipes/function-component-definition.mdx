@@ -100,7 +100,6 @@ export default [
 ```tsx
 // Problem: Function components must be defined with arrow functions.
 function MyComponent({ name }: { name: string }) {
-//      ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
 }
 ```
@@ -108,7 +107,6 @@ function MyComponent({ name }: { name: string }) {
 ```tsx
 // Problem: Function components must be defined with arrow functions.
 const MyComponent = function({ name }: { name: string }) {
-//                  ^^^ Function components must be defined with arrow functions.
   return <div>Hello, {name}!</div>;
 };
 ```

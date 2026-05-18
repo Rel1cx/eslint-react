@@ -207,7 +207,6 @@ function MyComponent({ children }) {
   return (
     <div className="RowList">
       {Children.map(children, (child) => <div className="Row">{child}</div>)}
-      //      ^^^ Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead.
     </div>
   );
 }
