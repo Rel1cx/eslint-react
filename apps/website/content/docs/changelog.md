@@ -2,8 +2,6 @@
 title: Changelog
 ---
 
-## Unreleased
-
 ## v5.8.3 (2026-05-20)
 
 ### 🐞 Fixes
