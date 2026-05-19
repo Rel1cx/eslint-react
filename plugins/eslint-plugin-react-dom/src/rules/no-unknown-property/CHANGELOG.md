@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.3] - 2026-05-20
+
 ### Fixed
 
 - Added React 19 `precedence` and `blocking` attributes to known properties with version-gated tag checks, preventing false positives on `<style>`, `<link>`, and `<script>` elements.
