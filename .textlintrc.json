@@ -1,0 +1,33 @@
+{
+  "plugins": {
+    "@textlint/markdown": {
+      "extensions": [".md", ".mdx"]
+    }
+  },
+  "rules": {
+    "@textlint-rule/pattern": {
+      "patterns": [
+        {
+          "message": "Avoid 'A vs B' competitive framing",
+          "pattern": "/\\w+\\s+vs\\.?\\s+\\w+/gi"
+        },
+        {
+          "message": "Avoid 'better than' competitive superiority claims",
+          "pattern": "/\\b(?:far\\s+)?better than\\b/gi"
+        },
+        {
+          "message": "Avoid direct performance comparison claims like 'X faster/slower than Y' against competitors",
+          "pattern": "/\\b\\d+\\s*(?:~|-)?\\s*\\d*\\s*x?\\s*(?:times?\\s+)?(?:faster|slower)\\s+than\\b/gi"
+        },
+        {
+          "message": "Avoid 'game-changer' or 'best-in-class' style marketing language",
+          "pattern": "/\\b(game.changer|best.in.class|industry.leading|world.class)\\b/gi"
+        },
+        {
+          "message": "Avoid war metaphors like 'crushing', 'battlefield', or 'massive win' in documentation",
+          "pattern": "/\\b(crushing it|crushing|battlefield|massive win|dominating|dominate|destroying|destroy)\\b/gi"
+        }
+      ]
+    }
+  }
+}

@@ -37,7 +37,7 @@ react-x/static-components
 
 Validates that components are static, not recreated every render. Components that are recreated dynamically can reset state and trigger excessive re-rendering.
 
-Components defined inside other components are recreated on every render. React sees each as a brand new component type, unmounting the old one and mounting the new one, destroying all state and DOM nodes in the process.
+Components defined inside other components are recreated on every render. React sees each as a brand new component type, unmounting the old one and mounting the new one, discarding all state and DOM nodes in the process.
 
 If you find yourself wanting to define components inside other components to access local variables, that's a sign you should be passing props instead. This makes components more reusable and testable.
 

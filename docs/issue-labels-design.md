@@ -4,7 +4,7 @@ This document defines the issue and pull request label system for `Rel1cx/eslint
 
 ## Design Principles
 
-1. **Lowercase + kebab-case + colon categories** — Aligns with Next.js, React, and VS Code conventions.
+1. **Lowercase + kebab-case + colon categories** — Aligns with Next.js, React, and Visual Studio Code conventions.
 2. **Color semantics by category** — Similar categories share similar hues; conflicting colors are eliminated.
 3. **De-state-machine** — Issue closure means resolution. `released` is handled by **Milestones**, not labels.
 4. **Four-dimensional coverage** — Every open issue should be classifiable by `type` × `area` × `status` × `priority`.
