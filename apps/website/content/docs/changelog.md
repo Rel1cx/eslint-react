@@ -4,6 +4,14 @@ title: Changelog
 
 ## Unreleased
 
+## v5.8.3 (2026-05-20)
+
+### 🐞 Fixes
+
+- **`react-dom/no-unknown-property`**: Added React 19 `precedence` and `blocking` attributes to the known property allowlist with version-gated tag checks, preventing false positives on `<style>`, `<link>`, and `<script>` elements (#1789, #1790).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.2...v5.8.3
+
 ## v5.8.2 (2026-05-20)
 
 ### 📝 Documentation
