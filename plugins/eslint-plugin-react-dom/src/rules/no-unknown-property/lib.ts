@@ -911,6 +911,18 @@ export const POPOVER_API_PROPS: string[] = [
   "onBeforeToggle",
 ];
 
+export const REACT_19_PROPS: string[] = [
+  ...POPOVER_API_PROPS,
+];
+
+/**
+ * Tag-specific attributes added in React 19
+ */
+export const REACT_19_ATTRIBUTE_TAGS_MAP: TagsMap = {
+  blocking: ["link", "script", "style"],
+  precedence: ["link", "style"],
+};
+
 /**
  * Tests React version against a comparator
  * @param context ESLint context
@@ -949,12 +961,24 @@ export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): st
 
   // Popover API props were added in React v19.0.0-rc.0
   if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
-    ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS);
+    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_PROPS);
   } else {
-    ALL_DOM_PROPERTY_NAMES.push(...POPOVER_API_PROPS.map((prop) => prop.toLowerCase()));
+    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_PROPS.map((prop) => prop.toLowerCase()));
   }
 
   return ALL_DOM_PROPERTY_NAMES;
+}
+
+/**
+ * Gets the map of attributes to their allowed tags based on React version
+ * @param context ESLint rule context
+ * @returns Map of attributes to allowed tags
+ */
+export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): TagsMap {
+  if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
+    return { ...ATTRIBUTE_TAGS_MAP, ...REACT_19_ATTRIBUTE_TAGS_MAP };
+  }
+  return ATTRIBUTE_TAGS_MAP;
 }
 
 /**
