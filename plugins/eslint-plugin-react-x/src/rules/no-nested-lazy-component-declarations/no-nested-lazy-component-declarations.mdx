@@ -36,7 +36,7 @@ When a lazy component is declared inside another component:
 - It defeats props memoization and optimization techniques
 - It creates new function references on every render
 
-Just like regular components, lazy components should be declared at the top level of your module so that React can properly track their identity across renders. When a lazy component is recreated, React treats it as a different component type, causing the old one to unmount and the new one to mount — destroying all state and DOM nodes in the process.
+Just like regular components, lazy components should be declared at the top level of your module so that React can properly track their identity across renders. When a lazy component is recreated, React treats it as a different component type, causing the old one to unmount and the new one to mount — discarding all state and DOM nodes in the process.
 
 ## Examples
 
