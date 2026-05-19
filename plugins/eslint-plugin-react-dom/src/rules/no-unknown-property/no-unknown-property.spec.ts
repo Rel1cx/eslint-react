@@ -471,6 +471,60 @@ ruleTester.run(RULE_NAME, rule, {
       },
     ],
   }, {
+    code: '<div precedence="medium" />',
+    errors: [
+      {
+        data: {
+          name: "precedence",
+          allowedTags: "link, style",
+          tagName: "div",
+        },
+        messageId: "invalidPropOnTag",
+      },
+    ],
+  }, {
+    code: '<div blocking="render" />',
+    errors: [
+      {
+        data: {
+          name: "blocking",
+          allowedTags: "link, script, style",
+          tagName: "div",
+        },
+        messageId: "invalidPropOnTag",
+      },
+    ],
+  }, {
+    code: '<style precedence="default">{`body { color: red; }`}</style>',
+    settings: {
+      "react-x": {
+        version: "18.3.1",
+      },
+    },
+    errors: [
+      {
+        data: {
+          name: "precedence",
+        },
+        messageId: "unknownProp",
+      },
+    ],
+  }, {
+    code: '<script blocking="render" />',
+    settings: {
+      "react-x": {
+        version: "18.3.1",
+      },
+    },
+    errors: [
+      {
+        data: {
+          name: "blocking",
+        },
+        messageId: "unknownProp",
+      },
+    ],
+  }, {
     code: tsx`
       <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c="customValue">
         Hello, world!
@@ -596,6 +650,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     { code: '<line fill="pink" x1="0" y1="80" x2="100" y2="20"></line>' },
     { code: '<link as="audio">Audio content</link>' },
+    { code: '<link rel="stylesheet" href="styles.css" precedence="medium" />' },
+    { code: '<style href="style.css" precedence="default">{`body { color: red; }`}</style>' },
+    { code: '<script async src="script.js" blocking="render" />' },
     {
       code:
         '<video controlsList="nodownload" controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} onResize={this.onResize}></video>',

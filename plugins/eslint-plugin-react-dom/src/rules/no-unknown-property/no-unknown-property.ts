@@ -2,7 +2,7 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import {
-  ATTRIBUTE_TAGS_MAP,
+  getAttributeTagsMap,
   getStandardName,
   getTagName,
   getText,
@@ -163,8 +163,9 @@ export function create(context: RuleContext<MessageID, Options[]>) {
         if (!isValidHTMLTagInJSX(node)) return;
 
         // Check if attribute is allowed only on specific tags
-        const allowedTags = has(ATTRIBUTE_TAGS_MAP, name)
-          ? ATTRIBUTE_TAGS_MAP[name]
+        const attributeTagsMap = getAttributeTagsMap(context);
+        const allowedTags = has(attributeTagsMap, name)
+          ? attributeTagsMap[name]
           : null;
 
         if (tagName != null && allowedTags != null) {
