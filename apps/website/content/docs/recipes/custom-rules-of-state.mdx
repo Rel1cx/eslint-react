@@ -120,7 +120,7 @@ function Counter() {
   // Problem: Referencing `count` directly creates a stale state risk.
   return (
     <button onClick={() => setCount(count + 1)}>
-      {/*                           ^^^ Do not reference 'setCount' directly; use the updater function form instead. */}
+      {/*                           ^^^^^ Do not reference 'setCount' directly; use the updater function form instead. */}
       {count}
     </button>
   );
@@ -136,7 +136,7 @@ function Toggle() {
   // Problem: Negating state directly creates a stale state risk.
   return (
     <button onClick={() => setEnabled(!enabled)}>
-      {/*                             ^^^ Do not reference 'setEnabled' directly; use the updater function form instead. */ }
+      {/*                             ^^^^^^^^ Do not reference 'setEnabled' directly; use the updater function form instead. */ }
       {enabled ? "On" : "Off"}
     </button>
   );
@@ -151,7 +151,7 @@ function UserEditor() {
 
   // Problem: Spreading state directly creates a stale state risk.
   const updateAge = () => setUser({ ...user, age: 30 });
-  //                                ^^^ Do not reference 'setUser' directly; use the updater function form instead.
+  //                                   ^^^^ Do not reference 'setUser' directly; use the updater function form instead.
 
   return <button onClick={updateAge}>Update Age</button>;
 }
@@ -165,7 +165,7 @@ function ItemList() {
 
   // Problem: Calling a method on state directly creates a stale state risk.
   const addItem = () => setItems([...items, "c"]);
-  //                              ^^^ Do not reference 'setItems' directly; use the updater function form instead.
+  //                                 ^^^^^ Do not reference 'setItems' directly; use the updater function form instead.
 
   return <button onClick={addItem}>Add</button>;
 }

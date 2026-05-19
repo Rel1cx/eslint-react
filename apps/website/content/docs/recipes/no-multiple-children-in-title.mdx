@@ -80,8 +80,8 @@ export default [
 function ResultsPage({ pageNumber }) {
   return (
     <>
-      <title>Results page {pageNumber}</title>
       {/* Problem: This creates an array of children ["Results page ", pageNumber] */}
+      <title>Results page {pageNumber}</title>
       <div>...</div>
     </>
   );
@@ -94,8 +94,8 @@ function ResultsPage({ pageNumber }) {
 function ResultsPage({ pageNumber }) {
   return (
     <>
-      <title>{`Results page ${pageNumber}`}</title>
       {/* Recommended: A single string via template literal */}
+      <title>{`Results page ${pageNumber}`}</title>
       <div>...</div>
     </>
   );

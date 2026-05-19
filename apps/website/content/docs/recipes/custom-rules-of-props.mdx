@@ -169,16 +169,16 @@ export default [
 ```tsx
 // Problem: accessing props via member expression.
 function MyComponent(props) {
+  // Problem: Use destructuring assignment for component props.
   return <div>Hello, {props.name}!</div>;
-  //                     ^^^^^^^^^ Use destructuring assignment for component props.
 }
 ```
 
 ```tsx
 // Problem: accessing props via member expression.
 const MyComponent = (props) => {
+  // Problem: Use destructuring assignment for component props.
   return <div>{props.title}</div>;
-  //            ^^^^^^^^^^^ Use destructuring assignment for component props.
 };
 ```
 

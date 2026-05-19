@@ -58,8 +58,8 @@ export default [
 import { useContext } from "react";
 
 function Button() {
+  // Problem: 'useContext' is discouraged in React 19+. Use 'use' instead.
   const theme = useContext(ThemeContext);
-  //            ^^^^^^^^^^ In React 19, 'use' is preferred over 'useContext' because it is more flexible.
   // ...
 }
 ```

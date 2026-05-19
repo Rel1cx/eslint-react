@@ -62,8 +62,8 @@ export default [
 import { Children } from "react";
 
 function MyComponent({ children }) {
+  // Problem: Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.
   return <h1>Total: {Children.count(children)}</h1>;
-  //                        ^^^^^ Using 'Children.count' is uncommon and can lead to fragile code. Use alternatives instead.
 }
 ```
 
@@ -128,8 +128,8 @@ import { Children } from "react";
 
 function MyComponent({ children }) {
   const result = [];
+  // Problem: Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.
   Children.forEach(children, (child, index) => {
-  //       ^^^^^^^ Using 'Children.forEach' is uncommon and can lead to fragile code. Use alternatives instead.
     result.push(child);
     result.push(<hr key={index} />);
   });
@@ -206,6 +206,7 @@ import { Children } from "react";
 function MyComponent({ children }) {
   return (
     <div className="RowList">
+      {/* Problem: Using 'Children.map' is uncommon and can lead to fragile code. Use alternatives instead. */}
       {Children.map(children, (child) => <div className="Row">{child}</div>)}
     </div>
   );
@@ -277,8 +278,8 @@ export default [
 import { Children } from "react";
 
 function MyComponent({ children }) {
+  // Problem: Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.
   const element = Children.only(children);
-  //                     ^^^^ Using 'Children.only' is uncommon and can lead to fragile code. Use alternatives instead.
   // ...
 }
 ```
@@ -348,8 +349,8 @@ export default [
 import { Children } from "react";
 
 function MyComponent({ children }) {
+  // Problem: Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.
   const result = Children.toArray(children);
-  //                     ^^^^^^^ Using 'Children.toArray' is uncommon and can lead to fragile code. Use alternatives instead.
   result.reverse();
   // ...
 }
