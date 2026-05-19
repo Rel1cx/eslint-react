@@ -41,8 +41,8 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^25.7.0",
-    "eslint": "^10.3.0",
+    "@types/node": "^25.8.0",
+    "eslint": "^10.4.0",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3"
   },

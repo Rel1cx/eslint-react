@@ -45,7 +45,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@typescript-eslint/parser": "^8.59.3",
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "tsdown": "^0.22.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.6"
