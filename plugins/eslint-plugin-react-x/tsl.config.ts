@@ -16,7 +16,6 @@ export default defineConfig({
       "src/rules/exhaustive-deps/*.ts",
       "src/rules/rules-of-hooks/*.ts",
     ], { ignore: ["**/node_modules/**"] }),
-    ``,
   ],
   rules: [
     ...core.all(),
