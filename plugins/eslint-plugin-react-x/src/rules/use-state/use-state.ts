@@ -1,6 +1,6 @@
-import { Check, Traverse } from "@eslint-react/ast";
 // Lazy initialization logic ported from https://github.com/jsx-eslint/eslint-plugin-react/pull/3579/commits/ebb739a0fe99a2ee77055870bfda9f67a2691374
 import { createRule } from "@/utils/create-rule";
+import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
