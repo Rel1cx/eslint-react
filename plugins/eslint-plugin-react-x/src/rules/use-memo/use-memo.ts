@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
         // to match React Compiler's StoreContext semantics.
         if (left.type !== AST.Identifier) return;
-        if (Traverse.findParent(node, Check.isFunction, (n) => n === callback)) return;
+        if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
 
         const scope = context.sourceCode.getScope(left);
         const variable = findVariable(scope, left);

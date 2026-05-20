@@ -37,7 +37,7 @@ export function isInNullCheckTest(node: TSESTree.MemberExpression): boolean {
 
     // Wrapped in !: if (!(ref.current === null))
     const grandparent = parent.parent;
-    if (grandparent?.type === AST.UnaryExpression && grandparent.operator === "!" && isIfTest(grandparent)) {
+    if (grandparent.type === AST.UnaryExpression && grandparent.operator === "!" && isIfTest(grandparent)) {
       return true;
     }
 

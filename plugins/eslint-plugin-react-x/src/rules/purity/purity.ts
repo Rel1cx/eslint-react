@@ -99,7 +99,8 @@ export function create(context: RuleContext<MessageID, []>) {
           case expr.type === AST.Identifier: {
             const builtinName = resolveBuiltinObjectName(context, expr);
             if (builtinName == null) return;
-            if (!IMPURE_FUNCS.get("globalThis")?.has(builtinName)) return;
+            const globalThisImpure = IMPURE_FUNCS.get("globalThis");
+            if (globalThisImpure == null || !globalThisImpure.has(builtinName)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
@@ -112,7 +113,8 @@ export function create(context: RuleContext<MessageID, []>) {
             const objectName = resolveBuiltinObjectName(context, rootId);
             if (objectName == null) return;
             const propertyName = expr.property.name;
-            if (!IMPURE_FUNCS.get(objectName)?.has(propertyName)) return;
+            const objectImpure = IMPURE_FUNCS.get(objectName);
+            if (objectImpure == null || !objectImpure.has(propertyName)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });

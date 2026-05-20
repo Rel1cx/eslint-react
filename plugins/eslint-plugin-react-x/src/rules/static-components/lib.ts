@@ -85,7 +85,7 @@ export function getDynamicComponentSource(
         if (!ref.isWrite()) continue;
         const id = ref.identifier;
         if (
-          id.parent?.type === AST.AssignmentExpression
+          id.parent.type === AST.AssignmentExpression
           && id.parent.left === id
         ) {
           const source = resolveDynamicValue(context, id.parent.right, isInsideRender, seen);

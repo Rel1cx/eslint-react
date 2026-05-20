@@ -1,4 +1,4 @@
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 type Predicate<T extends TSESTree.Node> = (node: TSESTree.Node) => node is T;
 type NodePredicate = (node: TSESTree.Node) => boolean;
@@ -23,7 +23,7 @@ export function findParent(
     // tsl-ignore core/strictBooleanExpressions
     if (stop?.(current)) return null;
     if (test(current)) return current;
-    if (current.type === "Program") return null;
+    if (current.type === AST.Program) return null;
     current = current.parent;
   }
   return null;
