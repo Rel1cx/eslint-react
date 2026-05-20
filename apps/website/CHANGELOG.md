@@ -4,6 +4,16 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+### 📝 Documentation
+
+- **FAQ Page**
+  - Restructured FAQ from accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
+  - Added new **"What does 90% human-written mean?"** section explaining the project's human/LLM collaboration policy.
+
+- **Homepage**
+  - Replaced the `Hint` popover component with a direct link to the new FAQ anchor (`/docs/faq#what-does-90-human-written-mean`).
+  - Removed the now-unused `Hint` UI component.
+
 ## v5.7.6 (2026-05-12)
 
 ### ✨ New Features
