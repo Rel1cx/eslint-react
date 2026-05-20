@@ -36,6 +36,20 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   return merge({
+    CallExpression(node) {
+      if (!core.isCreateElementCall(context, node)) return;
+
+      const [, propsArg] = node.arguments;
+      if (propsArg == null || propsArg.type !== AST.ObjectExpression) return;
+
+      const childrenProp = findChildrenProperty(propsArg);
+      if (childrenProp == null) return;
+
+      context.report({
+        messageId: "default",
+        node: childrenProp,
+      });
+    },
     JSXElement(node) {
       const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;
@@ -106,20 +120,6 @@ export function create(context: RuleContext<MessageID, []>) {
             messageId: "moveChildrenToContent",
           },
         ],
-      });
-    },
-    CallExpression(node) {
-      if (!core.isCreateElementCall(context, node)) return;
-
-      const [, propsArg] = node.arguments;
-      if (propsArg == null || propsArg.type !== AST.ObjectExpression) return;
-
-      const childrenProp = findChildrenProperty(propsArg);
-      if (childrenProp == null) return;
-
-      context.report({
-        messageId: "default",
-        node: childrenProp,
       });
     },
   });
