@@ -126,10 +126,11 @@ export function create(context: RuleContext<MessageID, []>) {
       if (def.type !== DefinitionType.Parameter) continue;
 
       // Find the enclosing function (handles destructured params where def.node is the pattern)
-      if (def.node == null) continue;
       let fn: TSESTree.Node | null = def.node;
-      while (fn != null && !Check.isFunction(fn)) {
+      for (;;) {
+        if (Check.isFunction(fn)) break;
         fn = fn.parent ?? null;
+        if (fn == null) break;
       }
       if (fn == null) continue;
 
@@ -164,7 +165,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Detect useState/useReducer state variables named ref or *Ref
         if (isUseStateCall(node) || core.isUseReducerCall(context, node)) {
           const declarator = node.parent;
-          if (declarator?.type === AST.VariableDeclarator && declarator.id?.type === AST.ArrayPattern) {
+          if (declarator.type === AST.VariableDeclarator && declarator.id.type === AST.ArrayPattern) {
             const [firstElement] = declarator.id.elements;
             if (firstElement?.type === AST.Identifier && isRefLikeName(firstElement.name)) {
               context.report({

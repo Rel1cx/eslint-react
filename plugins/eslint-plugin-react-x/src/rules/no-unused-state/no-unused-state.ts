@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseStateLikeCall(node, additionalStateHooks)) return;
       const { parent } = node;
-      if (parent?.type !== AST.VariableDeclarator || parent.id.type !== AST.ArrayPattern) return;
+      if (parent.type !== AST.VariableDeclarator || parent.id.type !== AST.ArrayPattern) return;
 
       const [stateEl] = parent.id.elements;
       if (stateEl?.type !== AST.Identifier) return;

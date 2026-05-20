@@ -640,6 +640,19 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "mutatingAssignment",
       }],
     },
+    // Destructured props with rest element mutation
+    {
+      code: tsx`
+        function Component({ items, ...rest }) {
+          rest.foo = 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "rest" },
+        messageId: "mutatingAssignment",
+      }],
+    },
     // Nested destructured props mutation
     {
       code: tsx`
@@ -715,6 +728,32 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "mutatingAssignment",
         },
       ],
+    },
+    // Object rest parameter mutation
+    {
+      code: tsx`
+        function Component({ ...rest }) {
+          rest.foo = 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "rest" },
+        messageId: "mutatingAssignment",
+      }],
+    },
+    // Object rest parameter array mutation
+    {
+      code: tsx`
+        function Component({ ...rest }) {
+          rest.items.push(4);
+          return <div />;
+        }
+      `,
+      errors: [{
+        data: { name: "rest.items", method: "push" },
+        messageId: "mutatingArrayMethod",
+      }],
     },
   ],
   valid: [
@@ -834,6 +873,24 @@ ruleTester.run(RULE_NAME, rule, {
           items.push(4);
           return items;
         }
+      `,
+    },
+    // useState without variable assignment should not crash
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          useState(0);
+          return <div />;
+        }
+      `,
+    },
+    // useState as arrow function implicit return should not crash
+    {
+      code: tsx`
+        import { useState } from "react";
+        const Component = () => useState(0);
       `,
     },
     // -------------------------------------------------------------------------
@@ -1615,6 +1672,63 @@ ruleTester.run(RULE_NAME, rule, {
             mutateProps();
           };
           useEffect(() => mutatePropsIndirect(), [mutatePropsIndirect]);
+          return <div />;
+        }
+      `,
+    },
+    // useState result not destructured (should not crash)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          return useState(0);
+        }
+      `,
+    },
+    // useState result passed to another call (should not crash)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          return foo(useState(0));
+        }
+      `,
+    },
+    // useState result assigned to a single variable (should not crash)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          const state = useState(0);
+          return <div>{state[0]}</div>;
+        }
+      `,
+    },
+    // useReducer result not destructured (should not crash)
+    {
+      code: tsx`
+        import { useReducer } from "react";
+        function Component() {
+          return useReducer(reducer, {});
+        }
+      `,
+    },
+    // Standalone useState call as expression statement (should not crash)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          useState(0);
+          return <div />;
+        }
+      `,
+    },
+    // Standalone useReducer call as expression statement (should not crash)
+    {
+      code: tsx`
+        import { useReducer } from "react";
+        function Component() {
+          useReducer(reducer, {});
           return <div />;
         }
       `,

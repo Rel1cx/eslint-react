@@ -87,6 +87,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
+          useState(0);
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
           const [data, setData] = useState(0);
           return <div>{data}</div>;
         }
@@ -136,6 +144,37 @@ ruleTester.run(RULE_NAME, rule, {
           const [data, setData] = useState(0);
           return <Child data={data} />;
         }
+      `,
+    },
+    // useState result not destructured (should not crash)
+    {
+      code: tsx`
+        function Component() {
+          return useState(0);
+        }
+      `,
+    },
+    // useState result assigned to a single variable (should not crash)
+    {
+      code: tsx`
+        function Component() {
+          const state = useState(0);
+          return <div>{state[0]}</div>;
+        }
+      `,
+    },
+    // useState result passed to another call (should not crash)
+    {
+      code: tsx`
+        function Component() {
+          return foo(useState(0));
+        }
+      `,
+    },
+    // useState as arrow function implicit return should not crash
+    {
+      code: tsx`
+        const Component = () => useState(0);
       `,
     },
   ],

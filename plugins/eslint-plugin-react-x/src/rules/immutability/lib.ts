@@ -55,8 +55,7 @@ export function identifierExistsInPattern(pattern: TSESTree.Node, name: string):
     case AST.ObjectPattern:
       return pattern.properties.some((p) => {
         if (p.type === AST.Property) return identifierExistsInPattern(p.value, name);
-        if (p.type === AST.RestElement) return identifierExistsInPattern(p.argument, name);
-        return false;
+        return identifierExistsInPattern(p.argument, name);
       });
     case AST.ArrayPattern:
       return pattern.elements.some((el) => el != null && identifierExistsInPattern(el, name));

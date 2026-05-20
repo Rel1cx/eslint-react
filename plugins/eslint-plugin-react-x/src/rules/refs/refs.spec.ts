@@ -775,6 +775,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
+    // Ref write inside switch statement (not lazy init, loop should break on SwitchCase)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          switch (x) {
+            case 1:
+              ref.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
     // -------------------------------------------------------------------------
     // FIXME: React Compiler catches these, but ESLint refs rule does not yet
     // -------------------------------------------------------------------------
@@ -948,6 +962,21 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [{ messageId: "readDuringRender" }],
+    },
+    // ref.current === null as expression statement should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref.current === null;
+          ref.current = 1;
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
     },
   ],
   valid: [
@@ -1360,6 +1389,19 @@ ruleTester.run(RULE_NAME, rule, {
           }
           const config = getConfig();
           ref.current = createWithConfig(config);
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with inverted null check: !(ref.current === null)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!(ref.current === null)) {
+            return <div>{ref.current}</div>;
+          }
+          ref.current = createThing();
           return <div />;
         }
       `,

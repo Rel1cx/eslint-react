@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
           ...cc.api.getAllComponents(program),
         ];
         for (const lazy of lazyCalls) {
-          if (Traverse.findParent(lazy, (n) => significantParents.some((p) => p.node === n))) {
+          if (Traverse.findParent(lazy, (n) => significantParents.some((p) => p.node === n)) != null) {
             context.report({
               messageId: "default",
               node: lazy,

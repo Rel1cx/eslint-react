@@ -1789,5 +1789,18 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // useEffect with a plain function identifier (not setState) should not crash
+    {
+      name: "useEffect with plain function identifier",
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          const fn = () => {};
+          useEffect(fn, []);
+          return null;
+        }
+      `,
+    },
   ],
 });

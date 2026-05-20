@@ -177,8 +177,8 @@ export function create(context: RuleContext<MessageID, []>) {
           const refName = resolvedName;
           let isLazyInit = isInNullCheckTest(node);
           if (!isLazyInit) {
-            let current: TSESTree.Node | null = node.parent;
-            findIf: while (current != null) {
+            let current: TSESTree.Node = node.parent;
+            findIf: for (;;) {
               if (current.type === AST.IfStatement) {
                 if (isRefCurrentNullCheck(current.test, refName)) isLazyInit = true;
                 break;
