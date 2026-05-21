@@ -6,9 +6,7 @@ import {
   type TSESTreeMethodOrPropertyDefinition,
   isOneOf,
 } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isAPIFromReact } from "./api";
 import type { SemanticNode } from "./semantic";
 
 // #region Types
@@ -30,31 +28,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
 
 // #region Class Component Detection
 
-/**
- * @param context The rule context.
- * @param node The AST node to check.
- * @deprecated Class components are legacy. This function exists only to support legacy rules.
- */
-export function isClassComponent(context: RuleContext, node: TSESTree.Node): node is TSESTreeClass {
-  if ("superClass" in node && node.superClass != null) {
-    const re = /^(?:Pure)?Component$/u;
-    switch (true) {
-      case node.superClass.type === AST.Identifier:
-        if (!re.test(node.superClass.name)) return false;
-        return isAPIFromReact(node.superClass.name, context.sourceCode.getScope(node), "react");
-      case node.superClass.type === AST.MemberExpression
-        && node.superClass.property.type === AST.Identifier:
-        if (!re.test(node.superClass.property.name)) return false;
-        if (node.superClass.object.type === AST.Identifier) {
-          return isAPIFromReact(node.superClass.object.name, context.sourceCode.getScope(node), "react");
-        }
-        return true;
-    }
-  }
-  return false;
-}
-
-export function isClassComponentLoose(node: TSESTree.Node): node is TSESTreeClass {
+export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
@@ -158,7 +132,7 @@ export function isRenderMethodCallback(node: TSESTreeFunction) {
   const greatGrandparent = grandparent?.parent;
   return greatGrandparent != null
     && isRenderMethodLike(parent)
-    && isClassComponentLoose(greatGrandparent);
+    && isClassComponent(greatGrandparent);
 }
 
 // #endregion

@@ -53,7 +53,7 @@ export function create(context: RuleContext<MessageID, []>) {
         // Report an error if 'this.state' is directly mutated in a class component
         // and the mutation is not inside the constructor
         if (
-          core.isClassComponent(context, parentClass)
+          core.isClassComponent(parentClass)
           && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)
         ) {
           context.report({

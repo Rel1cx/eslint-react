@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import { getFixturesRootDir } from "../../../test";
 import {
   isAssignmentToThisState,
-  isClassComponentLoose,
+  isClassComponent,
   isComponentDidCatch,
   isComponentDidMount,
   isComponentDidUpdate,
@@ -40,7 +40,7 @@ function parse(code: string) {
   });
 }
 
-describe("isClassComponentLoose", () => {
+describe("isClassComponent", () => {
   it.each([
     ["class A extends Component {}", true],
     ["class A extends PureComponent {}", true],
@@ -48,12 +48,12 @@ describe("isClassComponentLoose", () => {
     ["class A extends React.PureComponent {}", true],
     ["class A {}", false],
     ["class A extends SomethingElse {}", false],
-  ])("isClassComponentLoose(%s) === %s", (code, expected) => {
+  ])("isClassComponent(%s) === %s", (code, expected) => {
     let found = false;
     simpleTraverse(parse(code).ast, {
       enter(node) {
         if (node.type === AST.ClassDeclaration) {
-          expect(isClassComponentLoose(node)).toBe(expected);
+          expect(isClassComponent(node)).toBe(expected);
           found = true;
         }
       },

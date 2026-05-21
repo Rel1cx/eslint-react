@@ -20,8 +20,7 @@ export function findParent(
   if (node == null) return null;
   let current = node.parent;
   while (current != null) {
-    // tsl-ignore core/strictBooleanExpressions
-    if (stop?.(current)) return null;
+    if ((stop?.(current)) ?? false) return null;
     if (test(current)) return current;
     if (current.type === AST.Program) return null;
     current = current.parent;

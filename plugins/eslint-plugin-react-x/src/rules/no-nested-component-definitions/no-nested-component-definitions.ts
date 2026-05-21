@@ -111,7 +111,7 @@ export function create(context: RuleContext<MessageID, []>) {
             continue;
           }
           // Check if the component is defined inside a class component's render method
-          if (isInsideRenderMethod(context, component)) {
+          if (isInsideRenderMethod(component)) {
             context.report({
               data: {
                 name,

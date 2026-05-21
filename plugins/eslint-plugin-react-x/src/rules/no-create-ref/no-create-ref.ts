@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>) {
     {
       CallExpression(node) {
         // dprint-ignore
-        if (core.isCreateRefCall(context, node) && Traverse.findParent(node, n => core.isClassComponent(context, n)) == null) {
+        if (core.isCreateRefCall(context, node) && Traverse.findParent(node, core.isClassComponent) == null) {
           context.report({ messageId: "default", node });
         }
       },

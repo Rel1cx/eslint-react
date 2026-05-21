@@ -35,7 +35,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(context, node)) {
+    if (!isClassComponent(node)) {
       return;
     }
     const id = getClassId(node);

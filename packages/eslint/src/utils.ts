@@ -26,7 +26,7 @@ export function merge(base: RuleListener, ...rest: RuleListener[]): RuleListener
   for (const r of rest) {
     for (const key in r) {
       const existing = base[key];
-      // tsl-ignore core/strictBooleanExpressions
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       base[key] = existing
         ? (...args) => {
           existing(...args);

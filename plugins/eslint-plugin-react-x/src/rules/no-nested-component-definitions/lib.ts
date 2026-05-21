@@ -17,12 +17,11 @@ export function isInsideJSXAttributeValue(node: TSESTreeFunction) {
 /**
  * Check whether a given node is declared inside a class component's render block
  * Ex: class C extends React.Component { render() { const Nested = () => <div />; } }
- * @param context The rule context
  * @param node The AST node being checked
  * @returns `true` if the node is inside a class component's render block
  */
-export function isInsideRenderMethod(context: RuleContext, node: TSESTree.Node) {
-  return Traverse.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(context, n.parent.parent))
+export function isInsideRenderMethod(node: TSESTree.Node) {
+  return Traverse.findParent(node, (n) => core.isRenderMethodLike(n) && core.isClassComponent(n.parent.parent))
     != null;
 }
 
