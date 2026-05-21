@@ -1,7 +1,0 @@
-rules:
-  cache-poisoning:
-    ignore:
-      # `actions/setup-node` in publish.yml does not enable caching;
-      # zizmor flags it because the action itself is cache-aware.
-      # We do not pass `cache:` to setup-node, so this is a false positive.
-      - publish.yml:24
