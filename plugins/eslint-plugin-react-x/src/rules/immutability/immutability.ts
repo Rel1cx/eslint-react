@@ -134,7 +134,7 @@ export function create(context: RuleContext<MessageID, []>) {
       }
       if (fn == null) continue;
 
-      const func = fn as TSESTreeFunction;
+      const func = fn;
       // Check if id.name appears anywhere in any parameter of this function
       if (func.params.some((param) => identifierExistsInPattern(param, id.name))) {
         return func;

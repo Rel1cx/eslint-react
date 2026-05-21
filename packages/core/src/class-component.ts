@@ -31,28 +31,20 @@ export interface ClassComponentSemanticNode extends SemanticNode {
 // #region Class Component Detection
 
 /**
- * @param node The AST node to check.
- * @deprecated Class components are legacy. This function exists only to support legacy rules.
- */
-export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass;
-/**
- * @param node The AST node to check.
  * @param context The rule context.
+ * @param node The AST node to check.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function isClassComponent(node: TSESTree.Node, context: RuleContext): node is TSESTreeClass;
-export function isClassComponent(node: TSESTree.Node, context?: RuleContext): node is TSESTreeClass {
+export function isClassComponent(context: RuleContext, node: TSESTree.Node): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
       case node.superClass.type === AST.Identifier:
         if (!re.test(node.superClass.name)) return false;
-        if (context == null) return true;
         return isAPIFromReact(node.superClass.name, context.sourceCode.getScope(node), "react");
       case node.superClass.type === AST.MemberExpression
         && node.superClass.property.type === AST.Identifier:
         if (!re.test(node.superClass.property.name)) return false;
-        if (context == null) return true;
         if (node.superClass.object.type === AST.Identifier) {
           return isAPIFromReact(node.superClass.object.name, context.sourceCode.getScope(node), "react");
         }

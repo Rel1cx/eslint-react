@@ -35,7 +35,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsdown --dts-resolve",
+    "build": "tsdown",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsl",

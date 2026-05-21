@@ -16,7 +16,7 @@ import ts from "typescript";
  * annotations found in the source file.
  */
 export interface JsxConfig {
-  jsx?: number;
+  jsx?: ts.JsxEmit;
   jsxFactory?: string;
   jsxFragmentFactory?: string;
   jsxImportSource?: string;

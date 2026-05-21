@@ -1,7 +1,7 @@
 import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as Command from "@effect/platform/Command";
-import * as CommandExecutor from "@effect/platform/CommandExecutor";
+// import * as Command from "@effect/platform/Command";
+// import * as CommandExecutor from "@effect/platform/CommandExecutor";
 import * as FileSystem from "@effect/platform/FileSystem";
 import * as Effect from "effect/Effect";
 import * as Str from "effect/String";
@@ -9,8 +9,8 @@ import { P, match } from "ts-pattern";
 
 const program = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
-  const ce = yield* CommandExecutor.CommandExecutor;
-  const branch = yield* ce.string(Command.make("git", "branch", "--show-current"));
+  // const ce = yield* CommandExecutor.CommandExecutor;
+  // const branch = yield* ce.string(Command.make("git", "branch", "--show-current"));
   const source = "README.md";
   const destination = "plugins/eslint-plugin/README.md";
   const buildToolVersion = match(JSON.parse(yield* fs.readFileString("package.json", "utf8")))

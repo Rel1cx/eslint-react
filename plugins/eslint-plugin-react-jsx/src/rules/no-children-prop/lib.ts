@@ -78,6 +78,7 @@ export function getObjectPropertyRemovalRange(
   }
 
   // Walk backwards over whitespace
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   while (start > parent.range[0] && /\s/.test(sourceCode.text[start - 1]!)) {
     start--;
   }
@@ -101,6 +102,7 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
   const end = prop.range[1];
 
   // Walk backwards over whitespace
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   while (start > 0 && /\s/.test(sourceCode.text[start - 1]!)) {
     start--;
   }

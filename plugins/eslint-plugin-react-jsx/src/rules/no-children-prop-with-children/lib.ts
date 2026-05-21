@@ -57,6 +57,7 @@ export function getObjectPropertyRemovalRange(
   }
 
   // Walk backwards over whitespace
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   while (start > parent.range[0] && /\s/.test(sourceCode.text[start - 1]!)) {
     start--;
   }
@@ -80,6 +81,7 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
   const end = prop.range[1];
 
   // Walk backwards over whitespace
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   while (start > 0 && /\s/.test(sourceCode.text[start - 1]!)) {
     start--;
   }
@@ -100,7 +102,9 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
  */
 export function getChildrenContentRange(node: TSESTreeJSXElementLike): [start: number, end: number] | null {
   if (node.children.length === 0) return null;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const first = node.children[0]!;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const last = node.children[node.children.length - 1]!;
   return [first.range[0], last.range[1]];
 }

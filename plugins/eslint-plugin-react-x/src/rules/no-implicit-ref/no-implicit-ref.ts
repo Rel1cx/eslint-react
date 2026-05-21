@@ -48,7 +48,8 @@ export function create(context: RuleContext<MessageID, []>) {
           // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
           const refType = checker.getTypeOfSymbol(ref);
           const typeSymbol = refType.aliasSymbol ?? refType.symbol;
-          // tsl-ignore core/noUnnecessaryCondition: TypeScript's type definition marks `Type.symbol` as required, but at runtime it can be `undefined` for certain internal types.
+          // TypeScript's type definition marks `Type.symbol` as required, but at runtime it can be `undefined` for certain internal types.
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (typeSymbol != null) {
             const typeFqn = checker.getFullyQualifiedName(typeSymbol);
             if (RE_REACT_REF_TYPE.test(typeFqn)) continue;

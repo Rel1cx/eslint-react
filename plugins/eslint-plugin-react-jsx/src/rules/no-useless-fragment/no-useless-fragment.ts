@@ -107,10 +107,8 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     // A single meaningful child that is NOT an expression container is
     // useless — the fragment wrapper adds nothing.  A single expression
     // container is kept because `allowExpressions` (the default) permits it.
-    if (
-      meaningful.length === 1
-      && meaningful[0]!.type !== AST.JSXExpressionContainer
-    ) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if (meaningful.length === 1 && meaningful[0]!.type !== AST.JSXExpressionContainer) {
       return true;
     }
 

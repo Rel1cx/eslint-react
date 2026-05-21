@@ -90,6 +90,7 @@ export function create(context: RuleContext<MessageID, []>) {
                 // remaining token and the `/>` marker so we don't leave a
                 // trailing space before `>`.
                 let wsStart = selfCloseStart;
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 while (wsStart > removeEnd && /\s/.test(sourceCode.text[wsStart - 1]!)) {
                   wsStart--;
                 }

@@ -12,7 +12,7 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 export function report(context: RuleContext) {
   return (descriptor?: null | ReportDescriptor<string>) => {
     if (descriptor == null) return;
-    return context.report(descriptor);
+    context.report(descriptor);
   };
 }
 
