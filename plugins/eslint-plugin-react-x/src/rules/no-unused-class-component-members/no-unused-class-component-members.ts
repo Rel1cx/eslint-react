@@ -40,7 +40,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Called when the AST traversal enters a class declaration or expression
   function classEnter(node: TSESTreeClass) {
     classStack.push(node);
-    if (!core.isClassComponent(node)) {
+    if (!core.isClassComponent(context, node)) {
       return;
     }
     // Initialize sets for definitions and usages for the current class component
@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>) {
   // Called when the AST traversal exits a class declaration or expression
   function classExit() {
     const currentClass = classStack.pop();
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(context, currentClass)) {
       return;
     }
     const id = core.getClassId(currentClass);
@@ -95,7 +95,7 @@ export function create(context: RuleContext<MessageID, []>) {
   function methodEnter(node: TSESTreeMethodOrPropertyDefinition) {
     methodStack.push(node);
     const currentClass = classStack.at(-1);
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
+    if (currentClass == null || !core.isClassComponent(context, currentClass)) {
       return;
     }
     // Ignore static members
@@ -126,7 +126,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (currentClass == null || currentMethod == null) {
           return;
         }
-        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+        if (!core.isClassComponent(context, currentClass) || currentMethod.static) {
           return;
         }
         // Check for expressions like `this.property`
@@ -155,7 +155,7 @@ export function create(context: RuleContext<MessageID, []>) {
         if (currentClass == null || currentMethod == null) {
           return;
         }
-        if (!core.isClassComponent(currentClass) || currentMethod.static) {
+        if (!core.isClassComponent(context, currentClass) || currentMethod.static) {
           return;
         }
         // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`

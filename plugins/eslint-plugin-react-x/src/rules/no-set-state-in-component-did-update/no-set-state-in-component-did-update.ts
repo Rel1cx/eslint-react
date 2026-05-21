@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>) {
           return;
         }
         // Find the enclosing class component
-        const enclosingClassNode = Traverse.findParent(node, core.isClassComponent);
+        const enclosingClassNode = Traverse.findParent(node, n => core.isClassComponent(context, n));
         // Find the enclosing 'componentDidUpdate' method
         const enclosingMethodNode = Traverse.findParent(
           node,

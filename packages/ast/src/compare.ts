@@ -40,8 +40,11 @@ export const isEqual: {
       }
       i = a.expressions.length;
       while (i--) {
-        const exprA = a.expressions[i]!;
-        const exprB = b.expressions[i]!;
+        const exprA = a.expressions[i];
+        const exprB = b.expressions[i];
+        if (exprA == null || exprB == null) {
+          return false;
+        }
         if (!isEqual(exprA, exprB)) {
           return false;
         }

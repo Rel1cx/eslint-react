@@ -74,6 +74,7 @@ export default defineConfig(
     rules: {
       "no-console": "off",
       "perfectionist/sort-objects": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
     },
   },
   // package.json linting (recommended-publishable preset)

@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       // Push class declarations to the stack upon entry
       ClassDeclaration(node) {
-        classStack.push([node, core.isClassComponent(node)]);
+        classStack.push([node, core.isClassComponent(context, node)]);
       },
       // Pop class declarations from the stack upon exit
       "ClassDeclaration:exit"() {
@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>) {
       },
       // Push class expressions to the stack upon entry
       ClassExpression(node) {
-        classStack.push([node, core.isClassComponent(node)]);
+        classStack.push([node, core.isClassComponent(context, node)]);
       },
       // Pop class expressions from the stack upon exit
       "ClassExpression:exit"() {

@@ -5,6 +5,7 @@
  * @returns the type of the value
  */
 export function typeOf(t: unknown) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   return Object.prototype.toString
     .call(t)
     .replace(/^\[object (.+)\]$/, "$1")

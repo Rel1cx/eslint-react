@@ -89,7 +89,7 @@ function reportUnusedProp(
 
   const declarationNode = services.tsNodeToESTreeNodeMap.get(declaration);
 
-  // tsl-ignore core/noUnnecessaryCondition
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (declarationNode == null) return; // is undefined if declaration is in a different file
 
   const nodeToReport = declarationNode.type === AST.TSPropertySignature

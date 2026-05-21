@@ -3,6 +3,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { MUTATING_ARRAY_METHODS } from "./lib";
@@ -65,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>) {
     if (variable == null) return true;
     if (variable.defs.length === 0) return true;
     const scopeType = variable.scope.type;
-    return scopeType === "global" || scopeType === "module";
+    return scopeType === ScopeType.global || scopeType === ScopeType.module;
   }
 
   /**

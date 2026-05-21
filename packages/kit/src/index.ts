@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /// <reference types="node" />
 import { Extract, type TSESTreeFunction, type TSESTreeTypeExpression, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";

@@ -125,10 +125,11 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
     },
 }, {
     extends: [
-        jsdoc({ config: "flat/recommended-typescript-error" }),
+        tseslint.configs.strictTypeChecked,
         pluginDeMorgan.configs.recommended,
         pluginPerfectionist.configs["recommended-natural"],
         pluginRegexp.configs["flat/recommended"],
+        jsdoc({ config: "flat/recommended-typescript-error" }),
     ],
     files: GLOB_TS,
     plugins: {
@@ -137,6 +138,27 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
         ["unicorn"]: pluginUnicorn,
     },
     rules: {
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-deprecated": "warn",
+        "@typescript-eslint/no-unused-vars": ["warn", {
+                args: "all",
+                argsIgnorePattern: "^_",
+                caughtErrors: "all",
+                caughtErrorsIgnorePattern: "^_",
+                destructuredArrayIgnorePattern: "^_",
+                varsIgnorePattern: "^_",
+                ignoreRestSiblings: true,
+            }],
+        "@typescript-eslint/strict-boolean-expressions": ["warn", {
+                allowAny: false,
+                allowNullableBoolean: false,
+                allowNullableEnum: false,
+                allowNullableNumber: false,
+                allowNullableObject: false,
+                allowNullableString: false,
+                allowNumber: true,
+                allowString: false,
+            }],
         "@stylistic/arrow-parens": ["warn", "always"],
         "@stylistic/no-multi-spaces": ["warn"],
         "@stylistic/operator-linebreak": "off",

@@ -47,7 +47,7 @@ function getEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null
         n = n.parent;
       }
     }
-    if (current.type === "Program") return null;
+    if (current.type === AST.Program) return null;
     current = current.parent;
   }
   return null;

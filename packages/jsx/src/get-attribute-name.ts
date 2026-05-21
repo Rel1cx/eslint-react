@@ -1,4 +1,4 @@
-import type { TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Get the stringified name of a `JSXAttribute` node.
@@ -23,7 +23,7 @@ import type { TSESTree } from "@typescript-eslint/types";
  * ```
  */
 export function getAttributeName(node: TSESTree.JSXAttribute): string {
-  if (node.name.type === "JSXIdentifier") {
+  if (node.name.type === AST.JSXIdentifier) {
     return node.name.name;
   }
   return node.name.namespace.name + ":" + node.name.name.name;
