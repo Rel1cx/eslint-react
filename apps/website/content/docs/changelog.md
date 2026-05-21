@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## Unreleased
+
+### 📝 Documentation
+
+- **Website**: Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
+- **Website**: Replaced the homepage `Hint` popover with a direct link to the FAQ anchor explaining the project's human/LLM collaboration policy.
+- Added a new **"What does 90% human-written mean?"** section to the FAQ.
+
+### 🏗️ Internal
+
+- **`eslint-plugin-react-x`**: Removed unnecessary optional chaining across multiple rules (`immutability`, `no-unused-state`, `purity`, `refs`, `set-state-in-effect`, `static-components`, `use-memo`, etc.) and expanded test coverage for edge cases (#1792).
+- Downgraded TypeScript override in `pnpm-workspace.yaml` from `^6.0.3` to `5.9.3`.
+- Bumped dependencies: `@takumi-rs/image-response` to 1.2.1, `fumadocs-mdx` to 15.0.6, `import-integrity-lint` to 1.1.1, `preact` to 10.29.2, `tsx` to 4.22.1.
+- Reordered handler functions in `react-jsx/no-children-prop` (no logic change).
+- Cleaned up stray empty string in `tsl.config.ts`.
+
 ## v5.8.3 (2026-05-20)
 
 ### 🐞 Fixes
