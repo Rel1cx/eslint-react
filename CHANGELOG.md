@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+## v5.8.4-beta.5 (2026-05-22)
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from `^8.59.3` to `^8.59.4`.
+- Bumped `@types/node` from `^25.8.0` to `^25.9.0`.
+- Bumped `dompurify` from `^3.4.3` to `^3.4.5`.
+- Bumped `pnpm` from `11.1.2` to `11.1.3`.
+- Removed `scripts/verify-lockfile.ts` and all references to it.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.4...v5.8.4-beta.5
+
 ## v5.8.4-beta.4 (2026-05-22)
 
 ### 🏗️ Internal

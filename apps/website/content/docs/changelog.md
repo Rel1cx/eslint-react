@@ -4,6 +4,29 @@ title: Changelog
 
 ## Unreleased
 
+## v5.8.4-beta.5 (2026-05-22)
+
+### 🏗️ Internal
+
+- Bumped `@typescript-eslint` packages from `^8.59.3` to `^8.59.4`.
+- Bumped `@types/node` from `^25.8.0` to `^25.9.0`.
+- Bumped `dompurify` from `^3.4.3` to `^3.4.5`.
+- Bumped `pnpm` from `11.1.2` to `11.1.3`.
+- Removed `scripts/verify-lockfile.ts` and all references to it.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.4...v5.8.4-beta.5
+
+## v5.8.4-beta.4 (2026-05-22)
+
+### 🏗️ Internal
+
+- Fixed `actions/setup-node` cache parameter error in automated release workflow (`cache: false` is not a valid value).
+- Moved zizmor ignore comments inline and removed `.github/zizmor.yml`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.3...v5.8.4-beta.4
+
+## v5.8.4-beta.3 (2026-05-22)
+
 ### 📝 Documentation
 
 - **Website**: Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
@@ -17,6 +40,8 @@ title: Changelog
 - Bumped dependencies: `@takumi-rs/image-response` to 1.2.1, `fumadocs-mdx` to 15.0.6, `import-integrity-lint` to 1.1.1, `preact` to 10.29.2, `tsx` to 4.22.1.
 - Reordered handler functions in `react-jsx/no-children-prop` (no logic change).
 - Cleaned up stray empty string in `tsl.config.ts`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.3...v5.8.4-beta.3
 
 ## v5.8.3 (2026-05-20)
 

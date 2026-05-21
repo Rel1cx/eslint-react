@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "5.8.4-beta.4",
+  "version": "5.8.4-beta.5",
   "description": "ESLint React's TSESTree JSX utility module for static analysis of JSX patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -40,8 +40,8 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.59.3",
-    "@typescript-eslint/utils": "^8.59.3",
+    "@typescript-eslint/types": "^8.59.4",
+    "@typescript-eslint/utils": "^8.59.4",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
