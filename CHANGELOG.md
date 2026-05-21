@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v5.8.4-beta.3 (2026-05-22)
+
 ### 📝 Documentation
 
 - **Website**: Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
@@ -15,6 +17,8 @@
 - Bumped dependencies: `@takumi-rs/image-response` to 1.2.1, `fumadocs-mdx` to 15.0.6, `import-integrity-lint` to 1.1.1, `preact` to 10.29.2, `tsx` to 4.22.1.
 - Reordered handler functions in `react-jsx/no-children-prop` (no logic change).
 - Cleaned up stray empty string in `tsl.config.ts`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.3...v5.8.4-beta.3
 
 ## v5.8.3 (2026-05-20)
 
