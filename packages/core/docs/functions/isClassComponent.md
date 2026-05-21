@@ -1,44 +1,17 @@
 [@eslint-react/core](../README.md) / isClassComponent
 
-# ~~Function: isClassComponent()~~
-
-## Call Signature
+# Function: isClassComponent()
 
 ```ts
 function isClassComponent(node: Node): node is TSESTreeClass;
 ```
 
-### Parameters
+## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check. |
+| Parameter | Type |
+| ------ | ------ |
+| `node` | `Node` |
 
-### Returns
-
-`node is TSESTreeClass`
-
-### Deprecated
-
-Class components are legacy. This function exists only to support legacy rules.
-
-## Call Signature
-
-```ts
-function isClassComponent(node: Node, context: RuleContext): node is TSESTreeClass;
-```
-
-### Parameters
-
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check. |
-| `context` | `RuleContext` | The rule context. |
-
-### Returns
+## Returns
 
 `node is TSESTreeClass`
-
-### Deprecated
-
-Class components are legacy. This function exists only to support legacy rules.

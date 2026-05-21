@@ -151,8 +151,7 @@
 | [isAPIFromReactNative](functions/isAPIFromReactNative.md) | if a variable is initialized from React Native import |
 | [~~isAssignmentToThisState~~](functions/isAssignmentToThisState.md) | - |
 | [isBooleanLiteralType](functions/isBooleanLiteralType.md) | - |
-| [~~isClassComponent~~](functions/isClassComponent.md) | - |
-| [isClassComponentLoose](functions/isClassComponentLoose.md) | - |
+| [isClassComponent](functions/isClassComponent.md) | - |
 | [isFunctionComponentDefinition](functions/isFunctionComponentDefinition.md) | Determine if a function node represents a valid React component definition |
 | [isFunctionComponentName](functions/isFunctionComponentName.md) | Check if a string matches the strict component name pattern |
 | [isFunctionComponentNameLoose](functions/isFunctionComponentNameLoose.md) | Check if a string matches the loose component name pattern |
