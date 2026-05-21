@@ -20,9 +20,7 @@
       "#/*": ["./*"]
     },
     "plugins": [
-      {
-        "name": "@effect/language-service"
-      }
+      { "name": "@effect/language-service" }
     ]
   },
   "include": [
