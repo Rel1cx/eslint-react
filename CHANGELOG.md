@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## v5.8.4-beta.4 (2026-05-22)
+
+### 🏗️ Internal
+
+- Fixed `actions/setup-node` cache parameter error in automated release workflow (`cache: false` is not a valid value).
+- Moved zizmor ignore comments inline and removed `.github/zizmor.yml`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.3...v5.8.4-beta.4
+
 ## v5.8.4-beta.3 (2026-05-22)
 
 ### 📝 Documentation
