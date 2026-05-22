@@ -173,9 +173,7 @@ function addAccordionImport(content: string): string {
   const frontmatterEnd = /^---\n[\s\S]*?\n---\n/.exec(content);
   if (frontmatterEnd != null) {
     const index = frontmatterEnd.index + frontmatterEnd[0].length;
-    return `${content.slice(0, index)}import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n${
-      content.slice(index)
-    }`;
+    return `${content.slice(0, index)}import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n${content.slice(index)}`;
   }
 
   return `import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n\n${content}`;
