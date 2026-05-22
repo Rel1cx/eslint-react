@@ -1,0 +1,21 @@
+{
+  "lineWidth": 240,
+  "typescript": {
+    "indentWidth": 2,
+    "quoteStyle": "preferDouble",
+    "quoteProps": "asNeeded",
+    "importDeclaration.sortNamedImports": "caseSensitive",
+    "exportDeclaration.sortNamedExports": "caseSensitive",
+    "module.sortImportDeclarations": "caseSensitive",
+    "module.sortExportDeclarations": "caseSensitive"
+  },
+  "json": {
+    "indentWidth": 2
+  },
+  "markdown": {},
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.96.1.wasm",
+    "https://plugins.dprint.dev/json-0.21.3.wasm",
+    "https://plugins.dprint.dev/markdown-0.22.0.wasm"
+  ]
+}

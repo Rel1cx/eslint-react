@@ -59,9 +59,7 @@ const getFeatureIcon = (x: unknown) =>
 const retrieveRuleMeta = Effect.fnUntraced(
   function*(domain: string, name: string) {
     const filename = `plugins/eslint-plugin-react-${domain}/src/rules/${name}/${name}.ts`;
-    const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() =>
-      import(pathToFileURL(NodePath.resolve(filename)).href)
-    );
+    const { default: mod, RULE_FEATURES, RULE_NAME } = yield* Effect.tryPromise(() => import(pathToFileURL(NodePath.resolve(filename)).href));
 
     // Extract description from the rule's meta.docs
     const description = match(mod)
@@ -119,7 +117,6 @@ const verifyDocs = Effect.gen(function*() {
       .replace("description: ", "")
       .replaceAll(/^"|"$/gu, "")
       .replaceAll("`", "'");
-    // dprint-ignore
     if (providedDescription == null || !providedDescription.includes(expectedDescription.replace(/\.$/, "").replaceAll("`", "'"))) {
       yield* Effect.logError(ansis.red(`  Found 1 mismatched description in documentation for rule ${rulename}`));
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedDescription)}`);
@@ -166,8 +163,7 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify Rule Source link
     const ruleSourceLine = resourcesSection.find((line) => line.includes("[Rule Source]"));
-    const expectedRuleSource =
-      `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
+    const expectedRuleSource = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.ts`;
     if (ruleSourceLine == null) {
       yield* Effect.logError(ansis.red(`  Missing Rule Source link in documentation for rule ${rulename}`));
     } else {
@@ -183,8 +179,7 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify Test Source link
     const testSourceLine = resourcesSection.find((line) => line.includes("[Test Source]"));
-    const expectedTestSource =
-      `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
+    const expectedTestSource = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
     if (testSourceLine == null) {
       yield* Effect.logError(ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`));
     } else {
@@ -209,9 +204,7 @@ const verifyIndex = Effect.gen(function*() {
   const contentLines = content.split("\n");
   const verifyIndex = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
   const verifyIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
-  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd === -1 ? undefined : verifyIndexEnd).map((
-    line,
-  ) => line.trim());
+  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd === -1 ? undefined : verifyIndexEnd).map((line) => line.trim());
 
   yield* Effect.log(ansis.green(`Verifying rules index at ${target}...`));
 

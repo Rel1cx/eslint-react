@@ -10,8 +10,10 @@
       ]
     }
   },
-  "soft_wrap": "editor_width",
-  "preferred_line_length": 120,
+  "soft_wrap": "none",
+  "show_wrap_guides": true,
+  "wrap_guides": [120],
+  "preferred_line_length": 1000,
   "prettier": {
     "allowed": false
   },

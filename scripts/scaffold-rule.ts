@@ -89,10 +89,8 @@ function generateRuleMdx(domain: PluginDomain, ruleName: string, description: st
   const pluginPrefix = buildPluginPrefix(domain);
   const aggregatedKey = buildConfigKey(domain, ruleName);
   const pluginPkgName = buildPluginPackageName(domain);
-  const ruleSourceUrl =
-    `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
-  const testSourceUrl =
-    `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`;
+  const ruleSourceUrl = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
+  const testSourceUrl = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`;
 
   return [
     `---`,
@@ -256,15 +254,11 @@ const parseArgs = Effect.gen(function*() {
   const description = descParts.join(" ") || "TODO: Add rule description.";
 
   if (!VALID_PLUGINS.includes(pluginArg as PluginDomain)) {
-    return yield* Effect.fail(
-      new Error(`Invalid plugin "${pluginArg}". Must be one of: ${VALID_PLUGINS.join(", ")}`),
-    );
+    return yield* Effect.fail(new Error(`Invalid plugin "${pluginArg}". Must be one of: ${VALID_PLUGINS.join(", ")}`));
   }
 
   if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/u.test(ruleName)) {
-    return yield* Effect.fail(
-      new Error(`Invalid rule name "${ruleName}". Must be kebab-case (e.g. no-foo-bar).`),
-    );
+    return yield* Effect.fail(new Error(`Invalid rule name "${ruleName}". Must be kebab-case (e.g. no-foo-bar).`));
   }
 
   return { domain: pluginArg as PluginDomain, ruleName, description };
