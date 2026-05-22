@@ -5,541 +5,586 @@ import { ruleTester } from "#/test";
 import rule, { RULE_NAME } from "./no-unknown-property";
 
 ruleTester.run(RULE_NAME, rule, {
-  invalid: [{
-    code: '<div hasOwnProperty="should not be allowed property"></div>;',
-    errors: [
-      {
-        data: {
-          name: "hasOwnProperty",
+  invalid: [
+    {
+      code: '<div hasOwnProperty="should not be allowed property"></div>;',
+      errors: [
+        {
+          data: {
+            name: "hasOwnProperty",
+          },
+          messageId: "unknownProp",
         },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<div abc="should not be allowed property"></div>;',
-    errors: [
-      {
-        data: {
-          name: "abc",
-        },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<div aria-fake="should not be allowed property"></div>;',
-    errors: [
-      {
-        data: {
-          name: "aria-fake",
-        },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<div someProp="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "someProp",
-        },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<div class="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "class",
-          standardName: "className",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div className="bar"></div>;',
-  }, {
-    code: '<div for="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "for",
-          standardName: "htmlFor",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div htmlFor="bar"></div>;',
-  }, {
-    code: '<div accept-charset="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "accept-charset",
-          standardName: "acceptCharset",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div acceptCharset="bar"></div>;',
-  }, {
-    code: '<div http-equiv="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "http-equiv",
-          standardName: "httpEquiv",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div httpEquiv="bar"></div>;',
-  }, {
-    code: '<div accesskey="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "accesskey",
-          standardName: "accessKey",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div accessKey="bar"></div>;',
-  }, {
-    code: '<div onclick="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "onclick",
-          standardName: "onClick",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div onClick="bar"></div>;',
-  }, {
-    code: '<div onmousedown="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "onmousedown",
-          standardName: "onMouseDown",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div onMouseDown="bar"></div>;',
-  }, {
-    code: '<div onMousedown="bar"></div>;',
-    errors: [
-      {
-        data: {
-          name: "onMousedown",
-          standardName: "onMouseDown",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<div onMouseDown="bar"></div>;',
-  }, {
-    code: '<use xlink:href="bar" />;',
-    errors: [
-      {
-        data: {
-          name: "xlink:href",
-          standardName: "xlinkHref",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<use xlinkHref="bar" />;',
-  }, {
-    code: '<rect clip-path="bar" />;',
-    errors: [
-      {
-        data: {
-          name: "clip-path",
-          standardName: "clipPath",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: '<rect clipPath="bar" />;',
-  }, {
-    code: "<script crossorigin nomodule />",
-    errors: [
-      {
-        data: {
-          name: "crossorigin",
-          standardName: "crossOrigin",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-      {
-        data: {
-          name: "nomodule",
-          standardName: "noModule",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: "<script crossOrigin noModule />",
-  }, {
-    code: "<div crossorigin />",
-    errors: [
-      {
-        data: {
-          name: "crossorigin",
-          standardName: "crossOrigin",
-        },
-        messageId: "unknownPropWithStandardName",
-      },
-    ],
-    output: "<div crossOrigin />",
-  }, {
-    code: "<div crossOrigin />",
-    errors: [
-      {
-        data: {
-          name: "crossOrigin",
-          allowedTags: "script, img, video, audio, link, image",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div as="audio" />',
-    errors: [
-      {
-        data: {
-          name: "as",
-          allowedTags: "link",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code:
-      "<div onAbort={this.abort} onDurationChange={this.durationChange} onEmptied={this.emptied} onEnded={this.end} onResize={this.resize} onError={this.error} />",
-    errors: [
-      {
-        data: {
-          name: "onAbort",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "onDurationChange",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "onEmptied",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "onEnded",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "onResize",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "onError",
-          allowedTags: "audio, video, img, link, source, script, picture, iframe",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: "<div onLoad={this.load} />",
-    errors: [
-      {
-        data: {
-          name: "onLoad",
-          allowedTags: "script, img, link, picture, iframe, object, source",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div fill="pink" />',
-    errors: [
-      {
-        data: {
-          name: "fill",
-          allowedTags:
-            "altGlyph, circle, ellipse, g, line, marker, mask, path, polygon, polyline, rect, svg, symbol, text, textPath, tref, tspan, use, animate, animateColor, animateMotion, animateTransform, set",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code:
-      "<div controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} allowFullScreen></div>",
-    errors: [
-      {
-        data: {
-          name: "controls",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "loop",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "muted",
-          allowedTags: "audio, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "playsInline",
-          allowedTags: "video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-      {
-        data: {
-          name: "allowFullScreen",
-          allowedTags: "iframe, video",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div download="foo" />',
-    errors: [
-      {
-        data: {
-          name: "download",
-          allowedTags: "a, area",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div imageSrcSet="someImageSrcSet" />',
-    errors: [
-      {
-        data: {
-          name: "imageSrcSet",
-          allowedTags: "link",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div imageSizes="someImageSizes" />',
-    errors: [
-      {
-        data: {
-          name: "imageSizes",
-          allowedTags: "link",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div data-xml-anything="invalid" />',
-    errors: [
-      {
-        data: {
-          name: "data-xml-anything",
-        },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<div data-testID="bar" data-under_sCoRe="bar" dataNotAnDataAttribute="yes" />;',
-    errors: [
-      {
-        data: {
-          name: "data-testID",
-          lowerCaseName: "data-testid",
-        },
-        messageId: "dataLowercaseRequired",
-      },
-      {
-        data: {
-          name: "data-under_sCoRe",
-          lowerCaseName: "data-under_score",
-        },
-        messageId: "dataLowercaseRequired",
-      },
-      {
-        data: {
-          name: "dataNotAnDataAttribute",
-          lowerCaseName: "datanotandataattribute",
-        },
-        messageId: "unknownProp",
-      },
-    ],
-    options: [{ requireDataLowercase: true }],
-  }, {
-    code: '<App data-testID="bar" data-under_sCoRe="bar" dataNotAnDataAttribute="yes" />;',
-    errors: [
-      {
-        data: {
-          name: "data-testID",
-          lowerCaseName: "data-testid",
-        },
-        messageId: "dataLowercaseRequired",
-      },
-      {
-        data: {
-          name: "data-under_sCoRe",
-          lowerCaseName: "data-under_score",
-        },
-        messageId: "dataLowercaseRequired",
-      },
-    ],
-    options: [{ requireDataLowercase: true }],
-  }, {
-    code: '<div abbr="abbr" />',
-    errors: [
-      {
-        data: {
-          name: "abbr",
-          allowedTags: "th, td",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div webkitDirectory="" />',
-    errors: [
-      {
-        data: {
-          name: "webkitDirectory",
-          allowedTags: "input",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div webkitdirectory="" />',
-    errors: [
-      {
-        data: {
-          name: "webkitdirectory",
-          allowedTags: "input",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div precedence="medium" />',
-    errors: [
-      {
-        data: {
-          name: "precedence",
-          allowedTags: "link, style",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<div blocking="render" />',
-    errors: [
-      {
-        data: {
-          name: "blocking",
-          allowedTags: "link, script, style",
-          tagName: "div",
-        },
-        messageId: "invalidPropOnTag",
-      },
-    ],
-  }, {
-    code: '<style precedence="default">{`body { color: red; }`}</style>',
-    settings: {
-      "react-x": {
-        version: "18.3.1",
-      },
+      ],
     },
-    errors: [
-      {
-        data: {
-          name: "precedence",
+    {
+      code: '<div abc="should not be allowed property"></div>;',
+      errors: [
+        {
+          data: {
+            name: "abc",
+          },
+          messageId: "unknownProp",
         },
-        messageId: "unknownProp",
-      },
-    ],
-  }, {
-    code: '<script blocking="render" />',
-    settings: {
-      "react-x": {
-        version: "18.3.1",
-      },
+      ],
     },
-    errors: [
-      {
-        data: {
-          name: "blocking",
+    {
+      code: '<div aria-fake="should not be allowed property"></div>;',
+      errors: [
+        {
+          data: {
+            name: "aria-fake",
+          },
+          messageId: "unknownProp",
         },
-        messageId: "unknownProp",
+      ],
+    },
+    {
+      code: '<div someProp="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "someProp",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<div class="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "class",
+            standardName: "className",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div className="bar"></div>;',
+    },
+    {
+      code: '<div for="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "for",
+            standardName: "htmlFor",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div htmlFor="bar"></div>;',
+    },
+    {
+      code: '<div accept-charset="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "accept-charset",
+            standardName: "acceptCharset",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div acceptCharset="bar"></div>;',
+    },
+    {
+      code: '<div http-equiv="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "http-equiv",
+            standardName: "httpEquiv",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div httpEquiv="bar"></div>;',
+    },
+    {
+      code: '<div accesskey="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "accesskey",
+            standardName: "accessKey",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div accessKey="bar"></div>;',
+    },
+    {
+      code: '<div onclick="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "onclick",
+            standardName: "onClick",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div onClick="bar"></div>;',
+    },
+    {
+      code: '<div onmousedown="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "onmousedown",
+            standardName: "onMouseDown",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div onMouseDown="bar"></div>;',
+    },
+    {
+      code: '<div onMousedown="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "onMousedown",
+            standardName: "onMouseDown",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div onMouseDown="bar"></div>;',
+    },
+    {
+      code: '<use xlink:href="bar" />;',
+      errors: [
+        {
+          data: {
+            name: "xlink:href",
+            standardName: "xlinkHref",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<use xlinkHref="bar" />;',
+    },
+    {
+      code: '<rect clip-path="bar" />;',
+      errors: [
+        {
+          data: {
+            name: "clip-path",
+            standardName: "clipPath",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<rect clipPath="bar" />;',
+    },
+    {
+      code: "<script crossorigin nomodule />",
+      errors: [
+        {
+          data: {
+            name: "crossorigin",
+            standardName: "crossOrigin",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+        {
+          data: {
+            name: "nomodule",
+            standardName: "noModule",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: "<script crossOrigin noModule />",
+    },
+    {
+      code: "<div crossorigin />",
+      errors: [
+        {
+          data: {
+            name: "crossorigin",
+            standardName: "crossOrigin",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: "<div crossOrigin />",
+    },
+    {
+      code: "<div crossOrigin />",
+      errors: [
+        {
+          data: {
+            name: "crossOrigin",
+            allowedTags: "script, img, video, audio, link, image",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div as="audio" />',
+      errors: [
+        {
+          data: {
+            name: "as",
+            allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code:
+        "<div onAbort={this.abort} onDurationChange={this.durationChange} onEmptied={this.emptied} onEnded={this.end} onResize={this.resize} onError={this.error} />",
+      errors: [
+        {
+          data: {
+            name: "onAbort",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "onDurationChange",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "onEmptied",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "onEnded",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "onResize",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "onError",
+            allowedTags: "audio, video, img, link, source, script, picture, iframe",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: "<div onLoad={this.load} />",
+      errors: [
+        {
+          data: {
+            name: "onLoad",
+            allowedTags: "script, img, link, picture, iframe, object, source",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div fill="pink" />',
+      errors: [
+        {
+          data: {
+            name: "fill",
+            allowedTags:
+              "altGlyph, circle, ellipse, g, line, marker, mask, path, polygon, polyline, rect, svg, symbol, text, textPath, tref, tspan, use, animate, animateColor, animateMotion, animateTransform, set",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code:
+        "<div controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} allowFullScreen></div>",
+      errors: [
+        {
+          data: {
+            name: "controls",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "loop",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "muted",
+            allowedTags: "audio, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "playsInline",
+            allowedTags: "video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+        {
+          data: {
+            name: "allowFullScreen",
+            allowedTags: "iframe, video",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div download="foo" />',
+      errors: [
+        {
+          data: {
+            name: "download",
+            allowedTags: "a, area",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div imageSrcSet="someImageSrcSet" />',
+      errors: [
+        {
+          data: {
+            name: "imageSrcSet",
+            allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div imageSizes="someImageSizes" />',
+      errors: [
+        {
+          data: {
+            name: "imageSizes",
+            allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div data-xml-anything="invalid" />',
+      errors: [
+        {
+          data: {
+            name: "data-xml-anything",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<div data-testID="bar" data-under_sCoRe="bar" dataNotAnDataAttribute="yes" />;',
+      errors: [
+        {
+          data: {
+            name: "data-testID",
+            lowerCaseName: "data-testid",
+          },
+          messageId: "dataLowercaseRequired",
+        },
+        {
+          data: {
+            name: "data-under_sCoRe",
+            lowerCaseName: "data-under_score",
+          },
+          messageId: "dataLowercaseRequired",
+        },
+        {
+          data: {
+            name: "dataNotAnDataAttribute",
+            lowerCaseName: "datanotandataattribute",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+      options: [{ requireDataLowercase: true }],
+    },
+    {
+      code: '<App data-testID="bar" data-under_sCoRe="bar" dataNotAnDataAttribute="yes" />;',
+      errors: [
+        {
+          data: {
+            name: "data-testID",
+            lowerCaseName: "data-testid",
+          },
+          messageId: "dataLowercaseRequired",
+        },
+        {
+          data: {
+            name: "data-under_sCoRe",
+            lowerCaseName: "data-under_score",
+          },
+          messageId: "dataLowercaseRequired",
+        },
+      ],
+      options: [{ requireDataLowercase: true }],
+    },
+    {
+      code: '<div abbr="abbr" />',
+      errors: [
+        {
+          data: {
+            name: "abbr",
+            allowedTags: "th, td",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div webkitDirectory="" />',
+      errors: [
+        {
+          data: {
+            name: "webkitDirectory",
+            allowedTags: "input",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div webkitdirectory="" />',
+      errors: [
+        {
+          data: {
+            name: "webkitdirectory",
+            allowedTags: "input",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div precedence="medium" />',
+      errors: [
+        {
+          data: {
+            name: "precedence",
+            allowedTags: "link, style",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div blocking="render" />',
+      errors: [
+        {
+          data: {
+            name: "blocking",
+            allowedTags: "link, script, style",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<style precedence="default">{`body { color: red; }`}</style>',
+      settings: {
+        "react-x": {
+          version: "18.3.1",
+        },
       },
-    ],
-  }, {
-    code: tsx`
+      errors: [
+        {
+          data: {
+            name: "precedence",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<script blocking="render" />',
+      settings: {
+        "react-x": {
+          version: "18.3.1",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "blocking",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: tsx`
       <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c="customValue">
         Hello, world!
       </div>
     `,
-    errors: [
-      {
-        data: {
-          name:
-            "data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c",
+      errors: [
+        {
+          data: {
+            name:
+              "data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c",
+          },
+          messageId: "unknownProp",
         },
-        messageId: "unknownProp",
-      },
-    ],
-  }],
+      ],
+    }, // Boundary: JSXAttribute with empty expression container should still be checked
+    {
+      code: "<div class={}></div>",
+      errors: [{
+        data: { name: "class", standardName: "className" },
+        messageId: "unknownPropWithStandardName",
+      }],
+      output: "<div className={}></div>",
+    },
+  ],
   valid: [
     //
     // React components and their props/attributes should be fine
@@ -729,6 +774,30 @@ ruleTester.run(RULE_NAME, rule, {
           version: "19.0.0-rc.0",
         },
       },
+    },
+    // Boundary: JSXAttribute with no value (boolean attribute shorthand)
+    {
+      code: "<input disabled />",
+    },
+    {
+      code: "<input readOnly />",
+    },
+    {
+      code: "<button disabled>Click</button>",
+    },
+    // Boundary: JSXAttribute with empty expression container
+    {
+      code: "<div data-foo={}></div>",
+    },
+    {
+      code: "<div aria-label={}></div>",
+    },
+    // Boundary: custom component attributes (parent is not HTML tag)
+    {
+      code: '<Foo unknownProp="bar" />',
+    },
+    {
+      code: '<Foo.Bar abc="def" />',
     },
   ],
 });

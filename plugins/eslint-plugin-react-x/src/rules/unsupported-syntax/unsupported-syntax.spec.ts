@@ -340,5 +340,38 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Boundary: function as non-call-expression child (isIifeCall parent traversal)
+    {
+      code: tsx`
+        function Component() {
+          const fn = () => <div />;
+          return fn();
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const fns = [() => <div />, () => <span />];
+          return fns[0]();
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const obj = { render: () => <div /> };
+          return obj.render();
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const result = (() => <div />) as any;
+          return result;
+        }
+      `,
+    },
   ],
 });

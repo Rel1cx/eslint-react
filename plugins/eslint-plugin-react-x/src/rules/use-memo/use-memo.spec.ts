@@ -900,5 +900,59 @@ ruleTester.run(RULE_NAME, rule, {
         return [outer, y];
       }
     `,
+    // useMemo in conditional expression (parent is ConditionalExpression, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ flag, a, b }) {
+        const value = flag ? useMemo(() => a, []) : useMemo(() => b, []);
+        return <div>{value}</div>;
+      }
+    `,
+    // useMemo in array expression (parent is ArrayExpression, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ a, b }) {
+        const [x, y] = [useMemo(() => a, []), useMemo(() => b, [])];
+        return <div>{x}{y}</div>;
+      }
+    `,
+    // useMemo in return statement (parent is ReturnStatement, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        return useMemo(() => items.sort(), [items]);
+      }
+    `,
+    // useMemo in assignment expression (parent is AssignmentExpression, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        let sorted;
+        sorted = useMemo(() => items.sort(), [items]);
+        return <div>{sorted}</div>;
+      }
+    `,
+    // useMemo in logical expression (parent is LogicalExpression, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ flag, items }) {
+        const value = flag && useMemo(() => items.length, [items]);
+        return <div>{value}</div>;
+      }
+    `,
+    // useMemo in spread element (parent is SpreadElement, should not crash)
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ a, b }) {
+        const merged = { ...useMemo(() => a, []), ...useMemo(() => b, []) };
+        return <div>{merged}</div>;
+      }
+    `,
   ],
 });

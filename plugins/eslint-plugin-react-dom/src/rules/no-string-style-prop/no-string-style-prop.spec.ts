@@ -279,5 +279,9 @@ ruleTester.run(RULE_NAME, rule, {
       const props = { style: "color: red;" };
       <div {...props} />
     `,
+    // Boundary: JSXAttribute with no value (boolean shorthand)
+    tsx`<div style />`,
+    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    tsx`<div style={} />`,
   ],
 });

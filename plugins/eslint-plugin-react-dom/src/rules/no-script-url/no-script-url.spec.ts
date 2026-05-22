@@ -214,5 +214,10 @@ ruleTester.run(RULE_NAME, rule, {
       const props = { href: "javascript:void(0)" };
       <a {...props}></a>
     `,
+    // Boundary: JSXAttribute with no value (boolean shorthand)
+    "<a href>Link</a>",
+    // Boundary: JSXAttribute with empty expression container
+    "<a href={}>Link</a>",
+    "<div href={}></div>",
   ],
 });

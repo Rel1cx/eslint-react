@@ -1733,5 +1733,47 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // useState in conditional expression (should not crash when parent is ConditionalExpression)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          const x = condition ? useState(0) : null;
+          return <div>{x}</div>;
+        }
+      `,
+    },
+    // useState in assignment expression (should not crash when parent is AssignmentExpression)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          let state;
+          state = useState(0);
+          return <div>{state[0]}</div>;
+        }
+      `,
+    },
+    // useReducer in assignment expression (should not crash when parent is AssignmentExpression)
+    {
+      code: tsx`
+        import { useReducer } from "react";
+        function Component() {
+          let state;
+          state = useReducer(reducer, {});
+          return <div>{state[0]}</div>;
+        }
+      `,
+    },
+    // useState in array expression (should not crash when parent is ArrayExpression)
+    {
+      code: tsx`
+        import { useState } from "react";
+        function Component() {
+          const arr = [useState(0)];
+          return <div>{arr[0][0]}</div>;
+        }
+      `,
+    },
   ],
 });
