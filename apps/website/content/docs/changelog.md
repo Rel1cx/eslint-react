@@ -4,6 +4,10 @@ title: Changelog
 
 ## Unreleased
 
+### 🏗️ Internal
+
+- Bumped dependencies across workspace packages: `@types/react` to `^19.2.15`, `@types/node` to `^25.9.1`, `postcss` to `^8.5.15`, `fumadocs-core` to `^16.8.12`, `fumadocs-mdx` to `^15.0.7`, `fumadocs-ui` to `^16.8.12`, and `@takumi-rs/image-response` to `^1.3.0`.
+
 ## v5.8.4 (2026-05-22)
 
 ### 📝 Documentation
