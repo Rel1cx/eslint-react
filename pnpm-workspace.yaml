@@ -22,7 +22,7 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  "@types/react": ^19.2.14
+  "@types/react": ^19.2.15
   "@types/react-dom": ^19.2.3
   "@typescript-eslint/project-service": "^8.59.4"
   "@typescript-eslint/scope-manager": "^8.59.4"
@@ -44,7 +44,7 @@ overrides:
   minimatch: ^10.2.5
   next: ^16.2.6
   path-to-regexp: "^8.4.2"
-  postcss: ^8.5.14
+  postcss: ^8.5.15
   react-dom: ^19.2.6
   react: ^19.2.6
   semver: "^7.8.0"

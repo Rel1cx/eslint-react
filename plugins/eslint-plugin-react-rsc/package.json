@@ -53,7 +53,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "dedent": "^1.7.2",
     "eslint": "^10.4.0",
