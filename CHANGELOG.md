@@ -2,44 +2,32 @@
 
 ## Unreleased
 
-## v5.8.4-beta.5 (2026-05-22)
-
-### 🏗️ Internal
-
-- Bumped `@typescript-eslint` packages from `^8.59.3` to `^8.59.4`.
-- Bumped `@types/node` from `^25.8.0` to `^25.9.0`.
-- Bumped `dompurify` from `^3.4.3` to `^3.4.5`.
-- Bumped `pnpm` from `11.1.2` to `11.1.3`.
-- Removed `scripts/verify-lockfile.ts` and all references to it.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.4...v5.8.4-beta.5
-
-## v5.8.4-beta.4 (2026-05-22)
-
-### 🏗️ Internal
-
-- Fixed `actions/setup-node` cache parameter error in automated release workflow (`cache: false` is not a valid value).
-- Moved zizmor ignore comments inline and removed `.github/zizmor.yml`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4-beta.3...v5.8.4-beta.4
-
-## v5.8.4-beta.3 (2026-05-22)
+## v5.8.4 (2026-05-22)
 
 ### 📝 Documentation
 
 - **Website**: Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
 - **Website**: Replaced the homepage `Hint` popover with a direct link to the FAQ anchor explaining the project's human/LLM collaboration policy.
 - Added a new **"What does 90% human-written mean?"** section to the FAQ.
+- Updated documentation for `isClassComponent` and `JsxConfig`.
+- Removed outdated documentation files.
 
 ### 🏗️ Internal
 
+- **`core`**: Simplified `isClassComponent` by removing the `context` parameter and replacing `isClassComponentLoose` with the simplified function.
 - **`eslint-plugin-react-x`**: Removed unnecessary optional chaining across multiple rules (`immutability`, `no-unused-state`, `purity`, `refs`, `set-state-in-effect`, `static-components`, `use-memo`, etc.) and expanded test coverage for edge cases (#1792).
-- Downgraded TypeScript override in `pnpm-workspace.yaml` from `^6.0.3` to `5.9.3`.
-- Bumped dependencies: `@takumi-rs/image-response` to 1.2.1, `fumadocs-mdx` to 15.0.6, `import-integrity-lint` to 1.1.1, `preact` to 10.29.2, `tsx` to 4.22.1.
-- Reordered handler functions in `react-jsx/no-children-prop` (no logic change).
+- Added automated GitHub Release workflow and fixed `actions/setup-node` cache parameter error.
+- Added null-safety boundary tests for rules affected by PR #1792 (#1794).
+- Bumped dependencies across workspace packages: `@takumi-rs/image-response` to 1.2.1, `fumadocs-mdx` to 15.0.6, `import-integrity-lint` to 1.1.1, `preact` to 10.29.2, `tsx` to 4.22.1, `@typescript-eslint` to `^8.59.4`, `@types/node` to `^25.9.0`, `dompurify` to `^3.4.5`, `pnpm` to `11.1.3`, `textlint` to 15.7.1, and dprint TypeScript plugin to 0.96.1.
 - Cleaned up stray empty string in `tsl.config.ts`.
+- Cleaned up type and lint errors across the workspace (#1793).
+- Downgraded TypeScript override in `pnpm-workspace.yaml` from `^6.0.3` to `5.9.3`.
+- Fixed zizmor security audit findings in release workflow and moved ignore comments inline, removing `.github/zizmor.yml`.
+- Removed `scripts/verify-lockfile.ts`, `scripts/verify-devtools.ts`, and all references to them.
+- Reordered handler functions in `react-jsx/no-children-prop` (no logic change).
+- Updated baseline metrics and compacted tsconfig.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.3...v5.8.4-beta.3
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.3...v5.8.4
 
 ## v5.8.3 (2026-05-20)
 
