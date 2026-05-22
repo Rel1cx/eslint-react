@@ -295,6 +295,24 @@ ruleTester.run(RULE_NAME, rule, {
         ) : null;
       }
     `,
+    // JSXFragment not in array (node.parent !== ArrayExpression, should not crash)
+    tsx`
+      function Component() {
+        return <>hello</>;
+      }
+    `,
+    tsx`
+      function Component() {
+        const fragment = <>hello</>;
+        return fragment;
+      }
+    `,
+    tsx`
+      function Component() {
+        const el = condition ? <>a</> : <>b</>;
+        return <div>{el}</div>;
+      }
+    `,
     tsx`
       import React, { FC, useRef, useState } from 'react';
 

@@ -896,5 +896,30 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
+    // Boundary: props identifier in non-MemberExpression/VariableDeclarator parent
+    // (collectUsedPropKeysOfReference returns false, rule bails out — should not crash)
+    tsx`
+      function Component(props: { foo: string }) {
+        doSomething(props);
+        return null;
+      }
+    `,
+    tsx`
+      function Component(props: { foo: string }) {
+        return props;
+      }
+    `,
+    tsx`
+      function Component(props: { foo: string }) {
+        const items = [props];
+        return null;
+      }
+    `,
+    tsx`
+      function Component(props: { foo: string }) {
+        const x = props || {};
+        return null;
+      }
+    `,
   ],
 });
