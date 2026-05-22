@@ -978,6 +978,51 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "writeDuringRender" },
       ],
     },
+    // ref.current === null in variable declaration should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const isNull = ref.current === null;
+          ref.current = 1;
+          return <div>{String(isNull)}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // ref.current === null in logical expression should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const result = ref.current === null || true;
+          ref.current = 1;
+          return <div>{String(result)}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // !(ref.current === null) as expression statement should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          !(ref.current === null);
+          ref.current = 1;
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
   ],
   valid: [
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
@@ -1775,6 +1820,25 @@ ruleTester.run(RULE_NAME, rule, {
           }
           ref.current = computeExpensiveValue();
           return <div />;
+        }
+      `,
+    },
+    // ref.current === null in variable declaration inside non-component should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function notAComponent() {
+          const ref = useRef(null);
+          const isNull = ref.current === null;
+          return isNull;
+        }
+      `,
+    },
+    // ref.current === null in return statement inside non-component should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function notAComponent() {
+          const ref = useRef(null);
+          return ref.current === null;
         }
       `,
     },

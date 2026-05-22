@@ -1802,5 +1802,35 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Setter identifier assigned to variable in effect (parent is VariableDeclarator, not CallExpression)
+    {
+      name: "setter identifier assigned to local variable in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const fn = setData;
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // Setter identifier in conditional expression in effect (parent is ConditionalExpression)
+    {
+      name: "setter identifier in conditional expression in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const fn = condition ? setData : null;
+          }, []);
+          return null;
+        }
+      `,
+    },
   ],
 });

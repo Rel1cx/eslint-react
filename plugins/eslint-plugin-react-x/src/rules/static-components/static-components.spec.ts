@@ -507,5 +507,35 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Component variable referenced in non-assignment context should not crash
+    {
+      code: tsx`
+        function Parent() {
+          let Component = DefaultComponent;
+          console.log(Component);
+          return <Component />;
+        }
+      `,
+    },
+    // Component variable in array expression should not crash
+    {
+      code: tsx`
+        function Parent() {
+          let Component = DefaultComponent;
+          const arr = [Component];
+          return <Component />;
+        }
+      `,
+    },
+    // Component variable passed as argument should not crash
+    {
+      code: tsx`
+        function Parent() {
+          let Component = DefaultComponent;
+          fn(Component);
+          return <Component />;
+        }
+      `,
+    },
   ],
 });
