@@ -402,6 +402,46 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // useState in assignment expression (should not crash when parent is AssignmentExpression)
+    {
+      code: tsx`
+        function Component() {
+          let state;
+          state = useState(0);
+          return <div>{state[0]}</div>;
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
+    // useState in conditional expression (should not crash when parent is ConditionalExpression)
+    {
+      code: tsx`
+        function Component() {
+          const x = condition ? useState(0) : null;
+          return <div>{x}</div>;
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
+    // useState in array expression (should not crash when parent is ArrayExpression)
+    {
+      code: tsx`
+        function Component() {
+          const arr = [useState(0)];
+          return <div>{arr[0][0]}</div>;
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
+    // useState in return statement (should not crash when parent is ReturnStatement)
+    {
+      code: tsx`
+        function Component() {
+          return useState(0);
+        }
+      `,
+      errors: [{ messageId: "invalidAssignment" }],
+    },
   ],
   valid: [
     // --- Assignment / setter naming ---

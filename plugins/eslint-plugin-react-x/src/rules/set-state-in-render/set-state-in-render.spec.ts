@@ -647,5 +647,33 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // useState without assignment should not crash isIdFromUseStateCall
+    {
+      code: tsx`
+        function Component() {
+          useState(0);
+          return <div />;
+        }
+      `,
+    },
+    // useState in conditional expression should not crash isIdFromUseStateCall
+    {
+      code: tsx`
+        function Component() {
+          const x = condition ? useState(0) : null;
+          return <div>{x}</div>;
+        }
+      `,
+    },
+    // useState in assignment expression should not crash isIdFromUseStateCall
+    {
+      code: tsx`
+        function Component() {
+          let state;
+          state = useState(0);
+          return <div>{state[0]}</div>;
+        }
+      `,
+    },
   ],
 });

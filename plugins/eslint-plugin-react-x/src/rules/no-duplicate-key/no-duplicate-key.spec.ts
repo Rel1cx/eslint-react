@@ -246,5 +246,36 @@ ruleTester.run(RULE_NAME, rule, {
           return <svg xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon" />
       };
     `,
+    // Single JSX element with key (no siblings, should not crash)
+    tsx`
+      const App = () => {
+        return <div key="only">text</div>;
+      };
+    `,
+    // JSX element with key inside conditional expression (not in array/map)
+    tsx`
+      const App = ({ flag }) => {
+        return flag ? <div key="a">yes</div> : <div key="b">no</div>;
+      };
+    `,
+    // JSX element with key inside nested JSX (not direct sibling in array)
+    tsx`
+      const App = () => {
+        return (
+          <div>
+            <span key="nested">text</span>
+          </div>
+        );
+      };
+    `,
+    // JSX element with key inside object property (not array/map context)
+    tsx`
+      const App = () => {
+        const elements = {
+          foo: <div key="obj">text</div>,
+        };
+        return elements.foo;
+      };
+    `,
   ],
 });

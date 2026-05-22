@@ -637,5 +637,44 @@ ruleTester.run(RULE_NAME, rule, {
         }, [text]);
       }
     `,
+    // try/catch in IIFE inside component (should not crash getEnclosingTryBlock)
+    tsx`
+      function Component() {
+        const result = (() => {
+          try {
+            return computeValue();
+          } catch (e) {
+            return null;
+          }
+        })();
+        return <div>{result}</div>;
+      }
+    `,
+    // try/catch in nested function declaration (not component render)
+    tsx`
+      function Component() {
+        function helper() {
+          try {
+            return riskyOperation();
+          } catch (e) {
+            return fallback;
+          }
+        }
+        return <div>{helper()}</div>;
+      }
+    `,
+    // try/catch in non-component IIFE (should not be reported)
+    tsx`
+      const helper = () => {
+        const result = (() => {
+          try {
+            return computeValue();
+          } catch (e) {
+            return null;
+          }
+        })();
+        return result;
+      };
+    `,
   ],
 });
