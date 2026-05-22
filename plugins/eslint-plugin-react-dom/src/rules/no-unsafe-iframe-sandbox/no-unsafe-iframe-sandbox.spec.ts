@@ -194,5 +194,7 @@ ruleTester.run(RULE_NAME, rule, {
         return <iframe sandbox={useSandbox ? "allow-scripts allow-same-origin" : ""} />;
       }
     `,
+    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    tsx`<iframe sandbox={} />;`,
   ],
 });

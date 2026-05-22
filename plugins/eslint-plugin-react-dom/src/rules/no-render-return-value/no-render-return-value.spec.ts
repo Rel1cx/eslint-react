@@ -90,5 +90,28 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     "var foo = render(<div />, root)",
     "var foo = ReactDOM.renderder(<div />, root)",
+    // Boundary: ReactDOM.render in non-banned parent contexts (isReturnValueUsed parent traversal)
+    tsx`
+      function Component() {
+        ReactDOM.render(<div />, document.body);
+      }
+    `,
+    tsx`
+      function Component() {
+        if (condition) {
+          ReactDOM.render(<div />, document.body);
+        }
+      }
+    `,
+    tsx`
+      function Component() {
+        [ReactDOM.render(<div />, document.body)];
+      }
+    `,
+    tsx`
+      function Component() {
+        const result = condition && ReactDOM.render(<div />, document.body);
+      }
+    `,
   ],
 });

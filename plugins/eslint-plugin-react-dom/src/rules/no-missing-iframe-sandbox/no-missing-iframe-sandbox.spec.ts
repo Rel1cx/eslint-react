@@ -75,6 +75,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={} />;
+        }
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "addSandboxAttribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
   ],
   valid: [
     "<a />;",
