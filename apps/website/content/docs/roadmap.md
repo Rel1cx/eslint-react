@@ -10,7 +10,7 @@ Minimum supported versions:
 
 - [x] Node.js: 22.0.0
 - [x] ESLint: 10.x.x
-- [x] TypeScript: 6.0.3
+- [x] TypeScript: 5.0.0
 
 ### Core API Refactoring
 

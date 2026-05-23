@@ -65,7 +65,7 @@ Performant, composable ESLint rules for React and friends.
 >
 > - Node.js: 22.0.0
 > - ESLint: 10.2.1
-> - TypeScript: 6.0.3
+> - TypeScript: 5.0.0
 
 ### Install
 
