@@ -221,7 +221,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ## 4. Guidelines for Adding Fast-Path Checks
 
-1. **Always precheck when the target term is rare.** If a rule only triggers on `forwardRef`, skipping files without that string is a huge win.
+1. **Always precheck when the target term is rare.** If a rule only triggers on `forwardRef`, skipping files without that string provides significant performance benefits.
 2. **Use `includes()` for literal terms.** It is the fastest JavaScript string search.
 3. **Use regex only for families** (e.g. `/use\w*Effect/u`). Keep the regex simple and anchored when possible.
 4. **Combine multiple checks when a rule needs multiple concepts.** For example, `no-leaked-fetch` checks both `fetch` and `useEffect` because a fetch outside an effect is not the rule's concern.

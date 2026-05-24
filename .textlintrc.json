@@ -13,19 +13,19 @@
         },
         {
           "message": "Avoid 'better than' competitive superiority claims",
-          "pattern": "/\\b(?:far\\s+)?better than\\b/gi"
+          "pattern": "/\\b(?:(?:far|much|way|significantly)\\s+)?better than\\b/gi"
         },
         {
           "message": "Avoid direct performance comparison claims like 'X faster/slower than Y' against competitors",
-          "pattern": "/\\b\\d+\\s*(?:~|-)?\\s*\\d*\\s*x?\\s*(?:times?\\s+)?(?:faster|slower)\\s+than\\b/gi"
+          "pattern": "/\\b(?:\\d+\\s*(?:~|-)?\\s*\\d*\\s*(?:x|%)?\\s*(?:times?\\s+)?|(?:significantly|noticeably|substantially)\\s+)?(?:faster|slower)\\s+than\\b/gi"
         },
         {
           "message": "Avoid 'game-changer' or 'best-in-class' style marketing language",
-          "pattern": "/\\b(game.changer|best.in.class|industry.leading|world.class)\\b/gi"
+          "pattern": "/\\b(game.changer|best.in.class|industry.leading|world.class|cutting.edge|state.of.the.art)\\b/gi"
         },
         {
           "message": "Avoid war metaphors like 'crushing', 'battlefield', or 'massive win' in documentation",
-          "pattern": "/\\b(crushing it|crushing|battlefield|massive win|dominating|dominate|destroying|destroy)\\b/gi"
+          "pattern": "/\\b(crushing it|crushing|battlefield|huge win|massive win|dominating|dominate|destroying|destroy|killer|crush it|crush|annihilate|obliterate)\\b/gi"
         }
       ]
     }
