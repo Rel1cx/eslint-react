@@ -173,5 +173,18 @@ ruleTester.run(RULE_NAME, rule, {
 
       FancyButton.displayName = 'FancyButton';
     `,
+    // https://github.com/oxc-project/oxc/issues/22685
+    // should not flag functions that don't return JSX and don't start with capital letter
+    tsx`
+      const createHandler = () => () => {
+        someGlobalFunc(<div />);
+      };
+    `,
+    // variant with memo - should not flag inner function that doesn't return JSX
+    tsx`
+      const createHandler = React.memo(() => () => {
+        someGlobalFunc(<div />);
+      });
+    `,
   ],
 });

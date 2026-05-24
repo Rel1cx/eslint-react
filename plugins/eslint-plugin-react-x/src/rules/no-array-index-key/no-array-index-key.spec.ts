@@ -256,5 +256,52 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
   ],
-  valid: [],
+  valid: [
+    // https://github.com/oxc-project/oxc/issues/21110
+    // Composite key using template literal with string concatenation should be allowed
+    tsx`
+      function List({ items }) {
+        return (
+          <ul>
+            {items.map((item, index) => (
+              <li key={\`\${item.type + index}\`}>{item.text}</li>
+            ))}
+          </ul>
+        );
+      }
+    `,
+    tsx`
+      function List({ items }) {
+        return (
+          <ul>
+            {items.map((item, index) => (
+              <li key={\`\${item.type}\`}>{item.text}</li>
+            ))}
+          </ul>
+        );
+      }
+    `,
+    tsx`
+      function List({ items }) {
+        return (
+          <ul>
+            {items.map((item, index) => (
+              <li key={\`prefix-\${item.type}\`}>{item.text}</li>
+            ))}
+          </ul>
+        );
+      }
+    `,
+    tsx`
+      function List({ items }) {
+        return (
+          <ul>
+            {items.map((item, index) => (
+              <li key={item.type + item.text}>{item.text}</li>
+            ))}
+          </ul>
+        );
+      }
+    `,
+  ],
 });
