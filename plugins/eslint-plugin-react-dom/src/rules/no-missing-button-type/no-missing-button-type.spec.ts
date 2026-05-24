@@ -134,5 +134,17 @@ ruleTester.run(RULE_NAME, rule, {
           return <button {...buttonAttrs}>Click me</button>;
       }
     `,
+    // https://github.com/oxc-project/oxc/issues/20938
+    // `document.createElement('button')` is a DOM API, not React createElement
+    tsx`
+      function App() {
+        return document.createElement("button");
+      }
+    `,
+    tsx`
+      function App() {
+        return Foo.createElement("button");
+      }
+    `,
   ],
 });

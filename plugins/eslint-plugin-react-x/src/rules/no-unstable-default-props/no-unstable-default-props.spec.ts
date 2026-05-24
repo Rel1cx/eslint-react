@@ -444,5 +444,26 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    // https://github.com/oxc-project/oxc/issues/17743
+    // `value ?? {}` creates a new object, but `min` is a scalar.
+    // This rule should not flag it because there is no default prop with an object/array.
+    tsx`
+      export const FloatBoundsInput = ({ value }) => {
+        const { min } = value ?? {};
+        return <InputNumber value={min} />;
+      };
+    `,
+    tsx`
+      export const FloatBoundsInput = ({ value }) => {
+        const { min } = value || {};
+        return <InputNumber value={min} />;
+      };
+    `,
+    tsx`
+      export const FloatBoundsInput = (props) => {
+        const { min } = props ?? {};
+        return <InputNumber value={min} />;
+      };
+    `,
   ],
 });
