@@ -2,11 +2,35 @@
 title: Changelog
 ---
 
-## Unreleased
+## v5.8.5 (2026-05-24)
+
+### 📝 Documentation
+
+- Added rule implementation patterns guide (`docs/rule-implementation-patterns.md`) and term-based rule patterns guide (`docs/term-based-rule-patterns.md`).
+- Lowered minimum TypeScript version requirement from `5.1.0` to `5.0.0` across README and documentation.
+- Fixed textlint war-metaphor warnings and refined `.textlintrc.json` patterns.
 
 ### 🏗️ Internal
 
-- Bumped dependencies across workspace packages: `@types/react` to `^19.2.15`, `@types/node` to `^25.9.1`, `postcss` to `^8.5.15`, `fumadocs-core` to `^16.8.12`, `fumadocs-mdx` to `^15.0.7`, `fumadocs-ui` to `^16.8.12`, and `@takumi-rs/image-response` to `^1.3.0`.
+- Adjusted formatting across configuration and script files (#1795).
+- Fixed a typo in the CI test workflow step.
+- Added regression tests for oxc issues compatibility verification (#1796).
+- Bumped dependencies across workspace packages:
+  - `@effect/language-service` to `^0.86.2`
+  - `@takumi-rs/image-response` to `^1.3.0`
+  - `@tsconfig/vite-react` to `^8.0.6`
+  - `@types/node` to `^25.9.1`
+  - `@types/react` to `^19.2.15`
+  - `eslint-plugin-package-json` to `^1.1.0`
+  - `fumadocs-core` to `^16.9.0`
+  - `fumadocs-mdx` to `^15.0.7`
+  - `fumadocs-ui` to `^16.9.0`
+  - `lru-cache` to `11.5.0`
+  - `nx` to `^22.7.3`
+  - `postcss` to `^8.5.15`
+  - `vite` to `^8.0.14`
+  - `vitest` to `^4.1.7`
+  - `pnpm` to `11.2.1`
 
 ## v5.8.4 (2026-05-22)
 
