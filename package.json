@@ -86,7 +86,7 @@
     "eslint-plugin-package-json": "^1.1.0",
     "import-integrity-lint": "^1.1.1",
     "mdxlint": "^1.0.0",
-    "nx": "^23.0.0-beta.17",
+    "nx": "^22.7.3",
     "preact": "^10.29.2",
     "publint": "^0.3.21",
     "react": "^19.2.6",
