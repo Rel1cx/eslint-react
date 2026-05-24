@@ -164,7 +164,7 @@ GitHub Issues tracks bugs, feature requests, and rule requests. Before creating 
 - **Discuss first**: For new features or new rules, open an issue to discuss the proposal before writing code.
 - **Sign commits**: All commits must be signed.
 - **Keep PRs focused**: Each pull request addresses a single concern.
-- **Small commits are fine**: commits are squashed before merging.
+- **Small commits are fine**: Commits are squashed before merging.
 
 ### PR Title Convention
 
