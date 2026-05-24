@@ -4,16 +4,20 @@ description: Detects circular dependencies between useEffect hooks. Prevents inf
 ---
 
 <Callout type="warning">
-  In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead. It's also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect). Use this custom recipe only when you need to detect circular dependencies across multiple effects.
+  In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead.
+  It is also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect).
+  Use this custom recipe only when detecting circular dependencies across multiple effects.
 </Callout>
 
 ## Overview
 
-This rule detects when `useEffect`-like hooks form a cycle through state variables. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
+This rule detects when `useEffect`-like hooks form a cycle through state variables.
+For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop.
+It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
 
 ## Rule
 
-Copy the following code into your project (e.g. `.config/noCircularEffect.ts`):
+Copy the following code into the project (for example `.config/noCircularEffect.ts`):
 
 ```ts title=".config/noCircularEffect.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -186,7 +190,8 @@ export default [
 
 ### Circular effect dependencies
 
-Circular effect with depth 1. An effect depends on `items` and also sets `items`:
+Circular effect with depth 1.
+An effect depends on `items` and also sets `items`:
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -203,7 +208,8 @@ function CircularEffect1() {
 }
 ```
 
-Circular effect with depth 2. Two effects form a cycle: one depends on `limit` and sets `items`, and another depends on `items` and sets `limit`:
+Circular effect with depth 2.
+Two effects form a cycle: one depends on `limit` and sets `items`, and another depends on `items` and sets `limit`:
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -226,7 +232,8 @@ function CircularEffect2() {
 }
 ```
 
-Circular effect with depth 3. Three effects form a cycle through `items → count → limit → items`:
+Circular effect with depth 3.
+Three effects form a cycle through `items → count → limit → items`:
 
 ```tsx
 import { useEffect, useState } from "react";
@@ -308,4 +315,5 @@ function ValidComponent2() {
 ## See Also
 
 - [`set-state-in-effect`](/docs/rules/set-state-in-effect)\
-  Built-in rule for detecting setState calls in useEffect. Use this instead in most cases.
+  Built-in rule for detecting setState calls in useEffect.
+  Use this instead in most cases.

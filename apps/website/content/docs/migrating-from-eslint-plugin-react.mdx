@@ -7,14 +7,15 @@ full: true
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 <Callout type="info">
-  This guide provides a comprehensive comparison between [`eslint-plugin-react`](https://github.com/jsx-eslint/eslint-plugin-react) and ESLint React rules to help you migrate your existing configuration.
+  This guide provides a comprehensive comparison between [`eslint-plugin-react`](https://github.com/jsx-eslint/eslint-plugin-react) and ESLint React rules to help migrate existing configurations.
 </Callout>
 
 <InlineTOC items={toc}>Table of Contents</InlineTOC>
 
 ## Overview
 
-ESLint React is a collection of ESLint plugins and utilities for React, with a focus on performance, TypeScript integration, and alignment with [react.dev](https://react.dev) guidelines. It offers a different set of rules and design choices compared to `eslint-plugin-react`.
+ESLint React is a collection of ESLint plugins and utilities for React, with a focus on performance, TypeScript integration, and alignment with [react.dev](https://react.dev) guidelines.
+It offers a different set of rules and design choices compared to `eslint-plugin-react`.
 
 ## Rule Comparison Table
 
@@ -25,18 +26,18 @@ ESLint React is a collection of ESLint plugins and utilities for React, with a f
 ### Legend
 
 - 🔧 **Fully supported** - Rule is supported, and has an auto-fix
-- ✅ **Mostly supported** - Rule is supported but doesn't have an auto-fix
+- ✅ **Mostly supported** - Rule is supported but does not have an auto-fix
 - 🟡 **Partial support** - Similar but not identical functionality
 - ❌ **Not supported** - No equivalent rule
 - ➡️ **External plugin** - Rule is available in another ESLint plugin
-- 🚫 **Legacy** - Rule is not applicable in modern TypeScript React development (e.g., class-based components, `propTypes`)
+- 🚫 **Legacy** - Rule is not applicable in modern TypeScript React development (for example, class-based components, `propTypes`)
 - ⚠️ **Warning** - Rule has been deprecated in `eslint-plugin-react`
 - 🔄 **Codemod** - Rule is supported as a codemod (safe AST transformation)
 - 💭 **Requires type checking** - Rule requires TypeScript type-aware linting to function correctly
 - 🧰 **Supported via [`@eslint-react/kit`](/docs/packages/kit)** - Rule is supported as a custom rule via [`@eslint-react/kit`](/docs/packages/kit)
 
-A variety of rules are marked **legacy**, but still have equivalent rules. This distinction was done to more accurately assess
-migration for React written with function components and no longer use `propTypes`.
+A variety of rules are marked **legacy**, but still have equivalent rules.
+This distinction was done to more accurately assess migration for React written with function components and no longer using `propTypes`.
 
 ### Table
 
@@ -56,7 +57,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 | [`forbid-foreign-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-foreign-prop-types.md)                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`forbid-prop-types`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md)                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | ✅           | 🚫     |
 | [`forward-ref-uses-ref`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forward-ref-uses-ref.md)                                   | [`no-forward-ref`](/docs/rules/no-forward-ref)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | ✅           | 🔄     |
-| [`function-component-definition`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md)                 | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule, e.g. [`@eslint-react/kit/function-component-definition`](#function-component-definition); report-only by default, autofix depends on your implementation)                                                                                                                                                                                                                                                                                         | ✅           | 🔧     |
+| [`function-component-definition`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md)                 | [`@eslint-react/kit`](https://github.com/Rel1cx/eslint-react/blob/main/packages/kit/README.md) (custom rule, for example [`@eslint-react/kit/function-component-definition`](#function-component-definition); report-only by default, autofix depends on the implementation)                                                                                                                                                                                                                                                                                         | ✅           | 🔧     |
 | [`hook-use-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/hook-use-state.md)                                               | [`use-state`](/docs/rules/use-state)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | ✅           | ✅      |
 | [`iframe-missing-sandbox`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/iframe-missing-sandbox.md)                               | [`dom-no-missing-iframe-sandbox`](/docs/rules/dom-no-missing-iframe-sandbox)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | ✅           | 🔧     |
 | [`jsx-boolean-value`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)                                         | [`@eslint-react/kit/jsx-boolean-value`](#jsx-boolean-value) includes autofix                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | 🔧          | 🔧     |
@@ -153,7 +154,7 @@ The following table compares all rules from `eslint-plugin-react` with their ESL
 
 ## Gradual Migration
 
-You can migrate gradually by using both plugins together, using the `disable-conflict-eslint-plugin-react` ruleset:
+Migrate gradually by using both plugins together with the `disable-conflict-eslint-plugin-react` ruleset:
 
 ```ts title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -178,7 +179,7 @@ export default defineConfig([
 ]);
 ```
 
-Once you have fully migrated, you can remove `eslint-plugin-react` entirely and rely solely on ESLint React:
+After full migration, remove `eslint-plugin-react` entirely and rely solely on ESLint React:
 
 ```ts title="eslint.config.ts"
 import eslintReact from "@eslint-react/eslint-plugin";
@@ -196,8 +197,8 @@ export default defineConfig([
 
 ## Custom Rules For Missing Rules
 
-Some `eslint-plugin-react` rules don't have built-in equivalents in ESLint React, or you may want to customize their behavior.
-You can use [`@eslint-react/kit`](/docs/packages/kit) to create minimal custom rule implementations directly in your `eslint.config.ts`.
+Some `eslint-plugin-react` rules do not have built-in equivalents in ESLint React.
+Use [`@eslint-react/kit`](/docs/packages/kit) to create minimal custom rule implementations directly in the `eslint.config.ts`.
 
 Install `@eslint-react/kit` first:
 
@@ -473,7 +474,7 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
 
 ### `forbid-elements`
 
-Forbid specific JSX elements. Customize the `forbidden` map with your project's requirements.
+Forbid specific JSX elements. Customize the `forbidden` map to match project requirements.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
@@ -574,7 +575,7 @@ export function functionComponentDefinition(): RuleFunction {
 
 ### `jsx-boolean-value`
 
-Enforce shorthand for boolean JSX attributes (e.g. prefer `<C disabled />` over `<C disabled={true} />`).
+Enforce shorthand for boolean JSX attributes (for example, prefer `<C disabled />` over `<C disabled={true} />`).
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
@@ -605,7 +606,9 @@ export function jsxBooleanValue(): RuleFunction {
 
 ### `jsx-fragments`
 
-Enforce shorthand syntax for React fragments. Reports when `<React.Fragment>` is used instead of `<>...</>`. Allows standard form when `key` prop is present.
+Enforce shorthand syntax for React fragments.
+Reports when `<React.Fragment>` is used instead of `<>...</>`.
+Allows standard form when `key` prop is present.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";

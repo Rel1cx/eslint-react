@@ -5,9 +5,11 @@ description: Frequently asked questions about ESLint React.
 
 ## Why?
 
-**ESLint React supports modern React ecosystems across multiple renderers.** While `eslint-plugin-react` focuses primarily on React DOM, ESLint React is designed to work with alternative renderers like React Native, React Three Fiber, and custom renderers by treating DOM as one of many supported targets.
+**ESLint React supports modern React ecosystems across multiple renderers.**
+While `eslint-plugin-react` focuses primarily on React DOM, ESLint React is designed to work with alternative renderers like React Native, React Three Fiber, and custom renderers.
+DOM is treated as one of many supported targets rather than the default assumption.
 
-Our solution treats DOM as one of many supported targets rather than the default assumption. This paradigm shift enables:
+This enables:
 
 - **Context-aware linting**: Adapting to different runtime environments
 - **Future-proof architecture**: Compatibility with emerging React platforms
@@ -51,19 +53,23 @@ Currently, it includes the following:
 - `apps/website`: Documentation website
 - `apps/playground`: Interactive playground (placeholder)
 
-You can view our long-term plans on the [roadmap](/docs/roadmap).
+View the long-term plans on the [roadmap](/docs/roadmap).
 
 ## Why isn't there a 'jsx-runtime' preset?
 
-ESLint React automatically detects your JSX runtime type from the compiler options in your `tsconfig.json` or `jsconfig.json` file, as well as from JSX pragma comments (e.g., `/** @jsxRuntime automatic */`) in each file. This means you don't need to set a preset for the JSX runtime.
+ESLint React automatically detects the JSX runtime type from the compiler options in the `tsconfig.json` or `jsconfig.json` file.
+It also detects JSX pragma comments (for example, `/** @jsxRuntime automatic */`) in each file.
+This means a preset for the JSX runtime is not needed.
 
 For more information, see the [JSX Transform](/docs/configuration/configure-project-config#jsx-transform) section on the [Configure Project Config](/docs/configuration/configure-project-config) page.
 
 ## Which one should I use? Unified plugin or individual plugins?
 
-For users who use the presets we provide (such as `recommended` or `strict`), it is recommended to use the unified plugin `@eslint-react/eslint-plugin`. This simplifies configuration and ensures that all relevant rules are enabled correctly.
+For users who use the provided presets (such as `recommended` or `strict`), use the unified plugin `@eslint-react/eslint-plugin`.
+This simplifies configuration and ensures that all relevant rules are enabled correctly.
 
-For users who need more fine-grained control or build and maintain an ESLint configuration for themselves or their organization, it is recommended to use individual plugins. This allows you to freely select plugins and compose rules as needed, without being limited by presets.
+For users who need more fine-grained control or build and maintain an ESLint configuration for an organization, use individual plugins.
+This allows freely selecting plugins and composing rules as needed, without being limited by presets.
 
 <Callout type="warning">
   The unified plugin (`@eslint-react/eslint-plugin`) contains some historical decisions and internal behaviors that were originally made to be compatible with both [Legacy Config](https://eslint.org/docs/v8.x/use/configure/configuration-files) and [Flat Config](https://eslint.org/docs/v8.x/use/configure/configuration-files-new). Reducing external package dependencies on it is better in the long run.
@@ -71,11 +77,14 @@ For users who need more fine-grained control or build and maintain an ESLint con
 
 ## Is there anything to note about migrating from 'eslint-plugin-react'?
 
-Please be aware that some rules may behave differently when transitioning to ESLint React. The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
+Some rules may behave differently when transitioning to ESLint React.
+The rules in ESLint React are more closely aligned with the guidelines provided by [react.dev](https://react.dev). This alignment is due to ESLint React adopting [react.dev](https://react.dev) as its primary reference, rather than `eslint-plugin-react`.
 
-For a comprehensive migration guide with a complete rule comparison table, see our [Migration Guide](/docs/migrating-from-eslint-plugin-react). This guide covers all rules from `eslint-plugin-react`, their ESLint React equivalents, missing functionality, and migration tips.
+For a comprehensive migration guide with a complete rule comparison table, see the [Migration Guide](/docs/migrating-from-eslint-plugin-react).
+This guide covers all rules from `eslint-plugin-react`, their ESLint React equivalents, missing functionality, and migration tips.
 
-To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
+To smoothly transition, review the rules in ESLint React and run a comprehensive linting check on the codebase.
+This identifies and addresses any discrepancies introduced by the migration.
 
 ## What does 90% human-written mean?
 

@@ -13,13 +13,16 @@ For TypeScript or JavaScript files, the Project Config is typically named `tscon
 
 For MDX files, the Project Config is the `"mdx"` property in the `tsconfig.json` or `jsconfig.json` file.
 
-ESLint React uses the Project Config to provide information (e.g., [JSX Transform](/docs/configuration/configure-project-config#jsx-transform)) about the code it is linting.
+ESLint React uses the Project Config to provide information (for example, [JSX Transform](/docs/configuration/configure-project-config#jsx-transform)) about the code it is linting.
 
 ### Project Rules
 
-Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements. Unlike built-in rules, Project Rules are owned by your team and can be tailored to match your specific coding standards.
+Custom ESLint rules built with [`@eslint-react/kit`](/docs/packages/kit) to enforce project-specific conventions and requirements.
+Unlike built-in rules, Project Rules are owned by the team and can be tailored to match specific coding standards.
 
-Project Rules are defined as functions that return a rule implementation, and are registered using the `eslintReactKit().use()` builder API. The rule name is automatically derived from the function name (e.g., `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
+Project Rules are defined as functions that return a rule implementation.
+They are registered using the `eslintReactKit().use()` builder API.
+The rule name is automatically derived from the function name (for example, `functionComponentDefinition` → `@eslint-react/kit/function-component-definition`).
 
 See [Configure Project Rules](/docs/configuration/configure-project-rules) for setup instructions and [Recipes](/docs/recipes) for ready-to-use examples.
 
@@ -27,6 +30,8 @@ See [Configure Project Rules](/docs/configuration/configure-project-rules) for s
 
 ### Recipe
 
-Ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). Recipes are designed to be **copied and pasted** directly into your project, allowing you to customize the implementation to match your team's conventions.
+Ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit).
+Recipes are designed to be **copied and pasted** directly into the project.
+This allows customizing the implementation to match team conventions.
 
 See [Recipes](/docs/recipes) for available recipes.

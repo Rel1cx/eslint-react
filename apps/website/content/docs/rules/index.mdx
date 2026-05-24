@@ -6,7 +6,7 @@ full: true
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 <Callout type="info">
-  Linter rules can have false positives, false negatives, and some rules depend on the `react` or `react-dom` [version](https://react.dev/versions) you are using.
+  Linter rules can have false positives, false negatives, and some rules depend on the `react` or `react-dom` [version](https://react.dev/versions) in use.
 </Callout>
 
 <InlineTOC items={toc}>Table of Contents</InlineTOC>
@@ -65,7 +65,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 | [`no-unsafe-component-will-mount`](/docs/rules/no-unsafe-component-will-mount)                 | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillMount` in class components                                                                                                      |          |
 | [`no-unsafe-component-will-receive-props`](/docs/rules/no-unsafe-component-will-receive-props) | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillReceiveProps` in class components                                                                                               |          |
 | [`no-unsafe-component-will-update`](/docs/rules/no-unsafe-component-will-update)               | 1️⃣ 1️⃣ |           | Warns about the use of `UNSAFE_componentWillUpdate` in class components                                                                                                     |          |
-| [`no-unstable-context-value`](/docs/rules/no-unstable-context-value)                           | 0️⃣ 1️⃣ |           | Prevents non-stable values (i.e., object literals) from being used as a value for `Context.Provider`                                                                        |          |
+| [`no-unstable-context-value`](/docs/rules/no-unstable-context-value)                           | 0️⃣ 1️⃣ |           | Prevents non-stable values (that is, object literals) from being used as a value for `Context.Provider`                                                                        |          |
 | [`no-unstable-default-props`](/docs/rules/no-unstable-default-props)                           | 0️⃣ 1️⃣ |    `⚙️`   | Prevents using referential-type values as default props in object destructuring                                                                                             |          |
 | [`no-unused-class-component-members`](/docs/rules/no-unused-class-component-members)           | 1️⃣ 1️⃣ |           | Warns about unused class component methods and properties                                                                                                                   |          |
 | [`no-unused-props`](/docs/rules/no-unused-props)                                               | 0️⃣ 0️⃣ | `💭` `🧪` | Warns about component props that are defined but never used                                                                                                                 |          |
@@ -162,9 +162,11 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 ## Debug Rules
 
 <Callout type="warning">
-  The `eslint-plugin-react-debug` package is not included in the unified plugin. You need to install and configure it separately.
+  The `eslint-plugin-react-debug` package is not included in the unified plugin.
+  Install and configure it separately.
 
-  These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns. They can also serve as an rule-based alternative to [react-docgen](https://react-docgen.dev/).
+  These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns.
+  They can also serve as an rule-based alternative to [react-docgen](https://react-docgen.dev/).
 </Callout>
 
 | Rule                                                         |    ✅    |  🌟  | Description                                                             |

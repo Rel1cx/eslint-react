@@ -1,6 +1,8 @@
 # Issue Labels Design
 
-This document defines the issue and pull request label system for `Rel1cx/eslint-react`. It replaces the previous ad-hoc label set with a consistent, four-dimensional taxonomy that scales with the project's monorepo structure and React Compiler alignment goals.
+This document defines the issue and pull request label system for `Rel1cx/eslint-react`.
+It replaces the previous ad-hoc label set with a consistent, four-dimensional taxonomy.
+This taxonomy scales with the project's monorepo structure and React Compiler alignment goals.
 
 ## Design Principles
 
@@ -46,7 +48,8 @@ This document defines the issue and pull request label system for `Rel1cx/eslint
 
 **Rationale**
 
-- The monorepo has no easy way to know which plugin an issue touches from the title alone. `area:` labels let maintainers route work to the right code owner.
+- The monorepo has no easy way to know which plugin an issue touches from the title alone.
+  `area:` labels let maintainers route work to the right code owner.
 - `area: compiler` is added specifically for the ongoing React Compiler SPEC alignment effort documented in `*.spec.diff.md` files.
 
 ---
@@ -63,7 +66,8 @@ This document defines the issue and pull request label system for `Rel1cx/eslint
 
 **Rationale**
 
-- The old `Status: *` family had 8 labels, but `Status: Released` (154 uses) and `Status: Resolved` (1 use) revealed a skewed workflow. `released` is now a Milestone concern.
+- The old `Status: *` family had 8 labels,
+  but `Status: Released` (154 uses) and `Status: Resolved` (1 use) revealed a skewed workflow. `released` is now a Milestone concern.
 - `Status: On Hold` (0 uses) and `Status: Awaiting Response` (0 uses) are merged into `status: blocked` and `status: waiting-author`.
 - `Status: Help Wanted` is retired in favor of `pr welcome` under **special**.
 
@@ -139,7 +143,8 @@ Run `scripts/migrate-labels.sh create` to ensure all labels listed above exist w
 
 ### Phase 2: Remap open issues (immediate value)
 
-Run `scripts/migrate-labels.sh migrate` to rewrite labels on the current open issue backlog. The script maps old labels to new ones using the table below, then removes the old labels from each issue.
+Run `scripts/migrate-labels.sh migrate` to rewrite labels on the current open issue backlog.
+The script maps old labels to new ones using the table below, then removes the old labels from each issue.
 
 | Old Label                   | New Label                |
 | --------------------------- | ------------------------ |
@@ -174,16 +179,19 @@ Dependabot / Renovate currently adds `Type: Dependencies` to pull requests. Upda
 Run `scripts/migrate-labels.sh cleanup` to delete obsolete labels. The script asks for confirmation before destructive operations.
 
 > **Note on `Status: Released`**\
-> This label is attached to **154** closed issues. Rather than rewriting history, the cleanup script skips it by default. New workflow should use **Milestones** for release tracking; the label can be deleted later if desired.
+> This label is attached to **154** closed issues.
+> Rather than rewriting history, the cleanup script skips it by default.
+> Use **Milestones** for release tracking in the new workflow.
+> Delete the label later if desired.
 
 ---
 
 ## Appendix: Color Palette Rationale
 
-| Category    | Hue                           | Rationale                                       |
-| ----------- | ----------------------------- | ----------------------------------------------- |
-| `type:`     | Red / warm                    | Stops the eye; the first thing you need to know |
-| `area:`     | Blue / purple                 | Cool, technical; second-order classification    |
-| `status:`   | Yellow / green / red          | Traffic-light semantics for workflow state      |
-| `priority:` | Red / orange / yellow / green | Urgency gradient                                |
-| `special:`  | High contrast                 | Must be instantly recognizable at a glance      |
+| Category    | Hue                           | Rationale                                    |
+| ----------- | ----------------------------- | -------------------------------------------- |
+| `type:`     | Red / warm                    | Stops the eye; the first thing to know       |
+| `area:`     | Blue / purple                 | Cool, technical; second-order classification |
+| `status:`   | Yellow / green / red          | Traffic-light semantics for workflow state   |
+| `priority:` | Red / orange / yellow / green | Urgency gradient                             |
+| `special:`  | High contrast                 | Must be instantly recognizable at a glance   |

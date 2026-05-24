@@ -95,7 +95,8 @@ All `react-web-api` rules follow the same **collect-and-match** pattern:
 1. **Identify phase** — Use `ComponentPhaseKind` (`"setup"` / `"cleanup"`) to know whether a function is a `useEffect` callback or its cleanup.
 2. **Track function stack** — Use `:function` / `:function:exit` visitors to maintain a stack of enclosing functions.
 3. **Collect calls** — In `CallExpression`, detect `addEventListener` / `removeEventListener`, `setTimeout` / `clearTimeout`, etc., and push entries into arrays.
-4. **Validate on exit** — In `Program:exit`, iterate over collected entries and verify that every "add" has a matching "remove". Report unmatched entries with `context.report()`.
+4. **Validate on exit** — In `Program:exit`, iterate over collected entries and verify that every "add" has a matching "remove".
+   Report unmatched entries with `context.report()`.
 
 ### Example structure
 
@@ -148,7 +149,8 @@ Maintain local flags across visitors.
 
 ### 6.3 Component-Collector Rules
 
-Use `core.getFunctionComponentCollector(context)` to gather all React components, then process them in bulk at `Program:exit`.
+Use `core.getFunctionComponentCollector(context)` to gather all React components.
+Process them in bulk at `Program:exit`.
 
 **Example:** `no-unstable-context-value`
 

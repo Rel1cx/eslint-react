@@ -5,11 +5,12 @@ description: Enforces arrow function style for function component definitions
 
 ## Overview
 
-This rule enforces that function components are defined with arrow functions instead of function declarations or function expressions. It provides an auto-fix suggestion that converts non-arrow function components to arrow function syntax.
+This rule enforces that function components are defined with arrow functions instead of function declarations or function expressions.
+It provides an auto-fix suggestion that converts non-arrow function components to arrow function syntax.
 
 ## Rule
 
-Copy the following code into your project (e.g. `.config/functionComponentDefinition.ts`):
+Copy the following code into the project (for example `.config/functionComponentDefinition.ts`):
 
 ```ts title=".config/functionComponentDefinition.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -122,7 +123,8 @@ const MyComponent = ({ name }: { name: string }) => {
 
 ## How It Works
 
-This rule uses the `collect.components` collector from `@eslint-react/kit` to find all function component definitions in the file. On `Program:exit`, it iterates through every detected component and reports any that are not `ArrowFunctionExpression` nodes.
+This rule uses the `collect.components` collector from `@eslint-react/kit` to find all function component definitions in the file.
+On `Program:exit`, it iterates through every detected component and reports any that are not `ArrowFunctionExpression` nodes.
 
 The suggested fix handles three cases:
 

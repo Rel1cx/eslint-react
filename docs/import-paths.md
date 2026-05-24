@@ -1,6 +1,7 @@
 # Import Paths Convention
 
-This monorepo uses TypeScript `paths` to provide clean, stable import aliases. Instead of relying on brittle relative paths like `../../utils/create-rule`, use the aliases defined in each package's `tsconfig.json`.
+This monorepo uses TypeScript `paths` to provide clean, stable import aliases.
+Use the aliases defined in each package's `tsconfig.json` instead of relying on brittle relative paths like `../../utils/create-rule`.
 
 ## Table of Contents
 
@@ -22,9 +23,10 @@ This monorepo uses TypeScript `paths` to provide clean, stable import aliases. I
 
 ## `@` — Package Source Root
 
-Use `@` whenever you need to reference a module inside the **current package's `src/` directory**.
+Use `@` to reference a module inside the **current package's `src/` directory**.
 
-This eliminates the need to count `../` segments and makes refactorings (moving files between directories) much safer.
+This eliminates the need to count `../` segments.
+Refactorings (moving files between directories) become much safer.
 
 ```ts
 // ❌ Avoid — breaks when the file is moved
@@ -51,7 +53,7 @@ In every package under `packages/*` and `plugins/*`, `@` is mapped to that packa
 
 ## `#` — Workspace Root
 
-Use `#` when you need to reference a module at the **monorepo root** (e.g. shared test helpers in `test/`, build scripts, or workspace-wide types).
+Use `#` to reference a module at the **monorepo root** (for example, shared test helpers in `test/`, build scripts, or workspace-wide types).
 
 ```ts
 // ❌ Avoid — fragile and hard to read
@@ -112,7 +114,8 @@ Every plugin and package must declare both aliases in its local `tsconfig.json`:
 
 ### Vitest support
 
-Vitest is configured to resolve these aliases via `resolve.tsconfigPaths: true` in `vitest.config.ts`, so tests run with the same mappings as the TypeScript compiler.
+Vitest is configured to resolve these aliases via `resolve.tsconfigPaths: true` in `vitest.config.ts`.
+Tests run with the same mappings as the TypeScript compiler.
 
 ## Examples
 
@@ -143,15 +146,19 @@ import { isTypeExpression } from "@/check";
 
 ### Why not use `~` or `#` for package-local imports?
 
-We follow the convention where `@` represents the **current package scope** (similar to many Vite / Next.js setups) and `#` represents the **workspace scope**. This keeps the mental model simple:
+The convention uses `@` for the **current package scope** (similar to many Vite / Next.js setups) and `#` for the **workspace scope**.
+This keeps the mental model simple:
 
 - `@/*` = "inside this package"
 - `#/*` = "inside the whole repo"
 
 ### What about `packages/` that import each other?
 
-Cross-package imports should still use the real package name (e.g. `@eslint-react/ast`, `@eslint-react/core`). `paths` aliases are only for intra-package and intra-workspace references that would otherwise require deep relative paths.
+Cross-package imports still use the real package name (for example, `@eslint-react/ast`, `@eslint-react/core`).
+`paths` aliases are only for intra-package and intra-workspace references that would otherwise require deep relative paths.
 
-### Can I use these aliases in build outputs?
+### Can These Aliases Be Used in Build Outputs?
 
-No — these aliases are for **source code only**. The bundler (`tsdown`) is configured to resolve and inline them during the build. Consumers of the published packages never see `@/` or `#/` imports.
+No — these aliases are for **source code only**.
+The bundler (`tsdown`) is configured to resolve and inline them during the build.
+Consumers of the published packages never see `@/` or `#/` imports.

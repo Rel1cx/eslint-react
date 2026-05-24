@@ -17,7 +17,7 @@ This recipe contains five custom rules for validating React Children API usage:
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noChildrenCount.ts`):
+Copy the following into the project (for example `.config/noChildrenCount.ts`):
 
 ```ts title=".config/noChildrenCount.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -76,13 +76,14 @@ function MyComponent({ children }) {
 }
 ```
 
-Reports when `Children.count` is used. This API is fragile because it doesn't work well with fragments, renders, and other modern React patterns.
+Reports when `Children.count` is used.
+This API is fragile because it does not work well with fragments, renders, and other modern React patterns.
 
 ## noChildrenForEach
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noChildrenForEach.ts`):
+Copy the following into the project (for example `.config/noChildrenForEach.ts`):
 
 ```ts title=".config/noChildrenForEach.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -153,13 +154,14 @@ function MyComponent({ children }) {
 }
 ```
 
-Reports when `Children.forEach` is used. Use standard array methods or JSX transformation patterns instead.
+Reports when `Children.forEach` is used.
+Use standard array methods or JSX transformation patterns instead.
 
 ## noChildrenMap
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noChildrenMap.ts`):
+Copy the following into the project (for example `.config/noChildrenMap.ts`):
 
 ```ts title=".config/noChildrenMap.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -227,13 +229,14 @@ function MyComponent({ children }) {
 }
 ```
 
-Reports when `Children.map` is used. This pattern is rarely needed in modern React; instead, render children directly or use standard array methods.
+Reports when `Children.map` is used.
+This pattern is rarely needed in modern React; instead, render children directly or use standard array methods.
 
 ## noChildrenOnly
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noChildrenOnly.ts`):
+Copy the following into the project (for example `.config/noChildrenOnly.ts`):
 
 ```ts title=".config/noChildrenOnly.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -298,13 +301,15 @@ function MyComponent({ children }) {
 }
 ```
 
-Reports when `Children.only` is used. This API throws if children is not a single element. Use type checks or explicit validation instead for clearer error handling.
+Reports when `Children.only` is used.
+This API throws if children is not a single element.
+Use type checks or explicit validation instead for clearer error handling.
 
 ## noChildrenToArray
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noChildrenToArray.ts`):
+Copy the following into the project (for example `.config/noChildrenToArray.ts`):
 
 ```ts title=".config/noChildrenToArray.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -365,7 +370,9 @@ function MyComponent({ children }) {
 }
 ```
 
-Reports when `Children.toArray` is used. This API is typically a workaround for poor component design. Restructure your props or use standard React patterns instead.
+Reports when `Children.toArray` is used.
+This API is typically a workaround for poor component design.
+Restructure the props or use standard React patterns instead.
 
 ## Using All Rules
 
@@ -412,4 +419,5 @@ export default [
 ## See Also
 
 - [`custom-rules-of-context`](./custom-rules-of-context)\
-  Validates React Context API usage. Includes checks for `useContext` and other context-related patterns.
+  Validates React Context API usage.
+  Includes checks for `useContext` and other context-related patterns.

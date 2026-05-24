@@ -3,15 +3,20 @@ title: Recipes
 description: Ready-to-use custom ESLint rule definitions built with @eslint-react/kit
 ---
 
-Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit). They are **not** part of the core plugin. Instead, they are designed to be **copied and pasted** directly into your project. Each recipe contains one or more custom rules.
+Recipes are ready-to-use custom ESLint rule definitions built with [`@eslint-react/kit`](/docs/packages/kit).
+They are **not** part of the core plugin.
+Instead, they are designed to be **copied and pasted** directly into the project.
+Each recipe contains one or more custom rules.
 
 ## Why Recipes?
 
-Some lint rules are inherently **opinionated**. They enforce a specific code style or convention that not every team agrees on. Rather than shipping these as built-in rules with fixed behavior, we provide them as recipes so you can:
+Some lint rules are inherently **opinionated**.
+They enforce a specific code style or convention that not every team agrees on.
+Rather than shipping these as built-in rules with fixed behavior, they are provided as recipes so that teams can:
 
-- **Copy** the rule definition into your project.
-- **Customize** the implementation to match your team's conventions.
-- **Own** the code with no dependency on upstream changes you didn't ask for.
+- **Copy** the rule definition into the project.
+- **Customize** the implementation to match team conventions.
+- **Own** the code with no dependency on unrequested upstream changes.
 
 ## Prerequisites
 
@@ -25,7 +30,7 @@ npm install --save-dev @eslint-react/kit
 
 Each recipe page provides:
 
-1. **Rule**: A self-contained function you copy into your project (e.g. into a `.config/noForwardRef.ts` file).
+1. **Rule**: A self-contained function to copy into the project (for example into a `.config/noForwardRef.ts` file).
 2. **Config**: How to wire it up in your `eslint.config.ts` using `eslintReactKit().use(...)`.
 3. **Examples**: Code snippets demonstrating valid and invalid patterns to show what the rule catches and how to resolve it.
 
@@ -81,8 +86,10 @@ Single-purpose recipes containing one custom rule for a specific linting need.
 | Recipe                                                                         | Description                                                                                                                                 |
 | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
 | [`Function Component Definition`](/docs/recipes/function-component-definition) | Enforces arrow function style for function component definitions.                                                                           |
-| [`No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
-| [`No Multiple Children in Title`](/docs/recipes/no-multiple-children-in-title) | Ensures the `<title>` component has a single string child to avoid React errors.                                                            |
+| [`No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks.
+Prevents infinite update loops caused by effects that set state they also depend on. |
+| [`No Multiple Children in Title`](/docs/recipes/no-multiple-children-in-title) | Ensures the `<title>` component has a single string child.
+This avoids React errors.                                                            |
 | [`Prefer Namespace Import`](/docs/recipes/prefer-namespace-import)             | Enforces importing React via a namespace import instead of default import.                                                                  |
 
 ### Compound

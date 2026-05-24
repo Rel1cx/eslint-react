@@ -1,6 +1,7 @@
 # Rule Feature System
 
-Every rule in ESLint React declares a `RULE_FEATURES` constant. This is not merely documentation—it is a **typed metadata system** that drives preset generation, documentation, and rule categorization.
+Every rule in ESLint React declares a `RULE_FEATURES` constant.
+This **typed metadata system** drives preset generation, documentation, and rule categorization.
 
 ## Table of Contents
 
@@ -94,7 +95,9 @@ export const rules: Linter.RulesRecord = {
 };
 ```
 
-> **Important**: The preset files are currently maintained manually. The `RULE_FEATURES` metadata serves as the **source of truth** for what _should_ be in these presets. The `verify-configs.ts` script checks for consistency.
+> **Important**: The preset files are currently maintained manually.
+> The `RULE_FEATURES` metadata serves as the **source of truth** for what _should_ be in these presets.
+> The `verify-configs.ts` script checks for consistency.
 
 ## Feature Selection Guidelines
 
@@ -112,7 +115,7 @@ When creating a new rule, ask the following questions:
 
 - **No** if the detection logic is known to have edge-case false positives.
 - **No** if the rule's behavior is expected to change based on community feedback.
-- **No** if it targets a React feature that is itself experimental (e.g., React Compiler directives).
+- **No** if it targets a React feature that is itself experimental (for example, React Compiler directives).
 
 **Mark as `EXP`**.
 
@@ -156,11 +159,11 @@ export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
 ## Feature Metadata Consumption
 
-While presets are currently manually authored, the `RULE_FEATURES` array is consumed by:
+The `RULE_FEATURES` array is consumed by documentation generators, verification scripts, and IDE plugins:
 
-1. **Documentation generators**: To render badges (🧪 Experimental, 🔧 Fixable, etc.) on the website.
-2. **Verification scripts**: `verify-configs.ts` cross-checks that `disable-*` presets match the feature metadata.
-3. **IDE plugins**: Future tooling can read feature flags to warn users before enabling experimental rules.
+1. **Documentation generators** render badges (🧪 Experimental, 🔧 Fixable, etc.) on the website.
+2. **Verification scripts** such as `verify-configs.ts` cross-check that `disable-*` presets match the feature metadata.
+3. **IDE plugins** can read feature flags to warn users before enabling experimental rules.
 
 ## Graduating an Experimental Rule
 
@@ -177,4 +180,5 @@ To move a rule from `EXP` to stable:
 
 - `RULE_FEATURES` is **mandatory** for every rule.
 - Features are a **contract** between the rule implementation and the preset/configuration system.
-- When in doubt, mark a new rule as `EXP`. It is easier to graduate a rule than to retract a stable one.
+- If a new rule's classification is uncertain, mark it as `EXP`.
+- Graduating a rule is easier than retracting a stable one.

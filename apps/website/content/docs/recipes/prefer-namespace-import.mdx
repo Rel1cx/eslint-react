@@ -5,18 +5,19 @@ description: Enforces importing React via a namespace import
 
 ## Overview
 
-This rule enforces that React is imported via a namespace import (`import * as React from 'react'`) instead of a default import (`import React from 'react'`). It provides an auto-fix that converts default imports to namespace imports.
+This rule enforces that React is imported via a namespace import (`import * as React from 'react'`) instead of a default import (`import React from 'react'`).
+It provides an auto-fix that converts default imports to namespace imports.
 
 The rule respects:
 
-- The configured `importSource` from React settings (e.g., `"@pika/react"`)
+- The configured `importSource` from React settings (for example, `"@pika/react"`)
 - Type imports (`import type React from 'react'` → `import type * as React from 'react'`)
 - Quote style (single or double)
 - Semicolon usage style
 
 ## Rule
 
-Copy the following code into your project (e.g. `.config/preferNamespaceImport.ts`):
+Copy the following code into the project (for example `.config/preferNamespaceImport.ts`):
 
 ```ts title=".config/preferNamespaceImport.ts"
 import type { RuleFunction } from "@eslint-react/kit";

@@ -1,6 +1,7 @@
 # Term-Based Rule Patterns
 
-This document describes how **term-based rules** are implemented and how they use fast-path text prechecks to skip files that cannot contain violations.
+This document describes how **term-based rules** are implemented.
+It also describes how they use fast-path text prechecks to skip files that cannot contain violations.
 
 ---
 
@@ -26,7 +27,9 @@ A term-based rule targets a specific React or Web API term that appears directly
 
 ## 2. Fast-Path Precheck Pattern
 
-Almost every term-based rule begins `create()` with a cheap string check against the entire file source. If the term is absent, the rule returns an empty visitor `{}` immediately, avoiding all AST traversal overhead.
+Almost every term-based rule begins `create()` with a cheap string check against the entire file source.
+If the term is absent, the rule returns an empty visitor `{}` immediately.
+This avoids all AST traversal overhead.
 
 ### 2.1 Single-term check (`String.prototype.includes`)
 
@@ -62,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ### 2.2 Multi-term check
 
-When a rule cares about several independent terms, it checks them together:
+A rule that cares about several independent terms checks them together:
 
 ```ts
 // Skip if neither `memo` nor `forwardRef` is present
@@ -75,7 +78,7 @@ if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includ
 
 ### 2.3 Regex check
 
-When the term is a family of names (e.g. any effect hook), a regex is used:
+When the term is a family of names (for example, any effect hook), a regex is used:
 
 ```ts
 // Skip if no effect-like hook is present
@@ -96,7 +99,7 @@ Once the fast path is passed, rules fall into one of four visitor strategies.
 
 ### 3.1 Immediate report on matching node
 
-The simplest pattern: visit the exact AST node type and report when a helper confirms the term.
+The simplest pattern visits the exact AST node type and reports when a helper confirms the term.
 
 ```ts
 export function create(context: RuleContext<MessageID, []>) {
@@ -114,7 +117,8 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ### 3.2 Collector + `Program:exit`
 
-Rules that need to inspect a whole component (or class) first collect data via a collector from `@eslint-react/core`, then validate in bulk at `Program:exit`.
+Rules that need to inspect a whole component (or class) first collect data via a collector from `@eslint-react/core`.
+They validate in bulk at `Program:exit`.
 
 ```ts
 export function create(context: RuleContext<MessageID, []>) {
@@ -136,7 +140,7 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ### 3.3 Stack-based tracking
 
-When a violation can only happen inside a nested context (e.g. inside a `setState` call inside a class component), the rule maintains stacks.
+When a violation can only happen inside a nested context (for example, inside a `setState` call inside a class component), the rule maintains stacks.
 
 ```ts
 export function create(context: RuleContext<MessageID, []>) {
@@ -178,7 +182,8 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ### 3.4 Web-API collect-and-match
 
-`react-web-api` rules collect add/set calls and remove/clear calls, then match them in `Program:exit`.
+`react-web-api` rules collect add/set calls and remove/clear calls.
+They match them in `Program:exit`.
 
 ```ts
 export function create(context: RuleContext<MessageID, []>) {
@@ -221,9 +226,11 @@ export function create(context: RuleContext<MessageID, []>) {
 
 ## 4. Guidelines for Adding Fast-Path Checks
 
-1. **Always precheck when the target term is rare.** If a rule only triggers on `forwardRef`, skipping files without that string provides significant performance benefits.
+1. **Always precheck when the target term is rare.**
+   If a rule only triggers on `forwardRef`, skipping files without that string provides significant performance benefits.
 2. **Use `includes()` for literal terms.** It is the fastest JavaScript string search.
-3. **Use regex only for families** (e.g. `/use\w*Effect/u`). Keep the regex simple and anchored when possible.
+3. **Use regex only for families** (for example, `/use\w*Effect/u`).
+   Keep the regex simple and anchored.
 4. **Combine multiple checks when a rule needs multiple concepts.** For example, `no-leaked-fetch` checks both `fetch` and `useEffect` because a fetch outside an effect is not the rule's concern.
 5. **Place the precheck as the very first statement in `create()`**, before any collector initialization or scope analysis.
 6. **Do not precheck when the rule is structural.** Rules like `no-missing-key` or `no-nested-component-definitions` apply to almost every React file, so a string precheck would not help.

@@ -13,7 +13,7 @@ This recipe contains custom rules for validating React Context API usage:
 
 ### Rule
 
-Copy the following into your project (e.g. `.config/noUseContext.ts`):
+Copy the following into the project (for example `.config/noUseContext.ts`):
 
 ```ts title=".config/noUseContext.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -75,7 +75,8 @@ function Button() {
 }
 ```
 
-Reports when `useContext` is used. The `use` API is more flexible than `useContext` because it can be called in loops and conditional statements.
+Reports when `useContext` is used.
+The `use` API is more flexible than `useContext` because it can be called in loops and conditional statements.
 
 ## Using All Rules
 
