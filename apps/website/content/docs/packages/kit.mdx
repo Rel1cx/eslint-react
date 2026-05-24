@@ -103,7 +103,7 @@ function forbidElements({ forbidden }: ForbidElementsOptions): RuleFunction {
 
 #### Anonymous Rules
 
-When you use an **anonymous function** (arrow function without a name) with `.use()`, a random hex string is automatically generated as the rule name:
+When an **anonymous function** (arrow function without a name) is used with `.use()`, a random hex string is automatically generated as the rule name:
 
 ```ts
 // Registered as `@eslint-react/kit/a1b2c3d4e5f67890`
@@ -114,10 +114,10 @@ eslintReactKit().use(() => (context) => ({
 }));
 ```
 
-Anonymous rules are ideal for checks that are **critical to code quality or security** and should never be bypassed via disable comments:
+Anonymous rules are ideal for checks that are **critical to code quality or security** and must never be bypassed via disable comments:
 
 ```ts
-// This critical security check cannot be easily disabled by developers
+// This critical security check cannot be disabled in source code
 eslintReactKit().use(() => (context) => ({
   Property(node) {
     // Prevent direct construction of '__html' objects in product code
@@ -131,7 +131,7 @@ eslintReactKit().use(() => (context) => ({
 }));
 ```
 
-**Note:** Since the rule name is random and changes on every ESLint run, developers cannot use standard rules configs or disable comments like:
+**Note:** Since the rule name is random and changes on every ESLint run, standard rules configs and disable comments do not work:
 
 ```ts
 // This will NOT work - the rule name is random!
@@ -141,7 +141,7 @@ eslintReactKit().use(() => (context) => ({
 // eslint-disable-next-line @eslint-react/kit/01KNE2WSJ8011D2HXE3A6H717C
 ```
 
-To disable an anonymous rule, developers must modify the ESLint configuration file directly, which provides an audit trail for policy violations.
+To disable an anonymous rule, modify the ESLint configuration file directly. This provides an audit trail for policy violations.
 
 ### `Builder`
 
@@ -174,7 +174,7 @@ eslintReactKit()
 
 #### `getPlugin`
 
-Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this when you need finer-grained control over how the plugin is integrated into your ESLint configuration.
+Returns an `ESLint.Plugin` object containing the registered rules and plugin metadata (`name` and `version`). Use this for finer-grained control over how the plugin is integrated into the ESLint configuration.
 
 ```ts title="eslint.config.ts"
 const kit = eslintReactKit()
@@ -184,7 +184,7 @@ const kit = eslintReactKit()
 // Retrieve the raw plugin object
 const plugin = kit.getPlugin();
 
-// Use it in a custom flat config with your own namespace and severity
+// Use it in a custom flat config with a custom namespace and severity
 export default [
   {
     files: ["**/*.{ts,tsx}"],
@@ -209,7 +209,7 @@ merge(...listeners: RuleListener[]): RuleListener
 
 Merges multiple `RuleListener` (visitor) objects into a single listener. When two or more listeners define the same visitor key, the handlers are chained and execute in order.
 
-This is essential for combining a collector's `visitor` with your own inspection logic.
+This is essential for combining a collector's `visitor` with custom inspection logic.
 
 ## `RuleToolkit` — the toolkit object
 
@@ -229,7 +229,7 @@ kit
 
 ### `collect`
 
-Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into your rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
+Collector factories create a `{ query, visitor }` pair. The `visitor` must be merged into the rule listener via `merge()`. After traversal completes, `query.all(program)` yields all detected semantic nodes.
 
 | Method                          | Returns                                               | Description                                                                             |
 | ------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -281,7 +281,7 @@ Factory functions (context pre-bound):
 | `API`     | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API identifier. (context pre-bound) |
 | `APICall` | `(apiName) -> (node) -> boolean` | Factory: creates a predicate for a React API call. (context pre-bound)       |
 
-All React API predicates and factories have `context` pre-bound — no need to pass the rule context manually:
+All React API predicates and factories have `context` pre-bound, eliminating the need to pass the rule context manually:
 
 ```ts
 // Direct check
@@ -360,7 +360,7 @@ Low-level AST utilities for handling TypeScript-specific syntax.
 | `findParent` | `(node, test) -> Node \| null` | Walks up the AST from the given node and returns the first ancestor that satisfies the predicate, stopping at `Program`. Returns `null` if no match is found.                                                                                |
 | `unwrap`     | `(node) -> Node`               | Recursively strips TypeScript type-expression wrappers (`TSAsExpression`, `TSSatisfiesExpression`, `TSNonNullExpression`, `TSTypeAssertion`, `TSInstantiationExpression`) and `ChainExpression` from a node, returning the underlying value. |
 
-`ast.unwrap` is useful when you need to inspect a callee, argument, or initializer that may be wrapped in a TypeScript type assertion:
+`ast.unwrap` is useful when inspecting a callee, argument, or initializer that might be wrapped in a TypeScript type assertion:
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
@@ -389,7 +389,7 @@ Without `unwrap`, the code above would miss calls like `(window.addEventListener
 
 ### `settings`
 
-Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets your custom rules read and react to the same project-level settings used by the built-in rules.
+Exposes the normalized `react-x` settings from the ESLint shared configuration (`context.settings["react-x"]`). This lets custom rules read and react to the same project-level settings used by the built-in rules.
 
 | Property                | Type                                                    | Default     | Description                                               |
 | ----------------------- | ------------------------------------------------------- | ----------- | --------------------------------------------------------- |
@@ -605,7 +605,7 @@ eslintReactKit()
 
 ### Override Config: Using spread syntax with `getConfig`
 
-`getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
+`getConfig()` returns a plain config object. Spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside kit rules.
 
 ```ts twoslash title="eslint.config.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -625,7 +625,7 @@ export default [
       .use(noForwardRef)
       .use(version, "19")
       .getConfig(),
-    // Override `name` so it shows your own label in config inspector tools
+    // Override `name` so it shows a custom label in config inspector tools
     name: "react-custom-rules",
     // Override `files` to scope the kit rules to specific source files
     files: ["src/**/*.ts", "src/**/*.tsx"],
@@ -633,11 +633,11 @@ export default [
 ];
 ```
 
-This pattern is especially useful when composing kit configs alongside other ESLint configs (e.g. `typescript-eslint`, `eslint-plugin-react-hooks`) via `defineConfig` — you can nest the spread object inside `extends` arrays and attach shared properties like `files` or `languageOptions` at the same level.
+This pattern is especially useful when composing kit configs alongside other ESLint configs (e.g. `typescript-eslint`, `eslint-plugin-react-hooks`) via `defineConfig` — nest the spread object inside `extends` arrays and attach shared properties like `files` or `languageOptions` at the same level.
 
 ### Advanced Config: Using `getPlugin` for custom plugin namespace
 
-Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
+Use `getPlugin()` for full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
 
 ```ts twoslash title="eslint.config.ts"
 import type { RuleFunction } from "@eslint-react/kit";
@@ -661,7 +661,7 @@ export default [
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
-      // Choose your own namespace
+      // Choose a custom namespace
       "react-custom-rules": plugin,
     },
     rules: {

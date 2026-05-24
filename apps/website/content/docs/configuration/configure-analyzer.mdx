@@ -7,7 +7,7 @@ import { AnalyzerPropertyTypeTable } from "./configure-analyzer";
 
 ESLint React reads analyzer properties from the `react-x` key within ESLint's [`settings`](https://eslint.org/docs/latest/use/configure/configuration-files#configuring-shared-settings) object.
 
-You can provide the following properties to customize the analyzer's behavior:
+Provide the following properties to customize the analyzer's behavior:
 
 ```ts title="eslint.config.ts"
 export default [
@@ -34,7 +34,7 @@ export default [
 Defines the React version for semantic analysis.
 
 - `detect`: Auto-detects from project dependencies (defaults to `19.2.4` if undetectable)
-- `string`: Explicit version specification (ex: `"18.3.1"`)
+- `string`: Explicit version specification (for example, `"18.3.1"`)
 
 ### `importSource`
 
@@ -48,14 +48,15 @@ import React from "@pika/react";
 
 ### `compilationMode`
 
-Specifies the React Compiler [`compilationMode`](https://react.dev/reference/react-compiler/compilationMode) used in your React Compiler config.
+Specifies the React Compiler [`compilationMode`](https://react.dev/reference/react-compiler/compilationMode) used in the React Compiler config.
 
-This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as your React Compiler config (ex: `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
+This allows rules to align their behavior with the React Compiler's optimization strategies. Set this to the same value as the React Compiler config (for example, `"infer"`, `"annotation"`, `"syntax"`, or `"all"`).
 
 ## Advanced Configuration
 
 <Callout type="warning">
-  The basic configuration is sufficient for most projects. Over-reliance on advanced configuration options will reduce the portability of your code across different tooling ecosystems.
+  The basic configuration is sufficient for most projects.
+  Over-reliance on advanced configuration options will reduce the portability of the code across different tooling ecosystems.
 </Callout>
 
 ### `polymorphicPropName`
@@ -119,7 +120,7 @@ export default [
       "react-x": {
         version: "19.2.4",
         importSource: "react",
-        polymorphicPropName: "as", // Define the prop name used for polymorphic components (ex: <Component as="div">)
+        polymorphicPropName: "as", // Define the prop name used for polymorphic components (for example, <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u", // Regex pattern for custom hooks treated as effect hooks
       },

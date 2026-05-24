@@ -8,7 +8,7 @@ description: Validates state usage. Prefer the updater function form in useState
 This recipe contains one custom rule for validating state usage:
 
 1. **[`preferStateUpdaterFunction`](#preferstateupdaterfunction)**: Reports when a `useState` setter is called with an expression that directly references the corresponding state variable.
-Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
+   Using the callback (updater function) form ensures the update uses the latest state value, avoiding stale-state bugs in closures, event handlers, and timeouts.
 
 ## preferStateUpdaterFunction
 

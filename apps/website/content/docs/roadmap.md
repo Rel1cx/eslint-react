@@ -206,7 +206,7 @@ Minimum supported versions:
 - [x] `eslint-plugin-react-web-api` - Rules for interacting with Web APIs
 - [x] `eslint-plugin-react-naming-convention` - Naming convention rules designed for React projects
 - [x] ~~`eslint-plugin-react-hooks-extra`~~ - Extra Hooks rules for React (removed in 2.14.0, rules migrated to `eslint-plugin-react-x`)
-- ... (Free to combine with other plugins from the community)
+- ... (Can be combined with other plugins from the community)
 
 ### Add codemod feature to rules that can be safely transformed using auto-fix
 

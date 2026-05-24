@@ -65,7 +65,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 <GitHubRepoGrid repos={plugins.fastRefresh} />
 
-**[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that your components can be safely updated with Fast Refresh (hot reloading).
+**[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that components can be safely updated with Fast Refresh (hot reloading).
 
 | Rule                                                                                                   | Description                                                                          |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
@@ -81,7 +81,7 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 <GitHubRepoGrid repos={plugins.importStyle} />
 
-**[`eslint-plugin-react-import`](https://github.com/marcalexiei/eslint-plugin-react-import)** by [@marcalexiei](https://github.com/marcalexiei) enforces consistent React import patterns across your codebase.
+**[`eslint-plugin-react-import`](https://github.com/marcalexiei/eslint-plugin-react-import)** by [@marcalexiei](https://github.com/marcalexiei) enforces consistent React import patterns across the codebase.
 
 | Rule                                                                                                                       | Description                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
@@ -95,10 +95,10 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 | Plugin                        | Scope                                                           | Relationship with ESLint React                                                              |
 | ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `@stylistic/eslint-plugin`    | JSX & JS stylistic rules (indent, spacing, quotes, line breaks) | Complementary — covers formatting we deliberately exclude                                   |
+| `@stylistic/eslint-plugin`    | JSX & JS stylistic rules (indent, spacing, quotes, line breaks) | Complementary — covers formatting deliberately excluded by ESLint React                     |
 | `eslint-plugin-jsx-a11y-x`    | JSX accessibility (ARIA, alt text, focus, semantics)            | Complementary — covers a11y static analysis; pair with `@axe-core/react` for runtime checks |
 | `eslint-plugin-perfectionist` | Sorting JSX props, imports, objects, types, enums               | Complementary — covers sorting and ordering we deliberately exclude                         |
 | `eslint-plugin-react-import`  | React import syntax consistency                                 | Complementary — covers module conventions not in core                                       |
 | `eslint-plugin-react-refresh` | Fast Refresh / HMR compatibility                                | Complementary — covers bundler integration concerns outside React core patterns             |
 
-If you maintain or know of a plugin that should be listed here, feel free to [open an issue](https://github.com/Rel1cx/eslint-react/issues/new).
+To suggest a plugin for inclusion, [open an issue](https://github.com/Rel1cx/eslint-react/issues/new).

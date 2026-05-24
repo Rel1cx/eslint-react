@@ -84,7 +84,7 @@ This release adds a significant number of new rules to `eslint-plugin-react-x`, 
 
 ## **New `compilationMode` Setting**
 
-Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode your project uses, allowing rules to understand how components and hooks will be optimized by the compiler. Possible values: `"infer"`, `"annotation"`, `"syntax"`, `"all"`.
+Added support for the `compilationMode` setting under `settings["react-x"]`. This setting informs rules about the [React Compiler](https://react.dev/learn/react-compiler) compilation mode the project uses, allowing rules to understand how components and hooks will be optimized by the compiler. Possible values: `"infer"`, `"annotation"`, `"syntax"`, `"all"`.
 
 ## **Developer Experience Improvements**
 
@@ -101,8 +101,8 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 
 ### Package Changes
 
-- Remove `eslint-plugin-react-hooks-extra` from your `package.json` — this package is no longer published.
-- If you were importing `eslint-plugin-react-hooks-extra` directly, replace it with `eslint-plugin-react-x`.
+- Remove `eslint-plugin-react-hooks-extra` from `package.json` — this package is no longer published.
+- If `eslint-plugin-react-hooks-extra` was imported directly, replace it with `eslint-plugin-react-x`.
 
 ### ESLint Configuration
 
@@ -113,7 +113,7 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
    - `react-x/no-forbidden-props`
    - `react-x/no-prop-types`
    - `react-x/no-string-refs`
-4. Remove the following removed/consolidated rules from your config if present:
+4. Remove the following removed/consolidated rules from the config if present:
    - `react-x/jsx-no-duplicate-props`
    - `react-x/jsx-no-undef`
    - `react-x/jsx-uses-react`
@@ -130,11 +130,11 @@ Added support for the `compilationMode` setting under `settings["react-x"]`. Thi
 
 ### Settings
 
-- If your project uses [React Compiler](https://react.dev/learn/react-compiler), consider adding the `compilationMode` setting under `settings["react-x"]`.
+- If the project uses [React Compiler](https://react.dev/learn/react-compiler), consider adding the `compilationMode` setting under `settings["react-x"]`.
 
 ### Review New Rules Enabled in Presets
 
-If you use the `recommended`, `x`, or `all` preset, the following rules are now included automatically:
+When using the `recommended`, `x`, or `all` preset, the following rules are now included automatically:
 
 | Rule                                        | Severity | Presets            |
 | :------------------------------------------ | :------- | :----------------- |

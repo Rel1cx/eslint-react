@@ -1,6 +1,6 @@
 # ESLint React Contributing Guide
 
-Thank you for your interest in contributing to ESLint React! Whether you're fixing a bug, proposing a new rule, improving documentation, or helping with tooling, every contribution is welcome.
+Contributions to ESLint React are welcome, including bug fixes, new rules, documentation improvements, and tooling enhancements.
 
 > [!NOTE]
 > ESLint React is not a fork of or derived from `eslint-plugin-react`. Features in `eslint-plugin-react` may not appear in ESLint React.
@@ -20,7 +20,7 @@ Thank you for your interest in contributing to ESLint React! Whether you're fixi
 
 ## Prerequisites
 
-Before you begin, make sure you have the following installed:
+Before beginning, ensure the following are installed:
 
 | Requirement | Version  |
 | ----------- | -------- |
@@ -30,12 +30,12 @@ Before you begin, make sure you have the following installed:
 | ESLint      | ≥ 10.2.1 |
 
 > [!TIP]
-> If you use [corepack](https://nodejs.org/api/corepack.html), running `corepack enable` in the repo root will automatically configure the correct pnpm version.
+> When using [corepack](https://nodejs.org/api/corepack.html), running `corepack enable` in the repo root automatically configures the correct pnpm version.
 
 ## Getting Started
 
 1. **Fork** the repository on GitHub.
-2. **Clone** your fork locally:
+2. **Clone** the fork locally:
    ```bash
    git clone https://github.com/<your-username>/eslint-react.git
    cd eslint-react
@@ -146,9 +146,9 @@ pnpm run verify:docs
 
 ## Reporting Issues
 
-We use GitHub Issues to track bugs, feature requests, and rule requests. Before creating a new issue, please:
+GitHub Issues tracks bugs, feature requests, and rule requests. Before creating a new issue:
 
-1. **Search existing issues** — your problem or idea may have already been reported.
+1. **Search existing issues** — the problem or idea may have already been reported.
 2. **Verify the version** — make sure the issue is reproducible with the latest stable release.
 3. **Use the appropriate template**:
    - 🐛 **Bug Report** — for unexpected behavior or errors.
@@ -162,9 +162,9 @@ We use GitHub Issues to track bugs, feature requests, and rule requests. Before 
 ### General Guidelines
 
 - **Discuss first**: For new features or new rules, open an issue to discuss the proposal before writing code.
-- **Sign your commits**: All commits must be signed.
-- **Keep PRs focused**: Each pull request should address a single concern.
-- **Small commits are fine**: We squash commits before merging.
+- **Sign commits**: All commits must be signed.
+- **Keep PRs focused**: Each pull request addresses a single concern.
+- **Small commits are fine**: commits are squashed before merging.
 
 ### PR Title Convention
 
@@ -212,7 +212,7 @@ packages/<plugin>/src/rules/<rule-name>/
 
 ### Step 3 — Implement the Rule
 
-Write the rule logic in `<rule-name>.ts`. The file should export:
+Write the rule logic in `<rule-name>.ts`. The file exports:
 
 - `RULE_NAME` — the kebab-case rule name.
 - `RULE_FEATURES` — metadata about the rule's capabilities.
@@ -242,7 +242,7 @@ Write the rule documentation in `<rule-name>.mdx`:
 ### Step 6 — Register and Integrate
 
 1. Export the rule in the plugin's entry file (`src/plugin.ts`).
-2. If the rule should be enabled by default, update the preset configurations.
+2. If the rule is enabled by default, update the preset configurations.
 3. Update the unified plugin (`plugins/@eslint-react/eslint-plugin/`) to include the new rule.
 4. Run `pnpm run update:all` to synchronize metadata across the monorepo.
 
@@ -305,7 +305,7 @@ ruleTester.run(RULE_NAME, rule, {
 
 ## Code of Conduct
 
-This project follows the [Contributor Covenant Code of Conduct](./CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the contact listed in the Code of Conduct.
+This project follows the [Contributor Covenant Code of Conduct](./CODE_OF_CONDUCT.md). Participants are expected to uphold this code. Report unacceptable behavior to the contact listed in the Code of Conduct.
 
 ## Reference
 

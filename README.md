@@ -36,9 +36,9 @@ Performant, composable ESLint rules for React and friends.
 ## Features
 
 - **Modern**: First-class support for **TypeScript**, **React 19**, and more.
-- **Flexible**: Fully customizable rule severity levels, allowing you to **enforce** or **relax** rules as needed.
+- **Flexible**: Fully customizable rule severity levels, allowing enforcement or relaxation of rules as needed.
 - **Performant**: Built with performance in mind, optimized for large codebases, code editor responsiveness, and CI pipelines.
-- **Context-aware linting**: Rules that understand the context of your code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
+- **Context-aware linting**: Rules that understand the context of the code and [project configuration](https://eslint-react.xyz/docs/configuration/configure-project-config) to provide more **accurate** linting.
 
 ## Public Packages
 
@@ -53,10 +53,10 @@ Performant, composable ESLint rules for React and friends.
 
 ### Unified ESLint Plugin
 
-- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one. Get complete, out-of-the-box rule coverage with instant feedback.
+- [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one. Provides complete, out-of-the-box rule coverage with instant feedback.
 
 > [!NOTE]\
-> Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
+> Not sure which one to use? See the [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
 
 ## Installation
 
@@ -175,9 +175,9 @@ export default defineConfig(
 - `disable-type-checked`\
   Disable rules that require type information.
 - `disable-conflict-eslint-plugin-react`\
-  Disable rules in `eslint-plugin-react` that conflict with rules in our plugins.
+  Disable rules in `eslint-plugin-react` that conflict with rules in this plugin.
 - `disable-conflict-eslint-plugin-react-hooks`\
-  Disable rules in `eslint-plugin-react-hooks` that conflict with rules in our plugins.
+  Disable rules in `eslint-plugin-react-hooks` that conflict with rules in this plugin.
 - `off`\
   Disable all rules in this plugin except for debug rules.
 
@@ -208,7 +208,7 @@ This project is, and will remain, [90% of its code written by humans](https://ww
 
 ## Sponsors
 
-A huge thank you to our amazing sponsors who make this project possible.
+A huge thank you to the sponsors who make this project possible.
 
 <p align="center">
   <a href="https://ko-fi.com/Rel1cx">
@@ -220,7 +220,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](.github/CONTRIBUTING.md).
+Follow the [contributing guidelines](.github/CONTRIBUTING.md).
 
 ## License
 

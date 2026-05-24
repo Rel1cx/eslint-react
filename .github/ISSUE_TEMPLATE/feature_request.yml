@@ -10,14 +10,14 @@ body:
         ## Feature Request
 
         > [!NOTE]
-        > You can use Feature Request to suggest a new rule, but compared to [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml), it takes longer to evaluate and has a lower implementation priority.
+        > Feature Request can be used to suggest a new rule, but compared to [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml), it takes longer to evaluate and has a lower implementation priority.
 
-        Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
+        Before submitting, ensure the request meets the contribution guidelines.
   - type: textarea
     id: problem
     attributes:
       label: Problem Description
-      description: Please describe the problem this feature will solve. Provide specific examples to illustrate the issue.
+      description: Describe the problem this feature will solve. Provide specific examples to illustrate the issue.
       placeholder: "This feature will solve..."
     validations:
       required: true
@@ -26,7 +26,7 @@ body:
     id: alternative-solutions
     attributes:
       label: Alternative Solutions
-      description: Have you tried to solve the problem by other means? Why aren't these methods sufficient to solve the problem?
+      description: Describe attempts to solve the problem by other means. Explain why these methods are insufficient to solve the problem.
       placeholder: "I've tried..."
     validations:
       required: true
@@ -35,7 +35,7 @@ body:
     id: feature-details
     attributes:
       label: Feature Details
-      description: Suggest a name for the feature, as well as details about how it should work and any relevant use cases.
+      description: Suggest a name for the feature, as well as details about how it works and any relevant use cases.
       placeholder: |
         Feature name: [FeatureName]
 
@@ -60,13 +60,13 @@ body:
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the feature suggestion is reasonable.
+      description: Check the following items to ensure the feature suggestion is reasonable.
       options:
-        - label: I have had problems that this feature would solve
+        - label: Problems that this feature would solve have been encountered
           required: true
-        - label: I could not find a way to solve the problem with existing features or workarounds
+        - label: No solution was found with existing features or workarounds
           required: true
-        - label: I have thought very hard about potential edge cases and downsides, and they are acceptable
+        - label: Potential edge cases and downsides have been considered and found acceptable
           required: true
-        - label: I think the feature is well-defined and would provide clear value to users
+        - label: The feature is well-defined and would provide clear value to users
           required: true

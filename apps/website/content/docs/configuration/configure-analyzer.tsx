@@ -19,7 +19,7 @@ const properties = {
   },
   polymorphicPropName: {
     type: "string",
-    description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components</Link>,
+    description: <Link href="#polymorphicpropname">The prop the code uses to create polymorphic components</Link>,
     default: '"as"',
   },
   additionalStateHooks: {
