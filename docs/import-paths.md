@@ -157,7 +157,7 @@ This keeps the mental model simple:
 Cross-package imports still use the real package name (for example, `@eslint-react/ast`, `@eslint-react/core`).
 `paths` aliases are only for intra-package and intra-workspace references that would otherwise require deep relative paths.
 
-### Can These Aliases Be Used in Build Outputs?
+### Can these aliases be used in build outputs?
 
 No — these aliases are for **source code only**.
 The bundler (`tsdown`) is configured to resolve and inline them during the build.
