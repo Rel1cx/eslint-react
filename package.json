@@ -58,7 +58,7 @@
     "verify:docs": "vite-node -c vitest.config.ts ./scripts/verify-docs.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.86.1",
+    "@effect/language-service": "^0.86.2",
     "@effect/platform": "^0.96.1",
     "@effect/platform-node": "^0.106.0",
     "@eslint-react/eslint-plugin": "workspace:*",
@@ -83,10 +83,10 @@
     "dprint": "^0.54.0",
     "effect": "^3.21.2",
     "eslint": "^10.4.0",
-    "eslint-plugin-package-json": "^0.91.2",
+    "eslint-plugin-package-json": "^1.1.0",
     "import-integrity-lint": "^1.1.1",
     "mdxlint": "^1.0.0",
-    "nx": "^22.7.2",
+    "nx": "^23.0.0-beta.17",
     "preact": "^10.29.2",
     "publint": "^0.3.21",
     "react": "^19.2.6",
@@ -107,7 +107,7 @@
     "vite-node": "^6.0.0",
     "vitest": "^4.1.7"
   },
-  "packageManager": "pnpm@11.2.0",
+  "packageManager": "pnpm@11.2.1",
   "engines": {
     "node": ">=22.0.0"
   }
