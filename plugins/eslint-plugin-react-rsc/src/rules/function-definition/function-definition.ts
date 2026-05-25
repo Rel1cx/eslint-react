@@ -128,7 +128,7 @@ export function create(context: RuleContext<MessageID, []>) {
     for (const node of context.sourceCode.ast.body) {
       if (node.type !== AST.ExpressionStatement) continue;
 
-      if (Check.isLiteral("string")(node.expression)) {
+      if (Check.isStringLiteral(node.expression)) {
         const value = node.expression.value;
         if ((value === "use server" || value === "use client") && node.directive == null) {
           context.report({
@@ -169,7 +169,7 @@ export function create(context: RuleContext<MessageID, []>) {
     for (const stmt of node.body.body) {
       if (stmt.type !== AST.ExpressionStatement) continue;
 
-      if (Check.isLiteral("string")(stmt.expression)) {
+      if (Check.isStringLiteral(stmt.expression)) {
         const value = stmt.expression.value;
         if (value === "use server" && stmt.directive == null) {
           context.report({
