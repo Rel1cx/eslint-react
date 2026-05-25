@@ -14,18 +14,16 @@ import importIntegrityPlugin from "import-integrity-lint";
 import path from "node:path";
 import tseslint from "typescript-eslint";
 
-const ignoreConfig = buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
-  ".*/**",
-  "apps",
-  "docs",
-  "test",
-  "examples",
-  "**/*.d.ts",
-  ...GLOB_TESTS,
-]);
-
 export default defineConfig(
-  ...ignoreConfig,
+  ...buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
+    ".*/**",
+    "apps",
+    "docs",
+    "test",
+    "examples",
+    "**/*.d.ts",
+    ...GLOB_TESTS,
+  ]),
   // Skip ESLint checks for rules ported directly from upstream
   {
     ignores: [
