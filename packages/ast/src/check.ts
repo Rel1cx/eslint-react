@@ -6,36 +6,6 @@ import type { TSESTreeDirective } from "./types";
 export const is = ASTUtils.isNodeOfType;
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
-// Literal check (curried)
-type LiteralType = "boolean" | "null" | "number" | "regexp" | "string";
-export function isLiteral(): (node: TSESTree.Node) => node is TSESTree.Literal;
-export function isLiteral(kind: "boolean"): (node: TSESTree.Node) => node is TSESTree.BooleanLiteral;
-export function isLiteral(kind: "null"): (node: TSESTree.Node) => node is TSESTree.NullLiteral;
-export function isLiteral(kind: "number"): (node: TSESTree.Node) => node is TSESTree.NumberLiteral;
-export function isLiteral(kind: "regexp"): (node: TSESTree.Node) => node is TSESTree.RegExpLiteral;
-export function isLiteral(kind: "string"): (node: TSESTree.Node) => node is TSESTree.StringLiteral;
-export function isLiteral(kind?: LiteralType): (node: TSESTree.Node) => boolean {
-  return (node) => {
-    if (node.type !== AST.Literal) return false;
-    if (kind == null) return true;
-    switch (kind) {
-      case "boolean":
-        return typeof node.value === "boolean";
-      case "null":
-        // tsl-ignore dx/nullish
-        return node.value === null;
-      case "number":
-        return typeof node.value === "number";
-      case "regexp":
-        return "regex" in node;
-      case "string":
-        return typeof node.value === "string";
-      default:
-        return false;
-    }
-  };
-}
-
 // Directive check
 export function isDirective(name: string) {
   return (node: TSESTree.Node): node is TSESTreeDirective =>
@@ -45,6 +15,11 @@ export function isDirective(name: string) {
 // Identifier check
 export function isIdentifier(name: string) {
   return (node: TSESTree.Node): node is TSESTree.Identifier => node.type === AST.Identifier && node.name === name;
+}
+
+// Checks whether the given node is string literal or not
+export function isStringLiteral(node: TSESTree.Node): node is TSESTree.StringLiteral {
+  return node.type === AST.Literal && typeof node.value === "string";
 }
 
 // Composite type guards
