@@ -10,17 +10,17 @@ A term-based rule targets a specific React or Web API term that appears directly
 
 | Rule                       | Target Term                                        |
 | -------------------------- | -------------------------------------------------- |
-| `no-forward-ref`           | `forwardRef`                                       |
-| `no-use-context`           | `useContext`                                       |
-| `no-create-ref`            | `createRef`                                        |
+| `no-children-map`          | `Children.map` (detected via `core.isChildrenMap`) |
+| `no-class-component`       | `Component`                                        |
 | `no-clone-element`         | `cloneElement`                                     |
 | `no-component-will-mount`  | `componentWillMount`                               |
-| `no-class-component`       | `Component`                                        |
-| `no-children-map`          | `Children.map` (detected via `core.isChildrenMap`) |
-| `set-state-in-effect`      | `useEffect` (regex `/use\w*Effect/u`)              |
-| `no-leaked-timeout`        | `setTimeout`                                       |
-| `no-leaked-fetch`          | `fetch` + `useEffect`                              |
+| `no-create-ref`            | `createRef`                                        |
+| `no-forward-ref`           | `forwardRef`                                       |
 | `no-leaked-event-listener` | `addEventListener` + `useEffect`                   |
+| `no-leaked-fetch`          | `fetch` + `useEffect`                              |
+| `no-leaked-timeout`        | `setTimeout`                                       |
+| `no-use-context`           | `useContext`                                       |
+| `set-state-in-effect`      | `useEffect` (regex `/use\w*Effect/u`)              |
 
 ---
 
@@ -42,18 +42,18 @@ export function create(context: RuleContext<MessageID, []>) {
 
 **Rules using this:**
 
-- `no-forward-ref`
-- `no-use-context`
-- `no-create-ref`
-- `no-clone-element`
-- `no-class-component`
-- `no-component-will-mount`
-- `no-set-state-in-component-did-update`
 - `no-access-state-in-setstate`
+- `no-class-component`
+- `no-clone-element`
+- `no-component-will-mount`
+- `no-create-ref`
+- `no-duplicate-key` (`key=`)
+- `no-forward-ref`
 - `no-missing-context-display-name`
 - `no-misused-capture-owner-stack`
+- `no-set-state-in-component-did-update`
+- `no-use-context`
 - `use-memo`
-- `no-duplicate-key` (`key=`)
 - `no-leaked-timeout`
 - `no-leaked-interval`
 - `no-leaked-resize-observer`
@@ -234,14 +234,14 @@ export function create(context: RuleContext<MessageID, []>) {
 
 | Rule                          | Precheck                                           | Visitor Strategy                  |
 | ----------------------------- | -------------------------------------------------- | --------------------------------- |
-| `no-forward-ref`              | `includes("forwardRef")`                           | Collector + `Program:exit`        |
-| `no-use-context`              | `includes("useContext")`                           | `CallExpression` immediate        |
-| `no-create-ref`               | _none_                                             | `CallExpression` immediate        |
-| `no-clone-element`            | _none_                                             | `CallExpression` immediate        |
-| `no-class-component`          | `includes("Component")`                            | Collector + `Program:exit`        |
-| `no-component-will-mount`     | `includes("componentWillMount")`                   | Collector + `Program:exit`        |
 | `no-access-state-in-setstate` | `includes("setState")`                             | Stack-based                       |
-| `set-state-in-effect`         | `/use\w*Effect/u`                                  | Complex tracking + `Program:exit` |
-| `no-leaked-timeout`           | `includes("setTimeout")`                           | Collect-and-match                 |
-| `no-leaked-fetch`             | `includes("fetch")` + `/use\w*Effect/u`            | Collect-and-match                 |
+| `no-class-component`          | `includes("Component")`                            | Collector + `Program:exit`        |
+| `no-clone-element`            | _none_                                             | `CallExpression` immediate        |
+| `no-component-will-mount`     | `includes("componentWillMount")`                   | Collector + `Program:exit`        |
+| `no-create-ref`               | _none_                                             | `CallExpression` immediate        |
+| `no-forward-ref`              | `includes("forwardRef")`                           | Collector + `Program:exit`        |
 | `no-leaked-event-listener`    | `includes("addEventListener")` + `/use\w*Effect/u` | Collect-and-match                 |
+| `no-leaked-fetch`             | `includes("fetch")` + `/use\w*Effect/u`            | Collect-and-match                 |
+| `no-leaked-timeout`           | `includes("setTimeout")`                           | Collect-and-match                 |
+| `no-use-context`              | `includes("useContext")`                           | `CallExpression` immediate        |
+| `set-state-in-effect`         | `/use\w*Effect/u`                                  | Complex tracking + `Program:exit` |
