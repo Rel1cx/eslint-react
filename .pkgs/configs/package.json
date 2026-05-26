@@ -38,7 +38,7 @@
     "typescript-eslint": "^8.59.4"
   },
   "devDependencies": {
-    "eslint": "^10.3.0",
+    "eslint": "^10.4.0",
     "tinyglobby": "^0.2.16",
     "tsdown": "^0.22.0",
     "tsl": "^1.0.30",
@@ -46,7 +46,7 @@
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
-    "typescript": "^6.0.3"
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
     "eslint": "^10.3.0",

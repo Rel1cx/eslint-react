@@ -19,7 +19,7 @@ export function MermaidDiagram({ code }: { code: string }) {
     }
   }, [code]);
 
-  if (error) return <pre>{error.message}</pre>;
+  if (error != null) return <pre>{error.message}</pre>;
   // eslint-disable-next-line @eslint-react/dom-no-dangerously-set-innerhtml
-  return <div className="not-prose overflow-x-auto" dangerouslySetInnerHTML={{ __html: svg! }} />;
+  return <div className="not-prose overflow-x-auto" dangerouslySetInnerHTML={{ __html: svg }} />;
 }

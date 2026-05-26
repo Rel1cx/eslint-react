@@ -1,4 +1,5 @@
-import { core, defineConfig } from "tsl";
+import { globSync } from "tinyglobby";
+import { defineConfig } from "tsl";
 import {
   noDuplicateExports,
   noDuplicateImports,
@@ -7,17 +8,32 @@ import {
 } from "tsl-dx";
 
 export default defineConfig({
+  ignore: [
+    ...globSync([
+      "**/*.d.ts",
+      "**/dist/**",
+      "**/build/**",
+      "src/rules/exhaustive-deps/*.ts",
+      "src/rules/rules-of-hooks/*.ts",
+    ], { ignore: ["**/node_modules/**"] }),
+  ],
   rules: [
-    ...core.all(),
-    core.dotNotation("off"),
-    core.noConfusingVoidExpression("off"),
-    core.noRedundantTypeConstituents("off"),
-    core.preferOptionalChain("off"),
-    core.strictBooleanExpressions("off"),
-    core.switchExhaustivenessCheck("off"), // This rule has a issue with `switch (true)` statements
-    // core.switchExhaustivenessCheck({
-    //   considerDefaultExhaustiveForUnions: true,
+    // core.strictBooleanExpressions({
+    //   allowAny: false,
+    //   allowNullableBoolean: false,
+    //   allowNullableEnum: false,
+    //   allowNullableNumber: false,
+    //   allowNullableObject: false,
+    //   allowNullableString: false,
+    //   allowNumber: true,
+    //   allowString: false,
     // }),
+    // core.noConfusingVoidExpression("off"),
+    // core.preferOptionalChain("off"),
+    // core.switchExhaustivenessCheck("off"), // This rule has a issue with `switch (true)` statements
+    // // core.switchExhaustivenessCheck({
+    // //   considerDefaultExhaustiveForUnions: true,
+    // // }),
     nullish({
       runtimeLibrary: "@eslint-react/eff",
     }),
