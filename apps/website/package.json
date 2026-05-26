@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@eslint-react/kit": "workspace:*",
-    "@examples/react-dom-with-custom-rules": "workspace:*",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
+    "@local/samples": "workspace:*",
     "@takumi-rs/image-response": "^1.4.0",
     "@typescript-eslint/types": "^8.59.4",
     "@typescript-eslint/utils": "^8.59.4",
