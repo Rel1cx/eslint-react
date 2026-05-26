@@ -28,6 +28,7 @@ export default defineConfig(
   {
     extends: [
       strictTypeChecked,
+      // @ts-expect-error - wait for import-integrity-lint to update
       importIntegrityPlugin.configs.recommended,
     ],
     files: GLOB_TS,
