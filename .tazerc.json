@@ -7,5 +7,5 @@
   "recursive": true,
   "includeLocked": true,
   "ignorePaths": ["test"],
-  "maturityPeriod": 3
+  "maturityPeriod": 1
 }
