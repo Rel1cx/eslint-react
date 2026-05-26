@@ -21,41 +21,38 @@ Copy the following into your project (e.g. `.config/noDuplicateProps.ts`):
 ```ts title=".config/noDuplicateProps.ts"
 import type { RuleFunction } from "@eslint-react/kit";
 
-/** Disallow duplicate props on JSX elements. */
-export function noDuplicateProps(): RuleFunction {
-  return (context) => {
-    function getPropName(
-      attribute: { name: { type: string; namespace?: { name: string }; name: string | { name: string } } },
-    ): string {
-      if (attribute.name.type === "JSXNamespacedName") {
-        const ns = attribute.name.namespace as { name: string };
-        const local = attribute.name.name as { name: string };
-        return `${ns.name}:${local.name}`;
-      }
-      return attribute.name.name as string;
-    }
+/** Options for {@link noDuplicateProps}. */
+export type noDuplicatePropsOptions = {
+  /** Whether to ignore case when checking for duplicate props. */
+  ignoreCase?: boolean;
+};
 
-    return {
-      JSXOpeningElement(node) {
-        const seen = new Map<string, boolean>();
+/** Disallow duplicate properties in JSX. */
+export function noDuplicateProps(options: noDuplicatePropsOptions = {}): RuleFunction {
+  const { ignoreCase = false } = options;
+  return (context) => ({
+    JSXOpeningElement(node) {
+      const seen = new Map<string, string>();
 
-        for (const attribute of node.attributes) {
-          if (attribute.type === "JSXSpreadAttribute") continue;
+      // ─── Check each attribute ──────────────────────
+      for (const attr of node.attributes) {
+        if (attr.type !== "JSXAttribute") continue;
+        if (attr.name.type !== "JSXIdentifier") continue;
 
-          const propName = getPropName(attribute);
+        const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-          if (seen.has(propName)) {
-            context.report({
-              node: attribute,
-              message: `Prop \`${propName}\` is specified more than once. Only the last one will take effect.`,
-            });
-          }
-
-          seen.set(propName, true);
+        // › Report duplicate
+        if (seen.has(name)) {
+          context.report({
+            node: attr,
+            message: `Duplicate prop "${attr.name.name}" found.`,
+          });
+        } else {
+          seen.set(name, attr.name.name);
         }
-      },
-    };
-  };
+      }
+    },
+  });
 }
 ```
 
@@ -69,7 +66,7 @@ export default [
   // ... other configs
   {
     ...eslintReactKit()
-      .use(noDuplicateProps)
+      .use(noDuplicateProps, { ignoreCase: true })
       .getConfig(),
     files: ["src/**/*.tsx"],
   },

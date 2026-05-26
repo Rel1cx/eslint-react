@@ -1,10 +1,6 @@
 import eslintReact from "@eslint-react/eslint-plugin";
 import eslintReactKit from "@eslint-react/kit";
 import eslintJs from "@eslint/js";
-import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
-import { defineConfig } from "eslint/config";
-import tseslint from "typescript-eslint";
 import {
   booleanPropNaming,
   checkedRequiresOnchangeOrReadonly,
@@ -33,7 +29,11 @@ import {
   noStringRefs,
   noUnnecessaryUsePrefix,
   version,
-} from "./.config";
+} from "@local/samples";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginReactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig } from "eslint/config";
+import tseslint from "typescript-eslint";
 import TSCONFIG_APP from "./tsconfig.app.json" with { type: "json" };
 import TSCONFIG_NODE from "./tsconfig.node.json" with { type: "json" };
 

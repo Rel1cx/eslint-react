@@ -19,11 +19,8 @@ export function noCircularEffect(): RuleFunction {
           const unwrappedParent = ast.unwrap(node.parent);
           // If unwrap stripped a wrapper, the result is the call expression itself.
           // In that case we need to look at the wrapper's parent to find the declarator.
-          const parent = unwrappedParent === node ? ast.unwrap(node.parent.parent) : unwrappedParent;
-          if (
-            parent.type === "VariableDeclarator"
-            && parent.id.type === "ArrayPattern"
-          ) {
+          const parent = unwrappedParent === node ? ast.unwrap(node.parent.parent!) : unwrappedParent;
+          if (parent.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
             const [stateEl, setterEl] = parent.id.elements;
             const unwrappedStateEl = stateEl ? ast.unwrap(stateEl) : null;
             const unwrappedSetterEl = setterEl ? ast.unwrap(setterEl) : null;
