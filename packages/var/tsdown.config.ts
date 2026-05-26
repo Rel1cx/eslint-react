@@ -1,6 +1,3 @@
-import base from "@local/configs/tsdown";
-import type { UserConfig } from "tsdown";
+import { buildConfig } from "@local/configs/tsdown.config.base";
 
-export default {
-  ...base,
-} satisfies UserConfig;
+export default buildConfig(process.cwd());

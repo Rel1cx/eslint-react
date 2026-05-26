@@ -1,1 +1,3 @@
-export { default } from "@local/configs/tsl.config.ts";
+import { buildConfig } from "@local/configs/tsl.config.base";
+
+export default buildConfig(process.cwd());

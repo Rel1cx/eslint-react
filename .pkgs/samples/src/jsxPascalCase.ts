@@ -34,7 +34,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
       // › Guard: ignore DOM elements (lowercase)
       const firstChar = componentName[0];
-      if (firstChar === undefined) return;
+      if (firstChar == null) return;
       if (firstChar === firstChar.toLowerCase()) return;
 
       // ─── Handle all-caps ─────────────────────────

@@ -10,12 +10,15 @@
       "types": "./eslint.d.ts",
       "import": "./eslint.js"
     },
-    "./tsconfig.base.json": "./tsconfig.base.json",
-    "./tsdown": {
-      "types": "./tsdown.d.ts",
-      "import": "./tsdown.js"
+    "./tsdown.config.base": {
+      "types": "./tsdown.config.base.d.ts",
+      "import": "./tsdown.config.base.js"
     },
-    "./tsl.config.ts": "./tsl.config.ts",
+    "./tsl.config.base": {
+      "types": "./tsl.config.base.d.ts",
+      "import": "./tsl.config.base.js"
+    },
+    "./tsconfig.base.json": "./tsconfig.base.json",
     "./typedoc.base.json": "./typedoc.base.json"
   },
   "scripts": {

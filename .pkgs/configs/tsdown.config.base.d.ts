@@ -1,4 +1,5 @@
-declare const _default: {
+export declare function buildConfig(cwd: string): {
+    readonly cwd: string;
     readonly clean: true;
     readonly deps: {
         readonly alwaysBundle: ["@local/eff"];
@@ -15,4 +16,3 @@ declare const _default: {
     readonly target: "node22";
     readonly treeshake: true;
 };
-export default _default;

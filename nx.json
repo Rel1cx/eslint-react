@@ -27,7 +27,7 @@
       "inputs": [
         "production",
         "^production",
-        "{workspaceRoot}/.pkgs/configs/tsdown.js",
+        "{workspaceRoot}/.pkgs/configs/tsdown.config.base.js",
         "{workspaceRoot}/.pkgs/configs/tsconfig.base.json"
       ],
       "outputs": [
@@ -51,7 +51,7 @@
       "inputs": [
         "default",
         "{workspaceRoot}/.pkgs/configs/tsconfig.base.json",
-        "{workspaceRoot}/.pkgs/configs/tsl.config.ts"
+        "{workspaceRoot}/.pkgs/configs/tsl.config.base.ts"
       ],
       "cache": true
     },

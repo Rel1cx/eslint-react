@@ -1,7 +1,7 @@
-import base from "@local/configs/tsdown";
+import { buildConfig } from "@local/configs/tsdown.config.base";
 import type { UserConfig } from "tsdown";
 
 export default {
-  ...base,
+  ...buildConfig(process.cwd()),
   platform: "neutral",
 } satisfies UserConfig;
