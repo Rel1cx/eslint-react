@@ -69,6 +69,7 @@ export function create(context: RuleContext<MessageID, []>) {
   /**
    * Recursively inspects a node to find potential leaked conditional rendering
    * @param node The AST node to inspect
+   * @param visited A set of visited identifier names to prevent infinite recursion.
    * @returns A report descriptor if a problem is found, otherwise `null`
    */
   function getReportDescriptor(

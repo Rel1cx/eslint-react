@@ -20,7 +20,7 @@ export const MUTATING_ARRAY_METHODS = new Set([
 /**
  * Check if a name is ref-like ("ref" or ends with "Ref").
  * Refs are mutable by design and exempted from immutability checks.
- * @param name
+ * @param name The identifier name to check.
  */
 export function isRefLikeName(name: string): boolean {
   return name === "ref" || name.endsWith("Ref");
@@ -29,7 +29,7 @@ export function isRefLikeName(name: string): boolean {
 /**
  * Check if any identifier or property name in a member-expression chain
  * is ref-like.
- * @param node
+ * @param node The AST node to inspect.
  */
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
   if (node.type === AST.Identifier) {
