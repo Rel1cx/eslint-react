@@ -80,7 +80,7 @@ def render_png(svg: Path, dst: Path, size: int) -> None:
             RESVG,
             "--width", str(size),
             "--height", str(size),
-            "--shape-rendering", "geometricPrecision",
+            "--image-rendering", "high-quality",
             str(svg),
             str(dst),
         ],
