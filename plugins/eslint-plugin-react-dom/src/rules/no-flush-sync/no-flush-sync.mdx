@@ -77,7 +77,7 @@ export default function PrintApp() {
     return () => {
       window.removeEventListener("beforeprint", handleBeforePrint);
       window.removeEventListener("afterprint", handleAfterPrint);
-    }
+    };
   }, []);
 
   return (
