@@ -53,7 +53,7 @@ Some browser APIs expect results inside of callbacks to be written to the DOM sy
 Due to current implementation limitations, this rule will still report an error for such legitimate uses. However, you can safely suppress it with `// eslint-disable-next-line` in these scenarios.
 
 ```tsx
-// OK: onbeforeprint needs the DOM updated before the print dialog opens
+// OK: the beforeprint event needs the DOM updated before the print dialog opens
 import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 
