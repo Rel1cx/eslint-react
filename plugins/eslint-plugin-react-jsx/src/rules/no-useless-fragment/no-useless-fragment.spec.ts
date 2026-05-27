@@ -267,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: "<div><>{''}</></div>",
+      code: '<div><>{\'\'}</></div>',
       errors: [
         {
           type: AST.JSXFragment,
@@ -281,6 +281,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: "<div>{''}</div>",
+    },
+    // Empty string expressions are treated as non-meaningful (PR #1805)
+    {
+      code: '<>{""}{""}</>',
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: '<>{""} </>',
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: tsx`
+        <>
+          {""}
+        </>
+      `,
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
     },
     {
       code: tsx`
