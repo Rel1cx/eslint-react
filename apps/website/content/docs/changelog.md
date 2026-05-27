@@ -1978,7 +1978,7 @@ If you use the `recommended`, `x`, or `all` preset, the following rules are now 
 
 ### 📘 Migration Guide: From `eslint-plugin-react-hooks`
 
-See the [complete migration guide](https://www.eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks) for more details.
+See the [complete migration guide](https://eslint-react.xyz/docs/migrating-from-eslint-plugin-react-hooks) for more details.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v2.13.0...v3.0.0-rc.0
 
@@ -2319,7 +2319,7 @@ The `no-unnecessary-use-ref` rule has been removed from the strict presets, as i
 
 ### 📝 Changes you should be aware of
 
-The new [`no-unnecessary-use-ref`](https://www.eslint-react.xyz/docs/rules/no-unnecessary-use-ref) rule is included in the strict presets.
+The new [`no-unnecessary-use-ref`](https://eslint-react.xyz/docs/rules/no-unnecessary-use-ref) rule is included in the strict presets.
 
 This rule reports unnecessary uses of `useRef` when the ref is only used within a single effect which the value can be co-located inside the effect itself. Thanks to @SukkaW for purposing it!
 
