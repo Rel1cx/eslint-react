@@ -3,12 +3,17 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Check whether a JSX element (or fragment) has **meaningful** children —
- * that is, at least one child that is not purely whitespace text.
+ * that is, at least one child that is not purely whitespace text or an empty
+ * string expression.
  *
- * A `JSXText` child whose `raw` content is empty after trimming is
- * considered non-meaningful regardless of whether it contains a line break.
- * This matches React's rendering behaviour where whitespace-only text nodes
- * do not produce visible output.
+ * A `JSXText` child whose `raw` content is empty after trimming is considered
+ * non-meaningful because it is typically a code-formatting artefact
+ * (indentation between tags). While React's client renderer preserves these
+ * nodes as text nodes, they rarely represent intentionally rendered content.
+ *
+ * An empty string expression (`children={""}`) is also considered
+ * non-meaningful because React's reconciler and SSR renderer explicitly skip
+ * empty strings, producing no DOM node.
  *
  * @param element - A `JSXElement` or `JSXFragment` node.
  * @returns `true` when the element has at least one meaningful child.
@@ -23,6 +28,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * // <div>                      -> false  (whitespace-only, with newlines)
  * // </div>
  * // <div></div>                -> false  (no children at all)
+ * // <div>{""}</div>            -> false  (empty string expression)
  *
  * if (hasChildren(node)) {
  *   // element renders visible content
@@ -31,11 +37,13 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  */
 export function hasChildren(element: TSESTreeJSXElementLike): boolean {
   if (element.children.length === 0) return false;
-  return !element.children.every((child: TSESTree.JSXChild) => isWhitespaceText(child));
+  return !element.children.every((child: TSESTree.JSXChild) =>
+    isWhitespaceText(child) || isEmptyStringExpression(child)
+  );
 }
 
 // ---------------------------------------------------------------------------
-// Internal helper
+// Internal helpers
 // ---------------------------------------------------------------------------
 
 /**
@@ -46,7 +54,22 @@ export function hasChildren(element: TSESTreeJSXElementLike): boolean {
  * nodes always return `false`.
  * @param node The JSX child node to check.
  */
-function isWhitespaceText(node: TSESTreeJSXElementLike["children"][number]): boolean {
+function isWhitespaceText(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
   return node.raw.trim() === "";
+}
+
+/**
+ * Whether a JSX child node is an empty string expression (`{""}`).
+ *
+ * React's reconciler and SSR renderer skip empty strings, producing no DOM
+ * node. These expressions are therefore considered non-meaningful children.
+ *
+ * @param node The JSX child node to check.
+ */
+function isEmptyStringExpression(node: TSESTree.JSXChild): boolean {
+  if (node.type !== AST.JSXExpressionContainer) return false;
+  const expr = node.expression;
+  if (expr.type !== AST.Literal) return false;
+  return expr.value === "";
 }
