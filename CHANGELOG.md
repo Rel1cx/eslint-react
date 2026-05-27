@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.8.7-beta.0 (2026-05-27)
+
+### 🐞 Fixes
+
+- **`jsx`**: Aligned children filtering and `hasChildren` behavior with React source, updating `no-children-prop` and `no-useless-fragment` rules accordingly (#1805).
+
+### 📝 Documentation
+
+- **`react-dom`**: Added more rule examples to `no-dangerously-set-innerhtml`, `no-find-dom-node`, `no-hydrate`, `no-render`, and `no-render-return-value` documentation (#1804).
+- **`react-dom`**: Added legitimate `flushSync` use cases to `no-flush-sync` rule documentation (#1803).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.6...v5.8.7-beta.0
+
 ## v5.8.6 (2026-05-27)
 
 ### 📝 Documentation
@@ -22,6 +35,8 @@
   - `fumadocs` patch versions
   - `nx` to `^22.7.4`
   - `pnpm` and lockfile updates
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.5...v5.8.6
 
 ## v5.8.5 (2026-05-24)
 
@@ -52,6 +67,8 @@
   - `vite` to `^8.0.14`
   - `vitest` to `^4.1.7`
   - `pnpm` to `11.2.1`
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.4...v5.8.5
 
 ## v5.8.4 (2026-05-22)
 
