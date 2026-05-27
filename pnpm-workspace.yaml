@@ -48,6 +48,7 @@ overrides:
   react-dom: ^19.2.6
   react: ^19.2.6
   semver: "^7.8.1"
+  tmp: "^0.2.6"
   ts-api-utils: ^2.5.0
   tslib: ^2.8.1
   typescript-eslint: "^8.60.0"
@@ -65,3 +66,4 @@ minimumReleaseAgeExclude:
   - fumadocs-twoslash
   - fumadocs-typescript
   - fumadocs-ui
+  - tmp@0.2.6

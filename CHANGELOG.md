@@ -1,5 +1,28 @@
 # Changelog
 
+## Unreleased
+
+### 📝 Documentation
+
+- Improved `react-x/context-name` rule description accuracy.
+- Removed broken Further Reading links across rule documentation.
+- Reordered Further Reading links by relevance in `react-x`, `react-dom`, and `react-web-api` rule documentation.
+- Updated `term-based-rule-patterns.md` documentation.
+
+### 🏗️ Internal
+
+- **`ast`**: Replaced `isLiteral` with `isStringLiteral` in `Check` utilities (#1798).
+- **Assets**: Made logo 120° rotationally symmetric and regenerated all icon assets (#1799).
+- **Configs**: Converted `tsdown` and `tsl` base configs to factory functions.
+- **Custom Rules**: Moved custom rule samples to the `@local/samples` package (#1800).
+- **TypeScript**: Fixed TypeScript version specification and cleaned up code style (#1801).
+- Bumped dependencies across workspace packages:
+  - `@typescript-eslint` to `^8.60.0`
+  - `eslint-plugin-jsdoc` to `63.0.0`
+  - `fumadocs` patch versions
+  - `nx` to `^22.7.4`
+  - `pnpm` and lockfile updates
+
 ## v5.8.5 (2026-05-24)
 
 ### 📝 Documentation
