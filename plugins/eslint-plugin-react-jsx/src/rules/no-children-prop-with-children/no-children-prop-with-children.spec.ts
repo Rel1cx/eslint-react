@@ -265,6 +265,43 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Empty string mixed with meaningful children still counts as having children (PR #1805)
+    {
+      code: '<div children="x">{""}hello</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: '<div>{""}hello</div>;',
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: '<div children="x"></div>;',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children="x">{""}<span /></div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: tsx`<div>{""}<span /></div>;`,
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: "<div children=\"x\"></div>;",
+            },
+          ],
+        },
+      ],
+    },
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" }, "Children");',
@@ -324,5 +361,11 @@ ruleTester.run(RULE_NAME, rule, {
     // createElement with children prop only
     'React.createElement("div", { children: "Children" });',
     'createElement("div", { children: "Children" });',
+    // Empty string expressions are not considered meaningful children (PR #1805)
+    '<div children="x">{""}</div>;',
+    '<div children="x">{\'\'}</div>;',
+    tsx`<div children="x">
+      {""}
+    </div>;`,
   ],
 });
