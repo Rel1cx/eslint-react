@@ -44,6 +44,44 @@ function MyComponent() {
 }
 ```
 
+### Rendering Markdown with `dangerouslySetInnerHTML`
+
+When converting Markdown to HTML, `dangerouslySetInnerHTML` can be used to display the rendered output. However, this should only be done with trusted input.
+
+```tsx
+// Problem: Using dangerouslySetInnerHTML to render Markdown
+import { Remarkable } from 'remarkable';
+
+const md = new Remarkable();
+
+function renderMarkdownToHTML(markdown) {
+  const renderedHTML = md.render(markdown);
+  return { __html: renderedHTML };
+}
+
+export default function MarkdownPreview({ markdown }) {
+  const markup = renderMarkdownToHTML(markdown);
+  return <div dangerouslySetInnerHTML={markup} />;
+}
+```
+
+### Passing untrusted input to `dangerouslySetInnerHTML`
+
+Passing untrusted input to `dangerouslySetInnerHTML` is a serious security risk that can lead to XSS attacks.
+
+```tsx
+// Problem: Passing untrusted input directly to dangerouslySetInnerHTML
+const post = {
+  content: `<img src="" onerror='alert("you were hacked")'>`,
+};
+
+export default function MarkdownPreview() {
+  // SECURITY HOLE: passing untrusted input to dangerouslySetInnerHTML
+  const markup = { __html: post.content };
+  return <div dangerouslySetInnerHTML={markup} />;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-dangerously-set-innerhtml/no-dangerously-set-innerhtml.ts)
