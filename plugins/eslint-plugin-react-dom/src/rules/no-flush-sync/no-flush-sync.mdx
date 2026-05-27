@@ -46,6 +46,88 @@ flushSync(() => {
 });
 ```
 
+### Using `flushSync` inside browser APIs that require synchronous DOM updates
+
+Some browser APIs expect results inside of callbacks to be written to the DOM synchronously, by the end of the callback, so the browser can do something with the rendered DOM. In these cases, `flushSync` is the appropriate tool.
+
+Due to current implementation limitations, this rule will still report an error for such legitimate uses. However, you can safely suppress it with `// eslint-disable-next-line` in these scenarios.
+
+```tsx
+// OK: onbeforeprint needs the DOM updated before the print dialog opens
+import { useState, useEffect } from "react";
+import { flushSync } from "react-dom";
+
+export default function PrintApp() {
+  const [isPrinting, setIsPrinting] = useState(false);
+
+  useEffect(() => {
+    function handleBeforePrint() {
+      // eslint-disable-next-line @eslint-react/dom-no-flush-sync
+      flushSync(() => {
+        setIsPrinting(true);
+      })
+    }
+
+    function handleAfterPrint() {
+      setIsPrinting(false);
+    }
+
+    window.addEventListener("beforeprint", handleBeforePrint);
+    window.addEventListener("afterprint", handleAfterPrint);
+    return () => {
+      window.removeEventListener("beforeprint", handleBeforePrint);
+      window.removeEventListener("afterprint", handleAfterPrint);
+    }
+  }, []);
+
+  return (
+    <>
+      <h1>isPrinting: {isPrinting ? "yes" : "no"}</h1>
+      <button onClick={() => window.print()}>
+        Print
+      </button>
+    </>
+  );
+}
+```
+
+### Using `flushSync` with `startViewTransition`
+
+Similarly, `flushSync` can be appropriate when used inside `startViewTransition` (or a helper wrapping it) to ensure the DOM is updated synchronously before the browser captures the transition state.
+
+<Callout type="warning">
+  The View Transitions API is still experimental and not fully supported in all browsers.
+</Callout>
+
+```tsx
+// OK: startViewTransition needs the DOM updated synchronously before capture
+import { useState } from "react";
+import { flushSync } from "react-dom";
+import { transitionHelper } from "./utils";
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  const onIncrementClick = () => {
+    transitionHelper({
+      updateDOM() {
+        // eslint-disable-next-line @eslint-react/dom-no-flush-sync
+        flushSync(() => {
+          setCount(count + 1);
+        });
+      }
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={onIncrementClick}>Increment</button>
+      <div className="count">{count}</div>
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-flush-sync/no-flush-sync.ts)
@@ -55,3 +137,4 @@ flushSync(() => {
 ## Further Reading
 
 - [React Docs: `flushSync`](https://react.dev/reference/react-dom/flushSync)
+- [Chrome Developers: Working with frameworks in View Transitions](https://developer.chrome.com/docs/web-platform/view-transitions/same-document#working_with_frameworks)
