@@ -2,7 +2,7 @@
 title: Changelog
 ---
 
-## Unreleased
+## v5.8.6 (2026-05-27)
 
 ### 📝 Documentation
 
