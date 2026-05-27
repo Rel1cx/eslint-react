@@ -247,8 +247,40 @@ ruleTester.run(RULE_NAME, rule, {
           data: { reason: "placed inside a host component" },
           messageId: "default",
         },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
       ],
       output: '<div>a {""}{""} a</div>',
+    },
+    {
+      code: "<>{''}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: "<div><>{''}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{''}</div>",
     },
     {
       code: tsx`
