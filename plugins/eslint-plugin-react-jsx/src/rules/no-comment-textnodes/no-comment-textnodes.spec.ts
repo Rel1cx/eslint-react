@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     "<App foo='test'>{/* valid */}</App>",
-    "<strong>&nbsp;https://www.eslint-react.xyz/attachment/download/1</strong>",
+    "<strong>&nbsp;https://eslint-react.xyz/attachment/download/1</strong>",
     "<App /* valid */ placeholder={'foo'}/>",
     "</* valid */></>",
     // URL-like text should not be treated as comments

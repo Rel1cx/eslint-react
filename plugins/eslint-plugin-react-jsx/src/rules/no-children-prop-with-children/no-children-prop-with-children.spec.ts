@@ -296,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
             },
             {
               messageId: "removeChildrenContent",
-              output: "<div children=\"x\"></div>;",
+              output: '<div children="x"></div>;',
             },
           ],
         },
@@ -363,7 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
     'createElement("div", { children: "Children" });',
     // Empty string expressions are not considered meaningful children (PR #1805)
     '<div children="x">{""}</div>;',
-    '<div children="x">{\'\'}</div>;',
+    "<div children=\"x\">{''}</div>;",
     tsx`<div children="x">
       {""}
     </div>;`,

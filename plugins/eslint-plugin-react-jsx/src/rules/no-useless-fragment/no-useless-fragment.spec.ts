@@ -267,7 +267,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: '<div><>{\'\'}</></div>',
+      code: "<div><>{''}</></div>",
       errors: [
         {
           type: AST.JSXFragment,
