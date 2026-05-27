@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.7-beta.0] - 2026-05-27
+
+### Fixed
+
+- Fixed false negative: `<>{''}</>` is now correctly reported as useless because React ignores empty string children. (#1805)
+- Corrected `trimLikeReact` JSDoc to clarify it is an auto-fixer formatting utility, not a model of React's rendering behaviour.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed
