@@ -2,6 +2,25 @@
 title: Changelog
 ---
 
+## v5.8.7-beta.1 (2026-05-28)
+
+### 🐞 Fixes
+
+- **`react-x/no-unused-state`**: Removed the "only used in effects" detection so the rule only reports state variables that are defined but never used, reducing false positives (#1808, #1749).
+
+### 🏗️ Internal
+
+- **`jsx`**: Added targeted test cases for empty string children behavior in `no-children-prop-with-children` and `no-useless-fragment` rules (#1806).
+- **Website**: Removed SF Pro fonts from the body font stack and normalized CSS baseline.
+- **Tests**: Normalized quote usage in test files and removed `www` prefix from `eslint-react.xyz` links (#1807).
+- Bumped `fumadocs-mdx` and updated pnpm lockfile.
+- Bumped `dompurify` to `3.4.6`.
+- Bumped dprint plugins (`g-plane/markup_fmt` and `markdown`).
+- Updated Sentrux baseline metrics.
+- Updated per-rule CHANGELOGs for `no-useless-fragment`, `no-children-prop`, and `no-children-prop-with-children` (#1805).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.0...v5.8.7-beta.1
+
 ## v5.8.7-beta.0 (2026-05-27)
 
 ### 🐞 Fixes
