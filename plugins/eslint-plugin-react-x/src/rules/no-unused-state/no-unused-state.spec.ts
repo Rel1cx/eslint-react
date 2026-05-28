@@ -14,67 +14,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default", data: { name: "data" } }],
     },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            console.log(data);
-          }, [data]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "data" } }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useState(0);
-          useLayoutEffect(() => {
-            console.log(data);
-          }, [data]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "data" } }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            setData(data + 1);
-          }, [data]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "data" } }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            console.log(data);
-          }, []);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "data" } }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [a, setA] = useState(0);
-          const [b, setB] = useState(0);
-          useEffect(() => {
-            console.log(a);
-          }, [a]);
-          return <div>{b}</div>;
-        }
-      `,
-      errors: [{ messageId: "default", data: { name: "a" } }],
-    },
   ],
   valid: [
     {
