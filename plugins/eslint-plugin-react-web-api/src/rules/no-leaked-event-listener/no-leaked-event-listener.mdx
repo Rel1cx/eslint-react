@@ -31,6 +31,49 @@ Adding an event listener without removing it can lead to memory leaks and unexpe
 
 ## Examples
 
+### Adding event listener without cleanup in useEffect
+
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log("clicked");
+    };
+
+    // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
+    document.addEventListener("click", handleClick);
+  }, []);
+
+  return null;
+}
+```
+
+### Proper cleanup in useEffect
+
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log("clicked");
+    };
+
+    // Recommended: Add listener in effect setup
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      // Recommended: Remove listener in effect cleanup
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  return null;
+}
+```
+
 ### Adding event listener without cleanup in class components
 
 ```tsx
@@ -52,22 +95,29 @@ class MyComponent extends Component {
 }
 ```
 
-### Adding event listener without cleanup in useEffect
+### Proper cleanup in class components
 
 ```tsx
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 
-function MyComponent() {
-  useEffect(() => {
-    const handleClick = () => {
-      console.log("clicked");
-    };
+class MyComponent extends Component {
+  componentDidMount() {
+    // Recommended: Add listener in mount
+    document.addEventListener("click", this.handleClick);
+  }
 
-    // Problem: An 'addEventListener' in 'useEffect' should have a corresponding 'removeEventListener' in its cleanup function.
-    document.addEventListener("click", handleClick);
-  }, []);
+  componentWillUnmount() {
+    // Recommended: Remove listener in unmount
+    document.removeEventListener("click", this.handleClick);
+  }
 
-  return null;
+  handleClick() {
+    console.log("clicked");
+  }
+
+  render() {
+    return null;
+  }
 }
 ```
 
@@ -110,6 +160,29 @@ function MyComponent() {
 }
 ```
 
+### Matching options between add and remove
+
+```tsx
+import React, { useEffect } from "react";
+
+function MyComponent() {
+  useEffect(() => {
+    const handleClick = () => {
+      console.log("clicked");
+    };
+
+    document.addEventListener("click", handleClick, { capture: true });
+
+    return () => {
+      // Recommended: Use identical options in both add and remove
+      document.removeEventListener("click", handleClick, { capture: true });
+    };
+  }, []);
+
+  return null;
+}
+```
+
 ### Dynamic entries that may differ between setup and cleanup
 
 ```tsx
@@ -138,75 +211,30 @@ function MyComponent() {
 }
 ```
 
-### Proper cleanup in class components
+### Pre-computing entries for consistency
 
 ```tsx
-import React, { Component } from "react";
-
-class MyComponent extends Component {
-  componentDidMount() {
-    // Recommended: Add listener in mount
-    document.addEventListener("click", this.handleClick);
-  }
-
-  componentWillUnmount() {
-    // Recommended: Remove listener in unmount
-    document.removeEventListener("click", this.handleClick);
-  }
-
-  handleClick() {
-    console.log("clicked");
-  }
-
-  render() {
-    return null;
-  }
-}
-```
-
-### Proper cleanup in useEffect
-
-```tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 function MyComponent() {
   useEffect(() => {
-    const handleClick = () => {
-      console.log("clicked");
-    };
+    if (!el) {
+      return;
+    }
 
-    // Recommended: Add listener in effect setup
-    document.addEventListener("click", handleClick);
+    // Recommended: Always use the same entries in both the setup and cleanup functions:
+    const handlerEntries = Object.entries(handlers); // <- Use the same entries array
 
-    return () => {
-      // Recommended: Remove listener in effect cleanup
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
-
-  return null;
-}
-```
-
-### Matching options between add and remove
-
-```tsx
-import React, { useEffect } from "react";
-
-function MyComponent() {
-  useEffect(() => {
-    const handleClick = () => {
-      console.log("clicked");
-    };
-
-    document.addEventListener("click", handleClick, { capture: true });
+    for (const [name, handler] of handlerEntries) {
+      el.addEventListener(name, handler);
+    }
 
     return () => {
-      // Recommended: Use identical options in both add and remove
-      document.removeEventListener("click", handleClick, { capture: true });
+      for (const [name, handler] of handlerEntries) {
+        el.removeEventListener(name, handler);
+      }
     };
-  }, []);
-
+  }, [el]);
   return null;
 }
 ```
@@ -239,34 +267,6 @@ function MyComponent() {
     };
   }, []);
 
-  return null;
-}
-```
-
-### Pre-computing entries for consistency
-
-```tsx
-import { useEffect } from "react";
-
-function MyComponent() {
-  useEffect(() => {
-    if (!el) {
-      return;
-    }
-
-    // Recommended: Always use the same entries in both the setup and cleanup functions:
-    const handlerEntries = Object.entries(handlers); // <- Use the same entries array
-
-    for (const [name, handler] of handlerEntries) {
-      el.addEventListener(name, handler);
-    }
-
-    return () => {
-      for (const [name, handler] of handlerEntries) {
-        el.removeEventListener(name, handler);
-      }
-    };
-  }, [el]);
   return null;
 }
 ```

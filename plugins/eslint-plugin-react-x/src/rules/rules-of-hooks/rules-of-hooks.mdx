@@ -35,39 +35,6 @@ React relies on the order in which hooks are called to correctly preserve state 
 
 ## Examples
 
-### The `use` hook
-
-The `use` hook is different from other React hooks. You can call it conditionally and in loops:
-
-```tsx
-// ✅ `use` can be conditional
-function Component({ shouldFetch, fetchPromise }) {
-  if (shouldFetch) {
-    const data = use(fetchPromise);
-    return <div>{data}</div>;
-  }
-  return <div>Nothing to fetch</div>;
-}
-```
-
-```tsx
-// ✅ `use` can be in loops
-function Component({ promises }) {
-  const results = [];
-  for (const promise of promises) {
-    results.push(use(promise));
-  }
-  return <div>{results.join(", ")}</div>;
-}
-```
-
-However, `use` still has restrictions:
-
-- Can't be wrapped in try/catch
-- Must be called inside a component or hook
-
-Learn more: [`use` API Reference](https://react.dev/reference/react/use)
-
 ### Calling hooks conditionally
 
 Hooks must be called in the exact same order on every render. Placing a hook inside an `if` statement breaks this contract because the hook may be skipped on some renders.
@@ -154,30 +121,6 @@ function MyComponent() {
 }
 ```
 
-### `use` in try/catch blocks
-
-The `use` hook cannot be called from inside a `try` block because React needs to be able to suspend the component, and try/catch interferes with React's internal exception handling for Suspense.
-
-```tsx
-// Problem: calling use inside a try block
-function MyComponent({ promise }) {
-  try {
-    const data = use(promise);
-    //           ^^^ React Hook "use" cannot be called from a try block.
-  } catch (e) {
-    // error handling
-  }
-}
-```
-
-```tsx
-// Recommended: call use outside the try block
-function MyComponent({ promise }) {
-  const data = use(promise);
-  // ...
-}
-```
-
 ### Conditionally initializing state
 
 You may be tempted to call `useState` inside a condition when you want different initial values for different scenarios. This breaks the Rules of Hooks because the number of hook calls changes between renders.
@@ -203,6 +146,63 @@ function MyComponent({ userType, adminPerms, userPerms }) {
   );
 }
 ```
+
+### `use` in try/catch blocks
+
+The `use` hook cannot be called from inside a `try` block because React needs to be able to suspend the component, and try/catch interferes with React's internal exception handling for Suspense.
+
+```tsx
+// Problem: calling use inside a try block
+function MyComponent({ promise }) {
+  try {
+    const data = use(promise);
+    //           ^^^ React Hook "use" cannot be called from a try block.
+  } catch (e) {
+    // error handling
+  }
+}
+```
+
+```tsx
+// Recommended: call use outside the try block
+function MyComponent({ promise }) {
+  const data = use(promise);
+  // ...
+}
+```
+
+### The `use` hook
+
+The `use` hook is different from other React hooks. You can call it conditionally and in loops:
+
+```tsx
+// ✅ `use` can be conditional
+function Component({ shouldFetch, fetchPromise }) {
+  if (shouldFetch) {
+    const data = use(fetchPromise);
+    return <div>{data}</div>;
+  }
+  return <div>Nothing to fetch</div>;
+}
+```
+
+```tsx
+// ✅ `use` can be in loops
+function Component({ promises }) {
+  const results = [];
+  for (const promise of promises) {
+    results.push(use(promise));
+  }
+  return <div>{results.join(", ")}</div>;
+}
+```
+
+However, `use` still has restrictions:
+
+- Can't be wrapped in try/catch
+- Must be called inside a component or hook
+
+Learn more: [`use` API Reference](https://react.dev/reference/react/use)
 
 ### Hooks at top level
 

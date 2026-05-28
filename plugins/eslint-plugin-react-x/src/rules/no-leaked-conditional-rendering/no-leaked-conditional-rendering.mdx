@@ -151,6 +151,20 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
 }
 ```
 
+### Using negation for conditional rendering
+
+```tsx
+// OK: When the condition expression explicitly produces a boolean result, no value will leak
+interface MyComponentProps {
+  items: string[];
+  count: number;
+}
+
+function MyComponent({ items, count }: MyComponentProps) {
+  return <div>{!count && "No results found"}</div>;
+}
+```
+
 ### Rendering arrays or strings directly
 
 ```tsx
@@ -186,20 +200,6 @@ const defaultTitle = "Default Title";
 
 function MyComponent({ customTitle }: MyComponentProps) {
   return <div>{customTitle || defaultTitle}</div>;
-}
-```
-
-### Using negation for conditional rendering
-
-```tsx
-// OK: When the condition expression explicitly produces a boolean result, no value will leak
-interface MyComponentProps {
-  items: string[];
-  count: number;
-}
-
-function MyComponent({ items, count }: MyComponentProps) {
-  return <div>{!count && "No results found"}</div>;
 }
 ```
 

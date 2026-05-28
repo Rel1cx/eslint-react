@@ -162,6 +162,22 @@ function MyComponent(props: MyComponentProps) {
 }
 ```
 
+### Using the `use memo` directive
+
+In React 19, if a component uses the `"use memo"` directive, the compiler automatically optimizes reference stability for default props, so literal default values are acceptable.
+
+```tsx
+// OK: The use memo directive automatically optimizes references
+interface MyComponentProps {
+  items: string[];
+}
+
+function MyComponent({ items = [] }: MyComponentProps) {
+  "use memo";
+  return null;
+}
+```
+
 ### Using primitive types as default props
 
 Primitive types (number, string, boolean, etc.) are compared by value and don't have reference instability issues, so they can be inlined directly.
@@ -176,22 +192,6 @@ interface MyComponentProps {
 
 function MyComponent({ num = 3, str = "foo", bool = true }: MyComponentProps) {
   //                   ^^^ Primitives are all compared by value, so they are safe to inline as default props.
-  return null;
-}
-```
-
-### Using the `use memo` directive
-
-In React 19, if a component uses the `"use memo"` directive, the compiler automatically optimizes reference stability for default props, so literal default values are acceptable.
-
-```tsx
-// OK: The use memo directive automatically optimizes references
-interface MyComponentProps {
-  items: string[];
-}
-
-function MyComponent({ items = [] }: MyComponentProps) {
-  "use memo";
   return null;
 }
 ```
