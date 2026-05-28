@@ -81,7 +81,7 @@ function StatefulForm({}) {
 // Recommended: Use useActionState to track pending state
 import { useActionState } from "react";
 
-async function addToCart(previousCount: number) {
+async function addToCart(previousCount: number, formData: FormData) {
   // Simulate an async server action
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return previousCount + 1;
