@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.8.7-beta.2 (2026-05-28)
+
+### 🏗️ Internal
+
+- **`react-x/no-unused-state`**: Removed incorrect invalid test cases.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.1...v5.8.7-beta.2
+
 ## v5.8.7-beta.1 (2026-05-28)
 
 ### 🐞 Fixes
