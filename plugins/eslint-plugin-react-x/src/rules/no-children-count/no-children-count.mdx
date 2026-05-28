@@ -105,6 +105,34 @@ function App() {
 }
 ```
 
+### Conditionally rendering based on item count
+
+If a component needs to show different UI depending on how many items there are, let the parent compute the count from its own data rather than inspecting children.
+
+```tsx
+// Recommended: compute the count from props in the parent
+interface ItemListProps {
+  items: string[];
+}
+
+function ItemList({ items }: ItemListProps) {
+  const hasItems = items.length > 0;
+  return (
+    <div>
+      {hasItems ? (
+        <ul>
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No items available.</p>
+      )}
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-count/no-children-count.ts)

@@ -89,6 +89,36 @@ function Counter() {
 }
 ```
 
+### Encapsulating interval logic in a custom hook
+
+When multiple components need the same interval behavior, extract it into a custom hook. This keeps the cleanup logic centralized and ensures every `setInterval` has a matching `clearInterval`.
+
+```tsx
+// Recommended: encapsulate interval logic in a custom hook with cleanup
+import { useState, useEffect } from "react";
+
+function useTimer(callback: () => void, delay: number) {
+  useEffect(() => {
+    const id = setInterval(() => {
+      callback();
+    }, delay);
+    return () => {
+      clearInterval(id);
+    };
+  }, [delay, callback]);
+}
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useTimer(() => {
+    setCount((c) => c + 1);
+  }, 1000);
+
+  return <h1>Counter: {count}</h1>;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval/no-leaked-interval.ts)
