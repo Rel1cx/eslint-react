@@ -68,6 +68,37 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
+### Rendering nested lists
+
+When rendering nested lists, both the outer and inner items need stable keys. Using the item's own identifier ensures React can correctly track elements at every level.
+
+```tsx
+// Recommended: Use stable identifiers for both outer and inner list items
+interface Recipe {
+  id: string;
+  name: string;
+  ingredients: string[];
+}
+
+function RecipeList({ recipes }: { recipes: Recipe[] }) {
+  return (
+    <div>
+      <h1>Recipes</h1>
+      {recipes.map((recipe) => (
+        <div key={recipe.id}>
+          <h2>{recipe.name}</h2>
+          <ul>
+            {recipe.ingredients.map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
 ### Rendering multiple elements per list item
 
 When each list item needs to render multiple elements, use `Fragment` with a stable key so React can track the group without adding extra DOM nodes.
