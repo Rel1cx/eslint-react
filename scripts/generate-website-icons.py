@@ -78,9 +78,12 @@ def render_png(svg: Path, dst: Path, size: int) -> None:
     subprocess.run(
         [
             RESVG,
-            "--width", str(size),
-            "--height", str(size),
-            "--image-rendering", "high-quality",
+            "--width",
+            str(size),
+            "--height",
+            str(size),
+            "--image-rendering",
+            "high-quality",
             str(svg),
             str(dst),
         ],

@@ -28,18 +28,15 @@ try:
     import numpy as np
     from svgpathtools import parse_path
 except ImportError as exc:  # pragma: no cover
-    sys.exit(
-        f"Missing dependency: {exc.name}.\n"
-        "Install with:  pip install svgpathtools numpy"
-    )
+    sys.exit(f"Missing dependency: {exc.name}.\nInstall with:  pip install svgpathtools numpy")
 
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 DEFAULT_SVG = Path(__file__).resolve().parent.parent / "assets" / "logo.svg"
-SAMPLES_PER_PATH = 600       # points per path (denser => more accurate)
-TOLERANCE_PX = 0.5           # max allowed Hausdorff distance, in SVG pixels
+SAMPLES_PER_PATH = 600  # points per path (denser => more accurate)
+TOLERANCE_PX = 0.5  # max allowed Hausdorff distance, in SVG pixels
 ANGLES_DEG = (120.0, 240.0)  # rotations we expect to be symmetries
 
 
@@ -137,20 +134,14 @@ def main(argv: list[str]) -> int:
             ok = best_d <= TOLERANCE_PX
             overall_ok &= ok
             tag = "OK  " if ok else "FAIL"
-            print(
-                f"  [{tag}] path {i} ({short_d(paths[i][0])})\n"
-                f"         → best match: path {best_j}   "
-                f"Hausdorff = {best_d:.4f} px"
-            )
+            print(f"  [{tag}] path {i} ({short_d(paths[i][0])})\n         → best match: path {best_j}   Hausdorff = {best_d:.4f} px")
         print()
 
     print("=" * 60)
     if overall_ok:
-        print(f"✔  All paths exhibit 120° rotational symmetry "
-              f"(≤ {TOLERANCE_PX} px).")
+        print(f"✔  All paths exhibit 120° rotational symmetry (≤ {TOLERANCE_PX} px).")
         return 0
-    print(f"✘  Some paths deviate by more than {TOLERANCE_PX} px from "
-          f"120° symmetry. See FAIL rows above.")
+    print(f"✘  Some paths deviate by more than {TOLERANCE_PX} px from 120° symmetry. See FAIL rows above.")
     return 1
 
 
