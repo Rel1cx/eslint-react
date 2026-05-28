@@ -15,7 +15,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/samples": "workspace:*",
-    "@takumi-rs/image-response": "^1.5.1",
+    "@takumi-rs/image-response": "^1.6.0",
     "@typescript-eslint/types": "^8.60.0",
     "@typescript-eslint/utils": "^8.60.0",
     "beautiful-mermaid": "^1.1.3",
