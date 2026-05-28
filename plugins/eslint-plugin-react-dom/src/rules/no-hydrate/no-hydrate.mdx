@@ -76,6 +76,23 @@ const container = document.getElementById('app');
 const root = hydrateRoot(container, <App tab="home" />);
 ```
 
+### Hydrating a server-rendered app safely
+
+When hydrating a server-rendered application, verify that the DOM node exists before calling `hydrateRoot` to avoid runtime errors.
+
+```tsx
+// Recommended: Verify the DOM node exists before hydrating
+import { hydrateRoot } from "react-dom/client";
+import App from "./App";
+
+const domNode = document.getElementById("root");
+if (domNode) {
+  hydrateRoot(domNode, <App />);
+} else {
+  console.error("Hydration target not found");
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-hydrate/no-hydrate.ts)

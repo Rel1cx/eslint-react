@@ -75,6 +75,50 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Using data props and CSS instead of augmenting children
+
+If you need to add separators or other decorations between items, let the parent control the layout with CSS or pass structured data as props rather than transforming children.
+
+```tsx
+// Recommended: control separators with CSS or pass data as props
+interface Item {
+  id: string;
+  name: string;
+}
+
+function List({ items }: { items: Item[] }) {
+  return (
+    <ul className="list-with-separators">
+      {items.map((item) => (
+        <li key={item.id}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+
+// CSS: .list-with-separators li + li { border-top: 1px solid #ccc; }
+```
+
+```tsx
+// Recommended: pass structured data when each item needs custom wrapping
+interface Row {
+  id: string;
+  content: React.ReactNode;
+}
+
+function RowList({ rows }: { rows: Row[] }) {
+  return (
+    <div className="RowList">
+      {rows.map((row) => (
+        <div className="Row" key={row.id}>
+          {row.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-for-each/no-children-for-each.ts)

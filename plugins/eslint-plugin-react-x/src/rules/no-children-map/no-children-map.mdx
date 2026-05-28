@@ -73,6 +73,46 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Passing structured data as props
+
+Instead of passing React elements as children and wrapping them with `Children.map`, accept structured data as a prop and map over it directly. This gives you full control over rendering and keys.
+
+```tsx
+// Recommended: accept structured data as a prop and map over it
+interface Row {
+  id: string;
+  content: React.ReactNode;
+}
+
+interface RowListProps {
+  rows: Row[];
+}
+
+function RowList({ rows }: RowListProps) {
+  return (
+    <div className="RowList">
+      {rows.map((row) => (
+        <div className="Row" key={row.id}>
+          {row.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <RowList
+      rows={[
+        { id: "first", content: <p>This is the first item.</p> },
+        { id: "second", content: <p>This is the second item.</p> },
+        { id: "third", content: <p>This is the third item.</p> },
+      ]}
+    />
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-map/no-children-map.ts)

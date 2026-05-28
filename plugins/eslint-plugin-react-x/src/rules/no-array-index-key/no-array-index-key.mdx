@@ -68,6 +68,31 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
+### Rendering multiple elements per list item
+
+When each list item needs to render multiple elements, use `Fragment` with a stable key so React can track the group without adding extra DOM nodes.
+
+```tsx
+// Recommended: Use Fragment with a stable key for multi-element items
+import { Fragment } from "react";
+
+interface Person {
+  id: string;
+  name: string;
+  bio: string;
+}
+
+function List({ people }: { people: Person[] }) {
+  const listItems = people.map((person) => (
+    <Fragment key={person.id}>
+      <h1>{person.name}</h1>
+      <p>{person.bio}</p>
+    </Fragment>
+  ));
+  return <ul>{listItems}</ul>;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-array-index-key/no-array-index-key.ts)

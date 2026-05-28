@@ -71,6 +71,40 @@ function MyComponent() {
 }
 ```
 
+### Observing multiple elements with ResizeObserver
+
+When observing multiple elements, disconnect the observer in the cleanup function to prevent memory leaks.
+
+```tsx
+// Recommended: Disconnect ResizeObserver when observing multiple elements
+import { useEffect, useRef } from "react";
+
+function ResizablePanels() {
+  const panelARef = useRef<HTMLDivElement>(null);
+  const panelBRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        console.log("Size changed:", entry.contentRect);
+      }
+    });
+
+    if (panelARef.current) ro.observe(panelARef.current);
+    if (panelBRef.current) ro.observe(panelBRef.current);
+
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <>
+      <div ref={panelARef}>Panel A</div>
+      <div ref={panelBRef}>Panel B</div>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-resize-observer/no-leaked-resize-observer.ts)

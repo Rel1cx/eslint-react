@@ -101,6 +101,45 @@ function MyInput({
 }
 ```
 
+### Passing ref through a component tree in React 19
+
+In React 19, `ref` can be passed like any other prop, making it easy to forward refs through intermediate components without `forwardRef`.
+
+```tsx
+// Recommended: Pass ref as a regular prop through multiple layers
+import { useRef } from "react";
+
+function MyInput({ ref, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { ref?: React.Ref<HTMLInputElement> }) {
+  return <input ref={ref} {...props} />;
+}
+
+function FormField({ ref, label, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { ref?: React.Ref<HTMLInputElement>; label: string }) {
+  return (
+    <label>
+      {label}
+      <MyInput ref={ref} {...props} />
+    </label>
+  );
+}
+
+export default function Form() {
+  const ref = useRef<HTMLInputElement>(null);
+
+  function handleClick() {
+    ref.current?.focus();
+  }
+
+  return (
+    <form>
+      <FormField label="Enter your name:" ref={ref} placeholder="Name" />
+      <button type="button" onClick={handleClick}>
+        Edit
+      </button>
+    </form>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-forward-ref/no-forward-ref.ts)

@@ -116,6 +116,35 @@ function Form() {
 }
 ```
 
+### Using a typed ref with useRef
+
+When you need a strongly typed ref in a function component, use `useRef` with an explicit generic parameter instead of `createRef`.
+
+```tsx
+// Recommended: Use useRef with an explicit type parameter
+import { useRef } from "react";
+
+function VideoPlayer() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function handlePlay() {
+    videoRef.current?.play();
+  }
+
+  function handlePause() {
+    videoRef.current?.pause();
+  }
+
+  return (
+    <>
+      <video ref={videoRef} src="/video.mp4" />
+      <button onClick={handlePlay}>Play</button>
+      <button onClick={handlePause}>Pause</button>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-create-ref/no-create-ref.ts)

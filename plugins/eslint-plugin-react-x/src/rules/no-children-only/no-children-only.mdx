@@ -64,6 +64,27 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Using a dedicated prop instead of children
+
+If your component is designed to work with a single element, consider accepting it as a regular prop instead of children. This makes the API clearer and avoids runtime checks.
+
+```tsx
+// Recommended: accept the single element as a named prop
+import { type ReactElement } from "react";
+
+interface ModalProps {
+  content: ReactElement;
+}
+
+function Modal({ content }: ModalProps) {
+  return <div className="modal">{content}</div>;
+}
+
+function App() {
+  return <Modal content={<p>Hello, world!</p>} />;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-only/no-children-only.ts)

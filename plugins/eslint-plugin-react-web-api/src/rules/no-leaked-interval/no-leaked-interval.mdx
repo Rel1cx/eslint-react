@@ -67,6 +67,28 @@ function MyComponent() {
 }
 ```
 
+### Avoiding stale dependencies in intervals
+
+If your interval callback reads state, including that state in the dependency array will reset the interval on every change. Use a state updater function instead so the interval can run with an empty dependency array.
+
+```tsx
+// Recommended: use a state updater to avoid stale closures and unnecessary resets
+import { useState, useEffect } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount((c) => c + 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-interval/no-leaked-interval.ts)

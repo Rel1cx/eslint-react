@@ -85,6 +85,40 @@ function UserProfile({ id }: { id: string }) {
 }
 ```
 
+### Using async/await with AbortController
+
+When using `async/await` inside `useEffect`, create the `AbortController` outside the async function so it can be aborted in the cleanup function.
+
+```tsx
+// Recommended: Use async/await with AbortController in useEffect
+import { useEffect, useState } from "react";
+
+function UserProfile({ id }: { id: string }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+
+    async function fetchUser() {
+      try {
+        const response = await fetch(`/api/user/${id}`, { signal: ctrl.signal });
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        if ((error as Error).name !== "AbortError") {
+          console.error(error);
+        }
+      }
+    }
+
+    fetchUser();
+    return () => ctrl.abort();
+  }, [id]);
+
+  return user ? <Profile user={user} /> : null;
+}
+```
+
 ## Troubleshooting
 
 ### Why is this pattern problematic?

@@ -88,6 +88,30 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 }
 ```
 
+### Migrating a class component with state
+
+Class components that manage local state can be converted to function components using the `useState` Hook.
+
+```tsx
+// Recommended: Use a function component with Hooks
+import { useState } from "react";
+
+function Counter() {
+  const [age, setAge] = useState(42);
+
+  function handleAgeChange() {
+    setAge((prevAge) => prevAge + 1);
+  }
+
+  return (
+    <>
+      <button onClick={handleAgeChange}>Increment age</button>
+      <p>You are {age}.</p>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-class-component/no-class-component.ts)

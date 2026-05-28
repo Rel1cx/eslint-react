@@ -73,6 +73,38 @@ function StatefulForm({}) {
 }
 ```
 
+### Using useActionState with async server actions
+
+`useActionState` can manage the pending state of asynchronous actions, making it easier to show loading indicators while the action is running.
+
+```tsx
+// Recommended: Use useActionState to track pending state
+import { useActionState } from "react";
+
+async function addToCart(previousCount: number) {
+  // Simulate an async server action
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  return previousCount + 1;
+}
+
+function Checkout() {
+  const [count, dispatchAction, isPending] = useActionState(addToCart, 0);
+
+  return (
+    <div className="checkout">
+      <h2>Checkout</h2>
+      <div className="row">
+        <span>Tickets</span>
+        <span>Qty: {count}</span>
+      </div>
+      <button onClick={() => dispatchAction()} disabled={isPending}>
+        Add Ticket{isPending ? " 🌀" : ""}
+      </button>
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-use-form-state/no-use-form-state.ts)

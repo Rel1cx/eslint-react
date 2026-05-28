@@ -73,6 +73,38 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Using component composition
+
+Instead of counting children, compose components so that the parent controls the layout and the child components simply render what they receive.
+
+```tsx
+// Recommended: use component composition to wrap items
+interface RowListProps {
+  children: React.ReactNode;
+}
+
+function RowList({ children }: RowListProps) {
+  return <div className="RowList">{children}</div>;
+}
+
+interface RowProps {
+  children: React.ReactNode;
+}
+
+function Row({ children }: RowProps) {
+  return <div className="Row">{children}</div>;
+}
+
+function App() {
+  return (
+    <RowList>
+      <Row><p>First item</p></Row>
+      <Row><p>Second item</p></Row>
+    </RowList>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-count/no-children-count.ts)
