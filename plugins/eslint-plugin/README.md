@@ -64,7 +64,7 @@ Performant, composable ESLint rules for React and friends.
 > ESLint React requires the following minimum versions:
 >
 > - Node.js: 22.0.0
-> - ESLint: 10.2.1
+> - ESLint: 10.3.0
 > - TypeScript: 5.0.0
 
 ### Install
@@ -179,7 +179,7 @@ export default defineConfig(
 - `disable-conflict-eslint-plugin-react-hooks`\
   Disable rules in `eslint-plugin-react-hooks` that conflict with rules in our plugins.
 - `off`\
-  Disable all rules in this plugin except for debug rules.
+  Disable all rules in this plugin.
 
 [Full Presets List ↗](https://eslint-react.xyz/docs/presets)
 
