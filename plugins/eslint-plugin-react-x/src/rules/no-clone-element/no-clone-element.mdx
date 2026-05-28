@@ -104,6 +104,41 @@ function App() {
 }
 ```
 
+### Using component composition instead of cloneElement
+
+Instead of injecting props into children with `cloneElement`, compose components so that the parent controls the layout and passes props explicitly.
+
+```tsx
+// Recommended: Use component composition to wrap and configure items
+interface RowProps {
+  title: string;
+  isHighlighted?: boolean;
+  children: React.ReactNode;
+}
+
+function Row({ title, isHighlighted, children }: RowProps) {
+  return (
+    <div className={isHighlighted ? "Row highlighted" : "Row"}>
+      <h3>{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div className="List">
+      <Row title="First" isHighlighted>
+        <p>First item content</p>
+      </Row>
+      <Row title="Second">
+        <p>Second item content</p>
+      </Row>
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-clone-element/no-clone-element.ts)

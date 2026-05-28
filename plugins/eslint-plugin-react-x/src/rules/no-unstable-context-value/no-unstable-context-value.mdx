@@ -65,6 +65,41 @@ function MyComponentProvider() {
 }
 ```
 
+### Stabilizing context value with `useMemo`
+
+When a context value depends on state or props, wrap it in `useMemo` so the reference stays stable across renders. This prevents unnecessary re-renders in all consumers.
+
+```tsx
+// Recommended: use useMemo to keep the context value reference stable
+import { useState, useCallback, useMemo, createContext } from "react";
+
+interface AuthContextType {
+  currentUser: string | null;
+  login: (user: string) => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+function App() {
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  const login = useCallback((user: string) => {
+    setCurrentUser(user);
+  }, []);
+
+  const contextValue = useMemo(() => ({
+    currentUser,
+    login,
+  }), [currentUser, login]);
+
+  return (
+    <AuthContext.Provider value={contextValue}>
+      <Page />
+    </AuthContext.Provider>
+  );
+}
+```
+
 ### Using the React 19 `use memo` directive
 
 In React 19, if a component uses the `"use memo"` directive, the compiler automatically keeps object references stable, so passing object literals directly is acceptable.

@@ -44,6 +44,35 @@ const MyContext = React.createContext();
 MyContext.displayName = "MyContext";
 ```
 
+### Creating a context with a default value and displayName
+
+When you create a context with a default value, always set `displayName` so that React DevTools can show a meaningful name for the context and its provider.
+
+```tsx
+// Recommended: Create a context with a default value and displayName
+import { createContext, useContext } from "react";
+
+interface ThemeContextType {
+  theme: "light" | "dark";
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  toggleTheme: () => {},
+});
+ThemeContext.displayName = "ThemeContext";
+
+function ThemedButton() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  return (
+    <button onClick={toggleTheme}>
+      Current theme: {theme}
+    </button>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-missing-context-display-name/no-missing-context-display-name.ts)

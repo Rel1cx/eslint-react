@@ -49,6 +49,22 @@ function MyComponent() {
 }
 ```
 
+### Restrictive sandboxing for untrusted content
+
+When embedding untrusted third-party content, use a restrictive `sandbox` attribute that limits the embedded document's capabilities without allowing script execution combined with same-origin access.
+
+```tsx
+// Recommended: Use restrictive sandbox values for untrusted content
+function MyComponent() {
+  return (
+    <iframe
+      src="https://example.com"
+      sandbox="allow-popups allow-popups-to-escape-sandbox"
+    />
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-unsafe-iframe-sandbox/no-unsafe-iframe-sandbox.ts)

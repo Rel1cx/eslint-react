@@ -70,6 +70,46 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Passing structured data as props
+
+Instead of converting children to an array, accept structured data as a prop and use standard array methods. This keeps your component decoupled from React's internal children representation.
+
+```tsx
+// Recommended: accept structured data as a prop and map over it
+interface Row {
+  id: string;
+  content: React.ReactNode;
+}
+
+interface RowListProps {
+  rows: Row[];
+}
+
+function RowList({ rows }: RowListProps) {
+  return (
+    <div className="RowList">
+      {rows.map((row) => (
+        <div className="Row" key={row.id}>
+          {row.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <RowList
+      rows={[
+        { id: "first", content: <p>This is the first item.</p> },
+        { id: "second", content: <p>This is the second item.</p> },
+        { id: "third", content: <p>This is the third item.</p> },
+      ]}
+    />
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-to-array/no-children-to-array.ts)

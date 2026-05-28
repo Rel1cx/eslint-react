@@ -48,6 +48,37 @@ function MyComponent() {
 }
 ```
 
+### Using event handlers instead of `javascript:` URLs
+
+If you need to run JavaScript when a user clicks a link, attach an event handler to a `<button>` or use a safe `href` with an `onClick` handler on an `<a>` element.
+
+```tsx
+// Recommended: Use a button with an onClick handler for actions
+function MyComponent() {
+  function handleClick() {
+    alert("Hello, world!");
+  }
+
+  return <button onClick={handleClick}>Click me</button>;
+}
+```
+
+```tsx
+// Recommended: Use a safe href with an onClick handler for links
+function MyComponent() {
+  function handleClick(event: React.MouseEvent) {
+    event.preventDefault();
+    alert("Hello, world!");
+  }
+
+  return (
+    <a href="/safe-fallback" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-script-url/no-script-url.ts)

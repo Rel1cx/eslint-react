@@ -138,6 +138,61 @@ function UserProfile() {
 }
 ```
 
+### Mutating arrays in state
+
+Directly mutating an array in state (for example, with `push`, `pop`, or direct index assignment) does not trigger a re-render. Use immutable array methods instead.
+
+```tsx
+// Problem: Mutating a state array directly
+import { useState } from "react";
+
+function TodoList() {
+  const [todos, setTodos] = useState(["Buy milk", "Walk the dog"]);
+
+  function handleAdd() {
+    todos.push("New task"); // Mutates state directly — won't re-render!
+  }
+
+  return (
+    <>
+      <ul>{todos.map((todo) => <li key={todo}>{todo}</li>)}</ul>
+      <button onClick={handleAdd}>Add task</button>
+    </>
+  );
+}
+```
+
+```tsx
+// Recommended: Use immutable array methods like concat or the spread syntax
+import { useState } from "react";
+
+function TodoList() {
+  const [todos, setTodos] = useState(["Buy milk", "Walk the dog"]);
+
+  function handleAdd() {
+    setTodos([...todos, "New task"]);
+  }
+
+  function handleRemove(index: number) {
+    setTodos(todos.filter((_, i) => i !== index));
+  }
+
+  return (
+    <>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={todo}>
+            {todo}{" "}
+            <button onClick={() => handleRemove(index)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={handleAdd}>Add task</button>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-direct-mutation-state/no-direct-mutation-state.ts)

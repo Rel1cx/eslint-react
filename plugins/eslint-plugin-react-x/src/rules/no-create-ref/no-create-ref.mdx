@@ -58,20 +58,6 @@ function MyComponent() {
 }
 ```
 
-### Using createRef in class components
-
-`createRef` can still be used in class components, which is the intended use of this API.
-
-```tsx
-import React, { createRef } from "react";
-
-// OK: Using createRef in a class component is the intended use
-class MyComponent extends React.Component {
-  inputRef = createRef();
-  // ...
-}
-```
-
 ### Migrating from createRef to useRef
 
 When migrating a class component to a function component, replace `createRef` with `useRef`.
@@ -113,6 +99,49 @@ function Form() {
       <button onClick={handleClick}>Focus the input</button>
     </>
   );
+}
+```
+
+### Using a typed ref with useRef
+
+When you need a strongly typed ref in a function component, use `useRef` with an explicit generic parameter instead of `createRef`.
+
+```tsx
+// Recommended: Use useRef with an explicit type parameter
+import { useRef } from "react";
+
+function VideoPlayer() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function handlePlay() {
+    videoRef.current?.play();
+  }
+
+  function handlePause() {
+    videoRef.current?.pause();
+  }
+
+  return (
+    <>
+      <video ref={videoRef} src="/video.mp4" />
+      <button onClick={handlePlay}>Play</button>
+      <button onClick={handlePause}>Pause</button>
+    </>
+  );
+}
+```
+
+### Using createRef in class components
+
+`createRef` can still be used in class components, which is the intended use of this API.
+
+```tsx
+import React, { createRef } from "react";
+
+// OK: Using createRef in a class component is the intended use
+class MyComponent extends React.Component {
+  inputRef = createRef();
+  // ...
 }
 ```
 

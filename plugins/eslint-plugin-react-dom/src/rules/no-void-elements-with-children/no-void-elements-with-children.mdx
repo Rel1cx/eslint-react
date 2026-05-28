@@ -55,6 +55,23 @@ React.createElement('div', { children: 'Children' })
 React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ```
 
+### Using void elements correctly
+
+Void elements like `<img>` and `<input>` cannot contain children. Use attributes such as `alt` or `placeholder` to provide descriptive text instead.
+
+```tsx
+// Recommended: Use attributes instead of children for void elements
+function UserProfile() {
+  return (
+    <>
+      <img src="/avatar.png" alt="User avatar" />
+      <input type="text" placeholder="Enter your name" />
+      <hr />
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-void-elements-with-children/no-void-elements-with-children.ts)

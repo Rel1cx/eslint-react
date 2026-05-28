@@ -67,6 +67,42 @@ function MyComponent() {
 }
 ```
 
+### Canceling a timeout when dependencies change
+
+When a timeout depends on reactive values like props or state, clear the previous timeout in the cleanup function before scheduling a new one. This prevents outdated timeouts from firing after the value has already changed.
+
+```tsx
+// Recommended: clear the previous timeout before scheduling a new one
+import { useState, useEffect } from "react";
+
+function Playground() {
+  const [text, setText] = useState("a");
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      console.log("⏰ " + text);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [text]);
+
+  return (
+    <>
+      <label>
+        What to log:{" "}
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      </label>
+      <h1>{text}</h1>
+    </>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-timeout/no-leaked-timeout.ts)

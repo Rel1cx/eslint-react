@@ -52,6 +52,58 @@ function MyComponent() {
 }
 ```
 
+### Buttons inside forms
+
+Inside a `<form>`, the default `type="submit"` can cause unexpected submissions. Always be explicit about whether a button submits the form or performs an independent action.
+
+```tsx
+// Recommended: explicitly declare button types in forms
+function Search() {
+  function search(formData: FormData) {
+    const query = formData.get("query");
+    alert(`You searched for '${query}'`);
+  }
+
+  return (
+    <form action={search}>
+      <input name="query" />
+      <button type="submit">Search</button>
+    </form>
+  );
+}
+```
+
+### Independent action buttons inside forms
+
+Buttons that perform local UI actions (such as incrementing a counter) inside a form should use `type="button"` to prevent accidental form submission.
+
+```tsx
+// Recommended: use type="button" for independent actions inside a form
+import { useState } from "react";
+
+function ShippingForm() {
+  const [count, setCount] = useState(1);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    console.log(Object.fromEntries(formData), { count });
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Number of items:
+        <button type="button" onClick={() => setCount((c) => c - 1)}>–</button>
+        {count}
+        <button type="button" onClick={() => setCount((c) => c + 1)}>+</button>
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-missing-button-type/no-missing-button-type.ts)

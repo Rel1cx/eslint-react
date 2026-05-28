@@ -83,6 +83,26 @@ function Component() {
 }
 ```
 
+### Mutating props directly
+
+Props are owned by the parent component. A child should never modify its props.
+
+```tsx
+// Problem: Mutating props directly
+function Component(props) {
+  props.name = "Bob"; // Child components should not mutate props
+  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
+  return <div>{props.name}</div>;
+}
+```
+
+```tsx
+// Recommended: Notify the parent via a callback
+function Component({ name, onNameChange }) {
+  return <button onClick={() => onNameChange("Bob")}>{name}</button>;
+}
+```
+
 ### Sorting or reversing lists
 
 `Array.prototype.sort()` and `Array.prototype.reverse()` mutate the array in place. If you call them directly on state, you mutate React's internal snapshot.
@@ -141,26 +161,6 @@ function UserProfile() {
       },
     });
   };
-}
-```
-
-### Mutating props directly
-
-Props are owned by the parent component. A child should never modify its props.
-
-```tsx
-// Problem: Mutating props directly
-function Component(props) {
-  props.name = "Bob"; // Child components should not mutate props
-  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
-  return <div>{props.name}</div>;
-}
-```
-
-```tsx
-// Recommended: Notify the parent via a callback
-function Component({ name, onNameChange }) {
-  return <button onClick={() => onNameChange("Bob")}>{name}</button>;
 }
 ```
 

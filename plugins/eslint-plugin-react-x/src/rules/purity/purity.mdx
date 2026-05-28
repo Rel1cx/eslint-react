@@ -114,6 +114,33 @@ function Component() {
 }
 ```
 
+### Showing the current time
+
+Calling `Date.now()` directly in JSX produces a different value on every render and makes the component impure.
+
+```tsx
+// Problem: time changes on every render
+function Clock() {
+  return <div>Current time: {Date.now()}</div>;
+}
+```
+
+When you need to display a constantly updating value like the current time, use state and an effect rather than calling `Date.now()` directly in render.
+
+```tsx
+// Recommended: manage time with state and effects
+function Clock() {
+  const [time, setTime] = useState(() => Date.now());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(Date.now());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  return <div>Current time: {time}</div>;
+}
+```
+
 ### Using time-based values in custom hooks
 
 Custom hooks are also part of the render phase, so impure calls inside them are flagged just like in components.
@@ -161,33 +188,6 @@ function Component() {
     console.log(timestamp);
   }, []);
   return <div>Content</div>;
-}
-```
-
-### Showing the current time
-
-Calling `Date.now()` directly in JSX produces a different value on every render and makes the component impure.
-
-```tsx
-// Problem: time changes on every render
-function Clock() {
-  return <div>Current time: {Date.now()}</div>;
-}
-```
-
-When you need to display a constantly updating value like the current time, use state and an effect rather than calling `Date.now()` directly in render.
-
-```tsx
-// Recommended: manage time with state and effects
-function Clock() {
-  const [time, setTime] = useState(() => Date.now());
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(Date.now());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-  return <div>Current time: {time}</div>;
 }
 ```
 

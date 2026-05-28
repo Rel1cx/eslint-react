@@ -73,6 +73,66 @@ function MyComponent({ children }: MyComponentProps) {
 }
 ```
 
+### Using component composition
+
+Instead of counting children, compose components so that the parent controls the layout and the child components simply render what they receive.
+
+```tsx
+// Recommended: use component composition to wrap items
+interface RowListProps {
+  children: React.ReactNode;
+}
+
+function RowList({ children }: RowListProps) {
+  return <div className="RowList">{children}</div>;
+}
+
+interface RowProps {
+  children: React.ReactNode;
+}
+
+function Row({ children }: RowProps) {
+  return <div className="Row">{children}</div>;
+}
+
+function App() {
+  return (
+    <RowList>
+      <Row><p>First item</p></Row>
+      <Row><p>Second item</p></Row>
+    </RowList>
+  );
+}
+```
+
+### Conditionally rendering based on item count
+
+If a component needs to show different UI depending on how many items there are, let the parent compute the count from its own data rather than inspecting children.
+
+```tsx
+// Recommended: compute the count from props in the parent
+interface ItemListProps {
+  items: string[];
+}
+
+function ItemList({ items }: ItemListProps) {
+  const hasItems = items.length > 0;
+  return (
+    <div>
+      {hasItems ? (
+        <ul>
+          {items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>No items available.</p>
+      )}
+    </div>
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/no-children-count/no-children-count.ts)

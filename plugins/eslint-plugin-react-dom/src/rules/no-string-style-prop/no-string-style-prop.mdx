@@ -43,6 +43,58 @@ function MyComponent() {
 }
 ```
 
+### Setting multiple inline styles
+
+When you need to set multiple CSS properties, always pass them as a single style object with camelCased property names.
+
+```tsx
+// Recommended: use a style object with camelCased properties
+function Box() {
+  return (
+    <div
+      style={{
+        margin: 20,
+        height: 100,
+        width: 100,
+        border: "2px solid black",
+        backgroundColor: "blue",
+      }}
+    />
+  );
+}
+```
+
+### Using dynamic styles driven by state
+
+When an element's appearance depends on state or user input, compute the style object during rendering instead of using a string.
+
+```tsx
+// Recommended: compute style objects dynamically from state
+import { useState } from "react";
+
+function Pointer() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  return (
+    <div
+      onPointerMove={(e) => setPosition({ x: e.clientX, y: e.clientY })}
+      style={{
+        position: "absolute",
+        backgroundColor: "pink",
+        borderRadius: "50%",
+        opacity: 0.6,
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        pointerEvents: "none",
+        left: -20,
+        top: -20,
+        width: 40,
+        height: 40,
+      }}
+    />
+  );
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-dom/src/rules/no-string-style-prop/no-string-style-prop.ts)
