@@ -1,5 +1,4 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -16,10 +15,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Warns about state variables that are defined but never used, or only used in effects.",
+      description: "Warns about state variables that are defined but never used.",
     },
     messages: {
-      default: "State variable '{{name}}' is defined but never used, or only used in effects.",
+      default: "State variable '{{name}}' is defined but never used.",
     },
     schema: [],
   },
@@ -29,7 +28,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
+  const { additionalStateHooks } = getSettingsFromContext(context);
   const stateEntries: { name: string; node: TSESTree.Identifier }[] = [];
 
   return {
@@ -49,17 +48,15 @@ export function create(context: RuleContext<MessageID, []>) {
         const variable = findVariable(scope, name);
         if (variable == null) continue;
 
-        let hasNonEffectRead = false;
+        let hasRead = false;
         for (const ref of variable.references) {
           if (ref.isWrite()) continue;
           if (ref.identifier === node) continue;
-          if (Traverse.findParent(ref.identifier, (n) => core.isUseEffectLikeCall(n, additionalEffectHooks)) == null) {
-            hasNonEffectRead = true;
-            break;
-          }
+          hasRead = true;
+          break;
         }
 
-        if (!hasNonEffectRead) {
+        if (!hasRead) {
           context.report({
             data: { name },
             messageId: "default",

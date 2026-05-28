@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed detection for state variables that are only used in effects. The rule now only reports state variables that are never read.
+- Updated rule wording to remove "or only used in effects" from description and message. Closes [#1749](https://github.com/Rel1cx/eslint-react/issues/1749).
+
 ## [5.7.1] - 2026-05-02
 
 ### Changed
