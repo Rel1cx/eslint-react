@@ -2,6 +2,25 @@
 title: Changelog
 ---
 
+## v5.8.7-beta.5 (2026-05-29)
+
+### 🐞 Fixes
+
+- **`react-x/no-create-ref`**: Fixed a false positive where `createRef` calls in non-React classes were reported. The rule now only reports `createRef` calls inside function components or Hooks (#1812).
+
+### 📝 Documentation
+
+- Bumped the documented ESLint minimum version to `10.3.0`.
+
+### 🏗️ Internal
+
+- **`react-x/no-misused-capture-owner-stack`**: Refactored the `process.env.NODE_ENV` detection helpers to use the shared `core.isAPI` utility (#1812).
+- Removed `eslint-plugin-function` and bumped website dependencies (#1811).
+- Flattened `scripts/lib` into the `scripts` root.
+- Updated `.textlintrc.json`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.4...v5.8.7-beta.5
+
 ## v5.8.7-beta.4 (2026-05-29)
 
 ### 🐞 Fixes

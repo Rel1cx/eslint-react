@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.7-beta.5] - 2026-05-29
+
 ### Changed
 
 - Reworked detection to only report `createRef` calls located inside a function component or a Hook, using the function component and Hook collectors (consistent with the `error-boundaries` rule). Calls at module top-level or inside plain utility functions are no longer reported.
