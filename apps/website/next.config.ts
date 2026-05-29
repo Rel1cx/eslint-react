@@ -64,8 +64,18 @@ const config = {
         permanent: true,
       },
       {
+        source: "/docs/rules/no-useless-forward-ref",
+        destination: "/docs/rules/no-forward-ref",
+        permanent: true,
+      },
+      {
         source: "/docs/rules/hooks-extra-no-direct-set-state-in-use-effect",
         destination: "/docs/rules/set-state-in-effect",
+        permanent: true,
+      },
+      {
+        source: "/docs/rules/no-useless-fragment",
+        destination: "/docs/rules/jsx-no-useless-fragment",
         permanent: true,
       },
       {
