@@ -4,8 +4,7 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-// import { P, match } from "ts-pattern";
-import { glob } from "./lib/glob";
+import { glob } from "./helpers";
 
 // Collect .mdx files from every sub-plugin's rules directory
 const DOCS_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];

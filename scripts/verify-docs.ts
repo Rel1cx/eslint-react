@@ -8,8 +8,7 @@ import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
-
-import { glob } from "./lib/glob";
+import { glob } from "./helpers";
 
 import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "#/plugins/eslint-plugin/src/configs/strict-typescript";

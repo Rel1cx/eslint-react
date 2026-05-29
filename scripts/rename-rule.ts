@@ -4,7 +4,7 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-import { glob } from "./lib/glob";
+import { glob } from "./helpers";
 
 // List of all sub-plugins that have their own directory under plugins/
 const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention", "debug"] as const;

@@ -5,6 +5,13 @@ import * as Fn from "effect/Function";
 import { not, or } from "effect/Predicate";
 import * as Str from "effect/String";
 
+export const version = Fn.pipe(
+  FileSystem.FileSystem,
+  Effect.flatMap((fs) => fs.readFileString("VERSION", "utf8")),
+  Effect.map(Str.trim),
+  Effect.map(Str.replace(/^v/, "")),
+);
+
 export const ignores = Fn.pipe(
   FileSystem.FileSystem,
   Effect.flatMap((fs) => fs.readFileString(".gitignore", "utf8")),

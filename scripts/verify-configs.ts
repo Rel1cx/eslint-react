@@ -5,7 +5,7 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
-import { glob } from "./lib/glob";
+import { glob } from "./helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
 import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";
