@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Reworked detection to only report `createRef` calls located inside a function component or a Hook, using the function component and Hook collectors (consistent with the `error-boundaries` rule). Calls at module top-level or inside plain utility functions are no longer reported.
+
+### Added
+
+- Expanded test coverage: namespace `React.createRef()` calls, custom Hooks (function and arrow form), multiple calls within a single component, nested helper functions inside a component, and additional non-reporting cases (module top-level and plain utility functions).
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed
