@@ -78,22 +78,22 @@ export default defineConfig(
 
 Single-purpose recipes containing one custom rule for a specific linting need.
 
-| Recipe                                                                         | Description                                                                                                                                 |
-| :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
-| [`Function Component Definition`](/docs/recipes/function-component-definition) | Enforces arrow function style for function component definitions.                                                                           |
-| [`No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
-| [`No Multiple Children in Title`](/docs/recipes/no-multiple-children-in-title) | Ensures the `<title>` component has a single string child to avoid React errors.                                                            |
-| [`Prefer Namespace Import`](/docs/recipes/prefer-namespace-import)             | Enforces importing React via a namespace import instead of default import.                                                                  |
+| Recipe                                                                           | Description                                                                                                                                 |
+| :------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| [`℞ Function Component Definition`](/docs/recipes/function-component-definition) | Enforces arrow function style for function component definitions.                                                                           |
+| [`℞ No Circular Effect`](/docs/recipes/no-circular-effect)                       | Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on. |
+| [`℞ No Multiple Children in Title`](/docs/recipes/no-multiple-children-in-title) | Ensures the `<title>` component has a single string child to avoid React errors.                                                            |
+| [`℞ Prefer Namespace Import`](/docs/recipes/prefer-namespace-import)             | Enforces importing React via a namespace import instead of default import.                                                                  |
 
 ### Compound
 
 Multi-rule recipes that bundle related rules around a specific domain (props, state, children, context).
 
-| Recipe                                                             | Rules | Description                                                                                                                                         |
-| :----------------------------------------------------------------- | :---: | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`Custom Rules Of Props`](/docs/recipes/custom-rules-of-props)     |   4   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access. |
-| [`Custom Rules Of State`](/docs/recipes/custom-rules-of-state)     |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                        |
-| [`Custom Rules Of Context`](/docs/recipes/custom-rules-of-context) |   1   | Validates React Context API usage. Includes checks for `useContext` and other context-related patterns.                                             |
+| Recipe                                                               | Rules | Description                                                                                                                                         |
+| :------------------------------------------------------------------- | :---: | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`℞ Custom Rules Of Props`](/docs/recipes/custom-rules-of-props)     |   4   | Validates JSX props. Includes checks for duplicate props, mixing controlled and uncontrolled props, explicit spread props, and direct props access. |
+| [`℞ Custom Rules Of State`](/docs/recipes/custom-rules-of-state)     |   1   | Validates state usage. Prefer the updater function form in useState setters.                                                                        |
+| [`℞ Custom Rules Of Context`](/docs/recipes/custom-rules-of-context) |   1   | Validates React Context API usage. Includes checks for `useContext` and other context-related patterns.                                             |
 
 ## Resources
 
