@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.8.7-beta.4 (2026-05-29)
+
+### 🐞 Fixes
+
+- **Zod compatibility**: Relaxed `zod` peer dependency to support both v3 and v4 (#1810).
+
+### 📝 Documentation
+
+- Clarified that the `off` preset disables all rules.
+- Fixed inaccurate minimum ESLint version and `off` preset description in README.
+
+### 🏗️ Internal
+
+- Updated dprint plugins and tidied scripts.
+- Removed `enriching-rule-examples-from-react-dev.md` from main branch.
+- Bumped `@takumi-rs/image-response` to `^1.6.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.3...v5.8.7-beta.4
+
 ## v5.8.7-beta.3 (2026-05-28)
 
 ### 📝 Documentation

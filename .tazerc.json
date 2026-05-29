@@ -7,5 +7,6 @@
   "recursive": true,
   "includeLocked": true,
   "ignorePaths": ["test"],
-  "maturityPeriod": 1
+  "maturityPeriod": 1,
+  "exclude": ["zod"]
 }
