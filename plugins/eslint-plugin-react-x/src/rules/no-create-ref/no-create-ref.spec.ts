@@ -137,5 +137,32 @@ ruleTester.run(RULE_NAME, rule, {
         inputRef = createRef();
       }
     `,
+    // 非 React 组件类中使用 createRef 不应被报告（类中无法使用 useRef hook）
+    tsx`
+      import React from 'react';
+
+      class DialogStore {
+        constructor() {
+          this.popupRef = React.createRef<HTMLElement>();
+        }
+      }
+    `,
+    tsx`
+      import React from 'react';
+
+      class PopoverStore extends ReactStore {
+        constructor() {
+          super();
+          this.popupRef = React.createRef<HTMLElement>();
+        }
+      }
+    `,
+    tsx`
+      import { createRef } from 'react';
+
+      class TooltipStore {
+        tooltipRef = createRef<HTMLElement>();
+      }
+    `,
   ],
 });

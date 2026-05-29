@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
 
@@ -26,11 +26,12 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
+  if (!context.sourceCode.text.includes("createRef")) return {};
   return merge(
     {
       CallExpression(node) {
-        // dprint-ignore
-        if (core.isCreateRefCall(context, node) && Traverse.findParent(node, core.isClassComponent) == null) {
+        if (Traverse.findParent(node, Check.isClass) != null) return;
+        if (core.isCreateRefCall(context, node)) {
           context.report({ messageId: "default", node });
         }
       },
