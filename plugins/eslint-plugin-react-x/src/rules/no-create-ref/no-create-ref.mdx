@@ -1,6 +1,6 @@
 ---
 title: no-create-ref
-description: Disallows 'createRef' in function components.
+description: Disallows 'createRef' in function components and Hooks.
 ---
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
@@ -28,6 +28,8 @@ react-x/no-create-ref
 ## Rule Details
 
 `createRef()` is a legacy API that is not recommended for use in new code. Instead, prefer using `useRef()` with function components.
+
+This rule only reports `createRef` calls located inside a **function component** or a **Hook**. Calls in other locations, such as at the module top-level or inside plain utility functions and class components, are not reported.
 
 ## Examples
 
@@ -131,6 +133,33 @@ function VideoPlayer() {
 }
 ```
 
+### Using createRef in Hooks
+
+The rule also applies inside custom Hooks. Prefer `useRef` so the ref persists across renders.
+
+```tsx
+import { createRef } from "react";
+
+// Problem: Using createRef inside a custom Hook
+function useInputRef() {
+  const ref = createRef<HTMLInputElement>();
+  //          ^^^ [Deprecated] Use 'useRef' instead.
+
+  return ref;
+}
+```
+
+```tsx
+import { useRef } from "react";
+
+// Recommended: Use useRef inside a custom Hook
+function useInputRef() {
+  const ref = useRef<HTMLInputElement>(null);
+
+  return ref;
+}
+```
+
 ### Using createRef in class components
 
 `createRef` can still be used in class components, which is the intended use of this API.
@@ -142,6 +171,22 @@ import React, { createRef } from "react";
 class MyComponent extends React.Component {
   inputRef = createRef();
   // ...
+}
+```
+
+### Using createRef outside components and Hooks
+
+Calls outside of function components and Hooks are not reported, since `useRef` cannot be used there.
+
+```tsx
+import { createRef } from "react";
+
+// OK: Module top-level is not a function component or Hook
+const ref = createRef<HTMLDivElement>();
+
+// OK: Plain utility functions are not function components or Hooks
+function createRefHolder() {
+  return createRef();
 }
 ```
 
