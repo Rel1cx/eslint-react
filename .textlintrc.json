@@ -9,11 +9,11 @@
       "patterns": [
         {
           "message": "Avoid 'A vs B' competitive framing",
-          "pattern": "/\\w+\\s+vs\\.?\\s+\\w+/gi"
+          "pattern": "/\\w+\\s+(?:vs\\.?|versus)\\s+\\w+/gi"
         },
         {
           "message": "Avoid 'better than' competitive superiority claims",
-          "pattern": "/\\b(?:(?:far|much|way|significantly)\\s+)?better than\\b/gi"
+          "pattern": "/\\b(?:(?:far|much|way|significantly)\\s+)?(?:better than|superior to)\\b/gi"
         },
         {
           "message": "Avoid direct performance comparison claims like 'X faster/slower than Y' against competitors",
@@ -21,11 +21,11 @@
         },
         {
           "message": "Avoid 'game-changer' or 'best-in-class' style marketing language",
-          "pattern": "/\\b(game.changer|best.in.class|industry.leading|world.class|cutting.edge|state.of.the.art)\\b/gi"
+          "pattern": "/\\b(game.changer|best.in.class|industry.leading|world.class|cutting.edge|state.of.the.art|revolutionary|groundbreaking|next.gen(?:eration)?|unparalleled)\\b/gi"
         },
         {
           "message": "Avoid war metaphors like 'crushing', 'battlefield', or 'massive win' in documentation",
-          "pattern": "/\\b(crushing it|crushing|battlefield|huge win|massive win|dominating|dominate|destroying|destroy|killer|crush it|crush|annihilate|obliterate)\\b/gi"
+          "pattern": "/\\b(crushing it|crushing|battlefield|huge win|massive win|dominating|dominate|destroying|destroy|killer|crush it|crush|annihilate|obliterate|combat|weaponize|arsenal|at war|fight(?:ing)? against|go to war)\\b/gi"
         }
       ]
     }
