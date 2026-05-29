@@ -16,7 +16,7 @@
     "---Project Information---",
     "roadmap",
     "changelog",
-    "release-notes",
+    "!release-notes",
     "faq",
     "glossary",
     "community",
