@@ -4840,8 +4840,8 @@ packages:
   end-of-stream@1.4.5:
     resolution: {integrity: sha512-ooEGc6HP26xXq/N+GCGOT0JKCLDGrq2bQUZrQ7gyrJiZANJ/8YDTxTpQBXGMn+WbIQXNVpyWymm7KYVICQnyOg==}
 
-  enhanced-resolve@5.22.0:
-    resolution: {integrity: sha512-xYcDWrpELkFzz9SpZ3PlI6Eu6eD93Yf0WLDRxikGhWJ3MAir2SNZTIVCVZqZ/NUyx8AdMc2gT9C0gPiw18kG+A==}
+  enhanced-resolve@5.22.1:
+    resolution: {integrity: sha512-6QEuw3zoX1SJQc7b87aBXke/no+mG2bTBgw29gWMQonLmpEkWoCAVkl+M49e48AZlWzxiDzDZzYdp6kobcyLww==}
     engines: {node: '>=10.13.0'}
 
   enquirer@2.3.6:
@@ -6528,8 +6528,8 @@ packages:
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
-  package-json-validator@1.5.1:
-    resolution: {integrity: sha512-5WpI9I6pMy/ueq7rkDcJXfVjcHX6OBVTQk4Z7ObVZzsgPv/sX3kUfFFfvobErl/HpgleLcW4egvNypyBwGlkpw==}
+  package-json-validator@1.5.2:
+    resolution: {integrity: sha512-eHXskJQU4aCiSfjhRfTVtCJ+22/EzLHgYgZv5Gj3teb3NJrnTMzq5BnKAWKvR+PLpknCO1PmOCImDuO+dX4Vaw==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
   package-manager-detector@1.6.0:
@@ -9501,7 +9501,7 @@ snapshots:
   '@tailwindcss/node@4.3.0':
     dependencies:
       '@jridgewell/remapping': 2.3.5
-      enhanced-resolve: 5.22.0
+      enhanced-resolve: 5.22.1
       jiti: 2.7.0
       lightningcss: 1.32.0
       magic-string: 0.30.21
@@ -10901,7 +10901,7 @@ snapshots:
     dependencies:
       once: 1.4.0
 
-  enhanced-resolve@5.22.0:
+  enhanced-resolve@5.22.1:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.3
@@ -11033,7 +11033,7 @@ snapshots:
       eslint: 10.4.0(jiti@2.7.0)
       eslint-fix-utils: 0.4.2(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0))
       jsonc-eslint-parser: 3.1.0
-      package-json-validator: 1.5.1
+      package-json-validator: 1.5.2
       semver: 7.8.1
       sort-object-keys: 2.1.0
       sort-package-json: 3.6.1
@@ -13212,7 +13212,7 @@ snapshots:
 
   package-json-from-dist@1.0.1: {}
 
-  package-json-validator@1.5.1:
+  package-json-validator@1.5.2:
     dependencies:
       npm-package-arg: 13.0.2
       semver: 7.8.1
