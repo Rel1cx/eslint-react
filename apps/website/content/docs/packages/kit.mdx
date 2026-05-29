@@ -292,8 +292,27 @@ nodes.filter(is.memoCall);
 
 // Factory for any API name
 const isCreateRefCall = is.APICall("createRef");
+
+// Returns true when the node is a call to `createRef`
 isCreateRefCall(node);
 ```
+
+<Callout type="info" title="Why `is.API` / `is.APICall` instead of a hand-written check?">
+  Consider this single statement:
+
+  ```ts
+  const ownerStack = ((React as any)?.captureOwnerStack)?.()!;
+  ```
+
+  The call to `captureOwnerStack` is buried under four layers of syntax — a `React as any` cast (`TSAsExpression`), an optional member access (`?.captureOwnerStack` → `ChainExpression`), an optional call (`?.()` → `ChainExpression`), and a trailing non-null assertion (`!` → `TSNonNullExpression`). A naive guard such as `node.callee.type === "Identifier" && node.callee.name === "captureOwnerStack"` matches **nothing**: the callee isn't even an `Identifier` — it's a `ChainExpression` wrapping a `MemberExpression` whose object is itself a `TSAsExpression`.
+
+  `is.APICall("captureOwnerStack")` still returns `true`, because the factory:
+
+  - runs `ast.unwrap` first, peeling off `ChainExpression` and TS wrappers (`TSAsExpression`, `TSSatisfiesExpression`, `TSNonNullExpression`, `TSTypeAssertion`, parentheses) until it reaches the real callee;
+  - matches on the **fully-qualified name**, so a single predicate covers both the bare `captureOwnerStack` and the namespaced `React.captureOwnerStack` (any name ending in `.captureOwnerStack`).
+
+  Use `is.API(name)` for the reference itself and `is.APICall(name)` for a call to it. Hand-rolling this means re-implementing unwrapping and member-expression resolution for **every** API — and breaking the moment someone adds a `?.`, an `as`, or a `React.` prefix. To additionally assert the symbol truly comes from React (and not a local same-named binding), pair it with [`is.APIFromReact`](#import-source).
+</Callout>
 
 #### Import source
 

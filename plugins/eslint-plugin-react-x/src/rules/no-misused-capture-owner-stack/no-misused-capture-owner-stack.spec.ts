@@ -175,7 +175,53 @@ ruleTester.run(RULE_NAME, rule, {
         // Failing: Named import with TSTypeAssertion on callee
         import { captureOwnerStack } from "react";
 
-        const ownerStack = (<any>captureOwnerStack)();
+        const ownerStack = (<any>captureOwnerStack)?.();
+      `,
+      languageOptions: {
+        parserOptions: {
+          ecmaFeatures: { jsx: false },
+        },
+      },
+      errors: [
+        {
+          type: AST.ImportSpecifier,
+          messageId: "useNamespaceImport",
+        },
+        {
+          type: AST.CallExpression,
+          messageId: "missingDevelopmentOnlyCheck",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        // Failing: Named import with TSTypeAssertion on callee
+        import { captureOwnerStack } from "react";
+
+        const ownerStack = (<() => {}>captureOwnerStack)?.()!;
+      `,
+      languageOptions: {
+        parserOptions: {
+          ecmaFeatures: { jsx: false },
+        },
+      },
+      errors: [
+        {
+          type: AST.ImportSpecifier,
+          messageId: "useNamespaceImport",
+        },
+        {
+          type: AST.CallExpression,
+          messageId: "missingDevelopmentOnlyCheck",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        // Failing: Multi-layer TS wrapper with namespace member call
+        import { captureOwnerStack } from "react";
+
+        const ownerStack = (<object?>(React as unknown)?.captureOwnerStack)?.()!;
       `,
       languageOptions: {
         parserOptions: {
