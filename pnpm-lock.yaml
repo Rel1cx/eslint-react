@@ -162,8 +162,8 @@ importers:
         specifier: ^5.9.0
         version: 5.9.0
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@5.9.3)
@@ -224,7 +224,7 @@ importers:
         version: 0.2.16
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@5.9.3)
@@ -251,7 +251,7 @@ importers:
         version: link:../configs
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
 
   .pkgs/samples:
     devDependencies:
@@ -287,7 +287,7 @@ importers:
         version: 10.4.0(jiti@2.7.0)
       tsdown:
         specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -338,7 +338,7 @@ importers:
         version: 3.0.10(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.9.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.15)(lucide-react@1.17.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(mdast-util-mdx@3.0.0)
       fumadocs-mdx:
         specifier: ^15.0.9
-        version: 15.0.9(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.15)(fumadocs-core@16.9.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.15)(lucide-react@1.17.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.3)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.3)(yaml@2.9.0))
+        version: 15.0.10(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.15)(fumadocs-core@16.9.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.15)(lucide-react@1.17.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.3)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.3)(yaml@2.9.0))
       fumadocs-twoslash:
         specifier: ^3.2.0
         version: 3.2.0(8ab87df79c5c8dd3736a734012efa146)
@@ -792,8 +792,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -847,8 +847,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -875,8 +875,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -915,8 +915,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -952,8 +952,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -992,8 +992,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1035,8 +1035,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1084,8 +1084,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1142,8 +1142,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1191,8 +1191,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1243,8 +1243,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1292,8 +1292,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1341,8 +1341,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1396,8 +1396,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1475,8 +1475,8 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
       tsdown:
-        specifier: ^0.22.0
-        version: 0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
+        specifier: ^0.22.1
+        version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       tsl:
         specifier: ^1.0.30
         version: 1.0.30(typescript@5.9.3)
@@ -5307,8 +5307,8 @@ packages:
       mdast-util-mdx:
         optional: true
 
-  fumadocs-mdx@15.0.9:
-    resolution: {integrity: sha512-ulKFGcx1r5Irk3Cu7h8M/DH66xba9evdOftURBbnASXWwJIIIahAp7s8oQdDuXtvkzjfv4/M/LpkTxrhkiS2JQ==}
+  fumadocs-mdx@15.0.10:
+    resolution: {integrity: sha512-kH3S7ESS9yXTAaCkA8dDugsCK/MbnpgyZ5qBEL7cWoavV0O/T4+4YTYFkvNknz7cw+T/r+OG0p2BvlVhkk4fww==}
     hasBin: true
     peerDependencies:
       '@types/mdast': '*'
@@ -7290,14 +7290,14 @@ packages:
     resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
     engines: {node: '>=6'}
 
-  tsdown@0.22.0:
-    resolution: {integrity: sha512-FgW0hHb27nGQA/+F3d5+U9wKXkfilk9DVkc5+7x/ZqF03g+Hoz/eeApT32jqxATt9eRoR+1jxk7MUMON+O4CXw==}
+  tsdown@0.22.1:
+    resolution: {integrity: sha512-Ldx1jLyDFEzsN/fMBi2TBVaZe4fuEJhIiHjQhX0pV7oa5uYz5Imdivs5mNzEXOrMEtFRR6C9BQ2YqLoroffB+Q==}
     engines: {node: ^22.18.0 || >=24.0.0}
     hasBin: true
     peerDependencies:
       '@arethetypeswrong/core': ^0.18.1
-      '@tsdown/css': 0.22.0
-      '@tsdown/exe': 0.22.0
+      '@tsdown/css': 0.22.1
+      '@tsdown/exe': 0.22.1
       '@vitejs/devtools': '*'
       publint: ^0.3.8
       tsx: '*'
@@ -11448,7 +11448,7 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  fumadocs-mdx@15.0.9(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.15)(fumadocs-core@16.9.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.15)(lucide-react@1.17.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.3)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.3)(yaml@2.9.0)):
+  fumadocs-mdx@15.0.10(@types/mdast@4.0.4)(@types/mdx@2.0.13)(@types/react@19.2.15)(fumadocs-core@16.9.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.15)(lucide-react@1.17.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@4.4.3))(next@16.2.6(@babel/core@7.29.7)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react@19.2.6)(rolldown@1.0.3)(vite@8.0.14(@types/node@25.9.1)(esbuild@0.28.0)(jiti@2.7.0)(tsx@4.22.3)(yaml@2.9.0)):
     dependencies:
       '@mdx-js/mdx': 3.1.1
       '@standard-schema/spec': 1.1.0
@@ -14135,7 +14135,7 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.22.0(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3):
+  tsdown@0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3):
     dependencies:
       ansis: 4.3.0
       cac: 7.0.0

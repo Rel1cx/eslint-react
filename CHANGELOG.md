@@ -1,90 +1,45 @@
 # Changelog
 
-## v5.8.7-beta.5 (2026-05-29)
+## v5.8.7 (2026-05-29)
 
 ### 🐞 Fixes
 
 - **`react-x/no-create-ref`**: Fixed a false positive where `createRef` calls in non-React classes were reported. The rule now only reports `createRef` calls inside function components or Hooks (#1812).
-
-### 📝 Documentation
-
-- Bumped the documented ESLint minimum version to `10.3.0`.
-
-### 🏗️ Internal
-
-- **`react-x/no-misused-capture-owner-stack`**: Refactored the `process.env.NODE_ENV` detection helpers to use the shared `core.isAPI` utility (#1812).
-- Removed `eslint-plugin-function` and bumped website dependencies (#1811).
-- Flattened `scripts/lib` into the `scripts` root.
-- Updated `.textlintrc.json`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.4...v5.8.7-beta.5
-
-## v5.8.7-beta.4 (2026-05-29)
-
-### 🐞 Fixes
-
+- **`react-x/no-unused-state`**: Removed the "only used in effects" detection so the rule only reports state variables that are defined but never used, reducing false positives (#1808, #1749).
+- **`jsx`**: Aligned children filtering and `hasChildren` behavior with React source, updating `no-children-prop` and `no-useless-fragment` rules accordingly (#1805).
 - **Zod compatibility**: Relaxed `zod` peer dependency to support both v3 and v4 (#1810).
 
 ### 📝 Documentation
 
+- **`react-dom`**, **`react-web-api`**, **`react-x`**: Enriched rule MDX examples with TypeScript snippets from react.dev (#1809).
+- **`react-dom`**: Added more rule examples to `no-dangerously-set-innerhtml`, `no-find-dom-node`, `no-hydrate`, `no-render`, and `no-render-return-value` documentation (#1804).
+- **`react-dom`**: Added legitimate `flushSync` use cases to `no-flush-sync` rule documentation (#1803).
+- Bumped the documented ESLint minimum version to `10.3.0`.
 - Clarified that the `off` preset disables all rules.
 - Fixed inaccurate minimum ESLint version and `off` preset description in README.
 
 ### 🏗️ Internal
 
-- Updated dprint plugins and tidied scripts.
-- Removed `enriching-rule-examples-from-react-dev.md` from main branch.
-- Bumped `@takumi-rs/image-response` to `^1.6.0`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.3...v5.8.7-beta.4
-
-## v5.8.7-beta.3 (2026-05-28)
-
-### 📝 Documentation
-
-- **`react-dom`**, **`react-web-api`**, **`react-x`**: Enriched rule MDX examples with TypeScript snippets from react.dev (#1809).
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.2...v5.8.7-beta.3
-
-## v5.8.7-beta.2 (2026-05-28)
-
-### 🏗️ Internal
-
+- **`react-x/no-misused-capture-owner-stack`**: Refactored the `process.env.NODE_ENV` detection helpers to use the shared `core.isAPI` utility (#1812).
 - **`react-x/no-unused-state`**: Removed incorrect invalid test cases.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.1...v5.8.7-beta.2
-
-## v5.8.7-beta.1 (2026-05-28)
-
-### 🐞 Fixes
-
-- **`react-x/no-unused-state`**: Removed the "only used in effects" detection so the rule only reports state variables that are defined but never used, reducing false positives (#1808, #1749).
-
-### 🏗️ Internal
-
 - **`jsx`**: Added targeted test cases for empty string children behavior in `no-children-prop-with-children` and `no-useless-fragment` rules (#1806).
 - **Website**: Removed SF Pro fonts from the body font stack and normalized CSS baseline.
 - **Tests**: Normalized quote usage in test files and removed `www` prefix from `eslint-react.xyz` links (#1807).
-- Bumped `fumadocs-mdx` and updated pnpm lockfile.
-- Bumped `dompurify` to `3.4.6`.
-- Bumped dprint plugins (`g-plane/markup_fmt` and `markdown`).
+- Removed `eslint-plugin-function` and bumped website dependencies (#1811).
+- Flattened `scripts/lib` into the `scripts` root.
+- Updated `.textlintrc.json`.
+- Updated dprint plugins and tidied scripts.
+- Removed `enriching-rule-examples-from-react-dev.md` from main branch.
 - Updated Sentrux baseline metrics.
 - Updated per-rule CHANGELOGs for `no-useless-fragment`, `no-children-prop`, and `no-children-prop-with-children` (#1805).
+- Bumped dependencies:
+  - `@takumi-rs/image-response` to `^1.6.0`
+  - `dompurify` to `3.4.6`
+  - `fumadocs-mdx` and updated pnpm lockfile
+  - `tsdown` to `0.22.1`
+  - dprint plugins (`g-plane/markup_fmt` and `markdown`)
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7-beta.0...v5.8.7-beta.1
-
-## v5.8.7-beta.0 (2026-05-27)
-
-### 🐞 Fixes
-
-- **`jsx`**: Aligned children filtering and `hasChildren` behavior with React source, updating `no-children-prop` and `no-useless-fragment` rules accordingly (#1805).
-
-### 📝 Documentation
-
-- **`react-dom`**: Added more rule examples to `no-dangerously-set-innerhtml`, `no-find-dom-node`, `no-hydrate`, `no-render`, and `no-render-return-value` documentation (#1804).
-- **`react-dom`**: Added legitimate `flushSync` use cases to `no-flush-sync` rule documentation (#1803).
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.6...v5.8.7-beta.0
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.6...v5.8.7
 
 ## v5.8.6 (2026-05-27)
 
