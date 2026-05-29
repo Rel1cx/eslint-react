@@ -2,7 +2,6 @@ import { includeIgnoreFile } from "@eslint/compat";
 import stylistic from "@stylistic/eslint-plugin";
 import type { Linter } from "eslint";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
-import pluginFunction from "eslint-plugin-function";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
@@ -148,7 +147,6 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
     files: GLOB_TS,
     plugins: {
       ["@stylistic"]: stylistic,
-      ["function"]: pluginFunction,
       ["unicorn"]: pluginUnicorn,
     },
     rules: {
