@@ -223,7 +223,7 @@ importers:
         specifier: ^0.2.16
         version: 0.2.16
       tsdown:
-        specifier: ^0.22.0
+        specifier: ^0.22.1
         version: 0.22.1(publint@0.3.21)(tsx@4.22.3)(typescript@5.9.3)
       tsl:
         specifier: ^1.0.30
