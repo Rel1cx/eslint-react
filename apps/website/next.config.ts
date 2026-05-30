@@ -14,6 +14,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  transpilePackages: ["react-tweet"],
   serverExternalPackages: [
     "@takumi-rs/image-response",
     "twoslash",
