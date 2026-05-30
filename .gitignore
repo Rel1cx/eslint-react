@@ -9,6 +9,7 @@
 .env.test.local
 .nx/cache
 .nx/workspace-data
+.obsidian/
 build/
 dist/
 node_modules/
