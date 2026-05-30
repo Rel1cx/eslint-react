@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 };
 
 const theme = {
-  attribute: "data-theme",
   enabled: true,
   enableSystem: true,
 } as const satisfies Parameters<typeof RootProvider>[0]["theme"];

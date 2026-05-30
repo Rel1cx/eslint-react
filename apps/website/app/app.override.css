@@ -1,5 +1,6 @@
 :root {
   --font-family-body:
+    "Iosevka Aile",
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
@@ -17,6 +18,7 @@
     "Noto Color Emoji";
 
   --font-family-ui:
+    "Iosevka Aile",
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
