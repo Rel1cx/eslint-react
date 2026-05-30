@@ -120,8 +120,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)
       eslint-plugin-package-json:
-        specifier: ^1.1.0
-        version: 1.1.0(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0))
+        specifier: ^1.2.0
+        version: 1.2.0(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0))
       import-integrity-lint:
         specifier: ^1.1.1
         version: 1.1.1(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(eslint@10.4.0(jiti@2.7.0))(typescript@5.9.3)
@@ -4814,8 +4814,8 @@ packages:
     engines: {node: '>=0.12.18'}
     hasBin: true
 
-  electron-to-chromium@1.5.363:
-    resolution: {integrity: sha512-VjUKPyWzGnT1fujlkEGC/BvN70Hh70KXtAqcmniXviYlJC/ivcT+BWGPyxWVbJZLfvtKR6dqg1L7T7pgAMBtWA==}
+  electron-to-chromium@1.5.364:
+    resolution: {integrity: sha512-G/dYE3+AYhyHwzTwg8UbnXf7zqMERYh7l2jJ3QujhFsH8agSYwtnGAR2aZ7f0AakIKJXd5En/Hre4igIUrdlYw==}
 
   elkjs@0.11.1:
     resolution: {integrity: sha512-zxxR9k+rx5ktMwT/FwyLdPCrq7xN6e4VGGHH8hA01vVYKjTFik7nHOxBnAYtrgYUB1RpAiLvA1/U2YraWxyKKg==}
@@ -4928,6 +4928,17 @@ packages:
       '@types/estree':
         optional: true
 
+  eslint-json-compat-utils@0.2.3:
+    resolution: {integrity: sha512-RbBmDFyu7FqnjE8F0ZxPNzx5UaptdeS9Uu50r7A+D7s/+FCX+ybiyViYEgFUaFIFqSWJgZRTpL5d8Kanxxl2lQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@eslint/json': '*'
+      eslint: '*'
+      jsonc-eslint-parser: ^2.4.0 || ^3.0.0
+    peerDependenciesMeta:
+      '@eslint/json':
+        optional: true
+
   eslint-plugin-de-morgan@2.1.2:
     resolution: {integrity: sha512-6/MXP77FUrFGTdJ2Lny3Jv027bE3SUHDf+/VBUBckpH5TskOY5G4UX+AebqJeUpt3nXjy3S0KWBRwTItVQwgvw==}
     engines: {node: ^20.0.0 || >=22.0.0}
@@ -4940,11 +4951,15 @@ packages:
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-package-json@1.1.0:
-    resolution: {integrity: sha512-yFBkYxHBlGKBi3Av17pCkJie+G3/DN/XEy1KGkHnTLXCY8eX7rF2kGiFn8a3N4iIGV4NJzKA0HdpINwVxczX0Q==}
+  eslint-plugin-package-json@1.2.0:
+    resolution: {integrity: sha512-3BszsD7XVddaUNbMfK+1lF1Qg8ck0nO3bNT/7IjXP8wrGzPThHZpkhm5UnbY1Nb/s3o6DUNgHI4aEqQV/t83fw==}
     engines: {node: ^22.22.2 || >=24.15.0}
     peerDependencies:
+      '@eslint/json': '>=1.0.0'
       eslint: '>=9.0.0'
+    peerDependenciesMeta:
+      '@eslint/json':
+        optional: true
 
   eslint-plugin-perfectionist@5.9.0:
     resolution: {integrity: sha512-8TWzg02zmnBdZwCkWLi8jhzqXI+fE7Z/RwV8SL6xD45tJ8Bp3wGuYL2XtQgfe/Wd0eBqOUX+s6ey73IyszvKTA==}
@@ -5486,8 +5501,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hasown@2.0.3:
-    resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==}
+  hasown@2.0.4:
+    resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
   hast-util-from-parse5@8.0.3:
@@ -10344,7 +10359,7 @@ snapshots:
     dependencies:
       baseline-browser-mapping: 2.10.32
       caniuse-lite: 1.0.30001793
-      electron-to-chromium: 1.5.363
+      electron-to-chromium: 1.5.364
       node-releases: 2.0.46
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -10883,7 +10898,7 @@ snapshots:
 
   ejs@5.0.1: {}
 
-  electron-to-chromium@1.5.363: {}
+  electron-to-chromium@1.5.364: {}
 
   elkjs@0.11.1: {}
 
@@ -11000,6 +11015,12 @@ snapshots:
     optionalDependencies:
       '@types/estree': 1.0.9
 
+  eslint-json-compat-utils@0.2.3(eslint@10.4.0(jiti@2.7.0))(jsonc-eslint-parser@3.1.0):
+    dependencies:
+      eslint: 10.4.0(jiti@2.7.0)
+      esquery: 1.7.0
+      jsonc-eslint-parser: 3.1.0
+
   eslint-plugin-de-morgan@2.1.2(eslint@10.4.0(jiti@2.7.0)):
     dependencies:
       eslint: 10.4.0(jiti@2.7.0)
@@ -11024,7 +11045,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-package-json@1.1.0(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0)):
+  eslint-plugin-package-json@1.2.0(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0)):
     dependencies:
       '@altano/repository-tools': 2.0.3
       change-case: 5.4.4
@@ -11032,6 +11053,7 @@ snapshots:
       detect-newline: 4.0.1
       eslint: 10.4.0(jiti@2.7.0)
       eslint-fix-utils: 0.4.2(@types/estree@1.0.9)(eslint@10.4.0(jiti@2.7.0))
+      eslint-json-compat-utils: 0.2.3(eslint@10.4.0(jiti@2.7.0))(jsonc-eslint-parser@3.1.0)
       jsonc-eslint-parser: 3.1.0
       package-json-validator: 1.5.2
       semver: 7.8.1
@@ -11654,7 +11676,7 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hasown@2.0.3:
+  hasown@2.0.4:
     dependencies:
       function-bind: 1.1.2
 
@@ -11913,7 +11935,7 @@ snapshots:
 
   is-core-module@2.16.2:
     dependencies:
-      hasown: 2.0.3
+      hasown: 2.0.4
 
   is-decimal@1.0.4: {}
 
