@@ -29,7 +29,7 @@
 | [getElementSelfType](functions/getElementSelfType.md) | Get the **self name** (last dot-separated segment) of a JSX element type. |
 | [hasAnyAttribute](functions/hasAnyAttribute.md) | Check whether a JSX element carries **at least one** of the given attributes. |
 | [hasAttribute](functions/hasAttribute.md) | Check whether a JSX element carries a given attribute (prop). |
-| [hasChildren](functions/hasChildren.md) | Check whether a JSX element (or fragment) has **meaningful** children — that is, at least one child that is not purely whitespace text. |
+| [hasChildren](functions/hasChildren.md) | Check whether a JSX element (or fragment) has **meaningful** children — that is, at least one child that is not purely whitespace text or an empty string expression. |
 | [hasEveryAttribute](functions/hasEveryAttribute.md) | Check whether a JSX element carries **all** of the given attributes (props). |
 | [isElement](functions/isElement.md) | Check whether a node is a `JSXElement` (or `JSXFragment`) and optionally matches a given test. |
 | [isFragmentElement](functions/isFragmentElement.md) | Check whether a node is a React **Fragment** element. |
