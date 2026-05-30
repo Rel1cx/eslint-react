@@ -6,13 +6,6 @@ import { Link, ViewTransitions } from "next-view-transitions";
 import "@/app/app.base.css";
 import "@/app/app.override.css";
 
-const themeOptions = {
-  enabled: true,
-  enableSystem: true,
-  // defaultTheme: "dark",
-  // forcedTheme: "dark",
-};
-
 export const metadata: Metadata = {
   description: "Performant, composable ESLint rules for React and friends.",
   title: {
@@ -21,6 +14,12 @@ export const metadata: Metadata = {
   },
   metadataBase: baseUrl,
 };
+
+const theme = {
+  attribute: "data-theme",
+  enabled: true,
+  enableSystem: true,
+} as const satisfies Parameters<typeof RootProvider>[0]["theme"];
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
@@ -48,7 +47,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
               <pre>Try <code>@eslint-react/kit@beta</code> →</pre>
             </Link>
           </Banner>
-          <RootProvider theme={themeOptions}>
+          <RootProvider theme={theme}>
             {children}
           </RootProvider>
         </body>
