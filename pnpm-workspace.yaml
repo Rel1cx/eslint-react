@@ -57,7 +57,7 @@ overrides:
   undici: ^8.3.0
   uuid: ^14.0.0
 
-# trustPolicy: "no-downgrade"
+trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 minimumReleaseAgeExclude:
   - fumadocs-core
@@ -66,4 +66,3 @@ minimumReleaseAgeExclude:
   - fumadocs-twoslash
   - fumadocs-typescript
   - fumadocs-ui
-  - tmp@0.2.6
