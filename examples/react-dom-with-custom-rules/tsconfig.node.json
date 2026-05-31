@@ -18,8 +18,7 @@
     "*.ts",
     "*.cts",
     "*.mts",
-    "*.d.ts",
-    ".config/*.ts"
+    "*.d.ts"
   ],
   "exclude": [
     "node_modules",
