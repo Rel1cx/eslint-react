@@ -48,7 +48,7 @@
     "@local/eff": "workspace:*",
     "@typescript-eslint/parser": "^8.60.0",
     "@typescript-eslint/typescript-estree": "^8.60.0",
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "tsdown": "^0.22.1",
     "typescript": "5.9.3",
     "vitest": "^4.1.7"
