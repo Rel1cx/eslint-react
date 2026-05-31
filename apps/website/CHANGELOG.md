@@ -4,6 +4,8 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+## v5.8.8 (2026-05-31)
+
 ### 📝 Documentation
 
 - **Recipes**

@@ -1,5 +1,34 @@
 # Changelog
 
+## v5.8.8 (2026-05-31)
+
+### 📝 Documentation
+
+- **`kit`**: Added `is.APICall` callout to the Kit documentation (#1813).
+- **`jsx`**: Updated `getChildren` and `hasChildren` API documentation to reflect empty string children behavior.
+- **Website**: Reworked status emoji indicators across docs and examples (#1816).
+- **Website**: Added ℞ prefix to recipe titles and cleaned up See Also sections.
+- **Website**: Removed the `custom-rules-of-children` recipe and cross-linked the remaining recipes.
+- **Website**: Added redirects for moved rule documentation.
+- Cleaned up the "Community Maintained Presets that use ESLint React" documentation page.
+
+### 🏗️ Internal
+
+- **`react-x/no-misused-capture-owner-stack`**: Added edge-case tests for `captureOwnerStack` (#1813).
+- **Website**: Updated fonts and dropped the `data-theme` attribute.
+- **Website**: Updated theme configuration (#1815).
+- **Monorepo**: Aligned the `tsdown` version in `@local/configs`.
+- **pnpm-workspace**: Enabled `trustPolicy: "no-downgrade"` and added `minimumReleaseAge: 1440` (1 day).
+- Bumped `eslint` to `10.4.1` across workspace packages.
+- Bumped `pnpm` to `11.5.0` and refreshed the lockfile.
+- Bumped `fumadocs` packages and `tinyexec`.
+- Bumped `eslint-plugin-package-json` to `1.2.0`.
+- Updated dprint plugins and reformatted font families in example projects.
+- Updated Sentrux baseline metrics.
+- Updated `.gitignore`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.7...v5.8.8
+
 ## v5.8.7 (2026-05-29)
 
 ### 🐞 Fixes
