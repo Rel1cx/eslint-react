@@ -8,9 +8,6 @@ const config = {
     qualities: [100],
   },
   reactStrictMode: true,
-  // experimental: {
-  //   inlineCss: true,
-  // },
   typescript: {
     ignoreBuildErrors: true,
   },
