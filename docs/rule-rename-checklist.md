@@ -250,13 +250,13 @@ Document each option with its name, effect, and default value.
 ### Failing
 
 \`\`\`tsx
-// ❌ explanation
+// 🔴 explanation
 \`\`\`
 
 ### Passing
 
 \`\`\`tsx
-// ✅ explanation
+// 🟢 explanation
 \`\`\`
 
 ## Implementation

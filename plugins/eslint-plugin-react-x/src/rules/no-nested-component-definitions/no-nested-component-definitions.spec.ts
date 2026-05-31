@@ -7,7 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        // ❌ Component defined inside component
+        // 🔴 Component defined inside component
         function Parent() {
           const ChildComponent = () => { // New component every render!
             const [count, setCount] = useState(0);
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        // ❌ Dynamic component creation
+        // 🔴 Dynamic component creation
         function Parent({type}) {
           const Component = type === 'button'
             ? () => <button>Click</button>

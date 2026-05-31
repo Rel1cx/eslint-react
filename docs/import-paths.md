@@ -27,10 +27,10 @@ Use `@` whenever you need to reference a module inside the **current package's `
 This eliminates the need to count `../` segments and makes refactorings (moving files between directories) much safer.
 
 ```ts
-// ❌ Avoid — breaks when the file is moved
+// 🔴 Avoid — breaks when the file is moved
 import { createRule } from "../../utils/create-rule";
 
-// ✅ Preferred — stable regardless of file depth
+// 🟢 Preferred — stable regardless of file depth
 import { createRule } from "@/utils/create-rule";
 ```
 
@@ -54,10 +54,10 @@ In every package under `packages/*` and `plugins/*`, `@` is mapped to that packa
 Use `#` when you need to reference a module at the **monorepo root** (e.g. shared test helpers in `test/`, build scripts, or workspace-wide types).
 
 ```ts
-// ❌ Avoid — fragile and hard to read
+// 🔴 Avoid — fragile and hard to read
 import { ruleTester } from "../../../../../test";
 
-// ✅ Preferred — always points to the workspace root
+// 🟢 Preferred — always points to the workspace root
 import { ruleTester } from "#/test";
 ```
 
