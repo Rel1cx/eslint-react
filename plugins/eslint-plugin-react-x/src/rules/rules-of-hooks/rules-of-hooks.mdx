@@ -176,7 +176,7 @@ function MyComponent({ promise }) {
 The `use` hook is different from other React hooks. You can call it conditionally and in loops:
 
 ```tsx
-// ✅ `use` can be conditional
+// 🟢 `use` can be conditional
 function Component({ shouldFetch, fetchPromise }) {
   if (shouldFetch) {
     const data = use(fetchPromise);
@@ -187,7 +187,7 @@ function Component({ shouldFetch, fetchPromise }) {
 ```
 
 ```tsx
-// ✅ `use` can be in loops
+// 🟢 `use` can be in loops
 function Component({ promises }) {
   const results = [];
   for (const promise of promises) {

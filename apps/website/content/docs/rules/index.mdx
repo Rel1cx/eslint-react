@@ -21,11 +21,11 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 - 0️⃣ Severity 0 - Disabled by default
 - 1️⃣ Severity 1 - Warning level
 - 2️⃣ Severity 2 - Error level
-- ✅ In Presets - Enabled in `recommended` and/or `strict` presets
+- 🎛️ Severity in `recommended` and/or `strict` presets
 
 ## X Rules
 
-| Rule                                                                                           |    ✅    |     🌟    | Description                                                                                                                                                                 |  `react` |
+| Rule                                                                                           |   🎛️   |     🌟    | Description                                                                                                                                                                 |  `react` |
 | :--------------------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: |
 | [`error-boundaries`](/docs/rules/error-boundaries)                                             | 2️⃣ 2️⃣ |           | Validates usage of Error Boundaries instead of try/catch for errors in child components                                                                                     |          |
 | [`exhaustive-deps`](/docs/rules/exhaustive-deps)                                               | 1️⃣ 1️⃣ | `⚙️` `🔧` | Verifies the list of dependencies for Hooks like `useEffect` and similar                                                                                                    |          |
@@ -87,7 +87,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   JSX rules check for issues exclusive to JSX syntax, which are absent from standard JavaScript (like handwritten `createElement()` calls).
 </Callout>
 
-| Rule                                                                               |    ✅    |     🌟    | Description                                                                                                                                                                  | `react` |
+| Rule                                                                               |   🎛️   |     🌟    | Description                                                                                                                                                                  | `react` |
 | :--------------------------------------------------------------------------------- | :-----: | :-------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----: |
 | [`no-children-prop`](/docs/rules/jsx-no-children-prop)                             | 1️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop                                                                                                                                       |         |
 | [`no-children-prop-with-children`](/docs/rules/jsx-no-children-prop-with-children) | 2️⃣ 2️⃣ |    `🔧`   | Disallows passing `children` as a prop when children are also passed as nested content                                                                                       |         |
@@ -104,7 +104,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   RSC rules target [React Server Components](https://react.dev/reference/rsc/server-components), [React Server Functions](https://react.dev/reference/rsc/server-functions) and RSC [Directives](https://react.dev/reference/rsc/directives).
 </Callout>
 
-| Rule                                                         |    ✅    |     🌟    | Description                                                       |  `react` |
+| Rule                                                         |   🎛️   |     🌟    | Description                                                       |  `react` |
 | :----------------------------------------------------------- | :-----: | :-------: | :---------------------------------------------------------------- | :------: |
 | [`function-definition`](/docs/rules/rsc-function-definition) | 2️⃣ 2️⃣ | `🔧` `🧪` | Validates and transforms React Client/Server Function definitions | >=19.0.0 |
 
@@ -114,7 +114,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   DOM rules target [React DOM](https://react.dev/reference/react#react-dom)-specific concerns including security vulnerabilities, deprecated APIs, and DOM property usage.
 </Callout>
 
-| Rule                                                                                                       |    ✅    |     🌟    | Description                                                                                   | `react-dom` |
+| Rule                                                                                                       |   🎛️   |     🌟    | Description                                                                                   | `react-dom` |
 | :--------------------------------------------------------------------------------------------------------- | :-----: | :-------: | :-------------------------------------------------------------------------------------------- | :---------: |
 | [`no-dangerously-set-innerhtml`](/docs/rules/dom-no-dangerously-set-innerhtml)                             | 1️⃣ 1️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML`                                   |             |
 | [`no-dangerously-set-innerhtml-with-children`](/docs/rules/dom-no-dangerously-set-innerhtml-with-children) | 2️⃣ 2️⃣ |           | Disallows DOM elements from using `dangerouslySetInnerHTML` and `children` at the same time   |             |
@@ -139,7 +139,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
 </Callout>
 
-| Rule                                                                         |    ✅    |  🌟  | Description                                                                                                                   |
+| Rule                                                                         |   🎛️   |  🌟  | Description                                                                                                                   |
 | :--------------------------------------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------------------------------------------------------------- |
 | [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |      | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`                |
 | [`no-leaked-fetch`](/docs/rules/web-api-no-leaked-fetch)                     | 1️⃣ 1️⃣ | `🧪` | Enforces that every `fetch` in a component or custom hook has a corresponding `AbortController` abort in the cleanup function |
@@ -153,7 +153,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   Naming convention rules enforce consistent naming patterns for `React` entities.
 </Callout>
 
-| Rule                                                         |    ✅    |  🌟 | Description                                                                                                          |
+| Rule                                                         |   🎛️   |  🌟 | Description                                                                                                          |
 | :----------------------------------------------------------- | :-----: | :-: | :------------------------------------------------------------------------------------------------------------------- |
 | [`context-name`](/docs/rules/naming-convention-context-name) | 1️⃣ 1️⃣ |     | Enforces identifier names assigned from `createContext` calls to be a valid component name with the suffix `Context` |
 | [`id-name`](/docs/rules/naming-convention-id-name)           | 1️⃣ 1️⃣ |     | Enforces identifier names assigned from `useId` calls to be either `id` or end with `Id`                             |
@@ -167,7 +167,7 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   These rules are useful for code metrics, code transformation, issue reporting, or when building custom tooling that needs to identify specific patterns. They can also serve as an rule-based alternative to [react-docgen](https://react-docgen.dev/).
 </Callout>
 
-| Rule                                                         |    ✅    |  🌟  | Description                                                             |
+| Rule                                                         |   🎛️   |  🌟  | Description                                                             |
 | :----------------------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------- |
 | [`function-component`](/docs/rules/debug-function-component) | 0️⃣ 0️⃣ | `🐞` | Reports all function components in JSON format                          |
 | [`hook`](/docs/rules/debug-hook)                             | 0️⃣ 0️⃣ | `🐞` | Reports all React Hooks in JSON format                                  |

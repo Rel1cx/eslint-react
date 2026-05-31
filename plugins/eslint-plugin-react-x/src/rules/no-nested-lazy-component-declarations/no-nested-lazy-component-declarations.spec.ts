@@ -200,7 +200,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { lazy } from "react";
 
-      // ✅ Good: Declare lazy components outside of your components
+      // 🟢 Good: Declare lazy components outside of your components
       const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));
 
       function Editor() {
