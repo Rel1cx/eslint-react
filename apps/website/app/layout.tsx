@@ -1,10 +1,11 @@
+import "@/app/app.base.css";
+import "@/app/app.override.css";
+
 import { baseUrl } from "@/lib/metadata";
 import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
 import { Link, ViewTransitions } from "next-view-transitions";
-import "@/app/app.base.css";
-import "@/app/app.override.css";
 
 export const metadata: Metadata = {
   description: "Performant, composable ESLint rules for React and friends.",

@@ -66,3 +66,4 @@ minimumReleaseAgeExclude:
   - fumadocs-twoslash
   - fumadocs-typescript
   - fumadocs-ui
+  - tinyglobby@0.2.17

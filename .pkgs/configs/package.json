@@ -37,8 +37,8 @@
     "typescript-eslint": "^8.60.0"
   },
   "devDependencies": {
-    "eslint": "^10.4.0",
-    "tinyglobby": "^0.2.16",
+    "eslint": "^10.4.1",
+    "tinyglobby": "^0.2.17",
     "tsdown": "^0.22.1",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.12.1",
