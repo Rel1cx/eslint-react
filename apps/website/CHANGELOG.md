@@ -6,6 +6,29 @@ All notable changes to the `apps/website` documentation and its content.
 
 ### 📝 Documentation
 
+- **Recipes**
+  - Removed the `custom-rules-of-children` recipe; added cross-links to the remaining recipes.
+  - Added the ℞ (prescription) prefix to recipe titles for visual consistency.
+  - Cleaned up "See Also" sections across recipe documentation.
+- **Migration Guides**
+  - Reworked status emoji indicators across migration guides, rules index, and examples (#1816).
+- **Kit**
+  - Added `is.APICall` callout to the Kit API documentation, explaining the factory's unwrapping and member-expression resolution behavior (#1813).
+- **Community**
+  - Cleaned up the "Community Maintained Presets that use ESLint React" section.
+- **Theme & Layout**
+  - Updated website fonts and dropped the `data-theme` attribute.
+  - Refreshed theme configuration.
+
+### 🏗️ Internal
+
+- Added redirects for moved rule documentation pages.
+- Bumped `fumadocs` packages and `tinyexec`.
+
+## v5.8.7 (2026-05-29)
+
+### 📝 Documentation
+
 - **FAQ Page**
   - Restructured FAQ from accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
   - Added new **"What does 90% human-written mean?"** section explaining the project's human/LLM collaboration policy.
