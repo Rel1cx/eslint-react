@@ -32,6 +32,7 @@
 | [hasChildren](functions/hasChildren.md) | Check whether a JSX element (or fragment) has **meaningful** children — that is, at least one child that is not purely whitespace text or an empty string expression. |
 | [hasEveryAttribute](functions/hasEveryAttribute.md) | Check whether a JSX element carries **all** of the given attributes (props). |
 | [isElement](functions/isElement.md) | Check whether a node is a `JSXElement` (or `JSXFragment`) and optionally matches a given test. |
+| [isEmptyStringExpression](functions/isEmptyStringExpression.md) | Check whether a JSX child node is an **empty string expression** (`{""}`). |
 | [isFragmentElement](functions/isFragmentElement.md) | Check whether a node is a React **Fragment** element. |
 | [isHostElement](functions/isHostElement.md) | Check whether a node is a **host** (intrinsic / DOM) element. |
 | [isWhitespace](functions/isWhitespace.md) | Check whether a JSX child node is **whitespace padding** that React would trim away during rendering. |
