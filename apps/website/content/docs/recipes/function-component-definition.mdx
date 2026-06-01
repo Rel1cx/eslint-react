@@ -98,25 +98,46 @@ export default [
 ### Function declaration or expression as component
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Problem: Function components must be defined with arrow functions.
-function MyComponent({ name }: { name: string }) {
-  return <div>Hello, {name}!</div>;
+function Button({ children, onClick }: ButtonProps) {
+  return <button type="button" onClick={onClick}>{children}</button>;
 }
 ```
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Problem: Function components must be defined with arrow functions.
-const MyComponent = function({ name }: { name: string }) {
-  return <div>Hello, {name}!</div>;
+const Button = function({ children, onClick }: ButtonProps) {
+  return <button type="button" onClick={onClick}>{children}</button>;
 };
 ```
 
 ### Arrow function as component
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Recommended: Arrow function syntax for component definitions.
-const MyComponent = ({ name }: { name: string }) => {
-  return <div>Hello, {name}!</div>;
+const Button = ({ children, onClick }: ButtonProps) => {
+  return <button type="button" onClick={onClick}>{children}</button>;
 };
 ```
 
