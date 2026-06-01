@@ -49,3 +49,31 @@ export function isWhitespaceText(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
   return node.raw.trim() === "";
 }
+
+/**
+ * Check whether a JSX child node is an **empty string expression** (`{""}`).
+ *
+ * React's reconciler and SSR renderer explicitly skip empty strings,
+ * producing no DOM node (see `ReactChildFiber.js` and `ReactFizzConfigDOM.js`).
+ * Such expressions are therefore treated as non-rendered children, in the same
+ * way as whitespace padding.
+ *
+ * @param node - A JSX child node.
+ * @returns `true` when the node is a `{""}` expression container.
+ *
+ * @example
+ * ```ts
+ * import { isEmptyStringExpression } from "@eslint-react/jsx";
+ *
+ * // <div>{""}</div> -> the expression container is an empty string expression
+ * const meaningful = element.children.filter(
+ *   (child) => !isEmptyStringExpression(child),
+ * );
+ * ```
+ */
+export function isEmptyStringExpression(node: TSESTree.JSXChild): boolean {
+  if (node.type !== AST.JSXExpressionContainer) return false;
+  const expr = node.expression;
+  if (expr.type !== AST.Literal) return false;
+  return expr.value === "";
+}

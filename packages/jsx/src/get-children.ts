@@ -1,5 +1,6 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
+import { isEmptyStringExpression, isWhitespace } from "./is-whitespace";
 
 /**
  * Get the **meaningful** children of a JSX element or fragment.
@@ -7,15 +8,21 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * Filters out nodes that React will not render into the DOM:
  *
  * 1. "Padding spaces" — `JSXText` nodes that consist entirely of whitespace
- *    and contain at least one newline. These are code-formatting artefacts
- *    (indentation between tags). While React's client renderer preserves them
- *    as text nodes, browser HTML parsers may discard them during hydration,
- *    causing hydration mismatches.
+ *    and contain at least one newline (see {@link isWhitespace}). These are
+ *    code-formatting artefacts (indentation between tags). While React's client
+ *    renderer preserves them as text nodes, browser HTML parsers may discard
+ *    them during hydration, causing hydration mismatches.
  *
  * 2. Empty string expressions — `JSXExpressionContainer` nodes whose expression
- *    is a string literal with value `""`. React's reconciler and SSR renderer
- *    explicitly skip empty strings, producing no DOM node
- *    (see ReactChildFiber.js and ReactFizzConfigDOM.js).
+ *    is a string literal with value `""` (see {@link isEmptyStringExpression}).
+ *    React's reconciler and SSR renderer explicitly skip empty strings,
+ *    producing no DOM node.
+ *
+ * Whitespace-only text **without** a newline (e.g. the single space in
+ * `<div> </div>`) is intentionally **kept**, because React renders it. For
+ * this reason `getChildren(node).length > 0` is **not** equivalent to
+ * {@link hasChildren}, which applies a stricter "any whitespace-only text is
+ * non-meaningful" heuristic. Pick the one that matches your rule's intent.
  *
  * @param element - A `JSXElement` or `JSXFragment` node.
  * @returns An array of children nodes that contribute to rendered output.
@@ -35,44 +42,11 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * ```
  */
 export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
-  return element.children.filter((child: TSESTree.JSXChild) => {
-    if (isPaddingSpaces(child)) return false;
+  return element.children.filter((child) => {
+    // Padding whitespace (whitespace containing a newline) that React trims away.
+    if (isWhitespace(child)) return false;
+    // `{""}` produces no DOM node.
     if (isEmptyStringExpression(child)) return false;
     return true;
   });
-}
-
-/**
- * A `JSXText` node is considered **padding spaces** when it is purely
- * whitespace *and* contains at least one newline character.
- *
- * These nodes are code-formatting artefacts (indentation between JSX tags).
- * While React's client renderer preserves them as text nodes, browser HTML
- * parsers may discard them during hydration, leading to hydration mismatches.
- *
- * @param node The JSX child node to check.
- * @internal
- */
-function isPaddingSpaces(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXText) return false;
-  return node.raw.trim() === "" && node.raw.includes("\n");
-}
-
-/**
- * A `JSXExpressionContainer` node is considered an empty string expression
- * when it wraps a string literal with value `""`.
- *
- * React's reconciler explicitly ignores empty strings
- * (`typeof newChild === 'string' && newChild !== ''` in ReactChildFiber.js),
- * and the SSR renderer skips them as well (`if (text === '') { return; }`
- * in ReactFizzConfigDOM.js). They produce no DOM node.
- *
- * @param node The JSX child node to check.
- * @internal
- */
-function isEmptyStringExpression(node: TSESTree.JSXChild): boolean {
-  if (node.type !== AST.JSXExpressionContainer) return false;
-  const expr = node.expression;
-  if (expr.type !== AST.Literal) return false;
-  return expr.value === "";
 }
