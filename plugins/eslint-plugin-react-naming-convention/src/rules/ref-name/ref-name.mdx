@@ -47,6 +47,16 @@ const input = useRef<HTMLInputElement>(null);
 const value = useRef(null);
 ```
 
+```tsx
+// Problem: Suffix must be exactly 'Ref' (case-sensitive)
+const myREF = useRef(0);
+```
+
+```tsx
+// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
+obj.nested.value = useRef(0);
+```
+
 ### Assigning `useRef` to a properly named variable
 
 ```tsx
@@ -67,6 +77,31 @@ const inputRef = useRef<HTMLInputElement>(null);
 ```tsx
 // Recommended: Descriptive name ending with 'Ref'
 const valueRef = useRef(null);
+```
+
+```tsx
+// Recommended: Descriptive name ending with 'Ref' (MemberExpression)
+obj.nested.myRef = useRef();
+```
+
+```tsx
+// Ok: Not assigned to an identifier or member expression, so there is no name to validate
+export default useRef(null);
+```
+
+```tsx
+// Ok: The call sits inside an array literal, so it is not directly assigned to a checkable name
+const [value] = [useRef(null)];
+```
+
+```tsx
+// Ok: The result is immediately accessed via a member expression instead of being stored in a ref variable
+const value = useRef(null).current.value;
+```
+
+```tsx
+// Ok: The result is immediately accessed via a member expression instead of being stored in a ref variable (same as above)
+const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
 ```
 
 ## Resources

@@ -45,6 +45,34 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidRefName" }],
     },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const myREF = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        class Foo { value = useRef(0); }
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        obj.nested.value = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const refs = { myRef: useRef(0) };
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
   ],
   valid: [
     tsx`
@@ -79,6 +107,38 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       refs.myRef = useRef();
+    `,
+    tsx`
+      import { useRef } from "react";
+      useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      export default useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      const Ref = useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      class Foo { myRef = useRef(null); }
+    `,
+    tsx`
+      import { useRef } from "react";
+      obj.nested.myRef = useRef();
+    `,
+    tsx`
+      import { useRef } from "react";
+      const [value] = [useRef(null)];
+    `,
+    tsx`
+      import { useRef } from "react";
+      const { value } = { value: useRef(null) };
+    `,
+    tsx`
+      import { useRef } from "react";
+      const value = useRef(null).current.value;
     `,
   ],
 });
