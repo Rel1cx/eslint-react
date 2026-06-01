@@ -109,6 +109,55 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    // Direct mutation of nested state property in event handler
+    {
+      code: tsx`
+        class Hello extends React.Component {
+          render() {
+            return (
+              <button onClick={() => {
+                this.state.foo = 'baz';
+              }}>
+                Click
+              </button>
+            );
+          }
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    // Direct mutation of deeply nested state property
+    {
+      code: tsx`
+        class Hello extends React.Component {
+          updateState() {
+            this.state.foo.bar = 'baz';
+          }
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    // Direct mutation of nested state property in callback within constructor
+    {
+      code: tsx`
+        class Hello extends React.Component {
+          constructor(props) {
+            super(props)
+
+            doSomethingAsync(() => {
+              this.state.foo = 'baz';
+            });
+          }
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
   ],
   valid: [
     // Nested class component (mutation in inner class)
@@ -132,6 +181,16 @@ ruleTester.run(RULE_NAME, rule, {
           this.state = {
             foo: 'bar',
           }
+        }
+      }
+    `,
+    // Constructor nested property assignment (allowed)
+    tsx`
+      class Hello extends React.Component {
+        constructor(props) {
+          super(props)
+
+          this.state.foo = 'bar';
         }
       }
     `,
