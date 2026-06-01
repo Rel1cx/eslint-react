@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "Local config bases for use in the workspace",
+  "homepage": "https://github.com/Rel1cx/eslint-react",
+  "bugs": {
+    "url": "https://github.com/Rel1cx/eslint-react/issues"
+  },
+  "license": "MIT",
+  "author": "Rel1cx",
   "sideEffects": false,
   "type": "module",
   "exports": {
