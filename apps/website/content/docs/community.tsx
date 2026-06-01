@@ -48,6 +48,7 @@ export const projects = [
 export const presets = [
   { owner: "AndreaPontrandolfo", repo: "sheriff" },
   { owner: "antfu", repo: "eslint-config" },
+  { owner: "azat-io", repo: "eslint-config" },
   { owner: "RebeccaStevens", repo: "eslint-config-rebeccastevens" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
   { owner: "upleveled", repo: "eslint-config-upleveled" },
