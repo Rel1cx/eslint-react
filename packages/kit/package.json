@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "5.8.8",
+  "version": "5.8.9",
   "description": "ESLint React's utility module for building custom React rules with JavaScript functions.",
   "keywords": [
     "react",

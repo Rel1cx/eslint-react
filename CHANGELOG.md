@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.8.9 (2026-06-01)
+
+### 🐞 Fixes
+
+- **`react-x/no-direct-mutation-state`**: Detect nested state mutations and member expressions in assignment expressions (#1818).
+
+### 📝 Documentation
+
+- Updated contributing guide and monorepo structure documentation.
+
+### 🏗️ Internal
+
+- **Examples**: Removed `.vscode` directories from all examples, added missing `engines.node` to Preact examples, cleaned up redundant `.config/*.ts` from `tsconfig.node.json`, and updated `.gitignore`.
+- **Website**: Cleaned up configs and docs.
+- **Deps**: Patch bumped `eslint`, `tinyglobby`, and `tsdown` across workspace packages; added `@fontsource/iosevka-aile` to the website; reordered CSS imports in `layout.tsx`.
+- Updated `.sentrux` baseline timestamp.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.8...v5.8.9
+
 ## v5.8.8 (2026-05-31)
 
 ### 📝 Documentation
