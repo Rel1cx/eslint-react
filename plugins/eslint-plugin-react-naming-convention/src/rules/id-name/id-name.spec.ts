@@ -32,6 +32,34 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidIdName" }],
     },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const myID = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        class Foo { value = useId(); }
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        obj.nested.value = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const ids = { myId: useId() };
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
   ],
   valid: [
     tsx`
@@ -57,6 +85,34 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       ctxs.myId = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      export default useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      const Id = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      class Foo { myId = useId(); }
+    `,
+    tsx`
+      import { useId } from "react";
+      obj.nested.myId = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      const [value] = [useId()];
+    `,
+    tsx`
+      import { useId } from "react";
+      const { value } = { value: useId() };
     `,
   ],
 });

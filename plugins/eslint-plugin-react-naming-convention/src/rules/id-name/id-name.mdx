@@ -47,6 +47,16 @@ const unique = useId();
 const foo = useId();
 ```
 
+```tsx
+// Problem: Suffix must be exactly 'Id' (case-sensitive)
+const myID = useId();
+```
+
+```tsx
+// Problem: A variable assigned from `useId()` must be named 'id' or end with 'Id'.
+obj.nested.value = useId();
+```
+
 ### Assigning `useId` to a properly named variable
 
 ```tsx
@@ -62,6 +72,21 @@ const inputId = useId();
 ```tsx
 // Recommended: Descriptive name ending with 'Id'
 const dialogTitleId = useId();
+```
+
+```tsx
+// Recommended: Descriptive name ending with 'Id' (MemberExpression)
+obj.nested.myId = useId();
+```
+
+```tsx
+// Ok: Not assigned to an identifier or member expression, so there is no name to validate
+export default useId();
+```
+
+```tsx
+// Ok: The call sits inside an array literal, so it is not directly assigned to a checkable name
+const [value] = [useId()];
 ```
 
 ## Resources
