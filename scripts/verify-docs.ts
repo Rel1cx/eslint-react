@@ -13,6 +13,36 @@ import { glob } from "./helpers";
 import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "#/plugins/eslint-plugin/src/configs/strict-typescript";
 
+import * as configDom from "#/plugins/eslint-plugin/src/configs/dom";
+import * as configJsx from "#/plugins/eslint-plugin/src/configs/jsx";
+import * as configNamingConvention from "#/plugins/eslint-plugin/src/configs/naming-convention";
+import * as configRecommended from "#/plugins/eslint-plugin/src/configs/recommended";
+import * as configRecommendedTypeChecked from "#/plugins/eslint-plugin/src/configs/recommended-type-checked";
+import * as configRsc from "#/plugins/eslint-plugin/src/configs/rsc";
+import * as configStrict from "#/plugins/eslint-plugin/src/configs/strict";
+import * as configStrictTypeChecked from "#/plugins/eslint-plugin/src/configs/strict-type-checked";
+import * as configWebApi from "#/plugins/eslint-plugin/src/configs/web-api";
+import * as configX from "#/plugins/eslint-plugin/src/configs/x";
+
+const PRESETS = [
+  { name: "x", config: configX.rules },
+  { name: "jsx", config: configJsx.rules },
+  { name: "dom", config: configDom.rules },
+  { name: "rsc", config: configRsc.rules },
+  { name: "web-api", config: configWebApi.rules },
+  { name: "naming-convention", config: configNamingConvention.rules },
+  { name: "recommended", config: configRecommended.rules },
+  { name: "recommended-typescript", config: config0.rules },
+  { name: "recommended-type-checked", config: configRecommendedTypeChecked.rules },
+  { name: "strict", config: configStrict.rules },
+  { name: "strict-typescript", config: config1.rules },
+  { name: "strict-type-checked", config: configStrictTypeChecked.rules },
+] as const;
+
+function getExpectedPresets(configKey: string): string[] {
+  return PRESETS.filter(({ config }) => configKey in config).map(({ name }) => name);
+}
+
 const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
 const SECTION_HEADERS = [
@@ -96,6 +126,8 @@ const verifyDocs = Effect.gen(function*() {
     .filter((file) => !file.endsWith(".spec.ts") && !file.endsWith(".test.ts"))
     .filter((file) => file.split(path.sep).at(-1) !== "lib.ts"); // Exclude lib.ts helper files
 
+  let errorCount = 0;
+
   for (const file of files) {
     // Extract domain and rule name from file path
     const domain = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
@@ -122,6 +154,45 @@ const verifyDocs = Effect.gen(function*() {
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
     }
 
+    // Verify the presets section exists if the rule has non-zero severities
+    const presetsIndex = contentLines.findIndex((line) => line.startsWith("**Presets**"));
+    if (presetsIndex === -1) {
+      if (rulemeta.severities.every((s) => s === 0)) continue;
+      yield* Effect.logError(ansis.red(`  Missing presets line in documentation for rule ${rulename}`));
+      continue;
+    }
+
+    // Verify the presets section content matches the actual preset configurations
+    const configKey = domain === "x"
+      ? `@eslint-react/${basename}`
+      : `@eslint-react/${domain}-${basename}`;
+    const expectedPresets = getExpectedPresets(configKey);
+
+    const docPresets: string[] = [];
+    for (let i = presetsIndex + 1; i < contentLines.length; i++) {
+      const line = contentLines[i]!.trim();
+      if (line.startsWith("## ") || line.startsWith("**Features**")) break;
+      if (line.startsWith("`")) {
+        docPresets.push(line.replace(/`/g, ""));
+      }
+    }
+
+    const docSet = new Set(docPresets);
+    const expSet = new Set(expectedPresets);
+    const missing = expectedPresets.filter((p) => !docSet.has(p));
+    const extra = docPresets.filter((p) => !expSet.has(p));
+
+    if (missing.length > 0 || extra.length > 0) {
+      errorCount++;
+      yield* Effect.logError(ansis.red(`  Found mismatched presets in documentation for rule ${rulename}`));
+      if (missing.length > 0) {
+        yield* Effect.logError(`    Expected but missing: ${ansis.bgGreen(missing.join(", "))}`);
+      }
+      if (extra.length > 0) {
+        yield* Effect.logError(`    Present but unexpected: ${ansis.bgYellow(extra.join(", "))}`);
+      }
+    }
+
     // Verify the features section matches the rule metadata
     const featuresIndex = contentLines.findIndex((line) => line.startsWith("**Features**"));
     if (featuresIndex === -1) {
@@ -139,14 +210,6 @@ const verifyDocs = Effect.gen(function*() {
       yield* Effect.logError(ansis.red(`  Found 1 mismatched feature icons in documentation for rule ${rulename}`));
       yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFeatureIcons)}`);
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFeatureIcons)}`);
-    }
-
-    // Verify the presets section exists if the rule has non-zero severities
-    const presetsIndex = contentLines.findIndex((line) => line.startsWith("**Presets**"));
-    if (presetsIndex === -1) {
-      if (rulemeta.severities.every((s) => s === 0)) continue;
-      yield* Effect.logError(ansis.red(`  Missing presets line in documentation for rule ${rulename}`));
-      continue;
     }
 
     // Verify the resources section contains correct Rule Source and Test Source links
@@ -192,6 +255,8 @@ const verifyDocs = Effect.gen(function*() {
       }
     }
   }
+
+  return errorCount;
 });
 
 // Verify the index.mdx "View by Domain" table entries match the actual rule metadata
@@ -284,9 +349,13 @@ const verifyIndex = Effect.gen(function*() {
 
 const program = Effect.gen(function*() {
   // Verify the rules documentation matches the actual rule definitions
-  yield* verifyDocs;
+  const docsErrors = yield* verifyDocs;
   // Verify the rules index "View by Domain" matches the actual rule definitions
   yield* verifyIndex;
+  if (docsErrors > 0) {
+    yield* Effect.log(ansis.bold.red(`Found ${docsErrors} preset error(s) in rule documentation.`));
+    return yield* Effect.fail(new Error(`Docs verification failed with ${docsErrors} preset error(s).`));
+  }
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
