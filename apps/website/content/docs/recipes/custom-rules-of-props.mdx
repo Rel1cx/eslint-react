@@ -8,7 +8,7 @@ description: Validates JSX props. Includes checks for duplicate props, mixing co
 This recipe contains four custom rules for validating JSX props:
 
 1. **[`noDuplicateProps`](#noduplicateprops)**: Reports duplicate props on a JSX element.
-2. **[`noDirectAccessProps`](#nodirectaccessprops)**: Reports direct member expression access of component props (e.g., `props.name`) and enforces destructuring assignment instead.
+2. **[`noDirectAccessProps`](#nodirectaccessprops)**: Reports direct member expression access of component props (e.g., `props.children`) and enforces destructuring assignment instead.
 3. **[`noExplicitSpreadProps`](#noexplicitspreadprops)**: Reports spreading object literals onto a JSX element instead of writing separate props. Includes auto-fix.
 4. **[`noMixingControlledAndUncontrolledProps`](#nomixingcontrolledanduncontrolledprops)**: Reports mixing a controlled prop and its uncontrolled counterpart on the same element.
 
@@ -164,38 +164,66 @@ export default [
 #### Accessing props via member expression
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Problem: accessing props via member expression.
-function MyComponent(props) {
+function Button(props: ButtonProps) {
   // Problem: Use destructuring assignment for component props.
-  return <div>Hello, {props.name}!</div>;
+  return <button type="button" onClick={props.onClick}>{props.children}</button>;
 }
 ```
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Problem: accessing props via member expression.
-const MyComponent = (props) => {
+const Button = (props: ButtonProps) => {
   // Problem: Use destructuring assignment for component props.
-  return <div>{props.title}</div>;
+  return <button type="button" onClick={props.onClick}>{props.children}</button>;
 };
 ```
 
 #### Destructured props
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Recommended: destructure props in the function signature.
-function MyComponent({ name }: { name: string }) {
-  return <div>Hello, {name}!</div>;
+function Button({ children, onClick }: ButtonProps) {
+  return <button type="button" onClick={onClick}>{children}</button>;
 }
 ```
 
 ```tsx
+import React from "react";
+
+type ButtonProps = {
+  children: React.ReactNode;
+  onClick: () => void;
+};
+
 // Recommended: destructure props in the function signature.
-const MyComponent = ({ title }: { title: string }) => {
-  return <div>{title}</div>;
+const Button = ({ children, onClick }: ButtonProps) => {
+  return <button type="button" onClick={onClick}>{children}</button>;
 };
 ```
 
-Reports when component props are accessed via member expressions (e.g., `props.name`).
+Reports when component props are accessed via member expressions (e.g., `props.children`).
 
 This rule uses the `collect.components` collector from `@eslint-react/kit` to find all function component definitions in the file. For each component, it checks if the first parameter (`props`) is an `Identifier`, then finds all references to the `props` variable and reports any that are used as the object of a `MemberExpression`.
 
@@ -248,7 +276,7 @@ export default [
 
 ```tsx
 // Problem: spreading an object literal hides props from view.
-<MyComponent {...{ foo, bar, baz }} />;
+<Button {...{ children, onClick }} />;
 ```
 
 ```tsx
