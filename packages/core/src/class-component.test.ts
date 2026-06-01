@@ -235,8 +235,60 @@ describe("isAssignmentToThisState", () => {
     expect(result).toBe(true);
   });
 
+  it("should return true for this.state.foo = 'baz'", () => {
+    const code = "this.state.foo = 'baz'";
+    let result = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.AssignmentExpression) {
+          result = isAssignmentToThisState(node);
+        }
+      },
+    }, true);
+    expect(result).toBe(true);
+  });
+
+  it("should return true for this.state.foo.bar = 'baz'", () => {
+    const code = "this.state.foo.bar = 'baz'";
+    let result = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.AssignmentExpression) {
+          result = isAssignmentToThisState(node);
+        }
+      },
+    }, true);
+    expect(result).toBe(true);
+  });
+
+  it("should return true for (this.state as any).foo = 'baz'", () => {
+    const code = "(this.state as any).foo = 'baz'";
+    let result = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.AssignmentExpression) {
+          result = isAssignmentToThisState(node);
+        }
+      },
+    }, true);
+    expect(result).toBe(true);
+  });
+
   it("should return false for unrelated assignments", () => {
     const code = "this.props = {}";
+    let result = true;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.AssignmentExpression) {
+          result = isAssignmentToThisState(node);
+        }
+      },
+    }, true);
+    expect(result).toBe(false);
+  });
+
+  it("should return false for this.props.foo = 'baz'", () => {
+    const code = "this.props.foo = 'baz'";
     let result = true;
     simpleTraverse(parse(code).ast, {
       enter(node) {

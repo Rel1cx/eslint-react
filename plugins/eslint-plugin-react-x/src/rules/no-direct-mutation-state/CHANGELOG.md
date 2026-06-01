@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.8] - 2026-06-01
+
+### Fixed
+
+- Fixed `isAssignmentToThisState` helper to correctly detect nested state mutations (e.g. `this.state.foo = "baz"`) and TypeScript-wrapped expressions (e.g. `(this.state as any).foo = "baz"`). Previously, only whole-state assignments (`this.state = X`) were detected.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

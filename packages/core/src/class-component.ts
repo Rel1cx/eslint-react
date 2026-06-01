@@ -159,9 +159,15 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
  */
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
-  return left.type === AST.MemberExpression
-    && left.object.type === AST.ThisExpression
-    && Extract.getPropertyName(left.property) === "state";
+  let current: TSESTree.Node = Extract.unwrap(left);
+  while (current.type === AST.MemberExpression) {
+    const { object, property } = current;
+    if (object.type === AST.ThisExpression && Extract.getPropertyName(property) === "state") {
+      return true;
+    }
+    current = Extract.unwrap(object);
+  }
+  return false;
 }
 
 // #endregion

@@ -20,9 +20,7 @@ export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateId
 }
 
 export function getPropertyName(node: TSESTree.Node): string | null {
-  if (Check.isTypeExpression(node)) {
-    return getPropertyName(unwrap(node));
-  }
+  node = unwrap(node);
   if (node.type === AST.Identifier || node.type === AST.PrivateIdentifier) {
     return node.name;
   }
