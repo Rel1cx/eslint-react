@@ -62,6 +62,34 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        import { createContext } from "react";
+        const ThemeContext2 = createContext("");
+      `,
+      errors: [{ messageId: "invalidContextName" }],
+    },
+    {
+      code: tsx`
+        import { createContext } from "react";
+        class Foo { theme = createContext(""); }
+      `,
+      errors: [{ messageId: "invalidContextName" }],
+    },
+    {
+      code: tsx`
+        import { createContext } from "react";
+        obj.nested.theme = createContext("");
+      `,
+      errors: [{ messageId: "invalidContextName" }],
+    },
+    {
+      code: tsx`
+        import { createContext } from "react";
+        const contexts = { ThemeContext: createContext("") };
+      `,
+      errors: [{ messageId: "invalidContextName" }],
+    },
   ],
   valid: [
     tsx`
@@ -84,6 +112,34 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       ctxs.ThemeContext = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      const AContext = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      const MyUIContext = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      export default createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      class Foo { ThemeContext = createContext(""); }
+    `,
+    tsx`
+      import { createContext } from "react";
+      obj.nested.ThemeContext = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      const Theme_Context = createContext("");
     `,
   ],
 });

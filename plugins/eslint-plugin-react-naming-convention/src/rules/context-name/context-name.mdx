@@ -57,6 +57,16 @@ const themeContext = createContext("");
 const context = createContext("");
 ```
 
+```tsx
+// Problem: Context name must end with 'Context' (not just contain it)
+const ThemeContext2 = createContext("");
+```
+
+```tsx
+// Problem: Context name should be PascalCase and end with 'Context'
+obj.nested.theme = createContext("");
+```
+
 ### Naming context correctly
 
 ```tsx
@@ -67,6 +77,21 @@ const ThemeContext = createContext("");
 ```tsx
 // Recommended: PascalCase with 'Context' suffix
 const Context = createContext("");
+```
+
+```tsx
+// Recommended: PascalCase with 'Context' suffix (MemberExpression)
+obj.nested.ThemeContext = createContext("");
+```
+
+```tsx
+// Recommended: PascalCase with 'Context' suffix (class property)
+class Foo { ThemeContext = createContext(""); }
+```
+
+```tsx
+// Ok: Not assigned to an identifier or member expression, so there is no name to validate
+export default createContext("");
 ```
 
 ## Resources
