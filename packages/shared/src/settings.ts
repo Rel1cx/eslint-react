@@ -123,7 +123,7 @@ export const normalizeSettings = ({
     compilationMode: compilationMode ?? "off",
     polymorphicPropName,
     version: match(version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.4"))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.7"))
       .otherwise(identity),
     additionalStateHooks: toRegExp(additionalStateHooks),
     additionalEffectHooks: toRegExp(additionalEffectHooks),
