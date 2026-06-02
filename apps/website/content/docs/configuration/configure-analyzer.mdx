@@ -15,7 +15,7 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.2.4", // React version for analysis
+        version: "19.2.7", // React version for analysis
         // ...other properties
       },
     },
@@ -33,7 +33,7 @@ export default [
 
 Defines the React version for semantic analysis.
 
-- `detect`: Auto-detects from project dependencies (defaults to `19.2.4` if undetectable)
+- `detect`: Auto-detects from project dependencies (defaults to `19.2.7` if undetectable)
 - `string`: Explicit version specification (ex: `"18.3.1"`)
 
 ### `importSource`
@@ -99,7 +99,7 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.2.4", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
+        version: "19.2.7", // Specify the React version for semantic analysis (can be "detect" for auto-detection)
         importSource: "react", // Customize the import source for the React module (defaults to "react")
       },
     },
@@ -117,7 +117,7 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.2.4",
+        version: "19.2.7",
         importSource: "react",
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (ex: <Component as="div">)
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
@@ -154,7 +154,7 @@ export default [
     files: ["**/*.ts", "**/*.tsx"],
     settings: {
       "react-x": {
-        version: "19.2.4",
+        version: "19.2.7",
         importSource: "react",
         compilationMode, // Use the same compilationMode as the React Compiler config for consistent analysis
         polymorphicPropName: "as",
