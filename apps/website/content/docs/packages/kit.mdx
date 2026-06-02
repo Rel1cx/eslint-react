@@ -301,10 +301,17 @@ isCreateRefCall(node);
   Consider this single statement:
 
   ```ts
-  const ownerStack = ((React as any)?.captureOwnerStack)?.()!;
+  const ownerStack = ((React as any).captureOwnerStack)?.()! satisfies OwnerStack;
   ```
 
-  The call to `captureOwnerStack` is buried under four layers of syntax — a `React as any` cast (`TSAsExpression`), an optional member access (`?.captureOwnerStack` → `ChainExpression`), an optional call (`?.()` → `ChainExpression`), and a trailing non-null assertion (`!` → `TSNonNullExpression`). A naive guard such as `node.callee.type === "Identifier" && node.callee.name === "captureOwnerStack"` matches **nothing**: the callee isn't even an `Identifier` — it's a `ChainExpression` wrapping a `MemberExpression` whose object is itself a `TSAsExpression`.
+  The call to `captureOwnerStack` is buried under four layers of syntax:
+
+  1. a `React as any` cast (`TSAsExpression`),
+  2. an optional call (`?.()` → `ChainExpression`),
+  3. a trailing non-null assertion (`!` → `TSNonNullExpression`), and
+  4. a `satisfies OwnerStack` clause (`TSSatisfiesExpression`).
+
+  A naive guard such as `node.callee.type === "Identifier" && node.callee.name === "captureOwnerStack"` matches **nothing**: the callee is not an `Identifier` — it is a `MemberExpression` whose `object` is a `TSAsExpression`.
 
   `is.APICall("captureOwnerStack")` still returns `true`, because the factory:
 
