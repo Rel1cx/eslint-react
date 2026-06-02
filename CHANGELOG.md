@@ -1,5 +1,32 @@
 # Changelog
 
+## v5.8.10 (2026-06-02)
+
+### 🐞 Fixes
+
+- **`react-dom/no-unused-class-component-members`**: Aligned preset details in rule documentation (#1825).
+- **`react-dom/no-unsafe-iframe-sandbox`**, **`react-x/context-name`**, **`react-x/id-name`**, **`react-x/ref-name`**, **`react-x/no-unnecessary-use-prefix`**, **`react-x/no-string-style-prop`**: Fixed missing or incorrect presets in rule documentation (#1826).
+
+### 📝 Documentation
+
+- **`naming-convention`**: Expanded examples and annotated Ok cases for `context-name`, `id-name`, and `ref-name` rules (#1819).
+- **Recipes**: Refactored `MyComponent` examples to `Button` component in custom rules of props and function component definition recipes (#1823).
+- **Community**: Added `azat-io` eslint-config to the community presets list.
+
+### 🏗️ Internal
+
+- **`jsx`**: Consolidated whitespace child predicates and added `isEmptyStringExpression` to the public API (#1820).
+- **Verification**: Added preset verification to `verify-docs.ts` (#1822).
+- **Monorepo**: Added `AGENTS.md` guide for AI coding agents (#1824).
+- **Monorepo**: Normalized local package metadata in `.pkgs/*`.
+- **Deps**: Bumped `vite` to `^8.0.15` and `ansis` to `^4.3.1` across workspace packages.
+
+### New Contributors
+
+- **Kenton Jacobsen** (@brokentone) made their first contribution in #1825.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.9...v5.8.10
+
 ## v5.8.9 (2026-06-01)
 
 ### 🐞 Fixes
