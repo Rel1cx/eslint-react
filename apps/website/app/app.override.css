@@ -1,5 +1,3 @@
-@import "@fontsource/iosevka-aile";
-
 :root {
   --font-family-body:
     "Iosevka Aile",
@@ -36,7 +34,7 @@
     "Segoe UI Symbol",
     "Noto Color Emoji";
 
-  --font-family-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
+  --font-family-mono: "Ioskeley Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
 }
 
 body {

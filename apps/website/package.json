@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@eslint-react/kit": "workspace:*",
-    "@fontsource/iosevka-aile": "^5.2.5",
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/samples": "workspace:*",

@@ -4,6 +4,10 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+### 🏗️ Internal
+
+- Removed `@fontsource/iosevka-aile` font dependency; body and mono fonts now rely solely on system-installed fallbacks (`Iosevka Aile`, `Ioskeley Mono`).
+
 ## v5.8.8 (2026-05-31)
 
 ### 📝 Documentation
