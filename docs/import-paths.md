@@ -13,12 +13,12 @@ This monorepo uses TypeScript `paths` to provide clean, stable import aliases. I
 
 ## Overview
 
-| Alias | Target    | Purpose                                                                |
-| ----- | --------- | ---------------------------------------------------------------------- |
-| `@`   | `./src`   | Import from the current package's source directory.                    |
-| `@/*` | `./src/*` | Import a sub-module from the current package's source directory.       |
-| `#`   | `../..`   | Import from the workspace root (shared utilities, test helpers, etc.). |
-| `#/*` | `../../*` | Import a sub-module from the workspace root.                           |
+| Alias | Target    | Purpose                                                                                                             |
+| ----- | --------- | ------------------------------------------------------------------------------------------------------------------- |
+| `@`   | `./src`   | Import from the current package's source directory.                                                                 |
+| `@/*` | `./src/*` | Import a sub-module from the current package's source directory.                                                    |
+| `#`   | `../..`   | Import from the workspace root (limited to test infrastructure in `*.spec.ts` and validation scripts).              |
+| `#/*` | `../../*` | Import a sub-module from the workspace root (limited to test infrastructure in `*.spec.ts` and validation scripts). |
 
 ## `@` — Package Source Root
 
