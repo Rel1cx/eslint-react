@@ -81,12 +81,12 @@ obj.nested.myId = useId();
 ```
 
 ```tsx
-// Ok: Not assigned to an identifier or member expression, so there is no name to validate
+// OK: Not assigned to an identifier or member expression, so there is no name to validate
 export default useId();
 ```
 
 ```tsx
-// Ok: The call sits inside an array literal, so it is not directly assigned to a checkable name
+// OK: The call sits inside an array literal, so it is not directly assigned to a checkable name
 const [value] = [useId()];
 ```
 
