@@ -10,7 +10,7 @@ ESLint React is a set of performant, composable ESLint rules for React and relat
 - **License**: MIT
 - **Package Manager**: pnpm 11.5.0
 - **Node.js Requirement**: >= 22.0.0
-- **TypeScript**: 5.9.3
+- **TypeScript**: 6.0.3
 - **ESM only**: all packages use `"type": "module"`
 
 ## Monorepo Structure
@@ -118,7 +118,7 @@ pnpm run verify:docs     # ensure rule docs match source metadata
 | Type Checker       | `tsl` (TypeScript linter)                                   |
 | Formatter          | dprint                                                      |
 | Linting            | ESLint + `typescript-eslint` with strict type-checked rules |
-| Language Features  | TypeScript 5.9.3, ESM, `"moduleResolution": "bundler"`      |
+| Language Features  | TypeScript 6.0.3, ESM, `"moduleResolution": "bundler"`      |
 | Runtime Library    | Effect 3.x (used in scripts and some packages)              |
 | Website            | Next.js 16 + Fumadocs                                       |
 
