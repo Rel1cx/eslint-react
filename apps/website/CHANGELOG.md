@@ -4,9 +4,35 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+### 📝 Documentation
+
+- Updated `kit.mdx` callout example and AST explanation.
+- Added missing inline table of contents to `contributing.mdx`.
+- Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
+
 ### 🏗️ Internal
 
 - Removed `@fontsource/iosevka-aile` font dependency; body and mono fonts now rely solely on system-installed fallbacks (`Iosevka Aile`, `Ioskeley Mono`).
+- Bumped patch dependencies.
+- Bumped `tsl-dx` from `0.12.1` to `0.12.2`.
+
+## v5.8.10 (2026-06-02)
+
+### 📝 Documentation
+
+- Refactored `MyComponent` examples to `Button` component in recipe documentation (#1823).
+- Added `azat-io/eslint-config` to the community presets list.
+
+## v5.8.9 (2026-06-01)
+
+### 📝 Documentation
+
+- Updated contributing guide and monorepo structure documentation.
+
+### 🏗️ Internal
+
+- Cleaned up website configs and docs (removed unused CSS and config entries).
+- Patched dependencies (`eslint`, `tinyglobby`, `tsdown`).
 
 ## v5.8.8 (2026-05-31)
 
