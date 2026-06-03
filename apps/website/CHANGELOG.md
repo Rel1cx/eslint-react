@@ -12,6 +12,7 @@ All notable changes to the `apps/website` documentation and its content.
 
 ### 🏗️ Internal
 
+- Recreated website logo and icon assets with an open-source workflow; no longer relies on SVG assets exported by Amadine (#1831).
 - Removed `@fontsource/iosevka-aile` font dependency; body and mono fonts now rely solely on system-installed fallbacks (`Iosevka Aile`, `Ioskeley Mono`).
 - Bumped patch dependencies.
 - Bumped `tsl-dx` from `0.12.1` to `0.12.2`.
