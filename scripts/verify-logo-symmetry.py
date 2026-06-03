@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Verify that the artwork in assets/logo.svg has 120° rotational symmetry.
+"""Verify that the artwork in assets/logo.svg has 60° rotational symmetry.
 
 The script:
   1. Reads every <path> from the SVG.
   2. Densely samples points along each path.
-  3. Rotates the sample by 120° (and 240°) around the viewBox center.
+  3. Rotates the sample by 60°, 120°, 180°, 240°, and 300° around the viewBox center.
   4. For every rotated path, finds the original path that best matches it
      and reports the symmetric Hausdorff distance in user-space pixels.
   5. Exits with code 0 only if every path has a counterpart within TOLERANCE.
@@ -37,7 +37,7 @@ except ImportError as exc:  # pragma: no cover
 DEFAULT_SVG = Path(__file__).resolve().parent.parent / "assets" / "logo.svg"
 SAMPLES_PER_PATH = 600  # points per path (denser => more accurate)
 TOLERANCE_PX = 0.5  # max allowed Hausdorff distance, in SVG pixels
-ANGLES_DEG = (120.0, 240.0)  # rotations we expect to be symmetries
+ANGLES_DEG = (60.0, 120.0, 180.0, 240.0, 300.0)  # rotations we expect to be symmetries
 
 
 # ---------------------------------------------------------------------------
@@ -139,9 +139,9 @@ def main(argv: list[str]) -> int:
 
     print("=" * 60)
     if overall_ok:
-        print(f"✔  All paths exhibit 120° rotational symmetry (≤ {TOLERANCE_PX} px).")
+        print(f"✔  All paths exhibit 60° rotational symmetry (≤ {TOLERANCE_PX} px).")
         return 0
-    print(f"✘  Some paths deviate by more than {TOLERANCE_PX} px from 120° symmetry. See FAIL rows above.")
+    print(f"✘  Some paths deviate by more than {TOLERANCE_PX} px from 60° symmetry. See FAIL rows above.")
     return 1
 
 
