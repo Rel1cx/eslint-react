@@ -10,11 +10,12 @@ All notable changes to the `apps/website` documentation and its content.
 - Added missing inline table of contents to `contributing.mdx`.
 - Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
 - Corrected Meta's legal company name to `Meta Platforms, Inc.` across disclaimers and added a new **Brand Assets** documentation page (#1832).
-- Expanded the **Brand Assets** documentation page with a new **Icons** section listing downloadable assets in multiple sizes and formats; migrated the page from `.mdx` to `.md`.
+- Reworked the **Brand Assets** documentation page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
 
 ### 🏗️ Internal
 
 - Recreated website logo and icon assets with an open-source workflow; no longer relies on SVG assets exported by Amadine (#1831).
+- Updated website favicon and icon assets: replaced `favicon.png` with `favicon.ico`, removed `apple-touch-icon.png`, added `64x64.png`, and refreshed all raster icon sizes.
 - Removed `@fontsource/iosevka-aile` font dependency; body and mono fonts now rely solely on system-installed fallbacks (`Iosevka Aile`, `Ioskeley Mono`).
 - Bumped patch dependencies.
 - Bumped `tsl-dx` from `0.12.1` to `0.12.2`.

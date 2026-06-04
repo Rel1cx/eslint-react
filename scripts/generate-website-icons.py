@@ -30,6 +30,7 @@ OUT_DIR = ROOT / "apps" / "website" / "public"
 # (filename, pixel size) — taken from the existing files so dimensions don't drift.
 PNG_TARGETS: list[tuple[str, int]] = [
     ("32x32.png", 32),
+    ("64x64.png", 64),
     ("128x128.png", 128),
     ("128x128@2x.png", 256),
     ("Square30x30Logo.png", 30),
@@ -42,8 +43,6 @@ PNG_TARGETS: list[tuple[str, int]] = [
     ("Square284x284Logo.png", 284),
     ("Square310x310Logo.png", 310),
     ("StoreLogo.png", 50),
-    ("apple-touch-icon.png", 170),
-    ("favicon.png", 32),
     ("icon.png", 512),
     ("logo.png", 1024),
     ("og.png", 512),
@@ -142,9 +141,11 @@ def main() -> int:
         render_png(SRC_SVG, OUT_DIR / name, size)
         print(f"  ✓ {name:32} {size}x{size}")
 
-    # 3. Multi-resolution icon.ico.
+    # 3. Multi-resolution icon.ico and identical favicon.ico.
     build_ico(SRC_SVG, OUT_DIR / "icon.ico", ICO_SIZES)
     print(f"  ✓ icon.ico                       sizes={ICO_SIZES}")
+    shutil.copyfile(OUT_DIR / "icon.ico", OUT_DIR / "favicon.ico")
+    print(f"  ✓ favicon.ico                    sizes={ICO_SIZES}")
 
     # 4. macOS icon.icns.
     build_icns(SRC_SVG, OUT_DIR / "icon.icns")
