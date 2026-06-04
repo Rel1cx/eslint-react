@@ -57,16 +57,3 @@ export function cleanJSXTextValue(node: TSESTree.JSXText): string | null {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   return str || null;
 }
-
-/**
- * Check whether a `JSXText` node is padding whitespace that React trims away.
- *
- * Uses {@link cleanJSXTextValue} to precisely determine whether the text
- * contributes any visible characters after React's whitespace normalization.
- *
- * @param node - The JSXText node to check.
- * @returns `true` when the text is purely formatting whitespace.
- */
-export function isPaddingWhitespace(node: TSESTree.JSXText): boolean {
-  return cleanJSXTextValue(node) == null && node.value.includes("\n");
-}
