@@ -21,7 +21,7 @@
     "glossary",
     "community",
     "contributing",
-    "brand-assets",
+    "!brand-assets",
     "third-party-plugins"
   ]
 }

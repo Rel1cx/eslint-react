@@ -31,16 +31,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
         <meta content="/ms-icon-144x144.png" name="msapplication-TileImage" />
         <meta content="summary_large_image" name="twitter:card" />
         <meta content="https://eslint-react.xyz" name="twitter:site" />
-        <link
-          href="https://eslint-react.xyz/apple-touch-icon.png"
-          rel="apple-touch-icon"
-          sizes="180x180"
-        />
-        <link
-          href="https://eslint-react.xyz/favicon.png"
-          rel="icon"
-          type="image/png"
-        />
+        <link href="https://eslint-react.xyz/favicon.ico" rel="icon" type="image/x-icon" />
         <body className="flex flex-col min-h-screen">
           <Banner id="kit-beta" variant="rainbow">
             <Link href="/docs/packages/kit">
