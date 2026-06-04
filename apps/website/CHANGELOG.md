@@ -10,6 +10,7 @@ All notable changes to the `apps/website` documentation and its content.
 - Added missing inline table of contents to `contributing.mdx`.
 - Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
 - Corrected Meta's legal company name to `Meta Platforms, Inc.` across disclaimers and added a new **Brand Assets** documentation page (#1832).
+- Expanded the **Brand Assets** documentation page with a new **Icons** section listing downloadable assets in multiple sizes and formats; migrated the page from `.mdx` to `.md`.
 
 ### 🏗️ Internal
 
