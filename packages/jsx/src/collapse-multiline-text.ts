@@ -1,7 +1,5 @@
-import type { TSESTree } from "@typescript-eslint/types";
-
 /**
- * Clean a `JSXText` node's value following React's whitespace rules.
+ * Collapse a multiline JSX text string following React's whitespace rules.
  *
  * This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
  * 1. Split the raw text into lines.
@@ -10,13 +8,13 @@ import type { TSESTree } from "@typescript-eslint/types";
  * 4. Collapse tabs into spaces.
  * 5. Append a single space after each non-last non-empty line.
  *
- * @param node - The JSXText node to clean.
- * @returns The cleaned string, or `null` if the text contains only whitespace.
+ * @param text - The raw JSX text string to collapse.
+ * @returns The collapsed string, or `null` if the text contains only whitespace.
  *
  * @see https://github.com/babel/babel/blob/main/packages/babel-types/src/utils/react/cleanJSXElementLiteralChild.ts
  */
-export function cleanJSXTextValue(node: TSESTree.JSXText): string | null {
-  const lines = node.value.split(/\r\n|\n|\r/);
+export function collapseMultilineText(text: string): string | null {
+  const lines = text.split(/\r\n|\n|\r/);
 
   let lastNonEmptyLine = 0;
   for (let i = 0; i < lines.length; i++) {

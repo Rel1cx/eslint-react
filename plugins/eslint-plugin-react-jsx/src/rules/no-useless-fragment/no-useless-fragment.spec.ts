@@ -463,7 +463,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "<main><span /><span /></main>",
     },
-    // Multiline text is collapsed to a single space (cleanJSXTextValue)
+    // Multiline text is collapsed to a single space (collapseMultilineText)
     {
       code: "<div><>hello\nworld</></div>",
       errors: [
@@ -526,7 +526,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: null,
     },
-    // Whitespace-only text with newline is fully trimmed by cleanJSXTextValue
+    // Whitespace-only text with newline is fully trimmed by collapseMultilineText
     {
       code: tsx`
         <div>

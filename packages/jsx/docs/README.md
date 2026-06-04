@@ -19,7 +19,7 @@
 
 | Function | Description |
 | ------ | ------ |
-| [cleanJSXTextValue](functions/cleanJSXTextValue.md) | Clean a `JSXText` node's value following React's whitespace rules. |
+| [collapseMultilineText](functions/collapseMultilineText.md) | Collapse a multiline JSX text string following React's whitespace rules. |
 | [findAttribute](functions/findAttribute.md) | Find a JSX attribute (or spread attribute containing the property) by name on a given element. |
 | [findParentAttribute](functions/findParentAttribute.md) | Walk **up** the AST from `node` to find the nearest ancestor that is a `JSXAttribute` and (optionally) passes a predicate. |
 | [getAttributeName](functions/getAttributeName.md) | Get the stringified name of a `JSXAttribute` node. |

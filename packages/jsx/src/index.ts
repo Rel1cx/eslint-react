@@ -1,4 +1,4 @@
-export * from "./clean-jsx-text";
+export * from "./collapse-multiline-text";
 export * from "./find-attribute";
 export * from "./find-parent-attribute";
 export * from "./get-attribute-name";

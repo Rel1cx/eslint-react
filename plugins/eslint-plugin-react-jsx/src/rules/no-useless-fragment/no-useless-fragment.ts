@@ -3,7 +3,7 @@ import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
 import {
-  cleanJSXTextValue,
+  collapseMultilineText,
   getChildren,
   hasAnyAttribute,
   isFragmentElement,
@@ -163,7 +163,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
       let text = "";
       for (const child of node.children) {
         if (child.type === AST.JSXText) {
-          const cleaned = cleanJSXTextValue(child);
+          const cleaned = collapseMultilineText(child.value);
           if (cleaned != null) text += cleaned;
         } else {
           text += context.sourceCode.getText(child);
