@@ -52,7 +52,7 @@ export default function HomePage() {
       </article>
       <footer className="text-sm text-center md:text-base text-gray-500 mt-12 mb-6">
         <small>
-          ESLint React is not affiliated with Meta Corporation or the{" "}
+          ESLint React is not affiliated with Meta Platforms, Inc. or the{" "}
           <Link
             aria-label="Visit the official facebook/react GitHub repository"
             className="underline"
