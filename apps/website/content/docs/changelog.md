@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.8.11 (2026-06-04)
+
+### 📝 Documentation
+
+- **Website**: Added a new **Brand Assets** page and updated Meta legal name (#1832).
+
+### 🏗️ Internal
+
+- **React**: Updated default React fallback version to `19.2.7` (#1827).
+- **Assets**: Recreated logo with an open-source workflow, removing reliance on SVG assets exported by Amadine (#1831).
+- **Website**: Removed `@fontsource/iosevka-aile` and switched to system font fallbacks.
+- **Deps**: Bumped TypeScript to `6.0.3` (#1828).
+- **Deps**: Patch bumped `@typescript-eslint/*` to `8.60.1`, `react` / `react-dom` to `19.2.7`, `next` to `16.2.7`, and `@types/react` to `19.2.16`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.10...v5.8.11
+
 ## v5.8.10 (2026-06-02)
 
 ### 🐞 Fixes
