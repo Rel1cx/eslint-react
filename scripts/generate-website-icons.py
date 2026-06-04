@@ -7,7 +7,7 @@ multi-resolution ICO assembly, and macOS `iconutil` for ICNS assembly.
 The file `apps/website/public/sponsors.svg` is explicitly NOT touched.
 
 Usage:
-    python scripts/generate-website-icons.py
+    uv run --with pillow scripts/generate-website-icons.py
 """
 
 from __future__ import annotations
@@ -21,7 +21,7 @@ from pathlib import Path
 try:
     from PIL import Image
 except ImportError:
-    sys.exit("Missing dependency: pillow.  pip install pillow")
+    sys.exit("Missing dependency: pillow.  uv run --with pillow scripts/generate-website-icons.py")
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC_SVG = ROOT / "assets" / "logo.svg"
