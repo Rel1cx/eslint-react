@@ -161,7 +161,7 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
         varsIgnorePattern: "^_",
         ignoreRestSiblings: true,
       }],
-      "@typescript-eslint/strict-boolean-expressions": ["warn", {
+      "@typescript-eslint/strict-boolean-expressions": ["error", {
         allowAny: false,
         allowNullableBoolean: false,
         allowNullableEnum: false,

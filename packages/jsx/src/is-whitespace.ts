@@ -1,12 +1,15 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { cleanJSXTextValue } from "./clean-jsx-text";
 
 /**
  * Check whether a JSX child node is **whitespace padding** that React would
  * trim away during rendering.
  *
  * A child is considered whitespace padding when it is a `JSXText` node whose
- * raw content is empty after trimming **and** contains at least one newline.
- * This is the whitespace that appears between JSX tags purely for formatting:
+ * content is empty after applying React's whitespace normalization
+ * (see {@link cleanJSXTextValue}, modelled after Babel's
+ * `cleanJSXElementLiteralChild`). This is the whitespace that appears between
+ * JSX tags purely for formatting:
  *
  * ```jsx
  * <div>
@@ -15,24 +18,12 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * </div>
  * ```
  *
- * Use {@link isWhitespaceText} for a looser check that also matches
- * whitespace‑only text that does **not** contain a newline.
- *
  * @param node - A JSX child node.
  * @returns `true` when the node is purely formatting whitespace.
- *
- * @example
- * ```ts
- * import { isWhitespace } from "@eslint-react/jsx";
- *
- * const meaningful = element.children.filter(
- *   (child) => !isWhitespace(child),
- * );
- * ```
  */
 export function isWhitespace(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
-  return node.raw.trim() === "" && node.raw.includes("\n");
+  return cleanJSXTextValue(node) == null && node.value.includes("\n");
 }
 
 /**

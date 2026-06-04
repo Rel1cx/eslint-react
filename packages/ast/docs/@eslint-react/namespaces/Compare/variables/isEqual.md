@@ -46,9 +46,13 @@ Check if two nodes are equal
 
 ## Param
 
+**a**
+
 node to compare
 
 ## Param
+
+**b**
 
 node to compare
 

@@ -147,7 +147,7 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
                 varsIgnorePattern: "^_",
                 ignoreRestSiblings: true,
             }],
-        "@typescript-eslint/strict-boolean-expressions": ["warn", {
+        "@typescript-eslint/strict-boolean-expressions": ["error", {
                 allowAny: false,
                 allowNullableBoolean: false,
                 allowNullableEnum: false,

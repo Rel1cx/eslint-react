@@ -19,6 +19,7 @@
 
 | Function | Description |
 | ------ | ------ |
+| [cleanJSXTextValue](functions/cleanJSXTextValue.md) | Clean a `JSXText` node's value following React's whitespace rules. |
 | [findAttribute](functions/findAttribute.md) | Find a JSX attribute (or spread attribute containing the property) by name on a given element. |
 | [findParentAttribute](functions/findParentAttribute.md) | Walk **up** the AST from `node` to find the nearest ancestor that is a `JSXAttribute` and (optionally) passes a predicate. |
 | [getAttributeName](functions/getAttributeName.md) | Get the stringified name of a `JSXAttribute` node. |
@@ -35,6 +36,7 @@
 | [isEmptyStringExpression](functions/isEmptyStringExpression.md) | Check whether a JSX child node is an **empty string expression** (`{""}`). |
 | [isFragmentElement](functions/isFragmentElement.md) | Check whether a node is a React **Fragment** element. |
 | [isHostElement](functions/isHostElement.md) | Check whether a node is a **host** (intrinsic / DOM) element. |
+| [isPaddingWhitespace](functions/isPaddingWhitespace.md) | Check whether a `JSXText` node is padding whitespace that React trims away. |
 | [isWhitespace](functions/isWhitespace.md) | Check whether a JSX child node is **whitespace padding** that React would trim away during rendering. |
 | [isWhitespaceText](functions/isWhitespaceText.md) | Check whether a JSX child node is **any** whitespace‑only text. |
 | [resolveAttributeValue](functions/resolveAttributeValue.md) | Resolve the value of a JSX attribute (or spread attribute) into a [JsxAttributeValue](type-aliases/JsxAttributeValue.md) descriptor that can be inspected further. |
