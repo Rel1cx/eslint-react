@@ -27,8 +27,8 @@
     stroke-opacity="1"
     stroke-width="1"
   >
-    <ellipse cx="64" cy="64" rx="44" ry="16" />
-    <ellipse cx="64" cy="64" rx="44" ry="16" transform="rotate(60, 64, 64)" />
-    <ellipse cx="64" cy="64" rx="44" ry="16" transform="rotate(120, 64, 64)" />
+    <ellipse cx="64" cy="64" rx="45.00" ry="17.32" />
+    <ellipse cx="64" cy="64" rx="45.00" ry="17.32" transform="rotate(60, 64, 64)" />
+    <ellipse cx="64" cy="64" rx="45.00" ry="17.32" transform="rotate(120, 64, 64)" />
   </g>
 </svg>
