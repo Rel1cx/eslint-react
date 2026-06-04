@@ -1,7 +1,7 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import type { TSESTree } from "@typescript-eslint/types";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { cleanJSXTextValue } from "./clean-jsx-text";
+import { collapseMultilineText } from "./collapse-multiline-text";
 import { isEmptyStringExpression } from "./is-whitespace";
 
 /**
@@ -37,7 +37,7 @@ export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[
   for (const child of element.children) {
     if (child.type === AST.JSXText) {
       // Padding whitespace (whitespace containing a newline) that React trims away.
-      if (cleanJSXTextValue(child) == null && child.value.includes("\n")) continue;
+      if (collapseMultilineText(child.value) == null && child.value.includes("\n")) continue;
       elements.push(child);
       continue;
     }

@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { cleanJSXTextValue } from "./clean-jsx-text";
+import { collapseMultilineText } from "./collapse-multiline-text";
 
 /**
  * Check whether a JSX child node is **whitespace padding** that React would
@@ -7,7 +7,7 @@ import { cleanJSXTextValue } from "./clean-jsx-text";
  *
  * A child is considered whitespace padding when it is a `JSXText` node whose
  * content is empty after applying React's whitespace normalization
- * (see {@link cleanJSXTextValue}, modelled after Babel's
+ * (see {@link collapseMultilineText}, modelled after Babel's
  * `cleanJSXElementLiteralChild`). This is the whitespace that appears between
  * JSX tags purely for formatting:
  *
@@ -23,7 +23,7 @@ import { cleanJSXTextValue } from "./clean-jsx-text";
  */
 export function isWhitespace(node: TSESTree.JSXChild): boolean {
   if (node.type !== AST.JSXText) return false;
-  return cleanJSXTextValue(node) == null && node.value.includes("\n");
+  return collapseMultilineText(node.value) == null && node.value.includes("\n");
 }
 
 /**

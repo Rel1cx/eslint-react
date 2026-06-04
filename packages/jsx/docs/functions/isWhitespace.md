@@ -11,7 +11,7 @@ trim away during rendering.
 
 A child is considered whitespace padding when it is a `JSXText` node whose
 content is empty after applying React's whitespace normalization
-(see [cleanJSXTextValue](cleanJSXTextValue.md), modelled after Babel's
+(see [collapseMultilineText](collapseMultilineText.md), modelled after Babel's
 `cleanJSXElementLiteralChild`). This is the whitespace that appears between
 JSX tags purely for formatting:
 

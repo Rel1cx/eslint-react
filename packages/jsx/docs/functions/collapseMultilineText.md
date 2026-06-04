@@ -1,12 +1,12 @@
-[@eslint-react/jsx](../README.md) / cleanJSXTextValue
+[@eslint-react/jsx](../README.md) / collapseMultilineText
 
-# Function: cleanJSXTextValue()
+# Function: collapseMultilineText()
 
 ```ts
-function cleanJSXTextValue(node: JSXText): string | null;
+function collapseMultilineText(text: string): string | null;
 ```
 
-Clean a `JSXText` node's value following React's whitespace rules.
+Collapse a multiline JSX text string following React's whitespace rules.
 
 This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
 1. Split the raw text into lines.
@@ -19,13 +19,13 @@ This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `JSXText` | The JSXText node to clean. |
+| `text` | `string` | The raw JSX text string to collapse. |
 
 ## Returns
 
 `string` \| `null`
 
-The cleaned string, or `null` if the text contains only whitespace.
+The collapsed string, or `null` if the text contains only whitespace.
 
 ## See
 
