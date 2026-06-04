@@ -2,10 +2,16 @@ import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
-import { getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
+import {
+  cleanJSXTextValue,
+  getChildren,
+  hasAnyAttribute,
+  isFragmentElement,
+  isHostElement,
+  isWhitespaceText,
+} from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
-import { getChildrenSourceText, trimLikeReact } from "./lib";
 
 export const RULE_NAME = "no-useless-fragment";
 
@@ -147,15 +153,23 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
   /**
    * Build an autofix that unwraps the fragment, replacing it with its
-   * trimmed children text.  Returns `null` when the fix is unsafe.
+   * meaningful children content.  Returns `null` when the fix is unsafe.
    * @param node The fragment node to fix.
    */
   function buildFix(node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
     if (!isSafeToFix(node)) return null;
 
     return (fixer) => {
-      const childrenText = getChildrenSourceText(context, node);
-      return fixer.replaceText(node, trimLikeReact(childrenText));
+      let text = "";
+      for (const child of node.children) {
+        if (child.type === AST.JSXText) {
+          const cleaned = cleanJSXTextValue(child);
+          if (cleaned != null) text += cleaned;
+        } else {
+          text += context.sourceCode.getText(child);
+        }
+      }
+      return fixer.replaceText(node, text);
     };
   }
 

@@ -3,34 +3,6 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 // ---------------------------------------------------------------------------
-// Pure string utilities (no AST knowledge)
-// ---------------------------------------------------------------------------
-
-/**
- * Trim leading / trailing whitespace that spans across a newline.
- *
- * This is used by the auto-fixer to remove indentation / formatting artefacts
- * from the raw source text when moving a `children` prop value into element
- * content. It does **not** model React's rendering behaviour — React DOM
- * preserves text nodes exactly as written.
- *
- * Whitespace that contains a newline is stripped entirely;
- * whitespace that stays on the same line is preserved.
- * @param text The raw source text to trim.
- */
-export function trimLikeReact(text: string): string {
-  const leadingSpaces = /^\s*/.exec(text)?.[0] ?? "";
-  const trailingSpaces = /\s*$/.exec(text)?.[0] ?? "";
-
-  const start = leadingSpaces.includes("\n") ? leadingSpaces.length : 0;
-  const end = trailingSpaces.includes("\n")
-    ? text.length - trailingSpaces.length
-    : text.length;
-
-  return text.slice(start, end);
-}
-
-// ---------------------------------------------------------------------------
 // Object property helpers
 // ---------------------------------------------------------------------------
 

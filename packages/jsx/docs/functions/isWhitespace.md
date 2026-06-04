@@ -10,8 +10,10 @@ Check whether a JSX child node is **whitespace padding** that React would
 trim away during rendering.
 
 A child is considered whitespace padding when it is a `JSXText` node whose
-raw content is empty after trimming **and** contains at least one newline.
-This is the whitespace that appears between JSX tags purely for formatting:
+content is empty after applying React's whitespace normalization
+(see [cleanJSXTextValue](cleanJSXTextValue.md), modelled after Babel's
+`cleanJSXElementLiteralChild`). This is the whitespace that appears between
+JSX tags purely for formatting:
 
 ```jsx
 <div>
@@ -19,9 +21,6 @@ This is the whitespace that appears between JSX tags purely for formatting:
   <span />
 </div>
 ```
-
-Use [isWhitespaceText](isWhitespaceText.md) for a looser check that also matches
-whitespace‑only text that does **not** contain a newline.
 
 ## Parameters
 
@@ -34,13 +33,3 @@ whitespace‑only text that does **not** contain a newline.
 `boolean`
 
 `true` when the node is purely formatting whitespace.
-
-## Example
-
-```ts
-import { isWhitespace } from "@eslint-react/jsx";
-
-const meaningful = element.children.filter(
-  (child) => !isWhitespace(child),
-);
-```
