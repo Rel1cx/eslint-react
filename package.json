@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.8.11",
+  "version": "5.8.12",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -93,7 +93,7 @@
     "react-dom": "^19.2.7",
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.1",
-    "sort-package-json": "^3.7.0",
+    "sort-package-json": "^3.7.1",
     "textlint": "^15.7.1",
     "tinyglobby": "^0.2.17",
     "ts-pattern": "^5.9.0",

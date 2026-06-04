@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.12] - 2026-06-05
+
+### Changed
+
+- Removed local `trimLikeReact` helper from `lib.ts` in favor of utilities from `@eslint-react/jsx`. (#1836)
+
 ## [5.8.7] - 2026-05-29
 
 ### Fixed

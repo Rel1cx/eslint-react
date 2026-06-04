@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.12] - 2026-06-05
+
+### Added
+
+- Added test cases for multiline whitespace (with tabs) trimming behavior. (#1837)
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

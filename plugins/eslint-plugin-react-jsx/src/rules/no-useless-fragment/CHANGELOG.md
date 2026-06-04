@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.12] - 2026-06-05
+
+### Changed
+
+- Migrated child text cleanup logic to `@eslint-react/jsx/collapseMultilineText` and `@eslint-react/jsx/getChildren`, removing local `lib.ts` helpers. (#1836, #1838)
+- Improved auto-fixer to use `collapseMultilineText` for JSX text children, aligning with Babel's `cleanJSXElementLiteralChild` pattern. (#1836)
+
+### Added
+
+- Added targeted test cases for whitespace boundary handling, multiline text collapsing, tab conversion, and `JSXEmptyExpression` edge cases. (#1837)
+
 ## [5.8.7] - 2026-05-29
 
 ### Fixed

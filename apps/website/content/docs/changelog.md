@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v5.8.12 (2026-06-05)
+
+### 🪄 Improvements
+
+- **`jsx`**: Aligned `getChildren` with Babel's `buildChildren` and `cleanJSXElementLiteralChild` patterns, improving whitespace handling accuracy in `react-jsx/no-useless-fragment` and `react-jsx/no-children-prop` rules. Migrated child text cleanup to `@eslint-react/jsx` utilities and removed local `lib.ts` helpers. (#1836)
+- **`jsx`**: Removed `isPaddingWhitespace` API and added whitespace boundary tests for `react-jsx/no-useless-fragment` and `react-dom/no-dangerously-set-innerhtml-with-children` rules. (#1837)
+- **`jsx`**: Renamed `cleanJSXTextValue` to `collapseMultilineText` in the public API and updated `react-jsx/no-useless-fragment` to use the new name. (#1838)
+
+### 📝 Documentation
+
+- **Website**: Expanded the Brand Assets page with an icons section and formatted file names as inline code. (#1834)
+
+### 🏗️ Internal
+
+- **Website**: Added `scripts/generate-website-icons.py` for automated icon generation and refined logo geometry across all website assets. (#1833)
+- **Deps**: Bumped `import-integrity-lint` and `enhanced-resolve`.
+- **Deps**: Bumped `axios` to `^1.17.0` and `shiki` to `4.2.0`.
+- **Deps**: Updated pnpm lockfiles for `dompurify` and `rolldown`.
+- **Per-rule CHANGELOGs**: Updated rule-level changelogs for `no-useless-fragment`, `no-children-prop`, and `no-dangerously-set-innerhtml-with-children`. (#1836, #1837, #1838)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.11...v5.8.12
+
 ## v5.8.11 (2026-06-04)
 
 ### 📝 Documentation
