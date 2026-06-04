@@ -1,6 +1,6 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
-  { owner: "antfu", repo: "shiki-stream" },
+
   { owner: "apache", repo: "hadoop" },
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
@@ -9,6 +9,7 @@ export const projects = [
   { owner: "electric-sql", repo: "pglite" },
   { owner: "ensdomains", repo: "thorin" },
   { owner: "flirtual", repo: "flirtual" },
+  { owner: "GoogleCloudPlatform", repo: "gke-mcp" },
   { owner: "hashintel", repo: "hash" },
   { owner: "kriasoft", repo: "graphql-starter-kit" },
   { owner: "kriasoft", repo: "react-starter-kit" },
