@@ -304,7 +304,7 @@ isCreateRefCall(node);
   const ownerStack = ((React as any).captureOwnerStack)?.()! satisfies OwnerStack;
   ```
 
-  The call to `captureOwnerStack` is buried under four layers of syntax:
+  The call to `captureOwnerStack` is nested within four layers of syntax:
 
   1. a `React as any` cast (`TSAsExpression`),
   2. an optional call (`?.()` → `ChainExpression`),
