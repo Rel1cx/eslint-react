@@ -463,6 +463,95 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "<main><span /><span /></main>",
     },
+    // Multiline text is collapsed to a single space (cleanJSXTextValue)
+    {
+      code: "<div><>hello\nworld</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>hello world</div>",
+    },
+    // Tabs are converted to spaces during cleanup
+    {
+      code: "<div><>a\n\tb</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>a b</div>",
+    },
+    // JSXEmptyExpression is skipped by getChildren but preserved in fix
+    {
+      code: "<div><><span />{}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div><span />{}</div>",
+    },
+    // JSXEmptyExpression prevents auto-fix outside JSX context
+    {
+      code: "<><span />{}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Whitespace-only text with newline is fully trimmed by cleanJSXTextValue
+    {
+      code: tsx`
+        <div>
+          <>
+          </>
+        </div>
+      `,
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: tsx`
+        <div>
+          
+        </div>
+      `,
+    },
   ],
   valid: [
     {
