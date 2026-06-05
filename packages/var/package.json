@@ -49,7 +49,7 @@
     "@typescript-eslint/parser": "^8.60.1",
     "@typescript-eslint/typescript-estree": "^8.60.1",
     "eslint": "^10.4.1",
-    "tsdown": "^0.22.1",
+    "tsdown": "^0.22.2",
     "typescript": "6.0.3",
     "vitest": "^4.1.8"
   },
