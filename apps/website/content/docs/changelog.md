@@ -2,6 +2,29 @@
 title: Changelog
 ---
 
+## v5.8.13 (2026-06-06)
+
+### 📝 Documentation
+
+- Added `GoogleCloudPlatform/gke-mcp` and removed archived `antfu/shiki-stream` from community projects on the website.
+- Added guideline for AI-generated replies on spam or off-topic threads in the contributing guide (#1842).
+- Improved RSC Directives wording in documentation.
+- Removed the `no-multiple-children-in-title` recipe from the website.
+- Removed the kit beta banner from the website (#1846).
+
+### 🏗️ Internal
+
+- Added `RuleListener` return type to all rule `create` functions (#1845).
+- Added boundary and edge case tests for `react-dom` rules, JSX rules, and `naming-convention` rules (`context-name`, `id-name`, `ref-name`).
+- Added identifier resolution tests for `react-x/no-leaked-conditional-rendering` (#1844).
+- Bumped `pnpm` and updated lockfile.
+- Bumped `tsdown` to `0.22.2` and updated dependencies.
+- Removed redundant single-argument `merge()` calls in rules (#1843).
+- Switched GitHub workflows to `ubuntu-latest`.
+- Updated website brand assets and icons.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.12...v5.8.13
+
 ## v5.8.12 (2026-06-05)
 
 ### 🪄 Improvements
@@ -16,11 +39,11 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- **Website**: Added `scripts/generate-website-icons.py` for automated icon generation and refined logo geometry across all website assets. (#1833)
-- **Deps**: Bumped `import-integrity-lint` and `enhanced-resolve`.
-- **Deps**: Bumped `axios` to `^1.17.0` and `shiki` to `4.2.0`.
-- **Deps**: Updated pnpm lockfiles for `dompurify` and `rolldown`.
-- **Per-rule CHANGELOGs**: Updated rule-level changelogs for `no-useless-fragment`, `no-children-prop`, and `no-dangerously-set-innerhtml-with-children`. (#1836, #1837, #1838)
+- Added `scripts/generate-website-icons.py` for automated icon generation and refined logo geometry across all website assets. (#1833)
+- Bumped `import-integrity-lint` and `enhanced-resolve`.
+- Bumped `axios` to `^1.17.0` and `shiki` to `4.2.0`.
+- Updated pnpm lockfiles for `dompurify` and `rolldown`.
+- Updated rule-level changelogs for `no-useless-fragment`, `no-children-prop`, and `no-dangerously-set-innerhtml-with-children`. (#1836, #1837, #1838)
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.11...v5.8.12
 
@@ -28,15 +51,15 @@ title: Changelog
 
 ### 📝 Documentation
 
-- **Website**: Added a new **Brand Assets** page and updated Meta legal name (#1832).
+- Added a new **Brand Assets** page and updated Meta legal name (#1832).
 
 ### 🏗️ Internal
 
-- **React**: Updated default React fallback version to `19.2.7` (#1827).
-- **Assets**: Recreated logo with an open-source workflow, removing reliance on SVG assets exported by Amadine (#1831).
-- **Website**: Removed `@fontsource/iosevka-aile` and switched to system font fallbacks.
-- **Deps**: Bumped TypeScript to `6.0.3` (#1828).
-- **Deps**: Patch bumped `@typescript-eslint/*` to `8.60.1`, `react` / `react-dom` to `19.2.7`, `next` to `16.2.7`, and `@types/react` to `19.2.16`.
+- Updated default React fallback version to `19.2.7` (#1827).
+- Recreated logo with an open-source workflow, removing reliance on SVG assets exported by Amadine (#1831).
+- Removed `@fontsource/iosevka-aile` and switched to system font fallbacks.
+- Bumped TypeScript to `6.0.3` (#1828).
+- Patch bumped `@typescript-eslint/*` to `8.60.1`, `react` / `react-dom` to `19.2.7`, `next` to `16.2.7`, and `@types/react` to `19.2.16`.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.10...v5.8.11
 
@@ -50,16 +73,16 @@ title: Changelog
 ### 📝 Documentation
 
 - **`naming-convention`**: Expanded examples and annotated Ok cases for `context-name`, `id-name`, and `ref-name` rules (#1819).
-- **Recipes**: Refactored `MyComponent` examples to `Button` component in custom rules of props and function component definition recipes (#1823).
-- **Community**: Added `azat-io` eslint-config to the community presets list.
+- Refactored `MyComponent` examples to `Button` component in custom rules of props and function component definition recipes (#1823).
+- Added `azat-io` eslint-config to the community presets list.
 
 ### 🏗️ Internal
 
 - **`jsx`**: Consolidated whitespace child predicates and added `isEmptyStringExpression` to the public API (#1820).
-- **Verification**: Added preset verification to `verify-docs.ts` (#1822).
-- **Monorepo**: Added `AGENTS.md` guide for AI coding agents (#1824).
-- **Monorepo**: Normalized local package metadata in `.pkgs/*`.
-- **Deps**: Bumped `vite` to `^8.0.15` and `ansis` to `^4.3.1` across workspace packages.
+- Added preset verification to `verify-docs.ts` (#1822).
+- Added `AGENTS.md` guide for AI coding agents (#1824).
+- Normalized local package metadata in `.pkgs/*`.
+- Bumped `vite` to `^8.0.15` and `ansis` to `^4.3.1` across workspace packages.
 
 ### New Contributors
 
@@ -79,9 +102,9 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- **Examples**: Removed `.vscode` directories from all examples, added missing `engines.node` to Preact examples, cleaned up redundant `.config/*.ts` from `tsconfig.node.json`, and updated `.gitignore`.
-- **Website**: Cleaned up configs and docs.
-- **Deps**: Patch bumped `eslint`, `tinyglobby`, and `tsdown` across workspace packages; added `@fontsource/iosevka-aile` to the website; reordered CSS imports in `layout.tsx`.
+- Removed `.vscode` directories from all examples, added missing `engines.node` to Preact examples, cleaned up redundant `.config/*.ts` from `tsconfig.node.json`, and updated `.gitignore`.
+- Cleaned up configs and docs.
+- Patch bumped `eslint`, `tinyglobby`, and `tsdown` across workspace packages; added `@fontsource/iosevka-aile` to the website; reordered CSS imports in `layout.tsx`.
 - Updated `.sentrux` baseline timestamp.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.8...v5.8.9
@@ -92,19 +115,19 @@ title: Changelog
 
 - **`kit`**: Added `is.APICall` callout to the Kit documentation (#1813).
 - **`jsx`**: Updated `getChildren` and `hasChildren` API documentation to reflect empty string children behavior.
-- **Website**: Reworked status emoji indicators across docs and examples (#1816).
-- **Website**: Added ℞ prefix to recipe titles and cleaned up See Also sections.
-- **Website**: Removed the `custom-rules-of-children` recipe and cross-linked the remaining recipes.
-- **Website**: Added redirects for moved rule documentation.
+- Reworked status emoji indicators across docs and examples (#1816).
+- Added ℞ prefix to recipe titles and cleaned up See Also sections.
+- Removed the `custom-rules-of-children` recipe and cross-linked the remaining recipes.
+- Added redirects for moved rule documentation.
 - Cleaned up the "Community Maintained Presets that use ESLint React" documentation page.
 
 ### 🏗️ Internal
 
 - **`react-x/no-misused-capture-owner-stack`**: Added edge-case tests for `captureOwnerStack` (#1813).
-- **Website**: Updated fonts and dropped the `data-theme` attribute.
-- **Website**: Updated theme configuration (#1815).
-- **Monorepo**: Aligned the `tsdown` version in `@local/configs`.
-- **pnpm-workspace**: Enabled `trustPolicy: "no-downgrade"` and added `minimumReleaseAge: 1440` (1 day).
+- Updated fonts and dropped the `data-theme` attribute.
+- Updated theme configuration (#1815).
+- Aligned the `tsdown` version in `@local/configs`.
+- Enabled `trustPolicy: "no-downgrade"` and added `minimumReleaseAge: 1440` (1 day).
 - Bumped `eslint` to `10.4.1` across workspace packages.
 - Bumped `pnpm` to `11.5.0` and refreshed the lockfile.
 - Bumped `fumadocs` packages and `tinyexec`.
@@ -138,8 +161,6 @@ title: Changelog
 - **`react-x/no-misused-capture-owner-stack`**: Refactored the `process.env.NODE_ENV` detection helpers to use the shared `core.isAPI` utility (#1812).
 - **`react-x/no-unused-state`**: Removed incorrect invalid test cases.
 - **`jsx`**: Added targeted test cases for empty string children behavior in `no-children-prop-with-children` and `no-useless-fragment` rules (#1806).
-- **Website**: Removed SF Pro fonts from the body font stack and normalized CSS baseline.
-- **Tests**: Normalized quote usage in test files and removed `www` prefix from `eslint-react.xyz` links (#1807).
 - Removed `eslint-plugin-function` and bumped website dependencies (#1811).
 - Flattened `scripts/lib` into the `scripts` root.
 - Updated `.textlintrc.json`.
@@ -168,10 +189,6 @@ title: Changelog
 ### 🏗️ Internal
 
 - **`ast`**: Replaced `isLiteral` with `isStringLiteral` in `Check` utilities (#1798).
-- **Assets**: Made logo 120° rotationally symmetric and regenerated all icon assets (#1799).
-- **Configs**: Converted `tsdown` and `tsl` base configs to factory functions.
-- **Custom Rules**: Moved custom rule samples to the `@local/samples` package (#1800).
-- **TypeScript**: Fixed TypeScript version specification and cleaned up code style (#1801).
 - Bumped dependencies across workspace packages:
   - `@typescript-eslint` to `^8.60.0`
   - `eslint-plugin-jsdoc` to `63.0.0`
@@ -217,8 +234,8 @@ title: Changelog
 
 ### 📝 Documentation
 
-- **Website**: Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
-- **Website**: Replaced the homepage `Hint` popover with a direct link to the FAQ anchor explaining the project's human/LLM collaboration policy.
+- Restructured the FAQ page from an accordion layout to standard headings for better SEO, accessibility, and direct anchor linking.
+- Replaced the homepage `Hint` popover with a direct link to the FAQ anchor explaining the project's human/LLM collaboration policy.
 - Added a new **"What does 90% human-written mean?"** section to the FAQ.
 - Updated documentation for `isClassComponent` and `JsxConfig`.
 - Removed outdated documentation files.
