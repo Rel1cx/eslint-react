@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeJSXElementLike, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -74,46 +74,44 @@ export function create(context: RuleContext<MessageID, []>) {
     return descriptors;
   }
 
-  return merge(
-    {
-      ArrayExpression(node) {
-        if (inChildrenToArray) return;
-        const elements = node.elements.filter(is(AST.JSXElement));
-        if (elements.length === 0) return;
-        for (const el of elements) {
-          if (!hasAttribute(context, el, "key")) {
-            context.report({ messageId: "default", node: el });
-          }
+  return {
+    ArrayExpression(node) {
+      if (inChildrenToArray) return;
+      const elements = node.elements.filter(is(AST.JSXElement));
+      if (elements.length === 0) return;
+      for (const el of elements) {
+        if (!hasAttribute(context, el, "key")) {
+          context.report({ messageId: "default", node: el });
         }
-      },
-      CallExpression(node) {
-        inChildrenToArray ||= core.isChildrenToArrayCall(context, node);
-        if (inChildrenToArray) return;
-        const callee = Extract.unwrap(node.callee);
-        if (callee.type !== AST.MemberExpression) return;
-        if (callee.property.type !== AST.Identifier) return;
-        const name = callee.property.name;
-        const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
-        if (idx < 0) return;
-        const cb = node.arguments[idx];
-        if (!Check.isFunction(cb)) return;
-        if (cb.body.type === AST.BlockStatement) {
-          checkBlock(cb.body).forEach(report(context));
-        } else {
-          checkExpr(cb.body).forEach(report(context));
-        }
-      },
-      "CallExpression:exit"(node) {
-        if (core.isChildrenToArrayCall(context, node)) {
-          inChildrenToArray = false;
-        }
-      },
-      JSXFragment(node) {
-        if (inChildrenToArray) return;
-        if (node.parent.type === AST.ArrayExpression) {
-          context.report({ messageId: "unexpectedFragmentSyntax", node });
-        }
-      },
+      }
     },
-  );
+    CallExpression(node) {
+      inChildrenToArray ||= core.isChildrenToArrayCall(context, node);
+      if (inChildrenToArray) return;
+      const callee = Extract.unwrap(node.callee);
+      if (callee.type !== AST.MemberExpression) return;
+      if (callee.property.type !== AST.Identifier) return;
+      const name = callee.property.name;
+      const idx = name === "from" ? 1 : name === "map" ? 0 : -1;
+      if (idx < 0) return;
+      const cb = node.arguments[idx];
+      if (!Check.isFunction(cb)) return;
+      if (cb.body.type === AST.BlockStatement) {
+        checkBlock(cb.body).forEach(report(context));
+      } else {
+        checkExpr(cb.body).forEach(report(context));
+      }
+    },
+    "CallExpression:exit"(node) {
+      if (core.isChildrenToArrayCall(context, node)) {
+        inChildrenToArray = false;
+      }
+    },
+    JSXFragment(node) {
+      if (inChildrenToArray) return;
+      if (node.parent.type === AST.ArrayExpression) {
+        context.report({ messageId: "unexpectedFragmentSyntax", node });
+      }
+    },
+  };
 }

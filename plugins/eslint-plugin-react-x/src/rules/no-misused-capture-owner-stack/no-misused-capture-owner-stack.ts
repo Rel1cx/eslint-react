@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { isDevelopmentOnlyCheck } from "./lib";
@@ -40,34 +40,32 @@ export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("captureOwnerStack")) return {};
   const { importSource } = getSettingsFromContext(context);
 
-  return merge(
-    {
-      CallExpression(node) {
-        // Check if the call is to `captureOwnerStack`
-        if (!core.isCaptureOwnerStackCall(context, node)) return;
-        // Check if the call is wrapped in a development-only conditional block
-        if (Traverse.findParent(node, (n) => isDevelopmentOnlyCheck(context, n)) == null) {
+  return {
+    CallExpression(node) {
+      // Check if the call is to `captureOwnerStack`
+      if (!core.isCaptureOwnerStackCall(context, node)) return;
+      // Check if the call is wrapped in a development-only conditional block
+      if (Traverse.findParent(node, (n) => isDevelopmentOnlyCheck(context, n)) == null) {
+        context.report({
+          messageId: "missingDevelopmentOnlyCheck",
+          node,
+        });
+      }
+    },
+    ImportDeclaration(node) {
+      // Check if the import is from the configured source
+      if (node.source.value !== importSource) return;
+      // Iterate over import specifiers to find named imports of `captureOwnerStack`
+      for (const specifier of node.specifiers) {
+        if (specifier.type !== AST.ImportSpecifier) continue;
+        if (specifier.imported.type !== AST.Identifier) continue;
+        if (specifier.imported.name === "captureOwnerStack") {
           context.report({
-            messageId: "missingDevelopmentOnlyCheck",
-            node,
+            messageId: "useNamespaceImport",
+            node: specifier,
           });
         }
-      },
-      ImportDeclaration(node) {
-        // Check if the import is from the configured source
-        if (node.source.value !== importSource) return;
-        // Iterate over import specifiers to find named imports of `captureOwnerStack`
-        for (const specifier of node.specifiers) {
-          if (specifier.type !== AST.ImportSpecifier) continue;
-          if (specifier.imported.type !== AST.Identifier) continue;
-          if (specifier.imported.name === "captureOwnerStack") {
-            context.report({
-              messageId: "useNamespaceImport",
-              node: specifier,
-            });
-          }
-        }
-      },
+      }
     },
-  );
+  };
 }

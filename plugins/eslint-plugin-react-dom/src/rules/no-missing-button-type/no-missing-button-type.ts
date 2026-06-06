@@ -1,6 +1,6 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-missing-button-type";
@@ -36,33 +36,31 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return merge(
-    {
-      JSXElement(node) {
-        // Resolve the JSX element to its corresponding DOM element type
-        // If it's not a '<button>', skip it
-        if (resolver.resolve(node).domElementType !== "button") {
-          return;
-        }
+  return {
+    JSXElement(node) {
+      // Resolve the JSX element to its corresponding DOM element type
+      // If it's not a '<button>', skip it
+      if (resolver.resolve(node).domElementType !== "button") {
+        return;
+      }
 
-        // Check if the 'type' attribute already exists on the button element
-        if (hasAttribute(context, node, "type")) {
-          return;
-        }
+      // Check if the 'type' attribute already exists on the button element
+      if (hasAttribute(context, node, "type")) {
+        return;
+      }
 
-        // If the 'type' attribute is missing, report an error
-        context.report({
-          messageId: "missingTypeAttribute",
-          node: node.openingElement,
-          // Provide suggestions to automatically fix the issue
-          suggest: BUTTON_TYPES.map((type) => ({
-            data: { type },
-            // The fix function inserts the 'type' attribute with a suggested value
-            fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
-            messageId: "addTypeAttribute",
-          } as const)),
-        });
-      },
+      // If the 'type' attribute is missing, report an error
+      context.report({
+        messageId: "missingTypeAttribute",
+        node: node.openingElement,
+        // Provide suggestions to automatically fix the issue
+        suggest: BUTTON_TYPES.map((type) => ({
+          data: { type },
+          // The fix function inserts the 'type' attribute with a suggested value
+          fix: (fixer) => fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`),
+          messageId: "addTypeAttribute",
+        } as const)),
+      });
     },
-  );
+  };
 }

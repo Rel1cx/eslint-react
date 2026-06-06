@@ -1,7 +1,7 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findProperty, resolveToObjectExpression } from "./lib";
@@ -143,73 +143,71 @@ export function create(context: RuleContext<MessageID, []>) {
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const fetchEntries: FetchEntry[] = [];
   const abortEntries: AbortEntry[] = [];
-  return merge(
-    {
-      [":function"](node: TSESTreeFunction) {
-        const kind = getPhaseKindOfFunction(node) ?? "other";
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        const fEntry = fEntries.at(-1);
-        if (fEntry == null || !ComponentPhaseRelevance.has(fEntry.kind)) {
-          return;
-        }
-        switch (getCallKind(node)) {
-          case "fetch": {
-            if (fEntry.kind !== "setup") return;
-            const { controller, isParamSignal } = getFetchController(context, node);
-            fetchEntries.push({
-              controller,
-              isParamSignal,
-              node,
-              phase: fEntry.kind,
-            });
-            break;
-          }
-          case "abort": {
-            if (fEntry.kind !== "cleanup") return;
-            const controller = getAbortController(node);
-            if (controller == null) break;
-            abortEntries.push({
-              controller,
-              node,
-              phase: fEntry.kind,
-            });
-            break;
-          }
-        }
-      },
-      ["Program:exit"]() {
-        for (const fEntry of fetchEntries) {
-          const controller = fEntry.controller;
-          if (controller == null) {
-            context.report({
-              messageId: "expectedAbortController",
-              node: fEntry.node,
-            });
-            continue;
-          }
-          // If the signal comes from a function parameter (e.g. use-abortable-effect),
-          // assume the caller manages the abort lifecycle.
-          if (fEntry.isParamSignal) {
-            continue;
-          }
-          const hasMatchingAbort = abortEntries.some((aEntry) =>
-            isAssignmentTargetEqual(context, aEntry.controller, controller)
-          );
-          if (!hasMatchingAbort) {
-            context.report({
-              messageId: "expectedAbortInCleanup",
-              node: fEntry.node,
-            });
-          }
-        }
-      },
+  return {
+    [":function"](node: TSESTreeFunction) {
+      const kind = getPhaseKindOfFunction(node) ?? "other";
+      fEntries.push({ kind, node });
     },
-  );
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      const fEntry = fEntries.at(-1);
+      if (fEntry == null || !ComponentPhaseRelevance.has(fEntry.kind)) {
+        return;
+      }
+      switch (getCallKind(node)) {
+        case "fetch": {
+          if (fEntry.kind !== "setup") return;
+          const { controller, isParamSignal } = getFetchController(context, node);
+          fetchEntries.push({
+            controller,
+            isParamSignal,
+            node,
+            phase: fEntry.kind,
+          });
+          break;
+        }
+        case "abort": {
+          if (fEntry.kind !== "cleanup") return;
+          const controller = getAbortController(node);
+          if (controller == null) break;
+          abortEntries.push({
+            controller,
+            node,
+            phase: fEntry.kind,
+          });
+          break;
+        }
+      }
+    },
+    ["Program:exit"]() {
+      for (const fEntry of fetchEntries) {
+        const controller = fEntry.controller;
+        if (controller == null) {
+          context.report({
+            messageId: "expectedAbortController",
+            node: fEntry.node,
+          });
+          continue;
+        }
+        // If the signal comes from a function parameter (e.g. use-abortable-effect),
+        // assume the caller manages the abort lifecycle.
+        if (fEntry.isParamSignal) {
+          continue;
+        }
+        const hasMatchingAbort = abortEntries.some((aEntry) =>
+          isAssignmentTargetEqual(context, aEntry.controller, controller)
+        );
+        if (!hasMatchingAbort) {
+          context.report({
+            messageId: "expectedAbortInCleanup",
+            node: fEntry.node,
+          });
+        }
+      }
+    },
+  };
 }
 
 // #endregion

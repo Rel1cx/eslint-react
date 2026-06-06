@@ -1,6 +1,6 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import {
   getAttributeTagsMap,
   getStandardName,
@@ -118,107 +118,105 @@ export function create(context: RuleContext<MessageID, Options[]>) {
     return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
-  return merge(
-    {
-      JSXAttribute(node): void {
-        const ignoreNames: string[] = getIgnoreConfig();
-        const actualName: string = getText(context, node.name);
+  return {
+    JSXAttribute(node): void {
+      const ignoreNames: string[] = getIgnoreConfig();
+      const actualName: string = getText(context, node.name);
 
-        // Skip checking if the attribute name is in the ignore list
-        if (ignoreNames.includes(actualName)) {
-          return;
-        }
+      // Skip checking if the attribute name is in the ignore list
+      if (ignoreNames.includes(actualName)) {
+        return;
+      }
 
-        const name: string = normalizeAttributeCase(actualName);
+      const name: string = normalizeAttributeCase(actualName);
 
-        // Ignore tags like <Foo.bar />
-        if (tagNameHasDot(node)) {
-          return;
-        }
+      // Ignore tags like <Foo.bar />
+      if (tagNameHasDot(node)) {
+        return;
+      }
 
-        // Handle data-* attributes
-        if (isValidDataAttribute(name)) {
-          if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
-            context.report({
-              data: {
-                name: actualName,
-                lowerCaseName: actualName.toLowerCase(),
-              },
-              messageId: "dataLowercaseRequired",
-              node,
-            });
-          }
-          return;
-        }
-
-        // Handle ARIA attributes
-        if (isValidAriaAttribute(name)) return;
-
-        const tagName: string | null = getTagName(node);
-
-        // Special case for fbt/fbs nodes
-        if (tagName === "fbt" || tagName === "fbs") return;
-
-        // Only validate HTML/DOM elements, not React components
-        if (!isValidHTMLTagInJSX(node)) return;
-
-        // Check if attribute is allowed only on specific tags
-        const attributeTagsMap = getAttributeTagsMap(context);
-        const allowedTags = has(attributeTagsMap, name)
-          ? attributeTagsMap[name]
-          : null;
-
-        if (tagName != null && allowedTags != null) {
-          // Report if attribute is used on a tag where it's not allowed
-          if (!allowedTags.includes(tagName)) {
-            context.report({
-              data: {
-                name: actualName,
-                allowedTags: allowedTags.join(", "),
-                tagName,
-              },
-              messageId: "invalidPropOnTag",
-              node,
-            });
-          }
-          return;
-        }
-
-        // Check if the attribute name is similar to a standard property name
-        const standardName: string | null = getStandardName(name, context);
-
-        const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
-        const usesStandardName = standardName != null && standardName === name;
-        if (usesStandardName) {
-          // Attribute name is correct, nothing to do
-          return;
-        }
-
-        if (hasStandardNameButIsNotUsed) {
-          // Suggest the correct standard name
+      // Handle data-* attributes
+      if (isValidDataAttribute(name)) {
+        if (getRequireDataLowercase() && hasUpperCaseCharacter(name)) {
           context.report({
             data: {
               name: actualName,
-              standardName,
+              lowerCaseName: actualName.toLowerCase(),
             },
-            fix(fixer) {
-              return fixer.replaceText(node.name, standardName);
-            },
-            messageId: "unknownPropWithStandardName",
+            messageId: "dataLowercaseRequired",
             node,
           });
-          return;
         }
+        return;
+      }
 
-        // Report unknown attribute
+      // Handle ARIA attributes
+      if (isValidAriaAttribute(name)) return;
+
+      const tagName: string | null = getTagName(node);
+
+      // Special case for fbt/fbs nodes
+      if (tagName === "fbt" || tagName === "fbs") return;
+
+      // Only validate HTML/DOM elements, not React components
+      if (!isValidHTMLTagInJSX(node)) return;
+
+      // Check if attribute is allowed only on specific tags
+      const attributeTagsMap = getAttributeTagsMap(context);
+      const allowedTags = has(attributeTagsMap, name)
+        ? attributeTagsMap[name]
+        : null;
+
+      if (tagName != null && allowedTags != null) {
+        // Report if attribute is used on a tag where it's not allowed
+        if (!allowedTags.includes(tagName)) {
+          context.report({
+            data: {
+              name: actualName,
+              allowedTags: allowedTags.join(", "),
+              tagName,
+            },
+            messageId: "invalidPropOnTag",
+            node,
+          });
+        }
+        return;
+      }
+
+      // Check if the attribute name is similar to a standard property name
+      const standardName: string | null = getStandardName(name, context);
+
+      const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
+      const usesStandardName = standardName != null && standardName === name;
+      if (usesStandardName) {
+        // Attribute name is correct, nothing to do
+        return;
+      }
+
+      if (hasStandardNameButIsNotUsed) {
+        // Suggest the correct standard name
         context.report({
           data: {
             name: actualName,
+            standardName,
           },
-          messageId: "unknownProp",
+          fix(fixer) {
+            return fixer.replaceText(node.name, standardName);
+          },
+          messageId: "unknownPropWithStandardName",
           node,
         });
-      },
+        return;
+      }
+
+      // Report unknown attribute
+      context.report({
+        data: {
+          name: actualName,
+        },
+        messageId: "unknownProp",
+        node,
+      });
     },
-  );
+  };
 }

@@ -1,6 +1,6 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
@@ -35,58 +35,56 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return merge(
-    {
-      JSXElement(node) {
-        const { domElementType } = resolver.resolve(node);
-        // If the element is not an iframe, we don't need to do anything
-        if (domElementType !== "iframe") return;
+  return {
+    JSXElement(node) {
+      const { domElementType } = resolver.resolve(node);
+      // If the element is not an iframe, we don't need to do anything
+      if (domElementType !== "iframe") return;
 
-        // Find the 'sandbox' prop on the iframe element.
-        const sandboxProp = findAttribute(context, node, "sandbox");
+      // Find the 'sandbox' prop on the iframe element.
+      const sandboxProp = findAttribute(context, node, "sandbox");
 
-        // If the 'sandbox' prop is missing, report an error
-        if (sandboxProp == null) {
-          context.report({
-            messageId: "missingSandboxAttribute",
-            node: node.openingElement,
-            suggest: [{
-              data: { value: "" },
-              fix(fixer) {
-                // Suggest adding a 'sandbox' attribute
-                return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
-              },
-              messageId: "addSandboxAttribute",
-            }],
-          });
-          return;
-        }
-
-        // Resolve the value of the 'sandbox' attribute
-        const sandboxValue = resolveAttributeValue(context, sandboxProp);
-        // If the value is a static string, the prop is correctly used
-        if (typeof sandboxValue.toStatic() === "string") return;
-        // If the value is a spread attribute that includes a 'sandbox' property, we can assume it's correctly used
-        if (sandboxValue.kind === "spreadProps" && typeof sandboxValue.getProperty("sandbox") === "string") return;
-
-        // If the value is not a static string (ex: a variable), report an error
+      // If the 'sandbox' prop is missing, report an error
+      if (sandboxProp == null) {
         context.report({
           messageId: "missingSandboxAttribute",
-          node: sandboxValue.node ?? sandboxProp,
-          suggest: [
-            {
-              data: { value: "" },
-              fix(fixer) {
-                // Do not try to fix spread attributes
-                if (sandboxValue.kind.startsWith("spread")) return null;
-                // Suggest replacing the prop with a valid one
-                return fixer.replaceText(sandboxProp, `sandbox=""`);
-              },
-              messageId: "addSandboxAttribute",
+          node: node.openingElement,
+          suggest: [{
+            data: { value: "" },
+            fix(fixer) {
+              // Suggest adding a 'sandbox' attribute
+              return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
             },
-          ],
+            messageId: "addSandboxAttribute",
+          }],
         });
-      },
+        return;
+      }
+
+      // Resolve the value of the 'sandbox' attribute
+      const sandboxValue = resolveAttributeValue(context, sandboxProp);
+      // If the value is a static string, the prop is correctly used
+      if (typeof sandboxValue.toStatic() === "string") return;
+      // If the value is a spread attribute that includes a 'sandbox' property, we can assume it's correctly used
+      if (sandboxValue.kind === "spreadProps" && typeof sandboxValue.getProperty("sandbox") === "string") return;
+
+      // If the value is not a static string (ex: a variable), report an error
+      context.report({
+        messageId: "missingSandboxAttribute",
+        node: sandboxValue.node ?? sandboxProp,
+        suggest: [
+          {
+            data: { value: "" },
+            fix(fixer) {
+              // Do not try to fix spread attributes
+              if (sandboxValue.kind.startsWith("spread")) return null;
+              // Suggest replacing the prop with a valid one
+              return fixer.replaceText(sandboxProp, `sandbox=""`);
+            },
+            messageId: "addSandboxAttribute",
+          },
+        ],
+      });
     },
-  );
+  };
 }

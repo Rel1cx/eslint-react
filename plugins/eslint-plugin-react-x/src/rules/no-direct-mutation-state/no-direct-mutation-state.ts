@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Traverse, isOneOf } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-direct-mutation-state";
@@ -36,32 +36,30 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return merge(
-    {
-      AssignmentExpression(node: TSESTree.AssignmentExpression) {
-        if (!core.isAssignmentToThisState(node)) return;
-        // Find the parent class of the assignment
-        const parentClass = Traverse.findParent(
+  return {
+    AssignmentExpression(node: TSESTree.AssignmentExpression) {
+      if (!core.isAssignmentToThisState(node)) return;
+      // Find the parent class of the assignment
+      const parentClass = Traverse.findParent(
+        node,
+        isOneOf([
+          AST.ClassDeclaration,
+          AST.ClassExpression,
+        ]),
+      );
+      // If the assignment is not inside a class, do nothing
+      if (parentClass == null) return;
+      // Report an error if 'this.state' is directly mutated in a class component
+      // and the mutation is not inside the constructor
+      if (
+        core.isClassComponent(parentClass)
+        && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)
+      ) {
+        context.report({
+          messageId: "default",
           node,
-          isOneOf([
-            AST.ClassDeclaration,
-            AST.ClassExpression,
-          ]),
-        );
-        // If the assignment is not inside a class, do nothing
-        if (parentClass == null) return;
-        // Report an error if 'this.state' is directly mutated in a class component
-        // and the mutation is not inside the constructor
-        if (
-          core.isClassComponent(parentClass)
-          && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)
-        ) {
-          context.report({
-            messageId: "default",
-            node,
-          });
-        }
-      },
+        });
+      }
     },
-  );
+  };
 }

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 
 export const RULE_NAME = "no-children-count";
 
@@ -25,16 +25,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return merge(
-    {
-      MemberExpression(node) {
-        if (core.isChildrenCount(context, node)) {
-          context.report({
-            messageId: "default",
-            node: node.property,
-          });
-        }
-      },
+  return {
+    MemberExpression(node) {
+      if (core.isChildrenCount(context, node)) {
+        context.report({
+          messageId: "default",
+          node: node.property,
+        });
+      }
     },
-  );
+  };
 }

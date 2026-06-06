@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { constVoid, getOrInsertComputed, not } from "@local/eff";
@@ -194,210 +194,208 @@ export function create(context: RuleContext<MessageID, []>) {
     }
   }
 
-  return merge(
-    {
-      ":function"(node: TSESTreeFunction) {
-        const kind = getFunctionKind(node);
-        functionEntries.push({ kind, node });
-        if (kind === "setup") {
-          onSetupFunctionEnter(node);
-        }
-      },
-      ":function:exit"(node: TSESTreeFunction) {
-        const { kind } = functionEntries.at(-1) ?? {};
-        if (kind === "setup") {
-          onSetupFunctionExit(node);
-        }
-        functionEntries.pop();
-      },
-      CallExpression(node) {
-        const setupFunction = setupFnRef.current;
-        const entry = functionEntries.at(-1);
-        if (entry == null || entry.node.async) {
-          return;
-        }
-        match(getCallKind(node))
-          .with("setState", () => {
-            switch (true) {
-              case entry.kind === "deferred":
-              case entry.node.async:
-                // do nothing, this is a deferred setState call
-                break;
-              case entry.node === setupFunction:
-              case entry.kind === "immediate"
-                && Traverse.findParent(entry.node, Check.isFunction) === setupFunction: {
-                const args0 = node.arguments.at(0);
-                // setState() without arguments, which is invalid but other tools will report it
-                if (args0 == null) return;
-                // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
-                function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
-                  const isUsingRefValue = (n: TSESTree.Node): boolean => {
-                    switch (n.type) {
-                      case AST.Identifier:
-                        return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
-                      case AST.MemberExpression:
-                        return isUsingRefValue(n.object);
-                      case AST.CallExpression:
-                        return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
-                      case AST.BinaryExpression:
-                      case AST.LogicalExpression:
-                        return isUsingRefValue(n.left) || isUsingRefValue(n.right);
-                      case AST.UnaryExpression:
-                      case AST.UpdateExpression:
-                        return isUsingRefValue(n.argument);
-                      case AST.ConditionalExpression:
-                        return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
-                      case AST.SequenceExpression:
-                        return n.expressions.some(isUsingRefValue);
-                      case AST.AssignmentExpression:
-                        return isUsingRefValue(n.right);
-                      default:
-                        return false;
-                    }
-                  };
-                  // Case 1: setState(ref.current.scrollTop);
-                  if (isUsingRefValue(node)) return true;
-                  // Case 2: setState(() => ref.current.scrollTop);
-                  return Check.isFunction(node)
-                    && context.sourceCode
-                      .getScope(node.body)
-                      .references
-                      .some((r) => isUsingRefValue(r.identifier));
-                }
-                if (isArgumentUsingRefValue(context, args0)) return;
-                if (isRefGatedContext(context, node)) return;
-                context.report({
-                  data: {
-                    name: context.sourceCode.getText(Extract.unwrap(node.callee)),
-                  },
-                  messageId: "default",
-                  node,
-                });
-                return;
-              }
-              default: {
-                const init = Traverse.findParent(node, isHookDecl)?.init;
-                if (init == null) getOrInsertComputed(setStateCallsByFn, entry.node, () => []).push(node);
-                else getOrInsertComputed(setStateInHookCallbacks, init, () => []).push(node);
-              }
-            }
-          })
-          .with("useEffect", () => {
-            if (Check.isFunction(node.arguments.at(0))) return;
-            setupFnIds.push(...getNestedIdentifiers(node));
-          })
-          .with("other", () => {
-            if (entry.node !== setupFunction) return;
-            trackedFnCalls.push(node);
-          })
-          .otherwise(constVoid);
-      },
-      Identifier(node) {
-        if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
-          return;
-        }
-        if (!isIdFromUseStateCall(node, 1)) {
-          return;
-        }
-        switch (node.parent.type) {
-          case AST.ArrowFunctionExpression: {
-            const parent = node.parent.parent;
-            if (parent.type !== AST.CallExpression) {
+  return {
+    ":function"(node: TSESTreeFunction) {
+      const kind = getFunctionKind(node);
+      functionEntries.push({ kind, node });
+      if (kind === "setup") {
+        onSetupFunctionEnter(node);
+      }
+    },
+    ":function:exit"(node: TSESTreeFunction) {
+      const { kind } = functionEntries.at(-1) ?? {};
+      if (kind === "setup") {
+        onSetupFunctionExit(node);
+      }
+      functionEntries.pop();
+    },
+    CallExpression(node) {
+      const setupFunction = setupFnRef.current;
+      const entry = functionEntries.at(-1);
+      if (entry == null || entry.node.async) {
+        return;
+      }
+      match(getCallKind(node))
+        .with("setState", () => {
+          switch (true) {
+            case entry.kind === "deferred":
+            case entry.node.async:
+              // do nothing, this is a deferred setState call
               break;
+            case entry.node === setupFunction:
+            case entry.kind === "immediate"
+              && Traverse.findParent(entry.node, Check.isFunction) === setupFunction: {
+              const args0 = node.arguments.at(0);
+              // setState() without arguments, which is invalid but other tools will report it
+              if (args0 == null) return;
+              // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
+              function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+                const isUsingRefValue = (n: TSESTree.Node): boolean => {
+                  switch (n.type) {
+                    case AST.Identifier:
+                      return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
+                    case AST.MemberExpression:
+                      return isUsingRefValue(n.object);
+                    case AST.CallExpression:
+                      return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
+                    case AST.BinaryExpression:
+                    case AST.LogicalExpression:
+                      return isUsingRefValue(n.left) || isUsingRefValue(n.right);
+                    case AST.UnaryExpression:
+                    case AST.UpdateExpression:
+                      return isUsingRefValue(n.argument);
+                    case AST.ConditionalExpression:
+                      return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
+                    case AST.SequenceExpression:
+                      return n.expressions.some(isUsingRefValue);
+                    case AST.AssignmentExpression:
+                      return isUsingRefValue(n.right);
+                    default:
+                      return false;
+                  }
+                };
+                // Case 1: setState(ref.current.scrollTop);
+                if (isUsingRefValue(node)) return true;
+                // Case 2: setState(() => ref.current.scrollTop);
+                return Check.isFunction(node)
+                  && context.sourceCode
+                    .getScope(node.body)
+                    .references
+                    .some((r) => isUsingRefValue(r.identifier));
+              }
+              if (isArgumentUsingRefValue(context, args0)) return;
+              if (isRefGatedContext(context, node)) return;
+              context.report({
+                data: {
+                  name: context.sourceCode.getText(Extract.unwrap(node.callee)),
+                },
+                messageId: "default",
+                node,
+              });
+              return;
             }
-            // const [state, setState] = useState();
-            // const set = useMemo(() => setState, []);
-            // useEffect(set, []);
-            if (!core.isUseMemoCall(context, parent)) {
-              break;
+            default: {
+              const init = Traverse.findParent(node, isHookDecl)?.init;
+              if (init == null) getOrInsertComputed(setStateCallsByFn, entry.node, () => []).push(node);
+              else getOrInsertComputed(setStateInHookCallbacks, init, () => []).push(node);
             }
-            const init = Traverse.findParent(parent, isHookDecl)?.init;
+          }
+        })
+        .with("useEffect", () => {
+          if (Check.isFunction(node.arguments.at(0))) return;
+          setupFnIds.push(...getNestedIdentifiers(node));
+        })
+        .with("other", () => {
+          if (entry.node !== setupFunction) return;
+          trackedFnCalls.push(node);
+        })
+        .otherwise(constVoid);
+    },
+    Identifier(node) {
+      if (node.parent.type === AST.CallExpression && node.parent.callee === node) {
+        return;
+      }
+      if (!isIdFromUseStateCall(node, 1)) {
+        return;
+      }
+      switch (node.parent.type) {
+        case AST.ArrowFunctionExpression: {
+          const parent = node.parent.parent;
+          if (parent.type !== AST.CallExpression) {
+            break;
+          }
+          // const [state, setState] = useState();
+          // const set = useMemo(() => setState, []);
+          // useEffect(set, []);
+          if (!core.isUseMemoCall(context, parent)) {
+            break;
+          }
+          const init = Traverse.findParent(parent, isHookDecl)?.init;
+          if (init != null) {
+            getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
+          }
+          break;
+        }
+        case AST.CallExpression: {
+          if (node !== node.parent.arguments.at(0)) {
+            break;
+          }
+          // const [state, setState] = useState();
+          // const set = useCallback(setState, []);
+          // useEffect(set, []);
+          if (core.isUseCallbackCall(context, node.parent)) {
+            const init = Traverse.findParent(node.parent, isHookDecl)?.init;
             if (init != null) {
               getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
             }
             break;
           }
-          case AST.CallExpression: {
-            if (node !== node.parent.arguments.at(0)) {
-              break;
-            }
-            // const [state, setState] = useState();
-            // const set = useCallback(setState, []);
-            // useEffect(set, []);
-            if (core.isUseCallbackCall(context, node.parent)) {
-              const init = Traverse.findParent(node.parent, isHookDecl)?.init;
-              if (init != null) {
-                getOrInsertComputed(setStateInEffectArg, init, () => []).push(node);
-              }
-              break;
-            }
-            // const [state, setState] = useState();
-            // useEffect(setState);
-            if (isUseEffectCall(node.parent)) {
-              getOrInsertComputed(setStateInEffectSetup, node.parent, () => []).push(node);
-            }
+          // const [state, setState] = useState();
+          // useEffect(setState);
+          if (isUseEffectCall(node.parent)) {
+            getOrInsertComputed(setStateInEffectSetup, node.parent, () => []).push(node);
           }
         }
-      },
-      "Program:exit"() {
-        const getSetStateCalls = (
-          context: RuleContext,
-          id: TSESTree.Identifier,
-        ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
-          const node = resolve(context, id);
-          switch (node?.type) {
-            case AST.ArrowFunctionExpression:
-            case AST.FunctionDeclaration:
-            case AST.FunctionExpression:
-              return setStateCallsByFn.get(node) ?? [];
-            case AST.CallExpression:
-              return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
-          }
-          return [];
-        };
-        for (const [, calls] of setStateInEffectSetup) {
-          for (const call of calls) {
-            if (isRefGatedContext(context, getSetStateCallExpression(call))) continue;
-            context.report({
-              data: {
-                name: call.name,
-              },
-              messageId: "default",
-              node: call,
-            });
-          }
-        }
-        for (const { callee } of trackedFnCalls) {
-          const unwrappedCallee = Extract.unwrap(callee);
-          if (unwrappedCallee.type !== AST.Identifier) {
-            continue;
-          }
-          const setStateCalls = getSetStateCalls(context, unwrappedCallee);
-          for (const setStateCall of setStateCalls) {
-            if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
-            context.report({
-              data: {
-                name: getCallName(setStateCall),
-              },
-              messageId: "default",
-              node: setStateCall,
-            });
-          }
-        }
-        for (const id of setupFnIds) {
-          const setStateCalls = getSetStateCalls(context, id);
-          for (const setStateCall of setStateCalls) {
-            if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
-            context.report({
-              data: {
-                name: getCallName(setStateCall),
-              },
-              messageId: "default",
-              node: setStateCall,
-            });
-          }
-        }
-      },
+      }
     },
-  );
+    "Program:exit"() {
+      const getSetStateCalls = (
+        context: RuleContext,
+        id: TSESTree.Identifier,
+      ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
+        const node = resolve(context, id);
+        switch (node?.type) {
+          case AST.ArrowFunctionExpression:
+          case AST.FunctionDeclaration:
+          case AST.FunctionExpression:
+            return setStateCallsByFn.get(node) ?? [];
+          case AST.CallExpression:
+            return setStateInHookCallbacks.get(node) ?? setStateInEffectArg.get(node) ?? [];
+        }
+        return [];
+      };
+      for (const [, calls] of setStateInEffectSetup) {
+        for (const call of calls) {
+          if (isRefGatedContext(context, getSetStateCallExpression(call))) continue;
+          context.report({
+            data: {
+              name: call.name,
+            },
+            messageId: "default",
+            node: call,
+          });
+        }
+      }
+      for (const { callee } of trackedFnCalls) {
+        const unwrappedCallee = Extract.unwrap(callee);
+        if (unwrappedCallee.type !== AST.Identifier) {
+          continue;
+        }
+        const setStateCalls = getSetStateCalls(context, unwrappedCallee);
+        for (const setStateCall of setStateCalls) {
+          if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
+          context.report({
+            data: {
+              name: getCallName(setStateCall),
+            },
+            messageId: "default",
+            node: setStateCall,
+          });
+        }
+      }
+      for (const id of setupFnIds) {
+        const setStateCalls = getSetStateCalls(context, id);
+        for (const setStateCall of setStateCalls) {
+          if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
+          context.report({
+            data: {
+              name: getCallName(setStateCall),
+            },
+            messageId: "default",
+            node: setStateCall,
+          });
+        }
+      }
+    },
+  };
 }

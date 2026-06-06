@@ -7,7 +7,7 @@ import {
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { isValueEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
@@ -131,106 +131,104 @@ export function create(context: RuleContext<MessageID, []>) {
       node: listener,
     });
   }
-  return merge(
-    {
-      [":function"](node: TSESTreeFunction) {
-        const kind = getFunctionKind(node);
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-        if (fKind == null) {
-          return;
-        }
-        if (!ComponentPhaseRelevance.has(fKind)) {
-          return;
-        }
-        const unwrappedCallee = Extract.unwrap(node.callee);
-        match(getCallKind(node))
-          .with("addEventListener", (callKind) => {
-            // https://github.com/Rel1cx/eslint-react/issues/1323
-            const isFromReactNative = unwrappedCallee.type === AST.MemberExpression
-              && unwrappedCallee.object.type === AST.Identifier
-              && core.isAPIFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
-            if (isFromReactNative) {
-              return;
-            }
-            const [type, listener, options] = node.arguments;
-            if (type == null || listener == null) {
-              return;
-            }
-            const opts = options == null
-              ? defaultOptions
-              : getOptions(context, options);
-            const { callee } = node;
-            checkInlineFunction(node, callKind, opts);
-            aEntries.push({
-              ...opts,
-              type,
-              callee,
-              listener,
-              method: "addEventListener",
-              node,
-              phase: fKind,
-            });
-          })
-          .with("removeEventListener", (callKind) => {
-            const [type, listener, options] = node.arguments;
-            if (type == null || listener == null) {
-              return;
-            }
-            const opts = options == null
-              ? defaultOptions
-              : getOptions(context, options);
-            const { callee } = node;
-            checkInlineFunction(node, callKind, opts);
-            rEntries.push({
-              ...opts,
-              type,
-              callee,
-              listener,
-              method: "removeEventListener",
-              node,
-              phase: fKind,
-            });
-          })
-          .with("abort", () => {
-            abortedSignals.push(node.callee);
-          })
-          .otherwise(() => null);
-      },
-      ["Program:exit"]() {
-        for (const aEntry of aEntries) {
-          const signal = aEntry.signal;
-          // https://github.com/Rel1cx/eslint-react/issues/1282#issuecomment-3536511881
-          // if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
-          //   continue;
-          // }
-          if (signal != null) {
-            continue;
-          }
-          if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
-            continue;
-          }
-          switch (aEntry.phase) {
-            case "setup":
-            case "cleanup":
-              context.report({
-                data: {
-                  effectMethodKind: "useEffect",
-                },
-                messageId: "expectedRemoveEventListenerInCleanup",
-                node: aEntry.node,
-              });
-              continue;
-          }
-        }
-      },
+  return {
+    [":function"](node: TSESTreeFunction) {
+      const kind = getFunctionKind(node);
+      fEntries.push({ kind, node });
     },
-  );
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+      if (fKind == null) {
+        return;
+      }
+      if (!ComponentPhaseRelevance.has(fKind)) {
+        return;
+      }
+      const unwrappedCallee = Extract.unwrap(node.callee);
+      match(getCallKind(node))
+        .with("addEventListener", (callKind) => {
+          // https://github.com/Rel1cx/eslint-react/issues/1323
+          const isFromReactNative = unwrappedCallee.type === AST.MemberExpression
+            && unwrappedCallee.object.type === AST.Identifier
+            && core.isAPIFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
+          if (isFromReactNative) {
+            return;
+          }
+          const [type, listener, options] = node.arguments;
+          if (type == null || listener == null) {
+            return;
+          }
+          const opts = options == null
+            ? defaultOptions
+            : getOptions(context, options);
+          const { callee } = node;
+          checkInlineFunction(node, callKind, opts);
+          aEntries.push({
+            ...opts,
+            type,
+            callee,
+            listener,
+            method: "addEventListener",
+            node,
+            phase: fKind,
+          });
+        })
+        .with("removeEventListener", (callKind) => {
+          const [type, listener, options] = node.arguments;
+          if (type == null || listener == null) {
+            return;
+          }
+          const opts = options == null
+            ? defaultOptions
+            : getOptions(context, options);
+          const { callee } = node;
+          checkInlineFunction(node, callKind, opts);
+          rEntries.push({
+            ...opts,
+            type,
+            callee,
+            listener,
+            method: "removeEventListener",
+            node,
+            phase: fKind,
+          });
+        })
+        .with("abort", () => {
+          abortedSignals.push(node.callee);
+        })
+        .otherwise(() => null);
+    },
+    ["Program:exit"]() {
+      for (const aEntry of aEntries) {
+        const signal = aEntry.signal;
+        // https://github.com/Rel1cx/eslint-react/issues/1282#issuecomment-3536511881
+        // if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
+        //   continue;
+        // }
+        if (signal != null) {
+          continue;
+        }
+        if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
+          continue;
+        }
+        switch (aEntry.phase) {
+          case "setup":
+          case "cleanup":
+            context.report({
+              data: {
+                effectMethodKind: "useEffect",
+              },
+              messageId: "expectedRemoveEventListenerInCleanup",
+              node: aEntry.node,
+            });
+            continue;
+        }
+      }
+    },
+  };
 }
 
 // #endregion

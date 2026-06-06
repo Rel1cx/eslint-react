@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -29,23 +29,21 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>) {
   if (!context.sourceCode.text.includes("useId")) return {};
-  return merge(
-    {
-      CallExpression(node: TSESTree.CallExpression) {
-        if (!core.isUseIdCall(context, node)) return;
-        const [id, name] = match(resolveEnclosingAssignmentTarget(node))
-          // for cases like: const myId = useId();
-          .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-          // for cases like: ctxs.myId = useId();
-          .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-          .otherwise(() => [null, null] as const);
-        if (id == null) return;
-        if (name.endsWith("Id") || name === "id") return;
-        context.report({
-          messageId: "invalidIdName",
-          node: id,
-        });
-      },
+  return {
+    CallExpression(node: TSESTree.CallExpression) {
+      if (!core.isUseIdCall(context, node)) return;
+      const [id, name] = match(resolveEnclosingAssignmentTarget(node))
+        // for cases like: const myId = useId();
+        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
+        // for cases like: ctxs.myId = useId();
+        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
+        .otherwise(() => [null, null] as const);
+      if (id == null) return;
+      if (name.endsWith("Id") || name === "id") return;
+      context.report({
+        messageId: "invalidIdName",
+        node: id,
+      });
     },
-  );
+  };
 }

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -42,59 +42,57 @@ export function create(context: RuleContext<MessageID, []>) {
   // Keep track of local names for 'useFormState' import
   const useFormStateNames = new Set<string>();
 
-  return merge(
-    {
-      // This visitor function is called for every function call in the code
-      CallExpression(node) {
-        const callee = Extract.unwrap(node.callee);
-        switch (true) {
-          // Case 1: Direct call like `useFormState(...)`
-          case callee.type === AST.Identifier
-            && useFormStateNames.has(callee.name):
-            context.report({
-              fix: getFix(context, node),
-              messageId: "default",
-              node,
-            });
-            return;
-          // Case 2: Member call like `ReactDOM.useFormState(...)`
-          case callee.type === AST.MemberExpression
-            && callee.object.type === AST.Identifier
-            && callee.property.type === AST.Identifier
-            && callee.property.name === "useFormState"
-            && reactDomNames.has(callee.object.name):
-            context.report({
-              fix: getFix(context, node),
-              messageId: "default",
-              node,
-            });
-            return;
-        }
-      },
-      // This visitor function is called for every import declaration
-      ImportDeclaration(node) {
-        const [baseSource] = node.source.value.split("/");
-        // We are only interested in imports from 'react-dom'
-        if (baseSource !== "react-dom") return;
-        for (const specifier of node.specifiers) {
-          switch (specifier.type) {
-            // Handles: import { useFormState } from 'react-dom';
-            case AST.ImportSpecifier:
-              if (specifier.imported.type !== AST.Identifier) continue;
-              if (specifier.imported.name === "useFormState") {
-                useFormStateNames.add(specifier.local.name);
-              }
-              continue;
-            // Handles: import ReactDOM from 'react-dom'; or import * as ReactDOM from 'react-dom';
-            case AST.ImportDefaultSpecifier:
-            case AST.ImportNamespaceSpecifier:
-              reactDomNames.add(specifier.local.name);
-              continue;
-          }
-        }
-      },
+  return {
+    // This visitor function is called for every function call in the code
+    CallExpression(node) {
+      const callee = Extract.unwrap(node.callee);
+      switch (true) {
+        // Case 1: Direct call like `useFormState(...)`
+        case callee.type === AST.Identifier
+          && useFormStateNames.has(callee.name):
+          context.report({
+            fix: getFix(context, node),
+            messageId: "default",
+            node,
+          });
+          return;
+        // Case 2: Member call like `ReactDOM.useFormState(...)`
+        case callee.type === AST.MemberExpression
+          && callee.object.type === AST.Identifier
+          && callee.property.type === AST.Identifier
+          && callee.property.name === "useFormState"
+          && reactDomNames.has(callee.object.name):
+          context.report({
+            fix: getFix(context, node),
+            messageId: "default",
+            node,
+          });
+          return;
+      }
     },
-  );
+    // This visitor function is called for every import declaration
+    ImportDeclaration(node) {
+      const [baseSource] = node.source.value.split("/");
+      // We are only interested in imports from 'react-dom'
+      if (baseSource !== "react-dom") return;
+      for (const specifier of node.specifiers) {
+        switch (specifier.type) {
+          // Handles: import { useFormState } from 'react-dom';
+          case AST.ImportSpecifier:
+            if (specifier.imported.type !== AST.Identifier) continue;
+            if (specifier.imported.name === "useFormState") {
+              useFormStateNames.add(specifier.local.name);
+            }
+            continue;
+          // Handles: import ReactDOM from 'react-dom'; or import * as ReactDOM from 'react-dom';
+          case AST.ImportDefaultSpecifier:
+          case AST.ImportNamespaceSpecifier:
+            reactDomNames.add(specifier.local.name);
+            continue;
+        }
+      }
+    },
+  };
 }
 
 function getFix(context: RuleContext, node: TSESTree.CallExpression) {

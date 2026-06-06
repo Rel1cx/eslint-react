@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -37,66 +37,64 @@ export function create(context: RuleContext<MessageID, []>) {
   // Stores all `displayName` assignment expressions
   const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
 
-  return merge(
-    {
-      // Collect all `createContext()` calls
-      CallExpression(node) {
-        if (!core.isCreateContextCall(context, node)) return;
-        createCalls.push(node);
-      },
-      // Collect all `*.displayName = '...'` assignments
-      [core.SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: core.FunctionDisplayNameAssignment) {
-        displayNameAssignments.push(node);
-      },
-      "Program:exit"() {
-        for (const call of createCalls) {
-          // Get the variable identifier for the context
-          const id = resolveEnclosingAssignmentTarget(call);
-          if (id == null) {
-            // Report an error if the context is not assigned to a variable
-            context.report({
-              messageId: "default",
-              node: call,
-            });
-            continue;
-          }
-          // Check if a `displayName` is assigned to this context variable
-          const hasDisplayNameAssignment = displayNameAssignments
-            .some((node) => {
-              const left = node.left;
-              if (left.type !== AST.MemberExpression) return false;
-              const object = left.object;
-              // Check if the object in the assignment matches the context's identifier
-              return isAssignmentTargetEqual(context, id, object);
-            });
-          // If no `displayName` is found, report an error and provide a fix
-          if (!hasDisplayNameAssignment) {
-            context.report({
-              fix(fixer) {
-                // Ensure the fix is applied correctly
-                if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
-                // Insert `ContextName.displayName = "ContextName";` after the creation
-                return fixer.insertTextAfter(
-                  context.sourceCode.getTokenAfter(call) ?? call,
-                  [
-                    "\n",
-                    id.name,
-                    ".",
-                    "displayName",
-                    " ",
-                    "=",
-                    " ",
-                    JSON.stringify(id.name),
-                    ";",
-                  ].join(""),
-                );
-              },
-              messageId: "default",
-              node: id,
-            });
-          }
-        }
-      },
+  return {
+    // Collect all `createContext()` calls
+    CallExpression(node) {
+      if (!core.isCreateContextCall(context, node)) return;
+      createCalls.push(node);
     },
-  );
+    // Collect all `*.displayName = '...'` assignments
+    [core.SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT](node: core.FunctionDisplayNameAssignment) {
+      displayNameAssignments.push(node);
+    },
+    "Program:exit"() {
+      for (const call of createCalls) {
+        // Get the variable identifier for the context
+        const id = resolveEnclosingAssignmentTarget(call);
+        if (id == null) {
+          // Report an error if the context is not assigned to a variable
+          context.report({
+            messageId: "default",
+            node: call,
+          });
+          continue;
+        }
+        // Check if a `displayName` is assigned to this context variable
+        const hasDisplayNameAssignment = displayNameAssignments
+          .some((node) => {
+            const left = node.left;
+            if (left.type !== AST.MemberExpression) return false;
+            const object = left.object;
+            // Check if the object in the assignment matches the context's identifier
+            return isAssignmentTargetEqual(context, id, object);
+          });
+        // If no `displayName` is found, report an error and provide a fix
+        if (!hasDisplayNameAssignment) {
+          context.report({
+            fix(fixer) {
+              // Ensure the fix is applied correctly
+              if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
+              // Insert `ContextName.displayName = "ContextName";` after the creation
+              return fixer.insertTextAfter(
+                context.sourceCode.getTokenAfter(call) ?? call,
+                [
+                  "\n",
+                  id.name,
+                  ".",
+                  "displayName",
+                  " ",
+                  "=",
+                  " ",
+                  JSON.stringify(id.name),
+                  ";",
+                ].join(""),
+              );
+            },
+            messageId: "default",
+            node: id,
+          });
+        }
+      }
+    },
+  };
 }

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -40,29 +40,27 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
-  return merge(
-    {
-      CallExpression(node) {
-        if (!core.isUseContextCall(context, node)) return;
-        context.report({
-          messageId: "default",
-          node: node.callee,
-          suggest: [
-            {
-              fix(fixer) {
-                switch (node.callee.type) {
-                  case AST.Identifier:
-                    return fixer.replaceText(node.callee, "use");
-                  case AST.MemberExpression:
-                    return fixer.replaceText(node.callee.property, "use");
-                }
-                return null;
-              },
-              messageId: "replace",
+  return {
+    CallExpression(node) {
+      if (!core.isUseContextCall(context, node)) return;
+      context.report({
+        messageId: "default",
+        node: node.callee,
+        suggest: [
+          {
+            fix(fixer) {
+              switch (node.callee.type) {
+                case AST.Identifier:
+                  return fixer.replaceText(node.callee, "use");
+                case AST.MemberExpression:
+                  return fixer.replaceText(node.callee.property, "use");
+              }
+              return null;
             },
-          ],
-        });
-      },
+            messageId: "replace",
+          },
+        ],
+      });
     },
-  );
+  };
 }

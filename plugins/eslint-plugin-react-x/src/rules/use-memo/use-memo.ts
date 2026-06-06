@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>) {
     });
     return violations;
   }
-  return merge({
+  return {
     CallExpression(node) {
       if (!core.isUseMemoCall(context, node)) return;
 
@@ -165,5 +165,5 @@ export function create(context: RuleContext<MessageID, []>) {
         });
       }
     },
-  });
+  };
 }

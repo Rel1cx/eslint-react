@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-find-dom-node";
@@ -29,25 +29,23 @@ const findDOMNode = "findDOMNode";
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `findDOMNode` is not present in the file
   if (!context.sourceCode.text.includes(findDOMNode)) return {};
-  return merge(
-    {
-      CallExpression(node) {
-        const { callee } = node;
-        switch (callee.type) {
-          // Handles cases like `findDOMNode()`.
-          case AST.Identifier:
-            if (callee.name === findDOMNode) {
-              context.report({ messageId: "default", node });
-            }
-            return;
-          // Handles cases like `ReactDOM.findDOMNode()`.
-          case AST.MemberExpression:
-            if (callee.property.type === AST.Identifier && callee.property.name === findDOMNode) {
-              context.report({ messageId: "default", node });
-            }
-            return;
-        }
-      },
+  return {
+    CallExpression(node) {
+      const { callee } = node;
+      switch (callee.type) {
+        // Handles cases like `findDOMNode()`.
+        case AST.Identifier:
+          if (callee.name === findDOMNode) {
+            context.report({ messageId: "default", node });
+          }
+          return;
+        // Handles cases like `ReactDOM.findDOMNode()`.
+        case AST.MemberExpression:
+          if (callee.property.type === AST.Identifier && callee.property.name === findDOMNode) {
+            context.report({ messageId: "default", node });
+          }
+          return;
+      }
     },
-  );
+  };
 }

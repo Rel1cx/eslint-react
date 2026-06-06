@@ -2,7 +2,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -89,7 +89,7 @@ export function create(context: RuleContext<MessageID, Options>) {
     enforceSetterName = true,
   } = options;
   const { additionalStateHooks } = getSettingsFromContext(context);
-  return merge({
+  return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseStateLikeCall(node, additionalStateHooks)) return;
 
@@ -162,5 +162,5 @@ export function create(context: RuleContext<MessageID, Options>) {
         context.report({ messageId: "invalidSetterName", node: setter });
       }
     },
-  });
+  };
 }

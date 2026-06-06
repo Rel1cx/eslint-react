@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml";
@@ -29,19 +29,17 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes(DSIH)) return {};
-  return merge(
-    {
-      JSXElement(node) {
-        // Check if the element has the 'dangerouslySetInnerHTML' prop
-        const dsihProp = findAttribute(context, node, DSIH);
-        // If the prop is not found, do nothing
-        if (dsihProp == null) return;
-        // If the prop is found, report an error
-        context.report({
-          messageId: "default",
-          node: dsihProp,
-        });
-      },
+  return {
+    JSXElement(node) {
+      // Check if the element has the 'dangerouslySetInnerHTML' prop
+      const dsihProp = findAttribute(context, node, DSIH);
+      // If the prop is not found, do nothing
+      if (dsihProp == null) return;
+      // If the prop is found, report an error
+      context.report({
+        messageId: "default",
+        node: dsihProp,
+      });
     },
-  );
+  };
 }

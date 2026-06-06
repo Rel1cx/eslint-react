@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 import { getRefInitNode } from "./lib";
 
@@ -44,7 +44,5 @@ export function create(context: RuleContext<MessageID, []>) {
       });
     }
   }
-  return merge(
-    { Identifier: visitorFunction, JSXIdentifier: visitorFunction },
-  );
+  return { Identifier: visitorFunction, JSXIdentifier: visitorFunction };
 }

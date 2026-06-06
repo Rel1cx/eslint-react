@@ -1,6 +1,6 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isExternalLinkLike, isSafeRel } from "./lib";
@@ -37,58 +37,56 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   const resolver = createJsxElementResolver(context);
 
-  return merge(
-    {
-      JSXElement(node: TSESTree.JSXElement) {
-        // Only process anchor tags (<a>)
-        const { domElementType } = resolver.resolve(node);
-        if (domElementType !== "a") return;
+  return {
+    JSXElement(node: TSESTree.JSXElement) {
+      // Only process anchor tags (<a>)
+      const { domElementType } = resolver.resolve(node);
+      if (domElementType !== "a") return;
 
-        // Check if target="_blank" is present
-        const targetValueString = getAttributeStaticValue(context, node, "target");
-        if (targetValueString !== "_blank") return;
+      // Check if target="_blank" is present
+      const targetValueString = getAttributeStaticValue(context, node, "target");
+      if (targetValueString !== "_blank") return;
 
-        // Check if href points to an external resource
-        const hrefValueString = getAttributeStaticValue(context, node, "href");
-        if (!isExternalLinkLike(hrefValueString)) return;
+      // Check if href points to an external resource
+      const hrefValueString = getAttributeStaticValue(context, node, "href");
+      if (!isExternalLinkLike(hrefValueString)) return;
 
-        // Check if rel prop exists and is secure
-        const relProp = findAttribute(context, node, "rel");
+      // Check if rel prop exists and is secure
+      const relProp = findAttribute(context, node, "rel");
 
-        // No rel prop case - suggest adding one
-        if (relProp == null) {
-          context.report({
-            messageId: "default",
-            node: node.openingElement,
-            suggest: [{
-              fix(fixer) {
-                return fixer.insertTextAfter(
-                  node.openingElement.name,
-                  ` rel="noreferrer noopener"`,
-                );
-              },
-              messageId: "addRelNoreferrerNoopener",
-            }],
-          });
-          return;
-        }
-
-        // Check if existing rel prop is secure
-        const relValueString = getAttributeStaticValue(context, node, "rel");
-        if (isSafeRel(relValueString)) return;
-
-        // Existing rel prop is not secure - suggest replacing it
+      // No rel prop case - suggest adding one
+      if (relProp == null) {
         context.report({
           messageId: "default",
-          node: relProp,
+          node: node.openingElement,
           suggest: [{
             fix(fixer) {
-              return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
+              return fixer.insertTextAfter(
+                node.openingElement.name,
+                ` rel="noreferrer noopener"`,
+              );
             },
             messageId: "addRelNoreferrerNoopener",
           }],
         });
-      },
+        return;
+      }
+
+      // Check if existing rel prop is secure
+      const relValueString = getAttributeStaticValue(context, node, "rel");
+      if (isSafeRel(relValueString)) return;
+
+      // Existing rel prop is not secure - suggest replacing it
+      context.report({
+        messageId: "default",
+        node: relProp,
+        suggest: [{
+          fix(fixer) {
+            return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
+          },
+          messageId: "addRelNoreferrerNoopener",
+        }],
+      });
     },
-  );
+  };
 }
