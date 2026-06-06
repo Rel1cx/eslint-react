@@ -44,8 +44,26 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>',
       errors: [{ messageId: "default" }],
     },
+    // Self-closing host element
+    {
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+      errors: [{ messageId: "default" }],
+    },
+    // Custom host-like element
+    {
+      code: '<my-element dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+      errors: [{ messageId: "default" }],
+    },
+    // Nested inside JSX attribute value
+    {
+      code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div {...props} />",
+    "<div />",
+    "<App />",
+    tsx`<div>{dangerouslySetInnerHTML}</div>`,
   ],
 });

@@ -113,5 +113,76 @@ ruleTester.run(RULE_NAME, rule, {
         const result = condition && ReactDOM.render(<div />, document.body);
       }
     `,
+    // Passed as argument (return value is used in a call expression)
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        doSomething(render(<div />, document.body));
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // In await expression
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        const result = await render(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // In conditional expression
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        if (render(<div />, document.body) !== null) {}
+      `,
+      errors: [{ messageId: "default" }],
+    },
+  ],
+  valid: [
+    "ReactDOM.render(<div />, document.body);",
+    tsx`
+      let node;
+      ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
+    `,
+    "var foo = render(<div />, root)",
+    "var foo = ReactDOM.renderder(<div />, root)",
+    // Boundary: ReactDOM.render in non-banned parent contexts (isReturnValueUsed parent traversal)
+    tsx`
+      function Component() {
+        ReactDOM.render(<div />, document.body);
+      }
+    `,
+    tsx`
+      function Component() {
+        if (condition) {
+          ReactDOM.render(<div />, document.body);
+        }
+      }
+    `,
+    tsx`
+      function Component() {
+        [ReactDOM.render(<div />, document.body)];
+      }
+    `,
+    tsx`
+      function Component() {
+        const result = condition && ReactDOM.render(<div />, document.body);
+      }
+    `,
+    // render as argument (return value not directly used by banned parent)
+    tsx`
+      import { render } from "react-dom";
+      doSomething(render(<div />, document.body));
+    `,
+    // render in condition (return value not directly used by banned parent)
+    tsx`
+      import { render } from "react-dom";
+      if (render(<div />, document.body) !== null) {}
+    `,
+    // render in await (return value not directly used by banned parent)
+    tsx`
+      import { render } from "react-dom";
+      await render(<div />, document.body);
+    `,
   ],
 });

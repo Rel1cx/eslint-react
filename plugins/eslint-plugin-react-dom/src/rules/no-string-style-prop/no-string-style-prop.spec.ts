@@ -179,6 +179,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<div style="" />`,
       errors: [{ messageId: "default" }],
     },
+    // Empty string expression
+    {
+      code: tsx`<div style={""} />`,
+      errors: [{ messageId: "default" }],
+    },
+    // Whitespace-only string expression
+    {
+      code: tsx`<div style={"  "} />`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // Object style - correct usage
@@ -283,5 +293,9 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<div style />`,
     // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
     tsx`<div style={} />`,
+    // Boolean false style (invalid but not string)
+    tsx`<div style={false} />`,
+    // Number 0 style (invalid but not string)
+    tsx`<div style={0} />`,
   ],
 });

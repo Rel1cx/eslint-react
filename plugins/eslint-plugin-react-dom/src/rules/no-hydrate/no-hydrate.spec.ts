@@ -71,6 +71,37 @@ ruleTester.run(RULE_NAME, rule, {
         hydrateRoot(document.body, <div />);
       `,
     },
+    // In assignment expression
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        const result = hydrate(<Component />, document.getElementById("app"));
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { hydrateRoot } from "react-dom/client";
+        import { hydrate } from "react-dom";
+        const result = hydrateRoot(document.getElementById("app"), <Component />);
+      `,
+    },
+    // Missing second argument (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        hydrate(<Component />);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // No arguments (no auto-fix)
+    {
+      code: tsx`
+        import { hydrate } from "react-dom";
+        hydrate();
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
   ],
   valid: [
     tsx`
@@ -86,6 +117,16 @@ ruleTester.run(RULE_NAME, rule, {
       import Component from "Component";
 
       hydrateRoot(document.getElementById("app")!, <Component />);
+    `,
+    // hydrate imported from another module
+    tsx`
+      import { hydrate } from "some-other-lib";
+      hydrate(<Component />, document.getElementById("app"));
+    `,
+    // Variable named hydrate but not called
+    tsx`
+      const hydrate = 1;
+      console.log(hydrate);
     `,
   ],
 });

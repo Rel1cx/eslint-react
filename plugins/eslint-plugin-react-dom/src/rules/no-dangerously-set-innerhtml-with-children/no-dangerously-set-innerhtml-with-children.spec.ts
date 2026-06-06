@@ -63,6 +63,21 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // Nested element as child
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}><span /></div>`,
+      errors: [{ messageId: "default" }],
+    },
+    // Expression container as child
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{value}</div>`,
+      errors: [{ messageId: "default" }],
+    },
+    // Comment expression container as child (JSXEmptyExpression is not whitespace)
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{/* comment */}</div>`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div>Children</div>",
@@ -93,5 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
 </App>`,
     },
     "<App {...undefined}>Children</App>",
+    // Empty tag with dangerouslySetInnerHTML (no children)
+    '<div dangerouslySetInnerHTML={{ __html: "HTML" }}></div>',
   ],
 });

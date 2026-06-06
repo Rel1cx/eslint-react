@@ -196,5 +196,9 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
     tsx`<iframe sandbox={} />;`,
+    // Boolean shorthand sandbox (no value to analyze)
+    tsx`<iframe sandbox />;`,
+    // Boolean expression sandbox
+    tsx`<iframe sandbox={true} />;`,
   ],
 });

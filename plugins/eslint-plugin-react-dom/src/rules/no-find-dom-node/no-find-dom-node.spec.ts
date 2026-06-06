@@ -82,6 +82,57 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // In conditional expression
+    {
+      code: tsx`
+        const node = condition ? findDOMNode(this) : null;
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // In return statement
+    {
+      code: tsx`
+        function getNode() {
+          return findDOMNode(this);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Passed as argument
+    {
+      code: tsx`
+        doSomething(findDOMNode(this));
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Chained call
+    {
+      code: tsx`
+        findDOMNode(this).focus();
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
-  valid: [],
+  valid: [
+    // Variable named findDOMNode but not called
+    {
+      code: tsx`
+        const findDOMNode = 1;
+        console.log(findDOMNode);
+      `,
+    },
+    // Different identifier
+    {
+      code: tsx`
+        myFindDOMNode(this);
+      `,
+    },
+    // String property access (not detected)
+    {
+      code: tsx`
+        const obj = { findDOMNode: () => {} };
+        obj["findDOMNode"]();
+      `,
+    },
+  ],
 });

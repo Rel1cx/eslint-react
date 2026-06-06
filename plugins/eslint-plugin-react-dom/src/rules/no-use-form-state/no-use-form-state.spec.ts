@@ -158,6 +158,28 @@ ruleTester.run(RULE_NAME, rule, {
         (useActionState)(action);
       `,
     },
+    // In return statement
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        function getState() {
+          return useFormState(action, 0);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { useActionState } from "react";
+        import { useFormState } from "react-dom";
+        function getState() {
+          return useActionState(action, 0);
+        }
+      `,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
   ],
   valid: [
     tsx`
@@ -202,5 +224,19 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Variable named useFormState but not called
+    tsx`
+      const useFormState = 1;
+      console.log(useFormState);
+    `,
+    // Different identifier
+    tsx`
+      myUseFormState(action, 0);
+    `,
+    // Imported from another module
+    tsx`
+      import { useFormState } from "some-other-lib";
+      useFormState(action, 0);
+    `,
   ],
 });

@@ -95,6 +95,46 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
+    // Variable sandbox value (not a static string)
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={sandboxValue} />;
+        }
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "addSandboxAttribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
+    // Boolean expression sandbox value
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={true} />;
+        }
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "addSandboxAttribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
   ],
   valid: [
     "<a />;",
@@ -145,5 +185,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Not an iframe
+    tsx`<div sandbox />;`,
   ],
 });

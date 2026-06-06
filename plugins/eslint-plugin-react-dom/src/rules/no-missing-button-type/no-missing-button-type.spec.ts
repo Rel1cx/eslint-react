@@ -146,5 +146,19 @@ ruleTester.run(RULE_NAME, rule, {
         return Foo.createElement("button");
       }
     `,
+    // Empty type attribute (attribute exists)
+    tsx`<button type="">Click me</button>;`,
+    // Boolean shorthand type (attribute exists)
+    tsx`<button type>Click me</button>;`,
+    // Expression type (attribute exists)
+    tsx`<button type={undefined}>Click me</button>;`,
+    // Not a button element
+    tsx`<input type="button" />;`,
+    // Polymorphic as span
+    tsx`
+      function App() {
+        return <PolyComponent as="span">Click me</PolyComponent>;
+      }
+    `,
   ],
 });

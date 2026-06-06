@@ -55,6 +55,46 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Void element with text child
+    {
+      code: tsx`<input>text</input>;`,
+      errors: [
+        {
+          data: { elementType: "input" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Void element with expression child
+    {
+      code: tsx`<br>{value}</br>;`,
+      errors: [
+        {
+          data: { elementType: "br" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Void element with whitespace child
+    {
+      code: tsx`<area> </area>;`,
+      errors: [
+        {
+          data: { elementType: "area" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Void element with children prop
+    {
+      code: tsx`<hr children="Foo" />;`,
+      errors: [
+        {
+          data: { elementType: "hr" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     "<div>Foo</div>;",
@@ -68,5 +108,10 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     '<div dangerouslySetInnerHTML={{ __html: "Foo" }} />;',
+    // Void elements without children
+    "<br />;",
+    "<input />;",
+    "<img />;",
+    "<hr />;",
   ],
 });

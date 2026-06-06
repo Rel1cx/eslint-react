@@ -163,6 +163,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div href="javascript:void(0)"></div>',
       errors: [{ messageId: "default" }],
     },
+    // Template literal without expressions resolves to string
+    {
+      code: tsx`<a href={\`javascript:void(0)\`}></a>`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     '<a href="https://react.dev"></a>',
@@ -219,5 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Boundary: JSXAttribute with empty expression container
     "<a href={}>Link</a>",
     "<div href={}></div>",
+    // Template literal without expressions - safe URL
+    tsx`<a href={\`https://example.com\`}></a>`,
   ],
 });

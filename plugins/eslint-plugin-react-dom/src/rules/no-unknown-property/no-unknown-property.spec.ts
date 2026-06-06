@@ -584,6 +584,14 @@ ruleTester.run(RULE_NAME, rule, {
       }],
       output: "<div className={}></div>",
     },
+    // Non-data dashed attribute
+    {
+      code: '<div foo-bar="baz" />',
+      errors: [{
+        data: { name: "foo-bar" },
+        messageId: "unknownProp",
+      }],
+    },
   ],
   valid: [
     //
@@ -798,6 +806,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Foo.Bar abc="def" />',
+    },
+    // Standard HTML attributes
+    {
+      code: '<div role="button" />',
+    },
+    {
+      code: "<div tabIndex={0} />",
+    },
+    {
+      code: "<div contentEditable />",
     },
   ],
 });

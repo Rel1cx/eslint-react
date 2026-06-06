@@ -91,6 +91,37 @@ ruleTester.run(RULE_NAME, rule, {
         createRoot(document.body).render(<div />);
       `,
     },
+    // In assignment expression
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        const result = render(<Component />, document.getElementById("app"));
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { createRoot } from "react-dom/client";
+        import { render } from "react-dom";
+        const result = createRoot(document.getElementById("app")).render(<Component />);
+      `,
+    },
+    // Missing second argument (no auto-fix)
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        render(<Component />);
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
+    // No arguments (no auto-fix)
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        render();
+      `,
+      errors: [{ messageId: "default" }],
+      output: null,
+    },
   ],
   valid: [
     tsx`
@@ -106,6 +137,16 @@ ruleTester.run(RULE_NAME, rule, {
       import Component from "Component";
 
       createRoot(document.getElementById("app")).render(<Component />);
+    `,
+    // render imported from another module
+    tsx`
+      import { render } from "some-other-lib";
+      render(<Component />, document.getElementById("app"));
+    `,
+    // Variable named render but not called
+    tsx`
+      const render = 1;
+      console.log(render);
     `,
   ],
 });

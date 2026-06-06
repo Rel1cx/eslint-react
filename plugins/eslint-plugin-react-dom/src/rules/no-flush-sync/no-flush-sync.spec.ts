@@ -214,6 +214,32 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // In conditional expression
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        condition && flushSync(() => {});
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // In return statement
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        function getValue() {
+          return flushSync(() => someValue);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Passed as argument
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        doSomething(flushSync(() => {}));
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // Aliased import is not detected by this rule (limitation of simple text search)
@@ -224,6 +250,26 @@ ruleTester.run(RULE_NAME, rule, {
         fs(() => {
           setSomething(123);
         });
+      `,
+    },
+    // Variable named flushSync but not called
+    {
+      code: tsx`
+        const flushSync = 1;
+        console.log(flushSync);
+      `,
+    },
+    // Different identifier
+    {
+      code: tsx`
+        myFlushSync(() => {});
+      `,
+    },
+    // String property access (not detected)
+    {
+      code: tsx`
+        const obj = { flushSync: () => {} };
+        obj["flushSync"]();
       `,
     },
   ],
