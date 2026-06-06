@@ -232,6 +232,61 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Test case for identifier chain referencing a leaked conditional rendering value
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const x = "";
+        const a = x && <Foo />;
+        const b = a;
+        const c = <>{true && b}</>;
+      `,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
+    },
+    // Test case for multi-level identifier chain referencing a leaked value
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const x = "";
+        const a = x && <Foo />;
+        const b = a;
+        const c = b;
+        const d = <>{true && c}</>;
+      `,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
+    },
+    // Test case for identifier in ternary branch referencing a leaked value
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const x = "";
+        const a = x && <Foo />;
+        const b = a;
+        const c = <>{true ? b : null}</>;
+      `,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
+    },
   ],
   valid: [
     tsx`
@@ -785,5 +840,43 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         },
       },
     },
+    // Test cases for identifier resolution with safe values
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const x = true;
+      const a = x && <Foo />;
+      const b = a;
+      const c = <>{true && b}</>;
+    `,
+    // Test case for uninitialized identifier
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      let x;
+      const a = x;
+      const b = <>{true && a}</>;
+    `,
+    // Test case for identifier referencing a safe function parameter
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const App = ({ cond }: { cond: boolean }) => {
+        const a = cond;
+        return <>{true && a}</>;
+      };
+    `,
+    // Test case for cyclic identifier references (should not cause infinite recursion)
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const a = b;
+      const b = a;
+      const c = <>{true && a}</>;
+    `,
   ],
 });
