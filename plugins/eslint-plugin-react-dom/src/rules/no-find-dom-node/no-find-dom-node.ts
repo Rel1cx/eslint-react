@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-find-dom-node";
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
 
 const findDOMNode = "findDOMNode";
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `findDOMNode` is not present in the file
   if (!context.sourceCode.text.includes(findDOMNode)) return {};
   return {

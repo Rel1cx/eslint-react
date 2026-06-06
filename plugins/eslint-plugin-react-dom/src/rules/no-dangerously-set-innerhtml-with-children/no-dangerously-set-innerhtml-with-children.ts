@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasAttribute, isWhitespace } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
 
 const DSIH = "dangerouslySetInnerHTML";
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
   if (!context.sourceCode.text.includes(DSIH)) {
     return {};

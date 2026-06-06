@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: if the file does not contain '&&', there is no need to run this rule
   if (!context.sourceCode.text.includes("&&")) return {};
   const { version } = getSettingsFromContext(context);

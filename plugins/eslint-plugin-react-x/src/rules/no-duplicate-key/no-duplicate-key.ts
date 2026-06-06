@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-duplicate-key";
@@ -33,7 +33,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `key=` is not present in the file
   if (!context.sourceCode.text.includes("key=")) return {};
   // Map to store key attributes grouped by their parent node

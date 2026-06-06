@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 
 export const RULE_NAME = "function-component";
 
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { api, visitor } = core.getFunctionComponentCollector(
     context,
     {

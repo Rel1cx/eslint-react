@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType, isFragmentElement } from "@eslint-react/jsx";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -34,7 +34,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const jsxConfig = core.getJsxConfig(context);
 
   function getReportDescriptor(_: RuleContext) {
