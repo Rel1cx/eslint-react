@@ -39,6 +39,8 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+// TODO: Evaluate whether it's possible to directly inspect type variants of `node.expression` within a JSX expression container to improve coverage.
+// This is currently not implemented to reduce false positives.
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: if the file does not contain '&&', there is no need to run this rule
   if (!context.sourceCode.text.includes("&&")) return {};
