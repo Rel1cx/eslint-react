@@ -302,6 +302,133 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // JSX spread attribute containing children (no safe auto-fix, only report)
+    {
+      code: '<div {...{ children: "x" }}>text</div>;',
+      errors: [{ messageId: "default" }],
+    },
+    // JSX spread variable resolved to object containing children
+    {
+      code: tsx`
+        const props = { children: "x" };
+        <div {...props}>text</div>;
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Boolean shorthand children prop
+    {
+      code: "<div children>text</div>;",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>text</div>;" },
+            { messageId: "removeChildrenContent", output: "<div children></div>;" },
+          ],
+        },
+      ],
+    },
+    // JSX comment as child is treated as meaningful content
+    {
+      code: tsx`<div children="x">{/* comment */}</div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{/* comment */}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    // Empty fragment as child is treated as meaningful content
+    {
+      code: '<div children="x"><></></div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div><></></div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    // Non-empty string literal expression (whitespace only) is meaningful
+    {
+      code: '<div children="x">{"  "}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: '<div>{"  "}</div>;' },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    // Empty template literal expression is meaningful
+    {
+      code: '<div children="x">{``}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{``}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    // Null, 0, false, undefined, and empty expression container are meaningful
+    {
+      code: '<div children="x">{null}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{null}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="x">{0}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{0}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="x">{false}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{false}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="x">{}</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>{}</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+          ],
+        },
+      ],
+    },
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" }, "Children");',
@@ -321,6 +448,35 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'React.createElement("div", { children: "Children" }, "a", "b");',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement with string literal key
+    {
+      code: 'React.createElement("div", { "children": "x" }, "text");',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement with computed property key
+    {
+      code: 'React.createElement("div", { ["children"]: "x" }, "text");',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement with spread in arguments
+    {
+      code: 'React.createElement("div", { children: "x" }, ...["a", "b"]);',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement with null/undefined extra arguments
+    {
+      code: 'React.createElement("div", { children: "x" }, null);',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: "x" }, undefined);',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement children property after spread inside props
+    {
+      code: 'React.createElement("div", { ...{}, children: "x" }, "text");',
       errors: [{ messageId: "default" }],
     },
   ],
@@ -367,5 +523,16 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<div children="x">
       {""}
     </div>;`,
+    // createElement with variable props (not ObjectExpression) – cannot inspect
+    tsx`
+      const props = { children: "x" };
+      React.createElement("div", props, "text");
+    `,
+    // createElement with children hidden inside a spread in props
+    'React.createElement("div", { ...{ children: "x" } }, "text");',
+    // JSX empty fragment without children prop
+    "<div><></></div>;",
+    // JSX comment without children prop
+    tsx`<div>{/* comment */}</div>;`,
   ],
 });

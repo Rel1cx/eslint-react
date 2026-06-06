@@ -33,6 +33,22 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "noNamespace",
       }],
     },
+    // With attributes
+    {
+      code: tsx`<ns:Component className="x" />`,
+      errors: [{
+        data: { name: "ns:Component" },
+        messageId: "noNamespace",
+      }],
+    },
+    // With closing tag
+    {
+      code: tsx`<ns:Component></ns:Component>`,
+      errors: [{
+        data: { name: "ns:Component" },
+        messageId: "noNamespace",
+      }],
+    },
   ],
   valid: [
     "<testcomponent />",
@@ -47,5 +63,9 @@ ruleTester.run(RULE_NAME, rule, {
     "<Object.testComponent />",
     "<Object.test_component />",
     "<Object.TestComponent />",
+    // React Fragment (no colon)
+    "<React.Fragment />",
+    // Plain lowercase element
+    "<div />",
   ],
 });

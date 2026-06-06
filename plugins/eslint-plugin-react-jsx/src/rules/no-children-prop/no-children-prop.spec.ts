@@ -271,6 +271,159 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // JSX edge cases
+    {
+      code: tsx`<div children={} />;`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`<div children={null} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{null}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={undefined} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{undefined}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={true} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{true}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={false} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{false}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={0} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{0}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={{ a: 1 }} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{{ a: 1 }}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: "<div children='Children' />;",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div>Children</div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div {...{ children: "Children" }} />;',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'const props = { children: "Children" }; <div {...props} />;',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<my:div children="Children" />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<my:div>Children</my:div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={/* comment */ <span />} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div><span /></div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="Children"  />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div>Children</div>;",
+            },
+          ],
+        },
+      ],
+    },
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" });',
@@ -290,6 +443,43 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: 'React.createElement("div", { children: "Children" }, "extra");',
+      errors: [{ messageId: "default" }],
+    },
+    // createElement edge cases
+    {
+      code: 'React.createElement("div", { ...props, children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { ["children"]: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement(MyComponent, { children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: React.createElement("span") });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: null });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: undefined });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: true });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: {} });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: [] });',
       errors: [{ messageId: "default" }],
     },
   ],
@@ -312,5 +502,12 @@ ruleTester.run(RULE_NAME, rule, {
     'React.createElement("div", null, "Children");',
     'React.createElement("div", { className: "x" }, "Children");',
     'createElement("div", null, "Children");',
+    // edge cases
+    'React.createElement("div", getProps());',
+    'React.createElement("div");',
+    '<div {...{ className: "x" }} />;',
+    'const props = { className: "x" }; <div {...props} />;',
+    'import { props } from "props"; <div {...props} />;',
+    '<div x:children="Children" />;',
   ],
 });

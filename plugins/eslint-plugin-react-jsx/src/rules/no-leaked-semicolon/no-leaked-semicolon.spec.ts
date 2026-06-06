@@ -159,6 +159,74 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Semicolon after element followed by text on next line
+    {
+      code: tsx`
+        const Component = () => {
+          return (
+            <div>
+              <div />;
+              text
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <div />
+                      text
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Nested element
+    {
+      code: tsx`
+        const Component = () => {
+          return (
+            <div>
+              <span>
+                <div />;
+              </span>
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <span>
+                        <div />
+                      </span>
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -224,5 +292,29 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    // Not leaked: semicolon without following newline
+    "<div>;<span /></div>",
+    // Not leaked: whitespace before semicolon+newline
+    tsx`
+      const Component = () => {
+        return (
+          <div>
+             ;
+          </div>
+        );
+      }
+    `,
+    // Not leaked: semicolon in the middle of text
+    tsx`
+      const Component = () => {
+        return (
+          <div>
+            text;
+          </div>
+        );
+      }
+    `,
+    // Not leaked: attribute value
+    "<div attr='a;b' />",
   ],
 });

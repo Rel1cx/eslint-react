@@ -31,6 +31,24 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noKeyAfterSpread" }],
     },
+    // Multiple spreads before key
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div {...a} {...b} key="1">1</div>;
+        };
+      `,
+      errors: [{ messageId: "noKeyAfterSpread" }],
+    },
+    // Attributes between spread and key
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div {...props} className="x" key="1">1</div>;
+        };
+      `,
+      errors: [{ messageId: "noKeyAfterSpread" }],
+    },
   ],
   valid: [
     tsx`
@@ -45,6 +63,24 @@ ruleTester.run(RULE_NAME, rule, {
                   <div key="2" {...props}>2</div>,
                   <div key="3" {...props}>3</div>,
                ]
+      };
+    `,
+    // Key before spread (valid)
+    tsx`
+      const App = (props) => {
+        return <div key="1" {...props} className="x">1</div>;
+      };
+    `,
+    // No spread (valid)
+    tsx`
+      const App = () => {
+        return <div key="1">1</div>;
+      };
+    `,
+    // No key (valid)
+    tsx`
+      const App = (props) => {
+        return <div {...props}>1</div>;
       };
     `,
     // classic runtime annotation — no deoptimization check
@@ -127,6 +163,15 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "noKeyAfterSpread" }],
     },
+    // Multiple spreads before key
+    {
+      code: tsx`
+        const App = (props) => {
+          return <Component {...a} {...b} key="test" />;
+        };
+      `,
+      errors: [{ messageId: "noKeyAfterSpread" }],
+    },
   ],
   valid: [
     tsx`
@@ -155,6 +200,12 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
     tsx`
       const App = (props) => {
         return <svg {...props} xmlns:x="http://example.com" />;
+      };
+    `,
+    // Key before spread followed by another spread
+    tsx`
+      const App = (props) => {
+        return <div key="1" {...props} {...rest} />;
       };
     `,
   ],

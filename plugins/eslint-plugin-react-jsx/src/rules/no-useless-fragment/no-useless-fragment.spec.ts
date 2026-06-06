@@ -552,6 +552,131 @@ ruleTester.run(RULE_NAME, rule, {
         </div>
       `,
     },
+    // Single expression children inside host component are still redundant
+    {
+      code: "<div><>{undefined}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{undefined}</div>",
+    },
+    {
+      code: "<div><>{null}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{null}</div>",
+    },
+    {
+      code: "<div><>{0}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{0}</div>",
+    },
+    {
+      code: "<div><>{true}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{true}</div>",
+    },
+    {
+      code: "<div><>{false}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{false}</div>",
+    },
+    {
+      code: "<div><>{[]}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{[]}</div>",
+    },
+    // JSX comment is an empty expression → skipped by getChildren
+    {
+      code: "<>{/* comment */}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // JSX comment inside host → both reasons
+    {
+      code: "<div><>{/* comment */}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{/* comment */}</div>",
+    },
+    // Nested useless fragment (outer unwraps to inner because it is safe to fix)
+    {
+      code: "<><>nested</></>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<>nested</>",
+    },
+    // Custom component: content useless but not inside host → no auto-fix
+    {
+      code: '<Custom><>{""}</></Custom>',
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
   ],
   valid: [
     {
@@ -652,5 +777,22 @@ ruleTester.run(RULE_NAME, rule, {
       code: "<div attr={<><Foo /><Bar /></>} />",
       options: [{ allowExpressions: false }],
     },
+    // Single expression children are allowed by default
+    "<>{undefined}</>",
+    "<>{null}</>",
+    "<>{0}</>",
+    "<>{true}</>",
+    "<>{false}</>",
+    "<>{[]}</>",
+    // Single whitespace text outside JSX context is tolerated
+    tsx`
+      function Foo() {
+        return <> </>;
+      }
+    `,
+    // Two expression children
+    '<>{"a"}{"b"}</>',
+    // Two element children
+    "<><span /><span /></>",
   ],
 });
