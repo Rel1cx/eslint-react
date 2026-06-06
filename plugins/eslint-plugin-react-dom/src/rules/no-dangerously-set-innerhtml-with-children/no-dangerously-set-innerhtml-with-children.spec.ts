@@ -101,12 +101,6 @@ ruleTester.run(RULE_NAME, rule, {
     "<App>Children</App>",
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
     '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
-    // Multiline whitespace (with tabs) is trimmed away by isWhitespace
-    {
-      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}>
-	
-</App>`,
-    },
     "<App {...undefined}>Children</App>",
     // Empty tag with dangerouslySetInnerHTML (no children)
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }}></div>',

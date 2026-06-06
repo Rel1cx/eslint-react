@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Defines the type variants that are safe to use on the left side of a '&&' expression
   // These types do not render unwanted values (like 0, NaN, or '')
-  const allowedVariants = [
+  const allowedTypeVariants = [
     "any",
     "boolean",
     "nullish",
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Check if all possible types of the left operand are in the allowed list
         const isLeftValid = Array
           .from(leftTypeVariants.values())
-          .every((type) => allowedVariants.some((allowed) => allowed === type));
+          .every((t) => allowedTypeVariants.some((a) => a === t));
 
         // If the left side is valid, the expression is safe. Recursively check the right side
         if (isLeftValid) {

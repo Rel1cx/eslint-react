@@ -73,6 +73,70 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidRefName" }],
     },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const REF = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const r = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const _ref = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        let value;
+        value = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const value = condition ? useRef(0) : { current: null };
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const value = useRef(0) || { current: null };
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        a = b = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const R = useRef(0);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
+    {
+      code: tsx`
+        import { useRef } from "react";
+        const ref = useRef(null), value = useRef(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+    },
   ],
   valid: [
     tsx`
@@ -139,6 +203,31 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useRef } from "react";
       const value = useRef(null).current.value;
+    `,
+    tsx`
+      import { useRef } from "react";
+      let myRef;
+      myRef = useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      const myRef = condition ? useRef(null) : { current: null };
+    `,
+    tsx`
+      import { useRef } from "react";
+      const myRef = useRef(null) || { current: null };
+    `,
+    tsx`
+      import { useRef } from "react";
+      ctxs["myRef"] = useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      const _myRef = useRef(null);
+    `,
+    tsx`
+      import { useRef } from "react";
+      const ref = useRef<HTMLInputElement>(null);
     `,
   ],
 });

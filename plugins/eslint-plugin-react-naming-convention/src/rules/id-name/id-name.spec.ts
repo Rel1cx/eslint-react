@@ -60,6 +60,70 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidIdName" }],
     },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const ID = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const i = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const _id = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        let value;
+        value = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const value = condition ? useId() : "";
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const value = useId() || "";
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        a = b = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const I = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const id = useId(), value = useId();
+      `,
+      errors: [{ messageId: "invalidIdName" }],
+    },
   ],
   valid: [
     tsx`
@@ -113,6 +177,27 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useId } from "react";
       const { value } = { value: useId() };
+    `,
+    tsx`
+      import { useId } from "react";
+      let myId;
+      myId = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      const myId = condition ? useId() : "";
+    `,
+    tsx`
+      import { useId } from "react";
+      const myId = useId() || "";
+    `,
+    tsx`
+      import { useId } from "react";
+      ctxs["myId"] = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      const _myId = useId();
     `,
   ],
 });
