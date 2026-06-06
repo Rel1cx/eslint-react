@@ -6,11 +6,11 @@ All notable changes to the `apps/website` documentation and its content.
 
 ### 📝 Documentation
 
-- Updated `kit.mdx` callout example and AST explanation.
 - Added missing inline table of contents to `contributing.mdx`.
-- Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
-- Corrected Meta's legal company name to `Meta Platforms, Inc.` across disclaimers and added a new **Brand Assets** documentation page (#1832).
+- Removed `no-multiple-children-in-title` recipe; the same check can be enforced by leveraging type system to restrict the `children` type accepted by `<title>` components. (Consider suggesting an update to the `<title>` children type definition in `@types/react` or `@types/react-dom`.)
 - Reworked the **Brand Assets** documentation page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
+- Updated `kit.mdx` callout example and AST explanation.
+- Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
 
 ### 🏗️ Internal
 
