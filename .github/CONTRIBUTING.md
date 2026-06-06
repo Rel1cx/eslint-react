@@ -319,12 +319,9 @@ ruleTester.run(RULE_NAME, rule, {
 
 ## AI Tool Policy
 
-It takes a lot of time to review a Pull Request, whereas it's very easy to make a nonsensical but plausible-looking one using AI tools. It is unfair for other contributors and the reviewers to spend much of the time dealing with this, hence these rules:
-
 1. Review and test all LLM-generated content before submitting. You're the one responsible for it, not the AI.
 2. Don't use AI to respond to review comments (except for translations).
-
-We will close the Pull Request with an `ai-slop` tag if you fail to do so.
+3. Use fully AI-generated replies for spam or off-topic threads. Do not give them human attention.
 
 ## Code of Conduct
 
