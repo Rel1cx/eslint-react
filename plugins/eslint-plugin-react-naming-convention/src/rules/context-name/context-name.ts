@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -31,23 +31,21 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>) {
   // Fast path: skip if `createContext` is not present in the file
   if (!context.sourceCode.text.includes("createContext")) return {};
-  return merge(
-    {
-      CallExpression(node) {
-        if (!core.isCreateContextCall(context, node)) return;
-        const [id, name] = match(resolveEnclosingAssignmentTarget(node))
-          // for cases like: const ThemeContext = createContext();
-          .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
-          // for cases like: ctxs.ThemeContext = createContext();
-          .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
-          .otherwise(() => [null, null] as const);
-        if (id == null) return;
-        if (core.isFunctionComponentName(name) && name.endsWith("Context")) return;
-        context.report({
-          messageId: "invalidContextName",
-          node: id,
-        });
-      },
+  return {
+    CallExpression(node) {
+      if (!core.isCreateContextCall(context, node)) return;
+      const [id, name] = match(resolveEnclosingAssignmentTarget(node))
+        // for cases like: const ThemeContext = createContext();
+        .with({ type: AST.Identifier, name: P.string }, (id) => [id, id.name] as const)
+        // for cases like: ctxs.ThemeContext = createContext();
+        .with({ type: AST.MemberExpression, property: { name: P.string } }, (id) => [id, id.property.name] as const)
+        .otherwise(() => [null, null] as const);
+      if (id == null) return;
+      if (core.isFunctionComponentName(name) && name.endsWith("Context")) return;
+      context.report({
+        messageId: "invalidContextName",
+        node: id,
+      });
     },
-  );
+  };
 }

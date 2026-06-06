@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { findAttribute, hasAttribute, isWhitespace } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -32,22 +32,20 @@ export function create(context: RuleContext<MessageID, []>) {
     return {};
   }
 
-  return merge(
-    {
-      JSXElement(node) {
-        // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
-        if (!hasAttribute(context, node, DSIH)) return;
-        // Check for a 'children' prop or actual child nodes that are not just whitespace
-        const childrenPropOrNode = findAttribute(context, node, "children")
-          ?? node.children.find((child) => !isWhitespace(child));
-        // If no children are found, the rule passes
-        if (childrenPropOrNode == null) return;
-        // If both 'dangerouslySetInnerHTML' and children are present, report an error
-        context.report({
-          messageId: "default",
-          node: childrenPropOrNode,
-        });
-      },
+  return {
+    JSXElement(node) {
+      // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
+      if (!hasAttribute(context, node, DSIH)) return;
+      // Check for a 'children' prop or actual child nodes that are not just whitespace
+      const childrenPropOrNode = findAttribute(context, node, "children")
+        ?? node.children.find((child) => !isWhitespace(child));
+      // If no children are found, the rule passes
+      if (childrenPropOrNode == null) return;
+      // If both 'dangerouslySetInnerHTML' and children are present, report an error
+      context.report({
+        messageId: "default",
+        node: childrenPropOrNode,
+      });
     },
-  );
+  };
 }

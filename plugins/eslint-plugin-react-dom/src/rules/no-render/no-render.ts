@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -42,58 +42,56 @@ export function create(context: RuleContext<MessageID, []>) {
   // Tracks imported names for the `render` function
   const renderNames = new Set<string>();
 
-  return merge(
-    {
-      // Visitor for call expressions, e.g., render() or ReactDOM.render()
-      CallExpression(node) {
-        const callee = Extract.unwrap(node.callee);
-        switch (true) {
-          // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
-          case callee.type === AST.Identifier
-            && renderNames.has(callee.name):
-            context.report({
-              fix: getFix(context, node),
-              messageId: "default",
-              node,
-            });
-            return;
-          // Case 2: Member expression call, e.g., `ReactDOM.render()`
-          case callee.type === AST.MemberExpression
-            && callee.object.type === AST.Identifier
-            && callee.property.type === AST.Identifier
-            && callee.property.name === "render"
-            && reactDomNames.has(callee.object.name):
-            context.report({
-              fix: getFix(context, node),
-              messageId: "default",
-              node,
-            });
-            return;
-        }
-      },
-      ImportDeclaration(node) {
-        const [baseSource] = node.source.value.split("/");
-        // Only consider imports from 'react-dom'
-        if (baseSource !== "react-dom") return;
-        for (const specifier of node.specifiers) {
-          switch (specifier.type) {
-            // Handles: import { render } from 'react-dom'
-            case AST.ImportSpecifier:
-              if (specifier.imported.type !== AST.Identifier) continue;
-              if (specifier.imported.name === "render") {
-                renderNames.add(specifier.local.name);
-              }
-              continue;
-            // Handles: import ReactDOM from 'react-dom' or import * as ReactDOM from 'react-dom'
-            case AST.ImportDefaultSpecifier:
-            case AST.ImportNamespaceSpecifier:
-              reactDomNames.add(specifier.local.name);
-              continue;
-          }
-        }
-      },
+  return {
+    // Visitor for call expressions, e.g., render() or ReactDOM.render()
+    CallExpression(node) {
+      const callee = Extract.unwrap(node.callee);
+      switch (true) {
+        // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
+        case callee.type === AST.Identifier
+          && renderNames.has(callee.name):
+          context.report({
+            fix: getFix(context, node),
+            messageId: "default",
+            node,
+          });
+          return;
+        // Case 2: Member expression call, e.g., `ReactDOM.render()`
+        case callee.type === AST.MemberExpression
+          && callee.object.type === AST.Identifier
+          && callee.property.type === AST.Identifier
+          && callee.property.name === "render"
+          && reactDomNames.has(callee.object.name):
+          context.report({
+            fix: getFix(context, node),
+            messageId: "default",
+            node,
+          });
+          return;
+      }
     },
-  );
+    ImportDeclaration(node) {
+      const [baseSource] = node.source.value.split("/");
+      // Only consider imports from 'react-dom'
+      if (baseSource !== "react-dom") return;
+      for (const specifier of node.specifiers) {
+        switch (specifier.type) {
+          // Handles: import { render } from 'react-dom'
+          case AST.ImportSpecifier:
+            if (specifier.imported.type !== AST.Identifier) continue;
+            if (specifier.imported.name === "render") {
+              renderNames.add(specifier.local.name);
+            }
+            continue;
+          // Handles: import ReactDOM from 'react-dom' or import * as ReactDOM from 'react-dom'
+          case AST.ImportDefaultSpecifier:
+          case AST.ImportNamespaceSpecifier:
+            reactDomNames.add(specifier.local.name);
+            continue;
+        }
+      }
+    },
+  };
 }
 
 /**

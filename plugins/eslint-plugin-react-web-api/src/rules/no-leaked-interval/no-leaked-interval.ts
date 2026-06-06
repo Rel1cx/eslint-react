@@ -1,7 +1,7 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
@@ -79,86 +79,84 @@ export function create(context: RuleContext<MessageID, []>) {
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
-  return merge(
-    {
-      [":function"](node: TSESTreeFunction) {
-        const kind = getPhaseKindOfFunction(node) ?? "other";
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        switch (getCallKind(node)) {
-          case "setInterval": {
-            const fEntry = fEntries.findLast((x) => x.kind !== "other");
-            if (fEntry == null) {
-              break;
-            }
-            if (!ComponentPhaseRelevance.has(fEntry.kind)) {
-              break;
-            }
-            const intervalIdNode = resolveEnclosingAssignmentTarget(node);
-            if (intervalIdNode == null) {
-              context.report({
-                messageId: "expectedIntervalId",
-                node,
-              });
-              break;
-            }
-            sEntries.push({
-              kind: "interval",
-              callee: node.callee,
-              node,
-              phase: fEntry.kind,
-              timerId: intervalIdNode,
-            });
-            break;
-          }
-          case "clearInterval": {
-            const fEntry = fEntries.findLast((x) => x.kind !== "other");
-            if (fEntry == null) {
-              break;
-            }
-            if (!ComponentPhaseRelevance.has(fEntry.kind)) {
-              break;
-            }
-            const [intervalIdNode] = node.arguments;
-            if (intervalIdNode == null) {
-              break;
-            }
-            cEntries.push({
-              kind: "interval",
-              callee: node.callee,
-              node,
-              phase: fEntry.kind,
-              timerId: intervalIdNode,
-            });
-            break;
-          }
-        }
-      },
-      ["Program:exit"]() {
-        for (const sEntry of sEntries) {
-          if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
-            continue;
-          }
-          switch (sEntry.phase) {
-            case "setup":
-            case "cleanup":
-              context.report({
-                data: {
-                  kind: "useEffect",
-                },
-                messageId: "expectedClearIntervalInCleanup",
-                node: sEntry.node,
-              });
-              continue;
-          }
-        }
-      },
+  return {
+    [":function"](node: TSESTreeFunction) {
+      const kind = getPhaseKindOfFunction(node) ?? "other";
+      fEntries.push({ kind, node });
     },
-  );
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      switch (getCallKind(node)) {
+        case "setInterval": {
+          const fEntry = fEntries.findLast((x) => x.kind !== "other");
+          if (fEntry == null) {
+            break;
+          }
+          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+            break;
+          }
+          const intervalIdNode = resolveEnclosingAssignmentTarget(node);
+          if (intervalIdNode == null) {
+            context.report({
+              messageId: "expectedIntervalId",
+              node,
+            });
+            break;
+          }
+          sEntries.push({
+            kind: "interval",
+            callee: node.callee,
+            node,
+            phase: fEntry.kind,
+            timerId: intervalIdNode,
+          });
+          break;
+        }
+        case "clearInterval": {
+          const fEntry = fEntries.findLast((x) => x.kind !== "other");
+          if (fEntry == null) {
+            break;
+          }
+          if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+            break;
+          }
+          const [intervalIdNode] = node.arguments;
+          if (intervalIdNode == null) {
+            break;
+          }
+          cEntries.push({
+            kind: "interval",
+            callee: node.callee,
+            node,
+            phase: fEntry.kind,
+            timerId: intervalIdNode,
+          });
+          break;
+        }
+      }
+    },
+    ["Program:exit"]() {
+      for (const sEntry of sEntries) {
+        if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
+          continue;
+        }
+        switch (sEntry.phase) {
+          case "setup":
+          case "cleanup":
+            context.report({
+              data: {
+                kind: "useEffect",
+              },
+              messageId: "expectedClearIntervalInCleanup",
+              node: sEntry.node,
+            });
+            continue;
+        }
+      }
+    },
+  };
 }
 
 // #endregion

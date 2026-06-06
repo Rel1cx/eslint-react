@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -45,30 +45,28 @@ export function create(context: RuleContext<MessageID, []>) {
   if (compare(version, "19.0.0", "<")) {
     return {};
   }
-  return merge(
-    {
-      // Visitor for `forwardRef()` calls
-      CallExpression(node) {
-        if (!core.isForwardRefCall(context, node)) {
-          return;
-        }
-        const id = core.getFunctionId(node);
-        const suggest = canFix(context, node)
-          ? [
-            {
-              fix: getFix(context, node),
-              messageId: "replace" as const,
-            },
-          ]
-          : [];
-        context.report({
-          messageId: "default",
-          node: id ?? node,
-          suggest,
-        });
-      },
+  return {
+    // Visitor for `forwardRef()` calls
+    CallExpression(node) {
+      if (!core.isForwardRefCall(context, node)) {
+        return;
+      }
+      const id = core.getFunctionId(node);
+      const suggest = canFix(context, node)
+        ? [
+          {
+            fix: getFix(context, node),
+            messageId: "replace" as const,
+          },
+        ]
+        : [];
+      context.report({
+        messageId: "default",
+        node: id ?? node,
+        suggest,
+      });
     },
-  );
+  };
 }
 
 /**

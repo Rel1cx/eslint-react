@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, isOneOf } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-comment-textnodes";
@@ -48,10 +48,8 @@ export function create(context: RuleContext<MessageID, []>) {
       node,
     });
   };
-  return merge(
-    {
-      JSXText: visitorFunction,
-      Literal: visitorFunction,
-    },
-  );
+  return {
+    JSXText: visitorFunction,
+    Literal: visitorFunction,
+  };
 }

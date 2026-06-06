@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer } from "@eslint-react/eslint";
 import {
   collapseMultilineText,
   getChildren,
@@ -206,7 +206,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     }
   }
 
-  return merge({
+  return {
     JSXElement(node) {
       if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
       if (hasAnyAttribute(context, node, ["key", "ref"])) return;
@@ -215,5 +215,5 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     JSXFragment(node) {
       checkNode(node);
     },
-  });
+  };
 }

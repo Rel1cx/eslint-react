@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { isMatching } from "ts-pattern";
@@ -104,59 +104,57 @@ export function create(context: RuleContext<MessageID, []>) {
     return [];
   }
 
-  return merge(
-    {
-      CallExpression(node) {
-        // Push the index parameter name (if any) to the stack
-        indexParamNames.push(getMapIndexParamName(context, node));
-        if (node.arguments.length === 0) {
-          return;
+  return {
+    CallExpression(node) {
+      // Push the index parameter name (if any) to the stack
+      indexParamNames.push(getMapIndexParamName(context, node));
+      if (node.arguments.length === 0) {
+        return;
+      }
+      // Check for array index usage in `createElement` and `cloneElement` calls
+      if (!isCreateOrCloneElementCall(node)) {
+        return;
+      }
+      const [, props] = node.arguments;
+      if (props?.type !== AST.ObjectExpression) {
+        return;
+      }
+      for (const prop of props.properties) {
+        // Find the 'key' prop
+        if (!isMatching({ key: { name: "key" } })(prop)) {
+          continue;
         }
-        // Check for array index usage in `createElement` and `cloneElement` calls
-        if (!isCreateOrCloneElementCall(node)) {
-          return;
+        if (!("value" in prop)) {
+          continue;
         }
-        const [, props] = node.arguments;
-        if (props?.type !== AST.ObjectExpression) {
-          return;
-        }
-        for (const prop of props.properties) {
-          // Find the 'key' prop
-          if (!isMatching({ key: { name: "key" } })(prop)) {
-            continue;
-          }
-          if (!("value" in prop)) {
-            continue;
-          }
-          // Check its value and report if it uses an array index
-          for (const descriptor of getReportDescriptors(prop.value)) {
-            report(context)(descriptor);
-          }
-        }
-      },
-      // When exiting a CallExpression, pop the index name from the stack to manage scope
-      "CallExpression:exit"() {
-        indexParamNames.pop();
-      },
-      // Handles JSX attributes
-      JSXAttribute(node) {
-        // Check only for the 'key' attribute
-        if (node.name.name !== "key") {
-          return;
-        }
-        // Ignore if we are not inside a map-like call
-        if (indexParamNames.length === 0) {
-          return;
-        }
-        // The key's value must be an expression container (ex: key={...})
-        if (node.value?.type !== AST.JSXExpressionContainer) {
-          return;
-        }
-        // Check the expression and report if it uses an array index
-        for (const descriptor of getReportDescriptors(node.value.expression)) {
+        // Check its value and report if it uses an array index
+        for (const descriptor of getReportDescriptors(prop.value)) {
           report(context)(descriptor);
         }
-      },
+      }
     },
-  );
+    // When exiting a CallExpression, pop the index name from the stack to manage scope
+    "CallExpression:exit"() {
+      indexParamNames.pop();
+    },
+    // Handles JSX attributes
+    JSXAttribute(node) {
+      // Check only for the 'key' attribute
+      if (node.name.name !== "key") {
+        return;
+      }
+      // Ignore if we are not inside a map-like call
+      if (indexParamNames.length === 0) {
+        return;
+      }
+      // The key's value must be an expression container (ex: key={...})
+      if (node.value?.type !== AST.JSXExpressionContainer) {
+        return;
+      }
+      // Check the expression and report if it uses an array index
+      for (const descriptor of getReportDescriptors(node.value.expression)) {
+        report(context)(descriptor);
+      }
+    },
+  };
 }

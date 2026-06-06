@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { resolveAttributeValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -27,18 +27,16 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return merge(
-    {
-      JSXAttribute(node) {
-        if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
-        const value = resolveAttributeValue(context, node).toStatic();
-        if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
-          context.report({
-            messageId: "default",
-            node: node.value,
-          });
-        }
-      },
+  return {
+    JSXAttribute(node) {
+      if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
+      const value = resolveAttributeValue(context, node).toStatic();
+      if (typeof value === "string" && RE_JAVASCRIPT_PROTOCOL.test(value)) {
+        context.report({
+          messageId: "default",
+          node: node.value,
+        });
+      }
     },
-  );
+  };
 }

@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-string-style-prop";
@@ -25,33 +25,31 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>) {
-  return merge(
-    {
-      JSXElement(node) {
-        // This rule only applies to host elements (ex: <div />, <span />), not custom components
-        if (!isHostElement(node)) {
-          return;
-        }
+  return {
+    JSXElement(node) {
+      // This rule only applies to host elements (ex: <div />, <span />), not custom components
+      if (!isHostElement(node)) {
+        return;
+      }
 
-        // Find the 'style' prop on the element
-        const styleProp = findAttribute(context, node, "style");
-        if (styleProp == null) {
-          return;
-        }
+      // Find the 'style' prop on the element
+      const styleProp = findAttribute(context, node, "style");
+      if (styleProp == null) {
+        return;
+      }
 
-        // Resolve the static value of the 'style' prop
-        const styleValue = resolveAttributeValue(context, styleProp);
-        const staticValue = styleValue.toStatic();
+      // Resolve the static value of the 'style' prop
+      const styleValue = resolveAttributeValue(context, styleProp);
+      const staticValue = styleValue.toStatic();
 
-        // If the resolved value is a string, report an error
-        // e.g., <div style="color: red;" />
-        if (typeof staticValue === "string") {
-          context.report({
-            messageId: "default",
-            node: styleValue.node ?? styleProp,
-          });
-        }
-      },
+      // If the resolved value is a string, report an error
+      // e.g., <div style="color: red;" />
+      if (typeof staticValue === "string") {
+        context.report({
+          messageId: "default",
+          node: styleValue.node ?? styleProp,
+        });
+      }
     },
-  );
+  };
 }

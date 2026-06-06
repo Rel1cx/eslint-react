@@ -1,7 +1,7 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
@@ -77,76 +77,74 @@ export function create(context: RuleContext<MessageID, []>) {
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
-  return merge(
-    {
-      [":function"](node: TSESTreeFunction) {
-        const kind = getPhaseKindOfFunction(node) ?? "other";
-        fEntries.push({ kind, node });
-      },
-      [":function:exit"]() {
-        fEntries.pop();
-      },
-      ["CallExpression"](node) {
-        const fEntry = fEntries.findLast((f) => f.kind !== "other");
-        if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
-          return;
-        }
-        switch (getCallKind(node)) {
-          case "setTimeout": {
-            const timeoutIdNode = resolveEnclosingAssignmentTarget(node);
-            if (timeoutIdNode == null) {
-              context.report({
-                messageId: "expectedTimeoutId",
-                node,
-              });
-              break;
-            }
-            sEntries.push({
-              kind: "timeout",
-              callee: node.callee,
-              node,
-              phase: fEntry.kind,
-              timerId: timeoutIdNode,
-            });
-            break;
-          }
-          case "clearTimeout": {
-            const [timeoutIdNode] = node.arguments;
-            if (timeoutIdNode == null) {
-              break;
-            }
-            rEntries.push({
-              kind: "timeout",
-              callee: node.callee,
-              node,
-              phase: fEntry.kind,
-              timerId: timeoutIdNode,
-            });
-            break;
-          }
-        }
-      },
-      ["Program:exit"]() {
-        for (const sEntry of sEntries) {
-          if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
-            continue;
-          }
-          switch (sEntry.phase) {
-            case "setup":
-            case "cleanup":
-              context.report({
-                data: {
-                  kind: "useEffect",
-                },
-                messageId: "expectedClearTimeoutInCleanup",
-                node: sEntry.node,
-              });
-              continue;
-          }
-        }
-      },
+  return {
+    [":function"](node: TSESTreeFunction) {
+      const kind = getPhaseKindOfFunction(node) ?? "other";
+      fEntries.push({ kind, node });
     },
-  );
+    [":function:exit"]() {
+      fEntries.pop();
+    },
+    ["CallExpression"](node) {
+      const fEntry = fEntries.findLast((f) => f.kind !== "other");
+      if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
+        return;
+      }
+      switch (getCallKind(node)) {
+        case "setTimeout": {
+          const timeoutIdNode = resolveEnclosingAssignmentTarget(node);
+          if (timeoutIdNode == null) {
+            context.report({
+              messageId: "expectedTimeoutId",
+              node,
+            });
+            break;
+          }
+          sEntries.push({
+            kind: "timeout",
+            callee: node.callee,
+            node,
+            phase: fEntry.kind,
+            timerId: timeoutIdNode,
+          });
+          break;
+        }
+        case "clearTimeout": {
+          const [timeoutIdNode] = node.arguments;
+          if (timeoutIdNode == null) {
+            break;
+          }
+          rEntries.push({
+            kind: "timeout",
+            callee: node.callee,
+            node,
+            phase: fEntry.kind,
+            timerId: timeoutIdNode,
+          });
+          break;
+        }
+      }
+    },
+    ["Program:exit"]() {
+      for (const sEntry of sEntries) {
+        if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
+          continue;
+        }
+        switch (sEntry.phase) {
+          case "setup":
+          case "cleanup":
+            context.report({
+              data: {
+                kind: "useEffect",
+              },
+              messageId: "expectedClearTimeoutInCleanup",
+              node: sEntry.node,
+            });
+            continue;
+        }
+      }
+    },
+  };
 }
 
 // #endregion

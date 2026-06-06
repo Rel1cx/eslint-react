@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
@@ -70,5 +70,5 @@ export function create(context: RuleContext<MessageID, []>) {
       });
     }
   };
-  return merge({ JSXElement: visitorFunction, JSXFragment: visitorFunction });
+  return { JSXElement: visitorFunction, JSXFragment: visitorFunction };
 }

@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-semicolon";
@@ -57,8 +57,8 @@ export function create(context: RuleContext<MessageID, []>) {
       ],
     });
   };
-  return merge({
+  return {
     JSXText: visitorFunction,
     Literal: visitorFunction,
-  });
+  };
 }

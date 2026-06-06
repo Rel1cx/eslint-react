@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, is } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
@@ -145,5 +145,5 @@ export function create(context: RuleContext<MessageID, []>) {
       // For all other node types, assume they are safe
       .otherwise(() => null);
   }
-  return merge({ JSXExpressionContainer: flow(getReportDescriptor, report(context)) });
+  return { JSXExpressionContainer: flow(getReportDescriptor, report(context)) };
 }
