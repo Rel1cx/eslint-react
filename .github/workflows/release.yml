@@ -6,7 +6,7 @@ on:
 jobs:
   release:
     name: Create GitHub Release
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
