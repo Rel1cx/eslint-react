@@ -2,7 +2,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -81,7 +81,7 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>) {
+export function create(context: RuleContext<MessageID, Options>): RuleListener {
   const options = context.options[0] ?? defaultOptions[0];
   const {
     enforceAssignment = true,

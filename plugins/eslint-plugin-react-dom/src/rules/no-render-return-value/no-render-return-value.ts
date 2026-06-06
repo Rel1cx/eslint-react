@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-render-return-value";
@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Sets to track imported names for 'ReactDOM' and 'render'
   const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
   const renderNames = new Set<string>();

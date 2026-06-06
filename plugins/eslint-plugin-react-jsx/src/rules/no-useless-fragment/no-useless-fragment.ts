@@ -1,7 +1,13 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer } from "@eslint-react/eslint";
+import {
+  type RuleContext,
+  type RuleFeature,
+  type RuleFix,
+  type RuleFixer,
+  type RuleListener,
+} from "@eslint-react/eslint";
 import {
   collapseMultilineText,
   getChildren,
@@ -67,7 +73,7 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>, [option]: Options) {
+export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
   const { allowEmptyFragment = false, allowExpressions = true } = option;
   const jsxConfig = core.getJsxConfig(context);
 

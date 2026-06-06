@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { LIFECYCLE_METHODS, type Property, isKeyLiteral } from "./lib";
 
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // A stack to keep track of class nodes, to handle nested classes
   const classStack: TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes

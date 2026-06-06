@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 import { isEvalCall, isIifeCall } from "./lib";
 
@@ -35,7 +35,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hc = core.getHookCollector(context);
   const fc = core.getFunctionComponentCollector(context);
   const evalCalls: {

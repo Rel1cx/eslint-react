@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 import { getRefInitNode } from "./lib";
 
@@ -28,7 +28,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);

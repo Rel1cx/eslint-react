@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-semicolon";
@@ -36,7 +36,7 @@ function hasLeakedSemicolon(text: string) {
   return text.startsWith(";\n") || text.startsWith(";\r");
 }
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal) => {
     if (!Check.isJSXElementOrFragment(node.parent)) {
       return;
