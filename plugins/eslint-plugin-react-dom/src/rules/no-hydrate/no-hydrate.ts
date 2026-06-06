@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -32,7 +32,7 @@ export default createRule<[], MessageID>({
 
 const hydrate = "hydrate";
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `hydrate` is not present in the file
   if (!context.sourceCode.text.includes(hydrate)) return {};
   const settings = getSettingsFromContext(context);

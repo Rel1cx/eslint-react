@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-create-ref";
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("createRef")) return {};
 
   const fc = core.getFunctionComponentCollector(context);

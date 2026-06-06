@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, isOneOf } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-comment-textnodes";
@@ -26,7 +26,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
     // If the node is within a JSX attribute or expression container, it's not a text node comment
     if (isOneOf([AST.JSXAttribute, AST.JSXExpressionContainer])(node.parent)) {

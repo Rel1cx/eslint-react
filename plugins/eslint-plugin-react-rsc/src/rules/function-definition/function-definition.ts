@@ -1,7 +1,13 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleFixer } from "@eslint-react/eslint";
+import {
+  type ReportFixFunction,
+  type RuleContext,
+  type RuleFeature,
+  type RuleFixer,
+  type RuleListener,
+} from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -47,7 +53,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hasUseServer = context.sourceCode.text.includes("use server");
   const hasUseClient = context.sourceCode.text.includes("use client");
 

@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { computeObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
@@ -80,7 +80,7 @@ function extractIdentifier(node: TSESTree.Node): string | null {
   return null;
 }
 
-export function create(context: RuleContext<MessageID, Options>, [options]: Options) {
+export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && context.sourceCode.ast.body.some(Check.isDirective("use memo"))) return {};

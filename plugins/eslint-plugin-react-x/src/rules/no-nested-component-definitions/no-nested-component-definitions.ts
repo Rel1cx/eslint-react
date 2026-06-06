@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
 
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Configuration hints to optimize component detection accuracy and performance
   const hint = core.FunctionComponentDetectionHint.DoNotIncludeJsxWithNumberValue
     | core.FunctionComponentDetectionHint.DoNotIncludeJsxWithBooleanValue
