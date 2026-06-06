@@ -2,10 +2,9 @@ import "@/app/app.base.css";
 import "@/app/app.override.css";
 
 import { baseUrl } from "@/lib/metadata";
-import { Banner } from "fumadocs-ui/components/banner";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import { Metadata } from "next";
-import { Link, ViewTransitions } from "next-view-transitions";
+import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
   description: "Performant, composable ESLint rules for React and friends.",
@@ -33,11 +32,6 @@ export default function Layout({ children }: LayoutProps<"/">) {
         <meta content="https://eslint-react.xyz" name="twitter:site" />
         <link href="https://eslint-react.xyz/favicon.ico" rel="icon" type="image/x-icon" />
         <body className="flex flex-col min-h-screen">
-          <Banner id="kit-beta" variant="rainbow">
-            <Link href="/docs/packages/kit">
-              <pre>Try <code>@eslint-react/kit@beta</code> →</pre>
-            </Link>
-          </Banner>
           <RootProvider theme={theme}>
             {children}
           </RootProvider>
