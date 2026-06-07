@@ -22,7 +22,7 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  "@types/react": ^19.2.16
+  "@types/react": ^19.2.17
   "@types/react-dom": ^19.2.3
   "@typescript-eslint/project-service": "^8.60.1"
   "@typescript-eslint/scope-manager": "^8.60.1"
