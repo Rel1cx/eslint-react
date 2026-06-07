@@ -40,6 +40,7 @@ export default function HomePage() {
           to see what's planned for the future.
         </p>
         <h2>Contributing</h2>
+        <p>Contributions are welcome!</p>
         <p>
           This project does not have contributing guidelines. Explore the{" "}
           <Link aria-label="Explore the project repository" href="https://github.com/Rel1cx/eslint-react">
