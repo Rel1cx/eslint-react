@@ -9,11 +9,7 @@ body:
       value: |
         ## Rule Request
 
-        Thank you for suggesting a new rule! Before submitting, ensure your request meets our rule-writing standards.
-
-        ## References on Rule Design
-        - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
-        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest#when-to-write-or-enable-a-rule)
+        Before submitting, please check whether an equivalent rule is already available in https://eslint-react.xyz/docs/third-party-plugins or another actively maintained plugin. If you have checked and still believe this rule should be developed and maintained by this project, please provide the necessary rationale, which will be very helpful for avoiding duplicate effort.
 
   - type: textarea
     id: problem
@@ -22,7 +18,7 @@ body:
       description: Describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
       placeholder: "This rule will solve..."
     validations:
-      required: false
+      required: true
 
   - type: textarea
     id: alternative-solutions
@@ -106,5 +102,5 @@ body:
           required: false
         - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
           required: false
-        - label: I have discussed this rule with team members, and they all find it valuable
-          required: false
+        - label: I believe this rule would be valuable for the broader community
+          required: true
