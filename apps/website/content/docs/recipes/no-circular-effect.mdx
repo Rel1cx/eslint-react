@@ -1,9 +1,9 @@
 ---
-title: ℞ No Circular Effect
+title: No Circular Effect
 description: Detects circular dependencies between useEffect hooks. Prevents infinite update loops caused by effects that set state they also depend on
 ---
 
-<Callout type="warning">
+<Callout type="warn">
   In most cases, use the built-in [`set-state-in-effect`](/docs/rules/set-state-in-effect) rule instead. It's also part of [React's official lints](https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect). Use this custom recipe only when you need to detect circular dependencies across multiple effects.
 </Callout>
 

@@ -3,6 +3,10 @@ title: Removed
 description: Reference for removed rules, presets, and settings
 ---
 
+<Callout type="warn" title="Under Construction">
+  This page is under construction.
+</Callout>
+
 ## Rules
 
 | Rule                                                         | Replaced by                                                                                           | Removed in | Reason           |

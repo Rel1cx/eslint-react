@@ -1,47 +1,24 @@
 ---
 title: Packages
-description: All packages in the ESLint React monorepo
+description: Utility modules for building custom React rules
 ---
 
-## Packages Summary
+import { Card, Cards } from "fumadocs-ui/components/card";
 
-This section provides a summary of the packages in the monorepo.
+<Callout type="warn" title="Under Construction">
+  This page is under construction.
+</Callout>
 
-### Local Packages
+ESLint React provides a set of utility packages designed to help you build custom React rules and analyze React code.
 
-- `.pkgs/configs`: Workspace config bases
-- `.pkgs/eff`: JavaScript and TypeScript utilities
+Explore the available packages below:
 
-### Internal Packages
+<Cards>
+  <Card title="@eslint-react/kit" description="ESLint React's toolkit for building custom React rules with JavaScript functions." href="/docs/packages/kit" />
+</Cards>
 
-- **Utilities**
-  - `packages/ast`: TSESTree AST utility module for static analysis
-  - `packages/var`: TSESTree AST utility module for static analysis of variables
-  - `packages/jsx`: TSESTree JSX utility module for static analysis of JSX patterns
-- **Core & Shared**
-  - `packages/core`: Utility module for static analysis of React core APIs and patterns
-  - `packages/shared`: Shared constants, types and functions
+## Resources
 
-### Public Packages
-
-- **Utilities**
-  - [`@eslint-react/kit`](https://npmx.dev/package/@eslint-react/kit): Utility module for building custom React rules with JavaScript functions
-- **ESLint Plugins**
-  - [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x): Core React rules
-  - [`eslint-plugin-react-jsx`](https://npmx.dev/package/eslint-plugin-react-jsx): React Flavored JSX rules
-  - [`eslint-plugin-react-rsc`](https://npmx.dev/package/eslint-plugin-react-rsc): React Server Components rules
-  - [`eslint-plugin-react-dom`](https://npmx.dev/package/eslint-plugin-react-dom): React DOM rules
-  - [`eslint-plugin-react-web-api`](https://npmx.dev/package/eslint-plugin-react-web-api): Web API interaction rules
-  - [`eslint-plugin-react-naming-convention`](https://npmx.dev/package/eslint-plugin-react-naming-convention): Naming convention rules
-  - [`eslint-plugin-react-debug`](https://npmx.dev/package/eslint-plugin-react-debug): Debugging rules for inspecting React patterns in code
-  - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin): A unified plugin that combines all individual plugins into one
-
-### Documentation
-
-- `apps/website`: Documentation website
-- `apps/playground`: Interactive playground (placeholder)
-
-## Learn More
-
-- See the [Rules](/docs/rules) page for a full list of available lint rules.
-- See the [`@eslint-react/kit`](/docs/packages/kit) page for building your own custom React rules.
+- [AST Explorer](https://ast-explorer.dev/#eNpNkE9PwzAMxb+K5dMmDbiXrQeQOCIEEqdcQuqJjDSpEncCVf3u2Al/donk3/Pzi71gwA5P9myLy35i3OEkgL8mauCKSvBRuRPuxyllhmeyjuGY0wgGsxYGb000UX1wNzOn+JTTVOAAi4kA7t2HIVPsmvW6vo9pIHEBpHgfvPvoYLOFQw/n5Afha514nKNjn+LP1M3yNwvW7jJq25Iy8Zwj7N+qAvqhg8FWGeyXX/e6v2mw1ygTZcEkC9YZBsmN9pVykWCDnYBgmYpsufvXH8hKFBVtqDYVTuVTa84z1VZlcrTgaXjh7PVQTVVRYldcvwGs9YT5) - A tool for exploring the abstract syntax tree (AST) of JavaScript code, which is essential for writing custom rules.
+- [ESLint Developer Guide](https://eslint.org/docs/latest/extend/custom-rules) - Official ESLint documentation for creating custom rules.
+- [Using the TypeScript Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#type-checker-apis) - TypeScript compiler API documentation for working with type information in custom rules.
