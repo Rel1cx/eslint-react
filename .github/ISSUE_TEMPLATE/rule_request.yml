@@ -96,15 +96,15 @@ body:
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the rule suggestion is reasonable.
+      description: Please check the items below as appropriate to help us evaluate whether this request should be accepted
       options:
         - label: I have had problems with the pattern I want to forbid
-          required: true
+          required: false
         - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
-          required: true
+          required: false
         - label: I have thought very hard about what the corner cases could be and what kinds of patterns this would forbid that are actually okay, and they are acceptable
-          required: true
+          required: false
         - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
-          required: true
+          required: false
         - label: I have discussed this rule with team members, and they all find it valuable
           required: false

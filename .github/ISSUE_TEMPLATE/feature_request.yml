@@ -60,13 +60,13 @@ body:
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the feature suggestion is reasonable.
+      description: Please check the items below as appropriate to help us evaluate whether this request should be accepted
       options:
         - label: I have had problems that this feature would solve
-          required: true
+          required: false
         - label: I could not find a way to solve the problem with existing features or workarounds
-          required: true
+          required: false
         - label: I have thought very hard about potential edge cases and downsides, and they are acceptable
-          required: true
+          required: false
         - label: I think the feature is well-defined and would provide clear value to users
-          required: true
+          required: false
