@@ -22,7 +22,7 @@ body:
       description: Please describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
       placeholder: "This rule will solve..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: alternative-solutions
@@ -31,7 +31,7 @@ body:
       description: Have you tried to solve the problem by changing the API or introducing a new API? Why aren't these methods sufficient to solve the problem?
       placeholder: "I've tried..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: rule-docs-template
@@ -90,7 +90,7 @@ body:
         - [React Docs: ...](https://react.dev/...)
         <!-- Links to relevant React documentation -->
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: checklist

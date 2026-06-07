@@ -20,7 +20,7 @@ body:
       description: Please describe the problem this feature will solve. Provide specific examples to illustrate the issue.
       placeholder: "This feature will solve..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: alternative-solutions
@@ -29,7 +29,7 @@ body:
       description: Have you tried to solve the problem by other means? Why aren't these methods sufficient to solve the problem?
       placeholder: "I've tried..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: feature-details
@@ -41,7 +41,7 @@ body:
 
         Details: Provide more background information and suggested implementation details.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: examples
@@ -54,7 +54,7 @@ body:
         // Example code demonstrating the feature
         ```
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: checklist

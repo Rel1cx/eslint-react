@@ -19,7 +19,7 @@ body:
       description: A link to the page or file where you found the issue.
       placeholder: "https://..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: description
@@ -28,7 +28,7 @@ body:
       description: A clear description of what's wrong, unclear, or missing in the documentation.
       placeholder: "The section about ... is unclear because ..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: suggestion
