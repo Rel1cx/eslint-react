@@ -19,8 +19,6 @@ body:
       label: Problem Description
       description: Describe the problem this feature will solve. Provide specific examples to illustrate the issue.
       placeholder: "This feature will solve..."
-    validations:
-      required: false
 
   - type: textarea
     id: alternative-solutions
@@ -28,8 +26,6 @@ body:
       label: Alternative Solutions
       description: Have you tried to solve the problem by other means? Why aren't these methods sufficient to solve the problem?
       placeholder: "I've tried..."
-    validations:
-      required: false
 
   - type: textarea
     id: feature-details
@@ -40,8 +36,6 @@ body:
         Feature name: [FeatureName]
 
         Details: Provide more background information and suggested implementation details.
-    validations:
-      required: false
 
   - type: textarea
     id: examples
@@ -53,8 +47,6 @@ body:
         ```tsx
         // Example code demonstrating the feature
         ```
-    validations:
-      required: false
 
   - type: checkboxes
     id: checklist

@@ -20,8 +20,6 @@ body:
       label: Describe the bug
       description: A clear description of the bug. Include screenshots if applicable.
       placeholder: Bug description
-    validations:
-      required: false
 
   - type: textarea
     id: reproduction
@@ -42,8 +40,6 @@ body:
       label: Platform and versions
       description: "Provide the name and version of the JavaScript engine you are using. Also include the versions of the eslint-react packages you are using."
       render: Text
-    validations:
-      required: false
 
   - type: textarea
     id: logs
