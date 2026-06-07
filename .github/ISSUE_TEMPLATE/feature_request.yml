@@ -12,15 +12,15 @@ body:
         > [!NOTE]
         > You can use Feature Request to suggest a new rule, but compared to [Rule Request](https://github.com/Rel1cx/eslint-react/issues/new?template=rule_request.yml), it takes longer to evaluate and has a lower implementation priority.
 
-        Thank you for suggesting a new feature! Before submitting, please ensure your request meets our contribution guidelines.
+        Thank you for suggesting a new feature! Before submitting, ensure your request meets our contribution guidelines.
   - type: textarea
     id: problem
     attributes:
       label: Problem Description
-      description: Please describe the problem this feature will solve. Provide specific examples to illustrate the issue.
+      description: Describe the problem this feature will solve. Provide specific examples to illustrate the issue.
       placeholder: "This feature will solve..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: alternative-solutions
@@ -29,7 +29,7 @@ body:
       description: Have you tried to solve the problem by other means? Why aren't these methods sufficient to solve the problem?
       placeholder: "I've tried..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: feature-details
@@ -41,7 +41,7 @@ body:
 
         Details: Provide more background information and suggested implementation details.
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: examples
@@ -54,19 +54,19 @@ body:
         // Example code demonstrating the feature
         ```
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the feature suggestion is reasonable.
+      description: Check the items below as appropriate to help us evaluate whether this request should be accepted.
       options:
         - label: I have had problems that this feature would solve
-          required: true
+          required: false
         - label: I could not find a way to solve the problem with existing features or workarounds
-          required: true
+          required: false
         - label: I have thought very hard about potential edge cases and downsides, and they are acceptable
-          required: true
+          required: false
         - label: I think the feature is well-defined and would provide clear value to users
-          required: true
+          required: false
