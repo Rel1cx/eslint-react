@@ -9,17 +9,13 @@ body:
       value: |
         ## Rule Request
 
-        Thank you for suggesting a new rule! Before submitting, please ensure your request meets our rule-writing standards.
-
-        ## References on Rule Design
-        - [What makes a good rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest/Review-Rule#what-makes-a-good-rule)
-        - [When to write or enable a rule](https://package.elm-lang.org/packages/jfmengels/elm-review/latest#when-to-write-or-enable-a-rule)
+        Before submitting, please check whether an equivalent rule is already available in https://eslint-react.xyz/docs/third-party-plugins or another actively maintained plugin. If you have checked and still believe this rule should be developed and maintained by this project, please provide the necessary rationale, which will be very helpful for avoiding duplicate effort.
 
   - type: textarea
     id: problem
     attributes:
       label: Problem Description
-      description: Please describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
+      description: Describe what problem this rule will solve. Provide specific code examples to illustrate the issue.
       placeholder: "This rule will solve..."
     validations:
       required: true
@@ -31,14 +27,14 @@ body:
       description: Have you tried to solve the problem by changing the API or introducing a new API? Why aren't these methods sufficient to solve the problem?
       placeholder: "I've tried..."
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: rule-docs-template
     attributes:
       label: Rule Documentation Template
       description: |
-        Please provide the rule documentation following the standard template structure used in this repository.
+        Provide the rule documentation following the standard template structure used in this repository.
         This will help reviewers understand the rule's purpose, behavior, and edge cases.
       placeholder: |
         ## Rule Details
@@ -90,21 +86,21 @@ body:
         - [React Docs: ...](https://react.dev/...)
         <!-- Links to relevant React documentation -->
     validations:
-      required: true
+      required: false
 
   - type: checkboxes
     id: checklist
     attributes:
       label: Evaluation Checklist
-      description: Please check the following items to ensure the rule suggestion is reasonable.
+      description: Check the items below as appropriate to help us evaluate whether this request should be accepted.
       options:
         - label: I have had problems with the pattern I want to forbid
-          required: true
-        - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
-          required: true
-        - label: I have thought very hard about what the corner cases could be and what kinds of patterns this would forbid that are actually okay, and they are acceptable
-          required: true
-        - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
-          required: true
-        - label: I have discussed this rule with team members, and they all find it valuable
           required: false
+        - label: I could not find a way to solve the problem by changing the API of the problematic code or introducing a new API
+          required: false
+        - label: I have thought very hard about what the corner cases could be and what kinds of patterns this would forbid that are actually okay, and they are acceptable
+          required: false
+        - label: I think the rule explains well enough how to solve the issue to make sure beginners are not blocked by it
+          required: false
+        - label: I believe this rule would be valuable for the broader community
+          required: true

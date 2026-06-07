@@ -5,7 +5,6 @@
 ### 📝 Documentation
 
 - Added `GoogleCloudPlatform/gke-mcp` and removed archived `antfu/shiki-stream` from community projects on the website.
-- Added guideline for AI-generated replies on spam or off-topic threads in the contributing guide (#1842).
 - Improved RSC Directives wording in documentation.
 - Removed the `no-multiple-children-in-title` recipe from the website.
 - Removed the kit beta banner from the website (#1846).

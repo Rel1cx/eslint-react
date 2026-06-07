@@ -8,6 +8,10 @@ import { GitHubRepoGrid } from "@/components/GitHubRepoGrid";
 import { plugins } from "./third-party-plugins.tsx";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
+<Callout type="warn" title="Under Construction">
+  This page is under construction.
+</Callout>
+
 <InlineTOC items={toc}>Table of Contents</InlineTOC>
 
 ## Recommended Third-Party Plugins
@@ -88,17 +92,5 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 | [`consistent-syntax`](https://github.com/marcalexiei/eslint-plugin-react-import/blob/main/docs/rules/consistent-syntax.md) | Enforces a uniform React import style (namespace, default, or named imports) |
 
 **Use case**: Ideal for teams standardizing on `import * as React from "react"` or any single import convention.
-
----
-
-## Summary of Scope and Relationship
-
-| Plugin                        | Scope                                                           | Relationship with ESLint React                                                              |
-| ----------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `@stylistic/eslint-plugin`    | JSX & JS stylistic rules (indent, spacing, quotes, line breaks) | Complementary — covers formatting we deliberately exclude                                   |
-| `eslint-plugin-jsx-a11y-x`    | JSX accessibility (ARIA, alt text, focus, semantics)            | Complementary — covers a11y static analysis; pair with `@axe-core/react` for runtime checks |
-| `eslint-plugin-perfectionist` | Sorting JSX props, imports, objects, types, enums               | Complementary — covers sorting and ordering we deliberately exclude                         |
-| `eslint-plugin-react-import`  | React import syntax consistency                                 | Complementary — covers module conventions not in core                                       |
-| `eslint-plugin-react-refresh` | Fast Refresh / HMR compatibility                                | Complementary — covers bundler integration concerns outside React core patterns             |
 
 If you maintain or know of a plugin that should be listed here, feel free to [open an issue](https://github.com/Rel1cx/eslint-react/issues/new).

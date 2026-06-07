@@ -40,14 +40,13 @@ export default function HomePage() {
           to see what's planned for the future.
         </p>
         <h2>Contributing</h2>
+        <p>Contributions are welcome!</p>
         <p>
-          Want to contribute? Check out the{" "}
-          <Link
-            aria-label="Read the contributing guide on GitHub"
-            href="https://github.com/Rel1cx/eslint-react/blob/main/.github/CONTRIBUTING.md"
-          >
-            contributing guide
-          </Link>.
+          This project does not have contributing guidelines. Explore the{" "}
+          <Link aria-label="Explore the project repository" href="https://github.com/Rel1cx/eslint-react">
+            repository
+          </Link>{" "}
+          to learn how to contribute.
         </p>
       </article>
       <footer className="text-sm text-center md:text-base text-gray-500 mt-12 mb-6">
