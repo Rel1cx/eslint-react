@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.8.14 (2026-06-07)
+
+### 📝 Documentation
+
+- Added under-construction callouts and refined kit pages on the website (#1850, #1851).
+- Removed `AGENTS.md` and `CONTRIBUTING.md` documents and references (#1848).
+- Updated home and third-party plugins pages on the website.
+- Updated issue template guidance and labels.
+
+### 🏗️ Internal
+
+- Bumped `@types/*` dependencies (#1852).
+- Relaxed checklist requirements in issue templates (#1849).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.13...v5.8.14
+
 ## v5.8.13 (2026-06-06)
 
 ### 📝 Documentation
