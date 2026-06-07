@@ -201,7 +201,7 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2(eslint@10.4.1(jiti@2.7.0))
       eslint-plugin-jsdoc:
-        specifier: ^63.0.0
+        specifier: ^63.0.2
         version: 63.0.2(eslint@10.4.1(jiti@2.7.0))
       eslint-plugin-perfectionist:
         specifier: ^5.9.0
@@ -223,7 +223,7 @@ importers:
         specifier: ^0.2.17
         version: 0.2.17
       tsdown:
-        specifier: ^0.22.1
+        specifier: ^0.22.2
         version: 0.22.2(publint@0.3.21)(tsx@4.22.4)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
@@ -235,7 +235,7 @@ importers:
         specifier: ^0.28.19
         version: 0.28.19(typescript@6.0.3)
       typedoc-plugin-markdown:
-        specifier: ^4.11.0
+        specifier: ^4.12.0
         version: 4.12.0(typedoc@0.28.19(typescript@6.0.3))
       typedoc-plugin-mdn-links:
         specifier: ^5.1.1
@@ -250,7 +250,7 @@ importers:
         specifier: workspace:*
         version: link:../configs
       tsdown:
-        specifier: ^0.22.1
+        specifier: ^0.22.2
         version: 0.22.2(publint@0.3.21)(tsx@4.22.4)(typescript@6.0.3)
 
   .pkgs/samples:
@@ -286,7 +286,7 @@ importers:
         specifier: ^10.4.1
         version: 10.4.1(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.1
+        specifier: ^0.22.2
         version: 0.22.2(publint@0.3.21)(tsx@4.22.4)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
