@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.8.16 (2026-06-07)
+
+### 🐞 Fixes
+
+- Aligned dependency versions across monorepo (#1853).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.15...v5.8.16
+
 ## v5.8.15 (2026-06-07)
 
 ### 📝 Documentation
