@@ -1,6 +1,6 @@
 # Changelog
 
-## v5.8.14 (2026-06-07)
+## v5.8.15 (2026-06-07)
 
 ### 📝 Documentation
 
@@ -14,7 +14,7 @@
 - Bumped `@types/*` dependencies (#1852).
 - Relaxed checklist requirements in issue templates (#1849).
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.13...v5.8.14
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.13...v5.8.15
 
 ## v5.8.13 (2026-06-06)
 
