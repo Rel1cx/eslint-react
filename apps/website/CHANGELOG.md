@@ -6,8 +6,12 @@ All notable changes to the `apps/website` documentation and its content.
 
 ### 📝 Documentation
 
+- Added "Under Construction" callouts to documentation pages still in development (`community.mdx`, `contributing.mdx`, `diagrams.mdx`, `examples.mdx`, `packages/index.mdx`, `recipes/index.mdx`, `removed.md`, `roadmap.md`).
 - Added missing inline table of contents to `contributing.mdx`.
+- Refactored `packages/index.mdx` to focus on utility packages for building custom rules, replacing the full monorepo package listing with a card-based layout highlighting `@eslint-react/kit` and adding external resources.
+- Refactored `recipes/index.mdx` to use card-based layouts instead of tables for recipe listings.
 - Removed `no-multiple-children-in-title` recipe; the same check can be enforced by leveraging type system to restrict the `children` type accepted by `<title>` components. (Consider suggesting an update to the `<title>` children type definition in `@types/react` or `@types/react-dom`.)
+- Removed the `℞` prefix from recipe titles across the recipes section for cleaner headings.
 - Reworked the **Brand Assets** documentation page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
 - Updated `kit.mdx` callout example and AST explanation.
 - Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
