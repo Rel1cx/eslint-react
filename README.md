@@ -220,7 +220,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 Contributions are welcome!
 
-Please follow our [contributing guidelines](.github/CONTRIBUTING.md).
+This project does not have a `CONTRIBUTING.md` file. Explore the repository to learn how to contribute.
 
 ## License
 
