@@ -7,7 +7,7 @@ export function ESLintReact() {
       <Image alt="logo" height="150" quality={100} src={logo as StaticImageData} width="150" />
       <span className="text-2xl">ESLint React</span>
       <p className="text-center text-fd-prose-body pt-4">
-        Performant, composable ESLint rules for React and friends.
+        Composable ESLint rules for React and friends.
       </p>
     </div>
   );
