@@ -59,11 +59,3 @@ overrides:
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
-minimumReleaseAgeExclude:
-  - fumadocs-core
-  - fumadocs-docgen
-  - fumadocs-mdx
-  - fumadocs-twoslash
-  - fumadocs-typescript
-  - fumadocs-ui
-  - tsl-dx@0.12.2
