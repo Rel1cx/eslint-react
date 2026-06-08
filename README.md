@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/npm/l/@eslint-react/core?style=flat&colorA=333333&colorB=000000)](https://github.com/Rel1cx/eslint-react/blob/main/LICENSE)
 [![Build with](https://img.shields.io/badge/built_with-tsdown@0.22.2-000000?style=flat)](https://tsdown.dev)
 
-Performant, composable ESLint rules for React and friends.
+Composable ESLint rules for React and friends.
 
 ## Table of Contents
 

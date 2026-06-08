@@ -7,7 +7,7 @@ import { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
-  description: "Performant, composable ESLint rules for React and friends.",
+  description: "Composable ESLint rules for React and friends.",
   title: {
     default: "ESLint React",
     template: "%s | ESLint React",
