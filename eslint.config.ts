@@ -17,21 +17,21 @@ import tseslint from "typescript-eslint";
 export default defineConfig(
   ...buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
     ".*/**",
+    "**/*.d.ts",
     "apps",
     "docs",
-    "test",
     "examples",
-    "**/*.d.ts",
+    "test",
     ...GLOB_TESTS,
   ]),
-  // Skip ESLint checks for rules ported directly from upstream
   {
+    // Skip checks for rules ported directly from upstream
     ignores: [
       "plugins/eslint-plugin-react-x/src/rules/exhaustive-deps",
       "plugins/eslint-plugin-react-x/src/rules/rules-of-hooks",
     ],
   },
-  // Main TypeScript configuration with strict type checking
+  // TypeScript Configuration (Main)
   {
     extends: [
       strictTypeChecked,
@@ -57,12 +57,15 @@ export default defineConfig(
       },
     },
   },
-  // Relaxed config for scripts and config files (no type checking)
+  // Scripts and Configs (Relaxed, No Type Checking)
   {
     extends: [
       disableTypeChecked,
     ],
-    files: [...GLOB_SCRIPTS, ...GLOB_CONFIGS],
+    files: [
+      ...GLOB_CONFIGS,
+      ...GLOB_SCRIPTS,
+    ],
     languageOptions: {
       parserOptions: {
         project: false,
@@ -70,13 +73,12 @@ export default defineConfig(
       },
     },
     rules: {
+      "@typescript-eslint/no-non-null-assertion": "off",
       "no-console": "off",
       "perfectionist/sort-objects": "off",
-      "@typescript-eslint/no-non-null-assertion": "off",
     },
   },
-  // package.json linting (recommended-publishable preset)
+  // Other Presets
   packageJson.configs["recommended-publishable"],
-  // Disable ESLint core rules that conflict with TypeScript
   disableProblematicEslintJsRules,
 );
