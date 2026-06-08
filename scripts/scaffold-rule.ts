@@ -31,7 +31,7 @@ function buildPluginPackageName(domain: PluginDomain): string {
 
 function generateRuleTs(ruleName: string): string {
   return [
-    `import { type RuleContext, type RuleFeature, merge } from "@eslint-react/eslint";`,
+    `import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";`,
     ``,
     `import { createRule } from "@/utils/create-rule";`,
     ``,
@@ -58,9 +58,9 @@ function generateRuleTs(ruleName: string): string {
     `});`,
     ``,
     `export function create(context: RuleContext<MessageID, []>) {`,
-    `  return merge({`,
+    `  return {`,
     `    // TODO: Add AST visitor methods.`,
-    `  });`,
+    `  };`,
     `}`,
     ``,
   ].join("\n");
