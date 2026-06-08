@@ -46,7 +46,6 @@
     "lint:text": "textlint '**/*.md' '**/*.mdx'",
     "lint:ts": "nx run-many -t lint:ts --parallel",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
-    "rename:rule": "vite-node ./scripts/rename-rule.ts",
     "scaffold:rule": "vite-node ./scripts/scaffold-rule.ts",
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
     "test": "vitest run --logHeapUsage",
