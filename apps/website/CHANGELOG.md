@@ -13,6 +13,7 @@ All notable changes to the `apps/website` documentation and its content.
 - Removed `no-multiple-children-in-title` recipe; the same check can be enforced by leveraging type system to restrict the `children` type accepted by `<title>` components. (Consider suggesting an update to the `<title>` children type definition in `@types/react` or `@types/react-dom`.)
 - Removed the `℞` prefix from recipe titles across the recipes section for cleaner headings.
 - Reworked the **Brand Assets** documentation page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
+- Finalized the **Brand Assets** documentation page: removed the under-construction callout, added usage guidelines, and updated the trademark policy.
 - Updated `kit.mdx` callout example and AST explanation.
 - Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
 
