@@ -1,4 +1,4 @@
-import { ESLintReact } from "@/components/ESLintReact";
+import { ESLintReactBrand } from "@/components/ESLintReactBrand";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
@@ -21,7 +21,7 @@ const features = [
 export default function HomePage() {
   return (
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-0 md:px-12 mx-auto">
-      <ESLintReact />
+      <ESLintReactBrand />
       <article className="prose max-w-none">
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
