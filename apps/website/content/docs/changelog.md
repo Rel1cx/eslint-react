@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.8.17 (2026-06-10)
+
+### 📝 Documentation
+
+- Simplified project description (#1860).
+- Updated LICENSE copyright to include contributors (#1858).
+- Updated brand assets guidelines and trademark policy on the website (#1859).
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` packages to `v8.61.0` (#1863, #1864).
+- Cleaned up config files (#1856).
+- Dropped `rename-rule` script and npm script (#1857).
+- Updated `sponsors.svg` (#1855).
+- Updated `undici` and cleaned up `dprint` config (#1854).
+- Updated brand component and removed boilerplate on the website (#1861).
+- Updated scaffold script, docs and baseline (#1862).
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.16...v5.8.17
+
 ## v5.8.16 (2026-06-07)
 
 ### 🐞 Fixes
