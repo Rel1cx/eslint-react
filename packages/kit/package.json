@@ -57,7 +57,7 @@
     "typescript": "6.0.3"
   },
   "peerDependencies": {
-    "eslint": "^10.3.0",
+    "eslint": "*",
     "typescript": "*"
   },
   "engines": {
