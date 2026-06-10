@@ -461,253 +461,255 @@ function version(major = "19"): RuleFunction {
 
 ## Examples
 
-### Simple: Ban `forwardRef`
+<Accordions>
+  <Accordion title="Simple: Ban `forwardRef`">
+    This is a simplified kit reimplementation of the built-in [`react-x/no-forward-ref`](/docs/rules/no-forward-ref) rule.
 
-This is a simplified kit reimplementation of the built-in [`react-x/no-forward-ref`](/docs/rules/no-forward-ref) rule.
+    ```ts twoslash
+    import type { RuleFunction } from "@eslint-react/kit";
+    import eslintReactKit, { merge } from "@eslint-react/kit";
 
-```ts twoslash
-import type { RuleFunction } from "@eslint-react/kit";
-import eslintReactKit, { merge } from "@eslint-react/kit";
-
-function noForwardRef(): RuleFunction {
-  return (context, { is }) => ({
-    CallExpression(node) {
-      if (is.forwardRefCall(node)) {
-        context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
-      }
-    },
-  });
-}
-
-// Usage
-eslintReactKit()
-  .use(noForwardRef)
-  .getConfig();
-```
-
-### Component: Destructure component props
-
-This is a simplified kit reimplementation that enforces destructuring assignment for component props.
-
-```ts twoslash
-import type { RuleFunction } from "@eslint-react/kit";
-import eslintReactKit, { merge } from "@eslint-react/kit";
-
-function destructureComponentProps(): RuleFunction {
-  return (context, { collect }) => {
-    const { query, visitor } = collect.components(context);
-
-    return merge(visitor, {
-      "Program:exit"(program) {
-        for (const { node } of query.all(program)) {
-          const [props] = node.params;
-          if (props == null) continue;
-          if (props.type !== "Identifier") continue;
-          const propName = props.name;
-          const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
-          const propReferences = propVariable?.references ?? [];
-          for (const ref of propReferences) {
-            const { parent } = ref.identifier;
-            if (parent.type !== "MemberExpression") continue;
-            context.report({
-              message: "Use destructuring assignment for component props.",
-              node: parent,
-            });
-          }
-        }
-      },
-    });
-  };
-}
-
-// Usage
-eslintReactKit()
-  .use(destructureComponentProps)
-  .getConfig();
-```
-
-### Hooks: Warn on custom hooks that don't call other hooks
-
-This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix) rule.
-
-```ts twoslash
-import type { RuleFunction } from "@eslint-react/kit";
-import eslintReactKit, { merge } from "@eslint-react/kit";
-
-function noUnnecessaryUsePrefix(): RuleFunction {
-  return (context, { collect }) => {
-    const { query, visitor } = collect.hooks(context);
-
-    return merge(visitor, {
-      "Program:exit"(program) {
-        for (const { node, hookCalls } of query.all(program)) {
-          if (hookCalls.length === 0) {
-            context.report({
-              node,
-              message: "A custom hook should use at least one hook, otherwise it's just a regular function.",
-            });
-          }
-        }
-      },
-    });
-  };
-}
-
-// Usage
-eslintReactKit()
-  .use(noUnnecessaryUsePrefix)
-  .getConfig();
-```
-
-### Multiple Collectors: Error Boundaries
-
-Validates usage of Error Boundaries instead of `try/catch` for errors in child components or the `use` hook.
-
-This is a simplified kit reimplementation of the built-in [`react-x/error-boundaries`](/docs/rules/error-boundaries) rule.
-
-```ts twoslash
-import eslintReactKit, { type RuleFunction, merge } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
-
-function isJsxLike(node: TSESTree.Node | null): boolean {
-  if (node == null) return false;
-  return node.type === "JSXElement" || node.type === "JSXFragment";
-}
-
-/** Validates usage of Error Boundaries instead of try/catch for errors in child components. */
-export function errorBoundaries(): RuleFunction {
-  return (context, { ast, collect, is }) => {
-    // Fast path: skip if `try` is not present in the file
-    if (!context.sourceCode.text.includes("try")) return {};
-
-    const fc = collect.components(context);
-    const hk = collect.hooks(context);
-
-    const reported = new Set<TSESTree.TryStatement>();
-    const useCalls = new Set<TSESTree.CallExpression>();
-
-    return merge(
-      fc.visitor,
-      hk.visitor,
-      {
+    function noForwardRef(): RuleFunction {
+      return (context, { is }) => ({
         CallExpression(node) {
-          if (!is.useCall(node)) return;
-          useCalls.add(node);
-        },
-        "Program:exit"(program) {
-          const comps = fc.query.all(program);
-          const hooks = hk.query.all(program);
-          const funcs = [...comps, ...hooks];
-
-          for (const call of useCalls) {
-            const stmt = ast.findParent(call, (n) => n.type === "TryStatement");
-            const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
-            if (stmt != null && func != null && !reported.has(stmt)) {
-              context.report({
-                node: stmt,
-                message:
-                  "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
-              });
-              reported.add(stmt);
-            }
+          if (is.forwardRefCall(node)) {
+            context.report({ node, message: "forwardRef is deprecated in React 19. Pass ref as a prop instead." });
           }
+        },
+      });
+    }
 
-          for (const { rets } of funcs) {
-            for (const ret of rets) {
-              if (ret == null) continue;
-              if (!isJsxLike(ret)) continue;
-              const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
-              if (stmt != null && !reported.has(stmt)) {
+    // Usage
+    eslintReactKit()
+      .use(noForwardRef)
+      .getConfig();
+    ```
+  </Accordion>
+
+  <Accordion title="Component: Destructure component props">
+    This is a simplified kit reimplementation that enforces destructuring assignment for component props.
+
+    ```ts twoslash
+    import type { RuleFunction } from "@eslint-react/kit";
+    import eslintReactKit, { merge } from "@eslint-react/kit";
+
+    function destructureComponentProps(): RuleFunction {
+      return (context, { collect }) => {
+        const { query, visitor } = collect.components(context);
+
+        return merge(visitor, {
+          "Program:exit"(program) {
+            for (const { node } of query.all(program)) {
+              const [props] = node.params;
+              if (props == null) continue;
+              if (props.type !== "Identifier") continue;
+              const propName = props.name;
+              const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
+              const propReferences = propVariable?.references ?? [];
+              for (const ref of propReferences) {
+                const { parent } = ref.identifier;
+                if (parent.type !== "MemberExpression") continue;
                 context.report({
-                  node: stmt,
-                  message:
-                    "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+                  message: "Use destructuring assignment for component props.",
+                  node: parent,
                 });
-                reported.add(stmt);
               }
             }
-          }
+          },
+        });
+      };
+    }
+
+    // Usage
+    eslintReactKit()
+      .use(destructureComponentProps)
+      .getConfig();
+    ```
+  </Accordion>
+
+  <Accordion title="Hooks: Warn on custom hooks that don't call other hooks">
+    This is a simplified kit reimplementation of the built-in [`react-x/no-unnecessary-use-prefix`](/docs/rules/no-unnecessary-use-prefix) rule.
+
+    ```ts twoslash
+    import type { RuleFunction } from "@eslint-react/kit";
+    import eslintReactKit, { merge } from "@eslint-react/kit";
+
+    function noUnnecessaryUsePrefix(): RuleFunction {
+      return (context, { collect }) => {
+        const { query, visitor } = collect.hooks(context);
+
+        return merge(visitor, {
+          "Program:exit"(program) {
+            for (const { node, hookCalls } of query.all(program)) {
+              if (hookCalls.length === 0) {
+                context.report({
+                  node,
+                  message: "A custom hook should use at least one hook, otherwise it's just a regular function.",
+                });
+              }
+            }
+          },
+        });
+      };
+    }
+
+    // Usage
+    eslintReactKit()
+      .use(noUnnecessaryUsePrefix)
+      .getConfig();
+    ```
+  </Accordion>
+
+  <Accordion title="Multiple Collectors: Error Boundaries">
+    Validates usage of Error Boundaries instead of `try/catch` for errors in child components or the `use` hook.
+
+    This is a simplified kit reimplementation of the built-in [`react-x/error-boundaries`](/docs/rules/error-boundaries) rule.
+
+    ```ts twoslash
+    import eslintReactKit, { type RuleFunction, merge } from "@eslint-react/kit";
+    import type { TSESTree } from "@typescript-eslint/types";
+
+    function isJsxLike(node: TSESTree.Node | null): boolean {
+      if (node == null) return false;
+      return node.type === "JSXElement" || node.type === "JSXFragment";
+    }
+
+    /** Validates usage of Error Boundaries instead of try/catch for errors in child components. */
+    export function errorBoundaries(): RuleFunction {
+      return (context, { ast, collect, is }) => {
+        // Fast path: skip if `try` is not present in the file
+        if (!context.sourceCode.text.includes("try")) return {};
+
+        const fc = collect.components(context);
+        const hk = collect.hooks(context);
+
+        const reported = new Set<TSESTree.TryStatement>();
+        const useCalls = new Set<TSESTree.CallExpression>();
+
+        return merge(
+          fc.visitor,
+          hk.visitor,
+          {
+            CallExpression(node) {
+              if (!is.useCall(node)) return;
+              useCalls.add(node);
+            },
+            "Program:exit"(program) {
+              const comps = fc.query.all(program);
+              const hooks = hk.query.all(program);
+              const funcs = [...comps, ...hooks];
+
+              for (const call of useCalls) {
+                const stmt = ast.findParent(call, (n) => n.type === "TryStatement");
+                const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
+                if (stmt != null && func != null && !reported.has(stmt)) {
+                  context.report({
+                    node: stmt,
+                    message:
+                      "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
+                  });
+                  reported.add(stmt);
+                }
+              }
+
+              for (const { rets } of funcs) {
+                for (const ret of rets) {
+                  if (ret == null) continue;
+                  if (!isJsxLike(ret)) continue;
+                  const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
+                  if (stmt != null && !reported.has(stmt)) {
+                    context.report({
+                      node: stmt,
+                      message:
+                        "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+                    });
+                    reported.add(stmt);
+                  }
+                }
+              }
+            },
+          },
+        );
+      };
+    }
+
+    // Usage
+    eslintReactKit()
+      .use(errorBoundaries)
+      .getConfig();
+    ```
+  </Accordion>
+
+  <Accordion title="Override Config: Using spread syntax with `getConfig`">
+    `getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
+
+    ```ts twoslash title="eslint.config.ts"
+    import type { RuleFunction } from "@eslint-react/kit";
+
+    declare function noForwardRef(): RuleFunction;
+
+    declare function version(major: string): RuleFunction;
+
+    // ---cut---
+
+    import eslintReactKit from "@eslint-react/kit";
+
+    // Spread the config into a new object to add or override properties like `files`:
+    export default [
+      {
+        ...eslintReactKit()
+          .use(noForwardRef)
+          .use(version, "19")
+          .getConfig(),
+        // Override `name` so it shows your own label in config inspector tools
+        name: "react-custom-rules",
+        // Override `files` to scope the kit rules to specific source files
+        files: ["src/**/*.ts", "src/**/*.tsx"],
+      },
+    ];
+    ```
+
+    This pattern is especially useful when composing kit configs alongside other ESLint configs (e.g. `typescript-eslint`, `eslint-plugin-react-hooks`) via `defineConfig` — you can nest the spread object inside `extends` arrays and attach shared properties like `files` or `languageOptions` at the same level.
+  </Accordion>
+
+  <Accordion title="Advanced Config: Using `getPlugin` for custom plugin namespace">
+    Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
+
+    ```ts twoslash title="eslint.config.ts"
+    import type { RuleFunction } from "@eslint-react/kit";
+
+    declare function noForwardRef(): RuleFunction;
+
+    declare function version(major: string): RuleFunction;
+
+    // ---cut---
+
+    import eslintReactKit from "@eslint-react/kit";
+
+    const kit = eslintReactKit()
+      .use(noForwardRef)
+      .use(version, "19");
+
+    // Instead of kit.getConfig(), use kit.getPlugin() for full control:
+    const plugin = kit.getPlugin();
+
+    export default [
+      {
+        files: ["**/*.{ts,tsx}"],
+        plugins: {
+          // Choose your own namespace
+          "react-custom-rules": plugin,
+        },
+        rules: {
+          // Set individual severities
+          "react-custom-rules/no-forward-ref": "error",
+          "react-custom-rules/version": "error",
         },
       },
-    );
-  };
-}
-
-// Usage
-eslintReactKit()
-  .use(errorBoundaries)
-  .getConfig();
-```
-
-### Override Config: Using spread syntax with `getConfig`
-
-`getConfig()` returns a plain config object. You can spread it into a new object to override or supplement its properties — for example, to scope the config to specific files or add extra settings alongside your kit rules.
-
-```ts twoslash title="eslint.config.ts"
-import type { RuleFunction } from "@eslint-react/kit";
-
-declare function noForwardRef(): RuleFunction;
-
-declare function version(major: string): RuleFunction;
-
-// ---cut---
-
-import eslintReactKit from "@eslint-react/kit";
-
-// Spread the config into a new object to add or override properties like `files`:
-export default [
-  {
-    ...eslintReactKit()
-      .use(noForwardRef)
-      .use(version, "19")
-      .getConfig(),
-    // Override `name` so it shows your own label in config inspector tools
-    name: "react-custom-rules",
-    // Override `files` to scope the kit rules to specific source files
-    files: ["src/**/*.ts", "src/**/*.tsx"],
-  },
-];
-```
-
-This pattern is especially useful when composing kit configs alongside other ESLint configs (e.g. `typescript-eslint`, `eslint-plugin-react-hooks`) via `defineConfig` — you can nest the spread object inside `extends` arrays and attach shared properties like `files` or `languageOptions` at the same level.
-
-### Advanced Config: Using `getPlugin` for custom plugin namespace
-
-Use `getPlugin()` when you want full control over the plugin namespace and rule severities instead of the all-in-one `getConfig()`.
-
-```ts twoslash title="eslint.config.ts"
-import type { RuleFunction } from "@eslint-react/kit";
-
-declare function noForwardRef(): RuleFunction;
-
-declare function version(major: string): RuleFunction;
-
-// ---cut---
-
-import eslintReactKit from "@eslint-react/kit";
-
-const kit = eslintReactKit()
-  .use(noForwardRef)
-  .use(version, "19");
-
-// Instead of kit.getConfig(), use kit.getPlugin() for full control:
-const plugin = kit.getPlugin();
-
-export default [
-  {
-    files: ["**/*.{ts,tsx}"],
-    plugins: {
-      // Choose your own namespace
-      "react-custom-rules": plugin,
-    },
-    rules: {
-      // Set individual severities
-      "react-custom-rules/no-forward-ref": "error",
-      "react-custom-rules/version": "error",
-    },
-  },
-];
-```
+    ];
+    ```
+  </Accordion>
+</Accordions>
 
 ## Resources
 
