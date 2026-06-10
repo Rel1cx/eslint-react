@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed checks being incorrectly resumed inside an outer `Children.toArray()` after a nested `Children.toArray()` call exits, by tracking nesting depth instead of a boolean flag.
+
+### Added
+
+- Check `.flatMap()` callbacks in addition to `.map()` and `Array.from()`.
+- Check conditional (`? :`) and logical (`&&`, `||`, `??`) branches of elements in array literals.
+
 ## [5.7.8] - 2026-05-14
 
 ### Fixed

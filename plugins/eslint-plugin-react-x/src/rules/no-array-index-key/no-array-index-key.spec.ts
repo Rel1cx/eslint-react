@@ -255,6 +255,41 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`foo.map((value, index) => <Foo key={(String as any)(index)} />)`,
       errors: [{ messageId: "default" }],
     },
+    {
+      code: tsx`foo.map((bar, i) => <Foo key={Number(i)} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`foo.map((bar, i) => <Foo key={bar.id ?? i} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`foo.map((bar, i) => <Foo key={bar.id != null ? bar.id : i} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`foo.map((bar, i = 0) => <Foo key={i} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`foo.map((bar, i) => bar.items.map((baz) => <Foo key={i} />))`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // The identifier resolves to the nearest binding: the inner map's index
+      code: tsx`foo.map((bar, i) => bar.items.map((item, i) => <Foo key={i} />))`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // Recursion reaches the index through chained logical branches
+      code: tsx`foo.map((bar, i) => <Foo key={bar.id ?? bar.name ?? i} />)`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // String-literal 'key' property is treated like the identifier form
+      code: tsx`foo.map((bar, i) => React.createElement('Foo', { 'key': i }))`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // https://github.com/oxc-project/oxc/issues/21110
@@ -303,5 +338,43 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    // The identifier shadows the index parameter with a different value
+    tsx`
+      foo.map((bar, i) => {
+        return bar.items.map((item) => {
+          const i = item.id;
+          return <Foo key={i} />;
+        });
+      })
+    `,
+    // The identifier is not an index parameter of an iterator-like callback
+    tsx`
+      const i = getId();
+      foo.map((bar) => <Foo key={i} />);
+    `,
+    tsx`foo.customMap((bar, i) => <Foo key={i} />)`,
+    // The 'key' is derived from item data, not the array index
+    tsx`foo.map((bar, i) => <Foo key={bar.id} />)`,
+    tsx`foo.map((bar, i) => <Foo key={bar.id || bar.name} />)`,
+    // Only the parameter at the index position counts, not other callback params
+    tsx`foo.map((bar, i) => <Foo key={bar} />)`,
+    tsx`foo.reduce((acc, bar, i) => acc.concat(<Foo key={bar} />), [])`,
+    // The function must be at the callback position of the call
+    tsx`foo.map(notCallback, (bar, i) => <Foo key={i} />)`,
+    // Only inline callbacks are tracked, not function references
+    tsx`
+      function renderItem(bar, i) {
+        return <Foo key={i} />;
+      }
+      foo.map(renderItem);
+    `,
+    // The index in a ternary test is not part of the key's value
+    tsx`foo.map((bar, i) => <Foo key={i > 0 ? bar.id : bar.name} />)`,
+    // Only direct template interpolations are checked, not nested expressions
+    tsx`foo.map((bar, i) => <Foo key={\`\${'foo' + i}\`} />)`,
+    // Only 'toString', 'String' and 'Number' conversions are tracked
+    tsx`foo.map((bar, i) => <Foo key={i.toFixed()} />)`,
+    // Computed 'key' properties are not checked
+    tsx`foo.map((bar, i) => React.createElement('Foo', { ['key']: i }))`,
   ],
 });
