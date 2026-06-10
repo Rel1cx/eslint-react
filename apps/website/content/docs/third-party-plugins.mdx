@@ -5,7 +5,6 @@ full: true
 ---
 
 import { GitHubRepoGrid } from "@/components/GitHubRepoGrid";
-import { plugins } from "./third-party-plugins.tsx";
 import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 <Callout type="warn" title="Under Construction">
@@ -18,9 +17,14 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
 
 The following plugins cover areas not currently addressed by ESLint React and are recommended for specific use cases.
 
-### JSX Stylistic
+### JSX Style
 
-<GitHubRepoGrid repos={plugins.jsxStylistic} />
+<GitHubRepoGrid
+  repos={[
+  { owner: "eslint-stylistic", repo: "eslint-stylistic" },
+  { owner: "azat-io", repo: "eslint-plugin-perfectionist" },
+]}
+/>
 
 **[ESLint Stylistic](https://eslint.style/rules?filter=jsx#rules)** (`@stylistic/eslint-plugin`) provides **19 JSX-specific rules**, including:
 
@@ -48,7 +52,11 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### JSX Accessibility
 
-<GitHubRepoGrid repos={plugins.a11y} />
+<GitHubRepoGrid
+  repos={[
+  { owner: "es-tooling", repo: "eslint-plugin-jsx-a11y-x" },
+]}
+/>
 
 **[`eslint-plugin-jsx-a11y-x`](https://github.com/es-tooling/eslint-plugin-jsx-a11y-x)** by [es-tooling](https://github.com/es-tooling) is a static AST checker for accessibility rules on JSX elements. It is a modern, actively maintained alternative to the classic `eslint-plugin-jsx-a11y`, with first-class support for ESLint Flat Config.
 
@@ -67,7 +75,11 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### React Refresh
 
-<GitHubRepoGrid repos={plugins.fastRefresh} />
+<GitHubRepoGrid
+  repos={[
+  { owner: "ArnaudBarre", repo: "eslint-plugin-react-refresh" },
+]}
+/>
 
 **[`eslint-plugin-react-refresh`](https://github.com/ArnaudBarre/eslint-plugin-react-refresh)** by [@ArnaudBarre](https://github.com/ArnaudBarre) validates that your components can be safely updated with Fast Refresh (hot reloading).
 
@@ -83,7 +95,11 @@ The following plugins cover areas not currently addressed by ESLint React and ar
 
 ### React Import Style
 
-<GitHubRepoGrid repos={plugins.importStyle} />
+<GitHubRepoGrid
+  repos={[
+  { owner: "marcalexiei", repo: "eslint-plugin-react-import" },
+]}
+/>
 
 **[`eslint-plugin-react-import`](https://github.com/marcalexiei/eslint-plugin-react-import)** by [@marcalexiei](https://github.com/marcalexiei) enforces consistent React import patterns across your codebase.
 
