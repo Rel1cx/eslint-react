@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.18] - 2026-06-11
+
 ### Fixed
 
 - Fixed checks being incorrectly resumed inside an outer `Children.toArray()` after a nested `Children.toArray()` call exits, by tracking nesting depth instead of a boolean flag.

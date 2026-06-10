@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.8.18] - 2026-06-11
+
 ### Changed
 
 - Replaced name-based index parameter tracking with scope-based resolution, so identifiers that shadow an index parameter are no longer misreported.

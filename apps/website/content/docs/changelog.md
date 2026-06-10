@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.8.18 (2026-06-11)
+
+### 🐞 Fixes
+
+- Improved key detection in `react-x/no-array-index-key` and `react-x/no-missing-key` rules (#1867).
+
+### 📝 Documentation
+
+- Removed 'See Also' sections from custom rule recipes.
+- Reordered AST section in kit package docs (#1866).
+- Formatted examples as accordions in kit package docs.
+
+### 🏗️ Internal
+
+- Removed `postinstall` script on the website.
+- Updated `textlint` rules for inclusive language.
+- Updated dependencies and relaxed `eslint` peer dependency.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.17...v5.8.18
+
 ## v5.8.17 (2026-06-10)
 
 ### 📝 Documentation
