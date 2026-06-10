@@ -57,7 +57,7 @@ export function isElement(
     return false;
   }
 
-  // No test — simply confirm that it is a JSX element / fragment.
+  // No test — confirm that it is a JSX element / fragment.
   if (test == null) return true;
 
   const elementType = getElementFullType(node);
