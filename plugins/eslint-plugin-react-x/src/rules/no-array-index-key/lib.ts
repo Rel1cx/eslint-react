@@ -1,7 +1,9 @@
-import { Extract, isOneOf } from "@eslint-react/ast";
+import { Check, Extract, isOneOf } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 /**
@@ -16,68 +18,71 @@ export function report(context: RuleContext) {
   };
 }
 
-export function getIndexParamPosition(methodName: string) {
-  switch (methodName) {
-    case "every":
-    case "filter":
-    case "find":
-    case "findIndex":
-    case "findLast":
-    case "findLastIndex":
-    case "flatMap":
-    case "forEach":
-    case "map":
-    case "some":
-      return 1;
-    case "reduce":
-    case "reduceRight":
-      return 2;
-    default:
-      return -1;
+/**
+ * Iterator-like methods that pass the item's index to their callback,
+ * mapped to the position of the index parameter in the callback's parameter list.
+ * `map` and `forEach` also cover `Children.map` and `Children.forEach`,
+ * whose callback is the second argument instead of the first.
+ */
+const INDEX_PARAM_POSITIONS = new Map<string, number>([
+  ["every", 1],
+  ["filter", 1],
+  ["find", 1],
+  ["findIndex", 1],
+  ["findLast", 1],
+  ["findLastIndex", 1],
+  ["flatMap", 1],
+  ["forEach", 1],
+  ["map", 1],
+  ["reduce", 2],
+  ["reduceRight", 2],
+  ["some", 1],
+]);
+
+/**
+ * Checks whether an identifier is a reference to the index parameter of an
+ * iterator-like method's callback (e.g. `i` in `items.map((item, i) => ...)`).
+ * @param context The ESLint rule context.
+ * @param node The identifier to check.
+ * @returns `true` if the identifier resolves to an array index parameter.
+ */
+export function isArrayIndexReference(context: RuleContext, node: TSESTree.Identifier): boolean {
+  const variable = findVariable(context.sourceCode.getScope(node), node);
+  const def = variable?.defs.at(0);
+  if (def == null || def.type !== DefinitionType.Parameter) return false;
+  const callback = def.node;
+  if (!isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callback)) return false;
+  // The argument node as it appears in the call, including any TS type wrappers around the callback
+  let argument: TSESTree.Node = callback;
+  while (Check.isTypeExpression(argument.parent)) {
+    argument = argument.parent;
   }
+  const call = argument.parent;
+  if (call.type !== AST.CallExpression) return false;
+  const callee = Extract.unwrap(call.callee);
+  if (callee.type !== AST.MemberExpression) return false;
+  if (callee.property.type !== AST.Identifier) return false;
+  const indexPosition = INDEX_PARAM_POSITIONS.get(callee.property.name);
+  if (indexPosition == null) return false;
+  // The callback is the first argument, or the second for `Children.map`/`Children.forEach`
+  const callbackPosition = core.isChildrenMap(context, callee) || core.isChildrenForEach(context, callee)
+    ? 1
+    : 0;
+  if (call.arguments[callbackPosition] !== argument) return false;
+  // The resolved binding must be the parameter at the index position itself,
+  // possibly wrapped in a default value assignment (e.g. `(item, i = 0) => ...`)
+  const param = callback.params[indexPosition];
+  if (param == null) return false;
+  return param === def.name
+    || (param.type === AST.AssignmentPattern && param.left === def.name);
 }
 
-// Gets the name of the index parameter from a map-like function's callback
-// e.g., in `data.map((item, index) => ...)` it returns 'index'
-export function getMapIndexParamName(context: RuleContext, node: TSESTree.CallExpression): string | null {
-  const callee = Extract.unwrap(node.callee);
-  if (callee.type !== AST.MemberExpression) {
-    return null;
-  }
-  if (callee.property.type !== AST.Identifier) {
-    return null;
-  }
-  const { name } = callee.property;
-  // Determines the position of the index parameter for array methods like 'map', 'forEach', etc
-  const indexPosition = getIndexParamPosition(name);
-  if (indexPosition === -1) {
-    return null;
-  }
-  // The callback function is the first argument, or the second for `React.Children` methods
-  const callbackArg = node.arguments[
-    core.isChildrenMap(context, callee) || core.isChildrenForEach(context, callee)
-      ? 1
-      : 0
-  ];
-  if (callbackArg == null) {
-    return null;
-  }
-  if (!isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callbackArg)) {
-    return null;
-  }
-  const { params } = callbackArg;
-  if (params.length < indexPosition + 1) {
-    return null;
-  }
-  const param = params.at(indexPosition);
-
-  return param != null && "name" in param
-    ? param.name
-    : null;
-}
-
-// Recursively collects all identifiers from a binary expression
-// e.g., for `a + b + c`, it returns identifiers for a, b, and c
+/**
+ * Recursively collects all identifiers from a binary expression.
+ * e.g., for `a + b + c`, it returns identifiers for a, b, and c.
+ * @param side The binary expression (or one of its sides) to collect from.
+ * @returns The identifiers found in the expression.
+ */
 export function getIdentifiersFromBinaryExpression(
   side: TSESTree.BinaryExpression["left"],
 ): readonly TSESTree.Identifier[] {

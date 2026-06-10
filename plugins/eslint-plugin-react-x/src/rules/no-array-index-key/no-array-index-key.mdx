@@ -68,6 +68,88 @@ function MyComponent({ items }: MyComponentProps) {
 }
 ```
 
+### Deriving the key from the index
+
+Wrapping the index in a string or a conversion does not make it a stable identity — the key still changes whenever the list is reordered. The rule also reports indexes used in template literals, string concatenation, and `String()`, `Number()`, or `.toString()` conversions.
+
+```tsx
+// Problem: The key is still derived from the array index
+interface MyComponentProps {
+  items: { id: string; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        //              ^^^ Do not use an item's index in the array as its key.
+        <li key={`item-${index}`}>{item.name}</li>
+      ))}
+      {items.map((item, index) => (
+        //              ^^^ Do not use an item's index in the array as its key.
+        <li key={String(index)}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+```tsx
+// Recommended: Derive the key from the data itself
+interface MyComponentProps {
+  items: { id: string; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item) => <li key={`item-${item.id}`}>{item.name}</li>)}
+    </ul>
+  );
+}
+```
+
+### Falling back to the index
+
+Using the index as a fallback when an identifier is missing still gives some items an unstable identity. The rule checks every branch a key may evaluate to, including `??`, `||`, and ternary expressions.
+
+```tsx
+// Problem: Items without an id silently fall back to the index
+interface MyComponentProps {
+  items: { id?: string; name: string }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        //              ^^^ Do not use an item's index in the array as its key.
+        <li key={item.id ?? index}>{item.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+```tsx
+// Recommended: Assign a stable id when the item is created, not at render time
+interface MyComponentProps {
+  items: { id: string; name: string }[];
+}
+
+function createItem(name: string) {
+  return { id: crypto.randomUUID(), name };
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item) => <li key={item.id}>{item.name}</li>)}
+    </ul>
+  );
+}
+```
+
 ### Rendering nested lists
 
 When rendering nested lists, both the outer and inner items need stable keys. Using the item's own identifier ensures React can correctly track elements at every level.

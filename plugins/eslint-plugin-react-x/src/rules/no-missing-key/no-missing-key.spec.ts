@@ -18,6 +18,18 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
+      code: tsx`[x && <App x={x} />];`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`[x ? <App x={x} /> : <OtherApp x={x} key="2" />];`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`[x ? <>{x}</> : <App key="1" />];`,
+      errors: [{ messageId: "unexpectedFragmentSyntax" }],
+    },
+    {
       code: tsx`[1, 2 ,3].map(function(x) { return <App /> });`,
       errors: [{ messageId: "default" }],
     },
@@ -60,6 +72,34 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`[1, 2 ,3].map(x => x ? <App /> : <OtherApp />);`,
       errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      // `??` branches are checked like `&&` and `? :`
+      code: tsx`[1, 2 ,3].map(x => x ?? <App />);`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // A nested array returned from `.map` is reported exactly once
+      // (by the ArrayExpression visitor, not the callback check)
+      code: tsx`[1, 2 ,3].map(x => [<App />]);`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      // Checks resume after a `Children.toArray` call has been exited
+      code: tsx`
+        import { Children } from "react";
+        Children.toArray(foo.map(x => <App />));
+        bar.map(x => <App />);
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`[1, 2 ,3].flatMap(x => [<App />, <OtherApp />]);`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      code: tsx`[1, 2 ,3].flatMap(x => { return <App /> });`,
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`Array.from([1, 2 ,3], function(x) { return <App /> });`,
@@ -259,6 +299,9 @@ ruleTester.run(RULE_NAME, rule, {
     "[1, 2, 3].map(function(x) { return <App key={x} /> });",
     "[1, 2, 3].map(x => <App key={x} />);",
     "[1, 2 ,3].map(x => x && <App x={x} key={x} />);",
+    "[x && <App x={x} key={x} />];",
+    '[x ? <App x={x} key="1" /> : <OtherApp x={x} key="2" />];',
+    "[1, 2 ,3].flatMap(x => [<App key={x} />, <OtherApp key={-x} />]);",
     '[1, 2 ,3].map(x => x ? <App x={x} key="1" /> : <OtherApp x={x} key="2" />);',
     "[1, 2, 3].map(x => { return <App key={x} /> });",
     "[1, 2 ,3].map(x => { return x && <App x={x} key={x} /> });",
@@ -396,6 +439,17 @@ ruleTester.run(RULE_NAME, rule, {
       Children.toArray([1, 2 ,3].map(x => <App />));
       Children.toArray(Array.from([1, 2 ,3], x => <App />));
     `,
+    // Exiting a nested `Children.toArray` must not resume checks
+    // while still inside the outer `Children.toArray`
+    tsx`
+      import { Children } from "react";
+      Children.toArray([Children.toArray([1].map(x => <App />)), [2].map(x => <App />)]);
+    `,
+    // Spread elements in arrays are not checked themselves
+    tsx`[...items, <App key="1" />];`,
+    tsx`[...items.map(x => <App key={x} />)];`,
+    // Keyed elements in a nested array returned from `.map`
+    tsx`[1, 2 ,3].map(x => [<App key={x} />]);`,
     tsx`
       {Match.value(y).pipe(
        Match.when(true, () => <div>Test</div>),

@@ -33,6 +33,8 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 
 ### Missing key in list rendering
 
+The rule checks the values produced by iterator callbacks of `map`, `flatMap`, and `Array.from`.
+
 ```tsx
 // Problem: When a key is missing, React uses the array index as the default key, which can lead to state mismatch or performance issues
 interface MyComponentProps {
@@ -62,6 +64,74 @@ function MyComponent({ items }: MyComponentProps) {
       {items.map((todo) => <Todo key={todo.id} {...todo} />)}
     </ul>
   );
+}
+```
+
+### Missing key in conditionally rendered items
+
+When a list item is rendered conditionally, every branch that produces an element needs a key. The rule checks all branches an item may evaluate to, including `? :`, `&&`, `||`, and `??` expressions.
+
+```tsx
+// Problem: Each branch of the conditional produces a list item without a key
+interface MyComponentProps {
+  items: { id: number; name: string; pinned: boolean }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item) => (
+        item.pinned
+          ? <PinnedItem {...item} />
+          : <Item {...item} />
+      ))}
+    </ul>
+  );
+}
+```
+
+```tsx
+// Recommended: Provide a key in every branch
+interface MyComponentProps {
+  items: { id: number; name: string; pinned: boolean }[];
+}
+
+function MyComponent({ items }: MyComponentProps) {
+  return (
+    <ul>
+      {items.map((item) => (
+        item.pinned
+          ? <PinnedItem key={item.id} {...item} />
+          : <Item key={item.id} {...item} />
+      ))}
+    </ul>
+  );
+}
+```
+
+### Missing key on elements in an array literal
+
+Elements placed directly in an array literal become list items just like elements returned from `map`, so each of them needs a key as well.
+
+```tsx
+// Problem: Elements in an array literal are rendered as a list
+function MyComponent() {
+  return [
+    <Header />,
+    <Content />,
+    <Footer />,
+  ];
+}
+```
+
+```tsx
+// Recommended: Give each element in the array a stable key
+function MyComponent() {
+  return [
+    <Header key="header" />,
+    <Content key="content" />,
+    <Footer key="footer" />,
+  ];
 }
 ```
 

@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced name-based index parameter tracking with scope-based resolution, so identifiers that shadow an index parameter are no longer misreported.
+
+### Added
+
+- Detect `Number(index)` coercion, in addition to `String(index)` and `index.toString()`.
+- Detect index usage in `??`, `||`, and ternary fallback branches of a `key` value (e.g. `key={item.id ?? index}`).
+- Detect string-literal `'key'` properties in `createElement`/`cloneElement` props objects.
+
 ## [5.6.0] - 2026-04-29
 
 ### Fixed
