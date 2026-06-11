@@ -33,7 +33,6 @@
 | [FunctionInitPath](type-aliases/FunctionInitPath.md) | Represents various AST paths for function declarations. Each tuple type represents a specific function definition pattern. |
 | [FunctionKind](type-aliases/FunctionKind.md) | Represents the kind of a function. |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md) | Represents a function semantic node. |
-| [JsxDetectionHint](type-aliases/JsxDetectionHint.md) | BitFlags for configuring JSX detection behavior. |
 | [TypeVariant](type-aliases/TypeVariant.md) | - |
 
 ## Variables
@@ -41,7 +40,6 @@
 | Variable | Description |
 | ------ | ------ |
 | [DEFAULT\_COMPONENT\_DETECTION\_HINT](variables/DEFAULT_COMPONENT_DETECTION_HINT.md) | Default component detection hint |
-| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection configuration. |
 | [FunctionComponentDetectionHint](variables/FunctionComponentDetectionHint.md) | Hints for component collector |
 | [FunctionComponentFlag](variables/FunctionComponentFlag.md) | Component flag constants |
 | [isCaptureOwnerStack](variables/isCaptureOwnerStack.md) | - |
@@ -126,7 +124,6 @@
 | [isUseSyncExternalStoreCall](variables/isUseSyncExternalStoreCall.md) | - |
 | [isUseTransition](variables/isUseTransition.md) | - |
 | [isUseTransitionCall](variables/isUseTransitionCall.md) | - |
-| [JsxDetectionHint](variables/JsxDetectionHint.md) | - |
 | [REACT\_BUILTIN\_HOOK\_NAMES](variables/REACT_BUILTIN_HOOK_NAMES.md) | - |
 | [SEL\_FUNCTION\_DISPLAY\_NAME\_ASSIGNMENT](variables/SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT.md) | - |
 
