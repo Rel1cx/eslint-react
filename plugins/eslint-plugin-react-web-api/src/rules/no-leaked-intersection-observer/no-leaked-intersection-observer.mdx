@@ -27,7 +27,9 @@ react-web-api/no-leaked-intersection-observer
 
 ## Rule Details
 
-Creating a `IntersectionObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
+Creating an `IntersectionObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
+
+An `IntersectionObserver` created in `useEffect` keeps observing its targets after the component unmounts unless it is disconnected in the cleanup function.
 
 ## Examples
 
@@ -41,9 +43,11 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Problem: A 'IntersectionObserver' in 'useEffect' should have a corresponding 'intersectionObserver.disconnect()' in its cleanup function.
-    const ro = new IntersectionObserver(() => console.log("intersection"));
-    ro.observe(ref.current);
+    // Problem: An 'IntersectionObserver' in 'useEffect' should have a corresponding 'intersectionObserver.disconnect()' in its cleanup function
+    const observer = new IntersectionObserver(([entry]) => {
+      console.log("visible:", entry.isIntersecting);
+    });
+    observer.observe(ref.current);
   }, []);
 
   return <div ref={ref} />;
@@ -61,10 +65,12 @@ function MyComponent() {
   useEffect(() => {
     if (!ref.current) return;
     // Recommended: Create and use IntersectionObserver
-    const ro = new IntersectionObserver(() => console.log("intersection"));
-    ro.observe(ref.current);
+    const observer = new IntersectionObserver(([entry]) => {
+      console.log("visible:", entry.isIntersecting);
+    });
+    observer.observe(ref.current);
     // Recommended: Disconnect in the cleanup function
-    return () => ro.disconnect();
+    return () => observer.disconnect();
   }, []);
 
   return <div ref={ref} />;
@@ -73,35 +79,86 @@ function MyComponent() {
 
 ### Observing multiple elements with IntersectionObserver
 
-When observing multiple elements, disconnect the observer in the cleanup function to prevent memory leaks.
+When observing multiple elements, disconnect the observer in the cleanup function to release all of them at once.
 
 ```tsx
-// Recommended: Disconnect IntersectionObserver when observing multiple elements
 import { useEffect, useRef } from "react";
 
-function ResizablePanels() {
-  const panelARef = useRef<HTMLDivElement>(null);
-  const panelBRef = useRef<HTMLDivElement>(null);
+function VisibilityTracker() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ro = new IntersectionObserver((entries) => {
+    // Recommended: Disconnect IntersectionObserver when observing multiple elements
+    const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
-        console.log("Size changed:", entry.contentRect);
+        console.log(entry.target, "intersecting:", entry.isIntersecting);
       }
     });
 
-    if (panelARef.current) ro.observe(panelARef.current);
-    if (panelBRef.current) ro.observe(panelBRef.current);
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (footerRef.current) observer.observe(footerRef.current);
 
-    return () => ro.disconnect();
+    return () => observer.disconnect();
   }, []);
 
   return (
     <>
-      <div ref={panelARef}>Panel A</div>
-      <div ref={panelBRef}>Panel B</div>
+      <div ref={headerRef}>Header</div>
+      <div ref={footerRef}>Footer</div>
     </>
   );
+}
+```
+
+### Using an observe-once IntersectionObserver
+
+A common pattern with `IntersectionObserver` is to observe an element once and disconnect inside the callback, such as lazy loading content the first time it becomes visible. Disconnecting inside the callback alone is not enough: the component may unmount before the element ever intersects, in which case the callback never runs and the observer leaks.
+
+```tsx
+import { useEffect, useRef, useState } from "react";
+
+function LazySection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    // Problem: The callback only runs when the element intersects, so the observer leaks if the component unmounts before that
+    const observer = new IntersectionObserver(([entry], obs) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        obs.disconnect(); // observe-once
+      }
+    });
+    observer.observe(ref.current);
+  }, []);
+
+  return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+}
+```
+
+```tsx
+import { useEffect, useRef, useState } from "react";
+
+function LazySection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(([entry], obs) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        obs.disconnect(); // observe-once
+      }
+    });
+    observer.observe(ref.current);
+    // Recommended: Disconnect in the cleanup function as a fallback in case the component unmounts before the callback runs
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
 }
 ```
 
