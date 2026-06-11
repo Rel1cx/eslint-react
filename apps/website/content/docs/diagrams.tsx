@@ -5,66 +5,53 @@ const functionComponentCollectorSequence = mermaid`
   sequenceDiagram
     autonumber
     participant Rule as ESLint Rule
-    participant Factory as getFunctionComponentCollector
-    participant Visitor as Rule Visitor
-    participant Stack as FunctionEntry Stack
-    participant Map as Components Map
+    participant Collector as getFunctionComponentCollector
+    participant Visitor as visitor
+    participant Stack as functionEntries (stack)
+    participant Detect as function-component.ts
+    participant Components as components (Map)
 
-    Rule->>Factory: invoke(context, options)
-    Factory->>Factory: initialize functionEntries []
-    Factory->>Factory: initialize components Map
-    Factory-->>Rule: return { api, visitor }
+    Rule->>Collector: getFunctionComponentCollector(context, options)
+    Collector-->>Rule: { api, visitor }
 
-    Note over Rule,Visitor: AST Traversal begins
-
-    loop For every :function node
-      Visitor->>Stack: onFunctionEnter(node)
-      Stack->>Stack: generate key, id, name, initPath, directives
-      Stack->>Stack: push(entry)
-      alt is component definition + loose name + has memo directives
-        Stack->>Map: components.set(key, entry)
+    loop AST traversal
+      Rule->>Visitor: ":function" (enter)
+      Visitor->>Detect: getFunctionComponentId / getFunctionInitPath / getFunctionDirectives
+      Detect-->>Visitor: id, initPath, directives
+      Visitor->>Detect: isFunctionComponentDefinition(context, node, hint)
+      Detect-->>Visitor: true / false
+      Visitor->>Stack: push(entry)
+      opt is component definition and has "use memo" / "use no memo" directive
+        Visitor->>Components: set(entry.key, entry)
       end
 
-      alt ArrowFunctionExpression with expression body
-        Visitor->>Stack: get current entry
-        Stack-->>Visitor: entry
-        Visitor->>Stack: entry.rets.push(body)
-        alt is component definition && (already in map || JSX-like body)
-          Visitor->>Map: components.set(key, entry)
-        end
+      Rule->>Visitor: ReturnStatement / implicit arrow return
+      Visitor->>Stack: peek current entry
+      Visitor->>Stack: entry.rets.push(argument)
+      opt is component definition and return value is JSX-like
+        Visitor->>Components: set(entry.key, entry)
       end
 
-      alt CallExpression (hook call)
-        Visitor->>Stack: get current entry
-        Stack-->>Visitor: entry
+      Rule->>Visitor: CallExpression
+      opt isHookCall(node)
         Visitor->>Stack: entry.hookCalls.push(node)
-        alt is component definition
-          Visitor->>Map: components.set(key, entry)
+        opt is component definition
+          Visitor->>Components: set(entry.key, entry)
         end
       end
 
-      alt ReturnStatement
-        Visitor->>Stack: get current entry
-        Stack-->>Visitor: entry
-        Visitor->>Stack: entry.rets.push(argument)
-        alt is component definition && (already in map || JSX-like argument)
-          Visitor->>Map: components.set(key, entry)
-        end
+      opt collectDisplayName enabled
+        Rule->>Visitor: "Component.displayName = ..." assignment
+        Visitor->>Components: find component by name, set displayName
       end
 
-      opt Optional: displayName assignment
-        Visitor->>Map: find component by name
-        Map-->>Visitor: component
-        Visitor->>Map: component.displayName = right
-      end
-
-      Visitor->>Stack: onFunctionExit()
-      Stack->>Stack: pop entry
+      Rule->>Visitor: ":function:exit"
+      Visitor->>Stack: pop()
     end
 
-    Note over Rule,Map: After traversal completes
-    Rule->>Factory: api.getAllComponents(program)
-    Factory-->>Rule: return Array.from(components.values())
+    Rule->>Collector: api.getAllComponents(program)
+    Collector->>Components: [...components.values()]
+    Components-->>Rule: FunctionComponentSemanticNode[]
 `;
 
 export function FunctionComponentCollectorSequence() {
@@ -72,36 +59,51 @@ export function FunctionComponentCollectorSequence() {
 }
 
 const ruleDocumentationPipeline = mermaid`
-  flowchart LR
-    subgraph sources["📥 Rule Sources"]
-      MDX["plugins/*/src/rules/*/*.mdx"]
-      REL["docs/rule-relations-table.md<br/>Detailed References"]
-      CL["CHANGELOG.md"]
+  flowchart TD
+    subgraph Sources
+      RuleDocs["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"]
+      Relations["docs/rule-relations-table.md"]
+      RuleChangelogs["per-rule CHANGELOG.md"]
+      RootChangelog["CHANGELOG.md (repo root)"]
     end
 
-    subgraph process["🔧 update-website.ts"]
-      COLLECT["collectDocs()<br/>Gather rule metadata"]
-      COPY["copyRuleDoc()<br/>Copy .mdx + append See Also"]
-      META["generateRuleMetaJson()<br/>Build sidebar meta.json"]
-      PROC_CL["processChangelog()<br/>Wrap with frontmatter"]
+    subgraph Pass1["Pass 1: Collect"]
+      CollectDocs["collectDocs\nglob .mdx -> RuleMeta[]\n(name / title / source / destination)"]
+      LoadRelations["loadRuleRelations\nparse 'Detailed References' table\n-> RuleRelationsMap"]
+      GenVersions["generateRuleVersions (x8)\nparseChangelogVersions\n-> versionsMap (Accordions)"]
     end
 
-    subgraph outputs["📤 Website Outputs"]
-      WEB_MDX["apps/website/content/docs/rules/*.mdx"]
-      WEB_META["apps/website/content/docs/rules/meta.json"]
-      WEB_CL["apps/website/content/docs/changelog.md"]
+    subgraph Pass2["Pass 2: Copy rule docs"]
+      CopyDoc["copyRuleDoc (x8)"]
+      AddImport["addAccordionImport\n(fumadocs-ui accordion)"]
+      InsertVersions["insertVersionsSection\nbefore '## Resources' / '## See Also'"]
+      SeeAlso["generateSeeAlsoSection\ngetFullRuleName -> links"]
     end
 
-    MDX --> COLLECT
-    COLLECT --> COPY
-    REL --> COPY
-    COPY --> WEB_MDX
+    subgraph Pass3["Pass 3: Site metadata"]
+      MetaJson["generateRuleMetaJson\ngroup by category, sort A-Z"]
+      ProcChangelog["processChangelog\nadd frontmatter, strip H1"]
+    end
 
-    COLLECT --> META
-    META --> WEB_META
+    subgraph Outputs
+      OutDocs["apps/website/content/docs/rules/*.mdx"]
+      OutMeta["apps/website/content/docs/rules/meta.json"]
+      OutChangelog["apps/website/content/docs/changelog.md"]
+    end
 
-    CL --> PROC_CL
-    PROC_CL --> WEB_CL
+    RuleDocs --> CollectDocs
+    Relations --> LoadRelations
+    RuleChangelogs --> GenVersions
+    CollectDocs --> GenVersions
+
+    CollectDocs --> CopyDoc
+    LoadRelations --> SeeAlso
+    GenVersions --> InsertVersions
+
+    CopyDoc --> AddImport --> InsertVersions --> SeeAlso --> OutDocs
+
+    CollectDocs --> MetaJson --> OutMeta
+    RootChangelog --> ProcChangelog --> OutChangelog
 `;
 
 export function RuleDocumentationPipelineDiagram() {
