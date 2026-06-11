@@ -1,0 +1,117 @@
+---
+title: no-leaked-intersection-observer
+description: Enforces that every 'IntersectionObserver' created in a component or custom hook has a corresponding 'IntersectionObserver.disconnect()'.
+---
+
+**Full Name in `eslint-plugin-react-web-api`**
+
+```plain copy
+react-web-api/no-leaked-intersection-observer
+```
+
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/web-api-no-leaked-intersection-observer
+```
+
+**Presets**
+
+`web-api`
+`recommended`
+`recommended-typescript`
+`recommended-type-checked`
+`strict`
+`strict-typescript`
+`strict-type-checked`
+
+## Rule Details
+
+Creating a `IntersectionObserver` without disconnecting it can lead to memory leaks and unexpected behavior.
+
+## Examples
+
+### Creating IntersectionObserver without disconnecting in useEffect
+
+```tsx
+import React, { useEffect, useRef } from "react";
+
+function MyComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    // Problem: A 'IntersectionObserver' in 'useEffect' should have a corresponding 'intersectionObserver.disconnect()' in its cleanup function.
+    const ro = new IntersectionObserver(() => console.log("intersection"));
+    ro.observe(ref.current);
+  }, []);
+
+  return <div ref={ref} />;
+}
+```
+
+### Disconnecting IntersectionObserver in useEffect cleanup
+
+```tsx
+import React, { useEffect, useRef } from "react";
+
+function MyComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    // Recommended: Create and use IntersectionObserver
+    const ro = new IntersectionObserver(() => console.log("intersection"));
+    ro.observe(ref.current);
+    // Recommended: Disconnect in the cleanup function
+    return () => ro.disconnect();
+  }, []);
+
+  return <div ref={ref} />;
+}
+```
+
+### Observing multiple elements with IntersectionObserver
+
+When observing multiple elements, disconnect the observer in the cleanup function to prevent memory leaks.
+
+```tsx
+// Recommended: Disconnect IntersectionObserver when observing multiple elements
+import { useEffect, useRef } from "react";
+
+function ResizablePanels() {
+  const panelARef = useRef<HTMLDivElement>(null);
+  const panelBRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ro = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        console.log("Size changed:", entry.contentRect);
+      }
+    });
+
+    if (panelARef.current) ro.observe(panelARef.current);
+    if (panelBRef.current) ro.observe(panelBRef.current);
+
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <>
+      <div ref={panelARef}>Panel A</div>
+      <div ref={panelBRef}>Panel B</div>
+    </>
+  );
+}
+```
+
+## Resources
+
+- [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-intersection-observer/no-leaked-intersection-observer.ts)
+- [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-intersection-observer/no-leaked-intersection-observer.spec.ts)
+- [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-web-api/src/rules/no-leaked-intersection-observer/CHANGELOG.md)
+
+## Further Reading
+
+- [React Docs: Connecting to an external system](https://react.dev/reference/react/useEffect#connecting-to-an-external-system)
+- [MDN: `IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver)

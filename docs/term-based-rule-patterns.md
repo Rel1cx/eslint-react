@@ -57,6 +57,7 @@ export function create(context: RuleContext<MessageID, []>) {
 - `no-leaked-timeout`
 - `no-leaked-interval`
 - `no-leaked-resize-observer`
+- `no-leaked-intersection-observer`
 - `no-leaked-fetch` (first check)
 - `no-leaked-event-listener` (first check)
 
@@ -215,7 +216,7 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 ```
 
-**Examples:** `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-event-listener`, `no-leaked-fetch`, `no-leaked-resize-observer`
+**Examples:** `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-event-listener`, `no-leaked-fetch`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`
 
 ---
 

@@ -2,6 +2,7 @@ import type { ESLint } from "eslint";
 import { name, version } from "../package.json";
 import noLeakedEventListener from "./rules/no-leaked-event-listener/no-leaked-event-listener";
 import noLeakedFetch from "./rules/no-leaked-fetch/no-leaked-fetch";
+import noLeakedIntersectionObserver from "./rules/no-leaked-intersection-observer/no-leaked-intersection-observer";
 import noLeakedInterval from "./rules/no-leaked-interval/no-leaked-interval";
 import noLeakedResizeObserver from "./rules/no-leaked-resize-observer/no-leaked-resize-observer";
 import noLeakedTimeout from "./rules/no-leaked-timeout/no-leaked-timeout";
@@ -15,6 +16,7 @@ export const plugin = {
     "no-leaked-event-listener": noLeakedEventListener,
     "no-leaked-fetch": noLeakedFetch,
     "no-leaked-interval": noLeakedInterval,
+    "no-leaked-intersection-observer": noLeakedIntersectionObserver,
     "no-leaked-resize-observer": noLeakedResizeObserver,
     "no-leaked-timeout": noLeakedTimeout,
   },
