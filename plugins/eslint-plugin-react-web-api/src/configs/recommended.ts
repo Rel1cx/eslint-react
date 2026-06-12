@@ -7,8 +7,8 @@ export const name = "react-web-api/recommended";
 export const rules = {
   "react-web-api/no-leaked-event-listener": "warn",
   "react-web-api/no-leaked-fetch": "warn",
-  "react-web-api/no-leaked-interval": "warn",
   "react-web-api/no-leaked-intersection-observer": "warn",
+  "react-web-api/no-leaked-interval": "warn",
   "react-web-api/no-leaked-resize-observer": "warn",
   "react-web-api/no-leaked-timeout": "warn",
 } as const satisfies Linter.RulesRecord;

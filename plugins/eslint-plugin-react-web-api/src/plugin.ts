@@ -15,8 +15,8 @@ export const plugin = {
   rules: {
     "no-leaked-event-listener": noLeakedEventListener,
     "no-leaked-fetch": noLeakedFetch,
-    "no-leaked-interval": noLeakedInterval,
     "no-leaked-intersection-observer": noLeakedIntersectionObserver,
+    "no-leaked-interval": noLeakedInterval,
     "no-leaked-resize-observer": noLeakedResizeObserver,
     "no-leaked-timeout": noLeakedTimeout,
   },

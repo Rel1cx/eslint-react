@@ -183,7 +183,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        if (dEntries.some((e) => isAssignmentTargetEqual(context, e.observer, id))) {
+        // A disconnect inside the observer's own callback is not a reliable cleanup:
+        // the callback may never run if the component unmounts before the element resizes
+        const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
+        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
         const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));

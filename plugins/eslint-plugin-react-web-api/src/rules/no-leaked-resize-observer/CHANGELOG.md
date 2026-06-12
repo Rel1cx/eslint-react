@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Report when `disconnect` is only called inside the observer's own callback, since the callback may never run if the component unmounts before the element resizes.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed
