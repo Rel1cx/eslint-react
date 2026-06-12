@@ -6,7 +6,7 @@
 function getChildren(element: TSESTreeJSXElementLike): JSXChild[];
 ```
 
-Get the **meaningful** children of a JSX element or fragment.
+Get the meaningful children of a JSX element or fragment
 
 Mirrors Babel's `buildChildren` helper:
 1. Iterate over `element.children`.
@@ -19,25 +19,10 @@ Mirrors Babel's `buildChildren` helper:
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
+| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
 
 ## Returns
 
 `JSXChild`[]
 
-An array of children nodes that contribute to rendered output.
-
-## Example
-
-```ts
-import { getChildren } from "@eslint-react/jsx";
-
-// <div>
-//   <span />
-// </div>
-//
-// Raw children: [JSXText("\n  "), JSXElement(<span />), JSXText("\n")]
-// getChildren:  [JSXElement(<span />)]
-
-const meaningful = getChildren(node);
-```
+An array of children nodes that contribute to rendered output

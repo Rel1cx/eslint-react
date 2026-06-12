@@ -6,7 +6,7 @@
 function collapseMultilineText(text: string): string | null;
 ```
 
-Collapse a multiline JSX text string following React's whitespace rules.
+Collapse a multiline JSX text string following React's whitespace rules
 
 This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
 1. Split the raw text into lines.
@@ -19,13 +19,13 @@ This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `text` | `string` | The raw JSX text string to collapse. |
+| `text` | `string` | The raw JSX text string to collapse |
 
 ## Returns
 
 `string` \| `null`
 
-The collapsed string, or `null` if the text contains only whitespace.
+The collapsed string, or `null` if the text contains only whitespace
 
 ## See
 

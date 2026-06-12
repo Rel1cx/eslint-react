@@ -6,21 +6,21 @@
 function getElementFullType(node: TSESTreeJSXElementLike): string;
 ```
 
-Get the string representation of a JSX element's type.
+Get the string representation of a JSX element's type
 
-- `<div>`              -> `"div"`
-- `<Foo.Bar>`          -> `"Foo.Bar"`
-- `<React.Fragment>`   -> `"React.Fragment"`
-- `<></>`              -> `""`
+- `<div>` -> `"div"`
+- `<Foo.Bar>` -> `"Foo.Bar"`
+- `<React.Fragment>` -> `"React.Fragment"`
+- `<></>` -> `""`
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
+| `node` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
 
 ## Returns
 
 `string`
 
-The fully-qualified element type string.
+The fully-qualified element type string

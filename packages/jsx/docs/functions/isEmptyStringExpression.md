@@ -6,7 +6,7 @@
 function isEmptyStringExpression(node: JSXChild): boolean;
 ```
 
-Check whether a JSX child node is an **empty string expression** (`{""}`).
+Check whether a JSX child node is an empty string expression (`{""}`)
 
 React's reconciler and SSR renderer explicitly skip empty strings,
 producing no DOM node (see `ReactChildFiber.js` and `ReactFizzConfigDOM.js`).
@@ -17,21 +17,10 @@ way as whitespace padding.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | `JSXChild` | A JSX child node. |
+| `node` | `JSXChild` | A JSX child node |
 
 ## Returns
 
 `boolean`
 
-`true` when the node is a `{""}` expression container.
-
-## Example
-
-```ts
-import { isEmptyStringExpression } from "@eslint-react/jsx";
-
-// <div>{""}</div> -> the expression container is an empty string expression
-const meaningful = element.children.filter(
-  (child) => !isEmptyStringExpression(child),
-);
-```
+`true` when the node is a `{""}` expression container

@@ -2,6 +2,16 @@
 title: Changelog
 ---
 
+## v5.8.19 (2026-06-12)
+
+### 🏗️ Internal
+
+- Simplified `isJsxLike` in core package and added behavior boundary tests (#1869).
+- Aligned code style in jsx package with core package (#1870).
+- Updated `@types/node` to `^25.9.3`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.18...v5.8.19
+
 ## v5.8.18 (2026-06-11)
 
 ### 🐞 Fixes
