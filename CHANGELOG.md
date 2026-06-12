@@ -1,5 +1,26 @@
 # Changelog
 
+## v5.9.0 (2026-06-13)
+
+### ✨ New
+
+- Added `react-web-api/no-leaked-intersection-observer` rule to prevent leaked `IntersectionObserver` instances in components and hooks, enabled as `warn` in the `recommended` preset (#1841, #1868).
+
+### 🐞 Fixes
+
+- **`react-web-api/no-leaked-intersection-observer`**, **`react-web-api/no-leaked-resize-observer`**: Report when `disconnect` is only called inside the observer's own callback, since the callback may never run if the component unmounts before the element intersects or resizes (#1872).
+
+### 🏗️ Internal
+
+- Improved CI configuration and updated `SECURITY.md` documentation (#1871).
+- Bumped `fumadocs-core` and `fumadocs-ui` to `16.10.1`.
+
+### New Contributors
+
+- **Maikel van Dort** (@Netail) made their first contribution in #1868.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.19...v5.9.0
+
 ## v5.8.19 (2026-06-12)
 
 ### 🏗️ Internal
