@@ -70,9 +70,9 @@ export default createRule<[], MessageID>({
       expectedDisconnectInControlFlow:
         "Dynamically added 'IntersectionObserver.observe' should be cleared all at once using 'IntersectionObserver.disconnect' in the cleanup function.",
       expectedDisconnectOrUnobserveInCleanup:
-        "A 'IntersectionObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+        "An 'IntersectionObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
       unexpectedFloatingInstance:
-        "A 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
+        "An 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
@@ -183,7 +183,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     ["Program:exit"]() {
       for (const { id, node, phaseNode } of observers) {
-        if (dEntries.some((e) => isAssignmentTargetEqual(context, e.observer, id))) {
+        // A disconnect inside the observer's own callback (the observe-once pattern) is not a reliable
+        // cleanup: the callback may never run if the component unmounts before the element intersects
+        const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
+        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
         const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));

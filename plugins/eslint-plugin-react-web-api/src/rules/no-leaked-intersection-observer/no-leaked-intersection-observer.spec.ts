@@ -173,6 +173,57 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
     },
+    {
+      // The observe-once pattern (disconnect via the callback parameter) still needs a cleanup
+      // fallback: the callback never runs if the component unmounts before the element intersects
+      code: tsx`
+        import { useEffect, useRef, useState } from 'react';
+
+        function LazySection() {
+          const ref = useRef<HTMLDivElement>(null);
+          const [visible, setVisible] = useState(false);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new IntersectionObserver(([entry], obs) => {
+              if (entry.isIntersecting) {
+                setVisible(true);
+                obs.disconnect(); // observe-once
+              }
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
+    {
+      // Same observe-once pattern, but disconnecting through the outer variable instead of the callback parameter
+      code: tsx`
+        import { useEffect, useRef, useState } from 'react';
+
+        function LazySection() {
+          const ref = useRef<HTMLDivElement>(null);
+          const [visible, setVisible] = useState(false);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new IntersectionObserver(([entry]) => {
+              if (entry.isIntersecting) {
+                setVisible(true);
+                observer.disconnect(); // observe-once
+              }
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
   ],
   valid: [
     tsx`
@@ -354,6 +405,52 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    // The observe-once pattern with a disconnect in the cleanup function as a fallback
+    tsx`
+      import { useEffect, useRef, useState } from 'react';
+
+      function LazySection() {
+        const ref = useRef<HTMLDivElement>(null);
+        const [visible, setVisible] = useState(false);
+
+        useEffect(() => {
+          if (!ref.current) return;
+          const observer = new IntersectionObserver(([entry], obs) => {
+            if (entry.isIntersecting) {
+              setVisible(true);
+              obs.disconnect(); // observe-once
+            }
+          });
+          observer.observe(ref.current);
+          return () => observer.disconnect(); // fallback: might be unmounted before the callback runs
+        }, []);
+
+        return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+      }
+    `,
+    // The observe-once pattern through the outer variable with a disconnect in the cleanup function as a fallback
+    tsx`
+      import { useEffect, useRef, useState } from 'react';
+
+      function LazySection() {
+        const ref = useRef<HTMLDivElement>(null);
+        const [visible, setVisible] = useState(false);
+
+        useEffect(() => {
+          if (!ref.current) return;
+          const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+              setVisible(true);
+              observer.disconnect(); // observe-once
+            }
+          });
+          observer.observe(ref.current);
+          return () => observer.disconnect(); // fallback: might be unmounted before the callback runs
+        }, []);
+
+        return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
       }
     `,
     // TODO: Add support for `IntersectionObserver` instance in `useRef`

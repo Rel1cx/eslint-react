@@ -81,9 +81,9 @@ export const rules = {
   "@eslint-react/dom-no-void-elements-with-children": "error",
   "@eslint-react/web-api-no-leaked-event-listener": "warn",
   "@eslint-react/web-api-no-leaked-fetch": "warn",
+  "@eslint-react/web-api-no-leaked-intersection-observer": "warn",
   "@eslint-react/web-api-no-leaked-interval": "warn",
   "@eslint-react/web-api-no-leaked-resize-observer": "warn",
-  "@eslint-react/web-api-no-leaked-intersection-observer": "warn",
   "@eslint-react/web-api-no-leaked-timeout": "warn",
 
   "@eslint-react/naming-convention-context-name": "warn",

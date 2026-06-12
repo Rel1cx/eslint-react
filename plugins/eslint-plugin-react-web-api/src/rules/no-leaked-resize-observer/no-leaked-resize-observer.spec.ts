@@ -173,6 +173,29 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
     },
+    {
+      // A disconnect inside the observer's own callback is not a reliable cleanup:
+      // the callback may never run if the component unmounts before the element resizes
+      code: tsx`
+        import { useEffect, useRef } from 'react';
+
+        function Component() {
+          const ref = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new ResizeObserver(([entry]) => {
+              console.log(entry.contentRect);
+              observer.disconnect();
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
   ],
   valid: [
     tsx`
@@ -188,6 +211,26 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    // A disconnect inside the observer's own callback with a disconnect in the cleanup function as a fallback
+    tsx`
+      import { useEffect, useRef } from 'react';
+
+      function Component() {
+        const ref = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+          if (!ref.current) return;
+          const observer = new ResizeObserver(([entry]) => {
+            console.log(entry.contentRect);
+            observer.disconnect();
+          });
+          observer.observe(ref.current);
+          return () => observer.disconnect(); // fallback: might be unmounted before the callback runs
+        }, []);
+
+        return <div ref={ref} />;
       }
     `,
     tsx`

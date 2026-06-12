@@ -45,7 +45,6 @@ export default defineConfig(
 | `no-leaked-idle-callback`               | Prevents leaked `requestIdleCallback`         |
 | `no-leaked-animation-frame`             | Prevents leaked `requestAnimationFrame`       |
 | `no-leaked-event-source`                | Prevents leaked `EventSource`                 |
-| `no-leaked-intersection-observer`       | Prevents leaked `IntersectionObserver`        |
 | `no-leaked-mutation-observer`           | Prevents leaked `MutationObserver`            |
 | `no-leaked-performance-observer`        | Prevents leaked `PerformanceObserver`         |
 | `no-leaked-websocket`                   | Prevents leaked `WebSocket`                   |
