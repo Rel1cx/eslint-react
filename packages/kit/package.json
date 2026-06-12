@@ -52,7 +52,7 @@
   "devDependencies": {
     "@eslint-react/eslint": "workspace:*",
     "@local/configs": "workspace:*",
-    "eslint": "^10.4.1",
+    "eslint": "^10.5.0",
     "tsdown": "^0.22.2",
     "typescript": "6.0.3"
   },

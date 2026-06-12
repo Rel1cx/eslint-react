@@ -40,7 +40,7 @@ overrides:
   chokidar: ^5.0.0
   defu: ^6.1.7
   dompurify: ^3.4.9
-  esbuild: ^0.28.0
+  esbuild: ^0.28.1
   follow-redirects: ^1.16.0
   lodash-es: ^4.18.1
   lodash: ^4.18.1
@@ -63,3 +63,65 @@ overrides:
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
+minimumReleaseAgeExclude:
+  - '@esbuild/aix-ppc64@0.28.1'
+  - '@esbuild/android-arm64@0.28.1'
+  - '@esbuild/android-arm@0.28.1'
+  - '@esbuild/android-x64@0.28.1'
+  - '@esbuild/darwin-arm64@0.28.1'
+  - '@esbuild/darwin-x64@0.28.1'
+  - '@esbuild/freebsd-arm64@0.28.1'
+  - '@esbuild/freebsd-x64@0.28.1'
+  - '@esbuild/linux-arm64@0.28.1'
+  - '@esbuild/linux-arm@0.28.1'
+  - '@esbuild/linux-ia32@0.28.1'
+  - '@esbuild/linux-loong64@0.28.1'
+  - '@esbuild/linux-mips64el@0.28.1'
+  - '@esbuild/linux-ppc64@0.28.1'
+  - '@esbuild/linux-riscv64@0.28.1'
+  - '@esbuild/linux-s390x@0.28.1'
+  - '@esbuild/linux-x64@0.28.1'
+  - '@esbuild/netbsd-arm64@0.28.1'
+  - '@esbuild/netbsd-x64@0.28.1'
+  - '@esbuild/openbsd-arm64@0.28.1'
+  - '@esbuild/openbsd-x64@0.28.1'
+  - '@esbuild/openharmony-arm64@0.28.1'
+  - '@esbuild/sunos-x64@0.28.1'
+  - '@esbuild/win32-arm64@0.28.1'
+  - '@esbuild/win32-ia32@0.28.1'
+  - '@esbuild/win32-x64@0.28.1'
+  - '@fuma-translate/react@1.0.2'
+  - '@tailwindcss/node@4.3.1'
+  - '@tailwindcss/oxide-android-arm64@4.3.1'
+  - '@tailwindcss/oxide-darwin-arm64@4.3.1'
+  - '@tailwindcss/oxide-darwin-x64@4.3.1'
+  - '@tailwindcss/oxide-freebsd-x64@4.3.1'
+  - '@tailwindcss/oxide-linux-arm-gnueabihf@4.3.1'
+  - '@tailwindcss/oxide-linux-arm64-gnu@4.3.1'
+  - '@tailwindcss/oxide-linux-arm64-musl@4.3.1'
+  - '@tailwindcss/oxide-linux-x64-gnu@4.3.1'
+  - '@tailwindcss/oxide-linux-x64-musl@4.3.1'
+  - '@tailwindcss/oxide-wasm32-wasi@4.3.1'
+  - '@tailwindcss/oxide-win32-arm64-msvc@4.3.1'
+  - '@tailwindcss/oxide-win32-x64-msvc@4.3.1'
+  - '@tailwindcss/oxide@4.3.1'
+  - '@tailwindcss/postcss@4.3.1'
+  - '@takumi-rs/core-darwin-arm64@1.8.4'
+  - '@takumi-rs/core-darwin-x64@1.8.4'
+  - '@takumi-rs/core-linux-arm64-gnu@1.8.4'
+  - '@takumi-rs/core-linux-arm64-musl@1.8.4'
+  - '@takumi-rs/core-linux-x64-gnu@1.8.4'
+  - '@takumi-rs/core-linux-x64-musl@1.8.4'
+  - '@takumi-rs/core-win32-arm64-msvc@1.8.4'
+  - '@takumi-rs/core-win32-x64-msvc@1.8.4'
+  - '@takumi-rs/core@1.8.4'
+  - '@takumi-rs/helpers@1.8.4'
+  - '@takumi-rs/image-response@1.8.4'
+  - '@takumi-rs/wasm@1.8.4'
+  - esbuild@0.28.1
+  - eslint@10.5.0
+  - fumadocs-core@16.10.2
+  - fumadocs-ui@16.10.2
+  - lucide-react@1.18.0
+  - tailwindcss@4.3.1
+  - takumi-js@1.8.4
