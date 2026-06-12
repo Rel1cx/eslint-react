@@ -1,26 +1,14 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * Get the stringified name of a `JSXAttribute` node.
+ * Get the stringified name of a `JSXAttribute` node
  *
  * Handles both simple identifiers and namespaced names:
- *
- * - `className`   -> `"className"`
- * - `aria-label`  -> `"aria-label"`
- * - `xml:space`   -> `"xml:space"`
- *
- * @param node - A `JSXAttribute` AST node.
- * @returns The attribute name as a plain string.
- *
- * @example
- * ```ts
- * import { getAttributeName } from "@eslint-react/jsx";
- *
- * // Inside a rule visitor:
- * JSXAttribute(node) {
- *   const name = getAttributeName(node); // "className"
- * }
- * ```
+ * - `className` -> `"className"`
+ * - `aria-label` -> `"aria-label"`
+ * - `xml:space` -> `"xml:space"`
+ * @param node A `JSXAttribute` AST node
+ * @returns The attribute name as a plain string
  */
 export function getAttributeName(node: TSESTree.JSXAttribute): string {
   if (node.name.type === AST.JSXIdentifier) {

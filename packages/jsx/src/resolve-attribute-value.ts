@@ -7,28 +7,14 @@ import type { JsxAttributeValue } from "./jsx-attribute-value";
 
 /**
  * Resolve the value of a JSX attribute (or spread attribute) into a
- * {@link JsxAttributeValue} descriptor that can be inspected further.
+ * {@link JsxAttributeValue} descriptor that can be inspected further
  *
- * This is the low‑level building block – it operates on a single attribute
- * node that the caller has already located.  For the higher‑level "find by
- * name **and** resolve" combo, see {@link getAttributeValue}.
- *
- * @param context   - The ESLint rule context (needed for scope look‑ups).
- * @param attribute - A `JSXAttribute` or `JSXSpreadAttribute` node.
- * @returns A discriminated‑union descriptor of the attribute's value.
- *
- * @example
- * ```ts
- * import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
- *
- * const attr = findAttribute(context, element, "sandbox");
- * if (attr != null) {
- *   const value = resolveAttributeValue(context, attr);
- *   if (value.kind === "literal") {
- *     console.log(value.toStatic());
- *   }
- * }
- * ```
+ * This is the low-level building block; it operates on a single attribute
+ * node that the caller has already located. For the higher-level "find by
+ * name and resolve" combo, see {@link getAttributeValue}.
+ * @param context The ESLint rule context (needed for scope look-ups)
+ * @param attribute A `JSXAttribute` or `JSXSpreadAttribute` node
+ * @returns A discriminated-union descriptor of the attribute's value
  */
 export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike): JsxAttributeValue {
   if (attribute.type === AST.JSXAttribute) {
@@ -37,14 +23,12 @@ export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJ
   return resolveJsxSpreadAttribute(context, attribute);
 }
 
-// ---------------------------------------------------------------------------
-// Internal resolvers
-// ---------------------------------------------------------------------------
+// #region Internal Resolvers
 
 function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute): JsxAttributeValue {
   const scope = context.sourceCode.getScope(node);
 
-  // Boolean attribute – no value means `true` (e.g. `<input disabled />`).
+  // Boolean attribute, no value means `true` (ex: `<input disabled />`).
   if (node.value == null) {
     return {
       kind: "boolean",
@@ -130,3 +114,5 @@ function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSprea
     },
   } as const satisfies JsxAttributeValue;
 }
+
+// #endregion

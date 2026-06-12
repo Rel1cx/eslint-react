@@ -19,6 +19,8 @@ JsxDetectionHint: {
 };
 ```
 
+Hints for JSX detection
+
 ## Type Declaration
 
 | Name | Type | Default value |
