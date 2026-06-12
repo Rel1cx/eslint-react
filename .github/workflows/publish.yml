@@ -34,7 +34,7 @@ jobs:
           persist-credentials: false
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
-      - name: Build front-end assets
+      - name: Build packages
         run: pnpm run build
       - name: Publish
         run: |
