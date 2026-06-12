@@ -21,7 +21,7 @@ import { resolveAttributeValue } from "./resolve-attribute-value";
  * @param context - The ESLint rule context.
  * @param element - The `JSXElement` node to search.
  * @param name    - The attribute name to look up (e.g. `"className"`).
- * @returns A {@link JsxAttributeValue} descriptor, or `undefined` when the
+ * @returns A {@link JsxAttributeValue} descriptor, or `null` when the
  *          attribute is not present on the element.
  *
  * @example
@@ -36,8 +36,8 @@ export function getAttributeValue(
   context: RuleContext,
   element: TSESTree.JSXElement,
   name: string,
-): JsxAttributeValue | undefined {
+): JsxAttributeValue | null {
   const attr = findAttribute(context, element, name);
-  if (attr == null) return undefined;
+  if (attr == null) return null;
   return resolveAttributeValue(context, attr);
 }

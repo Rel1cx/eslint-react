@@ -30,10 +30,7 @@ import type { JsxAttributeValue } from "./jsx-attribute-value";
  * }
  * ```
  */
-export function resolveAttributeValue(
-  context: RuleContext,
-  attribute: TSESTreeJSXAttributeLike,
-): JsxAttributeValue {
+export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike): JsxAttributeValue {
   if (attribute.type === AST.JSXAttribute) {
     return resolveJsxAttribute(context, attribute);
   }
@@ -44,10 +41,7 @@ export function resolveAttributeValue(
 // Internal resolvers
 // ---------------------------------------------------------------------------
 
-function resolveJsxAttribute(
-  context: RuleContext,
-  node: TSESTree.JSXAttribute,
-): JsxAttributeValue {
+function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute): JsxAttributeValue {
   const scope = context.sourceCode.getScope(node);
 
   // Boolean attribute – no value means `true` (e.g. `<input disabled />`).
@@ -120,10 +114,7 @@ function resolveJsxAttribute(
   }
 }
 
-function resolveJsxSpreadAttribute(
-  context: RuleContext,
-  node: TSESTree.JSXSpreadAttribute,
-): JsxAttributeValue {
+function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute): JsxAttributeValue {
   const scope = context.sourceCode.getScope(node);
 
   return {

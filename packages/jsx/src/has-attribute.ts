@@ -26,10 +26,6 @@ import { findAttribute } from "./find-attribute";
  * }
  * ```
  */
-export function hasAttribute(
-  context: RuleContext,
-  element: TSESTree.JSXElement,
-  name: string,
-): boolean {
+export function hasAttribute(context: RuleContext, element: TSESTree.JSXElement, name: string) {
   return findAttribute(context, element, name) != null;
 }

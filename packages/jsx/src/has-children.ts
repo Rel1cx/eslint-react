@@ -42,7 +42,7 @@ import { isEmptyStringExpression, isWhitespaceText } from "./is-whitespace";
  * }
  * ```
  */
-export function hasChildren(element: TSESTreeJSXElementLike): boolean {
+export function hasChildren(element: TSESTreeJSXElementLike) {
   if (element.children.length === 0) return false;
   return !element.children.every((child) => isWhitespaceText(child) || isEmptyStringExpression(child));
 }

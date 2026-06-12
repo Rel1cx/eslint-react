@@ -6,7 +6,7 @@
 function hasEveryAttribute(
    context: RuleContext, 
    element: JSXElement, 
-   names: readonly string[]): boolean;
+   names: string[]): boolean;
 ```
 
 Check whether a JSX element carries **all** of the given attributes (props).
@@ -22,7 +22,7 @@ Spread attributes are taken into account (see [findAttribute](findAttribute.md))
 | ------ | ------ | ------ |
 | `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes). |
 | `element` | `JSXElement` | The `JSXElement` node to inspect. |
-| `names` | readonly `string`[] | The attribute names to look for. |
+| `names` | `string`[] | The attribute names to look for. |
 
 ## Returns
 

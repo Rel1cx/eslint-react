@@ -31,11 +31,7 @@ import { resolveAttributeValue } from "./resolve-attribute-value";
  * // -> undefined  (cannot be resolved statically)
  * ```
  */
-export function getAttributeStaticValue(
-  context: RuleContext,
-  element: TSESTree.JSXElement,
-  name: string,
-): unknown {
+export function getAttributeStaticValue(context: RuleContext, element: TSESTree.JSXElement, name: string): unknown {
   const attr = findAttribute(context, element, name);
   if (attr == null) return undefined;
 

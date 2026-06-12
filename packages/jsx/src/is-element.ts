@@ -48,10 +48,7 @@ export type ElementTest =
  * if (isElement(node, (type) => type.endsWith(".Provider"))) { … }
  * ```
  */
-export function isElement(
-  node: TSESTree.Node | null | undefined,
-  test?: ElementTest,
-): node is TSESTreeJSXElementLike {
+export function isElement(node: TSESTree.Node | null | undefined, test?: ElementTest): node is TSESTreeJSXElementLike {
   if (node == null) return false;
   if (node.type !== AST.JSXElement && node.type !== AST.JSXFragment) {
     return false;

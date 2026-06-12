@@ -6,7 +6,7 @@
 function getAttributeValue(
    context: RuleContext, 
    element: JSXElement, 
-   name: string): JsxAttributeValue | undefined;
+   name: string): JsxAttributeValue | null;
 ```
 
 Find an attribute by name on a JSX element **and** resolve its value in a
@@ -32,9 +32,9 @@ const value = resolveAttributeValue(context, attr);
 
 ## Returns
 
-[`JsxAttributeValue`](../type-aliases/JsxAttributeValue.md) \| `undefined`
+[`JsxAttributeValue`](../type-aliases/JsxAttributeValue.md) \| `null`
 
-A [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) descriptor, or `undefined` when the
+A [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) descriptor, or `null` when the
          attribute is not present on the element.
 
 ## Example

@@ -25,10 +25,6 @@ import { findAttribute } from "./find-attribute";
  * @param names   - The attribute names to look for.
  * @returns `true` when **at least one** of the attributes is present.
  */
-export function hasAnyAttribute(
-  context: RuleContext,
-  element: TSESTree.JSXElement,
-  names: readonly string[],
-): boolean {
+export function hasAnyAttribute(context: RuleContext, element: TSESTree.JSXElement, names: string[]): boolean {
   return names.some((name) => findAttribute(context, element, name) != null);
 }
