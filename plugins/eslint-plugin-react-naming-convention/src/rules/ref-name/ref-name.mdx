@@ -31,68 +31,29 @@ Enforces identifier names assigned from `useRef` calls to be either `ref` or end
 
 ## Examples
 
-### Assigning `useRef` to a variable without the `Ref` suffix
-
 ```tsx
-// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
-const count = useRef(0);
+// Problem: Identifier 'myId' does not end with 'Ref'
+const myId = useRef(null);
 ```
 
 ```tsx
-// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
-const input = useRef<HTMLInputElement>(null);
+// Problem: Identifier 'node' does not end with 'Ref'
+const node = useRef(null);
 ```
 
 ```tsx
-// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
-const value = useRef(null);
+// Recommended: Name ends with 'Ref'
+const myRef = useRef(null);
 ```
 
 ```tsx
-// Problem: Suffix must be exactly 'Ref' (case-sensitive)
-const myREF = useRef(0);
+// Recommended: Name is exactly 'ref'
+const ref = useRef(null);
 ```
 
 ```tsx
-// Problem: A ref identifier must be named 'ref' or end in 'Ref'.
-obj.nested.value = useRef(0);
-```
-
-### Assigning `useRef` to a properly named variable
-
-```tsx
-// Recommended: Simple 'ref' name
-const ref = useRef(0);
-```
-
-```tsx
-// Recommended: Descriptive name ending with 'Ref'
-const countRef = useRef(0);
-```
-
-```tsx
-// Recommended: Descriptive name ending with 'Ref'
-const inputRef = useRef<HTMLInputElement>(null);
-```
-
-```tsx
-// Recommended: Descriptive name ending with 'Ref'
-const valueRef = useRef(null);
-```
-
-```tsx
-// Recommended: Descriptive name ending with 'Ref' (MemberExpression)
-obj.nested.myRef = useRef();
-```
-
-```tsx
-// OK: Not assigned to an identifier or member expression, so there is no name to validate
-export default useRef(null);
-```
-
-```tsx
-// OK: The call sits inside an array literal, so it is not directly assigned to a checkable name
-const [value] = [useRef(null)];
+// OK: Name ends with 'Ref' (MemberExpression)
+obj.nested.myRef = useRef(null);
 ```
 
 ```tsx
