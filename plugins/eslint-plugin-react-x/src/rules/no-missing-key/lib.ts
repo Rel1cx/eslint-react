@@ -5,6 +5,17 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 /**
+ * Iterator-like methods whose callback's return value becomes an item in a rendered list,
+ * mapped to the position of the callback in the call's argument list.
+ * `from` covers `Array.from(iterable, mapFn)`.
+ */
+export const INDEX_PARAM_POSITIONS = new Map<string, number>([
+  ["flatMap", 0],
+  ["from", 1],
+  ["map", 0],
+]);
+
+/**
  * Creates a report function for the given rule context.
  * @param context The ESLint rule context.
  * @returns A function that can be used to report violations.

@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getNestedReturnStatements, report } from "./lib";
+import { INDEX_PARAM_POSITIONS, getNestedReturnStatements, report } from "./lib";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -14,17 +14,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 export type MessageID =
   | "default"
   | "unexpectedFragmentSyntax";
-
-/**
- * Iterator-like methods whose callback's return value becomes an item in a rendered list,
- * mapped to the position of the callback in the call's argument list.
- * `from` covers `Array.from(iterable, mapFn)`.
- */
-const ITERATOR_METHOD_CALLBACK_POSITIONS = new Map<string, number>([
-  ["flatMap", 0],
-  ["from", 1],
-  ["map", 0],
-]);
 
 export default createRule<[], MessageID>({
   meta: {
@@ -52,7 +41,7 @@ function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | 
   const callee = Extract.unwrap(node.callee);
   if (callee.type !== AST.MemberExpression) return null;
   if (callee.property.type !== AST.Identifier) return null;
-  const position = ITERATOR_METHOD_CALLBACK_POSITIONS.get(callee.property.name);
+  const position = INDEX_PARAM_POSITIONS.get(callee.property.name);
   if (position == null) return null;
   const callback = node.arguments[position];
   if (callback == null || !Check.isFunction(callback)) return null;
