@@ -22,7 +22,7 @@ overrides:
   axios: ^1.17.0
   chokidar: ^5.0.0
   defu: ^6.1.7
-  dompurify: ^3.4.9
+  dompurify: ^3.4.10
   esbuild: ^0.28.1
   follow-redirects: ^1.16.0
   lodash-es: ^4.18.1
@@ -128,7 +128,7 @@ importers:
         version: 1.3.0(@types/estree@1.0.9)(eslint@10.5.0(jiti@2.7.0))
       import-integrity-lint:
         specifier: ^1.1.2
-        version: 1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
+        version: 1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
       mdxlint:
         specifier: ^1.0.0
         version: 1.0.0
@@ -402,7 +402,7 @@ importers:
         version: 16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3)
       fumadocs-docgen:
         specifier: ^3.0.10
-        version: 3.0.10(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(mdast-util-mdx@3.0.0)
+        version: 3.0.10(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(mdast-util-mdx@3.0.0)
       fumadocs-mdx:
         specifier: ^15.0.12
         version: 15.0.12(@types/mdast@4.0.4)(@types/mdx@2.0.14)(@types/react@19.2.17)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)(rolldown@1.1.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
@@ -417,7 +417,7 @@ importers:
         version: 16.10.2(@tailwindcss/oxide@4.3.1)(@takumi-rs/image-response@1.8.4(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@types/mdx@2.0.14)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.1)
       import-integrity-lint:
         specifier: ^1.1.2
-        version: 1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
+        version: 1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
       importx:
         specifier: ^0.5.2
         version: 0.5.2
@@ -1780,6 +1780,9 @@ packages:
 
   '@emnapi/runtime@1.11.0':
     resolution: {integrity: sha512-55coeOFKHv1ywEcUXJtWU5f+Jr/W5tZDvZig8DLKSwUN1JpROQ4rk/SNOQiFWmaR/VKF4zuFyW1B8JduOSv6Pg==}
+
+  '@emnapi/runtime@1.11.1':
+    resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
 
   '@emnapi/runtime@1.4.5':
     resolution: {integrity: sha512-++LApOtY0pEEz1zrd9vy1/zXVaVJJ/EbAF3u0fXIzPJEDtnITsBGbbK0EkM72amhl/R5b+5xx0Y/QhcVOpuulg==}
@@ -4238,8 +4241,8 @@ packages:
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
 
-  baseline-browser-mapping@2.10.36:
-    resolution: {integrity: sha512-lVq/Df7LXlO79MVaaUHztSwWiG9oXoWHlgvNS51v8Dpd4+G4/VIy6qYePTw31nAVls33nUtnfezYeLkYAak9dg==}
+  baseline-browser-mapping@2.10.37:
+    resolution: {integrity: sha512-girxaJ7WZssDOFhzCGZTDKoTa1gk6A1TbflaYTpykLJ4UU9Fz9kx1aREM8JCuoVHbL8X8T/mJg7w2oYSq72Oig==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -4765,8 +4768,8 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
-  dompurify@3.4.9:
-    resolution: {integrity: sha512-4dPSRMRDqHvs0V4YDFCsaIZo4if5u0xM+llyxiM2fwuZFdKArUBAF3VtI2+n8NKg9P870WMdYk0UhqQNoWXbfQ==}
+  dompurify@3.4.10:
+    resolution: {integrity: sha512-0xzNv0e7oYC6yyuOGZIABPM4qtg3QxLFniDNPP4ZP90wR8Yq3zgwpRbrNiT4N3IKqDbbYFEJLV+JWEs19aZ//w==}
 
   domutils@3.2.2:
     resolution: {integrity: sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==}
@@ -4810,8 +4813,8 @@ packages:
     engines: {node: '>=0.12.18'}
     hasBin: true
 
-  electron-to-chromium@1.5.371:
-    resolution: {integrity: sha512-e9htk9mAYL6AzmkEhSvVVw7IWGSBJ/Bqdn2eRyRLrj1g6sncN4WbFt5qnILYoCktktr45pyjIrOiRvBThQ808w==}
+  electron-to-chromium@1.5.372:
+    resolution: {integrity: sha512-M3yhbAlilnwqC8D21t28UCDGHyitShTmmLRU/H+b74P6Ski16Nb9HONYEaVpMj/pwC7BEo5B95FpjODLCWbtfA==}
 
   elkjs@0.11.1:
     resolution: {integrity: sha512-zxxR9k+rx5ktMwT/FwyLdPCrq7xN6e4VGGHH8hA01vVYKjTFik7nHOxBnAYtrgYUB1RpAiLvA1/U2YraWxyKKg==}
@@ -4881,8 +4884,8 @@ packages:
     resolution: {integrity: sha512-j6vWzfrGVfyXxge+O0x5sh6cvxAog0a/4Rdd2K36zCMV5eJ+/+tOAngRO8cODMNWbVRdVlmGZQL2YS3yR8bIUA==}
     engines: {node: '>= 0.4'}
 
-  es-toolkit@1.47.0:
-    resolution: {integrity: sha512-n1GuoD0WEQZMBk5tttoZSqwgyLx01oqa5XsBmCHwPyNe1S9jPBEmtR2pSgp2kJuWE3ciFZ6yRHmY4pM4C3OOkw==}
+  es-toolkit@1.47.1:
+    resolution: {integrity: sha512-5RAqEwf4P4E17p+W75KLOWw/nOvKZzSQpxM32IpI2KZLaVonjTrZ0Ai5ghMaVI9eKC2p8eoQgcBdkEDgzFk6+Q==}
 
   esast-util-from-estree@2.0.0:
     resolution: {integrity: sha512-4CyanoAudUSBAn5K13H4JhsMH6L9ZP7XbLVe/dKybkxMO7eDyLsT8UHl9TRNrU2Gr9nz+FovfSIjuXWJ81uVwQ==}
@@ -6488,8 +6491,8 @@ packages:
     resolution: {integrity: sha512-W67iLl4J2EXEGTbfeHCffrjDfitvLANg0UlX3wFUUSTx92KXRFegMHUVgSqE+wvhAbi4WqjGg9czysTV2Epbew==}
     engines: {node: '>= 0.4'}
 
-  obug@2.1.2:
-    resolution: {integrity: sha512-AWGB9WFcRXOQs48Z/udjI5ZcZMHXwX8XPByNpOydgcGsDLIzjGizhoMWJyKAWze7AVW/2W1i+/gPX4YtKe5cyg==}
+  obug@2.1.3:
+    resolution: {integrity: sha512-9miFgM2OFba7hB+pRgvtV84pYTBaoTHohvmIgiRt6dRIzbwEOIaNaP+dIlGs2fNFoB0SeISs0Jz5WFVRid6Xyg==}
     engines: {node: '>=12.20.0'}
 
   on-finished@2.4.1:
@@ -8088,6 +8091,11 @@ snapshots:
   '@emnapi/runtime@1.11.0':
     dependencies:
       tslib: 2.8.1
+    optional: true
+
+  '@emnapi/runtime@1.11.1':
+    dependencies:
+      tslib: 2.8.1
 
   '@emnapi/runtime@1.4.5':
     dependencies:
@@ -8384,7 +8392,7 @@ snapshots:
 
   '@img/sharp-wasm32@0.34.5':
     dependencies:
-      '@emnapi/runtime': 1.11.0
+      '@emnapi/runtime': 1.11.1
     optional: true
 
   '@img/sharp-win32-arm64@0.34.5':
@@ -8526,7 +8534,7 @@ snapshots:
   '@napi-rs/wasm-runtime@0.2.4':
     dependencies:
       '@emnapi/core': 1.11.0
-      '@emnapi/runtime': 1.11.0
+      '@emnapi/runtime': 1.11.1
       '@tybys/wasm-util': 0.9.0
 
   '@napi-rs/wasm-runtime@1.1.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)':
@@ -8540,6 +8548,13 @@ snapshots:
     dependencies:
       '@emnapi/core': 1.11.0
       '@emnapi/runtime': 1.11.0
+      '@tybys/wasm-util': 0.10.2
+    optional: true
+
+  '@napi-rs/wasm-runtime@1.1.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)':
+    dependencies:
+      '@emnapi/core': 1.11.0
+      '@emnapi/runtime': 1.11.1
       '@tybys/wasm-util': 0.10.2
     optional: true
 
@@ -8717,9 +8732,9 @@ snapshots:
   '@oxc-parser/binding-openharmony-arm64@0.106.0':
     optional: true
 
-  '@oxc-parser/binding-wasm32-wasi@0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)':
+  '@oxc-parser/binding-wasm32-wasi@0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)':
     dependencies:
-      '@napi-rs/wasm-runtime': 1.1.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      '@napi-rs/wasm-runtime': 1.1.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -8788,9 +8803,9 @@ snapshots:
   '@oxc-transform/binding-openharmony-arm64@0.124.0':
     optional: true
 
-  '@oxc-transform/binding-wasm32-wasi@0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)':
+  '@oxc-transform/binding-wasm32-wasi@0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)':
     dependencies:
-      '@napi-rs/wasm-runtime': 1.1.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      '@napi-rs/wasm-runtime': 1.1.5(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -10323,7 +10338,7 @@ snapshots:
 
   base64-js@1.5.1: {}
 
-  baseline-browser-mapping@2.10.36: {}
+  baseline-browser-mapping@2.10.37: {}
 
   beautiful-mermaid@1.1.3:
     dependencies:
@@ -10368,9 +10383,9 @@ snapshots:
 
   browserslist@4.28.2:
     dependencies:
-      baseline-browser-mapping: 2.10.36
+      baseline-browser-mapping: 2.10.37
       caniuse-lite: 1.0.30001799
-      electron-to-chromium: 1.5.371
+      electron-to-chromium: 1.5.372
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -10854,7 +10869,7 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@3.4.9:
+  dompurify@3.4.10:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -10903,7 +10918,7 @@ snapshots:
 
   ejs@5.0.1: {}
 
-  electron-to-chromium@1.5.371: {}
+  electron-to-chromium@1.5.372: {}
 
   elkjs@0.11.1: {}
 
@@ -10959,7 +10974,7 @@ snapshots:
       has-tostringtag: 1.0.2
       hasown: 2.0.4
 
-  es-toolkit@1.47.0: {}
+  es-toolkit@1.47.1: {}
 
   esast-util-from-estree@2.0.0:
     dependencies:
@@ -11455,13 +11470,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-docgen@3.0.10(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(mdast-util-mdx@3.0.0):
+  fumadocs-docgen@3.0.10(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)(@types/estree@1.0.9)(@types/hast@3.0.4)(@types/mdast@4.0.4)(fumadocs-core@16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(mdast-util-mdx@3.0.0):
     dependencies:
       estree-util-to-js: 2.0.0
       estree-util-value-to-estree: 3.5.0
       fumadocs-core: 16.10.2(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.18.0(react@19.2.7))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3)
       npm-to-yarn: 3.0.1
-      oxc-transform: 0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      oxc-transform: 0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
       unified: 11.0.5
       unist-util-visit: 5.1.0
       vfile: 6.0.3
@@ -11862,7 +11877,7 @@ snapshots:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  import-integrity-lint@1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3):
+  import-integrity-lint@1.1.2(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3):
     dependencies:
       '@manypkg/get-packages': 3.1.0
       '@typescript-eslint/typescript-estree': 8.61.0(typescript@6.0.3)
@@ -11870,7 +11885,7 @@ snapshots:
       eslint: 10.5.0(jiti@2.7.0)
       ignore: 7.0.5
       jsonc-parser: 3.3.1
-      oxc-parser: 0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      oxc-parser: 0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
       zod: 4.4.3
     transitivePeerDependencies:
       - '@emnapi/core'
@@ -12482,8 +12497,8 @@ snapshots:
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.14
       dayjs: 1.11.21
-      dompurify: 3.4.9
-      es-toolkit: 1.47.0
+      dompurify: 3.4.10
+      es-toolkit: 1.47.1
       katex: 0.16.47
       khroma: 2.1.0
       marked: 16.4.2
@@ -12915,7 +12930,7 @@ snapshots:
     dependencies:
       '@next/env': 16.2.9
       '@swc/helpers': 0.5.15
-      baseline-browser-mapping: 2.10.36
+      baseline-browser-mapping: 2.10.37
       caniuse-lite: 1.0.30001799
       postcss: 8.5.15
       react: 19.2.7
@@ -13128,7 +13143,7 @@ snapshots:
 
   object-inspect@1.13.4: {}
 
-  obug@2.1.2: {}
+  obug@2.1.3: {}
 
   on-finished@2.4.1:
     dependencies:
@@ -13176,7 +13191,7 @@ snapshots:
       strip-ansi: 6.0.1
       wcwidth: 1.0.1
 
-  oxc-parser@0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0):
+  oxc-parser@0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1):
     dependencies:
       '@oxc-project/types': 0.106.0
     optionalDependencies:
@@ -13196,7 +13211,7 @@ snapshots:
       '@oxc-parser/binding-linux-x64-gnu': 0.106.0
       '@oxc-parser/binding-linux-x64-musl': 0.106.0
       '@oxc-parser/binding-openharmony-arm64': 0.106.0
-      '@oxc-parser/binding-wasm32-wasi': 0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      '@oxc-parser/binding-wasm32-wasi': 0.106.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
       '@oxc-parser/binding-win32-arm64-msvc': 0.106.0
       '@oxc-parser/binding-win32-ia32-msvc': 0.106.0
       '@oxc-parser/binding-win32-x64-msvc': 0.106.0
@@ -13204,7 +13219,7 @@ snapshots:
       - '@emnapi/core'
       - '@emnapi/runtime'
 
-  oxc-transform@0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0):
+  oxc-transform@0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1):
     optionalDependencies:
       '@oxc-transform/binding-android-arm-eabi': 0.124.0
       '@oxc-transform/binding-android-arm64': 0.124.0
@@ -13222,7 +13237,7 @@ snapshots:
       '@oxc-transform/binding-linux-x64-gnu': 0.124.0
       '@oxc-transform/binding-linux-x64-musl': 0.124.0
       '@oxc-transform/binding-openharmony-arm64': 0.124.0
-      '@oxc-transform/binding-wasm32-wasi': 0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)
+      '@oxc-transform/binding-wasm32-wasi': 0.124.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.1)
       '@oxc-transform/binding-win32-arm64-msvc': 0.124.0
       '@oxc-transform/binding-win32-ia32-msvc': 0.124.0
       '@oxc-transform/binding-win32-x64-msvc': 0.124.0
@@ -13696,7 +13711,7 @@ snapshots:
       birpc: 4.0.0
       dts-resolver: 3.0.0
       get-tsconfig: 5.0.0-beta.5
-      obug: 2.1.2
+      obug: 2.1.3
       rolldown: 1.1.1
     optionalDependencies:
       typescript: 6.0.3
@@ -14179,7 +14194,7 @@ snapshots:
       empathic: 2.0.1
       hookable: 6.1.1
       import-without-cache: 0.4.0
-      obug: 2.1.2
+      obug: 2.1.3
       picomatch: 4.0.4
       rolldown: 1.1.1
       rolldown-plugin-dts: 0.25.2(rolldown@1.1.1)(typescript@6.0.3)
@@ -14500,7 +14515,7 @@ snapshots:
     dependencies:
       cac: 7.0.0
       es-module-lexer: 2.1.0
-      obug: 2.1.2
+      obug: 2.1.3
       pathe: 2.0.3
       vite: 8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0)
     transitivePeerDependencies:
@@ -14554,7 +14569,7 @@ snapshots:
       es-module-lexer: 2.1.0
       expect-type: 1.3.0
       magic-string: 0.30.21
-      obug: 2.1.2
+      obug: 2.1.3
       pathe: 2.0.3
       picomatch: 4.0.4
       std-env: 4.1.0
