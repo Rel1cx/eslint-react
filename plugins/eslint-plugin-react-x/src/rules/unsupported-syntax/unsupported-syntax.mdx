@@ -58,7 +58,7 @@ function Component({ propName, props }) {
 ```
 
 ```tsx
-// Recommended: using eval outside components and hooks is fine
+// OK: using eval outside components and hooks is fine
 function notAComponent() {
   const result = eval("1 + 2");
   return result;
