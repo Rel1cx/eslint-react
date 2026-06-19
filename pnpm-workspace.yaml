@@ -63,3 +63,9 @@ overrides:
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
+minimumReleaseAgeExclude:
+  - "@effect/platform@0.96.2"
+  - "@rbxts/react@17.3.7-ts.2"
+  - "@types/node@26.0.0"
+  - "effect@3.21.4"
+  - "eslint-plugin-unicorn@68.0.0"
