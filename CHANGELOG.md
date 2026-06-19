@@ -1,5 +1,27 @@
 # Changelog
 
+## v5.9.1 (2026-06-20)
+
+### 📝 Documentation
+
+- Updated rule patterns and feature system documentation (#1875).
+- Refined naming convention rule docs for `context-name`, `id-name`, and `ref-name` (#1873).
+- Updated the example comment in the `react-x/unsupported-syntax` docs.
+- Removed the `ast.unwrap` example from the kit package docs.
+- Fixed a typo in a warning callout description.
+
+### 🏗️ Internal
+
+- Bumped `actions/checkout` to `v7.0.0` (#1874).
+- Moved `getHumanReadableKind` from the ast package into the specific rules that use it.
+- Moved the iterator callback position map for `react-x/no-missing-key` into `lib.ts`.
+- Updated `dprint` line width to `160` and reformatted the codebase.
+- Updated `eslint` to `^10.5.0` and bumped miscellaneous dependencies.
+- Updated the `dprint` JSON plugin to `v0.22.0`.
+- Updated the baseline and `DocsPage` styling, and pruned `pnpm` workspace excludes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.0...v5.9.1
+
 ## v5.9.0 (2026-06-13)
 
 ### ✨ New
