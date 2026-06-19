@@ -3,7 +3,7 @@
 # Variable: isFunction
 
 ```ts
-const isFunction: (node: Node | null | undefined) => node is ArrowFunctionExpression | FunctionDeclarationWithName | FunctionDeclarationWithOptionalName | FunctionExpression;
+const isFunction: (node: Node | null | undefined) => node is ArrowFunctionExpressionWithBlockBody | ArrowFunctionExpressionWithExpressionBody | FunctionDeclarationWithName | FunctionDeclarationWithOptionalName | FunctionExpression;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ const isFunction: (node: Node | null | undefined) => node is ArrowFunctionExpres
 
 ## Returns
 
-node is ArrowFunctionExpression \| FunctionDeclarationWithName \| FunctionDeclarationWithOptionalName \| FunctionExpression
+node is ArrowFunctionExpressionWithBlockBody \| ArrowFunctionExpressionWithExpressionBody \| FunctionDeclarationWithName \| FunctionDeclarationWithOptionalName \| FunctionExpression

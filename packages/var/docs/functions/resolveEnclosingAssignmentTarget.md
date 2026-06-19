@@ -7,7 +7,8 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | Identifier
   | ArrayExpression
   | ArrayPattern
-  | ArrowFunctionExpression
+  | ArrowFunctionExpressionWithBlockBody
+  | ArrowFunctionExpressionWithExpressionBody
   | AssignmentExpression
   | AwaitExpression
   | PrivateInExpression
@@ -70,7 +71,8 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | LetOrVarNonDeclaredDeclaration
   | UsingInForOfDeclaration
   | UsingInNormalContextDeclaration
-  | YieldExpression
+  | YieldNoStarExpression
+  | YieldStarExpression
   | null;
 ```
 
@@ -87,7 +89,8 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
   \| `Identifier`
   \| `ArrayExpression`
   \| `ArrayPattern`
-  \| `ArrowFunctionExpression`
+  \| `ArrowFunctionExpressionWithBlockBody`
+  \| `ArrowFunctionExpressionWithExpressionBody`
   \| `AssignmentExpression`
   \| `AwaitExpression`
   \| `PrivateInExpression`
@@ -150,7 +153,8 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
   \| `LetOrVarNonDeclaredDeclaration`
   \| `UsingInForOfDeclaration`
   \| `UsingInNormalContextDeclaration`
-  \| `YieldExpression`
+  \| `YieldNoStarExpression`
+  \| `YieldStarExpression`
   \| `null`
 
 The enclosing assignment target node, or null if not found
