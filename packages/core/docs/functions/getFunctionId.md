@@ -6,7 +6,8 @@
 function getFunctionId(node: 
   | ArrayExpression
   | ArrayPattern
-  | ArrowFunctionExpression
+  | ArrowFunctionExpressionWithBlockBody
+  | ArrowFunctionExpressionWithExpressionBody
   | AssignmentExpression
   | AwaitExpression
   | PrivateInExpression
@@ -53,10 +54,12 @@ function getFunctionId(node:
   | UnaryExpressionTypeof
   | UnaryExpressionVoid
   | UpdateExpression
-  | YieldExpression): 
+  | YieldNoStarExpression
+  | YieldStarExpression): 
   | ArrayExpression
   | ArrayPattern
-  | ArrowFunctionExpression
+  | ArrowFunctionExpressionWithBlockBody
+  | ArrowFunctionExpressionWithExpressionBody
   | AssignmentExpression
   | AwaitExpression
   | PrivateInExpression
@@ -102,7 +105,8 @@ function getFunctionId(node:
   | UnaryExpressionTypeof
   | UnaryExpressionVoid
   | UpdateExpression
-  | YieldExpression
+  | YieldNoStarExpression
+  | YieldStarExpression
   | null;
 ```
 
@@ -112,13 +116,14 @@ Gets the static identifier of a function AST node.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `node` | \| `ArrayExpression` \| `ArrayPattern` \| `ArrowFunctionExpression` \| `AssignmentExpression` \| `AwaitExpression` \| `PrivateInExpression` \| `SymmetricBinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `FunctionDeclarationWithName` \| `FunctionDeclarationWithOptionalName` \| `FunctionExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpressionBitwiseNot` \| `UnaryExpressionDelete` \| `UnaryExpressionMinus` \| `UnaryExpressionNot` \| `UnaryExpressionPlus` \| `UnaryExpressionTypeof` \| `UnaryExpressionVoid` \| `UpdateExpression` \| `YieldExpression` | The function node to analyze. |
+| `node` | \| `ArrayExpression` \| `ArrayPattern` \| `ArrowFunctionExpressionWithBlockBody` \| `ArrowFunctionExpressionWithExpressionBody` \| `AssignmentExpression` \| `AwaitExpression` \| `PrivateInExpression` \| `SymmetricBinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `FunctionDeclarationWithName` \| `FunctionDeclarationWithOptionalName` \| `FunctionExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpressionBitwiseNot` \| `UnaryExpressionDelete` \| `UnaryExpressionMinus` \| `UnaryExpressionNot` \| `UnaryExpressionPlus` \| `UnaryExpressionTypeof` \| `UnaryExpressionVoid` \| `UpdateExpression` \| `YieldNoStarExpression` \| `YieldStarExpression` | The function node to analyze. |
 
 ## Returns
 
   \| `ArrayExpression`
   \| `ArrayPattern`
-  \| `ArrowFunctionExpression`
+  \| `ArrowFunctionExpressionWithBlockBody`
+  \| `ArrowFunctionExpressionWithExpressionBody`
   \| `AssignmentExpression`
   \| `AwaitExpression`
   \| `PrivateInExpression`
@@ -164,7 +169,8 @@ Gets the static identifier of a function AST node.
   \| `UnaryExpressionTypeof`
   \| `UnaryExpressionVoid`
   \| `UpdateExpression`
-  \| `YieldExpression`
+  \| `YieldNoStarExpression`
+  \| `YieldStarExpression`
   \| `null`
 
 The identifier node if found, `null` otherwise.
