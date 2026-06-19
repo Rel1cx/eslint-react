@@ -20,8 +20,7 @@ export default createRule<[], MessageID>({
       description: "Validates usage of Error Boundaries instead of try/catch for errors in child components.",
     },
     messages: {
-      tryCatchWithJsx:
-        "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+      tryCatchWithJsx: "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
       tryCatchWithUse:
         "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
     },

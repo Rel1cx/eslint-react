@@ -21,12 +21,9 @@ export default createRule<[], MessageID>({
       description: "Validates against syntax that React Compiler does not support.",
     },
     messages: {
-      eval:
-        "Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.",
-      iife:
-        "Do not use immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.",
-      with:
-        "Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.",
+      eval: "Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.",
+      iife: "Do not use immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.",
+      with: "Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.",
     },
     schema: [],
   },

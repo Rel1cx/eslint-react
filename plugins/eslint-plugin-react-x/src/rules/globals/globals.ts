@@ -23,16 +23,12 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.",
+      description: "Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.",
     },
     messages: {
-      mutatingGlobal:
-        "Do not mutate '{{name}}' during render. Global variables exist outside React's control and make rendering impure.",
-      mutatingGlobalArrayMethod:
-        "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
-      mutatingGlobalProperty:
-        "Do not mutate '{{name}}' during render. Modifying global objects during render makes rendering impure.",
+      mutatingGlobal: "Do not mutate '{{name}}' during render. Global variables exist outside React's control and make rendering impure.",
+      mutatingGlobalArrayMethod: "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
+      mutatingGlobalProperty: "Do not mutate '{{name}}' during render. Modifying global objects during render makes rendering impure.",
     },
     schema: [],
   },

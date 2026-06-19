@@ -17,8 +17,7 @@ export default createRule<[], MessageID>({
       description: "Enforces that a function with the 'use' prefix uses at least one Hook inside it.",
     },
     messages: {
-      default:
-        "If your function doesn't call any Hooks, avoid the 'use' prefix. Instead, write it as a regular function without the 'use' prefix.",
+      default: "If your function doesn't call any Hooks, avoid the 'use' prefix. Instead, write it as a regular function without the 'use' prefix.",
     },
     schema: [],
   },

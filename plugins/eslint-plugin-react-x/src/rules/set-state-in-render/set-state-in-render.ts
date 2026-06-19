@@ -26,12 +26,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.",
+      description: "Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.",
     },
     messages: {
-      default:
-        "Do not call the 'set' function '{{name}}' unconditionally during render. This will trigger an infinite render loop.",
+      default: "Do not call the 'set' function '{{name}}' unconditionally during render. This will trigger an infinite render loop.",
     },
     schema: [],
   },

@@ -55,8 +55,7 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'setTimeout' in a component or custom hook has a corresponding 'clearTimeout'.",
     },
     messages: {
-      expectedClearTimeoutInCleanup:
-        "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
+      expectedClearTimeoutInCleanup: "A 'setTimeout' created in '{{ kind }}' must be cleared with 'clearTimeout' in the cleanup function.",
       expectedTimeoutId: "A 'setTimeout' must be assigned to a variable for proper cleanup.",
     },
     schema: [],

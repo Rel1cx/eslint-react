@@ -40,9 +40,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           if (!HANDLER_FUNC_REGEX.test(handlerName)) {
             context.report({
               node: expression,
-              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${
-                propName.slice(eventHandlerPropPrefix.length)
-              }..."`,
+              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
             });
           }
           return;
@@ -53,10 +51,9 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           if (checkInlineFunction) {
             context.report({
               node: expression,
-              message:
-                `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
-                  propName.slice(eventHandlerPropPrefix.length)
-                }" function.`,
+              message: `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
+                propName.slice(eventHandlerPropPrefix.length)
+              }" function.`,
             });
           }
           return;

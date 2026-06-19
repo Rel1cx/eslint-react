@@ -19,8 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
+          message: `React Hook useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [local]`,
@@ -48,8 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useEffect has missing dependencies: 'bar' and 'foo'. Either include them or remove the dependency array.`,
+          message: `React Hook useEffect has missing dependencies: 'bar' and 'foo'. Either include them or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [bar, foo]`,
@@ -103,8 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo has a missing dependency: 'bar'. Either include it or remove the dependency array.`,
+          message: `React Hook useMemo has a missing dependency: 'bar'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [bar, foo]`,
@@ -129,8 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useCallback has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          message: `React Hook useCallback has a missing dependency: 'value'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [onClick, value]`,
@@ -156,8 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useLayoutEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          message: `React Hook useLayoutEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [value]`,
@@ -182,8 +177,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook useImperativeHandle has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          message: `React Hook useImperativeHandle has a missing dependency: 'value'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [value]`,
@@ -247,8 +241,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -262,8 +255,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -295,8 +287,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.`,
+          message: `React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.`,
         },
       ],
     },
@@ -357,8 +348,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook React.useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
+          message: `React Hook React.useEffect has a missing dependency: 'local'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [local]`,
@@ -387,8 +377,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       options: [{ additionalHooks: "useCustomEffect" }],
       errors: [
         {
-          message:
-            `React Hook useCustomEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
+          message: `React Hook useCustomEffect has a missing dependency: 'value'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [value]`,
@@ -416,8 +405,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       options: [{ additionalHooks: "use(Data|Custom)Effect" }],
       errors: [
         {
-          message:
-            `React Hook useDataEffect has missing dependencies: 'a' and 'b'. Either include them or remove the dependency array.`,
+          message: `React Hook useDataEffect has missing dependencies: 'a' and 'b'. Either include them or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [a, b]`,
@@ -447,8 +435,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo has a missing dependency: 'onClick'. Either include it or remove the dependency array.`,
+          message: `React Hook useMemo has a missing dependency: 'onClick'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [onClick]`,
@@ -482,8 +469,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -508,8 +494,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -553,8 +538,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useCallback has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
+          message: `React Hook useCallback has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [free, part, props.value]`,
@@ -599,8 +583,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
+          message: `React Hook useMemo has missing dependencies: 'free' and 'part'. Either include them or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [free, part, props.value]`,
@@ -639,8 +622,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useMemo does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -657,8 +639,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
+          message: `React Hook useCallback does nothing when called with only one argument. Did you forget to pass an array of dependencies?`,
         },
       ],
     },
@@ -672,8 +653,7 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
       `,
       errors: [
         {
-          message:
-            `React Hook useMemo has a missing dependency: 'a'. Either include it or remove the dependency array.`,
+          message: `React Hook useMemo has a missing dependency: 'a'. Either include it or remove the dependency array.`,
           suggestions: [
             {
               desc: `Update the dependencies array to be: [a]`,

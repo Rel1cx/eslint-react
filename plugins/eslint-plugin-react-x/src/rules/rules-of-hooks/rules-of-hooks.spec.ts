@@ -18,8 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
+          message: `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
         },
       ],
     },
@@ -34,8 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
+          message: `React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
         },
       ],
     },
@@ -200,8 +198,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
+          message: `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
         },
       ],
     },
@@ -214,8 +211,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          message:
-            `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
+          message: `React Hook "useEffectEvent" can only be called at the top level of your component. It cannot be passed down.`,
         },
       ],
     },

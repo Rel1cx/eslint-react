@@ -83,7 +83,13 @@ const verifyAllRulesAccountedFor = Effect.fnUntraced(
     let errorCount = 0;
     for (const rule of rules) {
       if (!allRuleKeys.has(rule.configKey) && !experimentalKeys.has(rule.configKey) && !typeCheckedKeys.has(rule.configKey)) {
-        yield* Effect.logError(ansis.red(`  Rule ${ansis.bold(rule.configKey)} is registered in react-${rule.domain} plugin but not found in all.ts, disable-experimental.ts, or disable-type-checked.ts`));
+        yield* Effect.logError(
+          ansis.red(
+            `  Rule ${
+              ansis.bold(rule.configKey)
+            } is registered in react-${rule.domain} plugin but not found in all.ts, disable-experimental.ts, or disable-type-checked.ts`,
+          ),
+        );
         errorCount += 1;
       }
     }
@@ -158,7 +164,9 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
 
       for (const key of configKeys) {
         if (!domainRuleKeys.has(key)) {
-          yield* Effect.logError(ansis.red(`  Config ${ansis.bold(domain)}.ts contains rule ${ansis.bold(key)} which is not registered in react-${domain} plugin`));
+          yield* Effect.logError(
+            ansis.red(`  Config ${ansis.bold(domain)}.ts contains rule ${ansis.bold(key)} which is not registered in react-${domain} plugin`),
+          );
           errorCount += 1;
         }
       }
@@ -166,7 +174,11 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
       const configKeySet = new Set(configKeys);
       const untrackedRules = domainRules.filter((r) => !configKeySet.has(r.configKey));
       if (untrackedRules.length > 0) {
-        yield* Effect.log(ansis.dim(`  Domain ${domain}.ts: ${untrackedRules.length} rule(s) not in base config (strict/all only): ${untrackedRules.map((r) => r.name).join(", ")}`));
+        yield* Effect.log(
+          ansis.dim(
+            `  Domain ${domain}.ts: ${untrackedRules.length} rule(s) not in base config (strict/all only): ${untrackedRules.map((r) => r.name).join(", ")}`,
+          ),
+        );
       } else {
         yield* Effect.log(ansis.green(`  Domain config ${domain}.ts: all registered rules are present.`));
       }

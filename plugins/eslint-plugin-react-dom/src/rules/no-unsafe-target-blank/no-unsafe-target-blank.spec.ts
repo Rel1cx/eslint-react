@@ -75,8 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
-              output:
-                '<PolyComponent rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></PolyComponent>',
             },
           ],
         },
@@ -95,8 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
           suggestions: [
             {
               messageId: "addRelNoreferrerNoopener",
-              output:
-                '<PolyComponent rel="noreferrer noopener" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
+              output: '<PolyComponent rel="noreferrer noopener" component="a" href="https://react.dev" target="_blank"></PolyComponent>',
             },
           ],
         },

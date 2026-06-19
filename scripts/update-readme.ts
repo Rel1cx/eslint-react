@@ -17,7 +17,10 @@ const program = Effect.gen(function*() {
     .with({ devDependencies: { tsdown: P.select(P.string) } }, Str.replace("^", ""))
     .otherwise(() => "latest");
   const readmeContent = yield* fs.readFileString(source, "utf8");
-  const readmeContentNew = readmeContent.replaceAll(/https:\/\/img\.shields\.io\/badge\/built_with-tsdown@.*-000000/g, `https://img.shields.io/badge/built_with-tsdown@${buildToolVersion.replaceAll("-", "--")}-000000`);
+  const readmeContentNew = readmeContent.replaceAll(
+    /https:\/\/img\.shields\.io\/badge\/built_with-tsdown@.*-000000/g,
+    `https://img.shields.io/badge/built_with-tsdown@${buildToolVersion.replaceAll("-", "--")}-000000`,
+  );
   // Convert relative links to absolute links
   const readmeContentAbs = readmeContentNew.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("#")) {

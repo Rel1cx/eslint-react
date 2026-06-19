@@ -27,12 +27,9 @@ export default createRule<[], MessageID>({
       description: "Validates against mutating props, state, and other values that are immutable.",
     },
     messages: {
-      mutatingArrayMethod:
-        "Do not call '{{method}}()' on '{{name}}'. Props and state are immutable — create a new array instead.",
-      mutatingAssignment:
-        "Do not mutate '{{name}}' directly. Props and state are immutable — create a new object instead.",
-      noRefLikeStateName:
-        "State variable '{{name}}' should not be named 'ref' or end with 'Ref'. Use a different name to avoid confusion with mutable refs.",
+      mutatingArrayMethod: "Do not call '{{method}}()' on '{{name}}'. Props and state are immutable — create a new array instead.",
+      mutatingAssignment: "Do not mutate '{{name}}' directly. Props and state are immutable — create a new object instead.",
+      noRefLikeStateName: "State variable '{{name}}' should not be named 'ref' or end with 'Ref'. Use a different name to avoid confusion with mutable refs.",
     },
     schema: [],
   },

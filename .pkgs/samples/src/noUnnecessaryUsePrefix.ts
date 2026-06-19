@@ -11,8 +11,7 @@ export function noUnnecessaryUsePrefix(): RuleFunction {
           if (hook.hookCalls.length === 0) {
             context.report({
               node: hook.node,
-              message:
-                `Custom hook "${hook.name}" doesn't call any hooks. A custom hook should use at least one hook, otherwise it's just a regular function.`,
+              message: `Custom hook "${hook.name}" doesn't call any hooks. A custom hook should use at least one hook, otherwise it's just a regular function.`,
             });
           }
         }

@@ -52,8 +52,7 @@ export function errorBoundaries(): RuleFunction {
               if (stmt != null && !reported.has(stmt)) {
                 context.report({
                   node: stmt,
-                  message:
-                    "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+                  message: "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
                 });
                 reported.add(stmt);
               }

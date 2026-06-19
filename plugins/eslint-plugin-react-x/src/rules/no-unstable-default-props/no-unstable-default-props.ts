@@ -48,8 +48,7 @@ export default createRule<Options, MessageID>({
       description: "Prevents using referential-type values as default props in object destructuring.",
     },
     messages: {
-      default:
-        "A/an '{{kind}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{kind}}'.",
+      default: "A/an '{{kind}}' as default prop. This could lead to potential infinite render loop in React. Use a variable instead of '{{kind}}'.",
     },
     schema,
   },

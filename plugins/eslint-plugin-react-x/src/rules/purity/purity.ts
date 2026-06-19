@@ -17,12 +17,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Validates that components and hooks are pure by checking that they do not call known-impure functions during render.",
+      description: "Validates that components and hooks are pure by checking that they do not call known-impure functions during render.",
     },
     messages: {
-      default:
-        "Do not call '{{name}}' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.",
+      default: "Do not call '{{name}}' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.",
     },
     schema: [],
   },

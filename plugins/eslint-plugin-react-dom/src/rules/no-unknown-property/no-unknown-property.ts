@@ -58,10 +58,8 @@ const DEFAULTS: {
 // ------------------------------------------------------------------------------
 
 const messages = {
-  dataLowercaseRequired:
-    "React does not recognize data-* props with uppercase characters on a DOM element. Found '{{name}}', use '{{lowerCaseName}}' instead",
-  invalidPropOnTag:
-    "Invalid property '{{name}}' found on tag '{{tagName}}', but it is only allowed on: {{allowedTags}}",
+  dataLowercaseRequired: "React does not recognize data-* props with uppercase characters on a DOM element. Found '{{name}}', use '{{lowerCaseName}}' instead",
+  invalidPropOnTag: "Invalid property '{{name}}' found on tag '{{tagName}}', but it is only allowed on: {{allowedTags}}",
   unknownProp: "Unknown property '{{name}}' found",
   unknownPropWithStandardName: "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };

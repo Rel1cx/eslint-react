@@ -1,13 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import {
-  type ReportFixFunction,
-  type RuleContext,
-  type RuleFeature,
-  type RuleFixer,
-  type RuleListener,
-} from "@eslint-react/eslint";
+import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -35,16 +29,13 @@ export default createRule<[], MessageID>({
     },
     fixable: "code",
     messages: {
-      file:
-        "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
-      fileDirectivePosition:
-        "The '{{name}}' directive must be at the very beginning of the file, before any imports or other code.",
+      file: "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
+      fileDirectivePosition: "The '{{name}}' directive must be at the very beginning of the file, before any imports or other code.",
       fileDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
       local: "Functions with `use server` directive are React Server Functions and therefore must be async.",
       localDirectivePosition: "The '{{name}}' directive must be at the very beginning of the function body.",
       localDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
-      localDirectiveUnexpected:
-        "The '{{name}}' directive can only be used at the top of a file, not inside a function body.",
+      localDirectiveUnexpected: "The '{{name}}' directive can only be used at the top of a file, not inside a function body.",
     },
     schema: [],
   },

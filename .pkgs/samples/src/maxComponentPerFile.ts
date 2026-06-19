@@ -17,9 +17,7 @@ export function maxComponentPerFile(options: MaxComponentPerFileOptions): RuleFu
         for (const { node, name } of components.slice(max)) {
           context.report({
             node,
-            message: `Declare only ${max} component${max !== 1 ? "s" : ""} per file. Found extra component "${
-              name ?? "anonymous"
-            }".`,
+            message: `Declare only ${max} component${max !== 1 ? "s" : ""} per file. Found extra component "${name ?? "anonymous"}".`,
           });
         }
       },

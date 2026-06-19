@@ -16,8 +16,7 @@ export default createRule<[], MessageID>({
       description: "Prevents comment strings from being accidentally inserted into a JSX element's text nodes.",
     },
     messages: {
-      default:
-        "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
+      default: "Possible misused comment in text node. Comments inside children section of tag should be placed inside braces.",
     },
     schema: [],
   },

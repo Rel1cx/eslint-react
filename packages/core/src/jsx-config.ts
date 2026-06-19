@@ -1,10 +1,5 @@
 import type { RuleContext } from "@eslint-react/eslint";
-import {
-  RE_ANNOTATION_JSX,
-  RE_ANNOTATION_JSX_FRAG,
-  RE_ANNOTATION_JSX_IMPORT_SOURCE,
-  RE_ANNOTATION_JSX_RUNTIME,
-} from "@eslint-react/shared";
+import { RE_ANNOTATION_JSX, RE_ANNOTATION_JSX_FRAG, RE_ANNOTATION_JSX_IMPORT_SOURCE, RE_ANNOTATION_JSX_RUNTIME } from "@eslint-react/shared";
 import ts from "typescript";
 
 // ---------------------------------------------------------------------------

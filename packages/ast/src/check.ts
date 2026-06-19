@@ -8,8 +8,7 @@ export const isOneOf = ASTUtils.isNodeOfTypes;
 
 // Directive check
 export function isDirective(name: string) {
-  return (node: TSESTree.Node): node is TSESTreeDirective =>
-    node.type === AST.ExpressionStatement && node.directive === name;
+  return (node: TSESTree.Node): node is TSESTreeDirective => node.type === AST.ExpressionStatement && node.directive === name;
 }
 
 // Identifier check

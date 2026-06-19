@@ -104,10 +104,9 @@ const rule = {
       && rawOptions.enableDangerousAutofixThisMayCauseInfiniteLoops)
       || false;
 
-    const experimental_autoDependenciesHooks: ReadonlyArray<string> =
-      rawOptions && Array.isArray(rawOptions.experimental_autoDependenciesHooks)
-        ? rawOptions.experimental_autoDependenciesHooks
-        : [];
+    const experimental_autoDependenciesHooks: ReadonlyArray<string> = rawOptions && Array.isArray(rawOptions.experimental_autoDependenciesHooks)
+      ? rawOptions.experimental_autoDependenciesHooks
+      : [];
 
     const requireExplicitEffectDeps: boolean = (rawOptions && rawOptions.requireExplicitEffectDeps) || false;
 
@@ -922,8 +921,7 @@ const rule = {
 
             const constructionType = depType === "function" ? "definition" : "initialization";
 
-            const defaultAdvice =
-              `wrap the ${constructionType} of '${construction.name.name}' in its own ${wrapperHook}() Hook.`;
+            const defaultAdvice = `wrap the ${constructionType} of '${construction.name.name}' in its own ${wrapperHook}() Hook.`;
 
             const advice = isUsedOutsideOfHook
               ? `To fix this, ${defaultAdvice}`
@@ -1256,13 +1254,12 @@ const rule = {
                 + `read '${setStateRecommendation.missingDep}' in the reducer.`;
               break;
             case "updater":
-              extraWarning =
-                ` You can also do a functional update '${setStateRecommendation.setter}(${
-                  setStateRecommendation.missingDep.slice(
-                    0,
-                    1,
-                  )
-                } => ...)' if you only need '${setStateRecommendation.missingDep}'`
+              extraWarning = ` You can also do a functional update '${setStateRecommendation.setter}(${
+                setStateRecommendation.missingDep.slice(
+                  0,
+                  1,
+                )
+              } => ...)' if you only need '${setStateRecommendation.missingDep}'`
                 + ` in the '${setStateRecommendation.setter}' call.`;
               break;
             default:

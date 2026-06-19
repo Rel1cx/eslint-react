@@ -20,8 +20,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Prevents non-stable values (i.e., object literals) from being used as a value for 'Context.Provider'.",
+      description: "Prevents non-stable values (i.e., object literals) from being used as a value for 'Context.Provider'.",
     },
     messages: {
       unstableContextValue:

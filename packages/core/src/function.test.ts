@@ -8,14 +8,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../test";
-import {
-  getFunctionDirectives,
-  getFunctionId,
-  getFunctionInitPath,
-  isFunctionEmpty,
-  isFunctionHasCallInInitPath,
-  isFunctionHasDirective,
-} from "./function";
+import { getFunctionDirectives, getFunctionId, getFunctionInitPath, isFunctionEmpty, isFunctionHasCallInInitPath, isFunctionHasDirective } from "./function";
 
 function parse(code: string) {
   return parseForESLint(code, {

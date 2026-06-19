@@ -1282,8 +1282,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name:
-        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      name: "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
       code: tsx`
         import { useEffect, useState, useRef } from "react";
 
@@ -1301,8 +1300,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name:
-        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      name: "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
       code: tsx`
         import { useEffect, useState, useRef } from "react";
 
@@ -1320,8 +1318,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      name:
-        "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
+      name: "setState with variable derived from ref.current via call expression with member access in set function and return new value in function body",
       code: tsx`
         import { useEffect, useState, useRef } from "react";
 

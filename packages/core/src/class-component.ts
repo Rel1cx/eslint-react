@@ -1,11 +1,4 @@
-import {
-  Check,
-  Extract,
-  type TSESTreeClass,
-  type TSESTreeFunction,
-  type TSESTreeMethodOrPropertyDefinition,
-  isOneOf,
-} from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeClass, type TSESTreeFunction, type TSESTreeMethodOrPropertyDefinition, isOneOf } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { SemanticNode } from "./semantic";
 

@@ -63,16 +63,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that every 'IntersectionObserver' created in a component or custom hook has a corresponding 'IntersectionObserver.disconnect()'.",
+      description: "Enforces that every 'IntersectionObserver' created in a component or custom hook has a corresponding 'IntersectionObserver.disconnect()'.",
     },
     messages: {
       expectedDisconnectInControlFlow:
         "Dynamically added 'IntersectionObserver.observe' should be cleared all at once using 'IntersectionObserver.disconnect' in the cleanup function.",
-      expectedDisconnectOrUnobserveInCleanup:
-        "An 'IntersectionObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      unexpectedFloatingInstance:
-        "An 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
+      expectedDisconnectOrUnobserveInCleanup: "An 'IntersectionObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      unexpectedFloatingInstance: "An 'IntersectionObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },

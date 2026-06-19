@@ -63,16 +63,13 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that every 'ResizeObserver' created in a component or custom hook has a corresponding 'ResizeObserver.disconnect()'.",
+      description: "Enforces that every 'ResizeObserver' created in a component or custom hook has a corresponding 'ResizeObserver.disconnect()'.",
     },
     messages: {
       expectedDisconnectInControlFlow:
         "Dynamically added 'ResizeObserver.observe' should be cleared all at once using 'ResizeObserver.disconnect' in the cleanup function.",
-      expectedDisconnectOrUnobserveInCleanup:
-        "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      unexpectedFloatingInstance:
-        "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
+      expectedDisconnectOrUnobserveInCleanup: "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      unexpectedFloatingInstance: "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },

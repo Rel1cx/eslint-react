@@ -17,8 +17,7 @@ export default createRule<[], MessageID>({
       description: "Prevent patterns that cause deoptimization when using the automatic JSX runtime.",
     },
     messages: {
-      noKeyAfterSpread:
-        "Placing 'key' after spread props causes deoptimization when using the automatic JSX runtime. Put 'key' before any spread props.",
+      noKeyAfterSpread: "Placing 'key' after spread props causes deoptimization when using the automatic JSX runtime. Put 'key' before any spread props.",
     },
     schema: [],
   },

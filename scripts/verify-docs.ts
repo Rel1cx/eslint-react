@@ -241,7 +241,8 @@ const verifyDocs = Effect.gen(function*() {
 
     // Verify Test Source link
     const testSourceLine = resourcesSection.find((line) => line.includes("[Test Source]"));
-    const expectedTestSource = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
+    const expectedTestSource =
+      `https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-${domain}/src/rules/${basename}/${basename}.spec.ts`;
     if (testSourceLine == null) {
       yield* Effect.logError(ansis.red(`  Missing Test Source link in documentation for rule ${rulename}`));
     } else {

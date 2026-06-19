@@ -146,8 +146,7 @@ export function noCircularEffect(): RuleFunction {
           const targetNames = cycleTargets.map((t) => t.name).join(", ");
           context.report({
             node,
-            message:
-              `Circular effect detected: this effect depends on [${depNames}] and updates [${targetNames}], creating an infinite update loop.`,
+            message: `Circular effect detected: this effect depends on [${depNames}] and updates [${targetNames}], creating an infinite update loop.`,
           });
         }
       },

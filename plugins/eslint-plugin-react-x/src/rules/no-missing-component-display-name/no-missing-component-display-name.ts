@@ -40,8 +40,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const { displayName, flag, node } of api.getAllComponents(program)) {
           const id = core.getFunctionId(node);
           // Check if the component is wrapped with `forwardRef` or `memo`
-          const isMemoOrForwardRef =
-            (flag & (core.FunctionComponentFlag.ForwardRef | core.FunctionComponentFlag.Memo)) > 0n;
+          const isMemoOrForwardRef = (flag & (core.FunctionComponentFlag.ForwardRef | core.FunctionComponentFlag.Memo)) > 0n;
           // If the component is a named function, it has an implicit displayName
           if (id != null) {
             continue;

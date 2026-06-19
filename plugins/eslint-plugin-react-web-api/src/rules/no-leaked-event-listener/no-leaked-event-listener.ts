@@ -1,9 +1,4 @@
-import {
-  type ComponentPhaseKind,
-  ComponentPhaseRelevance,
-  type EventListenerEntry,
-  getPhaseKindOfFunction,
-} from "@/types";
+import { type ComponentPhaseKind, ComponentPhaseRelevance, type EventListenerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
@@ -66,8 +61,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
+      description: "Enforces that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
     },
     messages: {
       expectedRemoveEventListenerInCleanup:

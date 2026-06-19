@@ -52,12 +52,10 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
+      description: "Enforces that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.",
     },
     messages: {
-      expectedClearIntervalInCleanup:
-        "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
+      expectedClearIntervalInCleanup: "A 'setInterval' created in '{{ kind }}' must be cleared with 'clearInterval' in the cleanup function.",
 
       expectedIntervalId: "A 'setInterval' must be assigned to a variable for proper cleanup.",
     },

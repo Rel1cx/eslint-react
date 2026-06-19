@@ -8,13 +8,7 @@ import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { match } from "ts-pattern";
-import {
-  getNestedIdentifiers,
-  getSetStateCallExpression,
-  isHookDecl,
-  isInitializedFromRef,
-  isRefGatedContext,
-} from "./lib";
+import { getNestedIdentifiers, getSetStateCallExpression, isHookDecl, isInitializedFromRef, isRefGatedContext } from "./lib";
 
 export const RULE_NAME = "set-state-in-effect";
 
@@ -40,8 +34,7 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.",
+      description: "Validates against setting state synchronously in an effect, which can lead to re-renders that degrade performance.",
     },
     messages: {
       default:

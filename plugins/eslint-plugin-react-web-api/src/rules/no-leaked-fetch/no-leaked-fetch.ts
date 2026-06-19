@@ -120,13 +120,11 @@ export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description:
-        "Enforces that every 'fetch' in a component or custom hook has a corresponding 'AbortController' abort in the cleanup function.",
+      description: "Enforces that every 'fetch' in a component or custom hook has a corresponding 'AbortController' abort in the cleanup function.",
     },
     messages: {
       expectedAbortController: "A 'fetch' must be provided with an 'AbortController' for proper cleanup.",
-      expectedAbortInCleanup:
-        "A 'fetch' started in effect must be aborted with 'AbortController.abort' in the cleanup function.",
+      expectedAbortInCleanup: "A 'fetch' started in effect must be aborted with 'AbortController.abort' in the cleanup function.",
     },
     schema: [],
   },
@@ -196,9 +194,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (fEntry.isParamSignal) {
           continue;
         }
-        const hasMatchingAbort = abortEntries.some((aEntry) =>
-          isAssignmentTargetEqual(context, aEntry.controller, controller)
-        );
+        const hasMatchingAbort = abortEntries.some((aEntry) => isAssignmentTargetEqual(context, aEntry.controller, controller));
         if (!hasMatchingAbort) {
           context.report({
             messageId: "expectedAbortInCleanup",

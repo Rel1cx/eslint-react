@@ -321,8 +321,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code:
-        "<div controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} allowFullScreen></div>",
+      code: "<div controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} allowFullScreen></div>",
       errors: [
         {
           data: {
@@ -641,8 +640,7 @@ ruleTester.run(RULE_NAME, rule, {
     { code: "<source onLoad={bar} onError={foo} />" },
     { code: "<link onLoad={bar} onError={foo} />" },
     {
-      code:
-        '<link rel="preload" as="image" href="someHref" imageSrcSet="someImageSrcSet" imageSizes="someImageSizes" />',
+      code: '<link rel="preload" as="image" href="someHref" imageSrcSet="someImageSrcSet" imageSizes="someImageSizes" />',
     },
     { code: "<object onLoad={bar} />" },
     { code: "<video allowFullScreen webkitAllowFullScreen mozAllowFullScreen />" },
@@ -698,8 +696,7 @@ ruleTester.run(RULE_NAME, rule, {
     { code: "<svg focusable><image crossOrigin /></svg>" },
     { code: "<details onToggle={this.onToggle}>Some details</details>" },
     {
-      code:
-        '<path fill="pink" d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z"></path>',
+      code: '<path fill="pink" d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z"></path>',
     },
     { code: '<line fill="pink" x1="0" y1="80" x2="100" y2="20"></line>' },
     { code: '<link as="audio">Audio content</link>' },
@@ -715,8 +712,7 @@ ruleTester.run(RULE_NAME, rule, {
         '<audio controlsList="nodownload" controls={this.controls} crossOrigin="anonymous" disableRemotePlayback loop muted preload="none" src="something" onAbort={this.abort} onDurationChange={this.durationChange} onEmptied={this.emptied} onEnded={this.end} onError={this.error} onResize={this.onResize}></audio>',
     },
     {
-      code:
-        '<marker id={markerId} viewBox="0 0 2 2" refX="1" refY="1" markerWidth="1" markerHeight="1" orient="auto" />',
+      code: '<marker id={markerId} viewBox="0 0 2 2" refX="1" refY="1" markerWidth="1" markerHeight="1" orient="auto" />',
     },
     { code: '<pattern id="pattern" viewBox="0,0,10,10" width="10%" height="10%" />' },
     { code: '<symbol id="myDot" width="10" height="10" viewBox="0 0 2 2" />' },

@@ -176,9 +176,7 @@ export function isInitializedFromRef(
         return true;
       // const { foo } = ref.current.getBoundingClientRect();
       case init.type === AST.CallExpression:
-        return getNestedIdentifiers(init).some((id) =>
-          isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), visited)
-        );
+        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), visited));
     }
   }
   return false;
@@ -210,9 +208,7 @@ export function isRefGatedContext(
 }
 
 function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
-  return getNestedIdentifiers(node).some((id) =>
-    isInitializedFromRef(context, id.name, context.sourceCode.getScope(id))
-  );
+  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id)));
 }
 
 /**
