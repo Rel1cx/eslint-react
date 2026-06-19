@@ -139,14 +139,14 @@ import { InlineTOC } from "fumadocs-ui/components/inline-toc";
   Web API rules prevent resource leaks by detecting uncleaned Web API subscriptions in components and hooks.
 </Callout>
 
-| Rule                                                                         |   🎛️   |  🌟  | Description                                                                                                                   |
-| :--------------------------------------------------------------------------- | :-----: | :--: | :---------------------------------------------------------------------------------------------------------------------------- |
-| [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)   | 1️⃣ 1️⃣ |      | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`                |
-| [`no-leaked-fetch`](/docs/rules/web-api-no-leaked-fetch)                     | 1️⃣ 1️⃣ | `🧪` | Enforces that every `fetch` in a component or custom hook has a corresponding `AbortController` abort in the cleanup function |
-| [`no-leaked-intersection-observer`](/docs/rules/web-api-no-leaked-intersection-observer) | 1️⃣ 1️⃣ |      | Enforces that every `IntersectionObserver` created in a component or custom hook has a corresponding `IntersectionObserver.disconnect()`  |
-| [`no-leaked-interval`](/docs/rules/web-api-no-leaked-interval)               | 1️⃣ 1️⃣ |      | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                           |
-| [`no-leaked-resize-observer`](/docs/rules/web-api-no-leaked-resize-observer) | 1️⃣ 1️⃣ |      | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`  |
-| [`no-leaked-timeout`](/docs/rules/web-api-no-leaked-timeout)                 | 1️⃣ 1️⃣ |      | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                             |
+| Rule                                                                                     |   🎛️   |  🌟  | Description                                                                                                                              |
+| :--------------------------------------------------------------------------------------- | :-----: | :--: | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| [`no-leaked-event-listener`](/docs/rules/web-api-no-leaked-event-listener)               | 1️⃣ 1️⃣ |      | Enforces that every `addEventListener` in a component or custom hook has a corresponding `removeEventListener`                           |
+| [`no-leaked-fetch`](/docs/rules/web-api-no-leaked-fetch)                                 | 1️⃣ 1️⃣ | `🧪` | Enforces that every `fetch` in a component or custom hook has a corresponding `AbortController` abort in the cleanup function            |
+| [`no-leaked-intersection-observer`](/docs/rules/web-api-no-leaked-intersection-observer) | 1️⃣ 1️⃣ |      | Enforces that every `IntersectionObserver` created in a component or custom hook has a corresponding `IntersectionObserver.disconnect()` |
+| [`no-leaked-interval`](/docs/rules/web-api-no-leaked-interval)                           | 1️⃣ 1️⃣ |      | Enforces that every `setInterval` in a component or custom hook has a corresponding `clearInterval`                                      |
+| [`no-leaked-resize-observer`](/docs/rules/web-api-no-leaked-resize-observer)             | 1️⃣ 1️⃣ |      | Enforces that every `ResizeObserver` created in a component or custom hook has a corresponding `ResizeObserver.disconnect()`             |
+| [`no-leaked-timeout`](/docs/rules/web-api-no-leaked-timeout)                             | 1️⃣ 1️⃣ |      | Enforces that every `setTimeout` in a component or custom hook has a corresponding `clearTimeout`                                        |
 
 ## Naming Convention Rules
 

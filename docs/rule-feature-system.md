@@ -172,9 +172,3 @@ To move a rule from `EXP` to stable:
 4. Update the rule's `.mdx` documentation to remove experimental warnings.
 5. Run `pnpm run verify:configs` to ensure consistency.
 6. Update `CHANGELOG.md`.
-
-## Summary
-
-- `RULE_FEATURES` is **mandatory** for every rule.
-- Features are a **contract** between the rule implementation and the preset/configuration system.
-- When in doubt, mark a new rule as `EXP`. It is easier to graduate a rule than to retract a stable one.
