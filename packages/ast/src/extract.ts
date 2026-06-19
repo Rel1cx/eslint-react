@@ -1,5 +1,4 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { delimiterCase, toLowerCase } from "string-ts";
 import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
 
@@ -51,14 +50,4 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
     default:
       return getText(node);
   }
-}
-
-export function getHumanReadableKind(node: TSESTree.Node) {
-  if (node.type === AST.Literal) {
-    if ("regex" in node) return "regexp literal" as const;
-    // tsl-ignore dx/nullish
-    if (node.value === null) return "null literal" as const;
-    return `${typeof node.value} literal` as const;
-  }
-  return toLowerCase(delimiterCase(node.type, " "));
 }

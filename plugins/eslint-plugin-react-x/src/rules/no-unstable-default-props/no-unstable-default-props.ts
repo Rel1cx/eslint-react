@@ -8,7 +8,7 @@ import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
-import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR } from "./lib";
+import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR, getHumanReadableKind } from "./lib";
 
 export const RULE_NAME = "no-unstable-default-props";
 
@@ -127,7 +127,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           context.report({
             data: {
-              kind: Extract.getHumanReadableKind(right),
+              kind: getHumanReadableKind(right),
             },
             messageId: "default",
             node: right,
