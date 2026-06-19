@@ -1,37 +1,58 @@
 # Term-Based Rule Patterns
 
-This document describes how **term-based rules** are implemented and how they use fast-path text prechecks to skip files that cannot contain violations.
+This document describes how **term-based rules** are implemented across the
+plugins in this monorepo, and how they use cheap fast-path text prechecks to
+skip files that cannot contain violations.
+
+> Related reading: [`rule-implementation-patterns.md`](./rule-implementation-patterns.md)
+> covers the general anatomy of a rule file (`createRule`, `RULE_FEATURES`,
+> `merge`, collectors, testing). This document focuses specifically on the
+> _precheck_ and _visitor strategy_ dimensions of term-based rules.
 
 ---
 
 ## 1. What Is a Term-Based Rule?
 
-A term-based rule targets a specific React or Web API term that appears directly in the rule name. Examples:
+A term-based rule targets one or more specific React, React DOM, or Web API
+**terms** — usually an identifier such as a hook, a lifecycle method, a global
+constructor, or a JSX attribute. Because the term is a literal string that must
+appear verbatim in the source, the rule can prove a file is irrelevant with a
+single substring scan before doing any AST work.
 
-| Rule                       | Target Term                                        |
-| -------------------------- | -------------------------------------------------- |
-| `no-children-map`          | `Children.map` (detected via `core.isChildrenMap`) |
-| `no-class-component`       | `Component`                                        |
-| `no-clone-element`         | `cloneElement`                                     |
-| `no-component-will-mount`  | `componentWillMount`                               |
-| `no-create-ref`            | `createRef`                                        |
-| `no-forward-ref`           | `forwardRef`                                       |
-| `no-leaked-event-listener` | `addEventListener` + `useEffect`                   |
-| `no-leaked-fetch`          | `fetch` + `useEffect`                              |
-| `no-leaked-timeout`        | `setTimeout`                                       |
-| `no-use-context`           | `useContext`                                       |
-| `set-state-in-effect`      | `useEffect` (regex `/use\w*Effect/u`)              |
+| Rule                       | Target Term                                        | Plugin              |
+| -------------------------- | -------------------------------------------------- | ------------------- |
+| `no-children-map`          | `Children.map` (detected via `core.isChildrenMap`) | `react-x`           |
+| `no-class-component`       | `Component`                                        | `react-x`           |
+| `no-clone-element`         | `cloneElement`                                     | `react-x`           |
+| `no-component-will-mount`  | `componentWillMount`                               | `react-x`           |
+| `no-create-ref`            | `createRef`                                        | `react-x`           |
+| `no-forward-ref`           | `forwardRef`                                       | `react-x`           |
+| `no-leaked-event-listener` | `addEventListener` + `useEffect`                   | `react-web-api`     |
+| `no-leaked-fetch`          | `fetch` + `useEffect`                              | `react-web-api`     |
+| `no-leaked-timeout`        | `setTimeout`                                       | `react-web-api`     |
+| `no-use-context`           | `useContext`                                       | `react-x`           |
+| `no-find-dom-node`         | `findDOMNode`                                      | `react-dom`         |
+| `ref-name`                 | `useRef`                                           | `naming-convention` |
+| `set-state-in-effect`      | `useEffect` (regex `/use\w*Effect/u`)              | `react-x`           |
+
+> **Note:** A term-based precheck is a _necessary-but-not-sufficient_ filter.
+> Passing it only means the term's text exists somewhere in the file (including
+> comments, strings, or unrelated identifiers). The real semantic check still
+> happens in the AST visitors via helpers like `core.isForwardRefCall`.
 
 ---
 
 ## 2. Fast-Path Precheck Pattern
 
-Almost every term-based rule begins `create()` with a cheap string check against the entire file source. If the term is absent, the rule returns an empty visitor `{}` immediately, avoiding all AST traversal overhead.
+Almost every term-based rule begins `create()` with a cheap string check against
+the entire file source. If the term is absent, the rule returns an empty visitor
+`{}` immediately, avoiding all AST traversal, scope analysis, and collector
+overhead.
 
 ### 2.1 Single-term check (`String.prototype.includes`)
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `forwardRef` is not present in the file
   if (!context.sourceCode.text.includes("forwardRef")) {
     return {};
@@ -42,28 +63,37 @@ export function create(context: RuleContext<MessageID, []>) {
 
 **Rules using this:**
 
-- `no-access-state-in-setstate`
-- `no-class-component`
-- `no-clone-element`
-- `no-component-will-mount`
-- `no-create-ref`
-- `no-duplicate-key` (`key=`)
-- `no-forward-ref`
-- `no-missing-context-display-name`
-- `no-misused-capture-owner-stack`
-- `no-set-state-in-component-did-update`
-- `no-use-context`
-- `use-memo`
-- `no-leaked-timeout`
-- `no-leaked-interval`
-- `no-leaked-resize-observer`
-- `no-leaked-intersection-observer`
-- `no-leaked-fetch` (first check)
-- `no-leaked-event-listener` (first check)
+- `no-access-state-in-setstate` (`setState`)
+- `no-class-component` (`Component`)
+- `no-component-will-mount` (`componentWillMount`)
+- `no-component-will-receive-props` (`componentWillReceiveProps`)
+- `no-component-will-update` (`componentWillUpdate`)
+- `no-create-ref` (`createRef`)
+- `no-forward-ref` (`forwardRef`)
+- `no-missing-context-display-name` (`createContext`)
+- `no-misused-capture-owner-stack` (`captureOwnerStack`)
+- `no-set-state-in-component-did-mount` (`componentDidMount`)
+- `no-set-state-in-component-did-update` (`componentDidUpdate`)
+- `no-set-state-in-component-will-update` (`componentWillUpdate`)
+- `no-unsafe-component-will-mount` (`UNSAFE_componentWillMount`)
+- `no-unsafe-component-will-receive-props` (`UNSAFE_componentWillReceiveProps`)
+- `no-unsafe-component-will-update` (`UNSAFE_componentWillUpdate`)
+- `no-use-context` (`useContext`)
+- `use-memo` (`useMemo`)
+- `context-name` (`createContext`, `naming-convention`)
+- `id-name` (`useId`, `naming-convention`)
+- `ref-name` (`useRef`, `naming-convention`)
+- `no-leaked-timeout` (`setTimeout`)
+- `no-leaked-interval` (`setInterval`)
+- `no-leaked-resize-observer` (`ResizeObserver`)
+- `no-leaked-intersection-observer` (`IntersectionObserver`)
+- `no-leaked-fetch` (`fetch`, first check)
+- `no-leaked-event-listener` (`addEventListener`, first check)
 
 ### 2.2 Multi-term check
 
-When a rule cares about several independent terms, it checks them together:
+When a rule cares about several independent terms, any one of which could
+trigger it, the prechecks are OR-combined:
 
 ```ts
 // Skip if neither `memo` nor `forwardRef` is present
@@ -72,11 +102,18 @@ if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includ
 }
 ```
 
-**Rules using this:** `no-missing-component-display-name`
+```ts
+// react-rsc/function-definition
+const hasUseServer = context.sourceCode.text.includes("use server");
+const hasUseClient = context.sourceCode.text.includes("use client");
+if (!hasUseServer && !hasUseClient) return {};
+```
 
-### 2.3 Regex check
+**Rules using this:** `no-missing-component-display-name`, `function-definition` (`react-rsc`)
 
-When the term is a family of names (e.g. any effect hook), a regex is used:
+### 2.3 Regex check (term families)
+
+When the term is a _family_ of names (e.g. any effect hook), a regex is used:
 
 ```ts
 // Skip if no effect-like hook is present
@@ -89,36 +126,116 @@ if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 - `no-leaked-fetch` (second check)
 - `no-leaked-event-listener` (second check)
 
----
+### 2.4 Non-identifier substring check
 
-## 3. Implementation Patterns After the Fast Path
-
-Once the fast path is passed, rules fall into one of four visitor strategies.
-
-### 3.1 Immediate report on matching node
-
-The simplest pattern: visit the exact AST node type and report when a helper confirms the term.
+The target is not always a bare identifier. Some rules precheck on a syntactic
+fragment, a directive string, or an operator. These are still plain `includes()`
+calls, but the term is not a standalone identifier.
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
-  return merge({
+if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key
+if (!context.sourceCode.text.includes("&&")) return {}; // no-leaked-conditional-rendering
+if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
+```
+
+**Rules using this:**
+
+- `no-duplicate-key` (`key=`)
+- `no-leaked-conditional-rendering` (`&&`)
+- `error-boundaries` (`try`)
+
+---
+
+## 3. Secondary Fast Path: Version Gating
+
+Several term-based rules are only relevant on a given React version. After the
+text precheck, these rules read the configured version from settings and bail
+out with `{}` if the file's React version is too old. This is a second cheap
+exit that runs before any visitors are registered.
+
+```ts
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // 1. Text precheck
+  if (!context.sourceCode.text.includes("forwardRef")) return {};
+  // 2. Version precheck
+  const { version } = getSettingsFromContext(context);
+  if (compare(version, "19.0.0", "<")) return {};
+  // ...full AST visitors
+}
+```
+
+| Rule                  | Term           | Version gate |
+| --------------------- | -------------- | ------------ |
+| `no-forward-ref`      | `forwardRef`   | `>= 19.0.0`  |
+| `no-use-context`      | `useContext`   | `>= 19.0.0`  |
+| `no-context-provider` | `Provider`     | `>= 19.0.0`  |
+| `no-use-form-state`   | `useFormState` | `>= 19.0.0`  |
+| `no-hydrate`          | `hydrate`      | `>= 18.0.0`  |
+| `no-render`           | `render`       | `>= 18.0.0`  |
+
+> Order matters: do the text precheck **first** (it's the cheapest), then the
+> version check, then collector/scope initialization. See §5.
+
+---
+
+## 4. Implementation Patterns After the Fast Path
+
+Once the prechecks pass, rules fall into one of several visitor strategies.
+
+### 4.1 Immediate report on matching node
+
+The simplest pattern: visit the exact AST node type and report when a helper
+confirms the term.
+
+```ts
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
     CallExpression(node) {
       if (core.isCloneElementCall(context, node)) {
         context.report({ messageId: "default", node });
       }
     },
-  });
+  };
 }
 ```
 
-**Examples:** `no-clone-element`, `no-create-ref`, `no-children-map`
+**`CallExpression` examples:** `no-clone-element`, `no-forward-ref`,
+`no-use-context`, `no-misused-capture-owner-stack`, `no-find-dom-node`,
+`no-flush-sync`, `context-name`, `id-name`, `ref-name`
 
-### 3.2 Collector + `Program:exit`
+**`MemberExpression` examples:** `no-children-map`
 
-Rules that need to inspect a whole component (or class) first collect data via a collector from `@eslint-react/core`, then validate in bulk at `Program:exit`.
+**`JSXElement` examples:** `no-dangerously-set-innerhtml`,
+`no-dangerously-set-innerhtml-with-children`, `no-context-provider`
+
+### 4.2 Immediate report with ancestor lookup
+
+A variant of §4.1: visit the matching node, then walk up to confirm it sits
+inside a relevant enclosing context using `Traverse.findParent`.
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("componentDidMount")) return {};
+  return {
+    CallExpression(node) {
+      if (!core.isThisSetStateCall(node)) return;
+      const enclosingClassNode = Traverse.findParent(node, core.isClassComponent);
+      // ...confirm the call is inside `componentDidMount`, then report
+    },
+  };
+}
+```
+
+**Examples:** `no-set-state-in-component-did-mount`,
+`no-set-state-in-component-did-update`, `no-set-state-in-component-will-update`
+
+### 4.3 Collector + `Program:exit`
+
+Rules that need to inspect a whole component (or class) first collect data via a
+collector from `@eslint-react/core`, then validate in bulk at `Program:exit`.
+
+```ts
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("Component")) return {};
 
   const { api, visitor } = core.getClassComponentCollector(context);
@@ -133,21 +250,47 @@ export function create(context: RuleContext<MessageID, []>) {
 }
 ```
 
-**Examples:** `no-class-component`, `no-component-will-mount`, `no-forward-ref`
+**Class-component collector examples:** `no-class-component`,
+`no-component-will-mount`, `no-component-will-receive-props`,
+`no-component-will-update`, `no-unsafe-component-will-mount`,
+`no-unsafe-component-will-receive-props`, `no-unsafe-component-will-update`
 
-### 3.3 Stack-based tracking
+**Function-component collector examples:** `no-missing-component-display-name`
 
-When a violation can only happen inside a nested context (e.g. inside a `setState` call inside a class component), the rule maintains stacks.
+**Combined component + hook collector examples:** `no-create-ref` (uses both
+`getFunctionComponentCollector` and `getHookCollector`, collects `createRef`
+calls, then matches them against collected functions on exit)
+
+### 4.4 Ad-hoc collect + `Program:exit`
+
+Some rules do not use a `core` collector but maintain their own arrays/maps,
+collecting nodes during traversal and matching them on exit.
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  if (!context.sourceCode.text.includes("createContext")) return {};
+  const createCalls: TSESTree.CallExpression[] = [];
+  const displayNameAssignments: TSESTree.AssignmentExpression[] = [];
+  // ...collect in visitors, match in Program:exit
+}
+```
+
+**Examples:** `no-missing-context-display-name`, `no-duplicate-key`
+
+### 4.5 Stack-based tracking
+
+When a violation can only happen inside a nested context (e.g. inside a
+`setState` call inside a class component), the rule maintains stacks.
+
+```ts
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setState")) return {};
 
   const classStack: [node: ClassNode, isComponent: boolean][] = [];
   const methodStack: [node: MethodNode, isStatic: boolean][] = [];
   const setStateStack: [node: CallExpression, hasThisState: boolean][] = [];
 
-  return merge({
+  return {
     CallExpression(node) {
       if (core.isThisSetStateCall(node)) {
         setStateStack.push([node, false]);
@@ -171,38 +314,44 @@ export function create(context: RuleContext<MessageID, []>) {
         context.report({ messageId: "default", node });
       }
     },
-  });
+  };
 }
 ```
 
-**Examples:** `no-access-state-in-setstate`
+**Examples:** `no-access-state-in-setstate`, `set-state-in-effect`
 
-### 3.4 Web-API collect-and-match
+### 4.6 Web-API collect-and-match
 
-`react-web-api` rules collect add/set calls and remove/clear calls, then match them in `Program:exit`.
+`react-web-api` rules track a function stack to know the component phase
+(`setup` vs `cleanup`), collect add/set/new calls and their matching
+remove/clear calls, then pair them up in `Program:exit`. (See
+[`rule-implementation-patterns.md` §5](./rule-implementation-patterns.md)
+for the full two-phase pattern.)
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setTimeout")) return {};
 
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const sEntries: TimerEntry[] = [];
   const rEntries: TimerEntry[] = [];
 
-  return merge({
+  return {
     [":function"](node) {
       fEntries.push({ kind: getPhaseKindOfFunction(node) ?? "other", node });
     },
-    [":function:exit"]() { fEntries.pop(); },
+    [":function:exit"]() {
+      fEntries.pop();
+    },
     CallExpression(node) {
       const fEntry = fEntries.at(-1);
       if (!ComponentPhaseRelevance.has(fEntry?.kind)) return;
       switch (getCallKind(node)) {
         case "setTimeout":
-          sEntries.push({ ... });
+          sEntries.push({/* ... */});
           break;
         case "clearTimeout":
-          rEntries.push({ ... });
+          rEntries.push({/* ... */});
           break;
       }
     },
@@ -212,37 +361,98 @@ export function create(context: RuleContext<MessageID, []>) {
         context.report({ messageId: "expectedClearTimeoutInCleanup", node: sEntry.node });
       }
     },
-  });
+  };
 }
 ```
 
-**Examples:** `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-event-listener`, `no-leaked-fetch`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`
+**Examples:** `no-leaked-timeout`, `no-leaked-interval`,
+`no-leaked-event-listener`, `no-leaked-fetch`, `no-leaked-resize-observer`,
+`no-leaked-intersection-observer`
+
+### 4.7 Import-tracking
+
+Some `react-dom` rules track local import names for the React DOM API, then
+match calls against those names (rather than relying solely on the call
+helper). They typically also carry a version gate (§3).
+
+**Examples:** `no-hydrate`, `no-render`, `no-use-form-state`
 
 ---
 
-## 4. Guidelines for Adding Fast-Path Checks
+## 5. Guidelines for Adding Fast-Path Checks
 
-1. **Always precheck when the target term is rare.** If a rule only triggers on `forwardRef`, skipping files without that string provides significant performance benefits.
-2. **Use `includes()` for literal terms.** It is the fastest JavaScript string search.
-3. **Use regex only for families** (e.g. `/use\w*Effect/u`). Keep the regex simple and anchored when possible.
-4. **Combine multiple checks when a rule needs multiple concepts.** For example, `no-leaked-fetch` checks both `fetch` and `useEffect` because a fetch outside an effect is not the rule's concern.
-5. **Place the precheck as the very first statement in `create()`**, before any collector initialization or scope analysis.
-6. **Do not precheck when the rule is structural.** Rules like `no-missing-key` or `no-nested-component-definitions` apply to almost every React file, so a string precheck would not help.
+1. **Always precheck when the target term is rare.** If a rule only triggers on
+   `forwardRef`, skipping files without that string provides significant
+   performance benefits across a large codebase.
+2. **Use `includes()` for literal terms.** It is the fastest JavaScript string
+   search and should be the default.
+3. **Hoist the term into a constant when it is reused** for the per-node
+   comparison. This prevents the precheck and the check from drifting apart.
+4. **Use a regex only for families** (e.g. `/use\w*Effect/u`). Keep the regex
+   simple and prefer `\w*` over broad wildcards.
+5. **OR-combine prechecks when any one of several terms can trigger the rule**
+   (§2.2). AND-combine them only when _all_ concepts must co-occur — for
+   example, `no-leaked-fetch` requires both `fetch` and an effect hook, because
+   a fetch outside an effect is not the rule's concern.
+6. **Place the text precheck as the very first statement in `create()`**, before
+   reading settings, initializing collectors, or doing scope analysis. Order
+   multiple exits cheapest-first: text precheck → version gate → setup.
+7. **Do not precheck on overly common substrings.** A term like `render` or
+   `&&` appears in almost every file, so the precheck saves little; rely on it
+   only when paired with a meaningful visitor strategy, and prefer a more
+   specific fragment (`key=` rather than `key`) when possible.
+8. **Do not precheck when the rule is structural.** Rules like `no-missing-key`
+   or `no-nested-component-definitions` apply to nearly every React file, so a
+   string precheck would never short-circuit and only adds noise.
+9. **Remember the precheck is not the semantic check.** Always confirm the match
+   in the AST with the appropriate `core.*` helper; a substring hit can come
+   from comments, strings, or unrelated identifiers.
 
 ---
 
-## 5. Summary Table
+## 6. Summary Table
 
-| Rule                          | Precheck                                           | Visitor Strategy                  |
-| ----------------------------- | -------------------------------------------------- | --------------------------------- |
-| `no-access-state-in-setstate` | `includes("setState")`                             | Stack-based                       |
-| `no-class-component`          | `includes("Component")`                            | Collector + `Program:exit`        |
-| `no-clone-element`            | _none_                                             | `CallExpression` immediate        |
-| `no-component-will-mount`     | `includes("componentWillMount")`                   | Collector + `Program:exit`        |
-| `no-create-ref`               | _none_                                             | `CallExpression` immediate        |
-| `no-forward-ref`              | `includes("forwardRef")`                           | Collector + `Program:exit`        |
-| `no-leaked-event-listener`    | `includes("addEventListener")` + `/use\w*Effect/u` | Collect-and-match                 |
-| `no-leaked-fetch`             | `includes("fetch")` + `/use\w*Effect/u`            | Collect-and-match                 |
-| `no-leaked-timeout`           | `includes("setTimeout")`                           | Collect-and-match                 |
-| `no-use-context`              | `includes("useContext")`                           | `CallExpression` immediate        |
-| `set-state-in-effect`         | `/use\w*Effect/u`                                  | Complex tracking + `Program:exit` |
+| Rule                                         | Plugin              | Precheck                                             | Extra gate  | Visitor strategy                   |
+| -------------------------------------------- | ------------------- | ---------------------------------------------------- | ----------- | ---------------------------------- |
+| `no-access-state-in-setstate`                | `react-x`           | `includes("setState")`                               | —           | Stack-based                        |
+| `no-children-map`                            | `react-x`           | _none_                                               | —           | `MemberExpression` immediate       |
+| `no-class-component`                         | `react-x`           | `includes("Component")`                              | —           | Collector + `Program:exit`         |
+| `no-clone-element`                           | `react-x`           | _none_                                               | —           | `CallExpression` immediate         |
+| `no-component-will-mount`                    | `react-x`           | `includes("componentWillMount")`                     | —           | Collector + `Program:exit`         |
+| `no-component-will-receive-props`            | `react-x`           | `includes("componentWillReceiveProps")`              | —           | Collector + `Program:exit`         |
+| `no-component-will-update`                   | `react-x`           | `includes("componentWillUpdate")`                    | —           | Collector + `Program:exit`         |
+| `no-context-provider`                        | `react-x`           | `includes("Provider")`                               | `>= 19.0.0` | `JSXElement` immediate             |
+| `no-create-ref`                              | `react-x`           | `includes("createRef")`                              | —           | Collector + `Program:exit`         |
+| `no-duplicate-key`                           | `react-x`           | `includes("key=")`                                   | —           | Ad-hoc collect + `Program:exit`    |
+| `no-forward-ref`                             | `react-x`           | `includes("forwardRef")`                             | `>= 19.0.0` | `CallExpression` immediate         |
+| `no-leaked-conditional-rendering`            | `react-x`           | `includes("&&")`                                     | —           | Type-aware traversal               |
+| `no-missing-component-display-name`          | `react-x`           | `includes("memo") \|\| includes("forwardRef")`       | —           | Collector + `Program:exit`         |
+| `no-missing-context-display-name`            | `react-x`           | `includes("createContext")`                          | —           | Ad-hoc collect + `Program:exit`    |
+| `no-misused-capture-owner-stack`             | `react-x`           | `includes("captureOwnerStack")`                      | —           | `CallExpression` immediate         |
+| `no-set-state-in-component-did-mount`        | `react-x`           | `includes("componentDidMount")`                      | —           | `CallExpression` + ancestor lookup |
+| `no-set-state-in-component-did-update`       | `react-x`           | `includes("componentDidUpdate")`                     | —           | `CallExpression` + ancestor lookup |
+| `no-set-state-in-component-will-update`      | `react-x`           | `includes("componentWillUpdate")`                    | —           | `CallExpression` + ancestor lookup |
+| `no-unsafe-component-will-mount`             | `react-x`           | `includes("UNSAFE_componentWillMount")`              | —           | Collector + `Program:exit`         |
+| `no-unsafe-component-will-receive-props`     | `react-x`           | `includes("UNSAFE_componentWillReceiveProps")`       | —           | Collector + `Program:exit`         |
+| `no-unsafe-component-will-update`            | `react-x`           | `includes("UNSAFE_componentWillUpdate")`             | —           | Collector + `Program:exit`         |
+| `no-use-context`                             | `react-x`           | `includes("useContext")`                             | `>= 19.0.0` | `CallExpression` immediate         |
+| `use-memo`                                   | `react-x`           | `includes("useMemo")`                                | —           | Traversal + validation             |
+| `set-state-in-effect`                        | `react-x`           | `/use\w*Effect/u`                                    | —           | Stack-based + `Program:exit`       |
+| `error-boundaries`                           | `react-x`           | `includes("try")`                                    | —           | Collector + `Program:exit`         |
+| `no-leaked-event-listener`                   | `react-web-api`     | `includes("addEventListener")` + `/use\w*Effect/u`   | —           | Web-API collect-and-match          |
+| `no-leaked-fetch`                            | `react-web-api`     | `includes("fetch")` + `/use\w*Effect/u`              | —           | Web-API collect-and-match          |
+| `no-leaked-timeout`                          | `react-web-api`     | `includes("setTimeout")`                             | —           | Web-API collect-and-match          |
+| `no-leaked-interval`                         | `react-web-api`     | `includes("setInterval")`                            | —           | Web-API collect-and-match          |
+| `no-leaked-resize-observer`                  | `react-web-api`     | `includes("ResizeObserver")`                         | —           | Web-API collect-and-match          |
+| `no-leaked-intersection-observer`            | `react-web-api`     | `includes("IntersectionObserver")`                   | —           | Web-API collect-and-match          |
+| `no-dangerously-set-innerhtml`               | `react-dom`         | `includes(DSIH)`                                     | —           | `JSXElement` immediate             |
+| `no-dangerously-set-innerhtml-with-children` | `react-dom`         | `includes(DSIH)`                                     | —           | `JSXElement` immediate             |
+| `no-find-dom-node`                           | `react-dom`         | `includes(findDOMNode)`                              | —           | `CallExpression` immediate         |
+| `no-flush-sync`                              | `react-dom`         | `includes(flushSync)`                                | —           | `CallExpression` immediate         |
+| `no-hydrate`                                 | `react-dom`         | `includes(hydrate)`                                  | `>= 18.0.0` | Import-tracking                    |
+| `no-render`                                  | `react-dom`         | `includes("render")`                                 | `>= 18.0.0` | Import-tracking                    |
+| `no-use-form-state`                          | `react-dom`         | `includes("useFormState")`                           | `>= 19.0.0` | Import-tracking                    |
+| `context-name`                               | `naming-convention` | `includes("createContext")`                          | —           | `CallExpression` immediate         |
+| `id-name`                                    | `naming-convention` | `includes("useId")`                                  | —           | `CallExpression` immediate         |
+| `ref-name`                                   | `naming-convention` | `includes("useRef")`                                 | —           | `CallExpression` immediate         |
+| `function-definition`                        | `react-rsc`         | `includes("use server") \|\| includes("use client")` | —           | Directive-aware traversal          |

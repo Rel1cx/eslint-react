@@ -15,8 +15,8 @@ src/rules/<rule-name>/
 └── lib.ts               # Optional helpers for complex rules
 ```
 
-- `react-x` has ~53 rules.
-- `react-web-api` has 5 rules.
+- `react-x` has 53 rules.
+- `react-web-api` has 6 rules (all `no-leaked-*`).
 
 ---
 
@@ -28,12 +28,14 @@ Both plugins export a thin wrapper around `ESLintUtils.RuleCreator`:
 // src/utils/create-rule.ts
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const createRule = ESLintUtils.RuleCreator(
-  (name) => `https://eslint-react.xyz/docs/rules/${name}`,
-);
+function getDocsUrl(ruleName: string) {
+  return `https://eslint-react.xyz/docs/rules/${ruleName}`;
+}
+
+export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 ```
 
-`react-web-api` prefixes the URL with `web-api-`.
+`react-web-api` prefixes the rule name with `web-api-` in its `getDocsUrl` (e.g. `.../docs/rules/web-api-${ruleName}`).
 
 ---
 
@@ -58,17 +60,18 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>) {
-  return merge({
+export function create(context: RuleContext<MessageID, []>): RuleListener {
+  return {
     // AST visitors
-  });
+  };
 }
 ```
 
 ### Conventions
 
 - Always export `RULE_NAME`, `RULE_FEATURES`, and `MessageID`.
-- Use `merge()` to combine visitor objects. This is required when merging with collectors from `@eslint-react/core`.
+- A standalone rule returns a plain visitor object (`return { ... }`). Use `merge()` only to combine multiple visitor objects — most commonly a collector's `visitor` from `@eslint-react/core` with the rule's own visitors.
+- Annotate `create` with the `RuleListener` return type.
 - Prefer exporting a named `create` function over an inline arrow function.
 
 ---
@@ -90,22 +93,17 @@ Rules rely heavily on internal monorepo packages:
 
 ## 5. `react-web-api` Pattern: Two-Phase Collection
 
-All `react-web-api` rules follow the same **collect-and-match** pattern:
-
-1. **Identify phase** — Use `ComponentPhaseKind` (`"setup"` / `"cleanup"`) to know whether a function is a `useEffect` callback or its cleanup.
-2. **Track function stack** — Use `:function` / `:function:exit` visitors to maintain a stack of enclosing functions.
-3. **Collect calls** — In `CallExpression`, detect `addEventListener` / `removeEventListener`, `setTimeout` / `clearTimeout`, etc., and push entries into arrays.
-4. **Validate on exit** — In `Program:exit`, iterate over collected entries and verify that every "add" has a matching "remove". Report unmatched entries with `context.report()`.
+All `react-web-api` rules follow the same **collect-and-match** pattern: a `:function` / `:function:exit` visitor pair keeps a stack of enclosing functions, each tagged with its lifecycle phase (`ComponentPhaseKind`: `"setup"` / `"cleanup"`), so that as traversal visits `CallExpression` nodes it can record "acquire" and "release" operations (e.g. `addEventListener` / `removeEventListener`, `setTimeout` / `clearTimeout`) into separate arrays annotated with that context; then at `Program:exit` it pairs each acquire against a compatible release and `context.report()`s the ones left unmatched — a resource acquired during setup but never released during cleanup.
 
 ### Example structure
 
 ```ts
-export function create(context: RuleContext<MessageID, []>) {
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const aEntries: AddEntry[] = [];
   const rEntries: RemoveEntry[] = [];
 
-  return merge({
+  return {
     [":function"](node: TSESTreeFunction) {
       fEntries.push({ kind: getPhaseKindOfFunction(node) ?? "other", node });
     },
@@ -118,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>) {
     "Program:exit"() {
       // Match aEntries against rEntries and report mismatches
     },
-  });
+  };
 }
 ```
 
@@ -143,8 +141,8 @@ Maintain local flags across visitors.
 
 **Example:** `no-missing-key`
 
-- Tracks `inChildrenToArray` with a boolean.
-- Resets it in `"CallExpression:exit"`.
+- Tracks how deeply nested it is inside `Children.toArray()` calls with a `childrenToArrayDepth` counter (those calls assign keys automatically, so checks are skipped while the depth is greater than `0`).
+- Increments the counter in `CallExpression` and decrements it in `"CallExpression:exit"`.
 
 ### 6.3 Component-Collector Rules
 
@@ -219,7 +217,9 @@ Both plugins share the same `tsconfig.json` aliases:
 
 | Alias | Target                   |
 | ----- | ------------------------ |
+| `@`   | `./src`                  |
 | `@/*` | `./src/*`                |
+| `#`   | `../..` (project root)   |
 | `#/*` | `../../*` (project root) |
 
-Use `@/` for internal plugin imports and `#/` for shared test utilities.
+Use `@/` for internal plugin imports and `#/` for shared test utilities (e.g. `import { ruleTester } from "#/test"`).
