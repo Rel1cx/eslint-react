@@ -21,15 +21,15 @@
         },
         {
           "message": "Avoid 'game-changer' or 'best-in-class' style marketing language",
-          "pattern": "/\\b(game-changer|best-in-class|industry-leading|world-class|cutting-edge|state-of-the-art|revolutionary|groundbreaking|next-gen(?:eration)?|unparalleled|silver-bullet|holy-grail)\\b/gi"
+          "pattern": "/\\b(cutting-edge|state-of-the-art|game-changer|world-class|industry-leading|revolutionary|groundbreaking|best-in-class|next-gen(?:eration)?|unparalleled|silver-bullet|holy-grail)\\b/gi"
         },
         {
           "message": "Avoid war metaphors like 'crushing', 'battlefield', or 'massive win' in documentation",
-          "pattern": "/\\b(battle|crushing it|crushing|battlefield|huge win|massive win|dominating|dominate|destroying|destroy|killer|crush it|crush|annihilate|obliterate|combat|weaponize|arsenal|at war|fight(?:ing)? against|go to war|bulletproof)\\b/gi"
+          "pattern": "/\\b(killer|crushing it|crushing|crush it|crush|destroying|destroy|dominating|dominate|combat|battlefield|battle|fight(?:ing)? against|bulletproof|arsenal|huge win|massive win|at war|go to war|weaponize|annihilate|obliterate)\\b/gi"
         },
         {
           "message": "Avoid condescending or exclusionary language (can alienate readers)",
-          "pattern": "/\\b(simply|basically|obviously|absolutely|definitely)\\b/gi"
+          "pattern": "/\\b(simply|obviously|absolutely|definitely|basically)\\b/gi"
         }
       ]
     }
