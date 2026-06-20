@@ -12,6 +12,9 @@
   "json": {
     "indentWidth": 2
   },
+  "yaml": {
+    "indentWidth": 2
+  },
   "markdown": {},
   "excludes": [
     ".pkgs/**/*.d.ts",
