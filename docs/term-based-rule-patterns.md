@@ -22,7 +22,12 @@ single substring scan before doing any AST work.
 | Rule                       | Target Term                                        | Plugin              |
 | -------------------------- | -------------------------------------------------- | ------------------- |
 | `no-children-map`          | `Children.map` (detected via `core.isChildrenMap`) | `react-x`           |
+| `no-children-count`        | `Children.count`                                   | `react-x`           |
+| `no-children-for-each`     | `Children.forEach`                                 | `react-x`           |
+| `no-children-only`         | `Children.only`                                    | `react-x`           |
+| `no-children-to-array`     | `Children.toArray`                                 | `react-x`           |
 | `no-class-component`       | `Component`                                        | `react-x`           |
+| `no-direct-mutation-state` | `this.state`                                       | `react-x`           |
 | `no-clone-element`         | `cloneElement`                                     | `react-x`           |
 | `no-component-will-mount`  | `componentWillMount`                               | `react-x`           |
 | `no-create-ref`            | `createRef`                                        | `react-x`           |
@@ -89,6 +94,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 - `no-leaked-intersection-observer` (`IntersectionObserver`)
 - `no-leaked-fetch` (`fetch`, first check)
 - `no-leaked-event-listener` (`addEventListener`, first check)
+
+> **Rules that target these terms but currently omit the text precheck:**
+> `no-children-count` (`Children.count`), `no-children-for-each` (`Children.forEach`),
+> `no-children-only` (`Children.only`), `no-children-to-array` (`Children.toArray`),
+> and `no-direct-mutation-state` (`this.state`). They still use the visitor
+> strategies described later, but they do not currently short-circuit on the term
+> text.
 
 ### 2.2 Multi-term check
 
@@ -174,7 +186,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 | `no-render`           | `render`       | `>= 18.0.0`  |
 
 > Order matters: do the text precheck **first** (it's the cheapest), then the
-> version check, then collector/scope initialization. See §5.
+> version check, then collector/scope initialization.
+
+### 3.1 Behavioral version gates
+
+A few rules do not use the version comparison as a bail-out. Instead, they change
+what they consider a violation based on the configured React version:
+
+| Rule                              | Version-dependent behavior                                                                                                                                             |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `no-leaked-conditional-rendering` | React 18+ does not render empty strings, so `"string"` and `"falsy string"` are added to the safe `allowedTypeVariants`. Before React 18, those variants are excluded. |
+| `no-unstable-context-value`       | React 18 and below only check `.Provider` elements. React 19 also checks bare `Context` elements because `Context.Provider` is deprecated.                             |
+
+These gates still appear after the cheap text precheck, but they modify the rule's
+logic rather than returning an empty visitor.
 
 ---
 
@@ -201,9 +226,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 **`CallExpression` examples:** `no-clone-element`, `no-forward-ref`,
 `no-use-context`, `no-misused-capture-owner-stack`, `no-find-dom-node`,
-`no-flush-sync`, `context-name`, `id-name`, `ref-name`
+`no-flush-sync`, `context-name`, `id-name`, `ref-name`, `use-memo` (with
+additional nested validation of the memoized value)
 
-**`MemberExpression` examples:** `no-children-map`
+**`MemberExpression` examples:** `no-children-map`, `no-children-count`,
+`no-children-for-each`, `no-children-only`, `no-children-to-array`
 
 **`JSXElement` examples:** `no-dangerously-set-innerhtml`,
 `no-dangerously-set-innerhtml-with-children`, `no-context-provider`
@@ -259,7 +286,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 **Combined component + hook collector examples:** `no-create-ref` (uses both
 `getFunctionComponentCollector` and `getHookCollector`, collects `createRef`
-calls, then matches them against collected functions on exit)
+calls, then matches them against collected functions on exit), `error-boundaries`
+(uses both collectors to find components and hooks that contain try/catch blocks)
 
 ### 4.4 Ad-hoc collect + `Program:exit`
 
@@ -318,7 +346,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 ```
 
-**Examples:** `no-access-state-in-setstate`, `set-state-in-effect`
+**Examples:** `no-access-state-in-setstate`
+
+A related but distinct pattern is the **function-phase stack**: rules like
+`set-state-in-effect` track the current function's role (e.g. `setup` vs `cleanup`
+vs `deferred`) with a single stack, then collect and match calls in
+`Program:exit`. The class/method/setState stacks above are specific to class
+components; the function-phase stack is the hook-era equivalent.
 
 ### 4.6 Web-API collect-and-match
 
@@ -379,80 +413,54 @@ helper). They typically also carry a version gate (§3).
 
 ---
 
-## 5. Guidelines for Adding Fast-Path Checks
+## 5. Rule Precheck and Visitor Strategy Reference
 
-1. **Always precheck when the target term is rare.** If a rule only triggers on
-   `forwardRef`, skipping files without that string provides significant
-   performance benefits across a large codebase.
-2. **Use `includes()` for literal terms.** It is the fastest JavaScript string
-   search and should be the default.
-3. **Hoist the term into a constant when it is reused** for the per-node
-   comparison. This prevents the precheck and the check from drifting apart.
-4. **Use a regex only for families** (e.g. `/use\w*Effect/u`). Keep the regex
-   simple and prefer `\w*` over broad wildcards.
-5. **OR-combine prechecks when any one of several terms can trigger the rule**
-   (§2.2). AND-combine them only when _all_ concepts must co-occur — for
-   example, `no-leaked-fetch` requires both `fetch` and an effect hook, because
-   a fetch outside an effect is not the rule's concern.
-6. **Place the text precheck as the very first statement in `create()`**, before
-   reading settings, initializing collectors, or doing scope analysis. Order
-   multiple exits cheapest-first: text precheck → version gate → setup.
-7. **Do not precheck on overly common substrings.** A term like `render` or
-   `&&` appears in almost every file, so the precheck saves little; rely on it
-   only when paired with a meaningful visitor strategy, and prefer a more
-   specific fragment (`key=` rather than `key`) when possible.
-8. **Do not precheck when the rule is structural.** Rules like `no-missing-key`
-   or `no-nested-component-definitions` apply to nearly every React file, so a
-   string precheck would never short-circuit and only adds noise.
-9. **Remember the precheck is not the semantic check.** Always confirm the match
-   in the AST with the appropriate `core.*` helper; a substring hit can come
-   from comments, strings, or unrelated identifiers.
-
----
-
-## 6. Summary Table
-
-| Rule                                         | Plugin              | Precheck                                             | Extra gate  | Visitor strategy                   |
-| -------------------------------------------- | ------------------- | ---------------------------------------------------- | ----------- | ---------------------------------- |
-| `no-access-state-in-setstate`                | `react-x`           | `includes("setState")`                               | —           | Stack-based                        |
-| `no-children-map`                            | `react-x`           | _none_                                               | —           | `MemberExpression` immediate       |
-| `no-class-component`                         | `react-x`           | `includes("Component")`                              | —           | Collector + `Program:exit`         |
-| `no-clone-element`                           | `react-x`           | _none_                                               | —           | `CallExpression` immediate         |
-| `no-component-will-mount`                    | `react-x`           | `includes("componentWillMount")`                     | —           | Collector + `Program:exit`         |
-| `no-component-will-receive-props`            | `react-x`           | `includes("componentWillReceiveProps")`              | —           | Collector + `Program:exit`         |
-| `no-component-will-update`                   | `react-x`           | `includes("componentWillUpdate")`                    | —           | Collector + `Program:exit`         |
-| `no-context-provider`                        | `react-x`           | `includes("Provider")`                               | `>= 19.0.0` | `JSXElement` immediate             |
-| `no-create-ref`                              | `react-x`           | `includes("createRef")`                              | —           | Collector + `Program:exit`         |
-| `no-duplicate-key`                           | `react-x`           | `includes("key=")`                                   | —           | Ad-hoc collect + `Program:exit`    |
-| `no-forward-ref`                             | `react-x`           | `includes("forwardRef")`                             | `>= 19.0.0` | `CallExpression` immediate         |
-| `no-leaked-conditional-rendering`            | `react-x`           | `includes("&&")`                                     | —           | Type-aware traversal               |
-| `no-missing-component-display-name`          | `react-x`           | `includes("memo") \|\| includes("forwardRef")`       | —           | Collector + `Program:exit`         |
-| `no-missing-context-display-name`            | `react-x`           | `includes("createContext")`                          | —           | Ad-hoc collect + `Program:exit`    |
-| `no-misused-capture-owner-stack`             | `react-x`           | `includes("captureOwnerStack")`                      | —           | `CallExpression` immediate         |
-| `no-set-state-in-component-did-mount`        | `react-x`           | `includes("componentDidMount")`                      | —           | `CallExpression` + ancestor lookup |
-| `no-set-state-in-component-did-update`       | `react-x`           | `includes("componentDidUpdate")`                     | —           | `CallExpression` + ancestor lookup |
-| `no-set-state-in-component-will-update`      | `react-x`           | `includes("componentWillUpdate")`                    | —           | `CallExpression` + ancestor lookup |
-| `no-unsafe-component-will-mount`             | `react-x`           | `includes("UNSAFE_componentWillMount")`              | —           | Collector + `Program:exit`         |
-| `no-unsafe-component-will-receive-props`     | `react-x`           | `includes("UNSAFE_componentWillReceiveProps")`       | —           | Collector + `Program:exit`         |
-| `no-unsafe-component-will-update`            | `react-x`           | `includes("UNSAFE_componentWillUpdate")`             | —           | Collector + `Program:exit`         |
-| `no-use-context`                             | `react-x`           | `includes("useContext")`                             | `>= 19.0.0` | `CallExpression` immediate         |
-| `use-memo`                                   | `react-x`           | `includes("useMemo")`                                | —           | Traversal + validation             |
-| `set-state-in-effect`                        | `react-x`           | `/use\w*Effect/u`                                    | —           | Stack-based + `Program:exit`       |
-| `error-boundaries`                           | `react-x`           | `includes("try")`                                    | —           | Collector + `Program:exit`         |
-| `no-leaked-event-listener`                   | `react-web-api`     | `includes("addEventListener")` + `/use\w*Effect/u`   | —           | Web-API collect-and-match          |
-| `no-leaked-fetch`                            | `react-web-api`     | `includes("fetch")` + `/use\w*Effect/u`              | —           | Web-API collect-and-match          |
-| `no-leaked-timeout`                          | `react-web-api`     | `includes("setTimeout")`                             | —           | Web-API collect-and-match          |
-| `no-leaked-interval`                         | `react-web-api`     | `includes("setInterval")`                            | —           | Web-API collect-and-match          |
-| `no-leaked-resize-observer`                  | `react-web-api`     | `includes("ResizeObserver")`                         | —           | Web-API collect-and-match          |
-| `no-leaked-intersection-observer`            | `react-web-api`     | `includes("IntersectionObserver")`                   | —           | Web-API collect-and-match          |
-| `no-dangerously-set-innerhtml`               | `react-dom`         | `includes(DSIH)`                                     | —           | `JSXElement` immediate             |
-| `no-dangerously-set-innerhtml-with-children` | `react-dom`         | `includes(DSIH)`                                     | —           | `JSXElement` immediate             |
-| `no-find-dom-node`                           | `react-dom`         | `includes(findDOMNode)`                              | —           | `CallExpression` immediate         |
-| `no-flush-sync`                              | `react-dom`         | `includes(flushSync)`                                | —           | `CallExpression` immediate         |
-| `no-hydrate`                                 | `react-dom`         | `includes(hydrate)`                                  | `>= 18.0.0` | Import-tracking                    |
-| `no-render`                                  | `react-dom`         | `includes("render")`                                 | `>= 18.0.0` | Import-tracking                    |
-| `no-use-form-state`                          | `react-dom`         | `includes("useFormState")`                           | `>= 19.0.0` | Import-tracking                    |
-| `context-name`                               | `naming-convention` | `includes("createContext")`                          | —           | `CallExpression` immediate         |
-| `id-name`                                    | `naming-convention` | `includes("useId")`                                  | —           | `CallExpression` immediate         |
-| `ref-name`                                   | `naming-convention` | `includes("useRef")`                                 | —           | `CallExpression` immediate         |
-| `function-definition`                        | `react-rsc`         | `includes("use server") \|\| includes("use client")` | —           | Directive-aware traversal          |
+| Rule                                         | Plugin              | Precheck                                             | Extra gate  | Visitor strategy                               |
+| -------------------------------------------- | ------------------- | ---------------------------------------------------- | ----------- | ---------------------------------------------- |
+| `no-access-state-in-setstate`                | `react-x`           | `includes("setState")`                               | —           | Stack-based                                    |
+| `no-children-map`                            | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
+| `no-children-count`                          | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
+| `no-children-for-each`                       | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
+| `no-children-only`                           | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
+| `no-children-to-array`                       | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
+| `no-class-component`                         | `react-x`           | `includes("Component")`                              | —           | Collector + `Program:exit`                     |
+| `no-direct-mutation-state`                   | `react-x`           | _none_                                               | —           | `AssignmentExpression` + ancestor lookup       |
+| `no-clone-element`                           | `react-x`           | _none_                                               | —           | `CallExpression` immediate                     |
+| `no-component-will-mount`                    | `react-x`           | `includes("componentWillMount")`                     | —           | Collector + `Program:exit`                     |
+| `no-component-will-receive-props`            | `react-x`           | `includes("componentWillReceiveProps")`              | —           | Collector + `Program:exit`                     |
+| `no-component-will-update`                   | `react-x`           | `includes("componentWillUpdate")`                    | —           | Collector + `Program:exit`                     |
+| `no-context-provider`                        | `react-x`           | `includes("Provider")`                               | `>= 19.0.0` | `JSXElement` immediate                         |
+| `no-create-ref`                              | `react-x`           | `includes("createRef")`                              | —           | Collector + `Program:exit`                     |
+| `no-duplicate-key`                           | `react-x`           | `includes("key=")`                                   | —           | Ad-hoc collect + `Program:exit`                |
+| `no-forward-ref`                             | `react-x`           | `includes("forwardRef")`                             | `>= 19.0.0` | `CallExpression` immediate                     |
+| `no-leaked-conditional-rendering`            | `react-x`           | `includes("&&")`                                     | —           | Type-aware traversal                           |
+| `no-missing-component-display-name`          | `react-x`           | `!includes("memo") && !includes("forwardRef")`       | —           | Collector + `Program:exit`                     |
+| `no-missing-context-display-name`            | `react-x`           | `includes("createContext")`                          | —           | Ad-hoc collect + `Program:exit`                |
+| `no-misused-capture-owner-stack`             | `react-x`           | `includes("captureOwnerStack")`                      | —           | `CallExpression` immediate                     |
+| `no-set-state-in-component-did-mount`        | `react-x`           | `includes("componentDidMount")`                      | —           | `CallExpression` + ancestor lookup             |
+| `no-set-state-in-component-did-update`       | `react-x`           | `includes("componentDidUpdate")`                     | —           | `CallExpression` + ancestor lookup             |
+| `no-set-state-in-component-will-update`      | `react-x`           | `includes("componentWillUpdate")`                    | —           | `CallExpression` + ancestor lookup             |
+| `no-unsafe-component-will-mount`             | `react-x`           | `includes("UNSAFE_componentWillMount")`              | —           | Collector + `Program:exit`                     |
+| `no-unsafe-component-will-receive-props`     | `react-x`           | `includes("UNSAFE_componentWillReceiveProps")`       | —           | Collector + `Program:exit`                     |
+| `no-unsafe-component-will-update`            | `react-x`           | `includes("UNSAFE_componentWillUpdate")`             | —           | Collector + `Program:exit`                     |
+| `no-use-context`                             | `react-x`           | `includes("useContext")`                             | `>= 19.0.0` | `CallExpression` immediate                     |
+| `use-memo`                                   | `react-x`           | `includes("useMemo")`                                | —           | `CallExpression` immediate + nested validation |
+| `set-state-in-effect`                        | `react-x`           | `/use\w*Effect/u`                                    | —           | Function-phase stack + collect-and-match       |
+| `error-boundaries`                           | `react-x`           | `includes("try")`                                    | —           | Dual collector + `Program:exit`                |
+| `no-leaked-event-listener`                   | `react-web-api`     | `includes("addEventListener")` + `/use\w*Effect/u`   | —           | Web-API collect-and-match                      |
+| `no-leaked-fetch`                            | `react-web-api`     | `includes("fetch")` + `/use\w*Effect/u`              | —           | Web-API collect-and-match                      |
+| `no-leaked-timeout`                          | `react-web-api`     | `includes("setTimeout")`                             | —           | Web-API collect-and-match                      |
+| `no-leaked-interval`                         | `react-web-api`     | `includes("setInterval")`                            | —           | Web-API collect-and-match                      |
+| `no-leaked-resize-observer`                  | `react-web-api`     | `includes("ResizeObserver")`                         | —           | Web-API collect-and-match                      |
+| `no-leaked-intersection-observer`            | `react-web-api`     | `includes("IntersectionObserver")`                   | —           | Web-API collect-and-match                      |
+| `no-dangerously-set-innerhtml`               | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
+| `no-dangerously-set-innerhtml-with-children` | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
+| `no-find-dom-node`                           | `react-dom`         | `includes("findDOMNode")`                            | —           | `CallExpression` immediate                     |
+| `no-flush-sync`                              | `react-dom`         | `includes("flushSync")`                              | —           | `CallExpression` immediate                     |
+| `no-hydrate`                                 | `react-dom`         | `includes("hydrate")`                                | `>= 18.0.0` | Import-tracking                                |
+| `no-render`                                  | `react-dom`         | `includes("render")`                                 | `>= 18.0.0` | Import-tracking                                |
+| `no-use-form-state`                          | `react-dom`         | `includes("useFormState")`                           | `>= 19.0.0` | Import-tracking                                |
+| `context-name`                               | `naming-convention` | `includes("createContext")`                          | —           | `CallExpression` immediate                     |
+| `id-name`                                    | `naming-convention` | `includes("useId")`                                  | —           | `CallExpression` immediate                     |
+| `ref-name`                                   | `naming-convention` | `includes("useRef")`                                 | —           | `CallExpression` immediate                     |
+| `function-definition`                        | `react-rsc`         | `includes("use server") \|\| includes("use client")` | —           | Directive-aware traversal                      |
