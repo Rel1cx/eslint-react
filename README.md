@@ -220,7 +220,7 @@ A huge thank you to our amazing sponsors who make this project possible.
 
 Contributions are welcome!
 
-This project does not have contributing guidelines. Explore the repository to learn how to contribute.
+This project does not have contributing guidelines. Explore the [repository](https://github.com/Rel1cx/eslint-react) to learn how to contribute.
 
 ## License
 
