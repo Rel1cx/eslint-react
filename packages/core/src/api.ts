@@ -22,8 +22,11 @@ export function isAPI(api: string): isAPI.ReturnType {
     if (node == null) return false;
     const expr = Extract.unwrap(node);
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+    // Get the fully qualified name of the unwrapped expression
     const name = Extract.getFullyQualifiedName(expr, getText);
+    // Check if the fully qualified name equals the API
     if (name === api) return true;
+    // Check if the fully qualified name ends with `.${api}`
     if (name.endsWith(`.${api}`)) return true;
     return false;
   };
