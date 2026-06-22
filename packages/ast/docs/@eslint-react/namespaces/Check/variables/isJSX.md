@@ -3,7 +3,7 @@
 # Variable: isJSX
 
 ```ts
-const isJSX: (node: Node | null | undefined) => node is JSXAttribute | JSXElement | JSXExpressionContainer | JSXSpreadChild | JSXFragment | JSXText | JSXClosingElement | JSXClosingFragment | JSXEmptyExpression | JSXOpeningElement | JSXOpeningFragment | JSXSpreadAttribute | JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
+const isJSX: (node: Node | null | undefined) => node is JSXAttribute | JSXClosingElement | JSXClosingFragment | JSXElement | JSXEmptyExpression | JSXExpressionContainer | JSXFragment | JSXIdentifier | JSXMemberExpression | JSXNamespacedName | JSXOpeningElement | JSXOpeningFragment | JSXSpreadAttribute | JSXSpreadChild | JSXText;
 ```
 
 ## Parameters
@@ -14,4 +14,4 @@ const isJSX: (node: Node | null | undefined) => node is JSXAttribute | JSXElemen
 
 ## Returns
 
-node is JSXAttribute \| JSXElement \| JSXExpressionContainer \| JSXSpreadChild \| JSXFragment \| JSXText \| JSXClosingElement \| JSXClosingFragment \| JSXEmptyExpression \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName
+node is JSXAttribute \| JSXClosingElement \| JSXClosingFragment \| JSXElement \| JSXEmptyExpression \| JSXExpressionContainer \| JSXFragment \| JSXIdentifier \| JSXMemberExpression \| JSXNamespacedName \| JSXOpeningElement \| JSXOpeningFragment \| JSXSpreadAttribute \| JSXSpreadChild \| JSXText

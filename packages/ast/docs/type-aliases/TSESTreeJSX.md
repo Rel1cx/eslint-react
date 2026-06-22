@@ -5,14 +5,18 @@
 ```ts
 type TSESTreeJSX = 
   | TSESTree.JSXAttribute
-  | TSESTree.JSXChild
   | TSESTree.JSXClosingElement
   | TSESTree.JSXClosingFragment
+  | TSESTree.JSXElement
   | TSESTree.JSXEmptyExpression
-  | TSESTree.JSXIdentifierToken
+  | TSESTree.JSXExpressionContainer
+  | TSESTree.JSXFragment
+  | TSESTree.JSXIdentifier
+  | TSESTree.JSXMemberExpression
+  | TSESTree.JSXNamespacedName
   | TSESTree.JSXOpeningElement
   | TSESTree.JSXOpeningFragment
   | TSESTree.JSXSpreadAttribute
-  | TSESTree.JSXTagNameExpression
-  | TSESTree.JSXTextToken;
+  | TSESTree.JSXSpreadChild
+  | TSESTree.JSXText;
 ```

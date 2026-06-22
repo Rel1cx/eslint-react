@@ -12,20 +12,20 @@ function unwrap(node: Node):
   | PropertyDefinition
   | MethodDefinition
   | JSXAttribute
-  | JSXElement
-  | JSXExpressionContainer
-  | JSXSpreadChild
-  | JSXFragment
-  | JSXText
   | JSXClosingElement
   | JSXClosingFragment
+  | JSXElement
   | JSXEmptyExpression
-  | JSXOpeningElement
-  | JSXOpeningFragment
-  | JSXSpreadAttribute
+  | JSXExpressionContainer
+  | JSXFragment
   | JSXIdentifier
   | JSXMemberExpression
   | JSXNamespacedName
+  | JSXOpeningElement
+  | JSXOpeningFragment
+  | JSXSpreadAttribute
+  | JSXSpreadChild
+  | JSXText
   | ExpressionStatement
   | AccessorProperty
   | ArrayExpression
@@ -185,20 +185,20 @@ function unwrap(node: Node):
   \| `PropertyDefinition`
   \| `MethodDefinition`
   \| `JSXAttribute`
-  \| `JSXElement`
-  \| `JSXExpressionContainer`
-  \| `JSXSpreadChild`
-  \| `JSXFragment`
-  \| `JSXText`
   \| `JSXClosingElement`
   \| `JSXClosingFragment`
+  \| `JSXElement`
   \| `JSXEmptyExpression`
-  \| `JSXOpeningElement`
-  \| `JSXOpeningFragment`
-  \| `JSXSpreadAttribute`
+  \| `JSXExpressionContainer`
+  \| `JSXFragment`
   \| `JSXIdentifier`
   \| `JSXMemberExpression`
   \| `JSXNamespacedName`
+  \| `JSXOpeningElement`
+  \| `JSXOpeningFragment`
+  \| `JSXSpreadAttribute`
+  \| `JSXSpreadChild`
+  \| `JSXText`
   \| `ExpressionStatement`
   \| `AccessorProperty`
   \| `ArrayExpression`
