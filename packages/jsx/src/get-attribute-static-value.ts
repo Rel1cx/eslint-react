@@ -11,19 +11,23 @@ import { resolveAttributeValue } from "./resolve-attribute-value";
  * {@link resolveAttributeValue} -> `toStatic()`, with automatic handling of the
  * `spreadProps` case (extracts the named property from the spread object).
  *
- * Returns `undefined` when the attribute is absent or when its value cannot be
- * statically determined.
+ * Returns `null` when the attribute is absent, `undefined` when the value cannot
+ * be statically determined (including empty expression containers), and the
+ * resolved static value otherwise.
  * @param context The ESLint rule context
  * @param element The `JSXElement` node to inspect
  * @param name The attribute name to look up (ex: "className")
- * @returns The static value of the attribute, or `undefined`
+ * @returns The static value of the attribute, `null` when absent, or `undefined` when indeterminate
  */
 export function getAttributeStaticValue(context: RuleContext, element: TSESTree.JSXElement, name: string): unknown {
   const attr = findAttribute(context, element, name);
-  if (attr == null) return undefined;
+  if (attr == null) return null;
   const resolved = resolveAttributeValue(context, attr);
   if (resolved.kind === "spreadProps") {
     return resolved.getProperty(name);
+  }
+  if (resolved.kind === "missing") {
+    return undefined;
   }
   return resolved.toStatic();
 }

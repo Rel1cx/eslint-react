@@ -54,7 +54,7 @@ interface JsxAttributeValueMissing {
 /** Spread child expression (ex: `{...items}` as children) */
 interface JsxAttributeValueSpreadChild {
   readonly kind: "spreadChild";
-  getChildren(at: number): unknown;
+  getChildren(): unknown;
   readonly node: TSESTree.JSXSpreadChild["expression"];
   toStatic(): null;
 }

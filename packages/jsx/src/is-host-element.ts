@@ -10,7 +10,13 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * @returns `true` when the node is a `JSXElement` with a lowercase tag name
  */
 export function isHostElement(node: TSESTree.Node): node is TSESTree.JSXElement {
-  return node.type === AST.JSXElement
-    && node.openingElement.name.type === AST.JSXIdentifier
-    && /^[a-z]/u.test(node.openingElement.name.name);
+  if (node.type !== AST.JSXElement) return false;
+  const name = node.openingElement.name;
+  if (name.type === AST.JSXIdentifier) {
+    return /^[a-z]/u.test(name.name);
+  }
+  if (name.type === AST.JSXNamespacedName) {
+    return /^[a-z]/u.test(name.name.name);
+  }
+  return false;
 }
