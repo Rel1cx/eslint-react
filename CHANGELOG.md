@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.9.2 (2026-06-23)
+
+### 📝 Documentation
+
+- Cleaned up the "Further Reading" links in the rule docs.
+
+### 🏗️ Internal
+
+- Switched to `pnpm/action-setup` to install Node and pnpm in CI.
+- Updated dependencies and the lockfile.
+- Updated the `baseline.json` timestamp and quality signal.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.1...v5.9.2
+
 ## v5.9.1 (2026-06-20)
 
 ### 📝 Documentation
