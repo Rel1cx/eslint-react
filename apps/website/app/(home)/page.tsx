@@ -1,4 +1,4 @@
-import { ESLintReactBrand } from "@/components/ESLintReactBrand";
+import { ESLintReactLogo } from "@/components/ESLintReactLogo";
 import { Card, Cards } from "fumadocs-ui/components/card";
 import { CircleDotDashed, Gauge, Sliders, Zap } from "lucide-react";
 import { Link } from "next-view-transitions";
@@ -21,7 +21,13 @@ const features = [
 export default function HomePage() {
   return (
     <main className="w-full min-w-0 max-w-6xl px-8 pt-4 pb-0 md:px-12 mx-auto">
-      <ESLintReactBrand />
+      <div className="flex flex-col items-center gap-4 m-0 mx-auto p-8 w-fit">
+        <ESLintReactLogo width={150} />
+        <span className="text-2xl">ESLint React</span>
+        <p className="text-center text-fd-prose-body pt-4">
+          Composable ESLint rules for React and friends.
+        </p>
+      </div>
       <article className="prose max-w-none">
         <h2>Features</h2>
         <Cards className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
