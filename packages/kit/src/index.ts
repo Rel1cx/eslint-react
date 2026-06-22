@@ -4,11 +4,10 @@
 /// <reference types="node" />
 import { Extract, type TSESTreeFunction, type TSESTreeTypeExpression, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
+import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
-import type { RuleContext } from "@typescript-eslint/utils/ts-eslint";
 import type { ESLint, Linter } from "eslint";
 import { randomBytes } from "node:crypto";
 import { kebabCase } from "string-ts";
