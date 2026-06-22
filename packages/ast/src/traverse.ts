@@ -8,7 +8,7 @@ export function findParent(node: TSESTree.Node | null, test: NodePredicate, stop
   if (node == null) return null;
   let current = node.parent;
   while (current != null) {
-    if ((stop?.(current)) ?? false) return null;
+    if (stop?.(current) ?? false) return null;
     if (test(current)) return current;
     if (current.type === AST.Program) return null;
     current = current.parent;
