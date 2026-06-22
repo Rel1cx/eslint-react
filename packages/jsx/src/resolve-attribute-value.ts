@@ -86,7 +86,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
     case AST.JSXSpreadChild: {
       return {
         kind: "spreadChild",
-        getChildren(_at: number) {
+        getChildren() {
           return null;
         },
         node: node.value.expression,
