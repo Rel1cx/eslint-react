@@ -82,7 +82,7 @@
     "dprint": "^0.54.0",
     "effect": "^3.21.4",
     "eslint": "^10.5.0",
-    "eslint-plugin-package-json": "^1.4.0",
+    "eslint-plugin-package-json": "^1.5.0",
     "import-integrity-lint": "^1.1.2",
     "mdxlint": "^1.0.0",
     "nx": "^23.0.0",
