@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build packages
-        run: pnpm run build
+        run: node --run build
       - name: Check
-        run: pnpm run lint
+        run: node --run lint
       - name: Verify rules docs
-        run: pnpm run check:docs
+        run: node --run check:docs

@@ -30,13 +30,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build packages
-        run: pnpm run build
+        run: node --run build
       - name: Test on node@24
-        run: pnpm run test
+        run: node --run test
       - name: Setup node@22
         uses: pnpm/setup@5d160c5bc68a09337ad0d5654e237e03253b5879 # v1
         with:
           runtime: node@22
           install: false
       - name: Test on node@22
-        run: pnpm run test
+        run: node --run test

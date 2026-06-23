@@ -48,7 +48,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -73,7 +73,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -94,7 +94,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -111,8 +111,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -153,7 +153,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc && vite build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -178,7 +178,7 @@
               },
               "metadata": {
                 "scriptContent": "vite",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -190,7 +190,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -202,7 +202,7 @@
               },
               "metadata": {
                 "scriptContent": "vite preview",
-                "runCommand": "pnpm run preview"
+                "runCommand": "node --run preview"
               },
               "configurations": {},
               "parallelism": true
@@ -258,7 +258,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -283,7 +283,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -304,7 +304,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -321,8 +321,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -378,7 +378,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -403,7 +403,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -424,7 +424,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -441,8 +441,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -498,7 +498,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -523,7 +523,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -544,7 +544,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -561,8 +561,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -618,7 +618,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -643,7 +643,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -664,7 +664,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -681,8 +681,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -737,7 +737,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -762,7 +762,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -783,7 +783,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -800,8 +800,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -856,7 +856,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -881,7 +881,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -902,7 +902,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -919,8 +919,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -961,7 +961,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc && vite build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -986,7 +986,7 @@
               },
               "metadata": {
                 "scriptContent": "vite",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -998,7 +998,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -1010,7 +1010,7 @@
               },
               "metadata": {
                 "scriptContent": "vite preview",
-                "runCommand": "pnpm run preview"
+                "runCommand": "node --run preview"
               },
               "configurations": {},
               "parallelism": true
@@ -1071,7 +1071,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1096,7 +1096,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -1117,7 +1117,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -1134,8 +1134,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -1176,7 +1176,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc && vite build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1201,7 +1201,7 @@
               },
               "metadata": {
                 "scriptContent": "vite",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -1213,7 +1213,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -1225,7 +1225,7 @@
               },
               "metadata": {
                 "scriptContent": "vite preview",
-                "runCommand": "pnpm run preview"
+                "runCommand": "node --run preview"
               },
               "configurations": {},
               "parallelism": true
@@ -1266,7 +1266,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc && vite build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1291,7 +1291,7 @@
               },
               "metadata": {
                 "scriptContent": "vite",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -1303,7 +1303,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -1315,7 +1315,7 @@
               },
               "metadata": {
                 "scriptContent": "vite preview",
-                "runCommand": "pnpm run preview"
+                "runCommand": "node --run preview"
               },
               "configurations": {},
               "parallelism": true
@@ -1366,7 +1366,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1391,7 +1391,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -1413,7 +1413,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -1434,7 +1434,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -1451,8 +1451,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -1503,7 +1503,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1528,7 +1528,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -1550,7 +1550,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -1571,7 +1571,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -1588,8 +1588,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -1630,7 +1630,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc && vite build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1655,7 +1655,7 @@
               },
               "metadata": {
                 "scriptContent": "vite",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -1667,7 +1667,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -1679,7 +1679,7 @@
               },
               "metadata": {
                 "scriptContent": "vite preview",
-                "runCommand": "pnpm run preview"
+                "runCommand": "node --run preview"
               },
               "configurations": {},
               "parallelism": true
@@ -1730,7 +1730,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1755,7 +1755,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -1777,7 +1777,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -1798,7 +1798,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -1815,8 +1815,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -1857,7 +1857,7 @@
               },
               "metadata": {
                 "scriptContent": "next build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1882,7 +1882,7 @@
               },
               "metadata": {
                 "scriptContent": "next dev",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -1894,7 +1894,7 @@
               },
               "metadata": {
                 "scriptContent": "eslint . --concurrency=auto",
-                "runCommand": "pnpm run lint"
+                "runCommand": "node --run lint"
               },
               "configurations": {},
               "parallelism": true
@@ -1906,7 +1906,7 @@
               },
               "metadata": {
                 "scriptContent": "next start",
-                "runCommand": "pnpm run start"
+                "runCommand": "node --run start"
               },
               "configurations": {},
               "parallelism": true
@@ -1963,7 +1963,7 @@
               },
               "metadata": {
                 "scriptContent": "tsc -p tsconfig.json",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -1988,7 +1988,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2009,7 +2009,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2064,7 +2064,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2086,7 +2086,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2107,7 +2107,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2124,8 +2124,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build:docs && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build:docs && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -2176,7 +2176,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2201,7 +2201,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2223,7 +2223,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2244,7 +2244,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2261,8 +2261,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -2313,7 +2313,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2338,7 +2338,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2360,7 +2360,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2381,7 +2381,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2398,8 +2398,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -2454,7 +2454,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2479,7 +2479,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2501,7 +2501,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2522,7 +2522,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2539,8 +2539,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -2591,7 +2591,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2616,7 +2616,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2638,7 +2638,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2659,7 +2659,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2676,8 +2676,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
@@ -2720,7 +2720,7 @@
               },
               "metadata": {
                 "scriptContent": "next build",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2745,7 +2745,7 @@
               },
               "metadata": {
                 "scriptContent": "next dev",
-                "runCommand": "pnpm run dev"
+                "runCommand": "node --run dev"
               },
               "configurations": {},
               "parallelism": true
@@ -2757,7 +2757,7 @@
               },
               "metadata": {
                 "scriptContent": "fumadocs-mdx",
-                "runCommand": "pnpm run postinstall"
+                "runCommand": "node --run postinstall"
               },
               "configurations": {},
               "parallelism": true
@@ -2769,7 +2769,7 @@
               },
               "metadata": {
                 "scriptContent": "fumadocs-mdx && next typegen",
-                "runCommand": "pnpm run prepare"
+                "runCommand": "node --run prepare"
               },
               "configurations": {},
               "parallelism": true
@@ -2781,7 +2781,7 @@
               },
               "metadata": {
                 "scriptContent": "next start",
-                "runCommand": "pnpm run start"
+                "runCommand": "node --run start"
               },
               "configurations": {},
               "parallelism": true
@@ -2793,7 +2793,7 @@
               },
               "metadata": {
                 "scriptContent": "fumadocs-mdx && next typegen && tsc --noEmit",
-                "runCommand": "pnpm run types:check"
+                "runCommand": "node --run types:check"
               },
               "configurations": {},
               "parallelism": true
@@ -2844,7 +2844,7 @@
               },
               "metadata": {
                 "scriptContent": "tsdown --dts-resolve",
-                "runCommand": "pnpm run build"
+                "runCommand": "node --run build"
               },
               "configurations": {},
               "parallelism": true,
@@ -2869,7 +2869,7 @@
               },
               "metadata": {
                 "scriptContent": "typedoc",
-                "runCommand": "pnpm run build:docs"
+                "runCommand": "node --run build:docs"
               },
               "configurations": {},
               "parallelism": true,
@@ -2891,7 +2891,7 @@
               },
               "metadata": {
                 "scriptContent": "publint",
-                "runCommand": "pnpm run lint:publish"
+                "runCommand": "node --run lint:publish"
               },
               "configurations": {},
               "parallelism": true,
@@ -2912,7 +2912,7 @@
               },
               "metadata": {
                 "scriptContent": "tsl",
-                "runCommand": "pnpm run lint:ts"
+                "runCommand": "node --run lint:ts"
               },
               "configurations": {},
               "parallelism": true,
@@ -2929,8 +2929,8 @@
                 "script": "publish"
               },
               "metadata": {
-                "scriptContent": "pnpm run build && pnpm run lint:publish",
-                "runCommand": "pnpm run publish"
+                "scriptContent": "node --run build && node --run lint:publish",
+                "runCommand": "node --run publish"
               },
               "configurations": {},
               "parallelism": true
