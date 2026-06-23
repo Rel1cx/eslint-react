@@ -167,6 +167,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (stmt.parent == null) return;
         stmt = stmt.parent;
       }
+      // tsl-ignore dx/no-unsafe-as
       const idx = body.indexOf(stmt as TSESTree.Statement);
       if (idx !== -1 && idx < body.length - 1) {
         componentHasEarlyReturn.current = true;

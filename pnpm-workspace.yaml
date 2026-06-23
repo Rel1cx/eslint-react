@@ -66,6 +66,4 @@ overrides:
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 minimumReleaseAgeExclude:
-  - eslint-plugin-package-json@1.5.0
-  - twoslash-protocol@0.3.9
-  - twoslash@0.3.9
+  - tsl-dx@0.13.1

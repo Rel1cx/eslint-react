@@ -17,6 +17,7 @@ import noUnsafeTargetBlank from "./rules/no-unsafe-target-blank/no-unsafe-target
 import noUseFormState from "./rules/no-use-form-state/no-use-form-state";
 import noVoidElementsWithChildren from "./rules/no-void-elements-with-children/no-void-elements-with-children";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,

@@ -1,3 +1,4 @@
+/* tsl-ignore dx/no-unsafe-as */
 /**
  * This is an enhanced version of the typeof operator to check the type of more complex values.
  * In this case we just mind about arrays and objects. We can add more on demand.

@@ -9,6 +9,7 @@ import noLeakedSemicolon from "./rules/no-leaked-semicolon/no-leaked-semicolon";
 import noNamespace from "./rules/no-namespace/no-namespace";
 import noUselessFragment from "./rules/no-useless-fragment/no-useless-fragment";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,

@@ -1,3 +1,4 @@
+/* tsl-ignore dx/no-unsafe-as */
 import { transformKeys } from "./transform-keys";
 
 export type PadKeysLeft<A, B extends string = ""> = A extends [] ? A

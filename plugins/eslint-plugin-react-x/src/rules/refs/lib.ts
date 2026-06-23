@@ -88,6 +88,7 @@ export function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string
         && Extract.getPropertyName(arg.property) === "current";
     }
     // !(ref.current === null)
+    // tsl-ignore dx/no-unsafe-as
     return isBinaryNullCheck(arg as TSESTree.Expression, refName);
   }
 

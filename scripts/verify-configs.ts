@@ -5,7 +5,7 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
-import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey } from "./constants";
+import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./constants";
 import { glob } from "./helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
@@ -61,9 +61,9 @@ const verifyAllRulesAccountedFor = Effect.fnUntraced(
   function*(rules: RegisteredRule[]) {
     yield* Effect.log(ansis.bold("1. Checking all registered rules are accounted for in configs..."));
 
-    const allRuleKeys = new Set(Object.keys(allConfig.rules));
-    const experimentalKeys = new Set(Object.keys(disableExperimentalConfig.rules));
-    const typeCheckedKeys = new Set(Object.keys(disableTypeCheckedConfig.rules));
+    const allRuleKeys = new Set<string>(keys(allConfig.rules));
+    const experimentalKeys = new Set(keys(disableExperimentalConfig.rules));
+    const typeCheckedKeys = new Set(keys(disableTypeCheckedConfig.rules));
 
     let errorCount = 0;
     for (const rule of rules) {
@@ -92,7 +92,7 @@ const verifyConfigKeysValid = Effect.fnUntraced(
     const validKeys = new Set(rules.map((r) => r.configKey));
     let errorCount = 0;
 
-    for (const key of Object.keys(configRules)) {
+    for (const key of keys(configRules)) {
       if (!validKeys.has(key)) {
         yield* Effect.logError(ansis.red(`  Config ${ansis.bold(configName)} references unknown rule: ${ansis.bold(key)}`));
         errorCount += 1;
@@ -114,8 +114,8 @@ const verifyHierarchy = Effect.fnUntraced(
     childName: string,
     childRules: Record<string, unknown>,
   ) {
-    const parentKeys = new Set(Object.keys(parentRules));
-    const childKeys = new Set(Object.keys(childRules));
+    const parentKeys = new Set(keys(parentRules));
+    const childKeys = new Set(keys(childRules));
     let errorCount = 0;
 
     for (const key of parentKeys) {
@@ -139,12 +139,12 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
 
     let errorCount = 0;
 
-    for (const [domain, configRules] of Object.entries(DOMAIN_CONFIGS)) {
+    for (const [domain, configRules] of entries(DOMAIN_CONFIGS)) {
       const domainInfo = DOMAIN_META_BY_KEY[domain as PluginDomain];
       if (domainInfo == null) continue;
 
       const domainRules = rules.filter((r) => r.domain === domain);
-      const configKeys = Object.keys(configRules);
+      const configKeys = keys(configRules);
       const domainRuleKeys = new Set(domainRules.map((r) => r.configKey));
 
       for (const key of configKeys) {

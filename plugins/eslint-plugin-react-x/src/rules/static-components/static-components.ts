@@ -73,6 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const isInsideRender = (node: TSESTree.Node) => getEnclosingComponent(node) != null;
 
         for (const { name, node: jsxNode } of jsxCandidates) {
+          // tsl-ignore dx/no-unsafe-as
           const jsxName = jsxNode.name as TSESTree.JSXIdentifier;
           const variable = findVariableForIdentifier(context, jsxName);
           if (variable == null || variable.defs.length === 0) continue;

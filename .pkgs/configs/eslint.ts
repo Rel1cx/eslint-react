@@ -101,6 +101,7 @@ const p11tGroups = {
 
 export function buildIgnoreConfig(gitignore: string, extra: string[]) {
   return [
+    // tsl-ignore dx/no-unsafe-as
     includeIgnoreFile(gitignore) as Config,
     globalIgnores([
       ...GLOB_IGNORES,

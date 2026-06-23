@@ -7,6 +7,7 @@ import noLeakedInterval from "./rules/no-leaked-interval/no-leaked-interval";
 import noLeakedResizeObserver from "./rules/no-leaked-resize-observer/no-leaked-resize-observer";
 import noLeakedTimeout from "./rules/no-leaked-timeout/no-leaked-timeout";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,
