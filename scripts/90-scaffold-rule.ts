@@ -4,7 +4,7 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./constants";
+import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./00-constants";
 
 function kebabToCamel(str: string): string {
   return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
@@ -222,7 +222,7 @@ const parseArgs = Effect.gen(function*() {
   if (args.length < 2) {
     yield* Effect.logError(
       ansis.red(
-        `Usage: vite-node ./scripts/scaffold-rule.ts <plugin> <rule-name> [description]\n`
+        `Usage: vite-node ./scripts/90-scaffold-rule.ts <plugin> <rule-name> [description]\n`
           + `  plugin: ${PLUGIN_DOMAINS.join(", ")}\n`
           + `  rule-name: kebab-case rule name (e.g. no-foo-bar)\n`
           + `  description: optional rule description`,

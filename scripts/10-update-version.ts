@@ -5,8 +5,8 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as Fn from "effect/Function";
 import { P, isMatching, match } from "ts-pattern";
-import { ignores, version } from "./effects";
-import { glob } from "./helpers";
+import { glob } from "./01-helpers";
+import { ignores, version } from "./02-effects";
 
 const GLOB_PACKAGE_JSON = [
   "package.json",

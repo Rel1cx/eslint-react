@@ -34,8 +34,8 @@
     "build:pkgs": "nx run-many -t build -p '.pkgs/*' --parallel",
     "build:plugins": "nx run-many -t build -p 'plugins/*' --parallel",
     "build:website": "pnpm run update:website && pnpm -F \"./apps/website\" run build",
-    "check:configs": "vite-node -c vitest.config.ts ./scripts/check-configs.ts",
-    "check:docs": "vite-node -c vitest.config.ts ./scripts/check-docs.ts",
+    "check:configs": "vite-node -c vitest.config.ts ./scripts/20-check-configs.ts",
+    "check:docs": "vite-node -c vitest.config.ts ./scripts/21-check-docs.ts",
     "format:check": "dprint check",
     "format:write": "dprint fmt",
     "postinstall": "pnpm run build",
@@ -48,13 +48,13 @@
     "lint:text": "textlint '**/*.md' '**/*.mdx'",
     "lint:ts": "nx run-many -t lint:ts --parallel",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
-    "scaffold:rule": "vite-node ./scripts/scaffold-rule.ts",
+    "scaffold:rule": "vite-node ./scripts/90-scaffold-rule.ts",
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
     "test": "vitest run --logHeapUsage",
     "update:all": "pnpm run update:version && pnpm run update:readme && pnpm run update:website",
-    "update:readme": "vite-node ./scripts/update-readme.ts",
-    "update:version": "vite-node ./scripts/update-version.ts",
-    "update:website": "vite-node ./scripts/update-website.ts"
+    "update:readme": "vite-node ./scripts/11-update-readme.ts",
+    "update:version": "vite-node ./scripts/10-update-version.ts",
+    "update:website": "vite-node ./scripts/12-update-website.ts"
   },
   "devDependencies": {
     "@effect/language-service": "^0.86.2",

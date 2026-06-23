@@ -8,8 +8,8 @@ import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
-import { DOMAIN_METAS } from "./constants";
-import { glob } from "./helpers";
+import { DOMAIN_METAS } from "./00-constants";
+import { glob } from "./01-helpers";
 
 import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "#/plugins/eslint-plugin/src/configs/strict-typescript";

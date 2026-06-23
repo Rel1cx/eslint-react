@@ -5,8 +5,8 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
-import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./constants";
-import { glob } from "./helpers";
+import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./00-constants";
+import { glob } from "./01-helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
 import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";

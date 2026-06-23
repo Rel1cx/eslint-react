@@ -423,7 +423,7 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- Updated `scripts/scaffold-rule.ts` and the rule request issue template to match the new documentation structure (#1782).
+- Updated `scripts/90-scaffold-rule.ts` and the rule request issue template to match the new documentation structure (#1782).
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.8.0...v5.8.1
 
