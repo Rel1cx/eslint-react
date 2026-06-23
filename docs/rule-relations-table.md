@@ -1,35 +1,5 @@
 # Rule Relations Table
 
-## Table of Contents
-
-- [Forward References](#forward-references)
-- [Reverse References (Who references this rule)](#reverse-references-who-references-this-rule)
-- [Bidirectional Relations](#bidirectional-relations)
-- [Detailed References](#detailed-references)
-
-## Forward References
-
-<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
-
-| Rule | References |
-| ---- | ---------- |
-
-## Reverse References (Who references this rule)
-
-<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
-
-| Rule | Referenced By |
-| ---- | ------------- |
-
-## Bidirectional Relations
-
-<!-- EMPTY TABLE TEMPLATE DO NOT DELETE -->
-
-Pairs of rules that reference each other:
-
-| Rule A | Rule B |
-| ------ | ------ |
-
 ## Detailed References
 
 | Source Rule                                            | Target Rule                                            | Description                                                                                                                                                                  |
