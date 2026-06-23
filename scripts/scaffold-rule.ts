@@ -4,29 +4,10 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
-
-// List of all sub-plugins that have their own directory under plugins/
-const VALID_PLUGINS = ["x", "jsx", "rsc", "dom", "web-api", "naming-convention", "debug"] as const;
-
-type PluginDomain = typeof VALID_PLUGINS[number];
+import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./constants";
 
 function kebabToCamel(str: string): string {
   return str.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-}
-
-function buildPluginPrefix(domain: PluginDomain): string {
-  return `react-${domain}`;
-}
-
-// Build the aggregated config key. The "x" domain is the core plugin and uses the
-// flat "@eslint-react/<rule>" namespace; all other sub-plugins prefix with their domain.
-function buildConfigKey(domain: PluginDomain, ruleName: string): string {
-  if (domain === "x") return `@eslint-react/${ruleName}`;
-  return `@eslint-react/${domain}-${ruleName}`;
-}
-
-function buildPluginPackageName(domain: PluginDomain): string {
-  return `eslint-plugin-react-${domain}`;
 }
 
 function generateRuleTs(ruleName: string): string {
@@ -88,7 +69,7 @@ function generateRuleSpecTs(ruleName: string): string {
 function generateRuleMdx(domain: PluginDomain, ruleName: string, description: string): string {
   const pluginPrefix = buildPluginPrefix(domain);
   const aggregatedKey = buildConfigKey(domain, ruleName);
-  const pluginPkgName = buildPluginPackageName(domain);
+  const pluginPkgName = DOMAIN_META_BY_KEY[domain].packageName;
   const ruleSourceUrl = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.ts`;
   const testSourceUrl = `https://github.com/Rel1cx/eslint-react/tree/main/plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`;
 
@@ -242,7 +223,7 @@ const parseArgs = Effect.gen(function*() {
     yield* Effect.logError(
       ansis.red(
         `Usage: vite-node ./scripts/scaffold-rule.ts <plugin> <rule-name> [description]\n`
-          + `  plugin: ${VALID_PLUGINS.join(", ")}\n`
+          + `  plugin: ${PLUGIN_DOMAINS.join(", ")}\n`
           + `  rule-name: kebab-case rule name (e.g. no-foo-bar)\n`
           + `  description: optional rule description`,
       ),
@@ -253,8 +234,8 @@ const parseArgs = Effect.gen(function*() {
   const [pluginArg, ruleName, ...descParts] = args as [string, string, ...string[]];
   const description = descParts.join(" ") || "TODO: Add rule description.";
 
-  if (!VALID_PLUGINS.includes(pluginArg as PluginDomain)) {
-    return yield* Effect.fail(new Error(`Invalid plugin "${pluginArg}". Must be one of: ${VALID_PLUGINS.join(", ")}`));
+  if (!PLUGIN_DOMAINS.some((x) => x === pluginArg)) {
+    return yield* Effect.fail(new Error(`Invalid plugin "${pluginArg}". Must be one of: ${PLUGIN_DOMAINS.join(", ")}`));
   }
 
   if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/u.test(ruleName)) {
@@ -269,7 +250,7 @@ const createRuleFiles = Effect.fnUntraced(
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
 
-    const pluginPkgName = buildPluginPackageName(domain);
+    const pluginPkgName = DOMAIN_META_BY_KEY[domain].packageName;
     const pluginDir = path.join("plugins", pluginPkgName);
     const rulesDir = path.join(pluginDir, "src", "rules", ruleName);
 
@@ -323,7 +304,7 @@ const updatePluginTs = Effect.fnUntraced(
 
 const program = Effect.gen(function*() {
   const { domain, ruleName, description } = yield* parseArgs;
-  const pluginPkgName = buildPluginPackageName(domain);
+  const pluginPkgName = DOMAIN_META_BY_KEY[domain].packageName;
 
   yield* Effect.log(ansis.bold(`Scaffolding rule ${ansis.cyan(ruleName)} in ${ansis.cyan(pluginPkgName)}...`));
 

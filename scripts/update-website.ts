@@ -4,13 +4,12 @@ import * as FileSystem from "@effect/platform/FileSystem";
 import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
+import { DOMAIN_METAS, PLUGIN_DOMAINS, type PluginDomain, buildRuleFileName, parseRuleFileName } from "./constants";
 import { glob } from "./helpers";
 
 // Collect .mdx files from every sub-plugin's rules directory
 const DOCS_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.mdx"];
 const RULE_RELATIONS_PATH = "docs/rule-relations-table.md";
-// Parses rule file names like "dom-no-render" into plugin domain + rule name
-const RE_RULE_PREFIX = /^(x|jsx|rsc|dom|web-api|naming-convention|debug)-(.+)$/u;
 // Captures the table body (rows) from the "## Detailed References" section
 const RE_DETAILED_REFERENCES = /## Detailed References[\s\S]*?\n\|[^\n]+\|\n\|[-\s|]+\|\n([\s\S]*?)(?=\n##|$)/u;
 
@@ -68,11 +67,10 @@ const loadRuleRelations = Effect.gen(function*() {
 
 // Convert a file-based rule name ("dom-no-render") to the canonical
 // "react-<domain>/<name>" form used in rule-relations-table.md.
-// Falls back to "react-x/<name>" for core-plugin rules (no prefix in filename).
 const getFullRuleName = (meta: RuleMeta): string => {
-  const [m0, m1, m2] = RE_RULE_PREFIX.exec(meta.name) ?? [];
-  if (m0 == null || m1 == null || m2 == null) return `react-x/${meta.name}`;
-  return `react-${m1}/${m2}`;
+  const parsed = parseRuleFileName(meta.name);
+  if (parsed == null) return `react-x/${meta.name}`;
+  return `react-${parsed.domain}/${parsed.ruleName}`;
 };
 
 const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => {
@@ -84,12 +82,12 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
   }
 
   // Convert canonical rule names to website file names for the link target.
-  // "react-debug/function-component" -> "debug-function-component"
-  // "react-x/no-clone-element"      -> "no-clone-element" (core plugin, omit "x-" prefix)
   const items = references.map((ref) => {
     const [targetPlugin = "", targetName = ""] = ref.targetRule.split("/");
-    const prefix = targetPlugin.replace("react-", "");
-    const targetFileName = prefix === "x" ? targetName : `${prefix}-${targetName}`;
+    const domain = targetPlugin.replace("react-", "");
+    const targetFileName = PLUGIN_DOMAINS.includes(domain as PluginDomain)
+      ? buildRuleFileName(domain as PluginDomain, targetName)
+      : ref.targetRule.replace("react-", "");
     return [`- [\`${ref.targetRule}\`](./${targetFileName})\\`, `  ${ref.description}.`].join("\n");
   });
 
@@ -98,15 +96,10 @@ const generateSeeAlsoSection = (meta: RuleMeta, relations: RuleRelationsMap) => 
 
 // Determines the section order in the generated meta.json.
 // Headings act as section dividers in the website sidebar.
-const orderedCategories = [
-  { key: "x", heading: "---X Rules---" },
-  { key: "jsx", heading: "---JSX Rules---" },
-  { key: "rsc", heading: "---RSC Rules---" },
-  { key: "dom", heading: "---DOM Rules---" },
-  { key: "web-api", heading: "---Web API Rules---" },
-  { key: "naming-convention", heading: "---Naming Convention Rules---" },
-  { key: "debug", heading: "---Debug Rules---" },
-] as const satisfies { key: string; heading: string }[];
+const orderedCategories = DOMAIN_METAS.map((meta) => ({
+  key: meta.key,
+  heading: `---${meta.heading}---`,
+})) as { key: PluginDomain; heading: string }[];
 
 const collectDocs = Effect.gen(function*() {
   const path = yield* Path.Path;
@@ -114,13 +107,10 @@ const collectDocs = Effect.gen(function*() {
   return docs.map<RuleMeta>((doc) => {
     const catename = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(doc)?.[1] ?? "";
     const basename = path.parse(path.basename(doc)).name;
+    const domain = (PLUGIN_DOMAINS.includes(catename as PluginDomain) ? catename : "x") as PluginDomain;
 
-    // Core plugin "x" uses flat names ("no-clone-element") while
-    // sub-plugins prefix with their domain ("dom-no-render").
-    const isPluginX = catename === "x";
-
-    const name = isPluginX ? basename : `${catename}-${basename}`;
-    const title = isPluginX ? basename : `${catename}/${basename}`;
+    const name = buildRuleFileName(domain, basename);
+    const title = domain === "x" ? basename : `${domain}/${basename}`;
 
     const destination = path.join("apps", "website", "content", "docs", "rules", `${name}.mdx`);
 

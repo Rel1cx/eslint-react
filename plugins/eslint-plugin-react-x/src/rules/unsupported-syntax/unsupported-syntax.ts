@@ -57,6 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",
+            // tsl-ignore dx/no-unsafe-as
             node: node.parent as TSESTree.CallExpression,
           });
         }
@@ -65,6 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (isIifeCall(node)) {
           context.report({
             messageId: "iife",
+            // tsl-ignore dx/no-unsafe-as
             node: node.parent as TSESTree.CallExpression,
           });
         }

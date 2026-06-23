@@ -212,6 +212,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             }
             if (stmt.parent?.type === AST.BlockStatement) {
               const block = stmt.parent;
+              // tsl-ignore dx/no-unsafe-as
               const stmtIdx = block.body.indexOf(stmt as TSESTree.Statement);
               if (stmtIdx >= 0) {
                 for (let i = stmtIdx - 1; i >= 0; i--) {

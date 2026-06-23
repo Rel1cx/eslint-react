@@ -54,6 +54,7 @@ import unsupportedSyntax from "./rules/unsupported-syntax/unsupported-syntax";
 import useMemo from "./rules/use-memo/use-memo";
 import useState from "./rules/use-state/use-state";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,

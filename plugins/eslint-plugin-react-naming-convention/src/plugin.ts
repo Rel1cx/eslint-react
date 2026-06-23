@@ -4,6 +4,7 @@ import contextName from "./rules/context-name/context-name";
 import idName from "./rules/id-name/id-name";
 import refName from "./rules/ref-name/ref-name";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,

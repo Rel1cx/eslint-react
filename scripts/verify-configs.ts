@@ -5,6 +5,7 @@ import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
+import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./constants";
 import { glob } from "./helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
@@ -20,15 +21,6 @@ import * as webApiConfig from "#/plugins/eslint-plugin/src/configs/web-api";
 
 const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 
-const DOMAINS = [
-  { key: "x", prefix: "" },
-  { key: "dom", prefix: "dom-" },
-  { key: "jsx", prefix: "jsx-" },
-  { key: "rsc", prefix: "rsc-" },
-  { key: "web-api", prefix: "web-api-" },
-  { key: "naming-convention", prefix: "naming-convention-" },
-] as const;
-
 const DOMAIN_CONFIGS: Record<string, Record<string, unknown>> = {
   "naming-convention": namingConventionConfig.rules,
   "web-api": webApiConfig.rules,
@@ -43,14 +35,6 @@ interface RegisteredRule {
   readonly domain: string;
 }
 
-function buildConfigKey(domain: string, ruleName: string): string {
-  const domainInfo = DOMAINS.find((d) => d.key === domain);
-  if (domainInfo == null) return `@eslint-react/${ruleName}`;
-  return domainInfo.prefix === ""
-    ? `@eslint-react/${ruleName}`
-    : `@eslint-react/${domainInfo.prefix}${ruleName}`;
-}
-
 const collectRegisteredRules = Effect.gen(function*() {
   const path = yield* Path.Path;
   const files = glob(RULES_GLOB)
@@ -61,11 +45,12 @@ const collectRegisteredRules = Effect.gen(function*() {
 
   for (const file of files) {
     const domain = /^plugins\/eslint-plugin-react-([^/]+)/u.exec(file)?.[1] ?? "";
-    if (domain === "debug") continue;
+    if (!PLUGIN_DOMAINS.includes(domain as PluginDomain) || EXCLUDED_VERIFY_DOMAINS.has(domain as PluginDomain)) continue;
+    const meta = DOMAIN_META_BY_KEY[domain as PluginDomain];
     const mod = yield* Effect.tryPromise(() => import(pathToFileURL(NodePath.resolve(file)).href));
     const ruleName = mod.RULE_NAME;
     if (typeof ruleName !== "string") continue;
-    const configKey = buildConfigKey(domain, ruleName);
+    const configKey = buildConfigKey(meta.key, ruleName);
     rules.push({ domain, name: ruleName, configKey });
   }
 
@@ -76,9 +61,9 @@ const verifyAllRulesAccountedFor = Effect.fnUntraced(
   function*(rules: RegisteredRule[]) {
     yield* Effect.log(ansis.bold("1. Checking all registered rules are accounted for in configs..."));
 
-    const allRuleKeys = new Set(Object.keys(allConfig.rules));
-    const experimentalKeys = new Set(Object.keys(disableExperimentalConfig.rules));
-    const typeCheckedKeys = new Set(Object.keys(disableTypeCheckedConfig.rules));
+    const allRuleKeys = new Set<string>(keys(allConfig.rules));
+    const experimentalKeys = new Set(keys(disableExperimentalConfig.rules));
+    const typeCheckedKeys = new Set(keys(disableTypeCheckedConfig.rules));
 
     let errorCount = 0;
     for (const rule of rules) {
@@ -107,7 +92,7 @@ const verifyConfigKeysValid = Effect.fnUntraced(
     const validKeys = new Set(rules.map((r) => r.configKey));
     let errorCount = 0;
 
-    for (const key of Object.keys(configRules)) {
+    for (const key of keys(configRules)) {
       if (!validKeys.has(key)) {
         yield* Effect.logError(ansis.red(`  Config ${ansis.bold(configName)} references unknown rule: ${ansis.bold(key)}`));
         errorCount += 1;
@@ -129,8 +114,8 @@ const verifyHierarchy = Effect.fnUntraced(
     childName: string,
     childRules: Record<string, unknown>,
   ) {
-    const parentKeys = new Set(Object.keys(parentRules));
-    const childKeys = new Set(Object.keys(childRules));
+    const parentKeys = new Set(keys(parentRules));
+    const childKeys = new Set(keys(childRules));
     let errorCount = 0;
 
     for (const key of parentKeys) {
@@ -154,12 +139,12 @@ const verifyDomainConfigCompleteness = Effect.fnUntraced(
 
     let errorCount = 0;
 
-    for (const [domain, configRules] of Object.entries(DOMAIN_CONFIGS)) {
-      const domainInfo = DOMAINS.find((d) => d.key === domain);
+    for (const [domain, configRules] of entries(DOMAIN_CONFIGS)) {
+      const domainInfo = DOMAIN_META_BY_KEY[domain as PluginDomain];
       if (domainInfo == null) continue;
 
       const domainRules = rules.filter((r) => r.domain === domain);
-      const configKeys = Object.keys(configRules);
+      const configKeys = keys(configRules);
       const domainRuleKeys = new Set(domainRules.map((r) => r.configKey));
 
       for (const key of configKeys) {

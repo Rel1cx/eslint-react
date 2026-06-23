@@ -6,6 +6,7 @@ import isFromReact from "./rules/is-from-react/is-from-react";
 import isFromRef from "./rules/is-from-ref/is-from-ref";
 import jsx from "./rules/jsx/jsx";
 
+// tsl-ignore dx/no-unsafe-as
 export const plugin = {
   meta: {
     name,
