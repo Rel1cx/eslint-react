@@ -1,4 +1,4 @@
-# Term-Based Rule Patterns
+# Rule Implementation Patterns Term-Based
 
 How term-based rules use cheap text prechecks to skip files that cannot contain violations.
 

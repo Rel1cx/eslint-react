@@ -314,7 +314,7 @@ title: Changelog
 - Improved `react-x/context-name` rule description accuracy.
 - Removed broken Further Reading links across rule documentation.
 - Reordered Further Reading links by relevance in `react-x`, `react-dom`, and `react-web-api` rule documentation.
-- Updated `term-based-rule-patterns.md` documentation.
+- Updated `rule-implementation-patterns-term-based.md` documentation.
 
 ### 🏗️ Internal
 
@@ -332,7 +332,7 @@ title: Changelog
 
 ### 📝 Documentation
 
-- Added rule implementation patterns guide (`docs/rule-implementation-patterns.md`) and term-based rule patterns guide (`docs/term-based-rule-patterns.md`).
+- Added rule implementation patterns guide (`docs/rule-implementation-patterns.md`) and term-based rule patterns guide (`docs/rule-implementation-patterns-term-based.md`).
 - Lowered minimum TypeScript version requirement from `5.1.0` to `5.0.0` across README and documentation.
 - Fixed textlint war-metaphor warnings and refined `.textlintrc.json` patterns.
 
