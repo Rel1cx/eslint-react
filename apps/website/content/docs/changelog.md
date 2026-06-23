@@ -209,7 +209,7 @@ title: Changelog
 ### 🏗️ Internal
 
 - **`jsx`**: Consolidated whitespace child predicates and added `isEmptyStringExpression` to the public API (#1820).
-- Added preset verification to `verify-docs.ts` (#1822).
+- Added preset verification to `check-docs.ts` (#1822).
 - Added `AGENTS.md` guide for AI coding agents (#1824).
 - Normalized local package metadata in `.pkgs/*`.
 - Bumped `vite` to `^8.0.15` and `ansis` to `^4.3.1` across workspace packages.
@@ -543,7 +543,7 @@ title: Changelog
 - Bumped `pnpm` from 11.0.8 to 11.0.9.
 - Upgraded dprint biome plugin from 0.12.10 to 0.12.11.
 - Reverted `nx` from a 23.0.0 canary back to 22.7.1 stable.
-- Renamed the `verify:rule-docs` script to `verify:docs`.
+- Renamed the `verify:rule-docs` script to `check:docs`.
 - Removed unused `assets/logo.html` and `assets/react-icon.html` (#1755, #1756).
 - Updated Sentrux baseline metrics.
 

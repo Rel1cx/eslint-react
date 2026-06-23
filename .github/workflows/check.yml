@@ -34,4 +34,4 @@ jobs:
       - name: Check
         run: pnpm run lint
       - name: Verify rules docs
-        run: pnpm run verify:docs
+        run: pnpm run check:docs

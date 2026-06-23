@@ -94,7 +94,7 @@ export const rules: Linter.RulesRecord = {
 };
 ```
 
-> **Important**: The preset files are currently maintained manually. The `RULE_FEATURES` metadata serves as the **source of truth** for what _should_ be in these presets. The `verify-configs.ts` script checks for consistency.
+> **Important**: The preset files are currently maintained manually. The `RULE_FEATURES` metadata serves as the **source of truth** for what _should_ be in these presets. The `check-configs.ts` script checks for consistency.
 
 ## Feature Selection Guidelines
 
@@ -159,7 +159,7 @@ export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 While presets are currently manually authored, the `RULE_FEATURES` array is consumed by:
 
 1. **Documentation generators**: To render badges (🧪 Experimental, 🔧 Fixable, etc.) on the website.
-2. **Verification scripts**: `verify-configs.ts` cross-checks that `disable-*` presets match the feature metadata.
+2. **Verification scripts**: `check-configs.ts` cross-checks that `disable-*` presets match the feature metadata.
 3. **IDE plugins**: Future tooling can read feature flags to warn users before enabling experimental rules.
 
 ## Graduating an Experimental Rule
@@ -170,5 +170,5 @@ To move a rule from `EXP` to stable:
 2. Remove the rule from `disable-experimental.ts`.
 3. Add the rule to the appropriate base preset (`recommended.ts` or `strict.ts`).
 4. Update the rule's `.mdx` documentation to remove experimental warnings.
-5. Run `pnpm run verify:configs` to ensure consistency.
+5. Run `pnpm run check:configs` to ensure consistency.
 6. Update `CHANGELOG.md`.

@@ -57,7 +57,7 @@ const collectRegisteredRules = Effect.gen(function*() {
   return rules;
 });
 
-const verifyAllRulesAccountedFor = Effect.fnUntraced(
+const checkAllRulesAccountedFor = Effect.fnUntraced(
   function*(rules: RegisteredRule[]) {
     yield* Effect.log(ansis.bold("1. Checking all registered rules are accounted for in configs..."));
 
@@ -87,7 +87,7 @@ const verifyAllRulesAccountedFor = Effect.fnUntraced(
   },
 );
 
-const verifyConfigKeysValid = Effect.fnUntraced(
+const checkConfigKeysValid = Effect.fnUntraced(
   function*(rules: RegisteredRule[], configName: string, configRules: Record<string, unknown>) {
     const validKeys = new Set(rules.map((r) => r.configKey));
     let errorCount = 0;
@@ -107,7 +107,7 @@ const verifyConfigKeysValid = Effect.fnUntraced(
   },
 );
 
-const verifyHierarchy = Effect.fnUntraced(
+const checkHierarchy = Effect.fnUntraced(
   function*(
     parentName: string,
     parentRules: Record<string, unknown>,
@@ -133,7 +133,7 @@ const verifyHierarchy = Effect.fnUntraced(
   },
 );
 
-const verifyDomainConfigCompleteness = Effect.fnUntraced(
+const checkDomainConfigCompleteness = Effect.fnUntraced(
   function*(rules: RegisteredRule[]) {
     yield* Effect.log(ansis.bold("4. Checking domain config integrity..."));
 
@@ -181,23 +181,23 @@ const program = Effect.gen(function*() {
   yield* Effect.log(`Found ${ansis.bold(rules.length.toString())} registered rules (excluding debug).`);
   yield* Effect.log("");
 
-  const accountedErrors = yield* verifyAllRulesAccountedFor(rules);
+  const accountedErrors = yield* checkAllRulesAccountedFor(rules);
 
   yield* Effect.log("");
   yield* Effect.log(ansis.bold("2. Checking config keys reference valid rules..."));
-  const allKeyErrors = yield* verifyConfigKeysValid(rules, "all", allConfig.rules);
-  const recommendedKeyErrors = yield* verifyConfigKeysValid(rules, "recommended", recommendedConfig.rules);
-  const strictKeyErrors = yield* verifyConfigKeysValid(rules, "strict", strictConfig.rules);
-  const experimentalKeyErrors = yield* verifyConfigKeysValid(rules, "disable-experimental", disableExperimentalConfig.rules);
-  const typeCheckedKeyErrors = yield* verifyConfigKeysValid(rules, "disable-type-checked", disableTypeCheckedConfig.rules);
+  const allKeyErrors = yield* checkConfigKeysValid(rules, "all", allConfig.rules);
+  const recommendedKeyErrors = yield* checkConfigKeysValid(rules, "recommended", recommendedConfig.rules);
+  const strictKeyErrors = yield* checkConfigKeysValid(rules, "strict", strictConfig.rules);
+  const experimentalKeyErrors = yield* checkConfigKeysValid(rules, "disable-experimental", disableExperimentalConfig.rules);
+  const typeCheckedKeyErrors = yield* checkConfigKeysValid(rules, "disable-type-checked", disableTypeCheckedConfig.rules);
 
   yield* Effect.log("");
   yield* Effect.log(ansis.bold("3. Checking preset hierarchy..."));
-  const recStrictErrors = yield* verifyHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules);
-  const strictAllErrors = yield* verifyHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
+  const recStrictErrors = yield* checkHierarchy("recommended", recommendedConfig.rules, "strict", strictConfig.rules);
+  const strictAllErrors = yield* checkHierarchy("strict", strictConfig.rules, "all", allConfig.rules);
 
   yield* Effect.log("");
-  const domainErrors = yield* verifyDomainConfigCompleteness(rules);
+  const domainErrors = yield* checkDomainConfigCompleteness(rules);
 
   const totalErrors = accountedErrors
     + allKeyErrors + recommendedKeyErrors + strictKeyErrors

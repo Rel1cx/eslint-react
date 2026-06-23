@@ -115,7 +115,7 @@ const retrieveRuleMeta = Effect.fnUntraced(
 );
 
 // Verify each rule's .mdx documentation matches its source metadata
-const verifyDocs = Effect.gen(function*() {
+const checkDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const files = glob(RULES_GLOB)
@@ -257,15 +257,15 @@ const verifyDocs = Effect.gen(function*() {
 });
 
 // Verify the index.mdx "View by Domain" table entries match the actual rule metadata
-const verifyIndex = Effect.gen(function*() {
+const checkIndex = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
   const target = path.join(...RULES_INDEX_PATH);
   const content = yield* fs.readFileString(target, "utf8");
   const contentLines = content.split("\n");
-  const verifyIndex = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
-  const verifyIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
-  const relevantLines = contentLines.slice(verifyIndex, verifyIndexEnd === -1 ? undefined : verifyIndexEnd).map((line) => line.trim());
+  const checkIndexStart = contentLines.findIndex((line) => line.startsWith(`## X Rules`));
+  const checkIndexEnd = contentLines.findIndex((line) => line.startsWith(`## See Also`));
+  const relevantLines = contentLines.slice(checkIndexStart, checkIndexEnd === -1 ? undefined : checkIndexEnd).map((line) => line.trim());
 
   yield* Effect.log(ansis.green(`Verifying rules index at ${target}...`));
 
@@ -346,9 +346,9 @@ const verifyIndex = Effect.gen(function*() {
 
 const program = Effect.gen(function*() {
   // Verify the rules documentation matches the actual rule definitions
-  const docsErrors = yield* verifyDocs;
+  const docsErrors = yield* checkDocs;
   // Verify the rules index "View by Domain" matches the actual rule definitions
-  yield* verifyIndex;
+  yield* checkIndex;
   if (docsErrors > 0) {
     yield* Effect.log(ansis.bold.red(`Found ${docsErrors} preset error(s) in rule documentation.`));
     return yield* Effect.fail(new Error(`Docs verification failed with ${docsErrors} preset error(s).`));

@@ -158,6 +158,6 @@ All notable changes to the `apps/website` documentation and its content.
 - Migrated website path aliases from `#/` to `@/` across app, components, and MDX files.
 - Reformatted files with dprint formatter.
 - Reorganized imports across the website codebase.
-- Renamed the `verify:rule-docs` script to `verify:docs`.
+- Renamed the `verify:rule-docs` script to `check:docs`.
 - Removed unused `assets/logo.html` and `assets/react-icon.html`.
 - Updated dependencies: `@typescript-eslint`, `ansis`, `fumadocs-core`, `fumadocs-mdx`, `fumadocs-ui`, `lucide-react`, `postcss`, `tailwindcss`, `tailwind-merge`, `tsl-dx`, `@takumi-rs/image-response`, `uuid`, `vitest`.
