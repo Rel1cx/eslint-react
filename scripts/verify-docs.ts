@@ -8,6 +8,7 @@ import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
+import { DOMAIN_METAS } from "./constants";
 import { glob } from "./helpers";
 
 import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
@@ -45,15 +46,10 @@ function getExpectedPresets(configKey: string): string[] {
 
 const RULES_GLOB = ["plugins/eslint-plugin-react-*/src/rules/*/*.ts"];
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];
-const SECTION_HEADERS = [
-  { key: "x", heading: "X Rules" },
-  { key: "jsx", heading: "JSX Rules" },
-  { key: "rsc", heading: "RSC Rules" },
-  { key: "dom", heading: "DOM Rules" },
-  { key: "web-api", heading: "Web API Rules" },
-  { key: "naming-convention", heading: "Naming Convention Rules" },
-  { key: "debug", heading: "Debug Rules" },
-];
+const SECTION_HEADERS = DOMAIN_METAS.map((meta) => ({
+  key: meta.key,
+  heading: meta.heading,
+}));
 
 // Convert ESLint severity config to numeric value (0=off, 1=warn, 2=error)
 const getSeverity = (x: unknown): number =>
