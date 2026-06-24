@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import rule, { RULE_NAME } from "./no-unnecessary-use-prefix";
 
 ruleTester.run(RULE_NAME, rule, {

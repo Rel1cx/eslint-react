@@ -1,4 +1,4 @@
-import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "#/test";
+import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "#/testing/helpers";
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 import { JsxEmit } from "typescript";

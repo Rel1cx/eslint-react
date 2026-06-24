@@ -8,7 +8,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../test";
+import { getFixturesRootDir } from "../../../testing/helpers";
 import { getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,

@@ -131,7 +131,7 @@ return merge(visitor, {
 Tests use `@typescript-eslint/rule-tester` bound to vitest:
 
 ```ts
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import tsx from "dedent";
 import rule, { RULE_NAME } from "./no-xxx";
 

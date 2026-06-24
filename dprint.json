@@ -17,14 +17,14 @@
   },
   "markdown": {},
   "excludes": [
-    ".pkgs/**/*.d.ts",
-    ".pkgs/**/*.js",
-    "**/.next",
     "**/*-lock.json",
     "**/*-lock.yaml",
+    "**/.next",
     "**/dist",
     "**/node_modules",
-    "**/test/fixtures",
+    "**/testing/samples",
+    ".pkgs/**/*.d.ts",
+    ".pkgs/**/*.js",
     "packages/**/docs"
   ],
   "plugins": [

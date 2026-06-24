@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import { stringify } from "@/utils/stringify";
 import rule, { RULE_NAME } from "./function-component";
 

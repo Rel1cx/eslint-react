@@ -21,7 +21,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     /* Linting */
-        "strict": true,
+    "strict": true,
     "erasableSyntaxOnly": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,

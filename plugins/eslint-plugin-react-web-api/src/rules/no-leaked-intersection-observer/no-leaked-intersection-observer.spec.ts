@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import rule, { RULE_NAME } from "./no-leaked-intersection-observer";
 
 ruleTester.run(RULE_NAME, rule, {

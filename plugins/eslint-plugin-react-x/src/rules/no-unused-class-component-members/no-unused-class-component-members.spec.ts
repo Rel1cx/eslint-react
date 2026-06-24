@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import rule, { RULE_NAME } from "./no-unused-class-component-members";
 
 ruleTester.run(RULE_NAME, rule, {

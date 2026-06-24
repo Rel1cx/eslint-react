@@ -7,7 +7,7 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../test";
+import { getFixturesRootDir } from "../../../testing/helpers";
 import { getFunctionDirectives, getFunctionId, getFunctionInitPath, isFunctionEmpty, isFunctionHasCallInInitPath, isFunctionHasDirective } from "./function";
 
 function parse(code: string) {
