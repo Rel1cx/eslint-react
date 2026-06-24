@@ -33,7 +33,7 @@
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsl",
-    "publish": "pnpm run build:docs && pnpm run lint:publish"
+    "publish": "node --run build:docs && node --run lint:publish"
   },
   "devDependencies": {
     "@eslint-react/kit": "workspace:*",
