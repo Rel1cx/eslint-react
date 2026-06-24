@@ -23,16 +23,16 @@
     "@tsconfig/vite-react": "^8.0.6",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/types": "^8.61.1",
-    "@typescript-eslint/utils": "^8.61.1",
-    "@vitejs/plugin-react": "^6.0.2",
+    "@typescript-eslint/types": "^8.62.0",
+    "@typescript-eslint/utils": "^8.62.0",
+    "@vitejs/plugin-react": "^6.0.3",
     "eslint": "^10.5.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "jiti": "^2.7.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.61.1",
-    "vite": "^8.0.16"
+    "typescript-eslint": "^8.62.0",
+    "vite": "^8.1.0"
   },
   "engines": {
     "node": ">=22.0.0"

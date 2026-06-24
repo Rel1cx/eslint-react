@@ -36,15 +36,15 @@
     "publish": "node --run build && node --run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/types": "^8.61.1",
-    "@typescript-eslint/typescript-estree": "^8.61.1",
-    "@typescript-eslint/utils": "^8.61.1",
+    "@typescript-eslint/types": "^8.62.0",
+    "@typescript-eslint/typescript-estree": "^8.62.0",
+    "@typescript-eslint/utils": "^8.62.0",
     "string-ts": "^2.3.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
-    "@typescript-eslint/parser": "^8.61.1",
+    "@typescript-eslint/parser": "^8.62.0",
     "eslint": "^10.5.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3",
