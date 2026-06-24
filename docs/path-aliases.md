@@ -15,8 +15,8 @@ import { createRule } from "@/utils/create-rule"; // 🟢 Preferred
 import { createRule } from "../../utils/create-rule"; // 🔴 Avoid
 
 // Inside a test or script
-import { ruleTester } from "#/test"; // 🟢 Preferred
-import { ruleTester } from "../../../../../test"; // 🔴 Avoid
+import { ruleTester } from "#/testing/helpers"; // 🟢 Preferred
+import { ruleTester } from "../../../../testing/helpers"; // 🔴 Avoid
 ```
 
 ## Configuration

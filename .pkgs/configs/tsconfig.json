@@ -11,7 +11,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "test/fixtures"
+    "testing/samples"
   ],
   "include": [
     "*.ts",

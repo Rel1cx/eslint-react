@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
-import { ruleTester } from "#/test";
+import { ruleTester } from "#/testing/helpers";
 import type { ESLintReactSettings } from "@eslint-react/shared";
 import rule, { RULE_NAME } from "./use-state";
 

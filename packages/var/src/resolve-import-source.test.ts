@@ -4,7 +4,7 @@ import { parseForESLint } from "@typescript-eslint/parser";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../test";
+import { getFixturesRootDir } from "../../../testing/helpers";
 import { resolveImportSource } from "./resolve-import-source";
 
 function parse(code: string) {

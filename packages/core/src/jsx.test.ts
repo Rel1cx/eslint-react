@@ -7,7 +7,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../test";
+import { getFixturesRootDir } from "../../../testing/helpers";
 import { isJsxLike } from "./jsx";
 
 function parse(code: string) {

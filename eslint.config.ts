@@ -21,7 +21,7 @@ export default defineConfig(
     "apps",
     "docs",
     "examples",
-    "test",
+    "testing",
     ...GLOB_TESTS,
   ]),
   {
