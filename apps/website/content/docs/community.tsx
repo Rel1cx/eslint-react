@@ -1,6 +1,5 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
-
   { owner: "apache", repo: "hadoop" },
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
@@ -11,8 +10,6 @@ export const projects = [
   { owner: "flirtual", repo: "flirtual" },
   { owner: "GoogleCloudPlatform", repo: "gke-mcp" },
   { owner: "hashintel", repo: "hash" },
-  { owner: "kriasoft", repo: "graphql-starter-kit" },
-  { owner: "kriasoft", repo: "react-starter-kit" },
   { owner: "langgenius", repo: "dify" },
   { owner: "laravel", repo: "echo" },
   { owner: "letstri", repo: "permix" },
@@ -20,6 +17,7 @@ export const projects = [
   { owner: "marigold-ui", repo: "marigold" },
   { owner: "mcp-use", repo: "mcp-use" },
   { owner: "mikotoIO", repo: "mikoto" },
+  { owner: "mozilla", repo: "pontoon" },
   { owner: "Nexus-Mods", repo: "Vortex" },
   { owner: "nodejs", repo: "nodejs.org" },
   { owner: "npmgraph", repo: "npmgraph" },
@@ -41,7 +39,9 @@ export const projects = [
   { owner: "TanStack", repo: "query" },
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
+  { owner: "tennaproject", repo: "tenna-editor" },
   { owner: "toss", repo: "suspensive" },
+  { owner: "vatger", repo: "atciss" },
   { owner: "xbmc", repo: "kodi-tv" },
   { owner: "yjs", repo: "yjs-inspector" },
 ];
