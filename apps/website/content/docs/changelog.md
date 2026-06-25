@@ -2,6 +2,31 @@
 title: Changelog
 ---
 
+## v5.9.3 (2026-06-25)
+
+### 🐞 Fixes
+
+- **`ast`**: Corrected the `TSESTreeJSX` union and handling of computed member expressions (#1877).
+- **`jsx`**: Handled namespaced host elements and cleaned up the spread child API (#1876).
+
+### 📝 Documentation
+
+- Refined the rule feature system docs and renamed the term-based patterns document.
+- Renamed `import-paths.md` to `path-aliases.md`.
+- Updated JSX type aliases and `unwrap` documentation.
+
+### 🏗️ Internal
+
+- Aligned `RuleContext` imports in the kit package.
+- Bumped `typescript-eslint` packages to `^8.62.0` and related dependencies.
+- Renamed scripts with numeric prefixes and renamed `verify-*` scripts to `check-*`.
+- Replaced `pnpm run` with `node --run` across scripts (#1879).
+- Replaced the website brand component with an inline logo SVG.
+- Restructured the test directory and added integration tests (#1880).
+- Updated `nx` to `^23.0.1` and `pnpm` to `11.9.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.2...v5.9.3
+
 ## v5.9.2 (2026-06-23)
 
 ### 📝 Documentation
