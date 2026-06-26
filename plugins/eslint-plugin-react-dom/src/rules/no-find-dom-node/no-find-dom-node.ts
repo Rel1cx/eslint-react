@@ -1,4 +1,5 @@
 import { createRule } from "@/utils/create-rule";
+import { Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -41,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return;
         // Handles cases like `ReactDOM.findDOMNode()`.
         case AST.MemberExpression:
-          if (callee.property.type === AST.Identifier && callee.property.name === findDOMNode) {
+          if (Extract.getPropertyName(callee.property) === findDOMNode) {
             context.report({ messageId: "default", node });
           }
           return;

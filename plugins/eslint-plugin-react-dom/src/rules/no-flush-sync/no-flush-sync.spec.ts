@@ -214,6 +214,16 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // Computed property access named flushSync
+    {
+      code: tsx`
+        const obj = { flushSync: () => {} };
+        obj["flushSync"]();
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
     // In conditional expression
     {
       code: tsx`
@@ -263,13 +273,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         myFlushSync(() => {});
-      `,
-    },
-    // String property access (not detected)
-    {
-      code: tsx`
-        const obj = { flushSync: () => {} };
-        obj["flushSync"]();
       `,
     },
   ],

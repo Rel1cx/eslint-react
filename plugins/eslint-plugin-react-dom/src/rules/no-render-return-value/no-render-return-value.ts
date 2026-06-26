@@ -63,8 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Handles member expression calls like 'ReactDOM.render'
         case callee.type === AST.MemberExpression
           && callee.object.type === AST.Identifier
-          && callee.property.type === AST.Identifier
-          && callee.property.name === "render"
+          && Extract.getPropertyName(callee.property) === "render"
           && reactDomNames.has(callee.object.name)
           // Check if the return value is being used
           && isReturnValueUsed(node):

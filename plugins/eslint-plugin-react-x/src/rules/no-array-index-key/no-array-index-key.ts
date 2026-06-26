@@ -97,22 +97,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case AST.CallExpression: {
         const callee = Extract.unwrap(node.callee);
         // Case: key={index.toString()}
-        if (
-          callee.type === AST.MemberExpression
-          && callee.property.type === AST.Identifier
-          && callee.property.name === "toString"
-          && isArrayIndex(callee.object)
-        ) {
+        if (callee.type === AST.MemberExpression && Extract.getPropertyName(callee.property) === "toString" && isArrayIndex(callee.object)) {
           return [{ messageId: "default", node: callee.object }];
         }
         // Case: key={String(index)} or key={Number(index)}
         const argument = node.arguments.at(0);
-        if (
-          callee.type === AST.Identifier
-          && COERCION_FUNCTIONS.has(callee.name)
-          && argument != null
-          && isArrayIndex(argument)
-        ) {
+        if (callee.type === AST.Identifier && COERCION_FUNCTIONS.has(callee.name) && argument != null && isArrayIndex(argument)) {
           return [{ messageId: "default", node: argument }];
         }
         return [];

@@ -1,4 +1,4 @@
-import { Check } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -15,8 +15,7 @@ export function isTestMock(node: TSESTree.Node | null): node is TSESTree.MemberE
   return node != null
     && node.type === AST.MemberExpression
     && node.object.type === AST.Identifier
-    && node.property.type === AST.Identifier
-    && node.property.name === "mock";
+    && Extract.getPropertyName(node.property) === "mock";
 }
 
 export function isTestMockCallback(node: TSESTree.Node | null) {

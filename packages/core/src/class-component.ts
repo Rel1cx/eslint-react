@@ -141,8 +141,7 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
   return (
     callee.type === AST.MemberExpression
     && callee.object.type === AST.ThisExpression
-    && callee.property.type === AST.Identifier
-    && callee.property.name === "setState"
+    && Extract.getPropertyName(callee.property) === "setState"
   );
 }
 

@@ -47,15 +47,13 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
       && callee.name === "fetch":
       return "fetch";
     case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier
-      && callee.property.name === "fetch":
+      && Extract.getPropertyName(callee.property) === "fetch":
       return "fetch";
     case callee.type === AST.Identifier
       && callee.name === "abort":
       return "abort";
     case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier
-      && callee.property.name === "abort":
+      && Extract.getPropertyName(callee.property) === "abort":
       return "abort";
     default:
       return "other";

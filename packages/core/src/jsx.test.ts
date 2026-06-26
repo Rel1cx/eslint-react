@@ -214,9 +214,9 @@ describe("isJsxLike", () => {
       expect(run("React.createElement('div');", hint)).toBe(false);
     });
 
-    it("should not match computed member access", () => {
-      // `React['createElement']` has a Literal property, not an Identifier.
-      expect(run("React['createElement']('div');")).toBe(false);
+    it("should match computed member access", () => {
+      // `React['createElement']` has a Literal property.
+      expect(run("React['createElement']('div');")).toBe(true);
     });
 
     it("should detect createElement when callee is wrapped in TSAsExpression", () => {

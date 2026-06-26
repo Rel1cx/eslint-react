@@ -112,6 +112,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Computed property access named findDOMNode
+    {
+      code: tsx`
+        const obj = { findDOMNode: () => {} };
+        obj["findDOMNode"]();
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // Variable named findDOMNode but not called
@@ -125,13 +133,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         myFindDOMNode(this);
-      `,
-    },
-    // String property access (not detected)
-    {
-      code: tsx`
-        const obj = { findDOMNode: () => {} };
-        obj["findDOMNode"]();
       `,
     },
   ],
