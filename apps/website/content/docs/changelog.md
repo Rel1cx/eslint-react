@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.9.4 (2026-06-26)
+
+### 📝 Documentation
+
+- Updated the community page and project list.
+
+### 🏗️ Internal
+
+- Unified member expression property name checks with `Extract.getPropertyName` (#1881).
+- Updated dependencies and switched `postinstall` to `prepare`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.3...v5.9.4
+
 ## v5.9.3 (2026-06-25)
 
 ### 🐞 Fixes

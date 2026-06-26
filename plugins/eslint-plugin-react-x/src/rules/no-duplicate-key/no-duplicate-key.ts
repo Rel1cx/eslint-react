@@ -80,8 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (n.type !== AST.CallExpression) return false;
               const callee = Extract.unwrap(n.callee);
               return callee.type === AST.MemberExpression
-                && callee.property.type === AST.Identifier
-                && callee.property.name === "map";
+                && Extract.getPropertyName(callee.property) === "map";
             },
           );
           const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);
