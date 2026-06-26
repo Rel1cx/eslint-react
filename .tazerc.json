@@ -6,7 +6,7 @@
   "update": true,
   "recursive": true,
   "includeLocked": true,
-  "ignorePaths": ["test"],
+  "ignorePaths": ["testing"],
   "maturityPeriod": 1,
   "exclude": ["zod"]
 }

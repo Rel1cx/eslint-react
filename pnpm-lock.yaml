@@ -176,6 +176,9 @@ importers:
       typedoc:
         specifier: ^0.28.19
         version: 0.28.19(typescript@6.0.3)
+      typedoc-plugin-file-overview:
+        specifier: ^0.2.0
+        version: 0.2.0(typedoc-plugin-markdown@4.12.0(typedoc@0.28.19(typescript@6.0.3)))(typedoc@0.28.19(typescript@6.0.3))
       typedoc-plugin-markdown:
         specifier: ^4.12.0
         version: 4.12.0(typedoc@0.28.19(typescript@6.0.3))

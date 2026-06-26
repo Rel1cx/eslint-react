@@ -15,7 +15,7 @@ const GLOB_APP = ["app/**/*.{js,ts,jsx,tsx}"];
 const GLOB_COMPONENT = ["components/**/*.{js,ts,jsx,tsx}"];
 const GLOB_CONFIG = ["**/*.config.{js,mjs,ts,tsx}"];
 const GLOB_IGNORES = [
-  "test",
+  "testing",
   "**/*.d.ts",
   "eslint.config.ts",
 ];
