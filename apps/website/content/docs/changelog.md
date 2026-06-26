@@ -4,6 +4,22 @@ title: Changelog
 
 ## v5.9.4 (2026-06-26)
 
+### 🐞 Fixes
+
+- The following rules now detect member expression calls made with computed string property access (e.g. `obj["foo"]()`):
+  - `react-x/no-array-index-key`
+  - `react-x/no-duplicate-key`
+  - `react-x/no-unnecessary-use-prefix`
+  - `react-x/set-state-in-effect`
+  - `react-x/set-state-in-render`
+  - `react-dom/no-find-dom-node`
+  - `react-dom/no-flush-sync`
+  - `react-dom/no-hydrate`
+  - `react-dom/no-render`
+  - `react-dom/no-render-return-value`
+  - `react-dom/no-use-form-state`
+  - `react-web-api/no-leaked-fetch`
+
 ### 📝 Documentation
 
 - Updated the community page and project list.
