@@ -48,7 +48,7 @@ If you find yourself wanting to define components inside other components to acc
 Defining a component inside another component causes it to be recreated on every parent render. React treats each definition as a distinct component type, causing the child to unmount and remount every time.
 
 ```tsx
-// Problem: defining a component inside another component
+// 🔴 Problem: defining a component inside another component
 function Parent() {
   const Child = () => <div />;
 
@@ -57,7 +57,7 @@ function Parent() {
 ```
 
 ```tsx
-// Recommended: declare components at the top level
+// 🟢 Recommended: declare components at the top level
 function Parent() {
   return <Child />;
 }
@@ -72,7 +72,7 @@ function Child() {
 Creating different component types based on props or state during render has the same problem — React cannot reconcile between different component types.
 
 ```tsx
-// Problem: dynamically creating components based on props
+// 🔴 Problem: dynamically creating components based on props
 function Parent({ type }) {
   const Component = type === "button"
     ? () => <button>Click</button>
@@ -83,7 +83,7 @@ function Parent({ type }) {
 ```
 
 ```tsx
-// Recommended: pass props instead of dynamically creating components
+// 🟢 Recommended: pass props instead of dynamically creating components
 function Parent({ type }) {
   return type === "button"
     ? <Button>Click</Button>
@@ -104,7 +104,7 @@ function TextBox({ children }) {
 A common motivation for nesting components is to capture local variables from the parent scope. This should be solved with props instead.
 
 ```tsx
-// Problem: nesting components to access parent variables
+// 🔴 Problem: nesting components to access parent variables
 function Parent({ items }) {
   const ItemList = () => (
     <ul>{items.map(item => <li key={item.id}>{item.name}</li>)}</ul>
@@ -115,7 +115,7 @@ function Parent({ items }) {
 ```
 
 ```tsx
-// Recommended: pass data via props
+// 🟢 Recommended: pass data via props
 function Parent({ items }) {
   return <ItemList items={items} />;
 }

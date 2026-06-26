@@ -36,7 +36,7 @@ React needs keys to identify items in the list. If you don’t specify a key, Re
 The rule checks the values produced by iterator callbacks of `map`, `flatMap`, and `Array.from`.
 
 ```tsx
-// Problem: When a key is missing, React uses the array index as the default key, which can lead to state mismatch or performance issues
+// 🔴 Problem: When a key is missing, React uses the array index as the default key, which can lead to state mismatch or performance issues
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }
@@ -53,7 +53,7 @@ function MyComponent({ items }: MyComponentProps) {
 ### Using a unique key in list rendering
 
 ```tsx
-// Recommended: Provide a stable and unique key for each item in the list to help React correctly track element identity
+// 🟢 Recommended: Provide a stable and unique key for each item in the list to help React correctly track element identity
 interface MyComponentProps {
   items: { id: number; name: string }[];
 }
@@ -72,7 +72,7 @@ function MyComponent({ items }: MyComponentProps) {
 When a list item is rendered conditionally, every branch that produces an element needs a key. The rule checks all branches an item may evaluate to, including `? :`, `&&`, `||`, and `??` expressions.
 
 ```tsx
-// Problem: Each branch of the conditional produces a list item without a key
+// 🔴 Problem: Each branch of the conditional produces a list item without a key
 interface MyComponentProps {
   items: { id: number; name: string; pinned: boolean }[];
 }
@@ -91,7 +91,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Provide a key in every branch
+// 🟢 Recommended: Provide a key in every branch
 interface MyComponentProps {
   items: { id: number; name: string; pinned: boolean }[];
 }
@@ -114,7 +114,7 @@ function MyComponent({ items }: MyComponentProps) {
 Elements placed directly in an array literal become list items just like elements returned from `map`, so each of them needs a key as well.
 
 ```tsx
-// Problem: Elements in an array literal are rendered as a list
+// 🔴 Problem: Elements in an array literal are rendered as a list
 function MyComponent() {
   return [
     <Header />,
@@ -125,7 +125,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: Give each element in the array a stable key
+// 🟢 Recommended: Give each element in the array a stable key
 function MyComponent() {
   return [
     <Header key="header" />,
@@ -140,7 +140,7 @@ function MyComponent() {
 When you map over data and return multiple sibling elements, wrapping them in `<></>` loses the ability to assign a key. You must use the explicit `Fragment` syntax.
 
 ```tsx
-// Problem: Fragment shorthand (<>) does not support keys
+// 🔴 Problem: Fragment shorthand (<>) does not support keys
 function Blog({ posts }) {
   return posts.map((post) => (
     <>
@@ -152,7 +152,7 @@ function Blog({ posts }) {
 ```
 
 ```tsx
-// Recommended: Use explicit Fragment with a key
+// 🟢 Recommended: Use explicit Fragment with a key
 import { Fragment } from "react";
 
 function Blog({ posts }) {

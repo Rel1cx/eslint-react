@@ -44,14 +44,14 @@ Starting from React 19, you can pass `ref` as a regular prop directly, without u
 ```tsx
 import React, { forwardRef } from "react";
 
-// Problem: Using forwardRef to pass ref
+// 🔴 Problem: Using forwardRef to pass ref
 const MyInput = forwardRef(function MyInput(props, ref) {
   return <input ref={ref} {...props} />;
 });
 ```
 
 ```tsx
-// Recommended: Receive ref as a regular prop
+// 🟢 Recommended: Receive ref as a regular prop
 function MyInput({ ref, ...props }) {
   return <input ref={ref} {...props} />;
 }
@@ -69,7 +69,7 @@ interface MyInputProps {
   onChange: (value: string) => void;
 }
 
-// Problem: Using React.forwardRef with generic parameters
+// 🔴 Problem: Using React.forwardRef with generic parameters
 const MyInput = React.forwardRef<MyInputProps, HTMLInputElement>(
   function MyInput({ value, onChange }, ref) {
     return (
@@ -91,7 +91,7 @@ interface MyInputProps {
   onChange: (value: string) => void;
 }
 
-// Recommended: Declare ref directly in the props type
+// 🟢 Recommended: Declare ref directly in the props type
 function MyInput({
   ref,
   value,
@@ -106,7 +106,7 @@ function MyInput({
 In React 19, `ref` can be passed like any other prop, making it easy to forward refs through intermediate components without `forwardRef`.
 
 ```tsx
-// Recommended: Pass ref as a regular prop through multiple layers
+// 🟢 Recommended: Pass ref as a regular prop through multiple layers
 import { useRef } from "react";
 
 function MyInput({ ref, ...props }: React.InputHTMLAttributes<HTMLInputElement> & { ref?: React.Ref<HTMLInputElement> }) {

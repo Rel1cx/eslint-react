@@ -42,7 +42,7 @@ In many cases, you may also not need an effect at all. Please see [You Might Not
 When data can be derived directly from props, putting it in state inside an effect creates an unnecessary render cycle.
 
 ```tsx
-// Problem: transforming data in an effect
+// 🔴 Problem: transforming data in an effect
 function Component({ rawData }) {
   const [processed, setProcessed] = useState([]);
 
@@ -53,7 +53,7 @@ function Component({ rawData }) {
 ```
 
 ```tsx
-// Recommended: compute directly during rendering
+// 🟢 Recommended: compute directly during rendering
 function Component({ rawData }) {
   const processed = useMemo(() => rawData.map(transform), [rawData]);
   // ...
@@ -61,7 +61,7 @@ function Component({ rawData }) {
 ```
 
 ```tsx
-// Recommended: simple computations can be done directly during rendering
+// 🟢 Recommended: simple computations can be done directly during rendering
 function Component({ selectedId, items }) {
   const selected = items.find((i) => i.id === selectedId);
   return <div>{selected?.name}</div>;
@@ -73,7 +73,7 @@ function Component({ selectedId, items }) {
 Synchronously setting state based on props in an effect is a common anti-pattern that causes extra renders.
 
 ```tsx
-// Problem: setting state based on props in an effect
+// 🔴 Problem: setting state based on props in an effect
 function Component({ selectedId, items }) {
   const [selected, setSelected] = useState(null);
 
@@ -84,7 +84,7 @@ function Component({ selectedId, items }) {
 ```
 
 ```tsx
-// Recommended: derive values during rendering
+// 🟢 Recommended: derive values during rendering
 function Component({ selectedId, items }) {
   const selection = items.find((item) => item.id === selectedId) ?? null;
   // ...
@@ -96,7 +96,7 @@ function Component({ selectedId, items }) {
 Using an effect to reset state when a prop changes causes an extra render. Instead, use the `key` prop to reset state automatically.
 
 ```tsx
-// Problem: resetting state in an effect
+// 🔴 Problem: resetting state in an effect
 function ProfilePage({ userId }) {
   const [comment, setComment] = useState("");
 
@@ -107,7 +107,7 @@ function ProfilePage({ userId }) {
 ```
 
 ```tsx
-// Recommended: use the key prop to reset state automatically
+// 🟢 Recommended: use the key prop to reset state automatically
 function ProfilePage({ userId }) {
   return <Profile userId={userId} key={userId} />;
 }
@@ -123,7 +123,7 @@ function Profile({ userId }) {
 Toggling a loading flag synchronously at the start of an effect causes an immediate re-render before any actual work begins.
 
 ```tsx
-// Problem: setting loading state synchronously
+// 🔴 Problem: setting loading state synchronously
 function Component() {
   const [loading, setLoading] = useState(false);
 
@@ -135,7 +135,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: initialize loading state to true so no synchronous setState is needed
+// 🟢 Recommended: initialize loading state to true so no synchronous setState is needed
 function Component() {
   const [loading, setLoading] = useState(true);
 
@@ -150,7 +150,7 @@ function Component() {
 The rule does not flag indirect calls, such as inside event handlers, async functions, or timers. These run outside of the synchronous effect execution and do not cause the same immediate re-render problem.
 
 ```tsx
-// OK: setState in an event handler
+// 🔵 OK: setState in an event handler
 function Counter() {
   const [count, setCount] = useState(0);
 
@@ -163,7 +163,7 @@ function Counter() {
 ```
 
 ```tsx
-// OK: setState in an async function
+// 🔵 OK: setState in an async function
 function RemoteContent() {
   const [content, setContent] = useState("");
 

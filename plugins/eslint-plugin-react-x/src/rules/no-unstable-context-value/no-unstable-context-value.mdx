@@ -32,7 +32,7 @@ React will re-render all consumers of a context whenever the context value chang
 JavaScript objects and functions get a new reference every time they are recreated. If you pass an object literal directly in JSX, the Provider will think the value has changed on every render, causing all consumers to re-render unnecessarily.
 
 ```tsx
-// Problem: Object literals create a new reference on every render
+// 🔴 Problem: Object literals create a new reference on every render
 import React from "react";
 
 const MyContext = React.createContext({});
@@ -49,7 +49,7 @@ function MyComponentProvider() {
 ```
 
 ```tsx
-// Recommended: Lift the value to module scope or use useMemo to keep the reference stable
+// 🟢 Recommended: Lift the value to module scope or use useMemo to keep the reference stable
 import React, { useMemo } from "react";
 
 const MyContext = React.createContext({});
@@ -70,7 +70,7 @@ function MyComponentProvider() {
 When a context value depends on state or props, wrap it in `useMemo` so the reference stays stable across renders. This prevents unnecessary re-renders in all consumers.
 
 ```tsx
-// Recommended: use useMemo to keep the context value reference stable
+// 🟢 Recommended: use useMemo to keep the context value reference stable
 import { useState, useCallback, useMemo, createContext } from "react";
 
 interface AuthContextType {
@@ -105,7 +105,7 @@ function App() {
 In React 19, if a component uses the `"use memo"` directive, the compiler automatically keeps object references stable, so passing object literals directly is acceptable.
 
 ```tsx
-// OK: With the use memo directive, the compiler automatically optimizes references
+// 🔵 OK: With the use memo directive, the compiler automatically optimizes references
 import React from "react";
 
 const MyContext = React.createContext({});

@@ -38,7 +38,7 @@ Using `Children.map` to wrap children assumes a specific React internals structu
 For example, if you need to wrap items in a styled container, accept an array of data as a prop and map over it:
 
 ```tsx
-// Recommended: accept data as an array prop and map over it
+// 🟢 Recommended: accept data as an array prop and map over it
 interface MyComponentProps {
   items: string[];
 }
@@ -57,7 +57,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Problem: Using Children.map to wrap each child in a styled container
+// 🔴 Problem: Using Children.map to wrap each child in a styled container
 import React, { Children } from "react";
 
 interface MyComponentProps {
@@ -78,7 +78,7 @@ function MyComponent({ children }: MyComponentProps) {
 Instead of passing React elements as children and wrapping them with `Children.map`, accept structured data as a prop and map over it directly. This gives you full control over rendering and keys.
 
 ```tsx
-// Recommended: accept structured data as a prop and map over it
+// 🟢 Recommended: accept structured data as a prop and map over it
 interface Row {
   id: string;
   content: React.ReactNode;

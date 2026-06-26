@@ -46,7 +46,7 @@ Starting from React 19, Context itself can be used directly as a provider, so yo
 ```tsx
 import ThemeContext from "./ThemeContext";
 
-// Problem: Continuing to use the legacy `<Context.Provider>` syntax
+// 🔴 Problem: Continuing to use the legacy `<Context.Provider>` syntax
 function App({ children }) {
   return (
     <ThemeContext.Provider value="light">
@@ -59,7 +59,7 @@ function App({ children }) {
 ```tsx
 import ThemeContext from "./ThemeContext";
 
-// Recommended: Use `<Context>` directly as a provider
+// 🟢 Recommended: Use `<Context>` directly as a provider
 function App({ children }) {
   return (
     <ThemeContext value="dark">
@@ -74,7 +74,7 @@ function App({ children }) {
 When multiple contexts are provided to the same subtree, the legacy `.Provider` syntax adds unnecessary noise. React 19 allows each context to be used directly.
 
 ```tsx
-// Problem: Nested legacy providers
+// 🔴 Problem: Nested legacy providers
 import ThemeContext from "./ThemeContext";
 import AuthContext from "./AuthContext";
 
@@ -90,7 +90,7 @@ function App({ children }) {
 ```
 
 ```tsx
-// Recommended: Use contexts directly as providers
+// 🟢 Recommended: Use contexts directly as providers
 import ThemeContext from "./ThemeContext";
 import AuthContext from "./AuthContext";
 

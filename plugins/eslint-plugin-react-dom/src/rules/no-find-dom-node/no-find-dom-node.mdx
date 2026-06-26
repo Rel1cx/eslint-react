@@ -36,7 +36,7 @@ This API will be removed in a future major version of React. [See the alternativ
 `findDOMNode` is a legacy API that will be removed. Use refs instead to reliably access DOM nodes.
 
 ```tsx
-// Problem: findDOMNode is deprecated and will be removed.
+// 🔴 Problem: findDOMNode is deprecated and will be removed.
 import React, { Component } from "react";
 import { findDOMNode } from "react-dom";
 
@@ -55,7 +55,7 @@ class AutoSelectingInput extends Component {
 ```
 
 ```tsx
-// Recommended: use createRef to access the underlying DOM node.
+// 🟢 Recommended: use createRef to access the underlying DOM node.
 import React, { Component } from "react";
 
 class AutoSelectingInput extends Component {
@@ -77,7 +77,7 @@ class AutoSelectingInput extends Component {
 `findDOMNode` is also problematic in function components because it relies on the component instance (`this`), which does not exist in function components.
 
 ```tsx
-// Problem: findDOMNode is deprecated and does not work well with function components.
+// 🔴 Problem: findDOMNode is deprecated and does not work well with function components.
 import { useEffect } from 'react';
 import { findDOMNode } from 'react-dom';
 
@@ -92,7 +92,7 @@ function AutoSelectingInput() {
 ```
 
 ```tsx
-// Recommended: use useRef to access the underlying DOM node.
+// 🟢 Recommended: use useRef to access the underlying DOM node.
 import { useEffect, useRef } from 'react';
 
 function AutoSelectingInput() {

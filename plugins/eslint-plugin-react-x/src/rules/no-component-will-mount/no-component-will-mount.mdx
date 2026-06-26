@@ -40,7 +40,7 @@ This API was renamed from `componentWillMount` to `UNSAFE_componentWillMount`. T
 If your codebase still references `componentWillMount`, you should rename it to `UNSAFE_componentWillMount` to stay compatible with future React versions. Eventually, consider migrating side effects to `componentDidMount` or function components with `useEffect`.
 
 ```tsx
-// Problem: Using the deprecated componentWillMount name
+// 🔴 Problem: Using the deprecated componentWillMount name
 import React from "react";
 
 interface MyComponentProps {
@@ -55,7 +55,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 ```
 
 ```tsx
-// Recommended: Use UNSAFE_componentWillMount instead of the old name
+// 🟢 Recommended: Use UNSAFE_componentWillMount instead of the old name
 import React from "react";
 
 interface MyComponentProps {

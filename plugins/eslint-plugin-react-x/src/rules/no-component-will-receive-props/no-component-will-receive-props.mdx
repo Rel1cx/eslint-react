@@ -42,7 +42,7 @@ React has renamed `componentWillReceiveProps` to `UNSAFE_componentWillReceivePro
 ```tsx
 import React from "react";
 
-// Problem: Continuing to use the deprecated componentWillReceiveProps
+// 🔴 Problem: Continuing to use the deprecated componentWillReceiveProps
 class MyComponent extends React.Component {
   componentWillReceiveProps() {
     // ...
@@ -53,7 +53,7 @@ class MyComponent extends React.Component {
 ```tsx
 import React from "react";
 
-// Recommended: Use UNSAFE_componentWillReceiveProps instead
+// 🟢 Recommended: Use UNSAFE_componentWillReceiveProps instead
 class MyComponent extends React.Component {
   UNSAFE_componentWillReceiveProps() {
     // ...

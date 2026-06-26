@@ -43,7 +43,7 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Problem: An 'IntersectionObserver' in 'useEffect' should have a corresponding 'intersectionObserver.disconnect()' in its cleanup function
+    // 🔴 Problem: An 'IntersectionObserver' in 'useEffect' should have a corresponding 'intersectionObserver.disconnect()' in its cleanup function
     const observer = new IntersectionObserver(([entry]) => {
       console.log("visible:", entry.isIntersecting);
     });
@@ -64,12 +64,12 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Recommended: Create and use IntersectionObserver
+    // 🟢 Recommended: Create and use IntersectionObserver
     const observer = new IntersectionObserver(([entry]) => {
       console.log("visible:", entry.isIntersecting);
     });
     observer.observe(ref.current);
-    // Recommended: Disconnect in the cleanup function
+    // 🟢 Recommended: Disconnect in the cleanup function
     return () => observer.disconnect();
   }, []);
 
@@ -89,7 +89,7 @@ function VisibilityTracker() {
   const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Recommended: Disconnect IntersectionObserver when observing multiple elements
+    // 🟢 Recommended: Disconnect IntersectionObserver when observing multiple elements
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         console.log(entry.target, "intersecting:", entry.isIntersecting);
@@ -124,7 +124,7 @@ function LazySection() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Problem: The callback only runs when the element intersects, so the observer leaks if the component unmounts before that
+    // 🔴 Problem: The callback only runs when the element intersects, so the observer leaks if the component unmounts before that
     const observer = new IntersectionObserver(([entry], obs) => {
       if (entry.isIntersecting) {
         setVisible(true);
@@ -154,7 +154,7 @@ function LazySection() {
       }
     });
     observer.observe(ref.current);
-    // Recommended: Disconnect in the cleanup function as a fallback in case the component unmounts before the callback runs
+    // 🟢 Recommended: Disconnect in the cleanup function as a fallback in case the component unmounts before the callback runs
     return () => observer.disconnect();
   }, []);
 

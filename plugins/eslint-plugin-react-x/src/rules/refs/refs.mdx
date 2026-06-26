@@ -58,7 +58,7 @@ Once something is marked as a ref, the lint surfaces violations when `ref.curren
 Refs are not guaranteed to be initialized during render. Reading them in the component body may return `null` or a stale value from a previous render cycle.
 
 ```tsx
-// Problem: reading ref during render
+// 🔴 Problem: reading ref during render
 function Component() {
   const ref = useRef(0);
   const value = ref.current; // read during render
@@ -68,7 +68,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use state to display values
+// 🟢 Recommended: use state to display values
 function Component() {
   const [count, setCount] = useState(0);
   return <div>{count}</div>;
@@ -80,7 +80,7 @@ function Component() {
 Custom hooks follow the same rules as components. Reading `ref.current` during the execution of a custom hook is still part of the render phase.
 
 ```tsx
-// Problem: reading ref.current inside a custom hook during render
+// 🔴 Problem: reading ref.current inside a custom hook during render
 function useMyHook() {
   const ref = useRef(0);
   const value = ref.current;
@@ -90,7 +90,7 @@ function useMyHook() {
 ```
 
 ```tsx
-// Recommended: pass the ref to a component and read it in an effect
+// 🟢 Recommended: pass the ref to a component and read it in an effect
 function Component() {
   const ref = useRef(null);
   useEffect(() => {
@@ -107,7 +107,7 @@ function Component() {
 Writing to a ref during render is a side effect. React may invoke your component multiple times before committing, so the ref write may happen more often than you expect.
 
 ```tsx
-// Problem: modifying ref during render
+// 🔴 Problem: modifying ref during render
 function Component({ value }) {
   const ref = useRef(null);
   ref.current = value; // modified during render
@@ -117,7 +117,7 @@ function Component({ value }) {
 ```
 
 ```tsx
-// Recommended: modify refs in effects or event handlers
+// 🟢 Recommended: modify refs in effects or event handlers
 function Component() {
   const ref = useRef(null);
   useEffect(() => {
@@ -130,7 +130,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use useLayoutEffect when you need to measure DOM nodes before paint
+// 🟢 Recommended: use useLayoutEffect when you need to measure DOM nodes before paint
 function Component() {
   const ref = useRef(null);
   useLayoutEffect(() => {
@@ -145,7 +145,7 @@ function Component() {
 There is one exception: lazy initialization of a ref value on first access is a common and safe pattern, as long as it only runs once.
 
 ```tsx
-// OK: lazy initialization of ref value
+// 🔵 OK: lazy initialization of ref value
 function Component() {
   const ref = useRef(null);
   if (ref.current === null) {
@@ -163,7 +163,7 @@ function Component() {
 If a value affects what is shown on screen, it should be state, not a ref. Refs are meant for values that don't affect rendering output.
 
 ```tsx
-// Problem: using a ref to store a value that needs to be displayed in JSX
+// 🔴 Problem: using a ref to store a value that needs to be displayed in JSX
 function Component() {
   const ref = useRef(0);
   return <div>{ref.current}</div>;
@@ -172,7 +172,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use state to store rendered values
+// 🟢 Recommended: use state to store rendered values
 function Component() {
   const [count, setCount] = useState(0);
   return <div>{count}</div>;

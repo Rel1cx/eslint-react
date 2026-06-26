@@ -36,7 +36,7 @@ react-dom/no-render-return-value
 The return value of `ReactDOM.render()` is considered legacy and may break with future React updates.
 
 ```tsx
-// Problem: depending on the return value of ReactDOM.render().
+// 🔴 Problem: depending on the return value of ReactDOM.render().
 import ReactDOM from "react-dom";
 
 const instance = ReactDOM.render(<div id="app" />, document.body);
@@ -44,7 +44,7 @@ const instance = ReactDOM.render(<div id="app" />, document.body);
 ```
 
 ```tsx
-// Recommended: use a callback ref on the root element instead.
+// 🟢 Recommended: use a callback ref on the root element instead.
 import ReactDOM from "react-dom";
 
 function doSomethingWithInst(inst: HTMLDivElement | null) {
@@ -59,7 +59,7 @@ ReactDOM.render(<div id="app" ref={doSomethingWithInst} />, document.body);
 The callback parameter of `ReactDOM.render()` is also legacy and should be avoided. Use `useEffect` inside the rendered component instead.
 
 ```tsx
-// Problem: using the callback parameter of ReactDOM.render().
+// 🔴 Problem: using the callback parameter of ReactDOM.render().
 import { render } from 'react-dom';
 
 const container = document.getElementById('app');
@@ -69,7 +69,7 @@ render(<App tab="home" />, container, () => {
 ```
 
 ```tsx
-// Recommended: use useEffect inside the rendered component.
+// 🟢 Recommended: use useEffect inside the rendered component.
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 

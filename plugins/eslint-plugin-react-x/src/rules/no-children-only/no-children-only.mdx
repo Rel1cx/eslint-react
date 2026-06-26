@@ -38,7 +38,7 @@ Using `Children.only` to assert that a component receives exactly one child is f
 For example, if your component needs exactly one child element, you can type the prop as a single `ReactElement` instead of `React.ReactNode`:
 
 ```tsx
-// Recommended: type the children prop to enforce a single child at compile time
+// 🟢 Recommended: type the children prop to enforce a single child at compile time
 import { type ReactElement } from "react";
 
 interface MyComponentProps {
@@ -51,7 +51,7 @@ function MyComponent({ children }: MyComponentProps) {
 ```
 
 ```tsx
-// Problem: Using Children.only to enforce a single child
+// 🔴 Problem: Using Children.only to enforce a single child
 import React, { Children } from "react";
 
 interface MyComponentProps {
@@ -69,7 +69,7 @@ function MyComponent({ children }: MyComponentProps) {
 If your component is designed to work with a single element, consider accepting it as a regular prop instead of children. This makes the API clearer and avoids runtime checks.
 
 ```tsx
-// Recommended: accept the single element as a named prop
+// 🟢 Recommended: accept the single element as a named prop
 import { type ReactElement } from "react";
 
 interface ModalProps {

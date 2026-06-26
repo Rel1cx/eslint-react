@@ -36,7 +36,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillReceiveProps` makes you
 `UNSAFE_componentWillReceiveProps` is a deprecated lifecycle method. If you need to update state when props change, use the static method `getDerivedStateFromProps`; if you need to perform side effects, use `componentDidUpdate`.
 
 ```tsx
-// Problem: Uses an unsafe lifecycle method
+// 🔴 Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -47,7 +47,7 @@ class MyComponent extends React.Component {
 ```
 
 ```tsx
-// Recommended: derive state with getDerivedStateFromProps or use componentDidUpdate for side effects
+// 🟢 Recommended: derive state with getDerivedStateFromProps or use componentDidUpdate for side effects
 import React from "react";
 
 class MyComponent extends React.Component {

@@ -53,7 +53,7 @@ function UserProfile({ id }: { id: string }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Problem: A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
+    // 🔴 Problem: A 'fetch' started in 'useEffect' must be aborted in the cleanup function.
     fetch(`/api/user/${id}`)
       .then((r) => r.json())
       .then(setUser);
@@ -72,12 +72,12 @@ function UserProfile({ id }: { id: string }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Recommended: Create an AbortController and pass its signal to fetch
+    // 🟢 Recommended: Create an AbortController and pass its signal to fetch
     const ctrl = new AbortController();
     fetch(`/api/user/${id}`, { signal: ctrl.signal })
       .then((r) => r.json())
       .then(setUser);
-    // Recommended: Abort the request in the cleanup function
+    // 🟢 Recommended: Abort the request in the cleanup function
     return () => ctrl.abort();
   }, [id]);
 
@@ -90,7 +90,7 @@ function UserProfile({ id }: { id: string }) {
 When using `async/await` inside `useEffect`, create the `AbortController` outside the async function so it can be aborted in the cleanup function.
 
 ```tsx
-// Recommended: Use async/await with AbortController in useEffect
+// 🟢 Recommended: Use async/await with AbortController in useEffect
 import { useEffect, useState } from "react";
 
 function UserProfile({ id }: { id: string }) {

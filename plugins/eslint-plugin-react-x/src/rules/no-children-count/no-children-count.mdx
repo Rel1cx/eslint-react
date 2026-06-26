@@ -38,7 +38,7 @@ Relying on `Children.count` makes your component tightly coupled to React's inte
 For example, if you need to know how many items to display, you can accept an array as a prop directly and use `.length`:
 
 ```tsx
-// Recommended: accept data as an array prop
+// 🟢 Recommended: accept data as an array prop
 interface MyComponentProps {
   items: string[];
 }
@@ -56,7 +56,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Problem: Using Children.count to determine the number of children
+// 🔴 Problem: Using Children.count to determine the number of children
 import React, { Children } from "react";
 
 interface MyComponentProps {
@@ -78,7 +78,7 @@ function MyComponent({ children }: MyComponentProps) {
 Instead of counting children, compose components so that the parent controls the layout and the child components render what they receive.
 
 ```tsx
-// Recommended: use component composition to wrap items
+// 🟢 Recommended: use component composition to wrap items
 interface RowListProps {
   children: React.ReactNode;
 }
@@ -110,7 +110,7 @@ function App() {
 If a component needs to show different UI depending on how many items there are, let the parent compute the count from its own data rather than inspecting children.
 
 ```tsx
-// Recommended: compute the count from props in the parent
+// 🟢 Recommended: compute the count from props in the parent
 interface ItemListProps {
   items: string[];
 }

@@ -42,7 +42,7 @@ React has renamed `componentWillUpdate` to `UNSAFE_componentWillUpdate`. The old
 ```tsx
 import React from "react";
 
-// Problem: Continuing to use the deprecated componentWillUpdate
+// 🔴 Problem: Continuing to use the deprecated componentWillUpdate
 class MyComponent extends React.Component {
   componentWillUpdate() {
     // ...
@@ -53,7 +53,7 @@ class MyComponent extends React.Component {
 ```tsx
 import React from "react";
 
-// Recommended: Use UNSAFE_componentWillUpdate instead
+// 🟢 Recommended: Use UNSAFE_componentWillUpdate instead
 class MyComponent extends React.Component {
   UNSAFE_componentWillUpdate() {
     // ...

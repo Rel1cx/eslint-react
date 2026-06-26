@@ -45,7 +45,7 @@ import React from "react";
 
 declare let someValues: { foo: string; bar: string; key: string };
 
-// Problem: Implicitly passing key when spreading an object
+// 🔴 Problem: Implicitly passing key when spreading an object
 function MyComponent() {
   return <div {...someValues} />;
 }
@@ -56,7 +56,7 @@ import React from "react";
 
 declare let someValues: { id: string; className: string; key: string };
 
-// Recommended: Explicitly destructure and pass key
+// 🟢 Recommended: Explicitly destructure and pass key
 function MyComponent() {
   const { key, ...rest } = someValues;
   return <div key={key} {...rest} />;
@@ -72,7 +72,7 @@ import React from "react";
 
 declare let someValues: { id: string; className: string; key: React.Key };
 
-// OK: key type is React.Key, which is a React built-in type
+// 🔵 OK: key type is React.Key, which is a React built-in type
 function MyComponent() {
   return <div {...someValues} data-slot="pagination-item" />;
 }
@@ -85,7 +85,7 @@ When spreading props from React built-in types (such as `React.ComponentProps`),
 ```tsx
 import React from "react";
 
-// OK: props come from React.ComponentProps, key originates from React.Attributes
+// 🔵 OK: props come from React.ComponentProps, key originates from React.Attributes
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
 }

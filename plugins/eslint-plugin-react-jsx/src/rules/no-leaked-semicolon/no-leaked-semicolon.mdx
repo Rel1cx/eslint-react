@@ -50,7 +50,7 @@ return (
 ### Accidentally leaving semicolons inside JSX
 
 ```tsx
-// Problem: Semicolon leaks into rendered text
+// 🔴 Problem: Semicolon leaks into rendered text
 function MyComponent() {
   return (
     <div>
@@ -61,7 +61,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Problem: Semicolon leaks into rendered text
+// 🔴 Problem: Semicolon leaks into rendered text
 function MyComponent() {
   return (
     <div>
@@ -76,7 +76,7 @@ function MyComponent() {
 ### Proper JSX without leaked semicolons
 
 ```tsx
-// Recommended: No semicolon after JSX elements
+// 🟢 Recommended: No semicolon after JSX elements
 function MyComponent() {
   return (
     <div>
@@ -89,7 +89,7 @@ function MyComponent() {
 ### Intentionally rendering semicolons as text
 
 ```tsx
-// OK: Semicolon is intentionally placed as separate text
+// 🔵 OK: Semicolon is intentionally placed as separate text
 function MyComponent() {
   return (
     <div>

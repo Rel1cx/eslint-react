@@ -43,7 +43,7 @@ This is the TypeScript-only version of [`eslint-plugin-react/no-unused-prop-type
 Declaring a field in a type or interface but not reading or using it in the component function causes the type definition to be inconsistent with the actual implementation.
 
 ```tsx
-// Problem: onClick is defined in ButtonProps but never used
+// 🔴 Problem: onClick is defined in ButtonProps but never used
 type ButtonProps = {
   children: React.ReactNode;
   onClick: () => void;
@@ -55,7 +55,7 @@ function Button({ children }: ButtonProps) {
 ```
 
 ```tsx
-// Recommended: actually use all declared props in the component
+// 🟢 Recommended: actually use all declared props in the component
 type ButtonProps = {
   children: React.ReactNode;
   onClick: () => void;
@@ -75,7 +75,7 @@ function Button({ children, onClick }: ButtonProps) {
 Even if props are destructured, missing some fields from the interface is considered unused.
 
 ```tsx
-// Problem: avatarUrl is defined in UserProfileProps but never used
+// 🔴 Problem: avatarUrl is defined in UserProfileProps but never used
 interface UserProfileProps {
   username: string;
   avatarUrl: string;
@@ -91,7 +91,7 @@ function UserProfile({ username }: UserProfileProps) {
 Using the `...rest` spread operator passes through all props that are not explicitly destructured, so these props are considered used.
 
 ```tsx
-// OK: ...rest is considered to use all non-destructured props
+// 🔵 OK: ...rest is considered to use all non-destructured props
 interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
   className?: string;
@@ -107,7 +107,7 @@ function Text({ children, ...rest }: TextProps) {
 When a type/interface is shared by multiple components, as long as each field is used in at least one component, it will not be reported as unused.
 
 ```tsx
-// OK: userId and theme are used in different components respectively
+// 🔵 OK: userId and theme are used in different components respectively
 interface ProfileProps {
   userId: string; // Used by ProfilePage
   theme: "light" | "dark"; // Used by ProfileAvatar

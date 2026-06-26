@@ -46,7 +46,7 @@ interface MyComponentState {
   foo: string;
 }
 
-// Problem: Assigning to this.state directly
+// 🔴 Problem: Assigning to this.state directly
 class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
@@ -76,7 +76,7 @@ interface MyComponentState {
   foo: string;
 }
 
-// Recommended: Update state via setState
+// 🟢 Recommended: Update state via setState
 class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
   state = {
     foo: "bar",
@@ -101,7 +101,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 Directly mutating a state object or array in a function component does not trigger a re-render and breaks React's state management.
 
 ```tsx
-// Problem: Mutating a state object directly instead of using the setter
+// 🔴 Problem: Mutating a state object directly instead of using the setter
 import { useState } from "react";
 
 function UserProfile() {
@@ -120,7 +120,7 @@ function UserProfile() {
 ```
 
 ```tsx
-// Recommended: Always use the setter function with a new object
+// 🟢 Recommended: Always use the setter function with a new object
 import { useState } from "react";
 
 function UserProfile() {
@@ -143,7 +143,7 @@ function UserProfile() {
 Directly mutating an array in state (for example, with `push`, `pop`, or direct index assignment) does not trigger a re-render. Use immutable array methods instead.
 
 ```tsx
-// Problem: Mutating a state array directly
+// 🔴 Problem: Mutating a state array directly
 import { useState } from "react";
 
 function TodoList() {
@@ -163,7 +163,7 @@ function TodoList() {
 ```
 
 ```tsx
-// Recommended: Use immutable array methods like concat or the spread syntax
+// 🟢 Recommended: Use immutable array methods like concat or the spread syntax
 import { useState } from "react";
 
 function TodoList() {

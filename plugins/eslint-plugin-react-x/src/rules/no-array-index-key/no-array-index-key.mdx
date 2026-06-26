@@ -36,7 +36,7 @@ The order of items in list rendering can change over time if an item is inserted
 When your data items have a unique identifier, use it as the `key` so React can correctly track each element across reorders, insertions, and deletions.
 
 ```tsx
-// Problem: Using the array index as a key causes state issues when sorting, adding, or removing items
+// 🔴 Problem: Using the array index as a key causes state issues when sorting, adding, or removing items
 interface MyComponentProps {
   items: { id: string; name: string }[];
 }
@@ -54,7 +54,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use the data's own unique identifier as the key
+// 🟢 Recommended: Use the data's own unique identifier as the key
 interface MyComponentProps {
   items: { id: string; name: string }[];
 }
@@ -73,7 +73,7 @@ function MyComponent({ items }: MyComponentProps) {
 Wrapping the index in a string or a conversion does not make it a stable identity — the key still changes whenever the list is reordered. The rule also reports indexes used in template literals, string concatenation, and `String()`, `Number()`, or `.toString()` conversions.
 
 ```tsx
-// Problem: The key is still derived from the array index
+// 🔴 Problem: The key is still derived from the array index
 interface MyComponentProps {
   items: { id: string; name: string }[];
 }
@@ -95,7 +95,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Derive the key from the data itself
+// 🟢 Recommended: Derive the key from the data itself
 interface MyComponentProps {
   items: { id: string; name: string }[];
 }
@@ -114,7 +114,7 @@ function MyComponent({ items }: MyComponentProps) {
 Using the index as a fallback when an identifier is missing still gives some items an unstable identity. The rule checks every branch a key may evaluate to, including `??`, `||`, and ternary expressions.
 
 ```tsx
-// Problem: Items without an id silently fall back to the index
+// 🔴 Problem: Items without an id silently fall back to the index
 interface MyComponentProps {
   items: { id?: string; name: string }[];
 }
@@ -132,7 +132,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Assign a stable id when the item is created, not at render time
+// 🟢 Recommended: Assign a stable id when the item is created, not at render time
 interface MyComponentProps {
   items: { id: string; name: string }[];
 }
@@ -155,7 +155,7 @@ function MyComponent({ items }: MyComponentProps) {
 When rendering nested lists, both the outer and inner items need stable keys. Using the item's own identifier ensures React can correctly track elements at every level.
 
 ```tsx
-// Recommended: Use stable identifiers for both outer and inner list items
+// 🟢 Recommended: Use stable identifiers for both outer and inner list items
 interface Recipe {
   id: string;
   name: string;
@@ -186,7 +186,7 @@ function RecipeList({ recipes }: { recipes: Recipe[] }) {
 When each list item needs to render multiple elements, use `Fragment` with a stable key so React can track the group without adding extra DOM nodes.
 
 ```tsx
-// Recommended: Use Fragment with a stable key for multi-element items
+// 🟢 Recommended: Use Fragment with a stable key for multi-element items
 import { Fragment } from "react";
 
 interface Person {

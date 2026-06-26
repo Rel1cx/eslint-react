@@ -34,7 +34,7 @@ We recommend defining components as functions instead of classes. [See how to mi
 For new code, prefer function components with Hooks. They are simpler, easier to compose, and align with React's current direction.
 
 ```tsx
-// Problem: Using a class component for new logic
+// 🔴 Problem: Using a class component for new logic
 import React from "react";
 
 interface MyComponentProps {
@@ -49,7 +49,7 @@ class MyComponent extends React.Component<MyComponentProps> {
 ```
 
 ```tsx
-// Recommended: Use a function component instead
+// 🟢 Recommended: Use a function component instead
 interface MyComponentProps {
   name: string;
 }
@@ -64,7 +64,7 @@ function MyComponent({ name }: MyComponentProps) {
 Error boundaries must currently be implemented as class components because `componentDidCatch` and `getDerivedStateFromError` have no function-component equivalent. This is an allowed exception.
 
 ```tsx
-// OK: Error boundaries must be implemented as class components
+// 🔵 OK: Error boundaries must be implemented as class components
 import React, { Component } from "react";
 
 interface ErrorBoundaryProps {
@@ -93,7 +93,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 Class components that manage local state can be converted to function components using the `useState` Hook.
 
 ```tsx
-// Recommended: Use a function component with Hooks
+// 🟢 Recommended: Use a function component with Hooks
 import { useState } from "react";
 
 function Counter() {

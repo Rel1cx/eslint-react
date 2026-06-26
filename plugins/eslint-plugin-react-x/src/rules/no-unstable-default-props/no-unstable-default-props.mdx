@@ -40,7 +40,7 @@ To fix the violations, the easiest way is to use a referencing variable in modul
 Array literals `[]` create a new reference every time, causing Hooks or memoized components that depend on the reference to recompute frequently.
 
 ```tsx
-// Problem: Array literal as a default prop creates a new reference on every render
+// 🔴 Problem: Array literal as a default prop creates a new reference on every render
 interface MyComponentProps {
   items: string[];
 }
@@ -52,7 +52,7 @@ function MyComponent({ items = [] }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use a stable module-level variable instead of a literal
+// 🟢 Recommended: Use a stable module-level variable instead of a literal
 import React from "react";
 
 const emptyArray: string[] = [];
@@ -71,7 +71,7 @@ function MyComponent({ items = emptyArray }: MyComponentProps) {
 Object literals `{}` also create a new reference on every render, causing unnecessary re-render overhead.
 
 ```tsx
-// Problem: Object literal as a default prop
+// 🔴 Problem: Object literal as a default prop
 interface MyComponentProps {
   items: Record<string, string>;
 }
@@ -83,7 +83,7 @@ function MyComponent({ items = {} }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use a stable module-level object variable
+// 🟢 Recommended: Use a stable module-level object variable
 import React from "react";
 
 const emptyObject = {};
@@ -102,7 +102,7 @@ function MyComponent({ items = emptyObject }: MyComponentProps) {
 Arrow function expressions generate a new function reference on every render, breaking memo optimizations for child components.
 
 ```tsx
-// Problem: Arrow function as a default prop
+// 🔴 Problem: Arrow function as a default prop
 interface MyComponentProps {
   onClick: () => void;
 }
@@ -114,7 +114,7 @@ function MyComponent({ onClick = () => {} }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use a stable module-level function reference
+// 🟢 Recommended: Use a stable module-level function reference
 import React from "react";
 
 const noop = () => {};
@@ -133,7 +133,7 @@ function MyComponent({ onClick = noop }: MyComponentProps) {
 Even when assigning default values after destructuring `props`, using literals still causes the same reference instability problem.
 
 ```tsx
-// Problem: Using an array literal after destructuring
+// 🔴 Problem: Using an array literal after destructuring
 interface MyComponentProps {
   items: string[];
 }
@@ -146,7 +146,7 @@ function MyComponent(props: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use a stable module-level variable
+// 🟢 Recommended: Use a stable module-level variable
 import React from "react";
 
 const emptyArray: string[] = [];
@@ -167,7 +167,7 @@ function MyComponent(props: MyComponentProps) {
 In React 19, if a component uses the `"use memo"` directive, the compiler automatically optimizes reference stability for default props, so literal default values are acceptable.
 
 ```tsx
-// OK: The use memo directive automatically optimizes references
+// 🔵 OK: The use memo directive automatically optimizes references
 interface MyComponentProps {
   items: string[];
 }
@@ -183,7 +183,7 @@ function MyComponent({ items = [] }: MyComponentProps) {
 Primitive types (number, string, boolean, etc.) are compared by value and don't have reference instability issues, so they can be inlined directly.
 
 ```tsx
-// OK: Primitive default props are safe
+// 🔵 OK: Primitive default props are safe
 interface MyComponentProps {
   num: number;
   str: string;

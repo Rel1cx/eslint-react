@@ -44,7 +44,7 @@ Calling `setState` during render unconditionally triggers another render before 
 Calling a state setter directly in the component body, without any guard condition, will trigger a re-render immediately, leading to an infinite loop.
 
 ```tsx
-// Problem: unconditionally calling setState during render
+// 🔴 Problem: unconditionally calling setState during render
 function Component({ value }) {
   const [count, setCount] = useState(0);
   setCount(value); // infinite loop!
@@ -53,7 +53,7 @@ function Component({ value }) {
 ```
 
 ```tsx
-// Recommended: derive values directly during rendering
+// 🟢 Recommended: derive values directly during rendering
 function Component({ items }) {
   const sorted = [...items].sort();
   return <ul>{sorted.map(/*...*/)}</ul>;
@@ -61,7 +61,7 @@ function Component({ items }) {
 ```
 
 ```tsx
-// Recommended: set state in event handlers
+// 🟢 Recommended: set state in event handlers
 function Component() {
   const [count, setCount] = useState(0);
   return (
@@ -77,7 +77,7 @@ function Component() {
 If you only need to transform props before displaying them, compute the value directly during rendering instead of copying it into state.
 
 ```tsx
-// Recommended: derive values directly during rendering
+// 🟢 Recommended: derive values directly during rendering
 function Component({ user }) {
   const name = user?.name || "";
   const email = user?.email || "";
@@ -90,7 +90,7 @@ function Component({ user }) {
 A common mistake is trying to "fix" state after it renders. For example, clamping a counter to a `max` prop during render causes an infinite loop as soon as the value exceeds the limit.
 
 ```tsx
-// Problem: adjusting state during render
+// 🔴 Problem: adjusting state during render
 function Counter({ max }) {
   const [count, setCount] = useState(0);
 
@@ -107,7 +107,7 @@ function Counter({ max }) {
 ```
 
 ```tsx
-// Recommended: limit the value when updating
+// 🟢 Recommended: limit the value when updating
 function Counter({ max }) {
   const [count, setCount] = useState(0);
 
@@ -124,7 +124,7 @@ function Counter({ max }) {
 In rare cases, you may need to adjust state based on information from previous renders. This is valid only when guarded by a condition that prevents infinite loops.
 
 ```tsx
-// OK: conditionally updating state based on information from the previous render
+// 🔵 OK: conditionally updating state based on information from the previous render
 function Component({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selection, setSelection] = useState(null);
@@ -139,7 +139,7 @@ function Component({ items }) {
 ```
 
 ```tsx
-// Recommended: compute directly during rendering whenever possible
+// 🟢 Recommended: compute directly during rendering whenever possible
 function Component({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selectedId, setSelectedId] = useState(null);

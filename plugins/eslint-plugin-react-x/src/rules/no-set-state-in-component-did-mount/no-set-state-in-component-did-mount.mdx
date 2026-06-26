@@ -36,7 +36,7 @@ For class components, prefer setting the initial state in the constructor or via
 ### Calling setState directly in componentDidMount
 
 ```tsx
-// Problem: Calling setState directly in componentDidMount triggers an extra render and can cause performance issues and layout thrashing
+// 🔴 Problem: Calling setState directly in componentDidMount triggers an extra render and can cause performance issues and layout thrashing
 import React from "react";
 
 interface MyComponentProps {}
@@ -62,7 +62,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 Set the initial state in the constructor or via a class field. Use `componentDidMount` only for side effects like subscriptions or data fetching, and only call `setState` inside callbacks (e.g., event handlers or network responses).
 
 ```tsx
-// Recommended: Initialize state in the constructor or as a class field
+// 🟢 Recommended: Initialize state in the constructor or as a class field
 import React from "react";
 
 interface MyComponentProps {}

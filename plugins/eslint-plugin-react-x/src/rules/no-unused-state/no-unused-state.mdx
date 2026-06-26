@@ -34,7 +34,7 @@ This rule warns about state variables declared via `useState` (or similar state 
 If only `useState` is called and the setter is destructured, but the state value itself is never read, this state has no actual effect on rendering.
 
 ```tsx
-// Problem: data is declared but never read
+// 🔴 Problem: data is declared but never read
 import { useState } from "react";
 
 function Component() {
@@ -44,7 +44,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: remove the state if it is not needed; otherwise use it in JSX
+// 🟢 Recommended: remove the state if it is not needed; otherwise use it in JSX
 import { useState } from "react";
 
 function Component() {

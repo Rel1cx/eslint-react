@@ -117,7 +117,7 @@ import { useState } from "react";
 function Counter() {
   const [count, setCount] = useState(0);
 
-  // Problem: Referencing `count` directly creates a stale state risk.
+  // 🔴 Problem: Referencing `count` directly creates a stale state risk.
   return (
     <button onClick={() => setCount(count + 1)}>
       {/*                           ^^^^^ Do not reference 'setCount' directly; use the updater function form instead. */}
@@ -133,7 +133,7 @@ import { useState } from "react";
 function Toggle() {
   const [enabled, setEnabled] = useState(false);
 
-  // Problem: Negating state directly creates a stale state risk.
+  // 🔴 Problem: Negating state directly creates a stale state risk.
   return (
     <button onClick={() => setEnabled(!enabled)}>
       {/*                             ^^^^^^^^ Do not reference 'setEnabled' directly; use the updater function form instead. */ }
@@ -149,7 +149,7 @@ import { useState } from "react";
 function UserEditor() {
   const [user, setUser] = useState({ name: "John", age: 25 });
 
-  // Problem: Spreading state directly creates a stale state risk.
+  // 🔴 Problem: Spreading state directly creates a stale state risk.
   const updateAge = () => setUser({ ...user, age: 30 });
   //                                   ^^^^ Do not reference 'setUser' directly; use the updater function form instead.
 
@@ -163,7 +163,7 @@ import { useState } from "react";
 function ItemList() {
   const [items, setItems] = useState(["a", "b"]);
 
-  // Problem: Calling a method on state directly creates a stale state risk.
+  // 🔴 Problem: Calling a method on state directly creates a stale state risk.
   const addItem = () => setItems([...items, "c"]);
   //                                 ^^^^^ Do not reference 'setItems' directly; use the updater function form instead.
 
@@ -179,7 +179,7 @@ import { useState } from "react";
 function Counter() {
   const [count, setCount] = useState(0);
 
-  // Recommended: Callback form always gets the latest state.
+  // 🟢 Recommended: Callback form always gets the latest state.
   return (
     <button onClick={() => setCount((prev) => prev + 1)}>
       {count}
@@ -194,7 +194,7 @@ import { useState } from "react";
 function Component() {
   const [count, setCount] = useState(0);
 
-  // OK: Setting a constant value does not reference state.
+  // 🔵 OK: Setting a constant value does not reference state.
   return <button onClick={() => setCount(0)}>Reset</button>;
 }
 ```
@@ -206,7 +206,7 @@ function Component() {
   const [user, setUser] = useState({ name: "John" });
   const newUserFromApi = { name: "Jane" };
 
-  // OK: Setting a value that does not reference the state variable.
+  // 🔵 OK: Setting a value that does not reference the state variable.
   setUser(newUserFromApi);
 
   return <div />;
@@ -220,7 +220,7 @@ function Component() {
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(100);
 
-  // OK: Referencing a *different* state variable is fine.
+  // 🔵 OK: Referencing a *different* state variable is fine.
   setCount(total);
 
   return <div />;

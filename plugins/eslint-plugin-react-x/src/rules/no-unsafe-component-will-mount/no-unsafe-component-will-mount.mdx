@@ -36,7 +36,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillMount` makes your compo
 `UNSAFE_componentWillMount` is a deprecated lifecycle method and may be removed in a future version of React. Initialization logic should go in the `constructor`, and side effects should go in `componentDidMount`.
 
 ```tsx
-// Problem: Uses an unsafe lifecycle method
+// 🔴 Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -47,7 +47,7 @@ class MyComponent extends React.Component {
 ```
 
 ```tsx
-// Recommended: initialize state in the constructor or as a class field, move side effects to componentDidMount
+// 🟢 Recommended: initialize state in the constructor or as a class field, move side effects to componentDidMount
 import React from "react";
 
 class MyComponent extends React.Component {

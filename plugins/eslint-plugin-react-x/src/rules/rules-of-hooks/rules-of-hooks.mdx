@@ -40,7 +40,7 @@ React relies on the order in which hooks are called to correctly preserve state 
 Hooks must be called in the exact same order on every render. Placing a hook inside an `if` statement breaks this contract because the hook may be skipped on some renders.
 
 ```tsx
-// Problem: calling hook conditionally
+// 🔴 Problem: calling hook conditionally
 function MyComponent({ isLoggedIn }) {
   if (isLoggedIn) {
     const [user, setUser] = useState(null);
@@ -50,7 +50,7 @@ function MyComponent({ isLoggedIn }) {
 ```
 
 ```tsx
-// Recommended: call hooks unconditionally and handle conditions inside
+// 🟢 Recommended: call hooks unconditionally and handle conditions inside
 function MyComponent({ isLoggedIn }) {
   useEffect(() => {
     if (isLoggedIn) {
@@ -65,7 +65,7 @@ function MyComponent({ isLoggedIn }) {
 An early return before a hook call also makes the hook conditional — it won't run on renders that hit the return statement.
 
 ```tsx
-// Problem: early return causes conditional hook execution
+// 🔴 Problem: early return causes conditional hook execution
 function MyComponent({ data }) {
   if (!data) return <Loading />;
 
@@ -75,7 +75,7 @@ function MyComponent({ data }) {
 ```
 
 ```tsx
-// Recommended: move hooks to the top of the component and handle conditions in JSX
+// 🟢 Recommended: move hooks to the top of the component and handle conditions in JSX
 function MyComponent({ data }) {
   const [processed, setProcessed] = useState(data);
 
@@ -90,7 +90,7 @@ function MyComponent({ data }) {
 Hooks must be called at the top level of a React function component or custom hook. Calling them inside callbacks, loops, or nested functions means they won't be called in a predictable order.
 
 ```tsx
-// Problem: calling hook inside a callback
+// 🔴 Problem: calling hook inside a callback
 function MyComponent() {
   return (
     <button
@@ -104,7 +104,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Problem: calling hook inside a loop
+// 🔴 Problem: calling hook inside a loop
 function MyComponent({ items }) {
   for (const item of items) {
     const [selected, setSelected] = useState(false);
@@ -114,7 +114,7 @@ function MyComponent({ items }) {
 ```
 
 ```tsx
-// Recommended: call hooks at the top level of the component and use state updater functions in callbacks
+// 🟢 Recommended: call hooks at the top level of the component and use state updater functions in callbacks
 function MyComponent() {
   const [clicked, setClicked] = useState(false);
   return <button onClick={() => setClicked(true)}>Click</button>;
@@ -126,7 +126,7 @@ function MyComponent() {
 You may be tempted to call `useState` inside a condition when you want different initial values for different scenarios. This breaks the Rules of Hooks because the number of hook calls changes between renders.
 
 ```tsx
-// Problem: conditionally initializing state
+// 🔴 Problem: conditionally initializing state
 function MyComponent({ userType, adminPerms, userPerms }) {
   if (userType === "admin") {
     const [permissions, setPermissions] = useState(adminPerms);
@@ -139,7 +139,7 @@ function MyComponent({ userType, adminPerms, userPerms }) {
 ```
 
 ```tsx
-// Recommended: call useState unconditionally and set the initial value conditionally
+// 🟢 Recommended: call useState unconditionally and set the initial value conditionally
 function MyComponent({ userType, adminPerms, userPerms }) {
   const [permissions, setPermissions] = useState(
     userType === "admin" ? adminPerms : userPerms,
@@ -152,7 +152,7 @@ function MyComponent({ userType, adminPerms, userPerms }) {
 The `use` hook cannot be called from inside a `try` block because React needs to be able to suspend the component, and try/catch interferes with React's internal exception handling for Suspense.
 
 ```tsx
-// Problem: calling use inside a try block
+// 🔴 Problem: calling use inside a try block
 function MyComponent({ promise }) {
   try {
     const data = use(promise);
@@ -164,7 +164,7 @@ function MyComponent({ promise }) {
 ```
 
 ```tsx
-// Recommended: call use outside the try block
+// 🟢 Recommended: call use outside the try block
 function MyComponent({ promise }) {
   const data = use(promise);
   // ...
@@ -209,7 +209,7 @@ Learn more: [`use` API Reference](https://react.dev/reference/react/use)
 When all hooks are called unconditionally at the top level, React can reliably match each hook call to its corresponding state across renders.
 
 ```tsx
-// Recommended: call hooks unconditionally at the top level in a fixed order
+// 🟢 Recommended: call hooks unconditionally at the top level in a fixed order
 function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
   const [count, setCount] = useState(0);
   const [name, setName] = useState("");
@@ -232,7 +232,7 @@ function MyComponent({ isSpecial, shouldFetch, fetchPromise }) {
 ```
 
 ```tsx
-// Recommended: custom hooks should also call other hooks at the top level
+// 🟢 Recommended: custom hooks should also call other hooks at the top level
 function useUserData(userId) {
   const [user, setUser] = useState(null);
 

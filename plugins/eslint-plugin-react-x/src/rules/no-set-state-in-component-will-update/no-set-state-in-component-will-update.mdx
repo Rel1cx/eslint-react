@@ -34,7 +34,7 @@ Updating the state in `componentWillUpdate` is not allowed because the component
 ### Calling setState directly in componentWillUpdate
 
 ```tsx
-// Problem: Calling setState directly in componentWillUpdate triggers another render and can easily cause infinite loops or layout thrashing
+// 🔴 Problem: Calling setState directly in componentWillUpdate triggers another render and can easily cause infinite loops or layout thrashing
 import React from "react";
 
 interface MyComponentProps {}
@@ -60,7 +60,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 If you need to compute something before an update, store it in an instance variable or derive it during `render`. Never call `setState` in `componentWillUpdate` because the component is already about to re-render.
 
 ```tsx
-// Recommended: Use instance variables or derive values during render
+// 🟢 Recommended: Use instance variables or derive values during render
 import React from "react";
 
 interface MyComponentProps {

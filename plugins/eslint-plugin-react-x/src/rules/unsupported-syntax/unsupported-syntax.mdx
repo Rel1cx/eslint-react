@@ -42,7 +42,7 @@ This rule checks for the following unsupported patterns:
 `eval` executes code dynamically at runtime, making it impossible for any static analysis tool to understand what variables are accessed or modified.
 
 ```tsx
-// Problem: using eval in a component
+// 🔴 Problem: using eval in a component
 function Component({ code }) {
   const result = eval(code); // cannot be statically analyzed
   return <div>{result}</div>;
@@ -50,7 +50,7 @@ function Component({ code }) {
 ```
 
 ```tsx
-// Recommended: use analyzable property access
+// 🟢 Recommended: use analyzable property access
 function Component({ propName, props }) {
   const value = props[propName]; // statically analyzable
   return <div>{value}</div>;
@@ -58,7 +58,7 @@ function Component({ propName, props }) {
 ```
 
 ```tsx
-// OK: using eval outside components and hooks is fine
+// 🔵 OK: using eval outside components and hooks is fine
 function notAComponent() {
   const result = eval("1 + 2");
   return result;
@@ -70,7 +70,7 @@ function notAComponent() {
 The `with` statement dynamically modifies the scope chain at runtime. Static analysis tools cannot predict which identifiers refer to which objects inside a `with` block.
 
 ```tsx
-// Problem: using with in a component
+// 🔴 Problem: using with in a component
 function Component() {
   with (Math) { // dynamically changes scope
     return <div>{sin(PI / 2)}</div>;
@@ -79,7 +79,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use standard method calls
+// 🟢 Recommended: use standard method calls
 function Component() {
   return <div>{Math.sin(Math.PI / 2)}</div>;
 }
@@ -90,7 +90,7 @@ function Component() {
 Immediately-invoked function expressions inside JSX prevent the compiler from analyzing the component's output structure at build time.
 
 ```tsx
-// Problem: using IIFE in JSX
+// 🔴 Problem: using IIFE in JSX
 function MyComponent() {
   return (
     <SomeJsx>
@@ -109,7 +109,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: extract logic into variables outside JSX
+// 🟢 Recommended: extract logic into variables outside JSX
 function MyComponent() {
   const thingsList = (() => {
     const filteredThings = things.filter(callback);
@@ -130,7 +130,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: use useMemo instead of IIFE
+// 🟢 Recommended: use useMemo instead of IIFE
 function MyComponent() {
   const thingsList = useMemo(() => {
     const filteredThings = things.filter(callback);
@@ -151,7 +151,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: use ternary or logical expressions
+// 🟢 Recommended: use ternary or logical expressions
 function MyComponent() {
   return (
     <div>
@@ -166,7 +166,7 @@ function MyComponent() {
 If you need to evaluate user-provided code, use a safe expression parser instead of `eval`.
 
 ```tsx
-// Recommended: use a safe parsing library
+// 🟢 Recommended: use a safe parsing library
 import { evaluate } from 'mathjs';
 
 function Calculator({ expression }) {

@@ -105,7 +105,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Problem: Function components must be defined with arrow functions.
+// 🔴 Problem: Function components must be defined with arrow functions.
 function Button({ children, onClick }: ButtonProps) {
   return <button type="button" onClick={onClick}>{children}</button>;
 }
@@ -119,7 +119,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Problem: Function components must be defined with arrow functions.
+// 🔴 Problem: Function components must be defined with arrow functions.
 const Button = function({ children, onClick }: ButtonProps) {
   return <button type="button" onClick={onClick}>{children}</button>;
 };
@@ -135,7 +135,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Recommended: Arrow function syntax for component definitions.
+// 🟢 Recommended: Arrow function syntax for component definitions.
 const Button = ({ children, onClick }: ButtonProps) => {
   return <button type="button" onClick={onClick}>{children}</button>;
 };

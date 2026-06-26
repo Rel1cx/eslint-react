@@ -28,7 +28,7 @@ Context `displayName` property is used by React DevTools to identify the context
 ### Creating a Context without setting displayName
 
 ```tsx
-// Problem: Different contexts cannot be distinguished in React DevTools, making debugging difficult
+// 🔴 Problem: Different contexts cannot be distinguished in React DevTools, making debugging difficult
 import React from "react";
 
 const MyContext = React.createContext();
@@ -37,7 +37,7 @@ const MyContext = React.createContext();
 ### Creating a Context and adding displayName
 
 ```tsx
-// Recommended: Assign displayName immediately after creating the Context so it can be identified in DevTools
+// 🟢 Recommended: Assign displayName immediately after creating the Context so it can be identified in DevTools
 import React from "react";
 
 const MyContext = React.createContext();
@@ -49,7 +49,7 @@ MyContext.displayName = "MyContext";
 When you create a context with a default value, always set `displayName` so that React DevTools can show a meaningful name for the context and its provider.
 
 ```tsx
-// Recommended: Create a context with a default value and displayName
+// 🟢 Recommended: Create a context with a default value and displayName
 import { createContext, useContext } from "react";
 
 interface ThemeContextType {

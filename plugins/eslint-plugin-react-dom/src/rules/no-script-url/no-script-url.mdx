@@ -35,7 +35,7 @@ react-dom/no-script-url
 
 ```tsx
 function MyComponent() {
-  // Problem: `javascript:` URLs are a security risk and should be avoided
+  // 🔴 Problem: `javascript:` URLs are a security risk and should be avoided
   return <a href="javascript:alert('Hello, world!')">Click me</a>;
   //        ^^^ Using a `javascript:` URL is a security risk and should be avoided.
 }
@@ -43,7 +43,7 @@ function MyComponent() {
 
 ```tsx
 function MyComponent() {
-  // Recommended: Use a safe URL instead
+  // 🟢 Recommended: Use a safe URL instead
   return <a href="/some-page">Click me</a>;
 }
 ```
@@ -53,7 +53,7 @@ function MyComponent() {
 If you need to run JavaScript when a user clicks a link, attach an event handler to a `<button>` or use a safe `href` with an `onClick` handler on an `<a>` element.
 
 ```tsx
-// Recommended: Use a button with an onClick handler for actions
+// 🟢 Recommended: Use a button with an onClick handler for actions
 function MyComponent() {
   function handleClick() {
     alert("Hello, world!");
@@ -64,7 +64,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: Use a safe href with an onClick handler for links
+// 🟢 Recommended: Use a safe href with an onClick handler for links
 function MyComponent() {
   function handleClick(event: React.MouseEvent) {
     event.preventDefault();

@@ -42,7 +42,7 @@ This rule ensures that `useMemo()` callbacks follow React's requirements. It che
 `useMemo` callbacks do not accept any parameters. All required data should be captured via closure.
 
 ```tsx
-// Problem: callback receives parameter c
+// 🔴 Problem: callback receives parameter c
 import { useMemo } from "react";
 
 function Component({ a, b }) {
@@ -52,7 +52,7 @@ function Component({ a, b }) {
 ```
 
 ```tsx
-// Recommended: use external variables directly via closure
+// 🟢 Recommended: use external variables directly via closure
 import { useMemo } from "react";
 
 function Component({ a, b }) {
@@ -66,7 +66,7 @@ function Component({ a, b }) {
 `useMemo` is for synchronous value computation and does not support async or generator functions.
 
 ```tsx
-// Problem: using an async callback
+// 🔴 Problem: using an async callback
 import { useMemo } from "react";
 
 function Component({ a }) {
@@ -83,7 +83,7 @@ function Component({ a }) {
 `useMemo` callbacks must be pure functions and should not modify variables in the outer scope.
 
 ```tsx
-// Problem: callback reassigns external variable x
+// 🔴 Problem: callback reassigns external variable x
 import { useMemo } from "react";
 
 function Component() {
@@ -98,7 +98,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: only read external variables, do not modify them
+// 🟢 Recommended: only read external variables, do not modify them
 import { useMemo } from "react";
 
 function Component({ a, b }) {
@@ -112,7 +112,7 @@ function Component({ a, b }) {
 The purpose of `useMemo` is to cache computed results, so the callback must explicitly return a value.
 
 ```tsx
-// Problem: callback has no return, result is always undefined
+// 🔴 Problem: callback has no return, result is always undefined
 import { useMemo } from "react";
 
 function Component({ data }) {
@@ -124,7 +124,7 @@ function Component({ data }) {
 ```
 
 ```tsx
-// Recommended: return the computed value
+// 🟢 Recommended: return the computed value
 import { useMemo } from "react";
 
 function Component({ data }) {
@@ -140,7 +140,7 @@ function Component({ data }) {
 If the result of `useMemo` is not assigned or used, caching is pointless.
 
 ```tsx
-// Problem: useMemo return value is discarded
+// 🔴 Problem: useMemo return value is discarded
 import { useMemo } from "react";
 
 function Component({ user }) {
@@ -153,7 +153,7 @@ function Component({ user }) {
 ```
 
 ```tsx
-// Recommended: assign the result to a variable and use it in JSX
+// 🟢 Recommended: assign the result to a variable and use it in JSX
 import { useMemo } from "react";
 
 function Component({ items }) {
@@ -167,7 +167,7 @@ function Component({ items }) {
 When the callback correctly returns a synchronous computed value, `useMemo` works as expected.
 
 ```tsx
-// OK: returning a mapped array
+// 🔵 OK: returning a mapped array
 import { useMemo } from "react";
 
 function Component({ data }) {
@@ -183,7 +183,7 @@ function Component({ data }) {
 Using arrow functions with implicit return makes `useMemo` callbacks more concise.
 
 ```tsx
-// OK: concise arrow function directly returns the computed result
+// 🔵 OK: concise arrow function directly returns the computed result
 import { useMemo } from "react";
 
 function Component({ items }) {
@@ -199,7 +199,7 @@ function Component({ items }) {
 You might try to use `useMemo` for side effects:
 
 ```tsx
-// Problem: Side effects in useMemo
+// 🔴 Problem: Side effects in useMemo
 function Component({ user }) {
   // No return value, just side effect
   useMemo(() => {
@@ -216,7 +216,7 @@ function Component({ user }) {
 If the side effect needs to happen in response to user interaction, it's best to colocate the side effect with the event:
 
 ```tsx
-// Recommended: Side effects in event handlers
+// 🟢 Recommended: Side effects in event handlers
 function Component({ user }) {
   const handleClick = () => {
     analytics.track("ButtonClicked", { userId: user.id });
@@ -230,7 +230,7 @@ function Component({ user }) {
 If the side effect synchronizes React state with some external state (or vice versa), use `useEffect`:
 
 ```tsx
-// Recommended: Synchronization in useEffect
+// 🟢 Recommended: Synchronization in useEffect
 function Component({ theme }) {
   useEffect(() => {
     localStorage.setItem("preferredTheme", theme);

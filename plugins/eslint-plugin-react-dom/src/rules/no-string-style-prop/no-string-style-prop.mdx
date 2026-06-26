@@ -25,14 +25,14 @@ Using a string value for the `style` prop is not valid in React. The style prop 
 
 ```tsx
 function MyComponent() {
-  // Problem: Passing a CSS string to the style prop causes a runtime error
+  // 🔴 Problem: Passing a CSS string to the style prop causes a runtime error
   return <div style="color: red;" />;
 }
 ```
 
 ```tsx
 function MyComponent() {
-  // Recommended: Pass an object with camelCased CSS properties
+  // 🟢 Recommended: Pass an object with camelCased CSS properties
   return <div style={{ color: "red" }} />;
 }
 ```
@@ -42,7 +42,7 @@ function MyComponent() {
 When you need to set multiple CSS properties, always pass them as a single style object with camelCased property names.
 
 ```tsx
-// Recommended: use a style object with camelCased properties
+// 🟢 Recommended: use a style object with camelCased properties
 function Box() {
   return (
     <div
@@ -63,7 +63,7 @@ function Box() {
 When an element's appearance depends on state or user input, compute the style object during rendering instead of using a string.
 
 ```tsx
-// Recommended: compute style objects dynamically from state
+// 🟢 Recommended: compute style objects dynamically from state
 import { useState } from "react";
 
 function Pointer() {

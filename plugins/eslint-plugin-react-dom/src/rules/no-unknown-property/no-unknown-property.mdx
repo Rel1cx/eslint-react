@@ -28,13 +28,13 @@ In JSX, most DOM properties and attributes should be camel-cased to be consisten
 ### Writing standard HTML attributes in JSX
 
 ```tsx
-// Problem: HTML attributes like `class` must be written as `className` in JSX
+// 🔴 Problem: HTML attributes like `class` must be written as `className` in JSX
 const Hello = <div class="hello">Hello World</div>;
 const Alphabet = <div abc="something">Alphabet</div>;
 ```
 
 ```tsx
-// Recommended: Use React's camelCase property names for DOM elements
+// 🟢 Recommended: Use React's camelCase property names for DOM elements
 const Hello = <div className="hello">Hello World</div>;
 const Button = <button disabled>Cannot click me</button>;
 const Img = <img src={catImage} alt="A cat sleeping on a keyboard" />;
@@ -43,12 +43,12 @@ const Img = <img src={catImage} alt="A cat sleeping on a keyboard" />;
 ### Using ARIA and data attributes
 
 ```tsx
-// Problem: Non-standard aria-* attributes are not valid
+// 🔴 Problem: Non-standard aria-* attributes are not valid
 const IconButton = <div aria-foo="bar" />;
 ```
 
 ```tsx
-// Recommended: Use valid aria-* and data-* attributes
+// 🟢 Recommended: Use valid aria-* and data-* attributes
 const IconButton = <button aria-label="Close" onClick={this.close}>{closeIcon}</button>;
 const Data = <div data-index={12}>Some data</div>;
 ```
@@ -56,11 +56,11 @@ const Data = <div data-index={12}>Some data</div>;
 ### Passing arbitrary props to React components and custom elements
 
 ```tsx
-// OK: React components can accept any props you define
+// 🔵 OK: React components can accept any props you define
 const MyComponent = <App class="foo-bar" />;
 const AnotherComponent = <Foo.bar for="bar" />;
 
-// OK: Custom web components are also ignored
+// 🔵 OK: Custom web components are also ignored
 const MyElem = <div class="foo" is="my-elem"></div>;
 const AtomPanel = <atom-panel class="foo"></atom-panel>;
 ```
