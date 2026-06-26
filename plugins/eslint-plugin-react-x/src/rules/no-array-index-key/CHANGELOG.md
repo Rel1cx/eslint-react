@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Use `Extract.getPropertyName` to simplify `MemberExpression` property name checks and detect computed string property access.
+
 ## [5.8.18] - 2026-06-11
 
 ### Changed
