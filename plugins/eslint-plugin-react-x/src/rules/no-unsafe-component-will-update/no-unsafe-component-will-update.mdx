@@ -36,7 +36,7 @@ Using unsafe lifecycle methods like `UNSAFE_componentWillUpdate` makes your comp
 `UNSAFE_componentWillUpdate` is a deprecated lifecycle method. If you need to perform side effects or DOM operations after an update, use `componentDidUpdate`.
 
 ```tsx
-// Problem: Uses an unsafe lifecycle method
+// 🔴 Problem: Uses an unsafe lifecycle method
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -47,7 +47,7 @@ class MyComponent extends React.Component {
 ```
 
 ```tsx
-// Recommended: use componentDidUpdate for side effects after an update
+// 🟢 Recommended: use componentDidUpdate for side effects after an update
 import React from "react";
 
 class MyComponent extends React.Component {

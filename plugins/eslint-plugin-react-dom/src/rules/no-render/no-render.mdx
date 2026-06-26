@@ -39,7 +39,7 @@ react-dom/no-render
 import Component from "Component";
 import ReactDOM from "react-dom";
 
-// Problem: ReactDOM.render() is the legacy API and will be removed in React 18+
+// 🔴 Problem: ReactDOM.render() is the legacy API and will be removed in React 18+
 ReactDOM.render(<Component />, document.getElementById("app"));
 ```
 
@@ -47,7 +47,7 @@ ReactDOM.render(<Component />, document.getElementById("app"));
 import Component from "Component";
 import { createRoot } from "react-dom/client";
 
-// Recommended: Use createRoot() from "react-dom/client" instead
+// 🟢 Recommended: Use createRoot() from "react-dom/client" instead
 createRoot(document.getElementById("app")).render(<Component />);
 ```
 
@@ -56,7 +56,7 @@ createRoot(document.getElementById("app")).render(<Component />);
 Importing `render` directly from `react-dom` is also deprecated and should be migrated to `createRoot()`.
 
 ```tsx
-// Problem: render() from react-dom is the legacy API.
+// 🔴 Problem: render() from react-dom is the legacy API.
 import { render } from 'react-dom';
 
 const container = document.getElementById('app');
@@ -64,7 +64,7 @@ render(<App tab="home" />, container);
 ```
 
 ```tsx
-// Recommended: use createRoot() from react-dom/client.
+// 🟢 Recommended: use createRoot() from react-dom/client.
 import { createRoot } from 'react-dom/client';
 
 const container = document.getElementById('app');
@@ -77,7 +77,7 @@ root.render(<App tab="home" />);
 When bootstrapping a React application, check that the DOM node exists before creating the root to avoid runtime errors.
 
 ```tsx
-// Recommended: Verify the DOM node exists before creating a root
+// 🟢 Recommended: Verify the DOM node exists before creating a root
 import { createRoot } from "react-dom/client";
 import App from "./App";
 

@@ -34,34 +34,34 @@ React does not support XML namespaced tags (e.g. `<ns:Component />`). Although t
 ### Using namespace tags in JSX
 
 ```tsx
-// Problem: Namespace tag — not supported by React.
+// 🔴 Problem: Namespace tag — not supported by React.
 <ns:testcomponent />
 ```
 
 ```tsx
-// Problem: PascalCase namespace is also not allowed.
+// 🔴 Problem: PascalCase namespace is also not allowed.
 <Ns:TestComponent />
 ```
 
 ```tsx
-// Problem: SVG-style namespace is also not allowed.
+// 🔴 Problem: SVG-style namespace is also not allowed.
 <svg:circle cx="50" cy="50" r="40" />
 ```
 
 ### Using standard JSX tags
 
 ```tsx
-// Recommended: Plain element — no namespace.
+// 🟢 Recommended: Plain element — no namespace.
 <testcomponent />
 ```
 
 ```tsx
-// Recommended: Member expression — not a namespace.
+// 🟢 Recommended: Member expression — not a namespace.
 <object.TestComponent />
 ```
 
 ```tsx
-// Recommended: PascalCase component.
+// 🟢 Recommended: PascalCase component.
 <TestComponent />
 ```
 

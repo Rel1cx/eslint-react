@@ -45,7 +45,7 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // Problem: Children should always be actual children, not passed in as a prop.
+  // 🔴 Problem: Children should always be actual children, not passed in as a prop.
   return <div children={children} />;
 }
 ```
@@ -58,7 +58,7 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // Recommended: Nest children between opening and closing tags
+  // 🟢 Recommended: Nest children between opening and closing tags
   return <div>{children}</div>;
 }
 ```

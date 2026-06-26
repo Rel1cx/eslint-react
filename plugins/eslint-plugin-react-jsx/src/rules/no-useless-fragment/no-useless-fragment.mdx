@@ -34,26 +34,26 @@ A fragment is redundant if it contains only one child or if it is the child of a
 ### Returning a single element wrapped in a fragment
 
 ```tsx
-// Problem: Fragment with only one child is redundant
+// 🔴 Problem: Fragment with only one child is redundant
 <><Foo /></>
 ```
 
 ### Using empty fragments
 
 ```tsx
-// Problem: Empty fragment serves no purpose
+// 🔴 Problem: Empty fragment serves no purpose
 <></>
 ```
 
 ### Wrapping children unnecessarily inside a host element
 
 ```tsx
-// Problem: Fragment inside a host element is redundant
+// 🔴 Problem: Fragment inside a host element is redundant
 <p><>foo</></p>
 ```
 
 ```tsx
-// Problem: Fragment inside a host element with no key is redundant
+// 🔴 Problem: Fragment inside a host element with no key is redundant
 <section>
   <>
     <div />
@@ -65,19 +65,19 @@ A fragment is redundant if it contains only one child or if it is the child of a
 ### Returning a single expression directly
 
 ```tsx
-// Recommended: Return the expression directly instead of wrapping in a fragment
+// 🟢 Recommended: Return the expression directly instead of wrapping in a fragment
 {foo}
 ```
 
 ```tsx
-// Recommended: Return the element directly instead of wrapping in a fragment
+// 🟢 Recommended: Return the element directly instead of wrapping in a fragment
 <Foo />
 ```
 
 ### Using fragments with multiple children or expressions
 
 ```tsx
-// Recommended: Fragment with multiple children
+// 🟢 Recommended: Fragment with multiple children
 <>
   <Foo />
   <Bar />
@@ -85,32 +85,32 @@ A fragment is redundant if it contains only one child or if it is the child of a
 ```
 
 ```tsx
-// OK: Text and expression children (multiple children)
+// 🔵 OK: Text and expression children (multiple children)
 <>foo {bar}</>
 ```
 
 ```tsx
-// OK: Leading space with expression (multiple children)
+// 🔵 OK: Leading space with expression (multiple children)
 <> {foo}</>
 ```
 
 ```tsx
-// OK: Expression child (allowed by default via allowExpressions)
+// 🔵 OK: Expression child (allowed by default via allowExpressions)
 <>{children}</>
 ```
 
 ```tsx
-// OK: Expression child (allowed by default via allowExpressions)
+// 🔵 OK: Expression child (allowed by default via allowExpressions)
 <>{props.children}</>
 ```
 
 ```tsx
-// OK: Single text node assigned to a variable
+// 🔵 OK: Single text node assigned to a variable
 const cat = <>meow</>
 ```
 
 ```tsx
-// OK: Fragment inside a custom component (preserves grouping)
+// 🔵 OK: Fragment inside a custom component (preserves grouping)
 <SomeComponent>
   <>
     <div />
@@ -120,7 +120,7 @@ const cat = <>meow</>
 ```
 
 ```tsx
-// OK: Keyed fragment
+// 🔵 OK: Keyed fragment
 <Fragment key={item.id}>{item.value}</Fragment>
 ```
 

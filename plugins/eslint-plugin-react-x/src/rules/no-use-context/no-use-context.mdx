@@ -42,7 +42,7 @@ In addition, enable the [`naming-convention/context-name`](./naming-convention-c
 React 19 introduced the more general `use` API, which can replace `useContext` and supports being called in conditional statements and loops. New code should prefer `use`.
 
 ```tsx
-// Problem: use should be preferred over useContext in React 19
+// 🔴 Problem: use should be preferred over useContext in React 19
 import { useContext } from "react";
 
 function Button() {
@@ -52,7 +52,7 @@ function Button() {
 ```
 
 ```tsx
-// Recommended: use the React 19 use API
+// 🟢 Recommended: use the React 19 use API
 import { use } from "react";
 
 function Button() {
@@ -66,7 +66,7 @@ function Button() {
 Unlike `useContext`, `use` can be called inside conditions and loops. This lets you read context only when needed.
 
 ```tsx
-// Problem: useContext must be called at the top level, even when not needed
+// 🔴 Problem: useContext must be called at the top level, even when not needed
 import { useContext } from "react";
 
 function Toolbar({ showTooltip, tooltipContext }) {
@@ -77,7 +77,7 @@ function Toolbar({ showTooltip, tooltipContext }) {
 ```
 
 ```tsx
-// Recommended: use can be called conditionally
+// 🟢 Recommended: use can be called conditionally
 import { use } from "react";
 
 function Toolbar({ showTooltip, tooltipContext }) {

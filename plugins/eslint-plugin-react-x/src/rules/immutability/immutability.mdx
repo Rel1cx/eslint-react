@@ -36,7 +36,7 @@ Mutations are invisible to React — because the object or array reference hasn'
 Array methods like `push()` mutate the original array in place. React cannot detect this change because the array reference remains the same.
 
 ```tsx
-// Problem: Mutating the array directly
+// 🔴 Problem: Mutating the array directly
 function Component() {
   const [items, setItems] = useState([1, 2, 3]);
   const addItem = () => {
@@ -48,7 +48,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: Create a new array
+// 🟢 Recommended: Create a new array
 function Component() {
   const [items, setItems] = useState([1, 2, 3]);
   const addItem = () => {
@@ -62,7 +62,7 @@ function Component() {
 Directly assigning to an object's property mutates the existing object. React compares object references, not their contents, so the update is ignored.
 
 ```tsx
-// Problem: Mutating object properties directly
+// 🔴 Problem: Mutating object properties directly
 function Component() {
   const [user, setUser] = useState({ name: "Alice" });
   const updateName = () => {
@@ -74,7 +74,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: Create a new object
+// 🟢 Recommended: Create a new object
 function Component() {
   const [user, setUser] = useState({ name: "Alice" });
   const updateName = () => {
@@ -88,7 +88,7 @@ function Component() {
 Props are owned by the parent component. A child should never modify its props.
 
 ```tsx
-// Problem: Mutating props directly
+// 🔴 Problem: Mutating props directly
 function Component(props) {
   props.name = "Bob"; // Child components should not mutate props
   // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
@@ -97,7 +97,7 @@ function Component(props) {
 ```
 
 ```tsx
-// Recommended: Notify the parent via a callback
+// 🟢 Recommended: Notify the parent via a callback
 function Component({ name, onNameChange }) {
   return <button onClick={() => onNameChange("Bob")}>{name}</button>;
 }
@@ -108,7 +108,7 @@ function Component({ name, onNameChange }) {
 `Array.prototype.sort()` and `Array.prototype.reverse()` mutate the array in place. If you call them directly on state, you mutate React's internal snapshot.
 
 ```tsx
-// Problem: sort mutates the original array
+// 🔴 Problem: sort mutates the original array
 function Component() {
   const [items, setItems] = useState([3, 1, 2]);
   const sortItems = () => {
@@ -118,7 +118,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: Spread into a new array before sorting
+// 🟢 Recommended: Spread into a new array before sorting
 function Component() {
   const [items, setItems] = useState([3, 1, 2]);
   const sortItems = () => {
@@ -132,7 +132,7 @@ function Component() {
 Mutating nested properties doesn't change the top-level object reference, so React won't detect the update at any level.
 
 ```tsx
-// Problem: Mutating a nested object
+// 🔴 Problem: Mutating a nested object
 function UserProfile() {
   const [user, setUser] = useState({
     name: "Alice",
@@ -146,7 +146,7 @@ function UserProfile() {
 ```
 
 ```tsx
-// Recommended: Create new objects at every level
+// 🟢 Recommended: Create new objects at every level
 function UserProfile() {
   const [user, setUser] = useState({
     name: "Alice",
@@ -169,7 +169,7 @@ function UserProfile() {
 Real components often mix state updates with JSX. Here are fuller examples showing how mutations silently break rendering in complete component contexts.
 
 ```tsx
-// Problem: Mutating the array in a list component
+// 🔴 Problem: Mutating the array in a list component
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const addTodo = (id, text) => {
@@ -187,7 +187,7 @@ function TodoList() {
 ```
 
 ```tsx
-// Recommended: Create a new array so React detects the change
+// 🟢 Recommended: Create a new array so React detects the change
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const addTodo = (id, text) => {
@@ -204,7 +204,7 @@ function TodoList() {
 ```
 
 ```tsx
-// Problem: sort mutates the state array inside a button handler
+// 🔴 Problem: sort mutates the state array inside a button handler
 function SortedList() {
   const [items, setItems] = useState([3, 1, 2]);
   const sort = () => {
@@ -215,7 +215,7 @@ function SortedList() {
 ```
 
 ```tsx
-// Recommended: Spread into a new array before sorting
+// 🟢 Recommended: Spread into a new array before sorting
 function SortedList() {
   const [items, setItems] = useState([3, 1, 2]);
   const sort = () => {

@@ -43,13 +43,13 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // Problem: Don't use children prop when element already has nested children
+  // 🔴 Problem: Don't use children prop when element already has nested children
   return <div children={children}>{children}</div>;
 }
 ```
 
 ```tsx
-// Problem: Don't use children prop when element already has nested children
+// 🔴 Problem: Don't use children prop when element already has nested children
 <Component children="text">text</Component>
 ```
 
@@ -61,20 +61,20 @@ interface MyComponentProps {
 }
 
 function MyComponent({ children }: MyComponentProps) {
-  // Recommended: Use nested children
+  // 🟢 Recommended: Use nested children
   return <div>{children}</div>;
 }
 ```
 
 ```tsx
-// Recommended: Use nested children
+// 🟢 Recommended: Use nested children
 <Component>text</Component>
 ```
 
 ### Passing children only as a prop
 
 ```tsx
-// OK: Use children prop when no nested children
+// 🔵 OK: Use children prop when no nested children
 <Component children="text" />
 ```
 

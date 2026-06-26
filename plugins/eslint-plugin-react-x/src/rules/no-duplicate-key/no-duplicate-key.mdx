@@ -34,7 +34,7 @@ React uses keys to identify elements in an array. If two elements have the same 
 When multiple elements in an array use the same `key`, React cannot distinguish them correctly.
 
 ```tsx
-// Problem: Duplicate keys on sibling elements in an array
+// 🔴 Problem: Duplicate keys on sibling elements in an array
 function MyComponent () {
   return [
     <li key="1">Item 1</li>
@@ -44,7 +44,7 @@ function MyComponent () {
 ```
 
 ```tsx
-// Recommended: Assign a unique key to each sibling element
+// 🟢 Recommended: Assign a unique key to each sibling element
 function MyComponent () {
   return [
     <li key="1">Item 1</li>
@@ -58,7 +58,7 @@ function MyComponent () {
 Sibling elements written directly in JSX with the same key will also cause React identification issues.
 
 ```tsx
-// Problem: Duplicate keys on sibling elements in JSX
+// 🔴 Problem: Duplicate keys on sibling elements in JSX
 function MyComponent() {
   return (
     <ul>
@@ -70,7 +70,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: Ensure keys are unique among sibling elements
+// 🟢 Recommended: Ensure keys are unique among sibling elements
 function MyComponent() {
   return (
     <ul>
@@ -86,7 +86,7 @@ function MyComponent() {
 Using a fixed string as a key in loops like `map` causes every iteration to produce elements with the same key.
 
 ```tsx
-// Problem: All elements in a map loop use the same key
+// 🔴 Problem: All elements in a map loop use the same key
 function MyComponent() {
   return (
     <ul>
@@ -97,7 +97,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: Use a unique identifier from the data as the key
+// 🟢 Recommended: Use a unique identifier from the data as the key
 function MyComponent() {
   return (
     <ul>
@@ -112,7 +112,7 @@ function MyComponent() {
 When two or more lists are rendered as siblings under the same parent element, using array indices as keys can produce duplicate key values.
 
 ```tsx
-// Problem: Two lists rendered side by side both use index keys
+// 🔴 Problem: Two lists rendered side by side both use index keys
 function App({ activeItems, archivedItems }) {
   return (
     <div>
@@ -128,7 +128,7 @@ function App({ activeItems, archivedItems }) {
 ```
 
 ```tsx
-// Recommended: Use unique identifiers from the data
+// 🟢 Recommended: Use unique identifiers from the data
 function App({ activeItems, archivedItems }) {
   return (
     <div>

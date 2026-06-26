@@ -43,7 +43,7 @@ async function increment(previousState, formData) {
 }
 
 function StatefulForm({}) {
-  // Problem: useFormState from "react-dom" is deprecated in favor of useActionState
+  // 🔴 Problem: useFormState from "react-dom" is deprecated in favor of useActionState
   const [state, formAction] = useFormState(increment, 0);
   return (
     <form>
@@ -62,7 +62,7 @@ async function increment(previousState, formData) {
 }
 
 function StatefulForm({}) {
-  // Recommended: Use useActionState from "react" instead
+  // 🟢 Recommended: Use useActionState from "react" instead
   const [state, formAction] = useActionState(increment, 0);
   return (
     <form>
@@ -78,7 +78,7 @@ function StatefulForm({}) {
 `useActionState` can manage the pending state of asynchronous actions, making it easier to show loading indicators while the action is running.
 
 ```tsx
-// Recommended: Use useActionState to track pending state
+// 🟢 Recommended: Use useActionState to track pending state
 import { useActionState } from "react";
 
 async function addToCart(previousCount: number, formData: FormData) {

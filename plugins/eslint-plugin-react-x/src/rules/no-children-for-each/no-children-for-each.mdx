@@ -38,7 +38,7 @@ Using `Children.forEach` to walk through and transform children is brittle becau
 For example, if you need to interleave separators between children, let the parent pass an array directly and use `.map()`:
 
 ```tsx
-// Recommended: accept data as an array prop and use standard JS methods
+// 🟢 Recommended: accept data as an array prop and use standard JS methods
 interface MyComponentProps {
   items: string[];
 }
@@ -58,7 +58,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Problem: Using Children.forEach to iterate over and transform children
+// 🔴 Problem: Using Children.forEach to iterate over and transform children
 import React, { Children } from "react";
 
 interface MyComponentProps {
@@ -80,7 +80,7 @@ function MyComponent({ children }: MyComponentProps) {
 If you need to add separators or other decorations between items, let the parent control the layout with CSS or pass structured data as props rather than transforming children.
 
 ```tsx
-// Recommended: control separators with CSS or pass data as props
+// 🟢 Recommended: control separators with CSS or pass data as props
 interface Item {
   id: string;
   name: string;
@@ -100,7 +100,7 @@ function List({ items }: { items: Item[] }) {
 ```
 
 ```tsx
-// Recommended: pass structured data when each item needs custom wrapping
+// 🟢 Recommended: pass structured data when each item needs custom wrapping
 interface Row {
   id: string;
   content: React.ReactNode;

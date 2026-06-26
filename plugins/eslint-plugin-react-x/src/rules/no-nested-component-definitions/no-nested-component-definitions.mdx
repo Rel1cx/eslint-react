@@ -45,7 +45,7 @@ Instead, define every component at the top level.
 ### Nesting a child component definition inside another component
 
 ```tsx
-// Problem: Profile is recreated on every render of Gallery, causing child component state loss and preventing memo optimization
+// 🔴 Problem: Profile is recreated on every render of Gallery, causing child component state loss and preventing memo optimization
 function Gallery() {
   // 🔴 Never define a component inside another component!
   function Profile() {
@@ -58,7 +58,7 @@ function Gallery() {
 ### Defining components at the top level of the module and passing data via props
 
 ```tsx
-// Recommended: Define all components at the top level; pass data via props when needed
+// 🟢 Recommended: Define all components at the top level; pass data via props when needed
 // 🟢 Declare components at the top level
 function Gallery() {
   // ...
@@ -75,7 +75,7 @@ When a child component needs data from a parent, [pass it by props](https://reac
 Components should only be used in JSX. Don't call them as regular functions. React must decide when your component function is called during rendering. In React, you do this using JSX.
 
 ```tsx
-// Problem: calling a component as a regular function
+// 🔴 Problem: calling a component as a regular function
 function BlogPost() {
   return <Layout>{Article()}</Layout>;
   //                        ^^^ Never call component functions directly.
@@ -83,7 +83,7 @@ function BlogPost() {
 ```
 
 ```tsx
-// Recommended: use components in JSX
+// 🟢 Recommended: use components in JSX
 function BlogPost() {
   return (
     <Layout>

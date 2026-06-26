@@ -36,7 +36,7 @@ Using `this.state` inside `setState` calls might result in errors when two state
 React batches state updates. When you read `this.state` immediately after calling `setState`, it still holds the old value. This demonstrates why the updater function is safer.
 
 ```tsx
-// Problem: this.state is not updated immediately after setState
+// 🔴 Problem: this.state is not updated immediately after setState
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -59,7 +59,7 @@ class MyComponent extends React.Component {
 When multiple `setState` calls are batched together, reading `this.state` directly may give you a stale value. The updater function receives the latest state as an argument, ensuring correctness even with batching.
 
 ```tsx
-// Problem: Reading this.state directly inside setState may get a stale value when batched
+// 🔴 Problem: Reading this.state directly inside setState may get a stale value when batched
 import React from "react";
 
 interface MyComponentProps {}
@@ -83,7 +83,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 ```
 
 ```tsx
-// Recommended: Use an updater function; React passes the latest state
+// 🟢 Recommended: Use an updater function; React passes the latest state
 import React from "react";
 
 interface MyComponentProps {}

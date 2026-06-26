@@ -40,7 +40,7 @@ In function components, prefer the Hook `useRef` over `createRef`, which was des
 ```tsx
 import React, { createRef } from "react";
 
-// Problem: Using createRef in a function component
+// 🔴 Problem: Using createRef in a function component
 function MyComponent() {
   const ref = React.createRef<HTMLDivElement>();
   //          ^^^ [Deprecated] Use 'useRef' instead.
@@ -52,7 +52,7 @@ function MyComponent() {
 ```tsx
 import React, { useRef } from "react";
 
-// Recommended: Use useRef in function components
+// 🟢 Recommended: Use useRef in function components
 function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -65,7 +65,7 @@ function MyComponent() {
 When migrating a class component to a function component, replace `createRef` with `useRef`.
 
 ```tsx
-// Problem: createRef inside a function component creates a new ref on every render
+// 🔴 Problem: createRef inside a function component creates a new ref on every render
 import { createRef } from "react";
 
 function Form() {
@@ -85,7 +85,7 @@ function Form() {
 ```
 
 ```tsx
-// Recommended: useRef persists the same ref object across renders
+// 🟢 Recommended: useRef persists the same ref object across renders
 import { useRef } from "react";
 
 function Form() {
@@ -109,7 +109,7 @@ function Form() {
 When you need a strongly typed ref in a function component, use `useRef` with an explicit generic parameter instead of `createRef`.
 
 ```tsx
-// Recommended: Use useRef with an explicit type parameter
+// 🟢 Recommended: Use useRef with an explicit type parameter
 import { useRef } from "react";
 
 function VideoPlayer() {
@@ -140,7 +140,7 @@ The rule also applies inside custom Hooks. Prefer `useRef` so the ref persists a
 ```tsx
 import { createRef } from "react";
 
-// Problem: Using createRef inside a custom Hook
+// 🔴 Problem: Using createRef inside a custom Hook
 function useInputRef() {
   const ref = createRef<HTMLInputElement>();
   //          ^^^ [Deprecated] Use 'useRef' instead.
@@ -152,7 +152,7 @@ function useInputRef() {
 ```tsx
 import { useRef } from "react";
 
-// Recommended: Use useRef inside a custom Hook
+// 🟢 Recommended: Use useRef inside a custom Hook
 function useInputRef() {
   const ref = useRef<HTMLInputElement>(null);
 
@@ -167,7 +167,7 @@ function useInputRef() {
 ```tsx
 import React, { createRef } from "react";
 
-// OK: Using createRef in a class component is the intended use
+// 🔵 OK: Using createRef in a class component is the intended use
 class MyComponent extends React.Component {
   inputRef = createRef();
   // ...
@@ -181,10 +181,10 @@ Calls outside of function components and Hooks are not reported, since `useRef` 
 ```tsx
 import { createRef } from "react";
 
-// OK: Module top-level is not a function component or Hook
+// 🔵 OK: Module top-level is not a function component or Hook
 const ref = createRef<HTMLDivElement>();
 
-// OK: Plain utility functions are not function components or Hooks
+// 🔵 OK: Plain utility functions are not function components or Hooks
 function createRefHolder() {
   return createRef();
 }

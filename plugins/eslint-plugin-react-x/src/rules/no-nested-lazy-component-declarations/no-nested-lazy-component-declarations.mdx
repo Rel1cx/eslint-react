@@ -43,7 +43,7 @@ Just like regular components, lazy components should be declared at the top leve
 ### Declaring lazy components inside a component
 
 ```tsx
-// Problem: Declaring MarkdownPreview inside Editor causes the lazy component to be recreated on every render, resetting its state unexpectedly
+// 🔴 Problem: Declaring MarkdownPreview inside Editor causes the lazy component to be recreated on every render, resetting its state unexpectedly
 import { lazy } from "react";
 
 function Editor() {
@@ -56,7 +56,7 @@ function Editor() {
 ### Declaring lazy components at the module level
 
 ```tsx
-// Recommended: Declare lazy components at the module level to keep references stable and state persistent
+// 🟢 Recommended: Declare lazy components at the module level to keep references stable and state persistent
 import { lazy } from "react";
 
 const MarkdownPreview = lazy(() => import("./MarkdownPreview.js"));

@@ -34,7 +34,7 @@ Global variables exist outside React's control. When you modify them during rend
 Module-level variables are shared across all component instances. Mutating them during render creates hidden shared state that React cannot track.
 
 ```tsx
-// Problem: Global counter
+// 🔴 Problem: Global counter
 let renderCount = 0;
 function Component() {
   renderCount++; // Mutating a global variable during render
@@ -43,7 +43,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: Use useState to manage the count
+// 🟢 Recommended: Use useState to manage the count
 function Component() {
   const [clickCount, setClickCount] = useState(0);
   const handleClick = () => {
@@ -62,7 +62,7 @@ function Component() {
 Writing to browser globals during render causes side effects that leak outside the component and may behave differently between server and client.
 
 ```tsx
-// Problem: Modifying a window property
+// 🔴 Problem: Modifying a window property
 function Component({ userId }) {
   window.currentUser = userId; // Global side effect
   return <div>User: {userId}</div>;
@@ -70,7 +70,7 @@ function Component({ userId }) {
 ```
 
 ```tsx
-// Recommended: Sync external state in an effect
+// 🟢 Recommended: Sync external state in an effect
 function Component({ title }) {
   useEffect(() => {
     document.title = title; // Side effect moved out of the render phase
@@ -84,7 +84,7 @@ function Component({ title }) {
 Pushing to or modifying global collections during render makes their state unpredictable across renders and component instances.
 
 ```tsx
-// Problem: Mutating a global array
+// 🔴 Problem: Mutating a global array
 const events = [];
 function Component({ event }) {
   events.push(event); // Global array mutation
@@ -93,7 +93,7 @@ function Component({ event }) {
 ```
 
 ```tsx
-// Recommended: Use Context to pass global values
+// 🟢 Recommended: Use Context to pass global values
 function Component() {
   const user = useContext(UserContext);
   return <div>User: {user.id}</div>;
@@ -105,7 +105,7 @@ function Component() {
 Even caches that seem local can be mutated during render, making their contents depend on render order rather than predictable data flow.
 
 ```tsx
-// Problem: Modifying a cache during render
+// 🔴 Problem: Modifying a cache during render
 const cache = {};
 function Component({ id }) {
   if (!cache[id]) {
@@ -116,7 +116,7 @@ function Component({ id }) {
 ```
 
 ```tsx
-// Recommended: Use useMemo to compute and cache the value
+// 🟢 Recommended: Use useMemo to compute and cache the value
 function Component({ id }) {
   const data = useMemo(() => fetchData(id), [id]);
   return <div>{data}</div>;

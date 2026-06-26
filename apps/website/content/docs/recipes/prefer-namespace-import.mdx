@@ -88,24 +88,24 @@ export default [
 ### Default import from React
 
 ```tsx
-// Problem: default import is discouraged.
+// 🔴 Problem: default import is discouraged.
 import React from 'react';
 ```
 
 ```tsx
-// Problem: default import is discouraged.
+// 🔴 Problem: default import is discouraged.
 import React, { useState, useEffect } from 'react';
 ```
 
 ### Namespace import from React
 
 ```tsx
-// Recommended: namespace import is preferred.
+// 🟢 Recommended: namespace import is preferred.
 import * as React from 'react';
 ```
 
 ```tsx
-// OK: named imports without default import are fine.
+// 🔵 OK: named imports without default import are fine.
 import { useState, useEffect } from 'react';
 ```
 

@@ -36,7 +36,7 @@ Self-closing HTML elements (ex: `<img />`, `<br />`, `<hr />`) are collectively 
 ### Adding children or inner HTML to elements
 
 ```tsx
-// Problem: Void elements like <br> cannot contain children
+// 🔴 Problem: Void elements like <br> cannot contain children
 <br>Children</br>
 <br children="Children" />
 <br dangerouslySetInnerHTML={{ __html: 'HTML' }} />
@@ -46,7 +46,7 @@ React.createElement('br', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 ```
 
 ```tsx
-// Recommended: Use non-void container elements for children or inner HTML
+// 🟢 Recommended: Use non-void container elements for children or inner HTML
 <div>Children</div>
 <div children="Children" />
 <div dangerouslySetInnerHTML={{ __html: 'HTML' }} />
@@ -60,7 +60,7 @@ React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } })
 Void elements like `<img>` and `<input>` cannot contain children. Use attributes such as `alt` or `placeholder` to provide descriptive text instead.
 
 ```tsx
-// Recommended: Use attributes instead of children for void elements
+// 🟢 Recommended: Use attributes instead of children for void elements
 function UserProfile() {
   return (
     <>

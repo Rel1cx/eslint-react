@@ -47,7 +47,7 @@ In general, any API that returns a different value for the same inputs violates 
 Random values change on every render, making the component's output unpredictable. This breaks memoization and can cause hydration mismatches in server-rendered apps.
 
 ```tsx
-// Problem: produces a different value on every render
+// 🔴 Problem: produces a different value on every render
 function Component() {
   const id = Math.random(); // different on every render
   //         ^^^ Do not call 'Math.random()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -56,7 +56,7 @@ function Component() {
 ```
 
 ```tsx
-// Problem: calling crypto.randomUUID() directly during render
+// 🔴 Problem: calling crypto.randomUUID() directly during render
 function Component() {
   const id = crypto.randomUUID(); // different on every render
   //         ^^^ Do not call 'crypto.randomUUID()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -65,7 +65,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use lazy initialization to ensure a stable value
+// 🟢 Recommended: use lazy initialization to ensure a stable value
 function Component() {
   const [id] = useState(() => crypto.randomUUID());
   return <div key={id}>Content</div>;
@@ -73,7 +73,7 @@ function Component() {
 ```
 
 ```tsx
-// Problem: useMemo cannot make an impure call pure
+// 🔴 Problem: useMemo cannot make an impure call pure
 function Component() {
   const value = useMemo(() => Math.random(), []);
   //                  ^^^ Do not call 'Math.random()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -86,7 +86,7 @@ function Component() {
 Time-based values change constantly. Using them directly in render makes the component impure and causes unnecessary re-renders or hydration issues.
 
 ```tsx
-// Problem: time-based value changes on every render
+// 🔴 Problem: time-based value changes on every render
 function Component() {
   const timestamp = Date.now(); // constantly changing
   //                ^^^ Do not call 'Date.now()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -95,7 +95,7 @@ function Component() {
 ```
 
 ```tsx
-// Problem: new Date() is also impure
+// 🔴 Problem: new Date() is also impure
 function Component() {
   const date = new Date(); // new time on every render
   //           ^^^ Do not call 'new Date()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -104,7 +104,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use time-based values in effects or event handlers
+// 🟢 Recommended: use time-based values in effects or event handlers
 function Component() {
   useEffect(() => {
     const timestamp = Date.now();
@@ -119,7 +119,7 @@ function Component() {
 Calling `Date.now()` directly in JSX produces a different value on every render and makes the component impure.
 
 ```tsx
-// Problem: time changes on every render
+// 🔴 Problem: time changes on every render
 function Clock() {
   return <div>Current time: {Date.now()}</div>;
 }
@@ -128,7 +128,7 @@ function Clock() {
 When you need to display a constantly updating value like the current time, use state and an effect rather than calling `Date.now()` directly in render.
 
 ```tsx
-// Recommended: manage time with state and effects
+// 🟢 Recommended: manage time with state and effects
 function Clock() {
   const [time, setTime] = useState(() => Date.now());
   useEffect(() => {
@@ -146,7 +146,7 @@ function Clock() {
 Custom hooks are also part of the render phase, so impure calls inside them are flagged just like in components.
 
 ```tsx
-// Problem: impure call inside a custom hook
+// 🔴 Problem: impure call inside a custom hook
 function useTimestamp() {
   const t = Date.now(); // called during render
   //        ^^^ Do not call 'Date.now()' during render. Components and hooks must be pure. Move this call into an event handler, effect, or state initializer.
@@ -155,7 +155,7 @@ function useTimestamp() {
 ```
 
 ```tsx
-// Recommended: move impure logic into an effect
+// 🟢 Recommended: move impure logic into an effect
 function useTimestamp() {
   const [timestamp, setTimestamp] = useState(() => Date.now());
   useEffect(() => {
@@ -170,7 +170,7 @@ function useTimestamp() {
 Event handlers and effects run outside of React's render cycle, so impure functions are perfectly acceptable there.
 
 ```tsx
-// Recommended: use random numbers in event handlers
+// 🟢 Recommended: use random numbers in event handlers
 function Component() {
   return (
     <button onClick={() => console.log(Math.random())}>
@@ -181,7 +181,7 @@ function Component() {
 ```
 
 ```tsx
-// Recommended: use timestamps in effects
+// 🟢 Recommended: use timestamps in effects
 function Component() {
   useEffect(() => {
     const timestamp = Date.now();

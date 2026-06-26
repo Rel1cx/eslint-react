@@ -55,21 +55,21 @@ In this example, the `$` before `{user.name}` is unnecessary and will be rendere
 
 ```tsx
 function MyComponent({ user }) {
-  // Problem: Possible unintentional '$' sign before expression.
+  // 🔴 Problem: Possible unintentional '$' sign before expression.
   return <div>Hello ${user.name}</div>;
 }
 ```
 
 ```tsx
 function MyComponent({ user }) {
-  // Problem: Possible unintentional '$' sign before expression.
+  // 🔴 Problem: Possible unintentional '$' sign before expression.
   return <div>${user.name} is your name</div>;
 }
 ```
 
 ```tsx
 function MyComponent({ count, total }) {
-  // Problem: Possible unintentional '$' sign before expression.
+  // 🔴 Problem: Possible unintentional '$' sign before expression.
   return <div>Progress: ${count} / ${total}</div>;
 }
 ```
@@ -77,7 +77,7 @@ function MyComponent({ count, total }) {
 ### Using correct JSX expression syntax
 
 ```tsx
-// OK: Template literals are fine outside JSX
+// 🔵 OK: Template literals are fine outside JSX
 function MyComponent({ user }) {
   return `Hello ${user.name}`;
 }
@@ -85,7 +85,7 @@ function MyComponent({ user }) {
 
 ```tsx
 function MyComponent({ user }) {
-  // Recommended: Remove the '$' when using JSX expressions
+  // 🟢 Recommended: Remove the '$' when using JSX expressions
   return <div>Hello {user.name}</div>;
 }
 ```
@@ -94,7 +94,7 @@ function MyComponent({ user }) {
 
 ```tsx
 function MyComponent({ price }) {
-  // OK: Intentionally rendering '$' as literal text before a JSX expression
+  // 🔵 OK: Intentionally rendering '$' as literal text before a JSX expression
   return <div>${price}</div>;
 }
 ```

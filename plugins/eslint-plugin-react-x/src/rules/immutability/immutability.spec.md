@@ -171,7 +171,7 @@ function useFoo() {
 function Component() {
   const ref = useRef(null);
   const fn = () => {
-    ref.current = value; // OK: refs are mutable by design
+    ref.current = value; // 🔵 OK: refs are mutable by design
   };
   return <Foo fn={fn} />; // Allowed
 }

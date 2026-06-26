@@ -24,7 +24,7 @@ When defining a React component, if you specify its component name in a way that
 ### Wrapping an anonymous arrow function with React.memo
 
 ```tsx
-// Problem: React cannot infer displayName from an anonymous arrow function; it will show as anonymous in DevTools
+// 🔴 Problem: React cannot infer displayName from an anonymous arrow function; it will show as anonymous in DevTools
 import React from "react";
 
 const Button = React.memo(() => <div />);
@@ -32,7 +32,7 @@ const Button = React.memo(() => <div />);
 ```
 
 ```tsx
-// Recommended: Use a named function or manually add displayName after assignment
+// 🟢 Recommended: Use a named function or manually add displayName after assignment
 import React from "react";
 
 const Button = React.memo(function Button() {
@@ -50,7 +50,7 @@ Button.displayName = "Button";
 ### Wrapping an anonymous arrow function with React.forwardRef
 
 ```tsx
-// Problem: When forwardRef wraps an anonymous function, React cannot automatically infer the component name
+// 🔴 Problem: When forwardRef wraps an anonymous function, React cannot automatically infer the component name
 import React from "react";
 
 const Button = React.forwardRef(() => <div />);
@@ -58,7 +58,7 @@ const Button = React.forwardRef(() => <div />);
 ```
 
 ```tsx
-// Recommended: Use a named function or manually set the displayName property
+// 🟢 Recommended: Use a named function or manually set the displayName property
 import React from "react";
 
 const Button = React.forwardRef(function Button() {
@@ -76,7 +76,7 @@ Button.displayName = "Button";
 ### Default exporting an anonymous arrow function
 
 ```tsx
-// Problem: When default-exporting an anonymous function, the component has no recognizable name in DevTools
+// 🔴 Problem: When default-exporting an anonymous function, the component has no recognizable name in DevTools
 import React from "react";
 
 export default () => <div />;
@@ -84,7 +84,7 @@ export default () => <div />;
 ```
 
 ```tsx
-// Recommended: Change the default export to a named function declaration
+// 🟢 Recommended: Change the default export to a named function declaration
 import React from "react";
 
 export default function Button() {

@@ -34,7 +34,7 @@ Updating the state after a component updates will trigger an additional `render(
 ### Calling setState directly in componentDidUpdate
 
 ```tsx
-// Problem: Calling setState directly in componentDidUpdate triggers another render and can easily cause infinite loops or layout thrashing
+// 🔴 Problem: Calling setState directly in componentDidUpdate triggers another render and can easily cause infinite loops or layout thrashing
 import React from "react";
 
 interface MyComponentProps {}
@@ -60,7 +60,7 @@ class MyComponent extends React.Component<MyComponentProps, MyComponentState> {
 If you need to perform side effects when props change, do so conditionally and avoid synchronous `setState` calls that trigger additional renders.
 
 ```tsx
-// Recommended: Perform conditional side effects without synchronous setState
+// 🟢 Recommended: Perform conditional side effects without synchronous setState
 import React from "react";
 
 interface MyComponentProps {

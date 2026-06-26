@@ -36,7 +36,7 @@ Using `cloneElement` is uncommon and can lead to fragile code. It also makes it 
 Using `cloneElement` to inject props into a child element hides the data flow and breaks component encapsulation. Prefer passing props explicitly through render props or composition patterns.
 
 ```tsx
-// Problem: Using cloneElement to dynamically inject props into a child element
+// 🔴 Problem: Using cloneElement to dynamically inject props into a child element
 import { cloneElement } from "react";
 
 const clonedElement = cloneElement(
@@ -53,7 +53,7 @@ console.log(clonedElement); // <Row title="Cabbage" isHighlighted={true}>Goodbye
 Using `cloneElement` inside `Children.map` hides which props a child receives and breaks encapsulation. Prefer passing data explicitly via render props or by restructuring your component API.
 
 ```tsx
-// Problem: Using cloneElement to inject props into each child
+// 🔴 Problem: Using cloneElement to inject props into each child
 import { Children, cloneElement, useState } from "react";
 
 function List({ children }) {
@@ -74,7 +74,7 @@ function List({ children }) {
 ```
 
 ```tsx
-// Recommended: Pass isHighlighted explicitly via render props
+// 🟢 Recommended: Pass isHighlighted explicitly via render props
 import { useState } from "react";
 
 function List({ items, renderItem }) {
@@ -109,7 +109,7 @@ function App() {
 Instead of injecting props into children with `cloneElement`, compose components so that the parent controls the layout and passes props explicitly.
 
 ```tsx
-// Recommended: Use component composition to wrap and configure items
+// 🟢 Recommended: Use component composition to wrap and configure items
 interface RowProps {
   title: string;
   isHighlighted?: boolean;

@@ -32,32 +32,32 @@ Enforces identifier names assigned from `useId` calls to be either `id` or end w
 ## Examples
 
 ```tsx
-// Problem: Identifier 'myRef' does not end with 'Id'
+// 🔴 Problem: Identifier 'myRef' does not end with 'Id'
 const myRef = useId();
 ```
 
 ```tsx
-// Problem: Identifier 'randomString' does not end with 'Id'
+// 🔴 Problem: Identifier 'randomString' does not end with 'Id'
 const randomString = useId();
 ```
 
 ```tsx
-// Recommended: Name ends with 'Id'
+// 🟢 Recommended: Name ends with 'Id'
 const myId = useId();
 ```
 
 ```tsx
-// Recommended: Name is exactly 'id'
+// 🟢 Recommended: Name is exactly 'id'
 const id = useId();
 ```
 
 ```tsx
-// OK: Name ends with 'Id' (MemberExpression)
+// 🔵 OK: Name ends with 'Id' (MemberExpression)
 obj.nested.myId = useId();
 ```
 
 ```tsx
-// OK: Returning the result directly from a custom Hook
+// 🔵 OK: Returning the result directly from a custom Hook
 function useCustomId() {
   return useId();
 }

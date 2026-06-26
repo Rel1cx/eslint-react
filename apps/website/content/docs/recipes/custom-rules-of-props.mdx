@@ -78,24 +78,24 @@ export default [
 #### Duplicate props on a JSX element
 
 ```tsx
-// Problem: duplicate props silently discard earlier values.
+// 🔴 Problem: duplicate props silently discard earlier values.
 <div id="a" id="b" />;
 ```
 
 ```tsx
-// Problem: duplicate props silently discard earlier values.
+// 🔴 Problem: duplicate props silently discard earlier values.
 <div onClick={handleA} onClick={handleB} />;
 ```
 
 #### Unique props or conditional spreads
 
 ```tsx
-// Recommended: each prop appears only once.
+// 🟢 Recommended: each prop appears only once.
 <div id="a" className="b" />;
 ```
 
 ```tsx
-// OK: spreading a variable is a common and valid pattern.
+// 🔵 OK: spreading a variable is a common and valid pattern.
 <div id="a" {...props} />;
 ```
 
@@ -171,9 +171,9 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Problem: accessing props via member expression.
+// 🔴 Problem: accessing props via member expression.
 function Button(props: ButtonProps) {
-  // Problem: Use destructuring assignment for component props.
+  // 🔴 Problem: Use destructuring assignment for component props.
   return <button type="button" onClick={props.onClick}>{props.children}</button>;
 }
 ```
@@ -186,9 +186,9 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Problem: accessing props via member expression.
+// 🔴 Problem: accessing props via member expression.
 const Button = (props: ButtonProps) => {
-  // Problem: Use destructuring assignment for component props.
+  // 🔴 Problem: Use destructuring assignment for component props.
   return <button type="button" onClick={props.onClick}>{props.children}</button>;
 };
 ```
@@ -203,7 +203,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Recommended: destructure props in the function signature.
+// 🟢 Recommended: destructure props in the function signature.
 function Button({ children, onClick }: ButtonProps) {
   return <button type="button" onClick={onClick}>{children}</button>;
 }
@@ -217,7 +217,7 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-// Recommended: destructure props in the function signature.
+// 🟢 Recommended: destructure props in the function signature.
 const Button = ({ children, onClick }: ButtonProps) => {
   return <button type="button" onClick={onClick}>{children}</button>;
 };
@@ -275,24 +275,24 @@ export default [
 #### Spreading object literals in JSX
 
 ```tsx
-// Problem: spreading an object literal hides props from view.
+// 🔴 Problem: spreading an object literal hides props from view.
 <Button {...{ children, onClick }} />;
 ```
 
 ```tsx
-// Problem: spreading an object literal hides props from view.
+// 🔴 Problem: spreading an object literal hides props from view.
 <input {...{ disabled: true, readOnly: true }} />;
 ```
 
 #### Spreading variables or conditional expressions
 
 ```tsx
-// OK: spreading a variable is a common and valid pattern.
+// 🔵 OK: spreading a variable is a common and valid pattern.
 <div {...props} />;
 ```
 
 ```tsx
-// OK: conditional expressions serve legitimate purposes.
+// 🔵 OK: conditional expressions serve legitimate purposes.
 <Comp {...(cond ? { a: "b" } : {})} />;
 ```
 
@@ -369,24 +369,24 @@ export default [
 #### Mixing controlled and uncontrolled props
 
 ```tsx
-// Problem: mixing controlled and uncontrolled props causes confusing bugs.
+// 🔴 Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input value={name} defaultValue="World" />;
 ```
 
 ```tsx
-// Problem: mixing controlled and uncontrolled props causes confusing bugs.
+// 🔴 Problem: mixing controlled and uncontrolled props causes confusing bugs.
 <input type="checkbox" checked={isChecked} defaultChecked />;
 ```
 
 #### Using either controlled or uncontrolled mode
 
 ```tsx
-// Recommended: controlled mode with explicit handler.
+// 🟢 Recommended: controlled mode with explicit handler.
 <input value={name} onChange={handleChange} />;
 ```
 
 ```tsx
-// Recommended: uncontrolled mode with default value.
+// 🟢 Recommended: uncontrolled mode with default value.
 <input defaultValue="World" />;
 ```
 

@@ -38,7 +38,7 @@ Note that `shouldComponentUpdate` is considered unused when defined in a class e
 Defining a method in a class component that is never called (including in lifecycles, render, or other methods) increases maintenance overhead and causes confusion.
 
 ```tsx
-// Problem: handleClick is never called
+// 🔴 Problem: handleClick is never called
 import React from "react";
 
 class MyComponent extends React.Component {
@@ -54,7 +54,7 @@ class MyComponent extends React.Component {
 If a method is explicitly called in a lifecycle (such as componentDidMount) or by other members, it is not considered unused.
 
 ```tsx
-// OK: action is called in componentDidMount
+// 🔵 OK: action is called in componentDidMount
 import React from "react";
 
 class MyComponent extends React.Component {

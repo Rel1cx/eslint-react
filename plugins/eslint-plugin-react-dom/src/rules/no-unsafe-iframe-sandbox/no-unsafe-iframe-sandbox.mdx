@@ -36,7 +36,7 @@ This rule reports cases where the attribute contains `allow-scripts` and `allow-
 ```tsx
 function MyComponent() {
   return (
-    // Problem: allow-scripts together with allow-same-origin lets the embedded
+    // 🔴 Problem: allow-scripts together with allow-same-origin lets the embedded
     // document escape the sandbox by removing the attribute via JavaScript
     <iframe
       src="https://eslint-react.xyz"
@@ -48,7 +48,7 @@ function MyComponent() {
 
 ```tsx
 function MyComponent() {
-  // Recommended: Use a safer sandbox value that does not combine both flags
+  // 🟢 Recommended: Use a safer sandbox value that does not combine both flags
   return <iframe src="https://eslint-react.xyz" sandbox="allow-popups" />;
 }
 ```
@@ -58,7 +58,7 @@ function MyComponent() {
 When embedding untrusted third-party content, use a restrictive `sandbox` attribute that limits the embedded document's capabilities without allowing script execution combined with same-origin access.
 
 ```tsx
-// Recommended: Use restrictive sandbox values for untrusted content
+// 🟢 Recommended: Use restrictive sandbox values for untrusted content
 function MyComponent() {
   return (
     <iframe

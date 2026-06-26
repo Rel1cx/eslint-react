@@ -33,7 +33,7 @@ Using the `&&` operator to render an element conditionally in JSX can cause unex
 ### Using a number directly as a condition
 
 ```tsx
-// Problem: When count is 0, 0 will be rendered directly on the page
+// 🔴 Problem: When count is 0, 0 will be rendered directly on the page
 interface MyComponentProps {
   count: number;
 }
@@ -45,7 +45,7 @@ function MyComponent({ count }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use a comparison expression or ternary operator to ensure only boolean evaluation results are rendered
+// 🟢 Recommended: Use a comparison expression or ternary operator to ensure only boolean evaluation results are rendered
 interface MyComponentProps {
   count: number;
 }
@@ -58,7 +58,7 @@ function MyComponent({ count }: MyComponentProps) {
 ### Using array length as a condition
 
 ```tsx
-// Problem: When items.length is 0, 0 may leak into the DOM
+// 🔴 Problem: When items.length is 0, 0 may leak into the DOM
 interface MyComponentProps {
   items: string[];
 }
@@ -70,7 +70,7 @@ function MyComponent({ items }: MyComponentProps) {
 ```
 
 ```tsx
-// Recommended: Use !!, Boolean(), or a comparison expression to avoid leaking
+// 🟢 Recommended: Use !!, Boolean(), or a comparison expression to avoid leaking
 interface MyComponentProps {
   items: string[];
 }
@@ -123,7 +123,7 @@ function MyComponent({ items }: MyComponentProps) {
 ### Using an array element as a condition
 
 ```tsx
-// Problem: When items\[0] is an empty string or 0, that value may be rendered unexpectedly
+// 🔴 Problem: When items\[0] is an empty string or 0, that value may be rendered unexpectedly
 interface MyComponentProps {
   items: string[];
 }
@@ -137,7 +137,7 @@ function MyComponent({ items }: MyComponentProps) {
 ### Using a logical OR expression as a condition
 
 ```tsx
-// Problem: (numberA || numberB) may return 0 or another falsy value and leak onto the page
+// 🔴 Problem: (numberA || numberB) may return 0 or another falsy value and leak onto the page
 interface MyComponentProps {
   numberA: number;
   numberB: number;
@@ -154,7 +154,7 @@ function MyComponent({ numberA, numberB }: MyComponentProps) {
 ### Using negation for conditional rendering
 
 ```tsx
-// OK: When the condition expression explicitly produces a boolean result, no value will leak
+// 🔵 OK: When the condition expression explicitly produces a boolean result, no value will leak
 interface MyComponentProps {
   items: string[];
   count: number;
@@ -168,7 +168,7 @@ function MyComponent({ items, count }: MyComponentProps) {
 ### Rendering arrays or strings directly
 
 ```tsx
-// OK: Directly rendering values known to be React nodes does not require conditional checks
+// 🔵 OK: Directly rendering values known to be React nodes does not require conditional checks
 interface MyComponentProps {
   items: string[];
 }
@@ -191,7 +191,7 @@ function MyComponent({ items }: MyComponentProps) {
 ### Using a default value fallback
 
 ```tsx
-// OK: Using `||` to provide a fallback value is a common default-value pattern, not conditional rendering
+// 🔵 OK: Using `||` to provide a fallback value is a common default-value pattern, not conditional rendering
 interface MyComponentProps {
   customTitle: string;
 }

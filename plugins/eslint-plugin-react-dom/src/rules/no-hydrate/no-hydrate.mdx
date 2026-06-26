@@ -40,7 +40,7 @@ react-dom/no-hydrate
 In React 18, `ReactDOM.hydrate()` is deprecated in favor of `hydrateRoot()`.
 
 ```tsx
-// Problem: ReactDOM.hydrate() is deprecated.
+// 🔴 Problem: ReactDOM.hydrate() is deprecated.
 import Component from "Component";
 import ReactDOM from "react-dom";
 
@@ -48,7 +48,7 @@ ReactDOM.hydrate(<Component />, document.getElementById("app"));
 ```
 
 ```tsx
-// Recommended: use hydrateRoot() for better error handling and concurrent features.
+// 🟢 Recommended: use hydrateRoot() for better error handling and concurrent features.
 import Component from "Component";
 import ReactDOM from "react-dom";
 import { hydrateRoot } from "react-dom/client";
@@ -61,7 +61,7 @@ hydrateRoot(document.getElementById("app"), <Component />);
 Importing `hydrate` directly from `react-dom` is also deprecated and should be migrated to `hydrateRoot()`.
 
 ```tsx
-// Problem: hydrate() from react-dom is deprecated.
+// 🔴 Problem: hydrate() from react-dom is deprecated.
 import { hydrate } from 'react-dom';
 
 const container = document.getElementById('app');
@@ -69,7 +69,7 @@ hydrate(<App tab="home" />, container);
 ```
 
 ```tsx
-// Recommended: use hydrateRoot() from react-dom/client.
+// 🟢 Recommended: use hydrateRoot() from react-dom/client.
 import { hydrateRoot } from 'react-dom/client';
 
 const container = document.getElementById('app');
@@ -81,7 +81,7 @@ const root = hydrateRoot(container, <App tab="home" />);
 When hydrating a server-rendered application, verify that the DOM node exists before calling `hydrateRoot` to avoid runtime errors.
 
 ```tsx
-// Recommended: Verify the DOM node exists before hydrating
+// 🟢 Recommended: Verify the DOM node exists before hydrating
 import { hydrateRoot } from "react-dom/client";
 import App from "./App";
 

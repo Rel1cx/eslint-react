@@ -40,7 +40,7 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Problem: A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
+    // 🔴 Problem: A 'setTimeout' created in 'useEffect' must be cleared in the cleanup function.
     const timeoutId = setTimeout(() => console.log(count), 1000);
   }, []);
 
@@ -57,9 +57,9 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Recommended: Store the timeout ID
+    // 🟢 Recommended: Store the timeout ID
     const timeoutId = setTimeout(() => console.log(count), 1000);
-    // Recommended: Clear the timeout in the cleanup function
+    // 🟢 Recommended: Clear the timeout in the cleanup function
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -72,7 +72,7 @@ function MyComponent() {
 When a timeout depends on reactive values like props or state, clear the previous timeout in the cleanup function before scheduling a new one. This prevents outdated timeouts from firing after the value has already changed.
 
 ```tsx
-// Recommended: clear the previous timeout before scheduling a new one
+// 🟢 Recommended: clear the previous timeout before scheduling a new one
 import { useState, useEffect } from "react";
 
 function Playground() {

@@ -38,7 +38,7 @@ Most of the time, `flushSync` can be avoided, so use `flushSync` as a last resor
 `flushSync` forces React to flush pending work synchronously, which can degrade performance and cause Suspense fallbacks to appear unexpectedly.
 
 ```tsx
-// Problem: flushSync hurts performance and can trigger unexpected fallback states.
+// 🔴 Problem: flushSync hurts performance and can trigger unexpected fallback states.
 import { flushSync } from "react-dom";
 
 flushSync(() => {
@@ -53,7 +53,7 @@ Some browser APIs expect results inside of callbacks to be written to the DOM sy
 Due to current implementation limitations, this rule will still report an error for such legitimate uses. However, you can safely suppress it with `// eslint-disable-next-line` in these scenarios.
 
 ```tsx
-// OK: the beforeprint event needs the DOM updated before the print dialog opens
+// 🔵 OK: the beforeprint event needs the DOM updated before the print dialog opens
 import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 
@@ -100,7 +100,7 @@ Similarly, `flushSync` can be appropriate when used inside `startViewTransition`
 </Callout>
 
 ```tsx
-// OK: startViewTransition needs the DOM updated synchronously before capture
+// 🔵 OK: startViewTransition needs the DOM updated synchronously before capture
 import { useState } from "react";
 import { flushSync } from "react-dom";
 import { transitionHelper } from "./utils";

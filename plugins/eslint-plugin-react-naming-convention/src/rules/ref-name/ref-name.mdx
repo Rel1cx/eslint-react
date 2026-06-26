@@ -32,37 +32,37 @@ Enforces identifier names assigned from `useRef` calls to be either `ref` or end
 ## Examples
 
 ```tsx
-// Problem: Identifier 'myId' does not end with 'Ref'
+// 🔴 Problem: Identifier 'myId' does not end with 'Ref'
 const myId = useRef(null);
 ```
 
 ```tsx
-// Problem: Identifier 'node' does not end with 'Ref'
+// 🔴 Problem: Identifier 'node' does not end with 'Ref'
 const node = useRef(null);
 ```
 
 ```tsx
-// Recommended: Name ends with 'Ref'
+// 🟢 Recommended: Name ends with 'Ref'
 const myRef = useRef(null);
 ```
 
 ```tsx
-// Recommended: Name is exactly 'ref'
+// 🟢 Recommended: Name is exactly 'ref'
 const ref = useRef(null);
 ```
 
 ```tsx
-// OK: Name ends with 'Ref' (MemberExpression)
+// 🔵 OK: Name ends with 'Ref' (MemberExpression)
 obj.nested.myRef = useRef(null);
 ```
 
 ```tsx
-// OK: The result is immediately accessed via a member expression instead of being stored in a ref variable
+// 🔵 OK: The result is immediately accessed via a member expression instead of being stored in a ref variable
 const value = useRef(null).current.value;
 ```
 
 ```tsx
-// OK: The result is immediately accessed via a member expression instead of being stored in a ref variable (same as above)
+// 🔵 OK: The result is immediately accessed via a member expression instead of being stored in a ref variable (same as above)
 const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
 ```
 

@@ -46,7 +46,7 @@ This rule covers three concerns:
 `useState` must return a `[value, setter]` array pattern. Assigning directly to a single variable prevents calling the setter to update state.
 
 ```tsx
-// Problem: not destructured into a [value, setter] pair
+// 🔴 Problem: not destructured into a [value, setter] pair
 import { useState } from "react";
 
 function Counter() {
@@ -59,7 +59,7 @@ function Counter() {
 If only the state value is needed and not the setter, you can destructure just the value:
 
 ```tsx
-// OK: destructure only the value, omitting the setter
+// 🔵 OK: destructure only the value, omitting the setter
 import { useState } from "react";
 
 function Component() {
@@ -73,7 +73,7 @@ function Component() {
 The setter name should be `set` followed by the capitalized state variable name, for example `count` corresponds to `setCount`. Snake\_case names also allow symmetric forms.
 
 ```tsx
-// Problem: setter name is not symmetric with the state name
+// 🔴 Problem: setter name is not symmetric with the state name
 import { useState } from "react";
 
 function Counter() {
@@ -84,7 +84,7 @@ function Counter() {
 ```
 
 ```tsx
-// Problem: correct prefix but case mismatch
+// 🔴 Problem: correct prefix but case mismatch
 import { useState } from "react";
 
 function Counter() {
@@ -94,7 +94,7 @@ function Counter() {
 ```
 
 ```tsx
-// Recommended: use symmetric camelCase naming
+// 🟢 Recommended: use symmetric camelCase naming
 import { useState } from "react";
 
 function Counter() {
@@ -104,7 +104,7 @@ function Counter() {
 ```
 
 ```tsx
-// OK: symmetric snake_case naming
+// 🔵 OK: symmetric snake_case naming
 import { useState } from "react";
 
 function Counter() {
@@ -118,7 +118,7 @@ function Counter() {
 The state value itself must be a plain identifier and cannot be a destructuring pattern. However, storing objects or arrays as the state value is completely allowed.
 
 ```tsx
-// OK: object state stored under a plain identifier
+// 🔵 OK: object state stored under a plain identifier
 import { useState } from "react";
 
 function Form() {
@@ -132,7 +132,7 @@ function Form() {
 If the initial value needs to be computed by a function, passing the function call directly causes it to re-execute on every render. It should be wrapped in a lazy initializer function.
 
 ```tsx
-// Problem: generateTodos is called on every render
+// 🔴 Problem: generateTodos is called on every render
 import { useState } from "react";
 
 function MyComponent() {
@@ -145,7 +145,7 @@ declare function generateTodos(): string[];
 ```
 
 ```tsx
-// Recommended: use a lazy initializer function that only runs on the first render
+// 🟢 Recommended: use a lazy initializer function that only runs on the first render
 import { useState } from "react";
 
 function MyComponent() {
@@ -159,7 +159,7 @@ declare function generateTodos(): string[];
 React's `use()` Hook is safe as an initial value because it has special handling semantics:
 
 ```tsx
-// OK: use() calls as the initial value are always allowed
+// 🔵 OK: use() calls as the initial value are always allowed
 import { useState, use } from "react";
 
 function Component({ promise }) {

@@ -38,14 +38,14 @@ Technically, React does not enforce this. In principle, you could make a Hook th
 Functions with the `use` prefix are treated as Hooks and must follow Hook rules (for example, they cannot be called conditionally). If a function doesn't call any Hooks, remove the `use` prefix and make it a regular function.
 
 ```tsx
-// Problem: The function doesn't call any Hooks but uses the use prefix
+// 🔴 Problem: The function doesn't call any Hooks but uses the use prefix
 function useSorted(items) {
   return items.slice().sort();
 }
 ```
 
 ```tsx
-// Recommended: Convert it to a regular function so it can be called anywhere
+// 🟢 Recommended: Convert it to a regular function so it can be called anywhere
 function getSorted(items) {
   return items.slice().sort();
 }
@@ -54,7 +54,7 @@ function getSorted(items) {
 As a regular function, it can safely be called inside conditional statements:
 
 ```tsx
-// OK: Regular functions allow conditional calls
+// 🔵 OK: Regular functions allow conditional calls
 function List({ items, shouldSort }) {
   let displayedItems = items;
   if (shouldSort) {
@@ -69,14 +69,14 @@ function List({ items, shouldSort }) {
 If a function doesn't currently call any Hooks but you plan to add Hook calls later, you can keep the `use` prefix. It's recommended to add a TODO comment explaining your intent to avoid false positives.
 
 ```tsx
-// Problem: No Hooks are used and there is no comment explaining future plans
+// 🔴 Problem: No Hooks are used and there is no comment explaining future plans
 function useAuth() {
   return TEST_USER;
 }
 ```
 
 ```tsx
-// Recommended: Add an explicit TODO explaining it will be replaced with a Hook later
+// 🟢 Recommended: Add an explicit TODO explaining it will be replaced with a Hook later
 function useAuth() {
   // TODO: Replace with this line when authentication is implemented:
   // return useContext(Auth);
@@ -89,7 +89,7 @@ function useAuth() {
 When a function calls Hooks internally, using the `use` prefix is correct and necessary.
 
 ```tsx
-// Recommended: Uses useContext, which follows Hook naming conventions
+// 🟢 Recommended: Uses useContext, which follows Hook naming conventions
 function useAuth() {
   return useContext(Auth);
 }
@@ -100,7 +100,7 @@ function useAuth() {
 Some framework conventions (such as MDX) require factory functions with the `use` prefix. These functions are acceptable even if they don't call any Hooks.
 
 ```tsx
-// OK: Component mapping function that follows MDX conventions
+// 🔵 OK: Component mapping function that follows MDX conventions
 export function useMDXComponents(components) {
   return {
     ...components,

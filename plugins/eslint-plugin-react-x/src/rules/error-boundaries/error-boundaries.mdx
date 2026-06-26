@@ -38,7 +38,7 @@ Similarly, the `use` hook doesn't throw errors in the traditional sense — it s
 React's rendering is declarative. When you write `return <ChildComponent />`, you're describing what the UI should look like — you're not imperatively executing `ChildComponent`. If a child throws during rendering, React handles that error propagation internally through the component tree, bypassing any try/catch in JavaScript's call stack.
 
 ```tsx
-// Problem: try/catch cannot catch rendering errors in child components
+// 🔴 Problem: try/catch cannot catch rendering errors in child components
 function Parent() {
   try {
     return <ChildComponent />;
@@ -50,7 +50,7 @@ function Parent() {
 ```
 
 ```tsx
-// Recommended: Use an Error Boundary to catch rendering errors
+// 🟢 Recommended: Use an Error Boundary to catch rendering errors
 function Parent() {
   return (
     <ErrorBoundary fallback={<div>Error occurred</div>}>
@@ -65,7 +65,7 @@ function Parent() {
 The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. When the promise rejects, React propagates the error through the component tree to the nearest Error Boundary.
 
 ```tsx
-// Problem: The catch block will never execute
+// 🔴 Problem: The catch block will never execute
 function Component({ promise }) {
   try {
     const data = use(promise);
@@ -78,7 +78,7 @@ function Component({ promise }) {
 ```
 
 ```tsx
-// Recommended: Use an Error Boundary with Suspense to handle async data
+// 🟢 Recommended: Use an Error Boundary with Suspense to handle async data
 function App() {
   return (
     <ErrorBoundary fallback={<div>Failed to load</div>}>
@@ -95,7 +95,7 @@ function App() {
 Try/catch is perfectly valid for synchronous operations like `JSON.parse`, `localStorage` access, or data transformations that happen before JSX is returned. It is also valid inside event handlers and effects. The rule only flags try/catch blocks that wrap JSX return statements or `use` hook calls inside component functions.
 
 ```tsx
-// OK: Synchronous data processing
+// 🔵 OK: Synchronous data processing
 function Component() {
   let data;
   try {
@@ -108,7 +108,7 @@ function Component() {
 ```
 
 ```tsx
-// OK: Error handling in event handlers
+// 🔵 OK: Error handling in event handlers
 function Component() {
   const handleClick = () => {
     try {
@@ -128,7 +128,7 @@ function Component() {
 The `use` hook doesn't throw errors in the traditional sense — it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. Only Suspense and Error Boundaries can handle these cases. The linter warns against `try`/`catch` around `use` to prevent confusion as the `catch` block would never run.
 
 ```tsx
-// Problem: try/catch around `use` hook
+// 🔴 Problem: try/catch around `use` hook
 function Component({ promise }) {
   try {
     const data = use(promise); // Won't catch — `use` suspends, not throws
@@ -140,7 +140,7 @@ function Component({ promise }) {
 ```
 
 ```tsx
-// Recommended: Use an Error Boundary with Suspense
+// 🟢 Recommended: Use an Error Boundary with Suspense
 function App() {
   return (
     <ErrorBoundary fallback={<div>Failed to load</div>}>

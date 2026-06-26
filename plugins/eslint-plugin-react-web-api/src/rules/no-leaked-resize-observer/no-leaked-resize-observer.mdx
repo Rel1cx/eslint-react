@@ -41,7 +41,7 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Problem: A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
+    // 🔴 Problem: A 'ResizeObserver' in 'useEffect' should have a corresponding 'resizeObserver.disconnect()' in its cleanup function.
     const ro = new ResizeObserver(() => console.log("resize"));
     ro.observe(ref.current);
   }, []);
@@ -60,10 +60,10 @@ function MyComponent() {
 
   useEffect(() => {
     if (!ref.current) return;
-    // Recommended: Create and use ResizeObserver
+    // 🟢 Recommended: Create and use ResizeObserver
     const ro = new ResizeObserver(() => console.log("resize"));
     ro.observe(ref.current);
-    // Recommended: Disconnect in the cleanup function
+    // 🟢 Recommended: Disconnect in the cleanup function
     return () => ro.disconnect();
   }, []);
 
@@ -76,7 +76,7 @@ function MyComponent() {
 When observing multiple elements, disconnect the observer in the cleanup function to prevent memory leaks.
 
 ```tsx
-// Recommended: Disconnect ResizeObserver when observing multiple elements
+// 🟢 Recommended: Disconnect ResizeObserver when observing multiple elements
 import { useEffect, useRef } from "react";
 
 function ResizablePanels() {

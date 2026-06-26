@@ -36,7 +36,7 @@ When using `dangerouslySetInnerHTML`, the content of the DOM element is set from
 When you set `dangerouslySetInnerHTML`, React replaces the element's contents entirely, so any children you provide are silently ignored.
 
 ```tsx
-// Problem: dangerouslySetInnerHTML and children are used together.
+// 🔴 Problem: dangerouslySetInnerHTML and children are used together.
 // The <p> child will not be rendered.
 function MyComponent() {
   return (
@@ -48,7 +48,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: use only dangerouslySetInnerHTML without children.
+// 🟢 Recommended: use only dangerouslySetInnerHTML without children.
 function MyComponent() {
   return <div dangerouslySetInnerHTML={{ __html: "Hello World" }} />;
 }

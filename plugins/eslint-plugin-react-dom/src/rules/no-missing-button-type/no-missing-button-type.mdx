@@ -38,7 +38,7 @@ Allowed button types are `submit`, `button`, or `reset`.
 A button without a `type` attribute defaults to `submit`, which can unintentionally submit forms.
 
 ```tsx
-// Problem: missing explicit type; defaults to submit.
+// 🔴 Problem: missing explicit type; defaults to submit.
 function MyComponent() {
   return <button>Click me</button>;
   //     ^^^ Missing 'type' attribute on button component.
@@ -46,7 +46,7 @@ function MyComponent() {
 ```
 
 ```tsx
-// Recommended: explicitly declare the button type.
+// 🟢 Recommended: explicitly declare the button type.
 function MyComponent() {
   return <button type="button">Click me</button>;
 }
@@ -57,7 +57,7 @@ function MyComponent() {
 Inside a `<form>`, the default `type="submit"` can cause unexpected submissions. Always be explicit about whether a button submits the form or performs an independent action.
 
 ```tsx
-// Recommended: explicitly declare button types in forms
+// 🟢 Recommended: explicitly declare button types in forms
 function Search() {
   function search(formData: FormData) {
     const query = formData.get("query");
@@ -78,7 +78,7 @@ function Search() {
 Buttons that perform local UI actions (such as incrementing a counter) inside a form should use `type="button"` to prevent accidental form submission.
 
 ```tsx
-// Recommended: use type="button" for independent actions inside a form
+// 🟢 Recommended: use type="button" for independent actions inside a form
 import { useState } from "react";
 
 function ShippingForm() {

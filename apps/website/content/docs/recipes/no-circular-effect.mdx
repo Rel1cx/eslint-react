@@ -266,7 +266,7 @@ function ValidComponent() {
   const [count, setCount] = useState(0);
   const [label, setLabel] = useState("");
 
-  // Recommended: Depends on `count`, sets `label`. No cycle.
+  // 🟢 Recommended: Depends on `count`, sets `label`. No cycle.
   useEffect(() => {
     setLabel(`Count is ${count}`);
   }, [count]);
@@ -283,7 +283,7 @@ import { useEffect, useState } from "react";
 function ValidComponent2() {
   const [count, setCount] = useState(0);
 
-  // OK: No dependency array. Not a circular pattern.
+  // 🔵 OK: No dependency array. Not a circular pattern.
   useEffect(() => {
     setCount(0);
   });
