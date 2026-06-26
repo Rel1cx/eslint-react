@@ -184,7 +184,7 @@ export const strictTypeChecked = defineConfig({ ignores: GLOB_JS }, {
         "perfectionist/sort-switch-case": "off",
         "perfectionist/sort-union-types": "off",
         "jsdoc/check-param-names": "warn",
-        "jsdoc/check-tag-names": "warn",
+        "jsdoc/check-tag-names": ["warn", { definedTags: ["feature", "sideEffects"] }],
         "jsdoc/informative-docs": "off",
         "jsdoc/lines-before-block": "off",
         "jsdoc/require-jsdoc": "off",

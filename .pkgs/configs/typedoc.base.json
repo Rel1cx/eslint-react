@@ -24,8 +24,9 @@
   "name": "Public APIs",
   "out": "docs",
   "plugin": [
+    "typedoc-plugin-file-overview",
     "typedoc-plugin-markdown",
-    "typedoc-plugin-mdn-links"
+    "typedoc-plugin-mdn-links",
   ],
   "readme": "none",
   "sort": [

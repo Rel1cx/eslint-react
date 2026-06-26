@@ -62,9 +62,13 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 ## Param
 
+**self**
+
 The first function to apply (or the composed function in data-last style).
 
 ## Param
+
+**bc**
 
 The second function to apply.
 

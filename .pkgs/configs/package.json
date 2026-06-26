@@ -49,6 +49,7 @@
     "tsl": "^1.0.30",
     "tsl-dx": "^0.13.1",
     "typedoc": "^0.28.19",
+    "typedoc-plugin-file-overview": "^0.2.0",
     "typedoc-plugin-markdown": "^4.12.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
     "typescript": "6.0.3"

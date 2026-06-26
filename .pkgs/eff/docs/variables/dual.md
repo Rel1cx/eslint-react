@@ -120,9 +120,13 @@ console.log(pipe(2, sum(3))); // 5
 
 ## Param
 
+**arity**
+
 The arity of the uncurried function or a predicate that determines if the function is being used in a data-first or data-last style.
 
 ## Param
+
+**body**
 
 The function to be curried.
 

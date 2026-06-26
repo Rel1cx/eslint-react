@@ -201,7 +201,7 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
       "perfectionist/sort-union-types": "off",
 
       "jsdoc/check-param-names": "warn",
-      "jsdoc/check-tag-names": "warn",
+      "jsdoc/check-tag-names": ["warn", { definedTags: ["feature", "sideEffects"] }],
       "jsdoc/informative-docs": "off",
       "jsdoc/lines-before-block": "off",
       "jsdoc/require-jsdoc": "off",

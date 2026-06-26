@@ -29,7 +29,7 @@
   "type": "module",
   "scripts": {
     "build": "node --run update:all && node --run build:pkgs && node --run build:packages && node --run build:plugins",
-    "build:docs": "nx run-many -t build:docs -p 'packages/*' --parallel",
+    "build:docs": "nx run-many -t build:docs --parallel",
     "build:packages": "nx run-many -t build -p 'packages/*' --parallel",
     "build:pkgs": "nx run-many -t build -p '.pkgs/*' --parallel",
     "build:plugins": "nx run-many -t build -p 'plugins/*' --parallel",
