@@ -7,6 +7,7 @@ export const projects = [
   { owner: "electric-sql", repo: "electric" },
   { owner: "electric-sql", repo: "pglite" },
   { owner: "ensdomains", repo: "thorin" },
+  { owner: "facebook", repo: "astryx" },
   { owner: "flirtual", repo: "flirtual" },
   { owner: "GoogleCloudPlatform", repo: "gke-mcp" },
   { owner: "hashintel", repo: "hash" },
