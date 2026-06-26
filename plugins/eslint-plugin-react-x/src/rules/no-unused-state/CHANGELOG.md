@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.7.2] - 2026-05-04
+
 ### Changed
 
 - Removed detection for state variables that are only used in effects. The rule now only reports state variables that are never read.
