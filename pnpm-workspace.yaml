@@ -66,4 +66,6 @@ overrides:
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 minimumReleaseAgeExclude:
-  - tsl-dx@0.13.1
+  - eslint-plugin-jsdoc@63.0.9
+  - eslint-plugin-regexp@3.1.1
+  - preact@10.29.3
