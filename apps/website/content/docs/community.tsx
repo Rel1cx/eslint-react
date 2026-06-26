@@ -20,6 +20,7 @@ export const projects = [
   { owner: "mikotoIO", repo: "mikoto" },
   { owner: "mozilla", repo: "pontoon" },
   { owner: "Nexus-Mods", repo: "Vortex" },
+  { owner: "nodejs", repo: "doc-kit" },
   { owner: "nodejs", repo: "nodejs.org" },
   { owner: "npmgraph", repo: "npmgraph" },
   { owner: "ocavue", repo: "astrobook" },
