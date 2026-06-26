@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.9.5] - 2026-06-27
+
+### Fixed
+
+- Fix false positive when the event target is derived from a function call (e.g. `window.matchMedia('(prefers-color-scheme: dark)').addEventListener(...)` paired with a matching `removeEventListener(...)` in the cleanup). Closes #1282.
+
 ## [5.7.0] - 2026-05-02
 
 ### Changed

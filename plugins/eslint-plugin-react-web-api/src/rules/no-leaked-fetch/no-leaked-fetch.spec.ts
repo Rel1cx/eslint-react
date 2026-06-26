@@ -613,5 +613,20 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // The controller is derived from a CallExpression (`getController()`) in both
+    // the fetch signal and the abort call. Relies on `Compare.isEqual` supporting
+    // `CallExpression` so the two are recognized as the same controller.
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          fetch("/api/user", { signal: getController().signal });
+          return () => {
+            getController().abort();
+          };
+        }, []);
+      }
+    `,
   ],
 });

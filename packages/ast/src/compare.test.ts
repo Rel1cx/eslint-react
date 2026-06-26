@@ -140,6 +140,51 @@ describe("isEqual", () => {
     });
   });
 
+  describe("CallExpression equality", () => {
+    it("should return true for identical calls with no arguments", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo();", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("foo();", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(true);
+    });
+
+    it("should return true for identical calls with literal arguments", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo('a', 1);", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("foo('a', 1);", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(true);
+    });
+
+    it("should return true for identical member-expression calls", () => {
+      const code = "window.matchMedia('(prefers-color-scheme: dark)');";
+      const nodes1 = collectNodes<TSESTree.CallExpression>(code, AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>(code, AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(true);
+    });
+
+    it("should return false for calls with different callees", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo();", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("bar();", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
+    });
+
+    it("should return false for calls with different arguments", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo('a');", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("foo('b');", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
+    });
+
+    it("should return false for calls with different argument counts", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo('a');", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("foo('a', 'b');", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
+    });
+
+    it("should return false for optional vs non-optional calls", () => {
+      const nodes1 = collectNodes<TSESTree.CallExpression>("foo();", AST.CallExpression);
+      const nodes2 = collectNodes<TSESTree.CallExpression>("foo?.();", AST.CallExpression);
+      expect(isEqual(nodes1[0]!, nodes2[0]!)).toBe(false);
+    });
+  });
+
   describe("dual form (curried)", () => {
     it("should work in curried form for JSXAttributes", () => {
       const attrs1 = collectJSXAttributes('<div className="a" />');

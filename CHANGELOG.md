@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.9.5 (2026-06-27)
+
+### 🐞 Fixes
+
+- `Compare.isEqual` now recognizes structurally identical `CallExpression` nodes. This fixes false positives in the following rules when the compared target (event target, controller, or observed element) is derived from a function call such as `window.matchMedia('…')` or `getEl()`:
+  - `react-web-api/no-leaked-event-listener`
+  - `react-web-api/no-leaked-fetch`
+  - `react-web-api/no-leaked-resize-observer`
+  - `react-web-api/no-leaked-intersection-observer`
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.4...v5.9.5
+
 ## v5.9.4 (2026-06-26)
 
 ### 🐞 Fixes

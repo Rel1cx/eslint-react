@@ -61,6 +61,30 @@ export const isEqual: {
       && b.type === AST.MemberExpression:
       return isEqual(a.property, b.property)
         && isEqual(a.object, b.object);
+    case a.type === AST.CallExpression
+      && b.type === AST.CallExpression: {
+      if (a.optional !== b.optional) {
+        return false;
+      }
+      if (a.arguments.length !== b.arguments.length) {
+        return false;
+      }
+      if (!isEqual(a.callee, b.callee)) {
+        return false;
+      }
+      let i = a.arguments.length;
+      while (i--) {
+        const argA = a.arguments[i];
+        const argB = b.arguments[i];
+        if (argA == null || argB == null) {
+          return false;
+        }
+        if (!isEqual(argA, argB)) {
+          return false;
+        }
+      }
+      return true;
+    }
     case a.type === AST.JSXIdentifier
       && b.type === AST.JSXIdentifier:
       return a.name === b.name;

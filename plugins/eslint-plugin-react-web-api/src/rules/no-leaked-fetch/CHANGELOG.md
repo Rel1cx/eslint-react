@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.9.5] - 2026-06-27
+
+### Fixed
+
+- Fix false positive when the `AbortController` is derived from a function call (e.g. `fetch(url, { signal: getController().signal })` paired with `getController().abort()` in the cleanup).
+
+## [5.9.4] - 2026-06-26
+
 ### Changed
 
 - Use `Extract.getPropertyName` to simplify `MemberExpression` property name checks and detect computed string property access.

@@ -1220,5 +1220,23 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
       }
     `,
+    // https://github.com/electric-sql/pglite/blob/fd8ebcf2f4d8110ff04676180f2c765d81599e0e/packages/pglite-repl/src/Repl.tsx#L103
+    // The object of the `addEventListener`/`removeEventListener` callee is a
+    // `CallExpression` (`window.matchMedia('(prefers-color-scheme: dark)')`).
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const listener = (e: MediaQueryListEvent) => {};
+          window
+            .matchMedia('(prefers-color-scheme: dark)')
+            .addEventListener('change', listener);
+          return () => {
+            window
+              .matchMedia('(prefers-color-scheme: dark)')
+              .removeEventListener('change', listener);
+          };
+        }, []);
+      }
+    `,
   ],
 });

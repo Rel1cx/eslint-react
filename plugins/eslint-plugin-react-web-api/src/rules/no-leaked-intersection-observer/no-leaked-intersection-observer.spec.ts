@@ -453,6 +453,24 @@ ruleTester.run(RULE_NAME, rule, {
         return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
       }
     `,
+    // The observed/unobserved element is derived from a CallExpression (`getEl()`).
+    // Relies on `Compare.isEqual` supporting `CallExpression` so observe/unobserve
+    // are matched.
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new IntersectionObserver(() => {});
+          observer.observe(getEl());
+          return () => {
+            observer.unobserve(getEl());
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
     // TODO: Add support for `IntersectionObserver` instance in `useRef`
     // tsx`
     //   import { useEffect, useRef } from 'react';
