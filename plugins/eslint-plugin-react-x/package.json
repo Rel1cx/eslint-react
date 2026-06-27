@@ -69,7 +69,7 @@
     "react-dom": "^19.2.7",
     "tsdown": "^0.22.3",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.13.1",
+    "tsl-dx": "^0.13.2",
     "typescript": "6.0.3"
   },
   "peerDependencies": {
