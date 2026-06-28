@@ -3,6 +3,7 @@ import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { isInitializedFromReact } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
@@ -84,10 +85,10 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
   switch (callee.type) {
     case AST.Identifier:
-      return core.isAPIFromReact(callee.name, initialScope, importSource);
+      return isInitializedFromReact(callee.name, initialScope, importSource);
     case AST.MemberExpression:
       return callee.object.type === AST.Identifier
-        && core.isAPIFromReact(callee.object.name, initialScope, importSource);
+        && isInitializedFromReact(callee.object.name, initialScope, importSource);
     default:
       return false;
   }

@@ -57,8 +57,6 @@ export interface RuleToolkit {
   is: {
     API: (api: string) => (node: null | TSESTree.Node) => boolean;
     APICall: (api: string) => (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-    APIFromReact: typeof core.isAPIFromReact;
-    APIFromReactNative: typeof core.isAPIFromReactNative;
     captureOwnerStackCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     childrenCountCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     childrenForEachCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
@@ -154,8 +152,6 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
     is: {
       API: (api) => core.isAPI(api)(context),
       APICall: (api) => core.isAPICall(api)(context),
-      APIFromReact: core.isAPIFromReact,
-      APIFromReactNative: core.isAPIFromReactNative,
       captureOwnerStackCall: core.isCaptureOwnerStackCall(context),
       childrenCountCall: core.isChildrenCountCall(context),
       childrenForEachCall: core.isChildrenForEachCall(context),
