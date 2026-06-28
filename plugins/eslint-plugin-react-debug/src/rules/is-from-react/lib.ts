@@ -1,4 +1,4 @@
-import * as core from "@eslint-react/core";
+import { isInitializedFromReact } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -19,12 +19,12 @@ export function isFromReact(
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.Identifier:
-      return core.isAPIFromReact(node.parent.object.name, initialScope, importSource);
+      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
       && node.parent.object.type === AST.JSXIdentifier:
-      return core.isAPIFromReact(node.parent.object.name, initialScope, importSource);
+      return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     default:
-      return core.isAPIFromReact(name, initialScope, importSource);
+      return isInitializedFromReact(name, initialScope, importSource);
   }
 }

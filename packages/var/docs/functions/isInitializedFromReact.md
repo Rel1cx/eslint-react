@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isAPIFromReact
+[@eslint-react/var](../README.md) / isInitializedFromReact
 
-# Function: isAPIFromReact()
+# Function: isInitializedFromReact()
 
 ```ts
-function isAPIFromReact(
+function isInitializedFromReact(
    name: string, 
    initialScope: Scope, 
    importSource?: string): boolean;

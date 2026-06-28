@@ -1118,6 +1118,9 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../packages/var
       '@typescript-eslint/scope-manager':
         specifier: ^8.62.0
         version: 8.62.0
@@ -1143,9 +1146,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
-      '@typescript-eslint/rule-tester':
-        specifier: ^8.62.0
-        version: 8.62.0(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
       dedent:
         specifier: ^1.7.2
         version: 1.7.2
@@ -1244,9 +1244,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
-      '@typescript-eslint/rule-tester':
-        specifier: ^8.62.0
-        version: 8.62.0(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
       dedent:
         specifier: ^1.7.2
         version: 1.7.2

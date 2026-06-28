@@ -1,9 +1,9 @@
-[@eslint-react/core](../README.md) / isAPIFromReactNative
+[@eslint-react/var](../README.md) / isInitializedFromReactNative
 
-# Function: isAPIFromReactNative()
+# Function: isInitializedFromReactNative()
 
 ```ts
-function isAPIFromReactNative(
+function isInitializedFromReactNative(
    name: string, 
    initialScope: Scope, 
    importSource?: string): boolean;

@@ -1,9 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type EventListenerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { isValueEqual } from "@eslint-react/var";
+import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 import { defaultOptions, getOptions } from "./lib";
@@ -147,7 +146,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // https://github.com/Rel1cx/eslint-react/issues/1323
           const isFromReactNative = unwrappedCallee.type === AST.MemberExpression
             && unwrappedCallee.object.type === AST.Identifier
-            && core.isAPIFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
+            && isInitializedFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
           if (isFromReactNative) {
             return;
           }

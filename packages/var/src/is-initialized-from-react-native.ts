@@ -1,0 +1,22 @@
+import type { Scope } from "@typescript-eslint/scope-manager";
+import { resolveImportSource } from "./resolve-import-source";
+
+/**
+ * if a variable is initialized from React Native import
+ * @internal
+ * @param name The variable name
+ * @param initialScope The initial scope
+ * @param importSource Alternative import source of React Native (ex: "react-native-web")
+ * @returns True if the variable is initialized from React Native import
+ */
+export function isInitializedFromReactNative(
+  name: string,
+  initialScope: Scope,
+  importSource = "react-native",
+) {
+  return [
+    "react_native",
+    "reactnative",
+    "rn",
+  ].includes(name.toLowerCase()) || Boolean(resolveImportSource(name, initialScope)?.startsWith(importSource));
+}

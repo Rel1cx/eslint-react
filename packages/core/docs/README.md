@@ -144,8 +144,6 @@
 | [getJsxConfigFromCompilerOptions](functions/getJsxConfigFromCompilerOptions.md) | Read JSX configuration from the TypeScript compiler options exposed by the parser services. |
 | [isAPI](functions/isAPI.md) | Check if the node is a React API identifier or member expression |
 | [isAPICall](functions/isAPICall.md) | Check if the node is a call expression to a specific React API |
-| [isAPIFromReact](functions/isAPIFromReact.md) | Check if a variable is initialized from React import |
-| [isAPIFromReactNative](functions/isAPIFromReactNative.md) | if a variable is initialized from React Native import |
 | [~~isAssignmentToThisState~~](functions/isAssignmentToThisState.md) | - |
 | [isBooleanLiteralType](functions/isBooleanLiteralType.md) | - |
 | [isClassComponent](functions/isClassComponent.md) | - |

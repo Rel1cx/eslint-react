@@ -1,8 +1,6 @@
 import { Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { resolveImportSource } from "@eslint-react/var";
 import { dual } from "@local/eff";
-import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isAPI {
@@ -52,40 +50,6 @@ export function isAPICall(api: string): isAPICall.ReturnType {
     return isAPI(api)(context, Extract.unwrap(node.callee));
   };
   return dual(2, func);
-}
-
-/**
- * Check if a variable is initialized from React import
- * @param name The variable name
- * @param initialScope The initial scope
- * @param importSource Alternative import source of React (ex: "preact/compat")
- * @returns True if the variable is initialized or derived from React import
- */
-export function isAPIFromReact(
-  name: string,
-  initialScope: Scope,
-  importSource = "react",
-) {
-  return name.toLowerCase() === "react" || Boolean(resolveImportSource(name, initialScope)?.startsWith(importSource));
-}
-
-/**
- * if a variable is initialized from React Native import
- * @param name The variable name
- * @param initialScope The initial scope
- * @param importSource Alternative import source of React Native (ex: "react-native-web")
- * @returns True if the variable is initialized from React Native import
- */
-export function isAPIFromReactNative(
-  name: string,
-  initialScope: Scope,
-  importSource = "react-native",
-) {
-  return [
-    "react_native",
-    "reactnative",
-    "rn",
-  ].includes(name.toLowerCase()) || Boolean(resolveImportSource(name, initialScope)?.startsWith(importSource));
 }
 
 // React API checks
