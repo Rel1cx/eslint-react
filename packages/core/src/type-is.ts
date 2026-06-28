@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { P, isMatching } from "ts-pattern";
 import ts from "typescript";
 

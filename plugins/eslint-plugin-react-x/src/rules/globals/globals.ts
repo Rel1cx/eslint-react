@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-param */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";

@@ -1,4 +1,4 @@
-import { getMDXComponents } from "@/components/mdx";
+import { getMDXComponents } from "@/app/mdx-components";
 import { gitConfig } from "@/lib/shared";
 import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
 import { DocsBody, DocsDescription, DocsPage, DocsTitle, MarkdownCopyButton, ViewOptionsPopover } from "fumadocs-ui/layouts/docs/page";

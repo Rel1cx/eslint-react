@@ -13,6 +13,7 @@ const suffixRewriter = rewritePath(
 
 export default function proxy(request: NextRequest) {
   const result = suffixRewriter.rewrite(request.nextUrl.pathname);
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (result) {
     return NextResponse.rewrite(new URL(result, request.nextUrl));
   }
@@ -20,6 +21,7 @@ export default function proxy(request: NextRequest) {
   if (isMarkdownPreferred(request)) {
     const result = docsRewriter.rewrite(request.nextUrl.pathname);
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (result) {
       return NextResponse.rewrite(new URL(result, request.nextUrl));
     }

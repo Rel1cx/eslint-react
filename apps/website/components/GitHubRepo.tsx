@@ -1,7 +1,9 @@
 import { cn } from "@/lib/cn";
-import { GithubInfo } from "fumadocs-ui/components/github-info";
+import { GithubInfo, type GithubInfoProps } from "fumadocs-ui/components/github-info";
 
-export function GitHubRepo({ className, token, ...rest }: Parameters<typeof GithubInfo>[0]) {
+export type GitHubRepoProps = GithubInfoProps;
+
+export function GitHubRepo({ className, token, ...rest }: GitHubRepoProps) {
   return (
     <GithubInfo
       className={cn("rounded-lg bg-fd-card outline outline-fd-border", className)}

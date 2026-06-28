@@ -3,7 +3,11 @@
 import { renderMermaidSVG } from "beautiful-mermaid";
 import { useMemo } from "react";
 
-export function MermaidDiagram({ code }: { code: string }) {
+export interface MermaidDiagramProps {
+  code: string;
+}
+
+export function MermaidDiagram({ code }: MermaidDiagramProps) {
   const { error, svg } = useMemo(() => {
     try {
       return {

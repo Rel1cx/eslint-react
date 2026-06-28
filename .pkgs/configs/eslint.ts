@@ -205,7 +205,7 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
       "jsdoc/informative-docs": "off",
       "jsdoc/lines-before-block": "off",
       "jsdoc/require-jsdoc": "off",
-      "jsdoc/require-param": "warn",
+      "jsdoc/require-param": "off",
       "jsdoc/require-param-description": "warn",
       "jsdoc/require-returns": "off",
       "jsdoc/require-yields": "warn",

@@ -1,7 +1,7 @@
 import { GitHubRepo } from "@/components/GitHubRepo";
 import { cn } from "@/lib/cn";
 
-interface GitHubRepoGridProps {
+export interface GitHubRepoGridProps {
   className?: string;
   repos: { owner: string; repo: string }[];
 }

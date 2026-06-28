@@ -1,4 +1,8 @@
-export function ESLintReactLogo({ width = 150 }: { width?: number }) {
+export interface ESLintReactLogoProps {
+  width?: number;
+}
+
+export function ESLintReactLogo({ width = 150 }: ESLintReactLogoProps) {
   return (
     <svg
       aria-label="ESLint React logo"
