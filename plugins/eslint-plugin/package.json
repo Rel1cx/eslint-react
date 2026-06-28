@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "5.9.5",
+  "version": "5.10.0",
   "description": "The all-in-one, blazing fast ESLint plugin for React. Get complete, out-of-the-box rule coverage with instant feedback.",
   "keywords": [
     "react",
@@ -61,7 +61,7 @@
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3"
   },

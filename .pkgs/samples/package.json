@@ -45,7 +45,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/types": "^8.62.0",
     "@typescript-eslint/utils": "^8.62.0",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.62.0"

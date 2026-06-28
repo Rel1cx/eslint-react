@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.10.0 (2026-06-28)
+
+### 📝 Documentation
+
+- Added status emoji markers to recipe and rule documentation code examples (#1882).
+- Fixed the v5.7.2 changelog entry for `react-x/no-unused-state`.
+- Updated the community projects list.
+
+### 🏗️ Internal
+
+- Bumped `eslint` to `^10.6.0`.
+- Bumped `js-yaml` workspace override to `^4.3.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.9.5...v5.10.0
+
 ## v5.9.5 (2026-06-27)
 
 ### 🐞 Fixes
