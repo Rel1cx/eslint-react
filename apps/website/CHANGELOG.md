@@ -4,26 +4,52 @@ All notable changes to the `apps/website` documentation and its content.
 
 ## Unreleased (changes since stable)
 
+### ✨ New Features
+
+- Documented the new `no-leaked-intersection-observer` rule for `eslint-plugin-react-web-api`, adding it to the rules index and `meta.json` (#1868).
+
 ### 📝 Documentation
 
-- Added "Under Construction" callouts to documentation pages still in development (`community.mdx`, `contributing.mdx`, `diagrams.mdx`, `examples.mdx`, `packages/index.mdx`, `recipes/index.mdx`, `removed.md`, `roadmap.md`).
-- Added missing inline table of contents to `contributing.mdx`.
-- Refactored `packages/index.mdx` to focus on utility packages for building custom rules, replacing the full monorepo package listing with a card-based layout highlighting `@eslint-react/kit` and adding external resources.
-- Refactored `recipes/index.mdx` to use card-based layouts instead of tables for recipe listings.
-- Removed `no-multiple-children-in-title` recipe; the same check can be enforced by leveraging type system to restrict the `children` type accepted by `<title>` components. (Consider suggesting an update to the `<title>` children type definition in `@types/react` or `@types/react-dom`.)
-- Removed the `℞` prefix from recipe titles across the recipes section for cleaner headings.
-- Reworked the **Brand Assets** documentation page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
-- Finalized the **Brand Assets** documentation page: removed the under-construction callout, added usage guidelines, and updated the trademark policy.
-- Updated `kit.mdx` callout example and AST explanation.
-- Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
+- **Brand Assets**
+  - Added the **Brand Assets** documentation page and updated Meta's legal name (#1832); fixed the brand asset links.
+  - Removed the usage guidelines section from the page.
+  - Reworked the page: removed the **Icons** section, added an under-construction callout, and migrated the page from `.md` back to `.mdx`; hidden from navigation (`!brand-assets`) pending completion.
+- **Kit & Packages**
+  - Inlined third-party plugin data and fixed markdown indentation across Kit and third-party plugin docs (#1865).
+  - Refactored `packages/index.mdx` to focus on utility packages for building custom rules, replacing the full monorepo package listing with a card-based layout highlighting `@eslint-react/kit` and adding external resources.
+  - Removed the Kit beta banner (#1846).
+  - Reordered the AST section (#1866) and formatted examples as accordions in the Kit package docs.
+  - Updated `kit.mdx` callout example and AST explanation; improved wording for nested syntax; removed the `ast.unwrap` example and fixed a typo in a warning callout.
+  - Wrapped Kit documentation sections in accordions and added an under-construction notice (#1850).
+- **Recipes & Rules**
+  - Added status emoji markers to recipe and rule documentation code examples (#1882).
+  - Cleaned up "Further Reading" links in rule docs.
+  - Refactored `recipes/index.mdx` to use card-based layouts instead of tables for recipe listings.
+  - Removed `no-multiple-children-in-title` recipe; the same check can be enforced by leveraging type system to restrict the `children` type accepted by `<title>` components. (Consider suggesting an update to the `<title>` children type definition in `@types/react` or `@types/react-dom`.)
+  - Removed the "See Also" sections from the custom rule recipes.
+  - Removed the `℞` prefix from recipe titles across the recipes section for cleaner headings.
+  - Updated rule patterns and feature-system documentation in the rules index (#1875).
+- **Site Content**
+  - Added "Under Construction" callouts to documentation pages still in development (`community.mdx`, `contributing.mdx`, `diagrams.mdx`, `examples.mdx`, `packages/index.mdx`, `recipes/index.mdx`, `removed.md`, `roadmap.md`) (#1851).
+  - Added missing inline table of contents to `contributing.mdx`; added a repository link and removed `AGENTS.md`/`CONTRIBUTING.md` doc references (#1848).
+  - Improved RSC Directives wording.
+  - Updated default React fallback version references to `19.2.7` across analyzer and kit docs (#1827).
+  - Updated the community projects list: added `GoogleCloudPlatform/gke-mcp`, `mozilla/pontoon`, `tennaproject/tenna-editor`, `vatger/atciss`, `nodejs/doc-kit`, and `facebook/astryx`; removed archived/stale entries (`antfu/shiki-stream`, `kriasoft/graphql-starter-kit`, `kriasoft/react-starter-kit`) and refined the dependents-network note.
+  - Updated the homepage and third-party plugins page; simplified the project description (#1860).
 
 ### 🏗️ Internal
 
-- Recreated website logo and icon assets with an open-source workflow; no longer relies on SVG assets exported by Amadine (#1831).
-- Updated website favicon and icon assets: replaced `favicon.png` with `favicon.ico`, removed `apple-touch-icon.png`, added `64x64.png`, and refreshed all raster icon sizes.
+- Bumped `tsl-dx` from `0.12.1` to `0.13.2` and `fumadocs` core/UI to `16.10.1`.
+- Moved website `devDependencies` to `dependencies`, removed the `postinstall` script, and later switched `postinstall` to `prepare`.
+- Recreated website logo and icon assets with an open-source workflow; no longer relies on SVG assets exported by Amadine (#1831), and added `generate-website-icons.py` to refine the logo geometry and regenerate icons (#1833).
+- Reformatted the codebase with dprint (line width `160`).
 - Removed `@fontsource/iosevka-aile` font dependency; body and mono fonts now rely solely on system-installed fallbacks (`Iosevka Aile`, `Ioskeley Mono`).
-- Bumped patch dependencies.
-- Bumped `tsl-dx` from `0.12.1` to `0.12.2`.
+- Renamed scripts with numeric prefixes and renamed `verify:*` scripts to `check:*`.
+- Replaced the brand component with an inline logo SVG, removed boilerplate (#1861), and tidied component prop types.
+- Updated `DocsPage` styling and the docs page layout; refreshed `sponsors.svg` (#1855).
+- Updated dependencies: `typescript`, `@typescript-eslint`, `eslint`, `tsdown`, `@types/*`, `sort-package-json`, `typedoc-plugin-markdown`, `import-integrity-lint`, `enhanced-resolve`, `pnpm`, and assorted patch bumps.
+- Updated the ESLint ignore path from `test` to `testing`.
+- Updated website favicon and icon assets: replaced `favicon.png` with `favicon.ico`, removed `apple-touch-icon.png`, added `64x64.png`, and refreshed all raster icon sizes.
 
 ## v5.8.10 (2026-06-02)
 
