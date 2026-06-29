@@ -50,7 +50,7 @@ overrides:
   minimatch: "^10.2.5"
   next: "^16.2.9"
   path-to-regexp: "^8.4.2"
-  postcss: "^8.5.15"
+  postcss: "^8.5.16"
   react-dom: "^19.2.7"
   react: "^19.2.7"
   semver: "^7.8.5"
