@@ -34,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     // Examines the node's raw text to see if it starts with '//' or '/*'
     return /^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node));
   }
-  const visitorFunction = (node: TSESTree.JSXText | TSESTree.Literal): void => {
+  const visit = (node: TSESTree.JSXText | TSESTree.Literal): void => {
     // Ensures the node is a direct child of a JSX element or fragment
     if (!Check.isJSXElementOrFragment(node.parent)) {
       return;
@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     });
   };
   return {
-    JSXText: visitorFunction,
-    Literal: visitorFunction,
+    JSXText: visit,
+    Literal: visit,
   };
 }

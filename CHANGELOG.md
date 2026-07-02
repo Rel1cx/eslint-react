@@ -1,5 +1,23 @@
 # Changelog
 
+## v5.10.1 (2026-07-03)
+
+### 🐞 Fixes
+
+- Added the missing `static-components` rule to `disable-conflict-eslint-plugin-react-hooks`, closes #1884.
+
+### 📝 Documentation
+
+- Rewrote the `noCircularEffect` recipe sample to use `@eslint-react/kit` collectors and `simpleTraverse`, and updated the recipe overview accordingly.
+- Removed the under construction brand assets page from the website.
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint`, `@types/node`, `vite`, and `tailwindcss`.
+- Bumped `fumadocs`, `lucide-react`, and `postcss` in the website.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.10.0...v5.10.1
+
 ## v5.10.0 (2026-06-28)
 
 ### 📝 Documentation

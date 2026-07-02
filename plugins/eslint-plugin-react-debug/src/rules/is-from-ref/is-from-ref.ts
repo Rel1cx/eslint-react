@@ -29,7 +29,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  function visitorFunction(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
+  function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
     if (refInit != null) {
@@ -44,5 +44,5 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     }
   }
-  return { Identifier: visitorFunction, JSXIdentifier: visitorFunction };
+  return { Identifier: visit, JSXIdentifier: visit };
 }
