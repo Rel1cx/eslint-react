@@ -9,7 +9,7 @@ description: Detects circular dependencies between useEffect hooks. Prevents inf
 
 ## Overview
 
-This rule detects when `useEffect`-like hooks form a cycle through state variables. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph of state dependencies across all effects in a component and reports any effect that participates in a cycle.
+This rule detects when `useEffect`-like hooks form a cycle through state variables, across the same component or custom hook. For example, if an effect depends on state A and sets state B, while another effect depends on state B and sets state A, it creates an infinite update loop. It builds a directed graph — an edge from effect A to effect B exists when A's setup function calls a setter for a state variable that appears in B's dependency array — and reports every effect that participates in a cycle in that graph, including single-effect self-loops.
 
 ## Rule
 
@@ -17,150 +17,150 @@ Copy the following code into your project (e.g. `.config/noCircularEffect.ts`):
 
 ```ts title=".config/noCircularEffect.ts"
 import type { RuleFunction } from "@eslint-react/kit";
+import { merge } from "@eslint-react/kit";
 import type { TSESTree } from "@typescript-eslint/types";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import type { Scope } from "@typescript-eslint/utils/ts-eslint";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 
-/** Detect circular dependencies between useEffect hooks via useState setters. */
+interface EffectNode {
+  call: TSESTree.CallExpression;
+  reads: Set<string>;
+  writes: Set<string>;
+}
+
+/** Maps each state setter name to the state variable it updates, from `const [x, setX] = useState(...)` declarations. */
+function collectStateSetters(hookCalls: TSESTree.CallExpression[], isStateCall: (node: TSESTree.Node) => boolean): Map<string, string> {
+  const setters = new Map<string, string>();
+  for (const call of hookCalls) {
+    if (!isStateCall(call)) continue;
+    const declarator = call.parent;
+    if (declarator.type !== "VariableDeclarator" || declarator.id.type !== "ArrayPattern") continue;
+    const [state, setter] = declarator.id.elements;
+    if (state?.type === "Identifier" && setter?.type === "Identifier") {
+      setters.set(setter.name, state.name);
+    }
+  }
+  return setters;
+}
+
+/** Builds the "reads" (dependency array) and "writes" (setter calls) state footprint of each `useEffect`-like call. */
+function collectEffects(hookCalls: TSESTree.CallExpression[], isEffectCall: (node: TSESTree.Node) => boolean, setters: Map<string, string>): EffectNode[] {
+  const effects: EffectNode[] = [];
+  for (const call of hookCalls) {
+    if (!isEffectCall(call)) continue;
+    const [setup, deps] = call.arguments;
+
+    const writes = new Set<string>();
+    if (setup?.type === "ArrowFunctionExpression" || setup?.type === "FunctionExpression") {
+      simpleTraverse(setup, {
+        enter(node) {
+          if (node.type !== "CallExpression" || node.callee.type !== "Identifier") return;
+          const state = setters.get(node.callee.name);
+          if (state != null) writes.add(state);
+        },
+      });
+    }
+
+    const reads = new Set<string>();
+    if (deps?.type === "ArrayExpression") {
+      for (const element of deps.elements) {
+        if (element?.type === "Identifier") reads.add(element.name);
+      }
+    }
+
+    effects.push({ call, reads, writes });
+  }
+  return effects;
+}
+
+/** Finds cycles in the "effect A's setter feeds effect B's dependency array" graph via DFS. */
+function findCycles(effects: EffectNode[]): number[][] {
+  const adjacency: number[][] = effects.map((from) =>
+    effects.reduce<number[]>((acc, to, j) => {
+      if ([...from.writes].some((state) => to.reads.has(state))) acc.push(j);
+      return acc;
+    }, [])
+  );
+
+  const WHITE = 0, GRAY = 1, BLACK = 2;
+  const color = new Array<number>(effects.length).fill(WHITE);
+  const stack: number[] = [];
+  const seen = new Set<string>();
+  const cycles: number[][] = [];
+
+  function visit(u: number): void {
+    color[u] = GRAY;
+    stack.push(u);
+    for (const v of adjacency[u] ?? []) {
+      if (color[v] === WHITE) {
+        visit(v);
+        continue;
+      }
+      if (color[v] !== GRAY) continue;
+      const start = stack.indexOf(v);
+      const cycle = stack.slice(start);
+      const key = [...cycle].sort((a, b) => a - b).join(",");
+      if (!seen.has(key)) {
+        seen.add(key);
+        cycles.push(cycle);
+      }
+    }
+    stack.pop();
+    color[u] = BLACK;
+  }
+
+  for (let i = 0; i < effects.length; i++) {
+    if (color[i] === WHITE) visit(i);
+  }
+
+  return cycles;
+}
+
+/** Describes a cycle as the chain of state names that connect each effect to the next. */
+function describeCycle(effects: EffectNode[], cycle: number[]): string {
+  const names = cycle.map((index, position) => {
+    const from = effects[index]!;
+    const to = effects[cycle[(position + 1) % cycle.length]!]!;
+    return [...from.writes].find((state) => to.reads.has(state)) ?? "?";
+  });
+  return [...names, names[0]].join(" → ");
+}
+
+/** Detect circular `set` function and dependency patterns across `useEffect`-like hooks in the same component or hook. */
 export function noCircularEffect(): RuleFunction {
-  return (context, { is, settings }) => {
-    const { additionalStateHooks, additionalEffectHooks } = settings;
+  return (context, { collect, is, settings }) => {
+    const fc = collect.components(context);
+    const hk = collect.hooks(context);
 
-    // Map: setter Scope.Variable → state Scope.Variable
-    const setterToState = new Map<Scope.Variable, Scope.Variable>();
+    function check(hookCalls: TSESTree.CallExpression[]) {
+      const setters = collectStateSetters(hookCalls, (node) => is.useStateLikeCall(node, settings.additionalStateHooks));
+      const effects = collectEffects(hookCalls, (node) => is.useEffectLikeCall(node, settings.additionalEffectHooks), setters);
+      if (effects.length === 0) return;
 
-    // Pending useEffect-like calls to process at Program:exit
-    const pendingEffects: TSESTree.CallExpression[] = [];
-
-    return {
-      CallExpression(node: TSESTree.CallExpression) {
-        // 1. Register useState pairs
-        if (is.useStateLikeCall(node, additionalStateHooks)) {
-          const { parent } = node;
-          if (parent?.type === "VariableDeclarator" && parent.id.type === "ArrayPattern") {
-            const [stateEl, setterEl] = parent.id.elements;
-            if (stateEl?.type === "Identifier" && setterEl?.type === "Identifier") {
-              const scope = context.sourceCode.getScope(node);
-              const stateVar = findVariable(scope, stateEl.name);
-              const setterVar = findVariable(scope, setterEl.name);
-              if (stateVar != null && setterVar != null) {
-                setterToState.set(setterVar, stateVar);
-              }
-            }
-          }
-          return;
-        }
-
-        // 2. Collect useEffect-like calls
-        if (is.useEffectLikeCall(node, additionalEffectHooks)) {
-          pendingEffects.push(node);
-        }
-      },
-
-      "Program:exit"() {
-        interface EffectEdge {
-          deps: Scope.Variable[];
-          targets: Scope.Variable[];
-          node: TSESTree.CallExpression;
-        }
-
-        const stateVars = new Set(setterToState.values());
-        const edges: EffectEdge[] = [];
-
-        for (const node of pendingEffects) {
-          const callback = node.arguments[0];
-          const depsArg = node.arguments[1];
-          if (callback == null || depsArg == null) continue;
-
-          // Extract dependency state variables from the deps array
-          const deps: Scope.Variable[] = [];
-          if (depsArg.type === "ArrayExpression") {
-            for (const el of depsArg.elements) {
-              if (el?.type === "Identifier") {
-                const scope = context.sourceCode.getScope(el);
-                const v = findVariable(scope, el.name);
-                if (v != null && stateVars.has(v)) {
-                  deps.push(v);
-                }
-              }
-            }
-          }
-          if (deps.length === 0) continue;
-
-          // Find setter calls inside the callback body
-          const targets: Scope.Variable[] = [];
-          if (callback.range == null) continue;
-          const [cbStart, cbEnd] = callback.range;
-          for (const [setterVar, stateVar] of setterToState) {
-            for (const ref of setterVar.references) {
-              if (ref.identifier.range == null) continue;
-              const [refStart, refEnd] = ref.identifier.range;
-              if (refStart < cbStart || refEnd > cbEnd) continue;
-              const { parent } = ref.identifier;
-              if (parent?.type === "CallExpression" && parent.callee === ref.identifier) {
-                targets.push(stateVar);
-                break;
-              }
-            }
-          }
-          if (targets.length === 0) continue;
-
-          edges.push({ deps, targets, node });
-        }
-
-        // Build a directed graph: stateVar → Set<stateVar>
-        // If an effect depends on A and sets B, add edge A → B
-        const graph = new Map<Scope.Variable, Set<Scope.Variable>>();
-        for (const { deps, targets } of edges) {
-          for (const dep of deps) {
-            for (const target of targets) {
-              if (!graph.has(dep)) graph.set(dep, new Set());
-              graph.get(dep)!.add(target);
-            }
-          }
-        }
-
-        // Detect cycles via DFS
-        const visited = new Set<Scope.Variable>();
-        const inStack = new Set<Scope.Variable>();
-        const inCycle = new Set<Scope.Variable>();
-
-        function dfs(v: Scope.Variable): boolean {
-          if (inStack.has(v)) return true;
-          if (visited.has(v)) return false;
-          visited.add(v);
-          inStack.add(v);
-          let foundCycle = false;
-          for (const neighbor of graph.get(v) ?? []) {
-            if (dfs(neighbor)) {
-              inCycle.add(v);
-              inCycle.add(neighbor);
-              foundCycle = true;
-            }
-          }
-          inStack.delete(v);
-          return foundCycle;
-        }
-
-        for (const v of graph.keys()) dfs(v);
-        if (inCycle.size === 0) return;
-
-        // Report each effect that participates in a cycle
-        for (const { deps, targets, node } of edges) {
-          const cycleDeps = deps.filter((d) => inCycle.has(d));
-          const cycleTargets = targets.filter((t) => inCycle.has(t));
-          if (cycleDeps.length === 0 || cycleTargets.length === 0) continue;
-
-          const depNames = cycleDeps.map((d) => d.name).join(", ");
-          const targetNames = cycleTargets.map((t) => t.name).join(", ");
+      const reported = new Set<TSESTree.CallExpression>();
+      for (const cycle of findCycles(effects)) {
+        const description = describeCycle(effects, cycle);
+        for (const index of cycle) {
+          const { call } = effects[index]!;
+          if (reported.has(call)) continue;
+          reported.add(call);
           context.report({
-            node,
-            message:
-              `Circular effect detected: this effect depends on [${depNames}] and updates [${targetNames}], creating an infinite update loop.`,
+            node: call,
+            message: `This effect is part of a circular update chain that may cause an infinite render loop: ${description}.`,
           });
         }
+      }
+    }
+
+    return merge(
+      fc.visitor,
+      hk.visitor,
+      {
+        "Program:exit"(program) {
+          for (const { hookCalls } of fc.query.all(program)) check(hookCalls);
+          for (const { hookCalls } of hk.query.all(program)) check(hookCalls);
+        },
       },
-    };
+    );
   };
 }
 ```
@@ -197,7 +197,7 @@ function CircularEffect1() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [items]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [items] and updates [items], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → items.
 
   return null;
 }
@@ -215,12 +215,12 @@ function CircularEffect2() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [limit]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → limit → items.
 
   useEffect(() => {
     setLimit(x => !x);
   }, [items]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [items] and updates [limit], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → limit → items.
 
   return null;
 }
@@ -239,17 +239,17 @@ function CircularEffect3() {
   useEffect(() => {
     setItems(x => [...x].reverse());
   }, [limit]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [limit] and updates [items], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → count → limit → items.
 
   useEffect(() => {
     setCount(x => x + 1);
   }, [items]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [items] and updates [count], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → count → limit → items.
 
   useEffect(() => {
     setLimit(x => !x);
   }, [count]);
-  // ^^^^^^^ Circular effect detected: this effect depends on [count] and updates [limit], creating an infinite update loop.
+  // ^^^^^^^ This effect is part of a circular update chain that may cause an infinite render loop: items → count → limit → items.
 
   return null;
 }
@@ -291,6 +291,17 @@ function ValidComponent2() {
   return null;
 }
 ```
+
+## How It Works
+
+This rule uses both the `collect.components` and `collect.hooks` collectors from `@eslint-react/kit`, so cycles are detected whether the effects live in a component or in a custom hook. For each collected function it inspects the pre-computed `hookCalls`:
+
+1. **`collectStateSetters`** finds every `useState`-like call destructured as `const [state, setState] = useState(...)` and records the `setState → state` mapping.
+2. **`collectEffects`** walks each `useEffect`-like call's setup function with `simpleTraverse` to find which state setters it calls (the effect's "writes"), and reads the identifiers in its dependency array (the effect's "reads").
+3. **`findCycles`** builds a directed graph where effect A points to effect B when A's writes intersect B's reads, then runs a DFS to find cycles — including a single effect pointing back to itself.
+4. **`describeCycle`** renders the matched state names along each edge of a cycle (e.g. `items → limit → items`) for the reported message.
+
+Every effect that participates in a detected cycle is reported once, with the message describing the full chain of state names that form the loop.
 
 ## Further Reading
 
