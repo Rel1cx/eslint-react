@@ -3,6 +3,4 @@ import { rules as jsxRules } from "./jsx";
 
 export const name = "@eslint-react/disable-jsx";
 
-export const rules: Linter.RulesRecord = Object.fromEntries(
-  Object.entries(jsxRules).map(([key]) => [key, "off"] as const),
-);
+export const rules: Linter.RulesRecord = Object.fromEntries(Object.entries(jsxRules).map(([key]) => [key, "off"] as const));

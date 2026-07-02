@@ -48,6 +48,4 @@ const conflictingRules = [
 
 export const name = "react-x/disable-conflict-eslint-plugin-react";
 
-export const rules: Linter.RulesRecord = Object.fromEntries(
-  conflictingRules.map((key) => [key, "off"] as const),
-);
+export const rules: Linter.RulesRecord = Object.fromEntries(conflictingRules.map((key) => [key, "off"] as const));
