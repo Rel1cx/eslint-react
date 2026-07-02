@@ -36,12 +36,12 @@
     "publish": "node --run build && node --run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.62.0"
+    "@typescript-eslint/utils": "^8.62.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^26.0.1",
+    "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3"
