@@ -1,7 +1,7 @@
 {
   "name": "@eslint-react/eslint-plugin",
   "version": "5.10.2",
-  "description": "The all-in-one, blazing fast ESLint plugin for React. Get complete, out-of-the-box rule coverage with instant feedback.",
+  "description": "ESLint React's unified ESLint plugin that combines all individual plugins into one.",
   "keywords": [
     "react",
     "eslint",
