@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -44,215 +44,163 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hasUseServer = context.sourceCode.text.includes("use server");
-  const hasUseClient = context.sourceCode.text.includes("use client");
+type DirectiveName = "use client" | "use server";
 
+interface DirectiveMatch {
+  /**
+   * - `well-formed`: a string literal recognized by the parser as a directive
+   * - `misplaced`: a string literal that appears after other code, so the parser did not treat it as a directive
+   * - `backtick`: a template literal, which is never a valid directive
+   */
+  kind: "backtick" | "misplaced" | "well-formed";
+  name: DirectiveName;
+  node: TSESTree.ExpressionStatement;
+}
+
+function isDirectiveName(value: unknown): value is DirectiveName {
+  return value === "use client" || value === "use server";
+}
+
+/**
+ * Match a statement against directive-like expressions (`'use client'`, `"use server"`, `` `use server` ``, etc.)
+ * @param stmt The statement to match
+ * @returns The match result, or `null` if the statement is not directive-like
+ */
+function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
+  if (stmt.type !== AST.ExpressionStatement) return null;
+  const { expression } = stmt;
+  if (Check.isStringLiteral(expression)) {
+    if (!isDirectiveName(expression.value)) return null;
+    return {
+      kind: stmt.directive != null ? "well-formed" : "misplaced",
+      name: expression.value,
+      node: stmt,
+    };
+  }
+  if (expression.type === AST.TemplateLiteral && expression.expressions.length === 0 && expression.quasis.length === 1) {
+    const value = expression.quasis[0]?.value.cooked;
+    if (!isDirectiveName(value)) return null;
+    return { kind: "backtick", name: value, node: stmt };
+  }
+  return null;
+}
+
+export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if neither `use server` nor `use client` is present
-  if (!hasUseServer && !hasUseClient) return {};
+  const text = context.sourceCode.text;
+  if (!text.includes("use server") && !text.includes("use client")) return {};
 
   const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(Check.isDirective("use server"));
 
   /**
-   * Check if `node` is an async function, and report if not
-   * @param node The function node to check
-   * @returns Whether a report was made
+   * Build a fix that makes `node` an async function
+   * @param node The function node to fix
+   * @returns The fix function, or `null` if no fix is available
    */
-  function getAsyncFix(node: TSESTree.Node): ReportFixFunction | null {
-    // Function declarations/expressions: insert before "function" token
-    if (node.type === AST.FunctionDeclaration || node.type === AST.FunctionExpression) {
-      const fnToken = context.sourceCode.getFirstToken(node);
-      if (fnToken != null) {
-        return (fixer: RuleFixer) => fixer.insertTextBefore(fnToken, "async ");
-      }
-      return null;
-    }
+  function getAsyncFix(node: TSESTreeFunction): ReportFixFunction | null {
     // Arrow functions: insert before the node (before parameters)
     if (node.type === AST.ArrowFunctionExpression) {
-      return (fixer: RuleFixer) => fixer.insertTextBefore(node, "async ");
+      return (fixer) => fixer.insertTextBefore(node, "async ");
     }
-    // Default: no fix available
-    return null;
-  }
-
-  function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID): boolean {
-    if (node == null) return false;
-    const unwrapped = Extract.unwrap(node);
-    if (!Check.isFunction(unwrapped)) return false;
-    if (!unwrapped.async) {
-      context.report({ fix: getAsyncFix(unwrapped), messageId, node: unwrapped });
-      return true;
-    }
-    return false;
+    // Function declarations/expressions: insert before the "function" token
+    const functionToken = context.sourceCode.getFirstToken(node);
+    if (functionToken == null) return null;
+    return (fixer) => fixer.insertTextBefore(functionToken, "async ");
   }
 
   /**
-   * Check non-exported local functions for 'use server' directives, and report if they are not async
-   * @param node The function node to check
+   * Report `node` if it resolves to a non-async function
+   * @param node The node to check, may be `null` for convenience at call sites
+   * @param messageId The message to report with
    */
-  function checkLocalServerFunction(
-    node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
-  ) {
-    if (core.getFunctionDirectives(node).some((d) => d.directive === "use server")) {
-      reportNonAsyncFunction(node, "local");
-    }
-  }
-
-  /**
-   * Find function declarations from exports and check them
-   * @param id The identifier of the exported function
-   */
-  function findAndCheckExportedFunctionDeclarations(id: TSESTree.Identifier) {
-    const initNode = resolve(context, id);
-    if (initNode == null) return;
-    const unwrapped = Extract.unwrap(initNode);
-    if (!Check.isFunction(unwrapped)) return;
-    reportNonAsyncFunction(unwrapped, "file");
+  function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID) {
+    if (node == null) return;
+    const fn = Extract.unwrap(node);
+    if (!Check.isFunction(fn) || fn.async) return;
+    context.report({ fix: getAsyncFix(fn), messageId, node: fn });
   }
 
   /**
    * Check file-level directives for correct position and quote style.
-   * Well-formed directives at the beginning of the file will have a `directive` property.
-   * If they appear after other code, the parser will not set `directive`.
+   * @param program The Program node
    */
-  function checkFileLevelDirectives() {
-    for (const node of context.sourceCode.ast.body) {
-      if (node.type !== AST.ExpressionStatement) continue;
-
-      if (Check.isStringLiteral(node.expression)) {
-        const value = node.expression.value;
-        if ((value === "use server" || value === "use client") && node.directive == null) {
-          context.report({
-            data: { name: value },
-            messageId: "fileDirectivePosition",
-            node,
-          });
-        }
-        continue;
-      }
-
-      if (
-        node.expression.type === AST.TemplateLiteral
-        && node.expression.quasis.length === 1
-        && node.expression.expressions.length === 0
-      ) {
-        const value = node.expression.quasis[0]?.value.cooked;
-        if (value === "use server" || value === "use client") {
-          context.report({
-            data: { name: value },
-            messageId: "fileDirectiveQuote",
-            node,
-          });
-        }
-      }
+  function checkFileDirectives(program: TSESTree.Program) {
+    for (const stmt of program.body) {
+      const match = matchDirective(stmt);
+      if (match == null || match.kind === "well-formed") continue;
+      context.report({
+        data: { name: match.name },
+        messageId: match.kind === "backtick" ? "fileDirectiveQuote" : "fileDirectivePosition",
+        node: match.node,
+      });
     }
   }
 
   /**
-   * Check function-level directives for correct position and quote style.
+   * Check function-level directives for correct position and quote style,
+   * and report if a `use server` function is not async.
    * @param node The function node to check
    */
-  function checkFunctionDirectives(
-    node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression,
-  ) {
+  function checkFunction(node: TSESTreeFunction) {
     if (node.body.type !== AST.BlockStatement) return;
-
     for (const stmt of node.body.body) {
-      if (stmt.type !== AST.ExpressionStatement) continue;
-
-      if (Check.isStringLiteral(stmt.expression)) {
-        const value = stmt.expression.value;
-        if (value === "use server" && stmt.directive == null) {
-          context.report({
-            data: { name: value },
-            messageId: "localDirectivePosition",
-            node: stmt,
-          });
-        }
-        if (value === "use client") {
-          context.report({
-            data: { name: value },
-            messageId: "localDirectiveUnexpected",
-            node: stmt,
-          });
-        }
-        continue;
+      const match = matchDirective(stmt);
+      if (match == null) continue;
+      switch (true) {
+        case match.kind === "backtick":
+          context.report({ data: { name: match.name }, messageId: "localDirectiveQuote", node: match.node });
+          break;
+        case match.name === "use client":
+          context.report({ data: { name: match.name }, messageId: "localDirectiveUnexpected", node: match.node });
+          break;
+        case match.kind === "misplaced":
+          context.report({ data: { name: match.name }, messageId: "localDirectivePosition", node: match.node });
+          break;
       }
-
-      if (
-        stmt.expression.type === AST.TemplateLiteral
-        && stmt.expression.quasis.length === 1
-        && stmt.expression.expressions.length === 0
-      ) {
-        const value = stmt.expression.quasis[0]?.value.cooked;
-        if (value === "use server" || value === "use client") {
-          context.report({
-            data: { name: value },
-            messageId: "localDirectiveQuote",
-            node: stmt,
-          });
-        }
-      }
+    }
+    if (core.isFunctionHasDirective(node, "use server")) {
+      reportNonAsyncFunction(node, "local");
     }
   }
 
   return {
-    ArrowFunctionExpression(node) {
-      checkFunctionDirectives(node);
-      checkLocalServerFunction(node);
-    },
+    ArrowFunctionExpression: checkFunction,
     ExportDefaultDeclaration(node) {
-      if (!hasFileLevelUseServerDirective) {
-        return;
-      }
-
-      const decl = node.declaration;
-      // export default function foo() {}
-      if (reportNonAsyncFunction(decl, "file")) {
-        return;
-      }
+      if (!hasFileLevelUseServerDirective) return;
+      const decl = Extract.unwrap(node.declaration);
+      // export default serverFunction;
       if (decl.type === AST.Identifier) {
-        findAndCheckExportedFunctionDeclarations(decl);
-      }
-    },
-    // Handle exported declarations like `export const foo = () => {}` or `export class A {}`
-    ExportNamedDeclaration(node) {
-      if (!hasFileLevelUseServerDirective) {
+        reportNonAsyncFunction(resolve(context, decl), "file");
         return;
       }
-      // Handle named export
-      if (node.declaration != null) {
-        const decl = node.declaration;
-        // export function foo() {}
-        if (reportNonAsyncFunction(decl, "file")) {
-          return;
-        }
+      // export default function serverFunction() {}
+      reportNonAsyncFunction(decl, "file");
+    },
+    ExportNamedDeclaration(node) {
+      if (!hasFileLevelUseServerDirective) return;
+      const decl = node.declaration;
+      if (decl != null) {
         // export const foo = () => {}
         // export const foo = function() {}
         if (decl.type === AST.VariableDeclaration) {
           for (const declarator of decl.declarations) {
             reportNonAsyncFunction(declarator.init, "file");
           }
+          return;
         }
+        // export function foo() {}
+        reportNonAsyncFunction(decl, "file");
         return;
       }
-      // Handle `export { foo }` (local binding)
-      if (node.source == null && node.specifiers.length > 0) {
-        for (const spec of node.specifiers) {
-          findAndCheckExportedFunctionDeclarations(spec.local);
-        }
+      // Skip re-exports like `export { foo } from "./mod"`, which have no local binding
+      if (node.source != null) return;
+      // export { foo }
+      for (const spec of node.specifiers) {
+        reportNonAsyncFunction(resolve(context, spec.local), "file");
       }
     },
-    FunctionDeclaration(node) {
-      checkFunctionDirectives(node);
-      checkLocalServerFunction(node);
-    },
-    FunctionExpression(node) {
-      checkFunctionDirectives(node);
-      checkLocalServerFunction(node);
-    },
-    Program() {
-      checkFileLevelDirectives();
-    },
+    FunctionDeclaration: checkFunction,
+    FunctionExpression: checkFunction,
+    Program: checkFileDirectives,
   };
 }

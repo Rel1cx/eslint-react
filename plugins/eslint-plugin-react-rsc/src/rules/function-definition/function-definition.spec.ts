@@ -103,6 +103,23 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        'use server';
+        const serverFunction = () => {
+          return 42;
+        }
+        export default serverFunction as MyType;
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        const serverFunction = async () => {
+          return 42;
+        }
+        export default serverFunction as MyType;
+      `,
+    },
+    {
+      code: tsx`
         function serverFunction() {
           'use server';
           return 42;
@@ -412,6 +429,13 @@ ruleTester.run(RULE_NAME, rule, {
         return 42;
       }
       export default serverFunction;
+    `,
+    tsx`
+      'use server';
+      const serverFunction = async () => {
+        return 42;
+      }
+      export default serverFunction as MyType;
     `,
     tsx`
       export {};
