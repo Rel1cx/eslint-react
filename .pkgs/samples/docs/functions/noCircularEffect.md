@@ -6,7 +6,7 @@
 function noCircularEffect(): RuleFunction;
 ```
 
-Detect circular dependencies between useEffect hooks via useState setters.
+Detect circular `set` function and dependency patterns across `useEffect`-like hooks in the same component or hook.
 
 ## Returns
 
