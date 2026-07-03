@@ -1,14 +1,17 @@
-import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export function isEvalCall(node: TSESTree.CallExpression) {
-  return Check.isIdentifier("eval")(Extract.unwrap(node.callee));
-}
-
-export function isIifeCall(node: TSESTreeFunction) {
-  let parent: TSESTree.Node = node.parent;
-  while (Check.isTypeExpression(parent) || parent.type === AST.ChainExpression) {
-    parent = parent.parent;
+  const callee = Extract.unwrap(node.callee);
+  switch (callee.type) {
+    case AST.Identifier:
+      return callee.name === "eval";
+    case AST.MemberExpression: {
+      if (!Check.isIdentifier("globalThis")(Extract.unwrap(callee.object))) return false;
+      // In `globalThis[eval]` the property is the runtime value of `eval`, not the static name "eval"
+      return Extract.getPropertyName(callee.property, (n) => callee.computed ? null : n.name) === "eval";
+    }
+    default:
+      return false;
   }
-  return parent.type === AST.CallExpression && Extract.unwrap(parent.callee) === node;
 }

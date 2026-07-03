@@ -59,11 +59,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
       errors: [{ messageId: "default" }],
     },
+    // Computed string literal key in spread props
+    {
+      code: tsx`<div {...{ ["dangerouslySetInnerHTML"]: { __html: "HTML" } }} />`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<div {...props} />",
     "<div />",
     "<App />",
     tsx`<div>{dangerouslySetInnerHTML}</div>`,
+    // Computed identifier key in spread props: the property name is the runtime value of the variable
+    tsx`
+      declare const dangerouslySetInnerHTML: string;
+      const div = <div {...{ [dangerouslySetInnerHTML]: { __html: "HTML" } }} />;
+    `,
   ],
 });

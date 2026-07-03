@@ -5,13 +5,14 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 
-export function findProperty(of: TSESTree.ObjectLiteralElement[], named: string): TSESTree.Property | null {
-  for (const property of of) {
-    if (property.type === AST.Property && Extract.getPropertyName(property.key) === named) {
+export function findProperty(node: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
+  for (const property of node) {
+    // In `{ [key]: value }` the property name is the runtime value of `key`, not the static name "key"
+    if (property.type === AST.Property && Extract.getPropertyName(property.key, (n) => property.computed ? null : n.name) === name) {
       return property;
     }
     if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
-      const found = findProperty(property.argument.properties, named);
+      const found = findProperty(property.argument.properties, name);
       if (found != null) return found;
     }
   }

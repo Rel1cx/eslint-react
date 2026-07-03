@@ -3,7 +3,7 @@ import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
-import { isEvalCall, isIifeCall } from "./lib";
+import { isEvalCall } from "./lib";
 
 export const RULE_NAME = "unsupported-syntax";
 
@@ -11,8 +11,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "eval"
-  | "with"
-  | "iife";
+  | "with";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -22,7 +21,6 @@ export default createRule<[], MessageID>({
     },
     messages: {
       eval: "Do not use 'eval' inside components or hooks. 'eval' cannot be statically analyzed and is not supported by React Compiler.",
-      iife: "Do not use immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.",
       with: "Do not use 'with' statements inside components or hooks. 'with' changes scope dynamically and is not supported by React Compiler.",
     },
     schema: [],
@@ -52,22 +50,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         evalCalls.push({ func, node });
-      },
-      "JSXElement :function"(node: TSESTreeFunction) {
-        if (isIifeCall(node)) {
-          context.report({
-            messageId: "iife",
-            node: node.parent,
-          });
-        }
-      },
-      "JSXFragment :function"(node: TSESTreeFunction) {
-        if (isIifeCall(node)) {
-          context.report({
-            messageId: "iife",
-            node: node.parent,
-          });
-        }
       },
       "Program:exit"(node) {
         const components = fc.api.getAllComponents(node);

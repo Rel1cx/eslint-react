@@ -27,13 +27,12 @@ react-x/unsupported-syntax
 
 ## Rule Details
 
-React Compiler needs to statically analyze your code to apply optimizations. Features like `eval`, `with`, and immediately-invoked function expressions (IIFEs) in JSX make it impossible or impractical for the compiler to statically understand what the code does at compile time, so the compiler can't optimize components that use them.
+React Compiler needs to statically analyze your code to apply optimizations. Features like `eval` and `with` make it impossible or impractical for the compiler to statically understand what the code does at compile time, so the compiler can't optimize components that use them.
 
 This rule checks for the following unsupported patterns:
 
 - **`eval`** — Dynamic code evaluation cannot be statically analyzed.
 - **`with` statements** — Dynamically changes scope, preventing static analysis.
-- **IIFEs in JSX** — Immediately-invoked function expressions within JSX elements or fragments will not be optimized by React Compiler.
 
 ## Examples
 
@@ -82,82 +81,6 @@ function Component() {
 // 🟢 Recommended: use standard method calls
 function Component() {
   return <div>{Math.sin(Math.PI / 2)}</div>;
-}
-```
-
-### IIFEs in JSX
-
-Immediately-invoked function expressions inside JSX prevent the compiler from analyzing the component's output structure at build time.
-
-```tsx
-// 🔴 Problem: using IIFE in JSX
-function MyComponent() {
-  return (
-    <SomeJsx>
-      {(() => { // Avoid using immediately-invoked function expressions in JSX. IIFEs will not be optimized by React Compiler.
-        const filteredThings = things.filter(callback);
-
-        if (filteredThings.length === 0) {
-          return <Empty />;
-        }
-
-        return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
-      })()}
-    </SomeJsx>
-  );
-}
-```
-
-```tsx
-// 🟢 Recommended: extract logic into variables outside JSX
-function MyComponent() {
-  const thingsList = (() => {
-    const filteredThings = things.filter(callback);
-
-    if (filteredThings.length === 0) {
-      return <Empty />;
-    }
-
-    return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
-  })();
-
-  return (
-    <SomeJsx>
-      {thingsList}
-    </SomeJsx>
-  );
-}
-```
-
-```tsx
-// 🟢 Recommended: use useMemo instead of IIFE
-function MyComponent() {
-  const thingsList = useMemo(() => {
-    const filteredThings = things.filter(callback);
-
-    if (filteredThings.length === 0) {
-      return <Empty />;
-    }
-
-    return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
-  }, [things, callback]);
-
-  return (
-    <SomeJsx>
-      {thingsList}
-    </SomeJsx>
-  );
-}
-```
-
-```tsx
-// 🟢 Recommended: use ternary or logical expressions
-function MyComponent() {
-  return (
-    <div>
-      {loading ? <Spinner /> : error ? <Error /> : <Content />}
-    </div>
-  );
 }
 ```
 

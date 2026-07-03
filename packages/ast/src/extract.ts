@@ -18,10 +18,10 @@ export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateId
   return null;
 }
 
-export function getPropertyName(node: TSESTree.Node): string | null {
+export function getPropertyName(node: TSESTree.Node, resolve = (n: TSESTree.Identifier | TSESTree.PrivateIdentifier): string | null => n.name): string | null {
   node = unwrap(node);
   if (node.type === AST.Identifier || node.type === AST.PrivateIdentifier) {
-    return node.name;
+    return resolve(node);
   }
   if (node.type === AST.Literal) {
     return String(node.value);

@@ -1,5 +1,37 @@
 # Changelog
 
+## v5.10.2 (2026-07-03)
+
+### 🐞 Fixes
+
+- Fixed an issue where several rules treated computed identifier keys in spread props (e.g. `<div {...{ [key]: value }} />`) as static prop names. The actual property name is the runtime value of the variable; computed string literal keys are still recognized. Affected rules:
+  - `react-x/no-missing-key`
+  - `react-jsx/no-children-prop-with-children`
+  - `react-jsx/no-children-prop`
+  - `react-jsx/no-useless-fragment`
+  - `react-dom/no-dangerously-set-innerhtml-with-children`
+  - `react-dom/no-dangerously-set-innerhtml`
+  - `react-dom/no-missing-button-type`
+  - `react-dom/no-missing-iframe-sandbox`
+  - `react-dom/no-string-style-prop`
+  - `react-dom/no-unsafe-iframe-sandbox`
+  - `react-dom/no-unsafe-target-blank`
+  - `react-dom/no-void-elements-with-children`
+  - `react-web-api/no-leaked-event-listener`
+  - `react-web-api/no-leaked-fetch`
+- Fixed `react-x/unsupported-syntax` to no longer report IIFEs in JSX. This makes the rule consistent with the upstream [`react-hooks/unsupported-syntax`](https://react.dev/reference/eslint-plugin-react-hooks/lints/unsupported-syntax) and removes the `iife` message.
+
+### ✨ New
+
+- `react-x/unsupported-syntax` now detects `eval` calls via `globalThis.eval`, `globalThis["eval"]`, and type assertions like `(globalThis as any).eval`.
+
+### 🏗️ Internal
+
+- Added an optional `resolve` parameter to `Extract.getPropertyName` so callers can control how identifier and private identifier property names are resolved.
+- Added unit tests for `Extract.getPropertyName`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.10.1...v5.10.2
+
 ## v5.10.1 (2026-07-03)
 
 ### 🐞 Fixes

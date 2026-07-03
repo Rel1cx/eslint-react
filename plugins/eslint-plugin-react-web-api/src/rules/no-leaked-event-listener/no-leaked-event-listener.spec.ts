@@ -19,6 +19,24 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ac = new AbortController();
+            const signal = "once";
+            window.addEventListener("resize", handleResize, { [signal]: ac.signal });
+            return () => ac.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
     {
       code: tsx`
         function Example() {
@@ -994,6 +1012,16 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
             const ac = new AbortController()
             x.addEventListener("resize", () => {}, { signal: ac.signal })
+            return () => ac.abort()
+        }, [])
+      }
+    `,
+    // Computed string literal key is still a static "signal" option
+    tsx`
+      function Example() {
+        useEffect(() => {
+            const ac = new AbortController()
+            x.addEventListener("resize", () => {}, { ["signal"]: ac.signal })
             return () => ac.abort()
         }, [])
       }

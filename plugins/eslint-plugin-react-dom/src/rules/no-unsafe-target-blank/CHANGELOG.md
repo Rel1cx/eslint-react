@@ -5,7 +5,11 @@ All notable changes to the `react-dom/no-unsafe-target-blank` rule will be docum
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.10.2] - 2026-07-03
+
+### Changed
+
+- Computed identifier keys in spread props (e.g. `<a {...{ [key]: "_blank" }} />`) are no longer treated as statically providing the `target`, `href`, or `rel` props, since the actual property name is the runtime value of the variable. Computed string literal keys are still recognized. This avoids both false positives (a computed key mistaken for `target="_blank"`) and false negatives (a computed key mistaken for a safe `rel`).
 
 ## [5.2.3-beta.0] - 2026-04-14
 

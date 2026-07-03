@@ -46,6 +46,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedAbortController" }],
     },
+    // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            const signal = "cache";
+            fetch("/api/user", { [signal]: ctrl.signal });
+            return () => ctrl.abort();
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortController" }],
+    },
     // Signal provided but no matching abort in cleanup
     {
       code: tsx`
@@ -286,6 +300,18 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const ctrl = new AbortController();
           fetch("/api/user", { signal: ctrl.signal });
+          return () => ctrl.abort();
+        }, []);
+      }
+    `,
+    // Computed string literal key is still a static "signal" option
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { ["signal"]: ctrl.signal });
           return () => ctrl.abort();
         }, []);
       }

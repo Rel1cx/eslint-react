@@ -24,7 +24,7 @@ export function findAttribute(
 ): TSESTreeJSXAttributeLike | undefined {
   function findProperty(properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
     for (const property of properties) {
-      if (property.type === AST.Property && Extract.getPropertyName(property.key) === name) {
+      if (property.type === AST.Property && Extract.getPropertyName(property.key, (n) => property.computed ? null : n.name) === name) {
         return property;
       }
       if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {

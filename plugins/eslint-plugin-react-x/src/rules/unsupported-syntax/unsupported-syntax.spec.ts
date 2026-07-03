@@ -101,98 +101,66 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // IIFE in JSX cases
     {
       code: tsx`
-        function MyComponent() {
-          return (
-            <SomeJsx>
-              <SomeMoreJsx />
-
-              {(() => {
-                const filteredThings = things.filter(callback);
-
-                if (filteredThings.length === 0) {
-                  return <Empty />;
-                }
-
-                return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
-              })()}
-
-              <SomeMoreJsx />
-            </SomeJsx>
-          );
+        function Component({ code }) {
+          const result = globalThis.eval(code);
+          return <div>{result}</div>;
         }
       `,
       errors: [{
-        messageId: "iife",
+        messageId: "eval",
       }],
     },
     {
       code: tsx`
-        function MyComponent() {
-          return (
-            <div>
-              {((() => <span>wrapped</span>) as any)()}
-            </div>
-          );
+        function useMyHook(code) {
+          const result = globalThis.eval(code);
+          return result;
         }
       `,
       errors: [{
-        messageId: "iife",
+        messageId: "eval",
       }],
     },
     {
       code: tsx`
-        function MyComponent() {
-          return (
-            <div>
-              {(function() {
-                return <span>hello</span>;
-              })()}
-            </div>
-          );
-        }
-      `,
-      errors: [{
-        messageId: "iife",
-      }],
-    },
-    {
-      code: tsx`
-        function MyComponent() {
-          return (
-            <>
-              {(() => {
-                return <span>fragment child</span>;
-              })()}
-            </>
-          );
-        }
-      `,
-      errors: [{
-        messageId: "iife",
-      }],
-    },
-    {
-      code: tsx`
-        function MyComponent() {
-          return (
-            <div>
-              {(() => <span>a</span>)()}
-              {(() => <span>b</span>)()}
-            </div>
-          );
+        function Component() {
+          const a = globalThis.eval("1");
+          const b = globalThis.eval("2");
+          return <div>{a}{b}</div>;
         }
       `,
       errors: [
         {
-          messageId: "iife",
+          messageId: "eval",
         },
         {
-          messageId: "iife",
+          messageId: "eval",
         },
       ],
+    },
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = globalThis["eval"](code);
+          return <div>{result}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "eval",
+      }],
+    },
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = (globalThis as any).eval(code);
+          return <div>{result}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "eval",
+      }],
     },
   ],
   valid: [
@@ -247,7 +215,74 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // IIFE valid cases — IIFE outside of JSX is allowed
+    // `globalThis[eval]` accesses the property keyed by the runtime value of `eval`, not eval itself
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = globalThis[eval](code);
+          return <div>{result}</div>;
+        }
+      `,
+    },
+    // `.eval` on objects other than `globalThis` is not an eval call
+    {
+      code: tsx`
+        function Component({ interpreter, code }) {
+          const result = interpreter.eval(code);
+          return <div>{result}</div>;
+        }
+      `,
+    },
+    // IIFE valid cases — IIFEs are supported by React Compiler
+    {
+      code: tsx`
+        function MyComponent() {
+          return (
+            <SomeJsx>
+              <SomeMoreJsx />
+
+              {(() => {
+                const filteredThings = things.filter(callback);
+
+                if (filteredThings.length === 0) {
+                  return <Empty />;
+                }
+
+                return filteredThings.map((thing) => <Thing key={thing.id} data={thing} />);
+              })()}
+
+              <SomeMoreJsx />
+            </SomeJsx>
+          );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function MyComponent() {
+          return (
+            <div>
+              {(function() {
+                return <span>hello</span>;
+              })()}
+            </div>
+          );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function MyComponent() {
+          return (
+            <>
+              {(() => {
+                return <span>fragment child</span>;
+              })()}
+            </>
+          );
+        }
+      `,
+    },
     {
       code: tsx`
         function MyComponent() {
@@ -340,7 +375,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Boundary: function as non-call-expression child (isIifeCall parent traversal)
     {
       code: tsx`
         function Component() {

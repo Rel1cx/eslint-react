@@ -5,7 +5,11 @@ All notable changes to the `react-x/no-missing-key` rule will be documented in t
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.10.2] - 2026-07-03
+
+### Fixed
+
+- Fixed a false negative where a computed identifier key in spread props (e.g. `items.map((item) => <li {...{ [key]: item.id }} />)`) was treated as the static `key` prop, suppressing the missing-key report. The actual property name is the runtime value of the variable; computed string literal keys (e.g. `{...{ ["key"]: item.id }}`) still count as providing `key`.
 
 ## [5.8.18] - 2026-06-11
 

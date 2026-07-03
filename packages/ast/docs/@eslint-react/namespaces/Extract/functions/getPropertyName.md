@@ -3,7 +3,7 @@
 # Function: getPropertyName()
 
 ```ts
-function getPropertyName(node: Node): string | null;
+function getPropertyName(node: Node, resolve?: (n: Identifier | PrivateIdentifier) => string | null): string | null;
 ```
 
 ## Parameters
@@ -11,6 +11,7 @@ function getPropertyName(node: Node): string | null;
 | Parameter | Type |
 | ------ | ------ |
 | `node` | `Node` |
+| `resolve` | (`n`: `Identifier` \| `PrivateIdentifier`) => `string` \| `null` |
 
 ## Returns
 
