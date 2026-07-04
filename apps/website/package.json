@@ -10,7 +10,7 @@
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@effect/language-service": "^0.86.3",
+    "@effect/language-service": "^0.86.4",
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/eslint-plugin": "workspace:*",
     "@eslint-react/kit": "workspace:*",

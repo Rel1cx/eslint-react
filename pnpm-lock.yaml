@@ -51,8 +51,8 @@ importers:
   .:
     devDependencies:
       '@effect/language-service':
-        specifier: ^0.86.3
-        version: 0.86.3
+        specifier: ^0.86.4
+        version: 0.86.4
       '@effect/platform':
         specifier: ^0.96.2
         version: 0.96.2(effect@3.21.4)
@@ -138,8 +138,8 @@ importers:
         specifier: ^23.0.1
         version: 23.0.1
       preact:
-        specifier: ^10.29.3
-        version: 10.29.3
+        specifier: ^10.29.4
+        version: 10.29.4
       publint:
         specifier: ^0.3.21
         version: 0.3.21
@@ -313,8 +313,8 @@ importers:
   apps/website:
     dependencies:
       '@effect/language-service':
-        specifier: ^0.86.3
-        version: 0.86.3
+        specifier: ^0.86.4
+        version: 0.86.4
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint
@@ -536,8 +536,8 @@ importers:
   examples/preact:
     dependencies:
       preact:
-        specifier: ^10.29.3
-        version: 10.29.3
+        specifier: ^10.29.4
+        version: 10.29.4
     devDependencies:
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
@@ -547,7 +547,7 @@ importers:
         version: 10.0.1(eslint@10.6.0(jiti@2.7.0))
       '@preact/preset-vite':
         specifier: ^2.10.5
-        version: 2.10.5(@babel/core@7.29.7)(preact@10.29.3)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
+        version: 2.10.5(@babel/core@7.29.7)(preact@10.29.4)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -579,8 +579,8 @@ importers:
   examples/preact-compat:
     dependencies:
       preact:
-        specifier: ^10.29.3
-        version: 10.29.3
+        specifier: ^10.29.4
+        version: 10.29.4
     devDependencies:
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
@@ -590,7 +590,7 @@ importers:
         version: 10.0.1(eslint@10.6.0(jiti@2.7.0))
       '@preact/preset-vite':
         specifier: ^2.10.5
-        version: 2.10.5(@babel/core@7.29.7)(preact@10.29.3)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
+        version: 2.10.5(@babel/core@7.29.7)(preact@10.29.4)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
       '@tsconfig/node24':
         specifier: ^24.0.4
         version: 24.0.4
@@ -1726,8 +1726,8 @@ packages:
       lmdb:
         optional: true
 
-  '@effect/language-service@0.86.3':
-    resolution: {integrity: sha512-0owy3ljB75Lx6yqjllwUesW16imxz7lMNghx+8BibaYxkrvIvcIw6dQIBf5hVFIAxTWqZNjxPJ2IE2aRm5gXrg==}
+  '@effect/language-service@0.86.4':
+    resolution: {integrity: sha512-XzAPsbwCdm0gRh0E8wJu3wXECb00QraE3LnbObA4RgHn8u2TEbwAjmBadRnwSgOIElfzZjbsRqNR706/V54hDg==}
     hasBin: true
 
   '@effect/platform-node-shared@0.60.0':
@@ -6548,8 +6548,8 @@ packages:
     resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.29.3:
-    resolution: {integrity: sha512-D9NL1GAnJZhc3RndVs4gDdxEeU9TcHgywMrhhOsnpdlvFjdbx0gAsLUnH6JEhlJH5giL7Tx5biWPUSEXE/HPzw==}
+  preact@10.29.4:
+    resolution: {integrity: sha512-GMpwh9+NJ8tSmqwIaVyFRQkiKfBEzQ+k7r7tle4W+kaJ+7wJiB9hFz9BixAomMtenPPSBfM4bZhXozGxhf0uFQ==}
 
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
@@ -7901,7 +7901,7 @@ snapshots:
       effect: 3.21.4
       uuid: 14.0.1
 
-  '@effect/language-service@0.86.3': {}
+  '@effect/language-service@0.86.4': {}
 
   '@effect/platform-node-shared@0.60.0(@effect/cluster@0.59.0(@effect/platform@0.96.2(effect@3.21.4))(@effect/rpc@0.75.1(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/sql@0.51.1(@effect/experimental@0.60.0(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/workflow@0.18.2(@effect/experimental@0.60.0(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/platform@0.96.2(effect@3.21.4))(@effect/rpc@0.75.1(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(effect@3.21.4))(effect@3.21.4))(@effect/platform@0.96.2(effect@3.21.4))(@effect/rpc@0.75.1(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/sql@0.51.1(@effect/experimental@0.60.0(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(effect@3.21.4)':
     dependencies:
@@ -8738,12 +8738,12 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@preact/preset-vite@2.10.5(@babel/core@7.29.7)(preact@10.29.3)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))':
+  '@preact/preset-vite@2.10.5(@babel/core@7.29.7)(preact@10.29.4)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7)
       '@babel/plugin-transform-react-jsx-development': 7.29.7(@babel/core@7.29.7)
-      '@prefresh/vite': 2.4.12(preact@10.29.3)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
+      '@prefresh/vite': 2.4.12(preact@10.29.4)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))
       '@rollup/pluginutils': 5.4.0
       babel-plugin-transform-hook-names: 1.0.2(@babel/core@7.29.7)
       debug: 4.4.3(supports-color@7.2.0)
@@ -8759,20 +8759,20 @@ snapshots:
 
   '@prefresh/babel-plugin@0.5.3': {}
 
-  '@prefresh/core@1.5.10(preact@10.29.3)':
+  '@prefresh/core@1.5.10(preact@10.29.4)':
     dependencies:
-      preact: 10.29.3
+      preact: 10.29.4
 
   '@prefresh/utils@1.2.1': {}
 
-  '@prefresh/vite@2.4.12(preact@10.29.3)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))':
+  '@prefresh/vite@2.4.12(preact@10.29.4)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7
       '@prefresh/babel-plugin': 0.5.3
-      '@prefresh/core': 1.5.10(preact@10.29.3)
+      '@prefresh/core': 1.5.10(preact@10.29.4)
       '@prefresh/utils': 1.2.1
       '@rollup/pluginutils': 4.2.1
-      preact: 10.29.3
+      preact: 10.29.4
       vite: 8.1.3(@types/node@26.1.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.5)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
@@ -13175,7 +13175,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preact@10.29.3: {}
+  preact@10.29.4: {}
 
   prelude-ls@1.2.1: {}
 
