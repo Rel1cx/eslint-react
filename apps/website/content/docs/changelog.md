@@ -9,7 +9,6 @@ title: Changelog
 - Bumped `typescript-eslint` packages to `^8.62.1`.
 - Bumped `@effect/language-service` to `^0.86.3`.
 - Bumped `undici` and `undici-types` to `^8.6.0`.
-- Removed the dotfiles exclusion from the root `tsconfig.json`.
 - Updated the `@eslint-react/eslint-plugin` package description.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.10.2...v5.10.3
