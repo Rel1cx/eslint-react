@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.10.4] - 2026-07-04
+
+### Fixed
+
+- Fixed `process.env.NODE_ENV` checks wrapped in TypeScript type expressions (e.g. `(process.env as any).NODE_ENV`) not being recognized. (#1813)
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

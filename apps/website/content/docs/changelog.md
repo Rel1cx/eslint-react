@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.10.4 (2026-07-04)
+
+### 🐞 Fixes
+
+- Fixed `react-x/no-misused-capture-owner-stack` not recognizing `process.env.NODE_ENV` checks wrapped in TypeScript type expressions such as `(process.env as any).NODE_ENV`. (#1813)
+- Fixed `Extract.getFullyQualifiedName` to unwrap `TSAsExpression`, `TSTypeAssertion`, `TSNonNullExpression`, and `ChainExpression` before resolving names. This improves name resolution for rules that identify React APIs or collect component/hook names through type-wrapped expressions.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.10.3...v5.10.4
+
 ## v5.10.3 (2026-07-04)
 
 ### 🏗️ Internal

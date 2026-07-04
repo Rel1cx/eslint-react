@@ -33,6 +33,7 @@ export function getPropertyName(node: TSESTree.Node, resolve = (n: TSESTree.Iden
 }
 
 export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
+  node = unwrap(node);
   switch (node.type) {
     case AST.Identifier:
     case AST.JSXIdentifier:

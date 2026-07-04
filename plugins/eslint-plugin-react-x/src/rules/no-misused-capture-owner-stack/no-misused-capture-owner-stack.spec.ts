@@ -361,5 +361,15 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      code: tsx`
+        // Passing: Optional call expression with environment check
+        import * as React from "react";
+
+        if ((process?.env as any)?.NODE_ENV !== "production") {
+          const ownerStack = React.captureOwnerStack();
+        }
+      `,
+    },
   ],
 });
