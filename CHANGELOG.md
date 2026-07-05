@@ -1,5 +1,22 @@
 # Changelog
 
+## v5.11.0 (2026-07-05)
+
+### ✨ New
+
+- `react-x/refs` now detects ref mutations/reads inside helper functions that are called (directly, or through a simple variable alias) during render, closing a gap where any nested function was previously treated as a safe boundary regardless of whether it was actually invoked during render.
+- `react-x/refs` now reports a second guarded ref initialization: only a single `if (ref.current == null) { ref.current = ... }` guarded initialization is allowed per ref per component/hook, and a second guarded write (in the same or a different `if` block) is reported as `duplicateRefInit`.
+- `react-x/refs` now supports `.current` accesses whose base is a member expression that looks like a ref (e.g. `props.ref.current`), not just a plain identifier.
+
+### 🏗️ Internal
+
+- Added unit tests for `packages/ast/src/check.ts`.
+- Bumped `@effect/language-service` to `^0.86.4` and `preact` to `^10.29.4`.
+- Refactored `react-x/static-components` internals without changing behavior: `findVariableForIdentifier` now delegates to `@typescript-eslint/utils/ast-utils`'s `findVariable` instead of a hand-rolled scope-chain walk, `resolveDynamicValue` was split into `findDynamicCreationSite` and `findReassignmentCreationSite`, and render-boundary/JSX-candidate handling was extracted into dedicated helpers.
+- Unified the signatures of `Check.isDirective` and `Check.isIdentifier` in `@eslint-react/ast`: both now take the node as the first argument and an optional `name` as the second, replacing the previous curried `(name) => (node) => boolean` shape. Removed `Check.isStringLiteral`; use `ts-pattern`'s `isMatching` or an inline type guard instead.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.10.4...v5.11.0
+
 ## v5.10.4 (2026-07-04)
 
 ### 🐞 Fixes
