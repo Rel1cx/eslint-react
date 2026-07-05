@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored the rule's internals without changing behavior:
+  - `lib.ts`: `findVariableForIdentifier` now delegates to `@typescript-eslint/utils/ast-utils`'s `findVariable` instead of a hand-rolled scope-chain walk; split `resolveDynamicValue` into `findDynamicCreationSite` (expression resolution) and `findReassignmentCreationSite` (reassignment tracking); removed the unused `isDynamicComponent` export.
+  - `static-components.ts`: extracted `createRenderBoundaryChecker` (merges function/class component nodes into a single `Set` for the render-boundary check) and `reportIfCreatedDuringRender` (per-candidate reporting) out of the `Program:exit` handler; JSX candidates are now collected as a typed `JsxComponentCandidate` list holding the `JSXIdentifier` directly.
+
 ## [5.6.0-beta.1] - 2026-04-28
 
 ### Added

@@ -9,7 +9,7 @@
 
 The SPEC operates on the React Compiler's HIR, iterating over blocks, phi nodes, and instructions. It uses a `knownDynamicComponents` map with phi-node propagation across control-flow joins. Component detection is via `JsxExpression` instructions on already-lowered HIR. Render boundaries are `HIRFunction` boundaries.
 
-The IMPL operates on the ESLint AST with scope analysis (`findVariableForIdentifier`, `resolveDynamicValue`). It uses recursive variable-definition tracing through `getDynamicComponentSource`. Component detection uses `core.getFunctionComponentCollector` and `core.getClassComponentCollector` with extensive hints. Enclosing components are computed via `Traverse.findParent` against collected function/class components.
+The IMPL operates on the ESLint AST with scope analysis (`findVariableForIdentifier`, built on `@typescript-eslint/utils/ast-utils`'s `findVariable`). It uses recursive variable-definition tracing through `getDynamicComponentSource`, which delegates expression resolution to `findDynamicCreationSite` and reassignment tracking to `findReassignmentCreationSite`. Component detection uses `core.getFunctionComponentCollector` and `core.getClassComponentCollector` with extensive hints. Enclosing components (the render boundary check) are computed by `createRenderBoundaryChecker`, which merges collected function/class component nodes into a single `Set` and walks up via `Traverse.findParent`; per-candidate reporting is handled by `reportIfCreatedDuringRender`.
 
 ---
 
@@ -43,7 +43,7 @@ The IMPL handles `ConditionalExpression` by recursively resolving `consequent` f
 
 The SPEC propagates assignments through `StoreLocal` and `LoadLocal` instructions in HIR. Scope resolution uses HIR identifier IDs and local stores.
 
-The IMPL traces `VariableDeclarator.init` via `resolveDynamicValue`. Re-assignments are explicitly tracked via `variable.references` with `AssignmentExpression` write detection. Scope resolution uses ESLint `Scope.Variable` and `Scope.Definition` traversal.
+The IMPL traces `VariableDeclarator.init` via `findDynamicCreationSite`. Re-assignments are explicitly tracked in `findReassignmentCreationSite` via `variable.references` with `AssignmentExpression` write detection. Scope resolution uses ESLint `Scope.Variable` and `Scope.Definition` traversal, with identifier-to-variable lookup delegated to the standard `findVariable` scope-chain walk instead of a hand-rolled one.
 
 **Verdict**: The SPEC's propagation is unified through HIR instructions. The IMPL manually traces assignments and re-assignments through ESLint scope/reference APIs.
 
@@ -53,7 +53,7 @@ The IMPL traces `VariableDeclarator.init` via `resolveDynamicValue`. Re-assignme
 
 The SPEC triggers when it encounters a `JsxExpression` instruction where the tag identifier is in `knownDynamicComponents`. It checks any identifier in JSX component position that is tracked as dynamic.
 
-The IMPL collects `JSXOpeningElement` candidates with component-like names (`core.isFunctionComponentName`), then validates at `Program:exit`. It only checks JSX elements with `JSXIdentifier` names; namespace/components (`<Foo.Bar />`) are ignored due to the `node.name.type !== AST.JSXIdentifier` check.
+The IMPL collects `JSXOpeningElement` candidates with component-like names (`core.isFunctionComponentName`) into a typed `JsxComponentCandidate` list (storing the `JSXIdentifier` directly), then validates at `Program:exit`. It only checks JSX elements with `JSXIdentifier` names; namespace/components (`<Foo.Bar />`) are ignored due to the `node.name.type !== AST.JSXIdentifier` check performed during collection.
 
 **Verdict**: The IMPL has an additional filtering layer (function-component name heuristic) before performing expensive variable tracing, whereas the SPEC checks any dynamic identifier used in JSX.
 
@@ -79,4 +79,4 @@ Both sides report dual locations:
 4. **Component Detection Overhead**: The IMPL performs full function-component detection with hints (`FunctionComponentDetectionHint`) to establish render boundaries, whereas the SPEC operates directly on `HIRFunction` boundaries.
 5. **JSX Namespace Filtering**: The IMPL ignores JSX member expressions (`<Foo.Bar />`) due to the `node.name.type !== AST.JSXIdentifier` check. The SPEC does not explicitly mention such filtering.
 6. **Class-Field Arrow Render Helpers**: When a nested component is defined inside a class-field arrow function acting as a render helper (e.g., `_renderMessage = () => { const Message = () => ...; return <Message />; }`), the IMPL does **not** flag `Message` as dynamic. The class-field arrow is not recognized as a function-component boundary by `core.getFunctionComponentCollector`, so `getEnclosingComponent` either misses the boundary or resolves to the outer class component in a way that does not surface the violation. The SPEC's HIR-block analysis tracks dynamic components across all blocks uniformly and would flag this.
-7. **CallExpression Reassignment of External Components**: If an external (non-dynamic) component is reassigned via a `CallExpression` such as `useMemo(() => Component, [Component])`, the IMPL flags the reassigned variable as dynamic because `resolveDynamicValue` returns the `CallExpression` node without inspecting the call's return value. The SPEC's HIR analysis would see through the `useMemo` to the underlying external component and not flag it.
+7. **CallExpression Reassignment of External Components**: If an external (non-dynamic) component is reassigned via a `CallExpression` such as `useMemo(() => Component, [Component])`, the IMPL flags the reassigned variable as dynamic because `findDynamicCreationSite` returns the `CallExpression` node without inspecting the call's return value. The SPEC's HIR analysis would see through the `useMemo` to the underlying external component and not flag it.

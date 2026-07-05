@@ -46,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const fc = core.getFunctionComponentCollector(context, { hint });
   const cc = core.getClassComponentCollector(context);
 
-  const jsxCandidates: Array<{ name: string; node: TSESTree.JSXOpeningElement }> = [];
+  const candidates: JsxComponentCandidate[] = [];
 
   return merge(
     fc.visitor,
@@ -56,53 +56,73 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (node.name.type !== AST.JSXIdentifier) return;
         const name = node.name.name;
         if (!core.isFunctionComponentName(name)) return;
-        jsxCandidates.push({ name, node });
+        candidates.push({ name, identifier: node.name });
       },
       "Program:exit"(program) {
-        const fComponents = [...fc.api.getAllComponents(program)];
-        const cComponents = [...cc.api.getAllComponents(program)];
-
-        function getEnclosingComponent(node: TSESTree.Node) {
-          return Traverse.findParent(node, (n) => {
-            if (Check.isFunction(n)) return fComponents.some((c) => c.node === n);
-            if (Check.isClass(n)) return cComponents.some((c) => c.node === n);
-            return false;
-          });
-        }
-
-        const isInsideRender = (node: TSESTree.Node) => getEnclosingComponent(node) != null;
-
-        for (const { name, node: jsxNode } of jsxCandidates) {
-          // tsl-ignore dx/no-unsafe-as
-          const jsxName = jsxNode.name as TSESTree.JSXIdentifier;
-          const variable = findVariableForIdentifier(context, jsxName);
-          if (variable == null || variable.defs.length === 0) continue;
-
-          const def = variable.defs.at(0);
-          if (def == null) continue;
-          const defNode = def.node;
-
-          const enclosing = getEnclosingComponent(defNode);
-          if (enclosing == null) continue;
-
-          const result = getDynamicComponentSource(context, variable, isInsideRender);
-          if (!result.isDynamic) continue;
-
-          context.report({
-            data: { name },
-            messageId: "default",
-            node: jsxNode.name,
-          });
-
-          if (result.creationNode != null) {
-            context.report({
-              data: { name },
-              messageId: "createdHere",
-              node: result.creationNode,
-            });
-          }
+        const isInsideRender = createRenderBoundaryChecker(fc, cc, program);
+        for (const candidate of candidates) {
+          reportIfCreatedDuringRender(context, candidate, isInsideRender);
         }
       },
     },
   );
+}
+
+interface JsxComponentCandidate {
+  name: string;
+  identifier: TSESTree.JSXIdentifier;
+}
+
+/**
+ * Builds a predicate that tells whether a given node lies within the body of a
+ * previously-collected function or class component, i.e. whether it is "created during render".
+ */
+function createRenderBoundaryChecker(
+  fc: ReturnType<typeof core.getFunctionComponentCollector>,
+  cc: ReturnType<typeof core.getClassComponentCollector>,
+  program: TSESTree.Program,
+) {
+  const componentNodes = new Set([
+    ...fc.api.getAllComponents(program),
+    ...cc.api.getAllComponents(program),
+  ].map((component) => component.node));
+
+  const getEnclosingComponent = (node: TSESTree.Node) => Traverse.findParent(node, (n) => (Check.isFunction(n) || Check.isClass(n)) && componentNodes.has(n));
+
+  return (node: TSESTree.Node) => getEnclosingComponent(node) != null;
+}
+
+function reportIfCreatedDuringRender(
+  context: RuleContext<MessageID, []>,
+  candidate: JsxComponentCandidate,
+  isInsideRender: (node: TSESTree.Node) => boolean,
+) {
+  const { name, identifier } = candidate;
+
+  const variable = findVariableForIdentifier(context, identifier);
+  if (variable == null) return;
+
+  const def = variable.defs.at(0);
+  if (def == null) return;
+
+  // The declaration of the component's value must itself live inside a component's render body
+  // for it to be a candidate for "created during render".
+  if (!isInsideRender(def.node)) return;
+
+  const { creationNode, isDynamic } = getDynamicComponentSource(context, variable, isInsideRender);
+  if (!isDynamic) return;
+
+  context.report({
+    data: { name },
+    messageId: "default",
+    node: identifier,
+  });
+
+  if (creationNode != null) {
+    context.report({
+      data: { name },
+      messageId: "createdHere",
+      node: creationNode,
+    });
+  }
 }
