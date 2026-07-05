@@ -8,7 +8,8 @@ const functionComponentCollectorSequence = mermaid`
     participant Collector as getFunctionComponentCollector
     participant Visitor as visitor
     participant Stack as functionEntries (stack)
-    participant Detect as function-component.ts
+    participant FnUtil as function.ts
+    participant FnComponent as function-component.ts
     participant Components as components (Map)
 
     Rule->>Collector: getFunctionComponentCollector(context, options)
@@ -16,33 +17,38 @@ const functionComponentCollectorSequence = mermaid`
 
     loop AST traversal
       Rule->>Visitor: ":function" (enter)
-      Visitor->>Detect: getFunctionComponentId / getFunctionInitPath / getFunctionDirectives
-      Detect-->>Visitor: id, initPath, directives
-      Visitor->>Detect: isFunctionComponentDefinition(context, node, hint)
-      Detect-->>Visitor: true / false
+      Visitor->>FnComponent: getFunctionComponentId(context, node)
+      Visitor->>FnUtil: getFunctionInitPath(node), getFunctionDirectives(node)
+      Visitor->>FnComponent: getFunctionComponentFlagFromInitPath(initPath)
+      Visitor->>FnComponent: isFunctionComponentDefinition(context, node, hint)
+      FnComponent-->>Visitor: isFunctionComponentDefinition
       Visitor->>Stack: push(entry)
-      opt is component definition and has "use memo" / "use no memo" directive
-        Visitor->>Components: set(entry.key, entry)
+      opt isFunctionComponentDefinition and isFunctionWithLooseComponentName(node)
+        opt directives include "use memo" / "use no memo"
+          Visitor->>Components: set(entry.key, entry)
+        end
       end
 
       Rule->>Visitor: ReturnStatement / implicit arrow return
       Visitor->>Stack: peek current entry
       Visitor->>Stack: entry.rets.push(argument)
-      opt is component definition and return value is JSX-like
-        Visitor->>Components: set(entry.key, entry)
+      opt isFunctionComponentDefinition
+        opt already collected or isJsxLike(context, argument, hint)
+          Visitor->>Components: set(entry.key, entry)
+        end
       end
 
       Rule->>Visitor: CallExpression
       opt isHookCall(node)
         Visitor->>Stack: entry.hookCalls.push(node)
-        opt is component definition
+        opt isFunctionComponentDefinition
           Visitor->>Components: set(entry.key, entry)
         end
       end
 
       opt collectDisplayName enabled
         Rule->>Visitor: "Component.displayName = ..." assignment
-        Visitor->>Components: find component by name, set displayName
+        Visitor->>Components: findLast component by name, set displayName
       end
 
       Rule->>Visitor: ":function:exit"
@@ -81,7 +87,7 @@ const ruleDocumentationPipeline = mermaid`
     end
 
     subgraph Pass3["Pass 3: Site metadata"]
-      MetaJson["generateRuleMetaJson\ngroup by category, sort A-Z"]
+      MetaJson["generateRuleMetaJson\ngroup by category (fixed order), sort rules A-Z"]
       ProcChangelog["processChangelog\nadd frontmatter, strip H1"]
     end
 
