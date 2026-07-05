@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         const initialScope = context.sourceCode.getScope(left);
         // Specifically check for 'NaN', which is a falsy value that gets rendered
-        if (Check.isIdentifier("NaN")(left) || getStaticValue(left, initialScope)?.value === "NaN") {
+        if (Check.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
             data: { value: context.sourceCode.getText(left) },
             messageId: "default",

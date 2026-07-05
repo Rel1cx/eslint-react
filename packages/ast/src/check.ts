@@ -7,18 +7,13 @@ export const is = ASTUtils.isNodeOfType;
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
 // Directive check
-export function isDirective(name: string) {
-  return (node: TSESTree.Node): node is TSESTreeDirective => node.type === AST.ExpressionStatement && node.directive === name;
+export function isDirective(node: TSESTree.Node, name?: string): node is TSESTreeDirective {
+  return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
 }
 
 // Identifier check
-export function isIdentifier(name: string) {
-  return (node: TSESTree.Node): node is TSESTree.Identifier => node.type === AST.Identifier && node.name === name;
-}
-
-// Checks whether the given node is string literal or not
-export function isStringLiteral(node: TSESTree.Node): node is TSESTree.StringLiteral {
-  return node.type === AST.Literal && typeof node.value === "string";
+export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTree.Identifier {
+  return node.type === AST.Identifier && (name == null || node.name === name);
 }
 
 // Composite type guards

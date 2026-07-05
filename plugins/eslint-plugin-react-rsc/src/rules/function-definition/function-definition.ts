@@ -4,6 +4,7 @@ import * as core from "@eslint-react/core";
 import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { P, isMatching } from "ts-pattern";
 
 export const RULE_NAME = "function-definition";
 
@@ -69,7 +70,7 @@ function isDirectiveName(value: unknown): value is DirectiveName {
 function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
   if (stmt.type !== AST.ExpressionStatement) return null;
   const { expression } = stmt;
-  if (Check.isStringLiteral(expression)) {
+  if (isMatching({ type: AST.Literal, value: P.string }, expression)) {
     if (!isDirectiveName(expression.value)) return null;
     return {
       kind: stmt.directive != null ? "well-formed" : "misplaced",
@@ -90,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const text = context.sourceCode.text;
   if (!text.includes("use server") && !text.includes("use client")) return {};
 
-  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some(Check.isDirective("use server"));
+  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
   /**
    * Build a fix that makes `node` an async function
