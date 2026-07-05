@@ -39,25 +39,36 @@ The IMPL allows ref writes inside null-check if blocks via `isRefCurrentNullChec
 
 **Key Differences:**
 
-| Scenario                                                     | SPEC                                                   | IMPL                               |
-| ------------------------------------------------------------ | ------------------------------------------------------ | ---------------------------------- |
-| `if (r.current == null) { r.current = 42; }`                 | Allowed                                                | Allowed                            |
-| `if (r.current == null) { r.current = 42; r.current = 42; }` | **Second write disallowed**                            | **Both allowed**                   |
-| `if (r.current == null) { f(r.current); }`                   | **Disallowed** (passing ref to function in init block) | **Allowed** (treated as lazy init) |
-| `if (r.current == DEFAULT_VALUE) { r.current = 1; }`         | Allowed (conditional block) [NEEDS VERIFICATION]       | **Disallowed** (not a null check)  |
-| `if (!(r.current === null)) return; r.current = value;`      | Allowed                                                | Allowed                            |
+| Scenario                                                                              | SPEC                                                   | IMPL                                                                                                                |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `if (r.current == null) { r.current = 42; }`                                          | Allowed                                                | Allowed                                                                                                             |
+| `if (r.current == null) { r.current = 42; r.current = 42; }`                          | **Second write disallowed**                            | **Second write disallowed** (`duplicateRefInit`)                                                                    |
+| `if (r.current == null) { r.current = 1; } if (r.current == null) { r.current = 2; }` | **Second write disallowed**                            | **Second write disallowed** (`duplicateRefInit`, tracked per-ref across the whole component, not just per-if-block) |
+| `if (r.current == null) { f(r.current); }`                                            | **Disallowed** (passing ref to function in init block) | **Allowed** (treated as lazy init)                                                                                  |
+| `if (r.current == DEFAULT_VALUE) { r.current = 1; }`                                  | Allowed (conditional block) [NEEDS VERIFICATION]       | **Disallowed** (not a null check)                                                                                   |
+| `if (!(r.current === null)) return; r.current = value;`                               | Allowed                                                | Allowed                                                                                                             |
 
-**Verdict**: The SPEC is stricter about what happens inside lazy-init blocks (only one assignment, no reads passed to functions). The IMPL treats the entire if-block as a protected region.
+**Verdict**: The IMPL now also rejects duplicate null-guarded initializations (Phase 4 of `refs.spec.md`), matching the SPEC for the single-assignment case. It is still more permissive about reads/function-calls performed inside an otherwise-valid guard block.
 
 ---
 
 ## 4. Nested Function / Callback Handling
 
-The SPEC can track ref accesses through nested functions that are synchronously invoked during render (e.g., `const fn = () => ref.current; fn();`).
+The SPEC can track ref accesses through nested functions that are synchronously invoked during render (e.g., `const fn = () => ref.current; fn();`), via a `refMutatingFunctions`-style map (see Phase 2/3 of `refs.spec.md`).
 
-The IMPL uses `Traverse.findParent(node, Check.isFunction) !== boundary` to skip any ref access inside a nested function, regardless of whether that function is invoked during render or passed out as a callback.
+The IMPL now builds an analogous map (`functionVarBindings` + `directCallSites`, combined into a per-boundary "reached during render" set via `computeReachedFunctions`) and only treats a nested function as a protective boundary if it is never actually called (directly, or through a simple variable alias) from somewhere that is itself reached during render. This closes the gap for patterns like:
 
-**Verdict**: The IMPL has a known blind spot for synchronously-invoked callbacks during render (see FIXMEs in spec). The SPEC's HIR analysis catches these.
+```javascript
+const setRef = () => {
+  ref.current = false;
+};
+const changeRef = setRef;
+changeRef(); // now flagged
+```
+
+**Remaining gap**: the IMPL deliberately does _not_ treat inline callbacks passed to array iteration methods (`.map`, `.forEach`, etc.) or to hooks (`useState`, `useReducer`, `useEffect`, ...) as "reached during render", because ESLint's existing test suite intentionally allows mutating/reading a ref inside such callbacks (a common, accepted pattern). The SPEC's HIR analysis, which has access to real calling-convention information for well-known APIs, is stricter here. Functions assigned to object/member-expression properties (`object.foo = () => ref.current`) are also not tracked, only plain variable bindings.
+
+**Verdict**: The most common form of the gap (a locally-defined helper being called, possibly via alias, directly during render) is now closed. The array-method/hook-callback and member-expression-bound-function cases remain open by design.
 
 ---
 
@@ -102,10 +113,12 @@ The IMPL only tracks direct `.current` assignments. `ref.current.inner = value` 
 
 ## 8. Key Gaps and Deviations
 
-1. **Lazy Init Block Strictness**: The SPEC allows only a single assignment inside a lazy-init block and disallows passing the ref to functions within that block. The IMPL protects the entire if-block uniformly.
+1. **Lazy Init Block Strictness**: The SPEC disallows passing the ref to functions within a guard block; the IMPL still allows this (only the duplicate-assignment case is now caught, see §3).
 2. **Nested Property Writes**: The IMPL does not detect `ref.current.inner = value` as a write; it reports it as a read.
 3. **Render Helper False Positive**: The IMPL flags `props.render(ref)` as `refPassedToFunction`, but the SPEC allows passing refs to render helpers. [NEEDS VERIFICATION]
-4. **Synchronously Invoked Callbacks**: The IMPL skips all nested functions, missing ref accesses in lambdas that are immediately invoked during render (e.g., `const fn = () => ref.current; fn();`).
-5. **State Initializer / Reducer Blind Spots**: The IMPL skips ref accesses inside `useState(() => ref.current)` and `useReducer(() => ref.current)` because they are nested functions. The SPEC catches these.
-6. **MemberExpression.current Support**: The IMPL only supports `Identifier.current` (e.g., `ref.current`). It does not support `props.ref.current` where the base is a MemberExpression.
+4. ~~**Synchronously Invoked Callbacks**~~: **Fixed** for direct/aliased calls to locally-defined helper functions (see §4). Still open for callbacks passed to array iteration methods or hooks, by design (see §4).
+5. **State Initializer / Reducer Blind Spots**: The IMPL skips ref accesses inside `useState(() => ref.current)` and `useReducer(() => ref.current)` because they are nested functions. The SPEC catches these. Not fixed, to avoid conflating with the (allowed) reducer-function and effect-callback arguments of the same hooks.
+6. ~~**MemberExpression.current Support**~~: **Fixed**. The IMPL now also recognizes `props.ref.current` (and other `*Ref` member-expression bases), not just `Identifier.current`. Lazy-init guard detection is not supported for this shape.
 7. **Non-null Lazy Init Guards**: The IMPL only recognizes `== null` / `=== null` checks for lazy init. Guards like `if (r.current == DEFAULT_VALUE)` are not recognized.
+8. **Duplicate Ref Initialization**: **Added**. The IMPL now reports `duplicateRefInit` when a ref is guarded-initialized more than once within the same component/hook, matching the SPEC's Validation Rule #3.
+9. **Object/Member-Expression-Bound Functions**: The IMPL's reachability analysis (§4) only tracks functions bound to plain variables (`const fn = () => {...}`), not to object properties (`object.foo = () => {...}`).

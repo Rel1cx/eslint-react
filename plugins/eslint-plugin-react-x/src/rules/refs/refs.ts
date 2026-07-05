@@ -12,7 +12,7 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "readDuringRender" | "writeDuringRender" | "refPassedToFunction";
+export type MessageID = "readDuringRender" | "writeDuringRender" | "refPassedToFunction" | "duplicateRefInit";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -21,6 +21,8 @@ export default createRule<[], MessageID>({
       description: "Validates correct usage of refs by checking that 'ref.current' is not read or written during render.",
     },
     messages: {
+      duplicateRefInit:
+        "Ref is initialized more than once during render. Only a single 'if (ref.current == null)' initialization is allowed; move any additional initialization into an effect or event handler.",
       readDuringRender:
         "Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.",
       refPassedToFunction:
@@ -45,6 +47,65 @@ function resolveAlias(name: string, aliases: Map<string, string>): string {
   return name;
 }
 
+function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
+  return node.type === AST.FunctionExpression || node.type === AST.ArrowFunctionExpression;
+}
+
+/**
+ * Phase 2 (part): compute the set of functions that are "reached" during render for a given
+ * component/hook boundary. A function is reached if it is the boundary itself, or if it is
+ * directly called (possibly through a simple variable alias, e.g. `const b = a; b();`) from
+ * somewhere that is itself reached. This lets us detect ref mutations/reads that happen inside
+ * a helper function which is invoked synchronously during render (see "Ref Mutation in Called
+ * Function" in refs.spec.md), as opposed to functions that are merely defined and handed off
+ * to be called later (e.g. event handlers, effect callbacks).
+ */
+function computeReachedFunctions(
+  boundary: TSESTreeFunction,
+  isCompOrHookFn: (n: TSESTree.Node) => n is TSESTreeFunction,
+  functionVarBindings: Map<string, TSESTreeFunction>,
+  directCallSites: { calleeName: string; node: TSESTree.CallExpression }[],
+  aliases: Map<string, string>,
+): Set<TSESTreeFunction> {
+  const reached = new Set<TSESTreeFunction>([boundary]);
+  const relevantCalls = directCallSites.filter((c) => Traverse.findParent(c.node, isCompOrHookFn) === boundary);
+
+  let changed = true;
+  for (let iterations = 0; changed && iterations < 50; iterations++) {
+    changed = false;
+    for (const { calleeName, node: callNode } of relevantCalls) {
+      const hostFn = Traverse.findParent(callNode, Check.isFunction) ?? boundary;
+      if (!reached.has(hostFn)) continue;
+      const resolvedName = resolveAlias(calleeName, aliases);
+      const target = functionVarBindings.get(resolvedName);
+      if (target == null || reached.has(target)) continue;
+      if (Traverse.findParent(target, isCompOrHookFn) !== boundary) continue;
+      reached.add(target);
+      changed = true;
+    }
+  }
+
+  return reached;
+}
+
+/**
+ * Phase 2 (part): determine whether a ref access node is reached unconditionally during render,
+ * i.e. every function boundary between the access and the component/hook `boundary` is itself
+ * a function that gets invoked during render (see `computeReachedFunctions`).
+ */
+function isReachedDuringRender(
+  node: TSESTree.Node,
+  boundary: TSESTreeFunction,
+  reached: Set<TSESTreeFunction>,
+): boolean {
+  let current = node.parent;
+  while (current != null && current !== boundary) {
+    if (Check.isFunction(current) && !reached.has(current)) return false;
+    current = current.parent;
+  }
+  return true;
+}
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hc = core.getHookCollector(context);
   const fc = core.getFunctionComponentCollector(context);
@@ -61,17 +122,30 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Ref identifiers passed as arguments to non-hook function calls
   const refPassedToFunctions: { callNode: TSESTree.CallExpression; node: TSESTree.Identifier }[] = [];
 
+  // Phase 1: variables bound directly to a function value, e.g. `const setRef = () => {...}`
+  const functionVarBindings = new Map<string, TSESTreeFunction>();
+
+  // Phase 2: every call site of the shape `someIdentifier(...)`, used to compute which
+  // functions are reached (i.e. invoked) during render
+  const directCallSites: { calleeName: string; node: TSESTree.CallExpression }[] = [];
+
   return merge(
     hc.visitor,
     fc.visitor,
     {
-      // Track reassignment aliases: alias = ref;
+      // Track reassignment aliases: alias = ref; and alias = someFunction;
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.operator !== "=") return;
         const left = Extract.unwrap(node.left);
         const right = Extract.unwrap(node.right);
-        if (left.type !== AST.Identifier || right.type !== AST.Identifier) return;
-        aliases.set(left.name, right.name);
+        if (left.type !== AST.Identifier) return;
+        if (right.type === AST.Identifier) {
+          aliases.set(left.name, right.name);
+          return;
+        }
+        if (isFunctionExpressionLike(right)) {
+          functionVarBindings.set(left.name, right);
+        }
       },
       // Track refs passed to non-hook function calls
       CallExpression(node: TSESTree.CallExpression) {
@@ -81,6 +155,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           : callee.type === AST.MemberExpression
           ? Extract.getPropertyName(callee.property)
           : null;
+        // Phase 2: record every direct `identifier(...)` call site, regardless of what it is,
+        // so we can later determine which locally-defined functions are reached during render.
+        if (callee.type === AST.Identifier) {
+          directCallSites.push({ calleeName: callee.name, node });
+        }
         if (calleeName != null && (calleeName.startsWith("use") || calleeName === "mergeRefs")) return;
         for (const arg of node.arguments) {
           const unwrapped = Extract.unwrap(arg);
@@ -145,18 +224,45 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         const isCompOrHookFn = (n: TSESTree.Node): n is TSESTreeFunction => Check.isFunction(n) && funcs.has(n);
 
+        // Phase 2: cache the set of functions reached during render, per component/hook boundary
+        const reachedCache = new Map<TSESTreeFunction, Set<TSESTreeFunction>>();
+        function getReached(boundary: TSESTreeFunction): Set<TSESTreeFunction> {
+          let reached = reachedCache.get(boundary);
+          if (reached == null) {
+            reached = computeReachedFunctions(boundary, isCompOrHookFn, functionVarBindings, directCallSites, aliases);
+            reachedCache.set(boundary, reached);
+          }
+          return reached;
+        }
+
+        // Phase 4: track, per boundary, which refs have already had a single null-guarded
+        // initialization recorded (see "Duplicate ref initialization" in refs.spec.md)
+        const lazyInitSeen = new Map<TSESTreeFunction, Set<string>>();
+
         for (const { isWrite, node } of refAccesses) {
-          // Inline isRefIdentifier — must be accessing .current on a ref
           const obj = Extract.unwrap(node.object);
-          if (obj.type !== AST.Identifier) continue;
-          const resolvedName = resolveAlias(obj.name, aliases);
-          switch (true) {
-            case resolvedName === "ref" || resolvedName.endsWith("Ref"):
-            case jsxRefIdentifiers.has(resolvedName):
-            case isInitializedFromRef(context, resolvedName, context.sourceCode.getScope(node.object)):
-              break;
-            default:
-              continue;
+
+          // A ref-like base is usually a plain identifier (`ref.current`), but can also be a
+          // member expression whose property looks like a ref (`props.ref.current`)
+          let refName: string | null = null;
+          if (obj.type === AST.Identifier) {
+            const resolvedName = resolveAlias(obj.name, aliases);
+            switch (true) {
+              case resolvedName === "ref" || resolvedName.endsWith("Ref"):
+              case jsxRefIdentifiers.has(resolvedName):
+              case isInitializedFromRef(context, resolvedName, context.sourceCode.getScope(node.object)):
+                refName = resolvedName;
+                break;
+              default:
+                continue;
+            }
+          } else if (obj.type === AST.MemberExpression) {
+            const propName = Extract.getPropertyName(obj.property);
+            if (propName == null || (propName !== "ref" && !propName.endsWith("Ref"))) continue;
+            // Lazy-init guard detection below needs a simple identifier ref name, which this
+            // shape doesn't have; every access through it is therefore treated as immediate.
+          } else {
+            continue;
           }
 
           // Find the enclosing component or hook function
@@ -165,7 +271,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Not inside a component or hook - could be a ref used in a non-React function, which is fine
           if (boundary == null) continue;
 
-          if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) continue;
+          // Phase 2: skip only when some function between this access and the boundary is never
+          // actually invoked during render (e.g. an event handler or effect callback); functions
+          // that are called synchronously during render do not shield accesses inside them.
+          if (!isReachedDuringRender(node, boundary, getReached(boundary))) continue;
 
           //
           // Standard:
@@ -174,13 +283,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Inverted (with early return):
           //   if (ref.current !== null) { return ...; }
           //   ref.current = computeValue();
-          const refName = resolvedName;
-          let isLazyInit = isInNullCheckTest(node);
-          if (!isLazyInit) {
+          let isLazyInit = refName != null && isInNullCheckTest(node);
+          let matchedGuardIf = false;
+          if (!isLazyInit && refName != null) {
             let current: TSESTree.Node = node.parent;
             findIf: for (;;) {
               if (current.type === AST.IfStatement) {
-                if (isRefCurrentNullCheck(current.test, refName)) isLazyInit = true;
+                if (isRefCurrentNullCheck(current.test, refName)) {
+                  isLazyInit = true;
+                  matchedGuardIf = true;
+                }
                 break;
               }
               switch (current.type) {
@@ -205,7 +317,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             }
           }
 
-          if (!isLazyInit && isWrite) {
+          if (!isLazyInit && isWrite && refName != null) {
             let stmt: TSESTree.Node = node;
             while (stmt.parent != null && stmt.parent.type !== AST.BlockStatement) {
               stmt = stmt.parent;
@@ -227,6 +339,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             }
           }
 
+          // Phase 4: a null-guarded write is only allowed once per ref within a given
+          // component/hook; any further guarded write to the same ref is a duplicate init.
+          if (isLazyInit && matchedGuardIf && isWrite && refName != null) {
+            const seen = lazyInitSeen.get(boundary) ?? new Set<string>();
+            lazyInitSeen.set(boundary, seen);
+            if (seen.has(refName)) {
+              context.report({ messageId: "duplicateRefInit", node });
+              continue;
+            }
+            seen.add(refName);
+          }
+
           if (isLazyInit) continue;
 
           context.report({
@@ -241,7 +365,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const { node } of refPassedToFunctions) {
           const boundary = Traverse.findParent(node, isCompOrHookFn);
           if (boundary == null) continue;
-          if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) continue;
+          if (!isReachedDuringRender(node, boundary, getReached(boundary))) continue;
 
           context.report({
             messageId: "refPassedToFunction",
@@ -249,13 +373,19 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         }
       },
-      // Track simple variable aliases: const alias = ref;
+      // Track simple variable aliases: const alias = ref; and function bindings: const fn = () => {...};
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
         if (node.init == null) return;
         const id = node.id;
+        if (id.type !== AST.Identifier) return;
         const init = Extract.unwrap(node.init);
-        if (id.type !== AST.Identifier || init.type !== AST.Identifier) return;
-        aliases.set(id.name, init.name);
+        if (init.type === AST.Identifier) {
+          aliases.set(id.name, init.name);
+          return;
+        }
+        if (isFunctionExpressionLike(init)) {
+          functionVarBindings.set(id.name, init);
+        }
       },
     },
   );

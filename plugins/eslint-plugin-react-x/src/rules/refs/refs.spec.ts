@@ -789,12 +789,47 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
+    // Duplicate null-guarded initialization: only the first guarded write is allowed, a second
+    // guarded write to the same ref elsewhere in the component is an error
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = 1;
+          }
+          if (ref.current == null) {
+            ref.current = 2;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
+    // Duplicate null-guarded initialization within the same if-block
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = 1;
+            ref.current = 2;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
     // -------------------------------------------------------------------------
     // FIXME: React Compiler catches these, but ESLint refs rule does not yet
     // -------------------------------------------------------------------------
     // FIXME: error.invalid-ref-in-callback-invoked-during-render
-    // Synchronous callbacks (map/forEach) execute during render but are skipped
-    // because the rule treats all nested functions as safe.
+    // React Compiler catches this because `renderItem` is invoked synchronously from inside
+    // the inline callback passed to `.map()`. We deliberately do NOT treat callbacks passed to
+    // array methods (map/forEach/etc.) as "reached during render": doing so would conflict with
+    // the intentionally-valid "ref mutation inside .map()/.forEach() callback" patterns below
+    // (see "Ref mutation inside forEach callback" and "Ref mutation inside map callback used in
+    // JSX" in the valid section), which are common, accepted React patterns.
     /*
     {
       code: tsx`
@@ -811,7 +846,11 @@ ruleTester.run(RULE_NAME, rule, {
     },
     */
     // FIXME: error.invalid-access-ref-in-state-initializer
-    // State initializer callbacks are treated as nested functions and skipped.
+    // The lazy initializer passed to `useState` runs synchronously during render, but is
+    // treated the same as any other hook-callback argument (like useEffect/useMemo/useCallback)
+    // and therefore skipped. Special-casing useState/useReducer initializers specifically would
+    // require distinguishing them from the (allowed) reducer/effect-callback arguments of the
+    // same hooks, which is not attempted here.
     /*
     {
       code: tsx`
@@ -825,7 +864,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     */
     // FIXME: error.invalid-access-ref-in-reducer
-    // Reducer initializer callbacks are treated as nested functions and skipped.
+    // Same reasoning as the useState initializer case above.
     /*
     {
       code: tsx`
@@ -838,9 +877,8 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "readDuringRender" }],
     },
     */
-    // FIXME: error.invalid-read-ref-prop-in-render-property-load
-    // The rule only supports Identifier.current, not MemberExpression.current.
-    /*
+    // error.invalid-read-ref-prop-in-render-property-load
+    // MemberExpression.current is supported when the base looks like a ref (`props.ref`).
     {
       code: tsx`
         function Component(props) {
@@ -850,10 +888,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
-    // FIXME: error.invalid-disallow-mutating-refs-in-render-transitive
-    // Requires recursive analysis of nested functions to detect readRefEffect.
-    /*
+    // error.invalid-disallow-mutating-refs-in-render-transitive
+    // A helper function that mutates a ref is tracked, and calling it (even through a simple
+    // alias) during render is flagged.
     {
       code: tsx`
         function Component() {
@@ -868,9 +905,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
-    */
     // FIXME: error.invalid-aliased-ref-in-callback-invoked-during-render
-    // Alias inside synchronous callback; skipped due to nested-function blind spot.
+    // Same reasoning as error.invalid-ref-in-callback-invoked-during-render above: this relies
+    // on treating the `.map()` callback as reached during render, which we intentionally don't.
     /*
     {
       code: tsx`
@@ -888,7 +925,9 @@ ruleTester.run(RULE_NAME, rule, {
     },
     */
     // FIXME: error.invalid-access-ref-in-render-mutate-object-with-ref-function
-    // Object method that reads ref, then called directly in render.
+    // Functions assigned to object properties (`object.foo = () => ref.current`) are not
+    // tracked by `functionVarBindings`, which only tracks plain variable bindings; extending
+    // it to member-expression targets is not attempted here.
     /*
     {
       code: tsx`
