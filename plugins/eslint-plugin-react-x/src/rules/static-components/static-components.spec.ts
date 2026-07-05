@@ -394,6 +394,77 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Boundary: a `ClassDeclaration` nested directly inside render is dynamic,
+    // mirroring the `FunctionDeclaration` case above.
+    {
+      code: tsx`
+        function Parent() {
+          class ChildComponent extends React.Component {
+            render() {
+              return <div />;
+            }
+          }
+
+          return <ChildComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "ChildComponent" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "ChildComponent" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: only the alternate branch of a ternary is dynamic; the consequent is a
+    // static external reference. The IMPL still flags the whole expression as dynamic.
+    {
+      code: tsx`
+        function Parent({ type }) {
+          const Component = type === "button"
+            ? StaticButton
+            : () => <div>Text</div>;
+
+          return <Component />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Boundary: only the consequent branch of a ternary is dynamic; the alternate is a
+    // static external reference. The IMPL still flags the whole expression as dynamic.
+    {
+      code: tsx`
+        function Parent({ type }) {
+          const Component = type === "button"
+            ? () => <button>Click</button>
+            : StaticText;
+
+          return <Component />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "Component" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "Component" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -534,6 +605,63 @@ ruleTester.run(RULE_NAME, rule, {
           let Component = DefaultComponent;
           fn(Component);
           return <Component />;
+        }
+      `,
+    },
+    // Boundary: JSX member expression tags (e.g. `<Namespace.Bar />`) are ignored entirely,
+    // even when the referenced property is dynamically created.
+    {
+      code: tsx`
+        function Parent() {
+          const Namespace = { Bar: () => <div /> };
+          return <Namespace.Bar />;
+        }
+      `,
+    },
+    // Boundary: a lowercase-named binding is never treated as a component reference,
+    // regardless of how its value was created, because JSX treats lowercase tags as
+    // host elements rather than component references.
+    {
+      code: tsx`
+        function Parent() {
+          const childComponent = () => <div />;
+          return <childComponent />;
+        }
+      `,
+    },
+    // Boundary: hooks (names starting with lowercase "use") are not recognized as
+    // function-component render boundaries, so components nested directly inside a
+    // top-level hook (not itself nested inside a component) are not flagged.
+    {
+      code: tsx`
+        function useFoo() {
+          function Component() {
+            return <div />;
+          }
+          return <Component />;
+        }
+      `,
+    },
+    // Boundary: both branches of the ternary resolve to static/external references,
+    // so the assembled component is not considered dynamic.
+    {
+      code: tsx`
+        function Parent({ type }) {
+          const Component = type === "button" ? StaticButton : StaticText;
+          return <Component />;
+        }
+      `,
+    },
+    // Boundary: mutual reassignment between two variables must not cause infinite
+    // recursion; the cycle-detection guard should terminate and treat it as static.
+    {
+      code: tsx`
+        function Parent() {
+          let A = DefaultComponent;
+          let B = DefaultComponent;
+          A = B;
+          B = A;
+          return <A />;
         }
       `,
     },

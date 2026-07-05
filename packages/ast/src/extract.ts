@@ -33,25 +33,25 @@ export function getPropertyName(node: TSESTree.Node, resolve = (n: TSESTree.Iden
 }
 
 export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSESTree.Node) => string): string {
-  node = unwrap(node);
-  switch (node.type) {
+  const expr = unwrap(node);
+  switch (expr.type) {
     case AST.Identifier:
     case AST.JSXIdentifier:
     case AST.PrivateIdentifier:
-      return node.name;
+      return expr.name;
     case AST.MemberExpression: {
-      if (node.computed) return getText(node);
-      return `${getFullyQualifiedName(node.object, getText)}.${getFullyQualifiedName(node.property, getText)}`;
+      if (expr.computed) return getText(expr);
+      return `${getFullyQualifiedName(expr.object, getText)}.${getFullyQualifiedName(expr.property, getText)}`;
     }
     case AST.JSXMemberExpression:
-      return `${getFullyQualifiedName(node.object, getText)}.${getFullyQualifiedName(node.property, getText)}`;
+      return `${getFullyQualifiedName(expr.object, getText)}.${getFullyQualifiedName(expr.property, getText)}`;
     case AST.JSXNamespacedName:
-      return `${node.namespace.name}:${node.name.name}`;
+      return `${expr.namespace.name}:${expr.name.name}`;
     case AST.JSXText:
-      return node.value;
+      return expr.value;
     case AST.Literal:
-      return node.raw;
+      return expr.raw;
     default:
-      return getText(node);
+      return getText(expr);
   }
 }
