@@ -113,11 +113,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
       let itemRef: TSESTree.Identifier | null = null;
       simpleTraverse(ast, {
         enter(node, parent) {
-          if (
-            node.type === AST.Identifier
-            && node.name === "item"
-            && parent?.type === AST.ExpressionStatement
-          ) {
+          if (node.type === AST.Identifier && node.name === "item" && parent?.type === AST.ExpressionStatement) {
             itemRef = node;
           }
         },

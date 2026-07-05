@@ -82,9 +82,7 @@ export function collectUsedPropKeysOfIdentifier(
     // Skip the declaration site itself
     if (ref.identifier === identifier) continue;
 
-    if (
-      !collectUsedPropKeysOfReference(context, usedPropKeys, ref)
-    ) {
+    if (!collectUsedPropKeysOfReference(context, usedPropKeys, ref)) {
       return false;
     }
   }
@@ -117,10 +115,7 @@ export function collectUsedPropKeysOfReference(
     }
     case AST.VariableDeclarator: {
       // Handle `const { foo, bar } = props` (including wrapped variants)
-      if (
-        parent.id.type === AST.ObjectPattern
-        && parent.init === valueNode
-      ) {
+      if (parent.id.type === AST.ObjectPattern && parent.init === valueNode) {
         return collectUsedPropKeysOfObjectPattern(
           context,
           usedPropKeys,

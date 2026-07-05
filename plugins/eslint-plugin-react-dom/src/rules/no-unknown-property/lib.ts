@@ -989,10 +989,7 @@ export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): Ta
  */
 export function isValidHTMLTagInJSX(childNode: TSESTree.JSXAttribute): boolean {
   const tagConvention = /^[a-z][^-]*$/;
-  if (
-    childNode.parent.name.type === AST.JSXIdentifier
-    && tagConvention.test(childNode.parent.name.name)
-  ) {
+  if (childNode.parent.name.type === AST.JSXIdentifier && tagConvention.test(childNode.parent.name.name)) {
     return !childNode.parent.attributes.some((attrNode) =>
       attrNode.type === AST.JSXAttribute
       && attrNode.name.type === AST.JSXIdentifier

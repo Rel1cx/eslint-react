@@ -1129,11 +1129,7 @@ class CodePathState {
     const forkContext = this.forkContext;
     if (!forkContext.reachable) return;
     const context = getThrowContext(this);
-    if (
-      context === (this as unknown)
-      || (context as TryContext).position !== "try"
-      || !(context as TryContext).thrownForkContext.empty
-    ) return;
+    if (context === (this as unknown) || (context as TryContext).position !== "try" || !(context as TryContext).thrownForkContext.empty) return;
     (context as TryContext).thrownForkContext.add(forkContext.head);
     forkContext.replaceHead(forkContext.makeNext(-1, -1));
   }

@@ -53,9 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const setStateCallParentScope = context.sourceCode.getScope(node).upper;
 
       // Report an error if 'this.setState' is called directly inside 'componentDidMount'
-      if (
-        enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope
-      ) {
+      if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {
         context.report({
           messageId: "default",
           node,

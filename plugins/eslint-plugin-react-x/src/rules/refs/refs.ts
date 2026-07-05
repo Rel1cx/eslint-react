@@ -197,18 +197,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             let parent: TSESTree.Node = node.parent;
             while (Check.isTypeExpression(parent)) parent = parent.parent;
             return match(parent)
-              .with(
-                {
-                  type: AST.AssignmentExpression,
-                },
-                (p) => p.left === node || Extract.unwrap(p.left) === node,
-              )
-              .with(
-                {
-                  type: AST.UpdateExpression,
-                },
-                (p) => p.argument === node || Extract.unwrap(p.argument) === node,
-              )
+              .with({ type: AST.AssignmentExpression }, (p) => p.left === node || Extract.unwrap(p.left) === node)
+              .with({ type: AST.UpdateExpression }, (p) => p.argument === node || Extract.unwrap(p.argument) === node)
               .otherwise(() => false);
           })(),
           node,

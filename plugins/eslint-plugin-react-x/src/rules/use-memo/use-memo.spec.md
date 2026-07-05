@@ -194,10 +194,7 @@ for (const loc of unusedUseMemos.values()) {
 function hasNonVoidReturn(func: HIRFunction): boolean {
   for (const [, block] of func.body.blocks) {
     if (block.terminal.kind === "return") {
-      if (
-        block.terminal.returnVariant === "Explicit"
-        || block.terminal.returnVariant === "Implicit"
-      ) {
+      if (block.terminal.returnVariant === "Explicit" || block.terminal.returnVariant === "Implicit") {
         return true;
       }
     }

@@ -104,10 +104,7 @@ export function isInitializedFromRef(context: RuleContext, name: string, initial
       // const identifier = anotherRef.current;
       case init.type === AST.MemberExpression: {
         const initObj = Extract.unwrap(init.object);
-        if (
-          initObj.type === AST.Identifier
-          && (initObj.name === "ref" || initObj.name.endsWith("Ref"))
-        ) {
+        if (initObj.type === AST.Identifier && (initObj.name === "ref" || initObj.name.endsWith("Ref"))) {
           return true;
         }
         break;

@@ -121,11 +121,7 @@ const rule = {
       if (enableDangerousAutofixThisMayCauseInfiniteLoops) {
         // Used to enable legacy behavior. Dangerous.
         // Keep this as an option until major IDEs upgrade (including VSCode FB ESLint extension).
-        if (
-          Array.isArray(problem.suggest)
-          && problem.suggest.length > 0
-          && problem.suggest[0]
-        ) {
+        if (Array.isArray(problem.suggest) && problem.suggest.length > 0 && problem.suggest[0]) {
           problem.fix = problem.suggest[0].fix;
         }
       }

@@ -82,10 +82,7 @@ for (const block of fn.body.blocks.values()) {
           for (const effect of value.loweredFunc.func.aliasingEffects) {
             if (effect.kind === "Mutate" || effect.kind === "MutateTransitive") {
               // Mark function as mutable if it mutates a context variable
-              if (
-                context.has(effect.value.identifier.id)
-                && !isRefOrRefLikeMutableType(effect.value.identifier.type)
-              ) {
+              if (context.has(effect.value.identifier.id) && !isRefOrRefLikeMutableType(effect.value.identifier.type)) {
                 contextMutationEffects.set(lvalue.identifier.id, effect);
               }
             }

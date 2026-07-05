@@ -31,11 +31,7 @@ function getNestedExpressionsOfType<TNodeType extends AST>(type: TNodeType): (no
     // Generic "expression" field handling — covers ExpressionStatement,
     // ChainExpression, TSNonNullExpression, TSAsExpression, TSSatisfiesExpression,
     // TSTypeAssertion, TSInstantiationExpression, JSXExpressionContainer, etc.
-    if (
-      "expression" in node
-      && node.expression !== true
-      && node.expression !== false
-    ) {
+    if ("expression" in node && node.expression !== true && node.expression !== false) {
       const chunk = recurse(node.expression);
       expressions.push(...chunk);
     }

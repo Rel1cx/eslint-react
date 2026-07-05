@@ -55,13 +55,9 @@ function findIdentifierReferences(ast: TSESTree.Program, name: string): TSESTree
       if (parent.type === AST.ClassDeclaration && parent.id === node) return;
       if (parent.type === AST.ImportSpecifier) return;
       if (parent.type === AST.ImportDefaultSpecifier) return;
+      // dprint-ignore
       // Skip function parameters (Identifier directly inside a function params array)
-      if (
-        (parent.type === AST.FunctionDeclaration
-          || parent.type === AST.FunctionExpression
-          || parent.type === AST.ArrowFunctionExpression)
-        && parent.params.some((p) => p === node)
-      ) {
+      if ((parent.type === AST.FunctionDeclaration || parent.type === AST.FunctionExpression || parent.type === AST.ArrowFunctionExpression) && parent.params.some((p) => p === node)) {
         return;
       }
       refs.push(node);

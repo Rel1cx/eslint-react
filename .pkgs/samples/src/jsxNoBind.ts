@@ -19,11 +19,7 @@ export function jsxNoBind(): RuleFunction {
           break;
         case expr.type === "CallExpression": {
           const callee = ast.unwrap(expr.callee);
-          if (
-            callee.type === "MemberExpression"
-            && callee.property.type === "Identifier"
-            && callee.property.name === "bind"
-          ) {
+          if (callee.type === "MemberExpression" && callee.property.type === "Identifier" && callee.property.name === "bind") {
             context.report({ node, message: "JSX props should not use .bind()." });
           }
           break;
