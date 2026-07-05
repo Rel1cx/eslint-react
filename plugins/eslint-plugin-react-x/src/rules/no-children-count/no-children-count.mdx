@@ -27,7 +27,21 @@ react-x/no-children-count
 
 ## Rule Details
 
-Using `Children` is uncommon and can lead to fragile code. [See common alternatives](https://react.dev/reference/react/Children#alternatives).
+Using `Children.count` to inspect the children tree is a form of React child introspection. It creates fragile coupling between parent and child components:
+
+- Breaks when children are wrapped in HOCs, `forwardRef`, or `memo`.
+- Prevents React from optimizing rendering.
+- Creates implicit contracts that types can't enforce.
+- Makes composition unpredictable with fragments, portals, and other React features.
+
+Prefer these alternatives:
+
+- Compound components with context
+- Render props or slot props
+- Data-driven APIs (array of config objects)
+- CSS-based solutions (grid, flexbox, `:nth-child`, etc.)
+
+[See common alternatives](https://react.dev/reference/react/Children#alternatives).
 
 ## Examples
 
@@ -142,3 +156,4 @@ function ItemList({ items }: ItemListProps) {
 ## Further Reading
 
 - [React Docs: `Children`](https://react.dev/reference/react/Children)
+- [Astryx `no-react-introspection` Rule](https://github.com/facebook/astryx/blob/main/internal/eslint-plugin-astryx/no-react-introspection.js)

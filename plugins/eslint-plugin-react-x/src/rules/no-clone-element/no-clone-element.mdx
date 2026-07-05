@@ -27,7 +27,21 @@ react-x/no-clone-element
 
 ## Rule Details
 
-Using `cloneElement` is uncommon and can lead to fragile code. It also makes it harder to trace data flow. Try the [alternatives](https://react.dev/reference/react/cloneElement#alternatives) instead.
+Using `cloneElement` to inject props into children is a form of React child introspection. It creates fragile coupling between parent and child components:
+
+- Breaks when children are wrapped in HOCs, `forwardRef`, or `memo`.
+- Prevents React from optimizing rendering.
+- Creates implicit contracts that types can't enforce.
+- Makes composition unpredictable with fragments, portals, and other React features.
+
+Prefer these alternatives:
+
+- Compound components with context
+- Render props or slot props
+- Data-driven APIs (array of config objects)
+- CSS-based solutions (grid, flexbox, `:nth-child`, etc.)
+
+Try the [alternatives to `cloneElement`](https://react.dev/reference/react/cloneElement#alternatives) instead.
 
 ## Examples
 
@@ -149,3 +163,4 @@ function App() {
 
 - [React Docs: `cloneElement` Alternatives](https://react.dev/reference/react/cloneElement#alternatives)
 - [Legacy React APIs: `cloneElement`](https://react.dev/reference/react/cloneElement)
+- [Astryx `no-react-introspection` Rule](https://github.com/facebook/astryx/blob/main/internal/eslint-plugin-astryx/no-react-introspection.js)
