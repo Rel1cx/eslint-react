@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added detection of ref mutations/reads inside helper functions that are called (directly, or through a simple variable alias) during render, closing a gap where any nested function was previously treated as a safe boundary regardless of whether it was actually invoked during render.
+- Added `duplicateRefInit` diagnostic: only a single `if (ref.current == null) { ref.current = ... }` guarded initialization is now allowed per ref per component/hook; a second guarded write (in the same or a different `if` block) is now reported.
+- Added support for `.current` accesses whose base is a member expression that looks like a ref (e.g. `props.ref.current`), not just a plain identifier.
+
+### Changed
+
+- Refactored rule internals (`computeReachedFunctions`, `isReachedDuringRender`) to more closely follow the phased algorithm described in `refs.spec.md`.
+- Updated `refs.spec.diff.md` to reflect closed gaps and document remaining, intentional deviations from the React Compiler specification (e.g. callbacks passed to array methods or hooks are still treated as safe, to preserve existing accepted patterns).
+
 ## [5.6.4] - 2026-05-01
 
 ### Changed
