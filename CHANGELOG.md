@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.11.2 (2026-07-05)
+
+### 📝 Documentation
+
+- Updated rule documentation for React introspection APIs (`react-x/no-children-count`, `react-x/no-children-for-each`, `react-x/no-children-map`, `react-x/no-children-only`, `react-x/no-children-to-array`, and `react-x/no-clone-element`) with clearer guidance on why child introspection creates fragile component coupling and links to Astryx's `no-react-introspection` rule. (#1889)
+- Updated the function-component collector sequence diagram on the website.
+- Updated `THIRD-PARTY-LICENSE` file.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.11.0...v5.11.2
+
 ## v5.11.0 (2026-07-05)
 
 ### ✨ New
