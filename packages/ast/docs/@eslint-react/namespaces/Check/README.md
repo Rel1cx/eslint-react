@@ -2,6 +2,8 @@
 
 # Check
 
+Helpers for checking `TSESTree` node types.
+
 ## Variables
 
 | Variable                                                            | Description |

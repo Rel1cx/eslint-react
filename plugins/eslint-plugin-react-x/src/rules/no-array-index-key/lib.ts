@@ -1,4 +1,4 @@
-import { Check, Extract, isOneOf } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -51,7 +51,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
   const def = variable?.defs.at(0);
   if (def == null || def.type !== DefinitionType.Parameter) return false;
   const callback = def.node;
-  if (!isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callback)) return false;
+  if (!Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(callback)) return false;
   // The argument node as it appears in the call, including any TS type wrappers around the callback
   let argument: TSESTree.Node = callback;
   while (Check.isTypeExpression(argument.parent)) {

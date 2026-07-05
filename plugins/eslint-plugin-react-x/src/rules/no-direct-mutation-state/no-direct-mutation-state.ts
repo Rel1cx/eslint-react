@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Traverse, isOneOf } from "@eslint-react/ast";
+import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -13,7 +13,7 @@ export type MessageID = "default";
 function isConstructorFunction(
   node: TSESTree.Node,
 ): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
+  return Check.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
     && Check.isPropertyOrMethod(node.parent)
     && node.parent.key.type === AST.Identifier
     && node.parent.key.name === "constructor";
@@ -42,7 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Find the parent class of the assignment
       const parentClass = Traverse.findParent(
         node,
-        isOneOf([
+        Check.isOneOf([
           AST.ClassDeclaration,
           AST.ClassExpression,
         ]),

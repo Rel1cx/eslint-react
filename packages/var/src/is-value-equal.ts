@@ -1,4 +1,4 @@
-import { Check, Compare, Extract, Traverse, isOneOf } from "@eslint-react/ast";
+import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
@@ -104,8 +104,8 @@ export function isValueEqual(
       if (aScope.block === bScope.block) {
         return true;
       }
-      const aFunction = Traverse.findParent(a, isOneOf(thisBlockTypes));
-      const bFunction = Traverse.findParent(b, isOneOf(thisBlockTypes));
+      const aFunction = Traverse.findParent(a, Check.isOneOf(thisBlockTypes));
+      const bFunction = Traverse.findParent(b, Check.isOneOf(thisBlockTypes));
       return aFunction === bFunction;
     }
     default: {

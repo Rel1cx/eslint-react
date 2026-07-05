@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, is } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -82,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, visited);
+    if (Check.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, visited);
     if (Check.isJSX(node)) return null;
     if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression, visited);
 

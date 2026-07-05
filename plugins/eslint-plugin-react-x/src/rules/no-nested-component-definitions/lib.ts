@@ -1,4 +1,4 @@
-import { type TSESTreeFunction, Traverse, is } from "@eslint-react/ast";
+import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";
@@ -35,7 +35,7 @@ export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.
   const call = Traverse.findParent(node, core.isCreateElementCall(context));
   if (call == null) return false;
   // Check if the node is within an object expression that is the second argument (props) of createElement
-  const prop = Traverse.findParent(node, is(AST.ObjectExpression));
+  const prop = Traverse.findParent(node, Check.is(AST.ObjectExpression));
   if (prop == null) return false;
   return prop === call.arguments[1];
 }

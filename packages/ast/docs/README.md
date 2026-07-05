@@ -2,12 +2,12 @@
 
 ## Namespaces
 
-| Namespace                                               | Description |
-| ------------------------------------------------------- | ----------- |
-| [Check](@eslint-react/namespaces/Check/README.md)       | -           |
-| [Compare](@eslint-react/namespaces/Compare/README.md)   | -           |
-| [Extract](@eslint-react/namespaces/Extract/README.md)   | -           |
-| [Traverse](@eslint-react/namespaces/Traverse/README.md) | -           |
+| Namespace                                               | Description                                               |
+| ------------------------------------------------------- | --------------------------------------------------------- |
+| [Check](@eslint-react/namespaces/Check/README.md)       | Helpers for checking `TSESTree` node types.               |
+| [Compare](@eslint-react/namespaces/Compare/README.md)   | Helpers for comparing `TSESTree` nodes structurally.      |
+| [Extract](@eslint-react/namespaces/Extract/README.md)   | Helpers for extracting information from `TSESTree` nodes. |
+| [Traverse](@eslint-react/namespaces/Traverse/README.md) | Helpers for traversing `TSESTree` nodes.                  |
 
 ## Type Aliases
 
@@ -21,15 +21,3 @@
 | [TSESTreeJSXElementLike](type-aliases/TSESTreeJSXElementLike.md)                         | -           |
 | [TSESTreeMethodOrPropertyDefinition](type-aliases/TSESTreeMethodOrPropertyDefinition.md) | -           |
 | [TSESTreeTypeExpression](type-aliases/TSESTreeTypeExpression.md)                         | -           |
-
-## References
-
-### is
-
-Re-exports [is](@eslint-react/namespaces/Check/variables/is.md)
-
----
-
-### isOneOf
-
-Re-exports [isOneOf](@eslint-react/namespaces/Check/variables/isOneOf.md)

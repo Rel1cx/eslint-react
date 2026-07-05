@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse, isOneOf } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
@@ -296,16 +296,16 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
     ? Extract.unwrap(parent.callee)
     : null;
   switch (true) {
-    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
       && parent.parent.type === AST.ObjectExpression:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsObjectMethod) return false;
       break;
-    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.MethodDefinition:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassMethod) return false;
       break;
-    case isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
+    case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
@@ -338,7 +338,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   // 5. Exclude inline JSX callbacks (event handlers, render props)
   const significantParent = Traverse.findParent(
     node,
-    isOneOf([
+    Check.isOneOf([
       AST.JSXExpressionContainer,
       AST.ArrowFunctionExpression,
       AST.FunctionExpression,

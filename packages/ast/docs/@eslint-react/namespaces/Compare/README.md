@@ -2,6 +2,8 @@
 
 # Compare
 
+Helpers for comparing `TSESTree` nodes structurally.
+
 ## Variables
 
 | Variable                        | Description                  |

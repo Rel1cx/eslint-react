@@ -1,4 +1,4 @@
-import { is } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 // Allow primitive wrapper types, as they are not expensive to call without lazy initialization
@@ -16,7 +16,7 @@ export const LAZY_INIT_ALLOW_LIST = [
  */
 // dprint-ignore
 function getNestedExpressionsOfType<TNodeType extends AST>(type: TNodeType): (node: TSESTree.Node) => Extract<TSESTree.Node, { type: TNodeType }>[] {
-  const isNodeOfType = is(type);
+  const isNodeOfType = Check.is(type);
   const recurse = (node: TSESTree.Node): Extract<TSESTree.Node, { type: TNodeType }>[] => {
     const expressions: Extract<TSESTree.Node, { type: TNodeType }>[] = [];
     // Base case: the node itself matches the target type

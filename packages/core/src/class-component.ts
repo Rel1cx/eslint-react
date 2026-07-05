@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeClass, type TSESTreeFunction, type TSESTreeMethodOrPropertyDefinition, isOneOf } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeClass, type TSESTreeFunction, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { SemanticNode } from "./semantic";
 
@@ -116,7 +116,7 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
   return Check.isPropertyOrMethod(node)
     && node.key.type === AST.Identifier
     && node.key.name.startsWith("render")
-    && isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
+    && Check.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
 
 export function isRenderMethodCallback(node: TSESTreeFunction) {

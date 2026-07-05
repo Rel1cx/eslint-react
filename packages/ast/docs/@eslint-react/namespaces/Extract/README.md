@@ -2,6 +2,8 @@
 
 # Extract
 
+Helpers for extracting information from `TSESTree` nodes.
+
 ## Functions
 
 | Function                                                    | Description |

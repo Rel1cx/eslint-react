@@ -1,4 +1,4 @@
-import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse, is } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
 import { constFalse } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -200,7 +200,7 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  const returnStatement = Traverse.findParent(expr, is(AST.ReturnStatement));
+  const returnStatement = Traverse.findParent(expr, Check.is(AST.ReturnStatement));
   const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
   const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 

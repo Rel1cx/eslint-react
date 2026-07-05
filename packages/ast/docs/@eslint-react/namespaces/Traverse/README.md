@@ -2,6 +2,8 @@
 
 # Traverse
 
+Helpers for traversing `TSESTree` nodes.
+
 ## Functions
 
 | Function                              | Description |
