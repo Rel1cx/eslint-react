@@ -1,7 +1,8 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Extract } from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
+import { P, isMatching } from "ts-pattern";
 import { getRequireExpressionArguments } from "./get-require-expression-arguments";
 
 export function resolveImportSource(
@@ -27,7 +28,7 @@ export function resolveImportSource(
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
-    if (arg0 == null || !Check.isStringLiteral(arg0)) {
+    if (arg0 == null || !isMatching({ type: AST.Literal, value: P.string }, arg0)) {
       return null;
     }
     // check for: require('source') or require('source/...')

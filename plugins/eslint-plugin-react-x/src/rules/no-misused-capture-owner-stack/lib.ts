@@ -1,7 +1,9 @@
-import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { P, isMatching } from "ts-pattern";
+
+const isStringLiteral = isMatching({ type: AST.Literal, value: P.string });
 
 /**
  * Check if the given node is a member expression that accesses `process.env.NODE_ENV`
@@ -30,10 +32,10 @@ export function isProcessEnvNodeEnvCompare(
   if (node == null) return false;
   if (node.type !== AST.BinaryExpression) return false;
   if (node.operator !== operator) return false;
-  if (isProcessEnvNodeEnv(context, node.left) && Check.isStringLiteral(node.right)) {
+  if (isProcessEnvNodeEnv(context, node.left) && isStringLiteral(node.right)) {
     return node.right.value === value;
   }
-  if (Check.isStringLiteral(node.left) && isProcessEnvNodeEnv(context, node.right)) {
+  if (isStringLiteral(node.left) && isProcessEnvNodeEnv(context, node.right)) {
     return node.left.value === value;
   }
   return false;

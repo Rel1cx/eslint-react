@@ -3,15 +3,16 @@
 # Function: isIdentifier()
 
 ```ts
-function isIdentifier(name: string): (node: Node) => node is Identifier;
+function isIdentifier(node: Node, name?: string): node is Identifier;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `name` | `string` |
+| `node` | `Node` |
+| `name?` | `string` |
 
 ## Returns
 
-(`node`: `Node`) => `node is Identifier`
+`node is Identifier`

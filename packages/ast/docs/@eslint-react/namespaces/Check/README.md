@@ -26,4 +26,3 @@
 | ------ | ------ |
 | [isDirective](functions/isDirective.md) | - |
 | [isIdentifier](functions/isIdentifier.md) | - |
-| [isStringLiteral](functions/isStringLiteral.md) | - |

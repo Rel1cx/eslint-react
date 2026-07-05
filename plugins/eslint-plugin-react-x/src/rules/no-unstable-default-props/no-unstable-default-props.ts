@@ -82,7 +82,7 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (compilationMode === "annotation" && context.sourceCode.ast.body.some(Check.isDirective("use memo"))) return {};
+  if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
   const declarators = new WeakMap<TSESTreeFunction, ObjectDestructuringVariableDeclarator[]>();

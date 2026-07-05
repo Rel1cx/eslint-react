@@ -118,17 +118,17 @@ export function computeObjectType(
     case AST.CallExpression: {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
-        case Check.isIdentifier("Boolean")(callee):
+        case Check.isIdentifier(callee, "Boolean"):
           return null;
-        case Check.isIdentifier("String")(callee):
+        case Check.isIdentifier(callee, "String"):
           return null;
-        case Check.isIdentifier("Number")(callee):
+        case Check.isIdentifier(callee, "Number"):
           return null;
-        case Check.isIdentifier("Object")(callee):
+        case Check.isIdentifier(callee, "Object"):
           return { kind: "plain", node } as const;
-        case Check.isIdentifier("Array")(callee):
+        case Check.isIdentifier(callee, "Array"):
           return { kind: "array", node } as const;
-        case Check.isIdentifier("RegExp")(callee):
+        case Check.isIdentifier(callee, "RegExp"):
           return { kind: "regexp", node } as const;
       }
 

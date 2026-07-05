@@ -3,15 +3,16 @@
 # Function: isDirective()
 
 ```ts
-function isDirective(name: string): (node: Node) => node is TSESTreeDirective;
+function isDirective(node: Node, name?: string): node is TSESTreeDirective;
 ```
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
-| `name` | `string` |
+| `node` | `Node` |
+| `name?` | `string` |
 
 ## Returns
 
-(`node`: `Node`) => `node is TSESTreeDirective`
+`node is TSESTreeDirective`
