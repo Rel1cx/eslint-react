@@ -5,9 +5,9 @@
 ```ts
 type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
-     property: TSESTree.Identifier & {
-        name: "displayName";
-     };
+    property: TSESTree.Identifier & {
+      name: "displayName";
+    };
   };
   operator: "=";
   right: TSESTree.Literal;
@@ -16,8 +16,8 @@ type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
 
 ## Type Declaration
 
-| Name | Type |
-| ------ | ------ |
-| `left` | `TSESTree.MemberExpression` & \{ `property`: `TSESTree.Identifier` & \{ `name`: `"displayName"`; \}; \} |
-| `operator` | `"="` |
-| `right` | `TSESTree.Literal` |
+| Name       | Type                                                                                                    |
+| ---------- | ------------------------------------------------------------------------------------------------------- |
+| `left`     | `TSESTree.MemberExpression` & \{ `property`: `TSESTree.Identifier` & \{ `name`: `"displayName"`; \}; \} |
+| `operator` | `"="`                                                                                                   |
+| `right`    | `TSESTree.Literal`                                                                                      |

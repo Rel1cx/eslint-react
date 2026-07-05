@@ -10,9 +10,9 @@ Check whether given string is regexp string
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `string` | `string` | The string to check |
+| Parameter | Type     | Description         |
+| --------- | -------- | ------------------- |
+| `string`  | `string` | The string to check |
 
 ## Returns
 

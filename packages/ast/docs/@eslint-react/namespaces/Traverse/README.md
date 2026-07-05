@@ -4,6 +4,6 @@
 
 ## Functions
 
-| Function | Description |
-| ------ | ------ |
-| [findParent](functions/findParent.md) | - |
+| Function                              | Description |
+| ------------------------------------- | ----------- |
+| [findParent](functions/findParent.md) | -           |

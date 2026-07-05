@@ -10,9 +10,9 @@ Determine if a node is the setup function passed to a useEffect-like hook
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` | The AST node to check |
+| Parameter | Type             | Description           |
+| --------- | ---------------- | --------------------- |
+| `node`    | `Node` \| `null` | The AST node to check |
 
 ## Returns
 

@@ -8,9 +8,9 @@ const isRender: (node: Node) => node is TSESTreeMethodOrPropertyDefinition;
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

@@ -4,9 +4,10 @@
 
 ```ts
 function getAttributeValue(
-   context: RuleContext, 
-   element: JSXElement, 
-   name: string): JsxAttributeValue | null;
+  context: RuleContext,
+  element: JSXElement,
+  name: string,
+): JsxAttributeValue | null;
 ```
 
 Find an attribute by name on a JSX element and resolve its value in a single call
@@ -17,11 +18,11 @@ pattern in lint rules.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context |
-| `element` | `JSXElement` | The `JSXElement` node to search |
-| `name` | `string` | The attribute name to look up (ex: "className") |
+| Parameter | Type          | Description                                     |
+| --------- | ------------- | ----------------------------------------------- |
+| `context` | `RuleContext` | The ESLint rule context                         |
+| `element` | `JSXElement`  | The `JSXElement` node to search                 |
+| `name`    | `string`      | The attribute name to look up (ex: "className") |
 
 ## Returns
 

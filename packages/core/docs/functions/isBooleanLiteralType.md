@@ -8,15 +8,15 @@ function isBooleanLiteralType<TType>(type: TType): type is TType & { intrinsicNa
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `TType` *extends* `Type` |
+| Type Parameter           |
+| ------------------------ |
+| `TType` _extends_ `Type` |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `type` | `TType` |
+| Parameter | Type    |
+| --------- | ------- |
+| `type`    | `TType` |
 
 ## Returns
 

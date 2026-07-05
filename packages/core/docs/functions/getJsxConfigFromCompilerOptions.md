@@ -14,8 +14,8 @@ available (e.g. when the file is parsed without type information).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description              |
+| --------- | ------------- | ------------------------ |
 | `context` | `RuleContext` | The ESLint rule context. |
 
 ## Returns

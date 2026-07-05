@@ -14,8 +14,8 @@ repeated calls from different rules analysing the same file are free.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description              |
+| --------- | ------------- | ------------------------ |
 | `context` | `RuleContext` | The ESLint rule context. |
 
 ## Returns

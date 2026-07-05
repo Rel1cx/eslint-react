@@ -11,7 +11,7 @@ type TSESTreeDirective = TSESTree.ExpressionStatement & {
 
 ## Type Declaration
 
-| Name | Type |
-| ------ | ------ |
-| `directive` | `string` |
+| Name         | Type                     |
+| ------------ | ------------------------ |
+| `directive`  | `string`                 |
 | `expression` | `TSESTree.StringLiteral` |

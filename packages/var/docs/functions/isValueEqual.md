@@ -4,20 +4,21 @@
 
 ```ts
 function isValueEqual(
-   context: RuleContext, 
-   a: Node, 
-   b: Node): boolean;
+  context: RuleContext,
+  a: Node,
+  b: Node,
+): boolean;
 ```
 
 Determine whether node value equals to another node value
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | rule context |
-| `a` | `Node` | node to compare |
-| `b` | `Node` | node to compare |
+| Parameter | Type          | Description     |
+| --------- | ------------- | --------------- |
+| `context` | `RuleContext` | rule context    |
+| `a`       | `Node`        | node to compare |
+| `b`       | `Node`        | node to compare |
 
 ## Returns
 

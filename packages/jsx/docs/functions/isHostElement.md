@@ -14,9 +14,9 @@ distinguish `<div>` from `<MyComponent>`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The AST node to test |
+| Parameter | Type   | Description          |
+| --------- | ------ | -------------------- |
+| `node`    | `Node` | The AST node to test |
 
 ## Returns
 

@@ -15,10 +15,10 @@ name and resolve" combo, see [getAttributeValue](getAttributeValue.md).
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context (needed for scope look-ups) |
-| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node |
+| Parameter   | Type                       | Description                                         |
+| ----------- | -------------------------- | --------------------------------------------------- |
+| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups) |
+| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node       |
 
 ## Returns
 

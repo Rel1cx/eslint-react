@@ -8,9 +8,9 @@ const isClass: (node: Node | null | undefined) => node is ClassDeclarationWithNa
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined` |
 
 ## Returns
 

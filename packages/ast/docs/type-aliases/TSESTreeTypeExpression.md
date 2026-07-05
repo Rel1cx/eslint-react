@@ -3,7 +3,7 @@
 # Type Alias: TSESTreeTypeExpression
 
 ```ts
-type TSESTreeTypeExpression = 
+type TSESTreeTypeExpression =
   | TSESTree.TSAsExpression
   | TSESTree.TSTypeAssertion
   | TSESTree.TSNonNullExpression

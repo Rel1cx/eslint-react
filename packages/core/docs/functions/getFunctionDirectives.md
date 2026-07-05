@@ -8,9 +8,9 @@ function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[];
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `TSESTreeFunction` |
+| Parameter | Type               |
+| --------- | ------------------ |
+| `node`    | `TSESTreeFunction` |
 
 ## Returns
 

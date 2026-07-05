@@ -10,10 +10,10 @@ An enhanced version of getFullyQualifiedName that handles cases that original fu
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `checker` | `TypeChecker` | TypeScript type checker |
-| `symbol` | `Symbol` | Symbol to get fully qualified name for |
+| Parameter | Type          | Description                            |
+| --------- | ------------- | -------------------------------------- |
+| `checker` | `TypeChecker` | TypeScript type checker                |
+| `symbol`  | `Symbol`      | Symbol to get fully qualified name for |
 
 ## Returns
 

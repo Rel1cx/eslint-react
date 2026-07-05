@@ -10,9 +10,9 @@ Get the class identifier of a class node
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `TSESTreeClass` | The class node to get the identifier from |
+| Parameter | Type            | Description                               |
+| --------- | --------------- | ----------------------------------------- |
+| `node`    | `TSESTreeClass` | The class node to get the identifier from |
 
 ## Returns
 

@@ -3,59 +3,61 @@
 # Function: getFunctionId()
 
 ```ts
-function getFunctionId(node: 
-  | ArrayExpression
-  | ArrayPattern
-  | ArrowFunctionExpressionWithBlockBody
-  | ArrowFunctionExpressionWithExpressionBody
-  | AssignmentExpression
-  | AwaitExpression
-  | PrivateInExpression
-  | SymmetricBinaryExpression
-  | CallExpression
-  | ChainExpression
-  | ClassExpression
-  | ConditionalExpression
-  | FunctionDeclarationWithName
-  | FunctionDeclarationWithOptionalName
-  | FunctionExpression
-  | Identifier
-  | ImportExpression
-  | JSXElement
-  | JSXFragment
-  | BigIntLiteral
-  | BooleanLiteral
-  | NullLiteral
-  | NumberLiteral
-  | RegExpLiteral
-  | StringLiteral
-  | LogicalExpression
-  | MemberExpressionComputedName
-  | MemberExpressionNonComputedName
-  | MetaProperty
-  | NewExpression
-  | ObjectExpression
-  | ObjectPattern
-  | SequenceExpression
-  | Super
-  | TaggedTemplateExpression
-  | TemplateLiteral
-  | ThisExpression
-  | TSAsExpression
-  | TSInstantiationExpression
-  | TSNonNullExpression
-  | TSSatisfiesExpression
-  | TSTypeAssertion
-  | UnaryExpressionBitwiseNot
-  | UnaryExpressionDelete
-  | UnaryExpressionMinus
-  | UnaryExpressionNot
-  | UnaryExpressionPlus
-  | UnaryExpressionTypeof
-  | UnaryExpressionVoid
-  | UpdateExpression
-  | YieldNoStarExpression
-  | YieldStarExpression): 
+function getFunctionId(
+  node:
+    | ArrayExpression
+    | ArrayPattern
+    | ArrowFunctionExpressionWithBlockBody
+    | ArrowFunctionExpressionWithExpressionBody
+    | AssignmentExpression
+    | AwaitExpression
+    | PrivateInExpression
+    | SymmetricBinaryExpression
+    | CallExpression
+    | ChainExpression
+    | ClassExpression
+    | ConditionalExpression
+    | FunctionDeclarationWithName
+    | FunctionDeclarationWithOptionalName
+    | FunctionExpression
+    | Identifier
+    | ImportExpression
+    | JSXElement
+    | JSXFragment
+    | BigIntLiteral
+    | BooleanLiteral
+    | NullLiteral
+    | NumberLiteral
+    | RegExpLiteral
+    | StringLiteral
+    | LogicalExpression
+    | MemberExpressionComputedName
+    | MemberExpressionNonComputedName
+    | MetaProperty
+    | NewExpression
+    | ObjectExpression
+    | ObjectPattern
+    | SequenceExpression
+    | Super
+    | TaggedTemplateExpression
+    | TemplateLiteral
+    | ThisExpression
+    | TSAsExpression
+    | TSInstantiationExpression
+    | TSNonNullExpression
+    | TSSatisfiesExpression
+    | TSTypeAssertion
+    | UnaryExpressionBitwiseNot
+    | UnaryExpressionDelete
+    | UnaryExpressionMinus
+    | UnaryExpressionNot
+    | UnaryExpressionPlus
+    | UnaryExpressionTypeof
+    | UnaryExpressionVoid
+    | UpdateExpression
+    | YieldNoStarExpression
+    | YieldStarExpression,
+):
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody
@@ -114,64 +116,64 @@ Gets the static identifier of a function AST node.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | \| `ArrayExpression` \| `ArrayPattern` \| `ArrowFunctionExpressionWithBlockBody` \| `ArrowFunctionExpressionWithExpressionBody` \| `AssignmentExpression` \| `AwaitExpression` \| `PrivateInExpression` \| `SymmetricBinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `FunctionDeclarationWithName` \| `FunctionDeclarationWithOptionalName` \| `FunctionExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpressionBitwiseNot` \| `UnaryExpressionDelete` \| `UnaryExpressionMinus` \| `UnaryExpressionNot` \| `UnaryExpressionPlus` \| `UnaryExpressionTypeof` \| `UnaryExpressionVoid` \| `UpdateExpression` \| `YieldNoStarExpression` \| `YieldStarExpression` | The function node to analyze. |
+| Parameter | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Description                   |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `node`    | \| `ArrayExpression` \| `ArrayPattern` \| `ArrowFunctionExpressionWithBlockBody` \| `ArrowFunctionExpressionWithExpressionBody` \| `AssignmentExpression` \| `AwaitExpression` \| `PrivateInExpression` \| `SymmetricBinaryExpression` \| `CallExpression` \| `ChainExpression` \| `ClassExpression` \| `ConditionalExpression` \| `FunctionDeclarationWithName` \| `FunctionDeclarationWithOptionalName` \| `FunctionExpression` \| `Identifier` \| `ImportExpression` \| `JSXElement` \| `JSXFragment` \| `BigIntLiteral` \| `BooleanLiteral` \| `NullLiteral` \| `NumberLiteral` \| `RegExpLiteral` \| `StringLiteral` \| `LogicalExpression` \| `MemberExpressionComputedName` \| `MemberExpressionNonComputedName` \| `MetaProperty` \| `NewExpression` \| `ObjectExpression` \| `ObjectPattern` \| `SequenceExpression` \| `Super` \| `TaggedTemplateExpression` \| `TemplateLiteral` \| `ThisExpression` \| `TSAsExpression` \| `TSInstantiationExpression` \| `TSNonNullExpression` \| `TSSatisfiesExpression` \| `TSTypeAssertion` \| `UnaryExpressionBitwiseNot` \| `UnaryExpressionDelete` \| `UnaryExpressionMinus` \| `UnaryExpressionNot` \| `UnaryExpressionPlus` \| `UnaryExpressionTypeof` \| `UnaryExpressionVoid` \| `UpdateExpression` \| `YieldNoStarExpression` \| `YieldStarExpression` | The function node to analyze. |
 
 ## Returns
 
-  \| `ArrayExpression`
-  \| `ArrayPattern`
-  \| `ArrowFunctionExpressionWithBlockBody`
-  \| `ArrowFunctionExpressionWithExpressionBody`
-  \| `AssignmentExpression`
-  \| `AwaitExpression`
-  \| `PrivateInExpression`
-  \| `SymmetricBinaryExpression`
-  \| `CallExpression`
-  \| `ChainExpression`
-  \| `ClassExpression`
-  \| `ConditionalExpression`
-  \| `FunctionExpression`
-  \| `Identifier`
-  \| `ImportExpression`
-  \| `JSXElement`
-  \| `JSXFragment`
-  \| `BigIntLiteral`
-  \| `BooleanLiteral`
-  \| `NullLiteral`
-  \| `NumberLiteral`
-  \| `RegExpLiteral`
-  \| `StringLiteral`
-  \| `LogicalExpression`
-  \| `MemberExpressionComputedName`
-  \| `MemberExpressionNonComputedName`
-  \| `MetaProperty`
-  \| `NewExpression`
-  \| `ObjectExpression`
-  \| `ObjectPattern`
-  \| `PrivateIdentifier`
-  \| `SequenceExpression`
-  \| `Super`
-  \| `TaggedTemplateExpression`
-  \| `TemplateLiteral`
-  \| `ThisExpression`
-  \| `TSAsExpression`
-  \| `TSInstantiationExpression`
-  \| `TSNonNullExpression`
-  \| `TSSatisfiesExpression`
-  \| `TSTypeAssertion`
-  \| `UnaryExpressionBitwiseNot`
-  \| `UnaryExpressionDelete`
-  \| `UnaryExpressionMinus`
-  \| `UnaryExpressionNot`
-  \| `UnaryExpressionPlus`
-  \| `UnaryExpressionTypeof`
-  \| `UnaryExpressionVoid`
-  \| `UpdateExpression`
-  \| `YieldNoStarExpression`
-  \| `YieldStarExpression`
-  \| `null`
+\| `ArrayExpression`
+\| `ArrayPattern`
+\| `ArrowFunctionExpressionWithBlockBody`
+\| `ArrowFunctionExpressionWithExpressionBody`
+\| `AssignmentExpression`
+\| `AwaitExpression`
+\| `PrivateInExpression`
+\| `SymmetricBinaryExpression`
+\| `CallExpression`
+\| `ChainExpression`
+\| `ClassExpression`
+\| `ConditionalExpression`
+\| `FunctionExpression`
+\| `Identifier`
+\| `ImportExpression`
+\| `JSXElement`
+\| `JSXFragment`
+\| `BigIntLiteral`
+\| `BooleanLiteral`
+\| `NullLiteral`
+\| `NumberLiteral`
+\| `RegExpLiteral`
+\| `StringLiteral`
+\| `LogicalExpression`
+\| `MemberExpressionComputedName`
+\| `MemberExpressionNonComputedName`
+\| `MetaProperty`
+\| `NewExpression`
+\| `ObjectExpression`
+\| `ObjectPattern`
+\| `PrivateIdentifier`
+\| `SequenceExpression`
+\| `Super`
+\| `TaggedTemplateExpression`
+\| `TemplateLiteral`
+\| `ThisExpression`
+\| `TSAsExpression`
+\| `TSInstantiationExpression`
+\| `TSNonNullExpression`
+\| `TSSatisfiesExpression`
+\| `TSTypeAssertion`
+\| `UnaryExpressionBitwiseNot`
+\| `UnaryExpressionDelete`
+\| `UnaryExpressionMinus`
+\| `UnaryExpressionNot`
+\| `UnaryExpressionPlus`
+\| `UnaryExpressionTypeof`
+\| `UnaryExpressionVoid`
+\| `UpdateExpression`
+\| `YieldNoStarExpression`
+\| `YieldStarExpression`
+\| `null`
 
 The identifier node if found, `null` otherwise.
 

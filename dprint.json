@@ -24,8 +24,7 @@
     "**/node_modules",
     "**/testing/samples",
     ".pkgs/**/*.d.ts",
-    ".pkgs/**/*.js",
-    "packages/**/docs"
+    ".pkgs/**/*.js"
   ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-0.96.1.wasm",

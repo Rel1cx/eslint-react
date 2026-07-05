@@ -17,10 +17,10 @@ type ReturnType = {
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `context` | `RuleContext` |
-| `node` | `Node` \| `null` |
+| Parameter | Type             |
+| --------- | ---------------- |
+| `context` | `RuleContext`    |
+| `node`    | `Node` \| `null` |
 
 ### Returns
 
@@ -34,8 +34,8 @@ type ReturnType = {
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type          |
+| --------- | ------------- |
 | `context` | `RuleContext` |
 
 ### Returns

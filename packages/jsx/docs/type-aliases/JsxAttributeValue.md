@@ -3,7 +3,7 @@
 # Type Alias: JsxAttributeValue
 
 ```ts
-type JsxAttributeValue = 
+type JsxAttributeValue =
   | JsxAttributeValueBoolean
   | JsxAttributeValueElement
   | JsxAttributeValueLiteral

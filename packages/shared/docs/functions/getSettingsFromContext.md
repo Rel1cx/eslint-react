@@ -8,8 +8,8 @@ function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormal
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type          |
+| --------- | ------------- |
 | `context` | `RuleContext` |
 
 ## Returns

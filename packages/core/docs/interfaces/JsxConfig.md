@@ -7,9 +7,9 @@ annotations found in the source file.
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="property-jsx"></a> `jsx?` | `JsxEmit` |
-| <a id="property-jsxfactory"></a> `jsxFactory?` | `string` |
-| <a id="property-jsxfragmentfactory"></a> `jsxFragmentFactory?` | `string` |
-| <a id="property-jsximportsource"></a> `jsxImportSource?` | `string` |
+| Property                                                       | Type      |
+| -------------------------------------------------------------- | --------- |
+| <a id="property-jsx"></a> `jsx?`                               | `JsxEmit` |
+| <a id="property-jsxfactory"></a> `jsxFactory?`                 | `string`  |
+| <a id="property-jsxfragmentfactory"></a> `jsxFragmentFactory?` | `string`  |
+| <a id="property-jsximportsource"></a> `jsxImportSource?`       | `string`  |

@@ -10,8 +10,8 @@ Gets the React version from the project's dependencies.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter  | Type     | Description                                           |
+| ---------- | -------- | ----------------------------------------------------- |
 | `fallback` | `string` | The fallback version to return if React is not found. |
 
 ## Returns

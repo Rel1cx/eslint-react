@@ -8,9 +8,9 @@ function isPureComponent(node: Node): boolean;
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check. |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `node`    | `Node` | The AST node to check. |
 
 ## Returns
 

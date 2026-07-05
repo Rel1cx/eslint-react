@@ -19,9 +19,9 @@ Check if two nodes are equal
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `a`       | `Node` |
 
 ### Returns
 
@@ -35,10 +35,10 @@ Check if two nodes are equal
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | `Node` |
-| `b` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `a`       | `Node` |
+| `b`       | `Node` |
 
 ### Returns
 

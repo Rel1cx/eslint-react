@@ -14,7 +14,7 @@ getConfig(): Config;
 
 `Config`
 
-***
+---
 
 ### getPlugin()
 
@@ -26,7 +26,7 @@ getPlugin(): Plugin;
 
 `Plugin`
 
-***
+---
 
 ### use()
 
@@ -36,15 +36,15 @@ use<F>(factory: F, ...args: Parameters<F>): Builder;
 
 #### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `F` *extends* (...`args`: `any`[]) => [`RuleFunction`](../type-aliases/RuleFunction.md) |
+| Type Parameter                                                                          |
+| --------------------------------------------------------------------------------------- |
+| `F` _extends_ (...`args`: `any`[]) => [`RuleFunction`](../type-aliases/RuleFunction.md) |
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `factory` | `F` |
+| Parameter | Type                                                                                                  |
+| --------- | ----------------------------------------------------------------------------------------------------- |
+| `factory` | `F`                                                                                                   |
 | ...`args` | [`Parameters`](https://www.typescriptlang.org/docs/handbook/utility-types.html#parameterstype)\<`F`\> |
 
 #### Returns

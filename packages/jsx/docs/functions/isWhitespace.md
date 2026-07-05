@@ -17,9 +17,9 @@ JSX tags purely for formatting.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `JSXChild` | A JSX child node |
+| Parameter | Type       | Description      |
+| --------- | ---------- | ---------------- |
+| `node`    | `JSXChild` | A JSX child node |
 
 ## Returns
 

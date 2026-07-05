@@ -8,9 +8,9 @@ function isClassComponent(node: Node): node is TSESTreeClass;
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

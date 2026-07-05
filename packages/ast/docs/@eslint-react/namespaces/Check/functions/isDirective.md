@@ -8,10 +8,10 @@ function isDirective(node: Node, name?: string): node is TSESTreeDirective;
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
-| `name?` | `string` |
+| Parameter | Type     |
+| --------- | -------- |
+| `node`    | `Node`   |
+| `name?`   | `string` |
 
 ## Returns
 

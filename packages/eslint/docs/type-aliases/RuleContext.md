@@ -10,10 +10,10 @@ Rule context.
 
 ## Type Parameters
 
-| Type Parameter | Default type |
-| ------ | ------ |
-| `MessageIds` *extends* `string` | `string` |
-| `Options` *extends* readonly `unknown`[] | readonly `unknown`[] |
+| Type Parameter                           | Default type         |
+| ---------------------------------------- | -------------------- |
+| `MessageIds` _extends_ `string`          | `string`             |
+| `Options` _extends_ readonly `unknown`[] | readonly `unknown`[] |
 
 ## Since
 

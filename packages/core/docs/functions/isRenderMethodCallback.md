@@ -8,9 +8,9 @@ function isRenderMethodCallback(node: TSESTreeFunction): boolean;
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `TSESTreeFunction` |
+| Parameter | Type               |
+| --------- | ------------------ |
+| `node`    | `TSESTreeFunction` |
 
 ## Returns
 

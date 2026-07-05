@@ -8,9 +8,9 @@ const isGetDerivedStateFromProps: (node: Node) => node is TSESTreeMethodOrProper
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

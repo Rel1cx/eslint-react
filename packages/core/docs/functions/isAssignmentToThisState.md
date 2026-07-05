@@ -8,9 +8,9 @@ function isAssignmentToThisState(node: AssignmentExpression): boolean;
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `AssignmentExpression` | The assignment expression node to check. |
+| Parameter | Type                   | Description                              |
+| --------- | ---------------------- | ---------------------------------------- |
+| `node`    | `AssignmentExpression` | The assignment expression node to check. |
 
 ## Returns
 

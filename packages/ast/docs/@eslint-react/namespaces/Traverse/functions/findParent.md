@@ -6,24 +6,25 @@
 
 ```ts
 function findParent<T>(
-   node: Node | null, 
-   test: Predicate<T>, 
-   stop?: NodePredicate): T | null;
+  node: Node | null,
+  test: Predicate<T>,
+  stop?: NodePredicate,
+): T | null;
 ```
 
 ### Type Parameters
 
-| Type Parameter |
-| ------ |
-| `T` *extends* `Node` |
+| Type Parameter       |
+| -------------------- |
+| `T` _extends_ `Node` |
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
-| `test` | `Predicate`\<`T`\> |
-| `stop?` | `NodePredicate` |
+| Parameter | Type               |
+| --------- | ------------------ |
+| `node`    | `Node` \| `null`   |
+| `test`    | `Predicate`\<`T`\> |
+| `stop?`   | `NodePredicate`    |
 
 ### Returns
 
@@ -33,18 +34,19 @@ function findParent<T>(
 
 ```ts
 function findParent(
-   node: Node | null, 
-   test: NodePredicate, 
-   stop?: NodePredicate): Node | null;
+  node: Node | null,
+  test: NodePredicate,
+  stop?: NodePredicate,
+): Node | null;
 ```
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` \| `null` |
-| `test` | `NodePredicate` |
-| `stop?` | `NodePredicate` |
+| Parameter | Type             |
+| --------- | ---------------- |
+| `node`    | `Node` \| `null` |
+| `test`    | `NodePredicate`  |
+| `stop?`   | `NodePredicate`  |
 
 ### Returns
 

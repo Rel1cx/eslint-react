@@ -18,10 +18,10 @@ for `JSXElement | JSXFragment`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` \| `undefined` | The AST node to test |
-| `test?` | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against |
+| Parameter | Type                                            | Description                                     |
+| --------- | ----------------------------------------------- | ----------------------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined`                 | The AST node to test                            |
+| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against |
 
 ## Returns
 

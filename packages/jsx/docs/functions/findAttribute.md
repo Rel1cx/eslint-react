@@ -4,9 +4,10 @@
 
 ```ts
 function findAttribute(
-   context: RuleContext, 
-   element: JSXElement, 
-   name: string): TSESTreeJSXAttributeLike | undefined;
+  context: RuleContext,
+  element: JSXElement,
+  name: string,
+): TSESTreeJSXAttributeLike | undefined;
 ```
 
 Find a JSX attribute (or spread attribute containing the property) by name on a given element
@@ -19,11 +20,11 @@ that resolves to an object expression, the object's properties are searched for 
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description                                                                   |
+| --------- | ------------- | ----------------------------------------------------------------------------- |
 | `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes) |
-| `element` | `JSXElement` | The `JSXElement` node to search |
-| `name` | `string` | The attribute name to look for (ex: "className") |
+| `element` | `JSXElement`  | The `JSXElement` node to search                                               |
+| `name`    | `string`      | The attribute name to look for (ex: "className")                              |
 
 ## Returns
 

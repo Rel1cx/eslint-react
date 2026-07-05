@@ -15,9 +15,9 @@ Get the string representation of a JSX element's type
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
+| Parameter | Type                     | Description                          |
+| --------- | ------------------------ | ------------------------------------ |
+| `node`    | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
 
 ## Returns
 

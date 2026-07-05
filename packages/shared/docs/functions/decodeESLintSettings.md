@@ -12,13 +12,13 @@ function decodeESLintSettings(settings: unknown):
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter  | Type      |
+| ---------- | --------- |
 | `settings` | `unknown` |
 
 ## Returns
 
-  \| \{
-  `react-x?`: `unknown`;
+\| \{
+`react-x?`: `unknown`;
 \}
-  \| `undefined`
+\| `undefined`

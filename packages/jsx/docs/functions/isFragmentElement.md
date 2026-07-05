@@ -17,9 +17,9 @@ matches `"React.Fragment"` and `<Fragment>` matches `"Fragment"`.
 
 ## Parameters
 
-| Parameter | Type | Default value | Description |
-| ------ | ------ | ------ | ------ |
-| `node` | `Node` | `undefined` | The AST node to test |
+| Parameter            | Type     | Default value      | Description                                                   |
+| -------------------- | -------- | ------------------ | ------------------------------------------------------------- |
+| `node`               | `Node`   | `undefined`        | The AST node to test                                          |
 | `jsxFragmentFactory` | `string` | `"React.Fragment"` | The configured fragment factory string (ex: "React.Fragment") |
 
 ## Returns

@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   api: {
-     getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
+    getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -13,8 +13,8 @@ type ReturnType = {
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="property-api"></a> ~~`api`~~ | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]; \} |
-| `api.getAllComponents` | (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[] |
-| <a id="property-visitor"></a> ~~`visitor`~~ | `ESLintUtils.RuleListener` |
+| Property                                    | Type                                                                                                                                              |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a id="property-api"></a> ~~`api`~~         | \{ `getAllComponents`: (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]; \} |
+| `api.getAllComponents`                      | (`node`: `TSESTree.Program`) => [`ClassComponentSemanticNode`](../../../../interfaces/ClassComponentSemanticNode.md)[]                            |
+| <a id="property-visitor"></a> ~~`visitor`~~ | `ESLintUtils.RuleListener`                                                                                                                        |

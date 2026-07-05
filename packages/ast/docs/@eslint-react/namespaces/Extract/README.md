@@ -4,9 +4,9 @@
 
 ## Functions
 
-| Function | Description |
-| ------ | ------ |
-| [getFullyQualifiedName](functions/getFullyQualifiedName.md) | - |
-| [getPropertyName](functions/getPropertyName.md) | - |
-| [getRootIdentifier](functions/getRootIdentifier.md) | - |
-| [unwrap](functions/unwrap.md) | - |
+| Function                                                    | Description |
+| ----------------------------------------------------------- | ----------- |
+| [getFullyQualifiedName](functions/getFullyQualifiedName.md) | -           |
+| [getPropertyName](functions/getPropertyName.md)             | -           |
+| [getRootIdentifier](functions/getRootIdentifier.md)         | -           |
+| [unwrap](functions/unwrap.md)                               | -           |

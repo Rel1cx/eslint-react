@@ -11,7 +11,7 @@ type Options = {
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="property-collectdisplayname"></a> `collectDisplayName?` | `boolean` |
-| <a id="property-hint"></a> `hint?` | [`FunctionComponentDetectionHint`](../../../../type-aliases/FunctionComponentDetectionHint.md) |
+| Property                                                       | Type                                                                                           |
+| -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| <a id="property-collectdisplayname"></a> `collectDisplayName?` | `boolean`                                                                                      |
+| <a id="property-hint"></a> `hint?`                             | [`FunctionComponentDetectionHint`](../../../../type-aliases/FunctionComponentDetectionHint.md) |

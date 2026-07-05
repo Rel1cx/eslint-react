@@ -4,9 +4,10 @@
 
 ```ts
 function getAttributeStaticValue(
-   context: RuleContext, 
-   element: JSXElement, 
-   name: string): unknown;
+  context: RuleContext,
+  element: JSXElement,
+  name: string,
+): unknown;
 ```
 
 Find an attribute by name on a JSX element and collapse its value to a plain
@@ -22,11 +23,11 @@ resolved static value otherwise.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The ESLint rule context |
-| `element` | `JSXElement` | The `JSXElement` node to inspect |
-| `name` | `string` | The attribute name to look up (ex: "className") |
+| Parameter | Type          | Description                                     |
+| --------- | ------------- | ----------------------------------------------- |
+| `context` | `RuleContext` | The ESLint rule context                         |
+| `element` | `JSXElement`  | The `JSXElement` node to inspect                |
+| `name`    | `string`      | The attribute name to look up (ex: "className") |
 
 ## Returns
 

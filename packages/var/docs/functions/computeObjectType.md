@@ -10,10 +10,10 @@ Detect the ObjectType of a given node
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `context` | `RuleContext` | The context of the rule |
-| `node` | `Node` \| `null` | The node to check |
+| Parameter | Type             | Description             |
+| --------- | ---------------- | ----------------------- |
+| `context` | `RuleContext`    | The context of the rule |
+| `node`    | `Node` \| `null` | The node to check       |
 
 ## Returns
 

@@ -11,9 +11,9 @@ character to exclude identifiers like "user".
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `name` | `string` | The name of the identifier to check. |
+| Parameter | Type     | Description                          |
+| --------- | -------- | ------------------------------------ |
+| `name`    | `string` | The name of the identifier to check. |
 
 ## Returns
 

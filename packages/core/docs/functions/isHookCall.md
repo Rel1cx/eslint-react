@@ -10,9 +10,9 @@ Check if the given node is a React Hook call by its name.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` | The node to check. |
+| Parameter | Type             | Description        |
+| --------- | ---------------- | ------------------ |
+| `node`    | `Node` \| `null` | The node to check. |
 
 ## Returns
 

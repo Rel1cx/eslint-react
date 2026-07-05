@@ -3,7 +3,7 @@
 # Type Alias: ElementTest
 
 ```ts
-type ElementTest = 
+type ElementTest =
   | string
   | readonly string[]
   | ((elementType: string, node: TSESTreeJSXElementLike) => boolean);

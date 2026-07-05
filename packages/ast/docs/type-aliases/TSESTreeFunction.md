@@ -3,7 +3,7 @@
 # Type Alias: TSESTreeFunction
 
 ```ts
-type TSESTreeFunction = 
+type TSESTreeFunction =
   | TSESTree.ArrowFunctionExpression
   | TSESTree.FunctionDeclaration
   | TSESTree.FunctionExpression;

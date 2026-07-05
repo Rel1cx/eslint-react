@@ -10,10 +10,10 @@ Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex patt
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` | The AST node to check |
-| `additionalEffectHooks` | `RegExpLike` | Regex pattern matching custom hooks that should be treated as effect hooks |
+| Parameter               | Type             | Description                                                                |
+| ----------------------- | ---------------- | -------------------------------------------------------------------------- |
+| `node`                  | `Node` \| `null` | The AST node to check                                                      |
+| `additionalEffectHooks` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as effect hooks |
 
 ## Returns
 

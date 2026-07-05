@@ -10,10 +10,10 @@ Check if the node is a callback function passed to a component wrapper
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description             |
+| --------- | ------------- | ----------------------- |
 | `context` | `RuleContext` | The ESLint rule context |
-| `node` | `Node` | The node to check |
+| `node`    | `Node`        | The node to check       |
 
 ## Returns
 

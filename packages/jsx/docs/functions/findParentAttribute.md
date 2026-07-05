@@ -14,10 +14,10 @@ inside an expression container) and needs to know which JSX attribute it belongs
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The starting node for the upward search |
-| `test` | (`node`: `JSXAttribute`) => `boolean` | Optional predicate to filter candidate `JSXAttribute` nodes. When omitted every `JSXAttribute` ancestor matches |
+| Parameter | Type                                  | Description                                                                                                     |
+| --------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `node`    | `Node`                                | The starting node for the upward search                                                                         |
+| `test`    | (`node`: `JSXAttribute`) => `boolean` | Optional predicate to filter candidate `JSXAttribute` nodes. When omitted every `JSXAttribute` ancestor matches |
 
 ## Returns
 

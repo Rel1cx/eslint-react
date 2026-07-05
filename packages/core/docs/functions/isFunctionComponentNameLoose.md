@@ -10,9 +10,9 @@ Check if a string matches the loose component name pattern
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `name` | `string` | The name to check |
+| Parameter | Type     | Description       |
+| --------- | -------- | ----------------- |
+| `name`    | `string` | The name to check |
 
 ## Returns
 

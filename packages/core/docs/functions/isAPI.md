@@ -10,9 +10,9 @@ Check if the node is a React API identifier or member expression
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `api` | `string` | The React API name to check against (ex: "useState", "React.memo") |
+| Parameter | Type     | Description                                                        |
+| --------- | -------- | ------------------------------------------------------------------ |
+| `api`     | `string` | The React API name to check against (ex: "useState", "React.memo") |
 
 ## Returns
 

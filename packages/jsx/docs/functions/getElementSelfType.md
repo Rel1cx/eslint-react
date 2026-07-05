@@ -14,9 +14,9 @@ Get the self name (last dot-separated segment) of a JSX element type
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
+| Parameter | Type                     | Description                          |
+| --------- | ------------------------ | ------------------------------------ |
+| `node`    | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
 
 ## Returns
 

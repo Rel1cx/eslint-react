@@ -4,7 +4,7 @@
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
+| Property                            | Type                            |
+| ----------------------------------- | ------------------------------- |
 | <a id="property-range"></a> `range` | readonly \[`number`, `number`\] |
-| <a id="property-text"></a> `text` | `string` |
+| <a id="property-text"></a> `text`   | `string`                        |

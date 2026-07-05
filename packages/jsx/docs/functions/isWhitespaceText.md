@@ -14,9 +14,9 @@ whether it contains a newline.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `JSXChild` | A JSX child node |
+| Parameter | Type       | Description      |
+| --------- | ---------- | ---------------- |
+| `node`    | `JSXChild` | A JSX child node |
 
 ## Returns
 

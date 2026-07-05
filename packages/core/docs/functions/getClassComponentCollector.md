@@ -8,8 +8,8 @@ function getClassComponentCollector(context: RuleContext): ReturnType;
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description       |
+| --------- | ------------- | ----------------- |
 | `context` | `RuleContext` | The rule context. |
 
 ## Returns

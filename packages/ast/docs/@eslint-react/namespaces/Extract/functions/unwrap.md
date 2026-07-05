@@ -3,7 +3,7 @@
 # Function: unwrap()
 
 ```ts
-function unwrap(node: Node): 
+function unwrap(node: Node):
   | ArrowFunctionExpression
   | FunctionDeclaration
   | FunctionExpression
@@ -171,172 +171,172 @@ function unwrap(node: Node):
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 
-  \| `ArrowFunctionExpression`
-  \| `FunctionDeclaration`
-  \| `FunctionExpression`
-  \| `ClassDeclaration`
-  \| `ClassExpression`
-  \| `PropertyDefinition`
-  \| `MethodDefinition`
-  \| `JSXAttribute`
-  \| `JSXClosingElement`
-  \| `JSXClosingFragment`
-  \| `JSXElement`
-  \| `JSXEmptyExpression`
-  \| `JSXExpressionContainer`
-  \| `JSXFragment`
-  \| `JSXIdentifier`
-  \| `JSXMemberExpression`
-  \| `JSXNamespacedName`
-  \| `JSXOpeningElement`
-  \| `JSXOpeningFragment`
-  \| `JSXSpreadAttribute`
-  \| `JSXSpreadChild`
-  \| `JSXText`
-  \| `ExpressionStatement`
-  \| `AccessorProperty`
-  \| `ArrayExpression`
-  \| `ArrayPattern`
-  \| `AssignmentExpression`
-  \| `AssignmentPattern`
-  \| `AwaitExpression`
-  \| `BinaryExpression`
-  \| `BlockStatement`
-  \| `BreakStatement`
-  \| `CallExpression`
-  \| `CatchClause`
-  \| `ChainExpression`
-  \| `ClassBody`
-  \| `ConditionalExpression`
-  \| `ContinueStatement`
-  \| `DebuggerStatement`
-  \| `Decorator`
-  \| `DoWhileStatement`
-  \| `EmptyStatement`
-  \| `ExportAllDeclaration`
-  \| `ExportDefaultDeclaration`
-  \| `ExportNamedDeclaration`
-  \| `ExportSpecifier`
-  \| `ForInStatement`
-  \| `ForOfStatement`
-  \| `ForStatement`
-  \| `Identifier`
-  \| `IfStatement`
-  \| `ImportAttribute`
-  \| `ImportDeclaration`
-  \| `ImportDefaultSpecifier`
-  \| `ImportExpression`
-  \| `ImportNamespaceSpecifier`
-  \| `ImportSpecifier`
-  \| `LabeledStatement`
-  \| `Literal`
-  \| `LogicalExpression`
-  \| `MemberExpression`
-  \| `MetaProperty`
-  \| `NewExpression`
-  \| `ObjectExpression`
-  \| `ObjectPattern`
-  \| `PrivateIdentifier`
-  \| `Program`
-  \| `Property`
-  \| `RestElement`
-  \| `ReturnStatement`
-  \| `SequenceExpression`
-  \| `SpreadElement`
-  \| `StaticBlock`
-  \| `Super`
-  \| `SwitchCase`
-  \| `SwitchStatement`
-  \| `TaggedTemplateExpression`
-  \| `TemplateElement`
-  \| `TemplateLiteral`
-  \| `ThisExpression`
-  \| `ThrowStatement`
-  \| `TryStatement`
-  \| `TSAbstractAccessorProperty`
-  \| `TSAbstractKeyword`
-  \| `TSAbstractMethodDefinition`
-  \| `TSAbstractPropertyDefinition`
-  \| `TSAnyKeyword`
-  \| `TSArrayType`
-  \| `TSAsyncKeyword`
-  \| `TSBigIntKeyword`
-  \| `TSBooleanKeyword`
-  \| `TSCallSignatureDeclaration`
-  \| `TSClassImplements`
-  \| `TSConditionalType`
-  \| `TSConstructorType`
-  \| `TSConstructSignatureDeclaration`
-  \| `TSDeclareFunction`
-  \| `TSDeclareKeyword`
-  \| `TSEmptyBodyFunctionExpression`
-  \| `TSEnumBody`
-  \| `TSEnumDeclaration`
-  \| `TSEnumMember`
-  \| `TSExportAssignment`
-  \| `TSExportKeyword`
-  \| `TSExternalModuleReference`
-  \| `TSFunctionType`
-  \| `TSImportEqualsDeclaration`
-  \| `TSImportType`
-  \| `TSIndexedAccessType`
-  \| `TSIndexSignature`
-  \| `TSInferType`
-  \| `TSInterfaceBody`
-  \| `TSInterfaceDeclaration`
-  \| `TSInterfaceHeritage`
-  \| `TSIntersectionType`
-  \| `TSIntrinsicKeyword`
-  \| `TSLiteralType`
-  \| `TSMappedType`
-  \| `TSMethodSignature`
-  \| `TSModuleBlock`
-  \| `TSModuleDeclaration`
-  \| `TSNamedTupleMember`
-  \| `TSNamespaceExportDeclaration`
-  \| `TSNeverKeyword`
-  \| `TSNullKeyword`
-  \| `TSNumberKeyword`
-  \| `TSObjectKeyword`
-  \| `TSOptionalType`
-  \| `TSParameterProperty`
-  \| `TSPrivateKeyword`
-  \| `TSPropertySignature`
-  \| `TSProtectedKeyword`
-  \| `TSPublicKeyword`
-  \| `TSQualifiedName`
-  \| `TSReadonlyKeyword`
-  \| `TSRestType`
-  \| `TSStaticKeyword`
-  \| `TSStringKeyword`
-  \| `TSSymbolKeyword`
-  \| `TSTemplateLiteralType`
-  \| `TSThisType`
-  \| `TSTupleType`
-  \| `TSTypeAliasDeclaration`
-  \| `TSTypeAnnotation`
-  \| `TSTypeLiteral`
-  \| `TSTypeOperator`
-  \| `TSTypeParameter`
-  \| `TSTypeParameterDeclaration`
-  \| `TSTypeParameterInstantiation`
-  \| `TSTypePredicate`
-  \| `TSTypeQuery`
-  \| `TSTypeReference`
-  \| `TSUndefinedKeyword`
-  \| `TSUnionType`
-  \| `TSUnknownKeyword`
-  \| `TSVoidKeyword`
-  \| `UnaryExpression`
-  \| `UpdateExpression`
-  \| `VariableDeclaration`
-  \| `VariableDeclarator`
-  \| `WhileStatement`
-  \| `WithStatement`
-  \| `YieldExpression`
+\| `ArrowFunctionExpression`
+\| `FunctionDeclaration`
+\| `FunctionExpression`
+\| `ClassDeclaration`
+\| `ClassExpression`
+\| `PropertyDefinition`
+\| `MethodDefinition`
+\| `JSXAttribute`
+\| `JSXClosingElement`
+\| `JSXClosingFragment`
+\| `JSXElement`
+\| `JSXEmptyExpression`
+\| `JSXExpressionContainer`
+\| `JSXFragment`
+\| `JSXIdentifier`
+\| `JSXMemberExpression`
+\| `JSXNamespacedName`
+\| `JSXOpeningElement`
+\| `JSXOpeningFragment`
+\| `JSXSpreadAttribute`
+\| `JSXSpreadChild`
+\| `JSXText`
+\| `ExpressionStatement`
+\| `AccessorProperty`
+\| `ArrayExpression`
+\| `ArrayPattern`
+\| `AssignmentExpression`
+\| `AssignmentPattern`
+\| `AwaitExpression`
+\| `BinaryExpression`
+\| `BlockStatement`
+\| `BreakStatement`
+\| `CallExpression`
+\| `CatchClause`
+\| `ChainExpression`
+\| `ClassBody`
+\| `ConditionalExpression`
+\| `ContinueStatement`
+\| `DebuggerStatement`
+\| `Decorator`
+\| `DoWhileStatement`
+\| `EmptyStatement`
+\| `ExportAllDeclaration`
+\| `ExportDefaultDeclaration`
+\| `ExportNamedDeclaration`
+\| `ExportSpecifier`
+\| `ForInStatement`
+\| `ForOfStatement`
+\| `ForStatement`
+\| `Identifier`
+\| `IfStatement`
+\| `ImportAttribute`
+\| `ImportDeclaration`
+\| `ImportDefaultSpecifier`
+\| `ImportExpression`
+\| `ImportNamespaceSpecifier`
+\| `ImportSpecifier`
+\| `LabeledStatement`
+\| `Literal`
+\| `LogicalExpression`
+\| `MemberExpression`
+\| `MetaProperty`
+\| `NewExpression`
+\| `ObjectExpression`
+\| `ObjectPattern`
+\| `PrivateIdentifier`
+\| `Program`
+\| `Property`
+\| `RestElement`
+\| `ReturnStatement`
+\| `SequenceExpression`
+\| `SpreadElement`
+\| `StaticBlock`
+\| `Super`
+\| `SwitchCase`
+\| `SwitchStatement`
+\| `TaggedTemplateExpression`
+\| `TemplateElement`
+\| `TemplateLiteral`
+\| `ThisExpression`
+\| `ThrowStatement`
+\| `TryStatement`
+\| `TSAbstractAccessorProperty`
+\| `TSAbstractKeyword`
+\| `TSAbstractMethodDefinition`
+\| `TSAbstractPropertyDefinition`
+\| `TSAnyKeyword`
+\| `TSArrayType`
+\| `TSAsyncKeyword`
+\| `TSBigIntKeyword`
+\| `TSBooleanKeyword`
+\| `TSCallSignatureDeclaration`
+\| `TSClassImplements`
+\| `TSConditionalType`
+\| `TSConstructorType`
+\| `TSConstructSignatureDeclaration`
+\| `TSDeclareFunction`
+\| `TSDeclareKeyword`
+\| `TSEmptyBodyFunctionExpression`
+\| `TSEnumBody`
+\| `TSEnumDeclaration`
+\| `TSEnumMember`
+\| `TSExportAssignment`
+\| `TSExportKeyword`
+\| `TSExternalModuleReference`
+\| `TSFunctionType`
+\| `TSImportEqualsDeclaration`
+\| `TSImportType`
+\| `TSIndexedAccessType`
+\| `TSIndexSignature`
+\| `TSInferType`
+\| `TSInterfaceBody`
+\| `TSInterfaceDeclaration`
+\| `TSInterfaceHeritage`
+\| `TSIntersectionType`
+\| `TSIntrinsicKeyword`
+\| `TSLiteralType`
+\| `TSMappedType`
+\| `TSMethodSignature`
+\| `TSModuleBlock`
+\| `TSModuleDeclaration`
+\| `TSNamedTupleMember`
+\| `TSNamespaceExportDeclaration`
+\| `TSNeverKeyword`
+\| `TSNullKeyword`
+\| `TSNumberKeyword`
+\| `TSObjectKeyword`
+\| `TSOptionalType`
+\| `TSParameterProperty`
+\| `TSPrivateKeyword`
+\| `TSPropertySignature`
+\| `TSProtectedKeyword`
+\| `TSPublicKeyword`
+\| `TSQualifiedName`
+\| `TSReadonlyKeyword`
+\| `TSRestType`
+\| `TSStaticKeyword`
+\| `TSStringKeyword`
+\| `TSSymbolKeyword`
+\| `TSTemplateLiteralType`
+\| `TSThisType`
+\| `TSTupleType`
+\| `TSTypeAliasDeclaration`
+\| `TSTypeAnnotation`
+\| `TSTypeLiteral`
+\| `TSTypeOperator`
+\| `TSTypeParameter`
+\| `TSTypeParameterDeclaration`
+\| `TSTypeParameterInstantiation`
+\| `TSTypePredicate`
+\| `TSTypeQuery`
+\| `TSTypeReference`
+\| `TSUndefinedKeyword`
+\| `TSUnionType`
+\| `TSUnknownKeyword`
+\| `TSVoidKeyword`
+\| `UnaryExpression`
+\| `UpdateExpression`
+\| `VariableDeclaration`
+\| `VariableDeclarator`
+\| `WhileStatement`
+\| `WithStatement`
+\| `YieldExpression`

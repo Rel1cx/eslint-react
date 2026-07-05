@@ -4,9 +4,10 @@
 
 ```ts
 function hasAttribute(
-   context: RuleContext, 
-   element: JSXElement, 
-   name: string): boolean;
+  context: RuleContext,
+  element: JSXElement,
+  name: string,
+): boolean;
 ```
 
 Check whether a JSX element carries a given attribute (prop)
@@ -19,11 +20,11 @@ will report `true` for `"disabled"`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type          | Description                                                                   |
+| --------- | ------------- | ----------------------------------------------------------------------------- |
 | `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes) |
-| `element` | `JSXElement` | The `JSXElement` node to inspect |
-| `name` | `string` | The attribute name to look for (ex: "className") |
+| `element` | `JSXElement`  | The `JSXElement` node to inspect                                              |
+| `name`    | `string`      | The attribute name to look for (ex: "className")                              |
 
 ## Returns
 

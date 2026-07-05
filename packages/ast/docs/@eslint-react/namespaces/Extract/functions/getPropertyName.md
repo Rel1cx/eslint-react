@@ -8,9 +8,9 @@ function getPropertyName(node: Node, resolve?: (n: Identifier | PrivateIdentifie
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type                                                             |
+| --------- | ---------------------------------------------------------------- |
+| `node`    | `Node`                                                           |
 | `resolve` | (`n`: `Identifier` \| `PrivateIdentifier`) => `string` \| `null` |
 
 ## Returns

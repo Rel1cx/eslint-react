@@ -27,8 +27,8 @@ whitespace-only children that have no newline, such as `<div> </div>` or
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
+| Parameter | Type                     | Description                          |
+| --------- | ------------------------ | ------------------------------------ |
 | `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
 
 ## Returns

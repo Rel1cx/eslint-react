@@ -3,20 +3,22 @@
 # Variable: createRule
 
 ```ts
-const createRule: <Options, MessageIds>(__namedParameters: Readonly<RuleWithMetaAndName<Options, MessageIds, PluginDocs>>) => RuleModuleWithName<MessageIds, Options, unknown>;
+const createRule: <Options, MessageIds>(
+  __namedParameters: Readonly<RuleWithMetaAndName<Options, MessageIds, PluginDocs>>,
+) => RuleModuleWithName<MessageIds, Options, unknown>;
 ```
 
 ## Type Parameters
 
-| Type Parameter |
-| ------ |
-| `Options` *extends* readonly `unknown`[] |
-| `MessageIds` *extends* `string` |
+| Type Parameter                           |
+| ---------------------------------------- |
+| `Options` _extends_ readonly `unknown`[] |
+| `MessageIds` _extends_ `string`          |
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter           | Type                                                                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `__namedParameters` | [`Readonly`](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)\<`RuleWithMetaAndName`\<`Options`, `MessageIds`, `PluginDocs`\>\> |
 
 ## Returns

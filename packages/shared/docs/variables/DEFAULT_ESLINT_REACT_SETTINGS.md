@@ -12,8 +12,8 @@ const DEFAULT_ESLINT_REACT_SETTINGS: {
 
 ## Type Declaration
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| <a id="property-importsource"></a> `importSource` | `"react"` | `"react"` |
-| <a id="property-polymorphicpropname"></a> `polymorphicPropName` | `"as"` | `"as"` |
-| <a id="property-version"></a> `version` | `"detect"` | `"detect"` |
+| Name                                                            | Type       | Default value |
+| --------------------------------------------------------------- | ---------- | ------------- |
+| <a id="property-importsource"></a> `importSource`               | `"react"`  | `"react"`     |
+| <a id="property-polymorphicpropname"></a> `polymorphicPropName` | `"as"`     | `"as"`        |
+| <a id="property-version"></a> `version`                         | `"detect"` | `"detect"`    |

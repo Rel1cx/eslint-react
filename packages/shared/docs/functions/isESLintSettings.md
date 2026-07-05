@@ -8,8 +8,8 @@ function isESLintSettings(settings: unknown): settings is { react-x?: unknown } 
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter  | Type      |
+| ---------- | --------- |
 | `settings` | `unknown` |
 
 ## Returns

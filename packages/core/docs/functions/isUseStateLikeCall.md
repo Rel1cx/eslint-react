@@ -10,10 +10,10 @@ Detect useState calls and variations using a regex pattern
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` \| `null` | The AST node to check |
-| `additionalStateHooks` | `RegExpLike` | Regex pattern matching custom hooks that should be treated as state hooks |
+| Parameter              | Type             | Description                                                               |
+| ---------------------- | ---------------- | ------------------------------------------------------------------------- |
+| `node`                 | `Node` \| `null` | The AST node to check                                                     |
+| `additionalStateHooks` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as state hooks |
 
 ## Returns
 

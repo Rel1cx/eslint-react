@@ -8,9 +8,9 @@ const isGetSnapshotBeforeUpdate: (node: Node) => node is TSESTreeMethodOrPropert
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type   |
+| --------- | ------ |
+| `node`    | `Node` |
 
 ## Returns
 

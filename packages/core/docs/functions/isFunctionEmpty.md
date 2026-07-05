@@ -10,9 +10,9 @@ Checks if a function is empty.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `TSESTreeFunction` | The function node to check. |
+| Parameter | Type               | Description                 |
+| --------- | ------------------ | --------------------------- |
+| `node`    | `TSESTreeFunction` | The function node to check. |
 
 ## Returns
 

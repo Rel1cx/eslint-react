@@ -12,9 +12,9 @@ Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `string` | `string` \| `null` \| `undefined` | The string to convert. |
+| Parameter | Type                              | Description            |
+| --------- | --------------------------------- | ---------------------- |
+| `string`  | `string` \| `null` \| `undefined` | The string to convert. |
 
 ## Returns
 

@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   api: {
-     getAllHooks: HookSemanticNode[];
+    getAllHooks: HookSemanticNode[];
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -13,8 +13,8 @@ type ReturnType = {
 
 ## Properties
 
-| Property | Type |
-| ------ | ------ |
-| <a id="property-api"></a> `api` | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; \} |
-| `api.getAllHooks` | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[] |
-| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener` |
+| Property                                | Type                                                                                     |
+| --------------------------------------- | ---------------------------------------------------------------------------------------- |
+| <a id="property-api"></a> `api`         | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; \} |
+| `api.getAllHooks`                       | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]                       |
+| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener`                                                               |

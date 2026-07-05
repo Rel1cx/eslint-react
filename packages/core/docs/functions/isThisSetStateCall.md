@@ -8,9 +8,9 @@ function isThisSetStateCall(node: CallExpression): boolean;
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `CallExpression` | The call expression node to check. |
+| Parameter | Type             | Description                        |
+| --------- | ---------------- | ---------------------------------- |
+| `node`    | `CallExpression` | The call expression node to check. |
 
 ## Returns
 

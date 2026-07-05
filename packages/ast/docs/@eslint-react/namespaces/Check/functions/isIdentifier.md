@@ -8,10 +8,10 @@ function isIdentifier(node: Node, name?: string): node is Identifier;
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
-| `name?` | `string` |
+| Parameter | Type     |
+| --------- | -------- |
+| `node`    | `Node`   |
+| `name?`   | `string` |
 
 ## Returns
 

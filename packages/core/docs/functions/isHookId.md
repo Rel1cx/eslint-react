@@ -10,9 +10,9 @@ Checks if the given node is a hook identifier
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `id` | `Node` | The AST node to check |
+| Parameter | Type   | Description           |
+| --------- | ------ | --------------------- |
+| `id`      | `Node` | The AST node to check |
 
 ## Returns
 

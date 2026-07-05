@@ -8,9 +8,9 @@ function getRootIdentifier(node: PrivateIdentifier | Expression): Identifier | n
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `PrivateIdentifier` \| `Expression` |
+| Parameter | Type                                |
+| --------- | ----------------------------------- |
+| `node`    | `PrivateIdentifier` \| `Expression` |
 
 ## Returns
 

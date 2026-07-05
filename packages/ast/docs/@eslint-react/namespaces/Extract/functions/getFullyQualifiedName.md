@@ -8,9 +8,9 @@ function getFullyQualifiedName(node: Node, getText: (node: Node) => string): str
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `node` | `Node` |
+| Parameter | Type                         |
+| --------- | ---------------------------- |
+| `node`    | `Node`                       |
 | `getText` | (`node`: `Node`) => `string` |
 
 ## Returns

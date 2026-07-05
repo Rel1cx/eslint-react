@@ -8,9 +8,9 @@ function isRenderMethodLike(node: Node): node is TSESTreeMethodOrPropertyDefinit
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `node` | `Node` | The AST node to check. |
+| Parameter | Type   | Description            |
+| --------- | ------ | ---------------------- |
+| `node`    | `Node` | The AST node to check. |
 
 ## Returns
 

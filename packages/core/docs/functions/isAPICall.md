@@ -10,9 +10,9 @@ Check if the node is a call expression to a specific React API
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `api` | `string` | The React API name to check against |
+| Parameter | Type     | Description                         |
+| --------- | -------- | ----------------------------------- |
+| `api`     | `string` | The React API name to check against |
 
 ## Returns
 
