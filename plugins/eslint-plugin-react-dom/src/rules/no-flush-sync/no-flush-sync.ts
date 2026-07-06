@@ -25,24 +25,22 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-const flushSync = "flushSync";
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `flushSync` is not present in the file
-  if (!context.sourceCode.text.includes(flushSync)) return {};
+  if (!context.sourceCode.text.includes("flushSync")) return {};
   return {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
         // Handle direct calls like `flushSync()`
         case AST.Identifier:
-          if (callee.name === flushSync) {
+          if (callee.name === "flushSync") {
             context.report({ messageId: "default", node });
           }
           return;
         // Handle member access calls like `ReactDOM.flushSync()`
         case AST.MemberExpression:
-          if (Extract.getPropertyName(callee.property) === flushSync) {
+          if (Extract.getPropertyName(callee.property) === "flushSync") {
             context.report({ messageId: "default", node });
           }
           return;

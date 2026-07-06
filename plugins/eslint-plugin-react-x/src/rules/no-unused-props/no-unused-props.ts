@@ -79,11 +79,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   });
 }
 
-function reportUnusedProp(
-  context: RuleContext<MessageID, []>,
-  services: ParserServicesWithTypeInformation,
-  prop: ts.Symbol,
-) {
+function reportUnusedProp(context: RuleContext<MessageID, []>, services: ParserServicesWithTypeInformation, prop: ts.Symbol) {
   const declaration = prop.getDeclarations()?.[0];
   if (declaration == null) return;
 

@@ -8,8 +8,6 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
 
-const DSIH = "dangerouslySetInnerHTML";
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -28,11 +26,11 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
-  if (!context.sourceCode.text.includes(DSIH)) return {};
+  if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
   return {
     JSXElement(node) {
       // Check if the element has the 'dangerouslySetInnerHTML' prop
-      const dsihProp = findAttribute(context, node, DSIH);
+      const dsihProp = findAttribute(context, node, "dangerouslySetInnerHTML");
       // If the prop is not found, do nothing
       if (dsihProp == null) return;
       // If the prop is found, report an error

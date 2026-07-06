@@ -3,11 +3,7 @@ import { type RuleContext } from "@eslint-react/eslint";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
-export function collectUsedPropKeysOfParameter(
-  context: RuleContext,
-  usedPropKeys: Set<string>,
-  parameter: TSESTree.Parameter,
-): boolean {
+export function collectUsedPropKeysOfParameter(context: RuleContext, usedPropKeys: Set<string>, parameter: TSESTree.Parameter): boolean {
   switch (parameter.type) {
     case AST.Identifier: {
       return collectUsedPropKeysOfIdentifier(context, usedPropKeys, parameter);
@@ -25,11 +21,7 @@ export function collectUsedPropKeysOfParameter(
   }
 }
 
-export function collectUsedPropKeysOfObjectPattern(
-  context: RuleContext,
-  usedPropKeys: Set<string>,
-  objectPattern: TSESTree.ObjectPattern,
-): boolean {
+export function collectUsedPropKeysOfObjectPattern(context: RuleContext, usedPropKeys: Set<string>, objectPattern: TSESTree.ObjectPattern): boolean {
   for (const property of objectPattern.properties) {
     switch (property.type) {
       case AST.Property: {
@@ -50,11 +42,7 @@ export function collectUsedPropKeysOfObjectPattern(
   return true;
 }
 
-export function collectUsedPropsOfRestElement(
-  context: RuleContext,
-  usedPropKeys: Set<string>,
-  restElement: TSESTree.RestElement,
-): boolean {
+export function collectUsedPropsOfRestElement(context: RuleContext, usedPropKeys: Set<string>, restElement: TSESTree.RestElement): boolean {
   switch (restElement.argument.type) {
     case AST.Identifier: {
       return collectUsedPropKeysOfIdentifier(
@@ -69,11 +57,7 @@ export function collectUsedPropsOfRestElement(
   }
 }
 
-export function collectUsedPropKeysOfIdentifier(
-  context: RuleContext,
-  usedPropKeys: Set<string>,
-  identifier: TSESTree.Identifier,
-): boolean {
+export function collectUsedPropKeysOfIdentifier(context: RuleContext, usedPropKeys: Set<string>, identifier: TSESTree.Identifier): boolean {
   const scope = context.sourceCode.getScope(identifier);
   const variable = scope.variables.find((v) => v.name === identifier.name);
   if (variable == null) return false;
@@ -90,11 +74,7 @@ export function collectUsedPropKeysOfIdentifier(
   return true;
 }
 
-export function collectUsedPropKeysOfReference(
-  context: RuleContext,
-  usedPropKeys: Set<string>,
-  ref: Reference,
-): boolean {
+export function collectUsedPropKeysOfReference(context: RuleContext, usedPropKeys: Set<string>, ref: Reference): boolean {
   // Walk upward through type-expression wrappers to find the outer value node
   let valueNode: TSESTree.Node = ref.identifier;
   while (Check.isTypeExpression(valueNode.parent) || valueNode.parent.type === AST.ChainExpression) {

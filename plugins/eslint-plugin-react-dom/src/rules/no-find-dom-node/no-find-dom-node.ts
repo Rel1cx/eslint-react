@@ -25,24 +25,22 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-const findDOMNode = "findDOMNode";
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `findDOMNode` is not present in the file
-  if (!context.sourceCode.text.includes(findDOMNode)) return {};
+  if (!context.sourceCode.text.includes("findDOMNode")) return {};
   return {
     CallExpression(node) {
       const { callee } = node;
       switch (callee.type) {
         // Handles cases like `findDOMNode()`.
         case AST.Identifier:
-          if (callee.name === findDOMNode) {
+          if (callee.name === "findDOMNode") {
             context.report({ messageId: "default", node });
           }
           return;
         // Handles cases like `ReactDOM.findDOMNode()`.
         case AST.MemberExpression:
-          if (Extract.getPropertyName(callee.property) === findDOMNode) {
+          if (Extract.getPropertyName(callee.property) === "findDOMNode") {
             context.report({ messageId: "default", node });
           }
           return;

@@ -30,11 +30,9 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-const hydrate = "hydrate";
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `hydrate` is not present in the file
-  if (!context.sourceCode.text.includes(hydrate)) return {};
+  if (!context.sourceCode.text.includes("hydrate")) return {};
   const settings = getSettingsFromContext(context);
   // This rule only applies to React 18.0.0 and later.
   if (compare(settings.version, "18.0.0", "<")) return {};
@@ -59,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
         case callee.type === AST.MemberExpression
           && callee.object.type === AST.Identifier
-          && Extract.getPropertyName(callee.property) === hydrate
+          && Extract.getPropertyName(callee.property) === "hydrate"
           && reactDomNames.has(callee.object.name):
           context.report({
             fix: getFix(context, node),
@@ -78,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // `import { hydrate } from 'react-dom'`
           case AST.ImportSpecifier:
             if (specifier.imported.type !== AST.Identifier) continue;
-            if (specifier.imported.name === hydrate) {
+            if (specifier.imported.name === "hydrate") {
               hydrateNames.add(specifier.local.name);
             }
             continue;
