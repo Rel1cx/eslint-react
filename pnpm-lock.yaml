@@ -42,8 +42,8 @@ overrides:
   tslib: ^2.8.1
   typescript-eslint: ^8.62.1
   typescript: 6.0.3
-  undici-types: ^8.6.0
-  undici: ^8.6.0
+  undici-types: ^8.7.0
+  undici: ^8.7.0
   uuid: ^14.0.1
 
 importers:
@@ -266,10 +266,23 @@ importers:
         version: 0.22.3(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
 
   .pkgs/samples:
-    devDependencies:
+    dependencies:
       '@eslint-react/kit':
         specifier: workspace:*
         version: link:../../packages/kit
+      '@typescript-eslint/types':
+        specifier: ^8.62.1
+        version: 8.62.1
+      '@typescript-eslint/typescript-estree':
+        specifier: ^8.62.1
+        version: 8.62.1(typescript@6.0.3)
+      '@typescript-eslint/utils':
+        specifier: ^8.62.1
+        version: 8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
+      ts-pattern:
+        specifier: ^5.9.0
+        version: 5.9.0
+    devDependencies:
       '@local/configs':
         specifier: workspace:*
         version: link:../configs
@@ -288,15 +301,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
-      '@typescript-eslint/types':
-        specifier: ^8.62.1
-        version: 8.62.1
-      '@typescript-eslint/typescript-estree':
-        specifier: ^8.62.1
-        version: 8.62.1(typescript@6.0.3)
-      '@typescript-eslint/utils':
-        specifier: ^8.62.1
-        version: 8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
       eslint:
         specifier: ^10.6.0
         version: 10.6.0(jiti@2.7.0)
@@ -7310,11 +7314,11 @@ packages:
   unconfig-core@7.5.0:
     resolution: {integrity: sha512-Su3FauozOGP44ZmKdHy2oE6LPjk51M/TRRjHv2HNCWiDvfvCoxC2lno6jevMA91MYAdCdwP05QnWdWpSbncX/w==}
 
-  undici-types@8.6.0:
-    resolution: {integrity: sha512-PNaUHMvBDydpZd0N0J30w9m5p3a2zvCD5bxaLLnlwZkNKAlWhg8QeIJUaiPUI5lXh2M/m26gp75ah+Kbmpm13Q==}
+  undici-types@8.7.0:
+    resolution: {integrity: sha512-gbsS+hAjHg9iV+T8XWdFqnOZEk4f5xrrX3eb9Y1GDe+B5u9H68P6SzYXXUw/rkRvJHRgKIdNfAcrcVj/JvayVA==}
 
-  undici@8.6.0:
-    resolution: {integrity: sha512-l2FlC6I510GawyEd1qgcE/okihKrzy+BRTEBlu6T0fdbM9m5yxtIH5Oa3ysRsH0zC4EhmWUEaSDsy2QngBeRlw==}
+  undici@8.7.0:
+    resolution: {integrity: sha512-N7iQtfyLhIMOFgQubvmLV26svHpO0bqKnAiWotTQCVKCmWrcGbBotPuW1x+xwYZ2VHdSTVUfPQQnlEt1/LouTQ==}
     engines: {node: '>=22.19.0'}
 
   unicorn-magic@0.1.0:
@@ -7926,7 +7930,7 @@ snapshots:
       '@effect/sql': 0.51.1(@effect/experimental@0.60.0(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4))(@effect/platform@0.96.2(effect@3.21.4))(effect@3.21.4)
       effect: 3.21.4
       mime: 3.0.0
-      undici: 8.6.0
+      undici: 8.7.0
       ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
@@ -9800,11 +9804,11 @@ snapshots:
 
   '@types/node@22.20.0':
     dependencies:
-      undici-types: 8.6.0
+      undici-types: 8.7.0
 
   '@types/node@26.1.0':
     dependencies:
-      undici-types: 8.6.0
+      undici-types: 8.7.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -14073,9 +14077,9 @@ snapshots:
       '@quansync/fs': 1.0.0
       quansync: 1.0.0
 
-  undici-types@8.6.0: {}
+  undici-types@8.7.0: {}
 
-  undici@8.6.0: {}
+  undici@8.7.0: {}
 
   unicorn-magic@0.1.0: {}
 

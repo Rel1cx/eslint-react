@@ -163,19 +163,20 @@ export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunct
   }
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;
-  if (parent.type === AST.CallExpression && isFunctionComponentWrapperCall(context, parent) && parent.parent.type === AST.VariableDeclarator) {
-    return parent.parent.id;
+  switch (true) {
+    case parent.type === AST.CallExpression
+      && isFunctionComponentWrapperCall(context, parent)
+      && parent.parent.type === AST.VariableDeclarator:
+      return parent.parent.id;
+    case parent.type === AST.CallExpression
+      && isFunctionComponentWrapperCall(context, parent)
+      && parent.parent.type === AST.CallExpression
+      && isFunctionComponentWrapperCall(context, parent.parent)
+      && parent.parent.parent.type === AST.VariableDeclarator:
+      return parent.parent.parent.id;
+    default:
+      return null;
   }
-  if (
-    parent.type === AST.CallExpression
-    && isFunctionComponentWrapperCall(context, parent)
-    && parent.parent.type === AST.CallExpression
-    && isFunctionComponentWrapperCall(context, parent.parent)
-    && parent.parent.parent.type === AST.VariableDeclarator
-  ) {
-    return parent.parent.parent.id;
-  }
-  return null;
 }
 
 // #endregion

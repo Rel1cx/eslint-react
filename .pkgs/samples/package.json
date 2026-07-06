@@ -35,17 +35,20 @@
     "lint:ts": "tsl",
     "publish": "node --run build:docs && node --run lint:publish"
   },
-  "devDependencies": {
+  "dependencies": {
     "@eslint-react/kit": "workspace:*",
+    "@typescript-eslint/types": "^8.62.1",
+    "@typescript-eslint/typescript-estree": "^8.62.1",
+    "@typescript-eslint/utils": "^8.62.1",
+    "ts-pattern": "^5.9.0"
+  },
+  "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^8.0.6",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/types": "^8.62.1",
-    "@typescript-eslint/typescript-estree": "^8.62.1",
-    "@typescript-eslint/utils": "^8.62.1",
     "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3",
