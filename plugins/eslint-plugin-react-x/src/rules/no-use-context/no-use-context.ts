@@ -11,7 +11,9 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | "replace";
+export type MessageID =
+  | "default"
+  | "replace";
 
 export default createRule<[], MessageID>({
   meta: {

@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.Identifier
           && useFormStateNames.has(callee.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && Extract.getPropertyName(callee.property) === "useFormState"
           && reactDomNames.has(callee.object.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -94,7 +94,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function getFix(context: RuleContext, node: TSESTree.CallExpression) {
+function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:

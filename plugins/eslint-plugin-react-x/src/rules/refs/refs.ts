@@ -12,7 +12,11 @@ export const RULE_FEATURES = [
   "EXP",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "readDuringRender" | "writeDuringRender" | "refPassedToFunction" | "duplicateRefInit";
+export type MessageID =
+  | "readDuringRender"
+  | "writeDuringRender"
+  | "refPassedToFunction"
+  | "duplicateRefInit";
 
 export default createRule<[], MessageID>({
   meta: {

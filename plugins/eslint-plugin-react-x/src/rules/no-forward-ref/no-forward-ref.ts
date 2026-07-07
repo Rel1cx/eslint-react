@@ -15,7 +15,9 @@ export const RULE_FEATURES = [
   "MOD",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | "replace";
+export type MessageID =
+  | "default"
+  | "replace";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -53,10 +55,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const id = core.getFunctionId(node);
-      const suggest = canFix(context, node)
+      const suggest = couldFix(context, node)
         ? [
           {
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "replace" as const,
           },
         ]
@@ -78,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The CallExpression node to check
  * @returns True if the call can be auto-fixed, false otherwise
  */
-function canFix(context: RuleContext, node: TSESTree.CallExpression) {
+function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
   const initialScope = context.sourceCode.getScope(node);
   // Check if the callee is `forwardRef` or `React.forwardRef`
@@ -100,7 +102,7 @@ function canFix(context: RuleContext, node: TSESTree.CallExpression) {
  * @param node The `forwardRef` call expression
  * @returns A fixer function that applies the changes
  */
-function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
+function buildFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
     if (componentNode == null || !Check.isFunction(componentNode)) {
@@ -111,7 +113,7 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
       fixer.removeRange([node.range[0], componentNode.range[0]]),
       fixer.removeRange([componentNode.range[1], node.range[1]]),
       // Update component props and ref arguments to match the new signature
-      ...getComponentPropsFixes(
+      ...buildFixForComponentProps(
         context,
         fixer,
         componentNode,
@@ -129,7 +131,7 @@ function getFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: Ru
  * @param typeArguments The type arguments from the `forwardRef` call
  * @returns An array of fixes for the component's signature
  */
-function getComponentPropsFixes(
+function buildFixForComponentProps(
   context: RuleContext,
   fixer: RuleFixer,
   node: TSESTreeFunction,

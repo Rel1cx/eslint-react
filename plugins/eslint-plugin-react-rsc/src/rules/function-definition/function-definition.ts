@@ -98,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The function node to fix
    * @returns The fix function, or `null` if no fix is available
    */
-  function getAsyncFix(node: TSESTreeFunction): ReportFixFunction | null {
+  function buildFixForAsync(node: TSESTreeFunction): ReportFixFunction | null {
     // Arrow functions: insert before the node (before parameters)
     if (node.type === AST.ArrowFunctionExpression) {
       return (fixer) => fixer.insertTextBefore(node, "async ");
@@ -118,7 +118,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (node == null) return;
     const fn = Extract.unwrap(node);
     if (!Check.isFunction(fn) || fn.async) return;
-    context.report({ fix: getAsyncFix(fn), messageId, node: fn });
+    context.report({ fix: buildFixForAsync(fn), messageId, node: fn });
   }
 
   /**

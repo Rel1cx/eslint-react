@@ -49,7 +49,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.Identifier
           && hydrateNames.has(callee.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && Extract.getPropertyName(callee.property) === "hydrate"
           && reactDomNames.has(callee.object.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -91,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function getFix(context: RuleContext, node: TSESTree.CallExpression) {
+function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;

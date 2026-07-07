@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.Identifier
           && renderNames.has(callee.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           && Extract.getPropertyName(callee.property) === "render"
           && reactDomNames.has(callee.object.name):
           context.report({
-            fix: getFix(context, node),
+            fix: buildFix(context, node),
             messageId: "default",
             node,
           });
@@ -99,7 +99,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The `CallExpression` node to fix
  * @returns A fixer function or null if the fix cannot be applied
  */
-function getFix(context: RuleContext, node: TSESTree.CallExpression) {
+function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
     // `render` takes two arguments: component and container

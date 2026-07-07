@@ -9,7 +9,9 @@ export const RULE_NAME = "static-components";
 
 export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | "createdHere";
+export type MessageID =
+  | "default"
+  | "createdHere";
 
 export default createRule<[], MessageID>({
   meta: {
