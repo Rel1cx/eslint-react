@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.12.0-beta.2 (2026-07-07)
+
+### 📝 Documentation
+
+- Cleaned up the rule relations table.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.0-beta.1...v5.12.0-beta.2
+
 ## v5.12.0-beta.1 (2026-07-07)
 
 ### 📝 Documentation
