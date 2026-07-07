@@ -2,12 +2,9 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolve } from "@eslint-react/var";
-import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import { MUTATING_ARRAY_METHODS, hasRefLikeNameInChain, identifierExistsInPattern, isRefLikeName } from "./lib";
+import { MUTATING_METHODS, hasRefLikeNameInChain, isNodeWithin, isRefLikeName, resolveToFunctionNode } from "./lib";
 
 export const RULE_NAME = "immutability";
 
@@ -16,20 +13,26 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "mutatingArrayMethod"
-  | "mutatingAssignment"
-  | "noRefLikeStateName";
+  | "default"
+  | "mutates";
+
+interface MutationSite {
+  enclosing: TSESTreeFunction;
+  node: TSESTree.Node;
+  root: TSESTree.Identifier;
+}
 
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
     docs: {
-      description: "Validates against mutating props, state, and other values that are immutable.",
+      description:
+        "Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values.",
     },
     messages: {
-      mutatingArrayMethod: "Do not call '{{method}}()' on '{{name}}'. Props and state are immutable — create a new array instead.",
-      mutatingAssignment: "Do not mutate '{{name}}' directly. Props and state are immutable — create a new object instead.",
-      noRefLikeStateName: "State variable '{{name}}' should not be named 'ref' or end with 'Ref'. Use a different name to avoid confusion with mutable refs.",
+      default:
+        "This function may (indirectly) reassign or modify '{{name}}' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead.",
+      mutates: "This modifies '{{name}}'.",
     },
     schema: [],
   },
@@ -39,230 +42,139 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { additionalStateHooks } = getSettingsFromContext(context);
-
   const hc = core.getHookCollector(context);
-  const fc = core.getFunctionComponentCollector(context);
 
-  /**
-   * Violations accumulated while traversing. Each entry records the node to
-   * report and the enclosing function so we can filter at Program:exit.
-   */
-  const violations: {
-    data: Record<string, string>;
-    func: TSESTreeFunction;
-    messageId: MessageID;
-    node: TSESTree.Node;
-    /**
-     * When the violation originates from a props parameter, this is the
-     * function where that parameter was declared. It must be verified as a
-     * component or hook at Program:exit time.
-     */
-    propsDefiningFunc?: TSESTreeFunction;
-  }[] = [];
+  const mutationSites: MutationSite[] = [];
+  const sinkCandidates: TSESTree.Node[] = [];
 
-  // ---------------------------------------------------------------------------
-  // Helpers
-  // ---------------------------------------------------------------------------
-
-  function isUseStateCall(node: TSESTree.Node) {
-    return core.isUseStateLikeCall(node, additionalStateHooks);
+  function pushMutationSite(node: TSESTree.Node, root: TSESTree.Identifier) {
+    const enclosing = Traverse.findParent(node, Check.isFunction);
+    if (enclosing == null) return;
+    mutationSites.push({ enclosing, node, root });
   }
-
-  /**
-   * Return true when `id` is the *value* variable (index 0) produced by a
-   * `useState(…)` or `useReducer(…)` call.
-   * @param id The identifier to check. May be a reference to the state variable, e.g. used inside an event handler nested in the component body — scope resolution will trace it back to the original declaration.
-   * @returns True if `id` is a state variable, false otherwise.
-   */
-  function isStateValue(id: TSESTree.Identifier): boolean {
-    const initNode = resolve(context, id);
-
-    if (initNode == null || initNode.type !== AST.CallExpression) return false;
-    if (!isUseStateCall(initNode) && !core.isUseReducerCall(context, initNode)) return false;
-
-    // If the result is not destructured into an array, the entire
-    // result is a state container — treat it as a state value.
-    const declarator = initNode.parent;
-    if (!("id" in declarator) || declarator.id?.type !== AST.ArrayPattern) {
-      return true;
-    }
-
-    // The identifier must be the first element of the destructuring (the value,
-    // not the setter/dispatch).
-    const idx = declarator.id.elements.findIndex(
-      (el) => el?.type === AST.Identifier && el.name === id.name,
-    );
-    return idx === 0;
-  }
-
-  /**
-   * Return the function node when `id` is a parameter of any position in any
-   * ancestor function; otherwise return `null`.
-   *
-   * The caller must later verify (at Program:exit) that the returned function
-   * is actually a component or hook — event handler parameters share the same
-   * syntactic shape but should **not** be treated as React props.
-   *
-   * Uses scope resolution so that references to parameters inside nested arrow
-   * functions are correctly traced back to the declaring function, e.g.:
-   *
-   *   function Component({ items }) {        // ← items defined here
-   *     const handleClick = () => {
-   *       items.push(4); // ← items resolved via scope to Component's param
-   *     };
-   *   }
-   * @param id The identifier to check.
-   * @returns The function node where `id` is a parameter, or `null`.
-   */
-  function getPropsDefiningFunction(id: TSESTree.Identifier): TSESTreeFunction | null {
-    const scope = context.sourceCode.getScope(id);
-    const variable = findVariable(scope, id);
-    if (variable == null) return null;
-    for (const def of variable.defs) {
-      if (def.type !== DefinitionType.Parameter) continue;
-      // Find the enclosing function (handles destructured params where def.node is the pattern)
-      let fn: TSESTree.Node | null = def.node;
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      while (true) {
-        if (Check.isFunction(fn)) break;
-        fn = fn.parent ?? null;
-        if (fn == null) break;
-      }
-      if (fn == null) continue;
-      // Check if id.name appears anywhere in any parameter of this function
-      if (fn.params.some((param) => identifierExistsInPattern(param, id.name))) {
-        return fn;
-      }
-    }
-    return null;
-  }
-
-  // ---------------------------------------------------------------------------
-  // Visitors
-  // ---------------------------------------------------------------------------
 
   return merge(
     hc.visitor,
-    fc.visitor,
     {
-      /**
-       * Detect `state.push(…)`, `state.sort()`, etc.
-       *
-       * Pattern:
-       *   CallExpression
-       *     callee: MemberExpression
-       *       object: <state or props identifier>
-       *       property: <mutating method name>
-       * @param node The CallExpression node to analyze.
-       */
-      CallExpression(node: TSESTree.CallExpression) {
-        // Detect useState/useReducer state variables named ref or *Ref
-        if (isUseStateCall(node) || core.isUseReducerCall(context, node)) {
-          const declarator = node.parent;
-          if (declarator.type === AST.VariableDeclarator && declarator.id.type === AST.ArrayPattern) {
-            const [firstElement] = declarator.id.elements;
-            if (firstElement?.type === AST.Identifier && isRefLikeName(firstElement.name)) {
-              context.report({
-                data: { name: firstElement.name },
-                messageId: "noRefLikeStateName",
-                node: firstElement,
-              });
-            }
+      AssignmentExpression(node: TSESTree.AssignmentExpression) {
+        const left = Extract.unwrap(node.left);
+        switch (left.type) {
+          case AST.Identifier: {
+            if (isRefLikeName(left.name)) return;
+            pushMutationSite(node, left);
+            return;
+          }
+          case AST.MemberExpression: {
+            if (hasRefLikeNameInChain(left)) return;
+            const rootId = Extract.getRootIdentifier(left);
+            if (rootId == null) return;
+            pushMutationSite(node, rootId);
+            return;
           }
         }
-
+      },
+      CallExpression(node: TSESTree.CallExpression) {
         const callee = Extract.unwrap(node.callee);
-        if (callee.type !== AST.MemberExpression) return;
-        const { object, property } = callee;
-        if (property.type !== AST.Identifier) return;
-        if (!MUTATING_ARRAY_METHODS.has(property.name)) return;
-
-        // Find the root identifier (handles `state`, `state.nested`, etc.)
-        const rootId = Extract.getRootIdentifier(object);
-        if (rootId == null) return;
-        if (rootId.name === "draft") return;
-        if (hasRefLikeNameInChain(object)) return;
-
-        const enclosingFn = Traverse.findParent(node, Check.isFunction);
-        if (enclosingFn == null) return;
-
-        const isState = isStateValue(rootId);
-        const propsDefiningFunc = !isState ? getPropsDefiningFunction(rootId) : null;
-        if (!isState && propsDefiningFunc == null) return;
-
-        violations.push({
-          data: {
-            name: context.sourceCode.getText(object),
-            method: property.name,
-          },
-          func: enclosingFn,
-          messageId: "mutatingArrayMethod",
-          node,
-          ...(propsDefiningFunc != null ? { propsDefiningFunc } : {}),
-        });
+        if (callee.type === AST.MemberExpression) {
+          const propName = Extract.getPropertyName(callee.property);
+          if (propName != null && MUTATING_METHODS.has(propName) && !hasRefLikeNameInChain(callee.object)) {
+            const rootId = Extract.getRootIdentifier(callee.object);
+            if (rootId != null) pushMutationSite(node, rootId);
+          }
+        }
+        if (core.isHookCall(node)) {
+          for (const arg of node.arguments) {
+            if (arg.type === AST.SpreadElement) continue;
+            sinkCandidates.push(arg);
+          }
+        }
       },
-
-      /**
-       * Detect `state.foo = bar`, `state.foo.bar = baz`, `props.foo = bar`.
-       *
-       * Pattern:
-       *   AssignmentExpression
-       *     left: MemberExpression
-       *       object: <state or props identifier (or deeper chain)>
-       * @param node The AssignmentExpression node to analyze.
-       */
-      AssignmentExpression(node: TSESTree.AssignmentExpression) {
-        if (node.left.type !== AST.MemberExpression) return;
-        const rootId = Extract.getRootIdentifier(node.left);
-        if (rootId == null) return;
-        if (rootId.name === "draft") return;
-        if (hasRefLikeNameInChain(node.left.object)) return;
-
-        const enclosingFn = Traverse.findParent(node, Check.isFunction);
-        if (enclosingFn == null) return;
-
-        const isState = isStateValue(rootId);
-        const propsDefiningFunc = !isState ? getPropsDefiningFunction(rootId) : null;
-        if (!isState && propsDefiningFunc == null) return;
-
-        violations.push({
-          data: {
-            name: context.sourceCode.getText(node.left.object),
-          },
-          func: enclosingFn,
-          messageId: "mutatingAssignment",
-          node,
-          ...(propsDefiningFunc != null ? { propsDefiningFunc } : {}),
-        });
+      JSXAttribute(node: TSESTree.JSXAttribute) {
+        if (node.value?.type !== AST.JSXExpressionContainer) return;
+        const expr = node.value.expression;
+        if (expr.type === AST.JSXEmptyExpression) return;
+        sinkCandidates.push(expr);
       },
-      "Program:exit"(node) {
-        const comps = fc.api.getAllComponents(node);
-        const hooks = hc.api.getAllHooks(node);
-        const funcs = [...comps, ...hooks];
-
-        for (const { data, func, messageId, node, propsDefiningFunc } of violations) {
-          // Walk up the function chain to find a component or hook boundary
-          let current: TSESTreeFunction | null = func;
-          let insideComponentOrHook = false;
+      "Program:exit"(program) {
+        // Phase 1: determine which functions mutate a variable captured from
+        // an enclosing scope (transitively, through nested closures).
+        const mutableFunctions = new Map<TSESTreeFunction, { name: string; node: TSESTree.Node }>();
+        for (const { enclosing, node, root } of mutationSites) {
+          const scope = context.sourceCode.getScope(root);
+          const variable = findVariable(scope, root);
+          if (variable == null) continue;
+          const declId = variable.identifiers.at(0) ?? null;
+          let current: TSESTreeFunction | null = enclosing;
           while (current != null) {
-            if (funcs.some((f) => f.node === current)) {
-              insideComponentOrHook = true;
-              break;
+            // The variable is declared inside `current` — it's local, not
+            // captured, so it cannot leak through any function further out.
+            if (declId != null && isNodeWithin(declId, current)) break;
+            if (!mutableFunctions.has(current)) {
+              mutableFunctions.set(current, { name: variable.name, node });
             }
             current = Traverse.findParent(current, Check.isFunction);
           }
+        }
 
-          if (!insideComponentOrHook) continue;
+        if (mutableFunctions.size === 0) return;
 
-          // For props-based violations, verify that the function where the
-          // parameter was declared is itself a component or hook. This prevents
-          // false positives on event handler parameters (e.g. `e.currentTarget`).
-          if (propsDefiningFunc != null) {
-            if (!funcs.some((f) => f.node === propsDefiningFunc)) continue;
+        // Phase 2: check every collected freeze context (JSX prop, hook
+        // argument, hook return value) against the mutable functions found above.
+        const reported = new Set<TSESTree.Node>();
+        function checkSink(expr: TSESTree.Node | null | undefined) {
+          if (expr == null || reported.has(expr)) return;
+          const fn = resolveToFunctionNode(context, expr);
+          if (fn == null) return;
+          const mutation = mutableFunctions.get(fn);
+          if (mutation == null) return;
+          reported.add(expr);
+          // Report both the freeze usage site and the mutation site, mirroring
+          // the SPEC's dual-location diagnostic (usage location + mutation location).
+          context.report({
+            data: { name: mutation.name },
+            messageId: "default",
+            node: expr,
+          });
+          context.report({
+            data: { name: mutation.name },
+            messageId: "mutates",
+            node: mutation.node,
+          });
+        }
+
+        for (const candidate of sinkCandidates) {
+          checkSink(candidate);
+        }
+        for (const hook of hc.api.getAllHooks(program)) {
+          for (const ret of hook.rets) {
+            checkSink(ret);
           }
-
-          context.report({ data, messageId, node });
+        }
+      },
+      UnaryExpression(node: TSESTree.UnaryExpression) {
+        if (node.operator !== "delete") return;
+        const arg = Extract.unwrap(node.argument);
+        if (arg.type !== AST.MemberExpression) return;
+        if (hasRefLikeNameInChain(arg)) return;
+        const rootId = Extract.getRootIdentifier(arg);
+        if (rootId == null) return;
+        pushMutationSite(node, rootId);
+      },
+      UpdateExpression(node: TSESTree.UpdateExpression) {
+        const arg = Extract.unwrap(node.argument);
+        switch (arg.type) {
+          case AST.Identifier: {
+            if (isRefLikeName(arg.name)) return;
+            pushMutationSite(node, arg);
+            return;
+          }
+          case AST.MemberExpression: {
+            if (hasRefLikeNameInChain(arg)) return;
+            const rootId = Extract.getRootIdentifier(arg);
+            if (rootId == null) return;
+            pushMutationSite(node, rootId);
+            return;
+          }
         }
       },
     },

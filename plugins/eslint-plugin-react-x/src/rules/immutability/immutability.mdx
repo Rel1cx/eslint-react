@@ -25,219 +25,35 @@ react-x/immutability
 
 ## Rule Details
 
-A component's props and state are immutable snapshots. Never mutate them directly. Instead, pass new props down, and use the setter function from `useState` with a freshly created value.
+A function that mutates a variable captured from an enclosing scope is, in effect, a mutable value: unlike a mutable array or object, the caller of the function has no way to prevent the mutation from happening once the function is invoked. This rule flags such functions when they are handed to a context that expects a stable, "frozen" value:
 
-Mutations are invisible to React — because the object or array reference hasn't changed, React has no way to know that something changed. As a result, the UI won't re-render, and your app will show stale data.
+- Passed as a JSX prop
+- Passed as an argument to a hook call
+- Returned from a custom hook
+
+Mutations to `ref`-like values (an identifier named `ref` or ending in `Ref`) are exempted, since refs are mutable by design.
 
 ## Examples
 
-### Adding items to an array
-
-Array methods like `push()` mutate the original array in place. React cannot detect this change because the array reference remains the same.
-
 ```tsx
-// 🔴 Problem: Mutating the array directly
+// 🔴 Problem: `fn` mutates `cache` after render
 function Component() {
-  const [items, setItems] = useState([1, 2, 3]);
-  const addItem = () => {
-    items.push(4); // Directly mutating the original array
-    // ^^^ Do not call 'push()' on 'items'. Props and state are immutable — create a new array instead.
-    setItems(items); // Same reference, won't trigger a re-render
+  const cache = new Map();
+  const fn = () => {
+    cache.set("key", "value");
   };
+  return <Foo fn={fn} />;
 }
 ```
 
 ```tsx
-// 🟢 Recommended: Create a new array
+// 🟢 Recommended: use state instead of a captured mutable variable
 function Component() {
-  const [items, setItems] = useState([1, 2, 3]);
-  const addItem = () => {
-    setItems([...items, 4]); // New array
+  const [cache, setCache] = useState(() => new Map());
+  const fn = () => {
+    setCache((prev) => new Map(prev).set("key", "value"));
   };
-}
-```
-
-### Updating object properties
-
-Directly assigning to an object's property mutates the existing object. React compares object references, not their contents, so the update is ignored.
-
-```tsx
-// 🔴 Problem: Mutating object properties directly
-function Component() {
-  const [user, setUser] = useState({ name: "Alice" });
-  const updateName = () => {
-    user.name = "Bob"; // Directly mutating the original object
-    // ^^^ Do not mutate 'user' directly. Props and state are immutable — create a new object instead.
-    setUser(user); // Same reference
-  };
-}
-```
-
-```tsx
-// 🟢 Recommended: Create a new object
-function Component() {
-  const [user, setUser] = useState({ name: "Alice" });
-  const updateName = () => {
-    setUser({ ...user, name: "Bob" }); // New object
-  };
-}
-```
-
-### Mutating props directly
-
-Props are owned by the parent component. A child should never modify its props.
-
-```tsx
-// 🔴 Problem: Mutating props directly
-function Component(props) {
-  props.name = "Bob"; // Child components should not mutate props
-  // ^^^ Do not mutate 'props' directly. Props and state are immutable — create a new object instead.
-  return <div>{props.name}</div>;
-}
-```
-
-```tsx
-// 🟢 Recommended: Notify the parent via a callback
-function Component({ name, onNameChange }) {
-  return <button onClick={() => onNameChange("Bob")}>{name}</button>;
-}
-```
-
-### Sorting or reversing lists
-
-`Array.prototype.sort()` and `Array.prototype.reverse()` mutate the array in place. If you call them directly on state, you mutate React's internal snapshot.
-
-```tsx
-// 🔴 Problem: sort mutates the original array
-function Component() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sortItems = () => {
-    setItems(items.sort()); // sort mutates the original array
-  };
-}
-```
-
-```tsx
-// 🟢 Recommended: Spread into a new array before sorting
-function Component() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sortItems = () => {
-    setItems([...items].sort()); // New array, then sort
-  };
-}
-```
-
-### Updating nested objects
-
-Mutating nested properties doesn't change the top-level object reference, so React won't detect the update at any level.
-
-```tsx
-// 🔴 Problem: Mutating a nested object
-function UserProfile() {
-  const [user, setUser] = useState({
-    name: "Alice",
-    settings: { theme: "light", notifications: true },
-  });
-  const toggleTheme = () => {
-    user.settings.theme = "dark"; // Mutating a nested property
-    setUser(user); // Same object reference
-  };
-}
-```
-
-```tsx
-// 🟢 Recommended: Create new objects at every level
-function UserProfile() {
-  const [user, setUser] = useState({
-    name: "Alice",
-    settings: { theme: "light", notifications: true },
-  });
-  const toggleTheme = () => {
-    setUser({
-      ...user,
-      settings: {
-        ...user.settings,
-        theme: "dark",
-      },
-    });
-  };
-}
-```
-
-### Complete component examples
-
-Real components often mix state updates with JSX. Here are fuller examples showing how mutations silently break rendering in complete component contexts.
-
-```tsx
-// 🔴 Problem: Mutating the array in a list component
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const addTodo = (id, text) => {
-    todos.push({ id, text }); // Directly mutating the original array
-    setTodos(todos); // Same reference, won't trigger a re-render
-  };
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.text}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-```tsx
-// 🟢 Recommended: Create a new array so React detects the change
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const addTodo = (id, text) => {
-    setTodos([...todos, { id, text }]); // New array
-  };
-  return (
-    <ul>
-      {todos.map((todo) => (
-        <li key={todo.id}>{todo.text}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-```tsx
-// 🔴 Problem: sort mutates the state array inside a button handler
-function SortedList() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sort = () => {
-    setItems(items.sort()); // items is mutated!
-  };
-  return <button onClick={sort}>Sort</button>;
-}
-```
-
-```tsx
-// 🟢 Recommended: Spread into a new array before sorting
-function SortedList() {
-  const [items, setItems] = useState([3, 1, 2]);
-  const sort = () => {
-    setItems([...items].sort());
-  };
-  return <button onClick={sort}>Sort</button>;
-}
-```
-
-## Options
-
-### Shared Settings
-
-Custom state hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
-
-```json
-{
-  "settings": {
-    "react-x": {
-      "additionalStateHooks": "/^(useMyState|useCustomState)$/u"
-    }
-  }
+  return <Foo fn={fn} />;
 }
 ```
 
@@ -251,5 +67,3 @@ Custom state hooks can also be configured via shared ESLint settings, which appl
 
 - [React Docs: `immutability` Lint Rule](https://react.dev/reference/eslint-plugin-react-hooks/lints/immutability)
 - [React Docs: Components and Hooks must be pure](https://react.dev/reference/rules/components-and-hooks-must-be-pure)
-- [React Docs: Updating Objects in State](https://react.dev/learn/updating-objects-in-state)
-- [React Docs: Updating Arrays in State](https://react.dev/learn/updating-arrays-in-state)

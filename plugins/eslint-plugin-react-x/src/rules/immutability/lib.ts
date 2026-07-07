@@ -1,21 +1,56 @@
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/eslint";
+import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * Array methods that mutate the array in place.
+ * Methods that mutate their receiver in place.
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
  */
-export const MUTATING_ARRAY_METHODS = new Set([
+export const MUTATING_METHODS = new Set([
+  "add",
+  "clear",
   "copyWithin",
+  "delete",
   "fill",
   "pop",
   "push",
   "reverse",
+  "set",
   "shift",
   "sort",
   "splice",
   "unshift",
 ]);
+
+/**
+ * Check if `inner` is fully contained within `outer`'s source range.
+ * @param inner The node that may be contained.
+ * @param outer The node that may contain it.
+ */
+export function isNodeWithin(inner: TSESTree.Node, outer: TSESTree.Node): boolean {
+  return inner.range[0] >= outer.range[0] && inner.range[1] <= outer.range[1];
+}
+
+/**
+ * Resolve an expression to the function it ultimately refers to, following
+ * simple local aliasing (`const fn2 = fn;`) via scope resolution.
+ * @param context The ESLint rule context.
+ * @param node The expression to resolve.
+ * @param seen Identifiers already visited, to guard against cycles.
+ */
+export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
+  const expr = Extract.unwrap(node);
+  if (Check.isFunction(expr)) return expr;
+  if (expr.type !== AST.Identifier) return null;
+  if (seen.has(expr)) return null;
+  seen.add(expr);
+  const resolved = resolve(context, expr);
+  if (resolved == null) return null;
+  return resolveToFunctionNode(context, resolved, seen);
+}
 
 /**
  * Check if a name is ref-like ("ref" or ends with "Ref").
@@ -41,33 +76,4 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
     return hasRefLikeNameInChain(node.object);
   }
   return false;
-}
-
-/**
- * Check if `name` appears anywhere inside a parameter pattern.
- * @param pattern - The parameter pattern to search in.
- * @param name - The identifier name to look for.
- */
-export function identifierExistsInPattern(pattern: TSESTree.Node, name: string): boolean {
-  switch (pattern.type) {
-    case AST.Identifier:
-      return pattern.name === name;
-    case AST.ObjectPattern:
-      return pattern.properties.some((p) => {
-        if (p.type === AST.Property) return identifierExistsInPattern(p.value, name);
-        return identifierExistsInPattern(p.argument, name);
-      });
-    case AST.ArrayPattern:
-      return pattern.elements.some((el) => el != null && identifierExistsInPattern(el, name));
-    case AST.RestElement:
-      return identifierExistsInPattern(pattern.argument, name);
-    case AST.AssignmentPattern:
-      return identifierExistsInPattern(pattern.left, name);
-    case AST.MemberExpression: {
-      const root = Extract.getRootIdentifier(pattern);
-      return root?.name === name;
-    }
-    default:
-      return false;
-  }
 }
