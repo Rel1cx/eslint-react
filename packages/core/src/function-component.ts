@@ -1,5 +1,5 @@
-import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 /* eslint-disable perfectionist/sort-objects */
+import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { JsxDetectionHint } from "@eslint-react/jsx";
 import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared";
@@ -237,9 +237,9 @@ export const FunctionComponentDetectionHint = {
   DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
-  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 16n,
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 17n,
+  DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
 } as const;
 
 /**
@@ -307,7 +307,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassMethod) return false;
       break;
     case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
-      && parent.type === AST.Property:
+      && parent.type === AST.PropertyDefinition:
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty) return false;
       break;
     case parent.type === AST.ArrayPattern:
