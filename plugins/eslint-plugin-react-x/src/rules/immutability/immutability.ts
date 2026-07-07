@@ -121,20 +121,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (variable == null) return null;
     for (const def of variable.defs) {
       if (def.type !== DefinitionType.Parameter) continue;
-
       // Find the enclosing function (handles destructured params where def.node is the pattern)
       let fn: TSESTree.Node | null = def.node;
-      for (;;) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      while (true) {
         if (Check.isFunction(fn)) break;
         fn = fn.parent ?? null;
         if (fn == null) break;
       }
       if (fn == null) continue;
-
-      const func = fn;
       // Check if id.name appears anywhere in any parameter of this function
-      if (func.params.some((param) => identifierExistsInPattern(param, id.name))) {
-        return func;
+      if (fn.params.some((param) => identifierExistsInPattern(param, id.name))) {
+        return fn;
       }
     }
     return null;

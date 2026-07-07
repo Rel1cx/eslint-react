@@ -281,7 +281,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           let matchedGuardIf = false;
           if (!isLazyInit && refName != null) {
             let current: TSESTree.Node = node.parent;
-            findIf: for (;;) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            findLoop: while (true) {
               if (current.type === AST.IfStatement) {
                 if (isRefCurrentNullCheck(current.test, refName)) {
                   isLazyInit = true;
@@ -305,7 +306,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 case AST.CallExpression:
                   break;
                 default:
-                  break findIf;
+                  break findLoop;
               }
               current = current.parent;
             }
