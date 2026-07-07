@@ -5,1775 +5,231 @@ import rule, { RULE_NAME } from "./immutability";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
-    // -------------------------------------------------------------------------
-    // State variables named ref or ending with Ref
-    // -------------------------------------------------------------------------
+    // Mutation happens before the (aliased) freeze usage in source order,
+    // so the "This modifies" diagnostic sorts first.
     {
       code: tsx`
-        import { useState } from "react";
-
         function Component() {
-          const [ref, setRef] = useState(0);
-          return <div>{ref}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "ref" },
-        messageId: "noRefLikeStateName",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [itemsRef, setItemsRef] = useState([1, 2, 3]);
-          return <div>{itemsRef.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "itemsRef" },
-        messageId: "noRefLikeStateName",
-      }],
-    },
-    {
-      code: tsx`
-        import { useReducer } from "react";
-
-        function Component() {
-          const [stateRef, dispatch] = useReducer(reducer, {});
-          return <div>{stateRef}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "stateRef" },
-        messageId: "noRefLikeStateName",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Mutating array methods on state
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            items.push(4);
-            setItems(items);
+          const cache = new Map();
+          const fn = () => {
+            cache.set("key", "value");
           };
-          return <div>{items.length}</div>;
+          return <Foo fn={fn} />;
         }
       `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
     },
+    // Inline function passed directly as a JSX prop: the freeze usage (the
+    // function itself) starts before the mutation nested inside its body.
     {
       code: tsx`
-        import { useState } from "react";
-
         function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          const sortItems = () => {
-            setItems(items.sort());
-          };
-          return <div>{items.length}</div>;
+          const cache = new Map();
+          return <Foo fn={() => cache.set("key", "value")} />;
         }
       `,
-      errors: [{
-        data: { name: "items", method: "sort" },
-        messageId: "mutatingArrayMethod",
-      }],
+      errors: [
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "mutates" },
+      ],
     },
+    // Inline function passed directly as a hook argument.
     {
       code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const removeFirst = () => {
-            items.shift();
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "shift" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const removeLast = () => {
-            items.pop();
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "pop" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const removeItem = (index) => {
-            items.splice(index, 1);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "splice" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const reverseItems = () => {
-            items.reverse();
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "reverse" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const prependItem = () => {
-            items.unshift(0);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "unshift" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3, 4, 5]);
-          const fillItems = () => {
-            items.fill(0);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "fill" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3, 4, 5]);
-          const copyWithinItems = () => {
-            items.copyWithin(0, 3);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "copyWithin" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Array index assignment on state
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const updateFirst = () => {
-            items[0] = 10;
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [matrix, setMatrix] = useState([[1, 2], [3, 4]]);
-          const updateNested = () => {
-            matrix[0][1] = 99;
-            setMatrix(matrix);
-          };
-          return <div>{matrix.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "matrix[0]" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Direct property assignment on state objects
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice" });
-          const updateName = () => {
-            user.name = "Bob";
-            setUser(user);
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "user" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({
-            name: "Alice",
-            settings: { theme: "light", notifications: true },
+        function useFoo() {
+          const cache = new Map();
+          useHook(() => {
+            cache.set("key", "value");
           });
-          const toggleTheme = () => {
-            user.settings.theme = "dark";
-            setUser(user);
-          };
-          return <div>{user.settings.theme}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "user.settings" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Mutations directly in render
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          setItems(items.sort());
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "sort" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Mutations inside hooks
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function useItems() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            items.push(4);
-            setItems(items);
-          };
-          return { items, addItem };
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Props object direct mutation
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component(props) {
-          props.name = "Bob";
-          return <div>{props.name}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "props" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    {
-      code: tsx`
-        function Component(props) {
-          const handleClick = () => {
-            props.items.push(4);
-          };
-          return <button onClick={handleClick}>Add</button>;
-        }
-      `,
-      errors: [{
-        data: { name: "props.items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        function Component(props) {
-          props.items[0] = "new value";
-          return <div>{props.items[0]}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "props.items" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    {
-      code: tsx`
-        function Component(props) {
-          props.user.settings.theme = "dark";
-          return <div>{props.user.settings.theme}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "props.user.settings" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Mutations in useCallback
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState, useCallback } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-
-          const addItem = useCallback(() => {
-            items.push(4);
-            setItems(items);
-          }, [items, setItems]);
-
-          return <button onClick={addItem}>Add</button>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Mutations in useEffect
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState, useEffect } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-
-          useEffect(() => {
-            items.sort();
-            setItems(items);
-          }, []);
-
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "sort" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Optional chaining and type expression wrapping (should still report)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            items?.push(4);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            (items.push as Function)(4);
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // -------------------------------------------------------------------------
-    // Multiple mutations in same function
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const modifyItems = () => {
-            items.push(4);
-            items.sort();
-            setItems(items);
-          };
-          return <div>{items.length}</div>;
         }
       `,
       errors: [
-        {
-          data: { name: "items", method: "push" },
-          messageId: "mutatingArrayMethod",
-        },
-        {
-          data: { name: "items", method: "sort" },
-          messageId: "mutatingArrayMethod",
-        },
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "mutates" },
       ],
     },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.modify-state.js
+    // Function returned from a hook.
     {
       code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [state, setState] = useState({});
-          state.foo = 1;
-          return <div>{state.foo}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "state" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.mutate-props.js
-    {
-      code: tsx`
-        function Component(props) {
-          props.test = 1;
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "props" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-mutation-in-closure.js
-    // Mutation of options (first param) inside a nested function
-    {
-      code: tsx`
-        function useInvalidMutation(options) {
-          function test() {
-            options.foo = "bar";
-          }
-          return test;
-        }
-      `,
-      errors: [{
-        data: { name: "options" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-function-expression-mutates-immutable-value.js
-    // State mutated inside event handler callback
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [x, setX] = useState({ value: "" });
-          const onChange = (e) => {
-            x.value = e.target.value;
-            setX(x);
+        function useFoo() {
+          useHook();
+          const cache = new Map();
+          return () => {
+            cache.set("key", "value");
           };
-          return <input value={x.value} onChange={onChange} />;
-        }
-      `,
-      errors: [{
-        data: { name: "x" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.modify-useReducer-state.js
-    {
-      code: tsx`
-        import { useReducer } from "react";
-
-        function Component() {
-          const [state, dispatch] = useReducer({ foo: 1 });
-          state.foo = 1;
-          return <div>{state.foo}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "state" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-prop-mutation-indirect.js
-    // Props mutated inside nested function with indirect invocation
-    {
-      code: tsx`
-        function Component(props) {
-          const f = () => {
-            props.value = true;
-          };
-          const g = () => {
-            f();
-          };
-          g();
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "props" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Destructured props mutation
-    {
-      code: tsx`
-        function Component({ items }) {
-          items.push(4);
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
-    },
-    // Destructured props assignment
-    {
-      code: tsx`
-        function Component({ config }) {
-          config.enabled = true;
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "config" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Hook second parameter mutation
-    {
-      code: tsx`
-        function useMyHook(options, config) {
-          config.enabled = true;
-          return config;
-        }
-      `,
-      errors: [{
-        data: { name: "config" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Destructured props with rest element mutation
-    {
-      code: tsx`
-        function Component({ items, ...rest }) {
-          rest.foo = 1;
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "rest" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Nested destructured props mutation
-    {
-      code: tsx`
-        function Component({ user: { settings } }) {
-          settings.theme = "dark";
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "settings" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-state.js
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Foo() {
-          const [state, setState] = useState({});
-          state.foo = 1;
-          return <div>{state.foo}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "state" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-useReducer-state.js
-    {
-      code: tsx`
-        import { useReducer } from "react";
-        function Foo() {
-          const [state, setState] = useReducer({foo: 1});
-          state.foo = 1;
-          return <div>{state.foo}</div>;
-        }
-      `,
-      errors: [{
-        data: { name: "state" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-props.js
-    {
-      code: tsx`
-        function Foo(props) {
-          props.test = 1;
-          return <div />;
-        }
-      `,
-      errors: [{
-        data: { name: "props" },
-        messageId: "mutatingAssignment",
-      }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-hook-argument.js
-    {
-      code: tsx`
-        function useHook(a, b) {
-          b.test = 1;
-          a.test = 2;
-          return <div />;
         }
       `,
       errors: [
-        {
-          data: { name: "b" },
-          messageId: "mutatingAssignment",
-        },
-        {
-          data: { name: "a" },
-          messageId: "mutatingAssignment",
-        },
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "mutates" },
       ],
     },
-    // Object rest parameter mutation
+    // Mutation effect propagates through a simple local alias (`fn2 = fn`).
     {
       code: tsx`
-        function Component({ ...rest }) {
-          rest.foo = 1;
-          return <div />;
+        function Component(cond) {
+          const cache = new Map();
+          const fn = () => {
+            cache.set("a", 1);
+          };
+          const fn2 = fn;
+          return <Foo fn={fn2} />;
         }
       `,
-      errors: [{
-        data: { name: "rest" },
-        messageId: "mutatingAssignment",
-      }],
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
     },
-    // Object rest parameter array mutation
+    // Mutating array method.
     {
       code: tsx`
-        function Component({ ...rest }) {
-          rest.items.push(4);
-          return <div />;
+        function Component() {
+          const items = [];
+          const fn = () => {
+            items.push(1);
+          };
+          return <Foo fn={fn} />;
         }
       `,
-      errors: [{
-        data: { name: "rest.items", method: "push" },
-        messageId: "mutatingArrayMethod",
-      }],
+      errors: [
+        { data: { name: "items" }, messageId: "mutates" },
+        { data: { name: "items" }, messageId: "default" },
+      ],
+    },
+    // Reassignment via UpdateExpression.
+    {
+      code: tsx`
+        function Component() {
+          let count = 0;
+          const fn = () => {
+            count++;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "count" }, messageId: "mutates" },
+        { data: { name: "count" }, messageId: "default" },
+      ],
+    },
+    // Mutation via property assignment on a captured object.
+    {
+      code: tsx`
+        function Component() {
+          const state = { count: 0 };
+          const fn = () => {
+            state.count = 1;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // Mutation via `delete` on a captured object property.
+    {
+      code: tsx`
+        function Component() {
+          const state = { count: 0 };
+          const fn = () => {
+            delete state.count;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // Mutation effect propagates through nested inline closures.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            const inner = () => {
+              cache.set("key", "value");
+            };
+            return inner;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Same mutable function passed to two different sinks reports two usage-site
+    // diagnostics plus one mutation-site diagnostic for each usage.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            cache.set("key", "value");
+          };
+          return <Foo onA={fn} onB={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
     },
   ],
   valid: [
-    // -------------------------------------------------------------------------
-    // Creating new arrays instead of mutating
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            setItems([...items, 4]);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          const sortItems = () => {
-            setItems([...items].sort());
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const removeFirst = () => {
-            setItems(items.slice(1));
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Creating new objects instead of mutating
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice" });
-          const updateName = () => {
-            setUser({ ...user, name: "Bob" });
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({
-            name: "Alice",
-            settings: { theme: "light", notifications: true },
-          });
-          const toggleTheme = () => {
-            setUser({
-              ...user,
-              settings: { ...user.settings, theme: "dark" },
-            });
-          };
-          return <div>{user.settings.theme}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Mutations on local (non-state, non-props) variables are fine
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          const sortItems = () => {
-            const copy = [...items];
-            copy.sort();
-            setItems(copy);
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const localItems = [3, 1, 2];
-          localItems.sort();
-          return <div>{localItems.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Non-component/hook functions are not checked
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function notAComponent() {
-          const items = [1, 2, 3];
-          items.push(4);
-          return items;
-        }
-      `,
-    },
-    // useState without variable assignment should not crash
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          useState(0);
-          return <div />;
-        }
-      `,
-    },
-    // useState as arrow function implicit return should not crash
-    {
-      code: tsx`
-        import { useState } from "react";
-        const Component = () => useState(0);
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using Object.assign to create new objects
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const updateUser = () => {
-            setUser(Object.assign({}, user, { age: 26 }));
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using Array.from to create new arrays
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const doubleItems = () => {
-            setItems(Array.from(items, x => x * 2));
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using structuredClone for deep copy
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", settings: { theme: "light" } });
-          const deepUpdate = () => {
-            const newUser = structuredClone(user);
-            newUser.settings.theme = "dark";
-            setUser(newUser);
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using JSON parse/stringify for deep copy (common pattern)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", settings: { theme: "light" } });
-          const deepUpdate = () => {
-            const newUser = JSON.parse(JSON.stringify(user));
-            newUser.settings.theme = "dark";
-            setUser(newUser);
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using non-mutating array methods: slice, concat, flat, flatMap
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const sliced = items.slice(0, 2);
-          const merged = items.concat([4, 5]);
-          const flat = [[1, 2], [3, 4]].flat();
-          const mapped = items.flatMap(x => [x, x * 2]);
-          return <div>{sliced.length + merged.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using non-mutating array methods: find, some, every, includes, indexOf
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const found = items.find(x => x > 1);
-          const hasItem = items.some(x => x === 2);
-          const allPositive = items.every(x => x > 0);
-          const includesTwo = items.includes(2);
-          const index = items.indexOf(2);
-          const lastIndex = items.lastIndexOf(2);
-          const joined = items.join(", ");
-          return <div>{joined}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using toSorted, toReversed, toSpliced (new non-mutating methods)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          const sorted = items.toSorted();
-          const reversed = items.toReversed();
-          const spliced = items.toSpliced(1, 1);
-          return <div>{sorted.join(", ")}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using Object.entries/keys/values for iteration
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const keys = Object.keys(user);
-          const values = Object.values(user);
-          const entries = Object.entries(user);
-          return <div>{keys.join(", ")}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Destructuring state values (still valid)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const { name, age } = user;
-          return <div>{name} is {age}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using useReducer instead of useState
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useReducer } from "react";
-
-        function reducer(state, action) {
-          switch (action.type) {
-            case "add":
-              return { ...state, items: [...state.items, action.payload] };
-            default:
-              return state;
-          }
-        }
-
-        function Component() {
-          const [state, dispatch] = useReducer(reducer, { items: [1, 2, 3] });
-          return <div>{state.items.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Calling setter with functional update form
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          const [items, setItems] = useState([1, 2, 3]);
-          const increment = () => setCount(c => c + 1);
-          const addItem = () => setItems(prev => [...prev, 4]);
-          return <div>{count}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using immutable update patterns with nested objects
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [state, setState] = useState({
-            users: [
-              { id: 1, name: "Alice", settings: { theme: "light" } },
-              { id: 2, name: "Bob", settings: { theme: "dark" } },
-            ],
-          });
-
-          const updateUserTheme = (userId, theme) => {
-            setState(prev => ({
-              ...prev,
-              users: prev.users.map(user =>
-                user.id === userId
-                  ? { ...user, settings: { ...user.settings, theme } }
-                  : user
-              ),
-            }));
-          };
-
-          return <div>{state.users.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // DOM event target mutations are not props mutations
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { type KeyboardEvent } from "react";
-
-        export function SearchInput() {
-          function onKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-            if (e.key === "Escape") {
-              e.currentTarget.value = "";
-            }
-          }
-
-          return <input onKeyDown={onKeyDown} />;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { type MouseEvent } from "react";
-
-        export function Button() {
-          return (
-            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.disabled = true;
-            }}>
-              Click
-            </button>
-          );
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Props destructuring (reading is fine)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component({ name, items, onClick }) {
-          const firstItem = items[0];
-          const itemCount = items.length;
-          return <div onClick={onClick}>{name}: {itemCount} items</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using static class properties (not mutation)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { Component } from "react";
-
-        class MyComponent extends Component {
-          static defaultProps = { name: "Default" };
-
-          render() {
-            return <div>{this.props.name}</div>;
-          }
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Chained non-mutating array operations
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3, 4, 5]);
-          const processed = items
-            .filter(x => x > 2)
-            .map(x => x * 2)
-            .slice(0, 2);
-          return <div>{processed.join(", ")}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using at(), findIndex(), findLast() methods
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3, 4, 5]);
-          const first = items.at(0);
-          const last = items.at(-1);
-          const idx = items.findIndex(x => x === 3);
-          return <div>{first} - {last} at {idx}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Reading (non-mutating) array methods on state are fine
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const doubled = items.map((x) => x * 2);
-          return <ul>{doubled.map((x) => <li key={x}>{x}</li>)}</ul>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const filtered = items.filter((x) => x > 1);
-          return <ul>{filtered.map((x) => <li key={x}>{x}</li>)}</ul>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const sum = items.reduce((acc, x) => acc + x, 0);
-          return <div>{sum}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Reading state properties is fine
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice" });
-          const greet = () => console.log(user.name);
-          return <button onClick={greet}>Greet</button>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using immer produce with useState
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const updateName = () => {
-            setUser(produce(user, draft => {
-              draft.name = "Bob";
-            }));
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            setUser(produce(items, draft => {
-              draft.push(4);
-            }));
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [items, setItems] = useState([3, 1, 2]);
-          const sortItems = () => {
-            setItems(produce(items, draft => {
-              draft.sort();
-            }));
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [user, setUser] = useState({
-            name: "Alice",
-            settings: { theme: "light", notifications: true },
-          });
-          const toggleTheme = () => {
-            setUser(produce(user, draft => {
-              draft.settings.theme = "dark";
-            }));
-          };
-          return <div>{user.settings.theme}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using immer produce with functional update form
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [items, setItems] = useState([1, 2, 3]);
-          const addItem = () => {
-            setItems(prev => produce(prev, draft => {
-              draft.push(4);
-            }));
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const updateAge = () => {
-            setUser(prev => produce(prev, draft => {
-              draft.age += 1;
-            }));
-          };
-          return <div>{user.age}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using useImmer hook from use-immer
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useImmer } from "use-immer";
-
-        function Component() {
-          const [user, setUser] = useImmer({ name: "Alice", age: 25 });
-          const updateName = () => {
-            setUser(draft => {
-              draft.name = "Bob";
-            });
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useImmer } from "use-immer";
-
-        function Component() {
-          const [items, setItems] = useImmer([1, 2, 3]);
-          const addItem = () => {
-            setItems(draft => {
-              draft.push(4);
-            });
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useImmer } from "use-immer";
-
-        function Component() {
-          const [items, setItems] = useImmer([3, 1, 2]);
-          const sortItems = () => {
-            setItems(draft => {
-              draft.sort();
-            });
-          };
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useImmer } from "use-immer";
-
-        function Component() {
-          const [user, setUser] = useImmer({
-            name: "Alice",
-            settings: { theme: "light", notifications: true },
-          });
-          const toggleTheme = () => {
-            setUser(draft => {
-              draft.settings.theme = "dark";
-            });
-          };
-          return <div>{user.settings.theme}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useImmer } from "use-immer";
-
-        function Component() {
-          const [state, setState] = useImmer({
-            users: [
-              { id: 1, name: "Alice", settings: { theme: "light" } },
-              { id: 2, name: "Bob", settings: { theme: "dark" } },
-            ],
-          });
-
-          const updateUserTheme = (userId, theme) => {
-            setState(draft => {
-              const user = draft.users.find(u => u.id === userId);
-              if (user) {
-                user.settings.theme = theme;
-              }
-            });
-          };
-
-          return <div>{state.users.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using immer with nested produce calls
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [state, setState] = useState({
-            items: [{ id: 1, values: [1, 2, 3] }],
-          });
-          const updateNested = () => {
-            setState(produce(state, draft => {
-              draft.items[0].values.push(4);
-            }));
-          };
-          return <div>{state.items[0].values.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Using immer produce with curried form
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        import { useState } from "react";
-        import { produce } from "immer";
-
-        function Component() {
-          const [user, setUser] = useState({ name: "Alice", age: 25 });
-          const updateName = (newName) => {
-            setUser(produce(draft => {
-              draft.name = newName;
-            })(user));
-          };
-          return <div>{user.name}</div>;
-        }
-      `,
-    },
-    // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../allow-global-mutation-in-effect-indirect.js
-    // Global variable mutation is not tracked by this rule
-    {
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        let someGlobal = {};
-
-        function Component() {
-          const [state, setState] = useState(someGlobal);
-
-          const setGlobal = () => {
-            someGlobal.value = true;
-          };
-          useEffect(() => {
-            setGlobal();
-          }, []);
-
-          return <div>{String(state)}</div>;
-        }
-      `,
-    },
-    // Event handler parameter mutation is allowed (not a component/hook param)
-    {
-      code: tsx`
-        import { type MouseEvent } from "react";
-
-        function Component() {
-          return (
-            <button onClick={(e: MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.disabled = true;
-            }}>
-              Click
-            </button>
-          );
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Ref mutations are allowed (refs are mutable by design)
-    // The rule uses a naming heuristic: any object named `ref` or ending in
-    // `Ref` is treated as a ref and exempted from immutability checks.
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          const ref = { current: null };
+    tsx`
+      function Component() {
+        const ref = useRef(null);
+        const fn = () => {
           ref.current = 1;
-          return <div>{ref.current}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const ref = { current: { count: 0 } };
-          ref.current.count = 1;
-          return <div>{ref.current.count}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const ref = { current: [1, 2, 3] };
-          ref.current.push(4);
-          ref.current.sort();
-          return <div>{ref.current.length}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const inputRef = { current: null };
-          inputRef.current = "value";
-          return <div>{inputRef.current}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function useMyHook() {
-          const counterRef = { current: 0 };
-          counterRef.current += 1;
-          return counterRef.current;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component(props) {
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        fn();
+        return <Foo />;
+      }
+    `,
+    tsx`
+      function Component() {
+        const helper = () => {
+          let local = 0;
+          local++;
+        };
+        return <Foo fn={helper} />;
+      }
+    `,
+    tsx`
+      function useFoo() {
+        const cache = new Map();
+        return () => cache.get("key");
+      }
+    `,
+    // Ref received as props is exempt from mutability checks.
+    tsx`
+      function Component(props) {
+        const fn = () => {
           props.myRef.current = 1;
-          return <div>{props.myRef.current}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component(props) {
-          props.itemsRef.push(4);
-          return <div>{props.itemsRef.length}</div>;
-        }
-      `,
-    },
-    // Local function parameter mutation is allowed
-    {
-      code: tsx`
-        function Component() {
-          const helper = (data) => {
-            data.value = 1;
-            return data;
-          };
-          const result = helper({ value: 0 });
-          return <div>{result.value}</div>;
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.modify-state-2.js
-    // Mutating a local alias of state is not detected by this rule
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Foo() {
-          const [state, setState] = useState({foo: {bar: 3}});
-          const foo = state.foo;
-          foo.bar = 1;
-          return <div>{foo.bar}</div>;
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-props-via-for-of-iterator.js
-    // Mutating for-of iterator variable is not detected by this rule
-    {
-      code: tsx`
-        function Component(props) {
-          const items = [];
-          for (const x of props.items) {
-            x.modified = true;
-            items.push(x);
-          }
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutation-of-possible-props-phi-indirect.js
-    // Mutating local variable is not detected by this rule
-    {
-      code: tsx`
-        function Component(props) {
-          let x = cond ? someGlobal : props.foo;
-          const mutatePhiThatCouldBeProps = () => {
-            x.y = true;
-          };
-          const indirectMutateProps = () => {
-            mutatePhiThatCouldBeProps();
-          };
-          useEffect(() => indirectMutateProps(), []);
-          return <div />;
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-mutate-props-in-effect-fixpoint.js
-    // Mutating local variable in effect callback is not detected by this rule
-    {
-      code: tsx`
-        import { useEffect } from "react";
-        function Component(props) {
-          let x = null;
-          while (x == null) {
-            x = props.value;
-          }
-          let y = x;
-          let mutateProps = () => {
-            y.foo = true;
-          };
-          let mutatePropsIndirect = () => {
-            mutateProps();
-          };
-          useEffect(() => mutatePropsIndirect(), [mutatePropsIndirect]);
-          return <div />;
-        }
-      `,
-    },
-    // useState result not destructured (should not crash)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          return useState(0);
-        }
-      `,
-    },
-    // useState result passed to another call (should not crash)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          return foo(useState(0));
-        }
-      `,
-    },
-    // useState result assigned to a single variable (should not crash)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          const state = useState(0);
-          return <div>{state[0]}</div>;
-        }
-      `,
-    },
-    // useReducer result not destructured (should not crash)
-    {
-      code: tsx`
-        import { useReducer } from "react";
-        function Component() {
-          return useReducer(reducer, {});
-        }
-      `,
-    },
-    // Standalone useState call as expression statement (should not crash)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          useState(0);
-          return <div />;
-        }
-      `,
-    },
-    // Standalone useReducer call as expression statement (should not crash)
-    {
-      code: tsx`
-        import { useReducer } from "react";
-        function Component() {
-          useReducer(reducer, {});
-          return <div />;
-        }
-      `,
-    },
-    // useState in conditional expression (should not crash when parent is ConditionalExpression)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          const x = condition ? useState(0) : null;
-          return <div>{x}</div>;
-        }
-      `,
-    },
-    // useState in assignment expression (should not crash when parent is AssignmentExpression)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          let state;
-          state = useState(0);
-          return <div>{state[0]}</div>;
-        }
-      `,
-    },
-    // useReducer in assignment expression (should not crash when parent is AssignmentExpression)
-    {
-      code: tsx`
-        import { useReducer } from "react";
-        function Component() {
-          let state;
-          state = useReducer(reducer, {});
-          return <div>{state[0]}</div>;
-        }
-      `,
-    },
-    // useState in array expression (should not crash when parent is ArrayExpression)
-    {
-      code: tsx`
-        import { useState } from "react";
-        function Component() {
-          const arr = [useState(0)];
-          return <div>{arr[0][0]}</div>;
-        }
-      `,
-    },
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
   ],
 });
