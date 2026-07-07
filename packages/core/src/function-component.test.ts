@@ -297,6 +297,26 @@ describe("isFunctionComponentDefinition", () => {
     expect(found).toBe(true);
   });
 
+  it("should exclude functions defined as class properties when hint is set", () => {
+    const code = "class Foo { Component = () => { return <div /> } }";
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty;
+          expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(false);
+
+          const hintWithoutExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            & ~FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty;
+          expect(isFunctionComponentDefinition(context, node, hintWithoutExclude)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
   it("should exclude functions in JSX expression containers", () => {
     const code = "const x = <div onClick={() => <div />} />";
     let found = false;
