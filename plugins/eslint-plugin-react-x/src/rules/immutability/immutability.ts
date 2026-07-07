@@ -16,12 +16,6 @@ export type MessageID =
   | "default"
   | "mutates";
 
-interface MutationSite {
-  enclosing: TSESTreeFunction;
-  node: TSESTree.Node;
-  root: TSESTree.Identifier;
-}
-
 export default createRule<[], MessageID>({
   meta: {
     type: "problem",
@@ -44,7 +38,11 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hc = core.getHookCollector(context);
 
-  const mutationSites: MutationSite[] = [];
+  const mutationSites: {
+    enclosing: TSESTreeFunction;
+    node: TSESTree.Node;
+    root: TSESTree.Identifier;
+  }[] = [];
   const sinkCandidates: TSESTree.Node[] = [];
 
   function pushMutationSite(node: TSESTree.Node, root: TSESTree.Identifier) {

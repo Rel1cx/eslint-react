@@ -21,14 +21,14 @@ The IMPL operates on the ESLint AST with `@typescript-eslint/scope-manager`. It:
 
 ## 2. Mutation Detection
 
-| Mutation form                                     | SPEC                                           | IMPL                                                                                     |
-| ------------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Reassignment of a captured variable (`x = ...`)   | `Mutate`/`MutateTransitive` via `StoreContext` | Detected (`AssignmentExpression` with `Identifier` left)                                 |
-| Property assignment (`x.foo = ...`)               | Detected                                       | Detected (`AssignmentExpression` with `MemberExpression` left)                           |
-| `delete x.foo`                                    | Detected                                       | Detected                                                                                 |
-| `x++` / `--x`                                     | Detected                                       | Detected                                                                                 |
-| Mutating array/Map/Set methods (`push`, `set`, …) | Detected via known mutable-array-type effects  | Detected via a fixed method allow-list (`MUTATING_METHODS`)                              |
-| Mutation via an aliased/reassigned root object    | Detected via effect propagation                | Not tracked — only the immediate root identifier of the mutated expression is considered |
+| Mutation form                                     | SPEC                                          | IMPL                                                                                     |
+| ------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Reassignment of a captured variable (`x = ...`)   | `Mutate`/`MutateTransitive` via `StoreLocal`  | Detected (`AssignmentExpression` with `Identifier` left)                                 |
+| Property assignment (`x.foo = ...`)               | Detected                                      | Detected (`AssignmentExpression` with `MemberExpression` left)                           |
+| `delete x.foo`                                    | Detected                                      | Detected                                                                                 |
+| `x++` / `--x`                                     | Detected                                      | Detected                                                                                 |
+| Mutating array/Map/Set methods (`push`, `set`, …) | Detected via known mutable-array-type effects | Detected via a fixed method allow-list (`MUTATING_METHODS`)                              |
+| Mutation via an aliased/reassigned root object    | Detected via effect propagation               | Not tracked — only the immediate root identifier of the mutated expression is considered |
 
 **Verdict**: Coverage of common mutation shapes is close, but the IMPL only looks at the literal root identifier of the mutated expression; it does not track further aliasing of _mutation targets_ (only aliasing of _functions_, see §3).
 
@@ -56,7 +56,7 @@ The IMPL:
 | Hook call argument           | Detected | Detected for every call matching `core.isHookCall` (any `use*`-named call)                                                                                     |
 | Hook return value            | Detected | Detected via `getHookCollector`'s `rets` (explicit `return` and implicit arrow bodies), only for functions recognized as hook definitions by naming convention |
 
-**Verdict**: All three sink categories from the SPEC are covered. The IMPL is slightly broader for hook arguments (it does not special-case `useEffect`/`useCallback`/etc.) and slightly narrower for hook returns (relies on `use`-prefixed naming to identify hooks, same convention used elsewhere in this codebase).
+**Verdict**: All three sink categories from the SPEC are covered. For hook arguments the IMPL matches any `use*`-named call via `core.isHookCall`. For hook returns it relies on `getHookCollector`, which identifies hooks by the same `use`-prefixed naming convention used elsewhere in this codebase.
 
 ---
 
@@ -76,10 +76,10 @@ The SPEC reports a **single diagnostic with two annotated locations**: the usage
 
 The IMPL emits **two separate ESLint reports** per violation, since ESLint's reporting model has no native concept of a single diagnostic with multiple locations:
 
-- At the freeze/usage site, `default`: "This function may (indirectly) reassign or modify '{{name}}' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead." — this combines the SPEC's short usage-site message ("This function may (indirectly) reassign or modify `{{name}}` after render") with its `description` ("...which can cause inconsistent behavior on subsequent renders. Consider using state instead").
-- At the mutation site, `mutates`: "This modifies '{{name}}'." — a direct rendering of the SPEC's second message ("This modifies `{{name}}`").
+- At the freeze/usage site, `default`: "This function may (indirectly) reassign or modify `{{name}}` after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead." — this closely follows the SPEC's `description` text (the short usage-site message in the SPEC's `Messages` list is similar but lacks the trailing guidance).
+- At the mutation site, `mutates`: "This modifies `{{name}}`." — a direct rendering of the SPEC's second message ("This modifies `{{name}}`").
 
-**Verdict**: Message wording now maps 1:1 to the SPEC's two messages (plus its description folded into the first one). The two locations are reported as independent ESLint problems rather than as a single diagnostic with sub-details, which is the closest approximation ESLint's reporting model allows.
+**Verdict**: The two annotated locations are reproduced, and the usage-site/mutation-site sub-messages map to the SPEC's `description` and second `Messages` entry respectively. The SPEC's top-level `reason` ("Cannot modify local variables after render completes") is not emitted as a separate ESLint message; it is reflected only in `meta.docs.description`. The two locations are reported as independent ESLint problems rather than as a single diagnostic with sub-details, which is the closest approximation ESLint's reporting model allows.
 
 ---
 
