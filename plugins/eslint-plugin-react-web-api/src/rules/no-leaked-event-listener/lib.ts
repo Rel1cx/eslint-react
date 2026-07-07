@@ -50,13 +50,12 @@ export const defaultOptions: {
 };
 
 export function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument): typeof defaultOptions {
-  const initialScope = context.sourceCode.getScope(node);
-  function getOpts(node: TSESTree.Node): typeof defaultOptions {
+  function visit(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
         const initNode = resolve(context, node);
         if (initNode?.type === AST.ObjectExpression) {
-          return getOpts(initNode);
+          return visit(initNode);
         }
         return defaultOptions;
       }
@@ -73,7 +72,7 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
               case AST.Literal:
                 return Boolean(value.value);
               default:
-                return Boolean(getStaticValue(value, initialScope)?.value);
+                return Boolean(getStaticValue(value, context.sourceCode.getScope(node))?.value);
             }
           })
           .otherwise(() => false);
@@ -88,5 +87,5 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
       }
     }
   }
-  return getOpts(node);
+  return visit(node);
 }

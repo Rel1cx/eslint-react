@@ -42,10 +42,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       data: {
         json: stringify({
           kind: match(node)
-            .with(
-              { type: AST.JSXElement },
-              (n) => isFragmentElement(n, jsxConfig.jsxFragmentFactory) ? "fragment" : "element",
-            )
+            .with({ type: AST.JSXElement }, (n) => isFragmentElement(n, jsxConfig.jsxFragmentFactory) ? "fragment" : "element")
             .with({ type: AST.JSXFragment }, () => "fragment")
             .exhaustive(),
           type: getElementFullType(node),
