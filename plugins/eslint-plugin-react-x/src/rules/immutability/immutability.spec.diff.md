@@ -66,7 +66,7 @@ The SPEC exempts ref mutations via `isRefOrRefLikeMutableType`, a type-based che
 
 The IMPL exempts ref mutations via a purely syntactic naming heuristic (`isRefLikeName`/`hasRefLikeNameInChain`): any identifier or property named `ref` or ending in `Ref` anywhere in the mutated member-expression chain is treated as a ref and skipped. This mirrors the heuristic already used elsewhere in this rule family (see `refs.spec.diff.md` §2) and additionally covers refs received as props (e.g. `props.myRef.current = x`) without needing type information.
 
-**Verdict**: Functionally equivalent intent, different mechanism (naming convention vs. type). Can under- or over-exempt in cases where naming doesn't match the heuristic.
+**Verdict**: Functionally equivalent intent, different mechanism (naming convention rather than type). Can under- or over-exempt in cases where naming doesn't match the heuristic.
 
 ---
 
