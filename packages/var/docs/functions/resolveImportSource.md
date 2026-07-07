@@ -6,7 +6,7 @@
 function resolveImportSource(
   name: string,
   initialScope: Scope,
-  visited?: Set<string>,
+  seen?: Set<string>,
 ): string | null;
 ```
 
@@ -16,7 +16,7 @@ function resolveImportSource(
 | -------------- | --------------------------------------------------------------------------------------------------- |
 | `name`         | `string`                                                                                            |
 | `initialScope` | `Scope`                                                                                             |
-| `visited`      | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`string`\> |
+| `seen`         | [`Set`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set)\<`string`\> |
 
 ## Returns
 

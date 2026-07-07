@@ -1636,7 +1636,7 @@ class CodePath {
     let index = 0;
     let end = 0;
     let segment: CodePathSegment | null = null;
-    const visited: Record<string, boolean> = Object.create(null);
+    const seen: Record<string, boolean> = Object.create(null);
     const stack: [CodePathSegment, number][] = [[startSegment, 0]];
     let skippedSegment: CodePathSegment | null = null;
     let broken = false;
@@ -1651,7 +1651,7 @@ class CodePath {
     };
 
     function isVisited(prevSegment: CodePathSegment): boolean {
-      return visited[prevSegment.id] || segment!.isLoopedPrevSegment(prevSegment);
+      return seen[prevSegment.id] || segment!.isLoopedPrevSegment(prevSegment);
     }
 
     while (stack.length > 0) {
@@ -1659,7 +1659,7 @@ class CodePath {
       segment = item[0];
       index = item[1];
       if (index === 0) {
-        if (visited[segment.id]) {
+        if (seen[segment.id]) {
           stack.pop();
           continue;
         }
@@ -1668,7 +1668,7 @@ class CodePath {
           continue;
         }
         if (skippedSegment && segment.prevSegments.includes(skippedSegment)) skippedSegment = null;
-        visited[segment.id] = true;
+        seen[segment.id] = true;
         if (!skippedSegment) {
           resolvedCallback.call(this, segment, controller);
           if (segment === lastSegment) controller.skip();

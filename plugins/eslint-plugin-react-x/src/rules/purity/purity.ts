@@ -36,15 +36,15 @@ export default createRule<[], MessageID>({
  * or resolves to a non-builtin source.
  * @param context - The rule context.
  * @param node - The identifier node to resolve.
- * @param visited - A set of already visited identifier names to prevent infinite loops.
+ * @param seen - A set of already visited identifier names to prevent infinite loops.
  */
 function resolveBuiltinObjectName(
   context: RuleContext,
   node: TSESTree.Identifier,
-  visited = new Set<string>(),
+  seen = new Set<string>(),
 ): string | null {
-  if (visited.has(node.name)) return null;
-  visited.add(node.name);
+  if (seen.has(node.name)) return null;
+  seen.add(node.name);
 
   const scope = context.sourceCode.getScope(node);
   const variable = findVariable(scope, node);
@@ -62,12 +62,12 @@ function resolveBuiltinObjectName(
   if (def.type === DefinitionType.Variable && def.node.init != null) {
     const init = Extract.unwrap(def.node.init);
     if (init.type === AST.Identifier) {
-      return resolveBuiltinObjectName(context, init, visited);
+      return resolveBuiltinObjectName(context, init, seen);
     }
     if (init.type === AST.MemberExpression) {
       const rootId = Extract.getRootIdentifier(init);
       if (rootId != null) {
-        return resolveBuiltinObjectName(context, rootId, visited);
+        return resolveBuiltinObjectName(context, rootId, seen);
       }
     }
   }

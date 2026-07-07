@@ -8,10 +8,10 @@ import { getRequireExpressionArguments } from "./get-require-expression-argument
 export function resolveImportSource(
   name: string,
   initialScope: Scope,
-  visited = new Set<string>(),
+  seen = new Set<string>(),
 ) {
-  if (visited.has(name)) return null;
-  visited.add(name);
+  if (seen.has(name)) return null;
+  seen.add(name);
   const latestDef = findVariable(initialScope, name)?.defs.at(-1);
   if (latestDef == null) return null;
   const { node, parent } = latestDef;
@@ -19,11 +19,11 @@ export function resolveImportSource(
     const init = Extract.unwrap(node.init);
     // check for: variable = Source.variable
     if (init.type === AST.MemberExpression && init.object.type === AST.Identifier) {
-      return resolveImportSource(init.object.name, initialScope, visited);
+      return resolveImportSource(init.object.name, initialScope, seen);
     }
     // check for: { variable } = Source
     if (init.type === AST.Identifier) {
-      return resolveImportSource(init.name, initialScope, visited);
+      return resolveImportSource(init.name, initialScope, seen);
     }
     // check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);

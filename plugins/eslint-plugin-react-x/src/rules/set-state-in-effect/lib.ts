@@ -156,10 +156,10 @@ export function isInitializedFromRef(
   context: RuleContext,
   name: string,
   initialScope: Scope,
-  visited = new Set<string>(),
+  seen = new Set<string>(),
 ): boolean {
-  if (visited.has(name)) return false;
-  visited.add(name);
+  if (seen.has(name)) return false;
+  seen.add(name);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
@@ -176,7 +176,7 @@ export function isInitializedFromRef(
         return true;
       // const { foo } = ref.current.getBoundingClientRect();
       case init.type === AST.CallExpression:
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), visited));
+        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
     }
   }
   return false;

@@ -34,10 +34,7 @@ export function isJsxLike(
   node: TSESTree.Node | null,
   hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
-  const visited = new Set<TSESTree.Identifier>();
-
-  return visit(node);
-
+  const seen = new Set<TSESTree.Identifier>();
   function visit(node: TSESTree.Node | null): boolean {
     if (node == null) return false;
 
@@ -112,12 +109,14 @@ export function isJsxLike(
           return !(hint & JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue);
         }
         // Guard against circular variable definitions (e.g. `var a = b; var b = a;`).
-        if (visited.has(node)) return false;
-        visited.add(node);
+        if (seen.has(node)) return false;
+        seen.add(node);
         return visit(resolve(context, node));
       }
     }
 
     return false;
   }
+
+  return visit(node);
 }

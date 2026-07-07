@@ -70,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   /**
    * Recursively inspects a node to find potential leaked conditional rendering
    * @param node The AST node to inspect
-   * @param visited A set of visited identifier names to prevent infinite recursion.
+   * @param seen A set of visited identifier names to prevent infinite recursion.
    * @returns A report descriptor if a problem is found, otherwise `null`
    */
   function getReportDescriptor(
@@ -78,13 +78,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       | null
       | TSESTree.JSXExpressionContainer
       | TSESTree.JSXExpressionContainer["expression"],
-    visited = new Set<string>(),
+    seen = new Set<string>(),
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (Check.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, visited);
+    if (Check.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, seen);
     if (Check.isJSX(node)) return null;
-    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression, visited);
+    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression, seen);
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -93,7 +93,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // If the left side is a negation, it's always a boolean, which is safe
         // Recursively check the right side
         if (left.type === AST.UnaryExpression && left.operator === "!") {
-          return getReportDescriptor(right, visited);
+          return getReportDescriptor(right, seen);
         }
 
         const initialScope = context.sourceCode.getScope(left);
@@ -116,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // If the left side is valid, the expression is safe. Recursively check the right side
         if (isLeftValid) {
-          return getReportDescriptor(right, visited);
+          return getReportDescriptor(right, seen);
         }
 
         // If the left side is not valid, report an error
@@ -128,18 +128,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       // Handle ternary expressions. Recursively check both branches
       .with({ type: AST.ConditionalExpression }, ({ alternate, consequent }) => {
-        return getReportDescriptor(consequent, visited) ?? getReportDescriptor(alternate, visited);
+        return getReportDescriptor(consequent, seen) ?? getReportDescriptor(alternate, seen);
       })
       // Handle identifiers. Try to find their definition and check the initial value
       .with({ type: AST.Identifier }, (n) => {
-        if (visited.has(n.name)) return null;
-        visited.add(n.name);
+        if (seen.has(n.name)) return null;
+        seen.add(n.name);
         const variable = findVariable(context.sourceCode.getScope(n), n.name);
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with(
             { init: P.select({ type: P.not(AST.VariableDeclaration) }) },
-            (init) => getReportDescriptor(init, visited),
+            (init) => getReportDescriptor(init, seen),
           )
           .otherwise(() => null);
       })

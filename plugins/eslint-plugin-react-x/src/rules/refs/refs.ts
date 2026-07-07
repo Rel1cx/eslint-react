@@ -42,9 +42,9 @@ export default createRule<[], MessageID>({
 });
 
 function resolveAlias(name: string, aliases: Map<string, string>): string {
-  const visited = new Set<string>();
-  while (aliases.has(name) && !visited.has(name)) {
-    visited.add(name);
+  const seen = new Set<string>();
+  while (aliases.has(name) && !seen.has(name)) {
+    seen.add(name);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     name = aliases.get(name)!;
   }
