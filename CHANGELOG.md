@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.12.0-beta.1 (2026-07-07)
+
+### 📝 Documentation
+
+- Normalized message examples in the `react-x/immutability` documentation to use the `name` placeholder.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.0-beta.0...v5.12.0-beta.1
+
 ## v5.12.0-beta.0 (2026-07-07)
 
 ### ✨ New
