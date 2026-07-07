@@ -76,8 +76,8 @@ The SPEC reports a **single diagnostic with two annotated locations**: the usage
 
 The IMPL emits **two separate ESLint reports** per violation, since ESLint's reporting model has no native concept of a single diagnostic with multiple locations:
 
-- At the freeze/usage site, `default`: "This function may (indirectly) reassign or modify `{{name}}` after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead." — this closely follows the SPEC's `description` text (the short usage-site message in the SPEC's `Messages` list is similar but lacks the trailing guidance).
-- At the mutation site, `mutates`: "This modifies `{{name}}`." — a direct rendering of the SPEC's second message ("This modifies `{{name}}`").
+- At the freeze/usage site, `default`: "This function may (indirectly) reassign or modify 'name' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead." — this closely follows the SPEC's `description` text (the short usage-site message in the SPEC's `Messages` list is similar but lacks the trailing guidance).
+- At the mutation site, `mutates`: "This modifies 'name'." — a direct rendering of the SPEC's second message ("This modifies 'name'").
 
 **Verdict**: The two annotated locations are reproduced, and the usage-site/mutation-site sub-messages map to the SPEC's `description` and second `Messages` entry respectively. The SPEC's top-level `reason` ("Cannot modify local variables after render completes") is not emitted as a separate ESLint message; it is reflected only in `meta.docs.description`. The two locations are reported as independent ESLint problems rather than as a single diagnostic with sub-details, which is the closest approximation ESLint's reporting model allows.
 

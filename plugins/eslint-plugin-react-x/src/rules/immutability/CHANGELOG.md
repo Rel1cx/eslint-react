@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added a second, mutation-site diagnostic (`mutates`: "This modifies '{{name}}'.") reported alongside the existing usage-site diagnostic, so each violation now surfaces both locations described by `immutability.spec.md`'s dual-location error format (as two separate ESLint problems, since ESLint has no native multi-location diagnostic).
+- Added a second, mutation-site diagnostic (`mutates`: "This modifies 'name'.") reported alongside the existing usage-site diagnostic, so each violation now surfaces both locations described by `immutability.spec.md`'s dual-location error format (as two separate ESLint problems, since ESLint has no native multi-location diagnostic).
 
 ### Changed
 
 - Replaced the naming-heuristic-only ref exemption plumbing with a leaner `lib.ts` (`isRefLikeName`, `hasRefLikeNameInChain`, `MUTATING_METHODS`) scoped to the new detection algorithm.
-- Reworded the `default` message to closely follow the SPEC's usage-site message ("This function may (indirectly) reassign or modify '{{name}}' after render") plus its description ("...which can cause inconsistent behavior on subsequent renders. Consider using state instead").
+- Reworded the `default` message to closely follow the SPEC's usage-site message ("This function may (indirectly) reassign or modify 'name' after render") plus its description ("...which can cause inconsistent behavior on subsequent renders. Consider using state instead").
 - Reworked the rule from scratch to match the React Compiler's `ValidateNoFreezingKnownMutableFunctions` validation pass described in `immutability.spec.md`: it now detects functions that (transitively) mutate a captured local variable and flags them when passed as a JSX prop, passed as a hook argument, or returned from a hook, instead of flagging direct state/props mutations.
 
 ### Removed
