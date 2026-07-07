@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.11.3 (2026-07-07)
+
+### 🐞 Fixes
+
+- Fixed `FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsClassProperty` checking for object `Property` nodes instead of class `PropertyDefinition` nodes, so functions defined as class fields are now correctly excluded when the hint is set. (#1890)
+
+### 🏗️ Internal
+
+- Renamed fix helpers and formatted `MessageID` types.
+- Inlined local string constants in rule implementations.
+- Bumped `eslint-plugin-jsdoc`, `typedoc`, `undici` and `pnpm`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.11.2...v5.11.3
+
 ## v5.11.2 (2026-07-05)
 
 ### 📝 Documentation

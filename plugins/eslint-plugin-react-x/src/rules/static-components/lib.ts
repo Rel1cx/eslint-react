@@ -49,8 +49,7 @@ function findDynamicCreationSite(
 
   switch (expr.type) {
     case AST.ConditionalExpression:
-      return findDynamicCreationSite(context, expr.consequent, isInsideRender, seen)
-        ?? findDynamicCreationSite(context, expr.alternate, isInsideRender, seen);
+      return findDynamicCreationSite(context, expr.consequent, isInsideRender, seen) ?? findDynamicCreationSite(context, expr.alternate, isInsideRender, seen);
     case AST.Identifier:
     case AST.JSXIdentifier: {
       const variable = findVariableForIdentifier(context, expr);
