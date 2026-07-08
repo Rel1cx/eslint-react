@@ -147,7 +147,7 @@ Minimum supported versions:
 - [x] `react-x/component-hook-factories` - Validates against higher order functions defining nested components or hooks
 - [x] `react-x/error-boundaries` - Validates usage of Error Boundaries instead of try/catch for errors in child components
 - [x] `react-x/exhaustive-deps` - Enforces that React hook dependency arrays contain all reactive values used in the callback
-- [x] `react-x/immutability` (Experimental) - Validates against mutating props, state, and other values that are immutable
+- [x] `react-x/immutability` (Experimental) - Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values
 - [x] `react-x/no-mixing-controlled-and-uncontrolled` - Validates against mixing controlled and uncontrolled prop patterns
 - [x] `react-x/prefer-set-state-callback` - Enforces using callback form of `setState` when the new state is computed from the previous state
 - [x] `react-x/purity` (Experimental) - Validates that components and hooks are pure
