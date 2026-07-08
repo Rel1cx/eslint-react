@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.12.1 (2026-07-08)
+
+### 📝 Documentation
+
+- Fixed `react-x/immutability` rule description in docs.
+
+### 🏗️ Internal
+
+- Cleaned up redundant code in some rules.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.0...v5.12.1
+
 ## v5.12.0 (2026-07-08)
 
 ### ✨ New
