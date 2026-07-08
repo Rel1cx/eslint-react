@@ -147,7 +147,10 @@ function parseChangelogVersions(content: string): ChangelogVersion[] {
       title: v.title,
       body: v.body.join("\n").trim(),
     }))
-    .filter((v) => v.body !== "");
+    .filter((v) => v.body !== "")
+    .filter((v) => !v.title.includes("-beta."))
+    .filter((v) => !v.title.includes("-next."))
+    .filter((v) => !v.title.includes("-rc."));
 }
 
 function generateVersionsAccordion(versions: ChangelogVersion[]): string {

@@ -2,29 +2,22 @@
 title: Changelog
 ---
 
-## v5.12.0-beta.2 (2026-07-07)
-
-### 📝 Documentation
-
-- Cleaned up the rule relations table.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.0-beta.1...v5.12.0-beta.2
-
-## v5.12.0-beta.1 (2026-07-07)
-
-### 📝 Documentation
-
-- Normalized message examples in the `react-x/immutability` documentation to use the `name` placeholder.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.0-beta.0...v5.12.0-beta.1
-
-## v5.12.0-beta.0 (2026-07-07)
+## v5.12.0 (2026-07-08)
 
 ### ✨ New
 
 - Reworked `react-x/immutability` to align with the React Compiler's `ValidateNoFreezingKnownMutableFunctions` validation pass: it now detects functions that (transitively) mutate a captured local variable and reports them when passed as a JSX prop, passed as a hook argument, or returned from a hook. The direct state/props mutation checks, the `mutatingArrayMethod`, `mutatingAssignment`, and `noRefLikeStateName` diagnostics, and the `additionalStateHooks` option have been removed. A new `mutates` diagnostic is now reported at the mutation site alongside the existing usage-site diagnostic. (#1891)
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.11.3...v5.12.0-beta.0
+### 📝 Documentation
+
+- Cleaned up the rule relations table.
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` packages to `^8.63.0`.
+- Bumped `eslint-plugin-perfectionist` to `^5.10.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.11.3...v5.12.0
 
 ## v5.11.3 (2026-07-07)
 

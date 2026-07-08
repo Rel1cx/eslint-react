@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@eslint-react/kit": "workspace:*",
-    "@typescript-eslint/types": "^8.62.1",
-    "@typescript-eslint/typescript-estree": "^8.62.1",
-    "@typescript-eslint/utils": "^8.62.1",
+    "@typescript-eslint/types": "^8.63.0",
+    "@typescript-eslint/typescript-estree": "^8.63.0",
+    "@typescript-eslint/utils": "^8.63.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "eslint": "^10.6.0",
     "tsdown": "^0.22.3",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.62.1"
+    "typescript-eslint": "^8.63.0"
   },
   "engines": {
     "node": ">=22.0.0"

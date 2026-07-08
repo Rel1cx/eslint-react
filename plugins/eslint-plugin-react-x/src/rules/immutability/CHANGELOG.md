@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.12.0] - 2026-07-08
+
 ### Added
 
 - Added a second, mutation-site diagnostic (`mutates`: "This modifies 'name'.") reported alongside the existing usage-site diagnostic, so each violation now surfaces both locations described by `immutability.spec.md`'s dual-location error format (as two separate ESLint problems, since ESLint has no native multi-location diagnostic).
@@ -21,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Removed the `mutatingArrayMethod`, `mutatingAssignment`, and `noRefLikeStateName` diagnostics along with the direct state/props mutation checks and the `additionalStateHooks` dependency; this behavior may return as a separate rule/pass in the future.
 
-## [5.7.3]
+## [5.7.3] - 2026-05-02
 
 ### Added
 
