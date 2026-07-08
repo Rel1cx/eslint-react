@@ -176,7 +176,7 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * and* "contains less than two children").
    * @param node The fragment node to inspect.
    */
-  function checkNode(node: TSESTreeJSXElementLike) {
+  function visit(node: TSESTreeJSXElementLike) {
     // A fragment inside a host component is always redundant — the host
     // element already accepts an arbitrary number of children.
     if (isHostElement(node.parent)) {
@@ -203,10 +203,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     JSXElement(node) {
       if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
       if (hasAnyAttribute(context, node, ["key", "ref"])) return;
-      checkNode(node);
+      visit(node);
     },
     JSXFragment(node) {
-      checkNode(node);
+      visit(node);
     },
   };
 }

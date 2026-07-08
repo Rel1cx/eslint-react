@@ -4,19 +4,6 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-
-/**
- * Creates a report function for the given rule context.
- * @param context The ESLint rule context.
- * @returns A function that can be used to report violations.
- */
-export function report(context: RuleContext) {
-  return (descriptor?: null | ReportDescriptor<string>) => {
-    if (descriptor == null) return;
-    context.report(descriptor);
-  };
-}
 
 /**
  * Iterator-like methods that pass the item's index to their callback,

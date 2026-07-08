@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getIdentifiersFromBinaryExpression, isArrayIndexReference, report } from "./lib";
+import { getIdentifiersFromBinaryExpression, isArrayIndexReference } from "./lib";
 
 export const RULE_NAME = "no-array-index-key";
 
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The key value expression to check.
    * @returns The report descriptors for the violations found.
    */
-  function checkKeyExpression(node: TSESTree.Node): Descriptor[] {
+  function visitKeyExpression(node: TSESTree.Node): Descriptor[] {
     switch (node.type) {
       // Case: key={index}
       case AST.Identifier:
@@ -84,14 +84,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Case: key={cond ? index : id}
       case AST.ConditionalExpression:
         return [
-          ...checkKeyExpression(node.consequent),
-          ...checkKeyExpression(node.alternate),
+          ...visitKeyExpression(node.consequent),
+          ...visitKeyExpression(node.alternate),
         ];
       // Case: key={id || index}
       case AST.LogicalExpression:
         return [
-          ...checkKeyExpression(node.left),
-          ...checkKeyExpression(node.right),
+          ...visitKeyExpression(node.left),
+          ...visitKeyExpression(node.right),
         ];
       // Case: key={index.toString()} or key={String(index)}
       case AST.CallExpression: {
@@ -121,13 +121,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const property of props.properties) {
         const value = getKeyPropValue(property);
         if (value == null) continue;
-        checkKeyExpression(value).forEach(report(context));
+        for (const desc of visitKeyExpression(value)) {
+          context.report(desc);
+        }
       }
     },
     // Handles 'key' attributes in JSX elements
     "JSXAttribute[name.name='key']"(node: TSESTree.JSXAttribute) {
       if (node.value?.type !== AST.JSXExpressionContainer) return;
-      checkKeyExpression(node.value.expression).forEach(report(context));
+      for (const desc of visitKeyExpression(node.value.expression)) {
+        context.report(desc);
+      }
     },
   };
 }

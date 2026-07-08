@@ -37,8 +37,8 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const jsxConfig = core.getJsxConfig(context);
 
-  function getReportDescriptor(_: RuleContext) {
-    return (node: TSESTreeJSXElementLike) => ({
+  function visit(node: TSESTreeJSXElementLike) {
+    return {
       data: {
         json: stringify({
           kind: match(node)
@@ -64,9 +64,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
       messageId: "default",
       node,
-    } as const);
+    } as const;
   }
   return {
-    "JSXElement, JSXFragment": flow(getReportDescriptor(context), report(context)),
+    "JSXElement, JSXFragment": flow(visit, report(context)),
   };
 }

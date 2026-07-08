@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param seen A set of visited identifier names to prevent infinite recursion.
    * @returns A report descriptor if a problem is found, otherwise `null`
    */
-  function getReportDescriptor(
+  function visit(
     node:
       | null
       | TSESTree.JSXExpressionContainer
@@ -82,9 +82,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (Check.is(AST.JSXExpressionContainer)(node)) return getReportDescriptor(node.expression, seen);
+    if (Check.is(AST.JSXExpressionContainer)(node)) return visit(node.expression, seen);
     if (Check.isJSX(node)) return null;
-    if (Check.isTypeExpression(node)) return getReportDescriptor(node.expression, seen);
+    if (Check.isTypeExpression(node)) return visit(node.expression, seen);
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -93,7 +93,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // If the left side is a negation, it's always a boolean, which is safe
         // Recursively check the right side
         if (left.type === AST.UnaryExpression && left.operator === "!") {
-          return getReportDescriptor(right, seen);
+          return visit(right, seen);
         }
 
         const initialScope = context.sourceCode.getScope(left);
@@ -116,7 +116,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // If the left side is valid, the expression is safe. Recursively check the right side
         if (isLeftValid) {
-          return getReportDescriptor(right, seen);
+          return visit(right, seen);
         }
 
         // If the left side is not valid, report an error
@@ -128,7 +128,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       })
       // Handle ternary expressions. Recursively check both branches
       .with({ type: AST.ConditionalExpression }, ({ alternate, consequent }) => {
-        return getReportDescriptor(consequent, seen) ?? getReportDescriptor(alternate, seen);
+        return visit(consequent, seen) ?? visit(alternate, seen);
       })
       // Handle identifiers. Try to find their definition and check the initial value
       .with({ type: AST.Identifier }, (n) => {
@@ -139,12 +139,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return match(variableDefNode)
           .with(
             { init: P.select({ type: P.not(AST.VariableDeclaration) }) },
-            (init) => getReportDescriptor(init, seen),
+            (init) => visit(init, seen),
           )
           .otherwise(() => null);
       })
       // For all other node types, assume they are safe
       .otherwise(() => null);
   }
-  return { JSXExpressionContainer: flow(getReportDescriptor, report(context)) };
+  return {
+    JSXExpressionContainer: flow(visit, report(context)),
+  };
 }

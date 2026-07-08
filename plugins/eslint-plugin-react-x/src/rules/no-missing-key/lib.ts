@@ -1,8 +1,6 @@
 import { Check, Traverse } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 
 /**
  * Iterator-like methods whose callback's return value becomes an item in a rendered list,
@@ -14,18 +12,6 @@ export const INDEX_PARAM_POSITIONS = new Map<string, number>([
   ["from", 1],
   ["map", 0],
 ]);
-
-/**
- * Creates a report function for the given rule context.
- * @param context The ESLint rule context.
- * @returns A function that can be used to report violations.
- */
-export function report(context: RuleContext) {
-  return (descriptor?: null | ReportDescriptor<string>) => {
-    if (descriptor == null) return;
-    context.report(descriptor);
-  };
-}
 
 /**
  * Gets the nested return statements in the node that are within the same function

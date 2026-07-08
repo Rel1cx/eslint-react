@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-r
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { INDEX_PARAM_POSITIONS, getNestedReturnStatements, report } from "./lib";
+import { INDEX_PARAM_POSITIONS, getNestedReturnStatements } from "./lib";
 
 export const RULE_NAME = "no-missing-key";
 
@@ -61,7 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The expression to check.
    * @returns The report descriptors for the violations found.
    */
-  function checkItemExpression(node: TSESTree.Expression): Descriptor[] {
+  function visitItemExpression(node: TSESTree.Expression): Descriptor[] {
     switch (node.type) {
       case AST.JSXElement:
         return hasAttribute(context, node, "key")
@@ -71,13 +71,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return [{ messageId: "unexpectedFragmentSyntax", node }];
       case AST.ConditionalExpression:
         return [
-          ...checkItemExpression(node.consequent),
-          ...checkItemExpression(node.alternate),
+          ...visitItemExpression(node.consequent),
+          ...visitItemExpression(node.alternate),
         ];
       case AST.LogicalExpression:
         return [
-          ...checkItemExpression(node.left),
-          ...checkItemExpression(node.right),
+          ...visitItemExpression(node.left),
+          ...visitItemExpression(node.right),
         ];
       default:
         return [];
@@ -90,12 +90,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * @param node The callback function to check.
    * @returns The report descriptors for the violations found.
    */
-  function checkIteratorCallback(node: TSESTreeFunction): Descriptor[] {
+  function visitIteratorCallback(node: TSESTreeFunction): Descriptor[] {
     if (node.body.type !== AST.BlockStatement) {
-      return checkItemExpression(node.body);
+      return visitItemExpression(node.body);
     }
     return getNestedReturnStatements(node.body)
-      .flatMap((stmt) => stmt.argument == null ? [] : checkItemExpression(stmt.argument));
+      .flatMap((stmt) => stmt.argument == null ? [] : visitItemExpression(stmt.argument));
   }
 
   return {
@@ -103,7 +103,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (childrenToArrayDepth > 0) return;
       for (const element of node.elements) {
         if (element == null || element.type === AST.SpreadElement) continue;
-        checkItemExpression(element).forEach(report(context));
+        for (const desc of visitItemExpression(element)) {
+          context.report(desc);
+        }
       }
     },
     CallExpression(node) {
@@ -114,7 +116,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (childrenToArrayDepth > 0) return;
       const callback = getIteratorCallback(node);
       if (callback == null) return;
-      checkIteratorCallback(callback).forEach(report(context));
+      for (const desc of visitIteratorCallback(callback)) {
+        context.report(desc);
+      }
     },
     "CallExpression:exit"(node) {
       if (core.isChildrenToArrayCall(context, node)) {
