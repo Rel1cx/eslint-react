@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { match } from "ts-pattern";
-import { isInNullCheckTest, isInitializedFromRef, isRefCurrentNullCheck } from "./lib";
+import { getRefCurrentNullCheckBranch, isFunctionExpressionLike, isInNullCheckTest, isInitializedFromRef, isNestedRefCurrentWrite, resolveAlias } from "./lib";
 
 export const RULE_NAME = "refs";
 
@@ -40,20 +40,6 @@ export default createRule<[], MessageID>({
   create,
   defaultOptions: [],
 });
-
-function resolveAlias(name: string, aliases: Map<string, string>): string {
-  const seen = new Set<string>();
-  while (aliases.has(name) && !seen.has(name)) {
-    seen.add(name);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    name = aliases.get(name)!;
-  }
-  return name;
-}
-
-function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
-  return node.type === AST.FunctionExpression || node.type === AST.ArrowFunctionExpression;
-}
 
 /**
  * Phase 2 (part): compute the set of functions that are "reached" during render for a given
@@ -101,10 +87,11 @@ function isReachedDuringRender(
   node: TSESTree.Node,
   boundary: TSESTreeFunction,
   reached: Set<TSESTreeFunction>,
+  alwaysReached: Set<TSESTreeFunction>,
 ): boolean {
   let current = node.parent;
   while (current != null && current !== boundary) {
-    if (Check.isFunction(current) && !reached.has(current)) return false;
+    if (Check.isFunction(current) && !reached.has(current) && !alwaysReached.has(current)) return false;
     current = current.parent;
   }
   return true;
@@ -133,15 +120,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // functions are reached (i.e. invoked) during render
   const directCallSites: { calleeName: string; node: TSESTree.CallExpression }[] = [];
 
+  // Lazy state initializer functions passed directly as useState's first argument; these run
+  // synchronously during render, unlike other hook callback arguments (useEffect/useMemo/...).
+  const stateInitializerFunctions = new Set<TSESTreeFunction>();
+
   return merge(
     hc.visitor,
     fc.visitor,
     {
       // Track reassignment aliases: alias = ref; and alias = someFunction;
+      // Also tracks functions bound to object properties: object.foo = () => {...};
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.operator !== "=") return;
         const left = Extract.unwrap(node.left);
         const right = Extract.unwrap(node.right);
+        if (left.type === AST.MemberExpression) {
+          const leftObj = Extract.unwrap(left.object);
+          const propName = Extract.getPropertyName(left.property);
+          if (leftObj.type === AST.Identifier && propName != null && isFunctionExpressionLike(right)) {
+            functionVarBindings.set(`${leftObj.name}.${propName}`, right);
+          }
+          return;
+        }
         if (left.type !== AST.Identifier) return;
         if (right.type === AST.Identifier) {
           aliases.set(left.name, right.name);
@@ -159,12 +159,30 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           : callee.type === AST.MemberExpression
           ? Extract.getPropertyName(callee.property)
           : null;
-        // Phase 2: record every direct `identifier(...)` call site, regardless of what it is,
-        // so we can later determine which locally-defined functions are reached during render.
+        // Phase 2: record every direct call site (`identifier(...)` or `object.prop(...)`),
+        // regardless of what it is, so we can later determine which locally-defined functions
+        // (including ones bound to object properties) are reached during render.
         if (callee.type === AST.Identifier) {
           directCallSites.push({ calleeName: callee.name, node });
+        } else if (callee.type === AST.MemberExpression) {
+          const calleeObj = Extract.unwrap(callee.object);
+          if (calleeObj.type === AST.Identifier && calleeName != null) {
+            directCallSites.push({ calleeName: `${calleeObj.name}.${calleeName}`, node });
+          }
         }
-        if (calleeName != null && (calleeName.startsWith("use") || calleeName === "mergeRefs")) return;
+        // The initializer function passed directly as useState's first argument runs
+        // synchronously during render (unlike other hook callback arguments, e.g.
+        // useEffect/useMemo/useCallback), so ref accesses inside it aren't shielded.
+        if (calleeName === "useState") {
+          const [firstArg] = node.arguments;
+          if (firstArg != null) {
+            const unwrappedFirstArg = Extract.unwrap(firstArg);
+            if (isFunctionExpressionLike(unwrappedFirstArg)) {
+              stateInitializerFunctions.add(unwrappedFirstArg);
+            }
+          }
+        }
+        if (calleeName != null && (calleeName.startsWith("use") || calleeName === "mergeRefs" || calleeName === "render")) return;
         for (const arg of node.arguments) {
           const unwrapped = Extract.unwrap(arg);
           if (unwrapped.type !== AST.Identifier) continue;
@@ -200,10 +218,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           isWrite: (() => {
             let parent: TSESTree.Node = node.parent;
             while (Check.isTypeExpression(parent)) parent = parent.parent;
-            return match(parent)
+            const isDirectWrite = match(parent)
               .with({ type: AST.AssignmentExpression }, (p) => p.left === node || Extract.unwrap(p.left) === node)
               .with({ type: AST.UpdateExpression }, (p) => p.argument === node || Extract.unwrap(p.argument) === node)
               .otherwise(() => false);
+            // Nested property write, e.g. `ref.current.inner = value` or `ref.current.inner++`
+            return isDirectWrite || isNestedRefCurrentWrite(node);
           })(),
           node,
         });
@@ -268,7 +288,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Phase 2: skip only when some function between this access and the boundary is never
           // actually invoked during render (e.g. an event handler or effect callback); functions
           // that are called synchronously during render do not shield accesses inside them.
-          if (!isReachedDuringRender(node, boundary, getReached(boundary))) continue;
+          if (!isReachedDuringRender(node, boundary, getReached(boundary), stateInitializerFunctions)) continue;
 
           //
           // Standard:
@@ -277,16 +297,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // Inverted (with early return):
           //   if (ref.current !== null) { return ...; }
           //   ref.current = computeValue();
+          //
+          // Only a direct write is a valid lazy initialization inside the branch guaranteed to
+          // see `ref.current` as null - any other use (read, function call, ...) of the
+          // provably-null value is still reported. Inside the other branch (value already set),
+          // reading the memoized value back is allowed, but writing there is not.
           let isLazyInit = refName != null && isInNullCheckTest(node);
           let matchedGuardIf = false;
           if (!isLazyInit && refName != null) {
             let current: TSESTree.Node = node.parent;
+            let prevChild: TSESTree.Node = node;
             // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
             findLoop: while (true) {
               if (current.type === AST.IfStatement) {
-                if (isRefCurrentNullCheck(current.test, refName)) {
-                  isLazyInit = true;
+                const nullBranch = getRefCurrentNullCheckBranch(current.test, refName);
+                const actualBranch = current.consequent === prevChild
+                  ? "consequent"
+                  : current.alternate === prevChild
+                  ? "alternate"
+                  : null;
+                if (nullBranch != null && actualBranch != null) {
                   matchedGuardIf = true;
+                  isLazyInit = actualBranch === nullBranch ? isWrite : !isWrite;
                 }
                 break;
               }
@@ -308,6 +340,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 default:
                   break findLoop;
               }
+              prevChild = current;
               current = current.parent;
             }
           }
@@ -325,7 +358,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 for (let i = stmtIdx - 1; i >= 0; i--) {
                   const sibling = block.body[i];
                   if (sibling == null) continue;
-                  if (sibling.type === AST.IfStatement && isRefCurrentNullCheck(sibling.test, refName)) {
+                  if (sibling.type === AST.IfStatement && getRefCurrentNullCheckBranch(sibling.test, refName) === "alternate") {
                     isLazyInit = true;
                     break;
                   }
@@ -360,7 +393,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const { node } of refPassedToFunctions) {
           const boundary = Traverse.findParent(node, isCompOrHookFn);
           if (boundary == null) continue;
-          if (!isReachedDuringRender(node, boundary, getReached(boundary))) continue;
+          if (!isReachedDuringRender(node, boundary, getReached(boundary), stateInitializerFunctions)) continue;
 
           context.report({
             messageId: "refPassedToFunction",
