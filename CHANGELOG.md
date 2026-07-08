@@ -4,7 +4,7 @@
 
 ### ✨ New
 
-- Reworked `react-x/immutability` to align with the React Compiler's `ValidateNoFreezingKnownMutableFunctions` validation pass: it now detects functions that (transitively) mutate a captured local variable and reports them when passed as a JSX prop, passed as a hook argument, or returned from a hook. The direct state/props mutation checks, the `mutatingArrayMethod`, `mutatingAssignment`, and `noRefLikeStateName` diagnostics, and the `additionalStateHooks` option have been removed. A new `mutates` diagnostic is now reported at the mutation site alongside the existing usage-site diagnostic. (#1891)
+- Reworked `react-x/immutability` to align with the React Compiler's `ValidateNoFreezingKnownMutableFunctions` validation pass: it now detects functions that (transitively) mutate a captured local variable and reports them when passed as a JSX prop, passed as a hook argument, or returned from a hook. (#1891)
 
 ### 📝 Documentation
 
