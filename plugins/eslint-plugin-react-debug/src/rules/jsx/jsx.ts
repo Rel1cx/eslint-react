@@ -4,11 +4,9 @@ import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType, isFragmentElement } from "@eslint-react/jsx";
-import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
 import ts from "typescript";
-import { report } from "./lib";
 
 export const RULE_NAME = "jsx";
 
@@ -36,9 +34,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const jsxConfig = core.getJsxConfig(context);
-
   function visit(node: TSESTreeJSXElementLike) {
-    return {
+    context.report({
       data: {
         json: stringify({
           kind: match(node)
@@ -64,9 +61,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
       messageId: "default",
       node,
-    } as const;
+    });
   }
-  return {
-    "JSXElement, JSXFragment": flow(visit, report(context)),
-  };
+  return { JSXElement: visit, JSXFragment: visit };
 }
