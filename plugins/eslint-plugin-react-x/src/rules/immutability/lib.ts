@@ -1,4 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -76,4 +77,33 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
     return hasRefLikeNameInChain(node.object);
   }
   return false;
+}
+
+/**
+ * Check if the root identifier of a member-expression chain (or the
+ * identifier itself) is initialized directly from a `useRef()` call, e.g.
+ * `const mounted = useRef(false); mounted.current = true;`.
+ *
+ * This catches refs regardless of naming convention, complementing
+ * {@link hasRefLikeNameInChain}.
+ * @param context The ESLint rule context.
+ * @param node The AST node to inspect (an identifier or member-expression chain).
+ */
+export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Expression): boolean {
+  const rootId = node.type === AST.Identifier ? node : Extract.getRootIdentifier(node);
+  if (rootId == null) return false;
+  const initNode = resolve(context, rootId);
+  return initNode != null && initNode.type === AST.CallExpression && core.isUseRefCall(context, initNode);
+}
+
+/**
+ * Check if a mutated expression chain should be exempt from immutability
+ * checks because it is rooted at a ref: either by naming convention
+ * ({@link hasRefLikeNameInChain}) or because it is initialized from a
+ * `useRef()` call ({@link isInitializedFromUseRef}).
+ * @param context The ESLint rule context.
+ * @param node The AST node to inspect (an identifier or member-expression chain).
+ */
+export function isRefLikeChain(context: RuleContext, node: TSESTree.Expression): boolean {
+  return hasRefLikeNameInChain(node) || isInitializedFromUseRef(context, node);
 }

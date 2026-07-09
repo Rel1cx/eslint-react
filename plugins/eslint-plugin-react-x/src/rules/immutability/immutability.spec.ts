@@ -482,5 +482,18 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo fn={fn} />;
       }
     `,
+    // https://github.com/Rel1cx/eslint-react/issues/1893
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      export function Component() {
+        const mounted = useRef<boolean>(false);
+        useEffect(() => {
+          if (mounted.current) return;
+          mounted.current = true;
+        }, []);
+        return <div/>;
+      }
+    `,
   ],
 });
