@@ -5,6 +5,21 @@ All notable changes to the `react-x/refs` rule will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Added detection of nested property writes on a ref's value (e.g. `ref.current.inner = value`), which are now reported as `writeDuringRender` instead of being misclassified as a read.
+- Added tracking of functions bound to (and called through) simple object-member-expression targets (e.g. `object.foo = () => ref.current; object.foo();`), closing a gap in the render-reachability analysis that previously only covered plain variable bindings.
+- Added detection of `ref.current` accesses inside the lazy initializer function passed directly as `useState`'s first argument, since it runs synchronously during the initial render unlike other hook-callback arguments.
+- Added an exemption for calls to a function named `render` (e.g. `props.render(ref)`, a common render-prop pattern) from the `refPassedToFunction` diagnostic, alongside the existing `mergeRefs`/hook exemptions.
+
+### Changed
+
+- Made lazy-init guard-block detection direction-aware: inside the branch of an `if (ref.current == null)`-style guard that is guaranteed to see `ref.current` as null, only a direct write is now treated as the (single) valid initialization - reads or values passed to a function there are still reported, matching `refs.spec.md`'s `ValidateNoRefAccessInRender` semantics. Reading the already-initialized value back in the other branch (the `if (x.current !== null) { return x.current; }` memoization idiom) remains allowed.
+- Replaced `isRefCurrentNullCheck` with `getRefCurrentNullCheckBranch` in `lib.ts`, which reports which branch of a guard is the null branch instead of just whether the test is a recognized null check.
+- Updated `refs.spec.diff.md` to reflect the fixes above and corrected the "Non-null Lazy Init Guards" entry, which was not an actual gap since `refs.spec.md` itself treats guards like `if (r.current == DEFAULT_VALUE)` as errors.
+
 ## [5.11.0] - 2026-07-05
 
 ### Added

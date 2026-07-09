@@ -845,13 +845,9 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "readDuringRender" }],
     },
     */
-    // FIXME: error.invalid-access-ref-in-state-initializer
-    // The lazy initializer passed to `useState` runs synchronously during render, but is
-    // treated the same as any other hook-callback argument (like useEffect/useMemo/useCallback)
-    // and therefore skipped. Special-casing useState/useReducer initializers specifically would
-    // require distinguishing them from the (allowed) reducer/effect-callback arguments of the
-    // same hooks, which is not attempted here.
-    /*
+    // error.invalid-access-ref-in-state-initializer
+    // The lazy initializer passed to `useState` runs synchronously during render, so ref
+    // accesses inside it are not shielded like other hook-callback arguments.
     {
       code: tsx`
         function Component(props) {
@@ -862,9 +858,11 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
     // FIXME: error.invalid-access-ref-in-reducer
-    // Same reasoning as the useState initializer case above.
+    // Unlike useState's initializer, the function here is passed as useReducer's first
+    // (reducer) argument, and useReducer's initializer position is its third (optional `init`)
+    // argument - distinguishing that from the (allowed) reducer/effect-callback arguments of
+    // the same and similar hooks is not attempted here.
     /*
     {
       code: tsx`
@@ -924,11 +922,10 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "readDuringRender" }],
     },
     */
-    // FIXME: error.invalid-access-ref-in-render-mutate-object-with-ref-function
-    // Functions assigned to object properties (`object.foo = () => ref.current`) are not
-    // tracked by `functionVarBindings`, which only tracks plain variable bindings; extending
-    // it to member-expression targets is not attempted here.
-    /*
+    // error.invalid-access-ref-in-render-mutate-object-with-ref-function
+    // Functions assigned to object properties (`object.foo = () => ref.current`) are tracked,
+    // and calling them (`object.foo()`) during render is flagged just like a plain variable
+    // binding would be.
     {
       code: tsx`
         function Component() {
@@ -941,7 +938,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
     // Computed property access ref["current"]
     {
       code: tsx`
@@ -965,8 +961,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "writeDuringRender" }],
     },
     // Nested property write and read (from React Compiler fixtures)
-    // NOTE: The IMPL reports readDuringRender for ref.current.inner = ...
-    // because it only tracks direct .current assignment, not nested property writes.
     {
       code: tsx`
         function Component(props) {
@@ -976,7 +970,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
         { messageId: "readDuringRender" },
       ],
     },
@@ -1820,14 +1814,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // -------------------------------------------------------------------------
-    // FIXME: React Compiler allows these, but ESLint refs rule may false-positive
-    // -------------------------------------------------------------------------
-    // FIXME: allow-passing-ref-to-render-helper
-    // Ref passed to a render helper inside JSX child interpolation.
-    // React Compiler permits this because the helper is component-like.
-    // ESLint rule reports refPassedToFunction for any non-hook CallExpression.
-    /*
+    // allow-passing-ref-to-render-helper
+    // Ref passed to a render-prop style helper (`props.render(ref)`) is allowed: calls to a
+    // function named `render` are treated like calls to `mergeRefs`/hooks and are not flagged.
     {
       code: tsx`
         function Component(props) {
@@ -1836,7 +1825,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    */
     // Guard pattern: !ref.current allows lazy initialization
     {
       code: tsx`
