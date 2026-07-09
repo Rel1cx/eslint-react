@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed a false positive where mutating `.current` on a `useRef()`-initialized variable whose name didn't follow the `ref`/`*Ref` naming convention (e.g. `const mounted = useRef(false); mounted.current = true;`) was incorrectly flagged when the containing function was passed to a hook. Added `isInitializedFromUseRef`/`isRefLikeChain` in `lib.ts` to also exempt refs by call-site detection (`useRef()`), not naming alone. Closes #1893. (#1893)
+
 ## [5.12.0] - 2026-07-08
 
 ### Added

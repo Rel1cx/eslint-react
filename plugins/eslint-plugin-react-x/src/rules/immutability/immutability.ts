@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import { MUTATING_METHODS, hasRefLikeNameInChain, isNodeWithin, isRefLikeName, resolveToFunctionNode } from "./lib";
+import { MUTATING_METHODS, isNodeWithin, isRefLikeChain, isRefLikeName, resolveToFunctionNode } from "./lib";
 
 export const RULE_NAME = "immutability";
 
@@ -63,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           case AST.MemberExpression: {
-            if (hasRefLikeNameInChain(left)) return;
+            if (isRefLikeChain(context, left)) return;
             const rootId = Extract.getRootIdentifier(left);
             if (rootId == null) return;
             pushMutationSite(node, rootId);
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const callee = Extract.unwrap(node.callee);
         if (callee.type === AST.MemberExpression) {
           const propName = Extract.getPropertyName(callee.property);
-          if (propName != null && MUTATING_METHODS.has(propName) && !hasRefLikeNameInChain(callee.object)) {
+          if (propName != null && MUTATING_METHODS.has(propName) && !isRefLikeChain(context, callee.object)) {
             const rootId = Extract.getRootIdentifier(callee.object);
             if (rootId != null) pushMutationSite(node, rootId);
           }
@@ -153,7 +153,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (node.operator !== "delete") return;
         const arg = Extract.unwrap(node.argument);
         if (arg.type !== AST.MemberExpression) return;
-        if (hasRefLikeNameInChain(arg)) return;
+        if (isRefLikeChain(context, arg)) return;
         const rootId = Extract.getRootIdentifier(arg);
         if (rootId == null) return;
         pushMutationSite(node, rootId);
@@ -167,7 +167,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           case AST.MemberExpression: {
-            if (hasRefLikeNameInChain(arg)) return;
+            if (isRefLikeChain(context, arg)) return;
             const rootId = Extract.getRootIdentifier(arg);
             if (rootId == null) return;
             pushMutationSite(node, rootId);

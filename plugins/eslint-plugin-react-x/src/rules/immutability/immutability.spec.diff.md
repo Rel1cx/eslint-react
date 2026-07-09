@@ -64,9 +64,12 @@ The IMPL:
 
 The SPEC exempts ref mutations via `isRefOrRefLikeMutableType`, a type-based check.
 
-The IMPL exempts ref mutations via a purely syntactic naming heuristic (`isRefLikeName`/`hasRefLikeNameInChain`): any identifier or property named `ref` or ending in `Ref` anywhere in the mutated member-expression chain is treated as a ref and skipped. This mirrors the heuristic already used elsewhere in this rule family (see `refs.spec.diff.md` §2) and additionally covers refs received as props (e.g. `props.myRef.current = x`) without needing type information.
+The IMPL exempts ref mutations via two complementary, non-type-based checks in `lib.ts`:
 
-**Verdict**: Functionally equivalent intent, different mechanism (naming convention rather than type). Can under- or over-exempt in cases where naming doesn't match the heuristic.
+- A syntactic naming heuristic (`isRefLikeName`/`hasRefLikeNameInChain`): any identifier or property named `ref` or ending in `Ref` anywhere in the mutated member-expression chain is treated as a ref and skipped. This mirrors the heuristic already used elsewhere in this rule family (see `refs.spec.diff.md` §2) and additionally covers refs received as props (e.g. `props.myRef.current = x`) without needing type information.
+- A call-site check (`isInitializedFromUseRef`, combined with the naming heuristic in `isRefLikeChain`): the root identifier of the mutated chain is resolved via `resolve()` and exempted if its initializer is a `useRef()` call, regardless of the variable's name (e.g. `const mounted = useRef(false); mounted.current = true;`). Added to fix #1893, where refs named without the `ref`/`*Ref` convention were incorrectly flagged.
+
+**Verdict**: Closer to the SPEC's type-based exemption than naming alone, since `useRef()` results are now recognized independently of their variable name. Still not fully equivalent: a ref narrowed through an intermediate alias, a custom ref-like hook, or a prop that isn't named `ref`/`*Ref` and wasn't itself produced by a local `useRef()` call is not detected (matching the `refPassedToFunction`-style gaps noted in `refs.spec.diff.md`).
 
 ---
 
@@ -89,3 +92,4 @@ The IMPL emits **two separate ESLint reports** per violation, since ESLint's rep
 2. **Limited aliasing**: Only `const`/`let`-with-initializer aliasing of the _function_ is followed; aliasing of the _mutated object_ itself, reassigned aliases, and property-stored functions are not tracked.
 3. **Fixed mutating-method list**: `MUTATING_METHODS` is a static allow-list rather than a type-driven determination of "known mutable" values.
 4. **Split diagnostics**: The usage-site and mutation-site messages are reported as two independent ESLint problems instead of one diagnostic with two annotated locations, since ESLint has no native multi-location diagnostic model.
+5. **Ref exemption still has blind spots**: `isRefLikeChain` now recognizes refs both by naming convention and by a direct `useRef()` initializer (fixed #1893), but `isInitializedFromUseRef` calls `resolve()` only once (no recursive alias-chasing like `resolveToFunctionNode` does for functions). So a ref aliased through a plain variable (`const r = mounted; r.current = true;`) is not recognized unless `r`/`mounted` itself matches the naming heuristic. Refs threaded through a custom hook, a `forwardRef`/`useImperativeHandle` boundary, or destructuring are likewise not recognized.
