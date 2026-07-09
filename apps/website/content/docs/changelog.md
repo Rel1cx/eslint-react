@@ -2,6 +2,27 @@
 title: Changelog
 ---
 
+## v5.13.0 (2026-07-09)
+
+### ✨ New
+
+- `react-x/refs` now detects nested property writes on a ref's value (e.g. `ref.current.inner = value`), which are now reported as `writeDuringRender` instead of being misclassified as a read.
+- `react-x/refs` now tracks functions bound to (and called through) simple object-member-expression targets (e.g. `object.foo = () => ref.current; object.foo();`), closing a gap in the render-reachability analysis that previously only covered plain variable bindings.
+- `react-x/refs` now detects `ref.current` accesses inside the lazy initializer function passed directly as `useState`'s first argument, since it runs synchronously during the initial render unlike other hook-callback arguments.
+- `react-x/refs` now exempts calls to a function named `render` (e.g. `props.render(ref)`, a common render-prop pattern) from the `refPassedToFunction` diagnostic, alongside the existing `mergeRefs`/hook exemptions.
+
+### 🐞 Fixes
+
+- Improved `react-x/refs` lazy-init guard-block detection so it is direction-aware: inside the branch of an `if (ref.current == null)`-style guard that is guaranteed to see `ref.current` as null, only a direct write is treated as the (single) valid initialization; reads or values passed to a function there are still reported.
+
+### 🏗️ Internal
+
+- Refactored `react-x/refs` internals, replacing `isRefCurrentNullCheck` with `getRefCurrentNullCheckBranch` in `lib.ts`.
+- Upgraded `fumadocs` packages and `preact`.
+- Cleaned up redundant code in the `react-debug/jsx` rule.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.13.0...v5.12.2
+
 ## v5.12.1 (2026-07-08)
 
 ### 📝 Documentation
