@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.13.1] - 2026-07-09
+
 ### Changed
 
 - Aligned error message wording for `readDuringRender`, `writeDuringRender`, and `refPassedToFunction` with the React Compiler specification (`refs.spec.md`).

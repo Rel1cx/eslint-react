@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.13.1 (2026-07-09)
+
+### 🐞 Fixes
+
+- `react-x/refs`: aligned error message wording for `readDuringRender`, `writeDuringRender`, and `refPassedToFunction` with the React Compiler specification.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.13.0...v5.13.1
+
 ## v5.13.0 (2026-07-09)
 
 ### ✨ New
@@ -19,7 +27,7 @@
 - Upgraded `fumadocs` packages and `preact`.
 - Cleaned up redundant code in the `react-debug/jsx` rule.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.13.0...v5.12.2
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.12.2...v5.13.0
 
 ## v5.12.1 (2026-07-08)
 
