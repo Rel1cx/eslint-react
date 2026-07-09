@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "5.13.1",
+  "version": "5.13.2",
   "description": "ESLint React's unified ESLint plugin that combines all individual plugins into one.",
   "keywords": [
     "react",
@@ -62,7 +62,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

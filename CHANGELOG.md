@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.13.2 (2026-07-09)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: fixed false positive on `ref.current` write inside `useEffect`. (#1894)
+
+### 🏗️ Internal
+
+- Bumped `@types/node` to `^26.1.1`.
+- Bumped `preact` to `^10.29.6`.
+- Bumped `tsdown` to `^0.22.4`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.13.1...v5.13.2
+
 ## v5.13.1 (2026-07-09)
 
 ### 🐞 Fixes

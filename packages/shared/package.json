@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "5.13.1",
+  "version": "5.13.2",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -45,10 +45,10 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "@types/picomatch": "^4.0.3",
     "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "5.13.1",
+  "version": "5.13.2",
   "description": "ESLint React's utility module for building custom React rules with JavaScript functions.",
   "keywords": [
     "react",
@@ -53,7 +53,7 @@
     "@eslint-react/eslint": "workspace:*",
     "@local/configs": "workspace:*",
     "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

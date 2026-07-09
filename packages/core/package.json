@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/core",
-  "version": "5.13.1",
+  "version": "5.13.2",
   "description": "ESLint React's ESLint utility module for static analysis of React core APIs and patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^8.63.0",
     "@typescript-eslint/typescript-estree": "^8.63.0",
     "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"
   },

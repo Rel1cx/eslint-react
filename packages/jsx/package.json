@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/jsx",
-  "version": "5.13.1",
+  "version": "5.13.2",
   "description": "ESLint React's TSESTree JSX utility module for static analysis of JSX patterns.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -48,7 +48,7 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "eslint": "^10.6.0",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "typescript": "6.0.3"
   },
   "peerDependencies": {

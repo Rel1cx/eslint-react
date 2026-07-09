@@ -45,7 +45,7 @@
   "devDependencies": {
     "eslint": "^10.6.0",
     "tinyglobby": "^0.2.17",
-    "tsdown": "^0.22.3",
+    "tsdown": "^0.22.4",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.13.2",
     "typedoc": "^0.28.20",

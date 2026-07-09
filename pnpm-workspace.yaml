@@ -65,5 +65,3 @@ overrides:
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
-minimumReleaseAgeExclude:
-  - tsl-dx@0.13.2
