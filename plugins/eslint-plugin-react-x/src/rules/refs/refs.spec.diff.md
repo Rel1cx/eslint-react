@@ -90,13 +90,13 @@ The IMPL detects this via `isNestedRefCurrentWrite`: when the `ref.current` Memb
 
 ## 7. Error Reporting
 
-| Aspect                 | SPEC                                                           | IMPL                                                                          |
-| ---------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Read during render     | "Cannot access refs during render"                             | "Do not read 'ref.current' during render..."                                  |
-| Write during render    | "Cannot update ref during render"                              | "Do not write to 'ref.current' during render..."                              |
-| Ref passed to function | "Passing a ref to a function may read its value during render" | "Passing a ref to a function may cause its value to be read during render..." |
+| Aspect                 | SPEC                                                           | IMPL                                                           |
+| ---------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| Read during render     | "Cannot access refs during render"                             | "Cannot access refs during render"                             |
+| Write during render    | "Cannot update ref during render"                              | "Cannot update ref during render"                              |
+| Ref passed to function | "Passing a ref to a function may read its value during render" | "Passing a ref to a function may read its value during render" |
 
-**Verdict**: Message wording differs but intent is aligned across all three violation types.
+**Verdict**: Aligned.
 
 ---
 
@@ -105,4 +105,3 @@ The IMPL detects this via `isNestedRefCurrentWrite`: when the `ref.current` Memb
 1. **Reducer/callback reachability**: functions passed as inline callbacks to array iteration methods (`.map`, `.forEach`, ...) or to hooks other than `useState` (notably `useReducer`'s reducer-position argument) are not treated as reached during render, so ref mutations/reads inside them are not flagged (see §4). This is intentional, to preserve existing accepted ref-mutation-in-callback patterns.
 2. **Naming-convention aggressiveness**: the IMPL always applies the `*Ref`/`ref` naming heuristic, without the SPEC's opt-in feature flag gating, which can produce false positives on non-ref variables that happen to match the naming convention (see §2).
 3. **Render helper detection**: only calls to a function literally named `render` are exempted from `refPassedToFunction`; other render-prop-style helper names are still flagged (see §5).
-4. **Error message wording**: message text doesn't match the SPEC's wording verbatim, though the intent is preserved (see §7).

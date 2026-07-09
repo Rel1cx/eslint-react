@@ -75,7 +75,7 @@ Refs are not guaranteed to be initialized during render. Reading them in the com
 function Component() {
   const ref = useRef(0);
   const value = ref.current; // read during render
-  //            ^^^ Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.
+  //            ^^^ Cannot access refs during render
   return <div>{value}</div>;
 }
 ```
@@ -97,7 +97,7 @@ Custom hooks follow the same rules as components. Reading `ref.current` during t
 function useMyHook() {
   const ref = useRef(0);
   const value = ref.current;
-  //            ^^^ Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.
+  //            ^^^ Cannot access refs during render
   return value;
 }
 ```
@@ -124,7 +124,7 @@ Writing to a ref during render is a side effect. React may invoke your component
 function Component({ value }) {
   const ref = useRef(null);
   ref.current = value; // modified during render
-  // ^^^ Do not write to 'ref.current' during render. Refs should only be mutated in effects or event handlers. Move this write into an effect or event handler.
+  // ^^^ Cannot update ref during render
   return <div />;
 }
 ```
@@ -197,7 +197,7 @@ If a value affects what is shown on screen, it should be state, not a ref. Refs 
 function Component() {
   const ref = useRef(0);
   return <div>{ref.current}</div>;
-  //          ^^^ Do not read 'ref.current' during render.
+  //          ^^^ Cannot access refs during render
 }
 ```
 

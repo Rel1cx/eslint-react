@@ -27,12 +27,9 @@ export default createRule<[], MessageID>({
     messages: {
       duplicateRefInit:
         "Ref is initialized more than once during render. Only a single 'if (ref.current == null)' initialization is allowed; move any additional initialization into an effect or event handler.",
-      readDuringRender:
-        "Do not read 'ref.current' during render. Refs are not available during rendering and their values may be stale or inconsistent. Move this read into an effect or event handler.",
-      refPassedToFunction:
-        "Passing a ref to a function may cause its value to be read during render. Pass 'ref.current' instead if the function only needs the value, or move the call into an effect.",
-      writeDuringRender:
-        "Do not write to 'ref.current' during render. Refs should only be mutated in effects or event handlers. Move this write into an effect or event handler.",
+      readDuringRender: "Cannot access refs during render",
+      refPassedToFunction: "Passing a ref to a function may read its value during render",
+      writeDuringRender: "Cannot update ref during render",
     },
     schema: [],
   },
