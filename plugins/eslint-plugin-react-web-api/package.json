@@ -50,7 +50,7 @@
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/types": "^8.63.0",
     "@typescript-eslint/utils": "^8.63.0",
-    "birecord": "^0.1.1",
+    "birecord": "^0.1.2",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
