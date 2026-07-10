@@ -4,11 +4,11 @@ import type { RuleFunction } from "@eslint-react/kit";
 export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
-      // › Verify this is an <input> element
+      // Verify this is an <input> element
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (name !== "input") return;
 
-      // › Collect all attribute names
+      // Collect all attribute names
       const attrs = new Set<string>();
       for (const attr of node.attributes) {
         if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
@@ -16,10 +16,10 @@ export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
         }
       }
 
-      // › Guard: must have checked attribute
+      // Guard: must have checked attribute
       if (!attrs.has("checked")) return;
 
-      // › Validate: requires onChange or readOnly
+      // Validate: requires onChange or readOnly
       if (!attrs.has("onChange") && !attrs.has("readOnly")) {
         context.report({
           node,

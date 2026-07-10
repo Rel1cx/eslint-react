@@ -16,7 +16,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
     JSXOpeningElement(node) {
       const name = node.name;
 
-      // › Guard: must be simple identifier
+      // Guard: must be simple identifier
       if (name.type !== "JSXIdentifier") return;
 
       const componentName = name.name;
@@ -32,7 +32,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      // › Guard: ignore DOM elements (lowercase)
+      // Guard: ignore DOM elements (lowercase)
       const firstChar = componentName[0];
       if (firstChar == null) return;
       if (firstChar === firstChar.toLowerCase()) return;

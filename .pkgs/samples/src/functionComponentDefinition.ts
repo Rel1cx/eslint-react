@@ -13,7 +13,7 @@ export function functionComponentDefinition(): RuleFunction {
         "Program:exit"(program) {
           // ─── Iterate all components ────────────────────
           for (const { node } of query.all(program)) {
-            // › Guard: must not already be arrow function
+            // Guard: must not already be arrow function
             if (node.type === "ArrowFunctionExpression") continue;
 
             context.report({

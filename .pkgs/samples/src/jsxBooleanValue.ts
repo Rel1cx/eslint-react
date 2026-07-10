@@ -6,14 +6,14 @@ export function jsxBooleanValue(): RuleFunction {
     JSXAttribute(node) {
       const { value } = node;
 
-      // › Guard: must have expression value
+      // Guard: must have expression value
       if (value?.type !== "JSXExpressionContainer") return;
 
-      // › Guard: must be literal true
+      // Guard: must be literal true
       const expression = ast.unwrap(value.expression);
       if (expression.type !== "Literal" || expression.value !== true) return;
 
-      // › Report: prefer shorthand form
+      // Report: prefer shorthand form
       context.report({
         node,
         message: "Omit the value for boolean attributes.",

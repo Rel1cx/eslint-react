@@ -20,7 +20,7 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
 
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-        // › Report duplicate
+        // Report duplicate
         if (seen.has(name)) {
           context.report({
             node: attr,

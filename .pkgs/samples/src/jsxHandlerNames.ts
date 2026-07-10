@@ -22,7 +22,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
   return (context, { ast }) => ({
     JSXAttribute(node) {
-      // › Guard: must be event handler prop (onXxx)
+      // Guard: must be event handler prop (onXxx)
       if (node.name.type !== "JSXIdentifier") return;
       const propName = node.name.name;
       if (!EVENT_HANDLER_REGEX.test(propName)) return;

@@ -44,10 +44,10 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
           for (const prop of declaredProps) {
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
-            // › Filter: must be boolean
+            // Filter: must be boolean
             if (!isBooleanLikeType(propType)) continue;
 
-            // › Filter: must match naming pattern
+            // Filter: must match naming pattern
             if (regex.test(prop.name)) continue;
 
             const decls = prop.getDeclarations();
@@ -61,7 +61,7 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
 
             const node = "key" in declNode ? declNode.key : declNode;
 
-            // › Report violation
+            // Report violation
             context.report({
               data: { name: prop.name, rule },
               message: `Boolean prop "{{name}}" should match "{{rule}}".`,

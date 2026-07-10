@@ -41,7 +41,7 @@ export function noDuplicateProps(options: noDuplicatePropsOptions = {}): RuleFun
 
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-        // › Report duplicate
+        // Report duplicate
         if (seen.has(name)) {
           context.report({
             node: attr,

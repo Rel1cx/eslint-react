@@ -320,10 +320,10 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
           for (const prop of declaredProps) {
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
-            // › Filter: must be boolean
+            // Filter: must be boolean
             if (!isBooleanLikeType(propType)) continue;
 
-            // › Filter: must match naming pattern
+            // Filter: must match naming pattern
             if (regex.test(prop.name)) continue;
 
             const decls = prop.getDeclarations();
@@ -337,7 +337,7 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
 
             const node = "key" in declNode ? declNode.key : declNode;
 
-            // › Report violation
+            // Report violation
             context.report({
               data: { name: prop.name, rule },
               message: `Boolean prop "{{name}}" should match "{{rule}}".`,
@@ -362,11 +362,11 @@ import type { RuleFunction } from "@eslint-react/kit";
 export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
   return (context) => ({
     JSXOpeningElement(node) {
-      // › Verify this is an <input> element
+      // Verify this is an <input> element
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (name !== "input") return;
 
-      // › Collect all attribute names
+      // Collect all attribute names
       const attrs = new Set<string>();
       for (const attr of node.attributes) {
         if (attr.type === "JSXAttribute" && attr.name.type === "JSXIdentifier") {
@@ -374,10 +374,10 @@ export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
         }
       }
 
-      // › Guard: must have checked attribute
+      // Guard: must have checked attribute
       if (!attrs.has("checked")) return;
 
-      // › Validate: requires onChange or readOnly
+      // Validate: requires onChange or readOnly
       if (!attrs.has("onChange") && !attrs.has("readOnly")) {
         context.report({
           node,
@@ -407,18 +407,18 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
   const { forbidden } = options;
   return (context) => ({
     JSXAttribute(node) {
-      // › Extract prop name
+      // Extract prop name
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (propName == null || !forbidden.includes(propName)) return;
 
-      // › Verify context is JSX opening element
+      // Verify context is JSX opening element
       const parent = node.parent;
       if (parent?.type !== "JSXOpeningElement") return;
 
-      // › Extract element name
+      // Extract element name
       const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
 
-      // › Guard: only check components (PascalCase), not DOM elements
+      // Guard: only check components (PascalCase), not DOM elements
       if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
 
       context.report({
@@ -448,18 +448,18 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
   const { forbidden } = options;
   return (context) => ({
     JSXAttribute(node) {
-      // › Extract prop name
+      // Extract prop name
       const propName = node.name.type === "JSXIdentifier" ? node.name.name : null;
       if (propName == null || !forbidden.includes(propName)) return;
 
-      // › Verify context is JSX opening element
+      // Verify context is JSX opening element
       const parent = node.parent;
       if (parent?.type !== "JSXOpeningElement") return;
 
-      // › Extract element name
+      // Extract element name
       const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
 
-      // › Guard: only check DOM elements (lowercase), not components
+      // Guard: only check DOM elements (lowercase), not components
       if (elemName == null || elemName[0] !== elemName[0]?.toLowerCase()) return;
 
       context.report({
@@ -489,13 +489,13 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
   const { forbidden } = options;
   return (context) => ({
     JSXOpeningElement(node) {
-      // › Extract element identifier
+      // Extract element identifier
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
 
-      // › Guard: must be in forbidden map
+      // Guard: must be in forbidden map
       if (name == null || !forbidden.has(name)) return;
 
-      // › Report violation with custom message
+      // Report violation with custom message
       context.report({ node, message: forbidden.get(name)! });
     },
   });
@@ -522,7 +522,7 @@ export function functionComponentDefinition(): RuleFunction {
         "Program:exit"(program) {
           // ─── Iterate all components ────────────────────
           for (const { node } of query.all(program)) {
-            // › Guard: must not already be arrow function
+            // Guard: must not already be arrow function
             if (node.type === "ArrowFunctionExpression") continue;
 
             context.report({
@@ -585,14 +585,14 @@ export function jsxBooleanValue(): RuleFunction {
     JSXAttribute(node) {
       const { value } = node;
 
-      // › Guard: must have expression value
+      // Guard: must have expression value
       if (value?.type !== "JSXExpressionContainer") return;
 
-      // › Guard: must be literal true
+      // Guard: must be literal true
       const expression = ast.unwrap(value.expression);
       if (expression.type !== "Literal" || expression.value !== true) return;
 
-      // › Report: prefer shorthand form
+      // Report: prefer shorthand form
       context.report({
         node,
         message: "Omit the value for boolean attributes.",
@@ -624,7 +624,7 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
     // ── Helpers ─────────────────────────────────────
 
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
-      // › Guard: has key prop (legitimate use of standard form)
+      // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
       if (hasAttributes) return;
 
@@ -710,7 +710,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
 
   return (context, { ast }) => ({
     JSXAttribute(node) {
-      // › Guard: must be event handler prop (onXxx)
+      // Guard: must be event handler prop (onXxx)
       if (node.name.type !== "JSXIdentifier") return;
       const propName = node.name.name;
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
@@ -785,7 +785,7 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
         parent = parent.parent;
       }
 
-      // › Check depth limit
+      // Check depth limit
       if (depth > max) {
         context.report({
           node,
@@ -810,7 +810,7 @@ export function jsxNoBind(): RuleFunction {
     JSXAttribute(node) {
       const value = node.value;
 
-      // › Guard: must be expression container
+      // Guard: must be expression container
       if (value?.type !== "JSXExpressionContainer") return;
 
       const expr = ast.unwrap(value.expression);
@@ -865,7 +865,7 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
 
         const name = ignoreCase ? attr.name.name.toLowerCase() : attr.name.name;
 
-        // › Report duplicate
+        // Report duplicate
         if (seen.has(name)) {
           context.report({
             node: attr,
@@ -985,7 +985,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
     JSXOpeningElement(node) {
       const name = node.name;
 
-      // › Guard: must be simple identifier
+      // Guard: must be simple identifier
       if (name.type !== "JSXIdentifier") return;
 
       const componentName = name.name;
@@ -1001,7 +1001,7 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      // › Guard: ignore DOM elements (lowercase)
+      // Guard: ignore DOM elements (lowercase)
       const firstChar = componentName[0];
       if (firstChar === undefined) return;
       if (firstChar === firstChar.toLowerCase()) return;
@@ -1046,7 +1046,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
       for (const attr of node.attributes) {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
-        // › Extract spread identifier name
+        // Extract spread identifier name
         const argument = ast.unwrap(attr.argument);
         let spreadKey: string;
         if (argument.type === "Identifier") {
@@ -1055,7 +1055,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
           spreadKey = context.sourceCode.getText(attr.argument);
         }
 
-        // › Report duplicate spread
+        // Report duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
             node: attr,
@@ -1116,19 +1116,19 @@ export function noAdjacentInlineElements(): RuleFunction {
         const current = children[i];
         const next = children[i + 1];
 
-        // › Validate first element
+        // Validate first element
         if (current?.type !== "JSXElement") continue;
         if (current.openingElement.name.type !== "JSXIdentifier") continue;
         const currentName = current.openingElement.name.name;
         if (!INLINE_ELEMENTS.has(currentName)) continue;
 
-        // › Validate second element
+        // Validate second element
         if (next?.type !== "JSXElement") continue;
         if (next.openingElement.name.type !== "JSXIdentifier") continue;
         const nextName = next.openingElement.name.name;
         if (!INLINE_ELEMENTS.has(nextName)) continue;
 
-        // › Report violation
+        // Report violation
         context.report({
           node: current,
           message: `Adjacent inline elements "${currentName}" and "${nextName}" should be separated by whitespace.`,

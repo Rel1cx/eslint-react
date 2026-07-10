@@ -10,7 +10,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
       for (const attr of node.attributes) {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
-        // › Extract spread identifier name
+        // Extract spread identifier name
         const argument = ast.unwrap(attr.argument);
         let spreadKey: string;
         if (argument.type === "Identifier") {
@@ -19,7 +19,7 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
           spreadKey = context.sourceCode.getText(attr.argument);
         }
 
-        // › Report duplicate spread
+        // Report duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
             node: attr,

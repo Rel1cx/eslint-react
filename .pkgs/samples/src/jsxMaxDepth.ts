@@ -23,7 +23,7 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
         parent = parent.parent;
       }
 
-      // › Check depth limit
+      // Check depth limit
       if (depth > max) {
         context.report({
           node,

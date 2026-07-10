@@ -6,7 +6,7 @@ export function jsxNoBind(): RuleFunction {
     JSXAttribute(node) {
       const value = node.value;
 
-      // › Guard: must be expression container
+      // Guard: must be expression container
       if (value?.type !== "JSXExpressionContainer") return;
 
       const expr = ast.unwrap(value.expression);

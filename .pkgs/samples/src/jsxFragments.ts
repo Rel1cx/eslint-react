@@ -14,7 +14,7 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
     // ── Helpers ─────────────────────────────────────
 
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
-      // › Guard: has key prop (legitimate use of standard form)
+      // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
       if (hasAttributes) return;
 

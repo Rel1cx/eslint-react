@@ -11,13 +11,13 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
   const { forbidden } = options;
   return (context) => ({
     JSXOpeningElement(node) {
-      // › Extract element identifier
+      // Extract element identifier
       const name = node.name.type === "JSXIdentifier" ? node.name.name : null;
 
-      // › Guard: must be in forbidden map
+      // Guard: must be in forbidden map
       if (name == null || !forbidden.has(name)) return;
 
-      // › Report violation with custom message
+      // Report violation with custom message
       context.report({ node, message: forbidden.get(name)! });
     },
   });
