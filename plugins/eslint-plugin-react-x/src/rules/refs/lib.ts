@@ -1,146 +1,93 @@
-import { Check, Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
+
+export type NullCheckBranch = "alternate" | "consequent";
+
+export type PositionedValue<T> = {
+  position: number;
+  value: T;
+};
+
+export type RefAccess = {
+  isInitializationWrite: boolean;
+  isWrite: boolean;
+  node: TSESTree.MemberExpression;
+};
+
+type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
+
+const SYNC_ARRAY_CALLBACKS = new Set([
+  "every",
+  "filter",
+  "find",
+  "findIndex",
+  "findLast",
+  "findLastIndex",
+  "flatMap",
+  "forEach",
+  "map",
+  "reduce",
+  "reduceRight",
+  "some",
+  "sort",
+]);
+
+// Binding and call helpers
+
+export function getLatestValue<T>(events: PositionedValue<T>[] | undefined, position: number): PositionedValue<T> | null {
+  let latest: PositionedValue<T> | null = null;
+  for (const event of events ?? []) {
+    if (event.position > position) continue;
+    if (latest == null || event.position >= latest.position) latest = event;
+  }
+  return latest;
+}
 
 export function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
   return node.type === AST.FunctionExpression || node.type === AST.ArrowFunctionExpression;
 }
 
-export function resolveAlias(name: string, aliases: Map<string, string>): string {
-  const seen = new Set<string>();
-  while (aliases.has(name) && !seen.has(name)) {
-    seen.add(name);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    name = aliases.get(name)!;
-  }
-  return name;
+export function isRefLikeName(name: string): boolean {
+  return name === "ref" || name.endsWith("Ref");
 }
 
-/**
- * Check if the node is the operand of a `ref.current === null` test inside an IfStatement.
- * @param node The MemberExpression node for ref.current
- * @returns true if the node is part of a null check test in an if statement
- */
-export function isInNullCheckTest(node: TSESTree.MemberExpression): boolean {
-  let parent: TSESTree.Node = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
-
-  const isNullCompareBinary = (n: TSESTree.Node): n is TSESTree.BinaryExpression => {
-    return n.type === AST.BinaryExpression && /^(===|==|!==|!=)$/.test(n.operator);
-  };
-
-  const isLiteralNull = (n: TSESTree.Node): boolean => {
-    return n.type === AST.Literal && n.value == null;
-  };
-
-  const isIfTest = (testNode: TSESTree.Node): boolean => {
-    return testNode.parent?.type === AST.IfStatement && testNode.parent.test === testNode;
-  };
-
-  // Binary comparison: ref.current === null, or wrapped in !: !(ref.current === null)
-  if (isNullCompareBinary(parent)) {
-    const isLeftSide = parent.left === node || Extract.unwrap(parent.left) === node;
-    const otherSide = isLeftSide ? parent.right : parent.left;
-    if (!isLiteralNull(otherSide)) return false;
-
-    // Direct: if (ref.current === null)
-    if (isIfTest(parent)) return true;
-
-    // Wrapped in !: if (!(ref.current === null))
-    const grandparent = parent.parent;
-    if (grandparent.type === AST.UnaryExpression && grandparent.operator === "!" && isIfTest(grandparent)) {
-      return true;
-    }
-
-    return false;
-  }
-
-  // Unary !: !ref.current
-  if (parent.type === AST.UnaryExpression && parent.operator === "!") {
-    return isIfTest(parent);
-  }
-
-  return false;
-}
-
-function isBinaryNullCheckOperand(a: TSESTree.Node, b: TSESTree.Node, refName: string): boolean {
-  a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
-  if (a.type !== AST.MemberExpression) return false;
-  if (Extract.getPropertyName(a.property) !== "current") return false;
-  const obj = Extract.unwrap(a.object);
-  return obj.type === AST.Identifier && obj.name === refName && b.type === AST.Literal && b.value == null;
-}
-
-function isBinaryNullCheck(test: TSESTree.Expression, refName: string): test is TSESTree.BinaryExpression {
-  if (test.type !== AST.BinaryExpression) return false;
-  if (!/^(===|==|!==|!=)$/.test(test.operator)) return false;
-  const { left, right } = test;
-  return isBinaryNullCheckOperand(left, right, refName) || isBinaryNullCheckOperand(right, left, refName);
-}
-
-/**
- * Which branch of an `if` statement is guaranteed to observe `ref.current` as `null`/`undefined`,
- * for a test expression recognized by `isRefCurrentNullCheck`.
- *
- * `"consequent"` means the true-branch is the null branch (e.g. `== null`, `=== null`,
- * `!ref.current`); `"alternate"` means the false-branch is the null branch (e.g. `!= null`,
- * `!== null`, `!(ref.current === null)`).
- */
-export type NullCheckBranch = "consequent" | "alternate";
-
-/**
- * Determine which branch of an `if` statement is guaranteed to see `ref.current` as null, given
- * a test expression. Returns `null` if the test isn't a recognized null check on `refName`.
- * @param test The test expression to check.
- * @param refName The name of the ref variable.
- */
-export function getRefCurrentNullCheckBranch(test: TSESTree.Expression, refName: string): NullCheckBranch | null {
-  // Direct binary check: ref.current === null / == null -> consequent is null branch
-  //                       ref.current !== null / != null -> alternate is null branch
-  if (isBinaryNullCheck(test, refName)) {
-    return test.operator === "===" || test.operator === "==" ? "consequent" : "alternate";
-  }
-
-  // !ref.current  or  !(ref.current === null)
-  if (test.type === AST.UnaryExpression && test.operator === "!") {
-    const arg = Extract.unwrap(test.argument);
-    // !ref.current: truthy check, so the true-branch (falsy, i.e. null-like) is the null branch
-    if (arg.type === AST.MemberExpression) {
-      const obj = Extract.unwrap(arg.object);
-      const isRefCurrent = obj.type === AST.Identifier
-        && obj.name === refName
-        && Extract.getPropertyName(arg.property) === "current";
-      return isRefCurrent ? "consequent" : null;
-    }
-    // !(ref.current === null): flip the inner binary check's direction
-    if (arg.type === AST.BinaryExpression) {
-      const inner = getRefCurrentNullCheckBranch(arg, refName);
-      if (inner === "consequent") return "alternate";
-      if (inner === "alternate") return "consequent";
-    }
-  }
-
+export function getCalleeName(node: TSESTree.CallExpression): string | null {
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type === AST.Identifier) return callee.name;
+  if (callee.type === AST.MemberExpression) return Extract.getPropertyName(callee.property);
   return null;
 }
 
-/**
- * Check if a test expression is a null check on `ref.current` for a given ref name.
- * Matches forms like `ref.current === null`, `null === ref.current`, `!ref.current`,
- * `!(ref.current === null)`, and their != variants.
- * @param test The test expression to check.
- * @param refName The name of the ref variable.
- */
-export function isRefCurrentNullCheck(test: TSESTree.Expression, refName: string): boolean {
-  return getRefCurrentNullCheckBranch(test, refName) != null;
+export function getSynchronousCallbackIndexes(node: TSESTree.CallExpression): number[] {
+  const callee = Extract.unwrap(node.callee);
+  const name = getCalleeName(node);
+  if (name == null) return [];
+  if (callee.type === AST.MemberExpression && SYNC_ARRAY_CALLBACKS.has(name)) return [0];
+  switch (name) {
+    case "useMemo":
+    case "useState":
+      return [0];
+    case "useReducer":
+      return [0, 2];
+    default:
+      return [];
+  }
 }
+
+export function isReachedThroughFunctions(node: TSESTree.Node, boundary: TSESTreeFunction, reached: ReadonlySet<TSESTreeFunction>): boolean {
+  let current: TSESTree.Node | undefined = node.parent;
+  while (current != null && current !== boundary) {
+    if (Check.isFunction(current) && !reached.has(current)) return false;
+    current = current.parent;
+  }
+  return current === boundary;
+}
+
+// Ref access classification
 
 /**
  * Check whether `node` (a `ref.current` MemberExpression) is being written to indirectly through
  * a nested property write, e.g. `ref.current.inner = value` or `ref.current.inner++`.
- * @param node The MemberExpression node for ref.current
  */
 export function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolean {
   let outer: TSESTree.Node = node;
@@ -165,25 +112,116 @@ export function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolea
   }
 }
 
-export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope) {
-  for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
-    if (node.type !== AST.VariableDeclarator) continue;
-    const init = node.init;
-    if (init == null) continue;
-    switch (true) {
-      // const identifier = anotherRef.current;
-      case init.type === AST.MemberExpression: {
-        const initObj = Extract.unwrap(init.object);
-        if (initObj.type === AST.Identifier && (initObj.name === "ref" || initObj.name.endsWith("Ref"))) {
-          return true;
-        }
-        break;
-      }
-      // const identifier = useRef();
-      case init.type === AST.CallExpression
-        && core.isUseRefCall(context, init):
-        return true;
+export function getRefAccess(node: TSESTree.MemberExpression): RefAccess {
+  let parent: TSESTree.Node = node.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  const isDirectWrite = parent.type === AST.AssignmentExpression
+    ? parent.left === node || Extract.unwrap(parent.left) === node
+    : parent.type === AST.UpdateExpression
+    ? parent.argument === node || Extract.unwrap(parent.argument) === node
+    : false;
+  return {
+    isInitializationWrite: parent.type === AST.AssignmentExpression
+      && parent.operator === "="
+      && (parent.left === node || Extract.unwrap(parent.left) === node),
+    isWrite: isDirectWrite || isNestedRefCurrentWrite(node),
+    node,
+  };
+}
+
+// Null-guard analysis
+
+/**
+ * Parse an exact nullish check and return the branch where the checked value is null/undefined.
+ * Truthiness checks such as `!ref.current` are deliberately excluded: falsy ref values are not
+ * necessarily uninitialized.
+ */
+export function getNullCheckBranch(
+  test: TSESTree.Expression,
+  isCheckedValue: (node: TSESTree.Node) => boolean,
+  isNullishValue: (node: TSESTree.Node) => boolean,
+): NullCheckBranch | null {
+  const unwrapped = Extract.unwrap(test);
+  if (unwrapped.type === AST.UnaryExpression && unwrapped.operator === "!") {
+    const inner = Extract.unwrap(unwrapped.argument);
+    if (inner.type !== AST.BinaryExpression) return null;
+    const branch = getNullCheckBranch(inner, isCheckedValue, isNullishValue);
+    if (branch === "consequent") return "alternate";
+    if (branch === "alternate") return "consequent";
+    return null;
+  }
+  if (unwrapped.type !== AST.BinaryExpression || !/^(===|==|!==|!=)$/.test(unwrapped.operator)) return null;
+  const matches = (left: TSESTree.Node, right: TSESTree.Node) => {
+    return isCheckedValue(Extract.unwrap(left)) && isNullishValue(Extract.unwrap(right));
+  };
+  if (!matches(unwrapped.left, unwrapped.right) && !matches(unwrapped.right, unwrapped.left)) return null;
+  return unwrapped.operator === "===" || unwrapped.operator === "==" ? "consequent" : "alternate";
+}
+
+export function isGuardTestAccess(node: TSESTree.MemberExpression, getNullBranch: GetNullBranch): boolean {
+  let current: TSESTree.Node = node;
+  while (Check.isTypeExpression(current.parent)) current = current.parent;
+  if (current.parent.type === AST.BinaryExpression) current = current.parent;
+  if (current.parent.type === AST.UnaryExpression && current.parent.operator === "!") current = current.parent;
+  return current.parent.type === AST.IfStatement
+    && current.parent.test === current
+    && getNullBranch(current.parent.test) != null;
+}
+
+export function getGuardDisposition(node: TSESTree.MemberExpression, getNullBranch: GetNullBranch): { inNullBranch: boolean } | null {
+  let child: TSESTree.Node = node;
+  let current: TSESTree.Node | undefined = node.parent;
+  while (current != null && !Check.isFunction(current)) {
+    if (current.type === AST.IfStatement) {
+      const actualBranch = current.consequent === child
+        ? "consequent"
+        : current.alternate === child
+        ? "alternate"
+        : null;
+      const nullBranch = getNullBranch(current.test);
+      if (actualBranch != null && nullBranch != null) return { inNullBranch: actualBranch === nullBranch };
     }
+    child = current;
+    current = current.parent;
+  }
+  return null;
+}
+
+/** Return whether every path through a statement exits the current function. */
+export function isUnconditionallyTerminating(statement: TSESTree.Statement): boolean {
+  switch (statement.type) {
+    case AST.ReturnStatement:
+    case AST.ThrowStatement:
+      return true;
+    case AST.BlockStatement: {
+      const last = statement.body.at(-1);
+      return last != null && isUnconditionallyTerminating(last);
+    }
+    case AST.IfStatement:
+      return statement.alternate != null
+        && isUnconditionallyTerminating(statement.consequent)
+        && isUnconditionallyTerminating(statement.alternate);
+    default:
+      return false;
+  }
+}
+
+export function isAfterTerminatingNonNullGuard(node: TSESTree.MemberExpression, getNullBranch: GetNullBranch): boolean {
+  let statement: TSESTree.Node = node;
+  while (statement.parent?.type !== AST.BlockStatement) {
+    if (statement.parent == null || Check.isFunction(statement.parent)) return false;
+    statement = statement.parent;
+  }
+  const block = statement.parent;
+  // tsl-ignore dx/no-unsafe-as
+  const index = block.body.indexOf(statement as TSESTree.Statement);
+  for (let i = index - 1; i >= 0; i--) {
+    const sibling = block.body[i];
+    if (sibling?.type !== AST.IfStatement) continue;
+    const nullBranch = getNullBranch(sibling.test);
+    if (nullBranch == null) continue;
+    const nonNullBranch = nullBranch === "alternate" ? sibling.consequent : sibling.alternate;
+    return nonNullBranch != null && isUnconditionallyTerminating(nonNullBranch);
   }
   return false;
 }

@@ -49,7 +49,7 @@ The lint only applies these rules to values it knows are refs. A value is inferr
   <input ref={inputRef} />
   ```
 
-Once something is marked as a ref, the lint surfaces violations when `ref.current` is accessed directly in the render phase of a component or hook body (i.e. not inside effects, event handlers, callbacks, or other nested functions). A nested function only shields the access it contains if that function is never actually invoked during render: calling a locally-defined helper (even through a simple alias) while rendering is still flagged, because the ref access effectively still happens during render.
+Once something is marked as a ref, the lint surfaces violations when `ref.current` is accessed during the render phase of a component or hook. Effects, event handlers, `useCallback`, timers, promise handlers, and other deferred callbacks are outside render. A nested function only shields the access it contains if that function is not invoked during render: calling a local helper (even through an alias), an IIFE, a synchronous array callback, or a `useState`/`useMemo`/`useReducer` render-time callback is still checked.
 
 ```tsx
 // 🔴 Problem: helper mutates a ref, and is called during render
@@ -155,7 +155,7 @@ function Component() {
 
 ### Lazy initialization of ref value
 
-There is one exception: lazy initialization of a ref value on first access is a common and safe pattern, as long as it only runs once.
+There is one exception: lazy initialization of a ref value behind an exact `null` or `undefined` check is a common and safe pattern, as long as it only runs once. Truthiness checks such as `if (!ref.current)` are not sufficient because an initialized ref may legitimately contain `0`, `false`, or an empty string.
 
 ```tsx
 // 🔵 OK: lazy initialization of ref value

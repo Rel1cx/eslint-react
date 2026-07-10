@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added render-reachability support for function declarations, IIFEs, synchronous array callbacks, and render-time callbacks passed to `useMemo` and `useReducer`.
+- Added lazy-initialization support for explicit `undefined` guards and for null guards enclosing additional nested conditions.
+
+### Changed
+
+- Refactored ref aliases, function bindings, JSX refs, and duplicate initialization tracking to use scoped ESLint variable identities and position-aware binding events instead of file-wide identifier names.
+- Reworked render-time call analysis as an unbounded fixed-point propagation, removing the previous 50-iteration cap.
+- Tightened inverted lazy-initialization handling so the non-null branch must unconditionally return or throw.
+- Stopped treating `!ref.current` as a null guard because initialized refs may contain falsy values.
+
 ## [5.13.1] - 2026-07-09
 
 ### Changed
