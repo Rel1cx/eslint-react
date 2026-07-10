@@ -820,17 +820,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "duplicateRefInit" }],
     },
-    // -------------------------------------------------------------------------
-    // FIXME: React Compiler catches these, but ESLint refs rule does not yet
-    // -------------------------------------------------------------------------
-    // FIXME: error.invalid-ref-in-callback-invoked-during-render
-    // React Compiler catches this because `renderItem` is invoked synchronously from inside
-    // the inline callback passed to `.map()`. We deliberately do NOT treat callbacks passed to
-    // array methods (map/forEach/etc.) as "reached during render": doing so would conflict with
-    // the intentionally-valid "ref mutation inside .map()/.forEach() callback" patterns below
-    // (see "Ref mutation inside forEach callback" and "Ref mutation inside map callback used in
-    // JSX" in the valid section), which are common, accepted React patterns.
-    /*
+    // error.invalid-ref-in-callback-invoked-during-render
+    // `renderItem` is reached through the synchronous callback passed to `.map()`.
     {
       code: tsx`
         function Component(props) {
@@ -844,7 +835,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
     // error.invalid-access-ref-in-state-initializer
     // The lazy initializer passed to `useState` runs synchronously during render, so ref
     // accesses inside it are not shielded like other hook-callback arguments.
@@ -858,12 +848,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    // FIXME: error.invalid-access-ref-in-reducer
-    // Unlike useState's initializer, the function here is passed as useReducer's first
-    // (reducer) argument, and useReducer's initializer position is its third (optional `init`)
-    // argument - distinguishing that from the (allowed) reducer/effect-callback arguments of
-    // the same and similar hooks is not attempted here.
-    /*
+    // error.invalid-access-ref-in-reducer
     {
       code: tsx`
         function Component(props) {
@@ -874,7 +859,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
     // error.invalid-read-ref-prop-in-render-property-load
     // MemberExpression.current is supported when the base looks like a ref (`props.ref`).
     {
@@ -903,10 +887,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
-    // FIXME: error.invalid-aliased-ref-in-callback-invoked-during-render
-    // Same reasoning as error.invalid-ref-in-callback-invoked-during-render above: this relies
-    // on treating the `.map()` callback as reached during render, which we intentionally don't.
-    /*
+    // error.invalid-aliased-ref-in-callback-invoked-during-render
     {
       code: tsx`
         function Component(props) {
@@ -921,7 +902,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    */
     // error.invalid-access-ref-in-render-mutate-object-with-ref-function
     // Functions assigned to object properties (`object.foo = () => ref.current`) are tracked,
     // and calling them (`object.foo()`) during render is flagged just like a plain variable
@@ -1041,7 +1021,7 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "writeDuringRender" },
       ],
     },
-    // !(ref.current === null) as expression statement should not crash isInNullCheckTest
+    // !(ref.current === null) as expression statement is not a guard
     {
       code: tsx`
         function Component() {
@@ -1056,8 +1036,272 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "writeDuringRender" },
       ],
     },
+    // -------------------------------------------------------------------------
+    // Single-file multi-component isolation
+    // -------------------------------------------------------------------------
+    // Same-named aliases resolve against their own component scope
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          const value = ref;
+          return <div>{value.current}</div>;
+        }
+        function SecondComponent() {
+          const source = { current: 1 };
+          const value = source;
+          return <div>{value.current}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // A JSX ref marker in one component must not mark a same-named binding in another component
+    {
+      code: tsx`
+        function FirstComponent() {
+          const node = { current: null };
+          return <div ref={node}>{node.current}</div>;
+        }
+        function SecondComponent() {
+          const node = { current: 1 };
+          return <div>{node.current}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Same-named helper bindings retain independent render reachability
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          const read = () => ref.current;
+          return <div>{read()}</div>;
+        }
+        function SecondComponent() {
+          const read = () => 1;
+          return <div>{read()}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Passing a ref through an alias in one component must not affect a plain alias elsewhere
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          const value = ref;
+          consume(value);
+          return <div />;
+        }
+        function SecondComponent() {
+          const source = { current: 1 };
+          const value = source;
+          consume(value);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Truthiness is not a null guard: initialized refs may legitimately contain falsy values
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          if (!ref.current) {
+            ref.current = computeExpensiveValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // useMemo callbacks execute synchronously during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const value = useMemo(() => ref.current?.value, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Array iteration callbacks execute synchronously during render
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef([]);
+          items.forEach((item) => {
+            ref.current.push(item);
+          });
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(new Map());
+          return items.map((item) => {
+            ref.current.set(item.id, item);
+            return <div key={item.id} />;
+          });
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // A helper reached through a synchronous callback is reached during render
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(null);
+          const renderItem = () => ref.current;
+          return items.map(() => renderItem());
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Function declarations and IIFEs participate in render reachability
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          return readRef();
+          function readRef() {
+            return ref.current;
+          }
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          return (() => ref.current)();
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // An inverted guard is safe only when its non-null branch terminates
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            console.log('already initialized');
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Early-return initialization is still limited to one write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) return <div />;
+          ref.current = createValue();
+          ref.current = createOtherValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
   ],
   valid: [
+    // -------------------------------------------------------------------------
+    // Single-file multi-component isolation
+    // -------------------------------------------------------------------------
+    // A JSX ref marker is scoped to its own component binding
+    {
+      code: tsx`
+        function FirstComponent() {
+          const node = { current: null };
+          return <div ref={node} />;
+        }
+        function SecondComponent() {
+          const node = { current: 1 };
+          return <div>{node.current}</div>;
+        }
+      `,
+    },
+    // Each component may independently initialize its own same-named ref once
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            ref.current = createFirstValue();
+          }
+          return <div />;
+        }
+        function SecondComponent() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            ref.current = createSecondValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Ref and alias identities are scoped; same-named bindings in another component stay independent
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          const value = ref;
+          return <div ref={value} />;
+        }
+        function SecondComponent() {
+          const value = { current: 1 };
+          return <div>{value.current}</div>;
+        }
+      `,
+    },
+    // Reassigning an alias to a non-ref invalidates the earlier alias relation
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          let value = ref;
+          value = { current: 1 };
+          return <div>{value.current}</div>;
+        }
+      `,
+    },
+    // An outer null guard also protects initialization nested in an ordinary condition
+    {
+      code: tsx`
+        function Component({ enabled }) {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            if (enabled) {
+              ref.current = createValue();
+            }
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Explicit undefined checks are nullish guards
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(undefined);
+          if (ref.current === undefined) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+    },
     // Initialize only once on first use with nullish coalescing assignment is valid pattern
     tsx`
       const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
@@ -1208,18 +1452,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Read ref in useMemo callback
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const value = useMemo(() => {
-            return ref.current?.value;
-          }, []);
-          return <div>{value}</div>;
-        }
-      `,
-    },
+
     // Not a component or hook
     {
       code: tsx`
@@ -1416,34 +1649,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ref in forEach callback (treated as nested function)
-    {
-      code: tsx`
-        function Component({ items }) {
-          const ref = useRef([]);
-          items.forEach((item) => {
-            ref.current.push(item);
-          });
-          return <div />;
-        }
-      `,
-    },
-    // Ref in Array.map callback (nested function)
-    {
-      code: tsx`
-        function Component({ items }) {
-          const ref = useRef(new Map());
-          return (
-            <ul>
-              {items.map((item) => {
-                ref.current.set(item.id, item);
-                return <li key={item.id}>{item.name}</li>;
-              })}
-            </ul>
-          );
-        }
-      `,
-    },
+
     // Non-ref-named variable from useRef in effect (no report)
     {
       code: tsx`
@@ -1825,18 +2031,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Guard pattern: !ref.current allows lazy initialization
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (!ref.current) {
-            ref.current = computeExpensiveValue();
-          }
-          return <div />;
-        }
-      `,
-    },
+
     // Guard pattern: !(ref.current === null) allows lazy initialization
     {
       code: tsx`
