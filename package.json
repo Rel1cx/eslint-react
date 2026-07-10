@@ -28,7 +28,7 @@
   "author": "Rel1cx",
   "type": "module",
   "scripts": {
-    "build": "node --run update:all && node --run build:pkgs && node --run build:packages && node --run build:plugins",
+    "build": "node --run build:pkgs && node --run build:packages && node --run build:plugins",
     "build:docs": "nx run-many -t build:docs --parallel",
     "build:packages": "nx run-many -t build -p 'packages/*' --parallel",
     "build:pkgs": "nx run-many -t build -p '.pkgs/*' --parallel",
@@ -47,7 +47,7 @@
     "lint:text": "textlint '**/*.md' '**/*.mdx'",
     "lint:ts": "nx run-many -t lint:ts --parallel",
     "lint:website": "pnpm -F \"./apps/website\" run lint",
-    "prepare": "node --run build",
+    "prepare": "node --run update:all && node --run build",
     "scaffold:rule": "vite-node ./scripts/90-scaffold-rule.ts",
     "sort:package-json": "pnpm m exec sort-package-json -q package.json && dprint fmt",
     "test": "vitest run --logHeapUsage",
