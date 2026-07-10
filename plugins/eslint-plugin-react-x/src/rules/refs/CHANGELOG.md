@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.0] - 2026-07-10
+
 ### Added
 
 - Added render-reachability support for function declarations, IIFEs, synchronous array callbacks, and render-time callbacks passed to `useMemo` and `useReducer`.

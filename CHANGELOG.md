@@ -1,5 +1,30 @@
 # Changelog
 
+## v5.14.0 (2026-07-10)
+
+### ✨ New
+
+- `react-x/refs`: added render-reachability support for function declarations, IIFEs, synchronous array callbacks, and render-time callbacks passed to `useMemo` and `useReducer`. (#1895)
+- `react-x/refs`: added lazy-initialization support for explicit `undefined` guards and for null guards enclosing additional nested conditions. (#1895)
+
+### 🐞 Fixes
+
+- `react-x/refs`: reworked render-time call analysis as an unbounded fixed-point propagation, removing the previous 50-iteration cap. (#1895)
+- `react-x/refs`: tightened inverted lazy-initialization handling so the non-null branch must unconditionally return or throw. (#1895)
+- `react-x/refs`: stopped treating `!ref.current` as a null guard because initialized refs may contain falsy values. (#1895)
+
+### 🏗️ Internal
+
+- `react-x/refs`: refactored ref aliases, function bindings, JSX refs, and duplicate initialization tracking to use scoped ESLint variable identities and position-aware binding events instead of file-wide identifier names. (#1895)
+- Added behavior-boundary tests for `react-x/immutability` and documented them in the spec diff report.
+- Updated build scripts.
+- Bumped `@effect/language-service` to `^0.86.5`.
+- Bumped `preact` to `^10.29.7`.
+- Bumped `vite` to `^8.1.4` in example apps.
+- Bumped `dprint` JSON plugin to `^0.23.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.13.2...v5.14.0
+
 ## v5.13.2 (2026-07-09)
 
 ### 🐞 Fixes
