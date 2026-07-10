@@ -86,7 +86,7 @@
     "import-integrity-lint": "^1.1.3",
     "mdxlint": "^1.0.0",
     "nx": "^23.0.1",
-    "preact": "^10.29.6",
+    "preact": "^10.29.7",
     "publint": "^0.3.21",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
