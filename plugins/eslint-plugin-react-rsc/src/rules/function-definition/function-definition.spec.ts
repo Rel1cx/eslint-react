@@ -393,6 +393,190 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "localDirectivePosition" }],
     },
+    {
+      code: tsx`
+        'use server';
+        export const value = 1, first = () => 1, second = function* () {
+          yield 2;
+        };
+      `,
+      errors: [{ messageId: "file" }, { messageId: "file" }],
+      output: tsx`
+        'use server';
+        export const value = 1, first = async () => 1, second = async function* () {
+          yield 2;
+        };
+      `,
+    },
+    {
+      code: tsx`
+        'use server';
+        type ServerFunction = () => number;
+        export default (() => 42) satisfies ServerFunction;
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        type ServerFunction = () => number;
+        export default (async () => 42) satisfies ServerFunction;
+      `,
+    },
+    {
+      code: tsx`
+        'use server';
+        function serverFunction() {
+          return 42;
+        }
+        export { serverFunction as action };
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use server';
+        async function serverFunction() {
+          return 42;
+        }
+        export { serverFunction as action };
+      `,
+    },
+    {
+      code: tsx`
+        function serverFunction() {
+          'use strict';
+          'use server';
+          return 42;
+        }
+      `,
+      errors: [{ messageId: "local" }],
+      output: tsx`
+        async function serverFunction() {
+          'use strict';
+          'use server';
+          return 42;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const serverFunction = function () {
+          'use server';
+          return 42;
+        };
+      `,
+      errors: [{ messageId: "local" }],
+      output: tsx`
+        const serverFunction = async function () {
+          'use server';
+          return 42;
+        };
+      `,
+    },
+    {
+      code: tsx`
+        const actions = {
+          serverFunction() {
+            'use server';
+            return 42;
+          },
+        };
+      `,
+      errors: [{ messageId: "local" }],
+      output: tsx`
+        const actions = {
+          async serverFunction() {
+            'use server';
+            return 42;
+          },
+        };
+      `,
+    },
+    {
+      code: tsx`
+        class Actions {
+          static *['serverFunction']() {
+            'use server';
+            yield 42;
+          }
+        }
+      `,
+      errors: [{ messageId: "local" }],
+      output: tsx`
+        class Actions {
+          static async *['serverFunction']() {
+            'use server';
+            yield 42;
+          }
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const actions = {
+          get serverFunction() {
+            'use server';
+            return 42;
+          },
+        };
+      `,
+      errors: [{ messageId: "local" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        function serverFunction() {
+          const value = 42;
+          'use server';
+          return value;
+        }
+      `,
+      errors: [{ messageId: "localDirectivePosition", data: { name: "use server" } }],
+      output: null,
+    },
+    {
+      code: tsx`
+        function clientFunction() {
+          const value = 42;
+          'use client';
+          return value;
+        }
+      `,
+      errors: [{ messageId: "localDirectiveUnexpected", data: { name: "use client" } }],
+      output: null,
+    },
+    {
+      code: tsx`
+        async function serverFunction() {
+          const value = 42;
+          \`use server\`;
+          return value;
+        }
+      `,
+      errors: [{ messageId: "localDirectiveQuote", data: { name: "use server" } }],
+      output: null,
+    },
+    {
+      code: tsx`
+        ('use server');
+      `,
+      errors: [{ messageId: "fileDirectivePosition", data: { name: "use server" } }],
+      output: null,
+    },
+    {
+      code: tsx`
+        'use strict';
+        'use server';
+        export function serverFunction() {
+          return 42;
+        }
+      `,
+      errors: [{ messageId: "file" }],
+      output: tsx`
+        'use strict';
+        'use server';
+        export async function serverFunction() {
+          return 42;
+        }
+      `,
+    },
   ],
   valid: [
     tsx`
@@ -528,6 +712,48 @@ ruleTester.run(RULE_NAME, rule, {
 
         return <div />;
       }
+    `,
+    tsx`
+      'use server';
+      function privateHelper() {
+        return 42;
+      }
+      export const value = 42;
+      export default class Service {}
+    `,
+    tsx`
+      'use server';
+      export { action, default as defaultAction } from './actions';
+      export * from './other-actions';
+    `,
+    tsx`
+      'use server';
+      export const serverFunction = async function* () {
+        yield 42;
+      };
+    `,
+    tsx`
+      function serverFunction() {
+        if (Math.random() > 0.5) {
+          'use server';
+        }
+        return 42;
+      }
+    `,
+    tsx`
+      function serverFunction(kind: string) {
+        \`use \${kind}\`;
+        'use servers';
+        return 42;
+      }
+    `,
+    tsx`
+      const actions = {
+        async serverFunction() {
+          'use server';
+          return 42;
+        },
+      };
     `,
   ],
 });

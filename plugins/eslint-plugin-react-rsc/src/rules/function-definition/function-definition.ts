@@ -62,11 +62,6 @@ function isDirectiveName(value: unknown): value is DirectiveName {
   return value === "use client" || value === "use server";
 }
 
-/**
- * Match a statement against directive-like expressions (`'use client'`, `"use server"`, `` `use server` ``, etc.)
- * @param stmt The statement to match
- * @returns The match result, or `null` if the statement is not directive-like
- */
 function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
   if (stmt.type !== AST.ExpressionStatement) return null;
   const { expression } = stmt;
@@ -93,15 +88,32 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
-  /**
-   * Build a fix that makes `node` an async function
-   * @param node The function node to fix
-   * @returns The fix function, or `null` if no fix is available
-   */
   function buildFixForAsync(node: TSESTreeFunction): ReportFixFunction | null {
     // Arrow functions: insert before the node (before parameters)
     if (node.type === AST.ArrowFunctionExpression) {
       return (fixer) => fixer.insertTextBefore(node, "async ");
+    }
+    if (node.type === AST.FunctionExpression) {
+      const { parent } = node;
+      if (parent.type === AST.Property && parent.value === node) {
+        if (parent.kind !== "init") return null;
+        if (parent.method) return (fixer) => fixer.insertTextBefore(parent, "async ");
+      }
+      if (parent.type === AST.MethodDefinition && parent.value === node) {
+        if (parent.kind !== "method") return null;
+        let target: TSESTree.Node | TSESTree.Token = parent.key;
+        if (parent.computed) {
+          const openBracket = context.sourceCode.getTokenBefore(parent.key);
+          if (openBracket?.value !== "[") return null;
+          target = openBracket;
+        }
+        if (node.generator) {
+          const star = context.sourceCode.getTokenBefore(target);
+          if (star?.value !== "*") return null;
+          target = star;
+        }
+        return (fixer) => fixer.insertTextBefore(target, "async ");
+      }
     }
     // Function declarations/expressions: insert before the "function" token
     const functionToken = context.sourceCode.getFirstToken(node);
@@ -109,11 +121,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return (fixer) => fixer.insertTextBefore(functionToken, "async ");
   }
 
-  /**
-   * Report `node` if it resolves to a non-async function
-   * @param node The node to check, may be `null` for convenience at call sites
-   * @param messageId The message to report with
-   */
   function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID) {
     if (node == null) return;
     const fn = Extract.unwrap(node);
@@ -121,10 +128,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     context.report({ fix: buildFixForAsync(fn), messageId, node: fn });
   }
 
-  /**
-   * Check file-level directives for correct position and quote style.
-   * @param program The Program node
-   */
   function checkFileDirectives(program: TSESTree.Program) {
     for (const stmt of program.body) {
       const match = matchDirective(stmt);
@@ -137,11 +140,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
 
-  /**
-   * Check function-level directives for correct position and quote style,
-   * and report if a `use server` function is not async.
-   * @param node The function node to check
-   */
   function checkFunction(node: TSESTreeFunction) {
     if (node.body.type !== AST.BlockStatement) return;
     for (const stmt of node.body.body) {

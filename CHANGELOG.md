@@ -1,5 +1,18 @@
 # Changelog
 
+## v5.14.1 (2026-07-11)
+
+### 🐞 Fixes
+
+- `react-rsc/function-definition`: fixed invalid async autofixes for object and class methods with local `'use server'` directives, including generator and computed methods; accessors and constructors are now reported without an unsafe fix.
+
+### 🏗️ Internal
+
+- Added behavior-boundary tests for `react-rsc/function-definition`, covering directive placement, export resolution, function forms, and autofix behavior.
+- Cleaned up redundant code and comments in `react-rsc/function-definition` and `react-x/unsupported-syntax`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.0...v5.14.1
+
 ## v5.14.0 (2026-07-10)
 
 ### ✨ New

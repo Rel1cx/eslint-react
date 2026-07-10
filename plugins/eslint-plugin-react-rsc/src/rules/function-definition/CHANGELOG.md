@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.1] - 2026-07-11
+
+### Fixed
+
+- Fixed invalid async autofixes for object and class methods with local `'use server'` directives, including generator and computed methods; accessors and constructors are now reported without an unsafe fix.
+
 ## [5.6.0] - 2026-04-29
 
 ### Added

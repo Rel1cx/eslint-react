@@ -52,9 +52,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         evalCalls.push({ func, node });
       },
       "Program:exit"(node) {
-        const components = fc.api.getAllComponents(node);
+        const comps = fc.api.getAllComponents(node);
         const hooks = hc.api.getAllHooks(node);
-        const funcs = [...components, ...hooks];
+        const funcs = [...comps, ...hooks];
         for (const { func, node } of evalCalls) {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
