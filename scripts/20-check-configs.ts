@@ -1,12 +1,11 @@
 import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as Path from "@effect/platform/Path";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./00-constants";
-import { glob } from "./01-helpers";
+import { glob, isRuleEntryFile } from "./01-helpers";
 
 import * as allConfig from "#/plugins/eslint-plugin/src/configs/all";
 import * as disableExperimentalConfig from "#/plugins/eslint-plugin/src/configs/disable-experimental";
@@ -36,10 +35,7 @@ interface RegisteredRule {
 }
 
 const collectRegisteredRules = Effect.gen(function*() {
-  const path = yield* Path.Path;
-  const files = glob(RULES_GLOB)
-    .filter((file) => !file.endsWith(".spec.ts") && !file.endsWith(".test.ts"))
-    .filter((file) => file.split(path.sep).at(-1) !== "lib.ts");
+  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
 
   const rules: RegisteredRule[] = [];
 

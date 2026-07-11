@@ -9,7 +9,7 @@ import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, match } from "ts-pattern";
 import { DOMAIN_METAS } from "./00-constants";
-import { glob } from "./01-helpers";
+import { glob, isRuleEntryFile } from "./01-helpers";
 
 import * as config0 from "#/plugins/eslint-plugin/src/configs/recommended-typescript";
 import * as config1 from "#/plugins/eslint-plugin/src/configs/strict-typescript";
@@ -118,9 +118,7 @@ const retrieveRuleMeta = Effect.fnUntraced(
 const checkDocs = Effect.gen(function*() {
   const fs = yield* FileSystem.FileSystem;
   const path = yield* Path.Path;
-  const files = glob(RULES_GLOB)
-    .filter((file) => !file.endsWith(".spec.ts") && !file.endsWith(".test.ts"))
-    .filter((file) => file.split(path.sep).at(-1) !== "lib.ts"); // Exclude lib.ts helper files
+  const files = glob(RULES_GLOB).filter(isRuleEntryFile);
 
   let errorCount = 0;
 
