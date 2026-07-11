@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Split AST fact collection from captured-mutation effect inference and reporting.
+- Synchronized `immutability.spec.md` with the current React Compiler validation pass, including conditional known-effect propagation and terminal operand validation.
+
+### Fixed
+
+- Excluded resolvable global/module-scope bindings from captured-local mutation effects.
+- Followed identifier-only variable-declarator aliases when resolving mutation targets and `useRef()` provenance.
+
 ## [5.13.2] - 2026-07-09
 
 ### Fixed

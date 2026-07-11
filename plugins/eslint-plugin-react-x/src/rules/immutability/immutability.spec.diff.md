@@ -1,116 +1,155 @@
 # immutability IMPL–SPEC Diff Report
 
-**IMPL**: `immutability.ts` + `lib.ts` (ESLint rule)\
-**SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
+**IMPL**: `immutability.ts` + `lib.ts` (ESLint AST rule)\
+**SPEC**: `immutability.spec.md` / React Compiler `ValidateNoFreezingKnownMutableFunctions`
 
----
+> Scope: this report compares the validation behavior implemented by this rule with the compiler pass described by the local SPEC. The compiler pass consumes HIR operands that have already been assigned `Freeze` effects; it does not itself decide which JSX or hook syntax receives those effects. Therefore, syntax-specific sink omissions below are confirmed IMPL boundaries, but their exact compiler behavior also depends on upstream HIR/effect inference.
 
-## 1. Underlying Mechanism
+## 1. Summary
 
-The SPEC operates on the React Compiler's HIR with effect inference (`AliasingEffect`, `Freeze`, `Mutate`, `MutateTransitive`). It propagates mutation effects across `LoadLocal`/`StoreLocal` instructions via a `contextMutationEffects` map, and reports whenever an operand with `Effect.Freeze` (JSX props, hook arguments, hook return values) resolves to a function carrying a mutation effect.
+| Area                       | Alignment                       | Main difference                                                                                         |
+| -------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Mutable-function model     | Same goal                       | SPEC consumes inferred aliasing effects; IMPL infers from selected AST mutation syntax                  |
+| Captured variables         | Aligned for resolvable bindings | IMPL excludes unresolved globals and global/module-scope bindings                                       |
+| Transitive nested closures | Covered                         | IMPL walks lexical ancestors; SPEC propagates mutation effects                                          |
+| Function aliases           | Partial                         | IMPL follows variable-declarator initializer chains only                                                |
+| Mutation targets           | Partial                         | IMPL follows identifier initializer aliases, but not assignments or member storage                      |
+| Freeze sinks               | Core forms covered              | IMPL collects only direct JSX attributes, non-spread hook arguments, and direct hook return expressions |
+| Ref exception              | Heuristic approximation         | Names and aliased `useRef()` initializers replace the SPEC's type-based check                           |
+| Diagnostics                | Same two locations              | IMPL emits two ESLint problems instead of one diagnostic with two details                               |
 
-The IMPL operates on the ESLint AST with `@typescript-eslint/scope-manager`. It:
+Overall, the IMPL matches the SPEC's three principal use cases, but it is a syntax- and naming-based approximation rather than an effect-equivalent implementation.
 
-1. Collects every syntactic mutation site (`AssignmentExpression`, `UpdateExpression`, `delete`, and known mutating method calls such as `push`/`sort`/`set`/`add`) during a single traversal.
-2. At `Program:exit`, resolves each mutation's root identifier to its declaring variable and walks the chain of enclosing functions (via `Traverse.findParent`), marking every ancestor function that does **not** locally declare that variable as "mutates a captured variable." This walk naturally covers mutations nested arbitrarily deep inside inline closures (the SPEC's `MutateTransitive`).
-3. Separately collects "freeze" sinks (JSX attribute expressions, hook call arguments, hook return values) during traversal, and at `Program:exit` resolves each sink expression back to a function node — following simple local aliasing (`const fn2 = fn;`) via `@eslint-react/var`'s `resolve()` — then checks it against the mutable-function set built in step 2.
+## 2. Detection Model
 
-**Verdict**: The SPEC uses compiler-level effect propagation on an SSA-like IR. The IMPL approximates the same result with syntactic scope-chain walking and identifier alias resolution, which is less precise but requires no HIR/effect-inference machinery.
+### SPEC
 
----
+The compiler pass operates on HIR after aliasing-effect inference:
 
-## 2. Mutation Detection
+1. A `FunctionExpression` becomes known-mutable when its inferred `Mutate` or `MutateTransitive` effect targets a function-context value that is not ref-like.
+2. Known mutation effects propagate through `LoadLocal`, `StoreLocal`, and nested function effects.
+3. A diagnostic is produced when a known-mutable function reaches an operand with `Effect.Freeze`.
+4. Standalone conditional effects (`MutateConditionally` and `MutateTransitiveConditionally`) do not create known-mutable functions, although they can propagate an already-known mutation.
 
-| Mutation form                                                   | SPEC                                                                               | IMPL                                                                                                            |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Reassignment of a captured variable (`x = ...`)                 | `Mutate`/`MutateTransitive` via `StoreLocal`                                       | Detected (`AssignmentExpression` with `Identifier` left)                                                        |
-| Property assignment (`x.foo = ...`)                             | Detected                                                                           | Detected (`AssignmentExpression` with `MemberExpression` left)                                                  |
-| `delete x.foo`                                                  | Detected                                                                           | Detected                                                                                                        |
-| `x++` / `--x`                                                   | Detected                                                                           | Detected                                                                                                        |
-| Mutating array/Map/Set methods (`push`, `set`, …)               | Detected via known mutable-array-type effects                                      | Detected via a fixed method allow-list (`MUTATING_METHODS`)                                                     |
-| Mutation via an aliased/reassigned root object                  | Detected via effect propagation                                                    | Not tracked — only the immediate root identifier of the mutated expression is considered                        |
-| Indirect mutation by calling a mutating function (`() => fn()`) | Detected via transitive aliasing effects                                           | Not tracked — only syntactic mutation sites inside the sunk function's own closure chain count                  |
-| Mutation of module-scope variables                              | Not flagged — globals load via `LoadGlobal` and are not function-context variables | Flagged — the scope-chain walk marks any binding declared outside the mutating function, including module scope |
+### IMPL
 
-Method-call and assignment shapes are matched syntactically but robustly: computed string-literal properties (`cache["set"](...)`), optional chaining (`cache?.set(...)`), computed member assignments (`items[0] = 4`), and member `UpdateExpression`s (`state.count++`) all resolve to the same root identifier. Receivers with no root identifier (call results, e.g. `getItems().push(1)`) and identifiers that cannot be resolved to a declaration (implicit globals) are silently ignored.
+The ESLint rule performs one AST traversal and defers correlation until `Program:exit`:
 
-**Verdict**: Coverage of common mutation shapes is close, but the IMPL only looks at the literal root identifier of the mutated expression; it does not track further aliasing of _mutation targets_ (only aliasing of _functions_, see §3). Relative to the SPEC it is both under-approximated (no call-graph effects) and over-approximated (module-scope captures are flagged).
+1. It collects selected syntactic mutation sites and direct sink expressions.
+2. For each mutation, it resolves the root identifier through variable-declarator initializer aliases and walks outward through enclosing functions.
+3. Global/module origins are discarded. Each function before a local origin's declaring function is marked as mutating a capture. This naturally marks outer functions when the mutation is nested inside arbitrarily deep inline closures.
+4. Each sink is resolved to a function and checked against the mutable-function map.
 
----
+The mutable-function map stores one representative mutation per function. In the IMPL this is the first collected mutation in source traversal order; later captured-variable mutations in the same function do not produce additional diagnostics for that sink. The compiler pass likewise associates a known function value with one representative mutation effect, though the selected effect is determined by effect-inference order rather than ESLint AST traversal.
 
-## 3. Function Aliasing / Propagation
+## 3. Mutation Recognition
 
-The SPEC propagates mutation effects through `LoadLocal`/`StoreLocal`, so any assignment chain (`const fn2 = fn;`) or nested nested closures preserve the "known mutable function" status.
+| Mutation form                                             | IMPL behavior                                            |
+| --------------------------------------------------------- | -------------------------------------------------------- |
+| Captured identifier assignment (`x = value`, `x += 1`)    | Detected                                                 |
+| Captured identifier update (`x++`, `--x`)                 | Detected                                                 |
+| Member assignment/update (`x.foo = value`, `x[0]++`)      | Detected from the root identifier                        |
+| Member deletion (`delete x.foo`)                          | Detected from the root identifier                        |
+| Receiver method (`push`, `set`, `add`, etc.)              | Detected when the property name is in `MUTATING_METHODS` |
+| Computed string property (`cache["set"](...)`)            | Detected                                                 |
+| Optional-chain receiver (`cache?.set(...)`)               | Detected                                                 |
+| Conditional syntactic mutation (`if (cond) x++`)          | Treated as definite                                      |
+| Ordinary function call (`mutate(x)`, `fn()`)              | Not treated as a mutation                                |
+| Receiver without a root identifier (`getItems().push(1)`) | Ignored                                                  |
+| Unresolvable/implicit-global root                         | Ignored                                                  |
 
-The IMPL:
+Important precision differences:
 
-- Handles simple `const`/`let` aliasing of a function reference via `resolve()` (`const fn2 = fn; <Foo fn={fn2} />` is flagged).
-- Handles transitive mutation through nested inline closures naturally, because the enclosing-function walk in §1 continues past the boundary of the immediately-enclosing function.
-- Does **not** follow aliasing through reassignment after declaration (`let fn2; fn2 = fn;` is not resolved by `resolve()`), through function calls that return the mutable function, or through property/member-expression storage (`obj.fn = fn`).
+- **No type-driven method effects**: every matching method name is treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. Mutators absent from `MUTATING_METHODS` are missed.
+- **Initializer-only mutation-target alias propagation**: identifier aliases declared with an initializer are traced to their origin, including aliases created inside the callback. Assignment aliases (`let alias; alias = cache`), destructuring, member storage, and subsequent writes to an initialized alias are not modeled.
+- **No call-effect propagation**: a wrapper such as `() => fn()` is not marked mutable merely because `fn` is known-mutable. The SPEC can represent this through inferred transitive effects.
+- **Conditional over-approximation**: the IMPL has no equivalent of conditional aliasing effects, so any recognized mutation syntax is considered definite even when control-flow conditional.
+- **Global/context boundary**: unresolved globals and bindings whose origin is declared in global/module scope are ignored, matching the SPEC's function-context boundary.
 
-**Verdict**: Direct `const`/`let`-with-initializer aliasing and nested-closure transitivity are covered; more indirect propagation paths are not.
+## 4. Function Resolution and Freeze Sinks
 
----
+### Function resolution
 
-## 4. Freeze Contexts (Sinks)
+`resolveToFunctionNode()` accepts:
 
-| Sink                         | SPEC     | IMPL                                                                                                                                                           |
-| ---------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| JSX prop (`<Foo fn={fn} />`) | Detected | Detected for every `JSXAttribute` with a `JSXExpressionContainer` value                                                                                        |
-| Hook call argument           | Detected | Detected for every call matching `core.isHookCall` (any `use*`-named call)                                                                                     |
-| Hook return value            | Detected | Detected via `getHookCollector`'s `rets` (explicit `return` and implicit arrow bodies), only for functions recognized as hook definitions by naming convention |
+- inline function expressions;
+- function declarations referenced by identifier;
+- recursive chains of variable-declarator initializers, including `const`, `let`, or `var` aliases;
+- expressions wrapped by supported TypeScript/chain wrappers through `Extract.unwrap()`.
 
-Precise sink boundaries:
+It does not resolve:
 
-- **JSX props are purely syntactic sinks**: every `JSXAttribute` with a `JSXExpressionContainer` value is collected, with no component detection — host elements (`<div onClick={fn} />`) and JSX inside lowercase non-component helpers are flagged all the same. Sink expressions are unwrapped through type assertions (`fn as () => void`) before alias resolution.
-- **Not sinks**: JSX spread attributes (`<Foo {...{ fn }} />`), JSX children expression containers (`<Foo>{fn}</Foo>`), and `SpreadElement` hook arguments (`useHook(...fns)`) are never collected, even though the SPEC's `Freeze` effect would cover the first two (children and spread props are still props).
-- **Hook-name matching**: `isHookCall` matches the bare `use(...)`, `use[A-Z0-9]*` names, and member-expression callees (`React.useEffect(fn)`); names like `useful` that merely start with "use" do not match.
-- **Hook returns**: `getHookCollector` recognizes hook definitions declared as `function useFoo()` or as arrows assigned to `use*` variables, and collects both explicit `return`s and implicit arrow bodies (`const useFoo = () => () => {...}`). Returns inside nested non-hook functions within a hook are not hook-return sinks. A returned value is only checked if it resolves to a function node — `return { fn }` and other wrappers are not resolved.
+- assignment aliases created after declaration (`let fn2; fn2 = fn;`);
+- member storage (`obj.fn`, including `{ fn }`);
+- functions returned by calls (`makeFn()`);
+- functions wrapped in arrays, objects, or other expressions.
 
-**Verdict**: All three sink categories from the SPEC are covered. For hook arguments the IMPL matches any `use*`-named call via `core.isHookCall`. For hook returns it relies on `getHookCollector`, which identifies hooks by the same `use`-prefixed naming convention used elsewhere in this codebase.
+Nested-closure propagation is separate from alias resolution: a syntactic mutation in a nested function marks each lexical ancestor up to the function that declares the mutated root.
 
----
+### Sink collection
+
+| Sink          | IMPL collection boundary                                                                                             |
+| ------------- | -------------------------------------------------------------------------------------------------------------------- |
+| JSX prop      | Every `JSXAttribute` whose value is a non-empty `JSXExpressionContainer`; host and custom elements are treated alike |
+| Hook argument | Every non-spread argument of a call matched by `core.isHookCall`                                                     |
+| Hook return   | Each direct explicit or implicit return expression collected for a hook definition                                   |
+
+Hook names follow `isHookName`: exactly `use`, or `use` followed by an uppercase letter or digit. Member calls such as `React.useEffect(fn)` are included; names such as `useful` are not.
+
+Hook return collection is naming-based. It covers named function declarations and function expressions/arrows whose resolved function ID is hook-like. Returns from nested non-hook functions are associated with those nested functions, not with the outer hook.
+
+Confirmed IMPL sink omissions:
+
+- JSX spread attributes (`<Foo {...{ fn }} />`);
+- JSX children expression containers (`<Foo>{fn}</Foo>`);
+- spread hook arguments (`useHook(...fns)`);
+- returned wrappers (`return { fn }`, `return [fn]`, and similar forms).
+
+The local SPEC describes JSX props, hook arguments, and hook returns at a semantic level. Whether each omitted syntax shape receives a `Freeze` effect in the compiler is determined before `ValidateNoFreezingKnownMutableFunctions` and is not established by this validation pass alone.
 
 ## 5. Ref Exception
 
-The SPEC exempts ref mutations via `isRefOrRefLikeMutableType`, a type-based check.
+The SPEC exempts mutations using `isRefOrRefLikeMutableType`, which is type-based.
 
-The IMPL exempts ref mutations via two complementary, non-type-based checks in `lib.ts`:
+The IMPL uses two non-type-based checks:
 
-- A syntactic naming heuristic (`isRefLikeName`/`hasRefLikeNameInChain`): any identifier or property named `ref` or ending in `Ref` anywhere in the mutated member-expression chain is treated as a ref and skipped. This mirrors the heuristic already used elsewhere in this rule family (see `refs.spec.diff.md` §2) and additionally covers refs received as props (e.g. `props.myRef.current = x`) without needing type information.
-- A call-site check (`isInitializedFromUseRef`, combined with the naming heuristic in `isRefLikeChain`): the root identifier of the mutated chain is resolved via `resolve()` and exempted if its initializer is a `useRef()` call, regardless of the variable's name (e.g. `const mounted = useRef(false); mounted.current = true;`). Added to fix #1893, where refs named without the `ref`/`*Ref` convention were incorrectly flagged.
+1. **Name heuristic**: `ref` or any case-sensitive name ending in `Ref`, at any identifier/property segment in a member chain.
+2. **Initializer provenance check**: for member-based mutations, follow identifier-only variable-declarator aliases and exempt the root when the chain originates from a bare or namespaced `useRef()` call.
 
-Precise boundaries of the two checks:
+Consequences:
 
-- The naming heuristic is **case-sensitive** (`myref.current = 1` is _not_ exempt) and **initializer-blind in both directions**: any `*Ref`-named binding is exempt even when it is a plain object (`const timerRef = { current: 0 }`), a deliberate false negative.
-- `isInitializedFromUseRef` recognizes namespaced calls (`React.useRef(...)`) via the fully-qualified-name check, and applies to mutating method calls on the ref's contents too (`box.current.push(1)` where `box = useRef([])`).
+- `props.myRef.current = value` is exempt by name.
+- `const mounted = useRef(false); mounted.current = true` is exempt by initializer.
+- `const timerRef = { current: 0 }` is also exempt, causing a deliberate false negative.
+- `myref.current = value` is not exempt because matching is case-sensitive.
+- `const alias = mounted; alias.current = true` is exempt when `mounted` originates from `useRef()`.
+- Assignment aliases, subsequent writes, custom ref-like hooks, destructured refs, and unnamed ref-like props are not modeled unless the naming heuristic happens to match.
+- Direct identifier assignment/update uses only the name heuristic; the `useRef()` initializer check is applied to member-chain mutation paths.
 
-**Verdict**: Closer to the SPEC's type-based exemption than naming alone, since `useRef()` results are now recognized independently of their variable name. Still not fully equivalent: a ref narrowed through an intermediate alias (`const alias = mounted; alias.current = true;`), a custom ref-like hook, or a prop that isn't named `ref`/`*Ref` and wasn't itself produced by a local `useRef()` call is not detected (matching the `refPassedToFunction`-style gaps noted in `refs.spec.diff.md`).
+## 6. Diagnostics
 
----
+The SPEC emits one compiler diagnostic per frozen usage, with:
 
-## 6. Error Reporting
+- the top-level reason and description;
+- one detail at the freeze/usage location;
+- one detail at the representative mutation location.
 
-The SPEC reports a **single diagnostic with two annotated locations**: the usage site (freeze point) and the mutation site, each with its own message, under one `reason`/`description`.
+The IMPL emits two independent ESLint reports per sink:
 
-The IMPL emits **two separate ESLint reports** per violation, since ESLint's reporting model has no native concept of a single diagnostic with multiple locations:
+- `default` at the sink expression;
+- `mutates` at the representative mutation expression.
 
-- At the freeze/usage site, `default`: "This function may (indirectly) reassign or modify 'name' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead." — this closely follows the SPEC's `description` text (the short usage-site message in the SPEC's `Messages` list is similar but lacks the trailing guidance).
-- At the mutation site, `mutates`: "This modifies 'name'." — a direct rendering of the SPEC's second message ("This modifies 'name'").
+This preserves both locations but changes problem counts and grouping. If the same mutable function is used at two sinks, the IMPL emits four reports: two usage reports and two mutation reports at the same mutation location. The SPEC's reason (`Cannot modify local variables after render completes`) is not emitted as an ESLint message; `meta.docs.description` only provides a general rule description.
 
-**Verdict**: The two annotated locations are reproduced, and the usage-site/mutation-site sub-messages map to the SPEC's `description` and second `Messages` entry respectively. The SPEC's top-level `reason` ("Cannot modify local variables after render completes") is not emitted as a separate ESLint message; it is reflected only in `meta.docs.description`. The two locations are reported as independent ESLint problems rather than as a single diagnostic with sub-details, which is the closest approximation ESLint's reporting model allows.
+## 7. Test Coverage Notes
 
----
+`immutability.spec.ts` pins the IMPL behavior for:
 
-## 7. Key Gaps and Deviations
+- the three core sink categories;
+- assignment, update, delete, member, computed-property, optional-chain, and allow-listed method mutations;
+- recursive function initializer aliases and nested lexical closures;
+- conditional mutations, module-scope exclusion, initializer mutation aliases, and first-mutation selection;
+- ref naming and aliased `useRef()` initializer behavior;
+- unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes.
 
-1. **No effect-level precision**: The IMPL cannot distinguish definite (`Mutate`) from conditional (`MutateConditionally`) mutations; every detected mutation is treated as definite.
-2. **Limited aliasing**: Only `const`/`let`-with-initializer aliasing of the _function_ is followed; aliasing of the _mutated object_ itself, reassigned aliases, and property-stored functions are not tracked.
-3. **Fixed mutating-method list**: `MUTATING_METHODS` is a static allow-list rather than a type-driven determination of "known mutable" values.
-4. **Split diagnostics**: The usage-site and mutation-site messages are reported as two independent ESLint problems instead of one diagnostic with two annotated locations, since ESLint has no native multi-location diagnostic model.
-5. **Ref exemption still has blind spots**: `isRefLikeChain` now recognizes refs both by naming convention and by a direct `useRef()` initializer (fixed #1893), but `isInitializedFromUseRef` calls `resolve()` only once (no recursive alias-chasing like `resolveToFunctionNode` does for functions). So a ref aliased through a plain variable (`const r = mounted; r.current = true;`) is not recognized unless `r`/`mounted` itself matches the naming heuristic. Refs threaded through a custom hook, a `forwardRef`/`useImperativeHandle` boundary, or destructuring are likewise not recognized.
-6. **Module-scope captures are over-approximated**: The scope-chain walk marks any binding declared outside the mutating function, so mutations of module-scope variables are flagged even though the SPEC's context-variable check (`context.has(...)`) would exclude globals (`LoadGlobal`).
-7. **No call-graph effects**: A function that merely _calls_ a known-mutable function (`<Foo fn={() => fn()} />`) is not marked, whereas the SPEC's transitive effect inference would propagate the mutation through the call.
-8. **Sink under-collection**: JSX spread attributes, JSX children expression containers, and spread hook arguments are not collected as freeze sinks, though they are frozen in the SPEC's model.
-
-These boundaries (both matches and deviations) are pinned by the behavior-boundary tests in `immutability.spec.ts`.
+These tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.

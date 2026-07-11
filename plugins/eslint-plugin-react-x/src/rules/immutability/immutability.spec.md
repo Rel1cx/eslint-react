@@ -2,7 +2,7 @@
 
 ## File
 
-`src/Validation/ValidateNoFreezingKnownMutableFunctions.ts`
+`compiler/packages/babel-plugin-react-compiler/src/Validation/ValidateNoFreezingKnownMutableFunctions.ts`
 
 ## Purpose
 
@@ -37,9 +37,11 @@ Error messages produced:
 
 ## Algorithm
 
-### Phase 1: Track Context Mutation Effects
+The pass consumes HIR after aliasing-effect inference. It does not identify JSX or hook syntax directly; it validates operands that earlier compiler phases have marked with `Effect.Freeze`.
 
-The pass maintains a map from identifier IDs to their associated mutation effects:
+### Phase 1: Track Known Context Mutations
+
+The pass maintains one representative definite mutation effect for each known-mutable HIR value:
 
 ```typescript
 const contextMutationEffects: Map<
@@ -48,79 +50,80 @@ const contextMutationEffects: Map<
 > = new Map();
 ```
 
-### Phase 2: Single Forward Pass
-
-Process all blocks in order, handling specific instruction types:
+`LoadLocal` and `StoreLocal` propagate known effects between HIR identifiers. For a `FunctionExpression`, the pass examines the lowered function's inferred aliasing effects:
 
 ```typescript
-for (const block of fn.body.blocks.values()) {
-  for (const instr of block.instructions) {
-    switch (value.kind) {
-      case "LoadLocal": {
-        // Propagate mutation effect from source to loaded value
-        const effect = contextMutationEffects.get(value.place.identifier.id);
-        if (effect != null) {
-          contextMutationEffects.set(lvalue.identifier.id, effect);
-        }
-        break;
-      }
-      case "StoreLocal": {
-        // Propagate mutation effect to both lvalue and stored variable
-        const effect = contextMutationEffects.get(value.value.identifier.id);
-        if (effect != null) {
-          contextMutationEffects.set(lvalue.identifier.id, effect);
-          contextMutationEffects.set(value.lvalue.place.identifier.id, effect);
-        }
-        break;
-      }
-      case "FunctionExpression": {
-        // Check function's aliasing effects for context mutations
-        if (value.loweredFunc.func.aliasingEffects != null) {
-          const context = new Set(
-            value.loweredFunc.func.context.map(p => p.identifier.id),
+case "FunctionExpression": {
+  if (value.loweredFunc.func.aliasingEffects != null) {
+    const context = new Set(
+      value.loweredFunc.func.context.map(place => place.identifier.id),
+    );
+
+    effects: for (const effect of value.loweredFunc.func.aliasingEffects) {
+      switch (effect.kind) {
+        case "Mutate":
+        case "MutateTransitive": {
+          const knownMutation = contextMutationEffects.get(
+            effect.value.identifier.id,
           );
-          for (const effect of value.loweredFunc.func.aliasingEffects) {
-            if (effect.kind === "Mutate" || effect.kind === "MutateTransitive") {
-              // Mark function as mutable if it mutates a context variable
-              if (context.has(effect.value.identifier.id) && !isRefOrRefLikeMutableType(effect.value.identifier.type)) {
-                contextMutationEffects.set(lvalue.identifier.id, effect);
-              }
-            }
+          if (knownMutation != null) {
+            contextMutationEffects.set(lvalue.identifier.id, knownMutation);
+          } else if (
+            context.has(effect.value.identifier.id)
+            && !isRefOrRefLikeMutableType(effect.value.identifier.type)
+          ) {
+            contextMutationEffects.set(lvalue.identifier.id, effect);
+            break effects;
           }
+          break;
         }
-        break;
-      }
-      default: {
-        // Check all operands for freeze effect violations
-        for (const operand of eachInstructionValueOperand(value)) {
-          visitOperand(operand); // Check if mutable function is being frozen
+        case "MutateConditionally":
+        case "MutateTransitiveConditionally": {
+          const knownMutation = contextMutationEffects.get(
+            effect.value.identifier.id,
+          );
+          if (knownMutation != null) {
+            contextMutationEffects.set(lvalue.identifier.id, knownMutation);
+          }
+          break;
         }
       }
     }
   }
+  break;
 }
 ```
 
-### Phase 3: Validate Freeze Effects
+A standalone conditional effect does not make a function known-mutable. It can only propagate a mutation that is already known. Once a direct definite context mutation is selected, `break effects` keeps that effect as the function value's representative mutation.
 
-When an operand has a `Freeze` effect, check if it's a known mutable function:
+### Phase 2: Validate Frozen Operands
+
+For every non-load/store/function instruction, the pass visits all value operands. It also visits terminal operands after each block, which covers frozen values used by returns and other terminals:
 
 ```typescript
 function visitOperand(operand: Place): void {
-  if (operand.effect === Effect.Freeze) {
-    const effect = contextMutationEffects.get(operand.identifier.id);
-    if (effect != null) {
-      // Emit error with both usage location and mutation location
-      errors.pushDiagnostic(
-        CompilerDiagnostic.create({
-          category: ErrorCategory.Immutability,
-          reason: "Cannot modify local variables after render completes",
-          description: `This argument is a function which may reassign or mutate ${variable} after render...`,
-        })
-          .withDetails({ loc: operand.loc, message: "This function may..." })
-          .withDetails({ loc: effect.value.loc, message: "This modifies..." }),
-      );
-    }
+  if (operand.effect !== Effect.Freeze) return;
+  const effect = contextMutationEffects.get(operand.identifier.id);
+  if (effect == null) return;
+
+  fn.env.recordError(
+    CompilerDiagnostic.create({
+      category: ErrorCategory.Immutability,
+      reason: "Cannot modify local variables after render completes",
+      description: `This argument is a function which may reassign or mutate ${variable} after render...`,
+    })
+      .withDetails({ loc: operand.loc, message: "This function may..." })
+      .withDetails({ loc: effect.value.loc, message: "This modifies..." }),
+  );
+}
+
+for (const block of fn.body.blocks.values()) {
+  for (const instruction of block.instructions) {
+    // Propagate LoadLocal, StoreLocal, and FunctionExpression effects;
+    // call visitOperand for operands of all other instruction values.
+  }
+  for (const operand of eachTerminalOperand(block.terminal)) {
+    visitOperand(operand);
   }
 }
 ```
@@ -176,22 +179,11 @@ function Component() {
 
 ### Conditional Mutations
 
-The pass only errors on definite mutations (`Mutate`, `MutateTransitive`), not conditional mutations (`MutateConditionally`, `MutateTransitiveConditionally`). However, if a function already has a known mutation effect, conditional mutations will propagate that effect:
+The pass does not create a known-mutable function from standalone `MutateConditionally` or `MutateTransitiveConditionally` effects. If such an effect targets a HIR value that already carries a known mutation, that existing definite mutation is propagated to the new function value.
 
-```javascript
-function Component(cond) {
-  const cache = new Map();
-  const fn = () => {
-    cache.set("a", 1); // Definite mutation
-  };
-  const fn2 = fn; // fn2 inherits mutation effect
-  return <Foo fn={fn2} />; // Error
-}
-```
+### Function Value Aliases
 
-### Nested Function Expressions
-
-Mutation effects propagate through assignments:
+Mutation effects propagate through local loads and stores:
 
 ```javascript
 function Component() {

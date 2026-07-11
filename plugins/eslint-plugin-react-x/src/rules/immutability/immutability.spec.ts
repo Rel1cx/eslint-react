@@ -357,6 +357,23 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "message" }, messageId: "default" },
       ],
     },
+    // Reassigning an alias mutates the alias binding, not the value from its initializer.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          let alias = cache;
+          const fn = () => {
+            alias = new Map();
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "alias" }, messageId: "mutates" },
+        { data: { name: "alias" }, messageId: "default" },
+      ],
+    },
     // UpdateExpression on a member expression of a captured object.
     {
       code: tsx`
@@ -475,8 +492,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Implicit arrow-body returns from a hook are also return-value sinks.
     {
       code: tsx`
-        const cache = new Map();
-        const useFoo = () => () => {
+        const useFoo = (cache) => () => {
           cache.set("key", "value");
         };
       `,
@@ -518,21 +534,22 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "default" },
       ],
     },
-    // Variables captured from module scope are flagged too (deviation from
-    // the compiler SPEC, which only tracks function-context variables).
+    // An alias declared inside the callback is traced back to the captured
+    // binding it was initialized from.
     {
       code: tsx`
-        const globalCache = new Map();
         function Component() {
+          const cache = new Map();
           const fn = () => {
-            globalCache.set("key", "value");
+            const alias = cache;
+            alias.set("key", "value");
           };
           return <Foo fn={fn} />;
         }
       `,
       errors: [
-        { data: { name: "globalCache" }, messageId: "mutates" },
-        { data: { name: "globalCache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
       ],
     },
     // The enclosing-function walk stops exactly at the function declaring the
@@ -571,24 +588,7 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "myref" }, messageId: "default" },
       ],
     },
-    // A useRef value aliased through a differently-named variable is not
-    // recognized as a ref (`isInitializedFromUseRef` does not chase aliases).
-    {
-      code: tsx`
-        function Component() {
-          const mounted = useRef(false);
-          const alias = mounted;
-          const fn = () => {
-            alias.current = true;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "alias" }, messageId: "mutates" },
-        { data: { name: "alias" }, messageId: "default" },
-      ],
-    },
+
     // Mutating a value returned from useState inside a JSX event handler
     // (ported from React Compiler's error.invalid-function-expression-mutates-immutable-value).
     {
@@ -928,6 +928,27 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo fn={fn} />;
       }
     `,
+    // Module-scope bindings are not function-context variables.
+    tsx`
+      const globalCache = new Map();
+      function Component() {
+        const fn = () => {
+          globalCache.set("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Aliases of module-scope bindings retain their module origin.
+    tsx`
+      const globalCache = new Map();
+      function Component() {
+        const cache = globalCache;
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
     // Unresolvable identifiers (implicit globals) are ignored.
     tsx`
       function Component() {
@@ -953,6 +974,17 @@ ruleTester.run(RULE_NAME, rule, {
         const timerRef = { current: 0 };
         const fn = () => {
           timerRef.current = 1;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // useRef provenance is followed through variable-declarator aliases.
+    tsx`
+      function Component() {
+        const mounted = useRef(false);
+        const alias = mounted;
+        const fn = () => {
+          alias.current = true;
         };
         return <Foo fn={fn} />;
       }
