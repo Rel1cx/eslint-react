@@ -4,6 +4,15 @@ import { ruleTester } from "#/testing/helpers";
 import { stringify } from "@/utils/stringify";
 import rule, { RULE_NAME } from "./is-from-react";
 
+function reactError(name: string, importSource = "react") {
+  return {
+    data: {
+      json: stringify({ name, importSource }),
+    },
+    messageId: "default" as const,
+  };
+}
+
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
@@ -633,6 +642,95 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    {
+      code: tsx`
+        import ReactDOM from "react-dom";
+      `,
+      errors: [reactError("ReactDOM")],
+    },
+    {
+      code: tsx`
+        import type { ReactNode } from "react";
+
+        type Props = { children: ReactNode };
+      `,
+      errors: [
+        reactError("ReactNode"),
+        reactError("ReactNode"),
+      ],
+    },
+    {
+      code: tsx`
+        import * as React from "react";
+
+        const { Children: ReactChildren } = React;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("ReactChildren"),
+        reactError("React"),
+      ],
+    },
+    {
+      code: tsx`
+        import React from "react";
+
+        const Children = React["Children"];
+      `,
+      errors: [
+        reactError("React"),
+        reactError("Children"),
+        reactError("React"),
+      ],
+    },
+    {
+      code: tsx`
+        import React from "react";
+
+        const only = React.Children.only;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("React"),
+        reactError("Children"),
+      ],
+    },
+    {
+      code: tsx`
+        import { Component } from "react";
+
+        let Alias;
+        Alias = Component;
+        const Copy = Alias;
+      `,
+      errors: [
+        reactError("Component"),
+        reactError("Component"),
+      ],
+    },
+    {
+      code: tsx`
+        const React = {};
+        React.Children;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("React"),
+        reactError("Children"),
+      ],
+    },
+    {
+      code: tsx`
+        import { memo } from "react";
+
+        const wrapped = memo as unknown;
+      `,
+      errors: [
+        reactError("memo"),
+        reactError("wrapped"),
+        reactError("memo"),
+      ],
+    },
   ],
   valid: [
     {
@@ -707,5 +805,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    tsx`
+      export { memo } from "react";
+    `,
+    tsx`
+      const library = require(source);
+      const Children = library.Children;
+    `,
+    tsx`
+      const Reactish = {};
+      const value = Reactish.Children;
+    `,
   ],
 });
