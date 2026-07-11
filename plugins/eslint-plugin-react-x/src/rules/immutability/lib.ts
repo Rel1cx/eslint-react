@@ -2,7 +2,10 @@ import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
+import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 
 /**
  * Methods that mutate their receiver in place.
@@ -54,6 +57,29 @@ export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node,
 }
 
 /**
+ * Follow identifier-only variable-declarator aliases to their originating
+ * binding. Assignment aliases are intentionally left for the value-flow phase.
+ * @param context The ESLint rule context.
+ * @param variable The binding whose initializer aliases should be followed.
+ * @param seen Bindings already visited, to guard against cycles.
+ */
+export function resolveVariableOrigin(
+  context: RuleContext,
+  variable: Scope.Variable,
+  seen: Set<Scope.Variable> = new Set(),
+): Scope.Variable {
+  if (seen.has(variable)) return variable;
+  seen.add(variable);
+  const definition = variable.defs.length === 1 ? variable.defs[0] : null;
+  if (definition?.type !== DefinitionType.Variable || definition.node.init == null) return variable;
+  const initializer = Extract.unwrap(definition.node.init);
+  if (initializer.type !== AST.Identifier) return variable;
+  const source = findVariable(context.sourceCode.getScope(initializer), initializer);
+  if (source == null) return variable;
+  return resolveVariableOrigin(context, source, seen);
+}
+
+/**
  * Check if a name is ref-like ("ref" or ends with "Ref").
  * Refs are mutable by design and exempted from immutability checks.
  * @param name The identifier name to check.
@@ -80,20 +106,33 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
 }
 
 /**
- * Check if the root identifier of a member-expression chain (or the
- * identifier itself) is initialized directly from a `useRef()` call, e.g.
- * `const mounted = useRef(false); mounted.current = true;`.
- *
- * This catches refs regardless of naming convention, complementing
- * {@link hasRefLikeNameInChain}.
+ * Check if the root identifier of a member-expression chain is initialized
+ * from a `useRef()` call, following variable-declarator aliases.
  * @param context The ESLint rule context.
  * @param node The AST node to inspect (an identifier or member-expression chain).
  */
 export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Expression): boolean {
-  const rootId = node.type === AST.Identifier ? node : Extract.getRootIdentifier(node);
-  if (rootId == null) return false;
-  const initNode = resolve(context, rootId);
-  return initNode != null && initNode.type === AST.CallExpression && core.isUseRefCall(context, initNode);
+  const root = node.type === AST.Identifier ? node : Extract.getRootIdentifier(node);
+  if (root == null) return false;
+  const variable = findVariable(context.sourceCode.getScope(root), root);
+  if (variable == null) return false;
+  return isVariableInitializedFromUseRef(context, variable, new Set());
+}
+
+function isVariableInitializedFromUseRef(
+  context: RuleContext,
+  variable: Scope.Variable,
+  seen: Set<Scope.Variable>,
+): boolean {
+  if (seen.has(variable)) return false;
+  seen.add(variable);
+  const definition = variable.defs.length === 1 ? variable.defs[0] : null;
+  if (definition?.type !== DefinitionType.Variable || definition.node.init == null) return false;
+  const initializer = Extract.unwrap(definition.node.init);
+  if (initializer.type === AST.CallExpression) return core.isUseRefCall(context, initializer);
+  if (initializer.type !== AST.Identifier) return false;
+  const source = findVariable(context.sourceCode.getScope(initializer), initializer);
+  return source != null && isVariableInitializedFromUseRef(context, source, seen);
 }
 
 /**
