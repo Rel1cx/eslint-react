@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.14.4 (2026-07-11)
+
+### 🏗️ Internal
+
+- Fixed rule discovery in documentation and configuration checks to exclude helper modules from rule entry files.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.3...v5.14.4
+
 ## v5.14.3 (2026-07-11)
 
 ### 🐞 Fixes
