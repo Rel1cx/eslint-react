@@ -1169,7 +1169,6 @@ The following rules have been removed from `eslint-plugin-react-x`, `eslint-plug
 - Added typedoc docs and engines field.
 - Extracted shared tsdown config.
 - Fixed high-priority build, lockfile, script and doc inconsistencies.
-- Removed "Naming Pattern Quick Reference" from AST abbreviations doc.
 - Removed `major-release-checklist.md`.
 - Removed `scripts/prepare-release.ts` and the accompanying `prepare:release` npm script.
 - Removed barrel exports for utils.
