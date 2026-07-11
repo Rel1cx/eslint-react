@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.14.2 (2026-07-11)
+
+### 🐞 Fixes
+
+- `react-x/globals`: added detection for global writes through destructuring assignments and property deletion with `delete`. (#1896)
+- `react-x/globals`: propagated render-time global mutation effects through directly called helpers and stable local aliases. (#1896)
+
+### 🏗️ Internal
+
+- Expanded behavior-boundary coverage for `react-debug` component and source detection, `react-naming-convention` naming rules, and `react-x/immutability` React Compiler fixtures.
+- Strengthened documentation verification and added formatting, configuration, architecture, MDX, website type, and production build checks to CI.
+- Gated publishing on the check, test, and workflow security jobs, including for application, example, and configuration changes.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.1...v5.14.2
+
 ## v5.14.1 (2026-07-11)
 
 ### 🐞 Fixes
