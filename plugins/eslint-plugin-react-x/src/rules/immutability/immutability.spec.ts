@@ -589,6 +589,82 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "alias" }, messageId: "default" },
       ],
     },
+    // Mutating a value returned from useState inside a JSX event handler
+    // (ported from React Compiler's error.invalid-function-expression-mutates-immutable-value).
+    {
+      code: tsx`
+        function Component(props) {
+          const [x, setX] = useState({ value: "" });
+          const onChange = (e) => {
+            x.value = e.target.value;
+            setX(x);
+          };
+          return <input value={x.value} onChange={onChange} />;
+        }
+      `,
+      errors: [
+        { data: { name: "x" }, messageId: "mutates" },
+        { data: { name: "x" }, messageId: "default" },
+      ],
+    },
+    // A callback that reassigns its own binding (ported from React Compiler's
+    // error.function-expression-references-variable-its-assigned-to).
+    {
+      code: tsx`
+        function Component() {
+          let callback = () => {
+            callback = null;
+          };
+          return <div onClick={callback} />;
+        }
+      `,
+      errors: [
+        { data: { name: "callback" }, messageId: "mutates" },
+        { data: { name: "callback" }, messageId: "default" },
+      ],
+    },
+    // A hook that returns a function capturing and reassigning a local variable
+    // (ported from React Compiler's error.invalid-reassign-local-in-hook-return-value).
+    {
+      code: tsx`
+        function useFoo() {
+          let x = 0;
+          return (value) => {
+            x = value;
+          };
+        }
+      `,
+      errors: [
+        { data: { name: "x" }, messageId: "default" },
+        { data: { name: "x" }, messageId: "mutates" },
+      ],
+    },
+    // Conditional reassignment plus a mutating method in a JSX event handler
+    // (ported from React Compiler's error.mutable-range-shared-inner-outer-function).
+    {
+      code: tsx`
+        function Component(props) {
+          let a;
+          let b;
+          const f = () => {
+            if (cond) {
+              a = {};
+              b = [];
+            } else {
+              a = {};
+              b = [];
+            }
+            a.property = true;
+            b.push(false);
+          };
+          return <div onClick={f} />;
+        }
+      `,
+      errors: [
+        { data: { name: "a" }, messageId: "mutates" },
+        { data: { name: "a" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -899,6 +975,41 @@ ruleTester.run(RULE_NAME, rule, {
           box.current.push(1);
         };
         return <Foo fn={fn} />;
+      }
+    `,
+    // Reassignment to implicit globals in a JSX event handler is ignored
+    // (ported from React Compiler's allow-reassignment-to-global-function-jsx-prop).
+    tsx`
+      function Component() {
+        const onClick = () => {
+          someUnknownGlobal = true;
+          moduleLocal = true;
+        };
+        return <div onClick={onClick} />;
+      }
+    `,
+    // Function-call mutations are not tracked syntactically
+    // (ported from React Compiler's maybe-mutate-object-in-callback).
+    tsx`
+      function Component(props) {
+        const object = {};
+        const onClick = () => {
+          mutate(object);
+        };
+        return <Foo callback={onClick}>{props.children}</Foo>;
+      }
+    `,
+    // useCallback wrapping a ref mutation is allowed
+    // (ported from React Compiler's useCallback-set-ref-nested-property).
+    tsx`
+      import { useCallback, useRef } from "react";
+
+      function Component() {
+        const ref = useRef({ inner: null });
+        const onChange = useCallback((event) => {
+          ref.current.inner = event.target.value;
+        });
+        return <input onChange={onChange} />;
       }
     `,
   ],
