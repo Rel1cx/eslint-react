@@ -137,6 +137,48 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidRefName" }],
     },
+    {
+      code: tsx`
+        const value = hooks.useRef(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const value = (useRef as typeof useRef)(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        refs[value] = useRef(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const value = (useRef(null) as { current: null }).current;
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const value = () => useRef(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const value = useRef?.(null);
+      `,
+      errors: [{ messageId: "invalidRefName" }],
+      output: null,
+    },
   ],
   valid: [
     tsx`
@@ -228,6 +270,33 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useRef } from "react";
       const ref = useRef<HTMLInputElement>(null);
+    `,
+    tsx`
+      const value = useRefFactory(null);
+    `,
+    tsx`
+      import { useRef as makeRef } from "react";
+      const value = makeRef(null);
+    `,
+    tsx`
+      const value = React["useRef"](null);
+    `,
+    tsx`
+      refs["value"] = useRef(null);
+    `,
+    tsx`
+      refs[valueRef] = useRef(null);
+    `,
+    tsx`
+      const value = (currentRef = useRef(null));
+    `,
+    tsx`
+      const valuesRef = { value: useRef(null) };
+    `,
+    tsx`
+      const value = () => {
+        return useRef(null);
+      };
     `,
   ],
 });

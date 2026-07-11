@@ -53,6 +53,35 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const theme = "theme";
+        ctxs[theme] = createContext("");
+      `,
+      errors: [{
+        column: 1,
+        endColumn: 12,
+        endLine: 2,
+        line: 2,
+        messageId: "invalidContextName",
+        suggestions: [],
+      }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const theme = custom.createContext("");
+      `,
+      errors: [{
+        column: 7,
+        endColumn: 12,
+        endLine: 1,
+        line: 1,
+        messageId: "invalidContextName",
+        suggestions: [],
+      }],
+      output: null,
+    },
+    {
+      code: tsx`
         const themecontext = React.createContext("");
       `,
       errors: [{ messageId: "invalidContextName" }],
@@ -88,7 +117,15 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const contexts = { ThemeContext: createContext("") };
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{
+        column: 7,
+        endColumn: 15,
+        endLine: 2,
+        line: 2,
+        messageId: "invalidContextName",
+        suggestions: [],
+      }],
+      output: null,
     },
     {
       code: tsx`
@@ -138,7 +175,29 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         a = b = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{
+        column: 5,
+        endColumn: 6,
+        endLine: 2,
+        line: 2,
+        messageId: "invalidContextName",
+        suggestions: [],
+      }],
+      output: null,
+    },
+    {
+      code: tsx`
+        const theme = () => createContext("");
+      `,
+      errors: [{
+        column: 7,
+        endColumn: 12,
+        endLine: 1,
+        line: 1,
+        messageId: "invalidContextName",
+        suggestions: [],
+      }],
+      output: null,
     },
     {
       code: tsx`
@@ -228,6 +287,23 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { createContext } from "react";
       ctxs["ThemeContext"] = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      ctxs["theme"] = createContext("");
+    `,
+    tsx`
+      import { createContext } from "react";
+      const { theme } = createContext({ theme: "" });
+    `,
+    tsx`
+      import { createContext as makeContext } from "react";
+      const theme = makeContext("");
+    `,
+    tsx`
+      const theme = () => {
+        return createContext("");
+      };
     `,
     tsx`
       import { createContext } from "react";

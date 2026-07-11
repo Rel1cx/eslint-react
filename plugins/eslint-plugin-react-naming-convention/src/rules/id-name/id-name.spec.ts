@@ -1,3 +1,4 @@
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import tsx from "dedent";
 
 import { ruleTester } from "#/testing/helpers";
@@ -28,9 +29,23 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const value = (useId as () => string)();
+      `,
+      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      output: null,
+    },
+    {
+      code: tsx`
         ctxs.myValue = useId();
       `,
       errors: [{ messageId: "invalidIdName" }],
+    },
+    {
+      code: tsx`
+        ctxs[value] = useId();
+      `,
+      errors: [{ messageId: "invalidIdName", type: AST.MemberExpression }],
+      output: null,
     },
     {
       code: tsx`
@@ -106,6 +121,22 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import { useId } from "react";
+        const value = wrap(useId());
+      `,
+      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      output: null,
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
+        const valueFactory = () => useId();
+      `,
+      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      output: null,
+    },
+    {
+      code: tsx`
+        import { useId } from "react";
         a = b = useId();
       `,
       errors: [{ messageId: "invalidIdName" }],
@@ -148,7 +179,13 @@ ruleTester.run(RULE_NAME, rule, {
       const obj = useIdSomethingElse();
     `,
     tsx`
+      const value = hooks["useId"]();
+    `,
+    tsx`
       ctxs.myId = useId();
+    `,
+    tsx`
+      ctxs["value"] = useId();
     `,
     tsx`
       import { useId } from "react";
@@ -160,6 +197,12 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       import { useId } from "react";
+      function useCustomId() {
+        return useId();
+      }
+    `,
+    tsx`
+      import { useId } from "react";
       const Id = useId();
     `,
     tsx`
@@ -168,7 +211,15 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       import { useId } from "react";
+      class Foo { #value = useId(); }
+    `,
+    tsx`
+      import { useId } from "react";
       obj.nested.myId = useId();
+    `,
+    tsx`
+      import { useId } from "react";
+      const containerId = { value: useId() };
     `,
     tsx`
       import { useId } from "react";
@@ -190,6 +241,10 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useId } from "react";
       const myId = useId() || "";
+    `,
+    tsx`
+      import { useId } from "react";
+      outerValue = innerId = useId();
     `,
     tsx`
       import { useId } from "react";
