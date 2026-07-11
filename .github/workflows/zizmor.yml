@@ -1,12 +1,14 @@
 name: GitHub Actions Security Analysis with zizmor 🌈
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - "**"
+  workflow_call:
+
+concurrency:
+  group: zizmor-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 permissions: {}
 
@@ -28,4 +30,4 @@ jobs:
       - name: Run zizmor 🌈
         run: uvx zizmor --format=github .
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}

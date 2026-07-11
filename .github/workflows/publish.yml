@@ -3,18 +3,26 @@ on:
   push:
     branches:
       - main
-    tags-ignore:
-      - "**"
-    paths-ignore:
-      - "**/*.gitignore"
-      - .editorconfig
-      - apps/**
-      - examples/**
-      - decisions/**
-  pull_request: null
 jobs:
+  check:
+    name: Check
+    permissions:
+      contents: read
+    uses: ./.github/workflows/check.yml
+  test:
+    name: Test
+    permissions:
+      contents: read
+    uses: ./.github/workflows/test.yml
+  zizmor:
+    name: GitHub Actions Security Analysis
+    permissions:
+      contents: read
+    uses: ./.github/workflows/zizmor.yml
   publish:
     name: Publish
+    if: "${{ startsWith(github.event.head_commit.message, 'release: ') }}"
+    needs: [check, test, zizmor]
     runs-on: ubuntu-latest
     permissions:
       contents: read

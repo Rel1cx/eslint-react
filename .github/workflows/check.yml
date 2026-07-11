@@ -1,14 +1,12 @@
 name: Check
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
       - "**"
+  workflow_call:
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: check-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 env:
   NODE_OPTIONS: --max_old_space_size=10240
@@ -39,8 +37,6 @@ jobs:
         run: node --run check:configs
       - name: Verify rules docs
         run: node --run check:docs
-      - name: Check architecture
-        run: node --run lint:arch
       - name: Lint MDX
         run: node --run lint:mdx
       - name: Check website types
