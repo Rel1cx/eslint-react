@@ -2,6 +2,21 @@
 title: Changelog
 ---
 
+## v5.14.3 (2026-07-11)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: stopped treating mutations of resolvable global and module bindings as captured local mutations. (#1897)
+- `react-x/immutability`: followed variable-declarator aliases when resolving mutation targets, fixing missed mutations through aliases created inside callbacks. (#1897)
+- `react-x/immutability`: followed `useRef` provenance through variable-declarator aliases, preventing false positives for ref mutations through locally aliased refs. (#1897)
+
+### 🏗️ Internal
+
+- `react-x/immutability`: separated AST fact collection from captured-mutation effect inference and reporting. (#1897)
+- Synchronized the `react-x/immutability` specification and IMPL-SPEC report with the current React Compiler validation pass, and expanded behavior-boundary coverage. (#1897)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.2...v5.14.3
+
 ## v5.14.2 (2026-07-11)
 
 ### 🐞 Fixes
