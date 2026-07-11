@@ -412,6 +412,103 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
+    // -------------------------------------------------------------------------
+    // Aliasing and transitive effects
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        const cache = {};
+        function Component() {
+          const alias = cache;
+          alias.value = 1;
+          return <div>{cache.value}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    {
+      code: tsx`
+        const events = [];
+        function Component() {
+          const alias = events;
+          const alias2 = alias;
+          alias2["push"](1);
+          return <div>{events.length}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+    },
+    {
+      code: tsx`
+        const cache = {};
+        function Component() {
+          const alias = cache;
+          delete alias.value;
+          return <div>{cache.value}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    {
+      code: tsx`
+        function useFoo(props) {
+          [x] = props;
+          return { x };
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    {
+      code: tsx`
+        function useFoo(props) {
+          [x, y] = props;
+          return { x, y };
+        }
+      `,
+      errors: [
+        { messageId: "mutatingGlobal" },
+        { messageId: "mutatingGlobal" },
+      ],
+    },
+    {
+      code: tsx`
+        function useFoo(props) {
+          ({ value: x } = props);
+          return { x };
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    {
+      code: tsx`
+        let someGlobal = false;
+        function Component() {
+          const setGlobal = () => {
+            someGlobal = true;
+          };
+          const indirectSetGlobal = () => {
+            setGlobal();
+          };
+          indirectSetGlobal();
+          return <div>{String(someGlobal)}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    {
+      code: tsx`
+        let someGlobal = false;
+        function setGlobal() {
+          someGlobal = true;
+        }
+        const alias = setGlobal;
+        function Component() {
+          alias();
+          return <div>{String(someGlobal)}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -580,8 +677,9 @@ ruleTester.run(RULE_NAME, rule, {
     // -------------------------------------------------------------------------
     {
       code: tsx`
+        let moduleCount = 0;
         function Component() {
-          let localCount = 0;
+          let localCount = moduleCount;
           localCount++;
           return <div>{localCount}</div>;
         }
@@ -830,8 +928,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
-    // Nested function mutations (IMPL does not detect because enclosing
-    // function is not a component/hook)
+    // Functions outside a detected component/hook render root are not checked
     // -------------------------------------------------------------------------
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global-indirect.js
     {
@@ -842,27 +939,6 @@ ruleTester.run(RULE_NAME, rule, {
             moduleLocal = true;
           };
           foo();
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-global-reassignment-indirect.js
-    {
-      code: tsx`
-        import { useEffect, useState } from "react";
-        let someGlobal = false;
-        function Component() {
-          const [state, setState] = useState(someGlobal);
-          const setGlobal = () => {
-            someGlobal = true;
-          };
-          const indirectSetGlobal = () => {
-            setGlobal();
-          };
-          indirectSetGlobal();
-          useEffect(() => {
-            setState(someGlobal);
-          }, [someGlobal]);
-          return <div>{String(state)}</div>;
         }
       `,
     },
@@ -938,15 +1014,6 @@ ruleTester.run(RULE_NAME, rule, {
         function Foo() {
           delete wat.foo;
           return wat;
-        }
-      `,
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.invalid-destructure-assignment-to-global.js
-    {
-      code: tsx`
-        function useFoo(props) {
-          [x] = props;
-          return { x };
         }
       `,
     },

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored global mutation analysis to propagate effects through directly called helpers and stable local aliases.
+
+### Fixed
+
+- Added detection for global writes in destructuring assignments and property deletion with `delete`.
+
 ## [5.5.3-beta.1] - 2026-04-27
 
 ### Changed
