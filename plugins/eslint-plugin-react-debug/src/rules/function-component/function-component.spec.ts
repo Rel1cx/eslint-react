@@ -2037,8 +2037,133 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: "const NullComponent = () => null;",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "NullComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: "const ConditionalComponent = () => condition ? <div /> : null;",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ConditionalComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: "const ArrayComponent = () => [<div key='item' />, null];",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ArrayComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          React.useState();
+
+          function ChildComponent() {
+            useEffect(() => {});
+            return <div />;
+          }
+
+          return <ChildComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ParentComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 1,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            json: stringify({
+              name: "ChildComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 1,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const App = () => <div />;
+        App.displayName = labels.current;
+        App["displayName"] = "ignored";
+        Other.displayName = "ignored";
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "App",
+              displayName: "labels.current",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
+    "const StringComponent = () => 'text';",
+    "const ConditionalComponent = () => condition ? <div /> : 'loading';",
+    "const ArrayComponent = () => [<div key='item' />, 'text'];",
+    tsx`
+      function ParentComponent() {
+        function useNestedState() {
+          useState();
+        }
+
+        return "not JSX";
+      }
+    `,
     tsx`
       export default function () {
           "use memo";
