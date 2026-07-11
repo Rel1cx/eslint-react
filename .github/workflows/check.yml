@@ -29,9 +29,23 @@ jobs:
           install: false
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Check formatting
+        run: node --run format:check
       - name: Build packages
         run: node --run build
-      - name: Check
+      - name: Lint
         run: node --run lint
+      - name: Verify config consistency
+        run: node --run check:configs
       - name: Verify rules docs
         run: node --run check:docs
+      - name: Check architecture
+        run: node --run lint:arch
+      - name: Lint MDX
+        run: node --run lint:mdx
+      - name: Check website types
+        run: pnpm -F "./apps/website" run types:check
+      - name: Build website
+        run: node --run build:website
+      - name: Verify generated files are up to date
+        run: git --no-pager diff --exit-code
