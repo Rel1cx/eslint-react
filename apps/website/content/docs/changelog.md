@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.14.5 (2026-07-11)
+
+### 📝 Documentation
+
+- Temporarily disabled the Bluesky embed on the community page to avoid API rate limits.
+
+### 🏗️ Internal
+
+- Consolidated the `check:configs` and `check:docs` scripts into a single `check:rules` script.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.4...v5.14.5
+
 ## v5.14.4 (2026-07-11)
 
 ### 🏗️ Internal
