@@ -100,6 +100,25 @@ function Component() {
 }
 ```
 
+### Mutations through aliases and render helpers
+
+Renaming a global value locally does not make it local. The rule also follows directly called helpers, because their side effects still run during render.
+
+```tsx
+const cache = {};
+
+function Component() {
+  const alias = cache;
+  const updateCache = () => {
+    alias.value = computeValue(); // Global mutation through an alias
+  };
+  updateCache(); // The helper runs during render
+  return <div>{cache.value}</div>;
+}
+```
+
+Helpers that run later in an effect or event handler are not treated as render-time mutations.
+
 ### Cache manipulation during render
 
 Even caches that seem local can be mutated during render, making their contents depend on render order rather than predictable data flow.
