@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Simplified immutability analysis helpers by sharing initializer provenance checks for `useRef()` and `useRouter()` and using AST parent traversal for function-boundary detection.
+
+### Fixed
+
+- Fixed a false positive where Next.js `useRouter().push()` calls inside frozen callbacks were treated as in-place mutations of the captured router value; variable-declarator aliases of the router are recognized too.
+
 ## [5.14.3] - 2026-07-11
 
 ### Changed

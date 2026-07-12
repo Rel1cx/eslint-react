@@ -588,6 +588,23 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "myref" }, messageId: "default" },
       ],
     },
+    // Initializer provenance requires exactly one definition for the origin.
+    {
+      code: tsx`
+        function Component() {
+          var mounted = useRef(false);
+          var mounted;
+          const fn = () => {
+            mounted.current = true;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "mounted" }, messageId: "mutates" },
+        { data: { name: "mounted" }, messageId: "default" },
+      ],
+    },
 
     // Mutating a value returned from useState inside a JSX event handler
     // (ported from React Compiler's error.invalid-function-expression-mutates-immutable-value).
@@ -1042,6 +1059,101 @@ ruleTester.run(RULE_NAME, rule, {
           ref.current.inner = event.target.value;
         });
         return <input onChange={onChange} />;
+      }
+    `,
+    tsx`
+      "use client"
+      import { useSearchParams } from 'next/navigation'
+
+      export default function Page() {
+        const searchParams = useSearchParams()
+        searchParams.get('foo') // returns 'bar' when ?foo=bar
+        // ...
+      }
+    `,
+    tsx`
+      "use client"
+      import { usePathname } from 'next/navigation'
+
+      export default function Page() {
+       const pathname = usePathname() // returns "/dashboard" on /dashboard?foo=bar
+       // ...
+      }
+    `,
+    tsx`
+      "use client"
+      import { useRouter } from 'next/navigation'
+
+      export default function Page() {
+       const router = useRouter()
+       // ...
+       router.push('/dashboard') // Navigate to /dashboard
+      }
+    `,
+    // `useRouter().push()` navigates; it does not mutate the captured router value.
+    tsx`
+      function Component() {
+        const router = useRouter()
+        const navigation = router
+        return <button onClick={() => navigation.push('/dashboard')} />
+      }
+    `,
+    tsx`
+      "use client"
+      import { useParams } from 'next/navigation'
+
+      export default function Page() {
+        // on /dashboard/[team] where pathname is /dashboard/nextjs
+        const { team } = useParams() // team === "nextjs"
+      }
+    `,
+    tsx`
+      'use client'
+
+      import { useSelectedLayoutSegments } from 'next/navigation'
+
+      export default function ExampleClientComponent() {
+        const segments = useSelectedLayoutSegments()
+
+        return (
+          <ul>
+            {segments.map((segment, index) => (
+              <li key={index}>{segment}</li>
+            ))}
+          </ul>
+        )
+      }
+    `,
+    tsx`
+      'use client'
+      import { useSelectedLayoutSegment } from 'next/navigation'
+
+      export default function ExampleClientComponent() {
+        const segment = useSelectedLayoutSegment()
+
+        return <p>Active segment: {segment}</p>
+      }
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/1898
+    // Regression: `router.push()` inside a frozen callback is navigation, not
+    // an in-place mutation of the captured router value.
+    tsx`
+      function Component() {
+        const router = useRouter()
+        return <button onClick={() => router.push('/dashboard')} />
+      }
+    `,
+    tsx`
+      function Component() {
+        const router = useRouter()
+        return <button onClick={() => {
+          router.push('/dashboard')
+          router.replace()
+          router.refresh()
+          router.back()
+          router.forward()
+          router.prefetch()
+        }} />
       }
     `,
   ],

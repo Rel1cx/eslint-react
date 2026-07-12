@@ -11,6 +11,7 @@ import {
   is,
   isClass,
   isDirective,
+  isExpression,
   isFunction,
   isIdentifier,
   isJSX,
@@ -281,6 +282,33 @@ describe("JSX guards", () => {
   it("isJSX should return false for non-JSX nodes", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("const a = 1;", AST.Identifier);
     expect(isJSX(node)).toBe(false);
+  });
+});
+
+describe("isExpression", () => {
+  it("should return true for a JavaScript expression", () => {
+    const node = getFirstNodeOfType<TSESTree.CallExpression>("foo();", AST.CallExpression);
+    expect(isExpression(node)).toBe(true);
+  });
+
+  it("should return true for a JSX expression", () => {
+    const node = getFirstNodeOfType<TSESTree.JSXElement>("<div />", AST.JSXElement);
+    expect(isExpression(node)).toBe(true);
+  });
+
+  it("should return true for a TypeScript expression", () => {
+    const node = getFirstNodeOfType<TSESTree.TSAsExpression>("const a = 1 as number;", AST.TSAsExpression);
+    expect(isExpression(node)).toBe(true);
+  });
+
+  it("should return true for a pattern included in TSESTree.Expression", () => {
+    const node = getFirstNodeOfType<TSESTree.ArrayPattern>("const [a] = value;", AST.ArrayPattern);
+    expect(isExpression(node)).toBe(true);
+  });
+
+  it("should return false for a non-expression node", () => {
+    const node = getFirstNodeOfType<TSESTree.ExpressionStatement>("foo();", AST.ExpressionStatement);
+    expect(isExpression(node)).toBe(false);
   });
 });
 
