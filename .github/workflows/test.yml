@@ -1,12 +1,14 @@
 name: Test
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
       - "**"
-  workflow_call:
 concurrency:
-  group: test-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 env:
   NODE_OPTIONS: --max_old_space_size=10240

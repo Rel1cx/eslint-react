@@ -38,7 +38,6 @@
     "format:check": "dprint check",
     "format:write": "dprint fmt",
     "lint": "node --run lint:publish && node --run lint:ts && node --run lint:es && node --run lint:examples && node --run lint:text",
-    "lint:arch": "sentrux gate",
     "lint:es": "eslint . --max-warnings 100 --concurrency=auto",
     "lint:examples": "pnpm m -F \"./examples/*\" run lint",
     "lint:mdx": "mdxlint plugins/**/*.mdx apps/**/*.mdx --frail --no-stdout",
