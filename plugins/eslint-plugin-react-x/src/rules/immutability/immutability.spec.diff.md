@@ -1,6 +1,6 @@
 # immutability IMPL–SPEC Diff Report
 
-**IMPL**: `immutability.ts` + `lib.ts` (ESLint AST rule)\
+**IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `lib.ts` (ESLint AST rule)\
 **SPEC**: `immutability.spec.md` / React Compiler `ValidateNoFreezingKnownMutableFunctions`
 
 > Scope: this report compares the validation behavior implemented by this rule with the compiler pass described by the local SPEC. The compiler pass consumes HIR operands that have already been assigned `Freeze` effects; it does not itself decide which JSX or hook syntax receives those effects. Therefore, syntax-specific sink omissions below are confirmed IMPL boundaries, but their exact compiler behavior also depends on upstream HIR/effect inference.

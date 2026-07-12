@@ -588,6 +588,23 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "myref" }, messageId: "default" },
       ],
     },
+    // Initializer provenance requires exactly one definition for the origin.
+    {
+      code: tsx`
+        function Component() {
+          var mounted = useRef(false);
+          var mounted;
+          const fn = () => {
+            mounted.current = true;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "mounted" }, messageId: "mutates" },
+        { data: { name: "mounted" }, messageId: "default" },
+      ],
+    },
 
     // Mutating a value returned from useState inside a JSX event handler
     // (ported from React Compiler's error.invalid-function-expression-mutates-immutable-value).

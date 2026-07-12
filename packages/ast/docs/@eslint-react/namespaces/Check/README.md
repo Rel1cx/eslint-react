@@ -10,6 +10,7 @@ Helpers for checking `TSESTree` node types.
 | ------------------------------------------------------------------- | ----------- |
 | [is](variables/is.md)                                               | -           |
 | [isClass](variables/isClass.md)                                     | -           |
+| [isExpression](variables/isExpression.md)                           | -           |
 | [isFunction](variables/isFunction.md)                               | -           |
 | [isJSX](variables/isJSX.md)                                         | -           |
 | [isJSXElement](variables/isJSXElement.md)                           | -           |
