@@ -116,12 +116,27 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
   if (root == null) return false;
   const variable = findVariable(context.sourceCode.getScope(root), root);
   if (variable == null) return false;
-  return isVariableInitializedFromUseRef(context, variable, new Set());
+  return isVariableInitializedFromCall(context, variable, (initializer) => core.isUseRefCall(context, initializer), new Set());
 }
 
-function isVariableInitializedFromUseRef(
+/**
+ * Check if a method receiver originates from a `useRouter()` call, following
+ * variable-declarator aliases.
+ * @param context The ESLint rule context.
+ * @param node The receiver expression to inspect.
+ */
+export function isInitializedFromUseRouter(context: RuleContext, node: TSESTree.Expression): boolean {
+  const root = node.type === AST.Identifier ? node : Extract.getRootIdentifier(node);
+  if (root == null) return false;
+  const variable = findVariable(context.sourceCode.getScope(root), root);
+  if (variable == null) return false;
+  return isVariableInitializedFromCall(context, variable, (initializer) => core.isAPICall("useRouter")(context, initializer), new Set());
+}
+
+function isVariableInitializedFromCall(
   context: RuleContext,
   variable: Scope.Variable,
+  isCall: (node: TSESTree.CallExpression) => boolean,
   seen: Set<Scope.Variable>,
 ): boolean {
   if (seen.has(variable)) return false;
@@ -129,10 +144,22 @@ function isVariableInitializedFromUseRef(
   const definition = variable.defs.length === 1 ? variable.defs[0] : null;
   if (definition?.type !== DefinitionType.Variable || definition.node.init == null) return false;
   const initializer = Extract.unwrap(definition.node.init);
-  if (initializer.type === AST.CallExpression) return core.isUseRefCall(context, initializer);
+  if (initializer.type === AST.CallExpression) return isCall(initializer);
   if (initializer.type !== AST.Identifier) return false;
   const source = findVariable(context.sourceCode.getScope(initializer), initializer);
-  return source != null && isVariableInitializedFromUseRef(context, source, seen);
+  return source != null && isVariableInitializedFromCall(context, source, isCall, seen);
+}
+
+/**
+ * Check whether a method name that overlaps with an in-place mutator belongs
+ * to an API whose method does not mutate the captured receiver value.
+ * @param context The ESLint rule context.
+ * @param node The method call to inspect.
+ */
+export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression): boolean {
+  const callee = Extract.unwrap(node.callee);
+  if (callee.type !== AST.MemberExpression) return false;
+  return isInitializedFromUseRouter(context, callee.object);
 }
 
 /**

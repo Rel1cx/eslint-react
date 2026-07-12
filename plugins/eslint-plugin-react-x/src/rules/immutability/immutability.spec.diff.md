@@ -60,7 +60,7 @@ The mutable-function map stores one representative mutation per function. In the
 
 Important precision differences:
 
-- **No type-driven method effects**: every matching method name is treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. Mutators absent from `MUTATING_METHODS` are missed.
+- **No type-driven method effects**: matching method names are treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. A narrow provenance-based exception excludes `push()` on values initialized by `useRouter()` (including variable-declarator aliases), because it navigates rather than mutating the captured router value. Mutators absent from `MUTATING_METHODS` are missed.
 - **Initializer-only mutation-target alias propagation**: identifier aliases declared with an initializer are traced to their origin, including aliases created inside the callback. Assignment aliases (`let alias; alias = cache`), destructuring, member storage, and subsequent writes to an initialized alias are not modeled.
 - **No call-effect propagation**: a wrapper such as `() => fn()` is not marked mutable merely because `fn` is known-mutable. The SPEC can represent this through inferred transitive effects.
 - **Conditional over-approximation**: the IMPL has no equivalent of conditional aliasing effects, so any recognized mutation syntax is considered definite even when control-flow conditional.

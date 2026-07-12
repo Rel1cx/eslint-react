@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { MutationFact } from "./collect";
-import { isNodeWithin, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
+import { isKnownNonMutatingMethodCall, isNodeWithin, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
 
 export type MutationEffect = {
   name: string;
@@ -27,6 +27,7 @@ export function inferMutableFunctions(context: RuleContext, mutations: readonly 
   const mutableFunctions: MutableFunctionMap = new Map();
 
   for (const mutation of mutations) {
+    if (mutation.node.type === AST.CallExpression && isKnownNonMutatingMethodCall(context, mutation.node)) continue;
     if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
