@@ -12,6 +12,7 @@ const config = {
     ignoreBuildErrors: true,
   },
   serverExternalPackages: [
+    "@takumi-rs/core",
     "@takumi-rs/image-response",
     "twoslash",
     "typescript",

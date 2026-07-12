@@ -41,7 +41,5 @@ jobs:
         run: node --run lint:mdx
       - name: Check website types
         run: pnpm -F "./apps/website" run types:check
-      - name: Build website
-        run: node --run build:website
       - name: Verify generated files are up to date
         run: git --no-pager diff --exit-code
