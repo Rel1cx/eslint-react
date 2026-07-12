@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.14.6 (2026-07-13)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: ignore `useRouter()` navigation methods (e.g. `.push()`) as mutations when they appear inside frozen callbacks; aliases created through variable declarators are also recognized. (#1898)
+
+### 🏗️ Internal
+
+- Added `Check.isExpression` to `@eslint-react/ast` along with unit tests.
+- Bumped `eslint`, `nx`, `dompurify`, and `pnpm`.
+- Restored standalone quality workflows.
+- Simplified `react-x/immutability` analysis helpers by sharing initializer provenance checks for `useRef()` and `useRouter()` and using AST parent traversal for function-boundary detection.
+- Started running CI tests on Node.js 26.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.5...v5.14.6
+
 ## v5.14.5 (2026-07-11)
 
 ### 📝 Documentation
