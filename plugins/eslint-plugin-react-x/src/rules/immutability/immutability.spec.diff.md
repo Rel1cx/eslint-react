@@ -1,9 +1,30 @@
 # immutability IMPL–SPEC Diff Report
 
-**IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `lib.ts` (ESLint AST rule)\
-**SPEC**: `immutability.spec.md` / React Compiler `ValidateNoFreezingKnownMutableFunctions`
+## Verification metadata
+
+- **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `lib.ts` (ESLint AST rule)
+- **SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
+- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
+- **Last verified**: `2026-07-14`
+- **React package**: `compiler/packages/babel-plugin-react-compiler`
+- **Implementation sources/tests**:
+  - `immutability.ts`
+  - `collect.ts`
+  - `effects.ts`
+  - `lib.ts`
+  - `immutability.spec.ts`
+- **React sources/fixtures**:
+  - `src/Validation/ValidateNoFreezingKnownMutableFunctions.ts`
+  - `src/Entrypoint/Pipeline.ts`
+  - `src/HIR/Environment.ts`
+  - `src/__tests__/fixtures/compiler/error.invalid-pass-mutable-function-as-prop.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-hook-function-argument-mutates-local-variable.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-return-mutable-function-from-hook.{js,expect.md}`
 
 > Scope: this report compares the validation behavior implemented by this rule with the compiler pass described by the local SPEC. The compiler pass consumes HIR operands that have already been assigned `Freeze` effects; it does not itself decide which JSX or hook syntax receives those effects. Therefore, syntax-specific sink omissions below are confirmed IMPL boundaries, but their exact compiler behavior also depends on upstream HIR/effect inference.
+
+> Upstream configuration note: `Environment.ts` defines `validateNoFreezingKnownMutableFunctions` with a default of `false`, but at the verified commit `Pipeline.ts` invokes `validateNoFreezingKnownMutableFunctions(hir)` unconditionally whenever `env.enableValidations` is active. No other source read of that configuration field was found. This records the current source wiring only; it does not infer historical intent or broader user-visible behavior.
 
 ## 1. Summary
 
@@ -20,7 +41,7 @@
 
 Overall, the IMPL matches the SPEC's three principal use cases, but it is a syntax- and naming-based approximation rather than an effect-equivalent implementation.
 
-## 2. Detection Model
+## 2. Detection model
 
 ### SPEC
 
@@ -42,7 +63,7 @@ The ESLint rule performs one AST traversal and defers correlation until `Program
 
 The mutable-function map stores one representative mutation per function. In the IMPL this is the first collected mutation in source traversal order; later captured-variable mutations in the same function do not produce additional diagnostics for that sink. The compiler pass likewise associates a known function value with one representative mutation effect, though the selected effect is determined by effect-inference order rather than ESLint AST traversal.
 
-## 3. Mutation Recognition
+## 3. Mutation recognition
 
 | Mutation form                                             | IMPL behavior                                                                           |
 | --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
@@ -66,7 +87,7 @@ Important precision differences:
 - **Conditional over-approximation**: the IMPL has no equivalent of conditional aliasing effects, so any recognized mutation syntax is considered definite even when control-flow conditional.
 - **Global/context boundary**: unresolved globals and bindings whose origin is declared in global/module scope are ignored, matching the SPEC's function-context boundary.
 
-## 4. Function Resolution and Freeze Sinks
+## 4. Function resolution and freeze sinks
 
 ### Function resolution
 
@@ -107,7 +128,7 @@ Confirmed IMPL sink omissions:
 
 The local SPEC describes JSX props, hook arguments, and hook returns at a semantic level. Whether each omitted syntax shape receives a `Freeze` effect in the compiler is determined before `ValidateNoFreezingKnownMutableFunctions` and is not established by this validation pass alone.
 
-## 5. Ref Exception
+## 5. Ref exception
 
 The SPEC exempts mutations using `isRefOrRefLikeMutableType`, which is type-based.
 
@@ -141,7 +162,7 @@ The IMPL emits two independent ESLint reports per sink:
 
 This preserves both locations but changes problem counts and grouping. If the same mutable function is used at two sinks, the IMPL emits four reports: two usage reports and two mutation reports at the same mutation location. The SPEC's reason (`Cannot modify local variables after render completes`) is not emitted as an ESLint message; `meta.docs.description` only provides a general rule description.
 
-## 7. Test Coverage Notes
+## 7. Test coverage notes
 
 `immutability.spec.ts` pins the IMPL behavior for:
 

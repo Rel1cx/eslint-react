@@ -1,98 +1,83 @@
 # purity IMPL–SPEC Diff Report
 
-**IMPL**: `purity.ts` (ESLint rule)\
-**SPEC**: `purity.spec.md` (React Compiler `ValidateNoImpureValuesInRender`)
+## Verification metadata
 
----
+- **IMPL**: `purity.ts` + `lib.ts` (ESLint rule)
+- **SPEC**: `purity.spec.md` (current React Compiler behavior)
+- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
+- **Last verified**: `2026-07-14`
+- **React package**: `compiler/packages/babel-plugin-react-compiler`
+- **Implementation sources/tests**:
+  - `purity.ts`
+  - `lib.ts`
+  - `purity.spec.ts`
+- **React sources/fixtures**:
+  - `src/Inference/InferMutationAliasingEffects.ts`
+  - `src/Entrypoint/Pipeline.ts`
+  - `src/Validation/ValidateNoImpureFunctionsInRender.ts`
+  - `src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render.{js,expect.md}`
 
-## 1. Underlying Mechanism
+## 1. Detection mechanism
 
-The SPEC operates on the React Compiler's HIR using effects (`Impure`, `Render`, `Alias`, etc.). It is value-oriented: tracking whether an impure value flows into a render context. It uses fixed-point iteration propagating impurity through phi nodes, assignments, aliases, and function returns. Its scope covers all functions called during render, including nested helpers and callbacks. [NEEDS VERIFICATION]
+### React Compiler
 
-The IMPL operates on the ESLint AST with scope analysis. It is call-site-oriented: reporting whether a known-impure function or constructor is called inside a component or hook body. It evaluates each `CallExpression` / `NewExpression` in isolation with no data-flow propagation. Its scope is limited to functions identified as React components or hooks via collectors.
+The active check is part of `inferMutationAliasingEffects`, which `Pipeline.ts` invokes. With `validateNoImpureFunctionsInRender` enabled, an impure function signature creates an `ErrorCategory.Purity` diagnostic at the call location.
 
----
+`ValidateNoImpureFunctionsInRender.ts` contains a similar standalone HIR scan, but `Pipeline.ts` does not import or call it. It is an unwired alternative, not the active pass.
 
-## 2. Rule: Impure Values in Render
+### ESLint rule
 
-### Detection Target
+The rule visits `CallExpression` and `NewExpression`, records known-impure calls, and reports an entry only when its immediate enclosing function is collected as a component or hook.
 
-The SPEC flags an `Impure` effect flowing into a `Render` effect (e.g., JSX props, return values). In `const x = Date.now(); return <Foo x={x} />`, it reports both the JSX prop and the `Date.now()` call. [NEEDS VERIFICATION]
+Detection uses only `IMPURE_FUNCS` and `IMPURE_CTORS`. Although `lib.ts` also exports pure catalogues, `purity.ts` does not import or consult them.
 
-The IMPL flags a direct call to a known-impure global function or constructor (`IMPURE_FUNCS` / `IMPURE_CTORS`). In the same example, it reports only the `Date.now()` call.
+**Verdict**: Both implementations report impure calls directly. React is driven by compiler function signatures during effect inference; ESLint is driven by explicit deny-lists and AST/component-hook analysis.
 
-**Verdict**: The SPEC is value-flow driven; the IMPL is call-site driven.
+## 2. Catalogue and name resolution
 
-### Data Flow and Propagation
+- **React**: the active source condition is `signature.impure`; the verified React fixture covers `Date.now`, `performance.now`, and `Math.random`.
+- **ESLint**: only names present in `IMPURE_FUNCS` or `IMPURE_CTORS` are candidates.
+- **ESLint aliases**: `resolveBuiltinObjectName` follows simple variable-initializer chains to a global root, such as `const M = Math` and `const D = Date`.
+- **ESLint shadowing**: parameters, imports, function declarations, and other local definitions do not resolve as built-ins; implicit or unresolved globals do.
+- **ESLint constructors**: constructors in `IMPURE_CTORS` are reported, except `new Date(arg)` is allowed when at least one argument is present; zero-argument `new Date()` is reported.
 
-- **Variable assignment**: The SPEC propagates impurity through assignments (`Alias/Assign/Capture`). [NEEDS VERIFICATION] The IMPL reports the call itself regardless of how the result is used.
-- **Phi nodes / control flow**: The SPEC is control-flow sensitive; if any phi operand is impure, the result is impure. [NEEDS VERIFICATION] The IMPL does not support this.
-- **Indirect mutation**: `obj.time = Date.now(); return <Foo obj={obj} />` — the SPEC flags `obj` as impure. [NEEDS VERIFICATION] The IMPL does not detect this because it lacks object-level impurity tracking.
-- **Helper functions**: `const now = () => Date.now(); return <div>{now()}</div>` — the SPEC reports errors at both `now()` call and `Date.now()` source. [NEEDS VERIFICATION] The IMPL does not detect `now()` because it is inside a nested non-component function.
+**Verdict**: Alias, shadowing, and the `new Date(arg)` exception are explicit ESLint behaviors. The cited React fixture does not establish corresponding upstream behavior.
 
-**Verdict**: The IMPL lacks data-flow analysis, missing indirect impurity and helper-function indirection that the SPEC catches.
+## 3. Reporting
 
-### Nested Functions and Callbacks
+|                       | React Compiler                              | ESLint rule                                      |
+| --------------------- | ------------------------------------------- | ------------------------------------------------ |
+| Location              | One call location                           | One `CallExpression` or `NewExpression` location |
+| Category / message ID | `ErrorCategory.Purity`                      | `default`                                        |
+| Primary text          | `Cannot call impure function during render` | `Do not call '{{name}}' during render...`        |
+| Function name         | Canonical signature name when available     | Source text of the reported AST node             |
 
-- **Event handlers**: Both exclude them, but for different reasons. The SPEC excludes them if not invoked during render (no `Render` effect). [NEEDS VERIFICATION] The IMPL excludes them because the immediate parent function is not a component or hook.
-- **Effect callbacks (`useEffect`)**: The SPEC excludes them from render context. [NEEDS VERIFICATION] The IMPL excludes them because the callback is a nested non-component function.
-- **State initializers (`useState(() => ...)`)**: The SPEC excludes them as not part of render output. [NEEDS VERIFICATION] The IMPL excludes them for the same nested-function reason.
-- **Returned callbacks from hooks**: The SPEC flags them if actually invoked during render (data-flow dependent). [NEEDS VERIFICATION] The IMPL ignores them because the call is inside the returned callback, not the hook body itself.
+There is no current upstream dual-location diagnostic to reproduce. The React expected output highlights only each impure call, not the later JSX use.
 
-**Verdict**: Both approaches largely agree on common cases but for different reasons. The IMPL may miss impure calls in returned callbacks that are invoked during render.
+## 4. Scope differences
 
----
+- **React** performs the active check when effect inference processes an impure signature under the compiler option.
+- **ESLint** requires the call's immediate enclosing function to be a collected component or hook. Calls inside nested event handlers, effect callbacks, and other nested non-component functions are therefore not reported by this rule.
+- **ESLint** reports a known impure call regardless of how its result is subsequently used; it does not propagate impurity through returned values, assignments, object mutation, or control-flow merges.
 
-## 3. Error Reporting
+**Verdict**: React uses signature-based compiler validation. ESLint uses closed-world AST call detection. Current upstream behavior is call-site validation, not the value-flow model described by the previous report.
 
-The SPEC reports **dual-location**: (1) where the impure value is used in render, and (2) where it originates. Its category is `ImpureValues` with the message "Cannot access impure value during render". [NEEDS VERIFICATION]
+## 5. Verification boundaries
 
-The IMPL reports **single-location**: only the call site (`CallExpression` / `NewExpression`). Its message is "Do not call '{{name}}' during render...".
+### Source-verified
 
-**Verdict**: The IMPL simplifies error reporting to a single location; the SPEC provides richer dual-location diagnostics.
+- React's active branch, option gate, signature check, `Purity` category, reason, and single call location.
+- The standalone React validator is present but not connected to `Pipeline.ts`.
+- ESLint's exclusive use of `IMPURE_FUNCS` / `IMPURE_CTORS`, component-hook ownership check, alias resolution, shadowing handling, and `new Date(arg)` exception.
 
----
+### Fixture-verified
 
-## 4. Known Impurity Catalogue
+- React reports exactly one call-site error each for `Date.now`, `performance.now`, and `Math.random` in the cited fixture.
+- ESLint tests cover those direct calls as well as its own alias, shadowing, constructor, and nested-function behavior.
 
-The SPEC sources impurity from compiler effect inference, which marks built-ins as `Impure` (e.g., `Date.now`, `Math.random`, `performance.now`). It is open-ended — any function inferred with an `Impure` effect is checked. Alias resolution and local shadowing are naturally handled by compiler bindings. [NEEDS VERIFICATION]
+### Not locked by the cited React fixture
 
-The IMPL uses explicit deny-lists (`IMPURE_FUNCS`, `IMPURE_CTORS`) and allow-lists (`PURE_FUNCS`, `PURE_CTORS`) in `lib.ts`. Only functions/constructors in the maps are checked. Alias resolution is handled by `resolveBuiltinObjectName` following simple assignment chains (`const M = Math`) and scope analysis. Local shadowing is explicitly handled via ESLint `findVariable` / `DefinitionType` checks.
-
-**Verdict**: The SPEC is open-ended via compiler inference; the IMPL is closed-world via explicit catalogues but includes extensive built-in coverage.
-
----
-
-## 5. Special Cases
-
-- **Refs**: The SPEC allows values stored in refs (`isUseRefType`) to be impure. [NEEDS VERIFICATION] The IMPL does not explicitly distinguish refs; `useRef` initializer callbacks are excluded as nested functions.
-- **JSX elements**: The SPEC excludes them from impurity propagation (`isJsxType`). [NEEDS VERIFICATION] Not applicable in the IMPL because there is no value-flow tracking.
-- **`new Date()`**: The SPEC treats `new Date()` as impure (non-deterministic). The IMPL treats `new Date()` without arguments as impure, but `new Date(arg)` with arguments as pure (deterministic) and allows it.
-- **Module scope**: Not a render context in the SPEC. Ignored by the IMPL because there is no enclosing component/hook function.
-
-**Verdict**: The IMPL adds a pragmatic exception for `new Date(arg)`; otherwise the two align on common special cases through different mechanisms.
-
----
-
-## 6. Message ID Mapping
-
-The IMPL uses a single message ID:
-
-- `default` — Impure function/constructor call in render.
-
-The SPEC does not use message IDs but has a single error category:
-
-- `ImpureValues` — "Cannot access impure value during render".
-
-Error message text is conceptually aligned but structurally different due to single-location rather than dual-location reporting.
-
----
-
-## 7. Key Gaps and Deviations
-
-1. **No Data-Flow Analysis**: The IMPL evaluates calls in isolation and cannot track impurity through variable assignments, helper functions, or object mutations. The SPEC propagates impurity through a full fixed-point data-flow analysis. [NEEDS VERIFICATION]
-2. **No Indirect Impurity Detection**: The IMPL misses cases where an impure value is produced in a helper function or mutated into an object that is then rendered. The SPEC catches these via inter-procedural and alias analysis. [NEEDS VERIFICATION]
-3. **Single-Location Reporting**: The IMPL reports only the call site; the SPEC reports both the usage location (render context) and the source location. [NEEDS VERIFICATION]
-4. **Returned Callbacks**: The IMPL ignores impure calls inside callbacks returned from hooks because they are nested functions. The SPEC may still flag them if the callback is invoked during render. [NEEDS VERIFICATION]
-5. **Closed-World Catalogue**: The IMPL relies on explicit `IMPURE_FUNCS` / `IMPURE_CTORS` lists. Any impure built-in not in the lists will be missed. The SPEC is open-ended via compiler effect inference. [NEEDS VERIFICATION]
-6. **`new Date(arg)` Exception**: The IMPL explicitly allows `new Date(arg)` as pure, which is a pragmatic deviation not mentioned in the SPEC.
+- React behavior for aliases, shadowed globals, constructors, nested helpers, or callbacks
+- React's complete impure-signature catalogue
+- Behavioral equivalence between the active inference branch and the unwired standalone validator

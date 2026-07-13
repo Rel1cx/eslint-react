@@ -1,5 +1,21 @@
 # validateUseMemo
 
+## Verification metadata
+
+- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
+- **Implementation commit (`eslint-react`)**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **Last verified**: `2026-07-14`
+- **React package**: `compiler/packages/babel-plugin-react-compiler`
+- **React source**: `src/Validation/ValidateUseMemo.ts`
+- **React fixtures**:
+  - `src/__tests__/fixtures/compiler/useMemo-empty-return.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-useMemo-callback-args.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-useMemo-async-callback.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-reassign-variable-in-usememo.{js,expect.md}`
+- **Implementation sources**:
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.ts`
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/lib.ts`
+
 ## File
 
 `src/Validation/ValidateUseMemo.ts`
@@ -11,8 +27,8 @@ This validation pass ensures that `useMemo()` callbacks follow React's requireme
 1. Callbacks should not accept parameters (useMemo callbacks are called with no arguments)
 2. Callbacks should not be async or generator functions (must return a value synchronously)
 3. Callbacks should not reassign variables declared outside the callback (must be pure)
-4. Callbacks should return a value (useMemo is for computing values, not side effects)
-5. The result of useMemo should be used (not discarded)
+4. When `validateNoVoidUseMemo` is enabled, callbacks should return a value (useMemo is for computing values, not side effects)
+5. When `validateNoVoidUseMemo` is enabled, the result of useMemo should be used (not discarded)
 
 ## Input Invariants
 
@@ -176,17 +192,23 @@ function validateNoContextVariableAssignment(fn: HIRFunction, errors: CompilerEr
 
 ### Phase 5: Check for Unused Results
 
+When `validateNoVoidUseMemo` is enabled and the callback passes `hasNonVoidReturn`, the call result is added to `unusedUseMemos`. Subsequent instruction and terminal operands remove matching identifiers:
+
 ```typescript
-// Track which useMemo results are referenced
 for (const operand of eachInstructionValueOperand(value)) {
   unusedUseMemos.delete(operand.identifier.id);
 }
 
-// At the end, report any unused useMemos
+for (const operand of eachTerminalOperand(block.terminal)) {
+  unusedUseMemos.delete(operand.identifier.id);
+}
+
 for (const loc of unusedUseMemos.values()) {
   errors.push("useMemo() result is unused");
 }
 ```
+
+This is a basic pre-DCE operand-reference check: any later operand reference counts as use. It is not full SSA liveness analysis.
 
 ### Return Value Helper
 
@@ -226,13 +248,41 @@ const x = useMemo(() => compute(), [dep]);
 return x; // x is used
 ```
 
-### Void Return Detection
+### Empty Return Is Accepted
 
-The pass checks for explicit and implicit returns. A function with only `return;` statements (void returns) will trigger the "must return a value" error.
+At the verified React commit, `hasNonVoidReturn` accepts a return terminal whose `returnVariant` is `Explicit` or `Implicit`; it does not inspect whether the source return has a value. A callback containing only `return;` therefore passes the "must return a value" check.
+
+This is also fixture-verified by `useMemo-empty-return.{js,expect.md}`:
+
+```javascript
+// @validateNoVoidUseMemo
+function Component() {
+  const value = useMemo(() => {
+    return;
+  }, []);
+  return <div>{value}</div>;
+}
+```
+
+The expected file contains normally compiled output and no `VoidUseMemo` diagnostic; the resulting JSX value is `undefined`.
 
 ### VoidUseMemo Errors as Logged Errors
 
-The void useMemo errors (no return value, unused result) are logged via `fn.env.logErrors()` rather than thrown immediately. This allows them to be treated differently (e.g., as warnings) based on configuration.
+The pass accumulates the no-return and unused-result diagnostics in `voidMemoErrors`, then passes `voidMemoErrors.asResult()` to `fn.env.logErrors()` after scanning the function. Rules 1–3 instead call `fn.env.recordError()` directly.
+
+## Verification Boundaries
+
+### Source-verified
+
+- Rules 4 and 5 run only when `validateNoVoidUseMemo` is enabled.
+- `hasNonVoidReturn` accepts `Explicit` and `Implicit` return variants without checking for a returned source value.
+- The unused-result check removes entries on instruction or terminal operand references; it is a basic use check rather than full SSA liveness.
+- `VoidUseMemo` diagnostics are accumulated and sent through `fn.env.logErrors()`, while Rules 1–3 use `fn.env.recordError()`.
+
+### Fixture-verified
+
+- `useMemo-empty-return.{js,expect.md}` locks in successful compilation of a callback containing only `return;` under `@validateNoVoidUseMemo`.
+- The three error fixture pairs listed in the metadata lock the parameter, async-callback, and captured-variable-reassignment diagnostics reproduced below.
 
 ## TODOs
 

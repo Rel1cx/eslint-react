@@ -1,196 +1,75 @@
-# validateNoImpureValuesInRender
+# Impure function calls during render
 
-## File
-
-`src/Validation/ValidateNoImpureValuesInRender.ts`
+**React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`\
+**Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`\
+**Last verified**: 2026-07-14\
+**Sources**: React Compiler `src/Inference/InferMutationAliasingEffects.ts`, `src/Entrypoint/Pipeline.ts`, and `src/Validation/ValidateNoImpureFunctionsInRender.ts`\
+**Fixtures**: React Compiler `src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render.{js,expect.md}`
 
 ## Purpose
 
-This validation pass ensures that impure values (values derived from non-deterministic function calls) are not used in render output. Impure values can produce unstable results that update unpredictably when the component re-renders, violating React's requirement that components be pure and idempotent.
+When `validateNoImpureFunctionsInRender` is enabled, the React Compiler rejects calls whose function signature is marked `impure`. The diagnostic is created at the impure call; it does not depend on a later use of the returned value.
 
-The pass tracks values produced by impure functions (like `Date.now()`, `Math.random()`, `performance.now()`) and errors if those values flow into JSX props, component return values, or other render-time contexts.
+## Active implementation
 
-## Input Invariants
-
-- The function has been through effect inference
-- Aliasing effects have been computed on instructions
-- `Impure` effects mark values from non-deterministic sources
-- `Render` effects mark values used in render context
-
-## Validation Rules
-
-The pass produces errors when:
-
-1. **Impure value in render context**: A value marked with an `Impure` effect flows into a position marked with a `Render` effect
-2. **Impure function returns in render**: A function that returns an impure value is called during render
-
-Error messages produced:
-
-- Category: `ImpureValues`
-- Reason: "Cannot access impure value during render"
-- Description: "Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render."
-
-The error points to two locations:
-
-1. Where the impure value is used in render (e.g., as a JSX prop)
-2. Where the impure value originates (e.g., the `Date.now()` call)
-
-## Algorithm
-
-### Phase 1: Infer Impure Values
-
-The pass iterates over all instructions to build a map of which identifiers contain impure values:
+`Pipeline.ts` calls `inferMutationAliasingEffects`. While computing effects for a legacy function signature, `InferMutationAliasingEffects.ts` checks:
 
 ```typescript
-function inferImpureValues(
-  fn: HIRFunction,
-  impure: Map<IdentifierId, ImpureEffect>,
-  impureFunctions: Map<IdentifierId, ImpuritySignature>,
-  cache: FunctionCache,
-): ImpuritySignature;
+signature.impure && state.env.config.validateNoImpureFunctionsInRender;
 ```
 
-The algorithm uses a fixed-point iteration that propagates impurity through data flow:
+When true, it creates an `Impure` effect carrying one diagnostic:
 
-1. **Process phi nodes**: If any operand of a phi is impure, the phi result is impure
-2. **Process effects**: For each instruction's effects:
-   - `Impure` effect: Mark the destination identifier as impure
-   - `Alias/Assign/Capture/CreateFrom/ImmutableCapture`: Propagate impurity from source to destination
-   - `CreateFunction`: Recursively analyze function expressions
-   - `Apply`: When calling a function with an impurity signature, propagate impurity to call results
+- Category: `ErrorCategory.Purity`
+- Reason: `Cannot call impure function during render`
+- Detail message: `Cannot call impure function`
+- Location: the call location passed to effect inference
+- Description: the canonical function name, when available, followed by the explanation that an impure function can produce unstable results across re-renders
 
-3. **Control flow sensitivity**: The pass also considers control-flow dominators to detect impure values that flow through conditional branches
+This is signature-driven call validation. The source branch does not wait for the call result to be returned, placed in JSX, or otherwise consumed before creating the diagnostic.
 
-### Phase 2: Validate Render Effects
+## Fixture-verified behavior
 
-After impurity inference converges, the pass validates all `Render` effects:
-
-```typescript
-function validateRenderEffect(effect: RenderEffect): void {
-  const impureEffect = impure.get(effect.place.identifier.id);
-  if (impureEffect != null) {
-    // Emit error
-  }
-}
-```
-
-### Special Cases
-
-- Values stored in refs (`isUseRefType`) are allowed to be impure since refs are not rendered
-- JSX elements are excluded from impurity propagation (`isJsxType`)
-
-## Edge Cases
-
-### Impure Values Through Helper Functions
-
-If a helper function returns an impure value and is called during render, both the call site and the original impure source are reported:
+`error.invalid-impure-functions-in-render.js` enables the option and calls:
 
 ```javascript
-function Component() {
-  const now = () => Date.now(); // Source of impurity
-  const render = () => {
-    return <div>{now()}</div>; // Error: impure value in render
-  };
-  return <div>{render()}</div>; // Error: impure value in render
-}
+const date = Date.now();
+const now = performance.now();
+const rand = Math.random();
 ```
 
-### Indirect Impurity Through Mutation
+Its expected output locks in:
 
-When an impure value is captured into another value through mutation, the destination becomes impure:
+- three errors, one for each call;
+- the reason `Cannot call impure function during render`;
+- canonical names for `Date.now`, `performance.now`, and `Math.random`;
+- one highlighted source location per error, at the corresponding call.
 
-```javascript
-function Component() {
-  const obj = {};
-  obj.time = Date.now(); // obj becomes impure
-  return <Foo obj={obj} />; // Error
-}
-```
+The JSX return in this fixture is not reported as a second location.
 
-### Phi Node Propagation
+## Unwired alternative implementation
 
-Impurity propagates through control flow merges:
+`src/Validation/ValidateNoImpureFunctionsInRender.ts` contains a standalone validator that scans HIR `MethodCall` and `CallExpression` instructions, resolves their signatures, and emits the same `ErrorCategory.Purity` diagnostic for `signature.impure === true`.
 
-```javascript
-function Component({ cond }) {
-  let x;
-  if (cond) {
-    x = Date.now(); // Impure path
-  } else {
-    x = 0; // Pure path
-  }
-  return <Foo x={x} />; // Error: x may be impure
-}
-```
+At the verified commit, `Pipeline.ts` neither imports nor calls this validator. It is therefore an unwired alternative implementation, not the active validation path described above.
 
-## TODOs
+## Verification boundaries
 
-From the source file:
+### Source-verified
 
-```typescript
-/**
- * TODO: consider propagating impurity for assignments/mutations that
- * are controlled by an impure value.
- *
- * Example: This should error since we know the semantics of array.push,
- * it's a definite Mutate and definite Capture, not maybemutate+maybecapture:
- *
- * let x = [];
- * if (Date.now() < START_DATE) {
- *   x.push(1);
- * }
- * return <Foo x={x} />
- */
-```
+- The active check is inside `InferMutationAliasingEffects.ts` and is reached through `Pipeline.ts`.
+- It is gated by `validateNoImpureFunctionsInRender` and `signature.impure`.
+- It creates a single call-location `Purity` diagnostic.
+- The standalone validator exists but is not wired into `Pipeline.ts`.
 
-## Example
+### Fixture-verified
 
-### Fixture: `error.invalid-impure-functions-in-render.js`
+- Direct calls to `Date.now`, `performance.now`, and `Math.random` produce the three expected call-site errors.
 
-**Input:**
+### Not locked by this fixture
 
-```javascript
-// @validateNoImpureFunctionsInRender
-
-function Component() {
-  const date = Date.now();
-  const now = performance.now();
-  const rand = Math.random();
-  return <Foo date={date} now={now} rand={rand} />;
-}
-```
-
-**Error:**
-
-```
-Found 3 errors:
-
-Error: Cannot access impure value during render
-
-Calling an impure function can produce unstable results that update unpredictably
-when the component happens to re-render.
-(https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
-
-error.invalid-impure-functions-in-render.ts:7:20
-  5 |   const now = performance.now();
-  6 |   const rand = Math.random();
-> 7 |   return <Foo date={date} now={now} rand={rand} />;
-    |                     ^^^^ Cannot access impure value during render
-  8 | }
-
-error.invalid-impure-functions-in-render.ts:4:15
-  2 |
-  3 | function Component() {
-> 4 |   const date = Date.now();
-    |                ^^^^^^^^^^ `Date.now` is an impure function.
-  5 |   const now = performance.now();
-
-Error: Cannot access impure value during render
-...
-```
-
-Key observations:
-
-- Each impure function call (`Date.now`, `performance.now`, `Math.random`) produces a separate error
-- The error shows both the usage location (in JSX) and the source location (the impure call)
-- The pass is enabled via the `@validateNoImpureFunctionsInRender` pragma
+- Aliases and local shadowing
+- Constructors such as `new Date()`
+- Nested helpers or callbacks
+- User-provided impure signatures
+- The complete set of impure built-ins
