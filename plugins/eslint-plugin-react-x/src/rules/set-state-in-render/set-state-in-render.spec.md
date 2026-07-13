@@ -49,9 +49,9 @@ Each time the memo callback is evaluated it will change state. This can cause a 
 3. Traverse all blocks and instructions:
    - **LoadLocal/StoreLocal**: Propagate setState tracking through variable assignments and loads
    - **FunctionExpression/ObjectMethod**: Recursively check if the function unconditionally calls setState. If so, add the function's lvalue to the tracking set
-   - **StartMemoize/FinishMemoize**: Track when inside a manual memoization block (useMemo/useCallback)
+   - **StartMemoize/FinishMemoize**: Track an executing manual-memoization region. A `useMemo` callback executes in this region; defining a `useCallback` callback alone does not execute it
    - **CallExpression**: Check if the callee is a setState function or tracked setter:
-     - If inside a memoize block, emit a useMemo-specific error
+     - If inside an executing memoize region, emit a useMemo-specific error
      - If in an unconditional block, emit a render-time setState error
 
 ### Key Helper: `computeUnconditionalBlocks`

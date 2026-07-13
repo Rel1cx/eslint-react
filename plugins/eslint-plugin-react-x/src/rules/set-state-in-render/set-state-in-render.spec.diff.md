@@ -1,85 +1,88 @@
 # set-state-in-render IMPL–SPEC Diff Report
 
-**IMPL**: `set-state-in-render.ts` + `lib.ts` (ESLint rule)\
-**SPEC**: `set-state-in-render.spec.md` (React Compiler `ValidateNoSetStateInRender`)
+## Verification metadata
 
----
+- **IMPL**: `set-state-in-render.ts` + `lib.ts` (ESLint rule)
+- **SPEC**: `set-state-in-render.spec.md` (React Compiler `ValidateNoSetStateInRender`)
+- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
+- **Last verified**: `2026-07-14`
+- **React package**: `compiler/packages/babel-plugin-react-compiler`
+- **Implementation sources/tests**:
+  - `set-state-in-render.ts`
+  - `lib.ts`
+  - `set-state-in-render.spec.ts`
+- **React sources/fixtures**:
+  - `src/Validation/ValidateNoSetStateInRender.ts`
+  - `src/Inference/DropManualMemoization.ts`
+  - `src/TypeInference/InferTypes.ts`
+  - `src/__tests__/fixtures/compiler/error.invalid-setState-in-useMemo.js`
+  - `src/__tests__/fixtures/compiler/error.invalid-conditional-setState-in-useMemo.js`
+  - `src/__tests__/fixtures/compiler/error.invalid-setState-in-useMemo-indirect-useCallback.js`
+  - `src/__tests__/fixtures/compiler/use-callback-simple.js`
+  - `src/__tests__/fixtures/compiler/error.invalid-unconditional-set-state-hook-return-in-render.js`
+  - `src/__tests__/fixtures/compiler/error.invalid-unconditional-set-state-prop-in-render.js`
+  - `src/__tests__/fixtures/compiler/error.unconditional-set-state-lambda.js`
+  - `src/__tests__/fixtures/compiler/error.unconditional-set-state-nested-function-expressions.js`
+  - `src/__tests__/fixtures/compiler/error.invalid-setstate-unconditional-with-keyed-state.js`
 
-## 1. Underlying Mechanism
+**IMPL** below means the ESLint AST rule. **SPEC** means the React Compiler's `ValidateNoSetStateInRender` pass at the verified React commit.
 
-The SPEC operates on the React Compiler's HIR using post-dominator tree analysis (`computeUnconditionalBlocks`) to determine which blocks always execute during render. It tracks `setState` calls through `LoadLocal`/`StoreLocal` instruction propagation and transitive function-call analysis.
+## 1. Underlying mechanism
 
-The IMPL operates on the ESLint AST. It detects `setState` calls by tracing variable definitions via `resolve` and checking if the callee identifier originates from a `useState`-like call. It uses parent-node traversal (`isInsideConditional`, `isInsideEventHandler`) and an early-return flag to decide whether a `setState` call is allowed.
+The SPEC operates on HIR. It uses `computeUnconditionalBlocks` to identify blocks that execute on every normal path, propagates setter/function identities through local loads and stores, and recursively summarizes nested functions that unconditionally reach a setter.
 
-**Verdict**: The SPEC uses compiler-level control-flow analysis (post-dominator tree). The IMPL uses syntactic parent-node checks.
+The IMPL operates on the ESLint AST. It resolves direct `useState`-like definitions, then uses ancestor checks (`isInsideConditional`, `isInsideEventHandler`) plus a component-wide early-return flag.
 
----
+**Result**: the SPEC models control flow and synchronous call chains; the IMPL is a deliberately syntactic approximation.
 
-## 2. setState Source Detection
+## 2. Setter source detection
 
-| Source Category                                                     | SPEC                         | IMPL                                                                               |
-| ------------------------------------------------------------------- | ---------------------------- | ---------------------------------------------------------------------------------- |
-| Direct `const [_, setX] = useState()`                               | Detected                     | Detected                                                                           |
-| Array-index access `data[1]()`                                      | Detected                     | Detected via `getStaticValue`                                                      |
-| Method call `data.at(1)()`                                          | Detected                     | Detected via `getStaticValue`                                                      |
-| Aliased variable `const aliased = setX; aliased()`                  | Detected via HIR propagation | **Not detected** — `resolve` does not follow aliases through variable reassignment |
-| Prop named `setXxx` with `@enableTreatSetIdentifiersAsStateSetters` | Detected                     | **Not detected** — no equivalent feature flag                                      |
-| Custom hook return `useCustomState()` → `setState`                  | Detected via HIR flow        | Only detected if hook is in `additionalStateHooks` setting                         |
+| Source                                                    | SPEC                                                             | IMPL                                                       |
+| --------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------- |
+| `const [, setX] = useState()`                             | Detected from HIR type information                               | Detected by resolving the direct hook call                 |
+| Direct tuple access, such as `data[1]()` / `data.at(1)()` | Detected when HIR preserves the setter type                      | Explicitly detected for static index `1`                   |
+| `const alias = setX; alias()`                             | Setter identity is preserved/propagated                          | Not followed through ordinary variable aliases             |
+| Identifier whose name starts with `set`                   | Detected only with `enableTreatSetIdentifiersAsStateSetters`     | No equivalent name-based flag                              |
+| Setter returned by a custom hook                          | Not established by the cited fixture without its name-based flag | Detected only when the hook matches `additionalStateHooks` |
 
-**Verdict**: The SPEC has more comprehensive setState source detection through HIR variable propagation and optional feature flags. The IMPL relies on direct variable-definition tracing and explicit settings.
+The fixture `error.invalid-unconditional-set-state-hook-return-in-render.js` is **not** evidence that HIR automatically sees through an arbitrary custom-hook tuple: it explicitly enables `@enableTreatSetIdentifiersAsStateSetters`, and `InferTypes` classifies called identifiers beginning with `set` as state setters under that flag. The generic `CallExpression` inference branch does not inspect a custom hook body by itself, but this report does not claim a universal no-inference result without a no-flag fixture. The prop fixture uses the same flag. The IMPL's `additionalStateHooks` is a different, hook-source-based opt-in.
 
----
+## 3. Conditional and unconditional execution
 
-## 3. Conditional and Unconditional Execution
+The SPEC reports ordinary render-time calls only when their HIR block is in the post-dominator-derived unconditional set. This allows conditional calls while handling loops and nested control flow at CFG level.
 
-The SPEC uses `computeUnconditionalBlocks` (post-dominator tree) to determine exactly which code blocks always execute. A `setState` call is only flagged if it resides in an unconditional block.
+The IMPL allows a setter call when any ancestor before the component is an `if`, conditional expression, logical expression, or switch; it also allows calls after its component-wide early-return flag is set. These checks are cheaper but less precise than path analysis.
 
-The IMPL checks if the `setState` CallExpression is syntactically inside:
+A separate rule applies inside an executing `useMemo` region: the SPEC emits its memo-specific diagnostic even when the setter call is conditional, as shown by `error.invalid-conditional-setState-in-useMemo.js`.
 
-- `IfStatement`, `ConditionalExpression`, `LogicalExpression`, `SwitchStatement`, `SwitchCase` → allowed
-- Any nested function (event handler, callback) → allowed
-- After an early return (guarded by prior return) → allowed
+## 4. Nested functions and transitive synchronous calls
 
-**Verdict**: The SPEC's post-dominator analysis is more precise. The IMPL's parent-node checks are a pragmatic approximation but can miss cases where a nested function is synchronously invoked during render.
+For both `FunctionExpression` and `ObjectMethod`, the SPEC recursively checks whether the nested HIR function unconditionally calls a setter (or an already summarized function). It records that function's lvalue and can propagate the summary through further calls. Consequently, `foo → setX`, `bar → foo`, `baz → bar`, followed by an unconditional `baz()` during render is reported at the synchronously executed outer call site.
 
----
+Merely defining such a function is not an error. A nested function whose setter path is conditional is not summarized as an unconditional setter function. The pass also documents a false negative when a setter is hidden in another data structure and later extracted.
 
-## 4. Nested Function Invocation During Render
+The IMPL treats every nested function as an event-handler-like boundary and returns before reporting its setter body. It does not summarize the function, so a later synchronous `foo()`/`baz()` call is also missed. It likewise has no recursive `ObjectMethod` summary; on the SPEC side, propagation still depends on the method identity remaining visible rather than being lost through an unsupported object/data-structure flow.
 
-The SPEC tracks transitive calls: if a function defined during render is unconditionally invoked and that function calls `setState`, it is flagged.
+## 5. useMemo and useCallback execution semantics
 
-The IMPL uses `isInsideEventHandler`, which returns `true` if the `setState` call is inside **any** nested function, regardless of whether that function is actually invoked during render or passed out as a callback. This creates both false negatives (invoked lambdas are missed) and relies on the fact that most nested functions are true event handlers.
+`StartMemoize`/`FinishMemoize` delimit manual-memoization lowering, but the two APIs are lowered differently:
 
-**Verdict**: The SPEC precisely models transitive invocation through HIR block analysis. The IMPL conservatively allows all `setState` inside nested functions, accepting false negatives for invoked lambdas.
+- **`useMemo`**: `DropManualMemoization` replaces the hook call with a call to the memo function. A setter reached while that function is evaluated—including a transitive call and a conditional setter—is within the active memo region and receives the dedicated `Calling setState from useMemo may trigger an infinite loop` diagnostic.
+- **Standalone `useCallback`**: lowering aliases/loads the callback; it does not invoke the callback during render. Defining `useCallback(() => setCount(...))` is therefore valid, as demonstrated by `use-callback-simple.js`.
+- **Later synchronous invocation**: if that callback is subsequently called during render, the SPEC's transitive function analysis reports the call. If it is called from an executing `useMemo`, the call site receives the memo-specific diagnostic, as in `error.invalid-setState-in-useMemo-indirect-useCallback.js`.
 
----
+The IMPL skips setter calls inside both callback bodies because they are nested functions. It therefore correctly leaves a standalone `useCallback` definition alone, but misses executing `useMemo` setters and later synchronous calls through either callback. There is no valid gap described as “setState inside every `useCallback` callback must be reported.”
 
-## 5. setState inside useMemo / useCallback
+## 6. Diagnostics and feature-dependent guidance
 
-The SPEC explicitly detects and reports `setState` calls inside `useMemo` and `useCallback` callbacks with a dedicated error message ("Calling setState from useMemo may trigger an infinite loop").
+| Aspect                    | SPEC                                                                             | IMPL                                             |
+| ------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Ordinary render error     | `Cannot call setState during render`                                             | One generic unconditional-render message         |
+| Executing `useMemo` error | Dedicated message and `Found setState() within useMemo()` detail                 | No memo-specific path                            |
+| Transitive call location  | Reports the synchronously invoked callee that is summarized as reaching setState | No transitive report                             |
+| `enableUseKeyedState`     | Replaces reset-state guidance with `useKeyedState(initialState, key)` guidance   | No equivalent feature flag or alternate guidance |
 
-The IMPL does **not** check `useMemo` or `useCallback` callbacks at all. Its `componentFnRef` only tracks the outer component/hook function, and `isInsideEventHandler` treats the memo callback as a nested function (thus allowing `setState`).
+## 7. Consolidated implementation gaps
 
-**Verdict**: The SPEC has a dedicated useMemo/useCallback check. The IMPL completely misses setState inside memoization callbacks.
-
----
-
-## 6. Error Reporting
-
-| Aspect                   | SPEC                                 | IMPL                                                                         |
-| ------------------------ | ------------------------------------ | ---------------------------------------------------------------------------- |
-| Primary message          | "Cannot call setState during render" | "Do not call the 'set' function '{{name}}' unconditionally during render..." |
-| useMemo-specific message | Yes (separate message)               | No                                                                           |
-| Reported location        | CallExpression site                  | CallExpression site                                                          |
-
-**Verdict**: Message intent is aligned, but the SPEC provides a separate, more detailed message for useMemo violations.
-
----
-
-## 7. Key Gaps and Deviations
-
-1. **Missing Alias Propagation**: The IMPL does not track `setState` through variable aliases (e.g., `const aliased = setX; aliased()`). The SPEC propagates this through HIR `StoreLocal`/`LoadLocal` instructions.
-2. **Missing `@enableTreatSetIdentifiersAsStateSetters` Equivalent**: The SPEC can treat any prop named `setXxx` as a state setter via a feature flag. The IMPL has no equivalent.
-3. **Invoked Lambda False Negatives**: The IMPL allows `setState` inside any nested function, even if that function is synchronously invoked during render (e.g., `const foo = () => setX(1); foo();`). The SPEC's post-dominator analysis catches these.
-4. **Missing useMemo/useCallback Check**: The IMPL does not detect `setState` inside `useMemo`/`useCallback` callbacks. The SPEC has a dedicated validation pass for this.
-5. **Custom Hook Return Resolution**: The IMPL only recognizes custom hooks explicitly listed in `additionalStateHooks`. The SPEC can follow the HIR to see that `useCustomState` returns a `useState` tuple.
+The material behavioral gaps are: no alias/function-summary propagation comparable to the SPEC's recursive `FunctionExpression`/`ObjectMethod` handling, no execution-aware `useMemo` validation, and AST-only control-flow approximation. Setter configuration is not a strict capability gap in one direction: the SPEC's optional `set*` identifier heuristic and the IMPL's `additionalStateHooks` recognize different sources, and neither proves arbitrary custom-hook return-flow inference.

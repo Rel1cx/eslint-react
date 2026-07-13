@@ -1,9 +1,21 @@
 # globals IMPL–SPEC Diff Report
 
-**IMPL**: `globals.ts` (ESLint rule)\
-**SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects`)
+## Verification metadata
 
-## 1. Underlying Mechanism
+- **IMPL**: `globals.ts` + `lib.ts` (ESLint rule)
+- **SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects`)
+- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
+- **Last verified**: `2026-07-14`
+- **React package**: `compiler/packages/babel-plugin-react-compiler`
+- **Implementation sources/tests**:
+  - `globals.ts`
+  - `lib.ts`
+  - `globals.spec.ts`
+- **React sources/fixtures**:
+  - `src/Inference/InferMutationAliasingEffects.ts`
+
+## 1. Underlying mechanism
 
 The SPEC runs abstract interpretation over SSA-form HIR. It computes instruction signatures, applies aliasing effects to an `InferenceState`, and iterates control flow to a fixed point. A write to a non-local binding is represented as `MutateGlobal` and reported under `ErrorCategory.Globals`.
 
@@ -15,7 +27,7 @@ The IMPL runs on the ESLint AST without type information or HIR. It mirrors the 
 
 This separation is important: a function may carry a global mutation effect without executing during render.
 
-## 2. Mutation Effects
+## 2. Mutation effects
 
 The IMPL creates effects for:
 
@@ -27,7 +39,7 @@ The IMPL creates effects for:
 
 Unresolved identifiers and bindings declared in global or module scope are treated as globals. Local binding reassignment is not considered a global mutation, even when the local was initialized from a global primitive.
 
-## 3. Alias Handling
+## 3. Alias handling
 
 The SPEC tracks `Assign`, `Alias`, `Capture`, and related effects through abstract values and control-flow joins.
 
@@ -47,7 +59,7 @@ let local = moduleCount;
 local++; // allowed
 ```
 
-## 4. Function Effect Propagation
+## 4. Function effect propagation
 
 Direct calls to local functions add call-graph edges. At `Program:exit`, global mutation effects are propagated from components and Hooks through those edges:
 
@@ -71,7 +83,7 @@ return <button onClick={() => mutate()} />;
 
 The IMPL currently resolves function declarations, function expressions, arrow functions, and simple identifier aliases. Calls through object properties, returned functions, or dynamic dispatch are not resolved.
 
-## 5. Mutating Array Methods
+## 5. Mutating array methods
 
 The SPEC derives receiver mutation from built-in function signatures. The IMPL uses an explicit method set because the AST alone cannot inspect function signatures:
 
@@ -81,13 +93,13 @@ copyWithin, fill, pop, push, reverse, shift, sort, splice, unshift;
 
 Computed static property names such as `items["push"]()` are supported. This remains less general than the SPEC and can neither recognize arbitrary user-defined mutators nor prove the receiver's runtime type.
 
-## 6. Render Boundaries
+## 6. Render boundaries
 
-Only functions recognized by the component and Hook collectors are analysis roots. Non-component functions are summarized but reported only when directly reachable from a render root.
+Only functions recognized by the component and Hook collectors are analysis roots. Non-component functions are summarized and reported when transitively reachable from a render root through recorded direct-call edges.
 
 A nested function that is only stored, returned, passed to a Hook, passed to an unknown function, or used as an event callback is not considered render-executed. A nested function called synchronously from a render root is considered render-executed.
 
-## 7. Error Reporting
+## 7. Error reporting
 
 The SPEC uses one globals diagnostic category. The IMPL keeps three surface-specific messages:
 
@@ -99,7 +111,7 @@ The SPEC uses one globals diagnostic category. The IMPL keeps three surface-spec
 
 Diagnostics are reported at the original mutation site, including when the effect reaches render through helper calls.
 
-## 8. Remaining Gaps
+## 8. Remaining gaps
 
 - No SSA, control-flow fixed point, or phi-node handling.
 - No `ValueKind` lattice or frozen/context value validation.

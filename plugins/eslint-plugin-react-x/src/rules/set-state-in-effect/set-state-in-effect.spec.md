@@ -41,14 +41,15 @@ Provides more detailed guidance about specific anti-patterns like non-local deri
 1. **Main function traversal**: Build a map `setStateFunctions` tracking which identifiers are setState functions
 2. For each instruction:
    - **LoadLocal/StoreLocal**: Propagate setState tracking through variable assignments
-   - **FunctionExpression**: Check if the function synchronously calls setState by recursively calling `getSetStateCall()`. If so, track the function as a setState-calling function
+   - **FunctionExpression**: If the function captures a known setter or previously summarized setter-calling function, call `getSetStateCall()` once to scan that lowered function. If a synchronous call is found, track the function as setter-calling
    - **useEffectEvent call**: If the argument is a function that calls setState, track the return value as a setState function
    - **useEffect/useLayoutEffect/useInsertionEffect call**: Check if the callback argument is tracked as calling setState. If so, emit an error
 
-3. **`getSetStateCall()` helper**: Recursively analyzes a function to find synchronous setState calls:
+3. **`getSetStateCall()` helper**: Scans one lowered function for synchronous setState calls:
    - Tracks ref-derived values when `enableAllowSetStateFromRefsInEffects` is enabled
    - Propagates setState tracking through local variables
-   - Returns the Place of the setState call if found, null otherwise
+   - Uses summaries already accumulated by the outer traversal; it does not recursively analyze another lowered function
+   - Returns the Place of the detected direct or summarized callee, or null if none is found
 
 ### Ref-derived setState exception
 
