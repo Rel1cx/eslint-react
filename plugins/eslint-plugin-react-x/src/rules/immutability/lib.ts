@@ -29,7 +29,14 @@ export const MUTATING_METHODS = new Set([
   "unshift",
 ]);
 
-export const isUseRouterCall = core.isAPICall("useRouter");
+/**
+ * Known navigation hooks.
+ */
+export const NAVIGATION_HOOKS = new Set([
+  "useNavigate",
+  "useNavigation",
+  "useRouter",
+]);
 
 export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
@@ -80,13 +87,11 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
   return isInitializedFromCall(context, node, (init) => core.isUseRefCall(context, init));
 }
 
-export function isInitializedFromUseRouter(context: RuleContext, node: TSESTree.Expression) {
-  return isInitializedFromCall(context, node, (init) => isUseRouterCall(context, init));
-}
-
 export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
-  return Check.isExpression(callee) && isInitializedFromUseRouter(context, callee);
+  return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
+    return NAVIGATION_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
+  });
 }
 
 export function isRefLikeChain(context: RuleContext, node: TSESTree.Expression) {

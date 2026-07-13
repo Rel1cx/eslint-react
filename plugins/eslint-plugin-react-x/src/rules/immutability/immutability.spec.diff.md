@@ -44,23 +44,23 @@ The mutable-function map stores one representative mutation per function. In the
 
 ## 3. Mutation Recognition
 
-| Mutation form                                             | IMPL behavior                                            |
-| --------------------------------------------------------- | -------------------------------------------------------- |
-| Captured identifier assignment (`x = value`, `x += 1`)    | Detected                                                 |
-| Captured identifier update (`x++`, `--x`)                 | Detected                                                 |
-| Member assignment/update (`x.foo = value`, `x[0]++`)      | Detected from the root identifier                        |
-| Member deletion (`delete x.foo`)                          | Detected from the root identifier                        |
-| Receiver method (`push`, `set`, `add`, etc.)              | Detected when the property name is in `MUTATING_METHODS` |
-| Computed string property (`cache["set"](...)`)            | Detected                                                 |
-| Optional-chain receiver (`cache?.set(...)`)               | Detected                                                 |
-| Conditional syntactic mutation (`if (cond) x++`)          | Treated as definite                                      |
-| Ordinary function call (`mutate(x)`, `fn()`)              | Not treated as a mutation                                |
-| Receiver without a root identifier (`getItems().push(1)`) | Ignored                                                  |
-| Unresolvable/implicit-global root                         | Ignored                                                  |
+| Mutation form                                             | IMPL behavior                                                                           |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Captured identifier assignment (`x = value`, `x += 1`)    | Detected                                                                                |
+| Captured identifier update (`x++`, `--x`)                 | Detected                                                                                |
+| Member assignment/update (`x.foo = value`, `x[0]++`)      | Detected from the root identifier                                                       |
+| Member deletion (`delete x.foo`)                          | Detected from the root identifier                                                       |
+| Receiver method (`push`, `set`, `add`, etc.)              | Detected when in `MUTATING_METHODS`, unless initialized by a recognized navigation hook |
+| Computed string property (`cache["set"](...)`)            | Detected                                                                                |
+| Optional-chain receiver (`cache?.set(...)`)               | Detected                                                                                |
+| Conditional syntactic mutation (`if (cond) x++`)          | Treated as definite                                                                     |
+| Ordinary function call (`mutate(x)`, `fn()`)              | Not treated as a mutation                                                               |
+| Receiver without a root identifier (`getItems().push(1)`) | Ignored                                                                                 |
+| Unresolvable/implicit-global root                         | Ignored                                                                                 |
 
 Important precision differences:
 
-- **No type-driven method effects**: matching method names are treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. A narrow provenance-based exception excludes `push()` on values initialized by `useRouter()` (including variable-declarator aliases), because it navigates rather than mutating the captured router value. Mutators absent from `MUTATING_METHODS` are missed.
+- **No type-driven method effects**: matching method names are treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. A name- and initializer-provenance-based exception treats allow-listed mutating-method calls as non-mutating when the receiver originates from `useNavigate()`, `useNavigation()`, or `useRouter()`; variable-declarator aliases are followed. Hook recognition is textual rather than import-aware, so same-named custom hooks can cause false negatives. Mutators absent from `MUTATING_METHODS` are missed.
 - **Initializer-only mutation-target alias propagation**: identifier aliases declared with an initializer are traced to their origin, including aliases created inside the callback. Assignment aliases (`let alias; alias = cache`), destructuring, member storage, and subsequent writes to an initialized alias are not modeled.
 - **No call-effect propagation**: a wrapper such as `() => fn()` is not marked mutable merely because `fn` is known-mutable. The SPEC can represent this through inferred transitive effects.
 - **Conditional over-approximation**: the IMPL has no equivalent of conditional aliasing effects, so any recognized mutation syntax is considered definite even when control-flow conditional.
@@ -150,6 +150,7 @@ This preserves both locations but changes problem counts and grouping. If the sa
 - recursive function initializer aliases and nested lexical closures;
 - conditional mutations, module-scope exclusion, initializer mutation aliases, and first-mutation selection;
 - ref naming and aliased `useRef()` initializer behavior;
+- navigation-method exemptions for values initialized by `useNavigate()`, `useNavigation()`, and `useRouter()`, including variable-declarator alias coverage for router values;
 - unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes.
 
 These tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.

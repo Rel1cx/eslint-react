@@ -1156,5 +1156,18 @@ ruleTester.run(RULE_NAME, rule, {
         }} />
       }
     `,
+    // Navigation methods do not mutate the values returned by navigation hooks.
+    tsx`
+      function Component() {
+        const navigate = useNavigate()
+        return <button onClick={() => navigate.push('/dashboard')} />
+      }
+    `,
+    tsx`
+      function Component() {
+        const navigation = useNavigation()
+        return <button onClick={() => navigation.push('/dashboard')} />
+      }
+    `,
   ],
 });
