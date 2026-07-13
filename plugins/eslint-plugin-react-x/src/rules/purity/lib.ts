@@ -1,4 +1,8 @@
-// #region Impurity Detection
+import { Extract } from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/eslint";
+import { DefinitionType } from "@typescript-eslint/scope-manager";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Known impure functions
@@ -553,4 +557,45 @@ export const PURE_CTORS: ReadonlySet<string> = new Set([
   "WeakSet",
 ]);
 
-// #endregion
+/**
+ * Recursively resolve an identifier to the root builtin global object name.
+ * Follows simple assignment chains like `const M = Math` or `const w = window`.
+ * Returns `null` if the identifier is locally defined (parameter, import, function declaration, etc.)
+ * or resolves to a non-builtin source.
+ * @param context - The rule context.
+ * @param node - The identifier node to resolve.
+ * @param seen - A set of already visited identifier names to prevent infinite loops.
+ */
+export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Identifier, seen = new Set<string>()): string | null {
+  if (seen.has(node.name)) return null;
+  seen.add(node.name);
+
+  const scope = context.sourceCode.getScope(node);
+  const variable = findVariable(scope, node);
+
+  // No variable found -> treat as global
+  if (variable == null) return node.name;
+
+  const def = variable.defs[0];
+  if (def == null) return node.name; // implicit global
+
+  if (def.type === DefinitionType.ImplicitGlobalVariable) {
+    return node.name;
+  }
+
+  if (def.type === DefinitionType.Variable && def.node.init != null) {
+    const init = Extract.unwrap(def.node.init);
+    if (init.type === AST.Identifier) {
+      return resolveBuiltinObjectName(context, init, seen);
+    }
+    if (init.type === AST.MemberExpression) {
+      const rootId = Extract.getRootIdentifier(init);
+      if (rootId != null) {
+        return resolveBuiltinObjectName(context, rootId, seen);
+      }
+    }
+  }
+
+  // Other definitions (Parameter, FunctionName, ImportBinding, etc.) are not builtins
+  return null;
+}
