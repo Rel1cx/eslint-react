@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.14.8 (2026-07-14)
+
+### 📝 Documentation
+
+- `react-x`: refreshed the React Compiler diff reports. (#1903)
+
+### 🏗️ Internal
+
+- `react-x`: moved the purity and refs resolvers into `lib.ts`. (#1902)
+- Bumped `tsdown`, `postcss`, and `fumadocs`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.7...v5.14.8
+
 ## v5.14.7 (2026-07-13)
 
 ### 🐞 Fixes
