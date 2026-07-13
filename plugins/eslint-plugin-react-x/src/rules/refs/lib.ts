@@ -385,8 +385,7 @@ export function isAfterTerminatingNonNullGuard(node: TSESTree.MemberExpression, 
     statement = statement.parent;
   }
   const block = statement.parent;
-  // tsl-ignore dx/no-unsafe-as
-  const index = block.body.indexOf(statement as TSESTree.Statement);
+  const index = block.body.findIndex((sibling) => sibling === statement);
   for (let i = index - 1; i >= 0; i--) {
     const sibling = block.body[i];
     if (sibling?.type !== AST.IfStatement) continue;

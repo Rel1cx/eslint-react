@@ -33,7 +33,7 @@ overrides:
   minimatch: ^10.2.5
   next: ^16.2.10
   path-to-regexp: ^8.4.2
-  postcss: ^8.5.16
+  postcss: ^8.5.17
   react-dom: ^19.2.7
   react: ^19.2.7
   semver: ^7.8.5
@@ -168,7 +168,7 @@ importers:
         specifier: ^5.9.0
         version: 5.9.0
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
@@ -232,7 +232,7 @@ importers:
         specifier: ^0.2.17
         version: 0.2.17
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
@@ -262,7 +262,7 @@ importers:
         specifier: workspace:*
         version: link:../configs
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
 
   .pkgs/samples:
@@ -305,7 +305,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -413,7 +413,7 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3(eslint@10.7.0(jiti@2.7.0))
       fumadocs-core:
-        specifier: ^16.11.2
+        specifier: ^16.11.3
         version: 16.11.3(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.24.0(react@19.2.7))(next@16.2.10(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3)
       fumadocs-docgen:
         specifier: ^3.1.0
@@ -428,7 +428,7 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(475133a6a14ad774ef70e482a299138d)
       fumadocs-ui:
-        specifier: ^16.11.2
+        specifier: ^16.11.3
         version: 16.11.3(@types/mdx@2.0.14)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(fumadocs-core@16.11.3(@mdx-js/mdx@3.1.1)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.2.17)(lucide-react@1.24.0(react@19.2.7))(next@16.2.10(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(zod@4.4.3))(next@16.2.10(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(tailwindcss@4.3.2)(takumi-js@1.8.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
       import-integrity-lint:
         specifier: ^1.1.3
@@ -446,7 +446,7 @@ importers:
         specifier: ^0.3.5
         version: 0.3.5(next@16.2.10(@babel/core@7.29.7)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       postcss:
-        specifier: ^8.5.16
+        specifier: ^8.5.17
         version: 8.5.17
       react:
         specifier: ^19.2.7
@@ -810,7 +810,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -865,7 +865,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -893,7 +893,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -933,7 +933,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -970,7 +970,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1010,7 +1010,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1053,7 +1053,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1102,7 +1102,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1160,7 +1160,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1209,7 +1209,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1258,7 +1258,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1307,7 +1307,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1356,7 +1356,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1411,7 +1411,7 @@ importers:
         specifier: ^10.7.0
         version: 10.7.0(jiti@2.7.0)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
@@ -1490,7 +1490,7 @@ importers:
         specifier: ^19.2.7
         version: 19.2.7(react@19.2.7)
       tsdown:
-        specifier: ^0.22.4
+        specifier: ^0.22.5
         version: 0.22.5(publint@0.3.21)(tsx@4.23.0)(typescript@6.0.3)
       tsl:
         specifier: ^1.0.30
