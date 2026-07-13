@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.14.7 (2026-07-13)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: ignore navigation hook methods (e.g. `useNavigate`, `useNavigation`) as mutations. (#1901)
+
+### 🏗️ Internal
+
+- Refreshed `pnpm` lockfile.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.6...v5.14.7
+
 ## v5.14.6 (2026-07-13)
 
 ### 🐞 Fixes

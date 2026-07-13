@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.7] - 2026-07-13
+
 ### Fixed
 
 - Extended the navigation-hook mutation exemption to values initialized by `useNavigate()` and `useNavigation()`, preventing navigation methods such as `.push()` from being treated as in-place mutations inside frozen callbacks.
