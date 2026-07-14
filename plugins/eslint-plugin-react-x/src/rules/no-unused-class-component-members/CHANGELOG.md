@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with direct non-computed identifier checks when resolving class member names.
+- Computed string-literal member definitions and usages (e.g. `this["foo"]()`) are no longer tracked, since the runtime property name cannot be statically determined.
+
 ## [5.6.4] - 2026-05-01
 
 ### Added

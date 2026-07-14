@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with direct non-computed identifier checks when resolving `state` property access and destructuring.
+- Accesses like `this["state"]` or destructuring from `{ "state": value }` are no longer treated as `state` access, since the runtime property name cannot be statically determined.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

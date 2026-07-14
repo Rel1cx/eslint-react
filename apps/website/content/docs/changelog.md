@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v5.14.9 (2026-07-15)
+
+### 🐞 Fixes
+
+- `@eslint-react/ast`: removed `Extract.getPropertyName` and added `Extract.getCalleeName` for simpler callee name resolution. (#1905)
+- Rules that match calls by method name no longer treat computed string-literal property access as a static match (e.g. `obj["foo"]()` is no longer resolved to `"foo"`). This avoids relying on the runtime value of computed keys and aligns callee matching across the codebase. Affected rules:
+  - `react-dom/no-dangerously-set-innerhtml`
+  - `react-dom/no-find-dom-node`
+  - `react-dom/no-flush-sync`
+  - `react-web-api/no-leaked-event-listener`
+  - `react-web-api/no-leaked-fetch`
+  - `react-x/globals`
+  - `react-x/immutability`
+- `core.isJsxLike`: no longer treats `React['createElement']` calls as JSX-like, since the callee is accessed through a computed member expression.
+
+### 🏗️ Internal
+
+- Simplified callee name checks across `core`, `react-dom`, `react-web-api`, and `react-x` rules using `Extract.getCalleeName`.
+- Bumped `@effect/platform`, `effect`, `fumadocs-core`, `fumadocs-mdx`, `fumadocs-ui`, `postcss`, `pnpm`, and `tsdown`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.8...v5.14.9
+
 ## v5.14.8 (2026-07-14)
 
 ### 📝 Documentation

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with `Extract.getCalleeName` when resolving mutating method names.
+- Mutating method calls made through computed string-literal member access (e.g. `obj["push"](1)`) are no longer treated as captured local mutations, since the runtime property name cannot be statically determined.
+
 ## [5.14.7] - 2026-07-13
 
 ### Fixed

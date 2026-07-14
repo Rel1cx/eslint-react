@@ -5,6 +5,12 @@ All notable changes to the `react-dom/no-dangerously-set-innerhtml` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- No longer reports `dangerouslySetInnerHTML` spread props whose key is a computed string literal (e.g. `<div {...{ ["dangerouslySetInnerHTML"]: { __html: html } }} />`), since the runtime property name cannot be statically determined.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

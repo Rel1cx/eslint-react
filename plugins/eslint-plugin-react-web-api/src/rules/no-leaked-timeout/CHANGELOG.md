@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with `Extract.getCalleeName` for callee name checks.
+- Calls made through computed string-literal member access (e.g. `obj["setTimeout"]()` / `obj["clearTimeout"]()`) are no longer matched, since the runtime property name cannot be statically determined.
+
 ## [5.7.0] - 2026-05-02
 
 ### Changed

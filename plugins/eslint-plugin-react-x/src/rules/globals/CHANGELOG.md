@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added detection for global writes in destructuring assignments and property deletion with `delete`.
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with `Extract.getCalleeName` when resolving mutating array method names.
+- Mutating method calls made through computed string-literal member access (e.g. `alias2["push"](1)`) are no longer treated as global mutations, since the runtime property name cannot be statically determined.
+
 ## [5.5.3-beta.1] - 2026-04-27
 
 ### Changed

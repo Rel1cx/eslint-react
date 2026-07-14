@@ -5,6 +5,13 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with direct non-computed identifier checks when matching listener options such as `signal`.
+- The `signal`/`capture` options in `addEventListener` are no longer recognized when specified via computed string-literal keys (e.g. `{ ["signal"]: controller.signal }`), since the runtime property name cannot be statically determined.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

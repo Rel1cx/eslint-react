@@ -5,6 +5,13 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced `Extract.getPropertyName` with direct non-computed identifier checks when matching the `signal` fetch option.
+- The `signal` option is no longer recognized when specified via a computed string-literal key (e.g. `{ ["signal"]: controller.signal }`), since the runtime property name cannot be statically determined.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

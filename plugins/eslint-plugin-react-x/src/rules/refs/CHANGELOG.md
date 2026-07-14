@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.9] - 2026-07-15
+
+### Changed
+
+- Replaced the local `getCalleeName` helper with `Extract.getCalleeName` from `@eslint-react/ast`.
+- Ref-like name checks and `.current` property checks now only apply to non-computed identifier properties.
+
 ## [5.14.0] - 2026-07-10
 
 ### Added
