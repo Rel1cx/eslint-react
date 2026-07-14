@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.14.10 (2026-07-15)
+
+### 🐞 Fixes
+
+- `@eslint-react/ast`: `Extract.getCalleeName` now returns `null` for computed member expressions (e.g. `obj[foo]()`, `obj["foo"]()`, `obj[`foo`]()`) instead of the property name, so callers don't treat dynamically chosen methods as static method names. (#1906)
+
+### 🏗️ Internal
+
+- Added unit tests for `Extract.getCalleeName`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.9...v5.14.10
+
 ## v5.14.9 (2026-07-15)
 
 ### 🐞 Fixes
