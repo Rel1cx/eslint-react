@@ -5,8 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export function findProperty(node: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
   for (const property of node) {
-    // In `{ [key]: value }` the property name is the runtime value of `key`, not the static name "key"
-    if (property.type === AST.Property && Extract.getPropertyName(property.key, (n) => property.computed ? null : n.name) === name) {
+    if (property.type === AST.Property && !property.computed && property.key.type === AST.Identifier && property.key.name === name) {
       return property;
     }
     if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {

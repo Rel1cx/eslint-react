@@ -658,6 +658,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedRemoveEventListenerInCleanup" }],
     },
+    // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+              const ac = new AbortController()
+              x.addEventListener("resize", () => {}, { ["signal"]: ac.signal })
+              return () => ac.abort()
+          }, [])
+        }
+      `,
+      errors: [
+        { messageId: "expectedRemoveEventListenerInCleanup" },
+        { messageId: "unexpectedInlineFunction" },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1012,16 +1028,6 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
             const ac = new AbortController()
             x.addEventListener("resize", () => {}, { signal: ac.signal })
-            return () => ac.abort()
-        }, [])
-      }
-    `,
-    // Computed string literal key is still a static "signal" option
-    tsx`
-      function Example() {
-        useEffect(() => {
-            const ac = new AbortController()
-            x.addEventListener("resize", () => {}, { ["signal"]: ac.signal })
             return () => ac.abort()
         }, [])
       }

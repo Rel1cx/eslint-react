@@ -141,7 +141,8 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
   return (
     callee.type === AST.MemberExpression
     && callee.object.type === AST.ThisExpression
-    && Extract.getPropertyName(callee.property) === "setState"
+    && callee.property.type === AST.Identifier
+    && callee.property.name === "setState"
   );
 }
 
@@ -154,7 +155,7 @@ export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   let current: TSESTree.Node = Extract.unwrap(left);
   while (current.type === AST.MemberExpression) {
     const { object, property } = current;
-    if (object.type === AST.ThisExpression && Extract.getPropertyName(property) === "state") {
+    if (object.type === AST.ThisExpression && property.type === AST.Identifier && property.name === "state") {
       return true;
     }
     current = Extract.unwrap(object);

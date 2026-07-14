@@ -143,17 +143,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
-          const result = globalThis["eval"](code);
-          return <div>{result}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "eval",
-      }],
-    },
-    {
-      code: tsx`
-        function Component({ code }) {
           const result = (globalThis as any).eval(code);
           return <div>{result}</div>;
         }
@@ -170,6 +159,15 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ propName, props }) {
           const value = props[propName];
           return <div>{value}</div>;
+        }
+      `,
+    },
+    // Computed property access is not statically resolved
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = globalThis["eval"](code);
+          return <div>{result}</div>;
         }
       `,
     },

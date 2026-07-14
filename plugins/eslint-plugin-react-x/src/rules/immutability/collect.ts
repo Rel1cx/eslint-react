@@ -55,9 +55,8 @@ export function createImmutabilityCollector() {
     },
     CallExpression(node: TSESTree.CallExpression) {
       const callee = Extract.unwrap(node.callee);
-      if (callee.type === AST.MemberExpression) {
-        const property = Extract.getPropertyName(callee.property);
-        if (property != null && MUTATING_METHODS.has(property)) {
+      if (callee.type === AST.MemberExpression && callee.property.type === AST.Identifier) {
+        if (MUTATING_METHODS.has(callee.property.name)) {
           const root = Extract.getRootIdentifier(callee.object);
           if (root != null) pushMutation("value", node, callee.object, root);
         }

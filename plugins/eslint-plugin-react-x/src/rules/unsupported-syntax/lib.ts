@@ -9,7 +9,7 @@ export function isEvalCall(node: TSESTree.CallExpression) {
     case AST.MemberExpression: {
       if (!Check.isIdentifier(Extract.unwrap(callee.object), "globalThis")) return false;
       // In `globalThis[eval]` the property is the runtime value of `eval`, not the static name "eval"
-      return Extract.getPropertyName(callee.property, (n) => callee.computed ? null : n.name) === "eval";
+      return !callee.computed && callee.property.type === AST.Identifier && callee.property.name === "eval";
     }
     default:
       return false;

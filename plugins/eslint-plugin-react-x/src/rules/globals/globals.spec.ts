@@ -428,18 +428,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const events = [];
-        function Component() {
-          const alias = events;
-          const alias2 = alias;
-          alias2["push"](1);
-          return <div>{events.length}</div>;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
-    },
-    {
-      code: tsx`
         const cache = {};
         function Component() {
           const alias = cache;
@@ -701,6 +689,18 @@ ruleTester.run(RULE_NAME, rule, {
           const cache = {};
           cache["key"] = "value";
           return <div>{cache["key"]}</div>;
+        }
+      `,
+    },
+    // Mutating method invoked via a computed property is not statically resolved
+    {
+      code: tsx`
+        const events = [];
+        function Component() {
+          const alias = events;
+          const alias2 = alias;
+          alias2["push"](1);
+          return <div>{events.length}</div>;
         }
       `,
     },

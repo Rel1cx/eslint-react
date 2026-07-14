@@ -318,12 +318,14 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       break;
     case parentCallee != null
       && parentCallee.type === AST.MemberExpression
-      && Extract.getPropertyName(parentCallee.property) === "map":
+      && parentCallee.property.type === AST.Identifier
+      && parentCallee.property.name === "map":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback) return false;
       break;
     case parentCallee != null
       && parentCallee.type === AST.MemberExpression
-      && Extract.getPropertyName(parentCallee.property) === "flatMap":
+      && parentCallee.property.type === AST.Identifier
+      && parentCallee.property.name === "flatMap":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
     case parent.type === AST.CallExpression

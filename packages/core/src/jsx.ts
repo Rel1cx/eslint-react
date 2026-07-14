@@ -98,7 +98,7 @@ export function isJsxLike(
           case AST.Identifier:
             return callee.name === "createElement";
           case AST.MemberExpression:
-            return Extract.getPropertyName(callee.property) === "createElement";
+            return callee.property.type === AST.Identifier && callee.property.name === "createElement";
           default:
             return false;
         }

@@ -59,11 +59,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
       errors: [{ messageId: "default" }],
     },
-    // Computed string literal key in spread props
-    {
-      code: tsx`<div {...{ ["dangerouslySetInnerHTML"]: { __html: "HTML" } }} />`,
-      errors: [{ messageId: "default" }],
-    },
   ],
   valid: [
     "<div {...props} />",
@@ -75,5 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
       declare const dangerouslySetInnerHTML: string;
       const div = <div {...{ [dangerouslySetInnerHTML]: { __html: "HTML" } }} />;
     `,
+    // Computed string literal keys in spread props are not statically resolved
+    tsx`<div {...{ ["dangerouslySetInnerHTML"]: { __html: "HTML" } }} />`,
   ],
 });

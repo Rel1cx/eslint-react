@@ -65,9 +65,8 @@ export function isRefLikeName(name: string) {
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
   if (node.type === AST.Identifier) return isRefLikeName(node.name);
   if (node.type !== AST.MemberExpression) return false;
-  const propertyName = Extract.getPropertyName(node.property);
-  return propertyName != null
-    ? isRefLikeName(propertyName) || hasRefLikeNameInChain(node.object)
+  return node.property.type === AST.Identifier
+    ? isRefLikeName(node.property.name) || hasRefLikeNameInChain(node.object)
     : hasRefLikeNameInChain(node.object);
 }
 

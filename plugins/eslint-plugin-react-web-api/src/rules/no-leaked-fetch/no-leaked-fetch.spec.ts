@@ -290,6 +290,21 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "expectedAbortController" }],
     },
+    // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { ["signal"]: ctrl.signal });
+            return () => ctrl.abort();
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedAbortController" }],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -300,18 +315,6 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const ctrl = new AbortController();
           fetch("/api/user", { signal: ctrl.signal });
-          return () => ctrl.abort();
-        }, []);
-      }
-    `,
-    // Computed string literal key is still a static "signal" option
-    tsx`
-      import { useEffect } from "react";
-
-      function Example() {
-        useEffect(() => {
-          const ctrl = new AbortController();
-          fetch("/api/user", { ["signal"]: ctrl.signal });
           return () => ctrl.abort();
         }, []);
       }
