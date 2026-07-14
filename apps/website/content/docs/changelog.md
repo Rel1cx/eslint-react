@@ -414,7 +414,7 @@ title: Changelog
 ### 📝 Documentation
 
 - Refined the rule feature system docs and renamed the term-based patterns document.
-- Renamed `import-paths.md` to `path-aliases.md`.
+- Renamed `import-paths.md` to `repo-path-aliases.md`.
 - Updated JSX type aliases and `unwrap` documentation.
 
 ### 🏗️ Internal
@@ -909,7 +909,7 @@ title: Changelog
 ### 📝 Documentation
 
 - Added `[NEEDS VERIFICATION]` markers to spec diffs for React Compiler aligned rules.
-- Added Issue Labels Design Doc and migration scripts.
+- Added Repo Issue Labels Doc and migration scripts.
 - Added a `Hint` component to the website and used it on the home page.
 
 ### 🏗️ Internal

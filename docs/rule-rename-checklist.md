@@ -9,6 +9,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 - [ ] Rename `src/rules/<old-name>/<old-name>.ts` → `src/rules/<new-name>/<new-name>.ts`
 - [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` → `src/rules/<new-name>/<new-name>.spec.ts`
 - [ ] Rename `src/rules/<old-name>/<old-name>.mdx` → `src/rules/<new-name>/<new-name>.mdx`
+- [ ] Rename `src/rules/<old-name>/CHANGELOG.md` → `src/rules/<new-name>/CHANGELOG.md`
 
 ### A2. Rule Implementation
 
@@ -57,7 +58,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] `pnpm tsc --noEmit`
 - [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts`
-- [ ] `grep -r "<old-name>" packages/` — no leftover references
+- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "<old-name>" plugins/ packages/` — no leftover references
 
 ---
 
@@ -81,6 +82,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
   - Copy tests from the source plugin.
   - Update the import: `import rule, { RULE_NAME } from "./<rule-name>/<rule-name>";`.
 - [ ] Create `src/rules/<rule-name>/<rule-name>.mdx` following the template below.
+- [ ] Create `src/rules/<rule-name>/CHANGELOG.md` (copy from the source plugin or start fresh).
 
 ### B3. Plugin Registration (`eslint-plugin-react-x/src/plugin.ts`)
 
@@ -99,7 +101,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] Remove the import and `rules` map entry from the source plugin's `src/plugin.ts`.
 - [ ] Remove the rule key from the source plugin's configs.
-- [ ] Keep or delete the original `.ts` / `.spec.ts` / `.mdx` files as appropriate.
+- [ ] Keep or delete the original `.ts` / `.spec.ts` / `.mdx` / `CHANGELOG.md` files as appropriate.
 
 ### B7. CHANGELOG
 
@@ -111,7 +113,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] `pnpm tsc --noEmit` in all affected packages.
 - [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts`
-- [ ] `grep -r "react-<source>/<rule-name>" packages/` — no stale references
+- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "react-<source>/<rule-name>" plugins/ packages/` — no stale references
 
 ---
 

@@ -1,4 +1,4 @@
-# Issue Labels Design
+# Repo Issue Labels
 
 Label taxonomy for `Rel1cx/eslint-react` issues and pull requests.
 

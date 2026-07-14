@@ -1,4 +1,4 @@
-# Path Aliases
+# Repo Path Aliases
 
 This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 

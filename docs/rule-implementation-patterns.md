@@ -162,4 +162,4 @@ Use `ruleTester` for basic tests and `ruleTesterWithTypes` for rules requiring t
 
 ## Path Aliases
 
-Both plugins use `@/` for intra-package imports and `#/` for workspace-root test utilities. See [`path-aliases.md`](./path-aliases.md) for details.
+Both plugins use `@/` for intra-package imports and `#/` for workspace-root test utilities. See [`repo-path-aliases.md`](./repo-path-aliases.md) for details.

@@ -25,7 +25,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 Used by: `no-access-state-in-setstate`, `no-class-component`, `no-component-will-*`, `no-create-ref`, `no-forward-ref`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-use-context`, `use-memo`, `context-name`, `id-name`, `ref-name`, `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`, `no-leaked-fetch` (first check), `no-leaked-event-listener` (first check).
 
-Rules that currently omit the text precheck but still use term-based visitors: `no-children-count`, `no-children-for-each`, `no-children-only`, `no-children-to-array`, `no-direct-mutation-state`.
+Rules that currently omit the text precheck but still use term-based visitors: `no-children-count`, `no-children-for-each`, `no-children-map`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-direct-mutation-state`.
 
 ### Multi-term check
 
