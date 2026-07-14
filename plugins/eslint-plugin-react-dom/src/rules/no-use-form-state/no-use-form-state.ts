@@ -59,8 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Case 2: Member call like `ReactDOM.useFormState(...)`
         case callee.type === AST.MemberExpression
           && callee.object.type === AST.Identifier
-          && callee.property.type === AST.Identifier
-          && callee.property.name === "useFormState"
+          && Extract.getCalleeName(node) === "useFormState"
           && reactDomNames.has(callee.object.name):
           context.report({
             fix: buildFix(context, node),

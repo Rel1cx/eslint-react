@@ -100,9 +100,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         recordCallEdge(node);
 
         const callee = Extract.unwrap(node.callee);
-        if (callee.type !== AST.MemberExpression || callee.property.type !== AST.Identifier) return;
-        const method = callee.property.name;
-        if (!MUTATING_ARRAY_METHODS.has(method)) return;
+        if (callee.type !== AST.MemberExpression) return;
+        const method = Extract.getCalleeName(node);
+        if (method == null || !MUTATING_ARRAY_METHODS.has(method)) return;
 
         const origin = resolveGlobalOrigin(context, callee.object);
         if (origin == null) return;

@@ -34,18 +34,11 @@ export type REntry = EventListenerEntry & { method: "removeEventListener" };
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  const callee = Extract.unwrap(node.callee);
-  switch (true) {
-    case callee.type === AST.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(callee.name):
-      return callee.name;
-    case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier
-      && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(callee.property.name):
-      return callee.property.name;
-    default:
-      return "other";
+  const name = Extract.getCalleeName(node);
+  if (name != null && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(name)) {
+    return name;
   }
+  return "other";
 }
 
 function getFunctionKind(node: TSESTreeFunction): FunctionKind {

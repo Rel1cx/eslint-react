@@ -76,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!("name" in innerCallee.object)) {
           return false;
         }
-        const isAt = innerCallee.property.type === AST.Identifier && innerCallee.property.name === "at";
+        const isAt = Extract.getCalleeName(callee) === "at";
         const [index] = callee.arguments;
         if (!isAt || index == null) {
           return false;

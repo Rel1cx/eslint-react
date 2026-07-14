@@ -133,9 +133,9 @@ export function computeObjectType(
       }
 
       // Handle static factory methods (e.g. Array.from(), Object.create())
-      if (callee.type === AST.MemberExpression && callee.object.type === AST.Identifier && callee.property.type === AST.Identifier) {
+      if (callee.type === AST.MemberExpression && callee.object.type === AST.Identifier) {
         const objName = callee.object.name;
-        const methodName = callee.property.name;
+        const methodName = Extract.getCalleeName(node);
         switch (objName) {
           case "Array":
             if (methodName === "from" || methodName === "of") {

@@ -296,6 +296,9 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   const parentCallee = parent.type === AST.CallExpression
     ? Extract.unwrap(parent.callee)
     : null;
+  const parentCalleeName = parent.type === AST.CallExpression
+    ? Extract.getCalleeName(parent)
+    : null;
   switch (true) {
     case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
@@ -318,14 +321,12 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       break;
     case parentCallee != null
       && parentCallee.type === AST.MemberExpression
-      && parentCallee.property.type === AST.Identifier
-      && parentCallee.property.name === "map":
+      && parentCalleeName === "map":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback) return false;
       break;
     case parentCallee != null
       && parentCallee.type === AST.MemberExpression
-      && parentCallee.property.type === AST.Identifier
-      && parentCallee.property.name === "flatMap":
+      && parentCalleeName === "flatMap":
       if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback) return false;
       break;
     case parent.type === AST.CallExpression

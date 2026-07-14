@@ -36,19 +36,14 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   const callee = Extract.unwrap(node.callee);
-  switch (true) {
-    case callee.type === AST.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"))(callee.name)
-      && isFromObserver(context, callee):
-      return callee.name;
-    case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier
-      && isMatching(P.union("observe", "unobserve", "disconnect"))(callee.property.name)
-      && isFromObserver(context, callee):
-      return callee.property.name;
-    default:
-      return "other";
+  if (callee.type !== AST.Identifier && callee.type !== AST.MemberExpression) {
+    return "other";
   }
+  const name = Extract.getCalleeName(node);
+  if (name != null && isMatching(P.union("observe", "unobserve", "disconnect"))(name) && isFromObserver(context, callee)) {
+    return name;
+  }
+  return "other";
 }
 
 function getFunctionKind(node: TSESTreeFunction): FunctionKind {
