@@ -97,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       case AST.CallExpression: {
         const callee = Extract.unwrap(node.callee);
         // Case: key={index.toString()}
-        if (callee.type === AST.MemberExpression && Extract.getPropertyName(callee.property) === "toString" && isArrayIndex(callee.object)) {
+        if (callee.type === AST.MemberExpression && Extract.getCalleeName(node) === "toString" && isArrayIndex(callee.object)) {
           return [{ messageId: "default", node: callee.object }];
         }
         // Case: key={String(index)} or key={Number(index)}

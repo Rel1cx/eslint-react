@@ -7,7 +7,6 @@ import {
   type RefAccess,
   type Variable,
   createBindingResolver,
-  getCalleeName,
   getGuardDisposition,
   getRefAccess,
   getSynchronousCallbackIndexes,
@@ -79,11 +78,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           addIdentifierBinding(left, node.right, node.range[0]);
           return;
         }
-        if (left.type !== AST.MemberExpression) return;
+        if (left.type !== AST.MemberExpression || left.property.type !== AST.Identifier) return;
         const object = Extract.unwrap(left.object);
-        const property = Extract.getPropertyName(left.property);
-        if (object.type === AST.Identifier && property != null) {
-          addMemberBinding(object, property, node.right, node.range[0]);
+        if (object.type === AST.Identifier) {
+          addMemberBinding(object, left.property.name, node.right, node.range[0]);
         }
       },
       CallExpression(node: TSESTree.CallExpression) {
@@ -99,7 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         addJsxRef(expression);
       },
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (Extract.getPropertyName(node.property) !== "current") return;
+        if (node.property.type !== AST.Identifier || node.property.name !== "current") return;
         refAccesses.push(getRefAccess(node));
       },
       "Program:exit"(program) {
@@ -193,7 +191,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const boundary = Traverse.findParent(call, isBoundary);
           if (boundary == null || !isReachedDuringRender(call, boundary)) continue;
           const callee = Extract.unwrap(call.callee);
-          const calleeName = getCalleeName(call);
+          const calleeName = Extract.getCalleeName(call);
           const callArguments = call.arguments;
           if (core.isHookCall(call) || calleeName === "mergeRefs" || (calleeName === "render" && callee.type === AST.MemberExpression)) continue;
           for (const argument of callArguments) {

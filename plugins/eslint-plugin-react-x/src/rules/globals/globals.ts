@@ -101,7 +101,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         const callee = Extract.unwrap(node.callee);
         if (callee.type !== AST.MemberExpression) return;
-        const method = Extract.getPropertyName(callee.property);
+        const method = Extract.getCalleeName(node);
         if (method == null || !MUTATING_ARRAY_METHODS.has(method)) return;
 
         const origin = resolveGlobalOrigin(context, callee.object);

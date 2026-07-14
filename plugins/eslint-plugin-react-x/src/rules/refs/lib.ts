@@ -66,9 +66,8 @@ export function createBindingResolver(context: RuleContext) {
     if (value.type === AST.CallExpression && (core.isUseRefCall(context, value) || core.isCreateRefCall(context, value))) {
       return { kind: "ref" };
     }
-    if (value.type === AST.MemberExpression) {
-      const property = Extract.getPropertyName(value.property);
-      if (property != null && isRefLikeName(property)) return { kind: "ref" };
+    if (value.type === AST.MemberExpression && value.property.type === AST.Identifier) {
+      if (isRefLikeName(value.property.name)) return { kind: "ref" };
     }
     return { kind: "unknown" };
   }
@@ -146,10 +145,10 @@ export function createBindingResolver(context: RuleContext) {
       const variable = getVariable(callee);
       return variable == null ? null : resolveFunction(variable, position);
     }
-    if (callee.type !== AST.MemberExpression) return null;
+    if (callee.type !== AST.MemberExpression || callee.property.type !== AST.Identifier) return null;
     const object = Extract.unwrap(callee.object);
-    const property = Extract.getPropertyName(callee.property);
-    if (object.type !== AST.Identifier || property == null) return null;
+    const property = callee.property.name;
+    if (object.type !== AST.Identifier) return null;
     const variable = getVariable(object);
     if (variable == null) return null;
     const event = getLatestValue(memberBindings.get(variable)?.get(property), position);
@@ -167,9 +166,8 @@ export function createBindingResolver(context: RuleContext) {
       const identity = resolveRef(variable, node.range[0]);
       return identity == null ? null : { identity };
     }
-    if (object.type === AST.MemberExpression) {
-      const property = Extract.getPropertyName(object.property);
-      if (property != null && isRefLikeName(property)) return { identity: null };
+    if (object.type === AST.MemberExpression && object.property.type === AST.Identifier) {
+      if (isRefLikeName(object.property.name)) return { identity: null };
     }
     return null;
   }
@@ -178,7 +176,8 @@ export function createBindingResolver(context: RuleContext) {
     return getNullCheckBranch(
       test,
       (candidate) => {
-        if (candidate.type !== AST.MemberExpression || Extract.getPropertyName(candidate.property) !== "current") return false;
+        if (candidate.type !== AST.MemberExpression) return false;
+        if (candidate.property.type !== AST.Identifier || candidate.property.name !== "current") return false;
         return getRefTarget(candidate)?.identity === identity;
       },
       (candidate) => {
@@ -223,16 +222,9 @@ function isRefLikeName(name: string): boolean {
 
 // Call reachability
 
-export function getCalleeName(node: TSESTree.CallExpression): string | null {
-  const callee = Extract.unwrap(node.callee);
-  if (callee.type === AST.Identifier) return callee.name;
-  if (callee.type === AST.MemberExpression) return Extract.getPropertyName(callee.property);
-  return null;
-}
-
 export function getSynchronousCallbackIndexes(node: TSESTree.CallExpression): number[] {
   const callee = Extract.unwrap(node.callee);
-  const name = getCalleeName(node);
+  const name = Extract.getCalleeName(node);
   if (name == null) return [];
   if (callee.type === AST.MemberExpression && SYNC_ARRAY_CALLBACKS.has(name)) return [0];
   switch (name) {

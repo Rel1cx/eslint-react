@@ -406,23 +406,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "items" }, messageId: "default" },
       ],
     },
-    // Mutating method invoked via a computed string-literal property is still
-    // resolved by `getPropertyName`.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            cache["set"]("key", "value");
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
     // Mutating method invoked through optional chaining.
     {
       code: tsx`
@@ -689,6 +672,16 @@ ruleTester.run(RULE_NAME, rule, {
         const ref = useRef(null);
         const fn = () => {
           ref.current = 1;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Mutating method invoked via a computed property is not statically resolved
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache["set"]("key", "value");
         };
         return <Foo fn={fn} />;
       }

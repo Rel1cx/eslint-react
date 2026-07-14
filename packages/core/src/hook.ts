@@ -113,17 +113,10 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
  */
 export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== AST.CallExpression) {
-    return false;
-  }
-  const callee = Extract.unwrap(node.callee);
-  if (callee.type === AST.Identifier) {
-    return isHookName(callee.name);
-  }
-  if (callee.type === AST.MemberExpression) {
-    return callee.property.type === AST.Identifier && isHookName(callee.property.name);
-  }
-  return false;
+  if (node.type !== AST.CallExpression) return false;
+  const name = Extract.getCalleeName(node);
+  if (name == null) return false;
+  return isHookName(name);
 }
 
 /**
@@ -137,19 +130,10 @@ export function isUseEffectLikeCall(
   additionalEffectHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== AST.CallExpression) {
-    return false;
-  }
-  const callee = Extract.unwrap(node.callee);
-  return [/^use\w*Effect$/u, additionalEffectHooks].some((regexp) => {
-    if (callee.type === AST.Identifier) {
-      return regexp.test(callee.name);
-    }
-    if (callee.type === AST.MemberExpression) {
-      return callee.property.type === AST.Identifier && regexp.test(callee.property.name);
-    }
-    return false;
-  });
+  if (node.type !== AST.CallExpression) return false;
+  const name = Extract.getCalleeName(node);
+  if (name == null) return false;
+  return /^use\w*Effect$/u.test(name) || additionalEffectHooks.test(name);
 }
 
 /**
@@ -163,18 +147,10 @@ export function isUseStateLikeCall(
   additionalStateHooks: RegExpLike = { test: constFalse },
 ): node is TSESTree.CallExpression {
   if (node == null) return false;
-  if (node.type !== AST.CallExpression) {
-    return false;
-  }
-  const callee = Extract.unwrap(node.callee);
-  switch (true) {
-    case callee.type === AST.Identifier:
-      return callee.name === "useState" || additionalStateHooks.test(callee.name);
-    case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier:
-      return Extract.getPropertyName(callee.property) === "useState" || additionalStateHooks.test(callee.property.name);
-  }
-  return false;
+  if (node.type !== AST.CallExpression) return false;
+  const name = Extract.getCalleeName(node);
+  if (name == null) return false;
+  return name === "useState" || additionalStateHooks.test(name);
 }
 
 // #endregion

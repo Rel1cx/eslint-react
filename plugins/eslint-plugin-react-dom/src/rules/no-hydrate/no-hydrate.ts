@@ -57,7 +57,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Case 2: Call on a `react-dom` import, like `ReactDOM.hydrate()`
         case callee.type === AST.MemberExpression
           && callee.object.type === AST.Identifier
-          && Extract.getPropertyName(callee.property) === "hydrate"
+          && Extract.getCalleeName(node) === "hydrate"
           && reactDomNames.has(callee.object.name):
           context.report({
             fix: buildFix(context, node),

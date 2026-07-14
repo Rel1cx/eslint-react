@@ -18,16 +18,19 @@ export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateId
   return null;
 }
 
-export function getPropertyName(node: TSESTree.Node, resolve = (n: TSESTree.Identifier | TSESTree.PrivateIdentifier): string | null => n.name): string | null {
-  node = unwrap(node);
-  if (node.type === AST.Identifier || node.type === AST.PrivateIdentifier) {
-    return resolve(node);
+/**
+ * Get the name of a call expression's callee when it is an identifier
+ * or a member expression whose property is an identifier
+ * @param node The call expression node
+ * @returns The callee name, or `null` if it cannot be determined
+ */
+export function getCalleeName(node: TSESTree.CallExpression): string | null {
+  const callee = unwrap(node.callee);
+  if (callee.type === AST.Identifier) {
+    return callee.name;
   }
-  if (node.type === AST.Literal) {
-    return String(node.value);
-  }
-  if (node.type === AST.TemplateLiteral && node.expressions.length === 0) {
-    return node.quasis[0]?.value.cooked ?? node.quasis[0]?.value.raw ?? null;
+  if (callee.type === AST.MemberExpression && callee.property.type === AST.Identifier) {
+    return callee.property.name;
   }
   return null;
 }

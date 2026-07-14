@@ -918,28 +918,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "readDuringRender" }],
     },
-    // Computed property access ref["current"]
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const val = ref["current"];
-          return <div>{val}</div>;
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    // Computed property write ref["current"] = value
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          ref["current"] = 42;
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "writeDuringRender" }],
-    },
     // Nested property write and read (from React Compiler fixtures)
     {
       code: tsx`
@@ -1216,6 +1194,26 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // Computed property access ref["current"] is not statically resolved
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const val = ref["current"];
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Computed property write ref["current"] = value is not statically resolved
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref["current"] = 42;
+          return <div />;
+        }
+      `,
+    },
     // -------------------------------------------------------------------------
     // Single-file multi-component isolation
     // -------------------------------------------------------------------------

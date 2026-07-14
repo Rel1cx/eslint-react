@@ -93,15 +93,7 @@ export function isJsxLike(
         if (hint & JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue) {
           return false;
         }
-        const callee = Extract.unwrap(node.callee);
-        switch (callee.type) {
-          case AST.Identifier:
-            return callee.name === "createElement";
-          case AST.MemberExpression:
-            return Extract.getPropertyName(callee.property) === "createElement";
-          default:
-            return false;
-        }
+        return Extract.getCalleeName(node) === "createElement";
       }
 
       case AST.Identifier: {

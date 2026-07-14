@@ -3,7 +3,7 @@ import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
 
 // #region Rule Metadata
@@ -30,18 +30,11 @@ type CallKind = EventMethodKind | EffectMethodKind | "other";
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  const callee = Extract.unwrap(node.callee);
-  switch (true) {
-    case callee.type === AST.Identifier
-      && isMatching(P.union("setTimeout", "clearTimeout"))(callee.name):
-      return callee.name;
-    case callee.type === AST.MemberExpression
-      && callee.property.type === AST.Identifier
-      && isMatching(P.union("setTimeout", "clearTimeout"))(callee.property.name):
-      return callee.property.name;
-    default:
-      return "other";
+  const name = Extract.getCalleeName(node);
+  if (name != null && isMatching(P.union("setTimeout", "clearTimeout"))(name)) {
+    return name;
   }
+  return "other";
 }
 
 // #endregion

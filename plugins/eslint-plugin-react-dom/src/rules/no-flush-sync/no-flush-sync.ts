@@ -1,7 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-flush-sync";
 
@@ -30,20 +29,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("flushSync")) return {};
   return {
     CallExpression(node) {
-      const { callee } = node;
-      switch (callee.type) {
-        // Handle direct calls like `flushSync()`
-        case AST.Identifier:
-          if (callee.name === "flushSync") {
-            context.report({ messageId: "default", node });
-          }
-          return;
-        // Handle member access calls like `ReactDOM.flushSync()`
-        case AST.MemberExpression:
-          if (Extract.getPropertyName(callee.property) === "flushSync") {
-            context.report({ messageId: "default", node });
-          }
-          return;
+      // Handles cases like `flushSync()` and `ReactDOM.flushSync()`
+      if (Extract.getCalleeName(node) === "flushSync") {
+        context.report({ messageId: "default", node });
       }
     },
   };

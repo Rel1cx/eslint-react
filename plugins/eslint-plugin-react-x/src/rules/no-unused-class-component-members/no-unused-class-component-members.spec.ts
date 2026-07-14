@@ -247,38 +247,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         class Foo extends React.Component {
-          ['foo'];
-          render() {
-            return <SomeComponent />;
-          }
-        }
-      `,
-      errors: [
-        {
-          data: { className: "Foo", methodName: "foo" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        class Foo extends React.Component {
-          ['foo'] = a;
-          render() {
-            return <SomeComponent />;
-          }
-        }
-      `,
-      errors: [
-        {
-          data: { className: "Foo", methodName: "foo" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        class Foo extends React.Component {
           foo = a;
           render() {
             return <SomeComponent foo={this[foo]} />;
@@ -636,6 +604,23 @@ ruleTester.run(RULE_NAME, rule, {
         ['foo'];
         render() {
           return <SomeComponent foo={this['foo']} />;
+        }
+      }
+    `,
+    // Computed keys are not statically resolved, so these members are not tracked
+    tsx`
+      class Foo extends React.Component {
+        ['foo'];
+        render() {
+          return <SomeComponent />;
+        }
+      }
+    `,
+    tsx`
+      class Foo extends React.Component {
+        ['foo'] = a;
+        render() {
+          return <SomeComponent />;
         }
       }
     `,

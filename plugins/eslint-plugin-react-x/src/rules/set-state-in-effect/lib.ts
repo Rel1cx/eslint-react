@@ -140,16 +140,8 @@ export function isHookDecl(node: TSESTree.Node): node is
   if (node.id.type !== AST.Identifier) return false;
   const init = node.init;
   if (init == null || init.type !== AST.CallExpression) return false;
-  const callee = Extract.unwrap(init.callee);
-  switch (callee.type) {
-    case AST.Identifier:
-      return core.isHookName(callee.name);
-    case AST.MemberExpression:
-      return callee.property.type === AST.Identifier
-        && core.isHookName(callee.property.name);
-    default:
-      return false;
-  }
+  const name = Extract.getCalleeName(init);
+  return name != null && core.isHookName(name);
 }
 
 export function isInitializedFromRef(

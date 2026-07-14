@@ -41,19 +41,10 @@ type AbortEntry = {
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  const callee = Extract.unwrap(node.callee);
-  switch (true) {
-    case callee.type === AST.Identifier
-      && callee.name === "fetch":
+  switch (Extract.getCalleeName(node)) {
+    case "fetch":
       return "fetch";
-    case callee.type === AST.MemberExpression
-      && Extract.getPropertyName(callee.property) === "fetch":
-      return "fetch";
-    case callee.type === AST.Identifier
-      && callee.name === "abort":
-      return "abort";
-    case callee.type === AST.MemberExpression
-      && Extract.getPropertyName(callee.property) === "abort":
+    case "abort":
       return "abort";
     default:
       return "other";

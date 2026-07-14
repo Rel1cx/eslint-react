@@ -1,9 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { LIFECYCLE_METHODS, type Property, isKeyLiteral } from "./lib";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { LIFECYCLE_METHODS } from "./lib";
 
 export const RULE_NAME = "no-unused-class-component-members";
 
@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // A stack to keep track of method/property nodes
   const methodStack: TSESTreeMethodOrPropertyDefinition[] = [];
   // Stores all defined properties and methods for each class component
-  const propertyDefs = new WeakMap<TSESTreeClass, Set<Property>>();
+  const propertyDefs = new WeakMap<TSESTreeClass, Set<TSESTree.Identifier>>();
   // Stores all used properties and methods for each class component
   const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
 
@@ -62,10 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     // Compare definitions and usages to find unused members
     for (const def of defs) {
-      const methodName = Extract.getPropertyName(def);
-      if (methodName == null) {
-        continue;
-      }
+      const methodName = def.name;
       // If a member is used, skip it
       if (usages?.has(methodName) ?? false) {
         continue;
@@ -103,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       return;
     }
     // Add the member to the definitions set for the current class
-    if (isKeyLiteral(node, node.key)) {
+    if (!node.computed && node.key.type === AST.Identifier) {
       propertyDefs.get(currentClass)?.add(node.key);
     }
   }
@@ -129,7 +126,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check for expressions like `this.property`
-      if (node.object.type !== AST.ThisExpression || !isKeyLiteral(node, node.property)) {
+      if (node.object.type !== AST.ThisExpression || node.computed || node.property.type !== AST.Identifier) {
         return;
       }
       // Detect assignments like `this.property = xxx` as definitions
@@ -138,10 +135,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Detect usages like `this.property()` or `x = this.property`
-      const propertyName = Extract.getPropertyName(node.property);
-      if (propertyName != null) {
-        propertyUsages.get(currentClass)?.add(propertyName);
-      }
+      propertyUsages.get(currentClass)?.add(node.property.name);
     },
     MethodDefinition: methodEnter,
     "MethodDefinition:exit": methodExit,
@@ -160,12 +154,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Detect destructuring from `this`, e.g., `const { foo, bar } = this;`
       if (node.init != null && node.init.type === AST.ThisExpression && node.id.type === AST.ObjectPattern) {
         for (const prop of node.id.properties) {
-          if (prop.type === AST.Property && isKeyLiteral(prop, prop.key)) {
-            const keyName = Extract.getPropertyName(prop.key);
-            if (keyName != null) {
-              // Add destructured properties to the usages set
-              propertyUsages.get(currentClass)?.add(keyName);
-            }
+          if (prop.type === AST.Property && !prop.computed && prop.key.type === AST.Identifier) {
+            // Add destructured properties to the usages set
+            propertyUsages.get(currentClass)?.add(prop.key.name);
           }
         }
       }

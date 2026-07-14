@@ -59,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Case 2: Member expression call, e.g., `ReactDOM.render()`
         case callee.type === AST.MemberExpression
           && callee.object.type === AST.Identifier
-          && Extract.getPropertyName(callee.property) === "render"
+          && Extract.getCalleeName(node) === "render"
           && reactDomNames.has(callee.object.name):
           context.report({
             fix: buildFix(context, node),

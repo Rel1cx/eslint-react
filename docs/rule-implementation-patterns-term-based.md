@@ -144,7 +144,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const [, isStatic] = methodStack.at(-1) ?? [];
       const [setState] = setStateStack.at(-1) ?? [];
       if (!isComponent || isStatic || setState == null) return;
-      if (Extract.getPropertyName(node.property) === "state") {
+      if (node.property.type === AST.Identifier && node.property.name === "state") {
         context.report({ messageId: "default", node });
       }
     },

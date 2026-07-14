@@ -1,31 +1,14 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { constFalse, constTrue } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { match } from "ts-pattern";
 
 export const RULE_NAME = "no-access-state-in-setstate";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-function isKeyLiteral(
-  node:
-    | TSESTree.MemberExpression
-    | TSESTree.MethodDefinition
-    | TSESTree.Property
-    | TSESTree.PropertyDefinition,
-  key: TSESTree.Node,
-) {
-  return match(key)
-    .with({ type: AST.Literal }, constTrue)
-    .with({ type: AST.TemplateLiteral, expressions: [] }, constTrue)
-    .with({ type: AST.Identifier }, () => !node.computed)
-    .otherwise(constFalse);
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -108,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check if the property being accessed is `state`
-      if (Extract.getPropertyName(node.property) !== "state") {
+      if (node.property.type !== AST.Identifier || node.property.name !== "state") {
         return;
       }
       // Report an issue if `this.state` is accessed
@@ -156,8 +139,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .properties
         .some((prop) =>
           prop.type === AST.Property
-          && isKeyLiteral(prop, prop.key)
-          && Extract.getPropertyName(prop.key) === "state"
+          && !prop.computed
+          && prop.key.type === AST.Identifier
+          && prop.key.name === "state"
         );
       if (!hasState) {
         return;
