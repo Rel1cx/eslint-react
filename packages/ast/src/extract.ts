@@ -20,7 +20,7 @@ export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateId
 
 /**
  * Get the name of a call expression's callee when it is an identifier
- * or a member expression whose property is an identifier
+ * or a non-computed member expression whose property is an identifier
  * @param node The call expression node
  * @returns The callee name, or `null` if it cannot be determined
  */
@@ -29,7 +29,7 @@ export function getCalleeName(node: TSESTree.CallExpression): string | null {
   if (callee.type === AST.Identifier) {
     return callee.name;
   }
-  if (callee.type === AST.MemberExpression && callee.property.type === AST.Identifier) {
+  if (callee.type === AST.MemberExpression && !callee.computed && callee.property.type === AST.Identifier) {
     return callee.property.name;
   }
   return null;
