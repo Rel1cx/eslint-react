@@ -27,8 +27,10 @@ jobs:
         with:
           node-version: 26
           package-manager-cache: false
-      - name: Install pnpm
-        run: npm i pnpm@11.11.0 -g
+      - name: Setup pnpm
+        uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+        with:
+          version: 11.11.0
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build packages
@@ -40,8 +42,10 @@ jobs:
         with:
           node-version: 24
           package-manager-cache: false
-      - name: Install pnpm
-        run: npm i pnpm@11.11.0 -g
+      - name: Setup pnpm
+        uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+        with:
+          version: 11.11.0
       - name: Test on node@24
         run: node --run test
       - name: Setup node@22
@@ -49,7 +53,9 @@ jobs:
         with:
           node-version: 22
           package-manager-cache: false
-      - name: Install pnpm
-        run: npm i pnpm@11.11.0 -g
+      - name: Setup pnpm
+        uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+        with:
+          version: 11.11.0
       - name: Test on node@22
         run: node --run test
