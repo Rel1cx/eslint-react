@@ -13,7 +13,7 @@ type JsxAttributeValue =
   | JsxAttributeValueSpreadProps;
 ```
 
-Discriminated union representing the resolved value of a JSX attribute
+Discriminated union representing the resolved value of a JSX attribute.
 
 Each variant carries the original AST `node` (where applicable) and a
 `toStatic()` helper that attempts to collapse the value into a plain

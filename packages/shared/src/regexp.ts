@@ -1,7 +1,7 @@
 import { constFalse } from "@local/eff";
 
 /**
- * Regular expressions for matching a HTML tag name
+ * Regular expressions for matching a HTML tag name.
  */
 export const RE_HTML_TAG = /^[a-z][^-]*$/u;
 
@@ -111,9 +111,9 @@ export function toRegExp(string: string | null | undefined): RegExpLike {
 }
 
 /**
- * Check whether given string is regexp string
- * @param string The string to check
- * @returns boolean
+ * Check whether given string is regexp string.
+ * @param string The string to check.
+ * @returns boolean.
  */
 export function isRegExp(string: string): boolean {
   return RE_REGEXP_STR.test(string);

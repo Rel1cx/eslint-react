@@ -1,10 +1,10 @@
 import ts from "typescript";
 
 /**
- * An enhanced version of getFullyQualifiedName that handles cases that original function does not handle
- * @param checker TypeScript type checker
- * @param symbol Symbol to get fully qualified name for
- * @returns Fully qualified name of the symbol
+ * An enhanced version of getFullyQualifiedName that handles cases that original function does not handle.
+ * @param checker The TypeScript type checker.
+ * @param symbol The symbol to get fully qualified name for.
+ * @returns The fully qualified name of the symbol.
  */
 export function getFullyQualifiedNameEx(checker: ts.TypeChecker, symbol: ts.Symbol) {
   let name = symbol.name;

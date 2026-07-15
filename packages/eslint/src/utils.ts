@@ -10,9 +10,9 @@ export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 /**
  * Merges multiple visitor objects into a single visitor object.
  *
- * @param base Base visitor object (target of merge)
- * @param rest Additional visitor objects to merge (one or more)
- * @returns Merged visitor object
+ * @param base Base visitor object (target of merge).
+ * @param rest Additional visitor objects to merge (one or more).
+ * @returns Merged visitor object.
  *
  * @example
  * ```typescript

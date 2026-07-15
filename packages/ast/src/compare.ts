@@ -4,10 +4,10 @@ import * as Check from "./check";
 import * as Extract from "./extract";
 
 /**
- * Check if two nodes are equal
- * @param a node to compare
- * @param b node to compare
- * @returns `true` if node equal
+ * Check if two nodes are equal.
+ * @param a node to compare.
+ * @param b node to compare.
+ * @returns `true` if node equal.
  * @see https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/util/isNodeEqual.ts
  */
 export const isEqual: {

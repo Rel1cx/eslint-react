@@ -6,4 +6,4 @@
 type FunctionComponentDetectionHint = bigint;
 ```
 
-Hints for component collector
+Hints for component collector.

@@ -7,7 +7,7 @@ function isElement(node: Node | null | undefined, test?: ElementTest): node is T
 ```
 
 Check whether a node is a `JSXElement` (or `JSXFragment`) and optionally
-matches a given test
+matches a given test.
 
 Modelled after
 [`hast-util-is-element`](https://github.com/syntax-tree/hast-util-is-element):
@@ -18,13 +18,13 @@ for `JSXElement | JSXFragment`.
 
 ## Parameters
 
-| Parameter | Type                                            | Description                                     |
-| --------- | ----------------------------------------------- | ----------------------------------------------- |
-| `node`    | `Node` \| `null` \| `undefined`                 | The AST node to test                            |
-| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against |
+| Parameter | Type                                            | Description                                      |
+| --------- | ----------------------------------------------- | ------------------------------------------------ |
+| `node`    | `Node` \| `null` \| `undefined`                 | The AST node to test.                            |
+| `test?`   | [`ElementTest`](../type-aliases/ElementTest.md) | Optional test to match the element type against. |
 
 ## Returns
 
 `node is TSESTreeJSXElementLike`
 
-`true` when the node is a matching JSX element
+`true` when the node is a matching JSX element.

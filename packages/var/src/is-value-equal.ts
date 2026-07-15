@@ -12,11 +12,11 @@ const thisBlockTypes = [
 ] as const;
 
 /**
- * Determine whether node value equals to another node value
- * @param context rule context
- * @param a node to compare
- * @param b node to compare
- * @returns `true` if node value equal
+ * Determine whether node value equals to another node value.
+ * @param context rule context.
+ * @param a node to compare.
+ * @param b node to compare.
+ * @returns `true` if node value equal.
  */
 export function isValueEqual(
   context: RuleContext,

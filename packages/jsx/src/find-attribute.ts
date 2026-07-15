@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getAttributeName } from "./get-attribute-name";
 
 /**
- * Find a JSX attribute (or spread attribute containing the property) by name on a given element
+ * Find a JSX attribute (or spread attribute containing the property) by name on a given element.
  *
  * Returns the last matching attribute to mirror React's behavior where later props win,
  * or `undefined` when the attribute is not present.
@@ -13,10 +13,10 @@ import { getAttributeName } from "./get-attribute-name";
  * Spread attributes are resolved when possible: if the spread argument is an identifier
  * that resolves to an object expression, the object's properties are searched for a matching key.
  * Nested object expressions and nested spread identifiers are also resolved.
- * @param context The ESLint rule context (needed for variable resolution in spread attributes)
- * @param element The `JSXElement` node to search
- * @param name The attribute name to look for (ex: "className")
- * @returns The matching `JSXAttribute` or `JSXSpreadAttribute`, or `undefined` when not found
+ * @param context The ESLint rule context (needed for variable resolution in spread attributes).
+ * @param element The `JSXElement` node to search.
+ * @param name The attribute name to look for (ex: "className").
+ * @returns The matching `JSXAttribute` or `JSXSpreadAttribute`, or `undefined` when not found.
  */
 export function findAttribute(
   context: RuleContext,

@@ -13,70 +13,70 @@ import type { SemanticNode } from "./semantic";
 // #region Types
 
 /**
- * Represents a React Function Component
+ * Represents a React Function Component.
  */
 export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
-   * The identifier or identifier sequence of the component
+   * The identifier or identifier sequence of the component.
    */
   id: FunctionID;
 
   /**
-   * The kind of component
+   * The kind of component.
    */
   kind: "component";
 
   /**
-   * The AST node of the function
+   * The AST node of the function.
    */
   node: TSESTreeFunction;
 
   /**
-   * Flags describing the component's characteristics
+   * Flags describing the component's characteristics.
    */
   flag: bigint;
 
   /**
-   * Hint for how the component was detected
+   * Hint for how the component was detected.
    */
   hint: bigint;
 
   /**
-   * List of expressions returned by the component
+   * List of expressions returned by the component.
    */
   rets: TSESTree.ReturnStatement["argument"][];
 
   /**
-   * The initialization path of the function
+   * The initialization path of the function.
    */
   initPath:
     | null
     | FunctionInitPath;
 
   /**
-   * Indicates if the component is inside an export default declaration
+   * Indicates if the component is inside an export default declaration.
    */
   isExportDefault: boolean;
 
   /**
-   * Indicates if the component is itself an export default declaration
+   * Indicates if the component is itself an export default declaration.
    */
   isExportDefaultDeclaration: boolean;
 
   /**
-   * List of hook calls within the component
+   * List of hook calls within the component.
    */
   hookCalls: HookCall[];
 
   /**
-   * The display name of the component
+   * The display name of the component.
    */
   displayName:
     | null
     | TSESTree.Expression;
 
   /**
-   * The directives used in the function (ex: "use strict", "use client", etc.)
+   * The directives used in the function (ex: "use strict", "use client", etc.).
    */
   directives: TSESTreeDirective[];
 }
@@ -86,25 +86,25 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
 // #region Component Flags
 
 /**
- * Component flag constants
+ * Component flag constants.
  */
 export const FunctionComponentFlag = {
-  /** No flags set */
+  /** No flags set. */
   None: 0n,
-  /** Indicates the component is a pure component (ex: extends PureComponent) */
+  /** Indicates the component is a pure component (ex: extends PureComponent). */
   PureComponent: 1n << 0n,
-  /** Indicates the component creates elements using `createElement` instead of JSX */
+  /** Indicates the component creates elements using `createElement` instead of JSX. */
   CreateElement: 1n << 1n,
-  /** Indicates the component is memoized (ex: React.memo) */
+  /** Indicates the component is memoized (ex: React.memo). */
   Memo: 1n << 2n,
-  /** Indicates the component forwards a ref (ex: React.forwardRef) */
+  /** Indicates the component forwards a ref (ex: React.forwardRef). */
   ForwardRef: 1n << 3n,
 };
 
 /**
- * Get component flag from init path
- * @param initPath The init path of the function component
- * @returns The component flag
+ * Get component flag from init path.
+ * @param initPath The init path of the function component.
+ * @returns The component flag.
  * @internal
  */
 export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponentSemanticNode["initPath"]) {
@@ -123,10 +123,10 @@ export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponent
 // #region Component Wrapper Detection
 
 /**
- * Check if the node is a call expression for a component wrapper
- * @param context The ESLint rule context
- * @param node The node to check
- * @returns `true` if the node is a call expression for a component wrapper
+ * Check if the node is a call expression for a component wrapper.
+ * @param context The ESLint rule context.
+ * @param node The node to check.
+ * @returns `true` if the node is a call expression for a component wrapper.
  */
 export function isFunctionComponentWrapperCall(context: RuleContext, node: TSESTree.Node) {
   if (node.type !== AST.CallExpression) return false;
@@ -134,10 +134,10 @@ export function isFunctionComponentWrapperCall(context: RuleContext, node: TSEST
 }
 
 /**
- * Check if the node is a callback function passed to a component wrapper
- * @param context The ESLint rule context
- * @param node The node to check
- * @returns `true` if the node is a callback function passed to a component wrapper
+ * Check if the node is a callback function passed to a component wrapper.
+ * @param context The ESLint rule context.
+ * @param node The node to check.
+ * @returns `true` if the node is a callback function passed to a component wrapper.
  */
 export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
   if (!Check.isFunction(node)) return false;
@@ -152,9 +152,9 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
 // #region Component ID (internal)
 
 /**
- * Get function component identifier from `const Component = memo(() => {});`
- * @param context The rule context
- * @param node The AST node to get the function component identifier from
+ * Get function component identifier from `const Component = memo(() => {});`.
+ * @param context The rule context.
+ * @param node The AST node to get the function component identifier from.
  * @internal
  */
 export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): FunctionID {
@@ -185,27 +185,27 @@ export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunct
 // #region Component Name
 
 /**
- * Check if a string matches the strict component name pattern
- * @param name The name to check
+ * Check if a string matches the strict component name pattern.
+ * @param name The name to check.
  */
 export function isFunctionComponentName(name: string) {
   return RE_COMPONENT_NAME.test(name);
 }
 
 /**
- * Check if a string matches the loose component name pattern
- * @param name The name to check
+ * Check if a string matches the loose component name pattern.
+ * @param name The name to check.
  */
 export function isFunctionComponentNameLoose(name: string) {
   return RE_COMPONENT_NAME_LOOSE.test(name);
 }
 
 /**
- * Check if a function has a loose component name
- * @param context The rule context
- * @param fn The function to check
- * @param allowNone Whether to allow no name
- * @returns Whether the function has a loose component name
+ * Check if a function has a loose component name.
+ * @param context The rule context.
+ * @param fn The function to check.
+ * @param allowNone Whether to allow no name.
+ * @returns Whether the function has a loose component name.
  */
 export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
@@ -226,7 +226,7 @@ export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSEST
 export type FunctionComponentDetectionHint = bigint;
 
 /**
- * Hints for component collector
+ * Hints for component collector.
  */
 export const FunctionComponentDetectionHint = {
   ...JsxDetectionHint,
@@ -244,7 +244,7 @@ export const FunctionComponentDetectionHint = {
 } as const;
 
 /**
- * Default component detection hint
+ * Default component detection hint.
  */
 export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | FunctionComponentDetectionHint.DoNotIncludeJsxWithBigIntValue
@@ -262,12 +262,12 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
 
 /**
- * Determine if a function node represents a valid React component definition
+ * Determine if a function node represents a valid React component definition.
  *
- * @param context The rule context
- * @param node The function node to analyze
- * @param hint Component detection hints (bit flags) to customize detection logic
- * @returns `true` if the node is considered a component definition
+ * @param context The rule context.
+ * @param node The function node to analyze.
+ * @param hint Component detection hints (bit flags) to customize detection logic.
+ * @returns `true` if the node is considered a component definition.
  */
 export function isFunctionComponentDefinition(context: RuleContext, node: TSESTreeFunction, hint: bigint) {
   // 1. Check for basic naming conventions

@@ -5,7 +5,7 @@ import { collapseMultilineText } from "./collapse-multiline-text";
 import { isEmptyStringExpression } from "./is-whitespace";
 
 /**
- * Get the meaningful children of a JSX element or fragment
+ * Get the meaningful children of a JSX element or fragment.
  *
  * Mirrors Babel's `buildChildren` helper:
  * 1. Iterate over `element.children`.
@@ -13,8 +13,8 @@ import { isEmptyStringExpression } from "./is-whitespace";
  * 3. Skip `JSXExpressionContainer` nodes whose expression is empty.
  * 4. Skip `JSXEmptyExpression` nodes.
  * 5. Collect everything else.
- * @param element A `JSXElement` or `JSXFragment` node
- * @returns An array of children nodes that contribute to rendered output
+ * @param element A `JSXElement` or `JSXFragment` node.
+ * @returns An array of children nodes that contribute to rendered output.
  */
 export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
   const elements: TSESTree.JSXChild[] = [];

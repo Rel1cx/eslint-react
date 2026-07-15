@@ -27,7 +27,7 @@ FunctionComponentDetectionHint: {
 }
 ```
 
-Hints for component collector
+Hints for component collector.
 
 ## Type Declaration
 

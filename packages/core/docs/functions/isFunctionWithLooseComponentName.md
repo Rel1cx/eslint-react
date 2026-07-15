@@ -10,18 +10,18 @@ function isFunctionWithLooseComponentName(
 ): boolean;
 ```
 
-Check if a function has a loose component name
+Check if a function has a loose component name.
 
 ## Parameters
 
-| Parameter   | Type               | Default value | Description              |
-| ----------- | ------------------ | ------------- | ------------------------ |
-| `context`   | `RuleContext`      | `undefined`   | The rule context         |
-| `fn`        | `TSESTreeFunction` | `undefined`   | The function to check    |
-| `allowNone` | `boolean`          | `false`       | Whether to allow no name |
+| Parameter   | Type               | Default value | Description               |
+| ----------- | ------------------ | ------------- | ------------------------- |
+| `context`   | `RuleContext`      | `undefined`   | The rule context.         |
+| `fn`        | `TSESTreeFunction` | `undefined`   | The function to check.    |
+| `allowNone` | `boolean`          | `false`       | Whether to allow no name. |
 
 ## Returns
 
 `boolean`
 
-Whether the function has a loose component name
+Whether the function has a loose component name.

@@ -10,18 +10,18 @@ function isFunctionComponentDefinition(
 ): boolean;
 ```
 
-Determine if a function node represents a valid React component definition
+Determine if a function node represents a valid React component definition.
 
 ## Parameters
 
-| Parameter | Type               | Description                                                        |
-| --------- | ------------------ | ------------------------------------------------------------------ |
-| `context` | `RuleContext`      | The rule context                                                   |
-| `node`    | `TSESTreeFunction` | The function node to analyze                                       |
-| `hint`    | `bigint`           | Component detection hints (bit flags) to customize detection logic |
+| Parameter | Type               | Description                                                         |
+| --------- | ------------------ | ------------------------------------------------------------------- |
+| `context` | `RuleContext`      | The rule context.                                                   |
+| `node`    | `TSESTreeFunction` | The function node to analyze.                                       |
+| `hint`    | `bigint`           | Component detection hints (bit flags) to customize detection logic. |
 
 ## Returns
 
 `boolean`
 
-`true` if the node is considered a component definition
+`true` if the node is considered a component definition.

@@ -14,10 +14,9 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * circular definitions (e.g. `var a = b; var b = a;`) are detected and
  * treated as not JSX-like instead of recursing indefinitely.
  *
- * @param context - The ESLint rule context (needed for variable resolution).
- * @param node    - The AST node to analyse.
- * @param hint    - Optional bit-flags to adjust detection behaviour.
- *                  Defaults to {@link DEFAULT_JSX_DETECTION_HINT}.
+ * @param context The ESLint rule context (needed for variable resolution).
+ * @param node The AST node to analyse.
+ * @param hint Optional bit-flags to adjust detection behaviour. Defaults to {@link DEFAULT_JSX_DETECTION_HINT}.
  * @returns Whether the node is considered JSX-like.
  *
  * @example

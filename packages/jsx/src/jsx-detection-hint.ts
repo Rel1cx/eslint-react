@@ -1,5 +1,5 @@
 /**
- * BitFlags for configuring JSX detection behavior
+ * BitFlags for configuring JSX detection behavior.
  *
  * Used by `isJsxLike` to control which AST node kinds are considered
  * "JSX-like". Combine flags with the `|` operator.
@@ -8,7 +8,7 @@ export type JsxDetectionHint = bigint;
 
 /* eslint-disable perfectionist/sort-objects */
 /**
- * Hints for JSX detection
+ * Hints for JSX detection.
  */
 export const JsxDetectionHint = {
   None: 0n,
@@ -27,7 +27,7 @@ export const JsxDetectionHint = {
 /* eslint-enable perfectionist/sort-objects */
 
 /**
- * Default JSX detection hint
+ * Default JSX detection hint.
  *
  * Skips number, bigint, boolean, string, and undefined literals,
  * the value types that are commonly returned alongside JSX in React

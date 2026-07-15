@@ -3,13 +3,13 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
  * Walk up the AST from `node` to find the nearest ancestor that is a `JSXAttribute`
- * and (optionally) passes a predicate
+ * and (optionally) passes a predicate.
  *
  * This is useful when a rule visitor enters a deeply nested node (ex: a `Literal`
  * inside an expression container) and needs to know which JSX attribute it belongs to.
- * @param node The starting node for the upward search
- * @param test Optional predicate to filter candidate `JSXAttribute` nodes. When omitted every `JSXAttribute` ancestor matches
- * @returns The first matching `JSXAttribute` ancestor, or `null` if none is found before reaching the root
+ * @param node The starting node for the upward search.
+ * @param test Optional predicate to filter candidate `JSXAttribute` nodes. When omitted every `JSXAttribute` ancestor matches.
+ * @returns The first matching `JSXAttribute` ancestor, or `null` if none is found before reaching the root.
  */
 export function findParentAttribute(
   node: TSESTree.Node,

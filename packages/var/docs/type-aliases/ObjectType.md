@@ -42,4 +42,4 @@ type ObjectType =
   };
 ```
 
-Represents the type classification of an object node
+Represents the type classification of an object node.

@@ -19,7 +19,7 @@ JsxDetectionHint: {
 }
 ```
 
-Hints for JSX detection
+Hints for JSX detection.
 
 ## Type Declaration
 

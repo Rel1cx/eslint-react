@@ -7,14 +7,14 @@ import type { JsxAttributeValue } from "./jsx-attribute-value";
 
 /**
  * Resolve the value of a JSX attribute (or spread attribute) into a
- * {@link JsxAttributeValue} descriptor that can be inspected further
+ * {@link JsxAttributeValue} descriptor that can be inspected further.
  *
  * This is the low-level building block; it operates on a single attribute
  * node that the caller has already located. For the higher-level "find by
  * name and resolve" combo, see {@link getAttributeValue}.
- * @param context The ESLint rule context (needed for scope look-ups)
- * @param attribute A `JSXAttribute` or `JSXSpreadAttribute` node
- * @returns A discriminated-union descriptor of the attribute's value
+ * @param context The ESLint rule context (needed for scope look-ups).
+ * @param attribute A `JSXAttribute` or `JSXSpreadAttribute` node.
+ * @returns A discriminated-union descriptor of the attribute's value.
  */
 export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike): JsxAttributeValue {
   if (attribute.type === AST.JSXAttribute) {

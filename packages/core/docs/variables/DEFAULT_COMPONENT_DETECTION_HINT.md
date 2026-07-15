@@ -6,4 +6,4 @@
 const DEFAULT_COMPONENT_DETECTION_HINT: bigint;
 ```
 
-Default component detection hint
+Default component detection hint.

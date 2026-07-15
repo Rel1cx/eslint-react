@@ -6,7 +6,7 @@
 const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint;
 ```
 
-Default JSX detection hint
+Default JSX detection hint.
 
 Skips number, bigint, boolean, string, and undefined literals,
 the value types that are commonly returned alongside JSX in React

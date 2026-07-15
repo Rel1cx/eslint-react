@@ -9,7 +9,7 @@ const isEqual: {
 };
 ```
 
-Check if two nodes are equal
+Check if two nodes are equal.
 
 ## Call Signature
 
@@ -48,17 +48,17 @@ Check if two nodes are equal
 
 **a**
 
-node to compare
+node to compare.
 
 ## Param
 
 **b**
 
-node to compare
+node to compare.
 
 ## Returns
 
-`true` if node equal
+`true` if node equal.
 
 ## See
 

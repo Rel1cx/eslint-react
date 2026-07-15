@@ -120,7 +120,7 @@ export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSe
  *
  * Ported from {@link https://github.com/facebook/react/blob/bb8a76c6cc77ea2976d690ea09f5a1b3d9b1792a/packages/eslint-plugin-react-hooks/src/rules/RulesOfHooks.ts#L860 | RulesOfHooks.ts}
  *
- * @param node - The function node to analyze.
+ * @param node The function node to analyze.
  * @returns The identifier node if found, `null` otherwise.
  */
 export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
@@ -171,7 +171,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
 /**
  * Identifies the initialization path of a function node in the AST.
  *
- * @param node - The function node to analyze.
+ * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
  */
 export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInitPath {
@@ -223,8 +223,8 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
 /**
  * Checks if a specific function call exists in the function initialization path.
  *
- * @param callName - The name of the call to check for (e.g., "memo", "forwardRef").
- * @param initPath - The function initialization path to search in.
+ * @param callName The name of the call to check for (e.g., "memo", "forwardRef").
+ * @param initPath The function initialization path to search in.
  * @returns `true` if the call exists in the path, `false` otherwise.
  */
 export function isFunctionHasCallInInitPath(callName: string, initPath: FunctionInitPath): boolean {
@@ -252,7 +252,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
 /**
  * Checks if a function is empty.
  *
- * @param node - The function node to check.
+ * @param node The function node to check.
  * @returns `true` if the function is empty, `false` otherwise.
  */
 export function isFunctionEmpty(node: TSESTreeFunction) {
@@ -276,8 +276,8 @@ export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective
 /**
  * Checks if a directive with the given name exists in the function directives.
  *
- * @param node - The function AST node.
- * @param name - The directive name to check (e.g., "use memo", "use no memo").
+ * @param node The function AST node.
+ * @param name The directive name to check (e.g., "use memo", "use no memo").
  * @returns `true` if the directive exists, `false` otherwise.
  */
 export function isFunctionHasDirective(node: TSESTreeFunction, name: string): boolean {

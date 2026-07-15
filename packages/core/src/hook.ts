@@ -9,20 +9,20 @@ import type { SemanticNode } from "./semantic";
 
 /* eslint-disable perfectionist/sort-interfaces */
 /**
- * Represents a semantic hook node in the AST
+ * Represents a semantic hook node in the AST.
  */
 export interface HookSemanticNode extends SemanticNode {
-  /** The identifier of the hook */
+  /** The identifier of the hook. */
   id: FunctionID;
-  /** The AST node of the hook */
+  /** The AST node of the hook. */
   node: TSESTreeFunction;
-  /** The kind of hook */
+  /** The kind of hook. */
   kind: "hook";
-  /** List of expressions returned by the hook */
+  /** List of expressions returned by the hook. */
   rets: TSESTree.ReturnStatement["argument"][];
-  /** The other hooks called by the hook */
+  /** The other hooks called by the hook. */
   hookCalls: HookCall[];
-  /** The directives used in the function (ex: "use strict", "use client", etc.) */
+  /** The directives used in the function (ex: "use strict", "use client", etc.). */
   directives: TSESTreeDirective[];
 }
 /* eslint-enable perfectionist/sort-interfaces */
@@ -74,9 +74,9 @@ export function isHookName(name: string) {
 // #region Hook ID
 
 /**
- * Checks if the given node is a hook identifier
- * @param id The AST node to check
- * @returns `true` if the node is a hook identifier or member expression with hook name, `false` otherwise
+ * Checks if the given node is a hook identifier.
+ * @param id The AST node to check.
+ * @returns `true` if the node is a hook identifier or member expression with hook name, `false` otherwise.
  */
 export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTree.MemberExpression {
   switch (id.type) {
@@ -92,8 +92,8 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
 
 /**
  * Checks if the given expression is a hook tag (callee / tagged template tag).
- * @param tag The expression node to check
- * @returns `true` if the expression is a hook identifier or member expression with hook name, `false` otherwise
+ * @param tag The expression node to check.
+ * @returns `true` if the expression is a hook identifier or member expression with hook name, `false` otherwise.
  */
 export function isHookTag(tag: TSESTree.Node | null): boolean {
   if (tag == null) return false;
@@ -106,8 +106,8 @@ export function isHookTag(tag: TSESTree.Node | null): boolean {
 
 /**
  * Determine if a function node is a React Hook based on its name.
- * @param node The function node to check
- * @returns True if the function is a React Hook, false otherwise
+ * @param node The function node to check.
+ * @returns True if the function is a React Hook, false otherwise.
  */
 export function isHookDefinition(node: TSESTreeFunction | null) {
   if (node == null) return false;
@@ -136,10 +136,10 @@ export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExp
 }
 
 /**
- * Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern
- * @param node The AST node to check
- * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks
- * @returns True if the node is a useEffect-like call
+ * Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern.
+ * @param node The AST node to check.
+ * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks.
+ * @returns True if the node is a useEffect-like call.
  */
 export function isUseEffectLikeCall(
   node: TSESTree.Node | null,
@@ -153,10 +153,10 @@ export function isUseEffectLikeCall(
 }
 
 /**
- * Detect useState calls and variations using a regex pattern
- * @param node The AST node to check
- * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks
- * @returns True if the node is a useState-like call
+ * Detect useState calls and variations using a regex pattern.
+ * @param node The AST node to check.
+ * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks.
+ * @returns True if the node is a useState-like call.
  */
 export function isUseStateLikeCall(
   node: TSESTree.Node | null,
@@ -174,8 +174,8 @@ export function isUseStateLikeCall(
 // #region Effect Callbacks
 
 /**
- * Determine if a node is the setup function passed to a useEffect-like hook
- * @param node The AST node to check
+ * Determine if a node is the setup function passed to a useEffect-like hook.
+ * @param node The AST node to check.
  */
 export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
@@ -186,8 +186,8 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 }
 
 /**
- * Determine if a node is the cleanup function returned by a useEffect-like hook's setup function
- * @param node The AST node to check
+ * Determine if a node is the cleanup function returned by a useEffect-like hook's setup function.
+ * @param node The AST node to check.
  */
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;

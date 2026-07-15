@@ -76,13 +76,13 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | null;
 ```
 
-Finds the enclosing assignment target (variable, property, etc.) for a given node
+Finds the enclosing assignment target (variable, property, etc.) for a given node.
 
 ## Parameters
 
-| Parameter | Type   | Description       |
-| --------- | ------ | ----------------- |
-| `node`    | `Node` | The starting node |
+| Parameter | Type   | Description        |
+| --------- | ------ | ------------------ |
+| `node`    | `Node` | The starting node. |
 
 ## Returns
 
@@ -157,4 +157,4 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
 \| `YieldStarExpression`
 \| `null`
 
-The enclosing assignment target node, or null if not found
+The enclosing assignment target node, or null if not found.

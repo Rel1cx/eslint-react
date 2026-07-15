@@ -10,7 +10,7 @@ function findAttribute(
 ): TSESTreeJSXAttributeLike | undefined;
 ```
 
-Find a JSX attribute (or spread attribute containing the property) by name on a given element
+Find a JSX attribute (or spread attribute containing the property) by name on a given element.
 
 Returns the last matching attribute to mirror React's behavior where later props win,
 or `undefined` when the attribute is not present.
@@ -21,14 +21,14 @@ Nested object expressions and nested spread identifiers are also resolved.
 
 ## Parameters
 
-| Parameter | Type          | Description                                                                   |
-| --------- | ------------- | ----------------------------------------------------------------------------- |
-| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes) |
-| `element` | `JSXElement`  | The `JSXElement` node to search                                               |
-| `name`    | `string`      | The attribute name to look for (ex: "className")                              |
+| Parameter | Type          | Description                                                                    |
+| --------- | ------------- | ------------------------------------------------------------------------------ |
+| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes). |
+| `element` | `JSXElement`  | The `JSXElement` node to search.                                               |
+| `name`    | `string`      | The attribute name to look for (ex: "className").                              |
 
 ## Returns
 
 `TSESTreeJSXAttributeLike` \| `undefined`
 
-The matching `JSXAttribute` or `JSXSpreadAttribute`, or `undefined` when not found
+The matching `JSXAttribute` or `JSXSpreadAttribute`, or `undefined` when not found.

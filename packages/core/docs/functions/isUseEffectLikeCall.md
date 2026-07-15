@@ -6,17 +6,17 @@
 function isUseEffectLikeCall(node: Node | null, additionalEffectHooks?: RegExpLike): node is CallExpression;
 ```
 
-Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern
+Detect useEffect calls and variations (useLayoutEffect, etc.) using a regex pattern.
 
 ## Parameters
 
-| Parameter               | Type             | Description                                                                |
-| ----------------------- | ---------------- | -------------------------------------------------------------------------- |
-| `node`                  | `Node` \| `null` | The AST node to check                                                      |
-| `additionalEffectHooks` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as effect hooks |
+| Parameter               | Type             | Description                                                                 |
+| ----------------------- | ---------------- | --------------------------------------------------------------------------- |
+| `node`                  | `Node` \| `null` | The AST node to check.                                                      |
+| `additionalEffectHooks` | `RegExpLike`     | Regex pattern matching custom hooks that should be treated as effect hooks. |
 
 ## Returns
 
 `node is CallExpression`
 
-True if the node is a useEffect-like call
+True if the node is a useEffect-like call.

@@ -7,7 +7,7 @@ function hasChildren(element: TSESTreeJSXElementLike): boolean;
 ```
 
 Check whether a JSX element (or fragment) has meaningful children, that is,
-at least one child that is not purely whitespace text or an empty string expression
+at least one child that is not purely whitespace text or an empty string expression.
 
 A `JSXText` child whose `raw` content is empty after trimming is considered
 non-meaningful because it is typically a code-formatting artifact
@@ -27,12 +27,12 @@ whitespace-only children that have no newline, such as `<div> </div>` or
 
 ## Parameters
 
-| Parameter | Type                     | Description                          |
-| --------- | ------------------------ | ------------------------------------ |
-| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
+| Parameter | Type                     | Description                           |
+| --------- | ------------------------ | ------------------------------------- |
+| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
 
 ## Returns
 
 `boolean`
 
-`true` when the element has at least one meaningful child
+`true` when the element has at least one meaningful child.

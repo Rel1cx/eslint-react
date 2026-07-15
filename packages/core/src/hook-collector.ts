@@ -20,9 +20,9 @@ export declare namespace getHookCollector {
 }
 
 /**
- * Get an api and visitor object for the rule to collect hooks
- * @param context The ESLint rule context
- * @returns The api and visitor of the collector
+ * Get an api and visitor object for the rule to collect hooks.
+ * @param context The ESLint rule context.
+ * @returns The api and visitor of the collector.
  */
 export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
   const hooks = new Map<string, HookSemanticNode>();

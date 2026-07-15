@@ -42,10 +42,10 @@ export type TypeVariant =
   | "truthy string";
 
 /**
- * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826 with some enhancements
+ * Ported from https://github.com/typescript-eslint/typescript-eslint/blob/eb736bbfc22554694400e6a4f97051d845d32e0b/packages/eslint-plugin/src/rules/strict-boolean-expressions.ts#L826 with some enhancements.
  * Get the variants of an array of types.
- * @param types The types to get the variants of
- * @returns The variants of the types
+ * @param types The types to get the variants of.
+ * @returns The variants of the types.
  * @internal
  */
 export function getTypeVariants(types: ts.Type[]) {

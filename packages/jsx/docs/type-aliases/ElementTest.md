@@ -9,8 +9,8 @@ type ElementTest =
   | ((elementType: string, node: TSESTreeJSXElementLike) => boolean);
 ```
 
-A test that determines whether a JSX element matches
+A test that determines whether a JSX element matches.
 
 - `string` matches against the full element type (ex: "div", "React.Fragment")
 - `string[]` matches when the element type equals any of the given strings
-- `function` receives the element type string and returns a boolean
+- `function` receives the element type string and returns a boolean.

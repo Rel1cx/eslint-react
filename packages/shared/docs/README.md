@@ -29,7 +29,7 @@
 | [RE\_COMPONENT\_NAME\_LOOSE](variables/RE_COMPONENT_NAME_LOOSE.md)                  | Regular expression for matching a React component name (loose).          |
 | [RE\_CONSTANT\_CASE](variables/RE_CONSTANT_CASE.md)                                 | Regular expression for matching a CONSTANT_CASE string.                  |
 | [RE\_HOOK\_NAME](variables/RE_HOOK_NAME.md)                                         | Regular expression for matching a React Hook name.                       |
-| [RE\_HTML\_TAG](variables/RE_HTML_TAG.md)                                           | Regular expressions for matching a HTML tag name                         |
+| [RE\_HTML\_TAG](variables/RE_HTML_TAG.md)                                           | Regular expressions for matching a HTML tag name.                        |
 | [RE\_JAVASCRIPT\_PROTOCOL](variables/RE_JAVASCRIPT_PROTOCOL.md)                     | -                                                                        |
 | [RE\_JS\_EXT](variables/RE_JS_EXT.md)                                               | Regular expression for matching a JavaScript file extension.             |
 | [RE\_JS\_IDENTIFIER](variables/RE_JS_IDENTIFIER.md)                                 | Regular expression for matching a valid JavaScript identifier.           |
@@ -49,6 +49,6 @@
 | [getSettingsFromContext](functions/getSettingsFromContext.md) | -                                                                                                                                                                      |
 | [isESLintReactSettings](functions/isESLintReactSettings.md)   | -                                                                                                                                                                      |
 | [isESLintSettings](functions/isESLintSettings.md)             | -                                                                                                                                                                      |
-| [isRegExp](functions/isRegExp.md)                             | Check whether given string is regexp string                                                                                                                            |
+| [isRegExp](functions/isRegExp.md)                             | Check whether given string is regexp string.                                                                                                                           |
 | [normalizeSettings](functions/normalizeSettings.md)           | -                                                                                                                                                                      |
 | [toRegExp](functions/toRegExp.md)                             | Convert a string to the `RegExp`. Normal strings (ex: `"foo"`) is converted to `/^foo$/` of `RegExp`. Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`. |

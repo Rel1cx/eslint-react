@@ -6,7 +6,7 @@
 function isFragmentElement(node: Node, jsxFragmentFactory?: string): node is TSESTreeJSXElementLike;
 ```
 
-Check whether a node is a React Fragment element
+Check whether a node is a React Fragment element.
 
 Recognizes both the shorthand `<>...</>` syntax (`JSXFragment`) and the
 explicit `<Fragment>` / `<React.Fragment>` form (`JSXElement`).
@@ -17,13 +17,13 @@ matches `"React.Fragment"` and `<Fragment>` matches `"Fragment"`.
 
 ## Parameters
 
-| Parameter            | Type     | Default value      | Description                                                   |
-| -------------------- | -------- | ------------------ | ------------------------------------------------------------- |
-| `node`               | `Node`   | `undefined`        | The AST node to test                                          |
-| `jsxFragmentFactory` | `string` | `"React.Fragment"` | The configured fragment factory string (ex: "React.Fragment") |
+| Parameter            | Type     | Default value      | Description                                                    |
+| -------------------- | -------- | ------------------ | -------------------------------------------------------------- |
+| `node`               | `Node`   | `undefined`        | The AST node to test.                                          |
+| `jsxFragmentFactory` | `string` | `"React.Fragment"` | The configured fragment factory string (ex: "React.Fragment"). |
 
 ## Returns
 
 `node is TSESTreeJSXElementLike`
 
-`true` when the node represents a React Fragment
+`true` when the node represents a React Fragment.

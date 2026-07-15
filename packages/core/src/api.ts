@@ -11,9 +11,9 @@ export declare namespace isAPI {
 }
 
 /**
- * Check if the node is a React API identifier or member expression
- * @param api The React API name to check against (ex: "useState", "React.memo")
- * @returns A predicate function to check if a node matches the API
+ * Check if the node is a React API identifier or member expression.
+ * @param api The React API name to check against (ex: "useState", "React.memo").
+ * @returns A predicate function to check if a node matches the API.
  */
 export function isAPI(api: string): isAPI.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node) => {
@@ -39,9 +39,9 @@ export declare namespace isAPICall {
 }
 
 /**
- * Check if the node is a call expression to a specific React API
- * @param api The React API name to check against
- * @returns A predicate function to check if a node is a call to the API
+ * Check if the node is a call expression to a specific React API.
+ * @param api The React API name to check against.
+ * @returns A predicate function to check if a node is a call to the API.
  */
 export function isAPICall(api: string): isAPICall.ReturnType {
   const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {

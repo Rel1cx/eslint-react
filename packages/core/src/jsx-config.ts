@@ -43,7 +43,7 @@ const mergedCache = new WeakMap<RuleContext["sourceCode"], Required<JsxConfig>>(
  * Falls back to sensible React defaults when no compiler options are
  * available (e.g. when the file is parsed without type information).
  *
- * @param context - The ESLint rule context.
+ * @param context The ESLint rule context.
  * @returns Fully‑populated `JsxConfig` derived from compiler options.
  */
 export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig> {
@@ -63,7 +63,7 @@ export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<
  * The result is cached per `sourceCode` instance via a `WeakMap` so that
  * repeated calls from different rules analysing the same file are free.
  *
- * @param context - The ESLint rule context.
+ * @param context The ESLint rule context.
  * @returns Partial `JsxConfig` containing only the values found in pragmas.
  */
 export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
@@ -107,7 +107,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
  *
  * This is the main entry‑point most consumers should use.
  *
- * @param context - The ESLint rule context.
+ * @param context The ESLint rule context.
  * @returns Fully‑populated, merged `JsxConfig`.
  */
 export function getJsxConfig(context: RuleContext): Required<JsxConfig> {

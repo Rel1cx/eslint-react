@@ -15,7 +15,7 @@ import { type RegExpLike, toRegExp } from "./regexp";
 export const ESLintReactSettingsSchema = z.object({
   /**
    * The source where React is imported from
-   * Allows specifying a custom import location for React
+   * Allows specifying a custom import location for React.
    * @default "react"
    * @example "@pika/react"
    */
@@ -23,32 +23,32 @@ export const ESLintReactSettingsSchema = z.object({
 
   /**
    * The React Compiler compilationMode that the project is using
-   * Used to inform the rule about how components and hooks will be picked up by the compiler
+   * Used to inform the rule about how components and hooks will be picked up by the compiler.
    * @example "infer"
    */
   compilationMode: z.optional(z.enum(["infer", "annotation", "syntax", "all"])),
 
   /**
    * The prop name used for polymorphic components
-   * Used to determine the component's type
+   * Used to determine the component's type.
    * @example "as"
    */
   polymorphicPropName: z.optional(z.string()),
 
   /**
    * React version to use
-   * "detect" means auto-detect React version from project dependencies
+   * "detect" means auto-detect React version from project dependencies.
    * @example "18.3.1"
    * @default "detect"
    */
   version: z.optional(z.string()),
   /**
-   * Regex pattern matching custom hooks that should be treated as state hooks
+   * Regex pattern matching custom hooks that should be treated as state hooks.
    * @example "useMyState|useCustomState"
    */
   additionalStateHooks: z.optional(z.string()),
   /**
-   * Regex pattern matching custom hooks that should be treated as effect hooks
+   * Regex pattern matching custom hooks that should be treated as effect hooks.
    * @example "useMyEffect|useCustomEffect"
    */
   additionalEffectHooks: z.optional(z.string()),

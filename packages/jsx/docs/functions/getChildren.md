@@ -6,7 +6,7 @@
 function getChildren(element: TSESTreeJSXElementLike): JSXChild[];
 ```
 
-Get the meaningful children of a JSX element or fragment
+Get the meaningful children of a JSX element or fragment.
 
 Mirrors Babel's `buildChildren` helper:
 
@@ -18,12 +18,12 @@ Mirrors Babel's `buildChildren` helper:
 
 ## Parameters
 
-| Parameter | Type                     | Description                          |
-| --------- | ------------------------ | ------------------------------------ |
-| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node |
+| Parameter | Type                     | Description                           |
+| --------- | ------------------------ | ------------------------------------- |
+| `element` | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
 
 ## Returns
 
 `JSXChild`[]
 
-An array of children nodes that contribute to rendered output
+An array of children nodes that contribute to rendered output.

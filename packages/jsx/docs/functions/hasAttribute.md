@@ -10,7 +10,7 @@ function hasAttribute(
 ): boolean;
 ```
 
-Check whether a JSX element carries a given attribute (prop)
+Check whether a JSX element carries a given attribute (prop).
 
 This is a thin convenience wrapper around [findAttribute](findAttribute.md) for the
 common case where you only need a boolean answer.
@@ -20,14 +20,14 @@ will report `true` for `"disabled"`.
 
 ## Parameters
 
-| Parameter | Type          | Description                                                                   |
-| --------- | ------------- | ----------------------------------------------------------------------------- |
-| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes) |
-| `element` | `JSXElement`  | The `JSXElement` node to inspect                                              |
-| `name`    | `string`      | The attribute name to look for (ex: "className")                              |
+| Parameter | Type          | Description                                                                    |
+| --------- | ------------- | ------------------------------------------------------------------------------ |
+| `context` | `RuleContext` | The ESLint rule context (needed for variable resolution in spread attributes). |
+| `element` | `JSXElement`  | The `JSXElement` node to inspect.                                              |
+| `name`    | `string`      | The attribute name to look for (ex: "className").                              |
 
 ## Returns
 
 `boolean`
 
-`true` when the attribute is present on the element
+`true` when the attribute is present on the element.

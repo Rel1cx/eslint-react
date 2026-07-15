@@ -34,10 +34,10 @@ export declare namespace getFunctionComponentCollector {
 }
 
 /**
- * Get an api and visitor object for the rule to collect function components
- * @param context The ESLint rule context
- * @param options The options to use
- * @returns The api and visitor of the collector
+ * Get an api and visitor object for the rule to collect function components.
+ * @param context The ESLint rule context.
+ * @param options The options to use.
+ * @returns The api and visitor of the collector.
  */
 export function getFunctionComponentCollector(
   context: RuleContext,

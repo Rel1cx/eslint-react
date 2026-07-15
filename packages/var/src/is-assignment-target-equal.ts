@@ -5,11 +5,11 @@ import { isValueEqual } from "./is-value-equal";
 
 /**
  * Check if two assignment targets are equal
- * Compares nodes directly or by their values
- * @param context The rule context
- * @param a The first node to compare
- * @param b The second node to compare
- * @returns True if the assignment targets are equal
+ * Compares nodes directly or by their values.
+ * @param context The rule context.
+ * @param a The first node to compare.
+ * @param b The second node to compare.
+ * @returns True if the assignment targets are equal.
  * @internal
  */
 export function isAssignmentTargetEqual(

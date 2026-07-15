@@ -6,16 +6,16 @@
 function isRegExp(string: string): boolean;
 ```
 
-Check whether given string is regexp string
+Check whether given string is regexp string.
 
 ## Parameters
 
-| Parameter | Type     | Description         |
-| --------- | -------- | ------------------- |
-| `string`  | `string` | The string to check |
+| Parameter | Type     | Description          |
+| --------- | -------- | -------------------- |
+| `string`  | `string` | The string to check. |
 
 ## Returns
 
 `boolean`
 
-boolean
+boolean.

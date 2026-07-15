@@ -1,5 +1,5 @@
 /**
- * Collapse a multiline JSX text string following React's whitespace rules
+ * Collapse a multiline JSX text string following React's whitespace rules.
  *
  * This mirrors Babel's `cleanJSXElementLiteralChild` algorithm:
  * 1. Split the raw text into lines.
@@ -7,8 +7,8 @@
  * 3. Trim leading spaces on non-first lines and trailing spaces on non-last lines.
  * 4. Collapse tabs into spaces.
  * 5. Append a single space after each non-last non-empty line.
- * @param text The raw JSX text string to collapse
- * @returns The collapsed string, or `null` if the text contains only whitespace
+ * @param text The raw JSX text string to collapse.
+ * @returns The collapsed string, or `null` if the text contains only whitespace.
  * @see https://github.com/babel/babel/blob/main/packages/babel-types/src/utils/react/cleanJSXElementLiteralChild.ts
  */
 export function collapseMultilineText(text: string): string | null {

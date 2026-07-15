@@ -3,11 +3,11 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getElementFullType } from "./get-element-type";
 
 /**
- * A test that determines whether a JSX element matches
+ * A test that determines whether a JSX element matches.
  *
  * - `string` matches against the full element type (ex: "div", "React.Fragment")
  * - `string[]` matches when the element type equals any of the given strings
- * - `function` receives the element type string and returns a boolean
+ * - `function` receives the element type string and returns a boolean.
  */
 export type ElementTest =
   | string
@@ -16,7 +16,7 @@ export type ElementTest =
 
 /**
  * Check whether a node is a `JSXElement` (or `JSXFragment`) and optionally
- * matches a given test
+ * matches a given test.
  *
  * Modelled after
  * [`hast-util-is-element`](https://github.com/syntax-tree/hast-util-is-element):
@@ -24,9 +24,9 @@ export type ElementTest =
  *
  * When called without a test, the function acts as a simple type-guard
  * for `JSXElement | JSXFragment`.
- * @param node The AST node to test
- * @param test Optional test to match the element type against
- * @returns `true` when the node is a matching JSX element
+ * @param node The AST node to test.
+ * @param test Optional test to match the element type against.
+ * @returns `true` when the node is a matching JSX element.
  */
 export function isElement(node: TSESTree.Node | null | undefined, test?: ElementTest): node is TSESTreeJSXElementLike {
   if (node == null) return false;

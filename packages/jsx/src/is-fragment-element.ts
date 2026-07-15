@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getElementFullType } from "./get-element-type";
 
 /**
- * Check whether a node is a React Fragment element
+ * Check whether a node is a React Fragment element.
  *
  * Recognizes both the shorthand `<>...</>` syntax (`JSXFragment`) and the
  * explicit `<Fragment>` / `<React.Fragment>` form (`JSXElement`).
@@ -11,9 +11,9 @@ import { getElementFullType } from "./get-element-type";
  * The comparison is performed against the self name (last dot-separated
  * segment) of both the node and the configured factory, so `<React.Fragment>`
  * matches `"React.Fragment"` and `<Fragment>` matches `"Fragment"`.
- * @param node The AST node to test
- * @param jsxFragmentFactory The configured fragment factory string (ex: "React.Fragment")
- * @returns `true` when the node represents a React Fragment
+ * @param node The AST node to test.
+ * @param jsxFragmentFactory The configured fragment factory string (ex: "React.Fragment").
+ * @returns `true` when the node represents a React Fragment.
  */
 export function isFragmentElement(
   node: TSESTree.Node,

@@ -7,7 +7,7 @@ function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttri
 ```
 
 Resolve the value of a JSX attribute (or spread attribute) into a
-[JsxAttributeValue](../type-aliases/JsxAttributeValue.md) descriptor that can be inspected further
+[JsxAttributeValue](../type-aliases/JsxAttributeValue.md) descriptor that can be inspected further.
 
 This is the low-level building block; it operates on a single attribute
 node that the caller has already located. For the higher-level "find by
@@ -15,13 +15,13 @@ name and resolve" combo, see [getAttributeValue](getAttributeValue.md).
 
 ## Parameters
 
-| Parameter   | Type                       | Description                                         |
-| ----------- | -------------------------- | --------------------------------------------------- |
-| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups) |
-| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node       |
+| Parameter   | Type                       | Description                                          |
+| ----------- | -------------------------- | ---------------------------------------------------- |
+| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups). |
+| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node.       |
 
 ## Returns
 
 [`JsxAttributeValue`](../type-aliases/JsxAttributeValue.md)
 
-A discriminated-union descriptor of the attribute's value
+A discriminated-union descriptor of the attribute's value.

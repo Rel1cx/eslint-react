@@ -3,7 +3,7 @@ import { isEmptyStringExpression, isWhitespaceText } from "./is-whitespace";
 
 /**
  * Check whether a JSX element (or fragment) has meaningful children, that is,
- * at least one child that is not purely whitespace text or an empty string expression
+ * at least one child that is not purely whitespace text or an empty string expression.
  *
  * A `JSXText` child whose `raw` content is empty after trimming is considered
  * non-meaningful because it is typically a code-formatting artifact
@@ -20,8 +20,8 @@ import { isEmptyStringExpression, isWhitespaceText } from "./is-whitespace";
  * always equal to `getChildren(node).length > 0`: they differ for
  * whitespace-only children that have no newline, such as `<div> </div>` or
  * `<div>\t\t</div>`. Choose the API that matches your rule's intent.
- * @param element A `JSXElement` or `JSXFragment` node
- * @returns `true` when the element has at least one meaningful child
+ * @param element A `JSXElement` or `JSXFragment` node.
+ * @returns `true` when the element has at least one meaningful child.
  */
 export function hasChildren(element: TSESTreeJSXElementLike) {
   if (element.children.length === 0) return false;

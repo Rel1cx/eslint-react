@@ -6,7 +6,7 @@
 type JsxDetectionHint = bigint;
 ```
 
-BitFlags for configuring JSX detection behavior
+BitFlags for configuring JSX detection behavior.
 
 Used by `isJsxLike` to control which AST node kinds are considered
 "JSX-like". Combine flags with the `|` operator.
