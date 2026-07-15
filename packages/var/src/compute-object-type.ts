@@ -87,6 +87,10 @@ export function computeObjectType(
       // Parameters are externally supplied values whose type cannot be statically
       // determined — skip resolution and treat them as unknown.
       const scope = context.sourceCode.getScope(node);
+      // Use the latest definition (`at: -1`) because we want the object's
+      // current runtime type. If a variable is reassigned or redeclared,
+      // earlier definitions are shadowed and no longer represent the value
+      // this identifier evaluates to at this point in the program.
       const def = scope.set.get(node.name)?.defs.at(-1);
       if (def?.type === DefinitionType.Parameter) return null;
       const initNode = resolve(context, node, { at: -1, localOnly: true });
