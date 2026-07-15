@@ -2150,6 +2150,31 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Component() {
+          const shadowX = useSpring(0);
+          const shadowY = useMotionValue(0);
+          const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
+
+          return <motion.div style={{ filter: shadow }} />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 3,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     "const StringComponent = () => 'text';",

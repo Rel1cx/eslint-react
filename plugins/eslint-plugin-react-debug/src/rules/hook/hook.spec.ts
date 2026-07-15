@@ -289,6 +289,27 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function useMotionStyle() {
+          const shadowX = useSpring(0);
+          const shadowY = useMotionValue(0);
+          const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
+          return shadow;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useMotionStyle",
+              hookCalls: 3,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [],
 });

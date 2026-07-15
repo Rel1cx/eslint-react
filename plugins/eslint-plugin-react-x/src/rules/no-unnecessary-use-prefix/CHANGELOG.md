@@ -5,6 +5,14 @@ All notable changes to the `react-x/no-unnecessary-use-prefix` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [5.16.0] - 2026-07-15
+
+### Fixed
+
+- Tagged template literal hook calls (e.g. `useMotionTemplate\`...\``) are now recognized as valid hook usage, preventing false positives for custom hooks that call hooks only through tagged templates. (#1909)
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed
