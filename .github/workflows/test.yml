@@ -29,8 +29,6 @@ jobs:
           package-manager-cache: false
       - name: Setup pnpm
         uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
-        with:
-          version: 11.11.0
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build packages
@@ -44,8 +42,6 @@ jobs:
           package-manager-cache: false
       - name: Setup pnpm
         uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
-        with:
-          version: 11.11.0
       - name: Test on node@24
         run: node --run test
       - name: Setup node@22
@@ -55,7 +51,5 @@ jobs:
           package-manager-cache: false
       - name: Setup pnpm
         uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
-        with:
-          version: 11.11.0
       - name: Test on node@22
         run: node --run test

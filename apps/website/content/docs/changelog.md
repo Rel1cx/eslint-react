@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.15.0 (2026-07-15)
+
+### 📝 Documentation
+
+- Added a FAQ entry on improving analyzer accuracy to the website. (#1907)
+- Fixed inconsistencies and omissions in internal documentation.
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` to `8.64.0`, `nx` to `23.1.0`, `eslint-plugin-package-json` to `1.6.0`, and `pnpm` to `11.13.0`.
+- Enabled `strictBooleanExpressions` in TSL and synchronized sample rule configurations. (#1907)
+- Removed the website-specific changelog file.
+- Switched CI workflows to use `pnpm/action-setup` instead of installing pnpm globally via npm.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.14.10...v5.15.0
+
 ## v5.14.10 (2026-07-15)
 
 ### 🐞 Fixes
