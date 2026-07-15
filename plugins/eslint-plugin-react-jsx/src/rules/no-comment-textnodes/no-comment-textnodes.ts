@@ -1,7 +1,7 @@
+import { isDirectJsxChild } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
-import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-comment-textnodes";
 
@@ -26,22 +26,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  function hasCommentLike(node: TSESTree.JSXText | TSESTree.Literal) {
-    // If the node is within a JSX attribute or expression container, it's not a text node comment
-    if (Check.isOneOf([AST.JSXAttribute, AST.JSXExpressionContainer])(node.parent)) {
-      return false;
-    }
-    // Examines the node's raw text to see if it starts with '//' or '/*'
-    return /^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node));
-  }
   function visit(node: TSESTree.JSXText | TSESTree.Literal) {
-    // Ensures the node is a direct child of a JSX element or fragment
-    if (!Check.isJSXElementOrFragment(node.parent)) {
-      return;
-    }
-    if (!hasCommentLike(node)) {
-      return;
-    }
+    if (!isDirectJsxChild(node)) return;
+    if (!/^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node))) return;
     context.report({
       messageId: "default",
       node,

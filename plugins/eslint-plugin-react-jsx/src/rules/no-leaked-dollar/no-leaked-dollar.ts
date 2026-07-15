@@ -45,24 +45,23 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.children[index + 1]?.type !== AST.JSXExpressionContainer) continue;
       // Skip if there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
       if (child.value === "$" && node.children.length === 2) continue;
-      const pos = child.loc.end;
+      // Only report a literal '$' at the end of the raw text node.
+      const rawText = context.sourceCode.getText(child);
+      if (!rawText.endsWith("$")) continue;
+
+      const dollarStart = child.range[1] - 1;
+      const dollarEnd = child.range[1];
       context.report({
         loc: {
-          end: {
-            column: pos.column,
-            line: pos.line,
-          },
-          start: {
-            column: pos.column - 1,
-            line: pos.line,
-          },
+          end: context.sourceCode.getLocFromIndex(dollarEnd),
+          start: context.sourceCode.getLocFromIndex(dollarStart),
         },
         messageId: "default",
         node: child,
         suggest: [
           {
             fix(fixer) {
-              return fixer.removeRange([child.range[1] - 1, child.range[1]]);
+              return fixer.removeRange([dollarStart, dollarEnd]);
             },
             messageId: "removeDollarSign",
           },

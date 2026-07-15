@@ -1,5 +1,5 @@
+import { isDirectJsxChild } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
-import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
@@ -33,24 +33,25 @@ export default createRule<[], MessageID>({
 });
 
 function hasLeakedSemicolon(text: string) {
-  return text.startsWith(";\n") || text.startsWith(";\r");
+  return /^;[ \t]*(?:\r\n|\r|\n)/u.test(text);
 }
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.JSXText | TSESTree.Literal) {
-    if (!Check.isJSXElementOrFragment(node.parent)) {
-      return;
-    }
-    if (!hasLeakedSemicolon(context.sourceCode.getText(node))) {
-      return;
-    }
+    if (!isDirectJsxChild(node)) return;
+
+    const text = context.sourceCode.getText(node);
+    if (!hasLeakedSemicolon(text)) return;
+
+    const semicolonStart = node.range[0];
+    const semicolonEnd = node.range[0] + 1;
     context.report({
       messageId: "default",
       node,
       suggest: [
         {
           fix(fixer) {
-            return fixer.removeRange([node.range[0], node.range[0] + 1]);
+            return fixer.removeRange([semicolonStart, semicolonEnd]);
           },
           messageId: "removeSemicolon",
         },

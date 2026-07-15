@@ -5,6 +5,14 @@ All notable changes to the `react-jsx/no-useless-fragment` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `allowExpressions: false` now only flags fragments with a single expression child, matching the option's documented behavior, instead of flagging any fragment inside a JSX element.
+- Fragments with spread attributes (e.g. `<Fragment {...props}>`) are no longer auto-fixed.
+- Auto-fixer now removes leading indentation when collapsing whitespace-only fragments.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

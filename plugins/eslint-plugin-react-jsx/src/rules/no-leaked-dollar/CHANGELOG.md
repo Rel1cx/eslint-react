@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The rule no longer treats `$` character references (`&#36;`, `&#x24;`) as leaked dollar signs; only a literal `$` in the source is reported.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

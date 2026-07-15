@@ -71,6 +71,12 @@ ruleTester.run(RULE_NAME, rule, {
         return <div key="1" {...props} className="x">1</div>;
       };
     `,
+    // Key after non-spread attributes but before spread (valid)
+    tsx`
+      const App = (props) => {
+        return <div id="1" key="1" {...props} />;
+      };
+    `,
     // No spread (valid)
     tsx`
       const App = () => {
@@ -172,6 +178,15 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
       `,
       errors: [{ messageId: "noKeyAfterSpread" }],
     },
+    // Key on explicit Fragment after spread
+    {
+      code: tsx`
+        const App = (props) => {
+          return <Fragment {...props} key="test" />;
+        };
+      `,
+      errors: [{ messageId: "noKeyAfterSpread" }],
+    },
   ],
   valid: [
     tsx`
@@ -194,6 +209,18 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
     tsx`
       const App = (props) => {
         return <div {...props} xml:key="test" />;
+      };
+    `,
+    // Any JSXNamespacedName after spread should NOT be reported
+    tsx`
+      const App = (props) => {
+        return <div {...props} x:key="test" />;
+      };
+    `,
+    // Key inside a spread object is not a direct key prop
+    tsx`
+      const App = (props) => {
+        return <div {...{ key: 1 }} />;
       };
     `,
     // xmlns:x after spread should NOT be reported

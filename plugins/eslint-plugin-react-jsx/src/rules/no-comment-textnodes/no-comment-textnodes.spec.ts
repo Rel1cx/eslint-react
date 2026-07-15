@@ -74,6 +74,25 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<Custom>/* not a real comment */</Custom>`,
       errors: [{ messageId: "default" }],
     },
+    // Leading whitespace before comment
+    {
+      code: tsx`<div>   // comment</div>`,
+      errors: [{ messageId: "default" }],
+    },
+    // Leading newline before comment
+    {
+      code: tsx`
+        <div>
+          // comment
+        </div>
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Block comment with content
+    {
+      code: tsx`<div>/** comment */</div>`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<App foo='test'>{/* valid */}</App>",
@@ -94,6 +113,15 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Attribute value (not a text node)
     "<div attr='// comment' />",
+    // Comment-like text not at the beginning of a text node
+    "<div>a/*b</div>",
+    "<div>a //b</div>",
+    // Whitespace-only text node
+    "<div>   </div>",
+    tsx`
+      <div>
+      </div>
+    `,
     // Outside of JSX entirely
     "const x = '/* not a comment */';",
   ],

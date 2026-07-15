@@ -36,6 +36,20 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: "<div><span />;  \n</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: "<div><span />  \n</div>",
+            },
+          ],
+        },
+      ],
+    },
+    {
       code: tsx`
         const Component = () => {
           return (
@@ -227,6 +241,73 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Nested element with semicolon + newline (still a leaked semicolon)
+    {
+      code: tsx`
+        const Component = () => {
+          return (
+            <div>
+              <span>;
+              </span>
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <span>
+                      </span>
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Tab between semicolon and newline
+    {
+      code: tsx`<div><span />;	
+</div>`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`<div><span />	
+</div>`,
+            },
+          ],
+        },
+      ],
+    },
+    // CRLF after semicolon
+    {
+      code: tsx`<div><span />;
+</div>`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`<div><span />
+</div>`,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -262,6 +343,24 @@ ruleTester.run(RULE_NAME, rule, {
         return (
           <div>
             <div />&#59;
+          </div>
+        );
+      }
+    `,
+    tsx`
+      const Component = () => {
+        return (
+          <div>
+            <div />&#59;  
+          </div>
+        );
+      }
+    `,
+    tsx`
+      const Component = () => {
+        return (
+          <div>
+            <div />&semi;
           </div>
         );
       }
@@ -314,6 +413,8 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
+    // Not leaked: semicolon inside nested element without following newline
+    "<div><span>;</span></div>",
     // Not leaked: attribute value
     "<div attr='a;b' />",
   ],

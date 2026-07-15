@@ -79,39 +79,20 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
     const insideJsx = Check.isJSXElementOrFragment(node.parent);
 
-    // When expressions are disallowed, any fragment inside JSX is useless
-    // (the wrapper serves no purpose), and a single-child fragment outside
-    // JSX is also useless.
-    if (!allowExpressions) {
-      if (insideJsx) return true;
-      if (node.children.length === 1) return true;
+    // A single text child outside JSX cannot be unwrapped into a valid
+    // expression, so keep the existing exception for attribute values such as
+    // `content={<>text</>}`.
+    if (allowExpressions && !insideJsx && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
+      return false;
     }
 
-    // When expressions are allowed, a single text child in non-JSX context
-    // is tolerated (e.g. attribute values like `content={<>text</>}`).
-    if (allowExpressions && !insideJsx && node.children.length === 1) {
-      const child = node.children[0];
-      if (child != null && child.type === AST.JSXText) {
-        return false;
-      }
-    }
-
-    // Filter out padding spaces (whitespace with line breaks that React
-    // would trim away) and inspect the remaining meaningful children.
     const meaningful = getChildren(node);
-
-    // No meaningful content at all.
     if (meaningful.length === 0) return true;
+    if (meaningful.length > 1) return false;
 
-    // A single meaningful child that is NOT an expression container is
-    // useless — the fragment wrapper adds nothing.  A single expression
-    // container is kept because `allowExpressions` (the default) permits it.
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (meaningful.length === 1 && meaningful[0]!.type !== AST.JSXExpressionContainer) {
-      return true;
-    }
-
-    return false;
+    const child = meaningful[0];
+    if (child?.type === AST.JSXExpressionContainer) return !allowExpressions;
+    return true;
   }
 
   // ----- fix helpers -------------------------------------------------------
@@ -121,6 +102,10 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
    * @param node The fragment node to check.
    */
   function isSafeToFix(node: TSESTreeJSXElementLike) {
+    if (node.type === AST.JSXElement && node.openingElement.attributes.some((attr) => attr.type === AST.JSXSpreadAttribute)) {
+      return false;
+    }
+
     // Inside a JSX parent we can only safely unwrap if the parent is a host
     // (intrinsic / DOM) element.  Custom components might require `children`
     // to be a single ReactElement, so unwrapping could break them.
@@ -130,17 +115,14 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
 
     // Outside of JSX context (e.g. `return <></>`) an empty fragment cannot
     // be replaced with nothing — that would be a syntax error.
-    if (node.children.length === 0) {
-      return false;
-    }
+    if (node.children.length === 0) return false;
 
-    // Outside of JSX context, unwrapping children that contain text or
-    // expressions would produce invalid syntax (bare text / expressions are
-    // not valid JS).  Only pure element children are safe.
-    return !node.children.some((child) => {
-      if (child.type === AST.JSXExpressionContainer) return true;
-      if (child.type === AST.JSXText) return !isWhitespaceText(child);
-      return false;
+    // Outside of JSX context, only element/fragment children and padding
+    // whitespace can be moved into the surrounding expression. Text,
+    // expressions, and spread children would produce invalid JavaScript.
+    return node.children.every((child) => {
+      if (Check.isJSXElementOrFragment(child)) return true;
+      return child.type === AST.JSXText && isWhitespaceText(child);
     });
   }
 
@@ -162,7 +144,15 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
           text += context.sourceCode.getText(child);
         }
       }
-      return fixer.replaceText(node, text);
+      let start = node.range[0];
+      if (text === "" && node.children.length > 0) {
+        const lineStart = Math.max(
+          context.sourceCode.text.lastIndexOf("\n", start - 1),
+          context.sourceCode.text.lastIndexOf("\r", start - 1),
+        ) + 1;
+        if (/^[ \t]*$/u.test(context.sourceCode.text.slice(lineStart, start))) start = lineStart;
+      }
+      return fixer.replaceTextRange([start, node.range[1]], text);
     };
   }
 

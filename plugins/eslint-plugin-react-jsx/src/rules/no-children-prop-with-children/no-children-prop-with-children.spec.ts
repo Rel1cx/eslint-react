@@ -429,9 +429,52 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Empty string children prop with nested content
+    {
+      code: '<div children="">content</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children=""></div>;' },
+          ],
+        },
+      ],
+    },
+    // Whitespace string children prop with nested content
+    {
+      code: '<div children=" ">content</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children=" "></div>;' },
+          ],
+        },
+      ],
+    },
+    // Conditional expression children prop with nested content
+    {
+      code: tsx`<div children={condition ? <A /> : <B />}><span /></div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: tsx`<div><span /></div>;` },
+            { messageId: "removeChildrenContent", output: tsx`<div children={condition ? <A /> : <B />}></div>;` },
+          ],
+        },
+      ],
+    },
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" }, "Children");',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: "Children" } as Props, "Children");',
       errors: [{ messageId: "default" }],
     },
     {
@@ -460,6 +503,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: 'React.createElement("div", { ["children"]: "x" }, "text");',
       errors: [{ messageId: "default" }],
     },
+    // createElement with template literal property key
+    {
+      code: 'React.createElement("div", { [`children`]: "x" }, "text");',
+      errors: [{ messageId: "default" }],
+    },
     // createElement with spread in arguments
     {
       code: 'React.createElement("div", { children: "x" }, ...["a", "b"]);',
@@ -481,8 +529,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    "<div />;",
-    "<div></div>;",
     '<div className="class-name"></div>;',
     "<div>Children</div>;",
     '<div className="class-name">Children</div>;',
@@ -517,6 +563,11 @@ ruleTester.run(RULE_NAME, rule, {
     // createElement with children prop only
     'React.createElement("div", { children: "Children" });',
     'createElement("div", { children: "Children" });',
+    // createElement with no props arg
+    'React.createElement("div");',
+    'createElement("div");',
+    // createElement with computed identifier key is not a static children prop
+    'const propName = "children"; React.createElement("div", { [propName]: "Children" }, "text");',
     // Empty string expressions are not considered meaningful children (PR #1805)
     '<div children="x">{""}</div>;',
     "<div children=\"x\">{''}</div>;",

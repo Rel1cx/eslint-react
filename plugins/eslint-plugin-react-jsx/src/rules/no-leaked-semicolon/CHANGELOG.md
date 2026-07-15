@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Leaked semicolons followed by spaces or tabs before a newline, including CRLF line endings, are now detected.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

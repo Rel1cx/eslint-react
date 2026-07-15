@@ -28,9 +28,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const name = getElementFullType(node);
-      if (typeof name !== "string" || !name.includes(":")) {
-        return;
-      }
+      if (!name.includes(":")) return;
       context.report({
         data: {
           name,

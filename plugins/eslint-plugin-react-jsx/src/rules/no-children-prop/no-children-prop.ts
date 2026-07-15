@@ -1,9 +1,10 @@
+import { findChildrenProperty, getChildrenPropText, getPropRemovalRange } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
+import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { findChildrenProperty, getChildrenPropText, getPropRemovalRange } from "./lib";
 
 export const RULE_NAME = "no-children-prop";
 
@@ -40,9 +41,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!core.isCreateElementCall(context, node)) return;
 
       const [, propsArg] = node.arguments;
-      if (propsArg == null || propsArg.type !== AST.ObjectExpression) return;
+      if (propsArg == null) return;
 
-      const childrenProp = findChildrenProperty(propsArg);
+      const propsObject = Extract.unwrap(propsArg);
+      if (propsObject.type !== AST.ObjectExpression) return;
+
+      const childrenProp = findChildrenProperty(propsObject);
       if (childrenProp == null) return;
 
       context.report({
