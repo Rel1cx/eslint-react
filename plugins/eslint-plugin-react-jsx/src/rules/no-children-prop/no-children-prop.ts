@@ -97,10 +97,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
                 return [
                   fixer.removeRange([removeStart, removeEnd]),
-                  fixer.replaceTextRange(
-                    [wsStart, openingElement.range[1]],
-                    `>${childrenText}</${tagName}>`,
-                  ),
+                  fixer.replaceTextRange([wsStart, openingElement.range[1]], `>${childrenText}</${tagName}>`),
                 ];
               }
 
@@ -111,9 +108,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               ];
 
               if (node.closingElement != null) {
-                fixes.push(
-                  fixer.insertTextBefore(node.closingElement, childrenText),
-                );
+                fixes.push(fixer.insertTextBefore(node.closingElement, childrenText));
               }
 
               return fixes;

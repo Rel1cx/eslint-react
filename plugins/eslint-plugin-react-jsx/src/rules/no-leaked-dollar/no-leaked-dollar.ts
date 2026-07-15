@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    * Visitor function for JSXElement and JSXFragment nodes
    * @param node The JSXElement or JSXFragment node to be checked
    */
-  const visit = (node: TSESTreeJSXElementLike) => {
+  function visit(node: TSESTreeJSXElementLike) {
     for (const [index, child] of node.children.entries()) {
       if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
       // Ensure the next sibling is a JSXExpressionContainer
@@ -69,6 +69,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ],
       });
     }
-  };
+  }
   return { JSXElement: visit, JSXFragment: visit };
 }

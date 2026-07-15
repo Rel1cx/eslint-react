@@ -37,7 +37,7 @@ function hasLeakedSemicolon(text: string) {
 }
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const visit = (node: TSESTree.JSXText | TSESTree.Literal) => {
+  function visit(node: TSESTree.JSXText | TSESTree.Literal) {
     if (!Check.isJSXElementOrFragment(node.parent)) {
       return;
     }
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         },
       ],
     });
-  };
+  }
   return {
     JSXText: visit,
     Literal: visit,

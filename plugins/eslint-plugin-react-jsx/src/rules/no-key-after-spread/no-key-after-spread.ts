@@ -31,9 +31,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   const isAutomaticRuntime = jsx === ts.JsxEmit.ReactJSX || jsx === ts.JsxEmit.ReactJSXDev;
 
-  if (!isAutomaticRuntime) {
-    return {};
-  }
+  // Only apply the rule to the automatic JSX runtime
+  if (!isAutomaticRuntime) return {};
 
   return {
     JSXOpeningElement(node) {

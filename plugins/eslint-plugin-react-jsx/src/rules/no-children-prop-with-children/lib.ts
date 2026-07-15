@@ -29,11 +29,7 @@ export function findChildrenProperty(node: TSESTree.ObjectExpression): TSESTree.
  * @param prop The property to remove.
  * @param parent The parent ObjectExpression.
  */
-export function getObjectPropertyRemovalRange(
-  context: RuleContext,
-  prop: TSESTree.Property,
-  parent: TSESTree.ObjectExpression,
-): [start: number, end: number] {
+export function getObjectPropertyRemovalRange(context: RuleContext, prop: TSESTree.Property, parent: TSESTree.ObjectExpression): [start: number, end: number] {
   const { sourceCode } = context;
   const props = parent.properties;
   const propIndex = props.indexOf(prop);
