@@ -77,6 +77,33 @@ For a comprehensive migration guide with a complete rule comparison table, see o
 
 To smoothly transition, we suggest reviewing the rules in ESLint React and running a comprehensive linting check on your codebase to identify and address any discrepancies introduced by the migration.
 
+## How can I help ESLint React analyze my code more accurately?
+
+ESLint React performs static analysis on your source code, so it can only reason about values and calls that are visible at compile time. Computed property access such as `obj["foo"]()` or `React["createElement"]()` hides the actual member name from the analyzer, which may cause rules to miss calls they would otherwise detect.
+
+To keep code analyzer-friendly, we recommend enabling the following TypeScript ESLint rules alongside ESLint React:
+
+- [`@typescript-eslint/dot-notation`](https://typescript-eslint.io/rules/dot-notation/) — prefers `obj.foo` over `obj["foo"]` when the property name is a valid identifier, making method calls easier for rules to resolve.
+- [`@typescript-eslint/no-unnecessary-template-expression`](https://typescript-eslint.io/rules/no-unnecessary-template-expression/) — removes unnecessary template literals such as `` `foo` ``, keeping callee names plain strings where possible.
+
+Using these rules together reduces reliance on computed member expressions and helps ESLint React rules match calls consistently.
+
+Additionally, configuring ESLint React and your project settings correctly ensures the analyzer understands your specific environment:
+
+- **Configure Analyzer Settings**: Customize static analysis behavior via the `react-x` key in your ESLint `settings` object:
+  - **React Version**: Set `version` (e.g., `"detect"` or `"19.2.7"`) to ensure semantic analysis matches your available React features.
+  - **React Compiler**: Align `compilationMode` with your React Compiler configuration so rules respect its optimization strategies.
+  - **Custom Hooks**: Use `additionalStateHooks` and `additionalEffectHooks` regex patterns to help the analyzer recognize and validate your custom hooks as standard state or effect hooks.
+  - **Polymorphic Components**: Define `polymorphicPropName` (e.g., `"as"`) so rules can correctly infer the rendered underlying element type.
+  - **Custom Import Sources**: Specify `importSource` if you use non-standard distributions (like `"@pika/react"`).
+
+  See [Configure Analyzer](/docs/configuration/configure-analyzer) for more details.
+
+- **Leverage Type Information**:
+  - Set up `parserOptions.project` or `parserOptions.projectService` in your ESLint config to enable powerful type-aware rules (like `react-x/no-leaked-conditional-rendering` and `react-x/no-implicit-children`).
+  - Enable `strictNullChecks` in your `tsconfig.json` or `jsconfig.json` to significantly improve the accuracy of these type-aware rules.
+  - Ensure your JSX transform options (`jsx`, `jsxImportSource`, etc.) are properly defined in your TypeScript config so ESLint React can automatically detect them.
+
 ## What does 90% human-written mean?
 
 Of every 100 rules, 10 are written or ported by LLMs and reviewed by humans, while 90 are written or ported by humans and reviewed by LLMs.
