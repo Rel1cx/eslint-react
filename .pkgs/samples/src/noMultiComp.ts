@@ -9,7 +9,6 @@ export function noMultiComp(): RuleFunction {
       "Program:exit"(program) {
         const components = query.all(program);
 
-        // ─── Report excess components ──────────────────
         for (const { node, name } of components.slice(1)) {
           context.report({
             node,

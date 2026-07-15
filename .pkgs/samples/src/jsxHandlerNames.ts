@@ -28,9 +28,8 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
 
       const value = node.value;
-      if (!value) return;
+      if (value == null) return;
 
-      // ─── Check expression value ────────────────────
       if (value.type === "JSXExpressionContainer") {
         const expression = ast.unwrap(value.expression);
 

@@ -7,7 +7,7 @@ function getCalleeName(node: CallExpression): string | null;
 ```
 
 Get the name of a call expression's callee when it is an identifier
-or a member expression whose property is an identifier
+or a non-computed member expression whose property is an identifier
 
 ## Parameters
 

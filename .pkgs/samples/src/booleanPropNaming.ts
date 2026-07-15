@@ -31,7 +31,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
       "Program:exit"(prog) {
         const comps = query.all(prog);
 
-        // ─── Iterate Components ────────────────────────
         for (const comp of comps) {
           const [propsParam] = comp.node.params;
           if (propsParam == null) continue;
@@ -40,7 +39,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
           const propsType = chk.getTypeAtLocation(tsNode);
           const declaredProps = propsType.getProperties();
 
-          // ─── Iterate Props ─────────────────────────────
           for (const prop of declaredProps) {
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
@@ -57,7 +55,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             if (decl == null) continue;
 
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
-            if (declNode == null) continue;
 
             const node = "key" in declNode ? declNode.key : declNode;
 

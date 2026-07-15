@@ -11,7 +11,6 @@ export function functionComponentDefinition(): RuleFunction {
       visitor,
       {
         "Program:exit"(program) {
-          // ─── Iterate all components ────────────────────
           for (const { node } of query.all(program)) {
             // Guard: must not already be arrow function
             if (node.type === "ArrowFunctionExpression") continue;
@@ -27,24 +26,21 @@ export function functionComponentDefinition(): RuleFunction {
                     if (node.generator) return null;
 
                     const prefix = node.async ? "async " : "";
-                    const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                    const typeParams = node.typeParameters != null ? src.getText(node.typeParameters) : "";
                     const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                    const returnType = node.returnType ? src.getText(node.returnType) : "";
+                    const returnType = node.returnType != null ? src.getText(node.returnType) : "";
                     const body = src.getText(node.body);
 
-                    // ─── Case: function declaration ──────────────
-                    if (node.type === "FunctionDeclaration" && node.id) {
+                    if (node.type === "FunctionDeclaration" && node.id != null) {
                       // dprint-ignore
                       return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
                     }
 
-                    // ─── Case: function expression in variable ───
                     if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
                       // dprint-ignore
                       return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
 
-                    // ─── Case: object method shorthand ───────────
                     if (node.type === "FunctionExpression" && node.parent.type === "Property") {
                       // dprint-ignore
                       return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);

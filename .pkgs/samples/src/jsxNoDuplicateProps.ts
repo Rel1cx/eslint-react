@@ -13,7 +13,6 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
     JSXOpeningElement(node) {
       const seen = new Map<string, string>();
 
-      // ─── Check each attribute ──────────────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;

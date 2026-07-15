@@ -12,11 +12,9 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
   return (context) => ({
     JSXElement(node) {
       let depth = 0;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let parent: any = node.parent;
+      let parent: typeof node.parent | null | undefined = node.parent;
 
-      // ─── Walk up the tree ──────────────────────────
-      while (parent) {
+      while (parent != null) {
         if (parent.type === "JSXElement") {
           depth++;
         }

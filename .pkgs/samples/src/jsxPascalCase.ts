@@ -21,7 +21,6 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
       const componentName = name.name;
 
-      // ─── Handle leading underscore ───────────────
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
@@ -37,7 +36,6 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
       if (firstChar == null) return;
       if (firstChar === firstChar.toLowerCase()) return;
 
-      // ─── Handle all-caps ─────────────────────────
       if (componentName === componentName.toUpperCase()) {
         if (!allowAllCaps) {
           context.report({
@@ -48,7 +46,6 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      // ─── Validate PascalCase ─────────────────────
       if (!pascalCaseRegex.test(componentName)) {
         context.report({
           node: name,

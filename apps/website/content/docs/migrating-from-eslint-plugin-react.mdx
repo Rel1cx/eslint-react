@@ -307,7 +307,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
       "Program:exit"(prog) {
         const comps = query.all(prog);
 
-        // ─── Iterate Components ────────────────────────
         for (const comp of comps) {
           const [propsParam] = comp.node.params;
           if (propsParam == null) continue;
@@ -316,7 +315,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
           const propsType = chk.getTypeAtLocation(tsNode);
           const declaredProps = propsType.getProperties();
 
-          // ─── Iterate Props ─────────────────────────────
           for (const prop of declaredProps) {
             const propType = chk.getTypeOfSymbolAtLocation(prop, tsNode);
 
@@ -333,7 +331,6 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
             if (decl == null) continue;
 
             const declNode = srv.tsNodeToESTreeNodeMap.get(decl);
-            if (declNode == null) continue;
 
             const node = "key" in declNode ? declNode.key : declNode;
 
@@ -412,8 +409,7 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
       if (propName == null || !forbidden.includes(propName)) return;
 
       // Verify context is JSX opening element
-      const parent = node.parent;
-      if (parent?.type !== "JSXOpeningElement") return;
+      const { parent } = node;
 
       // Extract element name
       const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
@@ -453,8 +449,7 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
       if (propName == null || !forbidden.includes(propName)) return;
 
       // Verify context is JSX opening element
-      const parent = node.parent;
-      if (parent?.type !== "JSXOpeningElement") return;
+      const { parent } = node;
 
       // Extract element name
       const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;
@@ -520,7 +515,6 @@ export function functionComponentDefinition(): RuleFunction {
       visitor,
       {
         "Program:exit"(program) {
-          // ─── Iterate all components ────────────────────
           for (const { node } of query.all(program)) {
             // Guard: must not already be arrow function
             if (node.type === "ArrowFunctionExpression") continue;
@@ -536,24 +530,21 @@ export function functionComponentDefinition(): RuleFunction {
                     if (node.generator) return null;
 
                     const prefix = node.async ? "async " : "";
-                    const typeParams = node.typeParameters ? src.getText(node.typeParameters) : "";
+                    const typeParams = node.typeParameters != null ? src.getText(node.typeParameters) : "";
                     const params = `(${node.params.map((p) => src.getText(p)).join(", ")})`;
-                    const returnType = node.returnType ? src.getText(node.returnType) : "";
+                    const returnType = node.returnType != null ? src.getText(node.returnType) : "";
                     const body = src.getText(node.body);
 
-                    // ─── Case: function declaration ──────────────
-                    if (node.type === "FunctionDeclaration" && node.id) {
+                    if (node.type === "FunctionDeclaration" && node.id != null) {
                       // dprint-ignore
                       return fixer.replaceText(node, `const ${node.id.name} = ${prefix}${typeParams}${params}${returnType} => ${body};`);
                     }
 
-                    // ─── Case: function expression in variable ───
                     if (node.type === "FunctionExpression" && node.parent.type === "VariableDeclarator") {
                       // dprint-ignore
                       return fixer.replaceText(node, `${prefix}${typeParams}${params}${returnType} => ${body}`);
                     }
 
-                    // ─── Case: object method shorthand ───────────
                     if (node.type === "FunctionExpression" && node.parent.type === "Property") {
                       // dprint-ignore
                       return fixer.replaceText(node.parent, `${src.getText(node.parent.key)}: ${prefix}${typeParams}${params}${returnType} => ${body}`);
@@ -621,8 +612,6 @@ export type JsxsFragmentsOptions = {
 export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
-    // ── Helpers ─────────────────────────────────────
-
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
@@ -632,20 +621,17 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
         node,
         message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
         fix(fixer) {
-          const closing = node.parent?.closingElement;
-          if (!closing) return null;
+          const closing = node.parent.closingElement;
+          if (closing == null) return null;
           return [fixer.replaceText(node, "<>"), fixer.replaceText(closing, "</>")];
         },
       });
     }
 
-    // ── Listeners ────────────────────────────────────
-
     return {
       JSXOpeningElement(node) {
         const name = node.name;
 
-        // ─── Handle <Fragment> (JSXIdentifier) ───────
         if (name.type === "JSXIdentifier" && name.name === "Fragment") {
           if (mode === "syntax") {
             reportSyntaxPreferred(node, "Fragment");
@@ -653,10 +639,9 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
           return;
         }
 
-        // ─── Handle <React.Fragment> (JSXMemberExpression) ─
         if (name.type !== "JSXMemberExpression") return;
         if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
-        if (name.property.type !== "JSXIdentifier" || name.property.name !== "Fragment") return;
+        if (name.property.name !== "Fragment") return;
 
         if (mode === "syntax") {
           reportSyntaxPreferred(node, "React.Fragment");
@@ -716,9 +701,8 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
       if (!EVENT_HANDLER_REGEX.test(propName)) return;
 
       const value = node.value;
-      if (!value) return;
+      if (value == null) return;
 
-      // ─── Check expression value ────────────────────
       if (value.type === "JSXExpressionContainer") {
         const expression = ast.unwrap(value.expression);
 
@@ -728,9 +712,7 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           if (!HANDLER_FUNC_REGEX.test(handlerName)) {
             context.report({
               node: expression,
-              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${
-                propName.slice(eventHandlerPropPrefix.length)
-              }..."`,
+              message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
             });
           }
           return;
@@ -741,10 +723,9 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           if (checkInlineFunction) {
             context.report({
               node: expression,
-              message:
-                `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
-                  propName.slice(eventHandlerPropPrefix.length)
-                }" function.`,
+              message: `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
+                propName.slice(eventHandlerPropPrefix.length)
+              }" function.`,
             });
           }
           return;
@@ -774,11 +755,9 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
   return (context) => ({
     JSXElement(node) {
       let depth = 0;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let parent: any = node.parent;
+      let parent: typeof node.parent | null | undefined = node.parent;
 
-      // ─── Walk up the tree ──────────────────────────
-      while (parent) {
+      while (parent != null) {
         if (parent.type === "JSXElement") {
           depth++;
         }
@@ -815,7 +794,6 @@ export function jsxNoBind(): RuleFunction {
 
       const expr = ast.unwrap(value.expression);
 
-      // ─── Detect forbidden patterns ─────────────────
       switch (true) {
         case expr.type === "ArrowFunctionExpression":
         case expr.type === "FunctionExpression":
@@ -823,11 +801,7 @@ export function jsxNoBind(): RuleFunction {
           break;
         case expr.type === "CallExpression": {
           const callee = ast.unwrap(expr.callee);
-          if (
-            callee.type === "MemberExpression"
-            && callee.property.type === "Identifier"
-            && callee.property.name === "bind"
-          ) {
+          if (callee.type === "MemberExpression" && callee.property.type === "Identifier" && callee.property.name === "bind") {
             context.report({ node, message: "JSX props should not use .bind()." });
           }
           break;
@@ -858,7 +832,6 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
     JSXOpeningElement(node) {
       const seen = new Map<string, string>();
 
-      // ─── Check each attribute ──────────────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXAttribute") continue;
         if (attr.name.type !== "JSXIdentifier") continue;
@@ -902,16 +875,13 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
   const { noStrings = false, allowedStrings = [], ignoreProps = true } = options;
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
-    // ─── Check literal text children ───────────────
     Literal(node) {
       if (typeof node.value !== "string") return;
       const text = node.value.trim();
       if (text === "" || allowedSet.has(text)) return;
 
       const parent = node.parent;
-      if (!parent) return;
 
-      // ─── Case: prop value ────────────────────────
       if (parent.type === "JSXAttribute") {
         if (!ignoreProps) {
           context.report({
@@ -922,10 +892,8 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
         return;
       }
 
-      // ─── Case: already wrapped ───────────────────
       if (parent.type === "JSXExpressionContainer") return;
 
-      // ─── Case: child of element/fragment ─────────
       if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
         if (noStrings) {
           context.report({
@@ -941,7 +909,6 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
       }
     },
 
-    // ─── Check JSX text nodes ──────────────────────
     JSXText(node) {
       const text = node.value.trim();
       if (text === "" || allowedSet.has(text)) return;
@@ -990,7 +957,6 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
       const componentName = name.name;
 
-      // ─── Handle leading underscore ───────────────
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
@@ -1003,10 +969,9 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
       // Guard: ignore DOM elements (lowercase)
       const firstChar = componentName[0];
-      if (firstChar === undefined) return;
+      if (firstChar == null) return;
       if (firstChar === firstChar.toLowerCase()) return;
 
-      // ─── Handle all-caps ─────────────────────────
       if (componentName === componentName.toUpperCase()) {
         if (!allowAllCaps) {
           context.report({
@@ -1017,7 +982,6 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
         return;
       }
 
-      // ─── Validate PascalCase ─────────────────────
       if (!pascalCaseRegex.test(componentName)) {
         context.report({
           node: name,
@@ -1042,7 +1006,6 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
     JSXOpeningElement(node) {
       const seen = new Set<string>();
 
-      // ─── Check each spread attribute ───────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXSpreadAttribute") continue;
 
@@ -1096,22 +1059,48 @@ Disallow adjacent inline elements not separated by whitespace.
 
 ```ts twoslash
 import type { RuleFunction } from "@eslint-react/kit";
-import type { TSESTree } from "@typescript-eslint/types";
 
 /** Disallow adjacent inline elements not separated by whitespace. */
 export function noAdjacentInlineElements(): RuleFunction {
   /** Set of inline HTML elements. */
   const INLINE_ELEMENTS = new Set([
-    "a", "abbr", "acronym", "b", "bdi", "bdo", "big", "br", "cite", "code",
-    "dfn", "em", "i", "img", "input", "kbd", "label", "map", "object", "q",
-    "samp", "script", "select", "small", "span", "strong", "sub", "sup",
-    "textarea", "time", "tt", "var",
+    "a",
+    "abbr",
+    "acronym",
+    "b",
+    "bdi",
+    "bdo",
+    "big",
+    "br",
+    "cite",
+    "code",
+    "dfn",
+    "em",
+    "i",
+    "img",
+    "input",
+    "kbd",
+    "label",
+    "map",
+    "object",
+    "q",
+    "samp",
+    "script",
+    "select",
+    "small",
+    "span",
+    "strong",
+    "sub",
+    "sup",
+    "textarea",
+    "time",
+    "tt",
+    "var",
   ]);
   return (context) => ({
     JSXElement(node) {
       const children = node.children;
 
-      // ─── Check adjacent pairs ──────────────────────
       for (let i = 0; i < children.length - 1; i++) {
         const current = children[i];
         const next = children[i + 1];
@@ -1225,7 +1214,7 @@ export function noStringRefs(): RuleFunction {
       if (value?.type === "Literal" && typeof value.value === "string") {
         context.report({
           node,
-          message: `String refs are deprecated and should not be used. Use callback refs or React.createRef() instead.`,
+          message: `String refs are deprecated and should not be used. Use React.useRef() instead.`,
         });
       }
     },
@@ -1249,7 +1238,6 @@ export function noMultiComp(): RuleFunction {
       "Program:exit"(program) {
         const components = query.all(program);
 
-        // ─── Report excess components ──────────────────
         for (const { node, name } of components.slice(1)) {
           context.report({
             node,
