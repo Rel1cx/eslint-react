@@ -21,11 +21,17 @@ export interface HookSemanticNode extends SemanticNode {
   /** List of expressions returned by the hook */
   rets: TSESTree.ReturnStatement["argument"][];
   /** The other hooks called by the hook */
-  hookCalls: TSESTree.CallExpression[];
+  hookCalls: HookCall[];
   /** The directives used in the function (ex: "use strict", "use client", etc.) */
   directives: TSESTreeDirective[];
 }
 /* eslint-enable perfectionist/sort-interfaces */
+
+// #endregion
+
+// #region Hook Call
+
+export type HookCall = TSESTree.CallExpression | TSESTree.TaggedTemplateExpression;
 
 // #endregion
 
@@ -82,6 +88,16 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
     default:
       return false;
   }
+}
+
+/**
+ * Checks if the given expression is a hook tag (callee / tagged template tag).
+ * @param tag The expression node to check
+ * @returns `true` if the expression is a hook identifier or member expression with hook name, `false` otherwise
+ */
+export function isHookTag(tag: TSESTree.Node | null): boolean {
+  if (tag == null) return false;
+  return isHookId(Extract.unwrap(tag));
 }
 
 // #endregion

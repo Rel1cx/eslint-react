@@ -138,8 +138,12 @@ export function noCircularEffect(): RuleFunction {
       hk.visitor,
       {
         "Program:exit"(program) {
-          for (const { hookCalls } of fc.query.all(program)) check(hookCalls);
-          for (const { hookCalls } of hk.query.all(program)) check(hookCalls);
+          for (const { hookCalls } of fc.query.all(program)) {
+            check(hookCalls.filter((call): call is TSESTree.CallExpression => call.type === "CallExpression"));
+          }
+          for (const { hookCalls } of hk.query.all(program)) {
+            check(hookCalls.filter((call): call is TSESTree.CallExpression => call.type === "CallExpression"));
+          }
         },
       },
     );

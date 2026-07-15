@@ -13,6 +13,7 @@ import {
   isHookDefinition,
   isHookId,
   isHookName,
+  isHookTag,
   isUseEffectCleanupCallback,
   isUseEffectLikeCall,
   isUseEffectSetupCallback,
@@ -196,6 +197,44 @@ describe("isHookCall", () => {
       },
     }, true);
     expect(found).toBe(true);
+  });
+});
+
+describe("isHookTag", () => {
+  it.each([
+    ["useMotionTemplate`literal`", true],
+    ["Motion.useMotionTemplate`literal`", true],
+  ])("should return true for hook tag: %s", (code, expected) => {
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.TaggedTemplateExpression) {
+          expect(isHookTag(node.tag)).toBe(expected);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it.each([
+    ["notAHook`literal`", false],
+    ["user`literal`", false],
+  ])("should return false for non-hook tag: %s", (code, expected) => {
+    let found = false;
+    simpleTraverse(parse(code).ast, {
+      enter(node) {
+        if (node.type === AST.TaggedTemplateExpression) {
+          expect(isHookTag(node.tag)).toBe(expected);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
+
+  it("should return false for null", () => {
+    expect(isHookTag(null)).toBe(false);
   });
 });
 

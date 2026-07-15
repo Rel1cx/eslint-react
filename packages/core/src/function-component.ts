@@ -7,6 +7,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";
 import { isRenderMethodCallback } from "./class-component";
 import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
+import type { HookCall } from "./hook";
 import type { SemanticNode } from "./semantic";
 
 // #region Types
@@ -65,7 +66,7 @@ export interface FunctionComponentSemanticNode extends SemanticNode {
   /**
    * List of hook calls within the component
    */
-  hookCalls: TSESTree.CallExpression[];
+  hookCalls: HookCall[];
 
   /**
    * The display name of the component

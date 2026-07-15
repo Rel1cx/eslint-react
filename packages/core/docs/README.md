@@ -33,6 +33,7 @@
 | [FunctionInitPath](type-aliases/FunctionInitPath.md)                             | Represents various AST paths for function declarations. Each tuple type represents a specific function definition pattern. |
 | [FunctionKind](type-aliases/FunctionKind.md)                                     | Represents the kind of a function.                                                                                         |
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md)                     | Represents a function semantic node.                                                                                       |
+| [HookCall](type-aliases/HookCall.md)                                             | -                                                                                                                          |
 | [TypeVariant](type-aliases/TypeVariant.md)                                       | -                                                                                                                          |
 
 ## Variables
@@ -160,6 +161,7 @@
 | [isHookDefinition](functions/isHookDefinition.md)                                     | Determine if a function node is a React Hook based on its name.                                                             |
 | [isHookId](functions/isHookId.md)                                                     | Checks if the given node is a hook identifier                                                                               |
 | [isHookName](functions/isHookName.md)                                                 | Catch all identifiers that begin with "use" followed by an uppercase Latin character to exclude identifiers like "user".    |
+| [isHookTag](functions/isHookTag.md)                                                   | Checks if the given expression is a hook tag (callee / tagged template tag).                                                |
 | [isJsxLike](functions/isJsxLike.md)                                                   | Determine whether a node represents JSX-like content based on heuristics.                                                   |
 | [~~isPureComponent~~](functions/isPureComponent.md)                                   | -                                                                                                                           |
 | [isRenderMethodCallback](functions/isRenderMethodCallback.md)                         | -                                                                                                                           |
