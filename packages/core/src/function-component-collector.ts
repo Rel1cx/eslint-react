@@ -13,7 +13,7 @@ import {
   isFunctionComponentDefinition,
   isFunctionWithLooseComponentName,
 } from "./function-component";
-import { isHookCall } from "./hook";
+import { isHookCall, isHookTag } from "./hook";
 import { isJsxLike } from "./jsx";
 
 interface FunctionEntry extends FunctionComponentSemanticNode {
@@ -137,6 +137,14 @@ export function getFunctionComponentCollector(
       if (!entry.isFunctionComponentDefinition) return;
       const { argument } = node;
       if (!components.has(entry.key) && !isJsxLike(context, argument, hint)) return;
+      components.set(entry.key, entry);
+    },
+    TaggedTemplateExpression(node: TSESTree.TaggedTemplateExpression) {
+      if (!isHookTag(node.tag)) return;
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      entry.hookCalls.push(node);
+      if (!entry.isFunctionComponentDefinition) return;
       components.set(entry.key, entry);
     },
   } as const satisfies ESLintUtils.RuleListener;

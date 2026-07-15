@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
 import { getFunctionId } from "./function";
-import { type HookSemanticNode, isHookCall, isHookId } from "./hook";
+import { type HookSemanticNode, isHookCall, isHookId, isHookTag } from "./hook";
 
 interface FunctionEntry extends HookSemanticNode {
   isHookDefinition: boolean;
@@ -78,6 +78,12 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
       const entry = getCurrentEntry();
       if (entry == null) return;
       entry.rets.push(node.argument);
+    },
+    TaggedTemplateExpression(node: TSESTree.TaggedTemplateExpression) {
+      if (!isHookTag(node.tag)) return;
+      const entry = getCurrentEntry();
+      if (entry == null) return;
+      entry.hookCalls.push(node);
     },
   } as const satisfies ESLintUtils.RuleListener;
   return { api, visitor } as const;
