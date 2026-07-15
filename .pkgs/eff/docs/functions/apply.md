@@ -6,7 +6,25 @@
 function apply<A>(a: A): <B>(self: (a: A) => B) => B;
 ```
 
-Apply a function to a given value.
+Applies a function to a given value.
+
+**When to use**
+
+Use to pass a fixed value into a unary function, especially when the function
+is the value flowing through `pipe`.
+
+**Details**
+
+`apply(a)(f)` is equivalent to `f(a)`.
+
+**Example** (Applying an argument to a function)
+
+```ts
+import { Function, String, pipe } from "effect";
+import * as assert from "node:assert";
+
+assert.deepStrictEqual(pipe(String.length, Function.apply("hello")), 5);
+```
 
 ## Type Parameters
 
@@ -16,26 +34,18 @@ Apply a function to a given value.
 
 ## Parameters
 
-| Parameter | Type | Description         |
-| --------- | ---- | ------------------- |
-| `a`       | `A`  | The value to apply. |
+| Parameter | Type |
+| --------- | ---- |
+| `a`       | `A`  |
 
 ## Returns
 
-A function that takes a function and applies it to the given value.
-
 \<`B`\>(`self`: (`a`: `A`) => `B`) => `B`
 
-## Example
+## See
 
-```ts
-import { apply, pipe } from "effect/Function";
-import { length } from "effect/String";
-import * as assert from "node:assert";
-
-assert.deepStrictEqual(pipe(length, apply("hello")), 5);
-```
+[pipe](pipe.md) for building left-to-right pipelines
 
 ## Since
 
-1.0.0
+2.0.0

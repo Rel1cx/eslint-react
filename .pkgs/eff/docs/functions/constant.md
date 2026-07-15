@@ -3,25 +3,44 @@
 # Function: constant()
 
 ```ts
-function constant<T>(x: T): () => T;
+function constant<A>(value: A): LazyArg<A>;
 ```
 
-Returns a function that always returns the same value.
+Creates a zero-argument function that always returns the provided value.
+
+**When to use**
+
+Use when you need a thunk or callback that returns the same value on every
+invocation.
+
+**Example** (Creating a constant thunk)
+
+```ts
+import { Function } from "effect";
+import * as assert from "node:assert";
+
+const constNull = Function.constant(null);
+
+assert.deepStrictEqual(constNull(), null);
+assert.deepStrictEqual(constNull(), null);
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description          |
-| --------- | ---- | -------------------- |
-| `x`       | `T`  | The value to return. |
+| Parameter | Type |
+| --------- | ---- |
+| `value`   | `A`  |
 
 ## Returns
 
-A function that always returns the given value.
+[`LazyArg`](../type-aliases/LazyArg.md)\<`A`\>
 
-() => `T`
+## Since
+
+2.0.0

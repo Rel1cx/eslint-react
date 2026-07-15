@@ -8,6 +8,21 @@ function tupled<A, B>(f: (...a: A) => B): (a: A) => B;
 
 Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument.
 
+**When to use**
+
+Use to adapt a multi-argument function so it accepts one tuple argument.
+
+**Example** (Converting arguments to a tuple)
+
+```ts
+import { Function } from "effect";
+import * as assert from "node:assert";
+
+const sumTupled = Function.tupled((x: number, y: number): number => x + y);
+
+assert.deepStrictEqual(sumTupled([1, 2]), 3);
+```
+
 ## Type Parameters
 
 | Type Parameter                     |
@@ -17,27 +32,18 @@ Creates a tupled version of this function: instead of `n` arguments, it accepts 
 
 ## Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `f`       | (...`a`: `A`) => `B` | The function to be converted. |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `f`       | (...`a`: `A`) => `B` |
 
 ## Returns
 
-A new function that accepts a single tuple argument.
-
 (`a`: `A`) => `B`
 
-## Example
+## See
 
-```ts
-import { tupled } from "effect/Function";
-import * as assert from "node:assert";
-
-const sumTupled = tupled((x: number, y: number): number => x + y);
-
-assert.deepStrictEqual(sumTupled([1, 2]), 3);
-```
+[untupled](untupled.md) for adapting a tuple-argument function back to multiple arguments
 
 ## Since
 
-1.0.0
+2.0.0

@@ -6,10 +6,28 @@
 function absurd<A>(_: never): A;
 ```
 
-The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
-meaning that it should be impossible for this code to be executed.
+Marks an impossible branch by accepting a `never` value and returning any
+type.
 
-This function is particularly useful when it's necessary to specify that certain cases are impossible.
+**When to use**
+
+Use when you need a return value in a branch that exhaustive checks prove
+cannot be reached.
+
+**Gotchas**
+
+Calling `absurd` throws, because a value of type `never` should be
+impossible at runtime.
+
+**Example** (Handling impossible values)
+
+```ts
+import { absurd } from "effect";
+
+const handleNever = (value: never) => {
+  return absurd(value); // This will throw an error if called
+};
+```
 
 ## Type Parameters
 
@@ -19,9 +37,9 @@ This function is particularly useful when it's necessary to specify that certain
 
 ## Parameters
 
-| Parameter | Type    | Description                                               |
-| --------- | ------- | --------------------------------------------------------- |
-| `_`       | `never` | The value of type `never` that is passed to the function. |
+| Parameter | Type    |
+| --------- | ------- |
+| `_`       | `never` |
 
 ## Returns
 
@@ -29,4 +47,4 @@ This function is particularly useful when it's necessary to specify that certain
 
 ## Since
 
-1.0.0
+2.0.0

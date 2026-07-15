@@ -12,6 +12,22 @@ const compose: {
 Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
 The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
 
+**When to use**
+
+Use to compose exactly two unary functions into a reusable unary function.
+
+**Example** (Composing two functions)
+
+```ts
+import { Function } from "effect";
+import * as assert from "node:assert";
+
+const increment = (n: number) => n + 1;
+const square = (n: number) => n * n;
+
+assert.strictEqual(Function.compose(increment, square)(2), 9);
+```
+
 ## Call Signature
 
 ```ts
@@ -60,34 +76,11 @@ The result is obtained by first applying the `ab` function to `a` and then apply
 
 (`a`: `A`) => `C`
 
-## Param
+## See
 
-**self**
-
-The first function to apply (or the composed function in data-last style).
-
-## Param
-
-**bc**
-
-The second function to apply.
-
-## Returns
-
-A composed function that applies both functions in sequence.
-
-## Example
-
-```ts
-import { compose } from "effect/Function";
-import * as assert from "node:assert";
-
-const increment = (n: number) => n + 1;
-const square = (n: number) => n * n;
-
-assert.strictEqual(compose(increment, square)(2), 9);
-```
+- [flow](../functions/flow.md) for composing a left-to-right sequence of functions
+- [pipe](../functions/pipe.md) for applying a value through a left-to-right sequence immediately
 
 ## Since
 
-1.0.0
+2.0.0

@@ -8,55 +8,75 @@
 function pipe<A>(a: A): A;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -71,6 +91,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -81,19 +117,17 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type | Description        |
-| --------- | ---- | ------------------ |
-| `a`       | `A`  | The value to pipe. |
+| Parameter | Type |
+| --------- | ---- |
+| `a`       | `A`  |
 
 ### Returns
 
 `A`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -101,55 +135,75 @@ The result of applying all functions in sequence to the initial value.
 function pipe<A, B>(a: A, ab: (a: A) => B): B;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -164,6 +218,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -175,20 +245,18 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
 
 ### Returns
 
 `B`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -200,55 +268,75 @@ function pipe<A, B, C>(
 ): C;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -263,6 +351,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -275,21 +379,19 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
 
 ### Returns
 
 `C`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -302,55 +404,75 @@ function pipe<A, B, C, D>(
 ): D;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -365,6 +487,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -378,22 +516,20 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
 
 ### Returns
 
 `D`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -407,55 +543,75 @@ function pipe<A, B, C, D, E>(
 ): E;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -470,6 +626,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -484,23 +656,21 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
 
 ### Returns
 
 `E`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -515,55 +685,75 @@ function pipe<A, B, C, D, E, F>(
 ): F;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -578,6 +768,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -593,24 +799,22 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
 
 ### Returns
 
 `F`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -626,55 +830,75 @@ function pipe<A, B, C, D, E, F, G>(
 ): G;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -689,6 +913,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -705,25 +945,23 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
 
 ### Returns
 
 `G`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -740,55 +978,75 @@ function pipe<A, B, C, D, E, F, G, H>(
 ): H;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -803,6 +1061,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -820,26 +1094,24 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
 
 ### Returns
 
 `H`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -857,55 +1129,75 @@ function pipe<A, B, C, D, E, F, G, H, I>(
 ): I;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -920,6 +1212,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -938,27 +1246,25 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
 
 ### Returns
 
 `I`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -977,55 +1283,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J>(
 ): J;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1040,6 +1366,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1059,28 +1401,26 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
 
 ### Returns
 
 `J`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1100,55 +1440,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K>(
 ): K;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1163,6 +1523,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1183,29 +1559,27 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
 
 ### Returns
 
 `K`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1226,55 +1600,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
 ): L;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1289,6 +1683,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1310,30 +1720,28 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
 
 ### Returns
 
 `L`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1355,55 +1763,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
 ): M;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1418,6 +1846,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1440,31 +1884,29 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
 
 ### Returns
 
 `M`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1487,55 +1929,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
 ): N;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1550,6 +2012,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1573,32 +2051,30 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
 
 ### Returns
 
 `N`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1622,55 +2098,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
 ): O;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1685,6 +2181,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1709,33 +2221,31 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
 
 ### Returns
 
 `O`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1760,55 +2270,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
 ): P;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1823,6 +2353,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1848,34 +2394,32 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
-| `op`      | (`o`: `O`) => `P` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
+| `op`      | (`o`: `O`) => `P` |
 
 ### Returns
 
 `P`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -1901,55 +2445,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
 ): Q;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -1964,6 +2528,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -1990,35 +2570,33 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
-| `op`      | (`o`: `O`) => `P` | -                  |
-| `pq`      | (`p`: `P`) => `Q` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
+| `op`      | (`o`: `O`) => `P` |
+| `pq`      | (`p`: `P`) => `Q` |
 
 ### Returns
 
 `Q`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -2045,55 +2623,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
 ): R;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -2108,6 +2706,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -2135,36 +2749,34 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
-| `op`      | (`o`: `O`) => `P` | -                  |
-| `pq`      | (`p`: `P`) => `Q` | -                  |
-| `qr`      | (`q`: `Q`) => `R` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
+| `op`      | (`o`: `O`) => `P` |
+| `pq`      | (`p`: `P`) => `Q` |
+| `qr`      | (`q`: `Q`) => `R` |
 
 ### Returns
 
 `R`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -2192,55 +2804,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
 ): S;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -2255,6 +2887,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -2283,37 +2931,35 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
-| `op`      | (`o`: `O`) => `P` | -                  |
-| `pq`      | (`p`: `P`) => `Q` | -                  |
-| `qr`      | (`q`: `Q`) => `R` | -                  |
-| `rs`      | (`r`: `R`) => `S` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
+| `op`      | (`o`: `O`) => `P` |
+| `pq`      | (`p`: `P`) => `Q` |
+| `qr`      | (`q`: `Q`) => `R` |
+| `rs`      | (`r`: `R`) => `S` |
 
 ### Returns
 
 `S`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -2342,55 +2988,75 @@ function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
 ): T;
 ```
 
-Pipes the value of an expression into a pipeline of functions.
+Pipes the value of an expression through a left-to-right sequence of
+functions.
+
+**When to use**
+
+Use when you need to compose data-last functions into readable
+transformation pipelines instead of method-style chains.
 
 **Details**
 
-The `pipe` function is a utility that allows us to compose functions in a
-readable and sequential manner. It takes the output of one function and
-passes it as the input to the next function in the pipeline. This enables us
-to build complex transformations by chaining multiple functions together.
+Takes an initial value, passes it to the first function, then passes each
+result to the next function in order. The final function result is returned.
 
-```ts skip-type-checking
-import { pipe } from "effect"
+**Gotchas**
 
-const result = pipe(input, func1, func2, ..., funcN)
+Each function passed after the initial value must accept a single argument,
+because `pipe` calls each step with only the previous result.
+
+**Example** (Piping values through functions)
+
+In this example, `1` is passed to the first function, and each result becomes
+the input for the next function.
+
+```ts
+import { pipe } from "effect";
+
+const result = pipe(
+  1,
+  (n) => n + 1,
+  (n) => n * 2,
+  (n) => `result: ${n}`,
+);
+
+console.log(result); // "result: 4"
 ```
 
-In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
-`funcN` are the functions to be applied in sequence. The result of each
-function becomes the input for the next function, and the final result is
-returned.
+**Example** (Chaining methods before conversion)
 
-Here's an illustration of how `pipe` works:
+```ts
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
 
-```
-┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
-│ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
-└───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
-```
+const result = numbers.map(double).filter(greaterThanFour);
 
-It's important to note that functions passed to `pipe` must have a **single
-argument** because they are only called with a single argument.
-
-**When to Use**
-
-This is useful in combination with data-last functions as a simulation of
-methods:
-
-```ts skip-type-checking
-as.map(f).filter(g);
+console.log(result); // [6, 8]
 ```
 
-becomes:
+**Example** (Rewriting method chains with pipe)
 
-```ts skip-type-checking
+The same transformation can be written with data-last functions.
+
+```ts
 import { Array, pipe } from "effect";
 
-pipe(as, Array.map(f), Array.filter(g));
+const numbers = [1, 2, 3, 4];
+const double = (n: number) => n * 2;
+const greaterThanFour = (n: number) => n > 4;
+
+const result = pipe(
+  numbers,
+  Array.map(double),
+  Array.filter(greaterThanFour),
+);
+
+console.log(result); // [6, 8]
 ```
 
-**Example** (Chaining Arithmetic Operations)
+**Example** (Chaining arithmetic operations)
 
 ```ts
 import { pipe } from "effect";
@@ -2405,6 +3071,22 @@ const result = pipe(5, increment, double, subtractTen);
 
 console.log(result);
 // Output: 2
+```
+
+**Example** (Building a simple transformation pipeline)
+
+```ts
+import { pipe } from "effect";
+
+// Simple transformation pipeline
+const result = pipe(
+  5,
+  (x) => x * 2, // 10
+  (x) => x + 1, // 11
+  (x) => x.toString(), // "11"
+);
+
+console.log(result); // "11"
 ```
 
 ### Type Parameters
@@ -2434,35 +3116,33 @@ console.log(result);
 
 ### Parameters
 
-| Parameter | Type              | Description        |
-| --------- | ----------------- | ------------------ |
-| `a`       | `A`               | The value to pipe. |
-| `ab`      | (`a`: `A`) => `B` | -                  |
-| `bc`      | (`b`: `B`) => `C` | -                  |
-| `cd`      | (`c`: `C`) => `D` | -                  |
-| `de`      | (`d`: `D`) => `E` | -                  |
-| `ef`      | (`e`: `E`) => `F` | -                  |
-| `fg`      | (`f`: `F`) => `G` | -                  |
-| `gh`      | (`g`: `G`) => `H` | -                  |
-| `hi`      | (`h`: `H`) => `I` | -                  |
-| `ij`      | (`i`: `I`) => `J` | -                  |
-| `jk`      | (`j`: `J`) => `K` | -                  |
-| `kl`      | (`k`: `K`) => `L` | -                  |
-| `lm`      | (`l`: `L`) => `M` | -                  |
-| `mn`      | (`m`: `M`) => `N` | -                  |
-| `no`      | (`n`: `N`) => `O` | -                  |
-| `op`      | (`o`: `O`) => `P` | -                  |
-| `pq`      | (`p`: `P`) => `Q` | -                  |
-| `qr`      | (`q`: `Q`) => `R` | -                  |
-| `rs`      | (`r`: `R`) => `S` | -                  |
-| `st`      | (`s`: `S`) => `T` | -                  |
+| Parameter | Type              |
+| --------- | ----------------- |
+| `a`       | `A`               |
+| `ab`      | (`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C` |
+| `cd`      | (`c`: `C`) => `D` |
+| `de`      | (`d`: `D`) => `E` |
+| `ef`      | (`e`: `E`) => `F` |
+| `fg`      | (`f`: `F`) => `G` |
+| `gh`      | (`g`: `G`) => `H` |
+| `hi`      | (`h`: `H`) => `I` |
+| `ij`      | (`i`: `I`) => `J` |
+| `jk`      | (`j`: `J`) => `K` |
+| `kl`      | (`k`: `K`) => `L` |
+| `lm`      | (`l`: `L`) => `M` |
+| `mn`      | (`m`: `M`) => `N` |
+| `no`      | (`n`: `N`) => `O` |
+| `op`      | (`o`: `O`) => `P` |
+| `pq`      | (`p`: `P`) => `Q` |
+| `qr`      | (`q`: `Q`) => `R` |
+| `rs`      | (`r`: `R`) => `S` |
+| `st`      | (`s`: `S`) => `T` |
 
 ### Returns
 
 `T`
 
-The result of applying all functions in sequence to the initial value.
-
 ### Since
 
-1.0.0
+2.0.0

@@ -57,6 +57,7 @@
 /**
  * Simplifies a complex type intersection into a flat object type for better readability
  * in IDE tooltips and error messages.
+ * @category utility types
  */
 export type Pretty<T> =
   & {
@@ -70,6 +71,7 @@ export type Pretty<T> =
  *
  * @example
  *   function isMyType<T>(data: T | MyType): data is NarrowedTo<T, MyType> { ... }
+ * @category utility types
  */
 export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
   : 0 extends 1 & NoInfer<T> ? Base
@@ -84,6 +86,7 @@ export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
  *
  * @param predicate - The guard function to negate.
  * @returns A guard function that negates the given predicate.
+ * @category guards
  */
 export function not<T, S extends T>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
 export function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
@@ -97,6 +100,7 @@ export function not<T>(predicate: (data: T) => boolean) {
  * @param a - The first guard function.
  * @param b - The second guard function.
  * @returns A guard function that checks if either predicate is true.
+ * @category guards
  */
 export function or<T, S extends T, U extends T>(
   a: (data: T) => data is S,
@@ -114,6 +118,7 @@ export function or(a: (data: unknown) => boolean, b: (data: unknown) => boolean)
  *
  * @param data - The variable to check.
  * @returns True if the passed input is an Array, false otherwise.
+ * @category guards
  */
 export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, ReadonlyArray<unknown>> {
   return Array.isArray(data);
@@ -124,6 +129,7 @@ export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, 
  *
  * @param data - The variable to be checked for being an object type.
  * @returns The input type, narrowed to only objects.
+ * @category guards
  */
 export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
   return typeof data === "object" && data !== null;
@@ -134,6 +140,7 @@ export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
  *
  * @param data - The variable to check.
  * @returns True if the passed input is truthy, false otherwise.
+ * @category guards
  */
 export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null | undefined> {
   return Boolean(data);
@@ -154,6 +161,7 @@ export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null |
  * ```
  *
  * @since 1.0.0
+ * @category guards
  */
 export const isFunction = (input: unknown): input is Function => typeof input === "function";
 
@@ -162,39 +170,712 @@ export const isFunction = (input: unknown): input is Function => typeof input ==
 // #region Function
 
 /**
- * Returns its argument.
+ * The `Pipeable` module defines the shared interface and implementation helpers
+ * for values that support Effect-style method chaining with `.pipe(...)`.
  *
- * @param x - The value to return.
- * @returns The input value unchanged.
+ * A `Pipeable` value can pass itself through a sequence of unary functions from
+ * left to right, so code can be written as `value.pipe(f, g, h)` instead of
+ * deeply nesting calls. This is the method form used by many Effect data types
+ * to compose transformations, validations, and effectful operations while
+ * keeping the original value as the starting point of the pipeline.
+ *
+ * @since 2.0.0
  */
-export function identity<T>(x: T): T {
-  return x;
-}
 
-// Ported from https://github.com/Effect-TS/effect-smol/blob/main/src/Function.ts
 /**
- * Creates a function that can be used in a data-last (aka `pipe`able) or
- * data-first style.
+ * Interface for values that support method-style `pipe` composition.
  *
- * The first parameter to `dual` is either the arity of the uncurried function
- * or a predicate that determines if the function is being used in a data-first
- * or data-last style.
+ * **When to use**
  *
- * Using the arity is the most common use case, but there are some cases where
- * you may want to use a predicate. For example, if you have a function that
- * takes an optional argument, you can use a predicate to determine if the
- * function is being used in a data-first or data-last style.
+ * Use to type values that expose an Effect-style `.pipe(...)` method.
  *
- * You can pass either the arity of the uncurried function or a predicate
- * which determines if the function is being used in a data-first or
- * data-last style.
+ * **Details**
  *
- * **Example** (Using arity to determine data-first or data-last style)
+ * Calling `value.pipe(f, g, h)` passes the value through each function from
+ * left to right, returning the final result. Many Effect data types implement
+ * this so operations can be chained without nesting function calls.
+ *
+ * **Example** (Chaining operations with pipe)
  *
  * ```ts
- * import { dual, pipe } from "effect/Function"
+ * import { Effect } from "effect"
  *
- * const sum = dual<
+ * // The Pipeable interface allows Effect values to be chained using the pipe method
+ * const program = Effect.succeed(1).pipe(
+ *   Effect.map((x) => x + 1),
+ *   Effect.flatMap((x) => Effect.succeed(x * 2)),
+ *   Effect.tap((x) => Effect.log(`Result: ${x}`))
+ * )
+ * ```
+ *
+ * @category models
+ * @since 2.0.0
+ */
+export interface Pipeable {
+  pipe<A>(this: A): A;
+  pipe<A, B = never>(this: A, ab: (_: A) => B): B;
+  pipe<A, B = never, C = never>(this: A, ab: (_: A) => B, bc: (_: B) => C): C;
+  pipe<A, B = never, C = never, D = never>(this: A, ab: (_: A) => B, bc: (_: B) => C, cd: (_: C) => D): D;
+  pipe<A, B = never, C = never, D = never, E = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+  ): E;
+  pipe<A, B = never, C = never, D = never, E = never, F = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+  ): F;
+  pipe<A, B = never, C = never, D = never, E = never, F = never, G = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+  ): G;
+  pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+  ): H;
+  pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+  ): I;
+  pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+  ): J;
+  pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never>(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+  ): K;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+  ): L;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+  ): M;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+  ): N;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+  ): O;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+  ): P;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+  ): Q;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+    R = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+    qr: (_: Q) => R,
+  ): R;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+    R = never,
+    S = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+    qr: (_: Q) => R,
+    rs: (_: R) => S,
+  ): S;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+    R = never,
+    S = never,
+    T = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+    qr: (_: Q) => R,
+    rs: (_: R) => S,
+    st: (_: S) => T,
+  ): T;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+    R = never,
+    S = never,
+    T = never,
+    U = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+    qr: (_: Q) => R,
+    rs: (_: R) => S,
+    st: (_: S) => T,
+    tu: (_: T) => U,
+  ): U;
+  pipe<
+    A,
+    B = never,
+    C = never,
+    D = never,
+    E = never,
+    F = never,
+    G = never,
+    H = never,
+    I = never,
+    J = never,
+    K = never,
+    L = never,
+    M = never,
+    N = never,
+    O = never,
+    P = never,
+    Q = never,
+    R = never,
+    S = never,
+    T = never,
+    U = never,
+  >(
+    this: A,
+    ab: (_: A) => B,
+    bc: (_: B) => C,
+    cd: (_: C) => D,
+    de: (_: D) => E,
+    ef: (_: E) => F,
+    fg: (_: F) => G,
+    gh: (_: G) => H,
+    hi: (_: H) => I,
+    ij: (_: I) => J,
+    jk: (_: J) => K,
+    kl: (_: K) => L,
+    lm: (_: L) => M,
+    mn: (_: M) => N,
+    no: (_: N) => O,
+    op: (_: O) => P,
+    pq: (_: P) => Q,
+    qr: (_: Q) => R,
+    rs: (_: R) => S,
+    st: (_: S) => T,
+    tu: (_: T) => U,
+  ): U;
+}
+
+/**
+ * Applies a `pipe` method's variadic arguments to an initial value from left
+ * to right.
+ *
+ * **When to use**
+ *
+ * Use to implement a custom `.pipe(...)` method from JavaScript's `arguments`
+ * object.
+ *
+ * **Details**
+ *
+ * This helper is intended for implementing `Pipeable.pipe` methods that
+ * receive JavaScript's `arguments` object. With no functions it returns the
+ * original value; otherwise it feeds each result into the next function.
+ *
+ * **Example** (Implementing a pipe method)
+ *
+ * ```ts
+ * import { Pipeable } from "effect"
+ *
+ * class NumberBox {
+ *   constructor(readonly value: number) {}
+ *
+ *   pipe(..._fns: ReadonlyArray<(value: number) => number>): number {
+ *     return Pipeable.pipeArguments(this.value, arguments) as number
+ *   }
+ * }
+ *
+ * const result = new NumberBox(5).pipe(
+ *   (n) => n + 2,
+ *   (n) => n * 3
+ * )
+ * console.log(result) // 21
+ * ```
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
+  switch (args.length) {
+    case 0:
+      return self;
+    case 1:
+      return args[0](self);
+    case 2:
+      return args[1](args[0](self));
+    case 3:
+      return args[2](args[1](args[0](self)));
+    case 4:
+      return args[3](args[2](args[1](args[0](self))));
+    case 5:
+      return args[4](args[3](args[2](args[1](args[0](self)))));
+    case 6:
+      return args[5](args[4](args[3](args[2](args[1](args[0](self))))));
+    case 7:
+      return args[6](args[5](args[4](args[3](args[2](args[1](args[0](self)))))));
+    case 8:
+      return args[7](args[6](args[5](args[4](args[3](args[2](args[1](args[0](self))))))));
+    case 9:
+      return args[8](args[7](args[6](args[5](args[4](args[3](args[2](args[1](args[0](self)))))))));
+    default: {
+      let ret = self;
+      for (let i = 0, len = args.length; i < len; i++) {
+        ret = args[i](ret);
+      }
+      return ret;
+    }
+  }
+};
+
+/**
+ * Reusable prototype that implements `Pipeable.pipe`.
+ *
+ * **When to use**
+ *
+ * Use when classes or object prototypes can reuse this value when they need the
+ * standard pipe implementation backed by `pipeArguments`.
+ *
+ * @category prototypes
+ * @since 3.15.0
+ */
+export const Prototype: Pipeable = {
+  pipe() {
+    return pipeArguments(this, arguments);
+  },
+};
+
+/**
+ * Provides a base constructor whose instances implement the standard `Pipeable.pipe`
+ * method.
+ *
+ * **When to use**
+ *
+ * Use when you need to define a class that supports Effect-style method
+ * chaining through `.pipe(...)`.
+ *
+ * @category constructors
+ * @since 3.15.0
+ */
+export const Class: new() => Pipeable = (function() {
+  function PipeableBase() {}
+  PipeableBase.prototype = Prototype;
+  return PipeableBase as any;
+})();
+
+/**
+ * Constructor type for classes whose instances implement `Pipeable`.
+ *
+ * **When to use**
+ *
+ * Use as the constructor-side type when a class value should be known to create
+ * instances that support Effect-style method chaining with `.pipe(...)`.
+ *
+ * @see {@link Pipeable} for the instance-side contract
+ * @see {@link Class} for the base constructor
+ * @see {@link Mixin} for wrapping an existing class constructor
+ *
+ * @category models
+ * @since 3.15.0
+ */
+export interface PipeableConstructor {
+  new(...args: ReadonlyArray<any>): Pipeable;
+}
+
+/**
+ * Returns a subclass of the provided class that adds the standard `pipe`
+ * method.
+ *
+ * **When to use**
+ *
+ * Use to add pipe support to an existing class without extending a base class
+ * or modifying its prototype.
+ *
+ * **Details**
+ *
+ * The original constructor and instance members are preserved, and the added
+ * method delegates to `pipeArguments`.
+ *
+ * @see {@link Prototype} for a reusable prototype object
+ * @see {@link Class} for a base constructor to extend
+ * @category constructors
+ * @since 4.0.0
+ */
+export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(
+  klass: TBase,
+): TBase & PipeableConstructor => (class extends klass {
+  pipe() {
+    return pipeArguments(this, arguments);
+  }
+});
+
+/**
+ * Provides small helpers for defining and reusing TypeScript functions.
+ *
+ * The main helpers are `pipe` and `flow` for left-to-right composition and
+ * `dual` for APIs that support both direct and pipe-friendly call styles. The
+ * module also contains small identity, constant, tuple, type-level, and
+ * memoization helpers used across the library.
+ *
+ * @since 2.0.0
+ */
+
+/**
+ * Creates a function that can be called in data-first style or data-last
+ * (`pipe`-friendly) style.
+ *
+ * **When to use**
+ *
+ * Use to expose one implementation through both direct and `pipe`-friendly
+ * call styles.
+ *
+ * **Details**
+ *
+ * Pass either the arity of the uncurried function or a predicate that decides
+ * whether the current call is data-first. Arity is the common case. Use a
+ * predicate when optional arguments make arity ambiguous.
+ *
+ * **Example** (Selecting data-first or data-last style by arity)
+ *
+ * ```ts
+ * import { Function, pipe } from "effect"
+ *
+ * const sum = Function.dual<
  *   (that: number) => (self: number) => number,
  *   (self: number, that: number) => number
  * >(2, (self, that) => self + that)
@@ -203,26 +884,26 @@ export function identity<T>(x: T): T {
  * console.log(pipe(2, sum(3))) // 5
  * ```
  *
- * **Example** (Using call signatures to define the overloads)
+ * **Example** (Defining overloads with call signatures)
  *
  * ```ts
- * import { dual, pipe } from "effect/Function"
+ * import { Function, pipe } from "effect"
  *
  * const sum: {
  *   (that: number): (self: number) => number
  *   (self: number, that: number): number
- * } = dual(2, (self: number, that: number): number => self + that)
+ * } = Function.dual(2, (self: number, that: number): number => self + that)
  *
  * console.log(sum(2, 3)) // 5
  * console.log(pipe(2, sum(3))) // 5
  * ```
  *
- * **Example** (Using a predicate to determine data-first or data-last style)
+ * **Example** (Selecting data-first or data-last style with a predicate)
  *
  * ```ts
- * import { dual, pipe } from "effect/Function"
+ * import { Function, pipe } from "effect"
  *
- * const sum = dual<
+ * const sum = Function.dual<
  *   (that: number) => (self: number) => number,
  *   (self: number, that: number) => number
  * >(
@@ -234,9 +915,8 @@ export function identity<T>(x: T): T {
  * console.log(pipe(2, sum(3))) // 5
  * ```
  *
- * @param arity - The arity of the uncurried function or a predicate that determines if the function is being used in a data-first or data-last style.
- * @param body - The function to be curried.
- * @since 1.0.0
+ * @category combinators
+ * @since 2.0.0
  */
 export const dual: {
   <DataLast extends (...args: Array<any>) => any, DataFirst extends (...args: Array<any>) => any>(
@@ -294,83 +974,301 @@ export const dual: {
       };
   }
 };
-
 /**
- * Apply a function to a given value.
+ * Applies a function to a given value.
  *
- * @param a - The value to apply.
- * @returns A function that takes a function and applies it to the given value.
- * @example
+ * **When to use**
+ *
+ * Use to pass a fixed value into a unary function, especially when the function
+ * is the value flowing through `pipe`.
+ *
+ * **Details**
+ *
+ * `apply(a)(f)` is equivalent to `f(a)`.
+ *
+ * **Example** (Applying an argument to a function)
+ *
  * ```ts
+ * import { Function, pipe, String } from "effect"
  * import * as assert from "node:assert"
- * import { pipe, apply } from "effect/Function"
- * import { length } from "effect/String"
  *
- * assert.deepStrictEqual(pipe(length, apply("hello")), 5)
+ * assert.deepStrictEqual(pipe(String.length, Function.apply("hello")), 5)
  * ```
  *
- * @since 1.0.0
+ * @see {@link pipe} for building left-to-right pipelines
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export const apply = <A>(a: A) => <B>(self: (a: A) => B): B => self(a);
 
 /**
- * Returns a function that always returns the same value.
+ * A zero-argument function that produces a value when invoked.
  *
- * @param x - The value to return.
- * @returns A function that always returns the given value.
+ * **When to use**
+ *
+ * Use to type a lazy value provider that should not run until called.
+ *
+ * **Example** (Creating a lazy argument)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ *
+ * const constNull: Function.LazyArg<null> = Function.constant(null)
+ * ```
+ *
+ * @category models
+ * @since 2.0.0
  */
-export function constant<T>(x: T): () => T {
-  return () => x;
-}
+export type LazyArg<A> = () => A;
 
 /**
- * Do nothing and return `void`.
+ * Represents a function with multiple arguments.
+ *
+ * **When to use**
+ *
+ * Use to describe a function whose argument list is represented as a tuple
+ * type.
+ *
+ * **Example** (Typing a variadic function)
+ *
+ * ```ts
+ * import type { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b
+ * assert.deepStrictEqual(sum(2, 3), 5)
+ * ```
+ *
+ * @category models
+ * @since 2.0.0
  */
-export function constVoid(): void {}
+export type FunctionN<A extends ReadonlyArray<unknown>, B> = (...args: A) => B;
 
 /**
- * Do nothing and return `null`.
+ * Returns its input argument unchanged.
  *
- * @returns null
+ * **When to use**
+ *
+ * Use to return a value unchanged where a function is required.
+ *
+ * **Example** (Returning the same value)
+ *
+ * ```ts
+ * import { identity } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(identity(5), 5)
+ * ```
+ *
+ * @category combinators
+ * @since 2.0.0
  */
-export function constNull(): null {
-  return null;
-}
+export const identity = <A>(a: A): A => a;
 
 /**
- * Do nothing and return `true`.
+ * Ensures that the type of an expression matches some type,
+ * without changing the resulting type of that expression.
  *
- * @returns true
+ * **When to use**
+ *
+ * Use to check assignability while preserving the expression's precise inferred
+ * type.
+ *
+ * **Example** (Checking an expression against a type)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * const test1 = Function.satisfies<number>()(5 as const)
+ * // ^? const test: 5
+ * // @ts-expect-error
+ * const test2 = Function.satisfies<string>()(5)
+ * // ^? Argument of type 'number' is not assignable to parameter of type 'string'
+ *
+ * assert.deepStrictEqual(Function.satisfies<number>()(5), 5)
+ * ```
+ *
+ * @see {@link cast} for changing only the static TypeScript type
+ *
+ * @category utility types
+ * @since 2.0.0
  */
-export function constTrue(): true {
-  return true;
-}
+export const satisfies = <A>() => <B extends A>(b: B) => b;
 
 /**
- * Do nothing and return `false`.
+ * Returns the input value with a different static type.
  *
- * @returns false
+ * **When to use**
+ *
+ * Use when you need an explicit type-level cast and accept that the value is
+ * returned unchanged at runtime.
+ *
+ * **Gotchas**
+ *
+ * This is a type-level cast only; it performs no runtime validation or
+ * conversion.
+ *
+ * @see {@link satisfies} for checking assignability without changing the resulting type
+ *
+ * @category utility types
+ * @since 4.0.0
  */
-export function constFalse(): false {
-  return false;
-}
+export const cast: <A, B>(a: A) => B = identity as any;
+
+/**
+ * Creates a zero-argument function that always returns the provided value.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk or callback that returns the same value on every
+ * invocation.
+ *
+ * **Example** (Creating a constant thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * const constNull = Function.constant(null)
+ *
+ * assert.deepStrictEqual(constNull(), null)
+ * assert.deepStrictEqual(constNull(), null)
+ * ```
+ *
+ * @category constructors
+ * @since 2.0.0
+ */
+export const constant = <A>(value: A): LazyArg<A> => () => value;
+
+/**
+ * Returns `true` when called.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk that returns `true` on every invocation.
+ *
+ * **Example** (Returning true from a thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.constTrue(), true)
+ * ```
+ *
+ * @category constants
+ * @since 2.0.0
+ */
+export const constTrue: LazyArg<boolean> = constant(true);
+
+/**
+ * Returns `false` when called.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk that returns `false` on every invocation.
+ *
+ * **Example** (Returning false from a thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.constFalse(), false)
+ * ```
+ *
+ * @category constants
+ * @since 2.0.0
+ */
+export const constFalse: LazyArg<boolean> = constant(false);
+
+/**
+ * Returns `null` when called.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk that returns `null` on every invocation.
+ *
+ * **Example** (Returning null from a thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.constNull(), null)
+ * ```
+ *
+ * @category constants
+ * @since 2.0.0
+ */
+export const constNull: LazyArg<null> = constant(null);
+
+/**
+ * Returns `undefined` when called.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk that returns `undefined` on every invocation.
+ *
+ * **Example** (Returning undefined from a thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.constUndefined(), undefined)
+ * ```
+ *
+ * @category constants
+ * @since 2.0.0
+ */
+export const constUndefined: LazyArg<undefined> = constant(undefined);
+
+/**
+ * Returns no meaningful value when called.
+ *
+ * **When to use**
+ *
+ * Use when you need a thunk that is called only for its effect and has no
+ * meaningful return value.
+ *
+ * **Example** (Returning void from a thunk)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.constVoid(), undefined)
+ * ```
+ *
+ * @category constants
+ * @since 2.0.0
+ */
+export const constVoid: LazyArg<void> = constUndefined;
 
 /**
  * Reverses the order of arguments for a curried function.
  *
- * @param f - The function to flip.
- * @returns A new function with the argument order reversed.
- * @example
+ * **When to use**
+ *
+ * Use to adapt a curried function when its argument groups need to be supplied
+ * in the opposite order.
+ *
+ * **Example** (Flipping curried arguments)
+ *
  * ```ts
+ * import { Function } from "effect"
  * import * as assert from "node:assert"
- * import { flip } from "effect/Function"
  *
  * const f = (a: number) => (b: string) => a - b.length
  *
- * assert.deepStrictEqual(flip(f)('aaa')(2), -1)
+ * assert.deepStrictEqual(Function.flip(f)("aaa")(2), -1)
  * ```
  *
- * @since 1.0.0
+ * @category combinators
+ * @since 2.0.0
  */
 export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(
   f: (...a: A) => (...b: B) => C,
@@ -382,21 +1280,27 @@ export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(
  * Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
  * The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
  *
- * @param self - The first function to apply (or the composed function in data-last style).
- * @param bc - The second function to apply.
- * @returns A composed function that applies both functions in sequence.
- * @example
+ * **When to use**
+ *
+ * Use to compose exactly two unary functions into a reusable unary function.
+ *
+ * **Example** (Composing two functions)
+ *
  * ```ts
+ * import { Function } from "effect"
  * import * as assert from "node:assert"
- * import { compose } from "effect/Function"
  *
- * const increment = (n: number) => n + 1;
- * const square = (n: number) => n * n;
+ * const increment = (n: number) => n + 1
+ * const square = (n: number) => n * n
  *
- * assert.strictEqual(compose(increment, square)(2), 9);
+ * assert.strictEqual(Function.compose(increment, square)(2), 9)
  * ```
  *
- * @since 1.0.0
+ * @see {@link flow} for composing a left-to-right sequence of functions
+ * @see {@link pipe} for applying a value through a left-to-right sequence immediately
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export const compose: {
   <B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
@@ -404,13 +1308,31 @@ export const compose: {
 } = dual(2, <A, B, C>(ab: (a: A) => B, bc: (b: B) => C): (a: A) => C => (a) => bc(ab(a)));
 
 /**
- * The `absurd` function is a stub for cases where a value of type `never` is encountered in your code,
- * meaning that it should be impossible for this code to be executed.
+ * Marks an impossible branch by accepting a `never` value and returning any
+ * type.
  *
- * This function is particularly useful when it's necessary to specify that certain cases are impossible.
+ * **When to use**
  *
- * @param _ - The value of type `never` that is passed to the function.
- * @since 1.0.0
+ * Use when you need a return value in a branch that exhaustive checks prove
+ * cannot be reached.
+ *
+ * **Gotchas**
+ *
+ * Calling `absurd` throws, because a value of type `never` should be
+ * impossible at runtime.
+ *
+ * **Example** (Handling impossible values)
+ *
+ * ```ts
+ * import { absurd } from "effect"
+ *
+ * const handleNever = (value: never) => {
+ *   return absurd(value) // This will throw an error if called
+ * }
+ * ```
+ *
+ * @category utility types
+ * @since 2.0.0
  */
 export const absurd = <A>(_: never): A => {
   throw new Error("Called `absurd` function which should be uncallable");
@@ -419,132 +1341,123 @@ export const absurd = <A>(_: never): A => {
 /**
  * Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument.
  *
- * @param f - The function to be converted.
- * @returns A new function that accepts a single tuple argument.
- * @example
- * ```ts
- * import * as assert from "node:assert"
- * import { tupled } from "effect/Function"
+ * **When to use**
  *
- * const sumTupled = tupled((x: number, y: number): number => x + y)
+ * Use to adapt a multi-argument function so it accepts one tuple argument.
+ *
+ * **Example** (Converting arguments to a tuple)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * const sumTupled = Function.tupled((x: number, y: number): number => x + y)
  *
  * assert.deepStrictEqual(sumTupled([1, 2]), 3)
  * ```
  *
- * @since 1.0.0
+ * @see {@link untupled} for adapting a tuple-argument function back to multiple arguments
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): (a: A) => B => (a) => f(...a);
 
 /**
- * Inverse function of `tupled`.
+ * Converts a tupled function back to an uncurried function.
  *
- * @param f - The function to be converted.
- * @returns A new function that accepts spread arguments instead of a tuple.
- * @example
+ * **When to use**
+ *
+ * Use to adapt a tuple-argument function so it accepts multiple arguments.
+ *
+ * **Example** (Converting a tuple to arguments)
+ *
  * ```ts
+ * import { Function } from "effect"
  * import * as assert from "node:assert"
- * import { untupled } from "effect/Function"
  *
- * const getFirst = untupled(<A, B>(tuple: [A, B]): A => tuple[0])
+ * const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0])
  *
  * assert.deepStrictEqual(getFirst(1, 2), 1)
  * ```
  *
- * @since 1.0.0
+ * @see {@link tupled} for adapting a multi-argument function to one tuple argument
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (...a: A) => B => (...a) => f(a);
 
 /**
- * Applies a pipeline of functions to a value, passing the result of each function
- * to the next one in sequence.
+ * Pipes the value of an expression through a left-to-right sequence of
+ * functions.
  *
- * @param self - The value to pipe.
- * @param args - The functions to apply.
- * @returns The result of applying all functions in sequence.
- * @since 1.0.0
- */
-export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
-  switch (args.length) {
-    case 0:
-      return self;
-    case 1:
-      return args[0](self);
-    case 2:
-      return args[1](args[0](self));
-    case 3:
-      return args[2](args[1](args[0](self)));
-    case 4:
-      return args[3](args[2](args[1](args[0](self))));
-    case 5:
-      return args[4](args[3](args[2](args[1](args[0](self)))));
-    case 6:
-      return args[5](args[4](args[3](args[2](args[1](args[0](self))))));
-    case 7:
-      return args[6](args[5](args[4](args[3](args[2](args[1](args[0](self)))))));
-    case 8:
-      return args[7](args[6](args[5](args[4](args[3](args[2](args[1](args[0](self))))))));
-    case 9:
-      return args[8](args[7](args[6](args[5](args[4](args[3](args[2](args[1](args[0](self)))))))));
-    default: {
-      let ret = self;
-      for (let i = 0, len = args.length; i < len; i++) {
-        ret = args[i](ret);
-      }
-      return ret;
-    }
-  }
-};
-
-/**
- * Pipes the value of an expression into a pipeline of functions.
+ * **When to use**
+ *
+ * Use when you need to compose data-last functions into readable
+ * transformation pipelines instead of method-style chains.
  *
  * **Details**
  *
- * The `pipe` function is a utility that allows us to compose functions in a
- * readable and sequential manner. It takes the output of one function and
- * passes it as the input to the next function in the pipeline. This enables us
- * to build complex transformations by chaining multiple functions together.
+ * Takes an initial value, passes it to the first function, then passes each
+ * result to the next function in order. The final function result is returned.
  *
- * ```ts skip-type-checking
+ * **Gotchas**
+ *
+ * Each function passed after the initial value must accept a single argument,
+ * because `pipe` calls each step with only the previous result.
+ *
+ * **Example** (Piping values through functions)
+ *
+ * In this example, `1` is passed to the first function, and each result becomes
+ * the input for the next function.
+ *
+ * ```ts
  * import { pipe } from "effect"
  *
- * const result = pipe(input, func1, func2, ..., funcN)
+ * const result = pipe(
+ *   1,
+ *   (n) => n + 1,
+ *   (n) => n * 2,
+ *   (n) => `result: ${n}`
+ * )
+ *
+ * console.log(result) // "result: 4"
  * ```
  *
- * In this syntax, `input` is the initial value, and `func1`, `func2`, ...,
- * `funcN` are the functions to be applied in sequence. The result of each
- * function becomes the input for the next function, and the final result is
- * returned.
+ * **Example** (Chaining methods before conversion)
  *
- * Here's an illustration of how `pipe` works:
+ * ```ts
+ * const numbers = [1, 2, 3, 4]
+ * const double = (n: number) => n * 2
+ * const greaterThanFour = (n: number) => n > 4
  *
- * ```
- * ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌───────┐    ┌────────┐
- * │ input │───►│ func1 │───►│ func2 │───►│  ...  │───►│ funcN │───►│ result │
- * └───────┘    └───────┘    └───────┘    └───────┘    └───────┘    └────────┘
- * ```
+ * const result = numbers.map(double).filter(greaterThanFour)
  *
- * It's important to note that functions passed to `pipe` must have a **single
- * argument** because they are only called with a single argument.
- *
- * **When to Use**
- *
- * This is useful in combination with data-last functions as a simulation of
- * methods:
- *
- * ```ts skip-type-checking
- * as.map(f).filter(g)
+ * console.log(result) // [6, 8]
  * ```
  *
- * becomes:
+ * **Example** (Rewriting method chains with pipe)
  *
- * ```ts skip-type-checking
- * import { pipe, Array } from "effect"
+ * The same transformation can be written with data-last functions.
  *
- * pipe(as, Array.map(f), Array.filter(g))
+ * ```ts
+ * import { Array, pipe } from "effect"
+ *
+ * const numbers = [1, 2, 3, 4]
+ * const double = (n: number) => n * 2
+ * const greaterThanFour = (n: number) => n > 4
+ *
+ * const result = pipe(
+ *   numbers,
+ *   Array.map(double),
+ *   Array.filter(greaterThanFour)
+ * )
+ *
+ * console.log(result) // [6, 8]
  * ```
  *
- * **Example** (Chaining Arithmetic Operations)
+ * **Example** (Chaining arithmetic operations)
  *
  * ```ts
  * import { pipe } from "effect"
@@ -561,10 +1474,24 @@ export const pipeArguments = <A>(self: A, args: IArguments): unknown => {
  * // Output: 2
  * ```
  *
- * @param a - The value to pipe.
- * @param args - The functions to apply in sequence.
- * @returns The result of applying all functions in sequence to the initial value.
- * @since 1.0.0
+ * **Example** (Building a simple transformation pipeline)
+ *
+ * ```ts
+ * import { pipe } from "effect"
+ *
+ * // Simple transformation pipeline
+ * const result = pipe(
+ *   5,
+ *   (x) => x * 2, // 10
+ *   (x) => x + 1, // 11
+ *   (x) => x.toString() // "11"
+ * )
+ *
+ * console.log(result) // "11"
+ * ```
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export function pipe<A>(a: A): A;
 export function pipe<A, B = never>(a: A, ab: (a: A) => B): B;
@@ -1019,34 +1946,37 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
 }
 
 /**
- * Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+ * Performs left-to-right function composition.
  *
- * See also [`pipe`](#pipe).
+ * **When to use**
  *
- * @param ab - The first function to apply.
- * @param bc - The second function to apply.
- * @param cd - The third function to apply.
- * @param de - The fourth function to apply.
- * @param ef - The fifth function to apply.
- * @param fg - The sixth function to apply.
- * @param gh - The seventh function to apply.
- * @param hi - The eighth function to apply.
- * @param ij - The ninth function to apply.
- * @returns A composed function that applies all given functions in sequence.
- * @example
+ * Use to build a reusable function from a left-to-right sequence of
+ * transformations.
+ *
+ * **Details**
+ *
+ * The first function may have any arity. Every following function must be
+ * unary.
+ *
+ * **Example** (Composing functions left to right)
+ *
  * ```ts
+ * import { flow } from "effect"
  * import * as assert from "node:assert"
- * import { flow } from "effect/Function"
  *
  * const len = (s: string): number => s.length
  * const double = (n: number): number => n * 2
  *
  * const f = flow(len, double)
  *
- * assert.strictEqual(f('aaa'), 6)
+ * assert.strictEqual(f("aaa"), 6)
  * ```
  *
- * @since 1.0.0
+ * @see {@link pipe} for applying a value through a left-to-right sequence immediately
+ * @see {@link compose} for composing exactly two functions
+ *
+ * @category combinators
+ * @since 2.0.0
  */
 export function flow<A extends ReadonlyArray<unknown>, B = never>(
   ab: (...a: A) => B,
@@ -1212,6 +2142,97 @@ export function flow(
   }
   return;
 }
+
+/**
+ * Creates a compile-time placeholder for a value of any type.
+ *
+ * **When to use**
+ *
+ * Use as a temporary typed placeholder while developing incomplete code.
+ *
+ * **Gotchas**
+ *
+ * `hole` is intended for temporary development use. If the placeholder is
+ * evaluated at runtime, it throws.
+ *
+ * **Example** (Creating a development placeholder)
+ *
+ * ```ts
+ * import { hole } from "effect"
+ *
+ * // Intentionally not called: `hole` throws if the placeholder is evaluated.
+ * const buildUser = (id: number): { readonly id: number; readonly name: string } => ({
+ *   id,
+ *   name: hole<string>()
+ * })
+ *
+ * console.log(typeof buildUser) // "function"
+ * ```
+ *
+ * @category utility types
+ * @since 2.0.0
+ */
+export const hole: <T>() => T = cast(absurd);
+
+/**
+ * Returns the second argument and discards the first. The SK combinator is
+ * a fundamental combinator in the lambda calculus and the SKI combinator
+ * calculus.
+ *
+ * **When to use**
+ *
+ * Use to discard the first argument and return the second argument.
+ *
+ * **Example** (Discarding the first argument)
+ *
+ * ```ts
+ * import { Function } from "effect"
+ * import * as assert from "node:assert"
+ *
+ * assert.deepStrictEqual(Function.SK(0, "hello"), "hello")
+ * ```
+ *
+ * @category combinators
+ * @since 2.0.0
+ */
+export const SK = <A, B>(_: A, b: B): B => b;
+
+/**
+ * Creates a memoized function whose input is an object, caching results by
+ * object identity.
+ *
+ * **When to use**
+ *
+ * Use to reuse the result of a synchronous computation whose output is stable
+ * for a given object reference.
+ *
+ * **Details**
+ *
+ * Each memoized wrapper owns a private `WeakMap` keyed by object identity.
+ * Cached `undefined` results are still returned because the cache is checked
+ * with `WeakMap.has`.
+ *
+ * **Gotchas**
+ *
+ * Structurally equal objects do not share cache entries. If the same object is
+ * mutated after its first call, later calls still return the cached result for
+ * that reference.
+ *
+ * @category caching
+ * @since 4.0.0
+ */
+export function memoize<A extends object, O>(f: (a: A) => O): (ast: A) => O {
+  const cache = new WeakMap<object, O>();
+  return (a) => {
+    if (cache.has(a)) {
+      return cache.get(a)!;
+    }
+    const result = f(a);
+    cache.set(a, result);
+    return result;
+  };
+}
+
 // #endregion
 
 // #region Map & Set
@@ -1223,6 +2244,7 @@ export function flow(
  * @param key - The key to look up in the Map or WeakMap.
  * @param defaultValue - The value to insert and return if the key is not present.
  * @returns The existing value for the key, or the inserted default value.
+ * @category map & set
  */
 export function getOrInsert<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, defaultValue: V): V;
 export function getOrInsert<K, V>(map: Map<K, V>, key: K, defaultValue: V): V;
@@ -1241,6 +2263,7 @@ export function getOrInsert<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, de
  * @param key - The key to look up in the Map or WeakMap.
  * @param callback - A function that returns the value to insert if the key is not present. Called with the key as argument.
  * @returns The existing value for the key, or the newly computed value.
+ * @category map & set
  */
 export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: (key: K) => V): V;
 export function getOrInsertComputed<K, V>(map: Map<K, V>, key: K, callback: (key: K) => V): V;

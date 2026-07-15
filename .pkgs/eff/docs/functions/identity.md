@@ -3,25 +3,40 @@
 # Function: identity()
 
 ```ts
-function identity<T>(x: T): T;
+function identity<A>(a: A): A;
 ```
 
-Returns its argument.
+Returns its input argument unchanged.
+
+**When to use**
+
+Use to return a value unchanged where a function is required.
+
+**Example** (Returning the same value)
+
+```ts
+import { identity } from "effect";
+import * as assert from "node:assert";
+
+assert.deepStrictEqual(identity(5), 5);
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description          |
-| --------- | ---- | -------------------- |
-| `x`       | `T`  | The value to return. |
+| Parameter | Type |
+| --------- | ---- |
+| `a`       | `A`  |
 
 ## Returns
 
-`T`
+`A`
 
-The input value unchanged.
+## Since
+
+2.0.0

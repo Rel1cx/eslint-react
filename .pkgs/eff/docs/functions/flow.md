@@ -8,33 +8,22 @@
 function flow<A, B>(ab: (...a: A) => B): (...a: A) => B;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
 
-### Type Parameters
+Use to build a reusable function from a left-to-right sequence of
+transformations.
 
-| Type Parameter                     | Default type |
-| ---------------------------------- | ------------ |
-| `A` _extends_ readonly `unknown`[] | -            |
-| `B`                                | `never`      |
+**Details**
 
-### Parameters
+The first function may have any arity. Every following function must be
+unary.
 
-| Parameter | Type                 | Description                  |
-| --------- | -------------------- | ---------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply. |
-
-### Returns
-
-A composed function that applies all given functions in sequence.
-
-(...`a`: `A`) => `B`
-
-### Example
+**Example** (Composing functions left to right)
 
 ```ts
-import { flow } from "effect/Function";
+import { flow } from "effect";
 import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
@@ -45,9 +34,31 @@ const f = flow(len, double);
 assert.strictEqual(f("aaa"), 6);
 ```
 
+### Type Parameters
+
+| Type Parameter                     | Default type |
+| ---------------------------------- | ------------ |
+| `A` _extends_ readonly `unknown`[] | -            |
+| `B`                                | `never`      |
+
+### Parameters
+
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+
+### Returns
+
+(...`a`: `A`) => `B`
+
+### See
+
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
+
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -55,9 +66,31 @@ assert.strictEqual(f("aaa"), 6);
 function flow<A, B, C>(ab: (...a: A) => B, bc: (b: B) => C): (...a: A) => C;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -69,34 +102,23 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.  |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply. |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `C`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -108,9 +130,31 @@ function flow<A, B, C, D>(
 ): (...a: A) => D;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -123,35 +167,24 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.  |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply. |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.  |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `D`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -164,9 +197,31 @@ function flow<A, B, C, D, E>(
 ): (...a: A) => E;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -180,36 +235,25 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.  |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply. |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.  |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply. |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `E`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -223,9 +267,31 @@ function flow<A, B, C, D, E, F>(
 ): (...a: A) => F;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -240,37 +306,26 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.  |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply. |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.  |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply. |
-| `ef`      | (`e`: `E`) => `F`    | The fifth function to apply.  |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `F`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -285,9 +340,31 @@ function flow<A, B, C, D, E, F, G>(
 ): (...a: A) => G;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -303,38 +380,27 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                   |
-| --------- | -------------------- | ----------------------------- |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.  |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply. |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.  |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply. |
-| `ef`      | (`e`: `E`) => `F`    | The fifth function to apply.  |
-| `fg`      | (`f`: `F`) => `G`    | The sixth function to apply.  |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `G`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -350,9 +416,31 @@ function flow<A, B, C, D, E, F, G, H>(
 ): (...a: A) => H;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -369,39 +457,28 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                    |
-| --------- | -------------------- | ------------------------------ |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.   |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply.  |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.   |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply.  |
-| `ef`      | (`e`: `E`) => `F`    | The fifth function to apply.   |
-| `fg`      | (`f`: `F`) => `G`    | The sixth function to apply.   |
-| `gh`      | (`g`: `G`) => `H`    | The seventh function to apply. |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `H`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -418,9 +495,31 @@ function flow<A, B, C, D, E, F, G, H, I>(
 ): (...a: A) => I;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -438,40 +537,29 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                    |
-| --------- | -------------------- | ------------------------------ |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.   |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply.  |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.   |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply.  |
-| `ef`      | (`e`: `E`) => `F`    | The fifth function to apply.   |
-| `fg`      | (`f`: `F`) => `G`    | The sixth function to apply.   |
-| `gh`      | (`g`: `G`) => `H`    | The seventh function to apply. |
-| `hi`      | (`h`: `H`) => `I`    | The eighth function to apply.  |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
+| `hi`      | (`h`: `H`) => `I`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `I`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
 
 ## Call Signature
 
@@ -489,9 +577,31 @@ function flow<A, B, C, D, E, F, G, H, I, J>(
 ): (...a: A) => J;
 ```
 
-Performs left-to-right function composition. The first argument may have any arity, the remaining arguments must be unary.
+Performs left-to-right function composition.
 
-See also [`pipe`](#pipe).
+**When to use**
+
+Use to build a reusable function from a left-to-right sequence of
+transformations.
+
+**Details**
+
+The first function may have any arity. Every following function must be
+unary.
+
+**Example** (Composing functions left to right)
+
+```ts
+import { flow } from "effect";
+import * as assert from "node:assert";
+
+const len = (s: string): number => s.length;
+const double = (n: number): number => n * 2;
+
+const f = flow(len, double);
+
+assert.strictEqual(f("aaa"), 6);
+```
 
 ### Type Parameters
 
@@ -510,38 +620,27 @@ See also [`pipe`](#pipe).
 
 ### Parameters
 
-| Parameter | Type                 | Description                    |
-| --------- | -------------------- | ------------------------------ |
-| `ab`      | (...`a`: `A`) => `B` | The first function to apply.   |
-| `bc`      | (`b`: `B`) => `C`    | The second function to apply.  |
-| `cd`      | (`c`: `C`) => `D`    | The third function to apply.   |
-| `de`      | (`d`: `D`) => `E`    | The fourth function to apply.  |
-| `ef`      | (`e`: `E`) => `F`    | The fifth function to apply.   |
-| `fg`      | (`f`: `F`) => `G`    | The sixth function to apply.   |
-| `gh`      | (`g`: `G`) => `H`    | The seventh function to apply. |
-| `hi`      | (`h`: `H`) => `I`    | The eighth function to apply.  |
-| `ij`      | (`i`: `I`) => `J`    | The ninth function to apply.   |
+| Parameter | Type                 |
+| --------- | -------------------- |
+| `ab`      | (...`a`: `A`) => `B` |
+| `bc`      | (`b`: `B`) => `C`    |
+| `cd`      | (`c`: `C`) => `D`    |
+| `de`      | (`d`: `D`) => `E`    |
+| `ef`      | (`e`: `E`) => `F`    |
+| `fg`      | (`f`: `F`) => `G`    |
+| `gh`      | (`g`: `G`) => `H`    |
+| `hi`      | (`h`: `H`) => `I`    |
+| `ij`      | (`i`: `I`) => `J`    |
 
 ### Returns
 
-A composed function that applies all given functions in sequence.
-
 (...`a`: `A`) => `J`
 
-### Example
+### See
 
-```ts
-import { flow } from "effect/Function";
-import * as assert from "node:assert";
-
-const len = (s: string): number => s.length;
-const double = (n: number): number => n * 2;
-
-const f = flow(len, double);
-
-assert.strictEqual(f("aaa"), 6);
-```
+- [pipe](pipe.md) for applying a value through a left-to-right sequence immediately
+- [compose](../variables/compose.md) for composing exactly two functions
 
 ### Since
 
-1.0.0
+2.0.0
