@@ -1162,5 +1162,11 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={() => navigation.push('/dashboard')} />
       }
     `,
+    tsx`
+      function Component() {
+        const history = useHistory()
+        return <button onClick={() => history.push('/dashboard')} />
+      }
+    `,
   ],
 });

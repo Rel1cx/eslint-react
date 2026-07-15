@@ -33,6 +33,7 @@ export const MUTATING_METHODS = new Set([
  * Known navigation hooks.
  */
 export const NAVIGATION_HOOKS = new Set([
+  "useHistory",
   "useNavigate",
   "useNavigation",
   "useRouter",
