@@ -5,6 +5,15 @@ All notable changes to the `react-jsx/no-children-prop` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `React.createElement` calls whose props argument is wrapped in a TypeScript type assertion (e.g. `{ children: "x" } as Props`) are now reported.
+- The suggestion fix now escapes JSX-sensitive characters (`<`, `>`, `{`, `}`, `&`) when moving a string `children` prop value into element content.
+- Computed property keys written as template literals (e.g. `{ [`children`]: "x" }`) are now recognized as the `children` prop.
+- Fixed a false positive where a computed identifier key in a `createElement` props object (e.g. `{ [propName]: "Children" }`) was treated as the static `children` prop.
+
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

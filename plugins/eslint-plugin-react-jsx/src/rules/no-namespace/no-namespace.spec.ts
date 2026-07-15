@@ -49,6 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "noNamespace",
       }],
     },
+    // Self-closing with nested member expression is not possible in JSX namespace syntax
   ],
   valid: [
     "<testcomponent />",
@@ -67,5 +68,8 @@ ruleTester.run(RULE_NAME, rule, {
     "<React.Fragment />",
     // Plain lowercase element
     "<div />",
+    // Namespaced attribute names are allowed (rule only checks element names)
+    '<div xml:space="preserve" />',
+    '<svg xmlns:xlink="http://www.w3.org/1999/xlink" />',
   ],
 });

@@ -490,5 +490,18 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>Hello $	{expr}</div>;
       }
     `,
+    // &dollar; is not a recognized HTML entity, so it is not treated as a '$'.
+    "<div>Price: &dollar;{value}</div>",
+    // Decimal / hexadecimal character references for '$' are also not treated as '$'.
+    "<div>Price: &#36;{value}</div>",
+    "<div>Price: &#x24;{value}</div>",
+    "<div>Price: &#36;&#36;{value}</div>",
+    tsx`
+      function App() {
+        return <div>{a}&#36;{b}</div>;
+      }
+    `,
+    // '$' inside an attribute value is not a text node
+    '<div attr="Price: ${value}" />',
   ],
 });

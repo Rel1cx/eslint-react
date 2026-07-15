@@ -30,8 +30,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { jsx } = core.getJsxConfig(context);
 
   const isAutomaticRuntime = jsx === ts.JsxEmit.ReactJSX || jsx === ts.JsxEmit.ReactJSXDev;
-
-  // Only apply the rule to the automatic JSX runtime
   if (!isAutomaticRuntime) return {};
 
   return {

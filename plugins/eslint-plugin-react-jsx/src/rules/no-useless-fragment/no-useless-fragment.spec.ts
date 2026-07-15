@@ -437,6 +437,50 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<div />",
     },
     {
+      code: "<Fragment {...props}><div /></Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: "<React.Fragment><Foo /></React.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
+      code: "<Other.Fragment><Foo /></Other.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
+      code: "<MyApp.Fragment><Foo /></MyApp.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
       code: "<div><> </></div>",
       errors: [
         {
@@ -548,7 +592,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: tsx`
         <div>
-          
+
         </div>
       `,
     },
@@ -677,6 +721,48 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: null,
     },
+    // Single element child with allowExpressions: false
+    {
+      code: "<><span /></>",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<span />",
+    },
+    // Empty fragment (only empty expression) outside JSX
+    {
+      code: "<>{}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Nested useless fragments collapse inward (fixer runs two passes)
+    {
+      code: "<><><span /></></>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: ["<><span /></>", "<span />"],
+    },
   ],
   valid: [
     {
@@ -684,6 +770,10 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ allowEmptyFragment: true }],
     },
     "<><Foo /><Bar /></>",
+    {
+      code: "<><Foo /><Bar /></>",
+      options: [{ allowExpressions: false }],
+    },
     "<>foo<div /></>",
     "<> <div /></>",
     '<>{"moo"} </>',

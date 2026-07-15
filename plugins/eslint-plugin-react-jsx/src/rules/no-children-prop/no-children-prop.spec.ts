@@ -271,6 +271,76 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: '<div children="" />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div></div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children=" " />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div> </div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={""} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{""}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={"&nbsp;"} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div>{"&nbsp;"}</div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<div children={<>fragment</>} />;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: tsx`<div><>fragment</></div>;`,
+            },
+          ],
+        },
+      ],
+    },
     // JSX edge cases
     {
       code: tsx`<div children={} />;`,
@@ -375,6 +445,52 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: '<div children="&lt;span&gt;" />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div>&lt;span&gt;</div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="{expr}" />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div>&#123;expr&#125;</div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<div children="A &amp; B" />;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "moveChildrenToContent",
+              output: "<div>A &amp; B</div>;",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: 'React.createElement("div", { [`children`]: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
       code: '<div {...{ children: "Children" }} />;',
       errors: [{ messageId: "default" }],
     },
@@ -427,6 +543,10 @@ ruleTester.run(RULE_NAME, rule, {
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" });',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: 'React.createElement("div", { children: "Children" } as Props);',
       errors: [{ messageId: "default" }],
     },
     {
@@ -505,6 +625,7 @@ ruleTester.run(RULE_NAME, rule, {
     // edge cases
     'React.createElement("div", getProps());',
     'React.createElement("div");',
+    'const propName = "children"; React.createElement("div", { [propName]: "Children" });',
     '<div {...{ className: "x" }} />;',
     'const props = { className: "x" }; <div {...props} />;',
     'import { props } from "props"; <div {...props} />;',
