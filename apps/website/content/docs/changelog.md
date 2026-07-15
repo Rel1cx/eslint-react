@@ -2,6 +2,26 @@
 title: Changelog
 ---
 
+## v5.16.0 (2026-07-16)
+
+### ✨ New
+
+- `@eslint-react/core`: added support for hook calls written as tagged template literals. (#1909)
+
+  ```tsx
+  const x = useMotionValue(100);
+  const transform = useMotionTemplate`transform(${x}px)`;
+  //                ^^^ tagged template literal hook call
+  ```
+
+- `@eslint-react/jsx`: `findAttribute` now resolves nested spread identifiers and nested object expression spreads. (#1908)
+
+### 🏗️ Internal
+
+- Added tests and per-rule changelogs for tagged template literal hook calls. (#1909)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.15.0...v5.16.0
+
 ## v5.15.0 (2026-07-15)
 
 ### 📝 Documentation
