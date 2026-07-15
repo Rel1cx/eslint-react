@@ -2,6 +2,23 @@
 title: Changelog
 ---
 
+## v5.16.1 (2026-07-16)
+
+### 🐞 Fixes
+
+- `react-jsx/no-children-prop`: `React.createElement` calls whose props argument is wrapped in a TypeScript type assertion (e.g. `{ children: "x" } as Props`) are now reported; computed property keys written as template literals (e.g. `{ [`children`]: "x" }`) are now recognized as the `children` prop; fixed a false positive where a computed identifier key in a `createElement` props object (e.g. `{ [propName]: "Children" }`) was treated as the static `children` prop; the suggestion fix now escapes JSX-sensitive characters (`<`, `>`, `{`, `}`, `&`) when moving a string `children` prop value into element content. (#1910)
+- `react-jsx/no-children-prop-with-children`: same `createElement` edge-case fixes as `no-children-prop`. (#1910)
+- `react-jsx/no-useless-fragment`: `allowExpressions: false` now only flags fragments with a single expression child, matching the option's documented behavior, instead of flagging any fragment inside a JSX element; fragments with spread attributes (e.g. `<Fragment {...props}>`) are no longer auto-fixed; the auto-fixer now removes leading indentation when collapsing whitespace-only fragments. (#1910)
+- `react-jsx/no-leaked-dollar`: `$` character references (`&#36;`, `&#x24;`) are no longer treated as leaked dollar signs; only a literal `$` in the source is reported. (#1910)
+- `react-jsx/no-leaked-semicolon`: leaked semicolons followed by spaces or tabs before a newline, including CRLF line endings, are now detected. (#1910)
+- `react-x/immutability`: added `useHistory` to known navigation hooks, so navigation methods such as `.push()` are not treated as in-place mutations inside frozen callbacks.
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added `Extract.getStaticPropertyName` for resolving static property names from object properties. (#1910)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.16.0...v5.16.1
+
 ## v5.16.0 (2026-07-16)
 
 ### ✨ New

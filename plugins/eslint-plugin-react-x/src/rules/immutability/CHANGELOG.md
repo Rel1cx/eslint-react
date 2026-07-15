@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.16.1] - 2026-07-16
+
+### Fixed
+
+- Added `useHistory` to known navigation hooks, so navigation methods such as `.push()` are not treated as in-place mutations inside frozen callbacks.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

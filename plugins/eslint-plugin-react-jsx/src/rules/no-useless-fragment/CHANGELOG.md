@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.16.1] - 2026-07-16
+
 ### Fixed
 
 - `allowExpressions: false` now only flags fragments with a single expression child, matching the option's documented behavior, instead of flagging any fragment inside a JSX element.
