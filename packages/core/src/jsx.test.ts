@@ -24,14 +24,14 @@ function createContext(parsed: ReturnType<typeof parse>): RuleContext {
       getScope(node: TSESTree.Node) {
         const inner = node.type !== AST.Program;
         for (let current: TSESTree.Node | undefined = node; current != null; current = current.parent) {
-          const scope = scopeManager?.acquire(current, inner);
+          const scope = scopeManager.acquire(current, inner);
           if (scope != null) {
             return scope.type === "function-expression-name"
               ? scope.childScopes[0]
               : scope;
           }
         }
-        return scopeManager?.scopes[0];
+        return scopeManager.scopes[0];
       },
     },
   } as unknown as RuleContext;
@@ -46,7 +46,7 @@ function parseLastExpression(code: string) {
   const context = createContext(parsed);
   const last = parsed.ast.body.at(-1);
   if (last?.type !== AST.ExpressionStatement) {
-    throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type}`);
+    throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);
   }
   return { context, node: last.expression };
 }

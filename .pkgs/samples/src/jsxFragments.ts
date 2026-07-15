@@ -11,8 +11,6 @@ export type JsxsFragmentsOptions = {
 export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
   const { mode = "syntax" } = options;
   return (context) => {
-    // ── Helpers ─────────────────────────────────────
-
     function reportSyntaxPreferred(node: TSESTree.JSXOpeningElement, pattern: "React.Fragment" | "Fragment") {
       // Guard: has key prop (legitimate use of standard form)
       const hasAttributes = node.attributes.length > 0;
@@ -22,20 +20,17 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
         node,
         message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
         fix(fixer) {
-          const closing = node.parent?.closingElement;
-          if (!closing) return null;
+          const closing = node.parent.closingElement;
+          if (closing == null) return null;
           return [fixer.replaceText(node, "<>"), fixer.replaceText(closing, "</>")];
         },
       });
     }
 
-    // ── Listeners ────────────────────────────────────
-
     return {
       JSXOpeningElement(node) {
         const name = node.name;
 
-        // ─── Handle <Fragment> (JSXIdentifier) ───────
         if (name.type === "JSXIdentifier" && name.name === "Fragment") {
           if (mode === "syntax") {
             reportSyntaxPreferred(node, "Fragment");
@@ -43,10 +38,9 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
           return;
         }
 
-        // ─── Handle <React.Fragment> (JSXMemberExpression) ─
         if (name.type !== "JSXMemberExpression") return;
         if (name.object.type !== "JSXIdentifier" || name.object.name !== "React") return;
-        if (name.property.type !== "JSXIdentifier" || name.property.name !== "Fragment") return;
+        if (name.property.name !== "Fragment") return;
 
         if (mode === "syntax") {
           reportSyntaxPreferred(node, "React.Fragment");

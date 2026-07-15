@@ -16,8 +16,7 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
       if (propName == null || !forbidden.includes(propName)) return;
 
       // Verify context is JSX opening element
-      const parent = node.parent;
-      if (parent?.type !== "JSXOpeningElement") return;
+      const { parent } = node;
 
       // Extract element name
       const elemName = parent.name.type === "JSXIdentifier" ? parent.name.name : null;

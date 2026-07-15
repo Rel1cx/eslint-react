@@ -6,7 +6,6 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
     JSXOpeningElement(node) {
       const seen = new Set<string>();
 
-      // ─── Check each spread attribute ───────────────
       for (const attr of node.attributes) {
         if (attr.type !== "JSXSpreadAttribute") continue;
 

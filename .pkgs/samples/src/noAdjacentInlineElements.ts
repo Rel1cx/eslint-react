@@ -41,7 +41,6 @@ export function noAdjacentInlineElements(): RuleFunction {
     JSXElement(node) {
       const children = node.children;
 
-      // ─── Check adjacent pairs ──────────────────────
       for (let i = 0; i < children.length - 1; i++) {
         const current = children[i];
         const next = children[i + 1];

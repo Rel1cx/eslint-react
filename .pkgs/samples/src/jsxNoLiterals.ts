@@ -15,16 +15,13 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
   const { noStrings = false, allowedStrings = [], ignoreProps = true } = options;
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
-    // ─── Check literal text children ───────────────
     Literal(node) {
       if (typeof node.value !== "string") return;
       const text = node.value.trim();
       if (text === "" || allowedSet.has(text)) return;
 
       const parent = node.parent;
-      if (!parent) return;
 
-      // ─── Case: prop value ────────────────────────
       if (parent.type === "JSXAttribute") {
         if (!ignoreProps) {
           context.report({
@@ -35,10 +32,8 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
         return;
       }
 
-      // ─── Case: already wrapped ───────────────────
       if (parent.type === "JSXExpressionContainer") return;
 
-      // ─── Case: child of element/fragment ─────────
       if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
         if (noStrings) {
           context.report({
@@ -54,7 +49,6 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
       }
     },
 
-    // ─── Check JSX text nodes ──────────────────────
     JSXText(node) {
       const text = node.value.trim();
       if (text === "" || allowedSet.has(text)) return;

@@ -11,7 +11,6 @@ export function jsxNoBind(): RuleFunction {
 
       const expr = ast.unwrap(value.expression);
 
-      // ─── Detect forbidden patterns ─────────────────
       switch (true) {
         case expr.type === "ArrowFunctionExpression":
         case expr.type === "FunctionExpression":
