@@ -18,9 +18,9 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "noKeyAfterSpread" },
-        { messageId: "noKeyAfterSpread" },
-        { messageId: "noKeyAfterSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div {...props} key={props.id}>1</div>;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
     },
     // Multiple spreads before key
     {
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div {...a} {...b} key="1">1</div>;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
     },
     // Attributes between spread and key
     {
@@ -47,7 +47,25 @@ ruleTester.run(RULE_NAME, rule, {
           return <div {...props} className="x" key="1">1</div>;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
+    },
+    // Shorthand boolean 'key' after spread is still the deoptimization pattern (compiles to createElement with key: true)
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div {...props} key />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Only the 'key' placed after the spread is reported
+    {
+      code: tsx`
+        const App = (props) => {
+          return <div key="1" {...props} key="2" />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [
@@ -89,6 +107,12 @@ ruleTester.run(RULE_NAME, rule, {
         return <div {...props}>1</div>;
       };
     `,
+    // 'Key' (capitalized) is a regular prop, not React's key (compiles to _jsx with Key as a normal prop)
+    tsx`
+      const App = (props) => {
+        return <div {...props} Key="1" />;
+      };
+    `,
     // classic runtime annotation — no deoptimization check
     tsx`
       /** @jsxRuntime classic */
@@ -116,7 +140,18 @@ const ruleTesterWithJsxClassicRuntime = new RuleTester({
 });
 
 ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
-  invalid: [],
+  invalid: [
+    // '@jsxRuntime automatic' pragma overrides the classic tsconfig setting
+    {
+      code: tsx`
+        /** @jsxRuntime automatic */
+        const App = (props) => {
+          return <div {...props} key="1" />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+  ],
   valid: [
     // no deoptimization check in classic runtime
     tsx`
@@ -126,6 +161,29 @@ ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
           <div {...props} key="1">2</div>,
           <div {...props} key="1">3</div>,
         ]
+      };
+    `,
+  ],
+});
+
+// Test with react-native runtime (from tsconfig) - classic-family emit, deoptimization should NOT apply
+const ruleTesterWithJsxReactNativeRuntime = new RuleTester({
+  languageOptions: {
+    ...defaultLanguageOptionsWithTypes,
+    parserOptions: {
+      ...defaultLanguageOptionsWithTypes.parserOptions,
+      project: getProjectForJsxEmit(JsxEmit.ReactNative),
+      projectService: false,
+    },
+  },
+});
+
+ruleTesterWithJsxReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
+  invalid: [],
+  valid: [
+    tsx`
+      const App = (props) => {
+        return <div {...props} key="1">1</div>;
       };
     `,
   ],
@@ -156,9 +214,9 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
         };
       `,
       errors: [
-        { messageId: "noKeyAfterSpread" },
-        { messageId: "noKeyAfterSpread" },
-        { messageId: "noKeyAfterSpread" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
       ],
     },
     {
@@ -167,7 +225,7 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
           return <Component {...props} key="test" />;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
     },
     // Multiple spreads before key
     {
@@ -176,7 +234,7 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
           return <Component {...a} {...b} key="test" />;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
     },
     // Key on explicit Fragment after spread
     {
@@ -185,7 +243,7 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
           return <Fragment {...props} key="test" />;
         };
       `,
-      errors: [{ messageId: "noKeyAfterSpread" }],
+      errors: [{ messageId: "default" }],
     },
   ],
   valid: [
