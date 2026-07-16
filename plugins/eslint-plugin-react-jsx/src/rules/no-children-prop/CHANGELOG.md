@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored rule implementation: extracted `createElement` children-prop detection into the shared `@/utils/find-create-element-children-prop` helper and the JSX attribute removal fix into `@/utils/remove-jsx-attribute`.
+
 ## [5.16.1] - 2026-07-16
 
 ### Fixed

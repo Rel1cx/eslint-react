@@ -1,9 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
+import { findCreateElementChildrenProp } from "@/utils/find-create-element-children-prop";
+import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
@@ -39,26 +39,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (!core.isCreateElementCall(context, node)) return;
-
-      const [, propsArg, firstExtra] = node.arguments;
-      if (propsArg == null) return;
-
-      const propsObject = Extract.unwrap(propsArg);
-      if (propsObject.type !== AST.ObjectExpression) return;
-
-      let childrenProp: TSESTree.Property | null = null;
-      for (const prop of propsObject.properties) {
-        if (prop.type === AST.Property && Extract.getStaticPropertyName(prop) === "children") {
-          childrenProp = prop;
-          break;
-        }
-      }
+      const childrenProp = findCreateElementChildrenProp(context, node);
       if (childrenProp == null) return;
 
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
-      if (firstExtra == null) return;
+      if (node.arguments[2] == null) return;
 
       context.report({
         messageId: "default",
@@ -67,8 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     JSXElement(node) {
       const childrenProp = findAttribute(context, node, "children");
-      if (childrenProp == null) return;
-      if (!hasChildren(node)) return;
+      if (childrenProp == null || !hasChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove
       // just the `children` key from it, so report without suggestions.
@@ -82,13 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node: childrenProp,
         suggest: [
           {
-            fix(fixer) {
-              // Expand the removal range to also cover whitespace before the prop
-              let start = childrenProp.range[0];
-              const end = childrenProp.range[1];
-              while (start > 0 && /\s/.test(context.sourceCode.text[start - 1] ?? "")) start--;
-              return fixer.removeRange([start, end]);
-            },
+            fix: (fixer) => removeJsxAttribute(context, fixer, childrenProp),
             messageId: "removeChildrenProp",
           },
           {

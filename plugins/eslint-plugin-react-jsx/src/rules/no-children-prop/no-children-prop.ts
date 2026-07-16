@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
+import { findCreateElementChildrenProp } from "@/utils/find-create-element-children-prop";
+import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
+import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -38,21 +39,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (!core.isCreateElementCall(context, node)) return;
-
-      const [, propsArg] = node.arguments;
-      if (propsArg == null) return;
-
-      const propsObject = Extract.unwrap(propsArg);
-      if (propsObject.type !== AST.ObjectExpression) return;
-
-      let childrenProp: TSESTree.Property | null = null;
-      for (const prop of propsObject.properties) {
-        if (prop.type === AST.Property && Extract.getStaticPropertyName(prop) === "children") {
-          childrenProp = prop;
-          break;
-        }
-      }
+      const childrenProp = findCreateElementChildrenProp(context, node);
       if (childrenProp == null) return;
 
       context.report({
@@ -64,27 +51,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const childrenProp = findAttribute(context, node, "children");
       if (childrenProp == null) return;
 
-      // Only handle direct JSXAttribute nodes (not spread props)
+      // Spread attributes cannot be converted to element content safely,
+      // so report without a suggestion
       if (childrenProp.type !== AST.JSXAttribute) {
         context.report({ messageId: "default", node: childrenProp });
         return;
       }
 
       // Turn the 'children' prop value into text usable as element content
-      const { value } = childrenProp;
-      let childrenText: string | null = null;
-      if (value?.type === AST.Literal) {
-        // Escape characters that would be parsed as markup in JSX text
-        childrenText = String(value.value)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll("{", "&#123;")
-          .replaceAll("}", "&#125;");
-      } else if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
-        const exprText = context.sourceCode.getText(value.expression);
-        childrenText = Check.isJSXElementOrFragment(value.expression) ? exprText : `{${exprText}}`;
-      }
+      const childrenText = getChildrenText(context, childrenProp);
 
       // Cannot extract a meaningful children value – report without suggestion
       if (childrenText == null) {
@@ -107,6 +82,38 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 
 /**
+ * Turns the value of a 'children' JSXAttribute into text usable as element content
+ * @param context The rule context
+ * @param attribute The 'children' JSXAttribute node
+ * @returns The text to insert as element content, or `null` when no usable value exists
+ */
+function getChildrenText(context: RuleContext, attribute: TSESTree.JSXAttribute): string | null {
+  const { value } = attribute;
+  if (value?.type === AST.Literal) {
+    return escapeJsxText(String(value.value));
+  }
+  if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
+    const exprText = context.sourceCode.getText(value.expression);
+    return Check.isJSXElementOrFragment(value.expression) ? exprText : `{${exprText}}`;
+  }
+  return null;
+}
+
+/**
+ * Escapes characters that would be parsed as markup in JSX text
+ * @param text The raw string value
+ * @returns The escaped text safe for insertion as JSX content
+ */
+function escapeJsxText(text: string): string {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("{", "&#123;")
+    .replaceAll("}", "&#125;");
+}
+
+/**
  * Builds the fix that moves the 'children' prop value into the element's content
  * @param context The rule context object
  * @param node The JSXElement node being reported
@@ -118,11 +125,7 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
   return (fixer) => {
     const sourceCode = context.sourceCode;
     const { openingElement } = node;
-
-    // Expand the removal range to also cover whitespace before the prop
-    let removeStart = prop.range[0];
-    const removeEnd = prop.range[1];
-    while (removeStart > 0 && /\s/.test(sourceCode.text[removeStart - 1] ?? "")) removeStart--;
+    const removePropFix = removeJsxAttribute(context, fixer, prop);
 
     if (openingElement.selfClosing) {
       const tagName = sourceCode.getText(openingElement.name);
@@ -137,26 +140,22 @@ function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTre
       // trailing space before `>`.
       let wsStart = selfCloseStart;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      while (wsStart > removeEnd && /\s/.test(sourceCode.text[wsStart - 1]!)) {
+      while (wsStart > prop.range[1] && /\s/.test(sourceCode.text[wsStart - 1]!)) {
         wsStart--;
       }
 
       return [
-        fixer.removeRange([removeStart, removeEnd]),
+        removePropFix,
         fixer.replaceTextRange([wsStart, openingElement.range[1]], `>${childrenText}</${tagName}>`),
       ];
     }
 
     // Non-self-closing: remove prop and append children before the
     // closing tag (after any existing children content).
-    const fixes: RuleFix[] = [
-      fixer.removeRange([removeStart, removeEnd]),
+    if (node.closingElement == null) return [removePropFix];
+    return [
+      removePropFix,
+      fixer.insertTextBefore(node.closingElement, childrenText),
     ];
-
-    if (node.closingElement != null) {
-      fixes.push(fixer.insertTextBefore(node.closingElement, childrenText));
-    }
-
-    return fixes;
   };
 }
