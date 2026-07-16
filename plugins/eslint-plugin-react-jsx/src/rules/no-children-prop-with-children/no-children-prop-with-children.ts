@@ -1,10 +1,9 @@
-import { findChildrenProperty, getChildrenContentRange, getPropRemovalRange } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-children-prop-with-children";
 
@@ -48,7 +47,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const propsObject = Extract.unwrap(propsArg);
       if (propsObject.type !== AST.ObjectExpression) return;
 
-      const childrenProp = findChildrenProperty(propsObject);
+      let childrenProp: TSESTree.Property | null = null;
+      for (const prop of propsObject.properties) {
+        if (prop.type === AST.Property && Extract.getStaticPropertyName(prop) === "children") {
+          childrenProp = prop;
+          break;
+        }
+      }
       if (childrenProp == null) return;
 
       // `createElement(type, props, ...children)` treats arguments after the
@@ -78,16 +83,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         suggest: [
           {
             fix(fixer) {
-              const [start, end] = getPropRemovalRange(context, childrenProp);
+              // Expand the removal range to also cover whitespace before the prop
+              let start = childrenProp.range[0];
+              const end = childrenProp.range[1];
+              while (start > 0 && /\s/.test(context.sourceCode.text[start - 1] ?? "")) start--;
               return fixer.removeRange([start, end]);
             },
             messageId: "removeChildrenProp",
           },
           {
             fix(fixer) {
-              const range = getChildrenContentRange(node);
-              if (range == null) return [];
-              return fixer.removeRange(range);
+              const first = node.children.at(0);
+              const last = node.children.at(-1);
+              if (first == null || last == null) return [];
+              return fixer.removeRange([first.range[0], last.range[1]]);
             },
             messageId: "removeChildrenContent",
           },

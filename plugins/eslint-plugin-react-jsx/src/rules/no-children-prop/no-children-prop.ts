@@ -1,6 +1,5 @@
-import { findChildrenProperty, getChildrenPropText, getPropRemovalRange } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
@@ -47,7 +46,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const propsObject = Extract.unwrap(propsArg);
       if (propsObject.type !== AST.ObjectExpression) return;
 
-      const childrenProp = findChildrenProperty(propsObject);
+      let childrenProp: TSESTree.Property | null = null;
+      for (const prop of propsObject.properties) {
+        if (prop.type === AST.Property && Extract.getStaticPropertyName(prop) === "children") {
+          childrenProp = prop;
+          break;
+        }
+      }
       if (childrenProp == null) return;
 
       context.report({
@@ -65,7 +70,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      const childrenText = getChildrenPropText(context, childrenProp);
+      // Turn the 'children' prop value into text usable as element content
+      const { value } = childrenProp;
+      let childrenText: string | null = null;
+      if (value?.type === AST.Literal) {
+        // Escape characters that would be parsed as markup in JSX text
+        childrenText = String(value.value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll("{", "&#123;")
+          .replaceAll("}", "&#125;");
+      } else if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
+        const exprText = context.sourceCode.getText(value.expression);
+        childrenText = Check.isJSXElementOrFragment(value.expression) ? exprText : `{${exprText}}`;
+      }
 
       // Cannot extract a meaningful children value – report without suggestion
       if (childrenText == null) {
@@ -95,16 +114,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param childrenText The text to insert as element content
  * @returns A fixer function that applies the changes
  */
-function buildFix(
-  context: RuleContext,
-  node: TSESTree.JSXElement,
-  prop: TSESTree.JSXAttribute,
-  childrenText: string,
-): (fixer: RuleFixer) => RuleFix[] {
+function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTree.JSXAttribute, childrenText: string): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const sourceCode = context.sourceCode;
     const { openingElement } = node;
-    const [removeStart, removeEnd] = getPropRemovalRange(context, prop);
+
+    // Expand the removal range to also cover whitespace before the prop
+    let removeStart = prop.range[0];
+    const removeEnd = prop.range[1];
+    while (removeStart > 0 && /\s/.test(sourceCode.text[removeStart - 1] ?? "")) removeStart--;
 
     if (openingElement.selfClosing) {
       const tagName = sourceCode.getText(openingElement.name);
