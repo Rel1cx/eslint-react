@@ -64,9 +64,31 @@ function List({ items, shouldSort }) {
 }
 ```
 
+### Calling other Hooks inside the function
+
+When a function calls at least one Hook internally, using the `use` prefix is correct and necessary.
+
+```tsx
+// 🟢 Recommended: The function calls useContext, so the use prefix is justified
+function useAuth() {
+  return useContext(Auth);
+}
+```
+
+### Calling Hooks through tagged template literals
+
+Hook calls written as tagged template literals (for example, Motion's `useMotionTemplate`) also count as Hook calls, so the `use` prefix remains justified.
+
+```tsx
+// 🔵 OK: useMotionTemplate is called as a tagged template literal, which counts as a Hook call
+function useFilter() {
+  return useMotionTemplate`blur(${10}px) saturate(${50}%)`;
+}
+```
+
 ### Not using Hooks now, but planning to add them later
 
-If a function doesn't currently call any Hooks but you plan to add Hook calls later, you can keep the `use` prefix. It's recommended to add a TODO comment explaining your intent to avoid false positives.
+If a function doesn't currently call any Hooks but you plan to add Hook calls later, you can keep the `use` prefix. Add a TODO comment that includes the planned Hook call — the rule treats such comments as a signal of intent and won't report the function.
 
 ```tsx
 // 🔴 Problem: No Hooks are used and there is no comment explaining future plans
@@ -84,20 +106,9 @@ function useAuth() {
 }
 ```
 
-### The function does call other Hooks
-
-When a function calls Hooks internally, using the `use` prefix is correct and necessary.
-
-```tsx
-// 🟢 Recommended: Uses useContext, which follows Hook naming conventions
-function useAuth() {
-  return useContext(Auth);
-}
-```
-
 ### MDX component factory functions
 
-Some framework conventions (such as MDX) require factory functions with the `use` prefix. These functions are acceptable even if they don't call any Hooks.
+Some framework conventions (such as MDX) require factory functions with the `use` prefix. These well-known functions are allowed even if they don't call any Hooks.
 
 ```tsx
 // 🔵 OK: Component mapping function that follows MDX conventions
