@@ -9,9 +9,9 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID = "removeDollarSign";
+export type MessageID =
+  | "default"
+  | "removeDollarSign";
 
 export default createRule<[], MessageID>({
   meta: {

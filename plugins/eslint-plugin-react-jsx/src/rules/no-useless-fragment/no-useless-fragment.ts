@@ -1,16 +1,17 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleFix, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
+import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
 
 export const RULE_NAME = "no-useless-fragment";
 
 export const RULE_FEATURES = [
-  "FIX",
   "CFG",
+  "FIX",
 ] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
@@ -45,7 +46,6 @@ const schema = [{
 export default createRule<Options, MessageID>({
   meta: {
     type: "suggestion",
-    defaultOptions: [...defaultOptions],
     docs: {
       description: "Disallows useless fragment elements.",
     },

@@ -12,11 +12,10 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID =
-  | "removeChildrenProp"
-  | "removeChildrenContent";
+export type MessageID =
+  | "default"
+  | "removeChildrenContent"
+  | "removeChildrenProp";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -52,7 +51,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const childrenProp = findChildrenProperty(propsObject);
       if (childrenProp == null) return;
 
-      // createElement has extra children arguments when there are extra args
+      // `createElement(type, props, ...children)` treats arguments after the
+      // props object as children content; without them there is no conflict
       if (firstExtra == null) return;
 
       context.report({

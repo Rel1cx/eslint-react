@@ -53,9 +53,3 @@ export function getPropRemovalRange(context: RuleContext, prop: TSESTree.JSXAttr
 
   return [start, end];
 }
-
-export type JsxTextNode = TSESTree.JSXText | TSESTree.Literal;
-
-export function isDirectJsxChild(node: JsxTextNode): boolean {
-  return Check.isJSXElementOrFragment(node.parent);
-}
