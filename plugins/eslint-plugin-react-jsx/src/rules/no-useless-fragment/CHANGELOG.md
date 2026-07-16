@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored rule implementation: hoisted detection and fix helpers out of `create` to the module level and unified the per-reason report path; no behavior change.
+
+### Added
+
+- Added targeted test cases for fragments in attribute positions, `allowEmptyFragment` interplay with the host-component reason, and empty options objects.
+
 ## [5.16.1] - 2026-07-16
 
 ### Fixed

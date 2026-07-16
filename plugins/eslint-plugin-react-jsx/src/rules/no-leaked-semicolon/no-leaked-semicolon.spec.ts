@@ -308,6 +308,37 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Consecutive leaked semicolons: reported; the fix removes one at a time
+    {
+      code: tsx`
+        const Component = () => {
+          return (
+            <div>
+              <div />;;
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => {
+                  return (
+                    <div>
+                      <div />;
+                    </div>
+                  );
+                }
+              `,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -417,5 +448,7 @@ ruleTester.run(RULE_NAME, rule, {
     "<div><span>;</span></div>",
     // Not leaked: attribute value
     "<div attr='a;b' />",
+    // Not reported: semicolon directly before the closing tag on the same line (a following newline is required)
+    "<div><div />;</div>",
   ],
 });

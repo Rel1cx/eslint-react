@@ -401,8 +401,40 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Boundary: '$' between two expressions is reported
+    {
+      code: tsx`<div>{cond ? a : b}\${y}</div>`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`<div>{cond ? a : b}{y}</div>`,
+            },
+          ],
+        },
+      ],
+    },
+    // Boundary: a comment container as the next sibling does not exempt when a substantive expression follows
+    {
+      code: tsx`<div>\${/* c */}{a}</div>`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`<div>{/* c */}{a}</div>`,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
+    // Boundary: '$' before a spread child is not "before an expression container"
+    tsx`<div>\${...items}</div>`,
     // Template literal in JavaScript expression - valid usage
     tsx`
       const App = () => \`Hello \${user.name}\`
@@ -430,6 +462,36 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function App({ price }) {
         return <div>\${price}</div>;
+      }
+    `,
+    // Intentional: isolated '$' before a single expression with only non-substantive siblings
+    tsx`
+      function App({ price }) {
+        return <div>\${price} </div>;
+      }
+    `,
+    tsx`
+      function App({ price }) {
+        return <div> \${price}</div>;
+      }
+    `,
+    tsx`
+      function App({ price }) {
+        return (
+          <div>
+            \${price}
+          </div>
+        );
+      }
+    `,
+    tsx`
+      function App({ price }) {
+        return <div>\${price}{}</div>;
+      }
+    `,
+    tsx`
+      function App({ price }) {
+        return <div>\${price}{""}</div>;
       }
     `,
     // Boundary: '$' before JSXElement, not expression

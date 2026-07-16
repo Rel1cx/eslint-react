@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { getAttributeName } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import ts from "typescript";
 
@@ -8,7 +9,7 @@ export const RULE_NAME = "no-key-after-spread";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "noKeyAfterSpread";
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -17,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "Prevent patterns that cause deoptimization when using the automatic JSX runtime.",
     },
     messages: {
-      noKeyAfterSpread: "Placing 'key' after spread props causes deoptimization when using the automatic JSX runtime. Put 'key' before any spread props.",
+      default: "Placing 'key' after spread props causes deoptimization when using the automatic JSX runtime. Put 'key' before any spread props.",
     },
     schema: [],
   },
@@ -28,28 +29,19 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { jsx } = core.getJsxConfig(context);
-
-  const isAutomaticRuntime = jsx === ts.JsxEmit.ReactJSX || jsx === ts.JsxEmit.ReactJSXDev;
-  if (!isAutomaticRuntime) return {};
-
+  if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   return {
     JSXOpeningElement(node) {
-      let firstSpreadPropIndex: null | number = null;
-      for (const [index, prop] of node.attributes.entries()) {
+      let hasSpreadBefore = false;
+      for (const prop of node.attributes) {
         if (prop.type === AST.JSXSpreadAttribute) {
-          firstSpreadPropIndex ??= index;
+          hasSpreadBefore = true;
           continue;
         }
-        if (firstSpreadPropIndex == null) {
-          continue;
-        }
-        // If a 'key' prop is found after a spread prop, it causes deoptimization
-        // Only check JSXIdentifier (not JSXNamespacedName like xml:key)
-        if (prop.name.type === AST.JSXIdentifier && prop.name.name === "key" && index > firstSpreadPropIndex) {
-          context.report({
-            messageId: "noKeyAfterSpread",
-            node: prop,
-          });
+        // A 'key' after any spread prop falls back to createElement (deoptimization).
+        // Namespaced names like `xml:key` never equal "key".
+        if (hasSpreadBefore && getAttributeName(prop) === "key") {
+          context.report({ messageId: "default", node: prop });
         }
       }
     },

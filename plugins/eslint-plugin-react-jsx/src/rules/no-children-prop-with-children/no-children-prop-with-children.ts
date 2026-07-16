@@ -1,7 +1,6 @@
-import { findChildrenProperty, getChildrenContentRange, getPropRemovalRange } from "@/utils/common";
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
+import { findCreateElementChildrenProp } from "@/utils/find-create-element-children-prop";
+import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -12,11 +11,10 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID =
-  | "removeChildrenProp"
-  | "removeChildrenContent";
+export type MessageID =
+  | "default"
+  | "removeChildrenContent"
+  | "removeChildrenProp";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -41,19 +39,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      if (!core.isCreateElementCall(context, node)) return;
-
-      const [, propsArg, firstExtra] = node.arguments;
-      if (propsArg == null) return;
-
-      const propsObject = Extract.unwrap(propsArg);
-      if (propsObject.type !== AST.ObjectExpression) return;
-
-      const childrenProp = findChildrenProperty(propsObject);
+      const childrenProp = findCreateElementChildrenProp(context, node);
       if (childrenProp == null) return;
 
-      // createElement has extra children arguments when there are extra args
-      if (firstExtra == null) return;
+      // `createElement(type, props, ...children)` treats arguments after the
+      // props object as children content; without them there is no conflict
+      if (node.arguments[2] == null) return;
 
       context.report({
         messageId: "default",
@@ -62,8 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     JSXElement(node) {
       const childrenProp = findAttribute(context, node, "children");
-      if (childrenProp == null) return;
-      if (!hasChildren(node)) return;
+      if (childrenProp == null || !hasChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove
       // just the `children` key from it, so report without suggestions.
@@ -77,17 +67,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         node: childrenProp,
         suggest: [
           {
-            fix(fixer) {
-              const [start, end] = getPropRemovalRange(context, childrenProp);
-              return fixer.removeRange([start, end]);
-            },
+            fix: (fixer) => removeJsxAttribute(context, fixer, childrenProp),
             messageId: "removeChildrenProp",
           },
           {
             fix(fixer) {
-              const range = getChildrenContentRange(node);
-              if (range == null) return [];
-              return fixer.removeRange(range);
+              const first = node.children.at(0);
+              const last = node.children.at(-1);
+              if (first == null || last == null) return [];
+              return fixer.removeRange([first.range[0], last.range[1]]);
             },
             messageId: "removeChildrenContent",
           },
