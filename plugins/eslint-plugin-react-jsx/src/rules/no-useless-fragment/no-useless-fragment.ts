@@ -23,6 +23,8 @@ type Options = readonly [
   },
 ];
 
+type ResolvedOptions = Required<Options[0]>;
+
 const defaultOptions = [{
   allowEmptyFragment: false,
   allowExpressions: true,
@@ -61,142 +63,149 @@ export default createRule<Options, MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
-  const { allowEmptyFragment = false, allowExpressions = true } = option;
+  const options: ResolvedOptions = {
+    allowEmptyFragment: option.allowEmptyFragment ?? false,
+    allowExpressions: option.allowExpressions ?? true,
+  };
   const jsxConfig = core.getJsxConfig(context);
-
-  // ----- detection helpers -------------------------------------------------
-
-  /**
-   * Whether the fragment has too few meaningful children to justify its
-   * existence (the "contains less than two children" reason).
-   * @param node The fragment node to check.
-   */
-  function isContentUseless(node: TSESTreeJSXElementLike) {
-    // Empty fragment — useless unless explicitly allowed.
-    if (node.children.length === 0) {
-      return !allowEmptyFragment;
-    }
-
-    const insideJsx = Check.isJSXElementOrFragment(node.parent);
-
-    // A single text child outside JSX cannot be unwrapped into a valid
-    // expression, so keep the existing exception for attribute values such as
-    // `content={<>text</>}`.
-    if (allowExpressions && !insideJsx && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
-      return false;
-    }
-
-    const meaningful = getChildren(node);
-    if (meaningful.length === 0) return true;
-    if (meaningful.length > 1) return false;
-
-    const child = meaningful[0];
-    if (child?.type === AST.JSXExpressionContainer) return !allowExpressions;
-    return true;
-  }
-
-  // ----- fix helpers -------------------------------------------------------
-
-  /**
-   * Whether it is safe to auto-fix the fragment by unwrapping it.
-   * @param node The fragment node to check.
-   */
-  function isSafeToFix(node: TSESTreeJSXElementLike) {
-    if (node.type === AST.JSXElement && node.openingElement.attributes.some((attr) => attr.type === AST.JSXSpreadAttribute)) {
-      return false;
-    }
-
-    // Inside a JSX parent we can only safely unwrap if the parent is a host
-    // (intrinsic / DOM) element.  Custom components might require `children`
-    // to be a single ReactElement, so unwrapping could break them.
-    if (Check.isJSXElementOrFragment(node.parent)) {
-      return isHostElement(node.parent);
-    }
-
-    // Outside of JSX context (e.g. `return <></>`) an empty fragment cannot
-    // be replaced with nothing — that would be a syntax error.
-    if (node.children.length === 0) return false;
-
-    // Outside of JSX context, only element/fragment children and padding
-    // whitespace can be moved into the surrounding expression. Text,
-    // expressions, and spread children would produce invalid JavaScript.
-    return node.children.every((child) => {
-      if (Check.isJSXElementOrFragment(child)) return true;
-      return child.type === AST.JSXText && isWhitespaceText(child);
-    });
-  }
-
-  /**
-   * Build an autofix that unwraps the fragment, replacing it with its
-   * meaningful children content.  Returns `null` when the fix is unsafe.
-   * @param node The fragment node to fix.
-   */
-  function buildFix(node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
-    if (!isSafeToFix(node)) return null;
-
-    return (fixer) => {
-      let text = "";
-      for (const child of node.children) {
-        if (child.type === AST.JSXText) {
-          const cleaned = collapseMultilineText(child.value);
-          if (cleaned != null) text += cleaned;
-        } else {
-          text += context.sourceCode.getText(child);
-        }
-      }
-      let start = node.range[0];
-      if (text === "" && node.children.length > 0) {
-        const lineStart = Math.max(
-          context.sourceCode.text.lastIndexOf("\n", start - 1),
-          context.sourceCode.text.lastIndexOf("\r", start - 1),
-        ) + 1;
-        if (/^[ \t]*$/u.test(context.sourceCode.text.slice(lineStart, start))) start = lineStart;
-      }
-      return fixer.replaceTextRange([start, node.range[1]], text);
-    };
-  }
-
-  // ----- visitor -----------------------------------------------------------
-
-  /**
-   * Inspect a fragment node and report if it is useless.
-   *
-   * A fragment may be reported for **two independent reasons** on the same
-   * node (e.g. `<p><>foo</></p>` is both "placed inside a host component"
-   * and* "contains less than two children").
-   * @param node The fragment node to inspect.
-   */
-  function visit(node: TSESTreeJSXElementLike) {
-    // A fragment inside a host component is always redundant — the host
-    // element already accepts an arbitrary number of children.
-    if (isHostElement(node.parent)) {
-      context.report({
-        data: { reason: "placed inside a host component" },
-        fix: buildFix(node),
-        messageId: "default",
-        node,
-      });
-    }
-
-    // A fragment with too few meaningful children serves no purpose.
-    if (isContentUseless(node)) {
-      context.report({
-        data: { reason: "contains less than two children" },
-        fix: buildFix(node),
-        messageId: "default",
-        node,
-      });
-    }
-  }
 
   return {
     JSXElement(node) {
       if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
       if (hasAnyAttribute(context, node, ["key", "ref"])) return;
-      visit(node);
+      visitFragment(context, node, options);
     },
     JSXFragment(node) {
-      visit(node);
+      visitFragment(context, node, options);
     },
+  };
+}
+
+/**
+ * Inspect a fragment node and report if it is useless.
+ *
+ * A fragment may be reported for **two independent reasons** on the same
+ * node (e.g. `<p><>foo</></p>` is both "placed inside a host component"
+ * and "contains less than two children").
+ * @param context The rule context.
+ * @param node The fragment node to inspect.
+ * @param options The resolved rule options.
+ */
+function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, options: ResolvedOptions) {
+  const reasons: string[] = [];
+
+  // A fragment inside a host component is always redundant — the host
+  // element already accepts an arbitrary number of children.
+  if (isHostElement(node.parent)) reasons.push("placed inside a host component");
+
+  // A fragment with too few meaningful children serves no purpose.
+  if (isContentUseless(node, options)) reasons.push("contains less than two children");
+
+  if (reasons.length === 0) return;
+
+  const fix = buildFix(context, node);
+  for (const reason of reasons) {
+    context.report({
+      data: { reason },
+      fix,
+      messageId: "default",
+      node,
+    });
+  }
+}
+
+/**
+ * Whether the fragment has too few meaningful children to justify its
+ * existence (the "contains less than two children" reason).
+ * @param node The fragment node to check.
+ * @param options The resolved rule options.
+ */
+function isContentUseless(node: TSESTreeJSXElementLike, options: ResolvedOptions) {
+  const { allowEmptyFragment, allowExpressions } = options;
+
+  // Empty fragment — useless unless explicitly allowed.
+  if (node.children.length === 0) {
+    return !allowEmptyFragment;
+  }
+
+  // A single text child outside JSX cannot be unwrapped into a valid
+  // expression, so keep the existing exception for attribute values such as
+  // `content={<>text</>}`.
+  const insideJsx = Check.isJSXElementOrFragment(node.parent);
+  if (allowExpressions && !insideJsx && node.children.length === 1 && node.children[0]?.type === AST.JSXText) {
+    return false;
+  }
+
+  const meaningful = getChildren(node);
+  if (meaningful.length === 0) return true;
+  if (meaningful.length > 1) return false;
+
+  const child = meaningful[0];
+  if (child?.type === AST.JSXExpressionContainer) return !allowExpressions;
+  return true;
+}
+
+/**
+ * Whether it is safe to auto-fix the fragment by unwrapping it.
+ * @param node The fragment node to check.
+ */
+function isSafeToFix(node: TSESTreeJSXElementLike) {
+  if (node.type === AST.JSXElement && node.openingElement.attributes.some((attr) => attr.type === AST.JSXSpreadAttribute)) {
+    return false;
+  }
+
+  // Inside a JSX parent we can only safely unwrap if the parent is a host
+  // (intrinsic / DOM) element.  Custom components might require `children`
+  // to be a single ReactElement, so unwrapping could break them.
+  if (Check.isJSXElementOrFragment(node.parent)) {
+    return isHostElement(node.parent);
+  }
+
+  // Outside of JSX context (e.g. `return <></>`) an empty fragment cannot
+  // be replaced with nothing — that would be a syntax error.
+  if (node.children.length === 0) return false;
+
+  // Outside of JSX context, only element/fragment children and padding
+  // whitespace can be moved into the surrounding expression. Text,
+  // expressions, and spread children would produce invalid JavaScript.
+  return node.children.every((child) => {
+    if (Check.isJSXElementOrFragment(child)) return true;
+    return child.type === AST.JSXText && isWhitespaceText(child);
+  });
+}
+
+/**
+ * Build an autofix that unwraps the fragment, replacing it with its
+ * meaningful children content.  Returns `null` when the fix is unsafe.
+ * @param context The rule context.
+ * @param node The fragment node to fix.
+ */
+function buildFix(context: RuleContext, node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
+  if (!isSafeToFix(node)) return null;
+
+  return (fixer) => {
+    const sourceCode = context.sourceCode;
+    let text = "";
+    for (const child of node.children) {
+      if (child.type === AST.JSXText) {
+        const cleaned = collapseMultilineText(child.value);
+        if (cleaned != null) text += cleaned;
+      } else {
+        text += sourceCode.getText(child);
+      }
+    }
+
+    let start = node.range[0];
+
+    // When unwrapping leaves nothing behind and the fragment sits on its
+    // own line, also remove the line's leading indentation.
+    if (text === "" && node.children.length > 0) {
+      const lineStart = Math.max(
+        sourceCode.text.lastIndexOf("\n", start - 1),
+        sourceCode.text.lastIndexOf("\r", start - 1),
+      ) + 1;
+      if (/^[ \t]*$/u.test(sourceCode.text.slice(lineStart, start))) start = lineStart;
+    }
+    return fixer.replaceTextRange([start, node.range[1]], text);
   };
 }

@@ -763,6 +763,70 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: ["<><span /></>", "<span />"],
     },
+    // Single element child in attribute position can be safely unwrapped
+    {
+      code: "<Fooo content={<><div /></>} />",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Fooo content={<div />} />",
+    },
+    // Single expression child in attribute position is reported with allowExpressions: false, but cannot be unwrapped
+    {
+      code: "<div attr={<>{foo}</>} />",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // allowEmptyFragment does not suppress the host-component reason
+    {
+      code: "<div><Fragment></Fragment></div>",
+      options: [{ allowEmptyFragment: true }],
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div></div>",
+    },
+    // Single text child plus an empty-string expression in attribute position: the text-child exception
+    // counts raw children, so it does not apply; the text child is not padding whitespace, so no fix
+    {
+      code: "<Fooo content={<>text {''}</>} />",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Empty options object resolves to the documented defaults
+    {
+      code: "<></>",
+      options: [{}],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
   ],
   valid: [
     {
@@ -781,6 +845,8 @@ ruleTester.run(RULE_NAME, rule, {
     "<React.NotFragment />",
     "<Foo><><div /><div /></></Foo>",
     '<div p={<>{"a"}{"b"}</>} />',
+    // Single expression child in attribute position is allowed by default
+    "<div attr={<>{foo}</>} />",
     "<Fragment key={item.id}>{item.value}</Fragment>",
     "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
     "<>{foos.map(foo => foo)}</>",
