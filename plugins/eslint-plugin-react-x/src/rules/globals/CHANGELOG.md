@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.14.2] - 2026-07-11
+
 ### Changed
 
 - Refactored global mutation analysis to propagate effects through directly called helpers and stable local aliases.

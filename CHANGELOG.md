@@ -1,5 +1,24 @@
 # Changelog
 
+## v5.17.0 (2026-07-17)
+
+### 🐞 Fixes
+
+- `react-jsx/no-leaked-dollar`: the intentional-`$` exemption (e.g. `<div>${price}</div>`) is no longer defeated by surrounding whitespace or empty siblings — a lone `$` before a single expression is now allowed whenever all other siblings are non-substantive. (#1911)
+- `react-jsx/no-leaked-semicolon`: consecutive leaked semicolons (e.g. `;;`) at the start of a JSX text node are now detected. (#1911)
+
+### 📝 Documentation
+
+- `react-x/no-unnecessary-use-prefix`: reorganized the rule examples.
+
+### 🏗️ Internal
+
+- `react-jsx`: extracted the shared `find-create-element-children-prop` and `remove-jsx-attribute` rule helpers, removed dead `Literal` visitors from `no-comment-textnodes` and `no-leaked-semicolon`, simplified the `no-key-after-spread` attribute scan, and hoisted `no-useless-fragment` detection and fix helpers to module level. (#1911)
+- `@local/eff`: synced the `Function` module with effect and added missing `@category` tags.
+- Unified JSDoc comment style across packages.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.16.1...v5.17.0
+
 ## v5.16.1 (2026-07-16)
 
 ### 🐞 Fixes

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.17.0] - 2026-07-17
+
 ### Fixed
 
 - Consecutive leaked semicolons (e.g. `;;`) at the start of a JSX text node are now detected.

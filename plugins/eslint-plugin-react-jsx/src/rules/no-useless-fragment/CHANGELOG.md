@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.17.0] - 2026-07-17
+
 ### Changed
 
 - Refactored rule implementation: hoisted detection and fix helpers out of `create` to the module level and unified the per-reason report path; no behavior change.

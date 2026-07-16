@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.17.0] - 2026-07-17
+
 ### Changed
 
 - Simplified the attribute scan: replaced spread index tracking with a boolean flag and the manual attribute name check with `getAttributeName` from `@eslint-react/jsx`.
