@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The intentional-`$` exemption (e.g. `<div>${price}</div>`) is no longer defeated by surrounding whitespace or empty siblings: a lone `$` before a single expression is allowed whenever all other siblings are non-substantive.
+
 ## [5.16.1] - 2026-07-16
 
 ### Changed

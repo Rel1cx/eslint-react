@@ -26,16 +26,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  function visit(node: TSESTree.JSXText | TSESTree.Literal) {
+  function visit(node: TSESTree.JSXText) {
     if (!Check.isJSXElementOrFragment(node.parent)) return;
     if (!/^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node))) return;
-    context.report({
-      messageId: "default",
-      node,
-    });
+    context.report({ messageId: "default", node });
   }
-  return {
-    JSXText: visit,
-    Literal: visit,
-  };
+  return { JSXText: visit };
 }

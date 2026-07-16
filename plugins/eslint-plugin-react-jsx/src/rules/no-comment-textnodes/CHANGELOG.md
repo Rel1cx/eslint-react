@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed the dead `Literal` visitor: JSX text children are always `JSXText` nodes.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

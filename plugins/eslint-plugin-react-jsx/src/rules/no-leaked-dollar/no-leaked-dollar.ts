@@ -1,7 +1,8 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
 
@@ -34,21 +35,22 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  /**
-   * Visitor function for JSXElement and JSXFragment nodes
-   * @param node The JSXElement or JSXFragment node to be checked
-   */
+  if (!context.sourceCode.text.includes("$")) return {};
   function visit(node: TSESTreeJSXElementLike) {
     for (const [index, child] of node.children.entries()) {
       if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
       // Ensure the next sibling is a JSXExpressionContainer
       if (node.children[index + 1]?.type !== AST.JSXExpressionContainer) continue;
-      // Skip if there are only two children (the dollar sign and the expression) it doesn't seem to be split from a template literal
-      if (child.value === "$" && node.children.length === 2) continue;
+      // Skip an isolated '$' before a single expression when all other siblings
+      // are non-substantive — intentional rendering (ex: `<div>${price}</div>`),
+      // not a template literal split across JSX children.
+      if (
+        child.value.trim() === "$"
+        && node.children.every((sibling, siblingIndex) => siblingIndex === index || siblingIndex === index + 1 || isNonSubstantiveChild(sibling))
+      ) continue;
       // Only report a literal '$' at the end of the raw text node.
       const rawText = context.sourceCode.getText(child);
       if (!rawText.endsWith("$")) continue;
-
       const dollarStart = child.range[1] - 1;
       const dollarEnd = child.range[1];
       context.report({
@@ -70,4 +72,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
   return { JSXElement: visit, JSXFragment: visit };
+}
+
+/**
+ * Whether a JSX child carries no renderable content: padding whitespace, an
+ * empty expression (ex: `{}` or a comment), or an empty string expression.
+ * @param child The JSX child node to check.
+ */
+function isNonSubstantiveChild(child: TSESTree.JSXChild): boolean {
+  if (isWhitespaceText(child) || isEmptyStringExpression(child)) return true;
+  return child.type === AST.JSXExpressionContainer && child.expression.type === AST.JSXEmptyExpression;
 }

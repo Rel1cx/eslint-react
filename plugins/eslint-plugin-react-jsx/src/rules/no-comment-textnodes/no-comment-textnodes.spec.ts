@@ -93,6 +93,15 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<div>/** comment */</div>`,
       errors: [{ messageId: "default" }],
     },
+    // Heuristic boundary: a line starting with '//' is reported even when it is intended text (e.g. a UNC path)
+    {
+      code: tsx`
+        <div>
+        //server/share
+        </div>
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     "<App foo='test'>{/* valid */}</App>",
@@ -124,5 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Outside of JSX entirely
     "const x = '/* not a comment */';",
+    // Comment-looking string inside an expression container is not a text node
+    tsx`<div>{"// not a text node"}</div>`,
   ],
 });

@@ -34,38 +34,21 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  function visit(node: TSESTree.JSXText | TSESTree.Literal) {
+  function visit(node: TSESTree.JSXText) {
     if (!Check.isJSXElementOrFragment(node.parent)) return;
-
-    const text = context.sourceCode.getText(node);
-    if (!hasLeakedSemicolon(text)) return;
-
-    const semicolonStart = node.range[0];
-    const semicolonEnd = node.range[0] + 1;
+    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.sourceCode.getText(node))) return;
     context.report({
       messageId: "default",
       node,
       suggest: [
         {
           fix(fixer) {
-            return fixer.removeRange([semicolonStart, semicolonEnd]);
+            return fixer.removeRange([node.range[0], node.range[0] + 1]);
           },
           messageId: "removeSemicolon",
         },
       ],
     });
   }
-  return {
-    JSXText: visit,
-    Literal: visit,
-  };
-}
-
-/**
- * Checks whether the raw text of a JSX text node starts with a `;` immediately followed by a line break
- * @param text The raw text of the JSX text node or literal to check
- * @returns True if the text looks like a leaked semicolon
- */
-function hasLeakedSemicolon(text: string) {
-  return /^;[ \t]*(?:\r\n|\r|\n)/u.test(text);
+  return { JSXText: visit };
 }

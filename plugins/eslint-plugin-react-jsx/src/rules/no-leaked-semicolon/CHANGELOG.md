@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Consecutive leaked semicolons (e.g. `;;`) at the start of a JSX text node are now detected.
+
+### Changed
+
+- Removed the dead `Literal` visitor: JSX text children are always `JSXText` nodes.
+
 ## [5.16.1] - 2026-07-16
 
 ### Fixed
