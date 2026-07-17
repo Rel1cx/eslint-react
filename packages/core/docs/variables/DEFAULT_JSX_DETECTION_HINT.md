@@ -1,4 +1,4 @@
-[@eslint-react/jsx](../README.md) / DEFAULT\_JSX\_DETECTION\_HINT
+[@eslint-react/core](../README.md) / DEFAULT\_JSX\_DETECTION\_HINT
 
 # Variable: DEFAULT\_JSX\_DETECTION\_HINT
 

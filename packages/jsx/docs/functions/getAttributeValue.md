@@ -7,7 +7,7 @@ function getAttributeValue(
   context: RuleContext,
   element: JSXElement,
   name: string,
-): JsxAttributeValue | null;
+): AttributeValue | null;
 ```
 
 Find an attribute by name on a JSX element and resolve its value in a single call.
@@ -26,6 +26,6 @@ pattern in lint rules.
 
 ## Returns
 
-[`JsxAttributeValue`](../type-aliases/JsxAttributeValue.md) \| `null`
+`AttributeValue` \| `null`
 
-A [JsxAttributeValue](../type-aliases/JsxAttributeValue.md) descriptor, or `null` when the attribute is not present on the element.
+A JsxAttributeValue descriptor, or `null` when the attribute is not present on the element.

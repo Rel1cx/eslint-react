@@ -1,7 +1,6 @@
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findAttribute } from "./find-attribute";
-import type { JsxAttributeValue } from "./jsx-attribute-value";
 import { resolveAttributeValue } from "./resolve-attribute-value";
 
 /**
@@ -15,11 +14,7 @@ import { resolveAttributeValue } from "./resolve-attribute-value";
  * @param name The attribute name to look up (ex: "className").
  * @returns A {@link JsxAttributeValue} descriptor, or `null` when the attribute is not present on the element.
  */
-export function getAttributeValue(
-  context: RuleContext,
-  element: TSESTree.JSXElement,
-  name: string,
-): JsxAttributeValue | null {
+export function getAttributeValue(context: RuleContext, element: TSESTree.JSXElement, name: string) {
   const attr = findAttribute(context, element, name);
   if (attr == null) return null;
   return resolveAttributeValue(context, attr);

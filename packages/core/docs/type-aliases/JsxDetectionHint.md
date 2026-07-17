@@ -1,4 +1,4 @@
-[@eslint-react/jsx](../README.md) / JsxDetectionHint
+[@eslint-react/core](../README.md) / JsxDetectionHint
 
 # Type Alias: JsxDetectionHint
 

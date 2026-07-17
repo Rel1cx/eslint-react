@@ -1,13 +1,13 @@
 /* eslint-disable perfectionist/sort-objects */
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { JsxDetectionHint } from "@eslint-react/jsx";
 import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";
 import { isRenderMethodCallback } from "./class-component";
 import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
 import type { HookCall } from "./hook";
+import { JsxDetectionHint } from "./jsx";
 import type { SemanticNode } from "./semantic";
 
 // #region Types

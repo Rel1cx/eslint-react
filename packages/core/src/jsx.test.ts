@@ -1,14 +1,13 @@
 /// <reference types="node" />
 
 import type { RuleContext } from "@eslint-react/eslint";
-import { JsxDetectionHint } from "@eslint-react/jsx";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { getFixturesRootDir } from "../../../testing/helpers";
-import { isJsxLike } from "./jsx";
+import { JsxDetectionHint, isJsxLike } from "./jsx";
 
 function parse(code: string) {
   return parseForESLint(code, {
