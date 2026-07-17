@@ -1,5 +1,16 @@
 # Changelog
 
+## v5.17.1 (2026-07-17)
+
+### 🏗️ Internal
+
+- `react-jsx/no-key-after-spread`: reworked the attribute scan to a pipeline style using `dropWhile` and `not` from `@local/eff`, `Check.is` from `@eslint-react/ast`, and the new `isAttribute` helper from `@eslint-react/jsx`. (#1912)
+- `@eslint-react/jsx`: added `isAttribute` for matching JSX attributes by name.
+- `@local/eff`: added `dropWhile` and `takeWhile`.
+- Bumped `tsdown` to `0.22.8`, `tsl-dx` to `0.13.3`, `import-integrity-lint` to `1.1.4`, `fumadocs` to `16.11.5`, and `fumadocs-mdx` to `15.2.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.17.0...v5.17.1
+
 ## v5.17.0 (2026-07-17)
 
 ### 🐞 Fixes

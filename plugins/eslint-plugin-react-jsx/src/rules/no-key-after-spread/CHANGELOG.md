@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.17.1] - 2026-07-17
+
 ### Changed
 
 - Reworked the attribute scan to a pipeline style: `dropWhile` and `not` from `@local/eff` skip attributes before the first spread, `Check.is` from `@eslint-react/ast` detects spread props, and the new `isAttribute` from `@eslint-react/jsx` matches `key`.
