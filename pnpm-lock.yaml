@@ -827,9 +827,6 @@ importers:
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../eslint
-      '@eslint-react/jsx':
-        specifier: workspace:*
-        version: link:../jsx
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../shared

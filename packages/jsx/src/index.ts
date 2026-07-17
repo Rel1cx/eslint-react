@@ -15,6 +15,4 @@ export * from "./is-element";
 export * from "./is-fragment-element";
 export * from "./is-host-element";
 export * from "./is-whitespace";
-export * from "./jsx-attribute-value";
-export * from "./jsx-detection-hint";
 export * from "./resolve-attribute-value";

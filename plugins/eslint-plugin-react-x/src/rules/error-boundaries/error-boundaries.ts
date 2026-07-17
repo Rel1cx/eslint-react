@@ -2,7 +2,6 @@ import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { JsxDetectionHint } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "error-boundaries";
@@ -57,13 +56,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `try` is not present in the file
   if (!context.sourceCode.text.includes("try")) return {};
 
-  const hint = JsxDetectionHint.DoNotIncludeJsxWithNullValue
-    | JsxDetectionHint.DoNotIncludeJsxWithNumberValue
-    | JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
-    | JsxDetectionHint.DoNotIncludeJsxWithStringValue
-    | JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
-    | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
-    | JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
+  const hint = core.JsxDetectionHint.DoNotIncludeJsxWithNullValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithNumberValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithBigIntValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithStringValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithBooleanValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue
+    | core.JsxDetectionHint.DoNotIncludeJsxWithEmptyArrayValue;
 
   const fc = core.getFunctionComponentCollector(context);
   const hc = core.getHookCollector(context);

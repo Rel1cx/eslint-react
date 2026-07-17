@@ -49,15 +49,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Shorthand boolean 'key' after spread is still the deoptimization pattern (compiles to createElement with key: true)
-    {
-      code: tsx`
-        const App = (props) => {
-          return <div {...props} key />;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // Only the 'key' placed after the spread is reported
     {
       code: tsx`

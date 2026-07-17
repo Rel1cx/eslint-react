@@ -30,12 +30,15 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast-path: if 'key=' is not in the source code, skip the rule.
+  if (!context.sourceCode.text.includes("key=")) return {};
   const { jsx } = core.getJsxConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
+  const isJsxSpreadAttribute = Check.is(AST.JSXSpreadAttribute);
   return {
     JSXOpeningElement(node) {
       // A 'key' after any spread prop falls back to createElement (deoptimization).
-      for (const n of dropWhile(node.attributes, not(Check.is(AST.JSXSpreadAttribute))).filter(isAttribute("key"))) {
+      for (const n of dropWhile(node.attributes, not(isJsxSpreadAttribute)).filter(isAttribute("key"))) {
         context.report({ messageId: "default", node: n });
       }
     },

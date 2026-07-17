@@ -3,11 +3,26 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
-import type { JsxAttributeValue } from "./jsx-attribute-value";
+
+/**
+ * Discriminated union representing the resolved value of a JSX attribute.
+ *
+ * Each variant carries the original AST `node` (where applicable) and a
+ * `toStatic()` helper that attempts to collapse the value into a plain
+ * JavaScript value at analysis time.
+ */
+type AttributeValue =
+  | { readonly kind: "boolean"; readonly node: null; toStatic(): true }
+  | { readonly kind: "element"; readonly node: TSESTree.JSXElement; toStatic(): null }
+  | { readonly kind: "literal"; readonly node: TSESTree.Literal; toStatic(): TSESTree.Literal["value"] }
+  | { readonly kind: "unknown"; readonly node: TSESTree.JSXExpressionContainer["expression"]; toStatic(): unknown }
+  | { readonly kind: "missing"; readonly node: TSESTree.JSXEmptyExpression; toStatic(): null }
+  | { readonly kind: "spreadChild"; getChildren(): unknown; readonly node: TSESTree.JSXSpreadChild["expression"]; toStatic(): null }
+  | { readonly kind: "spreadProps"; getProperty(name: string): unknown; readonly node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(): null };
 
 /**
  * Resolve the value of a JSX attribute (or spread attribute) into a
- * {@link JsxAttributeValue} descriptor that can be inspected further.
+ * {@link AttributeValue} descriptor that can be inspected further.
  *
  * This is the low-level building block; it operates on a single attribute
  * node that the caller has already located. For the higher-level "find by
@@ -16,7 +31,7 @@ import type { JsxAttributeValue } from "./jsx-attribute-value";
  * @param attribute A `JSXAttribute` or `JSXSpreadAttribute` node.
  * @returns A discriminated-union descriptor of the attribute's value.
  */
-export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike): JsxAttributeValue {
+export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike): AttributeValue {
   if (attribute.type === AST.JSXAttribute) {
     return resolveJsxAttribute(context, attribute);
   }
@@ -25,7 +40,7 @@ export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJ
 
 // #region Internal Resolvers
 
-function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute): JsxAttributeValue {
+function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute): AttributeValue {
   const scope = context.sourceCode.getScope(node);
 
   // Boolean attribute, no value means `true` (ex: `<input disabled />`).
@@ -36,7 +51,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
       toStatic() {
         return true;
       },
-    } as const satisfies JsxAttributeValue;
+    } as const satisfies AttributeValue;
   }
 
   switch (node.value.type) {
@@ -48,7 +63,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
         toStatic() {
           return staticValue;
         },
-      } as const satisfies JsxAttributeValue;
+      } as const satisfies AttributeValue;
     }
 
     case AST.JSXExpressionContainer: {
@@ -61,7 +76,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
           toStatic() {
             return null;
           },
-        } as const satisfies JsxAttributeValue;
+        } as const satisfies AttributeValue;
       }
 
       return {
@@ -70,7 +85,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
         toStatic() {
           return getStaticValue(expr, scope)?.value;
         },
-      } as const satisfies JsxAttributeValue;
+      } as const satisfies AttributeValue;
     }
 
     case AST.JSXElement: {
@@ -80,7 +95,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
         toStatic() {
           return null;
         },
-      } as const satisfies JsxAttributeValue;
+      } as const satisfies AttributeValue;
     }
 
     case AST.JSXSpreadChild: {
@@ -93,12 +108,12 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
         toStatic() {
           return null;
         },
-      } as const satisfies JsxAttributeValue;
+      } as const satisfies AttributeValue;
     }
   }
 }
 
-function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute): JsxAttributeValue {
+function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute): AttributeValue {
   const scope = context.sourceCode.getScope(node);
 
   return {
@@ -112,7 +127,7 @@ function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSprea
     toStatic() {
       return null;
     },
-  } as const satisfies JsxAttributeValue;
+  } as const satisfies AttributeValue;
 }
 
 // #endregion
