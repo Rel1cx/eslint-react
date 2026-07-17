@@ -61,12 +61,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Resolve the value of the 'sandbox' attribute
-      const sandboxValue = resolveAttributeValue(context, sandboxProp);
+      // Resolve the value of the 'sandbox' attribute; for spread attributes
+      // the named property is extracted automatically
+      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
       // If the value is a static string, the prop is correctly used
       if (typeof sandboxValue.toStatic() === "string") return;
-      // If the value is a spread attribute that includes a 'sandbox' property, we can assume it's correctly used
-      if (sandboxValue.kind === "spreadProps" && typeof sandboxValue.getProperty("sandbox") === "string") return;
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({
@@ -77,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             data: { value: "" },
             fix(fixer) {
               // Do not try to fix spread attributes
-              if (sandboxValue.kind.startsWith("spread")) return null;
+              if (sandboxValue.kind === "spreadProps") return null;
               // Suggest replacing the prop with a valid one
               return fixer.replaceText(sandboxProp, `sandbox=""`);
             },

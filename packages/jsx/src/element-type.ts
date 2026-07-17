@@ -7,6 +7,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * - `<div>` -> `"div"`
  * - `<Foo.Bar>` -> `"Foo.Bar"`
  * - `<React.Fragment>` -> `"React.Fragment"`
+ * - `<xml:space>` -> `"xml:space"`
  * - `<></>` -> `""`.
  * @param node A `JSXElement` or `JSXFragment` node.
  * @returns The fully-qualified element type string.

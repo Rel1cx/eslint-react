@@ -1,5 +1,37 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { isEmptyStringExpression, isWhitespaceText } from "./is-whitespace";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { isEmptyStringExpression, isPaddingWhitespace, isWhitespaceText } from "./text";
+
+/**
+ * Get the meaningful children of a JSX element or fragment.
+ *
+ * Mirrors Babel's `buildChildren` helper:
+ * 1. Iterate over `element.children`.
+ * 2. Skip `JSXText` nodes that clean to nothing (padding whitespace).
+ * 3. Skip `JSXExpressionContainer` nodes whose expression is empty.
+ * 4. Skip empty string expressions (`{""}`), which produce no DOM node.
+ * 5. Collect everything else.
+ * @param element A `JSXElement` or `JSXFragment` node.
+ * @returns An array of children nodes that contribute to rendered output.
+ */
+export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[] {
+  const children: TSESTree.JSXChild[] = [];
+
+  for (const child of element.children) {
+    // Padding whitespace (whitespace containing a newline) that React trims away.
+    if (isPaddingWhitespace(child)) continue;
+
+    if (child.type === AST.JSXExpressionContainer) {
+      if (child.expression.type === AST.JSXEmptyExpression) continue;
+      // { "" } produces no DOM node.
+      if (isEmptyStringExpression(child)) continue;
+    }
+
+    children.push(child);
+  }
+
+  return children;
+}
 
 /**
  * Check whether a JSX element (or fragment) has meaningful children, that is,
