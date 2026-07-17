@@ -1,5 +1,12 @@
 # @local/eff
 
+## array
+
+| Variable                            | Description                                                                          |
+| ----------------------------------- | ------------------------------------------------------------------------------------ |
+| [dropWhile](variables/dropWhile.md) | Drops the longest prefix of elements from an array that satisfy the given predicate. |
+| [takeWhile](variables/takeWhile.md) | Takes the longest prefix of elements from an array that satisfy the given predicate. |
+
 ## caching
 
 | Function                        | Description                                                                               |

@@ -16,7 +16,6 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig(
   ...buildIgnoreConfig(path.join(import.meta.dirname, ".gitignore"), [
-    ".*/**",
     "**/*.d.ts",
     "apps",
     "docs",

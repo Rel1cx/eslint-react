@@ -63,7 +63,7 @@ function findCycles(effects: EffectNode[]): number[][] {
     }, [])
   );
 
-  const WHITE = 0, GRAY = 1, BLACK = 2;
+  const BLACK = 2, GRAY = 1, WHITE = 0;
   const color = new Array<number>(effects.length).fill(WHITE);
   const stack: number[] = [];
   const seen = new Set<string>();
@@ -126,8 +126,8 @@ export function noCircularEffect(): RuleFunction {
           if (reported.has(call)) continue;
           reported.add(call);
           context.report({
-            node: call,
             message: `This effect is part of a circular update chain that may cause an infinite render loop: ${description}.`,
+            node: call,
           });
         }
       }

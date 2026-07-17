@@ -25,8 +25,8 @@ export function forbidDomProps(options: ForbidDomPropsOptions): RuleFunction {
       if (elemName == null || elemName[0] !== elemName[0]?.toLowerCase()) return;
 
       context.report({
-        node,
         message: `Prop "${propName}" is forbidden on DOM elements.`,
+        node,
       });
     },
   });

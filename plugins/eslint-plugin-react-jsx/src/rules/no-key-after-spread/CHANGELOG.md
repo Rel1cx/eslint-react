@@ -7,15 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.17.0] - 2026-07-17
-
 ### Changed
 
-- Simplified the attribute scan: replaced spread index tracking with a boolean flag and the manual attribute name check with `getAttributeName` from `@eslint-react/jsx`.
-
-### Added
-
-- Added targeted test cases for shorthand boolean `key`, capitalized `Key`, mixed key/spread ordering, `@jsxRuntime` pragma overriding the tsconfig setting, and the `react-native` runtime.
+- Reworked the attribute scan to a pipeline style: `dropWhile` and `not` from `@local/eff` skip attributes before the first spread, `Check.is` from `@eslint-react/ast` detects spread props, and the new `isAttribute` from `@eslint-react/jsx` matches `key`.
 
 ## [5.2.3-beta.0] - 2026-04-14
 

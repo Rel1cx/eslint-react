@@ -24,8 +24,8 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
       if (componentName.startsWith("_")) {
         if (!allowLeadingUnderscore) {
           context.report({
-            node: name,
             message: `Component name "${componentName}" should not start with an underscore.`,
+            node: name,
           });
         }
         return;
@@ -39,8 +39,8 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
       if (componentName === componentName.toUpperCase()) {
         if (!allowAllCaps) {
           context.report({
-            node: name,
             message: `Component name "${componentName}" should use PascalCase, not all uppercase.`,
+            node: name,
           });
         }
         return;
@@ -48,8 +48,8 @@ export function jsxPascalCase(options: JsxPascalCaseOptions = {}): RuleFunction 
 
       if (!pascalCaseRegex.test(componentName)) {
         context.report({
-          node: name,
           message: `Component name "${componentName}" should be in PascalCase.`,
+          node: name,
         });
       }
     },

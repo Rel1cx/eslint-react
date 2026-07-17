@@ -2,20 +2,20 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxHandlerNames}. */
 export type JsxHandlerNamesOptions = {
+  /** Whether to check inline functions (default: false). */
+  checkInlineFunction?: boolean;
   /** Prefix for event handler functions (default: "handle"). */
   eventHandlerPrefix?: string;
   /** Prefix for event handler props (default: "on"). */
   eventHandlerPropPrefix?: string;
-  /** Whether to check inline functions (default: false). */
-  checkInlineFunction?: boolean;
 };
 
 /** Enforce naming convention for JSX event handlers. */
 export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunction {
   const {
+    checkInlineFunction = false,
     eventHandlerPrefix = "handle",
     eventHandlerPropPrefix = "on",
-    checkInlineFunction = false,
   } = options;
   const EVENT_HANDLER_REGEX = new RegExp(`^${eventHandlerPropPrefix}[A-Z]`);
   const HANDLER_FUNC_REGEX = new RegExp(`^${eventHandlerPrefix}[A-Z]`);
@@ -38,8 +38,8 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
           const handlerName = expression.name;
           if (!HANDLER_FUNC_REGEX.test(handlerName)) {
             context.report({
-              node: expression,
               message: `Handler function "${handlerName}" should be named "${eventHandlerPrefix}${propName.slice(eventHandlerPropPrefix.length)}..."`,
+              node: expression,
             });
           }
           return;
@@ -49,10 +49,10 @@ export function jsxHandlerNames(options: JsxHandlerNamesOptions = {}): RuleFunct
         if (expression.type === "ArrowFunctionExpression" || expression.type === "FunctionExpression") {
           if (checkInlineFunction) {
             context.report({
-              node: expression,
               message: `Inline function handlers are not allowed for "${propName}". Extract it to a named "${eventHandlerPrefix}${
                 propName.slice(eventHandlerPropPrefix.length)
               }" function.`,
+              node: expression,
             });
           }
           return;

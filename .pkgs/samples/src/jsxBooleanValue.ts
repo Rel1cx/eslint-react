@@ -15,9 +15,9 @@ export function jsxBooleanValue(): RuleFunction {
 
       // Report: prefer shorthand form
       context.report({
-        node,
-        message: "Omit the value for boolean attributes.",
         fix: (fixer) => fixer.removeRange([node.name.range[1], value.range[1]]),
+        message: "Omit the value for boolean attributes.",
+        node,
       });
     },
   });

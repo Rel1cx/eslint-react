@@ -46,7 +46,6 @@
 
 // region Directives
 
-/* eslint-disable jsdoc/check-param-names */
 /* tsl-ignore dx/no-unsafe-as */
 /* tsl-ignore dx/nullish */
 
@@ -2275,5 +2274,69 @@ export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, ke
   map.set(key, value);
   return value;
 }
+
+// #endregion
+
+// #region Array
+
+/**
+ * Drops the longest prefix of elements from an array that satisfy the given predicate.
+ *
+ * Supports both data-first and data-last (`pipe`-friendly) call styles.
+ *
+ * @param pred - The predicate to test each element with.
+ * @returns A new array without the matching prefix.
+ * @example
+ * ```ts
+ * import * as assert from "node:assert"
+ * import { dropWhile, pipe } from "@local/eff"
+ *
+ * // data-first
+ * assert.deepStrictEqual(dropWhile([1, 2, 3, 2, 1], (n: number) => n < 3), [3, 2, 1])
+ *
+ * // data-last
+ * assert.deepStrictEqual(pipe([1, 2, 3, 2, 1], dropWhile((n: number) => n < 3)), [3, 2, 1])
+ * ```
+ * @category array
+ */
+export const dropWhile: {
+  <S>(pred: (x: S) => boolean): <T extends S>(xs: T[]) => T[];
+  <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[];
+} = dual(2, <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[] => {
+  const len = xs.length;
+  let idx = 0;
+  while (idx < len && pred(xs[idx]!)) idx++;
+  return xs.slice(idx);
+});
+
+/**
+ * Takes the longest prefix of elements from an array that satisfy the given predicate.
+ *
+ * Supports both data-first and data-last (`pipe`-friendly) call styles.
+ *
+ * @param pred - The predicate to test each element with.
+ * @returns A new array containing only the matching prefix.
+ * @example
+ * ```ts
+ * import * as assert from "node:assert"
+ * import { pipe, takeWhile } from "@local/eff"
+ *
+ * // data-first
+ * assert.deepStrictEqual(takeWhile([1, 2, 3, 2, 1], (n: number) => n < 3), [1, 2])
+ *
+ * // data-last
+ * assert.deepStrictEqual(pipe([1, 2, 3, 2, 1], takeWhile((n: number) => n < 3)), [1, 2])
+ * ```
+ * @category array
+ */
+export const takeWhile: {
+  <S>(pred: (x: S) => boolean): <T extends S>(xs: T[]) => T[];
+  <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[];
+} = dual(2, <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[] => {
+  const len = xs.length;
+  let idx = 0;
+  while (idx < len && pred(xs[idx]!)) idx++;
+  return xs.slice(0, idx);
+});
 
 // #endregion

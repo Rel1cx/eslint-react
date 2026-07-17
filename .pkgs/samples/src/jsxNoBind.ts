@@ -14,12 +14,12 @@ export function jsxNoBind(): RuleFunction {
       switch (true) {
         case expr.type === "ArrowFunctionExpression":
         case expr.type === "FunctionExpression":
-          context.report({ node, message: "JSX props should not use inline functions." });
+          context.report({ message: "JSX props should not use inline functions.", node });
           break;
         case expr.type === "CallExpression": {
           const callee = ast.unwrap(expr.callee);
           if (callee.type === "MemberExpression" && callee.property.type === "Identifier" && callee.property.name === "bind") {
-            context.report({ node, message: "JSX props should not use .bind()." });
+            context.report({ message: "JSX props should not use .bind().", node });
           }
           break;
         }

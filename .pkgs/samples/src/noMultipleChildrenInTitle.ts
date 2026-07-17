@@ -29,8 +29,8 @@ export function noMultipleChildrenInTitle(): RuleFunction {
 
         if (significantChildren.length > 1) {
           context.report({
-            node,
             message: "The <title> component must have a single string child. Use string interpolation instead.",
+            node,
           });
         }
       }

@@ -21,8 +21,8 @@ export function jsxPropsNoSpreadMulti(): RuleFunction {
         // Report duplicate spread
         if (seen.has(spreadKey)) {
           context.report({
-            node: attr,
             message: `Spreading the same expression "${spreadKey}" multiple times is not allowed.`,
+            node: attr,
           });
         } else {
           seen.add(spreadKey);

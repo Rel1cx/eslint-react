@@ -24,8 +24,8 @@ export function jsxMaxDepth(options: JsxMaxDepthOptions): RuleFunction {
       // Check depth limit
       if (depth > max) {
         context.report({
-          node,
           message: `JSX element exceeds maximum depth of ${max} (found ${depth}).`,
+          node,
         });
       }
     },

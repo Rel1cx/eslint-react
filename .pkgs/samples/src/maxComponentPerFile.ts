@@ -14,10 +14,10 @@ export function maxComponentPerFile(options: MaxComponentPerFileOptions): RuleFu
     return merge(visitor, {
       "Program:exit"(program) {
         const components = query.all(program);
-        for (const { node, name } of components.slice(max)) {
+        for (const { name, node } of components.slice(max)) {
           context.report({
-            node,
             message: `Declare only ${max} component${max !== 1 ? "s" : ""} per file. Found extra component "${name ?? "anonymous"}".`,
+            node,
           });
         }
       },

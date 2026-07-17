@@ -36,9 +36,9 @@ export function errorBoundaries(): RuleFunction {
             const func = ast.findParent(stmt, (n) => funcs.some((f) => f.node === n));
             if (stmt != null && func != null && !reported.has(stmt)) {
               context.report({
-                node: stmt,
                 message:
                   "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
+                node: stmt,
               });
               reported.add(stmt);
             }
@@ -51,8 +51,8 @@ export function errorBoundaries(): RuleFunction {
               const stmt = ast.findParent(ret, (n) => n.type === "TryStatement");
               if (stmt != null && !reported.has(stmt)) {
                 context.report({
-                  node: stmt,
                   message: "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+                  node: stmt,
                 });
                 reported.add(stmt);
               }

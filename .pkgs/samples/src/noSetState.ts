@@ -12,8 +12,8 @@ export function noSetState(): RuleFunction {
           && callee.property.type === "Identifier"
           && callee.property.name === "setState":
           context.report({
-            node,
             message: "This use of 'this.setState()' is not allowed.",
+            node,
           });
       }
     },

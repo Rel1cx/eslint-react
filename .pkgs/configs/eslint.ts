@@ -151,16 +151,16 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
       ["unicorn"]: pluginUnicorn,
     },
     rules: {
-      "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/no-deprecated": "warn",
+      "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/no-unused-vars": ["warn", {
         args: "all",
         argsIgnorePattern: "^_",
         caughtErrors: "all",
         caughtErrorsIgnorePattern: "^_",
         destructuredArrayIgnorePattern: "^_",
-        varsIgnorePattern: "^_",
         ignoreRestSiblings: true,
+        varsIgnorePattern: "^_",
       }],
       "@typescript-eslint/strict-boolean-expressions": ["error", {
         allowAny: false,
@@ -220,6 +220,27 @@ export const strictTypeChecked: Linter.Config[] = defineConfig(
           tags: templateIndentTags,
         },
       ],
+    },
+  },
+  {
+    files: [
+      ".*/**",
+    ],
+    rules: {
+      "@typescript-eslint/ban-ts-comment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unnecessary-type-parameters": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-enum-comparison": "off",
+      "@typescript-eslint/no-unsafe-function-type": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/unified-signatures": "off",
+      "jsdoc/escape-inline-tags": "off",
+      "prefer-rest-params": "off",
     },
   },
 );

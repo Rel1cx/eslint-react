@@ -5,8 +5,8 @@ export function jsxPropsNoSpreading(): RuleFunction {
   return (context) => ({
     JSXSpreadAttribute(node) {
       context.report({
-        node,
         message: "Props spreading is not allowed.",
+        node,
       });
     },
   });

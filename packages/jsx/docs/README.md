@@ -10,10 +10,11 @@
 
 ## Variables
 
-| Variable                                                                 | Description                 |
-| ------------------------------------------------------------------------ | --------------------------- |
-| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection hint. |
-| [JsxDetectionHint](variables/JsxDetectionHint.md)                        | Hints for JSX detection.    |
+| Variable                                                                 | Description                                                   |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| [DEFAULT\_JSX\_DETECTION\_HINT](variables/DEFAULT_JSX_DETECTION_HINT.md) | Default JSX detection hint.                                   |
+| [isAttribute](variables/isAttribute.md)                                  | Check whether a node is a `JSXAttribute` with the given name. |
+| [JsxDetectionHint](variables/JsxDetectionHint.md)                        | Hints for JSX detection.                                      |
 
 ## Functions
 

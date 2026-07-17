@@ -2,17 +2,17 @@ import type { RuleFunction } from "@eslint-react/kit";
 
 /** Options for {@link jsxNoLiterals}. */
 export type JsxNoLiteralsOptions = {
-  /** Enforces no string literals used as children, wrapped or unwrapped. */
-  noStrings?: boolean;
   /** An array of unique string values that would otherwise warn, but will be ignored. */
   allowedStrings?: string[];
   /** When `true` the rule ignores literals used in props. */
   ignoreProps?: boolean;
+  /** Enforces no string literals used as children, wrapped or unwrapped. */
+  noStrings?: boolean;
 };
 
 /** Disallow usage of string literals in JSX. */
 export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction {
-  const { noStrings = false, allowedStrings = [], ignoreProps = true } = options;
+  const { allowedStrings = [], ignoreProps = true, noStrings = false } = options;
   const allowedSet = new Set(allowedStrings);
   return (context) => ({
     Literal(node) {
@@ -25,8 +25,8 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
       if (parent.type === "JSXAttribute") {
         if (!ignoreProps) {
           context.report({
-            node,
             message: `String literals are not allowed in JSX props. Use {'${text}'} instead.`,
+            node,
           });
         }
         return;
@@ -37,13 +37,13 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
       if (parent.type === "JSXElement" || parent.type === "JSXFragment") {
         if (noStrings) {
           context.report({
-            node,
             message: `String literals are not allowed as JSX children.`,
+            node,
           });
         } else {
           context.report({
-            node,
             message: `String literals should be wrapped in JSX expression: {'${text}'}`,
+            node,
           });
         }
       }
@@ -55,13 +55,13 @@ export function jsxNoLiterals(options: JsxNoLiteralsOptions = {}): RuleFunction 
 
       if (noStrings) {
         context.report({
-          node,
           message: `String literals are not allowed as JSX children.`,
+          node,
         });
       } else {
         context.report({
-          node,
           message: `String literals should be wrapped in JSX expression: {'${text}'}`,
+          node,
         });
       }
     },

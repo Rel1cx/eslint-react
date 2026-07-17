@@ -16,8 +16,8 @@ export function functionComponentDefinition(): RuleFunction {
             if (node.type === "ArrowFunctionExpression") continue;
 
             context.report({
-              node,
               message: "Function components must be defined with arrow functions.",
+              node,
               suggest: [
                 {
                   desc: "Convert to arrow function.",

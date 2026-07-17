@@ -22,8 +22,8 @@ export function checkedRequiresOnchangeOrReadonly(): RuleFunction {
       // Validate: requires onChange or readOnly
       if (!attrs.has("onChange") && !attrs.has("readOnly")) {
         context.report({
-          node,
           message: "`checked` requires `onChange` or `readOnly`.",
+          node,
         });
       }
     },

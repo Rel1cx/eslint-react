@@ -17,17 +17,31 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
       if (hasAttributes) return;
 
       context.report({
-        node,
-        message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
         fix(fixer) {
           const closing = node.parent.closingElement;
           if (closing == null) return null;
           return [fixer.replaceText(node, "<>"), fixer.replaceText(closing, "</>")];
         },
+        message: `Use shorthand fragment syntax '<>...</>' instead of '<${pattern}>...</${pattern}'.`,
+        node,
       });
     }
 
     return {
+      JSXFragment(node) {
+        if (mode === "element") {
+          context.report({
+            fix(fixer) {
+              return [
+                fixer.replaceText(node.openingFragment, "<React.Fragment>"),
+                fixer.replaceText(node.closingFragment, "</React.Fragment>"),
+              ];
+            },
+            message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
+            node,
+          });
+        }
+      },
       JSXOpeningElement(node) {
         const name = node.name;
 
@@ -44,20 +58,6 @@ export function jsxFragments(options: JsxsFragmentsOptions = {}): RuleFunction {
 
         if (mode === "syntax") {
           reportSyntaxPreferred(node, "React.Fragment");
-        }
-      },
-      JSXFragment(node) {
-        if (mode === "element") {
-          context.report({
-            node,
-            message: "Use '<React.Fragment>...</React.Fragment>' instead of shorthand '<>...</>'.",
-            fix(fixer) {
-              return [
-                fixer.replaceText(node.openingFragment, "<React.Fragment>"),
-                fixer.replaceText(node.closingFragment, "</React.Fragment>"),
-              ];
-            },
-          });
         }
       },
     };

@@ -25,8 +25,8 @@ export function forbidComponentProps(options: ForbidComponentPropsOptions): Rule
       if (elemName == null || elemName[0] !== elemName[0]?.toUpperCase()) return;
 
       context.report({
-        node,
         message: `Prop "${propName}" is forbidden on components.`,
+        node,
       });
     },
   });
