@@ -1,6 +1,6 @@
 export declare function buildConfig(cwd: string): {
-    readonly cwd: string;
     readonly clean: true;
+    readonly cwd: string;
     readonly deps: {
         readonly alwaysBundle: ["@local/eff"];
         readonly neverBundle: ["eslint", "typescript"];

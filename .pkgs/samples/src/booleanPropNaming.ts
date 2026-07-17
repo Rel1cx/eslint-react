@@ -19,7 +19,7 @@ export function booleanPropNaming(options?: BooleanPropNamingOptions): RuleFunct
   }
 
   function isBooleanLikeType(t: ts.Type) {
-    return flattenTypes(t).some(t => (t.getFlags() & ts.TypeFlags.BooleanLike) > 0);
+    return flattenTypes(t).some((t) => (t.getFlags() & ts.TypeFlags.BooleanLike) > 0);
   }
 
   return (context, { collect }) => {

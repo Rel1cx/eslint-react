@@ -10,6 +10,14 @@ export function buildConfig(cwd: string) {
       "/dist/",
       "/build/",
     ],
+    overrides: [
+      {
+        files: [".test.ts", ".test.tsx"],
+        rules: [
+          noUnsafeAs("off"),
+        ],
+      },
+    ],
     rules: [
       ...core.all(),
       core.strictBooleanExpressions({
@@ -35,14 +43,6 @@ export function buildConfig(cwd: string) {
         dedentTagImportCallback: (name) => `import ${name} from "dedent";\n`,
         dedentTagNames: ["ts", "tsx", "dedent"],
       }),
-    ],
-    overrides: [
-      {
-        files: [".test.ts", ".test.tsx"],
-        rules: [
-          noUnsafeAs("off"),
-        ],
-      },
     ],
   });
 }

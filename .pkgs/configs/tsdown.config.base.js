@@ -1,7 +1,7 @@
 export function buildConfig(cwd) {
     return {
-        cwd,
         clean: true,
+        cwd,
         deps: {
             alwaysBundle: [
                 "@local/eff",

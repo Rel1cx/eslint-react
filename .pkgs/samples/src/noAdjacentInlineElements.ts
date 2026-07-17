@@ -59,8 +59,8 @@ export function noAdjacentInlineElements(): RuleFunction {
 
         // Report violation
         context.report({
-          node: current,
           message: `Adjacent inline elements "${currentName}" and "${nextName}" should be separated by whitespace.`,
+          node: current,
         });
       }
     },

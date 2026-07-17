@@ -6,8 +6,8 @@ export function version(major = "19"): RuleFunction {
     Program(program) {
       if (!settings.version.startsWith(`${major}.`)) {
         context.report({
-          node: program,
           message: `This project requires React ${major}, but detected version ${settings.version}.`,
+          node: program,
         });
       }
     },

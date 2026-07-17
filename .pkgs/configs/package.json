@@ -16,6 +16,7 @@
       "types": "./eslint.d.ts",
       "import": "./eslint.js"
     },
+    "./tsconfig.base.json": "./tsconfig.base.json",
     "./tsdown.config.base": {
       "types": "./tsdown.config.base.d.ts",
       "import": "./tsdown.config.base.js"
@@ -24,7 +25,6 @@
       "types": "./tsl.config.base.d.ts",
       "import": "./tsl.config.base.js"
     },
-    "./tsconfig.base.json": "./tsconfig.base.json",
     "./typedoc.base.json": "./typedoc.base.json"
   },
   "scripts": {

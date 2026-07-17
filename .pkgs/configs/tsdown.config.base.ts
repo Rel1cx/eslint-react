@@ -2,8 +2,8 @@ import type { UserConfig } from "tsdown";
 
 export function buildConfig(cwd: string) {
   return {
-    cwd,
     clean: true,
+    cwd,
     deps: {
       alwaysBundle: [
         "@local/eff",

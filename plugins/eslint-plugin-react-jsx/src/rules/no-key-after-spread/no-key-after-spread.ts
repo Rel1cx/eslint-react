@@ -1,7 +1,9 @@
 import { createRule } from "@/utils/create-rule";
+import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getAttributeName } from "@eslint-react/jsx";
+import { isAttribute } from "@eslint-react/jsx";
+import { dropWhile, not } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import ts from "typescript";
 
@@ -32,17 +34,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   return {
     JSXOpeningElement(node) {
-      let hasSpreadBefore = false;
-      for (const prop of node.attributes) {
-        if (prop.type === AST.JSXSpreadAttribute) {
-          hasSpreadBefore = true;
-          continue;
-        }
-        // A 'key' after any spread prop falls back to createElement (deoptimization).
-        // Namespaced names like `xml:key` never equal "key".
-        if (hasSpreadBefore && getAttributeName(prop) === "key") {
-          context.report({ messageId: "default", node: prop });
-        }
+      // A 'key' after any spread prop falls back to createElement (deoptimization).
+      for (const n of dropWhile(node.attributes, not(Check.is(AST.JSXSpreadAttribute))).filter(isAttribute("key"))) {
+        context.report({ messageId: "default", node: n });
       }
     },
   };

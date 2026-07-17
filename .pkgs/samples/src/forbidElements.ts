@@ -18,7 +18,7 @@ export function forbidElements(options: ForbidElementsOptions): RuleFunction {
       if (name == null || !forbidden.has(name)) return;
 
       // Report violation with custom message
-      context.report({ node, message: forbidden.get(name)! });
+      context.report({ message: forbidden.get(name)!, node });
     },
   });
 }

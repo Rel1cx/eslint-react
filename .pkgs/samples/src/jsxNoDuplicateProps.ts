@@ -22,8 +22,8 @@ export function jsxNoDuplicateProps(options: JsxNoDuplicatePropsOptions = {}): R
         // Report duplicate
         if (seen.has(name)) {
           context.report({
-            node: attr,
             message: `Duplicate prop "${attr.name.name}" found.`,
+            node: attr,
           });
         } else {
           seen.set(name, attr.name.name);

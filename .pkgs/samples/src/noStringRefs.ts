@@ -13,8 +13,8 @@ export function noStringRefs(): RuleFunction {
       const value = node.value;
       if (value?.type === "Literal" && typeof value.value === "string") {
         context.report({
-          node,
           message: `String refs are deprecated and should not be used. Use React.useRef() instead.`,
+          node,
         });
       }
     },

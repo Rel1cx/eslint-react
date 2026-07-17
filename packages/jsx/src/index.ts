@@ -10,6 +10,7 @@ export * from "./has-any-attribute";
 export * from "./has-attribute";
 export * from "./has-children";
 export * from "./has-every-attribute";
+export * from "./is-attribute";
 export * from "./is-element";
 export * from "./is-fragment-element";
 export * from "./is-host-element";
