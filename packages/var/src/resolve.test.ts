@@ -1,41 +1,9 @@
-/// <reference types="node" />
-
-import * as tsParser from "@typescript-eslint/parser";
+import { runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { Linter } from "eslint";
 import { describe, expect, it } from "vitest";
 
 import { resolve } from "./resolve";
-
-function collectResults<T>(code: string, fn: (context: any, ast: TSESTree.Program) => T[]): T[] {
-  const results: T[] = [];
-  const linter = new Linter();
-  linter.verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(context: any) {
-              return {
-                Program(programNode: TSESTree.Program) {
-                  results.push(...fn(context, programNode));
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-  return results;
-}
 
 /**
  * Find all Identifier nodes with the given name that are references (not declarations).
@@ -69,14 +37,14 @@ function findIdentifierReferences(ast: TSESTree.Program, name: string): TSESTree
 describe("resolve", () => {
   it("should resolve a variable definition to its initializer", () => {
     const code = "const x = 42; x;";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "x");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [resolved];
     });
-    expect(results).toHaveLength(1);
-    const node = results[0];
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
     expect(node).not.toBeNull();
     expect(node?.type).toBe(AST.Literal);
     expect((node as TSESTree.Literal | undefined)?.value).toBe(42);
@@ -84,73 +52,73 @@ describe("resolve", () => {
 
   it("should resolve a FunctionName to the FunctionDeclaration node", () => {
     const code = "function foo() {} foo;";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "foo");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [resolved];
     });
-    expect(results).toHaveLength(1);
-    const node = results[0];
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
     expect(node).not.toBeNull();
     expect(node?.type).toBe(AST.FunctionDeclaration);
   });
 
   it("should resolve a ClassName to the ClassDeclaration node", () => {
     const code = "class Foo {} Foo;";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "Foo");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [resolved];
     });
-    expect(results).toHaveLength(1);
-    const node = results[0];
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
     expect(node).not.toBeNull();
     expect(node?.type).toBe(AST.ClassDeclaration);
   });
 
   it("should resolve a Parameter to the containing function node", () => {
     const code = "function bar(p) { p; }";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "p");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [resolved];
     });
-    expect(results).toHaveLength(1);
-    const node = results[0];
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
     expect(node).not.toBeNull();
     expect(node?.type).toBe(AST.FunctionDeclaration);
   });
 
   it("should return null for an ImportBinding", () => {
     const code = 'import { x } from "mod"; x;';
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "x");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [{ resolved }];
     });
-    expect(results).toHaveLength(1);
-    expect(results[0]?.resolved).toBeNull();
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
   });
 
   it("should return null for a variable without an initializer", () => {
     const code = "let x; x;";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "x");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
       return [{ resolved }];
     });
-    expect(results).toHaveLength(1);
-    expect(results[0]?.resolved).toBeNull();
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
   });
 
   it("should respect the `at` option to pick among multiple definitions", () => {
     const code = "var x = 1; var x = 2; x;";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "x");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const ref = refs[refs.length - 1]!;
@@ -158,8 +126,8 @@ describe("resolve", () => {
       const resolvedLast = resolve(context, ref, { at: -1 });
       return [{ first: resolvedFirst, last: resolvedLast }];
     });
-    expect(results).toHaveLength(1);
-    const { first, last } = results[0] ?? {};
+    expect(facts).toHaveLength(1);
+    const { first, last } = facts[0] ?? {};
     expect(first).not.toBeNull();
     expect(first?.type).toBe(AST.Literal);
     expect((first as TSESTree.Literal | undefined)?.value).toBe(1);
@@ -170,7 +138,7 @@ describe("resolve", () => {
 
   it("should find outer scope variable when localOnly is false but not when localOnly is true", () => {
     const code = "const outer = 99; function inner() { outer; }";
-    const results = collectResults(code, (context, ast) => {
+    const facts = runInRule(code, (context, ast) => {
       // Find the `outer` reference inside the function body
       const identifiers: TSESTree.Identifier[] = [];
       simpleTraverse(ast, {
@@ -188,8 +156,8 @@ describe("resolve", () => {
       const resolvedLocal = resolve(context, ref, { localOnly: true });
       return [{ resolvedDefault, resolvedLocal }];
     });
-    expect(results).toHaveLength(1);
-    const { resolvedDefault, resolvedLocal } = results[0] ?? {};
+    expect(facts).toHaveLength(1);
+    const { resolvedDefault, resolvedLocal } = facts[0] ?? {};
     // localOnly: false should resolve to the outer variable's initializer
     expect(resolvedDefault).not.toBeNull();
     expect(resolvedDefault?.type).toBe(AST.Literal);

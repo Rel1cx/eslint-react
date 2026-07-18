@@ -1,14 +1,10 @@
-/// <reference types="node" />
-
 import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { parseForESLint } from "@typescript-eslint/parser";
+import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,
@@ -23,13 +19,6 @@ import {
   isFunctionComponentWrapperCallback,
   isFunctionWithLooseComponentName,
 } from "./function-component";
-
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-  });
-}
 
 function createMockContext(): RuleContext {
   return {
@@ -75,7 +64,7 @@ describe("getFunctionComponentFlagFromInitPath", () => {
   it("should detect memo flag", () => {
     const code = "const Component = memo(() => {})";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -93,7 +82,7 @@ describe("getFunctionComponentFlagFromInitPath", () => {
   it("should detect forwardRef flag", () => {
     const code = "const Component = forwardRef(() => {})";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -111,7 +100,7 @@ describe("getFunctionComponentFlagFromInitPath", () => {
   it("should detect both memo and forwardRef flags", () => {
     const code = "const Component = memo(forwardRef(() => {}))";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -142,7 +131,7 @@ describe("isFunctionComponentWrapperCall", () => {
     ["custom(() => {})", false],
   ])("isFunctionComponentWrapperCall(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isFunctionComponentWrapperCall(context, node)).toBe(expected);
@@ -164,7 +153,7 @@ describe("isFunctionComponentWrapperCallback", () => {
     ["custom(() => {})", false],
   ])("isFunctionComponentWrapperCallback(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentWrapperCallback(context, node)).toBe(expected);
@@ -186,7 +175,7 @@ describe("getFunctionComponentId", () => {
     ["const Component = memo(forwardRef(() => {}))", AST.ArrowFunctionExpression, "Component"],
   ])("should get function component id for %s", (code, expectedType, expectedName) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionComponentId(context, node);
@@ -212,7 +201,7 @@ describe("isFunctionWithLooseComponentName", () => {
     ["const helper = () => {}", false],
   ])("isFunctionWithLooseComponentName(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionWithLooseComponentName(context, node)).toBe(expected);
@@ -226,7 +215,7 @@ describe("isFunctionWithLooseComponentName", () => {
   it("should allow none when specified", () => {
     const code = "memo(() => {})";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionWithLooseComponentName(context, node, true)).toBe(true);
@@ -250,7 +239,7 @@ describe("isFunctionComponentDefinition", () => {
     ["const helper = () => 1", false],
   ])("isFunctionComponentDefinition(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(expected);
@@ -264,7 +253,7 @@ describe("isFunctionComponentDefinition", () => {
   it("should exclude functions defined as object methods when hint is set", () => {
     const code = "const obj = { Component() { return <div /> } }";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -284,7 +273,7 @@ describe("isFunctionComponentDefinition", () => {
   it("should exclude functions defined as class methods when hint is set", () => {
     const code = "class Foo { Component() { return <div /> } }";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -300,7 +289,7 @@ describe("isFunctionComponentDefinition", () => {
   it("should exclude functions defined as class properties when hint is set", () => {
     const code = "class Foo { Component = () => { return <div /> } }";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
@@ -320,7 +309,7 @@ describe("isFunctionComponentDefinition", () => {
   it("should exclude functions in JSX expression containers", () => {
     const code = "const x = <div onClick={() => <div />} />";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionComponentDefinition(context, node, DEFAULT_COMPONENT_DETECTION_HINT)).toBe(false);

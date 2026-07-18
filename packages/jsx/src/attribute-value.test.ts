@@ -1,41 +1,13 @@
-/// <reference types="node" />
-
 import type { RuleContext } from "@eslint-react/eslint";
-import * as tsParser from "@typescript-eslint/parser";
+import { getNodeInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { Linter } from "eslint";
 import { describe, expect, it } from "vitest";
 
 import { getAttributeStaticValue, getAttributeValue, resolveAttributeValue } from "./attribute-value";
 
 function parseJsxElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
-  const found: { context: RuleContext | null; element: TSESTree.JSXElement | null } = { context: null, element: null };
-  new Linter().verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(ctx: unknown) {
-              found.context = ctx as never;
-              return {
-                JSXElement(node: TSESTree.JSXElement) {
-                  found.element ??= node;
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-  if (found.context == null || found.element == null) throw new Error("expected a JSX element in the code");
-  return { context: found.context, element: found.element };
+  const { context, node } = getNodeInRule<TSESTree.JSXElement>(code, "JSXElement");
+  return { context: context as never, element: node };
 }
 
 function getAttribute(element: TSESTree.JSXElement, index = 0) {

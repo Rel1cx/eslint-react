@@ -1,49 +1,14 @@
-/// <reference types="node" />
-
-import * as tsParser from "@typescript-eslint/parser";
-import { type TSESTree } from "@typescript-eslint/types";
-import { Linter } from "eslint";
+import { runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
 
-import type { HookSemanticNode } from "./hook";
 import { getHookCollector } from "./hook-collector";
 
 function collectHooks(code: string) {
-  const linter = new Linter();
-  let program: TSESTree.Program | null = null;
-  let hooks: HookSemanticNode[] = [];
-
-  linter.verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(context: unknown) {
-              const { api, visitor } = getHookCollector(context as never);
-              return {
-                ...visitor,
-                Program(node: TSESTree.Program) {
-                  program = node;
-                },
-                "Program:exit"() {
-                  if (program == null) return;
-                  hooks = api.getAllHooks(program);
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-
-  return hooks;
+  return runCollector(
+    code,
+    (context) => getHookCollector(context as never),
+    (api, program) => api.getAllHooks(program),
+  );
 }
 
 describe("getHookCollector", () => {

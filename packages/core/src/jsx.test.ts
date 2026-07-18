@@ -1,48 +1,16 @@
-/// <reference types="node" />
-
-import type { RuleContext } from "@eslint-react/eslint";
-import { parseForESLint } from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import path from "node:path";
+import { createScopeContext, parseCode } from "@local/testkit";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { JsxDetectionHint, isJsxLike } from "./jsx";
-
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-  });
-}
-
-function createContext(parsed: ReturnType<typeof parse>): RuleContext {
-  const { scopeManager } = parsed;
-  return {
-    sourceCode: {
-      getScope(node: TSESTree.Node) {
-        const inner = node.type !== AST.Program;
-        for (let current: TSESTree.Node | undefined = node; current != null; current = current.parent) {
-          const scope = scopeManager.acquire(current, inner);
-          if (scope != null) {
-            return scope.type === "function-expression-name"
-              ? scope.childScopes[0]
-              : scope;
-          }
-        }
-        return scopeManager.scopes[0];
-      },
-    },
-  } as unknown as RuleContext;
-}
 
 /**
  * Parses `code` and returns the expression of the last top-level
  * `ExpressionStatement` together with a scope-aware rule context.
  */
 function parseLastExpression(code: string) {
-  const parsed = parse(code);
-  const context = createContext(parsed);
+  const parsed = parseCode(code);
+  const context = createScopeContext(parsed);
   const last = parsed.ast.body.at(-1);
   if (last?.type !== AST.ExpressionStatement) {
     throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);

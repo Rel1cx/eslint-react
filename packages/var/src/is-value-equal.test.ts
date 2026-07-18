@@ -1,43 +1,10 @@
-/// <reference types="node" />
-
-import * as tsParser from "@typescript-eslint/parser";
+import { runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { Linter } from "eslint";
 import { describe, expect, it } from "vitest";
 
 import { isValueEqual } from "./is-value-equal";
 import { resolve } from "./resolve";
-
-// Helper: run code through eslint with a custom rule, call fn inside rule listener
-function runInRule<T>(code: string, fn: (context: any, ast: TSESTree.Program) => T): T {
-  let result: T | undefined;
-  const linter = new Linter();
-  linter.verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(context: any) {
-              return {
-                Program(programNode: TSESTree.Program) {
-                  result = fn(context, programNode);
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-  return result as T;
-}
 
 // Helper: find all nodes of a given type
 function findAll<T extends TSESTree.Node>(root: TSESTree.Node, type: AST): T[] {
@@ -72,65 +39,65 @@ describe("isValueEqual", () => {
   describe("basic functionality", () => {
     it("should return true for the same node reference", () => {
       const code = "const x = 1;";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
         expect(literals.length).toBeGreaterThanOrEqual(1);
         const node = literals[0]!;
         return isValueEqual(context, node, node);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should return true for literals with the same value", () => {
       const code = "const a = 42; const b = 42;";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
         expect(literals).toHaveLength(2);
         return isValueEqual(context, literals[0]!, literals[1]!);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should return false for literals with different values", () => {
       const code = "const a = 42; const b = 99;";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
         expect(literals).toHaveLength(2);
         return isValueEqual(context, literals[0]!, literals[1]!);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should return true for identifier references to the same variable", () => {
       const code = "const x = 1; foo(x); bar(x);";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const refs = findIdentifierRefs(ast, "x");
         expect(refs.length).toBeGreaterThanOrEqual(2);
         return isValueEqual(context, refs[0]!, refs[1]!);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("should return false for identifier references to different variables", () => {
       const code = "const x = 1; const y = 2; foo(x); bar(y);";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const xRefs = findIdentifierRefs(ast, "x");
         const yRefs = findIdentifierRefs(ast, "y");
         expect(xRefs.length).toBeGreaterThanOrEqual(1);
         expect(yRefs.length).toBeGreaterThanOrEqual(1);
         return isValueEqual(context, xRefs[0]!, yRefs[0]!);
       });
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("should return true for simple MemberExpression equality", () => {
       const code = "const obj = {}; foo(obj.a); bar(obj.a);";
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(members).toHaveLength(2);
         return isValueEqual(context, members[0]!, members[1]!);
       });
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
   });
 
@@ -148,14 +115,14 @@ describe("isValueEqual", () => {
         "bar(obj[2]);",
       ].join("\n");
 
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(members).toHaveLength(2);
         return isValueEqual(context, members[0]!, members[1]!);
       });
       // Fixed: computed properties now use isValueEqual instead of isNodeEqual,
       // so obj[1 + 1] and obj[2] are correctly recognized as equal.
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("FIXED: ForOfStatement same statement — destructured variables are not equal", () => {
@@ -172,7 +139,7 @@ describe("isValueEqual", () => {
         "}",
       ].join("\n");
 
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const aRefs = findIdentifierRefs(ast, "a");
         const bRefs = findIdentifierRefs(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
@@ -183,7 +150,7 @@ describe("isValueEqual", () => {
       });
       // Fixed: same for-of statement falls back to variable identity,
       // so `a` and `b` are correctly recognized as different.
-      expect(result).toBe(false);
+      expect(fact).toBe(false);
     });
 
     it("ForOfStatement different statements — variables iterating the same source are equal", () => {
@@ -202,7 +169,7 @@ describe("isValueEqual", () => {
         "}",
       ].join("\n");
 
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const eventRefs = findIdentifierRefs(ast, "event");
         const evtRefs = findIdentifierRefs(ast, "evt");
         const eventRef = eventRefs.find((r) => r.parent.type === AST.CallExpression);
@@ -212,7 +179,7 @@ describe("isValueEqual", () => {
         return isValueEqual(context, eventRef!, evtRef!);
       });
       // Different for-of statements iterating the same source → equal
-      expect(result).toBe(true);
+      expect(fact).toBe(true);
     });
 
     it("ISSUE: resolve called with at: 0 (default) in isValueEqual but at: -1 in computeObjectType", () => {
@@ -221,7 +188,7 @@ describe("isValueEqual", () => {
       // With `var` redeclarations, these resolve to different nodes.
       const code = "var x = 1; var x = []; foo(x);";
 
-      const result = runInRule(code, (context, ast) => {
+      const fact = runInRule(code, (context, ast) => {
         const xRefs = findIdentifierRefs(ast, "x");
         // Get the last reference (the one in foo(x))
         const ref = xRefs[xRefs.length - 1]!;
@@ -238,11 +205,11 @@ describe("isValueEqual", () => {
       });
 
       // at: 0 resolves to the first definition's initializer → Literal (1)
-      expect(result.firstType).toBe(AST.Literal);
+      expect(fact.firstType).toBe(AST.Literal);
       // at: -1 resolves to the last definition's initializer → ArrayExpression ([])
-      expect(result.lastType).toBe(AST.ArrayExpression);
+      expect(fact.lastType).toBe(AST.ArrayExpression);
       // They are different nodes, demonstrating the inconsistency
-      expect(result.areDifferent).toBe(true);
+      expect(fact.areDifferent).toBe(true);
     });
   });
 });

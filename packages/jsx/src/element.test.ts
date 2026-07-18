@@ -1,42 +1,13 @@
-/// <reference types="node" />
-
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import * as tsParser from "@typescript-eslint/parser";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { Linter } from "eslint";
+import { getNodeInRule } from "@local/testkit";
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
 import { isElement, isFragmentElement, isHostElement } from "./element-is";
 import { getElementFullType, getElementSelfType } from "./element-type";
 
 function parseJsx(code: string): TSESTreeJSXElementLike {
-  const found: { node: TSESTreeJSXElementLike | null } = { node: null };
-  new Linter().verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create: () => ({
-              JSXElement(node: TSESTree.JSXElement) {
-                found.node ??= node;
-              },
-              JSXFragment(node: TSESTree.JSXFragment) {
-                found.node ??= node;
-              },
-            }),
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-  if (found.node == null) throw new Error("expected JSX in the code");
-  return found.node;
+  return getNodeInRule<TSESTreeJSXElementLike>(code, ":matches(JSXElement, JSXFragment)").node;
 }
 
 describe("getElementFullType", () => {

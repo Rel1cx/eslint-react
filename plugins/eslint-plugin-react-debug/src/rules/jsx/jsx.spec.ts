@@ -1,20 +1,10 @@
-import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit } from "#/testing/helpers";
+import { createRuleTesterForJsxEmit } from "#/testing/helpers";
 import { stringify } from "@/utils/stringify";
-import { RuleTester } from "@typescript-eslint/rule-tester";
 import tsx from "dedent";
 import ts from "typescript";
 import rule, { RULE_NAME } from "./jsx";
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    ...defaultLanguageOptionsWithTypes,
-    parserOptions: {
-      ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxEmit(ts.JsxEmit.ReactJSX),
-      projectService: false,
-    },
-  },
-});
+const ruleTester = createRuleTesterForJsxEmit(ts.JsxEmit.ReactJSX);
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
