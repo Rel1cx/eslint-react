@@ -4,7 +4,6 @@
 
 ```ts
 function resolveEnclosingAssignmentTarget(node: Node):
-  | Identifier
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody
@@ -21,6 +20,7 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | FunctionDeclarationWithName
   | FunctionDeclarationWithOptionalName
   | FunctionExpression
+  | Identifier
   | ImportExpression
   | JSXElement
   | JSXFragment
@@ -86,7 +86,6 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
 
 ## Returns
 
-\| `Identifier`
 \| `ArrayExpression`
 \| `ArrayPattern`
 \| `ArrowFunctionExpressionWithBlockBody`
@@ -103,6 +102,7 @@ Finds the enclosing assignment target (variable, property, etc.) for a given nod
 \| `FunctionDeclarationWithName`
 \| `FunctionDeclarationWithOptionalName`
 \| `FunctionExpression`
+\| `Identifier`
 \| `ImportExpression`
 \| `JSXElement`
 \| `JSXFragment`

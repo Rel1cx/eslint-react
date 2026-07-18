@@ -20,7 +20,7 @@ export interface ParseCodeOptions {
   sourceType?: "commonjs" | "module" | "script";
 }
 
-export function parseCode(code: string, options: ParseCodeOptions = {}) {
+export function parseCode(code: string, options: ParseCodeOptions = {}): ReturnType<typeof parseForESLint> {
   const { filePath = path.join(getFixturesRootDir(), "estree.tsx"), jsx, sourceType } = options;
   return parseForESLint(code, {
     disallowAutomaticSingleRunInference: true,
@@ -30,11 +30,7 @@ export function parseCode(code: string, options: ParseCodeOptions = {}) {
   });
 }
 
-export function collectNodes<T extends TSESTree.Node>(
-  code: string,
-  type: AST_NODE_TYPES,
-  options: ParseCodeOptions = {},
-): T[] {
+export function collectNodes<T extends TSESTree.Node>(code: string, type: AST_NODE_TYPES, options: ParseCodeOptions = {}): T[] {
   const nodes: T[] = [];
   simpleTraverse(
     parseCode(code, options).ast,
@@ -51,11 +47,7 @@ export function collectNodes<T extends TSESTree.Node>(
   return nodes;
 }
 
-export function getFirstNodeOfType<T extends TSESTree.Node>(
-  code: string,
-  type: AST_NODE_TYPES,
-  options: ParseCodeOptions = {},
-): T {
+export function getFirstNodeOfType<T extends TSESTree.Node>(code: string, type: AST_NODE_TYPES, options: ParseCodeOptions = {}): T {
   const [node] = collectNodes<T>(code, type, options);
   if (node == null) {
     throw new Error(`No ${type} found in: ${code}`);

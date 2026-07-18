@@ -4,13 +4,47 @@
 
 ```ts
 function unwrap(node: Node):
+  | Program
+  | AccessorProperty
+  | ArrayExpression
+  | ArrayPattern
   | ArrowFunctionExpression
-  | FunctionDeclaration
-  | FunctionExpression
+  | AssignmentExpression
+  | AssignmentPattern
+  | AwaitExpression
+  | BinaryExpression
+  | BlockStatement
+  | BreakStatement
+  | CallExpression
+  | CatchClause
+  | ChainExpression
+  | ClassBody
   | ClassDeclaration
   | ClassExpression
-  | PropertyDefinition
-  | MethodDefinition
+  | ConditionalExpression
+  | ContinueStatement
+  | DebuggerStatement
+  | Decorator
+  | DoWhileStatement
+  | EmptyStatement
+  | ExportAllDeclaration
+  | ExportDefaultDeclaration
+  | ExportNamedDeclaration
+  | ExportSpecifier
+  | ExpressionStatement
+  | ForInStatement
+  | ForOfStatement
+  | ForStatement
+  | FunctionDeclaration
+  | FunctionExpression
+  | Identifier
+  | IfStatement
+  | ImportAttribute
+  | ImportDeclaration
+  | ImportDefaultSpecifier
+  | ImportExpression
+  | ImportNamespaceSpecifier
+  | ImportSpecifier
   | JSXAttribute
   | JSXClosingElement
   | JSXClosingFragment
@@ -26,52 +60,18 @@ function unwrap(node: Node):
   | JSXSpreadAttribute
   | JSXSpreadChild
   | JSXText
-  | ExpressionStatement
-  | AccessorProperty
-  | ArrayExpression
-  | ArrayPattern
-  | AssignmentExpression
-  | AssignmentPattern
-  | AwaitExpression
-  | BinaryExpression
-  | BlockStatement
-  | BreakStatement
-  | CallExpression
-  | CatchClause
-  | ChainExpression
-  | ClassBody
-  | ConditionalExpression
-  | ContinueStatement
-  | DebuggerStatement
-  | Decorator
-  | DoWhileStatement
-  | EmptyStatement
-  | ExportAllDeclaration
-  | ExportDefaultDeclaration
-  | ExportNamedDeclaration
-  | ExportSpecifier
-  | ForInStatement
-  | ForOfStatement
-  | ForStatement
-  | Identifier
-  | IfStatement
-  | ImportAttribute
-  | ImportDeclaration
-  | ImportDefaultSpecifier
-  | ImportExpression
-  | ImportNamespaceSpecifier
-  | ImportSpecifier
   | LabeledStatement
   | Literal
   | LogicalExpression
   | MemberExpression
   | MetaProperty
+  | MethodDefinition
   | NewExpression
   | ObjectExpression
   | ObjectPattern
   | PrivateIdentifier
-  | Program
   | Property
+  | PropertyDefinition
   | RestElement
   | ReturnStatement
   | SequenceExpression
@@ -177,13 +177,47 @@ function unwrap(node: Node):
 
 ## Returns
 
+\| `Program`
+\| `AccessorProperty`
+\| `ArrayExpression`
+\| `ArrayPattern`
 \| `ArrowFunctionExpression`
-\| `FunctionDeclaration`
-\| `FunctionExpression`
+\| `AssignmentExpression`
+\| `AssignmentPattern`
+\| `AwaitExpression`
+\| `BinaryExpression`
+\| `BlockStatement`
+\| `BreakStatement`
+\| `CallExpression`
+\| `CatchClause`
+\| `ChainExpression`
+\| `ClassBody`
 \| `ClassDeclaration`
 \| `ClassExpression`
-\| `PropertyDefinition`
-\| `MethodDefinition`
+\| `ConditionalExpression`
+\| `ContinueStatement`
+\| `DebuggerStatement`
+\| `Decorator`
+\| `DoWhileStatement`
+\| `EmptyStatement`
+\| `ExportAllDeclaration`
+\| `ExportDefaultDeclaration`
+\| `ExportNamedDeclaration`
+\| `ExportSpecifier`
+\| `ExpressionStatement`
+\| `ForInStatement`
+\| `ForOfStatement`
+\| `ForStatement`
+\| `FunctionDeclaration`
+\| `FunctionExpression`
+\| `Identifier`
+\| `IfStatement`
+\| `ImportAttribute`
+\| `ImportDeclaration`
+\| `ImportDefaultSpecifier`
+\| `ImportExpression`
+\| `ImportNamespaceSpecifier`
+\| `ImportSpecifier`
 \| `JSXAttribute`
 \| `JSXClosingElement`
 \| `JSXClosingFragment`
@@ -199,52 +233,18 @@ function unwrap(node: Node):
 \| `JSXSpreadAttribute`
 \| `JSXSpreadChild`
 \| `JSXText`
-\| `ExpressionStatement`
-\| `AccessorProperty`
-\| `ArrayExpression`
-\| `ArrayPattern`
-\| `AssignmentExpression`
-\| `AssignmentPattern`
-\| `AwaitExpression`
-\| `BinaryExpression`
-\| `BlockStatement`
-\| `BreakStatement`
-\| `CallExpression`
-\| `CatchClause`
-\| `ChainExpression`
-\| `ClassBody`
-\| `ConditionalExpression`
-\| `ContinueStatement`
-\| `DebuggerStatement`
-\| `Decorator`
-\| `DoWhileStatement`
-\| `EmptyStatement`
-\| `ExportAllDeclaration`
-\| `ExportDefaultDeclaration`
-\| `ExportNamedDeclaration`
-\| `ExportSpecifier`
-\| `ForInStatement`
-\| `ForOfStatement`
-\| `ForStatement`
-\| `Identifier`
-\| `IfStatement`
-\| `ImportAttribute`
-\| `ImportDeclaration`
-\| `ImportDefaultSpecifier`
-\| `ImportExpression`
-\| `ImportNamespaceSpecifier`
-\| `ImportSpecifier`
 \| `LabeledStatement`
 \| `Literal`
 \| `LogicalExpression`
 \| `MemberExpression`
 \| `MetaProperty`
+\| `MethodDefinition`
 \| `NewExpression`
 \| `ObjectExpression`
 \| `ObjectPattern`
 \| `PrivateIdentifier`
-\| `Program`
 \| `Property`
+\| `PropertyDefinition`
 \| `RestElement`
 \| `ReturnStatement`
 \| `SequenceExpression`

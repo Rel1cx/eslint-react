@@ -5,7 +5,7 @@
 ```ts
 const isPropertyOrMethod: (
   node: Node | null | undefined,
-) => node is PropertyDefinitionComputedName | PropertyDefinitionNonComputedName | MethodDefinitionComputedName | MethodDefinitionNonComputedName;
+) => node is MethodDefinitionComputedName | MethodDefinitionNonComputedName | PropertyDefinitionComputedName | PropertyDefinitionNonComputedName;
 ```
 
 ## Parameters
@@ -16,4 +16,4 @@ const isPropertyOrMethod: (
 
 ## Returns
 
-node is PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName \| MethodDefinitionComputedName \| MethodDefinitionNonComputedName
+node is MethodDefinitionComputedName \| MethodDefinitionNonComputedName \| PropertyDefinitionComputedName \| PropertyDefinitionNonComputedName

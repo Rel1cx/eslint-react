@@ -29,6 +29,7 @@
     "src"
   ],
   "scripts": {
+    "build": "tsdown",
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsl",
@@ -46,6 +47,8 @@
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
     "eslint": "^10.7.0",
+    "expect-type": "^1.3.0",
+    "tsdown": "^0.22.9",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"
   },

@@ -5,7 +5,7 @@
 ```ts
 const isTypeExpression: (
   node: Node | null | undefined,
-) => node is TSAsExpression | TSTypeAssertion | TSNonNullExpression | TSSatisfiesExpression | TSInstantiationExpression;
+) => node is TSAsExpression | TSInstantiationExpression | TSNonNullExpression | TSSatisfiesExpression | TSTypeAssertion;
 ```
 
 ## Parameters
@@ -16,4 +16,4 @@ const isTypeExpression: (
 
 ## Returns
 
-node is TSAsExpression \| TSTypeAssertion \| TSNonNullExpression \| TSSatisfiesExpression \| TSInstantiationExpression
+node is TSAsExpression \| TSInstantiationExpression \| TSNonNullExpression \| TSSatisfiesExpression \| TSTypeAssertion

@@ -6,34 +6,29 @@
 const isExpression: (
   node: Node | null | undefined,
 ) => node is
-  | ArrowFunctionExpressionWithBlockBody
-  | ArrowFunctionExpressionWithExpressionBody
-  | FunctionExpression
-  | ClassExpression
-  | JSXElement
-  | JSXFragment
-  | StringLiteral
-  | TSAsExpression
-  | TSTypeAssertion
-  | TSNonNullExpression
-  | TSSatisfiesExpression
-  | TSInstantiationExpression
   | ArrayExpression
   | ArrayPattern
+  | ArrowFunctionExpressionWithBlockBody
+  | ArrowFunctionExpressionWithExpressionBody
   | AssignmentExpression
   | AwaitExpression
   | PrivateInExpression
   | SymmetricBinaryExpression
   | CallExpression
   | ChainExpression
+  | ClassExpression
   | ConditionalExpression
+  | FunctionExpression
   | Identifier
   | ImportExpression
+  | JSXElement
+  | JSXFragment
   | BigIntLiteral
   | BooleanLiteral
   | NullLiteral
   | NumberLiteral
   | RegExpLiteral
+  | StringLiteral
   | LogicalExpression
   | MemberExpressionComputedName
   | MemberExpressionNonComputedName
@@ -46,6 +41,11 @@ const isExpression: (
   | TaggedTemplateExpression
   | TemplateLiteral
   | ThisExpression
+  | TSAsExpression
+  | TSInstantiationExpression
+  | TSNonNullExpression
+  | TSSatisfiesExpression
+  | TSTypeAssertion
   | UnaryExpressionBitwiseNot
   | UnaryExpressionDelete
   | UnaryExpressionMinus
@@ -66,4 +66,4 @@ const isExpression: (
 
 ## Returns
 
-node is ArrowFunctionExpressionWithBlockBody \| ArrowFunctionExpressionWithExpressionBody \| FunctionExpression \| ClassExpression \| JSXElement \| JSXFragment \| StringLiteral \| TSAsExpression \| TSTypeAssertion \| TSNonNullExpression \| TSSatisfiesExpression \| TSInstantiationExpression \| ArrayExpression \| ArrayPattern \| AssignmentExpression \| AwaitExpression \| PrivateInExpression \| SymmetricBinaryExpression \| CallExpression \| ChainExpression \| ConditionalExpression \| Identifier \| ImportExpression \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| LogicalExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| NewExpression \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| UnaryExpressionBitwiseNot \| UnaryExpressionDelete \| UnaryExpressionMinus \| UnaryExpressionNot \| UnaryExpressionPlus \| UnaryExpressionTypeof \| UnaryExpressionVoid \| UpdateExpression \| YieldNoStarExpression \| YieldStarExpression
+node is ArrayExpression \| ArrayPattern \| ArrowFunctionExpressionWithBlockBody \| ArrowFunctionExpressionWithExpressionBody \| AssignmentExpression \| AwaitExpression \| PrivateInExpression \| SymmetricBinaryExpression \| CallExpression \| ChainExpression \| ClassExpression \| ConditionalExpression \| FunctionExpression \| Identifier \| ImportExpression \| JSXElement \| JSXFragment \| BigIntLiteral \| BooleanLiteral \| NullLiteral \| NumberLiteral \| RegExpLiteral \| StringLiteral \| LogicalExpression \| MemberExpressionComputedName \| MemberExpressionNonComputedName \| MetaProperty \| NewExpression \| ObjectExpression \| ObjectPattern \| SequenceExpression \| Super \| TaggedTemplateExpression \| TemplateLiteral \| ThisExpression \| TSAsExpression \| TSInstantiationExpression \| TSNonNullExpression \| TSSatisfiesExpression \| TSTypeAssertion \| UnaryExpressionBitwiseNot \| UnaryExpressionDelete \| UnaryExpressionMinus \| UnaryExpressionNot \| UnaryExpressionPlus \| UnaryExpressionTypeof \| UnaryExpressionVoid \| UpdateExpression \| YieldNoStarExpression \| YieldStarExpression
