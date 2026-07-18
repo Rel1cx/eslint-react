@@ -2,6 +2,7 @@ import { type TSESTreeJSXAttributeLike, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { getAttributeName } from "./attribute-name";
 
 /**
@@ -52,17 +53,19 @@ export function findParentAttribute(node: TSESTree.Node, test: (node: TSESTree.J
  * checks) and the `spreadProps` variant of `resolveAttributeValue` (value extraction):
  *
  * - An `Identifier` argument is resolved to its initializer via variable
- *   resolution; an `ObjectExpression` argument is searched directly.
+ *   resolution, following alias chains (`const b = a`) like `getStaticValue`
+ *   does; an `ObjectExpression` argument is searched directly.
  * - Properties are walked **in reverse** so that later entries win, matching
  *   JavaScript object semantics (`{ ...a, k: 1 }` -> the literal `k`).
  * - Nested `SpreadElement`s (identifiers or inline object expressions) are
  *   searched recursively; a `seen` set guards against circular references.
- * - Computed keys are skipped (they cannot be matched by name statically);
- *   plain identifier keys and string literal keys are both matched.
+ * - Plain identifier keys and string literal keys are matched directly;
+ *   computed keys are matched when they are statically evaluable
+ *   (ex: `{ ["class" + "Name"]: 1 }`).
  * @param context The ESLint rule context (needed for variable resolution).
  * @param argument The spread argument expression to search.
  * @param name The property name to look for.
- * @param seen Internal set of already-visited object expressions (cycle guard).
+ * @param seen Internal set of already-visited nodes (cycle guard).
  * @returns The matching `Property` node, or `undefined` when the key is not found.
  */
 export function findSpreadProperty(
@@ -73,7 +76,13 @@ export function findSpreadProperty(
 ): TSESTree.Property | undefined {
   let objectExpression: TSESTree.ObjectExpression | undefined;
   if (argument.type === AST.Identifier) {
-    const initNode = resolve(context, argument);
+    // Follow identifier aliases (`const b = a`) until a non-identifier
+    // initializer is reached, mirroring `getStaticValue`'s identifier tracking.
+    let initNode: TSESTree.Node | null = resolve(context, argument);
+    while (initNode != null && initNode.type === AST.Identifier && !seen.has(initNode)) {
+      seen.add(initNode);
+      initNode = resolve(context, initNode);
+    }
     if (initNode?.type === AST.ObjectExpression) {
       objectExpression = initNode;
     }
@@ -88,8 +97,12 @@ export function findSpreadProperty(
     const property = properties[i];
     if (property == null) continue;
     if (property.type === AST.Property) {
-      if (property.computed) continue;
       const { key } = property;
+      if (property.computed) {
+        const keyScope = context.sourceCode.getScope(key);
+        if (getStaticValue(key, keyScope)?.value === name) return property;
+        continue;
+      }
       if (key.type === AST.Identifier && key.name === name) return property;
       if (key.type === AST.Literal && key.value === name) return property;
       continue;

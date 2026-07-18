@@ -201,9 +201,34 @@ describe("findSpreadProperty", () => {
     expect(prop?.type).toBe(AST.Property);
   });
 
-  it("skips computed keys", () => {
-    const { context, element } = parseJsxElement('<div {...{ ["a"]: 1 }} />;');
-    const prop = findSpreadProperty(context, getSpreadArgument(element), "a");
+  it("matches statically evaluable computed keys", () => {
+    const { context, element } = parseJsxElement('<div {...{ ["a" + "b"]: 1 }} />;');
+    const prop = findSpreadProperty(context, getSpreadArgument(element), "ab");
+    expect(prop?.type).toBe(AST.Property);
+  });
+
+  it("skips computed keys that are not statically evaluable", () => {
+    const { context, element } = parseJsxElement("<div {...{ [foo]: 1 }} />;");
+    const prop = findSpreadProperty(context, getSpreadArgument(element), "foo");
     expect(prop).toBeUndefined();
+  });
+
+  it("follows identifier aliases", () => {
+    const { context, element } = parseJsxElement(
+      "const a = { k: 1 }; const b = a; <div {...b} />;",
+    );
+    const prop = findSpreadProperty(context, getSpreadArgument(element), "k");
+    expect(prop?.value.type).toBe(AST.Literal);
+    if (prop?.value.type === AST.Literal) {
+      expect(prop.value.value).toBe(1);
+    }
+  });
+
+  it("does not infinite loop on circular aliases", () => {
+    const { context, element } = parseJsxElement(
+      "const a = b; const b = a; <div {...a} />;",
+    );
+    expect(() => findSpreadProperty(context, getSpreadArgument(element), "k")).not.toThrow();
+    expect(findSpreadProperty(context, getSpreadArgument(element), "k")).toBeUndefined();
   });
 });

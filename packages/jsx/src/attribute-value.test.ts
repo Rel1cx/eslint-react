@@ -116,6 +116,20 @@ describe("resolveAttributeValue", () => {
     expect(value.getProperty("className")).toBe("x");
   });
 
+  it("resolves properties through identifier aliases", () => {
+    const { context, element } = parseJsxElement('const a = { className: "x" }; const b = a; <div {...b} />;');
+    const value = resolveAttributeValue(context, getAttribute(element));
+    if (value.kind !== "spreadProps") throw new Error("expected spreadProps");
+    expect(value.getProperty("className")).toBe("x");
+  });
+
+  it("resolves properties behind statically evaluable computed keys", () => {
+    const { context, element } = parseJsxElement('<div {...{ ["class" + "Name"]: "x" }} />;');
+    const value = resolveAttributeValue(context, getAttribute(element));
+    if (value.kind !== "spreadProps") throw new Error("expected spreadProps");
+    expect(value.getProperty("className")).toBe("x");
+  });
+
   it("applies later-props-win semantics inside spread objects", () => {
     const { context, element } = parseJsxElement("<div {...{ ...{ a: 1 }, a: 2 }} />;");
     const value = resolveAttributeValue(context, getAttribute(element));
