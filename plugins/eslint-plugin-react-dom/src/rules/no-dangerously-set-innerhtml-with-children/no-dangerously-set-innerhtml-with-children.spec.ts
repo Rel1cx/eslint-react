@@ -27,6 +27,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Alias chains in spread props are followed
+    {
+      code: tsx`
+        const inner = { children: "Children", dangerouslySetInnerHTML: { __html: "HTML" } }
+        const props = inner
+        ;<div {...props} />
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Statically evaluable computed keys in spread props are recognized
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} {...{ ["children"]: "Children" }} />`,
+      errors: [{ messageId: "default" }],
+    },
     {
       code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
       errors: [{ messageId: "default" }],

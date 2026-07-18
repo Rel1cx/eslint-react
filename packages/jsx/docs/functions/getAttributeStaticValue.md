@@ -17,9 +17,9 @@ This is a convenience composition of [findAttribute](findAttribute.md) ->
 [resolveAttributeValue](resolveAttributeValue.md) -> `toStatic()`, with automatic handling of the
 `spreadProps` case (extracts the named property from the spread object).
 
-Returns `null` when the attribute is absent, `undefined` when the value cannot
-be statically determined (including empty expression containers), and the
-resolved static value otherwise.
+Returns `undefined` both when the attribute is absent and when its value
+cannot be statically determined; use [findAttribute](findAttribute.md) or
+[hasAttribute](hasAttribute.md) when presence itself matters.
 
 ## Parameters
 
@@ -33,4 +33,4 @@ resolved static value otherwise.
 
 `unknown`
 
-The static value of the attribute, `null` when absent, or `undefined` when indeterminate.
+The static value of the attribute, or `undefined` when absent or indeterminate.

@@ -106,7 +106,7 @@
     "vite-node": "^6.0.0",
     "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@11.13.0",
+  "packageManager": "pnpm@11.13.1",
   "engines": {
     "node": ">=22.0.0"
   }

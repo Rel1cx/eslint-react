@@ -13,7 +13,7 @@ Mirrors Babel's `buildChildren` helper:
 1. Iterate over `element.children`.
 2. Skip `JSXText` nodes that clean to nothing (padding whitespace).
 3. Skip `JSXExpressionContainer` nodes whose expression is empty.
-4. Skip `JSXEmptyExpression` nodes.
+4. Skip empty string expressions (`{""}`), which produce no DOM node.
 5. Collect everything else.
 
 ## Parameters

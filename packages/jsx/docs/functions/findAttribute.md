@@ -17,7 +17,8 @@ or `undefined` when the attribute is not present.
 
 Spread attributes are resolved when possible: if the spread argument is an identifier
 that resolves to an object expression, the object's properties are searched for a matching key.
-Nested object expressions and nested spread identifiers are also resolved.
+Nested object expressions and nested spread identifiers are also resolved
+(see [findSpreadProperty](findSpreadProperty.md)).
 
 ## Parameters
 

@@ -3,7 +3,7 @@
 # Function: findParentAttribute()
 
 ```ts
-function findParentAttribute(node: Node, test?: (node: JSXAttribute) => boolean): JSXAttribute | null;
+function findParentAttribute(node: Node, test?: (node: JSXAttribute) => boolean): JSXAttribute | undefined;
 ```
 
 Walk up the AST from `node` to find the nearest ancestor that is a `JSXAttribute`
@@ -21,6 +21,6 @@ inside an expression container) and needs to know which JSX attribute it belongs
 
 ## Returns
 
-`JSXAttribute` \| `null`
+`JSXAttribute` \| `undefined`
 
-The first matching `JSXAttribute` ancestor, or `null` if none is found before reaching the root.
+The first matching `JSXAttribute` ancestor, or `undefined` if none is found before reaching the root.

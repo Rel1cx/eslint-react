@@ -42,14 +42,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // 3. Resolve the static value of the 'sandbox' attribute
-      const sandboxValue = resolveAttributeValue(context, sandboxProp);
-      const sandboxValueString = sandboxValue.kind === "spreadProps"
-        ? sandboxValue.getProperty("sandbox")
-        : sandboxValue.toStatic();
+      // 3. Resolve the static value of the 'sandbox' attribute; for spread
+      // attributes the named property is extracted automatically
+      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
 
       // 4. Check if the 'sandbox' value has the unsafe combination
-      if (isUnsafeSandboxCombination(sandboxValueString)) {
+      if (isUnsafeSandboxCombination(sandboxValue.toStatic())) {
         // If it's unsafe, report an error
         context.report({
           messageId: "default",

@@ -11,6 +11,7 @@ Get the string representation of a JSX element's type.
 - `<div>` -> `"div"`
 - `<Foo.Bar>` -> `"Foo.Bar"`
 - `<React.Fragment>` -> `"React.Fragment"`
+- `<xml:space>` -> `"xml:space"`
 - `<></>` -> `""`.
 
 ## Parameters
