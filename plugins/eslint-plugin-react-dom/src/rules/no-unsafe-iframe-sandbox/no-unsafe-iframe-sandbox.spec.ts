@@ -89,6 +89,25 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Alias chains in spread props are followed
+    {
+      code: tsx`
+        const inner = { sandbox: "allow-scripts allow-same-origin" };
+        const props = inner;
+        <iframe {...props} />;
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Statically evaluable computed keys in spread props are checked
+    {
+      code: tsx`<iframe {...{ ["sandbox"]: "allow-scripts allow-same-origin" }} />;`,
+      errors: [{ messageId: "default" }],
+    },
+    // String literal keys in spread props are checked
+    {
+      code: tsx`<iframe {...{ "sandbox": "allow-scripts allow-same-origin" }} />;`,
+      errors: [{ messageId: "default" }],
+    },
     // Variable assignment with unsafe sandbox
     {
       code: tsx`
