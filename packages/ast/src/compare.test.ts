@@ -1,52 +1,11 @@
-/// <reference types="node" />
-
-import { parseForESLint } from "@typescript-eslint/parser";
+import { collectNodes } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { isEqual } from "./compare";
 
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-    jsx: true,
-  });
-}
-
 function collectJSXAttributes(code: string): TSESTree.JSXAttribute[] {
-  const attrs: TSESTree.JSXAttribute[] = [];
-  simpleTraverse(
-    parse(code).ast,
-    {
-      enter(node) {
-        if (node.type === AST.JSXAttribute) {
-          attrs.push(node);
-        }
-      },
-    },
-    true,
-  );
-  return attrs;
-}
-
-function collectNodes<T extends TSESTree.Node>(code: string, type: AST): T[] {
-  const nodes: T[] = [];
-  simpleTraverse(
-    parse(code).ast,
-    {
-      enter(node) {
-        if (node.type === type) {
-          nodes.push(node as T);
-        }
-      },
-    },
-    true,
-  );
-  return nodes;
+  return collectNodes<TSESTree.JSXAttribute>(code, AST.JSXAttribute);
 }
 
 describe("isEqual", () => {

@@ -1,40 +1,11 @@
-/// <reference types="node" />
-
-import { parseForESLint } from "@typescript-eslint/parser";
+import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { getCalleeName } from "./extract";
 
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-    jsx: true,
-  });
-}
-
 function getFirstCallExpression(code: string): TSESTree.CallExpression {
-  const nodes: TSESTree.CallExpression[] = [];
-  simpleTraverse(
-    parse(code).ast,
-    {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          nodes.push(node);
-        }
-      },
-    },
-    true,
-  );
-  const [node] = nodes;
-  if (node == null) {
-    throw new Error(`No CallExpression found in: ${code}`);
-  }
-  return node;
+  return getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
 }
 
 describe("getCalleeName", () => {

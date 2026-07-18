@@ -46,10 +46,11 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
+    "@local/testkit": "workspace:*",
     "@typescript-eslint/parser": "^8.64.0",
     "@typescript-eslint/typescript-estree": "^8.64.0",
     "eslint": "^10.7.0",
-    "tsdown": "^0.22.8",
+    "tsdown": "^0.22.9",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"
   },

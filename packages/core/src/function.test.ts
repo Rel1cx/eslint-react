@@ -1,27 +1,16 @@
-/// <reference types="node" />
-
 import { Check } from "@eslint-react/ast";
-import { parseForESLint } from "@typescript-eslint/parser";
+import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { getFunctionDirectives, getFunctionId, getFunctionInitPath, isFunctionEmpty, isFunctionHasCallInInitPath, isFunctionHasDirective } from "./function";
-
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-  });
-}
 
 describe("isFunctionHasCallInInitPath", () => {
   it("should detect memo call when callee is wrapped in TSAsExpression", () => {
     const code = "const Component = (memo as any)(() => {})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -37,7 +26,7 @@ describe("isFunctionHasCallInInitPath", () => {
   it("should detect React.memo call when callee is wrapped in TSAsExpression", () => {
     const code = "const Component = (React.memo as any)(() => {})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -53,7 +42,7 @@ describe("isFunctionHasCallInInitPath", () => {
   it("should detect memo call when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "const Component = (memo satisfies typeof memo)(() => {})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           const initPath = getFunctionInitPath(node);
@@ -85,7 +74,7 @@ describe("getFunctionId", () => {
     ["const Component = (() => {}) satisfies FunctionComponent", AST.ArrowFunctionExpression, "Component"],
   ])("should get function id for %s", (code, expectedType, expectedName) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionId(node);
@@ -103,7 +92,7 @@ describe("getFunctionId", () => {
   it("should return null for anonymous function without binding", () => {
     const code = "(() => {})()";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           expect(getFunctionId(node)).toBeNull();
@@ -127,7 +116,7 @@ describe("getFunctionInitPath", () => {
     ["const Component = (() => {}) as any", AST.ArrowFunctionExpression, true],
   ])("should get init path for %s", (code, expectedType, expectedNotNull) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node) && node.type === expectedType) {
           const initPath = getFunctionInitPath(node);
@@ -146,7 +135,7 @@ describe("getFunctionInitPath", () => {
   it("should return null for unrecognized patterns", () => {
     const code = "(() => {})()";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           expect(getFunctionInitPath(node)).toBeNull();
@@ -166,7 +155,7 @@ describe("isFunctionEmpty", () => {
     ["const NotEmpty = () => 1", false],
   ])("isFunctionEmpty(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionEmpty(node)).toBe(expected);
@@ -182,7 +171,7 @@ describe("getFunctionDirectives", () => {
   it("should extract 'use strict' directive", () => {
     const code = `function Foo() { "use strict"; return 1; }`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const directives = getFunctionDirectives(node);
@@ -198,7 +187,7 @@ describe("getFunctionDirectives", () => {
   it("should return empty array for arrow function with expression body", () => {
     const code = "const Foo = () => 1";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(getFunctionDirectives(node)).toHaveLength(0);
@@ -212,7 +201,7 @@ describe("getFunctionDirectives", () => {
   it("should extract multiple directives", () => {
     const code = `function Foo() { "use strict"; "use client"; return 1; }`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           const directives = getFunctionDirectives(node);
@@ -231,7 +220,7 @@ describe("isFunctionHasDirective", () => {
   it("should detect 'use strict'", () => {
     const code = `function Foo() { "use strict"; }`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isFunctionHasDirective(node, "use strict")).toBe(true);

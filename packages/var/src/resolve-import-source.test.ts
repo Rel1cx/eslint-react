@@ -1,18 +1,13 @@
 /// <reference types="node" />
 
-import { parseForESLint } from "@typescript-eslint/parser";
+import { getFixturesRootDir, parseCode } from "@local/testkit";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { resolveImportSource } from "./resolve-import-source";
 
 function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "file.ts"),
-    sourceType: "module",
-  });
+  return parseCode(code, { filePath: path.join(getFixturesRootDir(), "file.ts"), sourceType: "module" });
 }
 
 describe("resolveImportSource", () => {

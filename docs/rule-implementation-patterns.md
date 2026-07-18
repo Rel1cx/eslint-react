@@ -158,7 +158,24 @@ ruleTester.run(RULE_NAME, rule, {
 });
 ```
 
-Use `ruleTester` for basic tests and `ruleTesterWithTypes` for rules requiring type information.
+Use `ruleTester` for basic tests and `ruleTesterWithTypes` for rules requiring type information. For tests pinned to a specific JSX runtime, use `createRuleTesterForJsxEmit(ts.JsxEmit.ReactJSX)` instead of hand-rolling a `new RuleTester({...})`.
+
+All of the above helpers live in the internal `@local/testkit` package (`.pkgs/testkit`) and are re-exported through `#/testing/helpers` for backward compatibility.
+
+Package-level unit tests (`packages/*/src/*.test.ts`) import harnesses directly from `@local/testkit` instead of defining their own:
+
+```ts
+import { getFirstNodeOfType, parseCode, runCollector, runInRule } from "@local/testkit";
+
+// Pure AST checks — parse a code string and pick nodes:
+const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+
+// Context-dependent checks — run inside a real rule context:
+const names = runInRule(code, (context, program) => {/* ... */});
+
+// Collector checks — spread the collector's visitor, harvest via its api:
+const hooks = runCollector(code, (context) => getHookCollector(context as never), (api, program) => api.getAllHooks(program));
+```
 
 ## Path Aliases
 

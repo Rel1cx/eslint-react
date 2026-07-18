@@ -1,12 +1,8 @@
-/// <reference types="node" />
-
-import { parseForESLint } from "@typescript-eslint/parser";
+import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import {
   isAssignmentToThisState,
   isClassComponent,
@@ -33,13 +29,6 @@ import {
   isUnsafeComponentWillUpdate,
 } from "./class-component";
 
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-  });
-}
-
 describe("isClassComponent", () => {
   it.each([
     ["class A extends Component {}", true],
@@ -50,7 +39,7 @@ describe("isClassComponent", () => {
     ["class A extends SomethingElse {}", false],
   ])("isClassComponent(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ClassDeclaration) {
           expect(isClassComponent(node)).toBe(expected);
@@ -71,7 +60,7 @@ describe("isPureComponent", () => {
     ["class A {}", false],
   ])("isPureComponent(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ClassDeclaration) {
           expect(isPureComponent(node)).toBe(expected);
@@ -103,7 +92,7 @@ describe("lifecycle method checkers", () => {
   ])("should detect %s method", (methodName, checker) => {
     const code = `class A { ${methodName}() {} }`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.MethodDefinition) {
           expect(checker(node)).toBe(true);
@@ -121,7 +110,7 @@ describe("lifecycle method checkers", () => {
   ])("should detect static %s method", (methodName, checker, _expected) => {
     const code = `class A { static ${methodName}() {} }`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.MethodDefinition) {
           expect(checker(node)).toBe(true);
@@ -135,7 +124,7 @@ describe("lifecycle method checkers", () => {
   it("should not match non-lifecycle methods", () => {
     const code = "class A { customMethod() {} }";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.MethodDefinition) {
           expect(isRender(node)).toBe(false);
@@ -155,7 +144,7 @@ describe("isRenderMethodLike", () => {
     ["class A { custom() {} }", false],
   ])("isRenderMethodLike(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.MethodDefinition) {
           expect(isRenderMethodLike(node)).toBe(expected);
@@ -171,7 +160,7 @@ describe("isThisSetStateCall", () => {
   it("should return true for this.setState()", () => {
     const code = "this.setState({})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           result = isThisSetStateCall(node);
@@ -184,7 +173,7 @@ describe("isThisSetStateCall", () => {
   it("should return true when callee is wrapped in TSAsExpression", () => {
     const code = "(this.setState as any)({})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           result = isThisSetStateCall(node);
@@ -197,7 +186,7 @@ describe("isThisSetStateCall", () => {
   it("should return true when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "(this.setState satisfies typeof this.setState)({})";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           result = isThisSetStateCall(node);
@@ -210,7 +199,7 @@ describe("isThisSetStateCall", () => {
   it("should return false for unrelated calls", () => {
     const code = "this.forceUpdate()";
     let result = true;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           result = isThisSetStateCall(node);
@@ -225,7 +214,7 @@ describe("isAssignmentToThisState", () => {
   it("should return true for this.state = {}", () => {
     const code = "this.state = {}";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);
@@ -238,7 +227,7 @@ describe("isAssignmentToThisState", () => {
   it("should return true for this.state.foo = 'baz'", () => {
     const code = "this.state.foo = 'baz'";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);
@@ -251,7 +240,7 @@ describe("isAssignmentToThisState", () => {
   it("should return true for this.state.foo.bar = 'baz'", () => {
     const code = "this.state.foo.bar = 'baz'";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);
@@ -264,7 +253,7 @@ describe("isAssignmentToThisState", () => {
   it("should return true for (this.state as any).foo = 'baz'", () => {
     const code = "(this.state as any).foo = 'baz'";
     let result = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);
@@ -277,7 +266,7 @@ describe("isAssignmentToThisState", () => {
   it("should return false for unrelated assignments", () => {
     const code = "this.props = {}";
     let result = true;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);
@@ -290,7 +279,7 @@ describe("isAssignmentToThisState", () => {
   it("should return false for this.props.foo = 'baz'", () => {
     const code = "this.props.foo = 'baz'";
     let result = true;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.AssignmentExpression) {
           result = isAssignmentToThisState(node);

@@ -1,42 +1,9 @@
-/// <reference types="node" />
-
-import * as tsParser from "@typescript-eslint/parser";
+import { runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { Linter } from "eslint";
 import { describe, expect, it } from "vitest";
 
 import { isAssignmentTargetEqual } from "./is-assignment-target-equal";
-
-// Helper: run code through eslint with a custom rule, call fn inside rule listener
-function runInRule<T>(code: string, fn: (context: any, ast: TSESTree.Program) => T): T {
-  let result: T | undefined;
-  const linter = new Linter();
-  linter.verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(context: any) {
-              return {
-                Program(programNode: TSESTree.Program) {
-                  result = fn(context, programNode);
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-  return result as T;
-}
 
 // Helper: find all nodes of a given type
 function findAll<T extends TSESTree.Node>(root: TSESTree.Node, type: AST): T[] {
@@ -72,12 +39,12 @@ describe("isAssignmentTargetEqual", () => {
     // Two separate `obj.x` member expressions are structurally identical,
     // so `Compare.areEqual` returns true and short-circuits.
     const code = "foo(obj.x); bar(obj.x);";
-    const result = runInRule(code, (context, ast) => {
+    const fact = runInRule(code, (context, ast) => {
       const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
       expect(members).toHaveLength(2);
       return isAssignmentTargetEqual(context, members[0]!, members[1]!);
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should return true for value-equal but structurally different nodes", () => {
@@ -86,7 +53,7 @@ describe("isAssignmentTargetEqual", () => {
     // However, `isValueEqual` falls through to `getStaticValue` which evaluates
     // both to the same value (2), so `isAssignmentTargetEqual` returns true.
     const code = "foo(2); bar(1 + 1);";
-    const result = runInRule(code, (context, ast) => {
+    const fact = runInRule(code, (context, ast) => {
       const calls = findAll<TSESTree.CallExpression>(ast, AST.CallExpression);
       expect(calls).toHaveLength(2);
       const argA = calls[0]!.arguments[0]!;
@@ -96,7 +63,7 @@ describe("isAssignmentTargetEqual", () => {
       expect(argB.type).toBe(AST.BinaryExpression);
       return isAssignmentTargetEqual(context, argA, argB);
     });
-    expect(result).toBe(true);
+    expect(fact).toBe(true);
   });
 
   it("should return false for nodes that are neither structurally nor value-equal", () => {
@@ -104,7 +71,7 @@ describe("isAssignmentTargetEqual", () => {
     // so both `Compare.areEqual` (different names) and `isValueEqual`
     // (different variables) return false.
     const code = "const x = 1; const y = 2; foo(x); bar(y);";
-    const result = runInRule(code, (context, ast) => {
+    const fact = runInRule(code, (context, ast) => {
       const xRefs = findIdentifierRefs(ast, "x");
       const yRefs = findIdentifierRefs(ast, "y");
       const xRef = xRefs.find((r) => r.parent.type === AST.CallExpression);
@@ -113,6 +80,6 @@ describe("isAssignmentTargetEqual", () => {
       expect(yRef).toBeDefined();
       return isAssignmentTargetEqual(context, xRef!, yRef!);
     });
-    expect(result).toBe(false);
+    expect(fact).toBe(false);
   });
 });

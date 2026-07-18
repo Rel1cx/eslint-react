@@ -1,12 +1,10 @@
 /// <reference types="node" />
 
-import { parseForESLint } from "@typescript-eslint/parser";
+import { getFirstNodeOfType, getFixturesRootDir } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import {
   is,
   isClass,
@@ -25,47 +23,6 @@ import {
   isTypeAssertionExpression,
   isTypeExpression,
 } from "./check";
-
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-    jsx: true,
-  });
-}
-
-function parseTs(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.ts"),
-    jsx: false,
-  });
-}
-
-function collectNodes<T extends TSESTree.Node>(code: string, type: AST, parseFn = parse): T[] {
-  const nodes: T[] = [];
-  simpleTraverse(
-    parseFn(code).ast,
-    {
-      enter(node) {
-        if (node.type === type) {
-          nodes.push(node as T);
-        }
-      },
-    },
-    true,
-  );
-  return nodes;
-}
-
-function getFirstNodeOfType<T extends TSESTree.Node>(code: string, type: AST, parseFn = parse): T {
-  const nodes = collectNodes<T>(code, type, parseFn);
-  const [node] = nodes;
-  if (node == null) {
-    throw new Error(`No ${type} found in: ${code}`);
-  }
-  return node;
-}
 
 describe("is", () => {
   it("should return true when the node matches the given type", () => {
@@ -319,7 +276,10 @@ describe("TypeScript type guards", () => {
   });
 
   it("isTypeExpression should return true for a TSTypeAssertion", () => {
-    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, parseTs);
+    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
+      filePath: path.join(getFixturesRootDir(), "estree.ts"),
+      jsx: false,
+    });
     expect(isTypeExpression(node)).toBe(true);
   });
 
@@ -344,7 +304,10 @@ describe("TypeScript type guards", () => {
   });
 
   it("isTypeAssertionExpression should return true for a TSTypeAssertion", () => {
-    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, parseTs);
+    const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
+      filePath: path.join(getFixturesRootDir(), "estree.ts"),
+      jsx: false,
+    });
     expect(isTypeAssertionExpression(node)).toBe(true);
   });
 

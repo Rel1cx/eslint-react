@@ -19,6 +19,13 @@ import { ruleTester } from "#/testing/helpers"; // 🟢 Preferred
 import { ruleTester } from "../../../../testing/helpers"; // 🔴 Avoid
 ```
 
+Test infrastructure lives in the internal `@local/testkit` package (`.pkgs/testkit`); `#/testing/helpers` is a thin re-export shim kept for backward compatibility. New package-level unit tests may import directly from `@local/testkit`:
+
+```ts
+// Inside a package's *.test.ts
+import { getFirstNodeOfType, parseCode, runInRule } from "@local/testkit"; // 🟢 Preferred
+```
+
 ## Configuration
 
 Per-plugin `tsconfig.json`:

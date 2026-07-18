@@ -1,24 +1,12 @@
-/// <reference types="node" />
-
-import { parseForESLint } from "@typescript-eslint/parser";
+import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import { findParent } from "./traverse";
 
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-    jsx: true,
-  });
-}
-
 function parseAst(code: string) {
-  return parse(code).ast;
+  return parseCode(code).ast;
 }
 
 function collectNodes<T extends TSESTree.Node>(ast: TSESTree.Node, type: AST): T[] {

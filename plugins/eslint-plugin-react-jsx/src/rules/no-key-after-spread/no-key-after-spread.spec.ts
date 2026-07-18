@@ -1,5 +1,4 @@
-import { defaultLanguageOptionsWithTypes, getProjectForJsxEmit, ruleTester } from "#/testing/helpers";
-import { RuleTester } from "@typescript-eslint/rule-tester";
+import { createRuleTesterForJsxEmit, ruleTester } from "#/testing/helpers";
 import tsx from "dedent";
 import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";
@@ -119,16 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
 });
 
 // Test with classic runtime (from tsconfig) - deoptimization should NOT apply
-const ruleTesterWithJsxClassicRuntime = new RuleTester({
-  languageOptions: {
-    ...defaultLanguageOptionsWithTypes,
-    parserOptions: {
-      ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxEmit(JsxEmit.React),
-      projectService: false,
-    },
-  },
-});
+const ruleTesterWithJsxClassicRuntime = createRuleTesterForJsxEmit(JsxEmit.React);
 
 ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
   invalid: [
@@ -158,16 +148,7 @@ ruleTesterWithJsxClassicRuntime.run(`${RULE_NAME} (classic runtime)`, rule, {
 });
 
 // Test with react-native runtime (from tsconfig) - classic-family emit, deoptimization should NOT apply
-const ruleTesterWithJsxReactNativeRuntime = new RuleTester({
-  languageOptions: {
-    ...defaultLanguageOptionsWithTypes,
-    parserOptions: {
-      ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxEmit(JsxEmit.ReactNative),
-      projectService: false,
-    },
-  },
-});
+const ruleTesterWithJsxReactNativeRuntime = createRuleTesterForJsxEmit(JsxEmit.ReactNative);
 
 ruleTesterWithJsxReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, rule, {
   invalid: [],
@@ -181,16 +162,7 @@ ruleTesterWithJsxReactNativeRuntime.run(`${RULE_NAME} (react-native runtime)`, r
 });
 
 // Test with automatic runtime (from tsconfig) - deoptimization SHOULD apply
-const ruleTesterWithJsxAutomaticRuntime = new RuleTester({
-  languageOptions: {
-    ...defaultLanguageOptionsWithTypes,
-    parserOptions: {
-      ...defaultLanguageOptionsWithTypes.parserOptions,
-      project: getProjectForJsxEmit(JsxEmit.ReactJSX),
-      projectService: false,
-    },
-  },
-});
+const ruleTesterWithJsxAutomaticRuntime = createRuleTesterForJsxEmit(JsxEmit.ReactJSX);
 
 ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, {
   invalid: [

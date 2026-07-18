@@ -1,52 +1,18 @@
-/// <reference types="node" />
-
-import * as tsParser from "@typescript-eslint/parser";
-import { type TSESTree } from "@typescript-eslint/types";
-import { Linter } from "eslint";
+import { runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
 
 import { DEFAULT_COMPONENT_DETECTION_HINT, FunctionComponentFlag } from "./function-component";
-import type { FunctionComponentSemanticNode } from "./function-component";
 import { getFunctionComponentCollector } from "./function-component-collector";
 
 function collectComponents(code: string) {
-  const linter = new Linter();
-  let program: TSESTree.Program | null = null;
-  let components: FunctionComponentSemanticNode[] = [];
-
-  linter.verify(code, {
-    plugins: {
-      test: {
-        rules: {
-          "test-rule": {
-            meta: { type: "problem", messages: {}, schema: [] },
-            create(context: unknown) {
-              const { api, visitor } = getFunctionComponentCollector(context as never, {
-                hint: DEFAULT_COMPONENT_DETECTION_HINT,
-              });
-              return {
-                ...visitor,
-                Program(node: TSESTree.Program) {
-                  program = node;
-                },
-                "Program:exit"() {
-                  if (program == null) return;
-                  components = api.getAllComponents(program);
-                },
-              };
-            },
-          },
-        },
-      },
-    },
-    rules: { "test/test-rule": "error" },
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: { jsx: true, ecmaFeatures: { jsx: true } },
-    },
-  });
-
-  return components;
+  return runCollector(
+    code,
+    (context) =>
+      getFunctionComponentCollector(context as never, {
+        hint: DEFAULT_COMPONENT_DETECTION_HINT,
+      }),
+    (api, program) => api.getAllComponents(program),
+  );
 }
 
 describe("getFunctionComponentCollector", () => {

@@ -1,13 +1,9 @@
-/// <reference types="node" />
-
 import { Check } from "@eslint-react/ast";
-import { parseForESLint } from "@typescript-eslint/parser";
+import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { getFixturesRootDir } from "../../../testing/helpers";
 import {
   isHookCall,
   isHookDefinition,
@@ -19,13 +15,6 @@ import {
   isUseEffectSetupCallback,
   isUseStateLikeCall,
 } from "./hook";
-
-function parse(code: string) {
-  return parseForESLint(code, {
-    disallowAutomaticSingleRunInference: true,
-    filePath: path.join(getFixturesRootDir(), "estree.tsx"),
-  });
-}
 
 describe("isHookName", () => {
   it.each([
@@ -52,7 +41,7 @@ describe("isHookId", () => {
   ])("isHookId for %s === %s", (expr, expected) => {
     const code = `${expr}()`;
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isHookId(node.callee)).toBe(expected);
@@ -71,7 +60,7 @@ describe("isHookDefinition", () => {
     ["function use() {}", true],
   ])("should return true for hook function declaration: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
@@ -86,7 +75,7 @@ describe("isHookDefinition", () => {
     ["function notAHook() {}", false],
   ])("should return false for non-hook function declaration: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
@@ -101,7 +90,7 @@ describe("isHookDefinition", () => {
     ["const useBar = () => {}", true],
   ])("should return true for arrow function with hook name: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
@@ -116,7 +105,7 @@ describe("isHookDefinition", () => {
     ["const helper = () => {}", false],
   ])("should return false for arrow function without hook name: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (Check.isFunction(node)) {
           expect(isHookDefinition(node)).toBe(expected);
@@ -140,7 +129,7 @@ describe("isHookCall", () => {
     ["React.useState()", true],
   ])("should return true for hook call: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isHookCall(node)).toBe(expected);
@@ -156,7 +145,7 @@ describe("isHookCall", () => {
     ["user()", false],
   ])("should return false for non-hook call: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isHookCall(node)).toBe(expected);
@@ -174,7 +163,7 @@ describe("isHookCall", () => {
   it("should return true for hook call with callee wrapped in TSAsExpression", () => {
     const code = "(useState as any)()";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isHookCall(node)).toBe(true);
@@ -188,7 +177,7 @@ describe("isHookCall", () => {
   it("should return true for hook call with type arguments", () => {
     const code = "useState<number>()";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isHookCall(node)).toBe(true);
@@ -206,7 +195,7 @@ describe("isHookTag", () => {
     ["Motion.useMotionTemplate`literal`", true],
   ])("should return true for hook tag: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.TaggedTemplateExpression) {
           expect(isHookTag(node.tag)).toBe(expected);
@@ -222,7 +211,7 @@ describe("isHookTag", () => {
     ["user`literal`", false],
   ])("should return false for non-hook tag: %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.TaggedTemplateExpression) {
           expect(isHookTag(node.tag)).toBe(expected);
@@ -249,7 +238,7 @@ describe("isUseEffectLikeCall", () => {
     ["customHook()", false],
   ])("isUseEffectLikeCall(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isUseEffectLikeCall(node)).toBe(expected);
@@ -263,7 +252,7 @@ describe("isUseEffectLikeCall", () => {
   it("should support custom effect hooks via regex", () => {
     const code = "useCustomEffect(() => {})";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isUseEffectLikeCall(node, /^useCustomEffect$/u)).toBe(true);
@@ -288,7 +277,7 @@ describe("isUseStateLikeCall", () => {
     ["useReducer(() => {}, {})", false],
   ])("isUseStateLikeCall(%s) === %s", (code, expected) => {
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isUseStateLikeCall(node)).toBe(expected);
@@ -302,7 +291,7 @@ describe("isUseStateLikeCall", () => {
   it("should support custom state hooks via regex", () => {
     const code = "useCustomState()";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.CallExpression) {
           expect(isUseStateLikeCall(node, /^useCustomState$/u)).toBe(true);
@@ -322,7 +311,7 @@ describe("isUseEffectSetupCallback", () => {
   it("should return true for first argument of useEffect", () => {
     const code = "useEffect(() => {})";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression) {
           expect(isUseEffectSetupCallback(node)).toBe(true);
@@ -336,7 +325,7 @@ describe("isUseEffectSetupCallback", () => {
   it("should return false for second argument of useEffect", () => {
     const code = "useEffect(() => {}, [])";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrayExpression) {
           expect(isUseEffectSetupCallback(node)).toBe(false);
@@ -356,7 +345,7 @@ describe("isUseEffectCleanupCallback", () => {
   it("should return true for cleanup function returned from useEffect setup", () => {
     const code = "useEffect(() => { return () => {}; })";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
           expect(isUseEffectCleanupCallback(node)).toBe(true);
@@ -370,7 +359,7 @@ describe("isUseEffectCleanupCallback", () => {
   it("should return false for unrelated nested functions", () => {
     const code = "const fn = () => { return () => {}; }";
     let found = false;
-    simpleTraverse(parse(code).ast, {
+    simpleTraverse(parseCode(code).ast, {
       enter(node) {
         if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.ReturnStatement) {
           expect(isUseEffectCleanupCallback(node)).toBe(false);

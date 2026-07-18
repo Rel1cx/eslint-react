@@ -1,8 +1,8 @@
 {
-  "name": "@local/samples",
+  "name": "@local/testkit",
   "version": "0.0.0",
   "private": true,
-  "description": "Sample code for testing and documentation purposes.",
+  "description": "Shared test construction kit for ESLint React's unit tests and rule tests.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
     "url": "https://github.com/Rel1cx/eslint-react/issues"
@@ -10,11 +10,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rel1cx/eslint-react.git",
-    "directory": ".pkgs/samples"
+    "directory": ".pkgs/testkit"
   },
   "license": "MIT",
   "author": "Rel1cx",
-  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
@@ -36,23 +35,19 @@
     "publish": "node --run build:docs && node --run lint:publish"
   },
   "dependencies": {
-    "@eslint-react/kit": "workspace:*",
+    "@typescript-eslint/parser": "^8.64.0",
+    "@typescript-eslint/rule-tester": "^8.64.0",
     "@typescript-eslint/types": "^8.64.0",
     "@typescript-eslint/typescript-estree": "^8.64.0",
-    "@typescript-eslint/utils": "^8.64.0",
-    "ts-pattern": "^5.9.0"
+    "@typescript-eslint/utils": "^8.64.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@tsconfig/vite-react": "^8.1.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
     "eslint": "^10.7.0",
-    "tsdown": "^0.22.9",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.64.0"
+    "vitest": "^4.1.10"
   },
   "engines": {
     "node": ">=22.0.0"
