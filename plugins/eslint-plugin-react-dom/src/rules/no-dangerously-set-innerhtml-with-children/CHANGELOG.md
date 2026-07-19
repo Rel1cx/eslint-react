@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-
-- Spread props providing `children` or `dangerouslySetInnerHTML` through a string literal key, a statically evaluable computed key, or an identifier alias chain are now recognized.
-
 ## [5.10.2] - 2026-07-03
 
 ### Fixed

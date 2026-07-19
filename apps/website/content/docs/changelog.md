@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.17.2 (2026-07-19)
+
+### 📝 Documentation
+
+- `@eslint-react/kit`: added a README with quick start and API overview.
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: migrated `JsxDetectionHint` and related JSX detection helpers from `@eslint-react/jsx`. (#1913)
+- `@eslint-react/jsx`: consolidated helpers into focused `attribute`, `children`, `element`, and `text` modules. (#1914)
+- `@eslint-react/var`: renamed `computeObjectType` to `resolveObjectType`.
+- `@local/testkit`: extracted shared test helpers into a new local package. (#1915)
+- Bumped `tsdown` to `0.22.9`, `eslint-plugin-jsdoc` to `63.0.14`, and `pnpm` to `11.13.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.17.1...v5.17.2
+
 ## v5.17.1 (2026-07-17)
 
 ### 🏗️ Internal

@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
-
-- Spread `sandbox` props provided through a string literal key, a statically evaluable computed key, or an identifier alias chain now count as providing `sandbox`, matching the behavior documented in 5.10.2. The static value is also resolved per property, so unrelated non-static properties in the same spread object no longer suppress it.
-
 ## [5.10.2] - 2026-07-03
 
 ### Fixed
