@@ -11,8 +11,8 @@
 
 | Function                                                                          | Description                                                                                                 |
 | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| [computeObjectType](functions/computeObjectType.md)                               | Detect the ObjectType of a given node.                                                                      |
 | [isValueEqual](functions/isValueEqual.md)                                         | Determine whether node value equals to another node value.                                                  |
 | [resolve](functions/resolve.md)                                                   | Resolves an identifier to the AST node that represents its value, suitable for use in ESLint rule analysis. |
 | [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md) | Finds the enclosing assignment target (variable, property, etc.) for a given node.                          |
 | [resolveImportSource](functions/resolveImportSource.md)                           | -                                                                                                           |
+| [resolveObjectType](functions/resolveObjectType.md)                               | Detect the ObjectType of a given node.                                                                      |

@@ -55,10 +55,7 @@ export type ObjectType =
  * @param node The node to check.
  * @returns The ObjectType of the node, or undefined if not detected.
  */
-export function computeObjectType(
-  context: RuleContext,
-  node: TSESTree.Node | null,
-): ObjectType | null {
+export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null): ObjectType | null {
   if (node == null) return null;
   switch (node.type) {
     case AST.JSXElement:
@@ -95,26 +92,26 @@ export function computeObjectType(
       if (def?.type === DefinitionType.Parameter) return null;
       const initNode = resolve(context, node, { at: -1, localOnly: true });
       if (initNode == null) return null;
-      return computeObjectType(context, initNode);
+      return resolveObjectType(context, initNode);
     }
     case AST.MemberExpression: {
-      return computeObjectType(context, node.object);
+      return resolveObjectType(context, node.object);
     }
     case AST.AssignmentExpression:
     case AST.AssignmentPattern: {
-      return computeObjectType(context, node.right);
+      return resolveObjectType(context, node.right);
     }
     case AST.LogicalExpression: {
-      return computeObjectType(context, node.left) ?? computeObjectType(context, node.right);
+      return resolveObjectType(context, node.left) ?? resolveObjectType(context, node.right);
     }
     case AST.ConditionalExpression: {
-      return computeObjectType(context, node.consequent) ?? computeObjectType(context, node.alternate);
+      return resolveObjectType(context, node.consequent) ?? resolveObjectType(context, node.alternate);
     }
     case AST.SequenceExpression: {
       if (node.expressions.length === 0) {
         return null;
       }
-      return computeObjectType(
+      return resolveObjectType(
         context,
         node.expressions[node.expressions.length - 1] ?? null,
       );
@@ -160,7 +157,7 @@ export function computeObjectType(
       if (!("expression" in node) || typeof node.expression !== "object") {
         return null;
       }
-      return computeObjectType(context, node.expression);
+      return resolveObjectType(context, node.expression);
     }
   }
 }

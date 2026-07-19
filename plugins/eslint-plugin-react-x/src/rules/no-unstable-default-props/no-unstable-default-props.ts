@@ -3,7 +3,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
-import { computeObjectType } from "@eslint-react/var";
+import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -112,7 +112,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           const { value } = prop;
           const { right } = value;
-          const construction = computeObjectType(context, value);
+          const construction = resolveObjectType(context, value);
           if (construction == null) {
             continue;
           }

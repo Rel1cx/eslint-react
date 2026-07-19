@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { type ObjectType, computeObjectType } from "@eslint-react/var";
+import { type ObjectType, resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const value = attribute.value;
         if (value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = value.expression;
-        const construction = computeObjectType(context, valueExpression);
+        const construction = resolveObjectType(context, valueExpression);
         if (construction == null) return;
         if (core.isHookCall(construction.node)) {
           return;

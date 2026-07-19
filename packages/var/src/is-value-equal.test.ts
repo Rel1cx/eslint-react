@@ -182,9 +182,9 @@ describe("isValueEqual", () => {
       expect(fact).toBe(true);
     });
 
-    it("ISSUE: resolve called with at: 0 (default) in isValueEqual but at: -1 in computeObjectType", () => {
+    it("ISSUE: resolve called with at: 0 (default) in isValueEqual but at: -1 in resolveObjectType", () => {
       // `isValueEqual` calls `resolve(context, a)` which defaults to `at: 0` (first definition).
-      // `computeObjectType` calls `resolve(context, node, { at: -1 })` (last definition).
+      // `resolveObjectType` calls `resolve(context, node, { at: -1 })` (last definition).
       // With `var` redeclarations, these resolve to different nodes.
       const code = "var x = 1; var x = []; foo(x);";
 

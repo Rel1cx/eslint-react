@@ -1,9 +1,9 @@
-[@eslint-react/var](../README.md) / computeObjectType
+[@eslint-react/var](../README.md) / resolveObjectType
 
-# Function: computeObjectType()
+# Function: resolveObjectType()
 
 ```ts
-function computeObjectType(context: RuleContext, node: Node | null): ObjectType | null;
+function resolveObjectType(context: RuleContext, node: Node | null): ObjectType | null;
 ```
 
 Detect the ObjectType of a given node.
