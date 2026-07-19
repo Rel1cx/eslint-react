@@ -12,6 +12,73 @@ import { type RegExpLike, toRegExp } from "./regexp";
 /**
  * @internal
  */
+const HookSchema = z.object({
+  /*
+   * The effect of arguments to this hook. Describes whether the hook may or may
+   * not mutate arguments, etc.
+   */
+  effectKind: z.union([
+    z.literal("<unknown>"),
+    z.literal("capture"),
+    z.literal("freeze"),
+    z.literal("mutate"),
+    z.literal("mutate-iterator?"),
+    z.literal("mutate?"),
+    z.literal("read"),
+    z.literal("store"),
+  ]),
+
+  /*
+   * The kind of value returned by the hook. Allows indicating that a hook returns
+   * a primitive or already-frozen value, which can allow more precise memoization
+   * of callers.
+   */
+  valueKind: z.union([
+    z.literal("maybefrozen"),
+    z.literal("frozen"),
+    z.literal("primitive"),
+    z.literal("global"),
+    z.literal("mutable"),
+    z.literal("context"),
+  ]),
+
+  /*
+   * Specifies whether hook arguments may be aliased by other arguments or by the
+   * return value of the function. Defaults to false. When enabled, this allows the
+   * compiler to avoid memoizing arguments.
+   */
+  noAlias: z.boolean().default(false),
+
+  /*
+   * Specifies whether the hook returns data that is composed of:
+   * - undefined
+   * - null
+   * - boolean
+   * - number
+   * - string
+   * - arrays whose items are also transitiveMixed
+   * - objects whose values are also transitiveMixed
+   *
+   * Many state management and data-fetching APIs return data that meets
+   * this criteria since this is JSON + undefined. Forget can compile
+   * hooks that return transitively mixed data more optimally because it
+   * can make inferences about some method calls (especially array methods
+   * like `data.items.map(...)` since these builtin types have few built-in
+   * methods.
+   */
+  transitiveMixedData: z.boolean().default(false),
+});
+
+/**
+ * @internal
+ */
+const EnvironmentConfigSchema = z.object({
+  customHooks: z.map(z.string(), HookSchema).default(new Map()),
+});
+
+/**
+ * @internal
+ */
 export const ESLintReactSettingsSchema = z.object({
   /**
    * The source where React is imported from
@@ -20,13 +87,6 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "@pika/react"
    */
   importSource: z.optional(z.string()),
-
-  /**
-   * The React Compiler compilationMode that the project is using
-   * Used to inform the rule about how components and hooks will be picked up by the compiler.
-   * @example "infer"
-   */
-  compilationMode: z.optional(z.enum(["infer", "annotation", "syntax", "all"])),
 
   /**
    * The prop name used for polymorphic components
@@ -52,6 +112,21 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "useMyEffect|useCustomEffect"
    */
   additionalEffectHooks: z.optional(z.string()),
+
+  /**
+   * The React Compiler environment configuration that the project is using.
+   * @example
+   * ```
+   * { customHooks: new Map([["useRouter", { effectKind: "freeze", valueKind: "mutable" }]]) }
+   * ```
+   */
+  environment: z.optional(EnvironmentConfigSchema),
+
+  /**
+   * The React Compiler compilationMode that the project is using
+   * @example "infer"
+   */
+  compilationMode: z.optional(z.enum(["infer", "annotation", "syntax", "all"])),
 });
 
 /**
