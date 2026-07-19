@@ -74,6 +74,29 @@ const HookSchema = z.object({
  */
 const EnvironmentConfigSchema = z.object({
   customHooks: z.map(z.string(), HookSchema).default(new Map()),
+  /**
+   * If enabled, this will treat objects named as `ref` or if their names end with the substring `Ref`,
+   * and contain a property named `current`, as React refs.
+   *
+   * ```
+   * const ref = useMyRef();
+   * const myRef = useMyRef2();
+   * useEffect(() => {
+   *   ref.current = ...;
+   *   myRef.current = ...;
+   * })
+   * ```
+   *
+   * Here the variables `ref` and `myRef` will be typed as Refs.
+   */
+  enableTreatRefLikeIdentifiersAsRefs: z.boolean().default(true),
+
+  /**
+   * Treat identifiers as SetState type if both
+   * - they are named with a "set-" prefix
+   * - they are called somewhere
+   */
+  enableTreatSetIdentifiersAsStateSetters: z.boolean().default(false),
 });
 
 /**
