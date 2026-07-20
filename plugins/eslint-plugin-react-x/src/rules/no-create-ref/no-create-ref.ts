@@ -47,8 +47,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of createRefCalls) {
-          const func = Traverse.findParent(call, (n) => funcs.some((f) => f.node === n));
-          if (func == null) continue;
+          // Only report if the call is within a function component or Hook
+          if (Traverse.findParent(call, (n) => funcs.some((f) => f.node === n)) == null) continue;
           context.report({ messageId: "default", node: call });
         }
       },
