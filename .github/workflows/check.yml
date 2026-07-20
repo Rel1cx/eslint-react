@@ -28,7 +28,7 @@ jobs:
           node-version: 26
           package-manager-cache: false
       - name: Setup pnpm
-        uses: pnpm/action-setup@8912a9102ac27614460f54aedde9e1e7f9aec20d # v6.0.5
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Check formatting
