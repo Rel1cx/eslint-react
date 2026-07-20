@@ -1,5 +1,14 @@
 # Changelog
 
+## v5.17.3 (2026-07-20)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: reworked the `Extract` API — replaced `getRootIdentifier` with the position-based `getIdentifierAt`, renamed `getStaticPropertyName` to `getPropertyName` (with a `min`/`max` effort option), and added `findProperty` for finding properties in nested object expressions; added `Check.isConditional` for matching conditional expressions and control flow statements. (#1918)
+- Bumped `eslint-plugin-jsdoc` to `63.1.0`, `expect-type` to `1.4.0`, `@preact/preset-vite` to `2.10.6`, and `pnpm` to `11.15.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.17.2...v5.17.3
+
 ## v5.17.2 (2026-07-19)
 
 ### 📝 Documentation
