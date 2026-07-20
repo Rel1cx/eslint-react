@@ -1,12 +1,12 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
-import { Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
-import { isConditional, isFromObserver, isNewIntersectionObserver } from "./lib";
+import { isFromObserver, isNewIntersectionObserver } from "./lib";
 
 // #region Rule Metadata
 
@@ -183,7 +183,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
         const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || isConditional(node);
+        const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || Check.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
         const hasDynamicallyAdded = oentries
           .some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));

@@ -589,7 +589,7 @@ export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Id
       return resolveBuiltinObjectName(context, init, seen);
     }
     if (init.type === AST.MemberExpression) {
-      const rootId = Extract.getRootIdentifier(init);
+      const rootId = Extract.getIdentifierAt(init, 0);
       if (rootId != null) {
         return resolveBuiltinObjectName(context, rootId, seen);
       }

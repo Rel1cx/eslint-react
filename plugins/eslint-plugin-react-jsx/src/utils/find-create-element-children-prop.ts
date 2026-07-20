@@ -19,7 +19,7 @@ export function findCreateElementChildrenProp(context: RuleContext, node: TSESTr
   if (propsObject.type !== AST.ObjectExpression) return null;
 
   for (const prop of propsObject.properties) {
-    if (prop.type === AST.Property && Extract.getStaticPropertyName(prop) === "children") {
+    if (prop.type === AST.Property && Extract.getPropertyName(prop, "max") === "children") {
       return prop;
     }
   }

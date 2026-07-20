@@ -47,7 +47,7 @@ export function createImmutabilityCollector() {
           pushMutation("binding", node, target, target);
           return;
         case AST.MemberExpression: {
-          const root = Extract.getRootIdentifier(target);
+          const root = Extract.getIdentifierAt(target, 0);
           if (root != null) pushMutation("value", node, target, root);
           return;
         }
@@ -58,7 +58,7 @@ export function createImmutabilityCollector() {
       if (callee.type === AST.MemberExpression) {
         const method = Extract.getCalleeName(node);
         if (method != null && MUTATING_METHODS.has(method)) {
-          const root = Extract.getRootIdentifier(callee.object);
+          const root = Extract.getIdentifierAt(callee.object, 0);
           if (root != null) pushMutation("value", node, callee.object, root);
         }
       }
@@ -78,7 +78,7 @@ export function createImmutabilityCollector() {
       if (node.operator !== "delete") return;
       const target = Extract.unwrap(node.argument);
       if (target.type !== AST.MemberExpression) return;
-      const root = Extract.getRootIdentifier(target);
+      const root = Extract.getIdentifierAt(target, 0);
       if (root != null) pushMutation("value", node, target, root);
     },
     UpdateExpression(node: TSESTree.UpdateExpression) {
@@ -88,7 +88,7 @@ export function createImmutabilityCollector() {
           pushMutation("binding", node, target, target);
           return;
         case AST.MemberExpression: {
-          const root = Extract.getRootIdentifier(target);
+          const root = Extract.getIdentifierAt(target, 0);
           if (root != null) pushMutation("value", node, target, root);
           return;
         }
