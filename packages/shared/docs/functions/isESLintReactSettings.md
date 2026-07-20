@@ -9,6 +9,19 @@ function isESLintReactSettings(
   additionalEffectHooks?: string;
   additionalStateHooks?: string;
   compilationMode?: "infer" | "annotation" | "syntax" | "all";
+  environment?: {
+    customHooks: Map<
+      string,
+      {
+        effectKind: "<unknown>" | "capture" | "freeze" | "mutate" | "mutate-iterator?" | "mutate?" | "read" | "store";
+        noAlias: boolean;
+        transitiveMixedData: boolean;
+        valueKind: "maybefrozen" | "frozen" | "primitive" | "global" | "mutable" | "context";
+      }
+    >;
+    enableTreatRefLikeIdentifiersAsRefs: boolean;
+    enableTreatSetIdentifiersAsStateSetters: boolean;
+  };
   importSource?: string;
   polymorphicPropName?: string;
   version?: string;
@@ -23,4 +36,4 @@ function isESLintReactSettings(
 
 ## Returns
 
-settings is \{ additionalEffectHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}
+settings is \{ additionalEffectHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; environment?: \{ customHooks: Map\<string, \{ effectKind: "\<unknown\>" \| "capture" \| "freeze" \| "mutate" \| "mutate-iterator?" \| "mutate?" \| "read" \| "store"; noAlias: boolean; transitiveMixedData: boolean; valueKind: "maybefrozen" \| "frozen" \| "primitive" \| "global" \| "mutable" \| "context" \}\>; enableTreatRefLikeIdentifiersAsRefs: boolean; enableTreatSetIdentifiersAsStateSetters: boolean \}; importSource?: string; polymorphicPropName?: string; version?: string \}
