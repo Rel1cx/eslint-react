@@ -72,7 +72,7 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
 }
 
 function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
-  const root = node.type === AST.Identifier ? node : Extract.getRootIdentifier(node);
+  const root = node.type === AST.Identifier ? node : Extract.getIdentifierAt(node, 0);
   if (root == null) return false;
   const variable = findVariable(context.sourceCode.getScope(root), root);
   if (variable == null) return false;

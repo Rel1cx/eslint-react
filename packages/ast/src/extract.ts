@@ -9,11 +9,15 @@ export function unwrap(node: TSESTree.Node): Exclude<TSESTree.Node, TSESTreeType
   return node;
 }
 
-export function getRootIdentifier(node: TSESTree.Expression | TSESTree.PrivateIdentifier): TSESTree.Identifier | null {
-  const expr = unwrap(node);
-  if (expr.type === AST.Identifier) return expr;
-  if (expr.type === AST.MemberExpression) {
-    return getRootIdentifier(expr.object);
+export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
+  for (const property of properties) {
+    if (property.type === AST.Property && getPropertyName(property) === name) {
+      return property;
+    }
+    if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
+      const found = findProperty(property.argument.properties, name);
+      if (found != null) return found;
+    }
   }
   return null;
 }
@@ -29,9 +33,10 @@ export function getCalleeName(node: TSESTree.CallExpression): string | null {
   return null;
 }
 
-export function getStaticPropertyName(prop: TSESTree.Property): string | null {
-  const key = unwrap(prop.key);
-  if (key.type === AST.Identifier && !prop.computed) return key.name;
+export function getPropertyName(property: TSESTree.Property, effort: "min" | "max" = "min"): string | null {
+  const key = unwrap(property.key);
+  if (key.type === AST.Identifier && !property.computed) return key.name;
+  if (effort === "min") return null;
   if (key.type === AST.Literal && typeof key.value === "string") return key.value;
   if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
     return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
@@ -61,4 +66,16 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
     default:
       return getText(expr);
   }
+}
+
+export function getIdentifierAt(node: TSESTree.Expression | TSESTree.PrivateIdentifier, position: number): TSESTree.Identifier | null {
+  const identifiers: Array<TSESTree.Identifier | null> = [];
+  let current: TSESTree.Node = unwrap(node);
+  while (current.type === AST.MemberExpression) {
+    const property = unwrap(current.property);
+    identifiers.unshift(property.type === AST.Identifier ? property : null);
+    current = unwrap(current.object);
+  }
+  identifiers.unshift(current.type === AST.Identifier ? current : null);
+  return identifiers.at(position) ?? null;
 }

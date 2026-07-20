@@ -119,3 +119,20 @@ export const isExpression = isOneOf([
   AST.UpdateExpression,
   AST.YieldExpression,
 ]);
+
+/**
+ * Check if a node is a conditional expression or control flow statement
+ * @param node The node to check
+ * @returns True if the node is conditional
+ */
+export const isConditional = isOneOf([
+  AST.DoWhileStatement,
+  AST.ForInStatement,
+  AST.ForOfStatement,
+  AST.ForStatement,
+  AST.WhileStatement,
+  AST.IfStatement,
+  AST.SwitchStatement,
+  AST.LogicalExpression,
+  AST.ConditionalExpression,
+]);

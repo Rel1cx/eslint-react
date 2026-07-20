@@ -5,19 +5,6 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 
-export function findProperty(node: TSESTree.ObjectLiteralElement[], name: string): TSESTree.Property | null {
-  for (const property of node) {
-    if (property.type === AST.Property && !property.computed && property.key.type === AST.Identifier && property.key.name === name) {
-      return property;
-    }
-    if (property.type === AST.SpreadElement && property.argument.type === AST.ObjectExpression) {
-      const found = findProperty(property.argument.properties, name);
-      if (found != null) return found;
-    }
-  }
-  return null;
-}
-
 export function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null): TSESTree.Node | null {
   if (node == null) return null;
   switch (node.type) {
@@ -62,7 +49,7 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
         return { ...defaultOptions, capture: Boolean(node.value) };
       }
       case AST.ObjectExpression: {
-        const pCapture = findProperty(node.properties, "capture");
+        const pCapture = Extract.findProperty(node.properties, "capture");
         const vCapture = match(pCapture)
           .with(P.nullish, () => false)
           .with({ type: AST.Property }, (prop) => {
@@ -75,7 +62,7 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
             }
           })
           .otherwise(() => false);
-        const pSignal = findProperty(node.properties, "signal");
+        const pSignal = Extract.findProperty(node.properties, "signal");
         const vSignal = pSignal?.type === AST.Property
           ? getSignalValueExpression(context, pSignal.value)
           : null;
