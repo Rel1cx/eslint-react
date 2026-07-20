@@ -5,7 +5,7 @@
 ```ts
 function getFirstNodeOfType<T>(
   code: string,
-  type: AST_NODE_TYPES,
+  type: T["type"],
   options?: ParseCodeOptions,
 ): T;
 ```
@@ -21,7 +21,7 @@ function getFirstNodeOfType<T>(
 | Parameter | Type                                                    |
 | --------- | ------------------------------------------------------- |
 | `code`    | `string`                                                |
-| `type`    | `AST_NODE_TYPES`                                        |
+| `type`    | `T`\[`"type"`\]                                         |
 | `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) |
 
 ## Returns

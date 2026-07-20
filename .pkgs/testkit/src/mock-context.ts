@@ -1,4 +1,5 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { ASTUtils } from "@typescript-eslint/utils";
 
 import type { TestRuleContext } from "./linter";
 import type { parseCode } from "./parse";
@@ -9,20 +10,15 @@ import type { parseCode } from "./parse";
  */
 export function createScopeContext(parsed: ReturnType<typeof parseCode>): TestRuleContext {
   const { scopeManager } = parsed;
+  const globalScope = scopeManager.scopes[0]!;
   // tsl-ignore dx/no-unsafe-as
   return {
     sourceCode: {
       getScope(node: TSESTree.Node) {
-        const inner = node.type !== AST.Program;
-        for (let current: TSESTree.Node | undefined = node; current != null; current = current.parent) {
-          const scope = scopeManager.acquire(current, inner);
-          if (scope != null) {
-            return scope.type === "function-expression-name"
-              ? scope.childScopes[0]
-              : scope;
-          }
+        if (node.type === AST.Program) {
+          return globalScope;
         }
-        return scopeManager.scopes[0];
+        return ASTUtils.getInnermostScope(globalScope, node);
       },
     },
   } as unknown as TestRuleContext;

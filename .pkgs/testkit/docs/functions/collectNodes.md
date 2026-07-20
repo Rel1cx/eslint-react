@@ -5,7 +5,7 @@
 ```ts
 function collectNodes<T>(
   code: string,
-  type: AST_NODE_TYPES,
+  type: T["type"],
   options?: ParseCodeOptions,
 ): T[];
 ```
@@ -21,7 +21,7 @@ function collectNodes<T>(
 | Parameter | Type                                                    |
 | --------- | ------------------------------------------------------- |
 | `code`    | `string`                                                |
-| `type`    | `AST_NODE_TYPES`                                        |
+| `type`    | `T`\[`"type"`\]                                         |
 | `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) |
 
 ## Returns

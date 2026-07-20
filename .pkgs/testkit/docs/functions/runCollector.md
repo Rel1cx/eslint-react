@@ -7,7 +7,7 @@ function runCollector<A, R>(
   code: string,
   getCollector: (context: TestRuleContext) => {
     api: A;
-    visitor: object;
+    visitor: RuleListener;
   },
   harvest: (api: A, program: Program) => R,
 ): R;
@@ -26,11 +26,11 @@ into the rule, and harvests the result via the collector's `api` on
 
 ## Parameters
 
-| Parameter      | Type                                                                                                           |
-| -------------- | -------------------------------------------------------------------------------------------------------------- |
-| `code`         | `string`                                                                                                       |
-| `getCollector` | (`context`: [`TestRuleContext`](../type-aliases/TestRuleContext.md)) => \{ `api`: `A`; `visitor`: `object`; \} |
-| `harvest`      | (`api`: `A`, `program`: `Program`) => `R`                                                                      |
+| Parameter      | Type                                                                                                                 |
+| -------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `code`         | `string`                                                                                                             |
+| `getCollector` | (`context`: [`TestRuleContext`](../type-aliases/TestRuleContext.md)) => \{ `api`: `A`; `visitor`: `RuleListener`; \} |
+| `harvest`      | (`api`: `A`, `program`: `Program`) => `R`                                                                            |
 
 ## Returns
 

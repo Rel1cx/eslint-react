@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
 import { parseForESLint } from "@typescript-eslint/parser";
-import type { AST_NODE_TYPES, TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import path from "node:path";
 
@@ -30,14 +30,14 @@ export function parseCode(code: string, options: ParseCodeOptions = {}): ReturnT
   });
 }
 
-export function collectNodes<T extends TSESTree.Node>(code: string, type: AST_NODE_TYPES, options: ParseCodeOptions = {}): T[] {
+export function collectNodes<T extends TSESTree.Node>(code: string, type: T["type"], options: ParseCodeOptions = {}): T[] {
   const nodes: T[] = [];
+  const isTarget = (node: TSESTree.Node): node is T => node.type === type;
   simpleTraverse(
     parseCode(code, options).ast,
     {
       enter(node) {
-        if (node.type === type) {
-          // @ts-expect-error - we know the node is of type `T`, but the type checker doesn't know
+        if (isTarget(node)) {
           nodes.push(node);
         }
       },
@@ -47,7 +47,7 @@ export function collectNodes<T extends TSESTree.Node>(code: string, type: AST_NO
   return nodes;
 }
 
-export function getFirstNodeOfType<T extends TSESTree.Node>(code: string, type: AST_NODE_TYPES, options: ParseCodeOptions = {}): T {
+export function getFirstNodeOfType<T extends TSESTree.Node>(code: string, type: T["type"], options: ParseCodeOptions = {}): T {
   const [node] = collectNodes<T>(code, type, options);
   if (node == null) {
     throw new Error(`No ${type} found in: ${code}`);
