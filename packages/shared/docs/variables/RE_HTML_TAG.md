@@ -6,4 +6,4 @@
 const RE_HTML_TAG: RegExp;
 ```
 
-Regular expressions for matching a HTML tag name.
+Regular expression for matching an HTML tag name.

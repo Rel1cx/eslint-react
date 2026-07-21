@@ -5,14 +5,15 @@ function getDocsUrl(ruleName: string) {
   return `https://eslint-react.xyz/docs/rules/${ruleName}`;
 }
 
+/** The rule creator that generates documentation URLs for ESLint React rules. */
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 
 /**
- * Merges multiple visitor objects into a single visitor object.
+ * Merge multiple visitor objects into a single visitor object.
  *
- * @param base Base visitor object (target of merge).
- * @param rest Additional visitor objects to merge (one or more).
- * @returns Merged visitor object.
+ * @param base The base visitor object (target of merge).
+ * @param rest The additional visitor objects to merge (one or more).
+ * @returns The merged visitor object.
  *
  * @example
  * ```typescript

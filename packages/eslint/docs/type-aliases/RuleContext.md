@@ -6,7 +6,7 @@
 type RuleContext<MessageIds, Options> = tseslint.RuleContext<MessageIds, Options>;
 ```
 
-Rule context.
+Represents the ESLint rule context.
 
 ## Type Parameters
 

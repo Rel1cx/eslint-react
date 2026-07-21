@@ -50,10 +50,10 @@ export type ObjectType =
   };
 
 /**
- * Detect the ObjectType of a given node.
- * @param context The context of the rule.
- * @param node The node to check.
- * @returns The ObjectType of the node, or undefined if not detected.
+ * Resolve the object type of the given node.
+ * @param context The rule context.
+ * @param node The node to resolve.
+ * @returns The object type of the node, or `null` if it cannot be resolved.
  */
 export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null): ObjectType | null {
   if (node == null) return null;

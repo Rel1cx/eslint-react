@@ -10,11 +10,13 @@ function decodeESLintSettings(settings: unknown):
   | undefined;
 ```
 
+Decode the ESLint settings, falling back to the defaults when invalid.
+
 ## Parameters
 
-| Parameter  | Type      |
-| ---------- | --------- |
-| `settings` | `unknown` |
+| Parameter  | Type      | Description          |
+| ---------- | --------- | -------------------- |
+| `settings` | `unknown` | The value to decode. |
 
 ## Returns
 
@@ -22,3 +24,5 @@ function decodeESLintSettings(settings: unknown):
 `react-x?`: `unknown`;
 \}
 \| `undefined`
+
+The decoded ESLint settings.

@@ -6,12 +6,16 @@
 function isESLintSettings(settings: unknown): settings is { react-x?: unknown } | undefined;
 ```
 
+Check if the value is valid ESLint settings.
+
 ## Parameters
 
-| Parameter  | Type      |
-| ---------- | --------- |
-| `settings` | `unknown` |
+| Parameter  | Type      | Description         |
+| ---------- | --------- | ------------------- |
+| `settings` | `unknown` | The value to check. |
 
 ## Returns
 
 settings is \{ react-x?: unknown \} \| undefined
+
+`true` if the value is valid ESLint settings.

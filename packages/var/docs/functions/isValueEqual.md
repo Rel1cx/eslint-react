@@ -10,18 +10,18 @@ function isValueEqual(
 ): boolean;
 ```
 
-Determine whether node value equals to another node value.
+Check if the value of a node equals the value of another node.
 
 ## Parameters
 
-| Parameter | Type          | Description      |
-| --------- | ------------- | ---------------- |
-| `context` | `RuleContext` | rule context.    |
-| `a`       | `Node`        | node to compare. |
-| `b`       | `Node`        | node to compare. |
+| Parameter | Type          | Description                 |
+| --------- | ------------- | --------------------------- |
+| `context` | `RuleContext` | The rule context.           |
+| `a`       | `Node`        | The first node to compare.  |
+| `b`       | `Node`        | The second node to compare. |
 
 ## Returns
 
 `boolean`
 
-`true` if node value equal.
+`true` if the node values are equal.

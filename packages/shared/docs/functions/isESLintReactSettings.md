@@ -15,12 +15,16 @@ function isESLintReactSettings(
 };
 ```
 
+Check if the value is valid ESLint React settings.
+
 ## Parameters
 
-| Parameter  | Type      |
-| ---------- | --------- |
-| `settings` | `unknown` |
+| Parameter  | Type      | Description         |
+| ---------- | --------- | ------------------- |
+| `settings` | `unknown` | The value to check. |
 
 ## Returns
 
 settings is \{ additionalEffectHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}
+
+`true` if the value is valid ESLint React settings.

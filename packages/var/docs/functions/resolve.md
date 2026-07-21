@@ -13,7 +13,7 @@ function resolve(
 ): Node | null;
 ```
 
-Resolves an identifier to the AST node that represents its value,
+Resolve an identifier to the AST node that represents its value,
 suitable for use in ESLint rule analysis.
 
 The resolution follows these rules per definition type:

@@ -12,6 +12,8 @@ const DEFAULT_ESLINT_SETTINGS: {
 };
 ```
 
+The default ESLint settings.
+
 ## Type Declaration
 
 | Name                                    | Type                                                                                   | Default value                   |

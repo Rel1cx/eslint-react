@@ -8,6 +8,8 @@ const createRule: <Options, MessageIds>(
 ) => RuleModuleWithName<MessageIds, Options, unknown>;
 ```
 
+The rule creator that generates documentation URLs for ESLint React rules.
+
 ## Type Parameters
 
 | Type Parameter                           |

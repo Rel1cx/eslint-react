@@ -6,7 +6,7 @@
 type RuleFeature = "CFG" | "DBG" | "FIX" | "MOD" | "TSC" | "EXP";
 ```
 
-Rule feature.
+Represents the feature of a rule.
 
 ## Since
 
