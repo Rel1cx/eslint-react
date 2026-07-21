@@ -48,7 +48,7 @@ const RULE_FEATURES = ["EXP"]; // static-components: experimental detection
 
 ## How Features Drive Presets
 
-Feature metadata is the source of truth for badges and categorization, but the preset files themselves are maintained manually. The `scripts/20-check-rules.ts` script (run via `node --run check:rules`) verifies config consistency—registered rules are accounted for, config keys are valid, and preset hierarchies hold—but it does not check `RULE_FEATURES` flags. Keeping `disable-type-checked` and `disable-experimental` aligned with `RULE_FEATURES` is currently a manual step.
+Feature metadata is the source of truth for badges and categorization, but the preset files themselves are maintained manually. The `scripts/20-check-rules.ts` script (run via `nub run check:rules`) verifies config consistency—registered rules are accounted for, config keys are valid, and preset hierarchies hold—but it does not check `RULE_FEATURES` flags. Keeping `disable-type-checked` and `disable-experimental` aligned with `RULE_FEATURES` is currently a manual step.
 
 Rules marked `TSC` are disabled in `disable-type-checked.ts`:
 
@@ -86,5 +86,5 @@ export const rules: Linter.RulesRecord = {
 2. Remove the rule from `disable-experimental.ts`.
 3. Add it to `recommended.ts` or `strict.ts`.
 4. Remove experimental warnings from its `.mdx` docs.
-5. Run `node --run check:rules`.
+5. Run `nub run check:rules`.
 6. Update `CHANGELOG.md`.

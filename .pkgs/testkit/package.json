@@ -33,7 +33,7 @@
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsl",
-    "publish": "node --run build:docs && node --run lint:publish"
+    "publish": "nub run build:docs && nub run lint:publish"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^8.64.0",
