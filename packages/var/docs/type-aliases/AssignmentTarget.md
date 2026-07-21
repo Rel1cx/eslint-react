@@ -6,4 +6,4 @@
 type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
 ```
 
-Type representing the possible assignment targets returned by `resolveEnclosingAssignmentTarget`.
+The possible assignment targets returned by [resolveEnclosingAssignmentTarget](../functions/resolveEnclosingAssignmentTarget.md).

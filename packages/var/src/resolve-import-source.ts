@@ -5,11 +5,14 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching } from "ts-pattern";
 import { getRequireExpressionArguments } from "./get-require-expression-arguments";
 
-export function resolveImportSource(
-  name: string,
-  initialScope: Scope,
-  seen = new Set<string>(),
-) {
+/**
+ * Resolve the import source of a variable by walking its latest definition.
+ * @param name The variable name.
+ * @param initialScope The initial scope.
+ * @param seen The set of already visited variable names (for cycle detection).
+ * @returns The import source, or `null` if it cannot be resolved.
+ */
+export function resolveImportSource(name: string, initialScope: Scope, seen = new Set<string>()) {
   if (seen.has(name)) return null;
   seen.add(name);
   const latestDef = findVariable(initialScope, name)?.defs.at(-1);

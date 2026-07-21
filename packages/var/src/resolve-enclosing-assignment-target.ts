@@ -1,10 +1,10 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * Finds the enclosing assignment target (variable, property, etc.) for a given node.
+ * Resolve the enclosing assignment target (variable, property, etc.) of a node.
  *
  * @param node The starting node.
- * @returns The enclosing assignment target node, or null if not found.
+ * @returns The enclosing assignment target node, or `null` if not found.
  */
 export function resolveEnclosingAssignmentTarget(node: TSESTree.Node) {
   switch (true) {
@@ -35,7 +35,5 @@ export function resolveEnclosingAssignmentTarget(node: TSESTree.Node) {
   }
 }
 
-/**
- * Type representing the possible assignment targets returned by `resolveEnclosingAssignmentTarget`.
- */
+/** The possible assignment targets returned by {@link resolveEnclosingAssignmentTarget}. */
 export type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
