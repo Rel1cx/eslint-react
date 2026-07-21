@@ -14,6 +14,8 @@ const isProperty: (
   | TSPropertySignatureNonComputedName;
 ```
 
+Check if a node is a property-like node (property definition, index signature, parameter property, or property signature).
+
 ## Parameters
 
 | Parameter | Type                            |

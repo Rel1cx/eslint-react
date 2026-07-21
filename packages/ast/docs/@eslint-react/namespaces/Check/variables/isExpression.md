@@ -58,6 +58,8 @@ const isExpression: (
   | YieldStarExpression;
 ```
 
+Check if a node is an expression node.
+
 ## Parameters
 
 | Parameter | Type                            |

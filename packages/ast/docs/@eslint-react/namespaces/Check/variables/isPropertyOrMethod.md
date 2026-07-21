@@ -8,6 +8,8 @@ const isPropertyOrMethod: (
 ) => node is MethodDefinitionComputedName | MethodDefinitionNonComputedName | PropertyDefinitionComputedName | PropertyDefinitionNonComputedName;
 ```
 
+Check if a node is a property or method definition.
+
 ## Parameters
 
 | Parameter | Type                            |

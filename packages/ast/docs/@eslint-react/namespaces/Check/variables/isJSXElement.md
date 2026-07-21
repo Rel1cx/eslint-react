@@ -6,6 +6,8 @@
 const isJSXElement: (node: Node | null | undefined) => node is JSXElement;
 ```
 
+Check if a node is a JSX element.
+
 ## Parameters
 
 | Parameter | Type                            |

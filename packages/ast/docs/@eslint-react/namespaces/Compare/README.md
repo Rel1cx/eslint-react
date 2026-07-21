@@ -6,6 +6,6 @@ Helpers for comparing `TSESTree` nodes structurally.
 
 ## Variables
 
-| Variable                        | Description                   |
-| ------------------------------- | ----------------------------- |
-| [isEqual](variables/isEqual.md) | Check if two nodes are equal. |
+| Variable                        | Description                                |
+| ------------------------------- | ------------------------------------------ |
+| [isEqual](variables/isEqual.md) | Check if two nodes are structurally equal. |

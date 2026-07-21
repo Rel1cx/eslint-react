@@ -17,16 +17,16 @@ const isConditional: (
   | WhileStatement;
 ```
 
-Check if a node is a conditional expression or control flow statement
+Check if a node is a conditional expression or a control flow statement.
 
 ## Parameters
 
-| Parameter | Type                            | Description       |
-| --------- | ------------------------------- | ----------------- |
-| `node`    | `Node` \| `null` \| `undefined` | The node to check |
+| Parameter | Type                            | Description        |
+| --------- | ------------------------------- | ------------------ |
+| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
 
 ## Returns
 
 node is ConditionalExpression \| DoWhileStatement \| ForInStatement \| ForOfStatement \| ForStatement \| IfStatement \| LogicalExpression \| SwitchStatement \| WhileStatement
 
-True if the node is conditional
+`true` if the node is conditional.

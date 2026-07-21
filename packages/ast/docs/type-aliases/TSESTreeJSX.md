@@ -20,3 +20,5 @@ type TSESTreeJSX =
   | TSESTree.JSXSpreadChild
   | TSESTree.JSXText;
 ```
+
+Union of all JSX-related node types.

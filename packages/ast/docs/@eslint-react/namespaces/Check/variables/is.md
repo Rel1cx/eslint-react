@@ -222,6 +222,8 @@ const is: <NodeType>(
   | Extract<YieldStarExpression, { type: NodeType }> = ASTUtils.isNodeOfType;
 ```
 
+Check if a node is of the given type.
+
 ## Type Parameters
 
 | Type Parameter                        |

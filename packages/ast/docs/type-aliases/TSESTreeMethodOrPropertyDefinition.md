@@ -5,3 +5,5 @@
 ```ts
 type TSESTreeMethodOrPropertyDefinition = TSESTree.PropertyDefinition | TSESTree.MethodDefinition;
 ```
+
+Union of method and property definition node types.

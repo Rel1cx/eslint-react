@@ -5,3 +5,5 @@
 ```ts
 type TSESTreeClass = TSESTree.ClassDeclaration | TSESTree.ClassExpression;
 ```
+
+Union of class-like node types.

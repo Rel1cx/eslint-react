@@ -23,6 +23,8 @@ const isJSX: (
   | JSXText;
 ```
 
+Check if a node is any JSX-related node.
+
 ## Parameters
 
 | Parameter | Type                            |

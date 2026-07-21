@@ -6,6 +6,8 @@
 const isJSXTagNameExpression: (node: Node | null | undefined) => node is JSXIdentifier | JSXMemberExpression | JSXNamespacedName;
 ```
 
+Check if a node can appear as a JSX tag name.
+
 ## Parameters
 
 | Parameter | Type                            |

@@ -222,6 +222,8 @@ const isOneOf: <NodeTypes>(
   | Extract<YieldStarExpression, { type: NodeTypes[number] }> = ASTUtils.isNodeOfTypes;
 ```
 
+Check if a node is one of the given types.
+
 ## Type Parameters
 
 | Type Parameter                                    |

@@ -6,6 +6,8 @@
 const isJSXFragment: (node: Node | null | undefined) => node is JSXFragment;
 ```
 
+Check if a node is a JSX fragment.
+
 ## Parameters
 
 | Parameter | Type                            |

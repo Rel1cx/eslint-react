@@ -10,3 +10,5 @@ type TSESTreeTypeExpression =
   | TSESTree.TSSatisfiesExpression
   | TSESTree.TSInstantiationExpression;
 ```
+
+Union of TypeScript type expression node types.

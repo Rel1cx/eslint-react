@@ -12,6 +12,8 @@ function findParent<T>(
 ): T | null;
 ```
 
+Walk up the AST from `node` to find the nearest ancestor matching a predicate.
+
 ### Type Parameters
 
 | Type Parameter       |
@@ -20,15 +22,17 @@ function findParent<T>(
 
 ### Parameters
 
-| Parameter | Type               |
-| --------- | ------------------ |
-| `node`    | `Node` \| `null`   |
-| `test`    | `Predicate`\<`T`\> |
-| `stop?`   | `NodePredicate`    |
+| Parameter | Type               | Description                                                          |
+| --------- | ------------------ | -------------------------------------------------------------------- |
+| `node`    | `Node` \| `null`   | The starting node for the upward search.                             |
+| `test`    | `Predicate`\<`T`\> | The predicate a candidate ancestor must satisfy.                     |
+| `stop?`   | `NodePredicate`    | An optional predicate that aborts the search when it returns `true`. |
 
 ### Returns
 
 `T` \| `null`
+
+The first matching ancestor, or `null` when none is found.
 
 ## Call Signature
 
@@ -40,14 +44,18 @@ function findParent(
 ): Node | null;
 ```
 
+Walk up the AST from `node` to find the nearest ancestor matching a predicate.
+
 ### Parameters
 
-| Parameter | Type             |
-| --------- | ---------------- |
-| `node`    | `Node` \| `null` |
-| `test`    | `NodePredicate`  |
-| `stop?`   | `NodePredicate`  |
+| Parameter | Type             | Description                                                          |
+| --------- | ---------------- | -------------------------------------------------------------------- |
+| `node`    | `Node` \| `null` | The starting node for the upward search.                             |
+| `test`    | `NodePredicate`  | The predicate a candidate ancestor must satisfy.                     |
+| `stop?`   | `NodePredicate`  | An optional predicate that aborts the search when it returns `true`. |
 
 ### Returns
 
 `Node` \| `null`
+
+The first matching ancestor, or `null` when none is found.

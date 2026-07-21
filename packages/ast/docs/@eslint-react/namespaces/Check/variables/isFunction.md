@@ -13,6 +13,8 @@ const isFunction: (
   | FunctionExpression;
 ```
 
+Check if a node is a function declaration, function expression, or arrow function expression.
+
 ## Parameters
 
 | Parameter | Type                            |

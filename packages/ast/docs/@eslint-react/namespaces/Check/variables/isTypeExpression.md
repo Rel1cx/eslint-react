@@ -8,6 +8,8 @@ const isTypeExpression: (
 ) => node is TSAsExpression | TSInstantiationExpression | TSNonNullExpression | TSSatisfiesExpression | TSTypeAssertion;
 ```
 
+Check if a node is a TypeScript type expression (assertion, non-null, satisfies, or instantiation).
+
 ## Parameters
 
 | Parameter | Type                            |

@@ -169,11 +169,13 @@ function unwrap(node: Node):
   | YieldExpression;
 ```
 
+Recursively unwrap TypeScript type expressions and chain expressions to get the underlying expression.
+
 ## Parameters
 
-| Parameter | Type   |
-| --------- | ------ |
-| `node`    | `Node` |
+| Parameter | Type   | Description         |
+| --------- | ------ | ------------------- |
+| `node`    | `Node` | The node to unwrap. |
 
 ## Returns
 
@@ -340,3 +342,5 @@ function unwrap(node: Node):
 \| `WhileStatement`
 \| `WithStatement`
 \| `YieldExpression`
+
+The innermost non-type-expression node.

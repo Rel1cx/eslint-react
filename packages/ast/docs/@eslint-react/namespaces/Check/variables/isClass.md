@@ -6,6 +6,8 @@
 const isClass: (node: Node | null | undefined) => node is ClassDeclarationWithName | ClassDeclarationWithOptionalName | ClassExpression;
 ```
 
+Check if a node is a class declaration or class expression.
+
 ## Parameters
 
 | Parameter | Type                            |

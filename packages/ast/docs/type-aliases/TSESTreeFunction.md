@@ -8,3 +8,5 @@ type TSESTreeFunction =
   | TSESTree.FunctionDeclaration
   | TSESTree.FunctionExpression;
 ```
+
+Union of function-like node types.
