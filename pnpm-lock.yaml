@@ -434,9 +434,6 @@ importers:
       '@typescript-eslint/utils':
         specifier: ^8.65.0
         version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
-      beautiful-mermaid:
-        specifier: ^1.1.3
-        version: 1.1.3
       bsky-react-post:
         specifier: ^0.1.7
         version: 0.1.7(react@19.2.7)(swr@2.4.2(react@19.2.7))
@@ -4543,9 +4540,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  beautiful-mermaid@1.1.3:
-    resolution: {integrity: sha512-TItrtrAyHp1vwFfFVYauWGrquouk/6SS21Aq3RsxindSYZODcN4xYrPZD6BiZRU+o5mKJzDPz9MUSMvELdylyg==}
-
   birecord@0.1.2:
     resolution: {integrity: sha512-5PAPTTmMpMEb+GuMb5DebfBkipRGyIW9+gtwEBSoDA9xkhHILm04+hZQ702pMksu3d8YAuGkmgTzQWcKqTPScA==}
 
@@ -5117,9 +5111,6 @@ packages:
 
   electron-to-chromium@1.5.393:
     resolution: {integrity: sha512-kiDJdIUawuEIcp9XoICKp1iTYDEbgguIPq526N1Q7jIQDeQ3CqoMx71025PI/7E48Ddtw2HuWsVjY7afEgNxmg==}
-
-  elkjs@0.11.1:
-    resolution: {integrity: sha512-zxxR9k+rx5ktMwT/FwyLdPCrq7xN6e4VGGHH8hA01vVYKjTFik7nHOxBnAYtrgYUB1RpAiLvA1/U2YraWxyKKg==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -10982,11 +10973,6 @@ snapshots:
 
   baseline-browser-mapping@2.10.44: {}
 
-  beautiful-mermaid@1.1.3:
-    dependencies:
-      elkjs: 0.11.1
-      entities: 7.0.1
-
   birecord@0.1.2: {}
 
   bl@4.1.0:
@@ -11571,8 +11557,6 @@ snapshots:
   ejs@5.0.1: {}
 
   electron-to-chromium@1.5.393: {}
-
-  elkjs@0.11.1: {}
 
   emoji-regex@10.6.0: {}
 

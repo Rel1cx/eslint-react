@@ -34,7 +34,6 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/types": "^8.65.0",
     "@typescript-eslint/utils": "^8.65.0",
-    "beautiful-mermaid": "^1.1.3",
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "dedent": "^1.7.2",

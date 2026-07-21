@@ -10,7 +10,6 @@
     "presets",
     "recipes",
     "packages",
-    "!diagrams",
     "!examples",
     "configuration",
     "---Project Information---",
