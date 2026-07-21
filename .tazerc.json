@@ -4,7 +4,6 @@
   "ignorePaths": ["testing"],
   "includeLocked": true,
   "install": false,
-  "maturityPeriod": 1,
   "mode": "default",
   "recursive": true,
   "update": false,

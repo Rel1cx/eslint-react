@@ -36,11 +36,11 @@
     "publish": "nub run build:docs && nub run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^8.64.0",
-    "@typescript-eslint/rule-tester": "^8.64.0",
-    "@typescript-eslint/types": "^8.64.0",
-    "@typescript-eslint/typescript-estree": "^8.64.0",
-    "@typescript-eslint/utils": "^8.64.0"
+    "@typescript-eslint/parser": "^8.65.0",
+    "@typescript-eslint/rule-tester": "^8.65.0",
+    "@typescript-eslint/types": "^8.65.0",
+    "@typescript-eslint/typescript-estree": "^8.65.0",
+    "@typescript-eslint/utils": "^8.65.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
@@ -48,7 +48,7 @@
     "@tsconfig/strictest": "^2.0.8",
     "eslint": "^10.7.0",
     "expect-type": "^1.4.0",
-    "tsdown": "^0.22.9",
+    "tsdown": "^0.22.13",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"
   },

@@ -48,8 +48,8 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.64.0",
-    "@typescript-eslint/utils": "^8.64.0",
+    "@typescript-eslint/types": "^8.65.0",
+    "@typescript-eslint/utils": "^8.65.0",
     "birecord": "^0.1.2",
     "ts-pattern": "^5.9.0"
   },
@@ -60,7 +60,7 @@
     "@types/react-dom": "^19.2.3",
     "dedent": "^1.7.2",
     "eslint": "^10.7.0",
-    "tsdown": "^0.22.9",
+    "tsdown": "^0.22.13",
     "typescript": "6.0.3"
   },
   "peerDependencies": {
