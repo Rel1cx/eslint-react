@@ -317,7 +317,7 @@ const program = Effect.gen(function*() {
   yield* Effect.log(`  2. Add test cases in plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.spec.ts`);
   yield* Effect.log(`  3. Write documentation in plugins/${pluginPkgName}/src/rules/${ruleName}/${ruleName}.mdx`);
   yield* Effect.log(`  4. Add the rule to the appropriate preset configs if needed`);
-  yield* Effect.log(`  5. Run ${ansis.cyan("nub run build")} and ${ansis.cyan("nub run test")} to verify`);
+  yield* Effect.log(`  5. Run ${ansis.cyan("node --run build")} and ${ansis.cyan("node --run test")} to verify`);
 });
 
 program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);

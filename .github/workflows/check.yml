@@ -27,22 +27,21 @@ jobs:
         with:
           node-version: 26
           package-manager-cache: false
-      - name: Setup nub
-        # zizmor: ignore[adhoc-packages] installs the nub toolchain per upstream docs; no lockfile applies to a global tool
-        run: npm install --global --ignore-scripts=false @nubjs/nub
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
       - name: Install dependencies
-        run: nub install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Check formatting
-        run: nub run format:check
+        run: node --run format:check
       - name: Build packages
-        run: nub run build
+        run: node --run build
       - name: Lint
-        run: nub run lint
+        run: node --run lint
       - name: Verify rules
-        run: nub run check:rules
+        run: node --run check:rules
       - name: Lint MDX
-        run: nub run lint:mdx
+        run: node --run lint:mdx
       - name: Check website types
-        run: nub run --filter "./apps/website" types:check
+        run: pnpm -F "./apps/website" run types:check
       - name: Verify generated files are up to date
         run: git --no-pager diff --exit-code

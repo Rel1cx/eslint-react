@@ -39,7 +39,7 @@
     "build": "tsdown",
     "lint:publish": "publint --pack npm",
     "lint:ts": "tsl",
-    "publish": "nub run build && nub run lint:publish"
+    "publish": "node --run build && node --run lint:publish"
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
@@ -48,11 +48,11 @@
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.64.0",
-    "@typescript-eslint/type-utils": "^8.64.0",
-    "@typescript-eslint/types": "^8.64.0",
-    "@typescript-eslint/typescript-estree": "^8.64.0",
-    "@typescript-eslint/utils": "^8.64.0",
+    "@typescript-eslint/scope-manager": "^8.65.0",
+    "@typescript-eslint/type-utils": "^8.65.0",
+    "@typescript-eslint/types": "^8.65.0",
+    "@typescript-eslint/typescript-estree": "^8.65.0",
+    "@typescript-eslint/utils": "^8.65.0",
     "compare-versions": "^6.1.1",
     "string-ts": "^2.3.1",
     "ts-api-utils": "^2.5.0",
@@ -67,7 +67,7 @@
     "eslint": "^10.7.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "tsdown": "^0.22.9",
+    "tsdown": "^0.22.12",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.13.3",
     "typescript": "6.0.3"

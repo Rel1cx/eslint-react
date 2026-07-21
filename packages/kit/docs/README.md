@@ -20,7 +20,7 @@
 
 ## Functions
 
-| Function                        | Description                                                   |
-| ------------------------------- | ------------------------------------------------------------- |
-| [default](functions/default.md) | -                                                             |
-| [merge](functions/merge.md)     | Merges multiple visitor objects into a single visitor object. |
+| Function                        | Description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| [default](functions/default.md) | -                                                            |
+| [merge](functions/merge.md)     | Merge multiple visitor objects into a single visitor object. |
