@@ -5,3 +5,5 @@
 ```ts
 const isCreateContext: ReturnType;
 ```
+
+Check if the node is a React `createContext` API identifier or member expression.

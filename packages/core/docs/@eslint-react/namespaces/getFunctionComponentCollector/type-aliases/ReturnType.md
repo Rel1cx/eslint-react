@@ -11,6 +11,8 @@ type ReturnType = {
 };
 ```
 
+The api and visitor pair returned by [getFunctionComponentCollector](../../../../functions/getFunctionComponentCollector.md).
+
 ## Properties
 
 | Property                                | Type                                                                                                                                                    |

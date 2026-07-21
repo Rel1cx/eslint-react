@@ -24,4 +24,4 @@ Check if a function has a loose component name.
 
 `boolean`
 
-Whether the function has a loose component name.
+`true` if the function has a loose component name.

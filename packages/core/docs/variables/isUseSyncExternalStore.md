@@ -5,3 +5,5 @@
 ```ts
 const isUseSyncExternalStore: ReturnType;
 ```
+
+Check if the node is a React `useSyncExternalStore` API identifier or member expression.

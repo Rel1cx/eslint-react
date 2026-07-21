@@ -2,9 +2,7 @@ import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction } from "@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { SemanticFunc } from "./semantic";
 
-/**
- * Type representing the return type of `getFunctionId`.
- */
+/** The return type of {@link getFunctionId}. */
 export type FunctionID = ReturnType<typeof getFunctionId>;
 
 /**
@@ -88,9 +86,7 @@ export type FunctionKind =
  * Represents a client function semantic node.
  */
 export interface ClientFunctionSemanticNode extends SemanticFunc {
-  /**
-   * The kind of function.
-   */
+  /** The kind of function. */
   kind: "client-function";
 }
 
@@ -98,9 +94,7 @@ export interface ClientFunctionSemanticNode extends SemanticFunc {
  * Represents a server function semantic node.
  */
 export interface ServerFunctionSemanticNode extends SemanticFunc {
-  /**
-   * The kind of function.
-   */
+  /** The kind of function. */
   kind: "server-function";
 }
 
@@ -110,7 +104,7 @@ export interface ServerFunctionSemanticNode extends SemanticFunc {
 export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSemanticNode;
 
 /**
- * Gets the static identifier of a function AST node.
+ * Get the static identifier of a function AST node.
  *
  * @remarks
  * For function declarations this is straightforward. For anonymous function
@@ -169,7 +163,7 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
 }
 
 /**
- * Identifies the initialization path of a function node in the AST.
+ * Get the initialization path of a function node in the AST.
  *
  * @param node The function node to analyze.
  * @returns The function initialization path or `null` if not identifiable.
@@ -221,7 +215,7 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
 }
 
 /**
- * Checks if a specific function call exists in the function initialization path.
+ * Check if a specific function call exists in the function initialization path.
  *
  * @param callName The name of the call to check for (e.g., "memo", "forwardRef").
  * @param initPath The function initialization path to search in.
@@ -250,7 +244,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
 }
 
 /**
- * Checks if a function is empty.
+ * Check if a function is empty.
  *
  * @param node The function node to check.
  * @returns `true` if the function is empty, `false` otherwise.
@@ -260,6 +254,11 @@ export function isFunctionEmpty(node: TSESTreeFunction) {
     && node.body.body.length === 0;
 }
 
+/**
+ * Get the directives of a function (ex: "use strict", "use client", "use server").
+ * @param node The function node to get the directives from.
+ * @returns The directives of the function.
+ */
 export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective[] {
   const directives: TSESTreeDirective[] = [];
   if (node.body.type !== AST.BlockStatement) return directives;
@@ -274,7 +273,7 @@ export function getFunctionDirectives(node: TSESTreeFunction): TSESTreeDirective
 }
 
 /**
- * Checks if a directive with the given name exists in the function directives.
+ * Check if a directive with the given name exists in the function directives.
  *
  * @param node The function AST node.
  * @param name The directive name to check (e.g., "use memo", "use no memo").
@@ -284,6 +283,7 @@ export function isFunctionHasDirective(node: TSESTreeFunction, name: string): bo
   return getFunctionDirectives(node).some((d) => d.directive === name);
 }
 
+/** Represents a `displayName` assignment expression (ex: `Component.displayName = "MyComponent"`). */
 export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   left: TSESTree.MemberExpression & {
     property: TSESTree.Identifier & { name: "displayName" };
@@ -292,6 +292,7 @@ export type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
   right: TSESTree.Literal;
 };
 
+/** The esquery selector matching `displayName` assignment expressions. */
 export const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT = [
   "AssignmentExpression",
   "[operator='=']",

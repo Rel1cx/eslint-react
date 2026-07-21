@@ -6,12 +6,16 @@
 function isClassComponent(node: Node): node is TSESTreeClass;
 ```
 
+Check if the node is a class component (extends `Component` or `PureComponent`).
+
 ## Parameters
 
-| Parameter | Type   |
-| --------- | ------ |
-| `node`    | `Node` |
+| Parameter | Type   | Description        |
+| --------- | ------ | ------------------ |
+| `node`    | `Node` | The node to check. |
 
 ## Returns
 
 `node is TSESTreeClass`
+
+`true` if the node is a class component.

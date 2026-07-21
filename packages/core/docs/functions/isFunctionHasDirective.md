@@ -6,7 +6,7 @@
 function isFunctionHasDirective(node: TSESTreeFunction, name: string): boolean;
 ```
 
-Checks if a directive with the given name exists in the function directives.
+Check if a directive with the given name exists in the function directives.
 
 ## Parameters
 

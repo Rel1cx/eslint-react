@@ -6,6 +6,8 @@
 function isPureComponent(node: Node): boolean;
 ```
 
+Check if the node is a pure component (extends `PureComponent`).
+
 ## Parameters
 
 | Parameter | Type   | Description            |
@@ -15,6 +17,8 @@ function isPureComponent(node: Node): boolean;
 ## Returns
 
 `boolean`
+
+`true` if the node is a pure component.
 
 ## Deprecated
 

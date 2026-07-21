@@ -5,3 +5,5 @@
 ```ts
 const isUseRef: ReturnType;
 ```
+
+Check if the node is a React `useRef` API identifier or member expression.

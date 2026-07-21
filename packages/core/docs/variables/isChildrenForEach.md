@@ -5,3 +5,5 @@
 ```ts
 const isChildrenForEach: ReturnType;
 ```
+
+Check if the node is a React `Children.forEach` API identifier or member expression.

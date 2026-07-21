@@ -6,4 +6,4 @@
 type FunctionID = ReturnType<typeof getFunctionId>;
 ```
 
-Type representing the return type of `getFunctionId`.
+The return type of [getFunctionId](../functions/getFunctionId.md).

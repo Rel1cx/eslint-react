@@ -9,6 +9,8 @@ type ReturnType = {
 };
 ```
 
+The dual-signature predicate type returned by [isAPI](../../../../functions/isAPI.md).
+
 ## Call Signature
 
 ```ts

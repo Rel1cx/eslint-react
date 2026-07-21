@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 /**
- * An enhanced version of getFullyQualifiedName that handles cases that original function does not handle.
+ * Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.getFullyQualifiedName` does not handle (ex: `export as namespace preact`).
  * @param checker The TypeScript type checker.
  * @param symbol The symbol to get fully qualified name for.
  * @returns The fully qualified name of the symbol.

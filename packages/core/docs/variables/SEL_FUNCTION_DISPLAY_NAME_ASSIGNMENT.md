@@ -5,3 +5,5 @@
 ```ts
 const SEL_FUNCTION_DISPLAY_NAME_ASSIGNMENT: string;
 ```
+
+The esquery selector matching `displayName` assignment expressions.

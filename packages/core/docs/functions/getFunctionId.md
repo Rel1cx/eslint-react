@@ -112,7 +112,7 @@ function getFunctionId(
   | null;
 ```
 
-Gets the static identifier of a function AST node.
+Get the static identifier of a function AST node.
 
 ## Parameters
 

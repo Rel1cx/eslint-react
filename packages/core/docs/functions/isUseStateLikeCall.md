@@ -6,7 +6,7 @@
 function isUseStateLikeCall(node: Node | null, additionalStateHooks?: RegExpLike): node is CallExpression;
 ```
 
-Detect useState calls and variations using a regex pattern.
+Check if the node is a useState-like call (ex: `useState` or a custom state hook).
 
 ## Parameters
 
@@ -19,4 +19,4 @@ Detect useState calls and variations using a regex pattern.
 
 `node is CallExpression`
 
-True if the node is a useState-like call.
+`true` if the node is a useState-like call.

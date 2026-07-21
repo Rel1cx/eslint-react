@@ -6,6 +6,8 @@
 function getClassComponentCollector(context: RuleContext): ReturnType;
 ```
 
+Get an api and visitor object for the rule to collect class components.
+
 ## Parameters
 
 | Parameter | Type          | Description       |

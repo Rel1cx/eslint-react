@@ -16,17 +16,29 @@ export type JsxDetectionHint = bigint;
  * Hints for JSX detection.
  */
 export const JsxDetectionHint = {
+  /** No hints set. */
   None: 0n,
+  /** Do not treat `null` values as JSX-like. */
   DoNotIncludeJsxWithNullValue: 1n << 0n,
+  /** Do not treat number values as JSX-like. */
   DoNotIncludeJsxWithNumberValue: 1n << 1n,
+  /** Do not treat bigint values as JSX-like. */
   DoNotIncludeJsxWithBigIntValue: 1n << 2n,
+  /** Do not treat string values as JSX-like. */
   DoNotIncludeJsxWithStringValue: 1n << 3n,
+  /** Do not treat boolean values as JSX-like. */
   DoNotIncludeJsxWithBooleanValue: 1n << 4n,
+  /** Do not treat undefined values as JSX-like. */
   DoNotIncludeJsxWithUndefinedValue: 1n << 5n,
+  /** Do not treat empty array values as JSX-like. */
   DoNotIncludeJsxWithEmptyArrayValue: 1n << 6n,
+  /** Do not treat `createElement` calls as JSX-like. */
   DoNotIncludeJsxWithCreateElementValue: 1n << 7n,
+  /** Require all array elements to be JSX-like for the array to be JSX-like. */
   RequireAllArrayElementsToBeJsx: 1n << 8n,
+  /** Require both sides of a logical expression to be JSX-like. */
   RequireBothSidesOfLogicalExpressionToBeJsx: 1n << 9n,
+  /** Require both branches of a conditional expression to be JSX-like. */
   RequireBothBranchesOfConditionalExpressionToBeJsx: 1n << 10n,
 } as const;
 /* eslint-enable perfectionist/sort-objects */
@@ -46,9 +58,9 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
   | JsxDetectionHint.DoNotIncludeJsxWithUndefinedValue;
 
 /**
- * Determine whether a node represents JSX-like content based on heuristics.
+ * Check if the node represents JSX-like content based on heuristics.
  *
- * The detection behaviour is configurable through {@link JsxDetectionHint}
+ * The detection behavior is configurable through {@link JsxDetectionHint}
  * bit-flags so that callers can opt individual value kinds in or out.
  *
  * Identifiers are resolved to their definitions via scope analysis;
@@ -56,8 +68,8 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
  * treated as not JSX-like instead of recursing indefinitely.
  *
  * @param context The ESLint rule context (needed for variable resolution).
- * @param node The AST node to analyse.
- * @param hint Optional bit-flags to adjust detection behaviour. Defaults to {@link DEFAULT_JSX_DETECTION_HINT}.
+ * @param node The AST node to analyze.
+ * @param hint Optional bit-flags to adjust detection behavior. Defaults to {@link DEFAULT_JSX_DETECTION_HINT}.
  * @returns Whether the node is considered JSX-like.
  *
  * @example

@@ -5,3 +5,5 @@
 ```ts
 const isCloneElementCall: ReturnType;
 ```
+
+Check if the node is a call expression to the React `cloneElement` API.

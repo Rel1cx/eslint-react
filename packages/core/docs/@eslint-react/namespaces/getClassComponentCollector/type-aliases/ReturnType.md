@@ -11,6 +11,8 @@ type ReturnType = {
 };
 ```
 
+The api and visitor pair returned by [getClassComponentCollector](../../../../functions/getClassComponentCollector.md).
+
 ## Properties
 
 | Property                                    | Type                                                                                                                                              |

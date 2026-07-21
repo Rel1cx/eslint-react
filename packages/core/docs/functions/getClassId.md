@@ -18,4 +18,4 @@ Get the class identifier of a class node.
 
 `BindingName` \| `null`
 
-The class identifier or null if not found.
+The class identifier or `null` if not found.

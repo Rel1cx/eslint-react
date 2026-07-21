@@ -6,6 +6,8 @@
 function isThisSetStateCall(node: CallExpression): boolean;
 ```
 
+Check if the call expression is a `this.setState(...)` call.
+
 ## Parameters
 
 | Parameter | Type             | Description                        |
@@ -15,6 +17,8 @@ function isThisSetStateCall(node: CallExpression): boolean;
 ## Returns
 
 `boolean`
+
+`true` if the node is a `this.setState(...)` call.
 
 ## Deprecated
 

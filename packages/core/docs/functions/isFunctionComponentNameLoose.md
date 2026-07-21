@@ -17,3 +17,5 @@ Check if a string matches the loose component name pattern.
 ## Returns
 
 `boolean`
+
+`true` if the name matches the loose component name pattern.

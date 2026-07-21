@@ -12,6 +12,7 @@ import { type ClassComponentSemanticNode, isClassComponent } from "./class-compo
  * @deprecated Class components are legacy. This namespace exists only to support legacy rules.
  */
 export declare namespace getClassComponentCollector {
+  /** The api and visitor pair returned by {@link getClassComponentCollector}. */
   type ReturnType = {
     api: {
       getAllComponents: (node: TSESTree.Program) => ClassComponentSemanticNode[];
@@ -21,6 +22,7 @@ export declare namespace getClassComponentCollector {
 }
 
 /**
+ * Get an api and visitor object for the rule to collect class components.
  * @param context The rule context.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */

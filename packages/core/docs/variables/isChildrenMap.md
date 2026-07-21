@@ -5,3 +5,5 @@
 ```ts
 const isChildrenMap: ReturnType;
 ```
+
+Check if the node is a React `Children.map` API identifier or member expression.

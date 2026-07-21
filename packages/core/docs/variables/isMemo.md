@@ -5,3 +5,5 @@
 ```ts
 const isMemo: ReturnType;
 ```
+
+Check if the node is a React `memo` API identifier or member expression.

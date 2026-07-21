@@ -11,9 +11,13 @@ import ts from "typescript";
  * annotations found in the source file.
  */
 export interface JsxConfig {
+  /** The JSX emit mode. */
   jsx?: ts.JsxEmit;
+  /** The JSX factory function (ex: `React.createElement`). */
   jsxFactory?: string;
+  /** The JSX fragment factory (ex: `React.Fragment`). */
   jsxFragmentFactory?: string;
+  /** The JSX import source (ex: `react`). */
   jsxImportSource?: string;
 }
 

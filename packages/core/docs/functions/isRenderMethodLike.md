@@ -6,6 +6,8 @@
 function isRenderMethodLike(node: Node): node is TSESTreeMethodOrPropertyDefinition;
 ```
 
+Check if the node is a render-like method of a class component.
+
 ## Parameters
 
 | Parameter | Type   | Description            |
@@ -15,6 +17,8 @@ function isRenderMethodLike(node: Node): node is TSESTreeMethodOrPropertyDefinit
 ## Returns
 
 `node is TSESTreeMethodOrPropertyDefinition`
+
+`true` if the node is a render-like method.
 
 ## Deprecated
 

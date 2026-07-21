@@ -9,6 +9,8 @@ type Options = {
 };
 ```
 
+The options for [getFunctionComponentCollector](../../../../functions/getFunctionComponentCollector.md).
+
 ## Properties
 
 | Property                                                       | Type                                                                                           |

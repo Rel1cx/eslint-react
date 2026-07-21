@@ -6,7 +6,7 @@
 function getFunctionInitPath(node: TSESTreeFunction): FunctionInitPath | null;
 ```
 
-Identifies the initialization path of a function node in the AST.
+Get the initialization path of a function node in the AST.
 
 ## Parameters
 

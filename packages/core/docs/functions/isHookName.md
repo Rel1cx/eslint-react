@@ -6,8 +6,7 @@
 function isHookName(name: string): boolean;
 ```
 
-Catch all identifiers that begin with "use" followed by an uppercase Latin
-character to exclude identifiers like "user".
+Check if the name is a hook name (starts with `use` followed by an uppercase letter or digit).
 
 ## Parameters
 
@@ -18,6 +17,8 @@ character to exclude identifiers like "user".
 ## Returns
 
 `boolean`
+
+`true` if the name is a hook name.
 
 ## See
 

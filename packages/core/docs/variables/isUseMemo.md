@@ -5,3 +5,5 @@
 ```ts
 const isUseMemo: ReturnType;
 ```
+
+Check if the node is a React `useMemo` API identifier or member expression.

@@ -6,7 +6,7 @@
 function getFullyQualifiedNameEx(checker: TypeChecker, symbol: Symbol): string;
 ```
 
-An enhanced version of getFullyQualifiedName that handles cases that original function does not handle.
+Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.getFullyQualifiedName` does not handle (ex: `export as namespace preact`).
 
 ## Parameters
 

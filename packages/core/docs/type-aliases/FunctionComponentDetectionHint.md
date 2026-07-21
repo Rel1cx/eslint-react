@@ -6,4 +6,4 @@
 type FunctionComponentDetectionHint = bigint;
 ```
 
-Hints for component collector.
+The bit-flags for customizing function component detection.

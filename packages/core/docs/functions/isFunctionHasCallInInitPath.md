@@ -6,7 +6,7 @@
 function isFunctionHasCallInInitPath(callName: string, initPath: FunctionInitPath): boolean;
 ```
 
-Checks if a specific function call exists in the function initialization path.
+Check if a specific function call exists in the function initialization path.
 
 ## Parameters
 

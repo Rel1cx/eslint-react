@@ -16,68 +16,44 @@ import type { SemanticNode } from "./semantic";
  * Represents a React Function Component.
  */
 export interface FunctionComponentSemanticNode extends SemanticNode {
-  /**
-   * The identifier or identifier sequence of the component.
-   */
+  /** The identifier or identifier sequence of the component. */
   id: FunctionID;
 
-  /**
-   * The kind of component.
-   */
+  /** The kind of component. */
   kind: "component";
 
-  /**
-   * The AST node of the function.
-   */
+  /** The AST node of the function. */
   node: TSESTreeFunction;
 
-  /**
-   * Flags describing the component's characteristics.
-   */
+  /** Flags describing the component's characteristics. */
   flag: bigint;
 
-  /**
-   * Hint for how the component was detected.
-   */
+  /** Hint for how the component was detected. */
   hint: bigint;
 
-  /**
-   * List of expressions returned by the component.
-   */
+  /** List of expressions returned by the component. */
   rets: TSESTree.ReturnStatement["argument"][];
 
-  /**
-   * The initialization path of the function.
-   */
+  /** The initialization path of the function. */
   initPath:
     | null
     | FunctionInitPath;
 
-  /**
-   * Indicates if the component is inside an export default declaration.
-   */
+  /** Indicates if the component is inside an export default declaration. */
   isExportDefault: boolean;
 
-  /**
-   * Indicates if the component is itself an export default declaration.
-   */
+  /** Indicates if the component is itself an export default declaration. */
   isExportDefaultDeclaration: boolean;
 
-  /**
-   * List of hook calls within the component.
-   */
+  /** List of hook calls within the component. */
   hookCalls: HookCall[];
 
-  /**
-   * The display name of the component.
-   */
+  /** The display name of the component. */
   displayName:
     | null
     | TSESTree.Expression;
 
-  /**
-   * The directives used in the function (ex: "use strict", "use client", etc.).
-   */
+  /** The directives used in the function (ex: "use strict", "use client", etc.). */
   directives: TSESTreeDirective[];
 }
 
@@ -187,6 +163,7 @@ export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunct
 /**
  * Check if a string matches the strict component name pattern.
  * @param name The name to check.
+ * @returns `true` if the name matches the strict component name pattern.
  */
 export function isFunctionComponentName(name: string) {
   return RE_COMPONENT_NAME.test(name);
@@ -195,6 +172,7 @@ export function isFunctionComponentName(name: string) {
 /**
  * Check if a string matches the loose component name pattern.
  * @param name The name to check.
+ * @returns `true` if the name matches the loose component name pattern.
  */
 export function isFunctionComponentNameLoose(name: string) {
   return RE_COMPONENT_NAME_LOOSE.test(name);
@@ -205,7 +183,7 @@ export function isFunctionComponentNameLoose(name: string) {
  * @param context The rule context.
  * @param fn The function to check.
  * @param allowNone Whether to allow no name.
- * @returns Whether the function has a loose component name.
+ * @returns `true` if the function has a loose component name.
  */
 export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
@@ -223,6 +201,7 @@ export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSEST
 
 // #region Component Detection
 
+/** The bit-flags for customizing function component detection. */
 export type FunctionComponentDetectionHint = bigint;
 
 /**
@@ -231,15 +210,23 @@ export type FunctionComponentDetectionHint = bigint;
 export const FunctionComponentDetectionHint = {
   ...JsxDetectionHint,
 
+  /** Exclude functions defined as class methods from component detection. */
   DoNotIncludeFunctionDefinedAsClassMethod: 1n << 11n,
+  /** Exclude functions defined as class properties from component detection. */
   DoNotIncludeFunctionDefinedAsClassProperty: 1n << 12n,
+  /** Exclude functions defined as object methods from component detection. */
   DoNotIncludeFunctionDefinedAsObjectMethod: 1n << 13n,
 
+  /** Exclude functions defined as array expression elements from component detection. */
   DoNotIncludeFunctionDefinedAsArrayExpressionElement: 1n << 14n,
+  /** Exclude functions defined as array pattern elements from component detection. */
   DoNotIncludeFunctionDefinedAsArrayPatternElement: 1n << 15n,
 
+  /** Exclude functions defined as array flatMap callbacks from component detection. */
   DoNotIncludeFunctionDefinedAsArrayFlatMapCallback: 1n << 16n,
+  /** Exclude functions defined as array map callbacks from component detection. */
   DoNotIncludeFunctionDefinedAsArrayMapCallback: 1n << 17n,
+  /** Exclude functions defined as arbitrary call expression callbacks from component detection. */
   DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback: 1n << 18n,
 } as const;
 
@@ -262,7 +249,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
   | FunctionComponentDetectionHint.RequireBothSidesOfLogicalExpressionToBeJsx;
 
 /**
- * Determine if a function node represents a valid React component definition.
+ * Check if the function node is a valid React component definition.
  *
  * @param context The rule context.
  * @param node The function node to analyze.

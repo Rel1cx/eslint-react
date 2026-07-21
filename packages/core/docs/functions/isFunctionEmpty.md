@@ -6,7 +6,7 @@
 function isFunctionEmpty(node: TSESTreeFunction): boolean;
 ```
 
-Checks if a function is empty.
+Check if a function is empty.
 
 ## Parameters
 

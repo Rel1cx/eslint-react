@@ -23,3 +23,5 @@ type TypeVariant =
   | "truthy number"
   | "truthy string";
 ```
+
+Represents the variant of a type for boolean expression analysis.

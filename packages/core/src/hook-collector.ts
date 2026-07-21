@@ -11,6 +11,7 @@ interface FunctionEntry extends HookSemanticNode {
 }
 
 export declare namespace getHookCollector {
+  /** The api and visitor pair returned by {@link getHookCollector}. */
   type ReturnType = {
     api: {
       getAllHooks(node: TSESTree.Program): HookSemanticNode[];

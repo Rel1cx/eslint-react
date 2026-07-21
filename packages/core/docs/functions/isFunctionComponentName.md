@@ -17,3 +17,5 @@ Check if a string matches the strict component name pattern.
 ## Returns
 
 `boolean`
+
+`true` if the name matches the strict component name pattern.

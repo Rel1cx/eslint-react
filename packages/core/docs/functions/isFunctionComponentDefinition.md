@@ -10,7 +10,7 @@ function isFunctionComponentDefinition(
 ): boolean;
 ```
 
-Determine if a function node represents a valid React component definition.
+Check if the function node is a valid React component definition.
 
 ## Parameters
 

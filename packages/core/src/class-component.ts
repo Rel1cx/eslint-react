@@ -8,12 +8,19 @@ import type { SemanticNode } from "./semantic";
  * @deprecated Class components are legacy. This type exists only to support legacy rules.
  */
 export interface ClassComponentSemanticNode extends SemanticNode {
+  /** The identifier of the class component. */
   id: null | TSESTree.BindingName;
+  /** The kind of component. */
   kind: "class-component";
+  /** The display name of the component. */
   displayName: null | TSESTree.Expression;
+  /** Flags describing the component's characteristics. */
   flag: bigint;
+  /** Hint for how the component was detected. */
   hint: bigint;
+  /** The methods of the class component. */
   methods: TSESTreeMethodOrPropertyDefinition[];
+  /** The AST node of the class. */
   node: TSESTreeClass;
 }
 
@@ -21,6 +28,11 @@ export interface ClassComponentSemanticNode extends SemanticNode {
 
 // #region Class Component Detection
 
+/**
+ * Check if the node is a class component (extends `Component` or `PureComponent`).
+ * @param node The node to check.
+ * @returns `true` if the node is a class component.
+ */
 export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
@@ -36,7 +48,9 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
 }
 
 /**
+ * Check if the node is a pure component (extends `PureComponent`).
  * @param node The AST node to check.
+ * @returns `true` if the node is a pure component.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isPureComponent(node: TSESTree.Node) {
@@ -109,7 +123,9 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
 // #region Render Method Detection
 
 /**
+ * Check if the node is a render-like method of a class component.
  * @param node The AST node to check.
+ * @returns `true` if the node is a render-like method.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
@@ -119,6 +135,11 @@ export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodO
     && Check.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
 
+/**
+ * Check if the function is a callback passed to a class component's render method.
+ * @param node The function node to check.
+ * @returns `true` if the function is a render method callback.
+ */
 export function isRenderMethodCallback(node: TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
@@ -133,7 +154,9 @@ export function isRenderMethodCallback(node: TSESTreeFunction) {
 // #region State Helpers
 
 /**
+ * Check if the call expression is a `this.setState(...)` call.
  * @param node The call expression node to check.
+ * @returns `true` if the node is a `this.setState(...)` call.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isThisSetStateCall(node: TSESTree.CallExpression) {
@@ -146,7 +169,9 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
 }
 
 /**
+ * Check if the assignment expression assigns to `this.state`.
  * @param node The assignment expression node to check.
+ * @returns `true` if the node assigns to `this.state`.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {

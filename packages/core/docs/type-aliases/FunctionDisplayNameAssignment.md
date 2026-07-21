@@ -14,6 +14,8 @@ type FunctionDisplayNameAssignment = TSESTree.AssignmentExpression & {
 };
 ```
 
+Represents a `displayName` assignment expression (ex: `Component.displayName = "MyComponent"`).
+
 ## Type Declaration
 
 | Name       | Type                                                                                                    |

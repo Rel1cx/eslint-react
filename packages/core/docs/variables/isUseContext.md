@@ -5,3 +5,5 @@
 ```ts
 const isUseContext: ReturnType;
 ```
+
+Check if the node is a React `useContext` API identifier or member expression.

@@ -5,3 +5,5 @@
 ```ts
 const isCreateElement: ReturnType;
 ```
+
+Check if the node is a React `createElement` API identifier or member expression.

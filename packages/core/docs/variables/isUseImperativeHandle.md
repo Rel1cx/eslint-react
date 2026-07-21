@@ -5,3 +5,5 @@
 ```ts
 const isUseImperativeHandle: ReturnType;
 ```
+
+Check if the node is a React `useImperativeHandle` API identifier or member expression.

@@ -6,6 +6,8 @@
 function isAssignmentToThisState(node: AssignmentExpression): boolean;
 ```
 
+Check if the assignment expression assigns to `this.state`.
+
 ## Parameters
 
 | Parameter | Type                   | Description                              |
@@ -15,6 +17,8 @@ function isAssignmentToThisState(node: AssignmentExpression): boolean;
 ## Returns
 
 `boolean`
+
+`true` if the node assigns to `this.state`.
 
 ## Deprecated
 

@@ -21,10 +21,12 @@ interface FunctionEntry extends FunctionComponentSemanticNode {
 }
 
 export declare namespace getFunctionComponentCollector {
+  /** The options for {@link getFunctionComponentCollector}. */
   type Options = {
     collectDisplayName?: boolean;
     hint?: FunctionComponentDetectionHint;
   };
+  /** The api and visitor pair returned by {@link getFunctionComponentCollector}. */
   type ReturnType = {
     api: {
       getAllComponents: (node: TSESTree.Program) => FunctionComponentSemanticNode[];

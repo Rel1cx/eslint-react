@@ -11,6 +11,8 @@ type ReturnType = {
 };
 ```
 
+The api and visitor pair returned by [getHookCollector](../../../../functions/getHookCollector.md).
+
 ## Properties
 
 | Property                                | Type                                                                                     |

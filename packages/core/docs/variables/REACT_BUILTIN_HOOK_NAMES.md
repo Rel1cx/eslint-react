@@ -25,3 +25,5 @@ const REACT_BUILTIN_HOOK_NAMES: readonly [
   "useTransition",
 ];
 ```
+
+The names of React's built-in hooks.

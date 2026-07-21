@@ -6,7 +6,7 @@
 function isHookCall(node: Node | null): node is CallExpression;
 ```
 
-Check if the given node is a React Hook call by its name.
+Check if the node is a React Hook call by its name.
 
 ## Parameters
 
