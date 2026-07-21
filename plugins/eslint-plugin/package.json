@@ -43,7 +43,7 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "lint:publish": "publint",
+    "lint:publish": "publint --pack npm",
     "lint:ts": "tsl",
     "publish": "nub run build && nub run lint:publish"
   },
