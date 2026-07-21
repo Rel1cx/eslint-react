@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "cd ../.. && npm install --global --ignore-scripts=false @nubjs/nub && nub install",
-  "buildCommand": "nub run build"
+  "buildCommand": "cd ../.. && nub run build && nub run --filter \"./apps/website\" build"
 }
