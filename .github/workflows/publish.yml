@@ -29,26 +29,26 @@ jobs:
         with:
           node-version: 26
           package-manager-cache: false
-      - name: Setup pnpm
-        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
+      - name: Setup nub
+        uses: nubjs/setup-nub@v0
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: nub install --frozen-lockfile --ignore-scripts
       - name: Build packages
-        run: node --run build
+        run: nub run build
       - name: Publish
         run: |
           if git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public
+            nub --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-rc\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag rc --no-git-checks
+            nub --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag rc --no-git-checks
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-beta\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag beta --no-git-checks
+            nub --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag beta --no-git-checks
           elif git log -1 --pretty=%B | grep "^release: [0-9]\+\.[0-9]\+\.[0-9]\+-next\.[0-9]\+$";
           then
-            pnpm --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag next --no-git-checks
+            nub --filter "./packages/*" --filter "./plugins/*" publish --provenance --access public --tag next --no-git-checks
           else
             echo "Not a release, skipping publish"
           fi

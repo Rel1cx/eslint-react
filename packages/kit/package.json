@@ -39,7 +39,7 @@
     "build:docs": "typedoc",
     "lint:publish": "publint",
     "lint:ts": "tsl",
-    "publish": "node --run build && node --run lint:publish"
+    "publish": "nub run build && nub run lint:publish"
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",

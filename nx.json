@@ -3,6 +3,9 @@
   "parallel": 8,
   "cacheDirectory": ".nx/cache",
   "defaultBase": "main",
+  "cli": {
+    "packageManager": "npm"
+  },
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",

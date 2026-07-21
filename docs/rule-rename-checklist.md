@@ -56,8 +56,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### A9. Verify
 
-- [ ] `pnpm tsc --noEmit`
-- [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts`
+- [ ] `nub exec tsc --noEmit`
+- [ ] `nub exec vitest run src/rules/<new-name>/<new-name>.spec.ts`
 - [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "<old-name>" plugins/ packages/` — no leftover references
 
 ---
@@ -67,7 +67,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 ### B1. Dependencies
 
 - [ ] Check if the source plugin uses dependencies not yet listed in `eslint-plugin-react-x/package.json`.
-- [ ] Add any missing dependencies and run `pnpm install --filter eslint-plugin-react-x`.
+- [ ] Add any missing dependencies and run `nub install --filter eslint-plugin-react-x`.
 
 ### B2. New Source Files (in `eslint-plugin-react-x`)
 
@@ -111,8 +111,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### B8. Verify
 
-- [ ] `pnpm tsc --noEmit` in all affected packages.
-- [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts`
+- [ ] `nub exec tsc --noEmit` in all affected packages.
+- [ ] `nub exec vitest run src/rules/<rule-name>/<rule-name>.spec.ts`
 - [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "react-<source>/<rule-name>" plugins/ packages/` — no stale references
 
 ---
