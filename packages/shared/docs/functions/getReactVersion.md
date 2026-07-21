@@ -6,7 +6,7 @@
 function getReactVersion(fallback: string): string;
 ```
 
-Gets the React version from the project's dependencies.
+Get the React version from the project's dependencies.
 
 ## Parameters
 

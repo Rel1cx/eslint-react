@@ -1,7 +1,7 @@
 import type * as tseslint from "@typescript-eslint/utils/ts-eslint";
 
 /**
- * Rule context.
+ * Represents the ESLint rule context.
  * @since 0.0.1
  */
 export type RuleContext<
@@ -13,7 +13,7 @@ export type RuleContext<
 >;
 
 /**
- * Rule feature.
+ * Represents the feature of a rule.
  * @since 1.20.0
  */
 export type RuleFeature =

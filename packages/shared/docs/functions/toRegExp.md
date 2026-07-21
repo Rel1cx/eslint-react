@@ -6,9 +6,10 @@
 function toRegExp(string: string | null | undefined): RegExpLike;
 ```
 
-Convert a string to the `RegExp`.
-Normal strings (ex: `"foo"`) is converted to `/^foo$/` of `RegExp`.
-Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
+Convert a string to a `RegExpLike` object.
+
+Normal strings (ex: `"foo"`) are converted to `/^foo$/`.
+RegExp strings (ex: `"/^foo/i"`) are converted to `/^foo/i`.
 
 ## Parameters
 
@@ -20,7 +21,7 @@ Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
 
 [`RegExpLike`](../type-aliases/RegExpLike.md)
 
-Returns the `RegExp`.
+The converted `RegExpLike` object.
 
 ## See
 

@@ -9,21 +9,21 @@
 
 ## Type Aliases
 
-| Type Alias                                             | Description   |
-| ------------------------------------------------------ | ------------- |
-| [ReportFixFunction](type-aliases/ReportFixFunction.md) | -             |
-| [RuleContext](type-aliases/RuleContext.md)             | Rule context. |
-| [RuleFeature](type-aliases/RuleFeature.md)             | Rule feature. |
-| [RuleListener](type-aliases/RuleListener.md)           | -             |
+| Type Alias                                             | Description                         |
+| ------------------------------------------------------ | ----------------------------------- |
+| [ReportFixFunction](type-aliases/ReportFixFunction.md) | -                                   |
+| [RuleContext](type-aliases/RuleContext.md)             | Represents the ESLint rule context. |
+| [RuleFeature](type-aliases/RuleFeature.md)             | Represents the feature of a rule.   |
+| [RuleListener](type-aliases/RuleListener.md)           | -                                   |
 
 ## Variables
 
-| Variable                              | Description |
-| ------------------------------------- | ----------- |
-| [createRule](variables/createRule.md) | -           |
+| Variable                              | Description                                                                |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| [createRule](variables/createRule.md) | The rule creator that generates documentation URLs for ESLint React rules. |
 
 ## Functions
 
-| Function                    | Description                                                   |
-| --------------------------- | ------------------------------------------------------------- |
-| [merge](functions/merge.md) | Merges multiple visitor objects into a single visitor object. |
+| Function                    | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| [merge](functions/merge.md) | Merge multiple visitor objects into a single visitor object. |

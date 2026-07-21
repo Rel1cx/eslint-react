@@ -6,7 +6,7 @@
 function isRegExp(string: string): boolean;
 ```
 
-Check whether given string is regexp string.
+Check if the string is a RegExp string.
 
 ## Parameters
 
@@ -18,4 +18,4 @@ Check whether given string is regexp string.
 
 `boolean`
 
-boolean.
+`true` if the string is a RegExp string.

@@ -8,7 +8,7 @@ type RegExpLike = {
 };
 ```
 
-A type represents RegExp-like object with `test` method.
+Represents a RegExp-like object with a `test` method.
 
 ## Properties
 

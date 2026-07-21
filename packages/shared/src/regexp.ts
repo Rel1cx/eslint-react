@@ -1,107 +1,75 @@
 import { constFalse } from "@local/eff";
 
-/**
- * Regular expressions for matching a HTML tag name.
- */
+/** Regular expression for matching an HTML tag name. */
 export const RE_HTML_TAG = /^[a-z][^-]*$/u;
 
-/**
- * Regular expression for matching a TypeScript file extension.
- */
+/** Regular expression for matching a TypeScript file extension. */
 export const RE_TS_EXT = /^[cm]?tsx?$/u;
 
-/**
- * Regular expression for matching a JavaScript file extension.
- */
+/** Regular expression for matching a JavaScript file extension. */
 export const RE_JS_EXT = /^[cm]?jsx?$/u;
 
-/**
- * Regular expression for matching a PascalCase string.
- */
+/** Regular expression for matching a PascalCase string. */
 export const RE_PASCAL_CASE = /^[A-Z][\dA-Za-z]*$/u;
 
-/**
- * Regular expression for matching a camelCase string.
- */
+/** Regular expression for matching a camelCase string. */
 export const RE_CAMEL_CASE = /^[a-z][\dA-Za-z]*$/u;
 
-/**
- * Regular expression for matching a kebab-case string.
- */
+/** Regular expression for matching a kebab-case string. */
 export const RE_KEBAB_CASE = /^[a-z][\d\-a-z]*$/u;
 
-/**
- * Regular expression for matching a snake_case string.
- */
+/** Regular expression for matching a snake_case string. */
 export const RE_SNAKE_CASE = /^[a-z][\d_a-z]*$/u;
 
-/**
- * Regular expression for matching a CONSTANT_CASE string.
- */
+/** Regular expression for matching a CONSTANT_CASE string. */
 export const RE_CONSTANT_CASE = /^[A-Z][\d_A-Z]*$/u;
 
-// @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
+/**
+ * Regular expression for matching the `javascript:` protocol.
+ * @see https://github.com/facebook/react/blob/6db7f4209e6f32ebde298a0b7451710dd6aa3e19/packages/react-dom-bindings/src/shared/sanitizeURL.js#L22
+ */
 // dprint-ignore
 // eslint-disable-next-line no-control-regex
 export const RE_JAVASCRIPT_PROTOCOL = /^[\u0000-\u001F ]*j[\t\n\r]*a[\t\n\r]*v[\t\n\r]*a[\t\n\r]*s[\t\n\r]*c[\t\n\r]*r[\t\n\r]*i[\t\n\r]*p[\t\n\r]*t[\t\n\r]*:/iu;
 
-/**
- * Regular expression for matching a valid JavaScript identifier.
- */
+/** Regular expression for matching a valid JavaScript identifier. */
 export const RE_JS_IDENTIFIER = /^[_$a-z][\w$]*$/i;
 
-/**
- * Regular expression for matching a RegExp string.
- */
+/** Regular expression for matching a RegExp string. */
 export const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u;
 
-/**
- * Regular expression for matching a `@jsx` annotation comment.
- */
+/** Regular expression for matching a `@jsx` annotation comment. */
 export const RE_ANNOTATION_JSX = /@jsx\s+(\S+)/u;
 
-/**
- * Regular expression for matching a `@jsxFrag` annotation comment.
- */
+/** Regular expression for matching a `@jsxFrag` annotation comment. */
 export const RE_ANNOTATION_JSX_FRAG = /@jsxFrag\s+(\S+)/u;
 
-/**
- * Regular expression for matching a `@jsxRuntime` annotation comment.
- */
+/** Regular expression for matching a `@jsxRuntime` annotation comment. */
 export const RE_ANNOTATION_JSX_RUNTIME = /@jsxRuntime\s+(\S+)/u;
 
-/**
- * Regular expression for matching a `@jsxImportSource` annotation comment.
- */
+/** Regular expression for matching a `@jsxImportSource` annotation comment. */
 export const RE_ANNOTATION_JSX_IMPORT_SOURCE = /@jsxImportSource\s+(\S+)/u;
 
-/**
- * Regular expression for matching a React component name.
- */
+/** Regular expression for matching a React component name. */
 export const RE_COMPONENT_NAME = /^[A-Z]/u;
 
-/**
- * Regular expression for matching a React component name (loose).
- */
+/** Regular expression for matching a React component name (loose). */
 export const RE_COMPONENT_NAME_LOOSE = /^_?[A-Z]/u;
 
-/**
- * Regular expression for matching a React Hook name.
- */
+/** Regular expression for matching a React Hook name. */
 export const RE_HOOK_NAME = /^use/u;
 
-/**
- * A type represents RegExp-like object with `test` method.
- */
+/** Represents a RegExp-like object with a `test` method. */
 export type RegExpLike = { test: (s: string) => boolean };
 
 /**
- * Convert a string to the `RegExp`.
- * Normal strings (ex: `"foo"`) is converted to `/^foo$/` of `RegExp`.
- * Strings like `"/^foo/i"` are converted to `/^foo/i` of `RegExp`.
- * @see https://github.com/sveltejs/eslint-plugin-svelte/blob/main/packages/eslint-plugin-svelte/src/utils/regexp.ts
+ * Convert a string to a `RegExpLike` object.
+ *
+ * Normal strings (ex: `"foo"`) are converted to `/^foo$/`.
+ * RegExp strings (ex: `"/^foo/i"`) are converted to `/^foo/i`.
  * @param string The string to convert.
- * @returns Returns the `RegExp`.
+ * @returns The converted `RegExpLike` object.
+ * @see https://github.com/sveltejs/eslint-plugin-svelte/blob/main/packages/eslint-plugin-svelte/src/utils/regexp.ts
  */
 export function toRegExp(string: string | null | undefined): RegExpLike {
   if (string == null) return { test: constFalse } as const;
@@ -111,9 +79,9 @@ export function toRegExp(string: string | null | undefined): RegExpLike {
 }
 
 /**
- * Check whether given string is regexp string.
+ * Check if the string is a RegExp string.
  * @param string The string to check.
- * @returns boolean.
+ * @returns `true` if the string is a RegExp string.
  */
 export function isRegExp(string: string): boolean {
   return RE_REGEXP_STR.test(string);
