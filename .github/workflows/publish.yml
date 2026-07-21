@@ -30,7 +30,7 @@ jobs:
           node-version: 26
           package-manager-cache: false
       - name: Setup nub
-        uses: nubjs/setup-nub@v0
+        uses: nubjs/setup-nub@47e5e7393d50f4e9544ddaf756aa277972afba2d # v0.4.0
       - name: Install dependencies
         run: nub install --frozen-lockfile --ignore-scripts
       - name: Build packages
