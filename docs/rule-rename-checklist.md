@@ -17,13 +17,13 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### A3. Test File
 
-- [ ] Update the import path: `import rule, { RULE_NAME } from "./<new-name>/<new-name>";`
+- [ ] Update the import path: `import rule, { RULE_NAME } from "./<new-name>";`
 
 ### A4. Documentation
 
 - [ ] Update front-matter `title`.
 - [ ] Update the `@eslint-react/<new-name>` and `react-x/<new-name>` full name code blocks.
-- [ ] Update **Implementation** section links.
+- [ ] Update **Resources** section links.
 
 ### A5. Plugin Registration (`src/plugin.ts`)
 
@@ -73,14 +73,14 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] Create `src/rules/<rule-name>/<rule-name>.ts`:
   - Copy implementation from the source plugin.
-  - Update `import { createRule } from "../utils"` to point to the react-x utils.
+  - Update the createRule import to `import { createRule } from "@/utils/create-rule";`.
   - Add a fast-path skip guard if applicable:
     ```ts
     if (!context.sourceCode.text.includes("<hookName>")) return {};
     ```
 - [ ] Create `src/rules/<rule-name>/<rule-name>.spec.ts`:
   - Copy tests from the source plugin.
-  - Update the import: `import rule, { RULE_NAME } from "./<rule-name>/<rule-name>";`.
+  - Update the import: `import rule, { RULE_NAME } from "./<rule-name>";`.
 - [ ] Create `src/rules/<rule-name>/<rule-name>.mdx` following the template below.
 - [ ] Create `src/rules/<rule-name>/CHANGELOG.md` (copy from the source plugin or start fresh).
 
@@ -122,13 +122,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 ````mdx
 ---
 title: <rule-name>
+description: One-line summary of what the rule enforces.
 ---
-
-**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
-
-```plain copy
-@eslint-react/<rule-name>
-```
 
 **Full Name in [`eslint-plugin-react-x`](https://npmx.dev/package/eslint-plugin-react-x/v/latest)**
 
@@ -136,9 +131,15 @@ title: <rule-name>
 react-x/<rule-name>
 ```
 
+**Full Name in [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin/v/latest)**
+
+```plain copy
+@eslint-react/<rule-name>
+```
+
 **Features**
 
-`⚙️` ← use `🧪` for experimental rules
+`⚙️` ← use `🔧` for fixable, `🔄` for codemod, `🧪` for experimental rules
 
 **Presets**
 
@@ -150,7 +151,7 @@ react-x/<rule-name>
 `strict-typescript`
 `strict-type-checked`
 
-## Description
+## Rule Details
 
 One-paragraph summary of what the rule enforces and why.
 
@@ -164,31 +165,27 @@ Document each option with its name, effect, and default value.
 
 ## Examples
 
-### Failing
+### Writing a new component
+
+Name each scenario section after the case it covers. Annotate each `tsx` code block with `// 🔴 explanation` for the discouraged pattern and `// 🟢 explanation` for the recommended pattern.
 
 ```tsx
 // 🔴 explanation
 ```
 
-### Passing
-
 ```tsx
 // 🟢 explanation
 ```
 
-## Implementation
+## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.ts)
 - [Test Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/<rule-name>/<rule-name>.spec.ts)
+- [Rule Changelog](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/<rule-name>/CHANGELOG.md)
 
 ## Further Reading
 
 - [React Docs: relevant link]()
-
----
-
-## See Also
-
-- [`related-rule`](./related-rule)\
-  One-line description.
 ````
+
+Do not add a `## See Also` section to the source `.mdx` file—it is generated automatically from `docs/rule-relations-table.md` when the docs are copied to the website (`scripts/12-update-website.ts`).

@@ -1,6 +1,6 @@
 # Rule Feature System
 
-Every rule declares a `RULE_FEATURES` constant. This typed metadata drives preset generation, documentation badges, and rule categorization.
+Every rule declares a `RULE_FEATURES` constant. This typed metadata drives documentation badges and rule categorization in the rules index.
 
 ## Feature Flags
 
@@ -48,17 +48,17 @@ const RULE_FEATURES = ["EXP"]; // static-components: experimental detection
 
 ## How Features Drive Presets
 
-Feature metadata is the source of truth for badges and categorization, but the preset files themselves are maintained manually. The `scripts/20-check-rules.ts` script (run via `nub run check:rules`) verifies config consistency—registered rules are accounted for, config keys are valid, and preset hierarchies hold—but it does not check `RULE_FEATURES` flags. Keeping `disable-type-checked` and `disable-experimental` aligned with `RULE_FEATURES` is currently a manual step.
+Feature metadata is the source of truth for badges and categorization, but the preset files themselves are maintained manually. The `scripts/20-check-rules.ts` script (run via `nub run check:rules`) verifies config consistency—registered rules are accounted for, config keys are valid, and preset hierarchies hold. It also checks that the feature badges in each rule's `.mdx` docs and the rules index match its `RULE_FEATURES`. What it does not check is the alignment between `RULE_FEATURES` and the `disable-type-checked` / `disable-experimental` presets; keeping those aligned is currently a manual step.
 
 Rules marked `TSC` are disabled in `disable-type-checked.ts`:
 
 ```ts
 export const rules: Linter.RulesRecord = {
-  "react-x/no-implicit-children": "off",
-  "react-x/no-implicit-key": "off",
-  "react-x/no-implicit-ref": "off",
-  "react-x/no-leaked-conditional-rendering": "off",
-  "react-x/no-unused-props": "off",
+  "@eslint-react/no-implicit-children": "off",
+  "@eslint-react/no-implicit-key": "off",
+  "@eslint-react/no-implicit-ref": "off",
+  "@eslint-react/no-leaked-conditional-rendering": "off",
+  "@eslint-react/no-unused-props": "off",
 };
 ```
 
@@ -66,17 +66,22 @@ Rules marked `EXP` are disabled in `disable-experimental.ts`:
 
 ```ts
 export const rules: Linter.RulesRecord = {
-  "react-x/globals": "off",
-  "react-x/immutability": "off",
-  "react-x/no-duplicate-key": "off",
-  "react-x/no-implicit-children": "off",
-  "react-x/no-implicit-key": "off",
-  "react-x/no-implicit-ref": "off",
-  "react-x/no-misused-capture-owner-stack": "off",
-  "react-x/no-unused-props": "off",
-  "react-x/no-unused-state": "off",
-  "react-x/refs": "off",
-  "react-x/set-state-in-render": "off",
+  "@eslint-react/globals": "off",
+  "@eslint-react/immutability": "off",
+  "@eslint-react/no-duplicate-key": "off",
+  "@eslint-react/no-implicit-children": "off",
+  "@eslint-react/no-implicit-key": "off",
+  "@eslint-react/no-implicit-ref": "off",
+  "@eslint-react/no-misused-capture-owner-stack": "off",
+  "@eslint-react/no-unused-props": "off",
+  "@eslint-react/no-unused-state": "off",
+  "@eslint-react/refs": "off",
+  "@eslint-react/set-state-in-render": "off",
+  "@eslint-react/static-components": "off",
+
+  "@eslint-react/rsc-function-definition": "off",
+
+  "@eslint-react/web-api-no-leaked-fetch": "off",
 };
 ```
 
