@@ -65,9 +65,9 @@
     "@types/react-dom": "^19.2.3",
     "dedent": "^1.7.2",
     "eslint": "^10.7.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "tsdown": "^0.22.12",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tsdown": "^0.22.13",
     "tsl": "^1.0.30",
     "tsl-dx": "^0.13.3",
     "typescript": "6.0.3"
