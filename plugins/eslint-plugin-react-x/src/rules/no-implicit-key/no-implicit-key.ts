@@ -1,9 +1,6 @@
+import { createImplicitPropListener } from "@/utils/create-implicit-prop-listener";
 import { createRule } from "@/utils/create-rule";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
-import { unionConstituents } from "ts-api-utils";
 
 export const RULE_NAME = "no-implicit-key";
 
@@ -32,29 +29,18 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const services = ESLintUtils.getParserServices(context, false);
-  const checker = services.program.getTypeChecker();
-  return {
-    JSXSpreadAttribute(node) {
-      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        const key = type.getProperty("key");
-        if (key == null) continue;
-        // Allow pass-through of React internally defined keys
-        // For react, react-dom, and @rbxts/react the FQN is "React.Attributes.key"
-        // For preact and preact/compat the FQN is "preact.Attributes.key"
-        // https://github.com/Rel1cx/eslint-react/issues/1472
-        if (core.getFullyQualifiedNameEx(checker, key).toLowerCase().endsWith("react.attributes.key")) continue;
-        // Allow when the key property's type is React.Key (ex: `{ key: React.Key }`)
-        const keyType = checker.getTypeOfSymbol(key);
-        if (keyType.aliasSymbol != null) {
-          const aliasFqn = checker.getFullyQualifiedName(keyType.aliasSymbol).toLowerCase();
-          if (aliasFqn.endsWith("react.key")) continue;
-        }
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
+  return createImplicitPropListener(context, {
+    name: "key",
+    // Allow pass-through of React internally defined keys
+    // For react, react-dom, and @rbxts/react the FQN is "React.Attributes.key"
+    // For preact and preact/compat the FQN is "preact.Attributes.key"
+    // https://github.com/Rel1cx/eslint-react/issues/1472
+    isAllowedProp: (fqn) => fqn.endsWith("react.attributes.key"),
+    // Allow when the key property's type is React.Key (ex: `{ key: React.Key }`)
+    isAllowedType: (fqn) => fqn.endsWith("react.key"),
+    // Report implicit key prop usage when both checkers fail
+    onImplicitProp(node) {
+      context.report({ messageId: "default", node });
     },
-  };
+  });
 }
