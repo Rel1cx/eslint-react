@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/kit",
-  "version": "5.17.3",
+  "version": "5.18.0",
   "description": "ESLint React's utility module for building custom React rules with JavaScript functions.",
   "keywords": [
     "react",
@@ -37,7 +37,7 @@
   "scripts": {
     "build": "tsdown",
     "build:docs": "typedoc",
-    "lint:publish": "publint --pack npm",
+    "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "node --run build && node --run lint:publish"
   },

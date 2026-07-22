@@ -32,7 +32,7 @@
   "scripts": {
     "build": "tsdown",
     "build:docs": "typedoc",
-    "lint:publish": "publint --pack npm",
+    "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "node --run build && node --run lint:publish"
   },

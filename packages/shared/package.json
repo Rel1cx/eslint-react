@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/shared",
-  "version": "5.17.3",
+  "version": "5.18.0",
   "description": "ESLint React's Shared constants and functions.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -31,7 +31,7 @@
   "scripts": {
     "build": "tsdown",
     "build:docs": "typedoc",
-    "lint:publish": "publint --pack npm",
+    "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "node --run build && node --run lint:publish"
   },

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-react-jsx",
-  "version": "5.17.3",
+  "version": "5.18.0",
   "description": "ESLint React's ESLint plugin for React Flavored JSX rules.",
   "keywords": [
     "react",
@@ -38,7 +38,7 @@
   ],
   "scripts": {
     "build": "tsdown",
-    "lint:publish": "publint --pack npm",
+    "lint:publish": "publint",
     "lint:ts": "tsl",
     "publish": "node --run build && node --run lint:publish"
   },

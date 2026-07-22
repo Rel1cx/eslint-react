@@ -1,5 +1,25 @@
 # Changelog
 
+## v5.18.0 (2026-07-23)
+
+### ✨ New
+
+- `@eslint-react/core`: added `isUseRefLikeCall` and a new `additionalRefHooks` setting for declaring custom ref-creating hooks; `react-x/refs`, `react-x/immutability`, `react-naming-convention/ref-name`, and `react-naming-convention/is-from-ref` now recognize them. (#1922, closes #1904)
+
+### 📝 Documentation
+
+- Updated rule docs to match current rule sources. (#1920)
+
+### 🏗️ Internal
+
+- `@local/testkit`: simplified internals.
+- `react-x`: extracted a shared `createImplicitPropListener` helper used by `no-implicit-children`, `no-implicit-key`, and `no-implicit-ref`. (#1923)
+- Bumped `tsdown` to `0.22.13`, `typescript-eslint` to `8.65.0`, `eslint-plugin-jsdoc` to `63.2.0`, `import-integrity-lint` to `1.2.0`, `react` to `19.2.8`, `next` to `16.2.11`, and `postcss` to `8.5.21`.
+- Replaced `vite-node` with `nub` for running workspace scripts. (#1919)
+- Unified JSDoc comment style of exported APIs in `@eslint-react/ast` and `@eslint-react/core`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.17.3...v5.18.0
+
 ## v5.17.3 (2026-07-20)
 
 ### 🏗️ Internal
