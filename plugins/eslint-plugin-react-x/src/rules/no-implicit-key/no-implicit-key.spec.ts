@@ -342,6 +342,72 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Invalid: union type where only one member has key reports exactly once (per-constituent check)
+    {
+      code: tsx`
+        type PropsA = { key: string; value: number };
+        type PropsB = { id: string; label: string };
+        const App = ({ props }: { props: PropsA | PropsB }) => {
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: two spreads in the same element each containing key report once per spread attribute
+    {
+      code: tsx`
+        const App = () => {
+          const a = { key: "a" };
+          const b = { key: "b" };
+          return <div {...a} {...b} />;
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    // Invalid: intersection where both members declare key still reports exactly once
+    {
+      code: tsx`
+        type A = { key: string };
+        type B = { key: number };
+        const App = ({ props }: { props: A & B }) => {
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: a locally defined 'Attributes' interface is not a React-internal pass-through
+    {
+      code: tsx`
+        interface Attributes {
+          key: string;
+          id: string;
+        }
+        const App = () => {
+          const props: Attributes = { key: "1", id: "test" };
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: the report is placed on the JSX spread attribute itself
+    {
+      code: tsx`
+        const props = { key: "1" };
+        const App = () => <div {...props} />;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          line: 2,
+          column: 24,
+          endLine: 2,
+          endColumn: 34,
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -745,6 +811,35 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function MyComponent() {
         return <div {...someValues} data-slot="pagination-item" />;
+      }
+    `,
+    // Valid: property name matching is exact and case-sensitive — 'Key' is not 'key'
+    tsx`
+      const App = () => {
+        const props = { Key: "1", id: "test" };
+        return <div {...props} />;
+      };
+    `,
+    // Valid: spreading an 'any'-typed value has no statically known key property
+    tsx`
+      declare let props: any;
+      const App = () => <div {...props} />;
+    `,
+    // Valid: spreading an 'unknown'-typed value has no statically known key property
+    tsx`
+      declare let props: unknown;
+      const App = () => <div {...props} />;
+    `,
+    // Valid: key inherited from React.Attributes is a React-internal pass-through
+    tsx`
+      import type { Attributes } from "react";
+
+      interface MyItemProps extends Attributes {
+        id: string;
+      }
+
+      function MyItem({ ...props }: MyItemProps) {
+        return <li {...props} />;
       }
     `,
   ],

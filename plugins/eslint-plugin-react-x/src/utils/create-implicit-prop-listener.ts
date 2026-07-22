@@ -42,8 +42,13 @@ export function createImplicitPropListener(
         if (prop == null) continue;
         if (isAllowedProp(getFqn(prop))) continue;
         const propType = checker.getTypeOfSymbol(prop);
+        // Prefer `aliasSymbol` over `symbol`: a type written through a type alias (ex: `type MyNode = ReactNode`)
+        // may carry only the alias symbol, and reading `symbol` alone would miss it.
+        // See https://github.com/microsoft/TypeScript/issues/55088
         const propTypeSymbol = propType.aliasSymbol ?? propType.symbol;
-        // TypeScript's type definition marks `Type.symbol` as required, but at runtime it can be `undefined` for certain internal types.
+        // `Type.symbol` is typed as required but is `undefined` at runtime for symbol-less types (verified):
+        // - primitives (`string`), literals (`"hello"`), intrinsics (`null`, `any`, `unknown`)
+        // - unions/intersections not written through a type alias (`string | number`, `A & B`)
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (propTypeSymbol != null && isAllowedType(getFqn(propTypeSymbol))) continue;
         onImplicitProp(node);
