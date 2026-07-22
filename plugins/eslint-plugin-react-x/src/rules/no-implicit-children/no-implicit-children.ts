@@ -1,9 +1,6 @@
+import { createImplicitPropListener } from "@/utils/create-implicit-prop-listener";
 import { createRule } from "@/utils/create-rule";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
-import { unionConstituents } from "ts-api-utils";
 
 export const RULE_NAME = "no-implicit-children";
 
@@ -34,34 +31,22 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const services = ESLintUtils.getParserServices(context, false);
-  const checker = services.program.getTypeChecker();
-  return {
-    JSXSpreadAttribute(node) {
-      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        const children = type.getProperty("children");
-        if (children == null) continue;
-        // Allow pass-through of React internally defined children
-        // For react, react-dom the FQN is "React.DOMAttributes.children"
-        // For PropsWithChildren the FQN is "React.PropsWithChildren.children"
-        // For @rbxts/react the FQN is "React.Attributes.children"
-        const fqn = core.getFullyQualifiedNameEx(checker, children).toLowerCase();
-        if (fqn.endsWith("attributes.children") || fqn.endsWith("propswithchildren.children")) continue;
-        // Allow when the children property's type is a React children type alias
-        // e.g. React.ReactNode, React.ReactElement, React.ReactPortal, JSX.Element
-        const childrenType = checker.getTypeOfSymbol(children);
-        const typeSymbol = childrenType.aliasSymbol ?? childrenType.symbol;
-        // TypeScript's type definition marks `Type.symbol` as required, but at runtime it can be `undefined` for certain internal types.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (typeSymbol != null) {
-          const typeFqn = checker.getFullyQualifiedName(typeSymbol);
-          if (RE_REACT_CHILDREN_TYPE.test(typeFqn) || /^JSX\.Element$/i.test(typeFqn)) continue;
-        }
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
+  return createImplicitPropListener(context, {
+    name: "children",
+    // Allow pass-through of React internally defined children
+    // For react, react-dom the FQN is "React.DOMAttributes.children"
+    // For PropsWithChildren the FQN is "React.PropsWithChildren.children"
+    // For @rbxts/react the FQN is "React.Attributes.children"
+    isAllowedProp: (fqn) => fqn.endsWith("attributes.children") || fqn.endsWith("propswithchildren.children"),
+    // Allow when the children property's type is a React children type alias
+    // e.g. React.ReactNode, React.ReactElement, React.ReactPortal, JSX.Element
+    isAllowedType: (fqn) => RE_REACT_CHILDREN_TYPE.test(fqn) || fqn === "jsx.element",
+    // Report implicit children prop usage when both checkers fail
+    onImplicitProp(node) {
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
-  };
+  });
 }

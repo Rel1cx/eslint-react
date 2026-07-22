@@ -1,9 +1,6 @@
+import { createImplicitPropListener } from "@/utils/create-implicit-prop-listener";
 import { createRule } from "@/utils/create-rule";
-import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
-import { ESLintUtils } from "@typescript-eslint/utils";
-import { unionConstituents } from "ts-api-utils";
 
 export const RULE_NAME = "no-implicit-ref";
 
@@ -34,30 +31,19 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const services = ESLintUtils.getParserServices(context, false);
-  const checker = services.program.getTypeChecker();
-  return {
-    JSXSpreadAttribute(node) {
-      for (const type of unionConstituents(getConstrainedTypeAtLocation(services, node.argument))) {
-        const ref = type.getProperty("ref");
-        if (ref == null) continue;
-        // Allow pass-through of React internally defined refs
-        if (core.getFullyQualifiedNameEx(checker, ref).toLowerCase().endsWith("attributes.ref")) continue;
-        // Allow when the ref property's type is a React ref type alias
-        // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
-        const refType = checker.getTypeOfSymbol(ref);
-        const typeSymbol = refType.aliasSymbol ?? refType.symbol;
-        // TypeScript's type definition marks `Type.symbol` as required, but at runtime it can be `undefined` for certain internal types.
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (typeSymbol != null) {
-          const typeFqn = checker.getFullyQualifiedName(typeSymbol);
-          if (RE_REACT_REF_TYPE.test(typeFqn)) continue;
-        }
-        context.report({
-          messageId: "default",
-          node,
-        });
-      }
+  return createImplicitPropListener(context, {
+    name: "ref",
+    // Allow pass-through of React internally defined refs
+    isAllowedProp: (fqn) => fqn.endsWith("attributes.ref"),
+    // Allow when the ref property's type is a React ref type alias
+    // e.g. React.Ref, React.LegacyRef, React.RefCallback, React.RefObject
+    isAllowedType: (fqn) => RE_REACT_REF_TYPE.test(fqn),
+    // Report implicit ref prop usage when both checkers fail
+    onImplicitProp(node) {
+      context.report({
+        messageId: "default",
+        node,
+      });
     },
-  };
+  });
 }
