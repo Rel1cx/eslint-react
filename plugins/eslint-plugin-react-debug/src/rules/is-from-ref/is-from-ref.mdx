@@ -51,6 +51,22 @@ function MyComponent() {
 }
 ```
 
+## Options
+
+### Shared Settings
+
+Custom ref hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalRefHooks": "(useMyRef|useCustomRef)"
+    }
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-debug/src/rules/is-from-ref/is-from-ref.ts)

@@ -4,7 +4,12 @@
 
 ### ✨ New
 
-- `@eslint-react/core`: added `isUseRefLikeCall` and a new `additionalRefHooks` setting for declaring custom ref-creating hooks; `react-x/refs`, `react-x/immutability`, `react-naming-convention/ref-name`, and `react-naming-convention/is-from-ref` now recognize them. (#1922, closes #1904)
+- `@eslint-react/core`: added `isUseRefLikeCall` and a new `additionalRefHooks` setting for declaring custom ref-creating hooks; the following rules now recognize them: (#1922, closes #1904)
+  - `react-x/refs`
+  - `react-x/immutability`
+  - `react-x/set-state-in-effect`
+  - `react-naming-convention/ref-name`
+  - `react-debug/is-from-ref`
 
 ### 📝 Documentation
 

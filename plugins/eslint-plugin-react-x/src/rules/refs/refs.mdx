@@ -215,6 +215,22 @@ function Component() {
 
 The name heuristic intentionally treats `ref.current` and `fooRef.current` as real refs. If you're modeling a custom container object, pick a different name (for example, `box`) or move the mutable value into state. Renaming avoids the lint because the compiler stops inferring it as a ref.
 
+## Options
+
+### Shared Settings
+
+Custom ref hooks can also be configured via shared ESLint settings, which apply consistently across all rules in the plugin:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalRefHooks": "(useMyRef|useCustomRef)"
+    }
+  }
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/refs/refs.ts)
