@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced `isUseRefCall` with `isUseRefLikeCall` when resolving ref init expressions; custom ref hooks matching the `additionalRefHooks` setting are now recognized.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed

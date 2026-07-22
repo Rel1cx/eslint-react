@@ -7,6 +7,7 @@ function isESLintReactSettings(
   settings: unknown,
 ): settings is {
   additionalEffectHooks?: string;
+  additionalRefHooks?: string;
   additionalStateHooks?: string;
   compilationMode?: "infer" | "annotation" | "syntax" | "all";
   importSource?: string;
@@ -25,6 +26,6 @@ Check if the value is valid ESLint React settings.
 
 ## Returns
 
-settings is \{ additionalEffectHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}
+settings is \{ additionalEffectHooks?: string; additionalRefHooks?: string; additionalStateHooks?: string; compilationMode?: "infer" \| "annotation" \| "syntax" \| "all"; importSource?: string; polymorphicPropName?: string; version?: string \}
 
 `true` if the value is valid ESLint React settings.

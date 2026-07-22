@@ -1,6 +1,7 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -84,7 +85,8 @@ function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, 
 }
 
 export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Expression) {
-  return isInitializedFromCall(context, node, (init) => core.isUseRefCall(context, init));
+  const { additionalRefHooks } = getSettingsFromContext(context);
+  return isInitializedFromCall(context, node, (init) => core.isUseRefLikeCall(init, additionalRefHooks));
 }
 
 export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {

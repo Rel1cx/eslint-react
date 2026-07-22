@@ -1329,6 +1329,9 @@ importers:
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint
+      '@eslint-react/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@eslint-react/var':
         specifier: workspace:*
         version: link:../../packages/var

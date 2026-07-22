@@ -46,6 +46,7 @@
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/core": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
+    "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/types": "^8.65.0",
     "@typescript-eslint/utils": "^8.65.0",

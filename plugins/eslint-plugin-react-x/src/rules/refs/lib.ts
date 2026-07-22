@@ -1,6 +1,7 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
@@ -48,6 +49,7 @@ type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
 // Binding resolution
 
 export function createBindingResolver(context: RuleContext) {
+  const { additionalRefHooks } = getSettingsFromContext(context);
   const bindings = new Map<Variable, BindingEvent[]>();
   const memberBindings = new Map<Variable, Map<string, BindingEvent[]>>();
   const jsxRefs = new Set<Variable>();
@@ -63,7 +65,7 @@ export function createBindingResolver(context: RuleContext) {
       return variable == null ? { kind: "unknown" } : { kind: "variable", variable };
     }
     if (isFunctionExpressionLike(value)) return { kind: "function", node: value };
-    if (value.type === AST.CallExpression && (core.isUseRefCall(context, value) || core.isCreateRefCall(context, value))) {
+    if (value.type === AST.CallExpression && (core.isUseRefLikeCall(value, additionalRefHooks) || core.isCreateRefCall(context, value))) {
       return { kind: "ref" };
     }
     if (value.type === AST.MemberExpression && value.property.type === AST.Identifier) {

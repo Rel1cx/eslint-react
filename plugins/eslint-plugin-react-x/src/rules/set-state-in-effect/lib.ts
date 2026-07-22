@@ -1,6 +1,7 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -150,6 +151,7 @@ export function isInitializedFromRef(
   initialScope: Scope,
   seen = new Set<string>(),
 ): boolean {
+  const { additionalRefHooks } = getSettingsFromContext(context);
   if (seen.has(name)) return false;
   seen.add(name);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
@@ -164,7 +166,7 @@ export function isInitializedFromRef(
         return true;
       // const identifier = useRef();
       case init.type === AST.CallExpression
-        && core.isUseRefCall(context, init):
+        && core.isUseRefLikeCall(init, additionalRefHooks):
         return true;
       // const { foo } = ref.current.getBoundingClientRect();
       case init.type === AST.CallExpression:

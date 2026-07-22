@@ -2,6 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -29,10 +30,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("useRef")) return {};
+  const { additionalRefHooks } = getSettingsFromContext(context);
   return {
     CallExpression(node: TSESTree.CallExpression) {
-      if (!core.isUseRefCall(context, node)) return;
+      if (!core.isUseRefLikeCall(node, additionalRefHooks)) return;
       // https://github.com/Rel1cx/eslint-react/issues/1375
       if (Extract.unwrap(node.parent).type === AST.MemberExpression) return;
       const [id, name] = match(resolveEnclosingAssignmentTarget(node))

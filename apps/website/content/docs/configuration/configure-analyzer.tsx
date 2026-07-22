@@ -22,6 +22,14 @@ const properties = {
     description: <Link href="#polymorphicpropname">The prop your code uses to create polymorphic components</Link>,
     default: '"as"',
   },
+  additionalRefHooks: {
+    type: "string",
+    description: (
+      <Link href="#additionalrefhooks">
+        Regex pattern matching custom hooks that should be treated as ref hooks
+      </Link>
+    ),
+  },
   additionalStateHooks: {
     type: "string",
     description: (

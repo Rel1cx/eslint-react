@@ -97,6 +97,7 @@ export interface RuleToolkit {
     useOptimisticCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useReducerCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useRefCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    useRefLikeCall: typeof core.isUseRefLikeCall;
     useStateCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
     useStateLikeCall: typeof core.isUseStateLikeCall;
     useSyncExternalStoreCall: (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
@@ -192,6 +193,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
       useOptimisticCall: core.isUseOptimisticCall(context),
       useReducerCall: core.isUseReducerCall(context),
       useRefCall: core.isUseRefCall(context),
+      useRefLikeCall: core.isUseRefLikeCall,
       useStateCall: core.isUseStateCall(context),
       useStateLikeCall: core.isUseStateLikeCall,
       useSyncExternalStoreCall: core.isUseSyncExternalStoreCall(context),

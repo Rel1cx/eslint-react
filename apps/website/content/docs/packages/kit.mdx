@@ -270,6 +270,7 @@ General hook predicates:
 | `hookCall`                 | `(node) -> boolean`                   | Whether a node is a hook call.                               |
 | `hookName`                 | `(name) -> boolean`                   | Whether a string matches the `use[A-Z]` convention.          |
 | `useEffectLikeCall`        | `(node, additionalHooks?) -> boolean` | Whether a node is a `useEffect`/`useLayoutEffect`-like call. |
+| `useRefLikeCall`           | `(node, additionalHooks?) -> boolean` | Whether a node is a `useRef`-like call.                      |
 | `useStateLikeCall`         | `(node, additionalHooks?) -> boolean` | Whether a node is a `useState`-like call.                    |
 | `useEffectSetupCallback`   | `(node) -> boolean`                   | Whether a node is a useEffect setup function.                |
 | `useEffectCleanupCallback` | `(node) -> boolean`                   | Whether a node is a useEffect cleanup function.              |
@@ -401,6 +402,7 @@ Exposes the normalized `react-x` settings from the ESLint shared configuration (
 | `importSource`          | `string`                                                | `"react"`   | The module React is imported from (e.g. `"@pika/react"`). |
 | `compilationMode`       | `"infer" \| "annotation" \| "syntax" \| "all" \| "off"` | `"off"`     | The React Compiler compilation mode the project uses.     |
 | `polymorphicPropName`   | `string \| null`                                        | `"as"`      | Prop name used for polymorphic components.                |
+| `additionalRefHooks`    | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as ref hooks.       |
 | `additionalStateHooks`  | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as state hooks.     |
 | `additionalEffectHooks` | `RegExpLike`                                            | —           | Pattern matching custom hooks treated as effect hooks.    |
 
