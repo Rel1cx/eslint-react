@@ -44,6 +44,11 @@ export const ESLintReactSettingsSchema = z.object({
    */
   version: z.optional(z.string()),
   /**
+   * Regex pattern matching custom hooks that should be treated as ref hooks.
+   * @example "useMyRef|useCustomRef"
+   */
+  additionalRefHooks: z.optional(z.string()),
+  /**
    * Regex pattern matching custom hooks that should be treated as state hooks.
    * @example "useMyState|useCustomState"
    */
@@ -81,6 +86,8 @@ export interface ESLintReactSettingsNormalized {
   compilationMode: ESLintReactSettings["compilationMode"] | "off";
   /** The prop name used for polymorphic components. */
   polymorphicPropName: string | null;
+  /** Regex pattern matching custom hooks that should be treated as ref hooks. */
+  additionalRefHooks: RegExpLike;
   /** Regex pattern matching custom hooks that should be treated as state hooks. */
   additionalStateHooks: RegExpLike;
   /** Regex pattern matching custom hooks that should be treated as effect hooks. */
@@ -151,6 +158,7 @@ export const normalizeSettings = ({
   compilationMode,
   polymorphicPropName = "as",
   version,
+  additionalRefHooks,
   additionalStateHooks,
   additionalEffectHooks,
   ...rest
@@ -163,6 +171,7 @@ export const normalizeSettings = ({
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.7"))
       .otherwise(identity),
+    additionalRefHooks: toRegExp(additionalRefHooks),
     additionalStateHooks: toRegExp(additionalStateHooks),
     additionalEffectHooks: toRegExp(additionalEffectHooks),
   } as const satisfies ESLintReactSettingsNormalized;

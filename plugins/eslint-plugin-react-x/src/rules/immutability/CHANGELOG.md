@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced `isUseRefCall` with `isUseRefLikeCall` for `useRef()` provenance detection; values initialized by custom ref hooks matching the `additionalRefHooks` setting are now recognized as refs.
+
 ## [5.16.1] - 2026-07-16
 
 ### Fixed

@@ -23,9 +23,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 ```
 
-Used by: `no-access-state-in-setstate`, `no-class-component`, `no-component-will-*`, `no-create-ref`, `no-forward-ref`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-use-context`, `use-memo`, `context-name`, `id-name`, `ref-name`, `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`, `no-leaked-fetch` (first check), `no-leaked-event-listener` (first check).
+Used by: `no-access-state-in-setstate`, `no-class-component`, `no-component-will-*`, `no-create-ref`, `no-forward-ref`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-use-context`, `use-memo`, `context-name`, `id-name`, `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`, `no-leaked-fetch` (first check), `no-leaked-event-listener` (first check).
 
-Rules that currently omit the text precheck but still use term-based visitors: `no-children-count`, `no-children-for-each`, `no-children-map`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-direct-mutation-state`.
+Rules that currently omit the text precheck but still use term-based visitors: `no-children-count`, `no-children-for-each`, `no-children-map`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-direct-mutation-state`, `ref-name`.
 
 ### Multi-term check
 
@@ -201,5 +201,4 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 | `no-use-form-state`                          | `react-dom`         | `includes("useFormState")`                           | `>= 19.0.0` | Import-tracking                                |
 | `context-name`                               | `naming-convention` | `includes("createContext")`                          | —           | `CallExpression` immediate                     |
 | `id-name`                                    | `naming-convention` | `includes("useId")`                                  | —           | `CallExpression` immediate                     |
-| `ref-name`                                   | `naming-convention` | `includes("useRef")`                                 | —           | `CallExpression` immediate                     |
 | `function-definition`                        | `react-rsc`         | `includes("use server") \|\| includes("use client")` | —           | Directive-aware traversal                      |

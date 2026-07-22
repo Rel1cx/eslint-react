@@ -5,6 +5,7 @@
 ```ts
 function decodeSettings(settings: unknown): {
   additionalEffectHooks?: string;
+  additionalRefHooks?: string;
   additionalStateHooks?: string;
   compilationMode?: "infer" | "annotation" | "syntax" | "all";
   importSource?: string;
@@ -28,6 +29,7 @@ The decoded ESLint React settings.
 | Name                     | Type                                                 | Description                                                                                                                                                                   |
 | ------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `additionalEffectHooks?` | `string`                                             | Regex pattern matching custom hooks that should be treated as effect hooks. **Example** `"useMyEffect                                                                         |
+| `additionalRefHooks?`    | `string`                                             | Regex pattern matching custom hooks that should be treated as ref hooks. **Example** `"useMyRef                                                                               |
 | `additionalStateHooks?`  | `string`                                             | Regex pattern matching custom hooks that should be treated as state hooks. **Example** `"useMyState                                                                           |
 | `compilationMode?`       | `"infer"` \| `"annotation"` \| `"syntax"` \| `"all"` | The React Compiler compilationMode that the project is using. Used to inform the rule about how components and hooks will be picked up by the compiler. **Example** `"infer"` |
 | `importSource?`          | `string`                                             | The source where React is imported from. Allows specifying a custom import location for React. **Default** `"react"` **Example** `"@pika/react"`                              |

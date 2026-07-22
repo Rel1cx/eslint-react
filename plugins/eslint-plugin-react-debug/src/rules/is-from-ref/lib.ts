@@ -1,5 +1,6 @@
-import { isUseRefCall } from "@eslint-react/core";
+import { isUseRefLikeCall } from "@eslint-react/core";
 import { type RuleContext } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -36,6 +37,7 @@ export function getRefInit(
   name: string,
   initialScope: Scope,
 ): TSESTree.Expression | null {
+  const { additionalRefHooks } = getSettingsFromContext(context);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;
@@ -48,7 +50,7 @@ export function getRefInit(
         return init;
       // const identifier = useRef();
       case init.type === AST.CallExpression
-        && isUseRefCall(context, init):
+        && isUseRefLikeCall(init, additionalRefHooks):
         return init;
     }
   }

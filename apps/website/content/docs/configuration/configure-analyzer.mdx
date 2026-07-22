@@ -69,6 +69,16 @@ Example with `polymorphicPropName` set to `as`:
 // Evaluated as an h3 element
 ```
 
+### `additionalRefHooks`
+
+A regex pattern for matching custom hooks that should be treated as ref hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
+
+Example matching `useMyRef` and `useCustomRef`:
+
+```ts
+additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
+```
+
 ### `additionalStateHooks`
 
 A regex pattern for matching custom hooks that should be treated as state hooks. The value must be a valid JavaScript RegExp string with delimiters and flags.
@@ -120,6 +130,7 @@ export default [
         version: "19.2.7",
         importSource: "react",
         polymorphicPropName: "as", // Define the prop name used for polymorphic components (ex: <Component as="div">)
+        additionalRefHooks: "/^(useMyRef|useCustomRef)$/u", // Regex pattern for custom hooks treated as ref hooks
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u", // Regex pattern for custom hooks treated as effect hooks
       },
@@ -158,6 +169,7 @@ export default [
         importSource: "react",
         compilationMode, // Use the same compilationMode as the React Compiler config for consistent analysis
         polymorphicPropName: "as",
+        additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
         additionalStateHooks: "/^(useMyState|useCustomState)$/u",
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
       },

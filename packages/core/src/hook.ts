@@ -138,20 +138,17 @@ export function isHookCall(node: TSESTree.Node | null): node is TSESTree.CallExp
 }
 
 /**
- * Check if the node is a useEffect-like call (ex: `useEffect`, `useLayoutEffect`, or a custom effect hook).
+ * Check if the node is a useRef-like call (ex: `useRef` or a custom ref hook).
  * @param node The AST node to check.
- * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks.
- * @returns `true` if the node is a useEffect-like call.
+ * @param additionalRefHooks Regex pattern matching custom hooks that should be treated as ref hooks.
+ * @returns `true` if the node is a useRef-like call.
  */
-export function isUseEffectLikeCall(
-  node: TSESTree.Node | null,
-  additionalEffectHooks: RegExpLike = { test: constFalse },
-): node is TSESTree.CallExpression {
+export function isUseRefLikeCall(node: TSESTree.Node | null, additionalRefHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
   if (node == null) return false;
   if (node.type !== AST.CallExpression) return false;
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
-  return /^use\w*Effect$/u.test(name) || additionalEffectHooks.test(name);
+  return name === "useRef" || additionalRefHooks.test(name);
 }
 
 /**
@@ -160,15 +157,26 @@ export function isUseEffectLikeCall(
  * @param additionalStateHooks Regex pattern matching custom hooks that should be treated as state hooks.
  * @returns `true` if the node is a useState-like call.
  */
-export function isUseStateLikeCall(
-  node: TSESTree.Node | null,
-  additionalStateHooks: RegExpLike = { test: constFalse },
-): node is TSESTree.CallExpression {
+export function isUseStateLikeCall(node: TSESTree.Node | null, additionalStateHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
   if (node == null) return false;
   if (node.type !== AST.CallExpression) return false;
   const name = Extract.getCalleeName(node);
   if (name == null) return false;
   return name === "useState" || additionalStateHooks.test(name);
+}
+
+/**
+ * Check if the node is a useEffect-like call (ex: `useEffect`, `useLayoutEffect`, or a custom effect hook).
+ * @param node The AST node to check.
+ * @param additionalEffectHooks Regex pattern matching custom hooks that should be treated as effect hooks.
+ * @returns `true` if the node is a useEffect-like call.
+ */
+export function isUseEffectLikeCall(node: TSESTree.Node | null, additionalEffectHooks: RegExpLike = { test: constFalse }): node is TSESTree.CallExpression {
+  if (node == null) return false;
+  if (node.type !== AST.CallExpression) return false;
+  const name = Extract.getCalleeName(node);
+  if (name == null) return false;
+  return /^use\w*Effect$/u.test(name) || additionalEffectHooks.test(name);
 }
 
 // #endregion

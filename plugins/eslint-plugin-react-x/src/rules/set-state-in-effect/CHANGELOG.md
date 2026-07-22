@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Replaced `isUseRefCall` with `isUseRefLikeCall` when checking whether a value is initialized from a ref; custom ref hooks matching the `additionalRefHooks` setting are now recognized.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced `isUseRefCall` with `isUseRefLikeCall`; identifiers assigned from custom ref hooks matching the `additionalRefHooks` setting are now checked by this rule.
+- Removed the `includes("useRef")` text precheck so files that only use custom ref hooks matching `additionalRefHooks` are no longer skipped.
+
 ## [5.2.3-beta.0] - 2026-04-14
 
 ### Changed
