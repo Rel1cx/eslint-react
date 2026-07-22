@@ -226,6 +226,71 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Invalid: union type where only one member has ref reports exactly once (per-constituent check)
+    {
+      code: tsx`
+        type PropsA = { ref: { current: HTMLDivElement | null }; value: number };
+        type PropsB = { id: string; label: string };
+        const App = ({ props }: { props: PropsA | PropsB }) => {
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: two spreads in the same element each containing ref report once per spread attribute
+    {
+      code: tsx`
+        const App = () => {
+          const a = { ref: null };
+          const b = { ref: null };
+          return <div {...a} {...b} />;
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    // Invalid: intersection where both members declare ref still reports exactly once
+    {
+      code: tsx`
+        type A = { ref: { current: HTMLDivElement | null } };
+        type B = { ref: { current: HTMLSpanElement | null } };
+        const App = ({ props }: { props: A & B }) => {
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: ref typed as React.MutableRefObject — not part of the allowed ref type aliases
+    {
+      code: tsx`
+        import type { MutableRefObject } from "react";
+
+        declare let someValues: { id: string; ref: MutableRefObject<HTMLDivElement> };
+
+        function MyComponent() {
+          return <div {...someValues} />;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: the report is placed on the JSX spread attribute itself
+    {
+      code: tsx`
+        const props = { ref: null };
+        const App = () => <div {...props} />;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          line: 2,
+          column: 24,
+          endLine: 2,
+          endColumn: 34,
+        },
+      ],
+    },
   ],
   valid: [
     // Valid: spreading props without ref property
@@ -548,6 +613,35 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function MyComponent() {
         return <div {...someValues} data-slot="pagination-item" />;
+      }
+    `,
+    // Valid: property name matching is exact and case-sensitive — 'Ref' is not 'ref'
+    tsx`
+      const App = () => {
+        const props = { Ref: null, id: "test" };
+        return <div {...props} />;
+      };
+    `,
+    // Valid: spreading an 'any'-typed value has no statically known ref property
+    tsx`
+      declare let props: any;
+      const App = () => <div {...props} />;
+    `,
+    // Valid: spreading an 'unknown'-typed value has no statically known ref property
+    tsx`
+      declare let props: unknown;
+      const App = () => <div {...props} />;
+    `,
+    // Valid: ref inherited from React.RefAttributes is a React-internal pass-through
+    tsx`
+      import type { RefAttributes } from "react";
+
+      interface MyDivProps extends RefAttributes<HTMLDivElement> {
+        id: string;
+      }
+
+      function MyDiv({ ...props }: MyDivProps) {
+        return <div {...props} />;
       }
     `,
   ],
