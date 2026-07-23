@@ -73,7 +73,7 @@ overrides:
   next: "^16.2.11"
   # Transitive dependency via router 2.2.0 (express 5.2.1)
   path-to-regexp: "^8.4.2"
-  postcss: "^8.5.21"
+  postcss: "^8.5.22"
   react-dom: "^19.2.8"
   react: "^19.2.8"
   # Transitive dependency via nx 23.1.0 and others
