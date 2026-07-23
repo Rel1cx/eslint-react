@@ -22,3 +22,15 @@ export function findParent(node: TSESTree.Node | null, test: NodePredicate, stop
   }
   return null;
 }
+
+/**
+ * Finds the nearest TryStatement whose `try` block (not catch/finally) encloses the given node.
+ * @param node The node to check.
+ * @returns The enclosing TryStatement, or null if none is found.
+ */
+export function findEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null {
+  const parent = node.parent;
+  if (parent == null || parent.type === AST.Program) return null;
+  if (parent.type === AST.TryStatement && node === parent.block) return parent;
+  return findEnclosingTryBlock(parent);
+}

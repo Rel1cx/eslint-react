@@ -3,7 +3,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
-import { findParent } from "./traverse";
+import { findEnclosingTryBlock, findParent } from "./traverse";
 
 function parseAst(code: string) {
   return parseCode(code).ast;
@@ -101,5 +101,44 @@ describe("findParent", () => {
     expect(parent).not.toBeNull();
     expect(parent!.type).toBe(AST.FunctionDeclaration);
     expect(parent).not.toBe(bar);
+  });
+});
+
+describe("findEnclosingTryBlock", () => {
+  it("should return the TryStatement when the node is inside the try block", () => {
+    const ast = parseAst("try { foo(); } catch { bar(); }");
+    const [foo] = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+    const [tryStmt] = collectNodes<TSESTree.TryStatement>(ast, AST.TryStatement);
+    const stmt = findEnclosingTryBlock(foo!);
+    expect(stmt).toBe(tryStmt);
+  });
+
+  it("should return null when the node is inside the catch clause", () => {
+    const ast = parseAst("try { foo(); } catch { bar(); }");
+    const [, bar] = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+    const stmt = findEnclosingTryBlock(bar!);
+    expect(stmt).toBeNull();
+  });
+
+  it("should return null when the node is inside the finally block", () => {
+    const ast = parseAst("try { foo(); } finally { bar(); }");
+    const [, bar] = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+    const stmt = findEnclosingTryBlock(bar!);
+    expect(stmt).toBeNull();
+  });
+
+  it("should return the outer TryStatement when the node is in an inner catch clause enclosed by an outer try block", () => {
+    const ast = parseAst("try { try { foo(); } catch { bar(); } } catch { baz(); }");
+    const [, bar] = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+    const [outer] = collectNodes<TSESTree.TryStatement>(ast, AST.TryStatement);
+    const stmt = findEnclosingTryBlock(bar!);
+    expect(stmt).toBe(outer);
+  });
+
+  it("should return null when no TryStatement encloses the node", () => {
+    const ast = parseAst("function foo() { bar(); }");
+    const [bar] = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
+    const stmt = findEnclosingTryBlock(bar!);
+    expect(stmt).toBeNull();
   });
 });

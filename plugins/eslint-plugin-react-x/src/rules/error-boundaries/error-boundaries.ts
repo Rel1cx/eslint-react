@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "error-boundaries";
 
@@ -29,28 +29,6 @@ export default createRule<[], MessageID>({
   create,
   defaultOptions: [],
 });
-
-/**
- * Finds the nearest TryStatement whose `try` block (not catch/finally)
- * encloses the given node.
- * @param node The node to check.
- * @returns The enclosing TryStatement, or null if none is found.
- */
-function getEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null {
-  let current = node.parent;
-  while (current != null) {
-    if (current.type === AST.TryStatement) {
-      let n: TSESTree.Node | null | undefined = node;
-      while (n != null && n !== current) {
-        if (n === current.block) return current;
-        n = n.parent;
-      }
-    }
-    if (current.type === AST.Program) return null;
-    current = current.parent;
-  }
-  return null;
-}
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `try` is not present in the file
@@ -84,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
         for (const call of useCalls) {
-          const stmt = getEnclosingTryBlock(call);
+          const stmt = Traverse.findEnclosingTryBlock(call);
           const func = Traverse.findParent(stmt, (n) => funcs.some((f) => f.node === n));
           if (stmt != null && func != null && !reported.has(stmt)) {
             context.report({
@@ -99,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (ret == null) continue;
             // Skip non-JSX-like return values https://github.com/Rel1cx/eslint-react/issues/1614
             if (!core.isJsxLike(context, ret, hint)) continue;
-            const stmt = getEnclosingTryBlock(ret);
+            const stmt = Traverse.findEnclosingTryBlock(ret);
             if (stmt != null && !reported.has(stmt)) {
               context.report({
                 messageId: "tryCatchWithJsx",
