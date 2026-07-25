@@ -67,9 +67,11 @@
       "cache": true
     }
   },
+  "cli": {
+    "packageManager": "pnpm"
+  },
   "tui": {
-    "enabled": true,
-    "autoExit": 1
+    "enabled": false
   },
   "analytics": false
 }

@@ -47,7 +47,7 @@ overrides:
   # Transitive dependency via nx 23.1.0
   axios: "^1.18.1"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
-  brace-expansion: "^5.0.7"
+  brace-expansion: "^5.0.8"
   # Transitive dependency via fumadocs-mdx 15.2.0 and unified-args 11.0.1
   chokidar: "^5.0.0"
   # Transitive dependency via tsdown 0.22.12

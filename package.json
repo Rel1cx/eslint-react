@@ -88,7 +88,7 @@
     "mdxlint": "^1.0.0",
     "nx": "^23.1.0",
     "preact": "^10.29.7",
-    "publint": "^0.3.21",
+    "publint": "^0.3.22",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "remark-frontmatter": "^5.0.0",
@@ -97,7 +97,7 @@
     "textlint": "^15.7.1",
     "tinyglobby": "^0.2.17",
     "ts-pattern": "^5.9.0",
-    "tsdown": "^0.22.13",
+    "tsdown": "^0.22.14",
     "tsl": "^1.0.30",
     "typedoc": "^0.28.20",
     "typedoc-plugin-file-overview": "^0.2.0",
@@ -107,7 +107,7 @@
     "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@11.16.0",
+  "packageManager": "pnpm@11.17.0",
   "engines": {
     "node": ">=22.0.0"
   }
