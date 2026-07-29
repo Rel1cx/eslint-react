@@ -46,7 +46,7 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.0",
     "expect-type": "^1.4.0",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3",

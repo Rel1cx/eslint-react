@@ -24,7 +24,7 @@ onlyBuiltDependencies:
 
 overrides:
   # Transitive dependency via @modelcontextprotocol/sdk 1.29.0 (textlint 15.7.1)
-  "@hono/node-server": "^2.0.11"
+  "@hono/node-server": "^2.0.12"
   "@types/react": "^19.2.17"
   "@types/react-dom": "^19.2.3"
   # Transitive dependency via typescript-eslint 8.65.0
@@ -68,12 +68,12 @@ overrides:
   lodash: "^4.18.1"
   # Transitive dependency via @theguild/remark-mermaid 0.3.0
   mermaid: "^11.16.0"
-  # Transitive dependency via eslint 10.7.0, @typescript-eslint/typescript-estree 8.65.0 and nx 23.1.0
-  minimatch: "^10.2.5"
-  next: "^16.2.11"
+  # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.65.0 and nx 23.1.0
+  minimatch: "^10.2.6"
+  next: "^16.2.12"
   # Transitive dependency via router 2.2.0 (express 5.2.1)
   path-to-regexp: "^8.4.2"
-  postcss: "^8.5.22"
+  postcss: "^8.5.25"
   react-dom: "^19.2.8"
   react: "^19.2.8"
   # Transitive dependency via nx 23.1.0 and others
@@ -85,10 +85,10 @@ overrides:
   tslib: "^2.8.1"
   typescript-eslint: "^8.65.0"
   typescript: "6.0.3"
-  # Transitive dependency via @types/node 26.1.1
-  undici-types: "^8.8.0"
+  # Transitive dependency via @types/node 26.1.2
+  undici-types: "^8.9.0"
   # Transitive dependency via @effect/platform-node 0.107.0
-  undici: "^8.8.0"
+  undici: "^8.9.0"
   # Transitive dependency via @effect/sql 0.51.1
   uuid: "^14.0.1"
 
