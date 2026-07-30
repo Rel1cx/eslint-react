@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.18.1 (2026-07-30)
+
+### 📝 Documentation
+
+- Documented the `additionalRefHooks` shared setting in the affected rule docs.
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: added `Traverse.findEnclosingTryBlock`, extracted from `react-x/error-boundaries`.
+- Replaced `@eslint/compat` with `@eslint/config-helpers`.
+- Bumped `eslint` to `10.8.0`, `eslint-plugin-jsdoc` to `63.3.2`, `tsdown` to `0.22.14`, `next` to `16.2.12`, `fumadocs` to `16.13.0`, `postcss` to `8.5.25`, and `pnpm` to `11.18.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.0...v5.18.1
+
 ## v5.18.0 (2026-07-23)
 
 ### ✨ New
