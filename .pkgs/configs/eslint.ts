@@ -1,4 +1,4 @@
-import { includeIgnoreFile } from "@eslint/compat";
+import { includeIgnoreFile } from "@eslint/config-helpers";
 import stylistic from "@stylistic/eslint-plugin";
 import type { Linter } from "eslint";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
@@ -6,7 +6,7 @@ import { jsdoc } from "eslint-plugin-jsdoc";
 import pluginPerfectionist from "eslint-plugin-perfectionist";
 import pluginRegexp from "eslint-plugin-regexp";
 import pluginUnicorn from "eslint-plugin-unicorn";
-import { type Config, defineConfig, globalIgnores } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export const GLOB_JS = ["**/*.{js,jsx,cjs,mjs}"];
@@ -101,8 +101,7 @@ const p11tGroups = {
 
 export function buildIgnoreConfig(gitignore: string, extra: string[]) {
   return [
-    // tsl-ignore dx/no-unsafe-as
-    includeIgnoreFile(gitignore) as Config,
+    includeIgnoreFile(gitignore),
     globalIgnores([
       ...GLOB_IGNORES,
       ...extra,

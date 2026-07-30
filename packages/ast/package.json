@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/ast",
-  "version": "5.18.0",
+  "version": "5.18.1",
   "description": "ESLint React's TSESTree AST utility module.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -46,7 +46,7 @@
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
     "@typescript-eslint/parser": "^8.65.0",
-    "eslint": "^10.7.0",
+    "eslint": "^10.8.0",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3",
     "vitest": "^4.1.10"

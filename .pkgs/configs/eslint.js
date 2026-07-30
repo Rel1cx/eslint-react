@@ -1,4 +1,4 @@
-import { includeIgnoreFile } from "@eslint/compat";
+import { includeIgnoreFile } from "@eslint/config-helpers";
 import stylistic from "@stylistic/eslint-plugin";
 import pluginDeMorgan from "eslint-plugin-de-morgan";
 import { jsdoc } from "eslint-plugin-jsdoc";
@@ -91,7 +91,6 @@ const p11tGroups = {
 };
 export function buildIgnoreConfig(gitignore, extra) {
     return [
-        // tsl-ignore dx/no-unsafe-as
         includeIgnoreFile(gitignore),
         globalIgnores([
             ...GLOB_IGNORES,
