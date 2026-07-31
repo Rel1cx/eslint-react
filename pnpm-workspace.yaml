@@ -45,7 +45,7 @@ overrides:
   # Transitive dependency via @typescript-eslint/parser 8.65.0
   "@typescript-eslint/visitor-keys": "^8.65.0"
   # Transitive dependency via nx 23.1.0
-  axios: "^1.18.1"
+  axios: "^1.19.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
   brace-expansion: "^5.0.8"
   # Transitive dependency via fumadocs-mdx 15.2.0 and unified-args 11.0.1

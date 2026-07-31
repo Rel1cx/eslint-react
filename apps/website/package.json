@@ -37,7 +37,7 @@
     "bsky-react-post": "^0.1.7",
     "clsx": "^2.1.1",
     "dedent": "^1.7.2",
-    "effect": "^3.22.0",
+    "effect": "^3.22.1",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
