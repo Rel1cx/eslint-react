@@ -25,8 +25,8 @@ onlyBuiltDependencies:
 overrides:
   # Transitive dependency via @modelcontextprotocol/sdk 1.29.0 (textlint 15.7.1)
   "@hono/node-server": "^2.0.12"
-  "@types/react": "^19.2.17"
-  "@types/react-dom": "^19.2.3"
+  "@types/react": "^19.2.18"
+  "@types/react-dom": "^19.2.4"
   # Transitive dependency via typescript-eslint 8.65.0
   "@typescript-eslint/eslint-plugin": "^8.65.0"
   "@typescript-eslint/parser": "^8.65.0"
@@ -47,7 +47,7 @@ overrides:
   # Transitive dependency via nx 23.1.0
   axios: "^1.19.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
-  brace-expansion: "^5.0.8"
+  brace-expansion: "^5.0.9"
   # Transitive dependency via fumadocs-mdx 15.2.0 and unified-args 11.0.1
   chokidar: "^5.0.0"
   # Transitive dependency via tsdown 0.22.12
