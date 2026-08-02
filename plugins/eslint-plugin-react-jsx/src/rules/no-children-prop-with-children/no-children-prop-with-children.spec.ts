@@ -24,6 +24,78 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: '<MyComponent children="Children">Children</MyComponent>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: "<MyComponent>Children</MyComponent>",
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: '<MyComponent children="Children"></MyComponent>',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<MyComponent children={children}>{children}</MyComponent>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: "<MyComponent>{children}</MyComponent>;",
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: tsx`<MyComponent children={children}></MyComponent>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<MyComponent className="class-name" children="Children">Children</MyComponent>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: '<MyComponent className="class-name">Children</MyComponent>;',
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: '<MyComponent className="class-name" children="Children"></MyComponent>;',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: '<MyComponent children="Children" className="class-name">Children</MyComponent>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeChildrenProp",
+              output: '<MyComponent className="class-name">Children</MyComponent>;',
+            },
+            {
+              messageId: "removeChildrenContent",
+              output: '<MyComponent children="Children" className="class-name"></MyComponent>;',
+            },
+          ],
+        },
+      ],
+    },
+    {
       code: tsx`<div children={<div />}>\n  <span />\n</div>;`,
       errors: [
         {
@@ -54,78 +126,6 @@ ruleTester.run(RULE_NAME, rule, {
             {
               messageId: "removeChildrenContent",
               output: "<div children={[<div />, <div />]}></div>;",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: '<MyComponent children="Children">Children</MyComponent>',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeChildrenProp",
-              output: "<MyComponent>Children</MyComponent>",
-            },
-            {
-              messageId: "removeChildrenContent",
-              output: '<MyComponent children="Children"></MyComponent>',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: '<MyComponent className="class-name" children="Children">Children</MyComponent>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeChildrenProp",
-              output: '<MyComponent className="class-name">Children</MyComponent>;',
-            },
-            {
-              messageId: "removeChildrenContent",
-              output: '<MyComponent className="class-name" children="Children"></MyComponent>;',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: tsx`<MyComponent children={children}>{children}</MyComponent>;`,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeChildrenProp",
-              output: "<MyComponent>{children}</MyComponent>;",
-            },
-            {
-              messageId: "removeChildrenContent",
-              output: tsx`<MyComponent children={children}></MyComponent>;`,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: '<MyComponent children="Children" className="class-name">Children</MyComponent>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeChildrenProp",
-              output: '<MyComponent className="class-name">Children</MyComponent>;',
-            },
-            {
-              messageId: "removeChildrenContent",
-              output: '<MyComponent children="Children" className="class-name"></MyComponent>;',
             },
           ],
         },
@@ -265,6 +265,71 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Boolean shorthand children prop
+    {
+      code: "<div children>text</div>;",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>text</div>;" },
+            { messageId: "removeChildrenContent", output: "<div children></div>;" },
+          ],
+        },
+      ],
+    },
+    // Conditional expression children prop with nested content
+    {
+      code: tsx`<div children={condition ? <A /> : <B />}><span /></div>;`,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: tsx`<div><span /></div>;` },
+            { messageId: "removeChildrenContent", output: tsx`<div children={condition ? <A /> : <B />}></div>;` },
+          ],
+        },
+      ],
+    },
+    // Empty string children prop with nested content
+    {
+      code: '<div children="">content</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children=""></div>;' },
+          ],
+        },
+      ],
+    },
+    // Whitespace string children prop with nested content
+    {
+      code: '<div children=" ">content</div>;',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
+            { messageId: "removeChildrenContent", output: '<div children=" "></div>;' },
+          ],
+        },
+      ],
+    },
+    // JSX spread attribute containing children (no safe auto-fix, only report)
+    {
+      code: '<div {...{ children: "x" }}>text</div>;',
+      errors: [{ messageId: "default" }],
+    },
+    // JSX spread variable resolved to object containing children
+    {
+      code: tsx`
+        const props = { children: "x" };
+        <div {...props}>text</div>;
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Empty string mixed with meaningful children still counts as having children (PR #1805)
     {
       code: '<div children="x">{""}hello</div>;',
@@ -298,32 +363,6 @@ ruleTester.run(RULE_NAME, rule, {
               messageId: "removeChildrenContent",
               output: '<div children="x"></div>;',
             },
-          ],
-        },
-      ],
-    },
-    // JSX spread attribute containing children (no safe auto-fix, only report)
-    {
-      code: '<div {...{ children: "x" }}>text</div>;',
-      errors: [{ messageId: "default" }],
-    },
-    // JSX spread variable resolved to object containing children
-    {
-      code: tsx`
-        const props = { children: "x" };
-        <div {...props}>text</div>;
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Boolean shorthand children prop
-    {
-      code: "<div children>text</div>;",
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>text</div>;" },
-            { messageId: "removeChildrenContent", output: "<div children></div>;" },
           ],
         },
       ],
@@ -429,45 +468,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Empty string children prop with nested content
-    {
-      code: '<div children="">content</div>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children=""></div>;' },
-          ],
-        },
-      ],
-    },
-    // Whitespace string children prop with nested content
-    {
-      code: '<div children=" ">content</div>;',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children=" "></div>;' },
-          ],
-        },
-      ],
-    },
-    // Conditional expression children prop with nested content
-    {
-      code: tsx`<div children={condition ? <A /> : <B />}><span /></div>;`,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            { messageId: "removeChildrenProp", output: tsx`<div><span /></div>;` },
-            { messageId: "removeChildrenContent", output: tsx`<div children={condition ? <A /> : <B />}></div>;` },
-          ],
-        },
-      ],
-    },
     // createElement
     {
       code: 'React.createElement("div", { children: "Children" }, "Children");',
@@ -530,32 +530,42 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     '<div className="class-name"></div>;',
+    // Only nested children, no children prop
     "<div>Children</div>;",
     '<div className="class-name">Children</div>;',
     "<div><div /></div>;",
     "<div><div /><div /></div>;",
+    "<MyComponent />",
+    "<MyComponent>Children</MyComponent>;",
+    '<MyComponent className="class-name"></MyComponent>;',
+    '<MyComponent className="class-name">Children</MyComponent>;',
+    // Member expression component with only children content (no prop)
+    "<Foo.Bar>Children</Foo.Bar>;",
+    // Element with only expression children (no prop)
+    "<div>{children}</div>;",
     // Only children prop, no nested children
     '<div children="Children" />;',
     tsx`<div children={<div />} />;`,
     tsx`<div children={[<div />, <div />]} />;`,
     '<MyComponent children="Children" />',
     '<MyComponent className="class-name" children="Children" />;',
-    // Only nested children, no children prop
-    "<MyComponent />",
-    "<MyComponent>Children</MyComponent>;",
-    '<MyComponent className="class-name"></MyComponent>;',
-    '<MyComponent className="class-name">Children</MyComponent>;',
+    // Boolean children shorthand with empty content
+    "<div children></div>;",
     // Whitespace-only children is not considered as children content
     '<div children="Children">   </div>;',
     tsx`<div children="Children">   \n   </div>;`,
-    // Member expression component with only children content (no prop)
-    "<Foo.Bar>Children</Foo.Bar>;",
-    // Element with only expression children (no prop)
-    "<div>{children}</div>;",
-    // Boolean children shorthand with empty content
-    "<div children></div>;",
     // Whitespace-only tab characters
     tsx`<div children="x">\t\t</div>;`,
+    // JSX empty fragment without children prop
+    "<div><></></div>;",
+    // JSX comment without children prop
+    tsx`<div>{/* comment */}</div>;`,
+    // Empty string expressions are not considered meaningful children (PR #1805)
+    '<div children="x">{""}</div>;',
+    "<div children=\"x\">{''}</div>;",
+    tsx`<div children="x">
+      {""}
+    </div>;`,
     // createElement with children as extra args only
     'React.createElement("div", null, "Children");',
     'React.createElement("div", { className: "x" }, "Children");',
@@ -568,12 +578,6 @@ ruleTester.run(RULE_NAME, rule, {
     'createElement("div");',
     // createElement with computed identifier key is not a static children prop
     'const propName = "children"; React.createElement("div", { [propName]: "Children" }, "text");',
-    // Empty string expressions are not considered meaningful children (PR #1805)
-    '<div children="x">{""}</div>;',
-    "<div children=\"x\">{''}</div>;",
-    tsx`<div children="x">
-      {""}
-    </div>;`,
     // createElement with variable props (not ObjectExpression) – cannot inspect
     tsx`
       const props = { children: "x" };
@@ -581,9 +585,5 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // createElement with children hidden inside a spread in props
     'React.createElement("div", { ...{ children: "x" } }, "text");',
-    // JSX empty fragment without children prop
-    "<div><></></div>;",
-    // JSX comment without children prop
-    tsx`<div>{/* comment */}</div>;`,
   ],
 });

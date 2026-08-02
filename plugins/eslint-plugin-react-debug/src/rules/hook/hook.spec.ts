@@ -27,6 +27,27 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function useMultipleHooks() {
+          const [state] = useState(0);
+          useEffect(() => {});
+          useCallback(() => {}, []);
+          return state;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useMultipleHooks",
+              hookCalls: 3,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         // 🔴 Avoid: A Hook that doesn't use Hooks
         function useSorted(items) {
           return items.slice().sort();
@@ -46,30 +67,23 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function useToggle() {
-            const [value, setValue] = useState(false);
-            return [value, () => setValue(x => !x)];
-        }
-
-        // 🔴 Avoid: A Hook that doesn't use Hooks
-        function useSorted(items) {
-          return items.slice().sort();
-        }
+        function useClassnames(obj) {
+            // Invalid, because useClassnames doesn't use any other React Hooks.
+            var k, cls='';
+            for (k in obj) {
+              if (obj[k]) {
+                cls && (cls += ' ');
+                cls += k;
+              }
+            }
+            return cls;
+          }
       `,
       errors: [
         {
           data: {
             json: stringify({
-              name: "useToggle",
-              hookCalls: 1,
-            }),
-          },
-          messageId: "default",
-        },
-        {
-          data: {
-            json: stringify({
-              name: "useSorted",
+              name: "useClassnames",
               hookCalls: 0,
             }),
           },
@@ -105,23 +119,64 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function useClassnames(obj) {
-            // Invalid, because useClassnames doesn't use any other React Hooks.
-            var k, cls='';
-            for (k in obj) {
-              if (obj[k]) {
-                cls && (cls += ' ');
-                cls += k;
-              }
-            }
-            return cls;
-          }
+        const useExpressionBody = () => useState(0);
       `,
       errors: [
         {
           data: {
             json: stringify({
-              name: "useClassnames",
+              name: "useExpressionBody",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const useExpressionHook = function() {
+          return useState(0);
+        };
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useExpressionHook",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function useToggle() {
+            const [value, setValue] = useState(false);
+            return [value, () => setValue(x => !x)];
+        }
+
+        // 🔴 Avoid: A Hook that doesn't use Hooks
+        function useSorted(items) {
+          return items.slice().sort();
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "useToggle",
+              hookCalls: 1,
+            }),
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            json: stringify({
+              name: "useSorted",
               hookCalls: 0,
             }),
           },
@@ -218,43 +273,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const useExpressionBody = () => useState(0);
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "useExpressionBody",
-              hookCalls: 1,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function useMultipleHooks() {
-          const [state] = useState(0);
-          useEffect(() => {});
-          useCallback(() => {}, []);
-          return state;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "useMultipleHooks",
-              hookCalls: 3,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function useData(promise) {
           return use(promise);
         }
@@ -264,24 +282,6 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "useData",
-              hookCalls: 1,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const useExpressionHook = function() {
-          return useState(0);
-        };
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "useExpressionHook",
               hookCalls: 1,
             }),
           },

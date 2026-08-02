@@ -9,9 +9,9 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
-        function Component({ value }) {
+        function Component() {
           const [count, setCount] = useState(0);
-          setCount(value);
+          setCount(1);
           return <div>{count}</div>;
         }
       `,
@@ -28,28 +28,9 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
-        function useHook({ value }) {
+        function Component({ value }) {
           const [count, setCount] = useState(0);
           setCount(value);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setCount",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          setCount(1);
           return <div>{count}</div>;
         }
       `,
@@ -104,16 +85,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
-        function Component() {
-          const data = useState(0);
-          data[1](1);
-          return <div>{data[0]}</div>;
+        function useHook({ value }) {
+          const [count, setCount] = useState(0);
+          setCount(value);
+          return null;
         }
       `,
       errors: [
         {
           data: {
-            name: "data[1]",
+            name: "setCount",
           },
           messageId: "default",
         },
@@ -121,47 +102,22 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function Component() {
-          const [data, setData] = useSta(0);
-          setData(1);
-          return null;
-        }
+        import { useState, memo } from "react";
+
+        const Component = memo(function Component() {
+          const [count, setCount] = useState(0);
+          setCount(1);
+          return <div>{count}</div>;
+        });
       `,
       errors: [
         {
           data: {
-            name: "setData",
+            name: "setCount",
           },
           messageId: "default",
         },
       ],
-      settings: {
-        "react-x": {
-          additionalStateHooks: "useSta",
-        },
-      },
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useMyState(0);
-          setData(1);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalStateHooks: "useMyState",
-        },
-      },
     },
     {
       code: tsx`
@@ -185,25 +141,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: {
             name: "setB",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useState, memo } from "react";
-
-        const Component = memo(function Component() {
-          const [count, setCount] = useState(0);
-          setCount(1);
-          return <div>{count}</div>;
-        });
-      `,
-      errors: [
-        {
-          data: {
-            name: "setCount",
           },
           messageId: "default",
         },
@@ -251,6 +188,35 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const data = useState(0);
+          data[1](1);
+          return <div>{data[0]}</div>;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "data[1]",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Component(props) {
+          const [state, setState] = useState(false);
+          (setState as any)(true);
+          return state;
+        }
+      `,
+      errors: [{ data: { name: "setState" }, messageId: "default" }],
+    },
     // Aliased setState call (from React Compiler fixtures)
     // NOTE: The IMPL only flags the direct setState call (setX), not the alias
     // (aliased). The SPEC flags both because it tracks all references to the
@@ -295,39 +261,50 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function Component(props) {
-          const [state, setState] = useState(false);
-          (setState as any)(true);
-          return state;
-        }
-      `,
-      errors: [{ data: { name: "setState" }, messageId: "default" }],
-    },
-  ],
-  valid: [
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component({ items }) {
-          const sorted = [...items].sort();
-          return <ul>{sorted.map(item => <li key={item}>{item}</li>)}</ul>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function useHook() {
-          const [count, setCount] = useState(0);
-          const handleClick = () => {
-            setCount(c => c + 1);
-          };
+        function Component() {
+          const [data, setData] = useSta(0);
+          setData(1);
           return null;
         }
       `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useSta",
+        },
+      },
     },
+    {
+      code: tsx`
+        function Component() {
+          const [data, setData] = useMyState(0);
+          setData(1);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useMyState",
+        },
+      },
+    },
+  ],
+  valid: [
     {
       code: tsx`
         import { useState } from "react";
@@ -346,10 +323,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
-        function Component({ user }) {
-          const name = user?.name || '';
-          const email = user?.email || '';
-          return <div>{name}</div>;
+        function Component() {
+          const [count, setCount] = useState(0);
+          const handleClick = () => {
+            setCount(c => c + 1);
+          };
+          return <button onClick={handleClick}>{count}</button>;
         }
       `,
     },
@@ -357,15 +336,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         import { useState } from "react";
 
-        function Component({ items }) {
-          const [isReverse, setIsReverse] = useState(false);
-          const [selection, setSelection] = useState(null);
-          const [prevItems, setPrevItems] = useState(items);
-          if (items !== prevItems) {
-            setPrevItems(items);
-            setSelection(null);
-          }
-          return null;
+        function Component() {
+          const [count, setCount] = useState(0);
+          const handleClick = function() {
+            setCount(c => c + 1);
+          };
+          return <button onClick={handleClick}>{count}</button>;
         }
       `,
     },
@@ -379,6 +355,46 @@ ruleTester.run(RULE_NAME, rule, {
             setCount(current => Math.min(current + 1, max));
           };
           return <button onClick={increment}>{count}</button>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(null);
+          return (
+            <form onSubmit={() => setData("submitted")}>
+              <button type="submit">Submit</button>
+            </form>
+          );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { useState, useCallback } from "react";
+
+        function Component() {
+          const [count, setCount] = useState(0);
+          const increment = useCallback(() => {
+            setCount(c => c + 1);
+          }, []);
+          return <button onClick={increment}>{count}</button>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function useHook() {
+          const [count, setCount] = useState(0);
+          const handleClick = () => {
+            setCount(c => c + 1);
+          };
+          return null;
         }
       `,
     },
@@ -408,32 +424,6 @@ ruleTester.run(RULE_NAME, rule, {
             return () => clearInterval(intervalId);
           }, []);
           return <div>{count}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          const handleClick = () => {
-            setCount(c => c + 1);
-          };
-          return <button onClick={handleClick}>{count}</button>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          const handleClick = function() {
-            setCount(c => c + 1);
-          };
-          return <button onClick={handleClick}>{count}</button>;
         }
       `,
     },
@@ -489,35 +479,17 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function notAComponent() {
-          return null;
-        }
-      `,
-    },
-    {
-      code: tsx`
         import { useState } from "react";
 
-        function Component() {
-          const [data, setData] = useState(null);
-          return (
-            <form onSubmit={() => setData("submitted")}>
-              <button type="submit">Submit</button>
-            </form>
-          );
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import { useState, useCallback } from "react";
-
-        function Component() {
-          const [count, setCount] = useState(0);
-          const increment = useCallback(() => {
-            setCount(c => c + 1);
-          }, []);
-          return <button onClick={increment}>{count}</button>;
+        function Component({ items }) {
+          const [isReverse, setIsReverse] = useState(false);
+          const [selection, setSelection] = useState(null);
+          const [prevItems, setPrevItems] = useState(items);
+          if (items !== prevItems) {
+            setPrevItems(items);
+            setSelection(null);
+          }
+          return null;
         }
       `,
     },
@@ -570,6 +542,34 @@ ruleTester.run(RULE_NAME, rule, {
           setPrevItems(items);
           return <div>changed</div>;
         };
+      `,
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ items }) {
+          const sorted = [...items].sort();
+          return <ul>{sorted.map(item => <li key={item}>{item}</li>)}</ul>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ user }) {
+          const name = user?.name || '';
+          const email = user?.email || '';
+          return <div>{name}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function notAComponent() {
+          return null;
+        }
       `,
     },
     // setState inside lambda called during render (from React Compiler fixtures)

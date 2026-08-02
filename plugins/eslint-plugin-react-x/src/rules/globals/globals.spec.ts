@@ -39,6 +39,19 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "mutatingGlobal" }],
     },
     // -------------------------------------------------------------------------
+    // Assignment to module-level let/const
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        let moduleState = 0;
+        function Component() {
+          moduleState = 1;
+          return <div>{moduleState}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    // -------------------------------------------------------------------------
     // Modifying window / globalThis properties
     // -------------------------------------------------------------------------
     {
@@ -64,6 +77,27 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ title }) {
           document.title = title;
           return <div>Page: {title}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // -------------------------------------------------------------------------
+    // Global mutation on globalThis / window via UpdateExpression
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          globalThis.counter++;
+          return <div>{globalThis.counter}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          window.title++;
+          return <div>{window.title}</div>;
         }
       `,
       errors: [{ messageId: "mutatingGlobalProperty" }],
@@ -187,6 +221,29 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
     // -------------------------------------------------------------------------
+    // Arrow function components
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        let count = 0;
+        const Component = () => {
+          count++;
+          return <div>{count}</div>;
+        };
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    {
+      code: tsx`
+        const cache = {};
+        const Component = ({ id }) => {
+          cache[id] = id;
+          return <div>{id}</div>;
+        };
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // -------------------------------------------------------------------------
     // Mutations in custom hooks
     // -------------------------------------------------------------------------
     {
@@ -216,29 +273,6 @@ ruleTester.run(RULE_NAME, rule, {
           registry[id] = value;
           return registry;
         }
-      `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
-    },
-    // -------------------------------------------------------------------------
-    // Arrow function components
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        let count = 0;
-        const Component = () => {
-          count++;
-          return <div>{count}</div>;
-        };
-      `,
-      errors: [{ messageId: "mutatingGlobal" }],
-    },
-    {
-      code: tsx`
-        const cache = {};
-        const Component = ({ id }) => {
-          cache[id] = id;
-          return <div>{id}</div>;
-        };
       `,
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
@@ -332,87 +366,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "mutatingGlobalProperty" }],
     },
     // -------------------------------------------------------------------------
-    // Assignment to module-level let/const
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        let moduleState = 0;
-        function Component() {
-          moduleState = 1;
-          return <div>{moduleState}</div>;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobal" }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-global-increment-op-invalid-react.js
-    {
-      code: tsx`
-        let renderCount = 0;
-        function NoHooks() {
-          renderCount++;
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobal" }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.store-property-in-global.js
-    {
-      code: tsx`
-        let wat = {};
-        function Component() {
-          wat.test = 1;
-          return <div>{wat.test}</div>;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global.js
-    {
-      code: tsx`
-        function Component() {
-          someUnknownGlobal = true;
-          moduleLocal = true;
-          return <div />;
-        }
-      `,
-      errors: [
-        { messageId: "mutatingGlobal" },
-        { messageId: "mutatingGlobal" },
-      ],
-    },
-    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.update-global-should-bailout.tsx
-    {
-      code: tsx`
-        let renderCount = 0;
-        function useFoo() {
-          renderCount += 1;
-          return renderCount;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobal" }],
-    },
-    // -------------------------------------------------------------------------
-    // Global mutation on globalThis / window via UpdateExpression
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          globalThis.counter++;
-          return <div>{globalThis.counter}</div>;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          window.title++;
-          return <div>{window.title}</div>;
-        }
-      `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
-    },
-    // -------------------------------------------------------------------------
     // Aliasing and transitive effects
     // -------------------------------------------------------------------------
     {
@@ -493,6 +446,53 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           alias();
           return <div>{String(someGlobal)}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-global-increment-op-invalid-react.js
+    {
+      code: tsx`
+        let renderCount = 0;
+        function NoHooks() {
+          renderCount++;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.store-property-in-global.js
+    {
+      code: tsx`
+        let wat = {};
+        function Component() {
+          wat.test = 1;
+          return <div>{wat.test}</div>;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global.js
+    {
+      code: tsx`
+        function Component() {
+          someUnknownGlobal = true;
+          moduleLocal = true;
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "mutatingGlobal" },
+        { messageId: "mutatingGlobal" },
+      ],
+    },
+    // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.update-global-should-bailout.tsx
+    {
+      code: tsx`
+        let renderCount = 0;
+        function useFoo() {
+          renderCount += 1;
+          return renderCount;
         }
       `,
       errors: [{ messageId: "mutatingGlobal" }],
@@ -661,6 +661,48 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
+    // Reading globals is fine
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        const cache = {};
+        function Component({ id }) {
+          const value = cache[id];
+          return <div>{value}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        let count = 0;
+        function Component() {
+          return <div>{count}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const items = [];
+        function Component() {
+          return <div>{items.length}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Non-mutating array methods on globals are fine
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        const items = [];
+        function Component() {
+          const mapped = items.map(x => x * 2);
+          const filtered = items.filter(x => x > 1);
+          const found = items.find(x => x === 1);
+          return <div>{mapped.length}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
     // Mutations on local (non-global) variables are fine
     // -------------------------------------------------------------------------
     {
@@ -722,48 +764,6 @@ ruleTester.run(RULE_NAME, rule, {
         function notAComponent(event) {
           events.push(event);
           return events;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Reading globals is fine
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        const cache = {};
-        function Component({ id }) {
-          const value = cache[id];
-          return <div>{value}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        let count = 0;
-        function Component() {
-          return <div>{count}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        const items = [];
-        function Component() {
-          return <div>{items.length}</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Non-mutating array methods on globals are fine
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        const items = [];
-        function Component() {
-          const mapped = items.map(x => x * 2);
-          const filtered = items.filter(x => x > 1);
-          const found = items.find(x => x === 1);
-          return <div>{mapped.length}</div>;
         }
       `,
     },

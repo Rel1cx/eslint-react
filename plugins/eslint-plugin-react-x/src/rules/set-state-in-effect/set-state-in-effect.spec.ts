@@ -28,13 +28,13 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      name: "setState with custom hook",
+      name: "setState in arrow function passed to useEffect",
       code: tsx`
-        function Component() {
-          const [data, setData] = useSta(0);
-          useEffect(() => {
-            setData(1);
-          }, []);
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState(0);
+          useEffect(() => setData(1), []);
           return null;
         }
       `,
@@ -42,126 +42,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: {
             name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalStateHooks: "useSta",
-        },
-      },
-    },
-    {
-      name: "setState with regex-matched custom hook",
-      code: tsx`
-        function Component() {
-          const [data, setData] = useSta1(0);
-          useEffect(() => {
-            setData(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          additionalStateHooks: "/^(useSta1|useSta2)$/u",
-        },
-      },
-    },
-    {
-      name: "setState via array index",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[1](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[1]",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() method",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(1)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(1)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via .at() with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data.at(index)(1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data.at(index)",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState via bracket notation with variable",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 1;
-        function Component() {
-          const data = useState(0);
-          useEffect(() => {
-            data[index](1);
-          }, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "data[index]",
           },
           messageId: "default",
         },
@@ -246,30 +126,26 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      name: "setState via useCallback",
+      name: "setState in local function",
       code: tsx`
-        import { useEffect, useState, useCallback } from "react";
+        import { useEffect, useState } from "react";
 
         const Component = () => {
-          const [data1, setData1] = useState(0);
-          const [data2, setData2] = useState(0);
-          const setAll = useCallback(() => {
-            setData1(1);
-            setData2(1);
-          })
+          const [data, setData] = useState(0);
           useEffect(() => {
-            setAll();
+            const setAll = () => {
+              setData(1);
+            }
+            setAll()
           }, []);
           return null;
         }
       `,
       errors: [
         {
-          data: { name: "setData1" },
-          messageId: "default",
-        },
-        {
-          data: { name: "setData2" },
+          data: {
+            name: "setData",
+          },
           messageId: "default",
         },
       ],
@@ -316,26 +192,30 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      name: "setState in local function",
+      name: "setState via useCallback",
       code: tsx`
-        import { useEffect, useState } from "react";
+        import { useEffect, useState, useCallback } from "react";
 
         const Component = () => {
-          const [data, setData] = useState(0);
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          const setAll = useCallback(() => {
+            setData1(1);
+            setData2(1);
+          })
           useEffect(() => {
-            const setAll = () => {
-              setData(1);
-            }
-            setAll()
+            setAll();
           }, []);
           return null;
         }
       `,
       errors: [
         {
-          data: {
-            name: "setData",
-          },
+          data: { name: "setData1" },
+          messageId: "default",
+        },
+        {
+          data: { name: "setData2" },
           messageId: "default",
         },
       ],
@@ -433,6 +313,26 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "setState function directly passed to useEffect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState(0);
+          useEffect(setData, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
       name: "setState callback directly passed to useEffect",
       code: tsx`
         import { useEffect, useState, useMemo } from "react";
@@ -441,100 +341,6 @@ ruleTester.run(RULE_NAME, rule, {
           const [data, setData] = useState(0);
           const setAll = useMemo(() => setData, []);
           useEffect(setAll, []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    // TODO: Add cleanup function check
-    // {
-    //   code: tsx`
-    //     import { useEffect, useState } from "react";
-
-    //     const Component = () => {
-    //       const [data, setData] = useState();
-    //       useEffect(() => {
-    //         return () => {
-    //           setData();
-    //         }
-    //       }, []);
-    //       return null;
-    //     }
-    //   `,
-    //   errors: [
-    //     { messageId: "default" },
-    //   ],
-    // },
-    // TODO: Add cleanup function check
-    // {
-    //   code: tsx`
-    //     import { useEffect, useState } from "react";
-
-    //     const Component = () => {
-    //       const [data, setData] = useState();
-    //       useEffect(() => {
-    //         const cleanup = () => {
-    //           setData();
-    //         }
-    //         return cleanup;
-    //       }, []);
-    //       return null;
-    //     }
-    //   `,
-    //   errors: [
-    //     { messageId: "default" },
-    //   ],
-    // },
-    // TODO: Add cleanup function check
-    // {
-    //   code: tsx`
-    //     import { useEffect, useState } from "react";
-
-    //     const Component = () => {
-    //       const [data, setData] = useState();
-    //       useEffect(() => setData, []);
-    //       return null;
-    //     }
-    //   `,
-    //   errors: [
-    //     { messageId: "default" },
-    //   ],
-    // },
-    {
-      name: "setState in arrow function passed to useEffect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data, setData] = useState(0);
-          useEffect(() => setData(1), []);
-          return null;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "setData",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      name: "setState function directly passed to useEffect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data, setData] = useState(0);
-          useEffect(setData, []);
           return null;
         }
       `,
@@ -654,6 +460,110 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: Add cleanup function check
+    // {
+    //   code: tsx`
+    //     import { useEffect, useState } from "react";
+
+    //     const Component = () => {
+    //       const [data, setData] = useState();
+    //       useEffect(() => {
+    //         return () => {
+    //           setData();
+    //         }
+    //       }, []);
+    //       return null;
+    //     }
+    //   `,
+    //   errors: [
+    //     { messageId: "default" },
+    //   ],
+    // },
+    // TODO: Add cleanup function check
+    // {
+    //   code: tsx`
+    //     import { useEffect, useState } from "react";
+
+    //     const Component = () => {
+    //       const [data, setData] = useState();
+    //       useEffect(() => {
+    //         const cleanup = () => {
+    //           setData();
+    //         }
+    //         return cleanup;
+    //       }, []);
+    //       return null;
+    //     }
+    //   `,
+    //   errors: [
+    //     { messageId: "default" },
+    //   ],
+    // },
+    // TODO: Add cleanup function check
+    // {
+    //   code: tsx`
+    //     import { useEffect, useState } from "react";
+
+    //     const Component = () => {
+    //       const [data, setData] = useState();
+    //       useEffect(() => setData, []);
+    //       return null;
+    //     }
+    //   `,
+    //   errors: [
+    //     { messageId: "default" },
+    //   ],
+    // },
+    {
+      // React docs recommend to first update state in render instead of an effect.
+      // But then continue on to say that usually you can avoid the sync entirely by
+      // more wisely choosing your state. So we'll just always warn about chained state.
+      name: "Syncing prop changes to internal state",
+      code: tsx`
+        function List({ items }) {
+          const [selection, setSelection] = useState();
+
+          useEffect(() => {
+            setSelection(null);
+          }, [items]);
+
+          return (
+            <div>
+              {items.map((item) => (
+                <div key={item.id} onClick={() => setSelection(item)}>
+                  {item.name}
+                </div>
+              ))}
+            </div>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "Conditionally setting state from internal state",
+      code: tsx`
+        function Form() {
+          const [error, setError] = useState();
+          const [result, setResult] = useState();
+
+          useEffect(() => {
+            if (result.data) {
+              setError(null);
+            }
+          }, [result]);
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+        },
+      ],
+    },
     // https://github.com/Rel1cx/eslint-react/issues/1117
     {
       name: "setState from callback used in effect",
@@ -745,54 +655,144 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // React docs recommend to first update state in render instead of an effect.
-      // But then continue on to say that usually you can avoid the sync entirely by
-      // more wisely choosing your state. So we'll just always warn about chained state.
-      name: "Syncing prop changes to internal state",
+      name: "setState via array index",
       code: tsx`
-        function List({ items }) {
-          const [selection, setSelection] = useState();
+        import { useEffect, useState } from "react";
 
+        function Component() {
+          const data = useState(0);
           useEffect(() => {
-            setSelection(null);
-          }, [items]);
-
-          return (
-            <div>
-              {items.map((item) => (
-                <div key={item.id} onClick={() => setSelection(item)}>
-                  {item.name}
-                </div>
-              ))}
-            </div>
-          )
+            data[1](1);
+          }, []);
+          return null;
         }
       `,
       errors: [
         {
+          data: {
+            name: "data[1]",
+          },
           messageId: "default",
         },
       ],
     },
     {
-      name: "Conditionally setting state from internal state",
+      name: "setState via .at() method",
       code: tsx`
-        function Form() {
-          const [error, setError] = useState();
-          const [result, setResult] = useState();
+        import { useEffect, useState } from "react";
 
+        function Component() {
+          const data = useState(0);
           useEffect(() => {
-            if (result.data) {
-              setError(null);
-            }
-          }, [result]);
+            data.at(1)(1);
+          }, []);
+          return null;
         }
       `,
       errors: [
         {
+          data: {
+            name: "data.at(1)",
+          },
           messageId: "default",
         },
       ],
+    },
+    {
+      name: "setState via .at() with variable",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 1;
+        function Component() {
+          const data = useState(0);
+          useEffect(() => {
+            data.at(index)(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "data.at(index)",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "setState via bracket notation with variable",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 1;
+        function Component() {
+          const data = useState(0);
+          useEffect(() => {
+            data[index](1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "data[index]",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "setState with custom hook",
+      code: tsx`
+        function Component() {
+          const [data, setData] = useSta(0);
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useSta",
+        },
+      },
+    },
+    {
+      name: "setState with regex-matched custom hook",
+      code: tsx`
+        function Component() {
+          const [data, setData] = useSta1(0);
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "setData",
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "/^(useSta1|useSta2)$/u",
+        },
+      },
     },
     // --- Cases covering newly traversed node types (non-ref, should report) ---
     {
@@ -1037,16 +1037,254 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      name: "setState with no arguments in effect (invalid usage but not reported by this rule)",
+      name: "setState in promise callback",
       code: tsx`
         import { useEffect, useState } from "react";
 
         function Component() {
           const [data, setData] = useState(0);
           useEffect(() => {
-            setData();
+            fetch().then(() => setData());
           }, []);
           return null;
+        }
+      `,
+    },
+    {
+      name: "setState in async IIFE",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 0;
+        function Component() {
+          const [data, setData] = useState(() => 0);
+          useEffect(() => {
+            void async function () {
+              const ret = await fetch("https://eslint-react.xyz");
+              setData(ret);
+            }()
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked handler",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            const handler = () => setData(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "uninvoked function in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data, setData] = useState();
+          useEffect(() => {
+          const onLoad = () => {
+            setData();
+          };
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "calling function from useState in effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [fn] = useState(() => () => "Function");
+          // ...
+          useEffect(() => {
+            fn();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked function outside effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          const setAll = () => {
+            setData1(1);
+            setData2(1);
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in nested uninvoked function",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          const setAll = () => {
+            setData1(1);
+            setData2(1);
+          }
+          const handler = () => {
+            setAll();
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in function declaration outside effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component = () => {
+          const [data1, setData1] = useState(0);
+          const [data2, setData2] = useState(0);
+          function handler() {
+            setAll();
+          }
+          function setAll() {
+            setData1(1);
+            setData2(1);
+          }
+          return null;
+        }
+      `,
+    },
+    {
+      name: "external function from different component scope",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [data, setData] = useState();
+          const setupFunction = () => {
+            setData()
+          }
+          return null;
+        }
+
+        const Component2 = () => {
+          const [data, setData] = useState();
+          useEffect(setupFunction, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "function defined in different component not detected",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const Component1 = () => {
+          const [data, setData] = useState(0);
+          const setAll = () => {
+            setData(1);
+          }
+          return null;
+        }
+
+        const Component2 = () => {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setAll(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState in uninvoked callback in custom hook",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function useCustomHook() {
+          const [data, setData] = useState(0);
+          const handlerWatcher = () => {
+              setData(1)
+          }
+          useEffect(() => {
+              const abortController = new AbortController()
+              new MutationObserverWatcher(searchAvatarMetaSelector())
+                  .addListener('onChange', handlerWatcher)
+                  .startWatch(
+                      {
+                          childList: true,
+                          subtree: true,
+                          attributes: true,
+                          attributeFilter: ['src'],
+                      },
+                      abortController.signal,
+                  )
+              return () => abortController.abort()
+          }, [handlerWatcher])
+        }
+      `,
+    },
+    // https://github.com/Rel1cx/eslint-react/issues/967
+    {
+      name: "setState in IIFE inside callback (not directly in effect)",
+      code: tsx`
+        import { useEffect, useState, useCallback } from "react";
+
+        function useCustomHook() {
+          const [something, setSomething] = useState('');
+
+          const test = useCallback(() => {
+            setSomething('') // doesn't trigger the rules
+
+            ;(() => {
+              setSomething('') // trigger the rules
+            })()
+          }, [])
+        }
+      `,
+    },
+    {
+      name: "navigation.setOptions in useLayoutEffect",
+      code: tsx`
+        import { useEffect, useState, useCallback } from "react";
+
+        function useCustomHook() {
+            useLayoutEffect(() => {
+            navigation.setOptions({
+              headerLeft: () => <CloseButtonHeader disabled={submitting} onPress={onBack} />,
+              headerRight: () => (
+                <NewPostSaveButton
+                  disabled={submitting || loading}
+                  isEdit={!!post}
+                  onPress={onPressSave}
+                  title={
+                    post
+                      ? t({
+                          message: 'Save',
+                          context: 'action'
+                        })
+                      : t({
+                          message: 'Post',
+                          context: 'action'
+                        })
+                  }
+                />
+              )
+            });
+          }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
         }
       `,
     },
@@ -1336,273 +1574,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    {
-      name: "calling function from useState in effect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [fn] = useState(() => () => "Function");
-          // ...
-          useEffect(() => {
-            fn();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in uninvoked handler",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            const handler = () => setData(1);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in promise callback",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function Component() {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            fetch().then(() => setData());
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "uninvoked function in effect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data, setData] = useState();
-          useEffect(() => {
-          const onLoad = () => {
-            setData();
-          };
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "calling setter at index 0",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 0;
-        function Component() {
-          const data = useState(() => 0);
-          useEffect(() => {
-            data.at(index)();
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in async IIFE",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const index = 0;
-        function Component() {
-          const [data, setData] = useState(() => 0);
-          useEffect(() => {
-            void async function () {
-              const ret = await fetch("https://eslint-react.xyz");
-              setData(ret);
-            }()
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in uninvoked function outside effect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data1, setData1] = useState(0);
-          const [data2, setData2] = useState(0);
-          const setAll = () => {
-            setData1(1);
-            setData2(1);
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in nested uninvoked function",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data1, setData1] = useState(0);
-          const [data2, setData2] = useState(0);
-          const setAll = () => {
-            setData1(1);
-            setData2(1);
-          }
-          const handler = () => {
-            setAll();
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in function declaration outside effect",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component = () => {
-          const [data1, setData1] = useState(0);
-          const [data2, setData2] = useState(0);
-          function handler() {
-            setAll();
-          }
-          function setAll() {
-            setData1(1);
-            setData2(1);
-          }
-          return null;
-        }
-      `,
-    },
-    {
-      name: "external function from different component scope",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component1 = () => {
-          const [data, setData] = useState();
-          const setupFunction = () => {
-            setData()
-          }
-          return null;
-        }
-
-        const Component2 = () => {
-          const [data, setData] = useState();
-          useEffect(setupFunction, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "function defined in different component not detected",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        const Component1 = () => {
-          const [data, setData] = useState(0);
-          const setAll = () => {
-            setData(1);
-          }
-          return null;
-        }
-
-        const Component2 = () => {
-          const [data, setData] = useState(0);
-          useEffect(() => {
-            setAll(1);
-          }, []);
-          return null;
-        }
-      `,
-    },
-    {
-      name: "setState in uninvoked callback in custom hook",
-      code: tsx`
-        import { useEffect, useState } from "react";
-
-        function useCustomHook() {
-          const [data, setData] = useState(0);
-          const handlerWatcher = () => {
-              setData(1)
-          }
-          useEffect(() => {
-              const abortController = new AbortController()
-              new MutationObserverWatcher(searchAvatarMetaSelector())
-                  .addListener('onChange', handlerWatcher)
-                  .startWatch(
-                      {
-                          childList: true,
-                          subtree: true,
-                          attributes: true,
-                          attributeFilter: ['src'],
-                      },
-                      abortController.signal,
-                  )
-              return () => abortController.abort()
-          }, [handlerWatcher])
-        }
-      `,
-    },
-    // https://github.com/Rel1cx/eslint-react/issues/967
-    {
-      name: "setState in IIFE inside callback (not directly in effect)",
-      code: tsx`
-        import { useEffect, useState, useCallback } from "react";
-
-        function useCustomHook() {
-          const [something, setSomething] = useState('');
-
-          const test = useCallback(() => {
-            setSomething('') // doesn't trigger the rules
-
-            ;(() => {
-              setSomething('') // trigger the rules
-            })()
-          }, [])
-        }
-      `,
-    },
-    {
-      name: "navigation.setOptions in useLayoutEffect",
-      code: tsx`
-        import { useEffect, useState, useCallback } from "react";
-
-        function useCustomHook() {
-            useLayoutEffect(() => {
-            navigation.setOptions({
-              headerLeft: () => <CloseButtonHeader disabled={submitting} onPress={onBack} />,
-              headerRight: () => (
-                <NewPostSaveButton
-                  disabled={submitting || loading}
-                  isEdit={!!post}
-                  onPress={onPressSave}
-                  title={
-                    post
-                      ? t({
-                          message: 'Save',
-                          context: 'action'
-                        })
-                      : t({
-                          message: 'Post',
-                          context: 'action'
-                        })
-                  }
-                />
-              )
-            });
-          }, [loading, navigation, onBack, onPressSave, post, submitting, t]);
-        }
-      `,
-    },
     // --- Namespace import valid cases ---
     {
       name: "setState with ref via namespace import",
@@ -1783,6 +1754,35 @@ ruleTester.run(RULE_NAME, rule, {
 
         function load({ x, y }) {
           return x * y;
+        }
+      `,
+    },
+    {
+      name: "calling setter at index 0",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        const index = 0;
+        function Component() {
+          const data = useState(() => 0);
+          useEffect(() => {
+            data.at(index)();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with no arguments in effect (invalid usage but not reported by this rule)",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            setData();
+          }, []);
+          return null;
         }
       `,
     },

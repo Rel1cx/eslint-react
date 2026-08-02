@@ -6,14 +6,6 @@ import rule, { RULE_NAME } from "./no-script-url";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: '<a href={"javascript:"}></a>',
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: '<Foo href="javascript:"></Foo>',
-      errors: [{ messageId: "default" }],
-    },
-    {
       code: '<a href="javascript:"></a>',
       errors: [{ messageId: "default" }],
     },
@@ -22,24 +14,26 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
-      code: '<a href="j\n\n\na\rv\tascript:"></a>',
+      code: '<a href={"javascript:"}></a>',
+      errors: [{ messageId: "default" }],
+    },
+    // javascript: with various payloads
+    {
+      code: "<a href=\"javascript:alert('XSS')\"></a>",
       errors: [{ messageId: "default" }],
     },
     {
-      code: '<Foo to="javascript:"></Foo>',
+      code: '<a href="javascript:console.log(document.cookie)"></a>',
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`
-        <div>
-          <Foo href="javascript:"></Foo>
-          <Bar link="javascript:"></Bar>
-        </div>
-      `,
-      errors: [
-        { messageId: "default" },
-        { messageId: "default" },
-      ],
+      code: "<a href=\"javascript:fetch('http://evil.com')\"></a>",
+      errors: [{ messageId: "default" }],
+    },
+    // Inline execution
+    {
+      code: "<a href=\"javascript:document.location='http://evil.com'\"></a>",
+      errors: [{ messageId: "default" }],
     },
     // Different JavaScript protocol variants - case variations
     {
@@ -64,17 +58,13 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<a href="\x00\x01javascript:"></a>',
       errors: [{ messageId: "default" }],
     },
-    // javascript: with various payloads
     {
-      code: "<a href=\"javascript:alert('XSS')\"></a>",
+      code: '<a href="j\n\n\na\rv\tascript:"></a>',
       errors: [{ messageId: "default" }],
     },
+    // Unicode variations that match the regex (with tab/newline)
     {
-      code: '<a href="javascript:console.log(document.cookie)"></a>',
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: "<a href=\"javascript:fetch('http://evil.com')\"></a>",
+      code: '<a href="j\na\nv\na\ns\nc\nr\ni\np\nt:"></a>',
       errors: [{ messageId: "default" }],
     },
     // Dynamic expression with string
@@ -84,6 +74,31 @@ ruleTester.run(RULE_NAME, rule, {
         <a href={url}></a>
       `,
       errors: [{ messageId: "default" }],
+    },
+    // Template literal without expressions resolves to string
+    {
+      code: tsx`<a href={\`javascript:void(0)\`}></a>`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<Foo href="javascript:"></Foo>',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<Foo to="javascript:"></Foo>',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        <div>
+          <Foo href="javascript:"></Foo>
+          <Bar link="javascript:"></Bar>
+        </div>
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
     },
     // Multiple attributes with javascript: URLs
     {
@@ -148,48 +163,47 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<body background="javascript:alert(1)"></body>',
       errors: [{ messageId: "default" }],
     },
-    // Inline execution
-    {
-      code: "<a href=\"javascript:document.location='http://evil.com'\"></a>",
-      errors: [{ messageId: "default" }],
-    },
-    // Unicode variations that match the regex (with tab/newline)
-    {
-      code: '<a href="j\na\nv\na\ns\nc\nr\ni\np\nt:"></a>',
-      errors: [{ messageId: "default" }],
-    },
     // Any element with href attribute containing javascript:
     {
       code: '<div href="javascript:void(0)"></div>',
       errors: [{ messageId: "default" }],
     },
-    // Template literal without expressions resolves to string
-    {
-      code: tsx`<a href={\`javascript:void(0)\`}></a>`,
-      errors: [{ messageId: "default" }],
-    },
   ],
   valid: [
     '<a href="https://react.dev"></a>',
-    '<a href="mailto:foo@bar.com"></a>',
     '<a href="#"></a>',
     '<a href=""></a>',
-    '<a name="foo"></a>',
-    "<a href />",
+    '<a href="mailto:foo@bar.com"></a>',
     // Other protocols
     '<a href="tel:+1234567890"></a>',
     '<a href="sms:+1234567890"></a>',
     '<a href="ftp://example.com"></a>',
     '<a href="file:///tmp/file.txt"></a>',
-    // Not a string literal - dynamic values that can't be statically analyzed
-    "<a href={someVariable}></a>",
-    "<a href={getUrl()}></a>",
-    // Object values that can't be statically resolved to string
-    '<a href={{ toString: () => "/path" }}></a>',
     // Normal URLs with javascript-like substring
     '<a href="https://example.com/javascript-guide"></a>',
     '<a href="/api/javascript-parser"></a>',
     '<a href="path/to/javascript-file.js"></a>',
+    // Not a string literal - dynamic values that can't be statically analyzed
+    "<a href={someVariable}></a>",
+    "<a href={getUrl()}></a>",
+    // Template literal without expressions - safe URL
+    tsx`<a href={\`https://example.com\`}></a>`,
+    // No href attribute
+    "<a>Text only</a>",
+    '<a name="foo"></a>',
+    "<a href />",
+    // Empty/null/undefined
+    "<a href={null}></a>",
+    "<a href={undefined}></a>",
+    // Number value
+    "<a href={123}></a>",
+    // Boolean value
+    "<a href={true}></a>",
+    // Spread props - can't be statically analyzed
+    tsx`
+      const props = { href: "javascript:void(0)" };
+      <a {...props}></a>
+    `,
     // Data URI (not javascript:)
     '<a href="data:text/html,<h1>Hello</h1>"></a>',
     // About blank
@@ -199,32 +213,18 @@ ruleTester.run(RULE_NAME, rule, {
     // Custom protocols
     '<a href="myapp://open"></a>',
     '<a href="steam://run/123"></a>',
-    // No href attribute
-    "<a>Text only</a>",
-    // Empty/null/undefined
-    "<a href={null}></a>",
-    "<a href={undefined}></a>",
-    // Number value
-    "<a href={123}></a>",
-    // Boolean value
-    "<a href={true}></a>",
+    // Object values that can't be statically resolved to string
+    '<a href={{ toString: () => "/path" }}></a>',
     // Template literal with expression - can't be statically resolved
     "<a href={`javascript:void(${id})`}></a>",
     // Conditional expression - can't be statically resolved
     '<a href={isActive ? "javascript:void(0)" : "/home"}></a>',
     // String with spaces between characters doesn't match the regex pattern
     '<a href="j a v a s c r i p t:"></a>',
-    // Spread props - can't be statically analyzed
-    tsx`
-      const props = { href: "javascript:void(0)" };
-      <a {...props}></a>
-    `,
     // Boundary: JSXAttribute with no value (boolean shorthand)
     "<a href>Link</a>",
     // Boundary: JSXAttribute with empty expression container
     "<a href={}>Link</a>",
     "<div href={}></div>",
-    // Template literal without expressions - safe URL
-    tsx`<a href={\`https://example.com\`}></a>`,
   ],
 });

@@ -17,47 +17,6 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    {
-      code: tsx`
-        import reactDom from 'react-dom';
-
-        reactDom.flushSync(() => {
-          setSomething(123);
-        });
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-    // Different import styles
-    {
-      code: tsx`
-        import * as ReactDOM from 'react-dom';
-
-        ReactDOM.flushSync(() => {
-          setSomething(123);
-        });
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-    // In async function
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-
-        async function handleUpdate() {
-          await fetchData();
-          flushSync(() => {
-            updateUI();
-          });
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
     // In event handler
     {
       code: tsx`
@@ -99,6 +58,129 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // In useEffect
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            flushSync(() => {
+              setSomething(123);
+            });
+          }, []);
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    // In async function
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+
+        async function handleUpdate() {
+          await fetchData();
+          flushSync(() => {
+            updateUI();
+          });
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    // In class component method
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        import { Component } from 'react';
+
+        class MyComponent extends Component {
+          handleUpdate = () => {
+            flushSync(() => {
+              this.setState({ value: 1 });
+            });
+          };
+
+          render() {
+            return <button onClick={this.handleUpdate}>Update</button>;
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      code: tsx`
+        import reactDom from 'react-dom';
+
+        reactDom.flushSync(() => {
+          setSomething(123);
+        });
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    // Different import styles
+    {
+      code: tsx`
+        import * as ReactDOM from 'react-dom';
+
+        ReactDOM.flushSync(() => {
+          setSomething(123);
+        });
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    // With callback result
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+
+        function getValue() {
+          return flushSync(() => {
+            return someValue;
+          });
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    // In return statement
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        function getValue() {
+          return flushSync(() => someValue);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Passed as argument
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        doSomething(flushSync(() => {}));
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // In conditional expression
+    {
+      code: tsx`
+        import { flushSync } from 'react-dom';
+        condition && flushSync(() => {});
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Multiple calls
     {
       code: tsx`
@@ -134,62 +216,6 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // In useEffect
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
-            flushSync(() => {
-              setSomething(123);
-            });
-          }, []);
-          return <div />;
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-    // In class component method
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-        import { Component } from 'react';
-
-        class MyComponent extends Component {
-          handleUpdate = () => {
-            flushSync(() => {
-              this.setState({ value: 1 });
-            });
-          };
-
-          render() {
-            return <button onClick={this.handleUpdate}>Update</button>;
-          }
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-    // With callback result
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-
-        function getValue() {
-          return flushSync(() => {
-            return someValue;
-          });
-        }
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
     // Local function named flushSync (detected due to simple text matching)
     {
       code: tsx`
@@ -214,32 +240,6 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // In conditional expression
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-        condition && flushSync(() => {});
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // In return statement
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-        function getValue() {
-          return flushSync(() => someValue);
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Passed as argument
-    {
-      code: tsx`
-        import { flushSync } from 'react-dom';
-        doSomething(flushSync(() => {}));
-      `,
-      errors: [{ messageId: "default" }],
-    },
   ],
   valid: [
     // Aliased import is not detected by this rule (limitation of simple text search)
@@ -250,13 +250,6 @@ ruleTester.run(RULE_NAME, rule, {
         fs(() => {
           setSomething(123);
         });
-      `,
-    },
-    // Variable named flushSync but not called
-    {
-      code: tsx`
-        const flushSync = 1;
-        console.log(flushSync);
       `,
     },
     // Different identifier
@@ -270,6 +263,13 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const obj = { flushSync: () => {} };
         obj["flushSync"]();
+      `,
+    },
+    // Variable named flushSync but not called
+    {
+      code: tsx`
+        const flushSync = 1;
+        console.log(flushSync);
       `,
     },
   ],

@@ -8,10 +8,9 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Parent() {
-          const ChildComponent = () => {
-            const [count, setCount] = useState(0);
-            return <button onClick={() => setCount(count + 1)}>{count}</button>;
-          };
+          function ChildComponent() {
+            return <div />;
+          }
 
           return <ChildComponent />;
         }
@@ -30,9 +29,10 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Parent() {
-          function ChildComponent() {
-            return <div />;
-          }
+          const ChildComponent = () => {
+            const [count, setCount] = useState(0);
+            return <button onClick={() => setCount(count + 1)}>{count}</button>;
+          };
 
           return <ChildComponent />;
         }
@@ -174,6 +174,83 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      code: tsx`
+        function Parent() {
+          const A = () => <div />;
+          const B = A;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          const A = createComponent();
+          const B = A;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          const A = () => <div />;
+          const B = condition ? A : () => <span />;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          let Component = DefaultComponent;
+          Component = createComponent();
+          const B = Component;
+          return <B />;
+        }
+      `,
+      errors: [
+        {
+          data: { name: "B" },
+          messageId: "createdHere",
+        },
+        {
+          data: { name: "B" },
+          messageId: "default",
+        },
+      ],
+    },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/static-components
     {
       code: tsx`
@@ -268,83 +345,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
         {
           data: { name: "Component" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Parent() {
-          const A = () => <div />;
-          const B = A;
-          return <B />;
-        }
-      `,
-      errors: [
-        {
-          data: { name: "B" },
-          messageId: "createdHere",
-        },
-        {
-          data: { name: "B" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Parent() {
-          const A = createComponent();
-          const B = A;
-          return <B />;
-        }
-      `,
-      errors: [
-        {
-          data: { name: "B" },
-          messageId: "createdHere",
-        },
-        {
-          data: { name: "B" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Parent() {
-          const A = () => <div />;
-          const B = condition ? A : () => <span />;
-          return <B />;
-        }
-      `,
-      errors: [
-        {
-          data: { name: "B" },
-          messageId: "createdHere",
-        },
-        {
-          data: { name: "B" },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Parent() {
-          let Component = DefaultComponent;
-          Component = createComponent();
-          const B = Component;
-          return <B />;
-        }
-      `,
-      errors: [
-        {
-          data: { name: "B" },
-          messageId: "createdHere",
-        },
-        {
-          data: { name: "B" },
           messageId: "default",
         },
       ],
@@ -469,6 +469,15 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: tsx`
+        import ChildComponent from "./ChildComponent";
+
+        function Parent() {
+          return <ChildComponent />;
+        }
+      `,
+    },
+    {
+      code: tsx`
         function Parent() {
           return <ChildComponent />;
         }
@@ -481,8 +490,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Parent() {
-          const ChildComponent = () => <div />;
-          return <div />;
+          return <div><span>text</span></div>;
         }
       `,
     },
@@ -494,22 +502,6 @@ ruleTester.run(RULE_NAME, rule, {
           }
 
           return <button onClick={onClick} />;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Parent() {
-          return <div><span>text</span></div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        import ChildComponent from "./ChildComponent";
-
-        function Parent() {
-          return <ChildComponent />;
         }
       `,
     },
@@ -537,44 +529,19 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function Parent() {
+          const ChildComponent = () => <div />;
+          return <div />;
+        }
+      `,
+    },
+    {
+      code: tsx`
         const External = () => <div />;
 
         function Parent() {
           const B = External;
           return <B />;
-        }
-      `,
-    },
-    // Class component with render helper containing nested component (from React Compiler fixtures)
-    // NOTE: The IMPL does not flag this because the class-field arrow _renderMessage is not
-    // recognized as a function-component boundary, and the nested Message definition is traced
-    // through class-component detection in a way that does not surface here.
-    {
-      code: tsx`
-        class Component {
-          _renderMessage = () => {
-            const Message = () => {
-              const message = this.state.message;
-              return <div>{message}</div>;
-            };
-            return <Message />;
-          };
-
-          render() {
-            return this._renderMessage();
-          }
-        }
-      `,
-    },
-    // External component aliased in lambda callback (from React Compiler fixtures)
-    {
-      code: tsx`
-        function useFoo() {
-          const MyLocal = Stringify;
-          const callback = () => {
-            return <MyLocal value={4} />;
-          };
-          return callback();
         }
       `,
     },
@@ -662,6 +629,39 @@ ruleTester.run(RULE_NAME, rule, {
           A = B;
           B = A;
           return <A />;
+        }
+      `,
+    },
+    // Class component with render helper containing nested component (from React Compiler fixtures)
+    // NOTE: The IMPL does not flag this because the class-field arrow _renderMessage is not
+    // recognized as a function-component boundary, and the nested Message definition is traced
+    // through class-component detection in a way that does not surface here.
+    {
+      code: tsx`
+        class Component {
+          _renderMessage = () => {
+            const Message = () => {
+              const message = this.state.message;
+              return <div>{message}</div>;
+            };
+            return <Message />;
+          };
+
+          render() {
+            return this._renderMessage();
+          }
+        }
+      `,
+    },
+    // External component aliased in lambda callback (from React Compiler fixtures)
+    {
+      code: tsx`
+        function useFoo() {
+          const MyLocal = Stringify;
+          const callback = () => {
+            return <MyLocal value={4} />;
+          };
+          return callback();
         }
       `,
     },

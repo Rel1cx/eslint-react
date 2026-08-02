@@ -6,6 +6,7 @@ import rule, { RULE_NAME } from "./no-unsafe-component-will-mount";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      name: "UNSAFE_componentWillMount in React.Component class",
       code: tsx`
         import React from "react";
 
@@ -25,6 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillMount in React.PureComponent class",
       code: tsx`
         import React from "react";
 
@@ -44,6 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillMount in Component class with named import",
       code: tsx`
         import { Component } from "react";
 
@@ -63,6 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillMount in PureComponent class with named import",
       code: tsx`
         import { PureComponent } from "react";
 
@@ -83,34 +87,43 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    tsx`
-      class Foo extends Bar {
-        componentWillMount() {}
-      }
-    `,
-    tsx`
-      import React from "react";
+    {
+      name: "componentWillMount in React.Component class",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.Component {
+        class Foo extends React.Component {
 
-        componentWillMount() {}
+          componentWillMount() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
-    tsx`
-      import React from "react";
+      `,
+    },
+    {
+      name: "componentWillMount in React.PureComponent class",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.PureComponent {
+        class Foo extends React.PureComponent {
 
-        componentWillMount() {}
+          componentWillMount() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
+      `,
+    },
+    {
+      name: "componentWillMount in non-React class",
+      code: tsx`
+        class Foo extends Bar {
+          componentWillMount() {}
+        }
+      `,
+    },
   ],
 });

@@ -7,6 +7,17 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        import React, { cloneElement } from 'react';
+
+        const element = <div />;
+        const clonedElement = cloneElement(element);
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
         import { cloneElement } from "react";
 
         // ...
@@ -34,17 +45,6 @@ ruleTester.run(RULE_NAME, rule, {
 
           return null
         }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        import React, { cloneElement } from 'react';
-
-        const element = <div />;
-        const clonedElement = cloneElement(element);
       `,
       errors: [{
         messageId: "default",

@@ -13,13 +13,6 @@ ruleTester.run(RULE_NAME, rule, {
       }],
     },
     {
-      code: tsx`<ns:testComponent />`,
-      errors: [{
-        data: { name: "ns:testComponent" },
-        messageId: "noNamespace",
-      }],
-    },
-    {
       code: tsx`<Ns:TestComponent />`,
       errors: [{
         data: { name: "Ns:TestComponent" },
@@ -30,6 +23,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<svg:circle cx="50" cy="50" r="40" />`,
       errors: [{
         data: { name: "svg:circle" },
+        messageId: "noNamespace",
+      }],
+    },
+    // Casing variant
+    {
+      code: tsx`<ns:testComponent />`,
+      errors: [{
+        data: { name: "ns:testComponent" },
         messageId: "noNamespace",
       }],
     },
@@ -52,22 +53,23 @@ ruleTester.run(RULE_NAME, rule, {
     // Self-closing with nested member expression is not possible in JSX namespace syntax
   ],
   valid: [
+    "<TestComponent />",
+    // Plain lowercase element
+    "<div />",
     "<testcomponent />",
     "<testComponent />",
     "<test_component />",
-    "<TestComponent />",
-    "<object.testcomponent />",
-    "<object.testComponent />",
-    "<object.test_component />",
-    "<object.TestComponent />",
-    "<Object.testcomponent />",
-    "<Object.testComponent />",
-    "<Object.test_component />",
-    "<Object.TestComponent />",
     // React Fragment (no colon)
     "<React.Fragment />",
-    // Plain lowercase element
-    "<div />",
+    // Member expressions (no colon)
+    "<object.TestComponent />",
+    "<Object.TestComponent />",
+    "<object.testComponent />",
+    "<Object.testComponent />",
+    "<object.testcomponent />",
+    "<Object.testcomponent />",
+    "<object.test_component />",
+    "<Object.test_component />",
     // Namespaced attribute names are allowed (rule only checks element names)
     '<div xml:space="preserve" />',
     '<svg xmlns:xlink="http://www.w3.org/1999/xlink" />',

@@ -20,19 +20,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const { Children } = require('react');
-
-        function Box({ children }) {
-          const element = Children.only(children);
-          // ...
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
         import React from 'react';
 
         function Box({ children }) {
@@ -57,22 +44,21 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-  ],
-  valid: [
     {
       code: tsx`
-        import { Children } from 'react';
+        const { Children } = require('react');
 
-        function SeparatorList({ children }) {
-          const result = [];
-          Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
-          });
+        function Box({ children }) {
+          const element = Children.only(children);
           // ...
         }
       `,
+      errors: [{
+        messageId: "default",
+      }],
     },
+  ],
+  valid: [
     {
       code: tsx`
         import { Children } from 'react';
@@ -87,6 +73,20 @@ ruleTester.run(RULE_NAME, rule, {
               )}
             </div>
           );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
+
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
         }
       `,
     },

@@ -47,6 +47,36 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Unsafe rel attribute
+    {
+      code: '<a href="https://react.dev" target="_blank" rel="nofollow"></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+            },
+          ],
+        },
+      ],
+    },
+    // Empty rel attribute (not safe)
+    {
+      code: '<a href="https://react.dev" target="_blank" rel=""></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+            },
+          ],
+        },
+      ],
+    },
     {
       code: tsx`
         const props = { href: "https://react.dev", target: "_blank" };
@@ -307,50 +337,23 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   },
     // },
-    // Empty rel attribute (not safe)
-    {
-      code: '<a href="https://react.dev" target="_blank" rel=""></a>',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "addRelNoreferrerNoopener",
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
-            },
-          ],
-        },
-      ],
-    },
-    // Unsafe rel attribute
-    {
-      code: '<a href="https://react.dev" target="_blank" rel="nofollow"></a>',
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "addRelNoreferrerNoopener",
-              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
-            },
-          ],
-        },
-      ],
-    },
   ],
   valid: [
-    "<span></span>",
-    "<a></a>",
-    '<a href="https://react.dev" target="_self"></a>',
-    '<a href="https://react.dev" target="_parent"></a>',
-    '<a title="https://react.dev" target="_blank"></a>',
-    '<Link href="https://react.dev" target="_self"></Link>',
-    '<Link href="https://react.dev" target="_parent"></Link>',
     '<a href="https://react.dev" target="_blank" rel="noopener noreferrer"></a>',
     '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
     '<Link href="https://react.dev" target="_blank" rel="noopener noreferrer"></Link>',
     '<Link href="https://react.dev" target="_blank" rel={"noopener noreferrer"}></Link>',
     '<Link href="https://react.dev" target="_blank" rel="noreferrer"></Link>',
+    // Internal link with target="_blank" (no external href)
+    '<a href="/local" target="_blank"></a>',
+    '<a href="#section" target="_blank"></a>',
+    '<a href="https://react.dev" target="_self"></a>',
+    '<a href="https://react.dev" target="_parent"></a>',
+    '<Link href="https://react.dev" target="_self"></Link>',
+    '<Link href="https://react.dev" target="_parent"></Link>',
+    '<a title="https://react.dev" target="_blank"></a>',
+    "<a></a>",
+    "<span></span>",
     '<Box href="https://react.dev" target="_blank"></Box>',
     tsx`
       const props = { href: "https://react.dev", target: "_blank", rel: "noreferrer" };
@@ -396,8 +399,5 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // Internal link with target="_blank" (no external href)
-    '<a href="/local" target="_blank"></a>',
-    '<a href="#section" target="_blank"></a>',
   ],
 });

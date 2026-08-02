@@ -6,13 +6,24 @@ import rule, { RULE_NAME } from "./no-forward-ref";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      // Not safe to fix because the import source is "not-react"
       code: tsx`
-        import { forwardRef } from "not-react"
-
-        forwardRef(() => null)
+        import { forwardRef } from 'react'
+        const Component = forwardRef((props) => null);
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import { forwardRef } from 'react'
+                const Component = ({ ref, ...props }) => null;
+              `,
+            },
+          ],
+        },
+      ],
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -37,31 +48,6 @@ ruleTester.run(RULE_NAME, rule, {
                 const Component = ({ ref, ...props }) => {
                   return null;
                 };
-              `,
-            },
-          ],
-        },
-      ],
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { forwardRef } from 'react'
-        const Component = forwardRef((props) => null);
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "replace",
-              output: tsx`
-                import { forwardRef } from 'react'
-                const Component = ({ ref, ...props }) => null;
               `,
             },
           ],
@@ -134,6 +120,31 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import * as React from 'react'
+        const Component = React.forwardRef((props) => null);
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "replace",
+              output: tsx`
+                import * as React from 'react'
+                const Component = ({ ref, ...props }) => null;
+              `,
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import * as React from 'react'
         const Component = React.forwardRef((props) => {
           return null;
         });
@@ -149,31 +160,6 @@ ruleTester.run(RULE_NAME, rule, {
                 const Component = ({ ref, ...props }) => {
                   return null;
                 };
-              `,
-            },
-          ],
-        },
-      ],
-      settings: {
-        "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import * as React from 'react'
-        const Component = React.forwardRef((props) => null);
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "replace",
-              output: tsx`
-                import * as React from 'react'
-                const Component = ({ ref, ...props }) => null;
               `,
             },
           ],
@@ -601,6 +587,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Not safe to fix because the import source is "not-react"
+    {
+      code: tsx`
+        import { forwardRef } from "not-react"
+
+        forwardRef(() => null)
+      `,
+      errors: [{ messageId: "default" }],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
     {
       code: tsx`
         import { forwardRef } from 'react'
@@ -664,7 +664,8 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import * as React from 'react'
-        React.forwardRef(function Component(props) {
+
+        const Component = React.forwardRef((props, ref) => {
           return null;
         });
       `,
@@ -677,8 +678,7 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import * as React from 'react'
-
-        const Component = React.forwardRef((props, ref) => {
+        React.forwardRef(function Component(props) {
           return null;
         });
       `,

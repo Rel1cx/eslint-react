@@ -22,21 +22,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Hook with callee wrapped in TSAsExpression
-    {
-      code: tsx`
-        function MyComponent({ condition }) {
-          if (condition) {
-            (useState as any)(0);
-          }
-        }
-      `,
-      errors: [
-        {
-          message: `React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
-        },
-      ],
-    },
     // Hook in loop
     {
       code: tsx`
@@ -69,20 +54,20 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Hook in class component
+    // Hook after early return
     {
       code: tsx`
-        class MyComponent extends React.Component {
-          render() {
-            useHook();
+        function MyComponent({ condition }) {
+          if (condition) {
             return null;
           }
+          useHook();
         }
       `,
       errors: [
         {
           message:
-            `React Hook "useHook" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function.`,
+            `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?`,
         },
       ],
     },
@@ -100,6 +85,23 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Hook in class component
+    {
+      code: tsx`
+        class MyComponent extends React.Component {
+          render() {
+            useHook();
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          message:
+            `React Hook "useHook" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function.`,
+        },
+      ],
+    },
     // Hook at top level
     {
       code: tsx`
@@ -109,23 +111,6 @@ ruleTester.run(RULE_NAME, rule, {
         {
           message:
             `React Hook "useHook" cannot be called at the top level. React Hooks must be called in a React function component or a custom React Hook function.`,
-        },
-      ],
-    },
-    // Hook after early return
-    {
-      code: tsx`
-        function MyComponent({ condition }) {
-          if (condition) {
-            return null;
-          }
-          useHook();
-        }
-      `,
-      errors: [
-        {
-          message:
-            `React Hook "useHook" is called conditionally. React Hooks must be called in the exact same order in every component render. Did you accidentally call a React Hook after an early return?`,
         },
       ],
     },
@@ -170,6 +155,21 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           message: `React Hook "use" cannot be called in a try/catch block.`,
+        },
+      ],
+    },
+    // Hook with callee wrapped in TSAsExpression
+    {
+      code: tsx`
+        function MyComponent({ condition }) {
+          if (condition) {
+            (useState as any)(0);
+          }
+        }
+      `,
+      errors: [
+        {
+          message: `React Hook "useState" is called conditionally. React Hooks must be called in the exact same order in every component render.`,
         },
       ],
     },
@@ -284,13 +284,29 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Nested custom hook call
+    // Hook starting with use in hook name
     {
       code: tsx`
-        function useOuterHook() {
-          return function useInnerHook() {
-            useState();
-          };
+        function useCustom() {
+          useState();
+          useEffect(() => {}, []);
+          useRef(null);
+        }
+      `,
+    },
+    // Component with PascalCase namespace
+    {
+      code: tsx`
+        function MyComponent() {
+          const state = React.useState(0);
+        }
+      `,
+    },
+    // Custom hook with namespace
+    {
+      code: tsx`
+        function useMyHook() {
+          const state = React.useState(0);
         }
       `,
     },
@@ -303,6 +319,15 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
     },
+    // ForwardRef component with hook
+    {
+      code: tsx`
+        const FancyButton = React.forwardRef((props, ref) => {
+          const [count, setCount] = useState(0);
+          return <button ref={ref}>{count}</button>;
+        });
+      `,
+    },
     // Hook in memo callback
     {
       code: tsx`
@@ -312,6 +337,36 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
     },
+    // Memo component with hook
+    {
+      code: tsx`
+        const MemoComponent = React.memo(function Component({ value }) {
+          const doubled = useMemo(() => value * 2, [value]);
+          return <div>{doubled}</div>;
+        });
+      `,
+    },
+    // Nested components with hooks
+    {
+      code: tsx`
+        function OuterComponent() {
+          useHook();
+          return function InnerComponent() {
+            useAnotherHook();
+          };
+        }
+      `,
+    },
+    // Nested custom hook call
+    {
+      code: tsx`
+        function useOuterHook() {
+          return function useInnerHook() {
+            useState();
+          };
+        }
+      `,
+    },
     // Hook called conditionally with use()
     {
       code: tsx`
@@ -319,6 +374,14 @@ ruleTester.run(RULE_NAME, rule, {
           if (condition) {
             use(promise);
           }
+        }
+      `,
+    },
+    // use() can be called in callbacks (unlike other hooks)
+    {
+      code: tsx`
+        function MyComponent() {
+          return <Child promiseFactory={() => use(promise)} />;
         }
       `,
     },
@@ -337,16 +400,6 @@ ruleTester.run(RULE_NAME, rule, {
         function MyComponent() {
           userFetch();
           doSomething();
-        }
-      `,
-    },
-    // Hook starting with use in hook name
-    {
-      code: tsx`
-        function useCustom() {
-          useState();
-          useEffect(() => {}, []);
-          useRef(null);
         }
       `,
     },
@@ -382,22 +435,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Component with PascalCase namespace
-    {
-      code: tsx`
-        function MyComponent() {
-          const state = React.useState(0);
-        }
-      `,
-    },
-    // Custom hook with namespace
-    {
-      code: tsx`
-        function useMyHook() {
-          const state = React.useState(0);
-        }
-      `,
-    },
     // Hook in destructuring pattern
     {
       code: tsx`
@@ -414,43 +451,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         ({ useHook() { useState(); } });
-      `,
-    },
-    // ForwardRef component with hook
-    {
-      code: tsx`
-        const FancyButton = React.forwardRef((props, ref) => {
-          const [count, setCount] = useState(0);
-          return <button ref={ref}>{count}</button>;
-        });
-      `,
-    },
-    // Memo component with hook
-    {
-      code: tsx`
-        const MemoComponent = React.memo(function Component({ value }) {
-          const doubled = useMemo(() => value * 2, [value]);
-          return <div>{doubled}</div>;
-        });
-      `,
-    },
-    // Nested components with hooks
-    {
-      code: tsx`
-        function OuterComponent() {
-          useHook();
-          return function InnerComponent() {
-            useAnotherHook();
-          };
-        }
-      `,
-    },
-    // use() can be called in callbacks (unlike other hooks)
-    {
-      code: tsx`
-        function MyComponent() {
-          return <Child promiseFactory={() => use(promise)} />;
-        }
       `,
     },
     // Hook in property assignment pattern

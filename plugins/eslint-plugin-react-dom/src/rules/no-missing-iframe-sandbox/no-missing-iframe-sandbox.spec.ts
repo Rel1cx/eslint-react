@@ -35,6 +35,46 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Variable sandbox value (not a static string)
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={sandboxValue} />;
+        }
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "addSandboxAttribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
+    // Boolean expression sandbox value
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={true} />;
+        }
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "addSandboxAttribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
     {
       code: tsx`<PolyComponent as="iframe" />;`,
       errors: [
@@ -95,55 +135,15 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
-    // Variable sandbox value (not a static string)
-    {
-      code: tsx`
-        function App() {
-          return <iframe sandbox={sandboxValue} />;
-        }
-      `,
-      errors: [{
-        messageId: "missingSandboxAttribute",
-        suggestions: [{
-          data: { value: "" },
-          messageId: "addSandboxAttribute",
-          output: tsx`
-            function App() {
-              return <iframe sandbox="" />;
-            }
-          `,
-        }],
-      }],
-    },
-    // Boolean expression sandbox value
-    {
-      code: tsx`
-        function App() {
-          return <iframe sandbox={true} />;
-        }
-      `,
-      errors: [{
-        messageId: "missingSandboxAttribute",
-        suggestions: [{
-          data: { value: "" },
-          messageId: "addSandboxAttribute",
-          output: tsx`
-            function App() {
-              return <iframe sandbox="" />;
-            }
-          `,
-        }],
-      }],
-    },
   ],
   valid: [
-    "<a />;",
-    "<span />;",
-    '<button type="button">Click me</button>;',
     '<iframe sandbox="" />;',
     '<iframe sandbox="allow-downloads" />;',
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
+    "<a />;",
+    "<span />;",
+    '<button type="button">Click me</button>;',
     'const IFrame = () => <iframe sandbox="allow-downloads" />;',
     tsx`
       function App() {

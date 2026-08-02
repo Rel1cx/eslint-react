@@ -82,6 +82,20 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        function App({ foo = {}, ...rest }) {
+            return null
+        }
+      `,
+      errors: [{
+        data: {
+          kind: "object expression",
+          propName: "foo",
+        },
+        messageId: MESSAGE_ID,
+      }],
+    },
+    {
+      code: tsx`
         function App({ foo = [], ...rest }) {
             return null
         }
@@ -104,20 +118,6 @@ ruleTester.run(RULE_NAME, rule, {
         data: {
           kind: "new expression",
           propName: "position",
-        },
-        messageId: MESSAGE_ID,
-      }],
-    },
-    {
-      code: tsx`
-        function App({ foo = {}, ...rest }) {
-            return null
-        }
-      `,
-      errors: [{
-        data: {
-          kind: "object expression",
-          propName: "foo",
         },
         messageId: MESSAGE_ID,
       }],
@@ -246,6 +246,87 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    tsx`
+        function App({ foo = 1, baz = 'hello' }) {
+          return null
+      }
+    `,
+    tsx`
+      const App = ({ foo = 1 }) => {
+          return null
+      }
+    `,
+    tsx`
+        function App(props) {
+          return null
+      }
+    `,
+    tsx`
+        const App = () => {
+          return null
+      }
+    `,
+    tsx`
+        function App(props) {
+            return null
+        }
+        App.defaultProps = {
+          foo: () => {}
+      }
+    `,
+    tsx`
+      const emptyFunction = () => {}
+
+      function App({ foo = emptyFunction }) {
+          return null
+      }
+    `,
+    tsx`
+      const emptyFunction = () => {}
+
+      function App({ foo = emptyFunction, ...rest }) {
+          return null
+      }
+    `,
+    tsx`
+      const emptyArray = [];
+      function Component(props) {
+        const { items = emptyArray } = props;
+
+        return <div>{items}</div>;
+      }
+    `,
+    {
+      code: tsx`
+        function MyComponent({ position = new Vector3(0, 0, 0) }) {
+          return null
+        }
+      `,
+      options: [{ safeDefaultProps: ["Vector3"] }],
+    },
+    {
+      code: tsx`
+        function MyComponent({
+          position = vector.create(0, 0, 0),
+          data = ImmutableMap.of(),
+          standard = 5,
+        }) {
+          return null
+        }
+      `,
+      options: [{ safeDefaultProps: ["vector", "/^Immutable.*/"] }],
+    },
+    {
+      code: tsx`
+        function Component({ items = (Array as any)(5) }) {
+          return <div />;
+        }
+      `,
+      options: [{ safeDefaultProps: ["Array"] }],
+    },
+    tsx`
+      export default function NonComponent({ foo = {} }) {}
+    `,
     {
       code: tsx`
         "use memo";
@@ -294,87 +375,6 @@ ruleTester.run(RULE_NAME, rule, {
           compilationMode: "annotation",
         },
       },
-    },
-    {
-      code: tsx`
-        function MyComponent({ position = new Vector3(0, 0, 0) }) {
-          return null
-        }
-      `,
-      options: [{ safeDefaultProps: ["Vector3"] }],
-    },
-    {
-      code: tsx`
-        function MyComponent({
-          position = vector.create(0, 0, 0),
-          data = ImmutableMap.of(),
-          standard = 5,
-        }) {
-          return null
-        }
-      `,
-      options: [{ safeDefaultProps: ["vector", "/^Immutable.*/"] }],
-    },
-    tsx`
-      const emptyFunction = () => {}
-
-      function App({ foo = emptyFunction }) {
-          return null
-      }
-    `,
-    tsx`
-      const emptyFunction = () => {}
-
-      function App({ foo = emptyFunction, ...rest }) {
-          return null
-      }
-    `,
-    tsx`
-        function App({ foo = 1, baz = 'hello' }) {
-          return null
-      }
-    `,
-    tsx`
-        function App(props) {
-          return null
-      }
-    `,
-    tsx`
-        function App(props) {
-            return null
-        }
-        App.defaultProps = {
-          foo: () => {}
-      }
-    `,
-    tsx`
-        const App = () => {
-          return null
-      }
-    `,
-    tsx`
-      const App = ({ foo = 1 }) => {
-          return null
-      }
-    `,
-    tsx`
-      const emptyArray = [];
-      function Component(props) {
-        const { items = emptyArray } = props;
-
-        return <div>{items}</div>;
-      }
-    `,
-    tsx`
-      export default function NonComponent({ foo = {} }) {}
-    `,
-    {
-      code: tsx`
-        function Component({ items = (Array as any)(5) }) {
-          return <div />;
-        }
-      `,
-      options: [{ safeDefaultProps: ["Array"] }],
     },
     tsx`
       export function DrawerItem(props: Props) {

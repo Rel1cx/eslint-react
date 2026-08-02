@@ -13,19 +13,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
-      errors: [
-        {
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          polymorphicPropName: "as",
-        },
-      },
-    },
     // Different sandbox value combinations (unsafe)
     {
       code: tsx`<iframe sandbox="allow-scripts allow-same-origin allow-popups" />;`,
@@ -59,17 +46,43 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox="allow-scripts allow-storage-access-by-user-activation allow-same-origin" />;`,
       errors: [{ messageId: "default" }],
     },
-    // Complex sandbox strings (with extra whitespace)
+    // With allow-top-navigation-by-user-activation
     {
-      code: tsx`<iframe sandbox="  allow-scripts   allow-same-origin  " />;`,
+      code: tsx`<iframe sandbox="allow-scripts allow-same-origin allow-top-navigation-by-user-activation" />;`,
+      errors: [{ messageId: "default" }],
+    },
+    // All permissions including unsafe combination
+    {
+      code:
+        tsx`<iframe sandbox="allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation allow-top-navigation-by-user-activation" />;`,
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`<iframe sandbox="allow-scripts\tallow-same-origin" />;`,
+      code: tsx`<PolyComponent as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
+      errors: [
+        {
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    // Template literal with unsafe values
+    {
+      code: tsx`<iframe sandbox={\`allow-scripts allow-same-origin\`} />;`,
       errors: [{ messageId: "default" }],
     },
+    // Variable assignment with unsafe sandbox
     {
-      code: tsx`<iframe sandbox="allow-scripts\nallow-same-origin" />;`,
+      code: tsx`
+        function App() {
+          const sandboxValue = "allow-scripts allow-same-origin";
+          return <iframe sandbox={sandboxValue} />;
+        }
+      `,
       errors: [{ messageId: "default" }],
     },
     // Spread props with unsafe sandbox
@@ -98,57 +111,39 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Statically evaluable computed keys in spread props are checked
-    {
-      code: tsx`<iframe {...{ ["sandbox"]: "allow-scripts allow-same-origin" }} />;`,
-      errors: [{ messageId: "default" }],
-    },
     // String literal keys in spread props are checked
     {
       code: tsx`<iframe {...{ "sandbox": "allow-scripts allow-same-origin" }} />;`,
       errors: [{ messageId: "default" }],
     },
-    // Variable assignment with unsafe sandbox
+    // Statically evaluable computed keys in spread props are checked
     {
-      code: tsx`
-        function App() {
-          const sandboxValue = "allow-scripts allow-same-origin";
-          return <iframe sandbox={sandboxValue} />;
-        }
-      `,
+      code: tsx`<iframe {...{ ["sandbox"]: "allow-scripts allow-same-origin" }} />;`,
       errors: [{ messageId: "default" }],
     },
-    // Template literal with unsafe values
+    // Complex sandbox strings (with extra whitespace)
     {
-      code: tsx`<iframe sandbox={\`allow-scripts allow-same-origin\`} />;`,
+      code: tsx`<iframe sandbox="  allow-scripts   allow-same-origin  " />;`,
       errors: [{ messageId: "default" }],
     },
-    // With allow-top-navigation-by-user-activation
     {
-      code: tsx`<iframe sandbox="allow-scripts allow-same-origin allow-top-navigation-by-user-activation" />;`,
+      code: tsx`<iframe sandbox="allow-scripts\tallow-same-origin" />;`,
       errors: [{ messageId: "default" }],
     },
-    // All permissions including unsafe combination
     {
-      code:
-        tsx`<iframe sandbox="allow-downloads allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation allow-top-navigation-by-user-activation" />;`,
+      code: tsx`<iframe sandbox="allow-scripts\nallow-same-origin" />;`,
       errors: [{ messageId: "default" }],
     },
   ],
   valid: [
-    "<a />;",
-    "<span />;",
-    '<button type="button">Click me</button>;',
     '<iframe sandbox="" />;',
     '<iframe sandbox="allow-downloads" />;',
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
-    'const IFrame = () => <iframe sandbox="allow-downloads" />;',
-    tsx`
-      function App() {
-          return <iframe sandbox="allow-downloads" />;
-      }
-    `,
+    // Allow-same-origin alone (safe)
+    '<iframe sandbox="allow-same-origin" />;',
+    // Allow-scripts alone (safe)
+    '<iframe sandbox="allow-scripts" />;',
     // Allowed correct sandbox values
     '<iframe sandbox="allow-forms" />;',
     '<iframe sandbox="allow-modals" />;',
@@ -160,10 +155,6 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-storage-access-by-user-activation" />;',
     '<iframe sandbox="allow-top-navigation" />;',
     '<iframe sandbox="allow-top-navigation-by-user-activation" />;',
-    // Allow-same-origin alone (safe)
-    '<iframe sandbox="allow-same-origin" />;',
-    // Allow-scripts alone (safe)
-    '<iframe sandbox="allow-scripts" />;',
     // Multiple safe permissions without unsafe combination
     '<iframe sandbox="allow-downloads allow-forms" />;',
     '<iframe sandbox="allow-popups allow-modals" />;',
@@ -182,6 +173,27 @@ ruleTester.run(RULE_NAME, rule, {
     '<iframe sandbox="allow-top-navigation allow-scripts allow-forms" />;',
     // No sandbox attribute
     "<iframe />;",
+    'const IFrame = () => <iframe sandbox="allow-downloads" />;',
+    tsx`
+      function App() {
+          return <iframe sandbox="allow-downloads" />;
+      }
+    `,
+    // Template literal with safe values
+    tsx`<iframe sandbox={\`allow-downloads\`} />;`,
+    // Spread props not containing unsafe sandbox
+    tsx`
+      const props = { sandbox: "allow-downloads" };
+      <iframe {...props} />;
+    `,
+    // Not an iframe element
+    '<div sandbox="allow-scripts allow-same-origin" />;',
+    '<span sandbox="allow-scripts allow-same-origin" />;',
+    // Custom component (not polymorphic as iframe)
+    tsx`<CustomComponent sandbox="allow-scripts allow-same-origin" />;`,
+    "<a />;",
+    "<span />;",
+    '<button type="button">Click me</button>;',
     // Null/undefined sandbox
     tsx`<iframe sandbox={null} />;`,
     tsx`<iframe sandbox={undefined} />;`,
@@ -193,31 +205,19 @@ ruleTester.run(RULE_NAME, rule, {
       const sandbox = someVariable;
       <iframe sandbox={sandbox} />;
     `,
-    // Spread props not containing unsafe sandbox
-    tsx`
-      const props = { sandbox: "allow-downloads" };
-      <iframe {...props} />;
-    `,
-    // Not an iframe element
-    '<div sandbox="allow-scripts allow-same-origin" />;',
-    '<span sandbox="allow-scripts allow-same-origin" />;',
-    // Custom component (not polymorphic as iframe)
-    tsx`<CustomComponent sandbox="allow-scripts allow-same-origin" />;`,
-    // Template literal with safe values
-    tsx`<iframe sandbox={\`allow-downloads\`} />;`,
-    // Object expression (not string)
-    tsx`<iframe sandbox={["allow-downloads"]} />;`,
     // Conditional expression - can't be statically resolved
     tsx`
       function App({ useSandbox }) {
         return <iframe sandbox={useSandbox ? "allow-scripts allow-same-origin" : ""} />;
       }
     `,
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
-    tsx`<iframe sandbox={} />;`,
+    // Object expression (not string)
+    tsx`<iframe sandbox={["allow-downloads"]} />;`,
     // Boolean shorthand sandbox (no value to analyze)
     tsx`<iframe sandbox />;`,
     // Boolean expression sandbox
     tsx`<iframe sandbox={true} />;`,
+    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    tsx`<iframe sandbox={} />;`,
   ],
 });

@@ -10,17 +10,31 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`<>// invalid</>`,
+      code: tsx`<div>/* invalid */</div>`,
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`<div>/* invalid */</div>`,
+      code: tsx`<>// invalid</>`,
+      errors: [{ messageId: "default" }],
+    },
+    // Leading whitespace before comment
+    {
+      code: tsx`<div>   // comment</div>`,
       errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         <div>
         // invalid
+        </div>
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Leading newline before comment
+    {
+      code: tsx`
+        <div>
+          // comment
         </div>
       `,
       errors: [{ messageId: "default" }],
@@ -45,18 +59,14 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Block comment with content
     {
-      code: "<span>/*</span>",
+      code: tsx`<div>/** comment */</div>`,
       errors: [{ messageId: "default" }],
     },
-    // Empty comment block
+    // Inside a custom component
     {
-      code: tsx`<div>/**/</div>`,
-      errors: [{ messageId: "default" }],
-    },
-    // Bare double-slash with no content
-    {
-      code: tsx`<div>//</div>`,
+      code: tsx`<Custom>/* not a real comment */</Custom>`,
       errors: [{ messageId: "default" }],
     },
     // Comment text immediately after an expression
@@ -69,28 +79,18 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<div>// comment{expr}</div>`,
       errors: [{ messageId: "default" }],
     },
-    // Inside a custom component
+    // Empty comment block
     {
-      code: tsx`<Custom>/* not a real comment */</Custom>`,
+      code: tsx`<div>/**/</div>`,
       errors: [{ messageId: "default" }],
     },
-    // Leading whitespace before comment
+    // Bare double-slash with no content
     {
-      code: tsx`<div>   // comment</div>`,
+      code: tsx`<div>//</div>`,
       errors: [{ messageId: "default" }],
     },
-    // Leading newline before comment
     {
-      code: tsx`
-        <div>
-          // comment
-        </div>
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Block comment with content
-    {
-      code: tsx`<div>/** comment */</div>`,
+      code: "<span>/*</span>",
       errors: [{ messageId: "default" }],
     },
     // Heuristic boundary: a line starting with '//' is reported even when it is intended text (e.g. a UNC path)
@@ -105,15 +105,8 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     "<App foo='test'>{/* valid */}</App>",
-    "<strong>&nbsp;https://eslint-react.xyz/attachment/download/1</strong>",
     "<App /* valid */ placeholder={'foo'}/>",
     "</* valid */></>",
-    // URL-like text should not be treated as comments
-    "<div>https://example.com</div>",
-    "<div>http://localhost:3000</div>",
-    "<div>Check https://example.com</div>",
-    "<div>path/to//file</div>",
-    "<div>a//b</div>",
     // Inside JSX expression container (not a text node)
     tsx`
       <div>{
@@ -122,6 +115,15 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Attribute value (not a text node)
     "<div attr='// comment' />",
+    // Comment-looking string inside an expression container is not a text node
+    tsx`<div>{"// not a text node"}</div>`,
+    // URL-like text should not be treated as comments
+    "<div>https://example.com</div>",
+    "<div>http://localhost:3000</div>",
+    "<div>Check https://example.com</div>",
+    "<div>path/to//file</div>",
+    "<div>a//b</div>",
+    "<strong>&nbsp;https://eslint-react.xyz/attachment/download/1</strong>",
     // Comment-like text not at the beginning of a text node
     "<div>a/*b</div>",
     "<div>a //b</div>",
@@ -133,7 +135,5 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Outside of JSX entirely
     "const x = '/* not a comment */';",
-    // Comment-looking string inside an expression container is not a text node
-    tsx`<div>{"// not a text node"}</div>`,
   ],
 });

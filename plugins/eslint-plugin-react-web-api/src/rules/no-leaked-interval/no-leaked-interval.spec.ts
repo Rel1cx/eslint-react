@@ -37,6 +37,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Example() {
           useEffect(() => {
+            (setInterval as any)(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedIntervalId" }],
+    },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
             const intervalId = global.setInterval(() => {}, 1000);
           }, []);
         }
@@ -74,16 +84,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "expectedClearIntervalInCleanup",
         },
       ],
-    },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            (setInterval as any)(() => {}, 1000);
-          }, []);
-        }
-      `,
-      errors: [{ messageId: "expectedIntervalId" }],
     },
   ],
   valid: [
@@ -128,6 +128,21 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
+      function Example() {
+        const intervalIdRef = useRef<number | null>(null);
+        useEffect(() => {
+          intervalIdRef.current = setInterval(() => {}, 1000);
+          return () => {
+            if (intervalIdRef.current !== null) {
+              clearInterval(intervalIdRef.current);
+            }
+          };
+        }, []);
+      }
+    `,
+    tsx`
       import { useEffect } from "react";
 
       function Example() {
@@ -144,21 +159,6 @@ ruleTester.run(RULE_NAME, rule, {
         useEffect(() => {
           const intervalId = globalThis.setInterval(() => {}, 1000);
           return () => clearInterval(intervalId);
-        }, []);
-      }
-    `,
-    tsx`
-      import { useEffect, useRef } from "react";
-
-      function Example() {
-        const intervalIdRef = useRef<number | null>(null);
-        useEffect(() => {
-          intervalIdRef.current = setInterval(() => {}, 1000);
-          return () => {
-            if (intervalIdRef.current !== null) {
-              clearInterval(intervalIdRef.current);
-            }
-          };
         }, []);
       }
     `,

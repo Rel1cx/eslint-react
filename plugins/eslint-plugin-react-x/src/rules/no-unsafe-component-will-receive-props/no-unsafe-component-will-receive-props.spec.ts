@@ -6,6 +6,7 @@ import rule, { RULE_NAME } from "./no-unsafe-component-will-receive-props";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      name: "UNSAFE_componentWillReceiveProps in React.Component",
       code: tsx`
         import React from "react";
 
@@ -25,6 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillReceiveProps in React.PureComponent",
       code: tsx`
         import React from "react";
 
@@ -44,6 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillReceiveProps in Component",
       code: tsx`
         import { Component } from "react";
 
@@ -63,6 +66,7 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "UNSAFE_componentWillReceiveProps in PureComponent",
       code: tsx`
         import { PureComponent } from "react";
 
@@ -83,34 +87,43 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    tsx`
-      class Foo extends Bar {
-        componentWillReceiveProps() {}
-      }
-    `,
-    tsx`
-      import React from "react";
+    {
+      name: "componentWillReceiveProps in React.Component",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.Component {
+        class Foo extends React.Component {
 
-        componentWillReceiveProps() {}
+          componentWillReceiveProps() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
-    tsx`
-      import React from "react";
+      `,
+    },
+    {
+      name: "componentWillReceiveProps in React.PureComponent",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.PureComponent {
+        class Foo extends React.PureComponent {
 
-        componentWillReceiveProps() {}
+          componentWillReceiveProps() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
+      `,
+    },
+    {
+      name: "componentWillReceiveProps in non-React class",
+      code: tsx`
+        class Foo extends Bar {
+          componentWillReceiveProps() {}
+        }
+      `,
+    },
   ],
 });

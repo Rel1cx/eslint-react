@@ -15,18 +15,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        var o = {
-          inst: ReactDOM.render(<div />, document.body)
-        };
-      `,
-      errors: [
-        {
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function render () {
           return ReactDOM.render(<div />, document.body)
         }
@@ -40,6 +28,18 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         var render = (a, b) => ReactDOM.render(a, b)
+      `,
+      errors: [
+        {
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        var o = {
+          inst: ReactDOM.render(<div />, document.body)
+        };
       `,
       errors: [
         {
@@ -70,14 +70,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import { render } from "react-dom";
-        const result = (render as any)(<div />, document.body);
+        const result = (render(<div />, document.body) as any);
       `,
       errors: [{ messageId: "default" }],
     },
     {
       code: tsx`
         import { render } from "react-dom";
-        const result = (render(<div />, document.body) as any);
+        const result = (render as any)(<div />, document.body);
       `,
       errors: [{ messageId: "default" }],
     },
@@ -88,8 +88,6 @@ ruleTester.run(RULE_NAME, rule, {
       let node;
       ReactDOM.render(<div ref={ref => node = ref}/>, document.body);
     `,
-    "var foo = render(<div />, root)",
-    "var foo = ReactDOM.renderder(<div />, root)",
     // Boundary: ReactDOM.render in non-banned parent contexts (isReturnValueUsed parent traversal)
     tsx`
       function Component() {
@@ -128,5 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
       import { render } from "react-dom";
       await render(<div />, document.body);
     `,
+    "var foo = render(<div />, root)",
+    "var foo = ReactDOM.renderder(<div />, root)",
   ],
 });

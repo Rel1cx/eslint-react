@@ -24,21 +24,21 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Invalid: spreading object with children and other properties
+    {
+      code: tsx`
+        const App = () => {
+          return <div {...{ children: "hello", id: "test" }} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Invalid: spreading props with children from a map callback
     {
       code: tsx`
         const items = [{ children: "a" }, { children: "b" }];
         const App = () => {
           return items.map((item) => <div {...item} />);
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: spreading object with children and other properties
-    {
-      code: tsx`
-        const App = () => {
-          return <div {...{ children: "hello", id: "test" }} />;
         };
       `,
       errors: [{ messageId: "default" }],
@@ -68,16 +68,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Invalid: spreading from a function return value with children
-    {
-      code: tsx`
-        const getProps = () => ({ children: "hello", id: "test" });
-        const App = () => {
-          return <div {...getProps()} />;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // Invalid: spreading on a custom component with children
     {
       code: tsx`
@@ -91,6 +81,25 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Invalid: spreading from a function return value with children
+    {
+      code: tsx`
+        const getProps = () => ({ children: "hello", id: "test" });
+        const App = () => {
+          return <div {...getProps()} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: spreading from function parameter typed with children
+    {
+      code: tsx`
+        function App({ items }: { items: Array<{ children: string | number; id: string }> }) {
+          return items.map((item) => <div key={item.id} {...item} />);
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Invalid: spreading intersection type with children
     {
       code: tsx`
@@ -98,6 +107,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         type WithId = { id: string };
         const App = () => {
           const props: WithChildren & WithId = { children: "hello", id: "test" };
+          return <div {...props} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: spreading from interface that extends another with children
+    {
+      code: tsx`
+        interface WithChildren {
+          children: string | number;
+        }
+        interface ItemProps extends WithChildren {
+          label: string;
+        }
+        const App = () => {
+          const props: ItemProps = { children: "hello", label: "test" };
           return <div {...props} />;
         };
       `,
@@ -137,56 +162,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Invalid: spreading from interface that extends another with children
+    // Invalid: spreading from conditional expression where both branches have children
     {
       code: tsx`
-        interface WithChildren {
-          children: string | number;
-        }
-        interface ItemProps extends WithChildren {
-          label: string;
-        }
-        const App = () => {
-          const props: ItemProps = { children: "hello", label: "test" };
-          return <div {...props} />;
+        const App = ({ flag }: { flag: boolean }) => {
+          const propsA = { children: "hello", id: "1" };
+          const propsB = { children: "world", id: "2" };
+          return <div {...(flag ? propsA : propsB)} />;
         };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: spreading from generic function with children constraint
-    {
-      code: tsx`
-        function withChildren<T extends { children: string | number }>(props: T) {
-          return <div {...props} />;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: nested spread with children
-    {
-      code: tsx`
-        const App = () => {
-          return <div {...{ ...{ children: "hello" } }} />;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: spreading declare variable with children
-    {
-      code: tsx`
-        declare let someValues: { id: string; className: string; children: string };
-        function MyComponent() {
-          return <div {...someValues} />;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: spreading from function parameter typed with children
-    {
-      code: tsx`
-        function App({ items }: { items: Array<{ children: string | number; id: string }> }) {
-          return items.map((item) => <div key={item.id} {...item} />);
-        }
       `,
       errors: [{ messageId: "default" }],
     },
@@ -201,6 +184,34 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Invalid: nested spread with children
+    {
+      code: tsx`
+        const App = () => {
+          return <div {...{ ...{ children: "hello" } }} />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: spreading from generic function with children constraint
+    {
+      code: tsx`
+        function withChildren<T extends { children: string | number }>(props: T) {
+          return <div {...props} />;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Invalid: spreading declare variable with children
+    {
+      code: tsx`
+        declare let someValues: { id: string; className: string; children: string };
+        function MyComponent() {
+          return <div {...someValues} />;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Invalid: spreading from class instance with children property
     {
       code: tsx`
@@ -211,17 +222,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const App = () => {
           const props = new CardProps();
           return <div {...props} />;
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Invalid: spreading from conditional expression where both branches have children
-    {
-      code: tsx`
-        const App = ({ flag }: { flag: boolean }) => {
-          const propsA = { children: "hello", id: "1" };
-          const propsB = { children: "world", id: "2" };
-          return <div {...(flag ? propsA : propsB)} />;
         };
       `,
       errors: [{ messageId: "default" }],
@@ -280,17 +280,17 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // Valid: passing children explicitly via JSX, not via spread
+    tsx`
+      const App = () => {
+        return <div id="test">hello</div>;
+      };
+    `,
     // Valid: spreading props without children property
     tsx`
       const App = () => {
         const props = { id: "test", className: "foo" };
         return <div {...props}>content</div>;
-      };
-    `,
-    // Valid: passing children explicitly via JSX, not via spread
-    tsx`
-      const App = () => {
-        return <div id="test">hello</div>;
       };
     `,
     // Valid: spreading typed props without children
@@ -299,6 +299,59 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const App = () => {
         const props: Props = { id: "test", value: 42 };
         return <div {...props} />;
+      };
+    `,
+    // Valid: custom component props without children (using JSX children)
+    tsx`
+      interface MyProps {
+        title: string;
+        description?: string;
+      }
+      function MyComponent({ ...props }: MyProps) {
+        return <div>{props.title}</div>;
+      }
+    `,
+    // Valid: spreading empty object
+    tsx`
+      const App = () => {
+        const props = {};
+        return <div {...props} />;
+      };
+    `,
+    // Valid: multiple spreads, none containing children
+    tsx`
+      const App = () => {
+        const style = { color: "red" };
+        const attrs = { id: "test" };
+        return <div {...style} {...attrs} />;
+      };
+    `,
+    // Valid: spreading from function parameter without children
+    tsx`
+      function App({ items }: { items: Array<{ id: string; content: string }> }) {
+        return items.map((item) => <div key={item.id} {...item}>{item.content}</div>);
+      }
+    `,
+    // Valid: spreading props with no children from a map callback
+    tsx`
+      const items = [{ id: "1", text: "a" }];
+      const App = () => {
+        return items.map((item) => <div key={item.id} {...item}>{item.text}</div>);
+      };
+    `,
+    // Valid: destructuring children out before spreading rest
+    tsx`
+      const App = () => {
+        const props = { children: "hello", id: "test" };
+        const { children, ...rest } = props;
+        return <div {...rest}>{children}</div>;
+      };
+    `,
+    // Valid: destructuring children from map item before spreading
+    tsx`
+      const App = () => {
+        const items = [{ children: "hello", id: "1" }];
+        return items.map(({ children, ...rest }) => <div key={rest.id} {...rest}>{children}</div>);
       };
     `,
     // Valid: React ComponentProps pass-through (React-defined children)
@@ -341,6 +394,14 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div {...props} />;
       }
     `,
+    // Valid: spreading PropsWithChildren (React-defined children)
+    tsx`
+      import type { PropsWithChildren } from "react";
+
+      function Wrapper({ ...props }: PropsWithChildren<{ className: string }>) {
+        return <div {...props} />;
+      }
+    `,
     // Valid: spreading JSX intrinsic attributes for button (React-defined children)
     tsx`
       import type { ComponentProps } from "react";
@@ -363,84 +424,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function MyLink({ ...props }: ComponentProps<"a">) {
         return <a {...props} />;
-      }
-    `,
-    // Valid: spreading PropsWithChildren (React-defined children)
-    tsx`
-      import type { PropsWithChildren } from "react";
-
-      function Wrapper({ ...props }: PropsWithChildren<{ className: string }>) {
-        return <div {...props} />;
-      }
-    `,
-    // Valid: destructuring children out before spreading rest
-    tsx`
-      const App = () => {
-        const props = { children: "hello", id: "test" };
-        const { children, ...rest } = props;
-        return <div {...rest}>{children}</div>;
-      };
-    `,
-    // Valid: destructuring children from map item before spreading
-    tsx`
-      const App = () => {
-        const items = [{ children: "hello", id: "1" }];
-        return items.map(({ children, ...rest }) => <div key={rest.id} {...rest}>{children}</div>);
-      };
-    `,
-    // Valid: spreading empty object
-    tsx`
-      const App = () => {
-        const props = {};
-        return <div {...props} />;
-      };
-    `,
-    // Valid: spreading intersection type without children
-    tsx`
-      type BaseProps = { id: string };
-      type ExtendedProps = BaseProps & { className?: string };
-      const App = () => {
-        const props: ExtendedProps = { id: "test", className: "foo" };
-        return <div {...props} />;
-      };
-    `,
-    // Valid: spreading from function parameter without children
-    tsx`
-      function App({ items }: { items: Array<{ id: string; content: string }> }) {
-        return items.map((item) => <div key={item.id} {...item}>{item.content}</div>);
-      }
-    `,
-    // Valid: spreading Omit<> that removes children
-    tsx`
-      import type { ComponentProps } from "react";
-
-      function MyDiv({ ...props }: Omit<ComponentProps<"div">, "children">) {
-        return <div {...props} />;
-      }
-    `,
-    // Valid: spreading Pick type (no children)
-    tsx`
-      import type { ComponentProps } from "react";
-
-      function MyDiv({ ...props }: Pick<ComponentProps<"div">, "className" | "id">) {
-        return <div {...props} />;
-      }
-    `,
-    // Valid: spreading props with no children from a map callback
-    tsx`
-      const items = [{ id: "1", text: "a" }];
-      const App = () => {
-        return items.map((item) => <div key={item.id} {...item}>{item.text}</div>);
-      };
-    `,
-    // Valid: custom component props without children (using JSX children)
-    tsx`
-      interface MyProps {
-        title: string;
-        description?: string;
-      }
-      function MyComponent({ ...props }: MyProps) {
-        return <div>{props.title}</div>;
       }
     `,
     // Valid: spreading SVGAttributes from React (React-defined children)
@@ -511,21 +494,21 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <li data-slot="pagination-item" {...props} />;
       }
     `,
-    // Valid: spreading Omit<ComponentProps> that does not remove children
+    // Valid: spreading Omit<> that removes children
     tsx`
-      import { ComponentProps } from "react";
+      import type { ComponentProps } from "react";
 
-      function PaginationItem({ ...props }: Omit<React.ComponentProps<"li">, "value">) {
-        return <li data-slot="pagination-item" {...props} />;
+      function MyDiv({ ...props }: Omit<ComponentProps<"div">, "children">) {
+        return <div {...props} />;
       }
     `,
-    // Valid: multiple spreads, none containing children
+    // Valid: spreading Pick type (no children)
     tsx`
-      const App = () => {
-        const style = { color: "red" };
-        const attrs = { id: "test" };
-        return <div {...style} {...attrs} />;
-      };
+      import type { ComponentProps } from "react";
+
+      function MyDiv({ ...props }: Pick<ComponentProps<"div">, "className" | "id">) {
+        return <div {...props} />;
+      }
     `,
     // Valid: spreading from Partial<> without children in base
     tsx`
@@ -542,12 +525,21 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div {...props} />;
       };
     `,
-    // Valid: import type from a different source (non-React)
+    // Valid: spreading intersection type without children
     tsx`
-      import type { Attributes } from "@rbxts/react";
-
-      function MyDiv({ ...props }: Attributes) {
+      type BaseProps = { id: string };
+      type ExtendedProps = BaseProps & { className?: string };
+      const App = () => {
+        const props: ExtendedProps = { id: "test", className: "foo" };
         return <div {...props} />;
+      };
+    `,
+    // Valid: spreading Omit<ComponentProps> that does not remove children
+    tsx`
+      import { ComponentProps } from "react";
+
+      function PaginationItem({ ...props }: Omit<React.ComponentProps<"li">, "value">) {
+        return <li data-slot="pagination-item" {...props} />;
       }
     `,
     // Valid: children property typed as React.ReactNode (React-defined type alias)
@@ -598,23 +590,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return <div {...someValues} data-slot="pagination-item" />;
       }
     `,
-    // Valid: property name matching is exact and case-sensitive — 'Children' is not 'children'
-    tsx`
-      const App = () => {
-        const props = { Children: "hello", id: "test" };
-        return <div {...props} />;
-      };
-    `,
-    // Valid: spreading an 'any'-typed value has no statically known children property
-    tsx`
-      declare let props: any;
-      const App = () => <div {...props} />;
-    `,
-    // Valid: spreading an 'unknown'-typed value has no statically known children property
-    tsx`
-      declare let props: unknown;
-      const App = () => <div {...props} />;
-    `,
     // Valid: children typed via a local alias of React.ReactNode — the alias resolves to the allowed React type alias
     tsx`
       import type { ReactNode } from "react";
@@ -638,6 +613,31 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       function MyDiv({ ...props }: MyDivProps) {
         return <div {...props} />;
       }
+    `,
+    // Valid: import type from a different source (non-React)
+    tsx`
+      import type { Attributes } from "@rbxts/react";
+
+      function MyDiv({ ...props }: Attributes) {
+        return <div {...props} />;
+      }
+    `,
+    // Valid: property name matching is exact and case-sensitive — 'Children' is not 'children'
+    tsx`
+      const App = () => {
+        const props = { Children: "hello", id: "test" };
+        return <div {...props} />;
+      };
+    `,
+    // Valid: spreading an 'any'-typed value has no statically known children property
+    tsx`
+      declare let props: any;
+      const App = () => <div {...props} />;
+    `,
+    // Valid: spreading an 'unknown'-typed value has no statically known children property
+    tsx`
+      declare let props: unknown;
+      const App = () => <div {...props} />;
     `,
   ],
 });

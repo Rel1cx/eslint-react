@@ -61,6 +61,21 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    // 命名空间调用 React.createRef() 在函数组件内也应被报告
+    {
+      code: tsx`
+        import React from 'react';
+
+        function Component() {
+          const ref = React.createRef();
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
     {
       code: tsx`
         const { createRef } = require("react");
@@ -111,21 +126,6 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component() {
           const ref = createRef();
-
-          return <div ref={ref} />;
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    // 命名空间调用 React.createRef() 在函数组件内也应被报告
-    {
-      code: tsx`
-        import React from 'react';
-
-        function Component() {
-          const ref = React.createRef();
 
           return <div ref={ref} />;
         }
@@ -249,6 +249,12 @@ ruleTester.run(RULE_NAME, rule, {
 
       const ref = createRef();
     `,
+    // 命名空间调用 React.createRef() 在模块顶层不应被报告
+    tsx`
+      import React from 'react';
+
+      const ref = React.createRef<HTMLElement>();
+    `,
     // 普通工具函数(非组件、非 hook)中使用 createRef 不应被报告
     tsx`
       import { createRef } from 'react';
@@ -262,12 +268,6 @@ ruleTester.run(RULE_NAME, rule, {
       import { createRef } from 'react';
 
       const createRefHolder = () => createRef();
-    `,
-    // 命名空间调用 React.createRef() 在模块顶层不应被报告
-    tsx`
-      import React from 'react';
-
-      const ref = React.createRef<HTMLElement>();
     `,
   ],
 });

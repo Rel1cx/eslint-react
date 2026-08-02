@@ -19,40 +19,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function Component({ code }) {
-          const result = (eval as Function)(code);
-          return <div>{result}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "eval",
-      }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          with (Math) {
-            return <div>{sin(PI / 2)}</div>;
-          }
-        }
-      `,
-      errors: [{
-        messageId: "with",
-      }],
-    },
-    {
-      code: tsx`
-        function Component({ propName }) {
-          const value = eval(\`props.\${propName}\`);
-          return <div>{value}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "eval",
-      }],
-    },
-    {
-      code: tsx`
         const Component = () => {
           const result = eval("1 + 2");
           return <div>{result}</div>;
@@ -86,6 +52,17 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function Component({ propName }) {
+          const value = eval(\`props.\${propName}\`);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "eval",
+      }],
+    },
+    {
+      code: tsx`
         function Component() {
           const a = eval("1");
           const b = eval("2");
@@ -100,6 +77,18 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "eval",
         },
       ],
+    },
+    {
+      code: tsx`
+        function Component() {
+          with (Math) {
+            return <div>{sin(PI / 2)}</div>;
+          }
+        }
+      `,
+      errors: [{
+        messageId: "with",
+      }],
     },
     {
       code: tsx`
@@ -143,6 +132,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component({ code }) {
+          const result = (eval as Function)(code);
+          return <div>{result}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "eval",
+      }],
+    },
+    {
+      code: tsx`
+        function Component({ code }) {
           const result = (globalThis as any).eval(code);
           return <div>{result}</div>;
         }
@@ -159,15 +159,6 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ propName, props }) {
           const value = props[propName];
           return <div>{value}</div>;
-        }
-      `,
-    },
-    // Computed property access is not statically resolved
-    {
-      code: tsx`
-        function Component({ code }) {
-          const result = globalThis["eval"](code);
-          return <div>{result}</div>;
         }
       `,
     },
@@ -210,24 +201,6 @@ ruleTester.run(RULE_NAME, rule, {
             eval("something");
           }, []);
           return <div>Content</div>;
-        }
-      `,
-    },
-    // `globalThis[eval]` accesses the property keyed by the runtime value of `eval`, not eval itself
-    {
-      code: tsx`
-        function Component({ code }) {
-          const result = globalThis[eval](code);
-          return <div>{result}</div>;
-        }
-      `,
-    },
-    // `.eval` on objects other than `globalThis` is not an eval call
-    {
-      code: tsx`
-        function Component({ interpreter, code }) {
-          const result = interpreter.eval(code);
-          return <div>{result}</div>;
         }
       `,
     },
@@ -402,6 +375,33 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const result = (() => <div />) as any;
           return result;
+        }
+      `,
+    },
+    // Computed property access is not statically resolved
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = globalThis["eval"](code);
+          return <div>{result}</div>;
+        }
+      `,
+    },
+    // `globalThis[eval]` accesses the property keyed by the runtime value of `eval`, not eval itself
+    {
+      code: tsx`
+        function Component({ code }) {
+          const result = globalThis[eval](code);
+          return <div>{result}</div>;
+        }
+      `,
+    },
+    // `.eval` on objects other than `globalThis` is not an eval call
+    {
+      code: tsx`
+        function Component({ interpreter, code }) {
+          const result = interpreter.eval(code);
+          return <div>{result}</div>;
         }
       `,
     },

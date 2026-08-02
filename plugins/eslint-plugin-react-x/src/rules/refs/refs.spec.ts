@@ -31,40 +31,31 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "writeDuringRender",
       }],
     },
-    // Reading ref.current during render (naming convention: ends with Ref)
+    // Both read and write during render
     {
       code: tsx`
-        function Component({ scrollRef }) {
-          const offset = scrollRef.current;
-          return <div>{offset}</div>;
+        function Component() {
+          const ref = useRef(0);
+          const prev = ref.current;
+          ref.current = prev + 1;
+          return <div>{prev}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // Reading ref.current in JSX expression
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          return <div>{ref.current}</div>;
         }
       `,
       errors: [{
         messageId: "readDuringRender",
-      }],
-    },
-    // Reading ref.current during render (naming convention: exactly "ref")
-    {
-      code: tsx`
-        function Component({ ref }) {
-          const el = ref.current;
-          return <div>{el}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Writing ref.current during render (naming convention)
-    {
-      code: tsx`
-        function Component({ buttonRef }) {
-          buttonRef.current = document.createElement('button');
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
       }],
     },
     // Reading from a ref passed via JSX ref prop
@@ -75,6 +66,19 @@ ruleTester.run(RULE_NAME, rule, {
           const width = myContainer.current?.offsetWidth;
           return <div ref={myContainer}>{width}</div>;
         }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Reading in arrow function component
+    {
+      code: tsx`
+        const Component = () => {
+          const ref = useRef(null);
+          const val = ref.current;
+          return <div>{val}</div>;
+        };
       `,
       errors: [{
         messageId: "readDuringRender",
@@ -106,29 +110,40 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "writeDuringRender",
       }],
     },
-    // Both read and write during render
+    // Hook writing ref during render with assignment from prop
     {
       code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          const prev = ref.current;
-          ref.current = prev + 1;
-          return <div>{prev}</div>;
+        function useSync(value) {
+          const ref = useRef(value);
+          ref.current = value;
+          return ref;
         }
       `,
-      errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
-      ],
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
     },
-    // Reading in arrow function component
+    // Ref in memo-wrapped component
     {
       code: tsx`
-        const Component = () => {
+        const Component = memo(function Component() {
           const ref = useRef(null);
           const val = ref.current;
           return <div>{val}</div>;
-        };
+        });
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Ref in forwardRef-wrapped component
+    {
+      code: tsx`
+        const Component = forwardRef(function Component(props, outerRef) {
+          const innerRef = useRef(null);
+          const val = innerRef.current;
+          return <div>{val}</div>;
+        });
       `,
       errors: [{
         messageId: "readDuringRender",
@@ -173,24 +188,35 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "readDuringRender",
       }],
     },
-    // Reading ref.current in JSX expression
+    // Reading ref.current during render (naming convention: ends with Ref)
     {
       code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          return <div>{ref.current}</div>;
+        function Component({ scrollRef }) {
+          const offset = scrollRef.current;
+          return <div>{offset}</div>;
         }
       `,
       errors: [{
         messageId: "readDuringRender",
       }],
     },
-    // Unconditional write not matching lazy init pattern
+    // Reading ref.current during render (naming convention: exactly "ref")
     {
       code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          ref.current = 42;
+        function Component({ ref }) {
+          const el = ref.current;
+          return <div>{el}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Writing ref.current during render (naming convention)
+    {
+      code: tsx`
+        function Component({ buttonRef }) {
+          buttonRef.current = document.createElement('button');
           return <div />;
         }
       `,
@@ -198,82 +224,26 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "writeDuringRender",
       }],
     },
-    // Update expression (ref.current++)
+    // Ref accessed via naming convention in arrow function with expression body
     {
       code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          ref.current++;
-          return <div />;
-        }
+        const Component = ({ myRef }) => <div>{myRef.current}</div>;
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "readDuringRender",
       }],
     },
-    // Reading ref.current via optional chaining during render
+    // Non-ref-named variable from useRef read during render
     {
       code: tsx`
         function Component() {
-          const ref = useRef(null);
-          const val = ref?.current;
+          const timer = useRef(0);
+          const val = timer.current;
           return <div>{val}</div>;
         }
       `,
       errors: [{
         messageId: "readDuringRender",
-      }],
-    },
-    // Compound assignment (ref.current += 1)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          ref.current += 1;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Compound assignment (ref.current -= 1)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          ref.current -= 1;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Decrement expression (ref.current--)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          ref.current--;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Pre-increment (++ref.current)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          ++ref.current;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
       }],
     },
     // Reading ref.current as argument to a function call during render
@@ -340,12 +310,12 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "readDuringRender",
       }],
     },
-    // Non-ref-named variable from useRef read during render
+    // Ref read in nullish coalescing during render
     {
       code: tsx`
         function Component() {
-          const timer = useRef(0);
-          const val = timer.current;
+          const ref = useRef(null);
+          const val = ref.current ?? "default";
           return <div>{val}</div>;
         }
       `,
@@ -353,30 +323,174 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "readDuringRender",
       }],
     },
-    // Ref in memo-wrapped component
+    // Reading ref.current via optional chaining during render
     {
       code: tsx`
-        const Component = memo(function Component() {
+        function Component() {
           const ref = useRef(null);
-          const val = ref.current;
+          const val = ref?.current;
           return <div>{val}</div>;
-        });
+        }
       `,
       errors: [{
         messageId: "readDuringRender",
       }],
     },
-    // Ref in forwardRef-wrapped component
+    // Ref read chained with property access during render
     {
       code: tsx`
-        const Component = forwardRef(function Component(props, outerRef) {
-          const innerRef = useRef(null);
-          const val = innerRef.current;
-          return <div>{val}</div>;
-        });
+        function Component() {
+          const ref = useRef(null);
+          const width = ref.current.offsetWidth;
+          return <div>{width}</div>;
+        }
       `,
       errors: [{
         messageId: "readDuringRender",
+      }],
+    },
+    // Ref read in JSX spread attribute during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({ className: "foo" });
+          return <div {...ref.current} />;
+        }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Ref read in array destructuring during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef([1, 2, 3]);
+          const [first] = ref.current;
+          return <div>{first}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Ref read passed to Object.keys during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({});
+          const keys = Object.keys(ref.current);
+          return <div>{keys}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Unconditional write not matching lazy init pattern
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref.current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write inside non-null-check conditional (not lazy init)
+    {
+      code: tsx`
+        function Component({ shouldUpdate }) {
+          const ref = useRef(null);
+          if (shouldUpdate) {
+            ref.current = 42;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Update expression (ref.current++)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          ref.current++;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Pre-increment (++ref.current)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          ++ref.current;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Decrement expression (ref.current--)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          ref.current--;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Compound assignment (ref.current += 1)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          ref.current += 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Compound assignment (ref.current -= 1)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          ref.current -= 1;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write ref.current with nullish coalescing assignment
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref.current ??= createValue();
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
       }],
     },
     // Multiple refs both accessed during render
@@ -410,187 +524,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{
         messageId: "readDuringRender",
-      }],
-    },
-    // Write inside non-null-check conditional (not lazy init)
-    {
-      code: tsx`
-        function Component({ shouldUpdate }) {
-          const ref = useRef(null);
-          if (shouldUpdate) {
-            ref.current = 42;
-          }
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Read ref.current after lazy init block (the read itself is not inside the if body)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current === null) {
-            ref.current = createThing();
-          }
-          return <div>{ref.current}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Ref read chained with property access during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const width = ref.current.offsetWidth;
-          return <div>{width}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Ref read in JSX spread attribute during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef({ className: "foo" });
-          return <div {...ref.current} />;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Hook writing ref during render with assignment from prop
-    {
-      code: tsx`
-        function useSync(value) {
-          const ref = useRef(value);
-          ref.current = value;
-          return ref;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Ref accessed via naming convention in arrow function with expression body
-    {
-      code: tsx`
-        const Component = ({ myRef }) => <div>{myRef.current}</div>;
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Ref read in nullish coalescing during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const val = ref.current ?? "default";
-          return <div>{val}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Write ref.current with nullish coalescing assignment
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          ref.current ??= createValue();
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Ref read in array destructuring during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef([1, 2, 3]);
-          const [first] = ref.current;
-          return <div>{first}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Ref read passed to Object.keys during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef({});
-          const keys = Object.keys(ref.current);
-          return <div>{keys}</div>;
-        }
-      `,
-      errors: [{
-        messageId: "readDuringRender",
-      }],
-    },
-    // Write through TSNonNullExpression during render should report writeDuringRender
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef<number | null>(null);
-          ref.current! = 42;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Write through TSAsExpression during render should report writeDuringRender
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef<number | null>(null);
-          (ref.current as number) = 42;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Write through TSNonNullExpression on the ref object itself
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef<number | null>(null);
-          ref!.current = 42;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
-      }],
-    },
-    // Write through TSAsExpression on the ref object itself
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef<number | null>(null);
-          (ref as any).current = 42;
-          return <div />;
-        }
-      `,
-      errors: [{
-        messageId: "writeDuringRender",
       }],
     },
     // Alias tracking: direct alias read
@@ -676,6 +609,230 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Write through TSNonNullExpression during render should report writeDuringRender
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          ref.current! = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write through TSAsExpression during render should report writeDuringRender
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          (ref.current as number) = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write through TSNonNullExpression on the ref object itself
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          ref!.current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Write through TSAsExpression on the ref object itself
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef<number | null>(null);
+          (ref as any).current = 42;
+          return <div />;
+        }
+      `,
+      errors: [{
+        messageId: "writeDuringRender",
+      }],
+    },
+    // Read ref.current after lazy init block (the read itself is not inside the if body)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            ref.current = createThing();
+          }
+          return <div>{ref.current}</div>;
+        }
+      `,
+      errors: [{
+        messageId: "readDuringRender",
+      }],
+    },
+    // Duplicate null-guarded initialization: only the first guarded write is allowed, a second
+    // guarded write to the same ref elsewhere in the component is an error
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = 1;
+          }
+          if (ref.current == null) {
+            ref.current = 2;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
+    // Duplicate null-guarded initialization within the same if-block
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = 1;
+            ref.current = 2;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
+    // Ref write inside switch statement (not lazy init, loop should break on SwitchCase)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          switch (x) {
+            case 1:
+              ref.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // An inverted guard is safe only when its non-null branch terminates
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            console.log('already initialized');
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Early-return initialization is still limited to one write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) return <div />;
+          ref.current = createValue();
+          ref.current = createOtherValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
+    // Truthiness is not a null guard: initialized refs may legitimately contain falsy values
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          if (!ref.current) {
+            ref.current = computeExpensiveValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // useMemo callbacks execute synchronously during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const value = useMemo(() => ref.current?.value, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Array iteration callbacks execute synchronously during render
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef([]);
+          items.forEach((item) => {
+            ref.current.push(item);
+          });
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(new Map());
+          return items.map((item) => {
+            ref.current.set(item.id, item);
+            return <div key={item.id} />;
+          });
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // A helper reached through a synchronous callback is reached during render
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(null);
+          const renderItem = () => ref.current;
+          return items.map(() => renderItem());
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Function declarations and IIFEs participate in render reachability
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          return readRef();
+          function readRef() {
+            return ref.current;
+          }
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          return (() => ref.current)();
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-access-ref-during-render.js
     {
@@ -774,51 +931,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "writeDuringRender" }],
-    },
-    // Ref write inside switch statement (not lazy init, loop should break on SwitchCase)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          switch (x) {
-            case 1:
-              ref.current = 1;
-          }
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "writeDuringRender" }],
-    },
-    // Duplicate null-guarded initialization: only the first guarded write is allowed, a second
-    // guarded write to the same ref elsewhere in the component is an error
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current == null) {
-            ref.current = 1;
-          }
-          if (ref.current == null) {
-            ref.current = 2;
-          }
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "duplicateRefInit" }],
-    },
-    // Duplicate null-guarded initialization within the same if-block
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current == null) {
-            ref.current = 1;
-            ref.current = 2;
-          }
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "duplicateRefInit" }],
     },
     // error.invalid-ref-in-callback-invoked-during-render
     // `renderItem` is reached through the synchronous callback passed to `.map()`.
@@ -1080,230 +1192,8 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "refPassedToFunction" }],
     },
-    // Truthiness is not a null guard: initialized refs may legitimately contain falsy values
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          if (!ref.current) {
-            ref.current = computeExpensiveValue();
-          }
-          return <div />;
-        }
-      `,
-      errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
-      ],
-    },
-    // useMemo callbacks execute synchronously during render
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const value = useMemo(() => ref.current?.value, []);
-          return <div>{value}</div>;
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    // Array iteration callbacks execute synchronously during render
-    {
-      code: tsx`
-        function Component({ items }) {
-          const ref = useRef([]);
-          items.forEach((item) => {
-            ref.current.push(item);
-          });
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    {
-      code: tsx`
-        function Component({ items }) {
-          const ref = useRef(new Map());
-          return items.map((item) => {
-            ref.current.set(item.id, item);
-            return <div key={item.id} />;
-          });
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    // A helper reached through a synchronous callback is reached during render
-    {
-      code: tsx`
-        function Component({ items }) {
-          const ref = useRef(null);
-          const renderItem = () => ref.current;
-          return items.map(() => renderItem());
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    // Function declarations and IIFEs participate in render reachability
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          return readRef();
-          function readRef() {
-            return ref.current;
-          }
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          return (() => ref.current)();
-        }
-      `,
-      errors: [{ messageId: "readDuringRender" }],
-    },
-    // An inverted guard is safe only when its non-null branch terminates
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current !== null) {
-            console.log('already initialized');
-          }
-          ref.current = createValue();
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "writeDuringRender" }],
-    },
-    // Early-return initialization is still limited to one write
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current !== null) return <div />;
-          ref.current = createValue();
-          ref.current = createOtherValue();
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "duplicateRefInit" }],
-    },
   ],
   valid: [
-    // Computed property access ref["current"] is not statically resolved
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const val = ref["current"];
-          return <div>{val}</div>;
-        }
-      `,
-    },
-    // Computed property write ref["current"] = value is not statically resolved
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          ref["current"] = 42;
-          return <div />;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Single-file multi-component isolation
-    // -------------------------------------------------------------------------
-    // A JSX ref marker is scoped to its own component binding
-    {
-      code: tsx`
-        function FirstComponent() {
-          const node = { current: null };
-          return <div ref={node} />;
-        }
-        function SecondComponent() {
-          const node = { current: 1 };
-          return <div>{node.current}</div>;
-        }
-      `,
-    },
-    // Each component may independently initialize its own same-named ref once
-    {
-      code: tsx`
-        function FirstComponent() {
-          const ref = useRef(null);
-          if (ref.current === null) {
-            ref.current = createFirstValue();
-          }
-          return <div />;
-        }
-        function SecondComponent() {
-          const ref = useRef(null);
-          if (ref.current === null) {
-            ref.current = createSecondValue();
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Ref and alias identities are scoped; same-named bindings in another component stay independent
-    {
-      code: tsx`
-        function FirstComponent() {
-          const ref = useRef(null);
-          const value = ref;
-          return <div ref={value} />;
-        }
-        function SecondComponent() {
-          const value = { current: 1 };
-          return <div>{value.current}</div>;
-        }
-      `,
-    },
-    // Reassigning an alias to a non-ref invalidates the earlier alias relation
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          let value = ref;
-          value = { current: 1 };
-          return <div>{value.current}</div>;
-        }
-      `,
-    },
-    // An outer null guard also protects initialization nested in an ordinary condition
-    {
-      code: tsx`
-        function Component({ enabled }) {
-          const ref = useRef(null);
-          if (ref.current === null) {
-            if (enabled) {
-              ref.current = createValue();
-            }
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Explicit undefined checks are nullish guards
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(undefined);
-          if (ref.current === undefined) {
-            ref.current = createValue();
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Initialize only once on first use with nullish coalescing assignment is valid pattern
-    tsx`
-      const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
-    `,
     // Read ref in effect
     {
       code: tsx`
@@ -1327,6 +1217,18 @@ ruleTester.run(RULE_NAME, rule, {
             console.log(ref.current);
           }, []);
           return <div ref={ref} />;
+        }
+      `,
+    },
+    // Write ref in effect
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          useEffect(() => {
+            ref.current = document.getElementById('foo');
+          }, []);
+          return <div />;
         }
       `,
     },
@@ -1355,18 +1257,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Write ref in effect
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          useEffect(() => {
-            ref.current = document.getElementById('foo');
-          }, []);
-          return <div />;
-        }
-      `,
-    },
     // Write ref in event handler
     {
       code: tsx`
@@ -1379,16 +1269,165 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Use state for UI values (not a ref issue)
+    // Ref write and read inside event handler
     {
       code: tsx`
         function Component() {
-          const [count, setCount] = useState(0);
+          const ref = useRef(0);
+          const handleClick = () => {
+            ref.current += 1;
+            console.log(ref.current);
+          };
+          return <button onClick={handleClick}>Click</button>;
+        }
+      `,
+    },
+    // Ref in event handler with optional chaining read
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
           return (
-            <button onClick={() => setCount(count + 1)}>
-              {count}
+            <button onClick={() => ref.current?.focus()}>
+              Focus
             </button>
           );
+        }
+      `,
+    },
+    // Read ref in useCallback
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const callback = useCallback(() => {
+            return ref.current;
+          }, []);
+          return <button onClick={callback}>Click</button>;
+        }
+      `,
+    },
+    // Ref in function expression handler (not arrow)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const handleClick = function() {
+            console.log(ref.current);
+          };
+          return <button onClick={handleClick}>Click</button>;
+        }
+      `,
+    },
+    // Ref in memo-wrapped component with effect access
+    {
+      code: tsx`
+        const Component = memo(function Component() {
+          const ref = useRef(null);
+          useEffect(() => {
+            console.log(ref.current);
+          }, []);
+          return <div ref={ref} />;
+        });
+      `,
+    },
+    // Ref in forwardRef-wrapped component with effect access
+    {
+      code: tsx`
+        const Component = forwardRef(function Component(props, outerRef) {
+          const innerRef = useRef(null);
+          useEffect(() => {
+            console.log(innerRef.current);
+          }, []);
+          return <div ref={innerRef} />;
+        });
+      `,
+    },
+    // Ref access in a hook's effect
+    {
+      code: tsx`
+        function useMyHook() {
+          const ref = useRef(null);
+          useEffect(() => {
+            console.log(ref.current);
+          }, []);
+          return ref;
+        }
+      `,
+    },
+    // Ref access in nested function inside a hook
+    {
+      code: tsx`
+        function useMyHook() {
+          const ref = useRef(null);
+          const getValue = () => ref.current;
+          return getValue;
+        }
+      `,
+    },
+    // Ref in a hook's returned callback
+    {
+      code: tsx`
+        function useCounter() {
+          const ref = useRef(0);
+          const increment = () => {
+            ref.current += 1;
+            return ref.current;
+          };
+          return increment;
+        }
+      `,
+    },
+    // Ref with naming convention accessed in event handler
+    {
+      code: tsx`
+        function Component({ inputRef }) {
+          return (
+            <button onClick={() => inputRef.current?.focus()}>
+              Focus
+            </button>
+          );
+        }
+      `,
+    },
+    // JSX ref prop identifier accessed in effect
+    {
+      code: tsx`
+        function Component() {
+          const myNode = useRef(null);
+          useEffect(() => {
+            if (myNode.current) {
+              myNode.current.scrollIntoView();
+            }
+          }, []);
+          return <div ref={myNode} />;
+        }
+      `,
+    },
+    // Multiple refs, all accessed safely in effects/handlers
+    {
+      code: tsx`
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          useEffect(() => {
+            console.log(ref1.current, ref2.current);
+          });
+          return <div />;
+        }
+      `,
+    },
+
+    // Non-ref-named variable from useRef in effect (no report)
+    {
+      code: tsx`
+        function Component() {
+          const timer = useRef(0);
+          useEffect(() => {
+            timer.current = setInterval(() => {}, 1000);
+            return () => clearInterval(timer.current);
+          }, []);
+          return <div />;
         }
       `,
     },
@@ -1419,6 +1458,153 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Lazy init with reversed null operand order: `null === ref.current`
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (null === ref.current) {
+            ref.current = createExpensiveThing();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with `null == ref.current` (loose equality, reversed)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (null == ref.current) {
+            ref.current = createExpensiveThing();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Explicit undefined checks are nullish guards
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(undefined);
+          if (ref.current === undefined) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with !== null (negated check, still valid pattern)
+    {
+      code: tsx`
+        function Component() {
+          const cacheRef = useRef(null);
+          if (cacheRef.current !== null) {
+            return <div>{cacheRef.current}</div>;
+          }
+          cacheRef.current = computeExpensiveValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with != null and early return
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current != null) {
+            return <div>{ref.current}</div>;
+          }
+          ref.current = computeValue();
+          return <div />;
+        }
+      `,
+    },
+    // Inverted lazy init with null on the left: `null !== ref.current`
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (null !== ref.current) {
+            return <div>{ref.current}</div>;
+          }
+          ref.current = computeExpensiveValue();
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with inverted null check: !(ref.current === null)
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!(ref.current === null)) {
+            return <div>{ref.current}</div>;
+          }
+          ref.current = createThing();
+          return <div />;
+        }
+      `,
+    },
+
+    // Guard pattern: !(ref.current === null) allows lazy initialization
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!(ref.current === null)) {
+            return <div>already initialized</div>;
+          }
+          ref.current = computeExpensiveValue();
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init: both read and write inside the if body
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            const value = expensiveComputation();
+            ref.current = value;
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Lazy init with non-consecutive siblings before the write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            return <div>{ref.current}</div>;
+          }
+          const config = getConfig();
+          ref.current = createWithConfig(config);
+          return <div />;
+        }
+      `,
+    },
+    // An outer null guard also protects initialization nested in an ordinary condition
+    {
+      code: tsx`
+        function Component({ enabled }) {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            if (enabled) {
+              ref.current = createValue();
+            }
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Initialize only once on first use with nullish coalescing assignment is valid pattern
+    tsx`
+      const useOnce = <T,>(fn: () => T) => (useRef<{ value: T }>().current ??= { value: fn() }).value;
+    `,
     // Non-ref .current access (no ref naming, no useRef)
     {
       code: tsx`
@@ -1438,15 +1624,71 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Read ref in useCallback
+    // Non-ref .current access via parameter with non-ref name
+    {
+      code: tsx`
+        function Component({ config }) {
+          const value = config.current;
+          return <div>{value}</div>;
+        }
+      `,
+    },
+    // Non-ref .current access via parameter name "settings"
+    {
+      code: tsx`
+        function Component({ settings }) {
+          return <div>{settings.current}</div>;
+        }
+      `,
+    },
+    // Non-ref member expression with .current on call result (not Identifier object)
+    {
+      code: tsx`
+        function Component() {
+          const val = getConfig().current;
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Non-ref member expression with .current on array element (not Identifier object)
+    {
+      code: tsx`
+        function Component({ items }) {
+          const val = items[0].current;
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Computed property access ref["current"] is not statically resolved
     {
       code: tsx`
         function Component() {
           const ref = useRef(null);
-          const callback = useCallback(() => {
-            return ref.current;
-          }, []);
-          return <button onClick={callback}>Click</button>;
+          const val = ref["current"];
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Computed property write ref["current"] = value is not statically resolved
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref["current"] = 42;
+          return <div />;
+        }
+      `,
+    },
+    // Use state for UI values (not a ref issue)
+    {
+      code: tsx`
+        function Component() {
+          const [count, setCount] = useState(0);
+          return (
+            <button onClick={() => setCount(count + 1)}>
+              {count}
+            </button>
+          );
         }
       `,
     },
@@ -1480,38 +1722,48 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Ref access in a hook's effect
-    {
-      code: tsx`
-        function useMyHook() {
-          const ref = useRef(null);
-          useEffect(() => {
-            console.log(ref.current);
-          }, []);
-          return ref;
-        }
-      `,
-    },
-    // Ref access in nested function inside a hook
-    {
-      code: tsx`
-        function useMyHook() {
-          const ref = useRef(null);
-          const getValue = () => ref.current;
-          return getValue;
-        }
-      `,
-    },
-    // Lazy init with !== null (negated check, still valid pattern)
+    // Alias of non-ref object should not be flagged
     {
       code: tsx`
         function Component() {
-          const cacheRef = useRef(null);
-          if (cacheRef.current !== null) {
-            return <div>{cacheRef.current}</div>;
-          }
-          cacheRef.current = computeExpensiveValue();
-          return <div />;
+          const box = { current: 42 };
+          const alias = box;
+          const val = alias.current;
+          return <div>{val}</div>;
+        }
+      `,
+    },
+    // Reassigning an alias to a non-ref invalidates the earlier alias relation
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          let value = ref;
+          value = { current: 1 };
+          return <div>{value.current}</div>;
+        }
+      `,
+    },
+    // Ref passed to mergeRefs is allowed
+    {
+      code: tsx`
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          const merged = mergeRefs(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+    },
+    // Ref passed in nested function (event handler) is allowed
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const handler = () => {
+            someFn(ref);
+          };
+          return <button onClick={handler}>Click</button>;
         }
       `,
     },
@@ -1544,40 +1796,19 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Lazy init with reversed null operand order: `null === ref.current`
+    // Ref access in nested arrow inside useLayoutEffect
     {
       code: tsx`
         function Component() {
           const ref = useRef(null);
-          if (null === ref.current) {
-            ref.current = createExpensiveThing();
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Lazy init with `null == ref.current` (loose equality, reversed)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (null == ref.current) {
-            ref.current = createExpensiveThing();
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Inverted lazy init with != null and early return
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current != null) {
-            return <div>{ref.current}</div>;
-          }
-          ref.current = computeValue();
-          return <div />;
+          useLayoutEffect(() => {
+            const observer = new ResizeObserver(() => {
+              console.log(ref.current?.getBoundingClientRect());
+            });
+            if (ref.current) observer.observe(ref.current);
+            return () => observer.disconnect();
+          }, []);
+          return <div ref={ref} />;
         }
       `,
     },
@@ -1589,6 +1820,21 @@ ruleTester.run(RULE_NAME, rule, {
           const handleClick = async () => {
             await fetch('/api');
             ref.current = document.getElementById('result');
+          };
+          return <button onClick={handleClick}>Load</button>;
+        }
+      `,
+    },
+    // Ref in Promise.then callback
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const handleClick = () => {
+            fetch('/api')
+              .then(() => {
+                ref.current = document.getElementById('result');
+              });
           };
           return <button onClick={handleClick}>Load</button>;
         }
@@ -1618,219 +1864,17 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // Non-ref .current access via parameter with non-ref name
+    // Ref in effect with conditional write
     {
       code: tsx`
-        function Component({ config }) {
-          const value = config.current;
-          return <div>{value}</div>;
-        }
-      `,
-    },
-    // Non-ref .current access via parameter name "settings"
-    {
-      code: tsx`
-        function Component({ settings }) {
-          return <div>{settings.current}</div>;
-        }
-      `,
-    },
-    // Ref in function expression handler (not arrow)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const handleClick = function() {
-            console.log(ref.current);
-          };
-          return <button onClick={handleClick}>Click</button>;
-        }
-      `,
-    },
-
-    // Non-ref-named variable from useRef in effect (no report)
-    {
-      code: tsx`
-        function Component() {
-          const timer = useRef(0);
-          useEffect(() => {
-            timer.current = setInterval(() => {}, 1000);
-            return () => clearInterval(timer.current);
-          }, []);
-          return <div />;
-        }
-      `,
-    },
-    // Lazy init with non-consecutive siblings before the write
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current !== null) {
-            return <div>{ref.current}</div>;
-          }
-          const config = getConfig();
-          ref.current = createWithConfig(config);
-          return <div />;
-        }
-      `,
-    },
-    // Lazy init with inverted null check: !(ref.current === null)
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (!(ref.current === null)) {
-            return <div>{ref.current}</div>;
-          }
-          ref.current = createThing();
-          return <div />;
-        }
-      `,
-    },
-    // Lazy init: both read and write inside the if body
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (ref.current === null) {
-            const value = expensiveComputation();
-            ref.current = value;
-          }
-          return <div />;
-        }
-      `,
-    },
-    // Ref in Promise.then callback
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const handleClick = () => {
-            fetch('/api')
-              .then(() => {
-                ref.current = document.getElementById('result');
-              });
-          };
-          return <button onClick={handleClick}>Load</button>;
-        }
-      `,
-    },
-    // Ref in event handler with optional chaining read
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          return (
-            <button onClick={() => ref.current?.focus()}>
-              Focus
-            </button>
-          );
-        }
-      `,
-    },
-    // Ref write and read inside event handler
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(0);
-          const handleClick = () => {
-            ref.current += 1;
-            console.log(ref.current);
-          };
-          return <button onClick={handleClick}>Click</button>;
-        }
-      `,
-    },
-    // Ref in a hook's returned callback
-    {
-      code: tsx`
-        function useCounter() {
-          const ref = useRef(0);
-          const increment = () => {
-            ref.current += 1;
-            return ref.current;
-          };
-          return increment;
-        }
-      `,
-    },
-    // Ref access in nested arrow inside useLayoutEffect
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          useLayoutEffect(() => {
-            const observer = new ResizeObserver(() => {
-              console.log(ref.current?.getBoundingClientRect());
-            });
-            if (ref.current) observer.observe(ref.current);
-            return () => observer.disconnect();
-          }, []);
-          return <div ref={ref} />;
-        }
-      `,
-    },
-    // Ref in memo-wrapped component with effect access
-    {
-      code: tsx`
-        const Component = memo(function Component() {
+        function Component({ enabled }) {
           const ref = useRef(null);
           useEffect(() => {
-            console.log(ref.current);
-          }, []);
-          return <div ref={ref} />;
-        });
-      `,
-    },
-    // Ref in forwardRef-wrapped component with effect access
-    {
-      code: tsx`
-        const Component = forwardRef(function Component(props, outerRef) {
-          const innerRef = useRef(null);
-          useEffect(() => {
-            console.log(innerRef.current);
-          }, []);
-          return <div ref={innerRef} />;
-        });
-      `,
-    },
-    // Multiple refs, all accessed safely in effects/handlers
-    {
-      code: tsx`
-        function Component() {
-          const ref1 = useRef(null);
-          const ref2 = useRef(null);
-          useEffect(() => {
-            console.log(ref1.current, ref2.current);
-          });
-          return <div />;
-        }
-      `,
-    },
-    // Ref with naming convention accessed in event handler
-    {
-      code: tsx`
-        function Component({ inputRef }) {
-          return (
-            <button onClick={() => inputRef.current?.focus()}>
-              Focus
-            </button>
-          );
-        }
-      `,
-    },
-    // JSX ref prop identifier accessed in effect
-    {
-      code: tsx`
-        function Component() {
-          const myNode = useRef(null);
-          useEffect(() => {
-            if (myNode.current) {
-              myNode.current.scrollIntoView();
+            if (enabled) {
+              ref.current = document.getElementById('target');
             }
-          }, []);
-          return <div ref={myNode} />;
+          }, [enabled]);
+          return <div />;
         }
       `,
     },
@@ -1856,51 +1900,6 @@ ruleTester.run(RULE_NAME, rule, {
           function* gen() {
             yield ref.current;
           }
-          return <div />;
-        }
-      `,
-    },
-    // Non-ref member expression with .current on call result (not Identifier object)
-    {
-      code: tsx`
-        function Component() {
-          const val = getConfig().current;
-          return <div>{val}</div>;
-        }
-      `,
-    },
-    // Non-ref member expression with .current on array element (not Identifier object)
-    {
-      code: tsx`
-        function Component({ items }) {
-          const val = items[0].current;
-          return <div>{val}</div>;
-        }
-      `,
-    },
-    // Ref in effect with conditional write
-    {
-      code: tsx`
-        function Component({ enabled }) {
-          const ref = useRef(null);
-          useEffect(() => {
-            if (enabled) {
-              ref.current = document.getElementById('target');
-            }
-          }, [enabled]);
-          return <div />;
-        }
-      `,
-    },
-    // Inverted lazy init with null on the left: `null !== ref.current`
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (null !== ref.current) {
-            return <div>{ref.current}</div>;
-          }
-          ref.current = computeExpensiveValue();
           return <div />;
         }
       `,
@@ -1938,40 +1937,6 @@ ruleTester.run(RULE_NAME, rule, {
             (ref as any).current = createExpensiveThing();
           }
           return <div />;
-        }
-      `,
-    },
-    // Alias of non-ref object should not be flagged
-    {
-      code: tsx`
-        function Component() {
-          const box = { current: 42 };
-          const alias = box;
-          const val = alias.current;
-          return <div>{val}</div>;
-        }
-      `,
-    },
-    // Ref passed to mergeRefs is allowed
-    {
-      code: tsx`
-        function Component() {
-          const ref1 = useRef(null);
-          const ref2 = useRef(null);
-          const merged = mergeRefs(ref1, ref2);
-          return <div ref={merged} />;
-        }
-      `,
-    },
-    // Ref passed in nested function (event handler) is allowed
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          const handler = () => {
-            someFn(ref);
-          };
-          return <button onClick={handler}>Click</button>;
         }
       `,
     },
@@ -2026,39 +1991,6 @@ ruleTester.run(RULE_NAME, rule, {
         function Component(props) {
           const ref = useRef(null);
           return <Foo>{props.render(ref)}</Foo>;
-        }
-      `,
-    },
-
-    // Guard pattern: !(ref.current === null) allows lazy initialization
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          if (!(ref.current === null)) {
-            return <div>already initialized</div>;
-          }
-          ref.current = computeExpensiveValue();
-          return <div />;
-        }
-      `,
-    },
-    // ref.current === null in variable declaration inside non-component should not crash isInNullCheckTest
-    {
-      code: tsx`
-        function notAComponent() {
-          const ref = useRef(null);
-          const isNull = ref.current === null;
-          return isNull;
-        }
-      `,
-    },
-    // ref.current === null in return statement inside non-component should not crash isInNullCheckTest
-    {
-      code: tsx`
-        function notAComponent() {
-          const ref = useRef(null);
-          return ref.current === null;
         }
       `,
     },
@@ -2140,6 +2072,74 @@ ruleTester.run(RULE_NAME, rule, {
           };
           return <button onClick={handler}>Click</button>;
         });
+      `,
+    },
+    // ref.current === null in variable declaration inside non-component should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function notAComponent() {
+          const ref = useRef(null);
+          const isNull = ref.current === null;
+          return isNull;
+        }
+      `,
+    },
+    // ref.current === null in return statement inside non-component should not crash isInNullCheckTest
+    {
+      code: tsx`
+        function notAComponent() {
+          const ref = useRef(null);
+          return ref.current === null;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Single-file multi-component isolation
+    // -------------------------------------------------------------------------
+    // A JSX ref marker is scoped to its own component binding
+    {
+      code: tsx`
+        function FirstComponent() {
+          const node = { current: null };
+          return <div ref={node} />;
+        }
+        function SecondComponent() {
+          const node = { current: 1 };
+          return <div>{node.current}</div>;
+        }
+      `,
+    },
+    // Each component may independently initialize its own same-named ref once
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            ref.current = createFirstValue();
+          }
+          return <div />;
+        }
+        function SecondComponent() {
+          const ref = useRef(null);
+          if (ref.current === null) {
+            ref.current = createSecondValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Ref and alias identities are scoped; same-named bindings in another component stay independent
+    {
+      code: tsx`
+        function FirstComponent() {
+          const ref = useRef(null);
+          const value = ref;
+          return <div ref={value} />;
+        }
+        function SecondComponent() {
+          const value = { current: 1 };
+          return <div>{value.current}</div>;
+        }
       `,
     },
   ],

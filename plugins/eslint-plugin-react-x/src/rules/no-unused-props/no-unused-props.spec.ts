@@ -6,6 +6,29 @@ import rule, { RULE_NAME } from "./no-unused-props";
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
     {
+      // interface type and direct destructuring
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component({ abc }: Props) {
+          return null;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }],
+    },
+    {
       // interface type and later destructuring
       code: tsx`
         interface Props {
@@ -30,9 +53,9 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // interface type and direct destructuring
+      // named type and direct destructuring
       code: tsx`
-        interface Props {
+        type Props = {
           abc: string;
           hello: string;
         }
@@ -77,25 +100,20 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // interface type and direct destructuring
+      // inline type and direct destructuring
       code: tsx`
-        type Props = {
-          abc: string;
-          hello: string;
-        }
-
-        function Component({ abc }: Props) {
+        function Component({ abc }: { abc: string; hello: string; }) {
           return null;
         }
       `,
       errors: [{
-        column: 3,
+        column: 44,
         data: {
           name: "hello",
         },
-        endColumn: 8,
-        endLine: 3,
-        line: 3,
+        endColumn: 49,
+        endLine: 1,
+        line: 1,
         messageId: "default",
       }],
     },
@@ -113,24 +131,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           name: "hello",
         },
         endColumn: 47,
-        endLine: 1,
-        line: 1,
-        messageId: "default",
-      }],
-    },
-    {
-      // inline type and direct destructuring
-      code: tsx`
-        function Component({ abc }: { abc: string; hello: string; }) {
-          return null;
-        }
-      `,
-      errors: [{
-        column: 44,
-        data: {
-          name: "hello",
-        },
-        endColumn: 49,
         endLine: 1,
         line: 1,
         messageId: "default",
@@ -164,113 +164,39 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // interface augmentation
+      // track assignment
       code: tsx`
-        interface Props {
-          used1: string;
-          abc: string;
-        }
-
-        interface Props {
-          used2: string;
-          hello: string;
-        }
-
-        function Component({ used1, used2 }: Props) {
-          return null;
+        function Component(props: { abc: string; hello: string; }) {
+          const abc = props.abc;
+          return <div>{abc}</div>;
         }
       `,
       errors: [{
-        column: 3,
-        data: {
-          name: "abc",
-        },
-        endColumn: 6,
-        endLine: 3,
-        line: 3,
-        messageId: "default",
-      }, {
-        column: 3,
+        column: 42,
         data: {
           name: "hello",
         },
-        endColumn: 8,
-        endLine: 8,
-        line: 8,
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
         messageId: "default",
       }],
     },
     {
-      // interface union
+      // track computed member access
       code: tsx`
-        interface Props1 {
-          used1: string;
-          abc: string;
-        }
-
-        interface Props2 {
-          used2: string;
-          hello: string;
-        }
-
-        function Component({ used1, used2 }: Props1 & Props2) {
-          return null;
+        function Component(props: { abc: string; hello: string; }) {
+          return <div>{props["abc"]}</div>;
         }
       `,
       errors: [{
-        column: 3,
-        data: {
-          name: "abc",
-        },
-        endColumn: 6,
-        endLine: 3,
-        line: 3,
-        messageId: "default",
-      }, {
-        column: 3,
+        column: 42,
         data: {
           name: "hello",
         },
-        endColumn: 8,
-        endLine: 8,
-        line: 8,
-        messageId: "default",
-      }],
-    },
-    {
-      // interface extends
-      code: tsx`
-        interface PropsBase {
-          used1: string;
-          abc: string;
-        }
-
-        interface Props extends PropsBase {
-          used2: string;
-          hello: string;
-        }
-
-        function Component({ used1, used2 }: Props) {
-          return null;
-        }
-      `,
-      errors: [{
-        column: 3,
-        data: {
-          name: "abc",
-        },
-        endColumn: 6,
-        endLine: 3,
-        line: 3,
-        messageId: "default",
-      }, {
-        column: 3,
-        data: {
-          name: "hello",
-        },
-        endColumn: 8,
-        endLine: 8,
-        line: 8,
+        endColumn: 47,
+        endLine: 1,
+        line: 1,
         messageId: "default",
       }],
     },
@@ -312,25 +238,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // track assignment
-      code: tsx`
-        function Component(props: { abc: string; hello: string; }) {
-          const abc = props.abc;
-          return <div>{abc}</div>;
-        }
-      `,
-      errors: [{
-        column: 42,
-        data: {
-          name: "hello",
-        },
-        endColumn: 47,
-        endLine: 1,
-        line: 1,
-        messageId: "default",
-      }],
-    },
-    {
       // prop used via type assertion should still detect unused prop
       code: tsx`
         function Component(props: { abc: string; hello: string; }) {
@@ -349,18 +256,18 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // track computed member access
+      // access of sub property should mark property as used
       code: tsx`
-        function Component(props: { abc: string; hello: string; }) {
-          return <div>{props["abc"]}</div>;
+        function Component({ hello: { subHello } }: { abc: string; hello: { abc: string; subHello: number | null }; }) {
+          return null;
         }
       `,
       errors: [{
-        column: 42,
+        column: 47,
         data: {
-          name: "hello",
+          name: "abc",
         },
-        endColumn: 47,
+        endColumn: 50,
         endLine: 1,
         line: 1,
         messageId: "default",
@@ -385,20 +292,113 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
-      // access of sub property should mark property as used
+      // interface extends
       code: tsx`
-        function Component({ hello: { subHello } }: { abc: string; hello: { abc: string; subHello: number | null }; }) {
+        interface PropsBase {
+          used1: string;
+          abc: string;
+        }
+
+        interface Props extends PropsBase {
+          used2: string;
+          hello: string;
+        }
+
+        function Component({ used1, used2 }: Props) {
           return null;
         }
       `,
       errors: [{
-        column: 47,
+        column: 3,
         data: {
           name: "abc",
         },
-        endColumn: 50,
-        endLine: 1,
-        line: 1,
+        endColumn: 6,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }, {
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 8,
+        line: 8,
+        messageId: "default",
+      }],
+    },
+    {
+      // interface augmentation
+      code: tsx`
+        interface Props {
+          used1: string;
+          abc: string;
+        }
+
+        interface Props {
+          used2: string;
+          hello: string;
+        }
+
+        function Component({ used1, used2 }: Props) {
+          return null;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "abc",
+        },
+        endColumn: 6,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }, {
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 8,
+        line: 8,
+        messageId: "default",
+      }],
+    },
+    {
+      // interface intersection
+      code: tsx`
+        interface Props1 {
+          used1: string;
+          abc: string;
+        }
+
+        interface Props2 {
+          used2: string;
+          hello: string;
+        }
+
+        function Component({ used1, used2 }: Props1 & Props2) {
+          return null;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "abc",
+        },
+        endColumn: 6,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }, {
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 8,
+        line: 8,
         messageId: "default",
       }],
     },
@@ -560,8 +560,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         hello: string;
       }
 
-      function Component(props: Props) {
-        const { abc, hello } = props;
+      function Component({ abc, hello }: Props) {
         return null;
       }
     `,
@@ -572,17 +571,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         hello: string;
       }
 
-      function Component({ abc, hello }: Props) {
-        return null;
-      }
-    `,
-    // all props are used
-    tsx`
-      type Props = {
-        abc: string;
-        hello: string;
-      }
-
       function Component(props: Props) {
         const { abc, hello } = props;
         return null;
@@ -601,7 +589,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // all props are used
     tsx`
-      function Component(props: { abc: string; hello: string; }) {
+      type Props = {
+        abc: string;
+        hello: string;
+      }
+
+      function Component(props: Props) {
         const { abc, hello } = props;
         return null;
       }
@@ -614,8 +607,44 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     `,
     // all props are used
     tsx`
+      function Component(props: { abc: string; hello: string; }) {
+        const { abc, hello } = props;
+        return null;
+      }
+    `,
+    // all props are used
+    tsx`
       function Component({ abc: abc2, hello: hello2 }: { abc: string; hello: string; }) {
         return null;
+      }
+    `,
+    // one value used in jsx, the other in effect
+    tsx`
+      import { useEffect } from "react";
+
+      function Component({ abc, hello }: { abc: string; hello: string }) {
+        useEffect(() => {
+          console.log(hello);
+        }, []);
+        return <div>{abc}</div>;
+      }
+    `,
+    // props used inside nested function
+    tsx`
+      function Component(props: { abc: string; hello: string }) {
+        function inner() {
+          return props.hello;
+        }
+        return props.abc;
+      }
+    `,
+    // props used conditionally
+    tsx`
+      function Component(props: { abc: string; hello: string }) {
+        if (Math.random() > 0.5) {
+          return <div>{props.abc}</div>;
+        }
+        return <div>{props.hello}</div>;
       }
     `,
     // props are used by two components each accessing one prop
@@ -647,6 +676,12 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
 
       function Component2({ bar, baz }: Props) {
         return <div>{bar}</div>;
+      }
+    `,
+    // props accessed via type assertion
+    tsx`
+      function Component(props: { abc: string; hello: string }) {
+        return <div>{(props as any).abc}{(props as any).hello}</div>;
       }
     `,
     // we can't track what happens to the props object
@@ -692,17 +727,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         return null;
       }
     `,
-    // one value used in jsx, the other in effect
-    tsx`
-      import { useEffect } from "react";
-
-      function Component({ abc, hello }: { abc: string; hello: string }) {
-        useEffect(() => {
-          console.log(hello);
-        }, []);
-        return <div>{abc}</div>;
-      }
-    `,
     // we can't track what happens to the rest object
     tsx`
       import { anyFunction } from "./anyFunction";
@@ -720,30 +744,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         const { abc, ...rest } = props;
         anyFunction(rest);
         return null;
-      }
-    `,
-    // props used inside nested function
-    tsx`
-      function Component(props: { abc: string; hello: string }) {
-        function inner() {
-          return props.hello;
-        }
-        return props.abc;
-      }
-    `,
-    // props used conditionally
-    tsx`
-      function Component(props: { abc: string; hello: string }) {
-        if (Math.random() > 0.5) {
-          return <div>{props.abc}</div>;
-        }
-        return <div>{props.hello}</div>;
-      }
-    `,
-    // props accessed via type assertion
-    tsx`
-      function Component(props: { abc: string; hello: string }) {
-        return <div>{(props as any).abc}{(props as any).hello}</div>;
       }
     `,
     // expect no false positives when using PropsWithChildren

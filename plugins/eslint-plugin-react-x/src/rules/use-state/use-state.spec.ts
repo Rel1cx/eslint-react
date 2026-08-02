@@ -168,26 +168,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     // --- Lazy initialization ---
     {
-      code: `import { useState } from "react"; useState(1 || getValue())`,
-      errors: [
-        {
-          type: AST.CallExpression,
-          messageId: "invalidInitialization",
-        },
-      ],
-      options: [{ enforceAssignment: false }],
-    },
-    {
-      code: `import { useState } from "react"; useState(2 < getValue())`,
-      errors: [
-        {
-          type: AST.CallExpression,
-          messageId: "invalidInitialization",
-        },
-      ],
-      options: [{ enforceAssignment: false }],
-    },
-    {
       code: `import { useState } from "react"; useState(1 < 2 ? getValue() : 4)`,
       errors: [
         {
@@ -228,7 +208,37 @@ ruleTester.run(RULE_NAME, rule, {
       options: [{ enforceAssignment: false }],
     },
     {
+      code: `import { useState } from "react"; useState(1 || getValue())`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
       code: `import { useState } from "react"; useState(getValue() && b)`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      code: `import { useState } from "react"; useState(2 < getValue())`,
+      errors: [
+        {
+          type: AST.CallExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      code: `import { useState } from "react"; useState(+getValue())`,
       errors: [
         {
           type: AST.CallExpression,
@@ -251,16 +261,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       options: [{ enforceAssignment: false }],
     },
-    {
-      code: `import { useState } from "react"; useState(+getValue())`,
-      errors: [
-        {
-          type: AST.CallExpression,
-          messageId: "invalidInitialization",
-        },
-      ],
-      options: [{ enforceAssignment: false }],
-    },
     // --- Lazy initialization: newly traversed node types ---
     {
       name: "call inside await expression in useState initial value",
@@ -278,17 +278,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "invalidInitialization",
         },
       ],
-    },
-    {
-      name: "new expression inside conditional expression in useState initial value",
-      code: `import { useState } from "react"; useState(flag ? new Foo() : null)`,
-      errors: [
-        {
-          type: AST.NewExpression,
-          messageId: "invalidInitialization",
-        },
-      ],
-      options: [{ enforceAssignment: false }],
     },
     {
       name: "call inside tagged template expression in useState initial value",
@@ -328,6 +317,17 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: "new expression inside callee member expression in useState initial value",
       code: `import { useState } from "react"; useState(new Foo().bar)`,
+      errors: [
+        {
+          type: AST.NewExpression,
+          messageId: "invalidInitialization",
+        },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "new expression inside conditional expression in useState initial value",
+      code: `import { useState } from "react"; useState(flag ? new Foo() : null)`,
       errors: [
         {
           type: AST.NewExpression,
@@ -448,19 +448,20 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       import { useState } from "react";
 
-      const [value] = useState(() => expensiveSetup());
-    `,
-    tsx`
-      const [memoisedValue] = React.useState(() => calculateValue());
-    `,
-    tsx`
-      import { useState } from "react";
-
       function Component() {
         const [state, setState] = useState(0);
 
         return <div />;
       }
+    `,
+    tsx`const [myCount, setMyCount] = useState(0);`,
+    tsx`
+      import { useState } from "react";
+
+      const [value] = useState(() => expensiveSetup());
+    `,
+    tsx`
+      const [memoisedValue] = React.useState(() => calculateValue());
     `,
     tsx`
       import { useState } from 'react';
@@ -470,7 +471,6 @@ ruleTester.run(RULE_NAME, rule, {
         return [count, setCount];
       }
     `,
-    tsx`const [myCount, setMyCount] = useState(0);`,
     tsx`const [fooBarBaz, setFooBarBaz] = useState({ foo: "a", bar: "b" });`,
     tsx`const [fooBarBaz, set_foo_bar_baz] = useState({ foo: "a", bar: "b" });`,
     tsx`const [foo_bar_baz, set_foo_bar_baz] = useState({ foo: "a", bar: "b" });`,

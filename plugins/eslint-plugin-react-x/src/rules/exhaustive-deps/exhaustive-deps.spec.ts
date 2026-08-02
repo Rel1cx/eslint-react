@@ -191,30 +191,39 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Async effect callback
+    // ref.current in cleanup
     {
       code: tsx`
         function MyComponent() {
-          useEffect(async () => {
-            await fetchData();
+          const ref = useRef();
+          useEffect(() => {
+            return () => {
+              console.log(ref.current);
+            };
           }, []);
         }
       `,
       errors: [
         {
-          // tsl-ignore dx/no-multiline-template-expression-without-auto-dedent
-          message: `Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
-
-useEffect(() => {
-  async function fetchData() {
-    // You can await here
-    const response = await MyAPI.getData(someId);
-    // ...
-  }
-  fetchData();
-}, [someId]); // Or [] if effect doesn't need props or state
-
-Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching`,
+          message:
+            `The ref value 'ref.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ref.current' to a variable inside the effect, and use that variable in the cleanup function.`,
+        },
+      ],
+    },
+    // Assignment to outer scope variable
+    {
+      code: tsx`
+        function MyComponent() {
+          let count = 0;
+          useEffect(() => {
+            count = 1;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          message:
+            `Assignments to the 'count' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the '.current' property. Otherwise, you can move this variable directly inside useEffect.`,
         },
       ],
     },
@@ -259,22 +268,30 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         },
       ],
     },
-    // ref.current in cleanup
+    // Async effect callback
     {
       code: tsx`
         function MyComponent() {
-          const ref = useRef();
-          useEffect(() => {
-            return () => {
-              console.log(ref.current);
-            };
+          useEffect(async () => {
+            await fetchData();
           }, []);
         }
       `,
       errors: [
         {
-          message:
-            `The ref value 'ref.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'ref.current' to a variable inside the effect, and use that variable in the cleanup function.`,
+          // tsl-ignore dx/no-multiline-template-expression-without-auto-dedent
+          message: `Effect callbacks are synchronous to prevent race conditions. Put the async function inside:
+
+useEffect(() => {
+  async function fetchData() {
+    // You can await here
+    const response = await MyAPI.getData(someId);
+    // ...
+  }
+  fetchData();
+}, [someId]); // Or [] if effect doesn't need props or state
+
+Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fetching`,
         },
       ],
     },
@@ -316,23 +333,6 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         {
           message:
             `React Hook useEffect was passed a dependency list that is not an array literal. This means we can't statically verify whether you've passed the correct dependencies.`,
-        },
-      ],
-    },
-    // Assignment to outer scope variable
-    {
-      code: tsx`
-        function MyComponent() {
-          let count = 0;
-          useEffect(() => {
-            count = 1;
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          message:
-            `Assignments to the 'count' variable from inside React Hook useEffect will be lost after each render. To preserve the value over time, store it in a useRef Hook and keep the mutable value in the '.current' property. Otherwise, you can move this variable directly inside useEffect.`,
         },
       ],
     },
@@ -753,6 +753,17 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
+    // useTransition is stable
+    {
+      code: tsx`
+        function MyComponent() {
+          const [isPending, startTransition] = useTransition();
+          useEffect(() => {
+            startTransition(() => {});
+          }, []);
+        }
+      `,
+    },
     // Functions defined inside component can be dependencies
     {
       code: tsx`
@@ -761,6 +772,17 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
             const data = await getData();
             return data;
           }, [getData]);
+        }
+      `,
+    },
+    // Variable declared inside effect doesn't need to be in deps
+    {
+      code: tsx`
+        function MyComponent() {
+          useEffect(() => {
+            const local = someFunc();
+            console.log(local);
+          }, []);
         }
       `,
     },
@@ -782,27 +804,6 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // Variable declared inside effect doesn't need to be in deps
-    {
-      code: tsx`
-        function MyComponent() {
-          useEffect(() => {
-            const local = someFunc();
-            console.log(local);
-          }, []);
-        }
-      `,
-    },
-    // React namespace
-    {
-      code: tsx`
-        function MyComponent({ value }) {
-          React.useEffect(() => {
-            console.log(value);
-          }, [value]);
-        }
-      `,
-    },
     // No dependency array for useEffect is valid (runs after every render)
     {
       code: tsx`
@@ -813,14 +814,13 @@ Learn more about data fetching with Hooks: https://react.dev/link/hooks-data-fet
         }
       `,
     },
-    // useTransition is stable
+    // React namespace
     {
       code: tsx`
-        function MyComponent() {
-          const [isPending, startTransition] = useTransition();
-          useEffect(() => {
-            startTransition(() => {});
-          }, []);
+        function MyComponent({ value }) {
+          React.useEffect(() => {
+            console.log(value);
+          }, [value]);
         }
       `,
     },

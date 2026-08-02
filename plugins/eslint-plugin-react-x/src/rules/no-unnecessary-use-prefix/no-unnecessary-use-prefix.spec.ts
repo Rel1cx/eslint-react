@@ -137,31 +137,11 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     tsx`
-      // Allow empty functions.
-      const useNoop = () => {};
-    `,
-    tsx`
-      export const userInitials = () => {
-        return;
-      };
-    `,
-    tsx`
-      import { useState } from "react";
-
-      const Comp = () => {
-        const [state, setState] = useState(false);
-
-        return <Button />;
-      };
+      const useData = (key) => useSWR(key);
     `,
     tsx`
       const useData = (key) => {
           return useSWR(key);
-      }
-    `,
-    tsx`
-      const useData = (key) => {
-          return swr.useSWR(key);
       }
     `,
     tsx`
@@ -176,7 +156,35 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      const useData = (key) => useSWR(key);
+      const useData = (key) => {
+          return swr.useSWR(key);
+      }
+    `,
+    tsx`
+      // Allow empty functions.
+      const useNoop = () => {};
+    `,
+    tsx`
+      import { useState } from "react";
+
+      const Comp = () => {
+        const [state, setState] = useState(false);
+
+        return <Button />;
+      };
+    `,
+    tsx`
+      export const userInitials = () => {
+        return;
+      };
+    `,
+    tsx`
+      function useMotionStyle() {
+        const shadowX = useSpring(0);
+        const shadowY = useMotionValue(0);
+        const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
+        return shadow;
+      }
     `,
     tsx`
       function useAuth() {
@@ -201,14 +209,6 @@ ruleTester.run(RULE_NAME, rule, {
       vi.mock("src/components/session/session", () => ({
         useSession: () => mockUseSession(),
       }));
-    `,
-    tsx`
-      function useMotionStyle() {
-        const shadowX = useSpring(0);
-        const shadowY = useMotionValue(0);
-        const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
-        return shadow;
-      }
     `,
   ],
 });

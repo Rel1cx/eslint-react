@@ -6,14 +6,14 @@ import rule, { RULE_NAME } from "./no-context-provider";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`<Context.Provider />`,
+      code: tsx`<Context.Provider>{children}</Context.Provider>`,
       errors: [
         {
           messageId: "default",
           suggestions: [
             {
               messageId: "replace",
-              output: tsx`<Context />`,
+              output: tsx`<Context>{children}</Context>`,
             },
           ],
         },
@@ -44,14 +44,14 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: tsx`<Context.Provider>{children}</Context.Provider>`,
+      code: tsx`<Context.Provider />`,
       errors: [
         {
           messageId: "default",
           suggestions: [
             {
               messageId: "replace",
-              output: tsx`<Context>{children}</Context>`,
+              output: tsx`<Context />`,
             },
           ],
         },
@@ -65,14 +65,6 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     {
-      code: tsx`<Context.Provider />`,
-      settings: {
-        "react-x": {
-          version: "18.0.0",
-        },
-      },
-    },
-    {
       code: tsx`<Context />`,
       settings: {
         "react-x": {
@@ -81,7 +73,23 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: tsx`<ThemeContext.Provider><App /></ThemeContext.Provider>`,
+      code: tsx`<ThemeContext>{children}</ThemeContext>`,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`<ThemeContext><App /></ThemeContext>`,
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`<Context.Provider />`,
       settings: {
         "react-x": {
           version: "18.0.0",
@@ -97,18 +105,10 @@ ruleTester.run(RULE_NAME, rule, {
       },
     },
     {
-      code: tsx`<ThemeContext><App /></ThemeContext>`,
+      code: tsx`<ThemeContext.Provider><App /></ThemeContext.Provider>`,
       settings: {
         "react-x": {
-          version: "19.0.0",
-        },
-      },
-    },
-    {
-      code: tsx`<ThemeContext>{children}</ThemeContext>`,
-      settings: {
-        "react-x": {
-          version: "19.0.0",
+          version: "18.0.0",
         },
       },
     },

@@ -27,26 +27,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const { Children } = require('react');
-
-        function RowList({ children }) {
-          return (
-            <div className="RowList">
-              {Children.map(children, child =>
-                <div className="Row">
-                  {child}
-                </div>
-              )}
-            </div>
-          );
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
         import React from 'react';
 
         function RowList({ children }) {
@@ -73,6 +53,26 @@ ruleTester.run(RULE_NAME, rule, {
           return (
             <div className="RowList">
               {React.Children.map(children, child =>
+                <div className="Row">
+                  {child}
+                </div>
+              )}
+            </div>
+          );
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const { Children } = require('react');
+
+        function RowList({ children }) {
+          return (
+            <div className="RowList">
+              {Children.map(children, child =>
                 <div className="Row">
                   {child}
                 </div>

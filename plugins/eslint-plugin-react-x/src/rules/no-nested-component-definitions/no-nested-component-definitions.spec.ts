@@ -201,54 +201,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        export default () => {
-          function UnstableNestedFunctionComponent() {
-            return <div />;
-          }
-
-          return (
-            <div>
-              <UnstableNestedFunctionComponent />
-            </div>
-          );
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "UnstableNestedFunctionComponent",
-            suggestion: "Move it to the top level.",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        export default () => {
-          function UnstableNestedFunctionComponent() {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedFunctionComponent, null)
-          );
-        };
-      `,
-      errors: [
-        {
-          data: {
-            name: "UnstableNestedFunctionComponent",
-            suggestion: "Move it to the top level.",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
         const ParentComponent = () => {
           const UnstableNestedVariableComponent = () => {
             return <div />;
@@ -297,6 +249,54 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        export default () => {
+          function UnstableNestedFunctionComponent() {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedFunctionComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "UnstableNestedFunctionComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        export default () => {
+          function UnstableNestedFunctionComponent() {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedFunctionComponent, null)
+          );
+        };
+      `,
+      errors: [
+        {
+          data: {
+            name: "UnstableNestedFunctionComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         function ParentComponent() {
           class UnstableNestedClassComponent extends React.Component {
             render() {
@@ -333,58 +333,6 @@ ruleTester.run(RULE_NAME, rule, {
             null,
             React.createElement(UnstableNestedClassComponent, null)
           );
-        }
-      `,
-      errors: [{
-        data: {
-          name: "UnstableNestedClassComponent",
-          suggestion: "Move it to the top level.",
-        },
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return <div />;
-              }
-            };
-
-            return (
-              <div>
-                <UnstableNestedClassComponent />
-              </div>
-            );
-          }
-        }
-      `,
-      errors: [{
-        data: {
-          name: "UnstableNestedClassComponent",
-          suggestion: "Move it to the top level.",
-        },
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        class ParentComponent extends React.Component {
-          render() {
-            class UnstableNestedClassComponent extends React.Component {
-              render() {
-                return React.createElement("div", null);
-              }
-            }
-
-            return React.createElement(
-              "div",
-              null,
-              React.createElement(UnstableNestedClassComponent, null)
-            );
-          }
         }
       `,
       errors: [{
@@ -499,6 +447,77 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return <div />;
+              }
+            };
+
+            return (
+              <div>
+                <UnstableNestedClassComponent />
+              </div>
+            );
+          }
+        }
+      `,
+      errors: [{
+        data: {
+          name: "UnstableNestedClassComponent",
+          suggestion: "Move it to the top level.",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            class UnstableNestedClassComponent extends React.Component {
+              render() {
+                return React.createElement("div", null);
+              }
+            }
+
+            return React.createElement(
+              "div",
+              null,
+              React.createElement(UnstableNestedClassComponent, null)
+            );
+          }
+        }
+      `,
+      errors: [{
+        data: {
+          name: "UnstableNestedClassComponent",
+          suggestion: "Move it to the top level.",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const ChildComponent = class extends React.Component {
+            render() {
+              return <div />;
+            }
+          };
+          return <ChildComponent />;
+        }
+      `,
+      errors: [{
+        data: {
+          name: "ChildComponent",
+          suggestion: "Move it to the top level.",
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
         function ParentComponent() {
           function getComponent() {
             function NestedUnstableFunctionComponent() {
@@ -544,82 +563,6 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             name: "NestedUnstableFunctionComponent",
             suggestion: "Move it to the top level.",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function ComponentWithProps(props) {
-          return React.createElement("div", null);
-        }
-
-        function ParentComponent() {
-          return React.createElement(ComponentWithProps, {
-            footer: function SomeFooter() {
-              return React.createElement("div", null);
-            }
-          });
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "SomeFooter",
-            suggestion: "Move it to the top level or pass it as a prop.",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function RenderPropComponent(props) {
-          return props.render({});
-        }
-
-        function ParentComponent() {
-          return React.createElement(
-            RenderPropComponent,
-            null,
-            () => {
-              function UnstableNestedComponent() {
-                return React.createElement("div", null);
-              }
-
-              return React.createElement(
-                "div",
-                null,
-                React.createElement(UnstableNestedComponent, null)
-              );
-            }
-          );
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "UnstableNestedComponent",
-            suggestion: "Move it to the top level.",
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function ParentComponent() {
-          return (
-            <ComponentForProps someMap={{ Header: () => <div /> }} />
-          );
-        }
-      `,
-      errors: [
-        {
-          data: {
-            name: "Header",
-            suggestion: "Move it to the top level or pass it as a prop.",
           },
           messageId: "default",
         },
@@ -766,6 +709,30 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        function ComponentWithProps(props) {
+          return React.createElement("div", null);
+        }
+
+        function ParentComponent() {
+          return React.createElement(ComponentWithProps, {
+            footer: function SomeFooter() {
+              return React.createElement("div", null);
+            }
+          });
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "SomeFooter",
+            suggestion: "Move it to the top level or pass it as a prop.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         function ParentComponent() {
           return (
             <SomeComponent components={{ Header: () => <div /> }} />
@@ -783,21 +750,54 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function ParentComponent() {
-          const ChildComponent = class extends React.Component {
-            render() {
-              return <div />;
-            }
-          };
-          return <ChildComponent />;
+          return (
+            <ComponentForProps someMap={{ Header: () => <div /> }} />
+          );
         }
       `,
-      errors: [{
-        data: {
-          name: "ChildComponent",
-          suggestion: "Move it to the top level.",
+      errors: [
+        {
+          data: {
+            name: "Header",
+            suggestion: "Move it to the top level or pass it as a prop.",
+          },
+          messageId: "default",
         },
-        messageId: "default",
-      }],
+      ],
+    },
+    {
+      code: tsx`
+        function RenderPropComponent(props) {
+          return props.render({});
+        }
+
+        function ParentComponent() {
+          return React.createElement(
+            RenderPropComponent,
+            null,
+            () => {
+              function UnstableNestedComponent() {
+                return React.createElement("div", null);
+              }
+
+              return React.createElement(
+                "div",
+                null,
+                React.createElement(UnstableNestedComponent, null)
+              );
+            }
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "UnstableNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
     },
   ],
   valid: [
@@ -835,6 +835,78 @@ ruleTester.run(RULE_NAME, rule, {
           footer: React.createElement(OutsideDefinedComponent, null),
           header: React.createElement("div", null)
         });
+      }
+    `,
+    tsx`
+      function ParentComponent(props) {
+        return (
+          <ul>
+            {props.items.map(item => (
+              <li key={item.id}>
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+    `,
+    tsx`
+      function ParentComponent(props) {
+        return React.createElement(
+          "ul",
+          null,
+          props.items.map(() =>
+            React.createElement(
+              "li",
+              { key: item.id },
+              item.name
+            )
+          )
+        )
+      }
+    `,
+    tsx`
+      function ParentComponent(props) {
+        return (
+          <ul>
+            {props.items.map(function Item(item) {
+              return (
+                <li key={item.id}>
+                  {item.name}
+                </li>
+              );
+            })}
+          </ul>
+        );
+      }
+    `,
+    tsx`
+      function ParentComponent(props) {
+        return React.createElement(
+          "ul",
+          null,
+          props.items.map(function Item() {
+            return React.createElement(
+              "li",
+              { key: item.id },
+              item.name
+            );
+          })
+        );
+      }
+    `,
+    tsx`
+      function ParentComponent(props) {
+        return (
+          <List items={props.items.map(item => {
+            return (
+              <li key={item.id}>
+                {item.name}
+              </li>
+            );
+          })}
+          />
+        );
       }
     `,
     tsx`
@@ -894,105 +966,6 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      function ParentComponent() {
-        return (
-          <ComplexRenderPropComponent
-            listRenderer={data.map((items, index) => (
-              <ul>
-                {items[index].map((item) =>
-                  <li>
-                    {item}
-                  </li>
-                )}
-              </ul>
-            ))
-            }
-          />
-        );
-      }
-    `,
-    tsx`
-      function ParentComponent() {
-        return React.createElement(
-            RenderPropComponent,
-            null,
-            () => React.createElement("div", null)
-        );
-      }
-    `,
-    tsx`
-      function ParentComponent(props) {
-        return (
-          <ul>
-            {props.items.map(item => (
-              <li key={item.id}>
-                {item.name}
-              </li>
-            ))}
-          </ul>
-        );
-      }
-    `,
-    tsx`
-      function ParentComponent(props) {
-        return (
-          <List items={props.items.map(item => {
-            return (
-              <li key={item.id}>
-                {item.name}
-              </li>
-            );
-          })}
-          />
-        );
-      }
-    `,
-    tsx`
-      function ParentComponent(props) {
-        return React.createElement(
-          "ul",
-          null,
-          props.items.map(() =>
-            React.createElement(
-              "li",
-              { key: item.id },
-              item.name
-            )
-          )
-        )
-      }
-    `,
-    tsx`
-      function ParentComponent(props) {
-        return (
-          <ul>
-            {props.items.map(function Item(item) {
-              return (
-                <li key={item.id}>
-                  {item.name}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      }
-    `,
-    tsx`
-      function ParentComponent(props) {
-        return React.createElement(
-          "ul",
-          null,
-          props.items.map(function Item() {
-            return React.createElement(
-              "li",
-              { key: item.id },
-              item.name
-            );
-          })
-        );
-      }
-    `,
-    tsx`
       function createTestComponent(props) {
         return (
           <div />
@@ -1002,6 +975,20 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function createTestComponent(props) {
         return React.createElement("div", null);
+      }
+    `,
+    tsx`
+      function ParentComponent() {
+        return (
+          <ComponentForProps renderFooter={() => <div />} />
+        );
+      }
+    `,
+    tsx`
+      function ParentComponent() {
+        return React.createElement(ComponentForProps, {
+          renderFooter: () => React.createElement("div", null)
+        });
       }
     `,
     tsx`
@@ -1036,24 +1023,28 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function ParentComponent() {
         return (
-          <ComponentForProps renderFooter={() => <div />} />
+          <ComplexRenderPropComponent
+            listRenderer={data.map((items, index) => (
+              <ul>
+                {items[index].map((item) =>
+                  <li>
+                    {item}
+                  </li>
+                )}
+              </ul>
+            ))
+            }
+          />
         );
       }
     `,
     tsx`
       function ParentComponent() {
-        return React.createElement(ComponentForProps, {
-          renderFooter: () => React.createElement("div", null)
-        });
-      }
-    `,
-    tsx`
-      function ParentComponent() {
-        useEffect(() => {
-          return () => null;
-        });
-
-        return <div />;
+        return React.createElement(
+            RenderPropComponent,
+            null,
+            () => React.createElement("div", null)
+        );
       }
     `,
     tsx`
@@ -1100,35 +1091,6 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      const ParentComponent = createReactClass({
-        displayName: "ParentComponent",
-        statics: {
-          getSnapshotBeforeUpdate: function () {
-            return null;
-          },
-        },
-        render() {
-          return <div />;
-        },
-      });
-    `,
-    tsx`
-      function ParentComponent() {
-        const _renderHeader = () => <div />;
-        return <div>{_renderHeader()}</div>;
-      }
-    `,
-    tsx`
-      const testCases = {
-        basic: {
-          render() {
-            const Component = () => <div />;
-            return <div />;
-          }
-        }
-      }
-    `,
-    tsx`
       function ComponentWithProps(props) {
         return <div />;
       }
@@ -1165,6 +1127,44 @@ ruleTester.run(RULE_NAME, rule, {
           <ComponentForProps notPrefixedWithRender={() => <div />} />
         );
       }
+    `,
+    tsx`
+      function ParentComponent() {
+        useEffect(() => {
+          return () => null;
+        });
+
+        return <div />;
+      }
+    `,
+    tsx`
+      function ParentComponent() {
+        const _renderHeader = () => <div />;
+        return <div>{_renderHeader()}</div>;
+      }
+    `,
+    tsx`
+      const testCases = {
+        basic: {
+          render() {
+            const Component = () => <div />;
+            return <div />;
+          }
+        }
+      }
+    `,
+    tsx`
+      const ParentComponent = createReactClass({
+        displayName: "ParentComponent",
+        statics: {
+          getSnapshotBeforeUpdate: function () {
+            return null;
+          },
+        },
+        render() {
+          return <div />;
+        },
+      });
     `,
     tsx`
       /** @public */

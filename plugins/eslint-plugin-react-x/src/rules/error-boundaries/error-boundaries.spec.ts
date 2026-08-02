@@ -95,36 +95,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function Parent() {
-          if (condition) {
-            try {
-              return <Child />;
-            } catch (error) {
-              return <div>Error</div>;
-            }
-          }
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
-    },
-    {
-      code: tsx`
-        function Parent() {
-          try {
-            if (condition) {
-              return <Child />;
-            }
-            return <Other />;
-          } catch (error) {
-            return <div>Error</div>;
-          }
-        }
-      `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
-    },
-    {
-      code: tsx`
         function Component({ promise }) {
           try {
             const data = use(promise);
@@ -173,6 +143,36 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "tryCatchWithUse" }],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          if (condition) {
+            try {
+              return <Child />;
+            } catch (error) {
+              return <div>Error</div>;
+            }
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
+    },
+    {
+      code: tsx`
+        function Parent() {
+          try {
+            if (condition) {
+              return <Child />;
+            }
+            return <Other />;
+          } catch (error) {
+            return <div>Error</div>;
+          }
+        }
+      `,
+      errors: [{ messageId: "tryCatchWithJsx" }],
     },
     {
       code: tsx`
@@ -296,6 +296,12 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // No try/catch at all
+    tsx`
+      function Component() {
+        return <div />;
+      }
+    `,
     // Error boundary usage
     tsx`
       function Parent() {
@@ -316,6 +322,41 @@ ruleTester.run(RULE_NAME, rule, {
             </Suspense>
           </ErrorBoundary>
         );
+      }
+    `,
+    // try/catch around non-JSX operations in component
+    tsx`
+      function Component() {
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          data = null;
+        }
+        return <div>{data}</div>;
+      }
+    `,
+    tsx`
+      export function MyComponent() {
+        let x;
+        try {
+          x = JSON.parse("}");
+          if (x == 47) return null;
+        } catch (e) {
+          x = null;
+        }
+        return <div>{x}</div>;
+      }
+    `,
+    // try/catch around non-rendering operations
+    tsx`
+      function Component() {
+        try {
+          localStorage.setItem('key', 'value');
+        } catch (e) {
+          console.warn('Storage unavailable');
+        }
+        return <div />;
       }
     `,
     // try/catch in event handler (nested function, not component body)
@@ -357,18 +398,6 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // try/catch around non-JSX operations in component
-    tsx`
-      function Component() {
-        let data;
-        try {
-          data = JSON.parse(text);
-        } catch (e) {
-          data = null;
-        }
-        return <div>{data}</div>;
-      }
-    `,
     // try/catch in non-component function
     tsx`
       function fetchData() {
@@ -399,17 +428,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       };
     `,
-    // try/catch around non-rendering operations
-    tsx`
-      function Component() {
-        try {
-          localStorage.setItem('key', 'value');
-        } catch (e) {
-          console.warn('Storage unavailable');
-        }
-        return <div />;
-      }
-    `,
     // try/catch in class method (not a function component)
     tsx`
       class Service {
@@ -422,23 +440,65 @@ ruleTester.run(RULE_NAME, rule, {
         }
       }
     `,
-    // No try/catch at all
+    // JSX in catch block without outer try - allowed by SPEC
     tsx`
       function Component() {
-        return <div />;
+        try {
+          doSomething();
+        } catch (error) {
+          return <div>Error occurred</div>;
+        }
       }
     `,
+    // use() in catch block without outer try - allowed
     tsx`
-      export function MyComponent() {
-        let x;
+      function Component({ promise }) {
         try {
-          x = JSON.parse("}");
-          if (x == 47) return null;
-        } catch (e) {
-          x = null;
+          doSomething();
+        } catch (error) {
+          const data = use(promise);
+          return <div>{data}</div>;
         }
-        return <div>{x}</div>;
       }
+    `,
+    // try/catch in nested function declaration (not component render)
+    tsx`
+      function Component() {
+        function helper() {
+          try {
+            return riskyOperation();
+          } catch (e) {
+            return fallback;
+          }
+        }
+        return <div>{helper()}</div>;
+      }
+    `,
+    // try/catch in IIFE inside component (should not crash getEnclosingTryBlock)
+    tsx`
+      function Component() {
+        const result = (() => {
+          try {
+            return computeValue();
+          } catch (e) {
+            return null;
+          }
+        })();
+        return <div>{result}</div>;
+      }
+    `,
+    // try/catch in non-component IIFE (should not be reported)
+    tsx`
+      const helper = () => {
+        const result = (() => {
+          try {
+            return computeValue();
+          } catch (e) {
+            return null;
+          }
+        })();
+        return result;
+      };
     `,
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch.js
     // try/catch around non-JSX operations in component
@@ -564,27 +624,6 @@ ruleTester.run(RULE_NAME, rule, {
         return el;
       }
     `,
-    // JSX in catch block without outer try - allowed by SPEC
-    tsx`
-      function Component() {
-        try {
-          doSomething();
-        } catch (error) {
-          return <div>Error occurred</div>;
-        }
-      }
-    `,
-    // use() in catch block without outer try - allowed
-    tsx`
-      function Component({ promise }) {
-        try {
-          doSomething();
-        } catch (error) {
-          const data = use(promise);
-          return <div>{data}</div>;
-        }
-      }
-    `,
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler repro-preds-undefined-try-catch-return-primitive.js
     // try/catch in useMemo callback returning primitive
     tsx`
@@ -636,45 +675,6 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }, [text]);
       }
-    `,
-    // try/catch in IIFE inside component (should not crash getEnclosingTryBlock)
-    tsx`
-      function Component() {
-        const result = (() => {
-          try {
-            return computeValue();
-          } catch (e) {
-            return null;
-          }
-        })();
-        return <div>{result}</div>;
-      }
-    `,
-    // try/catch in nested function declaration (not component render)
-    tsx`
-      function Component() {
-        function helper() {
-          try {
-            return riskyOperation();
-          } catch (e) {
-            return fallback;
-          }
-        }
-        return <div>{helper()}</div>;
-      }
-    `,
-    // try/catch in non-component IIFE (should not be reported)
-    tsx`
-      const helper = () => {
-        const result = (() => {
-          try {
-            return computeValue();
-          } catch (e) {
-            return null;
-          }
-        })();
-        return result;
-      };
     `,
   ],
 });

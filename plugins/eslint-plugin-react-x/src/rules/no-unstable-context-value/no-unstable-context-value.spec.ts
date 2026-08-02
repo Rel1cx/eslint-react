@@ -39,23 +39,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function App() {
-            const foo = new Object();
-            return <Context.Provider value={foo}></Context.Provider>
-        }
-      `,
-      errors: [
-        {
-          data: {
-            kind: "new expression",
-            suggestion: "Consider wrapping it in a useMemo hook.",
-          },
-          messageId: "unstableContextValue",
-        },
-      ],
-    },
-    {
-      code: tsx`
           function App() {
             const foo = () => {}
             return <Context.Provider value={foo}></Context.Provider>
@@ -66,6 +49,23 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             kind: "arrow function expression",
             suggestion: "Consider wrapping it in a useCallback hook.",
+          },
+          messageId: "unstableContextValue",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function App() {
+            const foo = new Object();
+            return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      errors: [
+        {
+          data: {
+            kind: "new expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
           },
           messageId: "unstableContextValue",
         },
@@ -114,7 +114,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
           function App() {
             const foo = []
-            return <CONTEXT value={foo}></CONTEXT>
+            return <ThemeContext value={foo}></ThemeContext>
         }
       `,
       errors: [
@@ -136,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
           function App() {
             const foo = []
-            return <ThemeContext value={foo}></ThemeContext>
+            return <CONTEXT value={foo}></CONTEXT>
         }
       `,
       errors: [
@@ -202,81 +202,6 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: tsx`
-          function App() {
-            const foo = Boolean({})
-            return <Context.Provider value={foo}></Context.Provider>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-          function App() {
-            const foo = {}
-            return <Context.Provider value={foo}></Context.Provider>;
-        }
-      `,
-      settings: {
-        "react-x": {
-          compilationMode: "all",
-        },
-      },
-    },
-    {
-      code: tsx`
-          function App() {
-            const foo = useMemo(() => ({}), [])
-            return <Context.Provider value={foo}></Context.Provider>
-        }
-      `,
-      settings: {
-        "react-x": {
-          compilationMode: "annotation",
-        },
-      },
-    },
-    {
-      code: tsx`
-          function App() {
-            "use memo";
-            const foo = {}
-            return <Context.Provider value={foo}></Context.Provider>;
-        }
-      `,
-      settings: {
-        "react-x": {
-          compilationMode: "annotation",
-        },
-      },
-    },
-    {
-      code: tsx`
-          "use memo";
-          function App() {
-            const foo = {}
-            return <Context.Provider value={foo}></Context.Provider>;
-        }
-      `,
-      settings: {
-        "react-x": {
-          compilationMode: "annotation",
-        },
-      },
-    },
-    {
-      code: tsx`
-          function App() {
-            const foo = useMemo(() => [], [])
-            return <Context.Provider value={foo}></Context.Provider>
-        }
-      `,
-      settings: {
-        "react-x": {
-          compilationMode: "annotation",
-        },
-      },
-    },
-    {
-      code: tsx`
           const foo = {}
           function App() {
             return <Context.Provider value={foo}></Context.Provider>;
@@ -330,6 +255,81 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
           function App() {
+            const foo = useMemo(() => ({}), [])
+            return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            const foo = useMemo(() => [], [])
+            return <Context.Provider value={foo}></Context.Provider>
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            "use memo";
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          "use memo";
+          function App() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "annotation",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            const foo = {}
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+      settings: {
+        "react-x": {
+          compilationMode: "all",
+        },
+      },
+    },
+    {
+      code: tsx`
+          function App() {
+            const foo = Boolean({})
+            return <Context.Provider value={foo}></Context.Provider>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+          function App() {
             const foo = {}
             return <Context value={foo}></Context>;
         }
@@ -345,7 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
           function App() {
             const foo = []
-            return <CONTEXT value={foo}></CONTEXT>
+            return <ThemeContext value={foo}></ThemeContext>
         }
       `,
       settings: {
@@ -359,7 +359,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
           function App() {
             const foo = []
-            return <ThemeContext value={foo}></ThemeContext>
+            return <CONTEXT value={foo}></CONTEXT>
         }
       `,
       settings: {

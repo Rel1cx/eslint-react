@@ -52,6 +52,143 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import ReactDOM from "react-dom";
+      `,
+      errors: [reactError("ReactDOM")],
+    },
+    {
+      code: tsx`
+        import type { ReactNode } from "react";
+
+        type Props = { children: ReactNode };
+      `,
+      errors: [
+        reactError("ReactNode"),
+        reactError("ReactNode"),
+      ],
+    },
+    {
+      code: tsx`
+        import { Children as ReactChildren } from "react";
+        function Component() {
+          const Children = {
+            toArray: () => {},
+          }
+          const arr = Children.toArray;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({ name: "ReactChildren", importSource: "react" }),
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import { Children } from "react";
+        function Component() {
+          const Children = {
+            toArray: () => {},
+          }
+          const arr = Children.toArray;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({ name: "Children", importSource: "react" }),
+          },
+          messageId: "default",
+        },
+      ],
+      settings: {
+        "react-x": {
+          importSource: "react",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import * as React from "react";
+
+        const { Children: ReactChildren } = React;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("ReactChildren"),
+        reactError("React"),
+      ],
+    },
+    {
+      code: tsx`
+        import React from "react";
+
+        const Children = React["Children"];
+      `,
+      errors: [
+        reactError("React"),
+        reactError("Children"),
+        reactError("React"),
+      ],
+    },
+    {
+      code: tsx`
+        import React from "react";
+
+        const only = React.Children.only;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("React"),
+        reactError("Children"),
+      ],
+    },
+    {
+      code: tsx`
+        import { Component } from "react";
+
+        let Alias;
+        Alias = Component;
+        const Copy = Alias;
+      `,
+      errors: [
+        reactError("Component"),
+        reactError("Component"),
+      ],
+    },
+    {
+      code: tsx`
+        import { memo } from "react";
+
+        const wrapped = memo as unknown;
+      `,
+      errors: [
+        reactError("memo"),
+        reactError("wrapped"),
+        reactError("memo"),
+      ],
+    },
+    {
+      code: tsx`
+        const React = {};
+        React.Children;
+      `,
+      errors: [
+        reactError("React"),
+        reactError("React"),
+        reactError("Children"),
+      ],
+    },
+    {
+      code: tsx`
         import React from "@pika/react";
         const identifier = React;
       `,
@@ -593,143 +730,6 @@ ruleTester.run(RULE_NAME, rule, {
           importSource: "@pika/react",
         },
       },
-    },
-    {
-      code: tsx`
-        import { Children } from "react";
-        function Component() {
-          const Children = {
-            toArray: () => {},
-          }
-          const arr = Children.toArray;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({ name: "Children", importSource: "react" }),
-          },
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          importSource: "react",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import { Children as ReactChildren } from "react";
-        function Component() {
-          const Children = {
-            toArray: () => {},
-          }
-          const arr = Children.toArray;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({ name: "ReactChildren", importSource: "react" }),
-          },
-          messageId: "default",
-        },
-      ],
-      settings: {
-        "react-x": {
-          importSource: "react",
-        },
-      },
-    },
-    {
-      code: tsx`
-        import ReactDOM from "react-dom";
-      `,
-      errors: [reactError("ReactDOM")],
-    },
-    {
-      code: tsx`
-        import type { ReactNode } from "react";
-
-        type Props = { children: ReactNode };
-      `,
-      errors: [
-        reactError("ReactNode"),
-        reactError("ReactNode"),
-      ],
-    },
-    {
-      code: tsx`
-        import * as React from "react";
-
-        const { Children: ReactChildren } = React;
-      `,
-      errors: [
-        reactError("React"),
-        reactError("ReactChildren"),
-        reactError("React"),
-      ],
-    },
-    {
-      code: tsx`
-        import React from "react";
-
-        const Children = React["Children"];
-      `,
-      errors: [
-        reactError("React"),
-        reactError("Children"),
-        reactError("React"),
-      ],
-    },
-    {
-      code: tsx`
-        import React from "react";
-
-        const only = React.Children.only;
-      `,
-      errors: [
-        reactError("React"),
-        reactError("React"),
-        reactError("Children"),
-      ],
-    },
-    {
-      code: tsx`
-        import { Component } from "react";
-
-        let Alias;
-        Alias = Component;
-        const Copy = Alias;
-      `,
-      errors: [
-        reactError("Component"),
-        reactError("Component"),
-      ],
-    },
-    {
-      code: tsx`
-        const React = {};
-        React.Children;
-      `,
-      errors: [
-        reactError("React"),
-        reactError("React"),
-        reactError("Children"),
-      ],
-    },
-    {
-      code: tsx`
-        import { memo } from "react";
-
-        const wrapped = memo as unknown;
-      `,
-      errors: [
-        reactError("memo"),
-        reactError("wrapped"),
-        reactError("memo"),
-      ],
     },
   ],
   valid: [

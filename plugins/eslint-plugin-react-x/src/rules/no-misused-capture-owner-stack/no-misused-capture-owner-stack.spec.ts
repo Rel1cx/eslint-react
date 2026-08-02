@@ -195,6 +195,24 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        // Failing: Named import with TSNonNullExpression on callee
+        import { captureOwnerStack } from "react";
+
+        const ownerStack = captureOwnerStack!();
+      `,
+      errors: [
+        {
+          type: AST.ImportSpecifier,
+          messageId: "useNamespaceImport",
+        },
+        {
+          type: AST.CallExpression,
+          messageId: "missingDevelopmentOnlyCheck",
+        },
+      ],
+    },
+    {
+      code: tsx`
         // Failing: Named import with TSTypeAssertion on callee
         import { captureOwnerStack } from "react";
 
@@ -239,40 +257,22 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        // Failing: Named import with TSNonNullExpression on callee
-        import { captureOwnerStack } from "react";
-
-        const ownerStack = captureOwnerStack!();
-      `,
-      errors: [
-        {
-          type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
-        },
-        {
-          type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
-        },
-      ],
-    },
   ],
   valid: [
     {
       code: `import * as React from 'react';`,
     },
     {
-      code: `import {useState} from 'react';`,
-    },
-    {
-      code: `import {} from 'react';`,
-    },
-    {
       code: `import * as React from "react";`,
     },
     {
+      code: `import {useState} from 'react';`,
+    },
+    {
       code: `import {useState} from "react";`,
+    },
+    {
+      code: `import {} from 'react';`,
     },
     {
       code: `import {} from "react";`,

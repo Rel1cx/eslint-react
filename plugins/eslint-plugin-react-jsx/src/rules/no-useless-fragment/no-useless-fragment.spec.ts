@@ -18,69 +18,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: "<></>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      options: [{ allowEmptyFragment: false }],
-      output: null,
-    },
-    {
-      code: "<>{}</>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      options: [{ allowExpressions: false }],
-      output: null,
-    },
-    {
-      code: "<p>moo<>foo</></p>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<p>moofoo</p>",
-    },
-    {
-      code: "<>{meow}</>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      options: [{ allowExpressions: false }],
-      output: null,
-    },
-    {
-      code: "<p><>{meow}</></p>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-      ],
-      output: "<p>{meow}</p>",
-    },
-    {
       code: "<><div/></>",
       errors: [
         {
@@ -119,6 +56,28 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: "<Fragment><div /></Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div />",
+    },
+    {
+      code: "<React.Fragment><Foo /></React.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
       code: tsx`
         <React.Fragment>
           <Foo />
@@ -136,11 +95,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      // Not safe to fix this case because `Eeee` might require child be ReactElement
-      code: "<Eeee><>foo</></Eeee>",
+      code: "<React.Fragment></React.Fragment>",
       errors: [
         {
-          type: AST.JSXFragment,
+          type: AST.JSXElement,
           data: { reason: "contains less than two children" },
           messageId: "default",
         },
@@ -164,6 +122,65 @@ ruleTester.run(RULE_NAME, rule, {
       output: "<div>foo</div>",
     },
     {
+      code: "<p>moo<>foo</></p>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<p>moofoo</p>",
+    },
+    {
+      code: "<span><>hello</></span>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<span>hello</span>",
+    },
+    {
+      code: "<ul><><li /></></ul>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<ul><li /></ul>",
+    },
+    {
+      code: "<p><>{meow}</></p>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<p>{meow}</p>",
+    },
+    {
       code: '<div><>{"a"}{"b"}</></div>',
       errors: [
         {
@@ -173,6 +190,17 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: '<div>{"a"}{"b"}</div>',
+    },
+    {
+      code: "<main><><span /><span /></></main>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<main><span /><span /></main>",
     },
     {
       code: tsx`
@@ -209,6 +237,143 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div>{"a"}{"b"}</div>',
     },
     {
+      // Not safe to fix this case because `Eeee` might require child be ReactElement
+      code: "<Eeee><>foo</></Eeee>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: "<></>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      options: [{ allowEmptyFragment: false }],
+      output: null,
+    },
+    {
+      code: "<>{}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      options: [{ allowExpressions: false }],
+      output: null,
+    },
+    {
+      code: "<>{meow}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      options: [{ allowExpressions: false }],
+      output: null,
+    },
+    // Single element child with allowExpressions: false
+    {
+      code: "<><span /></>",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<span />",
+    },
+    {
+      code: "<div><>{value}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      options: [{ allowExpressions: false }],
+      output: "<div>{value}</div>",
+    },
+    // Ensure allowExpressions still catches expected violations
+    {
+      code: "<><Foo>{moo}</Foo></>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      options: [
+        {
+          allowExpressions: true,
+        },
+      ],
+      output: "<Foo>{moo}</Foo>",
+    },
+    // Empty options object resolves to the documented defaults
+    {
+      code: "<></>",
+      options: [{}],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // allowEmptyFragment does not suppress the host-component reason
+    {
+      code: "<div><Fragment></Fragment></div>",
+      options: [{ allowEmptyFragment: true }],
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div></div>",
+    },
+    {
+      code: "<div><> </></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div> </div>",
+    },
+    {
       // whitespace tricky case
       code: tsx`
         <section>
@@ -239,8 +404,9 @@ ruleTester.run(RULE_NAME, rule, {
         </section>
       `,
     },
+    // Multiline text is collapsed to a single space (collapseMultilineText)
     {
-      code: '<div>a <>{""}{""}</> a</div>',
+      code: "<div><>hello\nworld</></div>",
       errors: [
         {
           type: AST.JSXFragment,
@@ -253,7 +419,50 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
         },
       ],
-      output: '<div>a {""}{""} a</div>',
+      output: "<div>hello world</div>",
+    },
+    // Tabs are converted to spaces during cleanup
+    {
+      code: "<div><>a\n\tb</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>a b</div>",
+    },
+    // Whitespace-only text with newline is fully trimmed by collapseMultilineText
+    {
+      code: tsx`
+        <div>
+          <>
+          </>
+        </div>
+      `,
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: tsx`
+        <div>
+
+        </div>
+      `,
     },
     {
       code: "<>{''}</>",
@@ -321,63 +530,7 @@ ruleTester.run(RULE_NAME, rule, {
       output: null,
     },
     {
-      code: tsx`
-        const Comp = () => (
-          <html>
-            <React.Fragment />
-          </html>
-        );
-      `,
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: tsx`
-        const Comp = () => (
-          <html>
-            ${/* the trailing whitespace here is intentional */ ""}
-          </html>
-        );
-      `,
-    },
-    // Ensure allowExpressions still catches expected violations
-    {
-      code: "<><Foo>{moo}</Foo></>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      options: [
-        {
-          allowExpressions: true,
-        },
-      ],
-      output: "<Foo>{moo}</Foo>",
-    },
-    {
-      code: "<React.Fragment></React.Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    {
-      code: "<div><>{value}</></div>",
+      code: '<div>a <>{""}{""}</> a</div>',
       errors: [
         {
           type: AST.JSXFragment,
@@ -390,211 +543,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
         },
       ],
-      options: [{ allowExpressions: false }],
-      output: "<div>{value}</div>",
-    },
-    {
-      code: "<span><>hello</></span>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<span>hello</span>",
-    },
-    {
-      code: "<ul><><li /></></ul>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<ul><li /></ul>",
-    },
-    {
-      code: "<Fragment><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<div />",
-    },
-    {
-      code: "<Fragment {...props}><div /></Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    {
-      code: "<React.Fragment><Foo /></React.Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<Foo />",
-    },
-    {
-      code: "<Other.Fragment><Foo /></Other.Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<Foo />",
-    },
-    {
-      code: "<MyApp.Fragment><Foo /></MyApp.Fragment>",
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<Foo />",
-    },
-    {
-      code: "<div><> </></div>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<div> </div>",
-    },
-    {
-      code: "<main><><span /><span /></></main>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-      ],
-      output: "<main><span /><span /></main>",
-    },
-    // Multiline text is collapsed to a single space (collapseMultilineText)
-    {
-      code: "<div><>hello\nworld</></div>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<div>hello world</div>",
-    },
-    // Tabs are converted to spaces during cleanup
-    {
-      code: "<div><>a\n\tb</></div>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<div>a b</div>",
-    },
-    // JSXEmptyExpression is skipped by getChildren but preserved in fix
-    {
-      code: "<div><><span />{}</></div>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<div><span />{}</div>",
-    },
-    // JSXEmptyExpression prevents auto-fix outside JSX context
-    {
-      code: "<><span />{}</>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    // Whitespace-only text with newline is fully trimmed by collapseMultilineText
-    {
-      code: tsx`
-        <div>
-          <>
-          </>
-        </div>
-      `,
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: tsx`
-        <div>
-
-        </div>
-      `,
+      output: '<div>a {""}{""} a</div>',
     },
     // Single expression children inside host component are still redundant
     {
@@ -663,6 +612,47 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "<div>{[]}</div>",
     },
+    // JSXEmptyExpression is skipped by getChildren but preserved in fix
+    {
+      code: "<div><><span />{}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div><span />{}</div>",
+    },
+    // JSXEmptyExpression prevents auto-fix outside JSX context
+    {
+      code: "<><span />{}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Empty fragment (only empty expression) outside JSX
+    {
+      code: "<>{}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
     // JSX comment is an empty expression → skipped by getChildren
     {
       code: "<>{/* comment */}</>",
@@ -709,43 +699,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: "<>nested</>",
     },
-    // Custom component: content useless but not inside host → no auto-fix
-    {
-      code: '<Custom><>{""}</></Custom>',
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
-    // Single element child with allowExpressions: false
-    {
-      code: "<><span /></>",
-      options: [{ allowExpressions: false }],
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: "<span />",
-    },
-    // Empty fragment (only empty expression) outside JSX
-    {
-      code: "<>{}</>",
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
     // Nested useless fragments collapse inward (fixer runs two passes)
     {
       code: "<><><span /></></>",
@@ -762,6 +715,79 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: ["<><span /></>", "<span />"],
+    },
+    // Custom component: content useless but not inside host → no auto-fix
+    {
+      code: '<Custom><>{""}</></Custom>',
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: "<Fragment {...props}><div /></Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    {
+      code: "<Other.Fragment><Foo /></Other.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
+      code: "<MyApp.Fragment><Foo /></MyApp.Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<Foo />",
+    },
+    {
+      code: tsx`
+        const Comp = () => (
+          <html>
+            <React.Fragment />
+          </html>
+        );
+      `,
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: tsx`
+        const Comp = () => (
+          <html>
+            ${/* the trailing whitespace here is intentional */ ""}
+          </html>
+        );
+      `,
     },
     // Single element child in attribute position can be safely unwrapped
     {
@@ -788,19 +814,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: null,
     },
-    // allowEmptyFragment does not suppress the host-component reason
-    {
-      code: "<div><Fragment></Fragment></div>",
-      options: [{ allowEmptyFragment: true }],
-      errors: [
-        {
-          type: AST.JSXElement,
-          data: { reason: "placed inside a host component" },
-          messageId: "default",
-        },
-      ],
-      output: "<div></div>",
-    },
     // Single text child plus an empty-string expression in attribute position: the text-child exception
     // counts raw children, so it does not apply; the text child is not padding whitespace, so no fix
     {
@@ -814,64 +827,17 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: null,
     },
-    // Empty options object resolves to the documented defaults
-    {
-      code: "<></>",
-      options: [{}],
-      errors: [
-        {
-          type: AST.JSXFragment,
-          data: { reason: "contains less than two children" },
-          messageId: "default",
-        },
-      ],
-      output: null,
-    },
   ],
   valid: [
-    {
-      code: "<></>",
-      options: [{ allowEmptyFragment: true }],
-    },
     "<><Foo /><Bar /></>",
-    {
-      code: "<><Foo /><Bar /></>",
-      options: [{ allowExpressions: false }],
-    },
+    // Two element children
+    "<><span /><span /></>",
     "<>foo<div /></>",
     "<> <div /></>",
+    // Two expression children
+    '<>{"a"}{"b"}</>',
+    "<>{a}{b}{c}</>",
     '<>{"moo"} </>',
-    "<NotFragment />",
-    "<React.NotFragment />",
-    "<Foo><><div /><div /></></Foo>",
-    '<div p={<>{"a"}{"b"}</>} />',
-    // Single expression child in attribute position is allowed by default
-    "<div attr={<>{foo}</>} />",
-    "<Fragment key={item.id}>{item.value}</Fragment>",
-    "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
-    "<>{foos.map(foo => foo)}</>",
-    "<>{moo}</>",
-    tsx`
-      function Foo() {
-      	return <>&nbsp;</>;
-      }
-    `,
-    tsx`
-      function Foo() {
-      	return <>a&nbsp;b</>;
-      }
-    `,
-    tsx`
-      <>
-        {moo}
-      </>
-    `,
-    tsx`
-      <>{children}</>
-    `,
-    tsx`
-      <>{props.children}</>
-    `,
     tsx`
       <>
         {children}
@@ -884,6 +850,37 @@ ruleTester.run(RULE_NAME, rule, {
         {moo}
       </>
     `,
+    "<>{moo}</>",
+    tsx`
+      <>
+        {moo}
+      </>
+    `,
+    tsx`
+      <>{children}</>
+    `,
+    tsx`
+      <>{props.children}</>
+    `,
+    "<>{foos.map(foo => foo)}</>",
+    tsx`<>{cloneElement(children, { ref: childrenRef })}</>`,
+    // Single expression children are allowed by default
+    "<>{undefined}</>",
+    "<>{null}</>",
+    "<>{0}</>",
+    "<>{true}</>",
+    "<>{false}</>",
+    "<>{[]}</>",
+    tsx`
+      function Foo() {
+      	return <>&nbsp;</>;
+      }
+    `,
+    tsx`
+      function Foo() {
+      	return <>a&nbsp;b</>;
+      }
+    `,
     tsx`
       const element = (
        <>
@@ -892,22 +889,14 @@ ruleTester.run(RULE_NAME, rule, {
        </>
       );
     `,
-    tsx`<>{cloneElement(children, { ref: childrenRef })}</>`,
-    {
-      code: tsx`
-        <SomeReact.SomeFragment>
-          {<Foo />}
-        </SomeReact.SomeFragment>
-      `,
-    },
-    {
-      code: tsx`{foo}`,
-      options: [{ allowExpressions: false }],
-    },
-    {
-      code: tsx`<Foo bar={<><Bar/><Baz/></>} />`,
-      options: [{ allowExpressions: false }],
-    },
+    // Single whitespace text outside JSX context is tolerated
+    tsx`
+      function Foo() {
+        return <> </>;
+      }
+    `,
+    "<Fragment key={item.id}>{item.value}</Fragment>",
+    '<React.Fragment key="k"><Foo /><Bar /></React.Fragment>',
     {
       code: tsx`
         import { Fragment, useRef } from "react";
@@ -926,29 +915,40 @@ ruleTester.run(RULE_NAME, rule, {
               }
       `,
     },
-    '<React.Fragment key="k"><Foo /><Bar /></React.Fragment>',
-    "<>{a}{b}{c}</>",
+    "<Foo><><div /><div /></></Foo>",
     "<Custom><>one<span />two</></Custom>",
+    '<div p={<>{"a"}{"b"}</>} />',
+    // Single expression child in attribute position is allowed by default
+    "<div attr={<>{foo}</>} />",
+    "<Fooo content={<>eeee ee eeeeeee eeeeeeee</>} />",
+    "<NotFragment />",
+    "<React.NotFragment />",
+    {
+      code: tsx`
+        <SomeReact.SomeFragment>
+          {<Foo />}
+        </SomeReact.SomeFragment>
+      `,
+    },
+    {
+      code: "<></>",
+      options: [{ allowEmptyFragment: true }],
+    },
+    {
+      code: "<><Foo /><Bar /></>",
+      options: [{ allowExpressions: false }],
+    },
+    {
+      code: tsx`{foo}`,
+      options: [{ allowExpressions: false }],
+    },
+    {
+      code: tsx`<Foo bar={<><Bar/><Baz/></>} />`,
+      options: [{ allowExpressions: false }],
+    },
     {
       code: "<div attr={<><Foo /><Bar /></>} />",
       options: [{ allowExpressions: false }],
     },
-    // Single expression children are allowed by default
-    "<>{undefined}</>",
-    "<>{null}</>",
-    "<>{0}</>",
-    "<>{true}</>",
-    "<>{false}</>",
-    "<>{[]}</>",
-    // Single whitespace text outside JSX context is tolerated
-    tsx`
-      function Foo() {
-        return <> </>;
-      }
-    `,
-    // Two expression children
-    '<>{"a"}{"b"}</>',
-    // Two element children
-    "<><span /><span /></>",
   ],
 });

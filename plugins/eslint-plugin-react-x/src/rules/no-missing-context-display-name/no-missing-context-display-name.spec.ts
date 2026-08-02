@@ -6,16 +6,16 @@ import rule, { RULE_NAME } from "./no-missing-context-display-name";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`createContext();`,
-      errors: [{ messageId: "default" }],
-    },
-    {
       code: tsx`const ctx = createContext();`,
       errors: [{ messageId: "default" }],
       output: tsx`
         const ctx = createContext();
         ctx.displayName = "ctx";
       `,
+    },
+    {
+      code: tsx`createContext();`,
+      errors: [{ messageId: "default" }],
     },
     {
       code: tsx`

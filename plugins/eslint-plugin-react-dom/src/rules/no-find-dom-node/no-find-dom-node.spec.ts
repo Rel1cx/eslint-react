@@ -7,39 +7,14 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        import ReactDOM from "react-dom";
-
-        export const Component = () => {
-          ReactDOM.findDOMNode();
-        };
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-    {
-      code: tsx`
-        import { findDOMNode } from "react-dom";
-
-        export const Component = () => {
-          findDOMNode();
-        };
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-
-    {
-      code: tsx`
-        var Hello = createReactClass({
-          componentDidMount: function() {
-            React.findDOMNode(this).scrollIntoView();
-          },
-          render: function() {
+        class Hello extends Component {
+          componentDidMount() {
+            findDOMNode(this).scrollIntoView();
+          }
+          render() {
             return <div>Hello</div>;
           }
-        });
+        };
       `,
       errors: [{ messageId: "default" }],
     },
@@ -58,14 +33,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        class Hello extends Component {
-          componentDidMount() {
-            findDOMNode(this).scrollIntoView();
-          }
-          render() {
+        var Hello = createReactClass({
+          componentDidMount: function() {
+            React.findDOMNode(this).scrollIntoView();
+          },
+          render: function() {
             return <div>Hello</div>;
           }
-        };
+        });
       `,
       errors: [{ messageId: "default" }],
     },
@@ -79,6 +54,13 @@ ruleTester.run(RULE_NAME, rule, {
             return <div>Hello</div>;
           }
         };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Chained call
+    {
+      code: tsx`
+        findDOMNode(this).focus();
       `,
       errors: [{ messageId: "default" }],
     },
@@ -105,20 +87,36 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // Chained call
     {
       code: tsx`
-        findDOMNode(this).focus();
+        import { findDOMNode } from "react-dom";
+
+        export const Component = () => {
+          findDOMNode();
+        };
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        { messageId: "default" },
+      ],
+    },
+    {
+      code: tsx`
+        import ReactDOM from "react-dom";
+
+        export const Component = () => {
+          ReactDOM.findDOMNode();
+        };
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
     },
   ],
   valid: [
-    // Variable named findDOMNode but not called
+    // Different identifier
     {
       code: tsx`
-        const findDOMNode = 1;
-        console.log(findDOMNode);
+        myFindDOMNode(this);
       `,
     },
     // Computed property access is not statically resolved
@@ -128,10 +126,11 @@ ruleTester.run(RULE_NAME, rule, {
         obj["findDOMNode"]();
       `,
     },
-    // Different identifier
+    // Variable named findDOMNode but not called
     {
       code: tsx`
-        myFindDOMNode(this);
+        const findDOMNode = 1;
+        console.log(findDOMNode);
       `,
     },
   ],

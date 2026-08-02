@@ -7,38 +7,24 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        import { Children } from 'react';
-
-        export default function ReversedList({ children }) {
-          const result = Children.toArray(children);
-          result.reverse();
-          // ...
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        const { Children } = require('react');
-
-        export default function ReversedList({ children }) {
-          const result = Children.toArray(children);
-          result.reverse();
-          // ...
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
         import React from 'react';
 
         export default function ReversedList({ children }) {
           const result = React.Children.toArray(children);
+          result.reverse();
+          // ...
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
+
+        export default function ReversedList({ children }) {
+          const result = Children.toArray(children);
           result.reverse();
           // ...
         }
@@ -61,22 +47,22 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-  ],
-  valid: [
     {
       code: tsx`
-        import { Children } from 'react';
+        const { Children } = require('react');
 
-        function SeparatorList({ children }) {
-          const result = [];
-          Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
-          });
+        export default function ReversedList({ children }) {
+          const result = Children.toArray(children);
+          result.reverse();
           // ...
         }
       `,
+      errors: [{
+        messageId: "default",
+      }],
     },
+  ],
+  valid: [
     {
       code: tsx`
         import { Children } from 'react';
@@ -91,6 +77,20 @@ ruleTester.run(RULE_NAME, rule, {
               )}
             </div>
           );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
+
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
         }
       `,
     },

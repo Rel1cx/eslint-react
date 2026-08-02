@@ -271,6 +271,25 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     // -------------------------------------------------------------------------
+    // Impure call in JSX expression directly
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          return <div>{Math.random()}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
+          return <div id={crypto.randomUUID()}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // -------------------------------------------------------------------------
     // Impure constructor calls in function components
     // -------------------------------------------------------------------------
     {
@@ -566,6 +585,25 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     // -------------------------------------------------------------------------
+    // Impure calls in arrow function hooks
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        const useRandom = () => {
+          return Math.random();
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const useNow = () => {
+          return new Date();
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // -------------------------------------------------------------------------
     // Multiple impure calls in a single component (multiple errors)
     // -------------------------------------------------------------------------
     {
@@ -696,25 +734,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     // -------------------------------------------------------------------------
-    // Impure calls in arrow function hooks
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        const useRandom = () => {
-          return Math.random();
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        const useNow = () => {
-          return new Date();
-        };
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // -------------------------------------------------------------------------
     // Component assigned to variable (const)
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
@@ -774,25 +793,6 @@ ruleTester.run(RULE_NAME, rule, {
         function useDate() {
           const d = new (Date as any)();
           return d;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // -------------------------------------------------------------------------
-    // Impure call in JSX expression directly
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          return <div>{Math.random()}</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`
-        function Component() {
-          return <div id={crypto.randomUUID()}>Content</div>;
         }
       `,
       errors: [{ messageId: "default" }],
@@ -970,6 +970,29 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // -------------------------------------------------------------------------
+    // Component with no impure calls at all
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component({ name }) {
+          return <div>Hello, {name}!</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const Component = ({ items }) => {
+          return (
+            <ul>
+              {items.map((item) => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
+          );
+        };
+      `,
+    },
     // -------------------------------------------------------------------------
     // Impure calls in event handlers (nested functions)
     // -------------------------------------------------------------------------
@@ -1180,6 +1203,81 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
+    // Hook returning callback with impure call (not called during render)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function useLogger() {
+          return (message) => {
+            console.log(message);
+          };
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function useTimer() {
+          return () => {
+            return Date.now();
+          };
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function useRandom() {
+          return () => Math.random();
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Hook with impure calls only inside effect/callback
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function useInterval(callback, delay) {
+          useEffect(() => {
+            const id = window.setInterval(callback, delay);
+            return () => window.clearInterval(id);
+          }, [callback, delay]);
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function useFetch(url) {
+          useEffect(() => {
+            const controller = new AbortController();
+            window.fetch(url, { signal: controller.signal });
+            return () => controller.abort();
+          }, [url]);
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Impure calls in nested non-component/non-hook helper functions inside component
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          function formatDate() {
+            return new Date().toISOString();
+          }
+          return <button onClick={() => formatDate()}>Format</button>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const log = () => {
+            console.log("logged");
+          };
+          return <button onClick={log}>Log</button>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
     // Impure calls outside components and hooks (plain functions)
     // -------------------------------------------------------------------------
     {
@@ -1274,71 +1372,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
-    // Component with no impure calls at all
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component({ name }) {
-          return <div>Hello, {name}!</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        const Component = ({ items }) => {
-          return (
-            <ul>
-              {items.map((item) => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ul>
-          );
-        };
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Hook returning callback with impure call (not called during render)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function useLogger() {
-          return (message) => {
-            console.log(message);
-          };
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function useTimer() {
-          return () => {
-            return Date.now();
-          };
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function useRandom() {
-          return () => Math.random();
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Impure calls inside useRef initializer callback pattern
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          const ref = useRef(null);
-          useEffect(() => {
-            ref.current = new IntersectionObserver(() => {});
-          }, []);
-          return <div>Content</div>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
     // Top-level (module scope) impure calls — not inside any function
     // -------------------------------------------------------------------------
     {
@@ -1366,49 +1399,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // -------------------------------------------------------------------------
-    // Impure calls in nested non-component/non-hook helper functions inside component
+    // Impure calls inside useRef initializer callback pattern
     // -------------------------------------------------------------------------
     {
       code: tsx`
         function Component() {
-          function formatDate() {
-            return new Date().toISOString();
-          }
-          return <button onClick={() => formatDate()}>Format</button>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const log = () => {
-            console.log("logged");
-          };
-          return <button onClick={log}>Log</button>;
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // Hook with impure calls only inside effect/callback
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function useInterval(callback, delay) {
+          const ref = useRef(null);
           useEffect(() => {
-            const id = window.setInterval(callback, delay);
-            return () => window.clearInterval(id);
-          }, [callback, delay]);
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function useFetch(url) {
-          useEffect(() => {
-            const controller = new AbortController();
-            window.fetch(url, { signal: controller.signal });
-            return () => controller.abort();
-          }, [url]);
+            ref.current = new IntersectionObserver(() => {});
+          }, []);
+          return <div>Content</div>;
         }
       `,
     },
@@ -1419,46 +1419,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           return React.createElement("div", null, "Content");
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // NewExpression with type expressions in valid positions (not in component/hook)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function setup() {
-          const date = new (Date as any)();
-          return date;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        const initialize = () => {
-          const ws = new (WebSocket as any)("ws://example.com");
-          return ws;
-        };
-      `,
-    },
-    {
-      // Type-wrapped impure constructor inside useEffect — not flagged
-      code: tsx`
-        function Component() {
-          useEffect(() => {
-            const date = new (Date as any)();
-            console.log(date);
-          }, []);
-          return <div>Content</div>;
-        }
-      `,
-    },
-    {
-      // Type-wrapped impure constructor inside useState initializer — not flagged
-      code: tsx`
-        function Component() {
-          const [date] = useState(() => new (Date as any)());
-          return <div>{date.toISOString()}</div>;
         }
       `,
     },
@@ -1530,6 +1490,46 @@ ruleTester.run(RULE_NAME, rule, {
           function fetch() { return "mock"; }
           const result = fetch();
           return <div>{result}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // NewExpression with type expressions in valid positions (not in component/hook)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function setup() {
+          const date = new (Date as any)();
+          return date;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        const initialize = () => {
+          const ws = new (WebSocket as any)("ws://example.com");
+          return ws;
+        };
+      `,
+    },
+    {
+      // Type-wrapped impure constructor inside useEffect — not flagged
+      code: tsx`
+        function Component() {
+          useEffect(() => {
+            const date = new (Date as any)();
+            console.log(date);
+          }, []);
+          return <div>Content</div>;
+        }
+      `,
+    },
+    {
+      // Type-wrapped impure constructor inside useState initializer — not flagged
+      code: tsx`
+        function Component() {
+          const [date] = useState(() => new (Date as any)());
+          return <div>{date.toISOString()}</div>;
         }
       `,
     },

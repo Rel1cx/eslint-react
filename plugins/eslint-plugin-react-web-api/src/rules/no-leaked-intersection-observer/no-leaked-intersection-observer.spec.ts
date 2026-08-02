@@ -11,47 +11,6 @@ ruleTester.run(RULE_NAME, rule, {
 
         function Component() {
           useEffect(() => {
-            const observer = new IntersectionObserver(() => {});
-            observer.observe(document.body);
-          }, []);
-
-          return <div />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import React, { useEffect, useRef } from 'react';
-
-        function Example() {
-          const ref = useRef<HTMLDivElement>(null);
-
-          useEffect(() => {
-            if (!ref.current) return;
-            const ro = new IntersectionObserver(() => console.log('intersection'));
-            ro.observe(ref.current);
-          }, []);
-
-          return <div ref={ref} />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
             new IntersectionObserver(() => {});
           }, []);
 
@@ -72,10 +31,6 @@ ruleTester.run(RULE_NAME, rule, {
           useEffect(() => {
             const observer = new IntersectionObserver(() => {});
             observer.observe(document.body);
-            observer.observe(document.querySelector('.selector')!);
-            return () => {
-              observer.unobserve(document.body);
-            }
           }, []);
 
           return <div />;
@@ -105,6 +60,117 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "expectedDisconnectOrUnobserveInCleanup",
         },
       ],
+    },
+    {
+      code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            (observer.observe as any)(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
+    {
+      code: tsx`
+        import React, { useEffect, useRef } from 'react';
+
+        function Example() {
+          const ref = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const ro = new IntersectionObserver(() => console.log('intersection'));
+            ro.observe(ref.current);
+          }, []);
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new IntersectionObserver(() => {});
+            observer.observe(document.body);
+            observer.observe(document.querySelector('.selector')!);
+            return () => {
+              observer.unobserve(document.body);
+            }
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      // The observe-once pattern (disconnect via the callback parameter) still needs a cleanup
+      // fallback: the callback never runs if the component unmounts before the element intersects
+      code: tsx`
+        import { useEffect, useRef, useState } from 'react';
+
+        function LazySection() {
+          const ref = useRef<HTMLDivElement>(null);
+          const [visible, setVisible] = useState(false);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new IntersectionObserver(([entry], obs) => {
+              if (entry.isIntersecting) {
+                setVisible(true);
+                obs.disconnect(); // observe-once
+              }
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
+    {
+      // Same observe-once pattern, but disconnecting through the outer variable instead of the callback parameter
+      code: tsx`
+        import { useEffect, useRef, useState } from 'react';
+
+        function LazySection() {
+          const ref = useRef<HTMLDivElement>(null);
+          const [visible, setVisible] = useState(false);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new IntersectionObserver(([entry]) => {
+              if (entry.isIntersecting) {
+                setVisible(true);
+                observer.disconnect(); // observe-once
+              }
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
     },
     {
       code: tsx`
@@ -158,72 +224,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
-            const observer = new IntersectionObserver(() => {});
-            (observer.observe as any)(document.body);
-          }, []);
-
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
-    },
-    {
-      // The observe-once pattern (disconnect via the callback parameter) still needs a cleanup
-      // fallback: the callback never runs if the component unmounts before the element intersects
-      code: tsx`
-        import { useEffect, useRef, useState } from 'react';
-
-        function LazySection() {
-          const ref = useRef<HTMLDivElement>(null);
-          const [visible, setVisible] = useState(false);
-
-          useEffect(() => {
-            if (!ref.current) return;
-            const observer = new IntersectionObserver(([entry], obs) => {
-              if (entry.isIntersecting) {
-                setVisible(true);
-                obs.disconnect(); // observe-once
-              }
-            });
-            observer.observe(ref.current);
-          }, []);
-
-          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
-        }
-      `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
-    },
-    {
-      // Same observe-once pattern, but disconnecting through the outer variable instead of the callback parameter
-      code: tsx`
-        import { useEffect, useRef, useState } from 'react';
-
-        function LazySection() {
-          const ref = useRef<HTMLDivElement>(null);
-          const [visible, setVisible] = useState(false);
-
-          useEffect(() => {
-            if (!ref.current) return;
-            const observer = new IntersectionObserver(([entry]) => {
-              if (entry.isIntersecting) {
-                setVisible(true);
-                observer.disconnect(); // observe-once
-              }
-            });
-            observer.observe(ref.current);
-          }, []);
-
-          return <div ref={ref}>{visible ? <p>Loaded</p> : null}</div>;
-        }
-      `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
-    },
   ],
   valid: [
     tsx`
@@ -246,10 +246,10 @@ ruleTester.run(RULE_NAME, rule, {
 
       function Component() {
         useEffect(() => {
-          const observer = new IntersectionObserver(() => {}) as IntersectionObserver;
+          const observer = new IntersectionObserver(() => {});
           observer.observe(document.body);
           return () => {
-            observer.disconnect();
+            observer.unobserve(document.body);
           }
         }, []);
 
@@ -265,6 +265,37 @@ ruleTester.run(RULE_NAME, rule, {
           observer.observe(document.body as HTMLElement);
           return () => {
             observer.unobserve(document.body);
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new IntersectionObserver(() => {});
+          observer.observe(document.body);
+          return () => {
+            observer.unobserve(document.body);
+            observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new IntersectionObserver(() => {}) as IntersectionObserver;
+          observer.observe(document.body);
+          return () => {
+            observer.disconnect();
           }
         }, []);
 
@@ -293,9 +324,27 @@ ruleTester.run(RULE_NAME, rule, {
       function Component() {
         useEffect(() => {
           const observer = new IntersectionObserver(() => {});
-          observer.observe(document.body);
+          for (const element of document.querySelectorAll('.selector')) {
+            observer.observe(element);
+          }
           return () => {
-            observer.unobserve(document.body);
+            observer.disconnect();
+          }
+        }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new IntersectionObserver(() => {});
+          Array.from(document.querySelectorAll('.selector')).forEach(element => {
+            observer.observe(element);
+          });
+          return () => {
             observer.disconnect();
           }
         }, []);
@@ -330,76 +379,6 @@ ruleTester.run(RULE_NAME, rule, {
           return () => {
             observer.unobserve(document.body);
             observer.unobserve(document.querySelector('.selector')!);
-            observer.disconnect();
-          }
-        }, []);
-
-        return <div />;
-      }
-    `,
-    tsx`
-      import { useEffect } from 'react';
-
-      function Component() {
-        useEffect(() => {
-          const observer = new IntersectionObserver(() => {});
-          observer.observe(document.body);
-          return () => {
-            observer.unobserve(document.body);
-          }
-        }, []);
-
-        return <div />;
-      }
-    `,
-    tsx`
-      import { useEffect } from 'react';
-
-      function Component() {
-        useEffect(() => {
-          const scrollRoot = scrollRootRef.current;
-          if (!scrollRoot) {
-            return undefined;
-          }
-
-          const intersectionObserver = new IntersectionObserver(getAndSetScrollOffsets);
-          intersectionObserver.observe(scrollRoot);
-
-          return () => {
-            intersectionObserver.unobserve(scrollRoot);
-          };
-        }, [elementRef, scrollRootRef]);
-
-        return <div />;
-      }
-    `,
-    tsx`
-      import { useEffect } from 'react';
-
-      function Component() {
-        useEffect(() => {
-          const observer = new IntersectionObserver(() => {});
-          for (const element of document.querySelectorAll('.selector')) {
-            observer.observe(element);
-          }
-          return () => {
-            observer.disconnect();
-          }
-        }, []);
-
-        return <div />;
-      }
-    `,
-    tsx`
-      import { useEffect } from 'react';
-
-      function Component() {
-        useEffect(() => {
-          const observer = new IntersectionObserver(() => {});
-          Array.from(document.querySelectorAll('.selector')).forEach(element => {
-            observer.observe(element);
-          });
-          return () => {
             observer.disconnect();
           }
         }, []);
@@ -467,6 +446,27 @@ ruleTester.run(RULE_NAME, rule, {
             observer.unobserve(getEl());
           };
         }, []);
+
+        return <div />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const scrollRoot = scrollRootRef.current;
+          if (!scrollRoot) {
+            return undefined;
+          }
+
+          const intersectionObserver = new IntersectionObserver(getAndSetScrollOffsets);
+          intersectionObserver.observe(scrollRoot);
+
+          return () => {
+            intersectionObserver.unobserve(scrollRoot);
+          };
+        }, [elementRef, scrollRootRef]);
 
         return <div />;
       }

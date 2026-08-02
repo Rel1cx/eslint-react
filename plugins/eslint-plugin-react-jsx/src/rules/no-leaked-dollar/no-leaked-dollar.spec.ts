@@ -30,29 +30,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Two dollar signs before expression (report the last one)
-      code: tsx`
-        const App = () => <>Hello $\${user.name}</>
-      `,
-      errors: [
-        {
-          column: 28,
-          endColumn: 29,
-          endLine: 1,
-          line: 1,
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeDollarSign",
-              output: tsx`
-                const App = () => <>Hello \${user.name}</>
-              `,
-            },
-          ],
-        },
-      ],
-    },
-    {
       // Template literal syntax in div element
       code: tsx`
         const App = (props) => {
@@ -107,33 +84,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Template literal syntax in middle of text
-      code: tsx`
-        const App = (props) => {
-            return <div>Hello \${props.name} is your name</div>;
-        };
-      `,
-      errors: [
-        {
-          column: 23,
-          endColumn: 24,
-          endLine: 2,
-          line: 2,
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeDollarSign",
-              output: tsx`
-                const App = (props) => {
-                    return <div>Hello {props.name} is your name</div>;
-                };
-              `,
-            },
-          ],
-        },
-      ],
-    },
-    {
       // Multiple template literal syntax errors in single JSX element
       code: tsx`
         function App({ count, total }) {
@@ -173,6 +123,56 @@ ruleTester.run(RULE_NAME, rule, {
                 function App({ count, total }) {
                   return <div>Progress: \${count} / {total}</div>;
                 }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // Template literal syntax in middle of text
+      code: tsx`
+        const App = (props) => {
+            return <div>Hello \${props.name} is your name</div>;
+        };
+      `,
+      errors: [
+        {
+          column: 23,
+          endColumn: 24,
+          endLine: 2,
+          line: 2,
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`
+                const App = (props) => {
+                    return <div>Hello {props.name} is your name</div>;
+                };
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      // Two dollar signs before expression (report the last one)
+      code: tsx`
+        const App = () => <>Hello $\${user.name}</>
+      `,
+      errors: [
+        {
+          column: 28,
+          endColumn: 29,
+          endLine: 1,
+          line: 1,
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeDollarSign",
+              output: tsx`
+                const App = () => <>Hello \${user.name}</>
               `,
             },
           ],
@@ -433,23 +433,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    // Boundary: '$' before a spread child is not "before an expression container"
-    tsx`<div>\${...items}</div>`,
-    // Template literal in JavaScript expression - valid usage
-    tsx`
-      const App = () => \`Hello \${user.name}\`
-    `,
-    // Plain dollar sign without template literal syntax
-    tsx`
-      const App = (props) => {
-          return <div>Hello $</div>;
-      };
-    `,
     // Correct JSX expression syntax
     tsx`
       const App = (props) => {
           return <div>Hello {props.name}</div>;
       };
+    `,
+    // Template literal in JavaScript expression - valid usage
+    tsx`
+      const App = () => \`Hello \${user.name}\`
     `,
     // Dollar sign in template literal inside JSX expression - valid
     tsx`
@@ -457,6 +449,12 @@ ruleTester.run(RULE_NAME, rule, {
         // 🟢 Good: This is a legitimate use of the '$' character.
         return <div>{\`$\${price}\`}</div>;
       }
+    `,
+    // Plain dollar sign without template literal syntax
+    tsx`
+      const App = (props) => {
+          return <div>Hello $</div>;
+      };
     `,
     // Intentional: isolated '$' before expression with exactly 2 children
     tsx`
@@ -494,6 +492,8 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>\${price}{""}</div>;
       }
     `,
+    // Boundary: '$' before a spread child is not "before an expression container"
+    tsx`<div>\${...items}</div>`,
     // Boundary: '$' before JSXElement, not expression
     tsx`
       function App() {

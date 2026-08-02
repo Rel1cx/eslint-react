@@ -75,21 +75,6 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
       code: tsx`
-        import { useContext } from 'react'
-
-        export const Component = () => {
-          const value = useContext(MyContext)
-          return <div>{value}</div>
-        }
-      `,
-      settings: {
-        "react-x": {
-          version: "18.3.1",
-        },
-      },
-    },
-    {
-      code: tsx`
         import { use } from 'react'
 
         export const Component = () => {
@@ -115,6 +100,21 @@ ruleTester.run(RULE_NAME, rule, {
       settings: {
         "react-x": {
           version: "19.0.0",
+        },
+      },
+    },
+    {
+      code: tsx`
+        import { useContext } from 'react'
+
+        export const Component = () => {
+          const value = useContext(MyContext)
+          return <div>{value}</div>
+        }
+      `,
+      settings: {
+        "react-x": {
+          version: "18.3.1",
         },
       },
     },

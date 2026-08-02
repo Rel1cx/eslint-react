@@ -13,6 +13,24 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
       errors: [{ messageId: "default" }],
     },
+    // Nested element as child
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}><span /></div>`,
+      errors: [{ messageId: "default" }],
+    },
+    // Expression container as child
+    {
+      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{value}</div>`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
+      errors: [{ messageId: "default" }],
+    },
     {
       code: tsx`
         const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
@@ -42,18 +60,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
-      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>`,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
-      errors: [{ messageId: "default" }],
-    },
-    {
       // https://github.com/Rel1cx/eslint-react/issues/1163
       code: tsx`
         function Abc() {
@@ -77,14 +83,8 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // Nested element as child
     {
-      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}><span /></div>`,
-      errors: [{ messageId: "default" }],
-    },
-    // Expression container as child
-    {
-      code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>{value}</div>`,
+      code: tsx`<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>`,
       errors: [{ messageId: "default" }],
     },
     // Comment expression container as child (JSXEmptyExpression is not whitespace)
@@ -95,9 +95,11 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     "<div>Children</div>",
-    "<div {...props} />",
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
     '<div children="Children" />',
+    "<App>Children</App>",
+    '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+    "<div {...props} />",
     tsx`
       const props = { dangerouslySetInnerHTML: { __html: "HTML" } }
       const div = <div {...props} />
@@ -112,11 +114,9 @@ ruleTester.run(RULE_NAME, rule, {
       const { a, b, ...props } = otherProps
       const div = <div {...props} />
     `,
-    "<App>Children</App>",
-    '<App dangerouslySetInnerHTML={{ __html: "HTML" }} />',
-    '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
-    "<App {...undefined}>Children</App>",
     // Empty tag with dangerouslySetInnerHTML (no children)
     '<div dangerouslySetInnerHTML={{ __html: "HTML" }}></div>',
+    '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>\n</App>',
+    "<App {...undefined}>Children</App>",
   ],
 });

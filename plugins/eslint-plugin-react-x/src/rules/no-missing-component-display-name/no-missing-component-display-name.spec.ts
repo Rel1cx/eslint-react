@@ -25,7 +25,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const App = React.forwardRef(() => <div>foo</div>)
+        const MemoComponent = React.memo(() => <div></div>)
       `,
       errors: [{
         messageId: "default",
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const MemoComponent = React.memo(() => <div></div>)
+        const App = React.forwardRef(() => <div>foo</div>)
       `,
       errors: [{
         messageId: "default",
@@ -185,6 +185,10 @@ ruleTester.run(RULE_NAME, rule, {
       const createHandler = React.memo(() => () => {
         someGlobalFunc(<div />);
       });
+    `,
+    tsx`
+      const createCallback = () => () => <div />;
+      createCallback()();
     `,
   ],
 });

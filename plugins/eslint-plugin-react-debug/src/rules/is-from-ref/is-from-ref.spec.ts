@@ -17,6 +17,14 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        import { useRef } from "react";
+
+        const ref = useRef(null);
+      `,
+      errors: [refError("ref", "useRef(null)")],
+    },
+    {
+      code: tsx`
         import React from "react";
 
         function MyComponent() {
@@ -32,14 +40,6 @@ ruleTester.run(RULE_NAME, rule, {
         refError("current", "React.useRef(42)"),
         refError("value", "myRef.current"),
       ],
-    },
-    {
-      code: tsx`
-        import { useRef } from "react";
-
-        const ref = useRef(null);
-      `,
-      errors: [refError("ref", "useRef(null)")],
     },
     {
       code: tsx`

@@ -19,15 +19,12 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
-    {
+    { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
       code: tsx`
         function Example() {
           useEffect(() => {
-            const ac = new AbortController();
-            const signal = "once";
-            window.addEventListener("resize", handleResize, { [signal]: ac.signal });
-            return () => ac.abort();
+            const handleResize1 = () => {};
+            window.addEventListener("resize", handleResize1, { once: true });
           }, []);
         }
       `,
@@ -108,21 +105,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            const handleResize1 = () => {};
-            window.addEventListener("resize", handleResize1, { once: true });
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
     {
       code: tsx`
         function Example() {
@@ -147,6 +129,24 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: { eventMethodKind: "removeEventListener" },
           messageId: "unexpectedInlineFunction",
+        },
+      ],
+    },
+    // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ac = new AbortController();
+            const signal = "once";
+            window.addEventListener("resize", handleResize, { [signal]: ac.signal });
+            return () => ac.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
         },
       ],
     },
@@ -316,45 +316,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Example() {
           useEffect(() => {
-            const handleResize = () => {};
-            window.addEventListener("resize", handleResize, { capture: true });
-            window.addEventListener("resize", handleResize, { capture: false });
-            return () => {
-              window.removeEventListener("resize", handleResize, { capture: false });
-            };
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            const handleResize = () => {};
-            window.addEventListener("resize", handleResize, { capture: true });
-            window.addEventListener("resize", handleResize, { capture: false });
-            window.addEventListener("resize", handleResize, { capture: false });
-            return () => {
-              window.removeEventListener("resize", handleResize, { capture: false });
-            };
-          }, []);
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedRemoveEventListenerInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
             const options = { capture: true };
             const handleResize = () => {};
             window.addEventListener("resize", handleResize, options);
@@ -379,6 +340,45 @@ ruleTester.run(RULE_NAME, rule, {
             window.addEventListener("resize", handleResize, { capture: options.capture });
             return () => {
               window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            window.addEventListener("resize", handleResize, { capture: false });
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize, { capture: true });
+            window.addEventListener("resize", handleResize, { capture: false });
+            window.addEventListener("resize", handleResize, { capture: false });
+            return () => {
+              window.removeEventListener("resize", handleResize, { capture: false });
             };
           }, []);
         }
@@ -433,6 +433,16 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   ],
     // },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            (window.addEventListener as any)("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedRemoveEventListenerInCleanup" }],
+    },
     {
       code: tsx`
         import { useEffect } from "react";
@@ -648,16 +658,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            (window.addEventListener as any)("resize", handleResize);
-          }, []);
-        }
-      `,
-      errors: [{ messageId: "expectedRemoveEventListenerInCleanup" }],
-    },
     // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
     {
       code: tsx`
@@ -689,20 +689,20 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       function Example() {
+        const handleResize = useCallback(() => {}, []);
         useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize as EventListener);
+          window.addEventListener("resize", handleResize);
           return () => {
-            window.removeEventListener("resize", handleResize as EventListener);
+            window.removeEventListener("resize", handleResize);
           };
         }, []);
       }
     `,
     tsx`
       function Example() {
+        const handleResize = useMemo(() => () => {}, []);
         useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize as EventListener);
+          window.addEventListener("resize", handleResize);
           return () => {
             window.removeEventListener("resize", handleResize);
           };
@@ -711,23 +711,11 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       function Example() {
+        const rHandleResize = useRef(() => {});
         useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize);
+          window.addEventListener("resize", rHandleResize.current);
           return () => {
-            window.removeEventListener("resize", handleResize as EventListener);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize);
-          window.addEventListener("resize", handleResize);
-          return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", rHandleResize.current);
           };
         }, []);
       }
@@ -779,18 +767,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function Example() {
         useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize, { capture: true });
-          window.addEventListener("resize", handleResize, { capture: true });
-          return () => {
-            window.removeEventListener("resize", handleResize, { capture: true });
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        useEffect(() => {
           const options = { capture: true };
           const handleResize = () => {};
           window.addEventListener("resize", handleResize, options);
@@ -832,168 +808,6 @@ ruleTester.run(RULE_NAME, rule, {
           window.addEventListener("resize", handleResize, { capture: true });
           return () => {
             window.removeEventListener("resize", handleResize, { capture: options.capture });
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const handleResize = useCallback(() => {}, []);
-        useEffect(() => {
-          window.addEventListener("resize", handleResize);
-          return () => {
-            window.removeEventListener("resize", handleResize);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const handleResize = useMemo(() => () => {}, []);
-        useEffect(() => {
-          window.addEventListener("resize", handleResize);
-          return () => {
-            window.removeEventListener("resize", handleResize);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-        }, []);
-        useEffect(() => {
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-        }, []);
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-        }, []);
-        useLayoutEffect(() => {
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useLayoutEffect(() => {
-          return () => {
-            window.removeEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-        useEffect(() => {
-          window.addEventListener("resize", rHandleResize.current);
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
-        }, []);
-        useEffect(() => {
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useLayoutEffect(() => {
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        useEffect(() => {
-          const handleResize = () => {};
-          (window as Window).addEventListener("resize", handleResize);
-          return () => {
-            window.removeEventListener("resize", handleResize);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        useEffect(() => {
-          const handleResize = () => {};
-          window.addEventListener("resize", handleResize);
-          return () => {
-            (window as Window).removeEventListener("resize", handleResize);
           };
         }, []);
       }
@@ -1051,6 +865,192 @@ ruleTester.run(RULE_NAME, rule, {
             x.addEventListener("resize", () => {}, { signal: sig })
             return () => ac.abort()
         }, [])
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize as EventListener);
+          return () => {
+            window.removeEventListener("resize", handleResize as EventListener);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize as EventListener);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize as EventListener);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          (window as Window).addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            (window as Window).removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize, { capture: true });
+          window.addEventListener("resize", handleResize, { capture: true });
+          return () => {
+            window.removeEventListener("resize", handleResize, { capture: true });
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+        useLayoutEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useLayoutEffect(() => {
+          return () => {
+            window.removeEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", rHandleResize.current);
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
+        }, []);
+        useEffect(() => {
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+      }
+    `,
+    tsx`
+      function Example() {
+        const rHandleResize = useRef(() => {});
+        useLayoutEffect(() => {
+          return () => {
+            window.addEventListener("resize", rHandleResize.current);
+          };
+        }, []);
+        useEffect(() => {
+          window.removeEventListener("resize", rHandleResize.current);
+        }, []);
       }
     `,
     // TODO: This case is not supported yet.

@@ -9,6 +9,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         const App = (props) => {
+          return <div {...props} key={props.id}>1</div>;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const App = (props) => {
             return [
                     <div {...props} key="1">1</div>,
                     <div {...props} key="1">2</div>,
@@ -21,14 +29,6 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
         { messageId: "default" },
       ],
-    },
-    {
-      code: tsx`
-        const App = (props) => {
-          return <div {...props} key={props.id}>1</div>;
-        };
-      `,
-      errors: [{ messageId: "default" }],
     },
     // Multiple spreads before key
     {
@@ -59,11 +59,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // Key before spread (valid)
     tsx`
       const App = (props) => {
-          return [<div key="1">1</div>]
+        return <div key="1" {...props} className="x">1</div>;
       };
     `,
+    // Key before spread in a list (valid)
     tsx`
       const App = (props) => {
           return [
@@ -71,12 +73,6 @@ ruleTester.run(RULE_NAME, rule, {
                   <div key="2" {...props}>2</div>,
                   <div key="3" {...props}>3</div>,
                ]
-      };
-    `,
-    // Key before spread (valid)
-    tsx`
-      const App = (props) => {
-        return <div key="1" {...props} className="x">1</div>;
       };
     `,
     // Key after non-spread attributes but before spread (valid)
@@ -89,6 +85,12 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       const App = () => {
         return <div key="1">1</div>;
+      };
+    `,
+    // No spread in a list (valid)
+    tsx`
+      const App = (props) => {
+          return [<div key="1">1</div>]
       };
     `,
     // No key (valid)
@@ -169,6 +171,14 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
     {
       code: tsx`
         const App = (props) => {
+          return <Component {...props} key="test" />;
+        };
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const App = (props) => {
             return [
                     <div {...props} key="1">1</div>,
                     <div {...props} key="1">2</div>,
@@ -181,14 +191,6 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
         { messageId: "default" },
         { messageId: "default" },
       ],
-    },
-    {
-      code: tsx`
-        const App = (props) => {
-          return <Component {...props} key="test" />;
-        };
-      `,
-      errors: [{ messageId: "default" }],
     },
     // Multiple spreads before key
     {
@@ -212,12 +214,18 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
   valid: [
     tsx`
       const App = (props) => {
-        return <Component key="test" {...props} />;
+        return items.map((item) => <div key={item.id} {...item} />);
       };
     `,
     tsx`
       const App = (props) => {
-        return items.map((item) => <div key={item.id} {...item} />);
+        return <Component key="test" {...props} />;
+      };
+    `,
+    // Key before spread followed by another spread
+    tsx`
+      const App = (props) => {
+        return <div key="1" {...props} {...rest} />;
       };
     `,
     // Namespace attributes should not cause runtime errors
@@ -238,22 +246,16 @@ ruleTesterWithJsxAutomaticRuntime.run(`${RULE_NAME} (automatic runtime)`, rule, 
         return <div {...props} x:key="test" />;
       };
     `,
-    // Key inside a spread object is not a direct key prop
-    tsx`
-      const App = (props) => {
-        return <div {...{ key: 1 }} />;
-      };
-    `,
     // xmlns:x after spread should NOT be reported
     tsx`
       const App = (props) => {
         return <svg {...props} xmlns:x="http://example.com" />;
       };
     `,
-    // Key before spread followed by another spread
+    // Key inside a spread object is not a direct key prop
     tsx`
       const App = (props) => {
-        return <div key="1" {...props} {...rest} />;
+        return <div {...{ key: 1 }} />;
       };
     `,
   ],

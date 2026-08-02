@@ -8,24 +8,6 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         import React from "react";
-        import { render } from "react-dom/client";
-        import Component from "Component";
-
-        render(<Component />, document.getElementById("app"));
-      `,
-      errors: [{ messageId: "default" }],
-      output: tsx`
-        import { createRoot } from "react-dom/client";
-        import React from "react";
-        import { render } from "react-dom/client";
-        import Component from "Component";
-
-        createRoot(document.getElementById("app")).render(<Component />);
-      `,
-    },
-    {
-      code: tsx`
-        import React from "react";
         import ReactDOM from "react-dom";
         import Component from "Component";
 
@@ -81,14 +63,20 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { render } from "react-dom";
-        (render as any)(<div />, document.body);
+        import React from "react";
+        import { render } from "react-dom/client";
+        import Component from "Component";
+
+        render(<Component />, document.getElementById("app"));
       `,
       errors: [{ messageId: "default" }],
       output: tsx`
         import { createRoot } from "react-dom/client";
-        import { render } from "react-dom";
-        createRoot(document.body).render(<div />);
+        import React from "react";
+        import { render } from "react-dom/client";
+        import Component from "Component";
+
+        createRoot(document.getElementById("app")).render(<Component />);
       `,
     },
     // In assignment expression
@@ -102,6 +90,18 @@ ruleTester.run(RULE_NAME, rule, {
         import { createRoot } from "react-dom/client";
         import { render } from "react-dom";
         const result = createRoot(document.getElementById("app")).render(<Component />);
+      `,
+    },
+    {
+      code: tsx`
+        import { render } from "react-dom";
+        (render as any)(<div />, document.body);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { createRoot } from "react-dom/client";
+        import { render } from "react-dom";
+        createRoot(document.body).render(<div />);
       `,
     },
     // Missing second argument (no auto-fix)

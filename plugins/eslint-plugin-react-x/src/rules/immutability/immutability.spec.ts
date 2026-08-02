@@ -5,6 +5,166 @@ import rule, { RULE_NAME } from "./immutability";
 
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
+    // Mutating array method.
+    {
+      code: tsx`
+        function Component() {
+          const items = [];
+          const fn = () => {
+            items.push(1);
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "items" }, messageId: "mutates" },
+        { data: { name: "items" }, messageId: "default" },
+      ],
+    },
+    // Plain reassignment (`=`) of a captured identifier.
+    {
+      code: tsx`
+        function Component() {
+          let message = "hello";
+          const fn = () => {
+            message = "world";
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "message" }, messageId: "mutates" },
+        { data: { name: "message" }, messageId: "default" },
+      ],
+    },
+    // Reassignment via UpdateExpression.
+    {
+      code: tsx`
+        function Component() {
+          let count = 0;
+          const fn = () => {
+            count++;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "count" }, messageId: "mutates" },
+        { data: { name: "count" }, messageId: "default" },
+      ],
+    },
+    // Mutating assignment operator (`+=`) on a captured variable.
+    {
+      code: tsx`
+        function Component() {
+          let count = 0;
+          const fn = () => {
+            count += 1;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "count" }, messageId: "mutates" },
+        { data: { name: "count" }, messageId: "default" },
+      ],
+    },
+    // Mutation via property assignment on a captured object.
+    {
+      code: tsx`
+        function Component() {
+          const state = { count: 0 };
+          const fn = () => {
+            state.count = 1;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // UpdateExpression on a member expression of a captured object.
+    {
+      code: tsx`
+        function Component() {
+          const state = { count: 0 };
+          const fn = () => {
+            state.count++;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // Mutation via `delete` on a captured object property.
+    {
+      code: tsx`
+        function Component() {
+          const state = { count: 0 };
+          const fn = () => {
+            delete state.count;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // Assignment through a computed member resolves to the same root identifier.
+    {
+      code: tsx`
+        function Component() {
+          const items = [1, 2, 3];
+          const fn = () => {
+            items[0] = 4;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "items" }, messageId: "mutates" },
+        { data: { name: "items" }, messageId: "default" },
+      ],
+    },
+    // Mutation on a deeply nested property of a captured object.
+    {
+      code: tsx`
+        function Component() {
+          const state = { nested: { count: 0 } };
+          const fn = () => {
+            state.nested.count = 1;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "state" }, messageId: "mutates" },
+        { data: { name: "state" }, messageId: "default" },
+      ],
+    },
+    // Mutating method invoked through optional chaining.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            cache?.set("key", "value");
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
     // Mutation happens before the (aliased) freeze usage in source order,
     // so the "This modifies" diagnostic sorts first.
     {
@@ -51,222 +211,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "mutates" },
       ],
     },
-    // Function returned from a hook.
-    {
-      code: tsx`
-        function useFoo() {
-          useHook();
-          const cache = new Map();
-          return () => {
-            cache.set("key", "value");
-          };
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "default" },
-        { data: { name: "cache" }, messageId: "mutates" },
-      ],
-    },
-    // Mutation effect propagates through a simple local alias (`fn2 = fn`).
-    {
-      code: tsx`
-        function Component(cond) {
-          const cache = new Map();
-          const fn = () => {
-            cache.set("a", 1);
-          };
-          const fn2 = fn;
-          return <Foo fn={fn2} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Mutating array method.
-    {
-      code: tsx`
-        function Component() {
-          const items = [];
-          const fn = () => {
-            items.push(1);
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "items" }, messageId: "mutates" },
-        { data: { name: "items" }, messageId: "default" },
-      ],
-    },
-    // Reassignment via UpdateExpression.
-    {
-      code: tsx`
-        function Component() {
-          let count = 0;
-          const fn = () => {
-            count++;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "count" }, messageId: "mutates" },
-        { data: { name: "count" }, messageId: "default" },
-      ],
-    },
-    // Mutation via property assignment on a captured object.
-    {
-      code: tsx`
-        function Component() {
-          const state = { count: 0 };
-          const fn = () => {
-            state.count = 1;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "state" }, messageId: "mutates" },
-        { data: { name: "state" }, messageId: "default" },
-      ],
-    },
-    // Mutation via `delete` on a captured object property.
-    {
-      code: tsx`
-        function Component() {
-          const state = { count: 0 };
-          const fn = () => {
-            delete state.count;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "state" }, messageId: "mutates" },
-        { data: { name: "state" }, messageId: "default" },
-      ],
-    },
-    // Mutation effect propagates through nested inline closures.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            const inner = () => {
-              cache.set("key", "value");
-            };
-            return inner;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Same mutable function passed to two different sinks reports two usage-site
-    // diagnostics plus one mutation-site diagnostic for each usage.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            cache.set("key", "value");
-          };
-          return <Foo onA={fn} onB={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Mutating a parameter captured from the enclosing component scope.
-    {
-      code: tsx`
-        function Component(cache) {
-          const fn = () => {
-            cache.set("key", "value");
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Mutation effect propagates through a chain of simple local aliases.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            cache.set("a", 1);
-          };
-          const fn2 = fn;
-          const fn3 = fn2;
-          return <Foo fn={fn3} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Mutating assignment operator (`+=`) on a captured variable.
-    {
-      code: tsx`
-        function Component() {
-          let count = 0;
-          const fn = () => {
-            count += 1;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "count" }, messageId: "mutates" },
-        { data: { name: "count" }, messageId: "default" },
-      ],
-    },
-    // Mutation on a deeply nested property of a captured object.
-    {
-      code: tsx`
-        function Component() {
-          const state = { nested: { count: 0 } };
-          const fn = () => {
-            state.nested.count = 1;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "state" }, messageId: "mutates" },
-        { data: { name: "state" }, messageId: "default" },
-      ],
-    },
-    // Conditional mutations are still treated as definite mutations.
-    {
-      code: tsx`
-        function Component(cond) {
-          const cache = new Map();
-          const fn = () => {
-            if (cond) cache.set("key", "value");
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
     // Named function expression passed as a hook argument.
     {
       code: tsx`
@@ -276,145 +220,6 @@ ruleTester.run(RULE_NAME, rule, {
             cache.set("key", "value");
           }
           useEffect(fn);
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Method-name heuristic flags any `.push()` call regardless of receiver type.
-    {
-      code: tsx`
-        function Component() {
-          const obj = { push() {} };
-          const fn = () => {
-            obj.push(1);
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "obj" }, messageId: "mutates" },
-        { data: { name: "obj" }, messageId: "default" },
-      ],
-    },
-    // When a function mutates multiple captured variables, only the first
-    // mutation site encountered in source order is reported.
-    {
-      code: tsx`
-        function Component() {
-          const a = 0;
-          const b = 0;
-          const fn = () => {
-            a++;
-            b++;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "a" }, messageId: "mutates" },
-        { data: { name: "a" }, messageId: "default" },
-      ],
-    },
-    // Mutation nested inside multiple closure layers still marks the outermost
-    // passed function as mutable.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            const inner = () => {
-              const deep = () => {
-                cache.set("key", "value");
-              };
-              return deep;
-            };
-            return inner;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "cache" }, messageId: "mutates" },
-        { data: { name: "cache" }, messageId: "default" },
-      ],
-    },
-    // Plain reassignment (`=`) of a captured identifier.
-    {
-      code: tsx`
-        function Component() {
-          let message = "hello";
-          const fn = () => {
-            message = "world";
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "message" }, messageId: "mutates" },
-        { data: { name: "message" }, messageId: "default" },
-      ],
-    },
-    // Reassigning an alias mutates the alias binding, not the value from its initializer.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          let alias = cache;
-          const fn = () => {
-            alias = new Map();
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "alias" }, messageId: "mutates" },
-        { data: { name: "alias" }, messageId: "default" },
-      ],
-    },
-    // UpdateExpression on a member expression of a captured object.
-    {
-      code: tsx`
-        function Component() {
-          const state = { count: 0 };
-          const fn = () => {
-            state.count++;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "state" }, messageId: "mutates" },
-        { data: { name: "state" }, messageId: "default" },
-      ],
-    },
-    // Assignment through a computed member resolves to the same root identifier.
-    {
-      code: tsx`
-        function Component() {
-          const items = [1, 2, 3];
-          const fn = () => {
-            items[0] = 4;
-          };
-          return <Foo fn={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "items" }, messageId: "mutates" },
-        { data: { name: "items" }, messageId: "default" },
-      ],
-    },
-    // Mutating method invoked through optional chaining.
-    {
-      code: tsx`
-        function Component() {
-          const cache = new Map();
-          const fn = () => {
-            cache?.set("key", "value");
-          };
-          return <Foo fn={fn} />;
         }
       `,
       errors: [
@@ -456,6 +261,22 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "default" },
       ],
     },
+    // Function returned from a hook.
+    {
+      code: tsx`
+        function useFoo() {
+          useHook();
+          const cache = new Map();
+          return () => {
+            cache.set("key", "value");
+          };
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "mutates" },
+      ],
+    },
     // A hook defined as an arrow function assigned to a `use*` variable is
     // recognized for return-value sinks.
     {
@@ -484,23 +305,6 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "mutates" },
       ],
     },
-    // JSX props are purely syntactic freeze contexts: even a lowercase
-    // non-component helper rendering a host element gets flagged.
-    {
-      code: tsx`
-        function renderItem() {
-          const items = [];
-          const fn = () => {
-            items.push(1);
-          };
-          return <div onClick={fn} />;
-        }
-      `,
-      errors: [
-        { data: { name: "items" }, messageId: "mutates" },
-        { data: { name: "items" }, messageId: "default" },
-      ],
-    },
     // Type assertions around the sink expression are unwrapped.
     {
       code: tsx`
@@ -510,6 +314,72 @@ ruleTester.run(RULE_NAME, rule, {
             cache.set("key", "value");
           };
           return <Foo fn={fn as () => void} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Mutating a parameter captured from the enclosing component scope.
+    {
+      code: tsx`
+        function Component(cache) {
+          const fn = () => {
+            cache.set("key", "value");
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Conditional mutations are still treated as definite mutations.
+    {
+      code: tsx`
+        function Component(cond) {
+          const cache = new Map();
+          const fn = () => {
+            if (cond) cache.set("key", "value");
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Mutation effect propagates through a simple local alias (`fn2 = fn`).
+    {
+      code: tsx`
+        function Component(cond) {
+          const cache = new Map();
+          const fn = () => {
+            cache.set("a", 1);
+          };
+          const fn2 = fn;
+          return <Foo fn={fn2} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Mutation effect propagates through a chain of simple local aliases.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            cache.set("a", 1);
+          };
+          const fn2 = fn;
+          const fn3 = fn2;
+          return <Foo fn={fn3} />;
         }
       `,
       errors: [
@@ -533,6 +403,136 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         { data: { name: "cache" }, messageId: "mutates" },
         { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Reassigning an alias mutates the alias binding, not the value from its initializer.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          let alias = cache;
+          const fn = () => {
+            alias = new Map();
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "alias" }, messageId: "mutates" },
+        { data: { name: "alias" }, messageId: "default" },
+      ],
+    },
+    // Mutation effect propagates through nested inline closures.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            const inner = () => {
+              cache.set("key", "value");
+            };
+            return inner;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Mutation nested inside multiple closure layers still marks the outermost
+    // passed function as mutable.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            const inner = () => {
+              const deep = () => {
+                cache.set("key", "value");
+              };
+              return deep;
+            };
+            return inner;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // Same mutable function passed to two different sinks reports two usage-site
+    // diagnostics plus one mutation-site diagnostic for each usage.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          const fn = () => {
+            cache.set("key", "value");
+          };
+          return <Foo onA={fn} onB={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
+    // JSX props are purely syntactic freeze contexts: even a lowercase
+    // non-component helper rendering a host element gets flagged.
+    {
+      code: tsx`
+        function renderItem() {
+          const items = [];
+          const fn = () => {
+            items.push(1);
+          };
+          return <div onClick={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "items" }, messageId: "mutates" },
+        { data: { name: "items" }, messageId: "default" },
+      ],
+    },
+    // Method-name heuristic flags any `.push()` call regardless of receiver type.
+    {
+      code: tsx`
+        function Component() {
+          const obj = { push() {} };
+          const fn = () => {
+            obj.push(1);
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "obj" }, messageId: "mutates" },
+        { data: { name: "obj" }, messageId: "default" },
+      ],
+    },
+    // When a function mutates multiple captured variables, only the first
+    // mutation site encountered in source order is reported.
+    {
+      code: tsx`
+        function Component() {
+          const a = 0;
+          const b = 0;
+          const fn = () => {
+            a++;
+            b++;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "a" }, messageId: "mutates" },
+        { data: { name: "a" }, messageId: "default" },
       ],
     },
     // The enclosing-function walk stops exactly at the function declaring the
@@ -676,24 +676,94 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo fn={fn} />;
       }
     `,
-    // Mutating method invoked via a computed property is not statically resolved
+    // useRef-initialized values are exempt for mutating method calls too.
     tsx`
       function Component() {
-        const cache = new Map();
+        const box = useRef([]);
         const fn = () => {
-          cache["set"]("key", "value");
+          box.current.push(1);
         };
         return <Foo fn={fn} />;
       }
     `,
+    // Namespaced useRef calls are recognized by the initializer check.
+    tsx`
+      function Component() {
+        const flag = React.useRef(false);
+        const fn = () => {
+          flag.current = true;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // useRef provenance is followed through variable-declarator aliases.
+    tsx`
+      function Component() {
+        const mounted = useRef(false);
+        const alias = mounted;
+        const fn = () => {
+          alias.current = true;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Ref received as props is exempt from mutability checks.
+    tsx`
+      function Component(props) {
+        const fn = () => {
+          props.myRef.current = 1;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // The ref-name heuristic exempts "*Ref" names regardless of initializer.
+    tsx`
+      function Component() {
+        const timerRef = { current: 0 };
+        const fn = () => {
+          timerRef.current = 1;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Plain reassignment of a ref-named identifier is exempt.
+    tsx`
+      function Component(node) {
+        let nodeRef = null;
+        const fn = () => {
+          nodeRef = node;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Ref-like property anywhere in the mutated chain is exempt.
+    tsx`
+      function Component() {
+        const fn = () => {
+          const obj = { ref: { current: 0 } };
+          obj.ref.current = 1;
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Non-mutating method calls on captured values are allowed.
     tsx`
       function Component() {
         const cache = new Map();
         const fn = () => {
-          cache.set("key", "value");
+          cache.get("key");
         };
-        fn();
-        return <Foo />;
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Non-mutating array methods are allowed.
+    tsx`
+      function Component() {
+        const items = [1, 2, 3];
+        const fn = () => {
+          items.map((x) => x * 2);
+        };
+        return <Foo fn={fn} />;
       }
     `,
     tsx`
@@ -711,13 +781,24 @@ ruleTester.run(RULE_NAME, rule, {
         return () => cache.get("key");
       }
     `,
-    // Ref received as props is exempt from mutability checks.
+    // Mutation in the component body itself never marks the passed function;
+    // the function only reads the variable.
     tsx`
-      function Component(props) {
-        const fn = () => {
-          props.myRef.current = 1;
-        };
+      function Component() {
+        const cache = new Map();
+        cache.set("key", "value");
+        const fn = () => cache.get("key");
         return <Foo fn={fn} />;
+      }
+    `,
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        fn();
+        return <Foo />;
       }
     `,
     // Passing a mutable function to a non-hook call is not a freeze context.
@@ -739,12 +820,118 @@ ruleTester.run(RULE_NAME, rule, {
         };
       }
     `,
-    // Non-mutating method calls on captured values are allowed.
+    // "useful" does not match the use[A-Z0-9] hook-name pattern.
     tsx`
       function Component() {
         const cache = new Map();
         const fn = () => {
-          cache.get("key");
+          cache.set("key", "value");
+        };
+        useful(fn);
+        return <Foo />;
+      }
+    `,
+    // JSX children expression containers are not attribute sinks.
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        return <Foo>{fn}</Foo>;
+      }
+    `,
+    // JSX spread attributes are not collected as sinks.
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        return <Foo {...{ fn }} />;
+      }
+    `,
+    // Spread arguments to hook calls are not collected as sinks.
+    tsx`
+      function useFoo() {
+        const cache = new Map();
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        const fns = [fn];
+        useHook(...fns);
+      }
+    `,
+    // Mutating method invoked via a computed property is not statically resolved
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = () => {
+          cache["set"]("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Mutating methods on non-identifier roots (call results) are ignored
+    // because no root identifier can be extracted.
+    tsx`
+      function Component() {
+        const fn = () => {
+          getItems().push(1);
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Local shadowing prevents the outer captured variable from being marked.
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const outer = () => {
+          const cache = new Set();
+          const inner = () => {
+            cache.add("key");
+          };
+        };
+        return <Foo fn={outer} />;
+      }
+    `,
+    // A parameter shadowing the outer variable keeps the mutation local: the
+    // enclosing-function walk breaks as soon as the declaration is inside.
+    tsx`
+      function Component() {
+        const cache = new Map();
+        const fn = (cache) => {
+          cache.set("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Module-scope bindings are not function-context variables.
+    tsx`
+      const globalCache = new Map();
+      function Component() {
+        const fn = () => {
+          globalCache.set("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Aliases of module-scope bindings retain their module origin.
+    tsx`
+      const globalCache = new Map();
+      function Component() {
+        const cache = globalCache;
+        const fn = () => {
+          cache.set("key", "value");
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Unresolvable identifiers (implicit globals) are ignored.
+    tsx`
+      function Component() {
+        const fn = () => {
+          someGlobal.count = 1;
         };
         return <Foo fn={fn} />;
       }
@@ -783,127 +970,6 @@ ruleTester.run(RULE_NAME, rule, {
         return <Foo onClick={makeFn()} />;
       }
     `,
-    // Local shadowing prevents the outer captured variable from being marked.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const outer = () => {
-          const cache = new Set();
-          const inner = () => {
-            cache.add("key");
-          };
-        };
-        return <Foo fn={outer} />;
-      }
-    `,
-    // Ref-like property anywhere in the mutated chain is exempt.
-    tsx`
-      function Component() {
-        const fn = () => {
-          const obj = { ref: { current: 0 } };
-          obj.ref.current = 1;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Non-mutating array methods are allowed.
-    tsx`
-      function Component() {
-        const items = [1, 2, 3];
-        const fn = () => {
-          items.map((x) => x * 2);
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // https://github.com/Rel1cx/eslint-react/issues/1893
-    tsx`
-      import { useEffect, useRef } from "react";
-
-      export function Component() {
-        const mounted = useRef<boolean>(false);
-        useEffect(() => {
-          if (mounted.current) return;
-          mounted.current = true;
-        }, []);
-        return <div/>;
-      }
-    `,
-    // A parameter shadowing the outer variable keeps the mutation local: the
-    // enclosing-function walk breaks as soon as the declaration is inside.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const fn = (cache) => {
-          cache.set("key", "value");
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Mutation in the component body itself never marks the passed function;
-    // the function only reads the variable.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        cache.set("key", "value");
-        const fn = () => cache.get("key");
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Indirect mutation by calling a mutable function is not tracked; only
-    // syntactic mutation sites within the sunk function's closure chain count
-    // (the SPEC would catch this via transitive effect inference).
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const fn = () => {
-          cache.set("key", "value");
-        };
-        return <Foo fn={() => fn()} />;
-      }
-    `,
-    // Spread arguments to hook calls are not collected as sinks.
-    tsx`
-      function useFoo() {
-        const cache = new Map();
-        const fn = () => {
-          cache.set("key", "value");
-        };
-        const fns = [fn];
-        useHook(...fns);
-      }
-    `,
-    // JSX spread attributes are not collected as sinks.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const fn = () => {
-          cache.set("key", "value");
-        };
-        return <Foo {...{ fn }} />;
-      }
-    `,
-    // JSX children expression containers are not attribute sinks.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const fn = () => {
-          cache.set("key", "value");
-        };
-        return <Foo>{fn}</Foo>;
-      }
-    `,
-    // "useful" does not match the use[A-Z0-9] hook-name pattern.
-    tsx`
-      function Component() {
-        const cache = new Map();
-        const fn = () => {
-          cache.set("key", "value");
-        };
-        useful(fn);
-        return <Foo />;
-      }
-    `,
     // A mutable function returned inside an object literal from a hook is not
     // resolved back to the function node.
     tsx`
@@ -928,130 +994,16 @@ ruleTester.run(RULE_NAME, rule, {
         make();
       }
     `,
-    // Mutating methods on non-identifier roots (call results) are ignored
-    // because no root identifier can be extracted.
+    // Indirect mutation by calling a mutable function is not tracked; only
+    // syntactic mutation sites within the sunk function's closure chain count
+    // (the SPEC would catch this via transitive effect inference).
     tsx`
       function Component() {
-        const fn = () => {
-          getItems().push(1);
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Module-scope bindings are not function-context variables.
-    tsx`
-      const globalCache = new Map();
-      function Component() {
-        const fn = () => {
-          globalCache.set("key", "value");
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Aliases of module-scope bindings retain their module origin.
-    tsx`
-      const globalCache = new Map();
-      function Component() {
-        const cache = globalCache;
+        const cache = new Map();
         const fn = () => {
           cache.set("key", "value");
         };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Unresolvable identifiers (implicit globals) are ignored.
-    tsx`
-      function Component() {
-        const fn = () => {
-          someGlobal.count = 1;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Plain reassignment of a ref-named identifier is exempt.
-    tsx`
-      function Component(node) {
-        let nodeRef = null;
-        const fn = () => {
-          nodeRef = node;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // The ref-name heuristic exempts "*Ref" names regardless of initializer.
-    tsx`
-      function Component() {
-        const timerRef = { current: 0 };
-        const fn = () => {
-          timerRef.current = 1;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // useRef provenance is followed through variable-declarator aliases.
-    tsx`
-      function Component() {
-        const mounted = useRef(false);
-        const alias = mounted;
-        const fn = () => {
-          alias.current = true;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Namespaced useRef calls are recognized by the initializer check.
-    tsx`
-      function Component() {
-        const flag = React.useRef(false);
-        const fn = () => {
-          flag.current = true;
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // useRef-initialized values are exempt for mutating method calls too.
-    tsx`
-      function Component() {
-        const box = useRef([]);
-        const fn = () => {
-          box.current.push(1);
-        };
-        return <Foo fn={fn} />;
-      }
-    `,
-    // Reassignment to implicit globals in a JSX event handler is ignored
-    // (ported from React Compiler's allow-reassignment-to-global-function-jsx-prop).
-    tsx`
-      function Component() {
-        const onClick = () => {
-          someUnknownGlobal = true;
-          moduleLocal = true;
-        };
-        return <div onClick={onClick} />;
-      }
-    `,
-    // Function-call mutations are not tracked syntactically
-    // (ported from React Compiler's maybe-mutate-object-in-callback).
-    tsx`
-      function Component(props) {
-        const object = {};
-        const onClick = () => {
-          mutate(object);
-        };
-        return <Foo callback={onClick}>{props.children}</Foo>;
-      }
-    `,
-    // useCallback wrapping a ref mutation is allowed
-    // (ported from React Compiler's useCallback-set-ref-nested-property).
-    tsx`
-      import { useCallback, useRef } from "react";
-
-      function Component() {
-        const ref = useRef({ inner: null });
-        const onChange = useCallback((event) => {
-          ref.current.inner = event.target.value;
-        });
-        return <input onChange={onChange} />;
+        return <Foo fn={() => fn()} />;
       }
     `,
     tsx`
@@ -1127,15 +1079,6 @@ ruleTester.run(RULE_NAME, rule, {
         return <p>Active segment: {segment}</p>
       }
     `,
-    // https://github.com/Rel1cx/eslint-react/issues/1898
-    // Regression: `router.push()` inside a frozen callback is navigation, not
-    // an in-place mutation of the captured router value.
-    tsx`
-      function Component() {
-        const router = useRouter()
-        return <button onClick={() => router.push('/dashboard')} />
-      }
-    `,
     tsx`
       function Component() {
         const router = useRouter()
@@ -1166,6 +1109,63 @@ ruleTester.run(RULE_NAME, rule, {
       function Component() {
         const history = useHistory()
         return <button onClick={() => history.push('/dashboard')} />
+      }
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/1893
+    tsx`
+      import { useEffect, useRef } from "react";
+
+      export function Component() {
+        const mounted = useRef<boolean>(false);
+        useEffect(() => {
+          if (mounted.current) return;
+          mounted.current = true;
+        }, []);
+        return <div/>;
+      }
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/1898
+    // Regression: `router.push()` inside a frozen callback is navigation, not
+    // an in-place mutation of the captured router value.
+    tsx`
+      function Component() {
+        const router = useRouter()
+        return <button onClick={() => router.push('/dashboard')} />
+      }
+    `,
+    // Reassignment to implicit globals in a JSX event handler is ignored
+    // (ported from React Compiler's allow-reassignment-to-global-function-jsx-prop).
+    tsx`
+      function Component() {
+        const onClick = () => {
+          someUnknownGlobal = true;
+          moduleLocal = true;
+        };
+        return <div onClick={onClick} />;
+      }
+    `,
+    // Function-call mutations are not tracked syntactically
+    // (ported from React Compiler's maybe-mutate-object-in-callback).
+    tsx`
+      function Component(props) {
+        const object = {};
+        const onClick = () => {
+          mutate(object);
+        };
+        return <Foo callback={onClick}>{props.children}</Foo>;
+      }
+    `,
+    // useCallback wrapping a ref mutation is allowed
+    // (ported from React Compiler's useCallback-set-ref-nested-property).
+    tsx`
+      import { useCallback, useRef } from "react";
+
+      function Component() {
+        const ref = useRef({ inner: null });
+        const onChange = useCallback((event) => {
+          ref.current.inner = event.target.value;
+        });
+        return <input onChange={onChange} />;
       }
     `,
   ],

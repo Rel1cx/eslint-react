@@ -8,60 +8,22 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        function App() {
-            "use memo";
-        }
+        const ExpressionBody = () => <div />;
       `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "App",
-            displayName: "none",
-            forwardRef: false,
-            hookCalls: 0,
-            memo: false,
-          }),
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ExpressionBody",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
         },
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        function App() {
-            "use no memo";
-        }
-      `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "App",
-            displayName: "none",
-            forwardRef: false,
-            hookCalls: 0,
-            memo: false,
-          }),
-        },
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        function App() {
-            useEffect(() => {});
-        }
-      `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "App",
-            displayName: "none",
-            forwardRef: false,
-            hookCalls: 1,
-            memo: false,
-          }),
-        },
-        messageId: "default",
-      }],
+      ],
     },
     {
       code: tsx`
@@ -103,6 +65,222 @@ ruleTester.run(RULE_NAME, rule, {
         },
         messageId: "default",
       }],
+    },
+    {
+      code: tsx`
+        function ComponentWithHooks() {
+          const [state, setState] = useState(0);
+
+          return <div></div>;
+        }
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "ComponentWithHooks",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 1,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function ComponentWithMultipleHooks() {
+          const [state] = useState(0);
+          useEffect(() => {});
+          useCallback(() => {}, []);
+          return <div>{state}</div>;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ComponentWithMultipleHooks",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 3,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function Component() {
+          const shadowX = useSpring(0);
+          const shadowY = useMotionValue(0);
+          const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
+
+          return <motion.div style={{ filter: shadow }} />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 3,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function App() {
+            useEffect(() => {});
+        }
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 1,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
+            "use memo";
+        }
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
+            "use no memo";
+        }
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const App = () => React.createElement('div', null, 'foo')
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "App",
+            displayName: "none",
+            forwardRef: false,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        function App() {
+          return createElement("div", null, <div></div>);
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "App",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: "const NullComponent = () => null;",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "NullComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: "const ConditionalComponent = () => condition ? <div /> : null;",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ConditionalComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: "const ArrayComponent = () => [<div key='item' />, null];",
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ArrayComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
     },
     {
       code: tsx`
@@ -184,6 +362,23 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const ForwardRefComponent = React.forwardRef(() => <div></div>)
+      `,
+      errors: [{
+        data: {
+          json: stringify({
+            name: "ForwardRefComponent",
+            displayName: "none",
+            forwardRef: true,
+            hookCalls: 0,
+            memo: false,
+          }),
+        },
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
         import { memo } from "react";
 
         const MemoComponent = memo(() => <div></div>)
@@ -213,23 +408,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{
         data: {
           json: stringify({ name: "Component", displayName: "none", forwardRef: false, hookCalls: 0, memo: true }),
-        },
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
-        const ForwardRefComponent = React.forwardRef(() => <div></div>)
-      `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "ForwardRefComponent",
-            displayName: "none",
-            forwardRef: true,
-            hookCalls: 0,
-            memo: false,
-          }),
         },
         messageId: "default",
       }],
@@ -272,41 +450,94 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        function ComponentWithHooks() {
-          const [state, setState] = useState(0);
-
-          return <div></div>;
-        }
+        const Component = type === 'button'
+          ? () => <button>Click</button>
+          : () => <div>Text</div>;
       `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "ComponentWithHooks",
-            displayName: "none",
-            forwardRef: false,
-            hookCalls: 1,
-            memo: false,
-          }),
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
         },
-        messageId: "default",
-      }],
+        {
+          data: {
+            json: stringify({
+              name: "Component",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
     },
     {
       code: tsx`
-        const App = () => React.createElement('div', null, 'foo')
+        const Components = {
+          Nav() {
+            return <div />;
+          },
+          SidePanel: () => <div />,
+        };
       `,
-      errors: [{
-        data: {
-          json: stringify({
-            name: "App",
-            displayName: "none",
-            forwardRef: false,
-            hookCalls: 0,
-            memo: false,
-          }),
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Nav",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
         },
-        messageId: "default",
-      }],
+        {
+          data: {
+            json: stringify({
+              name: "SidePanel",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const App = () => <div />;
+        App.displayName = labels.current;
+        App["displayName"] = "ignored";
+        Other.displayName = "ignored";
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "App",
+              displayName: "labels.current",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
     },
     {
       code: tsx`
@@ -561,6 +792,88 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        const ParentComponent = () => {
+          const UnstableNestedVariableComponent = () => {
+            return <div />;
+          }
+
+          return (
+            <div>
+              <UnstableNestedVariableComponent />
+            </div>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ParentComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            json: stringify({
+              name: "UnstableNestedVariableComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const ParentComponent = () => {
+          const UnstableNestedVariableComponent = () => {
+            return React.createElement("div", null);
+          }
+
+          return React.createElement(
+            "div",
+            null,
+            React.createElement(UnstableNestedVariableComponent, null)
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "ParentComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            json: stringify({
+              name: "UnstableNestedVariableComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         export default () => {
           function UnstableNestedFunctionComponent() {
             return <div />;
@@ -643,16 +956,15 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const ParentComponent = () => {
-          const UnstableNestedVariableComponent = () => {
+        function ParentComponent() {
+          React.useState();
+
+          function ChildComponent() {
+            useEffect(() => {});
             return <div />;
           }
 
-          return (
-            <div>
-              <UnstableNestedVariableComponent />
-            </div>
-          );
+          return <ChildComponent />;
         }
       `,
       errors: [
@@ -662,7 +974,7 @@ ruleTester.run(RULE_NAME, rule, {
               name: "ParentComponent",
               displayName: "none",
               forwardRef: false,
-              hookCalls: 0,
+              hookCalls: 1,
               memo: false,
             }),
           },
@@ -671,51 +983,10 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: {
             json: stringify({
-              name: "UnstableNestedVariableComponent",
+              name: "ChildComponent",
               displayName: "none",
               forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const ParentComponent = () => {
-          const UnstableNestedVariableComponent = () => {
-            return React.createElement("div", null);
-          }
-
-          return React.createElement(
-            "div",
-            null,
-            React.createElement(UnstableNestedVariableComponent, null)
-          );
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ParentComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-        {
-          data: {
-            json: stringify({
-              name: "UnstableNestedVariableComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
+              hookCalls: 1,
               memo: false,
             }),
           },
@@ -889,6 +1160,67 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "UnstableNestedClassComponent",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = () => {
+              return <ul>item</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "List",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            const List = (props) => {
+              const items = props.items
+                .map((item) => (
+                  <li key={item.key}>
+                    <span>{item.name}</span>
+                  </li>
+                ));
+
+              return <ul>{items}</ul>;
+            };
+
+            return <List {...this.props} />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "List",
               displayName: "none",
               forwardRef: false,
               hookCalls: 0,
@@ -1326,67 +1658,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = () => {
-              return <ul>item</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "List",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        class ParentComponent extends React.Component {
-          render() {
-            const List = (props) => {
-              const items = props.items
-                .map((item) => (
-                  <li key={item.key}>
-                    <span>{item.name}</span>
-                  </li>
-                ));
-
-              return <ul>{items}</ul>;
-            };
-
-            return <List {...this.props} />;
-          }
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "List",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
         function ParentComponent() {
           return (
             <SomeComponent>
@@ -1644,6 +1915,30 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        class Widget {
+          Header = () => <div />;
+          render() {
+            return <this.Header />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              name: "Header",
+              displayName: "none",
+              forwardRef: false,
+              hookCalls: 0,
+              memo: false,
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         const MyComponent1 = (() => null)!;
         const MyComponent2 = (() => null)!!;
         const MyComponent3 = (() => null)!!! as A;
@@ -1703,60 +1998,6 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "MyComponent5",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function App() {
-          return createElement("div", null, <div></div>);
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "App",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const Component = type === 'button'
-          ? () => <button>Click</button>
-          : () => <div>Text</div>;
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "Component",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-        {
-          data: {
-            json: stringify({
-              name: "Component",
               displayName: "none",
               forwardRef: false,
               hookCalls: 0,
@@ -1934,252 +2175,23 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    {
-      code: tsx`
-        const Components = {
-          Nav() {
-            return <div />;
-          },
-          SidePanel: () => <div />,
-        };
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "Nav",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-        {
-          data: {
-            json: stringify({
-              name: "SidePanel",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        class Widget {
-          Header = () => <div />;
-          render() {
-            return <this.Header />;
-          }
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "Header",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function ComponentWithMultipleHooks() {
-          const [state] = useState(0);
-          useEffect(() => {});
-          useCallback(() => {}, []);
-          return <div>{state}</div>;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ComponentWithMultipleHooks",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 3,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const ExpressionBody = () => <div />;
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ExpressionBody",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: "const NullComponent = () => null;",
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "NullComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: "const ConditionalComponent = () => condition ? <div /> : null;",
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ConditionalComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: "const ArrayComponent = () => [<div key='item' />, null];",
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ArrayComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function ParentComponent() {
-          React.useState();
-
-          function ChildComponent() {
-            useEffect(() => {});
-            return <div />;
-          }
-
-          return <ChildComponent />;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "ParentComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 1,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-        {
-          data: {
-            json: stringify({
-              name: "ChildComponent",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 1,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const App = () => <div />;
-        App.displayName = labels.current;
-        App["displayName"] = "ignored";
-        Other.displayName = "ignored";
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "App",
-              displayName: "labels.current",
-              forwardRef: false,
-              hookCalls: 0,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        function Component() {
-          const shadowX = useSpring(0);
-          const shadowY = useMotionValue(0);
-          const shadow = useMotionTemplate\`drop-shadow(\${shadowX}px \${shadowY}px 20px rgba(0,0,0,0.3))\`;
-
-          return <motion.div style={{ filter: shadow }} />;
-        }
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              name: "Component",
-              displayName: "none",
-              forwardRef: false,
-              hookCalls: 3,
-              memo: false,
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
   ],
   valid: [
-    "const StringComponent = () => 'text';",
-    "const ConditionalComponent = () => condition ? <div /> : 'loading';",
-    "const ArrayComponent = () => [<div key='item' />, 'text'];",
+    tsx`
+      function app() {
+          useEffect(() => {});
+      }
+    `,
+    tsx`
+      function app() {
+          "use memo";
+      }
+    `,
+    tsx`
+      function app() {
+          "use no memo";
+      }
+    `,
     tsx`
       function ParentComponent() {
         function useNestedState() {
@@ -2194,24 +2206,12 @@ ruleTester.run(RULE_NAME, rule, {
           "use memo";
       }
     `,
-    tsx`
-      function app() {
-          "use memo";
-      }
-    `,
-    tsx`
-      function app() {
-          "use no memo";
-      }
-    `,
-    tsx`
-      function app() {
-          useEffect(() => {});
-      }
-    `,
-    "const results = data.flatMap((x) => x?.name || []) || []",
+    "const StringComponent = () => 'text';",
+    "const ConditionalComponent = () => condition ? <div /> : 'loading';",
+    "const ArrayComponent = () => [<div key='item' />, 'text'];",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? <div /> : null))",
     "const results = allSettled.map((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
+    "const results = data.flatMap((x) => x?.name || []) || []",
     "const results = allSettled.mapLike((x) => (x.status === 'fulfilled' ? format(x.value) : null))",
     tsx`
       export const action = (() => {

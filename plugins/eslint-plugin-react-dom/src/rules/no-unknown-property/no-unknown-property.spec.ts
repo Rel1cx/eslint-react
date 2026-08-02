@@ -7,22 +7,22 @@ import rule, { RULE_NAME } from "./no-unknown-property";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: '<div hasOwnProperty="should not be allowed property"></div>;',
+      code: '<div abc="should not be allowed property"></div>;',
       errors: [
         {
           data: {
-            name: "hasOwnProperty",
+            name: "abc",
           },
           messageId: "unknownProp",
         },
       ],
     },
     {
-      code: '<div abc="should not be allowed property"></div>;',
+      code: '<div someProp="bar"></div>;',
       errors: [
         {
           data: {
-            name: "abc",
+            name: "someProp",
           },
           messageId: "unknownProp",
         },
@@ -39,12 +39,31 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Non-data dashed attribute
     {
-      code: '<div someProp="bar"></div>;',
+      code: '<div foo-bar="baz" />',
+      errors: [{
+        data: { name: "foo-bar" },
+        messageId: "unknownProp",
+      }],
+    },
+    {
+      code: '<div data-xml-anything="invalid" />',
       errors: [
         {
           data: {
-            name: "someProp",
+            name: "data-xml-anything",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<div hasOwnProperty="should not be allowed property"></div>;',
+      errors: [
+        {
+          data: {
+            name: "hasOwnProperty",
           },
           messageId: "unknownProp",
         },
@@ -75,45 +94,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       output: '<div htmlFor="bar"></div>;',
-    },
-    {
-      code: '<div accept-charset="bar"></div>;',
-      errors: [
-        {
-          data: {
-            name: "accept-charset",
-            standardName: "acceptCharset",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-      ],
-      output: '<div acceptCharset="bar"></div>;',
-    },
-    {
-      code: '<div http-equiv="bar"></div>;',
-      errors: [
-        {
-          data: {
-            name: "http-equiv",
-            standardName: "httpEquiv",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-      ],
-      output: '<div httpEquiv="bar"></div>;',
-    },
-    {
-      code: '<div accesskey="bar"></div>;',
-      errors: [
-        {
-          data: {
-            name: "accesskey",
-            standardName: "accessKey",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-      ],
-      output: '<div accessKey="bar"></div>;',
     },
     {
       code: '<div onclick="bar"></div>;',
@@ -155,6 +135,78 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<div onMouseDown="bar"></div>;',
     },
     {
+      code: '<div accept-charset="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "accept-charset",
+            standardName: "acceptCharset",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div acceptCharset="bar"></div>;',
+    },
+    {
+      code: '<div http-equiv="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "http-equiv",
+            standardName: "httpEquiv",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div httpEquiv="bar"></div>;',
+    },
+    {
+      code: '<div accesskey="bar"></div>;',
+      errors: [
+        {
+          data: {
+            name: "accesskey",
+            standardName: "accessKey",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<div accessKey="bar"></div>;',
+    },
+    {
+      code: "<div crossorigin />",
+      errors: [
+        {
+          data: {
+            name: "crossorigin",
+            standardName: "crossOrigin",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: "<div crossOrigin />",
+    },
+    {
+      code: "<script crossorigin nomodule />",
+      errors: [
+        {
+          data: {
+            name: "crossorigin",
+            standardName: "crossOrigin",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+        {
+          data: {
+            name: "nomodule",
+            standardName: "noModule",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: "<script crossOrigin noModule />",
+    },
+    {
       code: '<use xlink:href="bar" />;',
       errors: [
         {
@@ -181,39 +233,6 @@ ruleTester.run(RULE_NAME, rule, {
       output: '<rect clipPath="bar" />;',
     },
     {
-      code: "<script crossorigin nomodule />",
-      errors: [
-        {
-          data: {
-            name: "crossorigin",
-            standardName: "crossOrigin",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-        {
-          data: {
-            name: "nomodule",
-            standardName: "noModule",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-      ],
-      output: "<script crossOrigin noModule />",
-    },
-    {
-      code: "<div crossorigin />",
-      errors: [
-        {
-          data: {
-            name: "crossorigin",
-            standardName: "crossOrigin",
-          },
-          messageId: "unknownPropWithStandardName",
-        },
-      ],
-      output: "<div crossOrigin />",
-    },
-    {
       code: "<div crossOrigin />",
       errors: [
         {
@@ -227,12 +246,143 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      code: "<div onLoad={this.load} />",
+      errors: [
+        {
+          data: {
+            name: "onLoad",
+            allowedTags: "script, img, link, picture, iframe, object, source",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div download="foo" />',
+      errors: [
+        {
+          data: {
+            name: "download",
+            allowedTags: "a, area",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
       code: '<div as="audio" />',
       errors: [
         {
           data: {
             name: "as",
             allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div abbr="abbr" />',
+      errors: [
+        {
+          data: {
+            name: "abbr",
+            allowedTags: "th, td",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div webkitDirectory="" />',
+      errors: [
+        {
+          data: {
+            name: "webkitDirectory",
+            allowedTags: "input",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div webkitdirectory="" />',
+      errors: [
+        {
+          data: {
+            name: "webkitdirectory",
+            allowedTags: "input",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div imageSrcSet="someImageSrcSet" />',
+      errors: [
+        {
+          data: {
+            name: "imageSrcSet",
+            allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div imageSizes="someImageSizes" />',
+      errors: [
+        {
+          data: {
+            name: "imageSizes",
+            allowedTags: "link",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div fill="pink" />',
+      errors: [
+        {
+          data: {
+            name: "fill",
+            allowedTags:
+              "altGlyph, circle, ellipse, g, line, marker, mask, path, polygon, polyline, rect, svg, symbol, text, textPath, tref, tspan, use, animate, animateColor, animateMotion, animateTransform, set",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div precedence="medium" />',
+      errors: [
+        {
+          data: {
+            name: "precedence",
+            allowedTags: "link, style",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    {
+      code: '<div blocking="render" />',
+      errors: [
+        {
+          data: {
+            name: "blocking",
+            allowedTags: "link, script, style",
             tagName: "div",
           },
           messageId: "invalidPropOnTag",
@@ -294,33 +444,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<div onLoad={this.load} />",
-      errors: [
-        {
-          data: {
-            name: "onLoad",
-            allowedTags: "script, img, link, picture, iframe, object, source",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div fill="pink" />',
-      errors: [
-        {
-          data: {
-            name: "fill",
-            allowedTags:
-              "altGlyph, circle, ellipse, g, line, marker, mask, path, polygon, polyline, rect, svg, symbol, text, textPath, tref, tspan, use, animate, animateColor, animateMotion, animateTransform, set",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
       code: "<div controls={this.controls} loop={true} muted={false} src={this.videoSrc} playsInline={true} allowFullScreen></div>",
       errors: [
         {
@@ -362,56 +485,6 @@ ruleTester.run(RULE_NAME, rule, {
             tagName: "div",
           },
           messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div download="foo" />',
-      errors: [
-        {
-          data: {
-            name: "download",
-            allowedTags: "a, area",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div imageSrcSet="someImageSrcSet" />',
-      errors: [
-        {
-          data: {
-            name: "imageSrcSet",
-            allowedTags: "link",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div imageSizes="someImageSizes" />',
-      errors: [
-        {
-          data: {
-            name: "imageSizes",
-            allowedTags: "link",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div data-xml-anything="invalid" />',
-      errors: [
-        {
-          data: {
-            name: "data-xml-anything",
-          },
-          messageId: "unknownProp",
         },
       ],
     },
@@ -461,71 +534,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
       options: [{ requireDataLowercase: true }],
-    },
-    {
-      code: '<div abbr="abbr" />',
-      errors: [
-        {
-          data: {
-            name: "abbr",
-            allowedTags: "th, td",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div webkitDirectory="" />',
-      errors: [
-        {
-          data: {
-            name: "webkitDirectory",
-            allowedTags: "input",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div webkitdirectory="" />',
-      errors: [
-        {
-          data: {
-            name: "webkitdirectory",
-            allowedTags: "input",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div precedence="medium" />',
-      errors: [
-        {
-          data: {
-            name: "precedence",
-            allowedTags: "link, style",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
-    },
-    {
-      code: '<div blocking="render" />',
-      errors: [
-        {
-          data: {
-            name: "blocking",
-            allowedTags: "link, script, style",
-            tagName: "div",
-          },
-          messageId: "invalidPropOnTag",
-        },
-      ],
     },
     {
       code: '<style precedence="default">{`body { color: red; }`}</style>',
@@ -583,32 +591,8 @@ ruleTester.run(RULE_NAME, rule, {
       }],
       output: "<div className={}></div>",
     },
-    // Non-data dashed attribute
-    {
-      code: '<div foo-bar="baz" />',
-      errors: [{
-        data: { name: "foo-bar" },
-        messageId: "unknownProp",
-      }],
-    },
   ],
   valid: [
-    //
-    // React components and their props/attributes should be fine
-    { code: '<App class="bar" />;' },
-    { code: '<App for="bar" />;' },
-    { code: '<App someProp="bar" />;' },
-    { code: '<Foo.bar for="bar" />;' },
-    { code: '<App accept-charset="bar" />;' },
-    { code: '<App http-equiv="bar" />;' },
-    {
-      code: '<App xlink:href="bar" />;',
-    },
-    { code: '<App clip-path="bar" />;' },
-    {
-      code: '<App dataNotAnDataAttribute="yes" />;',
-      options: [{ requireDataLowercase: true }],
-    },
     // Some HTML/DOM elements with common attributes should work
     { code: '<div className="bar"></div>;' },
     { code: "<div onMouseDown={this._onMouseDown}></div>;" },
@@ -648,20 +632,19 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<table border="1" />' },
     { code: '<th abbr="abbr" />' },
     { code: '<td abbr="abbr" />' },
-    // React related attributes
-    { code: "<div onPointerDown={this.onDown} onPointerUp={this.onUp} />" },
-    { code: '<input type="checkbox" defaultChecked={this.state.checkbox} />' },
+    // Standard HTML attributes
     {
-      code:
-        "<div onTouchStart={this.startAnimation} onTouchEnd={this.stopAnimation} onTouchCancel={this.cancel} onTouchMove={this.move} onMouseMoveCapture={this.capture} onTouchCancelCapture={this.log} />",
+      code: '<div role="button" />',
     },
-    // Case ignored attributes, for `charset` discussion see https://github.com/jsx-eslint/eslint-plugin-react/pull/1863
-    { code: '<meta charset="utf-8" />;' },
-    { code: '<meta charSet="utf-8" />;' },
-    // Some custom web components that are allowed to use `class` instead of `className`
-    { code: '<div class="foo" is="my-elem"></div>;' },
-    { code: '<div {...this.props} class="foo" is="my-elem"></div>;' },
-    { code: '<atom-panel class="foo"></atom-panel>;' },
+    {
+      code: "<div tabIndex={0} />",
+    },
+    {
+      code: "<div contentEditable />",
+    },
+    // aria-* attributes should work
+    { code: '<button aria-haspopup="true">Click me to open pop up</button>;' },
+    { code: '<button aria-label="Close" onClick={someThing.close} />;' },
     // data-* attributes should work
     { code: '<div data-foo="bar"></div>;' },
     { code: '<div data-foo-bar="baz"></div>;' },
@@ -673,23 +656,29 @@ ruleTester.run(RULE_NAME, rule, {
       code: '<div data-testID="bar" data-under_sCoRe="bar" />;',
       options: [{ requireDataLowercase: false }],
     },
-    // Ignoring should work
+    // React related attributes
+    { code: "<div onPointerDown={this.onDown} onPointerUp={this.onUp} />" },
+    { code: '<input type="checkbox" defaultChecked={this.state.checkbox} />' },
     {
-      code: '<div class="bar"></div>;',
-      options: [{ ignore: ["class"] }],
+      code:
+        "<div onTouchStart={this.startAnimation} onTouchEnd={this.stopAnimation} onTouchCancel={this.cancel} onTouchMove={this.move} onMouseMoveCapture={this.capture} onTouchCancelCapture={this.log} />",
     },
+    //
+    // React components and their props/attributes should be fine
+    { code: '<App class="bar" />;' },
+    { code: '<App for="bar" />;' },
+    { code: '<App someProp="bar" />;' },
+    { code: '<Foo.bar for="bar" />;' },
+    { code: '<App accept-charset="bar" />;' },
+    { code: '<App http-equiv="bar" />;' },
     {
-      code: '<div someProp="bar"></div>;',
-      options: [{ ignore: ["someProp"] }],
+      code: '<App xlink:href="bar" />;',
     },
+    { code: '<App clip-path="bar" />;' },
     {
-      code: "<div css={{flex: 1}}></div>;",
-      options: [{ ignore: ["css"] }],
+      code: '<App dataNotAnDataAttribute="yes" />;',
+      options: [{ requireDataLowercase: true }],
     },
-
-    // aria-* attributes should work
-    { code: '<button aria-haspopup="true">Click me to open pop up</button>;' },
-    { code: '<button aria-label="Close" onClick={someThing.close} />;' },
     // Attributes on allowed elements should work
     { code: "<script crossOrigin noModule />" },
     { code: "<audio crossOrigin />" },
@@ -738,6 +727,26 @@ ruleTester.run(RULE_NAME, rule, {
           <tfoot valign="top" align="top" />
         </table>
       `,
+    },
+    // Case ignored attributes, for `charset` discussion see https://github.com/jsx-eslint/eslint-plugin-react/pull/1863
+    { code: '<meta charset="utf-8" />;' },
+    { code: '<meta charSet="utf-8" />;' },
+    // Some custom web components that are allowed to use `class` instead of `className`
+    { code: '<div class="foo" is="my-elem"></div>;' },
+    { code: '<div {...this.props} class="foo" is="my-elem"></div>;' },
+    { code: '<atom-panel class="foo"></atom-panel>;' },
+    // Ignoring should work
+    {
+      code: '<div class="bar"></div>;',
+      options: [{ ignore: ["class"] }],
+    },
+    {
+      code: '<div someProp="bar"></div>;',
+      options: [{ ignore: ["someProp"] }],
+    },
+    {
+      code: "<div css={{flex: 1}}></div>;",
+      options: [{ ignore: ["css"] }],
     },
     // fbt
     { code: '<fbt desc="foo" doNotExtract />;' },
@@ -802,16 +811,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: '<Foo.Bar abc="def" />',
-    },
-    // Standard HTML attributes
-    {
-      code: '<div role="button" />',
-    },
-    {
-      code: "<div tabIndex={0} />",
-    },
-    {
-      code: "<div contentEditable />",
     },
   ],
 });

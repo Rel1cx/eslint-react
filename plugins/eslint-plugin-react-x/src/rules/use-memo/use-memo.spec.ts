@@ -48,6 +48,23 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mustReturnAValue" }],
     },
+    // Multiple return statements but all are bare
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ flag }) {
+          const value = useMemo(() => {
+            if (flag) {
+              return;
+            }
+            return;
+          }, [flag]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "mustReturnAValue" }],
+    },
     // useMemo result not assigned to a variable (side-effect only, no return)
     {
       code: tsx`
@@ -76,37 +93,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "resultMustBeUsed" }],
     },
-    // FunctionExpression callback with no return
-    {
-      code: tsx`
-        import { useMemo } from "react";
-
-        function Component({ items }) {
-          const result = useMemo(function() {
-            items.forEach(item => console.log(item));
-          }, [items]);
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "mustReturnAValue" }],
-    },
-    // Multiple return statements but all are bare
-    {
-      code: tsx`
-        import { useMemo } from "react";
-
-        function Component({ flag }) {
-          const value = useMemo(() => {
-            if (flag) {
-              return;
-            }
-            return;
-          }, [flag]);
-          return <div>{value}</div>;
-        }
-      `,
-      errors: [{ messageId: "mustReturnAValue" }],
-    },
     // React namespace call not assigned
     {
       code: tsx`
@@ -120,20 +106,6 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{ messageId: "resultMustBeUsed" }],
-    },
-    // Callback wrapped in TSAsExpression with no return value
-    {
-      code: tsx`
-        import { useMemo } from "react";
-
-        function Component({ data }) {
-          const processed = useMemo((() => {
-            data.forEach(item => console.log(item));
-          }) as () => void, [data]);
-          return <div>{processed}</div>;
-        }
-      `,
-      errors: [{ messageId: "mustReturnAValue" }],
     },
     // Callback accepting parameters
     {
@@ -207,20 +179,33 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noParameters" },
       ],
     },
-    // React.useMemo async callback (from React Compiler fixtures)
+    // FunctionExpression callback with no return
     {
       code: tsx`
-        function Component(a, b) {
-          const x = React.useMemo(async () => {
-            await a;
-          }, []);
-          return x;
+        import { useMemo } from "react";
+
+        function Component({ items }) {
+          const result = useMemo(function() {
+            items.forEach(item => console.log(item));
+          }, [items]);
+          return <div />;
         }
       `,
-      errors: [
-        { messageId: "noAsyncOrGeneratorFunctions" },
-        { messageId: "mustReturnAValue" },
-      ],
+      errors: [{ messageId: "mustReturnAValue" }],
+    },
+    // Callback wrapped in TSAsExpression with no return value
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ data }) {
+          const processed = useMemo((() => {
+            data.forEach(item => console.log(item));
+          }) as () => void, [data]);
+          return <div>{processed}</div>;
+        }
+      `,
+      errors: [{ messageId: "mustReturnAValue" }],
     },
     // useMemo with no return value — both useMemo and React.useMemo (from React Compiler fixtures)
     {
@@ -279,6 +264,21 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noParameters" }],
     },
+    // React.useMemo async callback (from React Compiler fixtures)
+    {
+      code: tsx`
+        function Component(a, b) {
+          const x = React.useMemo(async () => {
+            await a;
+          }, []);
+          return x;
+        }
+      `,
+      errors: [
+        { messageId: "noAsyncOrGeneratorFunctions" },
+        { messageId: "mustReturnAValue" },
+      ],
+    },
     // Rule 3: Reassigning outer variable (from React Compiler fixtures)
     {
       code: tsx`
@@ -331,6 +331,22 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noReassigningOuterVariables" }],
     },
+    // Rule 3: Reassigning outer variable inside FunctionExpression callback (boundary itself is a function, stop must win)
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component() {
+          let outer;
+          const y = useMemo(function() {
+            outer = 1;
+            return outer;
+          }, []);
+          return [outer, y];
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
     // Rule 3: Reassigning outer variable alongside other violations
     // Errors are sorted by source position: mustReturnAValue (on callbackArg) comes
     // before noParameters (on firstParam) which comes before noReassigningOuterVariables
@@ -353,22 +369,6 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "noReassigningOuterVariables" },
       ],
     },
-    // Rule 3: Reassigning outer variable inside FunctionExpression callback (boundary itself is a function, stop must win)
-    {
-      code: tsx`
-        import { useMemo } from "react";
-
-        function Component() {
-          let outer;
-          const y = useMemo(function() {
-            outer = 1;
-            return outer;
-          }, []);
-          return [outer, y];
-        }
-      `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
-    },
   ],
   valid: [
     // Arrow function with concise body (always returns)
@@ -380,6 +380,15 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{sorted.join(", ")}</div>;
       }
     `,
+    // Parameterless callback
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const result = useMemo(() => items.length, [items]);
+        return <div>{result}</div>;
+      }
+    `,
     // Block body with explicit return value
     tsx`
       import { useMemo } from "react";
@@ -389,6 +398,18 @@ ruleTester.run(RULE_NAME, rule, {
           return data.map(item => item * 2);
         }, [data]);
         return <div>{processed}</div>;
+      }
+    `,
+    // Conditional return with value in all branches
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ flag, a, b }) {
+        const value = useMemo(() => {
+          if (flag) return a;
+          return b;
+        }, [flag, a, b]);
+        return <div>{value}</div>;
       }
     `,
     // Block body returning object
@@ -412,18 +433,6 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{elements}</div>;
       }
     `,
-    // Conditional return with value in all branches
-    tsx`
-      import { useMemo } from "react";
-
-      function Component({ flag, a, b }) {
-        const value = useMemo(() => {
-          if (flag) return a;
-          return b;
-        }, [flag, a, b]);
-        return <div>{value}</div>;
-      }
-    `,
     // FunctionExpression callback with return value
     tsx`
       import { useMemo } from "react";
@@ -435,19 +444,24 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // No useMemo in file — fast path
+    // FunctionExpression with no parameters
     tsx`
-      function Component({ items }) {
-        return <div>{items.length}</div>;
-      }
-    `,
-    // React namespace call assigned to variable
-    tsx`
-      import React from "react";
+      import { useMemo } from "react";
 
       function Component({ items }) {
-        const sorted = React.useMemo(() => [...items].sort(), [items]);
-        return <div>{sorted.join(", ")}</div>;
+        const result = useMemo(function() {
+          return items.filter(Boolean);
+        }, [items]);
+        return <div>{result}</div>;
+      }
+    `,
+    // Arrow function concise body returning another arrow
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const handler = useMemo(() => () => items.length, [items]);
+        return <div onClick={handler} />;
       }
     `,
     // Arrow function with nested function that has no return — outer arrow still returns
@@ -463,14 +477,17 @@ ruleTester.run(RULE_NAME, rule, {
         return <button onClick={handler} />;
       }
     `,
-    // Arrow function concise body returning another arrow
+    // React namespace call assigned to variable
     tsx`
-      import { useMemo } from "react";
+      import React from "react";
 
       function Component({ items }) {
-        const handler = useMemo(() => () => items.length, [items]);
-        return <div onClick={handler} />;
+        const sorted = React.useMemo(() => [...items].sort(), [items]);
+        return <div>{sorted.join(", ")}</div>;
       }
+    `,
+    tsx`
+      const use1 = () => useMemo(() => 1, []);
     `,
     tsx`
       function A() {
@@ -479,9 +496,6 @@ ruleTester.run(RULE_NAME, rule, {
         }, []) as number;
         return x;
       }
-    `,
-    tsx`
-      const use1 = () => useMemo(() => 1, []);
     `,
     // Callback wrapped in TSAsExpression with return value
     tsx`
@@ -493,24 +507,10 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{processed}</div>;
       }
     `,
-    // Parameterless callback
+    // No useMemo in file — fast path
     tsx`
-      import { useMemo } from "react";
-
       function Component({ items }) {
-        const result = useMemo(() => items.length, [items]);
-        return <div>{result}</div>;
-      }
-    `,
-    // FunctionExpression with no parameters
-    tsx`
-      import { useMemo } from "react";
-
-      function Component({ items }) {
-        const result = useMemo(function() {
-          return items.filter(Boolean);
-        }, [items]);
-        return <div>{result}</div>;
+        return <div>{items.length}</div>;
       }
     `,
     // Explicit null return (from React Compiler fixtures)
@@ -520,18 +520,6 @@ ruleTester.run(RULE_NAME, rule, {
           return null;
         }, []);
         return <div>{value}</div>;
-      }
-    `,
-    // If-else with multiple returns (from React Compiler fixtures)
-    tsx`
-      function Component(props) {
-        const x = useMemo(() => {
-          if (props.cond) {
-            return makeObject(props.a);
-          }
-          return makeObject(props.b);
-        });
-        return x;
       }
     `,
     // useMemo result used in logical expression (from React Compiler fixtures)
@@ -545,42 +533,16 @@ ruleTester.run(RULE_NAME, rule, {
         );
       }
     `,
-    // Rule 3 valid: Reassigning local variable inside useMemo callback
+    // If-else with multiple returns (from React Compiler fixtures)
     tsx`
-      import { useMemo } from "react";
-
-      function Component() {
-        const y = useMemo(() => {
-          let z;
-          z = true;
-          return z;
-        }, []);
-        return y;
-      }
-    `,
-    // Rule 3 valid: Reading outer variables without reassigning
-    tsx`
-      import { useMemo } from "react";
-
-      function Component({ a, b }) {
-        const sum = useMemo(() => a + b, [a, b]);
-        return <div>{sum}</div>;
-      }
-    `,
-    // Rule 3 valid: Nested function reassigning its own local variable
-    tsx`
-      import { useMemo } from "react";
-
-      function Component() {
-        const value = useMemo(() => {
-          const helper = () => {
-            let y;
-            y = 5;
-            return y;
-          };
-          return helper();
-        }, []);
-        return <div>{value}</div>;
+      function Component(props) {
+        const x = useMemo(() => {
+          if (props.cond) {
+            return makeObject(props.a);
+          }
+          return makeObject(props.b);
+        });
+        return x;
       }
     `,
     // useMemo with switch statement and returns (from React Compiler fixtures)
@@ -795,6 +757,44 @@ ruleTester.run(RULE_NAME, rule, {
           console.log(key);
         }
         return <div />;
+      }
+    `,
+    // Rule 3 valid: Reading outer variables without reassigning
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ a, b }) {
+        const sum = useMemo(() => a + b, [a, b]);
+        return <div>{sum}</div>;
+      }
+    `,
+    // Rule 3 valid: Reassigning local variable inside useMemo callback
+    tsx`
+      import { useMemo } from "react";
+
+      function Component() {
+        const y = useMemo(() => {
+          let z;
+          z = true;
+          return z;
+        }, []);
+        return y;
+      }
+    `,
+    // Rule 3 valid: Nested function reassigning its own local variable
+    tsx`
+      import { useMemo } from "react";
+
+      function Component() {
+        const value = useMemo(() => {
+          const helper = () => {
+            let y;
+            y = 5;
+            return y;
+          };
+          return helper();
+        }, []);
+        return <div>{value}</div>;
       }
     `,
     // Rule 3 valid: Property mutation is not outer variable reassignment

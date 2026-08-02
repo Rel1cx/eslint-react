@@ -5,58 +5,29 @@ import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
-    // Test case for an empty string, which would render in the DOM
+    // Test case for a variable initialized to 0
     {
       code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
-        const a = <>{"" && <Something />}</>;
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [
-        { messageId: "default" },
-      ],
-      settings: {
-        "react-x": {
-          version: "17.0.0", // React 17 and below will render the empty string
-        },
-      },
+      errors: [{ messageId: "default" }],
     },
-    // Test case for a variable that is an empty string
+    // Test case for a variable initialized to -0
     {
       code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
-        const someString = "";
-        const a = <>{someString && <Something />}</>;
+        const someCondition = -0;
+        const SomeComponent = () => <div />;
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
       `,
-      errors: [
-        { messageId: "default" },
-      ],
-      settings: {
-        "react-x": {
-          version: "17.0.0",
-        },
-      },
-    },
-    // Test case for a variable that could be an empty string
-    {
-      code: tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-        const anyString = Math.random() > 0.5 ? "" : "foo";
-        const a = <>{anyString && <Something />}</>;
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-      settings: {
-        "react-x": {
-          version: "17.0.0",
-        },
-      },
+      errors: [{ messageId: "default" }],
     },
     // Test cases for 0 and NaN, which would render
     {
@@ -126,53 +97,58 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         { messageId: "default" }, // For z = 0n
       ],
     },
-    // Test case for 'unknown' type, which could be a falsy value that renders
+    // Test case for an empty string, which would render in the DOM
     {
       code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
-        const someCondition = JSON.parse("") as unknown;
-        const SomeComponent = () => <div />;
-        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
+        const a = <>{"" && <Something />}</>;
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        { messageId: "default" },
+      ],
+      settings: {
+        "react-x": {
+          version: "17.0.0", // React 17 and below will render the empty string
+        },
+      },
     },
-    // Test case for a variable initialized to 0
+    // Test case for a variable that is an empty string
     {
       code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
+        const someString = "";
+        const a = <>{someString && <Something />}</>;
       `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        { messageId: "default" },
+      ],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
     },
-    // Test case for a variable initialized to -0
+    // Test case for a variable that could be an empty string
     {
       code: tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
-        const someCondition = -0;
-        const SomeComponent = () => <div />;
-        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
+        const anyString = Math.random() > 0.5 ? "" : "foo";
+        const a = <>{anyString && <Something />}</>;
       `,
-      errors: [{ messageId: "default" }],
-    },
-    // Test case where a falsy value (0) could be rendered in a ternary's else branch
-    {
-      code: tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-        const someCondition = 0;
-        const SomeComponent = () => <div />;
-        const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
-      `,
-      errors: [{ messageId: "default" }],
+      errors: [
+        { messageId: "default" },
+      ],
+      settings: {
+        "react-x": {
+          version: "17.0.0",
+        },
+      },
     },
     // Test case where a prop of type `number | undefined` could be 0
     {
@@ -213,6 +189,30 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
             </>
           )
         }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Test case for 'unknown' type, which could be a falsy value that renders
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const someCondition = JSON.parse("") as unknown;
+        const SomeComponent = () => <div />;
+        const a = <>{someCondition && <SomeComponent prop1={val1} prop2={val2} />}</>;
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Test case where a falsy value (0) could be rendered in a ternary's else branch
+    {
+      code: tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        const someCondition = 0;
+        const SomeComponent = () => <div />;
+        const a = <>{!!someCondition ? <SomeComponent prop1={val1} prop2={val2} /> : someCondition && <div />}</>;
       `,
       errors: [{ messageId: "default" }],
     },
@@ -290,111 +290,65 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
   ],
   valid: [
     tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
 
-      const a = <>{!(0) && <Foo />}</>;
-      const b = <>{!(NaN) && <Foo />}</>;
+      const SomeComponent = () => <div />;
+      const App = ({
+        someCondition,
+      }:{
+        someCondition?: boolean | undefined;
+      }) => {
+        return <>{someCondition && <SomeComponent />}</>;
+      }
     `,
     tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
 
-      const a = <>{!!(0) && <Foo />}</>;
-      const b = <>{!!(NaN) && <Foo />}</>;
+      export const MyComponent = ({ isVisible1 }: { isVisible1: boolean }) => {
+        const isVisible2 = true;
+        const isVisible3 = 1 > 2;
+        return (
+          <>
+            {isVisible1 && <div />}
+            {isVisible2 && <div />}
+            {isVisible3 && <div />}
+          </>
+        );
+      };
     `,
     tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
 
-      const a = <>{!!!(0) && <Foo />}</>;
-      const b = <>{!!!(NaN) && <Foo />}</>;
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
+      const alwaysTruthy = true;
+      const alwaysFalsy = false;
 
-      let x: number | undefined;
-      const a = <>{!x && <Foo />}</>;
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      let x: number | undefined;
-      const y = 2;
-      const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      const x = -1
-      const y = -0
-      const z = 0
-      const w = 1
-      const a = <>{x && <Foo />}</>;
-      const b = <>{!y && <Foo />}</>;
-      const c = <>{!z && <Foo />}</>;
-      const d = <>{w && <Foo />}</>;
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      const x = -1n
-      const y = -0n
-      const z = 0n
-      const w = 1n
-      const a = <>{x && <Foo />}</>;
-      const b = <>{!y && <Foo />}</>;
-      const c = <>{!z && <Foo />}</>;
-      const d = <>{w && <Foo />}</>;
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      const foo = Math.random() > 0.5;
-      const bar = "bar";
-      const a = <div>{0 || bar}</div>
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      const foo = Math.random() > 0.5;
-      const bar = "bar";
-      const a = <div>{foo || bar}</div>
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-      type AppProps = { foo: string; }
-      const App = ({ foo }: AppProps) => <div>{foo}</div>
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-        type AppProps = {
-          items: string[];
-        }
-        const App = ({ items }: AppProps) => {
-          return <div>There are {items.length} elements</div>
+      const App = () => {
+          return (
+            <div>
+              {alwaysTruthy && <div />}
+              {alwaysFalsy && <div />}
+            </div>
+          )
       }
     `,
     tsx`
         /// <reference types="react" />
         /// <reference types="react-dom" />
 
+        type ListProps = {
+          items: string[];
+        }
+        const List = ({ items }: ListProps) => {
+          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
+        }
         type AppProps = {
           items: string[];
-          count: number;
         }
-        const App = ({ items, count }: AppProps) => {
-          return <div>{!count && 'No results found'}</div>
+        const App = ({ items }: AppProps) => {
+          return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
     tsx`
@@ -429,23 +383,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
         }
         const App = ({ items }: AppProps) => {
           return <div>{Boolean(items.length) && <List items={items}/>}</div>
-      }
-    `,
-    tsx`
-        /// <reference types="react" />
-        /// <reference types="react-dom" />
-
-        type ListProps = {
-          items: string[];
-        }
-        const List = ({ items }: ListProps) => {
-          return <div>{items.map(item => <div key={item}>{item}</div>)}</div>
-        }
-        type AppProps = {
-          items: string[];
-        }
-        const App = ({ items }: AppProps) => {
-          return <div>{items.length > 0 && <List items={items}/>}</div>
       }
     `,
     tsx`
@@ -502,31 +439,51 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
 
-      const alwaysTruthy = true;
-      const alwaysFalsy = false;
-
-      const App = () => {
-          return (
-            <div>
-              {alwaysTruthy && <div />}
-              {alwaysFalsy && <div />}
-            </div>
-          )
+        type AppProps = {
+          items: string[];
+        }
+        const App = ({ items }: AppProps) => {
+          return <div>There are {items.length} elements</div>
       }
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+        type AppProps = {
+          items: string[];
+          count: number;
+        }
+        const App = ({ items, count }: AppProps) => {
+          return <div>{!count && 'No results found'}</div>
+      }
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      type AppProps = { foo: string; }
+      const App = ({ foo }: AppProps) => <div>{foo}</div>
     `,
     tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
-      type AppProps = {
-        items: string[];
-        count: number;
+      declare function getData(): { id: number; name: string }[] | undefined;
+      function List({ items }: { items: string[] }) {
+        return <div>{items.map(item => <div key={item}>{item}</div>)}</div>;
       }
-      const App = ({ items, count }: AppProps) => {
-          return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
+      type Item = { id: number; name: string };
+      function App() {
+        let data: Item[] | undefined = getData();
+        return (
+          <div>
+            {data && <List items={data} />}
+          </div>
+        );
       }
     `,
     tsx`
@@ -543,39 +500,7 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
-      const foo = Math.random() > 0.5;
-      const bar = 0;
-      function App() {
-        return (
-          <button
-            type="button"
-            disabled={foo && bar === 0}
-            onClick={() => {}}
-          />
-        );
-      }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
       const someCondition = JSON.parse("true") as boolean;
-      const SomeComponent = () => <div />;
-      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      const someCondition = JSON.parse("") as any;
-      const SomeComponent = () => <div />;
-      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      const someCondition = JSON.parse("") as unknown;
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
     `,
@@ -594,6 +519,97 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       const someCondition = 1
       const SomeComponent = () => <div />;
       const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const a = <>{!(0) && <Foo />}</>;
+      const b = <>{!(NaN) && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const a = <>{!!(0) && <Foo />}</>;
+      const b = <>{!!(NaN) && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const a = <>{!!!(0) && <Foo />}</>;
+      const b = <>{!!!(NaN) && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const x = -1
+      const y = -0
+      const z = 0
+      const w = 1
+      const a = <>{x && <Foo />}</>;
+      const b = <>{!y && <Foo />}</>;
+      const c = <>{!z && <Foo />}</>;
+      const d = <>{w && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const x = -1n
+      const y = -0n
+      const z = 0n
+      const w = 1n
+      const a = <>{x && <Foo />}</>;
+      const b = <>{!y && <Foo />}</>;
+      const c = <>{!z && <Foo />}</>;
+      const d = <>{w && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      let x: number | undefined;
+      const a = <>{!x && <Foo />}</>;
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const foo = Math.random() > 0.5;
+      const bar = "bar";
+      const a = <div>{0 || bar}</div>
+    `,
+    tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      const foo = Math.random() > 0.5;
+      const bar = "bar";
+      const a = <div>{foo || bar}</div>
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const someCondition = true
+      const SomeComponent = () => <div />;
+      const App = () => {
+        return (
+          <>
+            {someCondition
+              ? (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />)
+              : "else"
+            }
+          </>
+        )
+      }
     `,
     tsx`
       /// <reference types="react" />
@@ -624,6 +640,77 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+        /// <reference types="react" />
+        /// <reference types="react-dom" />
+
+      let x: number | undefined;
+      const y = 2;
+      const a = <>{!x ? !x && <Foo /> : y && <Bar />}</>;
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const foo = Math.random() > 0.5;
+      const bar = 0;
+      function App() {
+        return (
+          <button
+            type="button"
+            disabled={foo && bar === 0}
+            onClick={() => {}}
+          />
+        );
+      }
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      type AppProps = {
+        items: string[];
+        count: number;
+      }
+      const App = ({ items, count }: AppProps) => {
+          return <div>{direction ? (direction === "down" ? "▼" : "▲") : ""}</div>
+      }
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const someCondition = JSON.parse("") as any;
+      const SomeComponent = () => <div />;
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const someCondition = JSON.parse("") as unknown;
+      const SomeComponent = () => <div />;
+      const a = <>{!!someCondition && (<SomeComponent prop1={val1} prop2={val2} />)}</>
+    `,
+    tsx`
+      /// <reference types="react" />
+      /// <reference types="react-dom" />
+
+      const someCondition = JSON.parse("") as any;
+      const SomeComponent = () => <div />;
+      const App = () => {
+        return (
+          <>
+            {someCondition && (
+              <SomeComponent
+                prop1={val1}
+                prop2={val2}
+              />
+            )}
+          </>
+        )
+      }
+    `,
+    tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
@@ -642,27 +729,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
               : someCondition && someCondition
               ? <div />
               : null
-            }
-          </>
-        )
-      }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      const someCondition = true
-      const SomeComponent = () => <div />;
-      const App = () => {
-        return (
-          <>
-            {someCondition
-              ? (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />)
-              : "else"
             }
           </>
         )
@@ -705,43 +771,11 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       /// <reference types="react" />
       /// <reference types="react-dom" />
 
-      const SomeComponent = () => <div />;
-      const App = ({
-        someCondition,
-      }:{
-        someCondition?: boolean | undefined;
-      }) => {
-        return <>{someCondition && <SomeComponent />}</>;
-      }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
       type AppProps<T> = {
         someFunction: (data: T) => React.ReactNode;
       };
       function App<T>({ someFunction }: AppProps<T>) {
         return <>{!!someFunction && someFunction<number>(1)}</>;
-      }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      const someCondition = JSON.parse("") as any;
-      const SomeComponent = () => <div />;
-      const App = () => {
-        return (
-          <>
-            {someCondition && (
-              <SomeComponent
-                prop1={val1}
-                prop2={val2}
-              />
-            )}
-          </>
-        )
       }
     `,
     tsx`
@@ -760,40 +794,6 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
           </>
         );
       }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      declare function getData(): { id: number; name: string }[] | undefined;
-      function List({ items }: { items: string[] }) {
-        return <div>{items.map(item => <div key={item}>{item}</div>)}</div>;
-      }
-      type Item = { id: number; name: string };
-      function App() {
-        let data: Item[] | undefined = getData();
-        return (
-          <div>
-            {data && <List items={data} />}
-          </div>
-        );
-      }
-    `,
-    tsx`
-      /// <reference types="react" />
-      /// <reference types="react-dom" />
-
-      export const MyComponent = ({ isVisible1 }: { isVisible1: boolean }) => {
-        const isVisible2 = true;
-        const isVisible3 = 1 > 2;
-        return (
-          <>
-            {isVisible1 && <div />}
-            {isVisible2 && <div />}
-            {isVisible3 && <div />}
-          </>
-        );
-      };
     `,
     {
       code: tsx`

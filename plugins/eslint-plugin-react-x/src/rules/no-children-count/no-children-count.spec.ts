@@ -24,6 +24,23 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import * as React from 'react';
+
+        function RowList({ children }) {
+          return (
+            <>
+              <h1>Total rows: {React.Children.count(children)}</h1>
+              ...
+            </>
+          );
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
         const { Children } = require('react');
 
         function RowList({ children }) {
@@ -56,39 +73,8 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
-    {
-      code: tsx`
-        import * as React from 'react';
-
-        function RowList({ children }) {
-          return (
-            <>
-              <h1>Total rows: {React.Children.count(children)}</h1>
-              ...
-            </>
-          );
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
   ],
   valid: [
-    {
-      code: tsx`
-        import { Children } from 'react';
-
-        function SeparatorList({ children }) {
-          const result = [];
-          Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
-          });
-          // ...
-        }
-      `,
-    },
     {
       code: tsx`
         import { Children } from 'react';
@@ -103,6 +89,20 @@ ruleTester.run(RULE_NAME, rule, {
               )}
             </div>
           );
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import { Children } from 'react';
+
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
         }
       `,
     },

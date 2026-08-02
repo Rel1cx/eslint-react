@@ -6,31 +6,6 @@ import rule, { RULE_NAME } from "./no-missing-button-type";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
-      code: tsx`<button />;`,
-      errors: [
-        {
-          messageId: "missingTypeAttribute",
-          suggestions: [
-            {
-              data: { type: "button" },
-              messageId: "addTypeAttribute",
-              output: tsx`<button type="button" />;`,
-            },
-            {
-              data: { type: "submit" },
-              messageId: "addTypeAttribute",
-              output: tsx`<button type="submit" />;`,
-            },
-            {
-              data: { type: "reset" },
-              messageId: "addTypeAttribute",
-              output: tsx`<button type="reset" />;`,
-            },
-          ],
-        },
-      ],
-    },
-    {
       code: tsx`<button>Click me</button>;`,
       errors: [
         {
@@ -50,6 +25,31 @@ ruleTester.run(RULE_NAME, rule, {
               data: { type: "reset" },
               messageId: "addTypeAttribute",
               output: tsx`<button type="reset">Click me</button>;`,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`<button />;`,
+      errors: [
+        {
+          messageId: "missingTypeAttribute",
+          suggestions: [
+            {
+              data: { type: "button" },
+              messageId: "addTypeAttribute",
+              output: tsx`<button type="button" />;`,
+            },
+            {
+              data: { type: "submit" },
+              messageId: "addTypeAttribute",
+              output: tsx`<button type="submit" />;`,
+            },
+            {
+              data: { type: "reset" },
+              messageId: "addTypeAttribute",
+              output: tsx`<button type="reset" />;`,
             },
           ],
         },
@@ -87,8 +87,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    "<a />;",
-    "<span />;",
     '<button type="button">Click me</button>;',
     'const Button = () => <button type="button">Click me</button>;',
     tsx`
@@ -99,15 +97,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function App() {
           return <button type={ true ? "button" : "submit" }>Click me</button>;
-      }
-    `,
-    tsx`
-      const props = {
-        type: "button",
-      };
-
-      function App() {
-          return <button {...props}>Click me</button>;
       }
     `,
     tsx`
@@ -129,11 +118,36 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      const props = {
+        type: "button",
+      };
+
+      function App() {
+          return <button {...props}>Click me</button>;
+      }
+    `,
+    tsx`
       const buttonAttrs = { type: "button" };
       function App() {
           return <button {...buttonAttrs}>Click me</button>;
       }
     `,
+    "<a />;",
+    "<span />;",
+    // Not a button element
+    tsx`<input type="button" />;`,
+    // Polymorphic as span
+    tsx`
+      function App() {
+        return <PolyComponent as="span">Click me</PolyComponent>;
+      }
+    `,
+    // Empty type attribute (attribute exists)
+    tsx`<button type="">Click me</button>;`,
+    // Boolean shorthand type (attribute exists)
+    tsx`<button type>Click me</button>;`,
+    // Expression type (attribute exists)
+    tsx`<button type={undefined}>Click me</button>;`,
     // https://github.com/oxc-project/oxc/issues/20938
     // `document.createElement('button')` is a DOM API, not React createElement
     tsx`
@@ -144,20 +158,6 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function App() {
         return Foo.createElement("button");
-      }
-    `,
-    // Empty type attribute (attribute exists)
-    tsx`<button type="">Click me</button>;`,
-    // Boolean shorthand type (attribute exists)
-    tsx`<button type>Click me</button>;`,
-    // Expression type (attribute exists)
-    tsx`<button type={undefined}>Click me</button>;`,
-    // Not a button element
-    tsx`<input type="button" />;`,
-    // Polymorphic as span
-    tsx`
-      function App() {
-        return <PolyComponent as="span">Click me</PolyComponent>;
       }
     `,
   ],

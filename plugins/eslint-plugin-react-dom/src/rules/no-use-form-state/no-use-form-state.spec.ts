@@ -146,18 +146,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    {
-      code: tsx`
-        import { useFormState } from "react-dom";
-        (useFormState as any)(action);
-      `,
-      errors: [{ messageId: "default" }],
-      output: tsx`
-        import { useActionState } from "react";
-        import { useFormState } from "react-dom";
-        (useActionState)(action);
-      `,
-    },
     // In return statement
     {
       code: tsx`
@@ -179,6 +167,18 @@ ruleTester.run(RULE_NAME, rule, {
           version: "19.0.0",
         },
       },
+    },
+    {
+      code: tsx`
+        import { useFormState } from "react-dom";
+        (useFormState as any)(action);
+      `,
+      errors: [{ messageId: "default" }],
+      output: tsx`
+        import { useActionState } from "react";
+        import { useFormState } from "react-dom";
+        (useActionState)(action);
+      `,
     },
   ],
   valid: [
@@ -224,19 +224,19 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
-    // Variable named useFormState but not called
+    // Imported from another module
     tsx`
-      const useFormState = 1;
-      console.log(useFormState);
+      import { useFormState } from "some-other-lib";
+      useFormState(action, 0);
     `,
     // Different identifier
     tsx`
       myUseFormState(action, 0);
     `,
-    // Imported from another module
+    // Variable named useFormState but not called
     tsx`
-      import { useFormState } from "some-other-lib";
-      useFormState(action, 0);
+      const useFormState = 1;
+      console.log(useFormState);
     `,
   ],
 });

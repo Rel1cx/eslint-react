@@ -24,23 +24,6 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        const { Children } = require('react');
-
-        function SeparatorList({ children }) {
-          const result = [];
-          Children.forEach(children, (child, index) => {
-            result.push(child);
-            result.push(<hr key={index} />);
-          });
-          // ...
-        }
-      `,
-      errors: [{
-        messageId: "default",
-      }],
-    },
-    {
-      code: tsx`
         import React from 'react';
 
         function SeparatorList({ children }) {
@@ -63,6 +46,23 @@ ruleTester.run(RULE_NAME, rule, {
         function SeparatorList({ children }) {
           const result = [];
           React.Children.forEach(children, (child, index) => {
+            result.push(child);
+            result.push(<hr key={index} />);
+          });
+          // ...
+        }
+      `,
+      errors: [{
+        messageId: "default",
+      }],
+    },
+    {
+      code: tsx`
+        const { Children } = require('react');
+
+        function SeparatorList({ children }) {
+          const result = [];
+          Children.forEach(children, (child, index) => {
             result.push(child);
             result.push(<hr key={index} />);
           });

@@ -9,8 +9,30 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</div>`,
       errors: [{ messageId: "default" }],
     },
+    // Self-closing host element
+    {
+      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
+      errors: [{ messageId: "default" }],
+    },
     {
       code: tsx`<div dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>',
+      errors: [{ messageId: "default" }],
+    },
+    // Custom host-like element
+    {
+      code: '<my-element dangerouslySetInnerHTML={{ __html: "HTML" }} />',
       errors: [{ messageId: "default" }],
     },
     {
@@ -32,31 +54,9 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // String literal keys in spread props are matched
     {
-      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}>Children</App>',
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }} children="Children" />',
-      errors: [{ messageId: "default" }],
-    },
-    {
-      code: '<App dangerouslySetInnerHTML={{ __html: "HTML" }}> </App>',
-      errors: [{ messageId: "default" }],
-    },
-    // Self-closing host element
-    {
-      code: '<div dangerouslySetInnerHTML={{ __html: "HTML" }} />',
-      errors: [{ messageId: "default" }],
-    },
-    // Custom host-like element
-    {
-      code: '<my-element dangerouslySetInnerHTML={{ __html: "HTML" }} />',
-      errors: [{ messageId: "default" }],
-    },
-    // Nested inside JSX attribute value
-    {
-      code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
+      code: tsx`<div {...{ "dangerouslySetInnerHTML": { __html: "HTML" } }} />`,
       errors: [{ messageId: "default" }],
     },
     // Computed string literal keys in spread props are statically resolved
@@ -73,16 +73,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // String literal keys in spread props are matched
+    // Nested inside JSX attribute value
     {
-      code: tsx`<div {...{ "dangerouslySetInnerHTML": { __html: "HTML" } }} />`,
+      code: tsx`<App content={<div dangerouslySetInnerHTML={{ __html: "HTML" }} />} />`,
       errors: [{ messageId: "default" }],
     },
   ],
   valid: [
-    "<div {...props} />",
     "<div />",
     "<App />",
+    "<div {...props} />",
     tsx`<div>{dangerouslySetInnerHTML}</div>`,
     // Computed identifier key in spread props: the property name is the runtime value of the variable
     tsx`

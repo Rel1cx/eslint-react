@@ -32,6 +32,29 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        /** @jsxRuntime classic */
+        import React from "react";
+        const Foo = () => <div />;
+      `,
+      errors: [
+        {
+          data: {
+            json: stringify({
+              kind: "element",
+              type: "div",
+              jsx: "react",
+              jsxFactory: "React.createElement",
+              jsxFragmentFactory: "React.Fragment",
+              jsxImportSource: "react",
+              jsxRuntime: "classic",
+            }),
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
         /** @jsx Preact.h */
         /** @jsxFrag Preact.Fragment */
         /** @jsxImportSource preact */
@@ -49,29 +72,6 @@ ruleTester.run(RULE_NAME, rule, {
               jsxFactory: "Preact.h",
               jsxFragmentFactory: "Preact.Fragment",
               jsxImportSource: "preact",
-              jsxRuntime: "classic",
-            }),
-          },
-          messageId: "default",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        /** @jsxRuntime classic */
-        import React from "react";
-        const Foo = () => <div />;
-      `,
-      errors: [
-        {
-          data: {
-            json: stringify({
-              kind: "element",
-              type: "div",
-              jsx: "react",
-              jsxFactory: "React.createElement",
-              jsxFragmentFactory: "React.Fragment",
-              jsxImportSource: "react",
               jsxRuntime: "classic",
             }),
           },

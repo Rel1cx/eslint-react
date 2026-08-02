@@ -19,14 +19,24 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          return null;
+          const [data, setData] = useState(0);
+          return <div>{data}</div>;
         }
       `,
     },
     {
       code: tsx`
         function Component() {
-          useState(0);
+          const [data, setData] = useState(0);
+          return <Child data={data} />;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const [data, setData] = useState(0);
+          if (data > 0) return <div>positive</div>;
           return <div />;
         }
       `,
@@ -35,7 +45,8 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           const [data, setData] = useState(0);
-          return <div>{data}</div>;
+          console.log(data);
+          return <div />;
         }
       `,
     },
@@ -62,26 +73,15 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
-          const [data, setData] = useState(0);
-          console.log(data);
-          return <div />;
+          return null;
         }
       `,
     },
     {
       code: tsx`
         function Component() {
-          const [data, setData] = useState(0);
-          if (data > 0) return <div>positive</div>;
+          useState(0);
           return <div />;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const [data, setData] = useState(0);
-          return <Child data={data} />;
         }
       `,
     },

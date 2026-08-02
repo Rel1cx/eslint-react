@@ -37,6 +37,16 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Example() {
           useEffect(() => {
+            (setTimeout as any)(() => {}, 1000);
+          }, []);
+        }
+      `,
+      errors: [{ messageId: "expectedTimeoutId" }],
+    },
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
             const timeoutId = global.setTimeout(() => {}, 1000);
           }, []);
         }
@@ -74,16 +84,6 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "expectedClearTimeoutInCleanup",
         },
       ],
-    },
-    {
-      code: tsx`
-        function Example() {
-          useEffect(() => {
-            (setTimeout as any)(() => {}, 1000);
-          }, []);
-        }
-      `,
-      errors: [{ messageId: "expectedTimeoutId" }],
     },
   ],
   valid: [

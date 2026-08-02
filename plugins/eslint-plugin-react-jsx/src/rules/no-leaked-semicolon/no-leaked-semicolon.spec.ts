@@ -36,20 +36,6 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      code: "<div><span />;  \n</div>",
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeSemicolon",
-              output: "<div><span />  \n</div>",
-            },
-          ],
-        },
-      ],
-    },
-    {
       code: tsx`
         const Component = () => {
           return (
@@ -77,32 +63,6 @@ ruleTester.run(RULE_NAME, rule, {
                     </div>
                   );
                 }
-              `,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      code: tsx`
-        const Component = () => (
-          <div>
-            <Component />;
-          </div>
-        )
-      `,
-      errors: [
-        {
-          messageId: "default",
-          suggestions: [
-            {
-              messageId: "removeSemicolon",
-              output: tsx`
-                const Component = () => (
-                  <div>
-                    <Component />
-                  </div>
-                )
               `,
             },
           ],
@@ -167,6 +127,32 @@ ruleTester.run(RULE_NAME, rule, {
                     </>
                   );
                 }
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: tsx`
+        const Component = () => (
+          <div>
+            <Component />;
+          </div>
+        )
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: tsx`
+                const Component = () => (
+                  <div>
+                    <Component />
+                  </div>
+                )
               `,
             },
           ],
@@ -269,6 +255,21 @@ ruleTester.run(RULE_NAME, rule, {
                   );
                 }
               `,
+            },
+          ],
+        },
+      ],
+    },
+    // Trailing spaces between semicolon and newline
+    {
+      code: "<div><span />;  \n</div>",
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "removeSemicolon",
+              output: "<div><span />  \n</div>",
             },
           ],
         },
@@ -398,6 +399,11 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     tsx`
       const Component = () => {
+        return <div />;
+      }
+    `,
+    tsx`
+      const Component = () => {
         return (
           <div>
             <span>;</span>
@@ -406,11 +412,6 @@ ruleTester.run(RULE_NAME, rule, {
             &amp;
           </div>
         );
-      }
-    `,
-    tsx`
-      const Component = () => {
-        return <div />;
       }
     `,
     tsx`
@@ -424,6 +425,8 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Not leaked: semicolon without following newline
     "<div>;<span /></div>",
+    // Not reported: semicolon directly before the closing tag on the same line (a following newline is required)
+    "<div><div />;</div>",
     // Not leaked: whitespace before semicolon+newline
     tsx`
       const Component = () => {
@@ -448,7 +451,5 @@ ruleTester.run(RULE_NAME, rule, {
     "<div><span>;</span></div>",
     // Not leaked: attribute value
     "<div attr='a;b' />",
-    // Not reported: semicolon directly before the closing tag on the same line (a following newline is required)
-    "<div><div />;</div>",
   ],
 });

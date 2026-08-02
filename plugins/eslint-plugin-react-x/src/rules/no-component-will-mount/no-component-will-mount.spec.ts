@@ -6,6 +6,7 @@ import rule, { RULE_NAME } from "./no-component-will-mount";
 ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
+      name: "componentWillMount in class extending React.Component",
       code: tsx`
         import React from "react";
 
@@ -37,37 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
-      code: tsx`
-        import React from "react";
-
-        class Foo extends React.PureComponent {
-
-          componentWillMount() {}
-
-          render() {
-            return <div />;
-          }
-        }
-      `,
-      errors: [
-        {
-          messageId: "default",
-        },
-      ],
-      output: tsx`
-        import React from "react";
-
-        class Foo extends React.PureComponent {
-
-          UNSAFE_componentWillMount() {}
-
-          render() {
-            return <div />;
-          }
-        }
-      `,
-    },
-    {
+      name: "componentWillMount in class extending Component",
       code: tsx`
         import { Component } from "react";
 
@@ -99,6 +70,39 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
+      name: "componentWillMount in class extending React.PureComponent",
+      code: tsx`
+        import React from "react";
+
+        class Foo extends React.PureComponent {
+
+          componentWillMount() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+        },
+      ],
+      output: tsx`
+        import React from "react";
+
+        class Foo extends React.PureComponent {
+
+          UNSAFE_componentWillMount() {}
+
+          render() {
+            return <div />;
+          }
+        }
+      `,
+    },
+    {
+      name: "componentWillMount in class extending PureComponent",
       code: tsx`
         import { PureComponent } from "react";
 
@@ -130,6 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     {
+      name: "componentWillMount as arrow function class property",
       code: tsx`
         import { PureComponent } from "react";
 
@@ -162,34 +167,43 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
-    tsx`
-      class Foo extends Bar {
-        componentWillMount() {}
-      }
-    `,
-    tsx`
-      import React from "react";
+    {
+      name: "UNSAFE_componentWillMount in class extending React.Component",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.Component {
+        class Foo extends React.Component {
 
-        UNSAFE_componentWillMount() {}
+          UNSAFE_componentWillMount() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
-    tsx`
-      import React from "react";
+      `,
+    },
+    {
+      name: "UNSAFE_componentWillMount in class extending React.PureComponent",
+      code: tsx`
+        import React from "react";
 
-      class Foo extends React.PureComponent {
+        class Foo extends React.PureComponent {
 
-        UNSAFE_componentWillMount() {}
+          UNSAFE_componentWillMount() {}
 
-        render() {
-          return <div />;
+          render() {
+            return <div />;
+          }
         }
-      }
-    `,
+      `,
+    },
+    {
+      name: "componentWillMount in class extending non-React class",
+      code: tsx`
+        class Foo extends Bar {
+          componentWillMount() {}
+        }
+      `,
+    },
   ],
 });

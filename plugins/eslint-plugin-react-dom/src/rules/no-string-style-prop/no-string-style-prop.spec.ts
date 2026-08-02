@@ -142,11 +142,12 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<option style="color: red;" />`,
       errors: [{ messageId: "default" }],
     },
-    // String concatenation
+    // Variable holding string
     {
       code: tsx`
         function Component() {
-          return <div style={"color: " + "red;"} />;
+          const styleStr = "color: red;";
+          return <div style={styleStr} />;
         }
       `,
       errors: [
@@ -155,12 +156,11 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    // Variable holding string
+    // String concatenation
     {
       code: tsx`
         function Component() {
-          const styleStr = "color: red;";
-          return <div style={styleStr} />;
+          return <div style={"color: " + "red;"} />;
         }
       `,
       errors: [
@@ -197,16 +197,29 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={{ color: "red" }} />;
       }
     `,
+    // Computed object style
+    tsx`
+      function Component() {
+        const styles = { color: "red" };
+        return <div style={styles} />;
+      }
+    `,
+    // Function returning object
+    tsx`
+      function Component() {
+        return <div style={getStyleObject()} />;
+      }
+    `,
+    // Inline computed
+    tsx`<div style={{ ...baseStyles, color: "red" }} />`,
+    // Conditional object style
+    tsx`<div style={isActive ? { color: "green" } : { color: "red" }} />`,
+    // CSS variable object style
+    tsx`<div style={{ ["--custom-color"]: "red" }} />`,
     // Variable style
     tsx`
       function Component() {
         return <div style={someStyle} />;
-      }
-    `,
-    // Custom component (not host element)
-    tsx`
-      function Component() {
-        return <StatusBar style="auto" />;
       }
     `,
     // Various HTML elements with object style
@@ -235,37 +248,18 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<textarea style={{ resize: "none" }} />`,
     tsx`<select style={{ appearance: "none" }} />`,
     tsx`<option style={{ color: "red" }} />`,
+    // Custom component (not host element)
+    tsx`
+      function Component() {
+        return <StatusBar style="auto" />;
+      }
+    `,
     // No style attribute
     tsx`<div />`,
     tsx`<span>Text</span>`,
     // Null/undefined style
     tsx`<div style={null} />`,
     tsx`<div style={undefined} />`,
-    // Number style (invalid but not string)
-    tsx`<div style={123} />`,
-    // Boolean style (invalid but not string)
-    tsx`<div style={true} />`,
-    // Array style (invalid but not string)
-    tsx`<div style={[]} />`,
-    // Computed object style
-    tsx`
-      function Component() {
-        const styles = { color: "red" };
-        return <div style={styles} />;
-      }
-    `,
-    // Function returning object
-    tsx`
-      function Component() {
-        return <div style={getStyleObject()} />;
-      }
-    `,
-    // Inline computed
-    tsx`<div style={{ ...baseStyles, color: "red" }} />`,
-    // Conditional object style
-    tsx`<div style={isActive ? { color: "green" } : { color: "red" }} />`,
-    // CSS variable object style
-    tsx`<div style={{ ["--custom-color"]: "red" }} />`,
     // Template literal with variable - can't be statically resolved to string
     tsx`
       function Component({ color }) {
@@ -289,13 +283,19 @@ ruleTester.run(RULE_NAME, rule, {
       const props = { style: "color: red;" };
       <div {...props} />
     `,
-    // Boundary: JSXAttribute with no value (boolean shorthand)
-    tsx`<div style />`,
-    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
-    tsx`<div style={} />`,
+    // Number style (invalid but not string)
+    tsx`<div style={123} />`,
+    // Boolean style (invalid but not string)
+    tsx`<div style={true} />`,
     // Boolean false style (invalid but not string)
     tsx`<div style={false} />`,
     // Number 0 style (invalid but not string)
     tsx`<div style={0} />`,
+    // Array style (invalid but not string)
+    tsx`<div style={[]} />`,
+    // Boundary: JSXAttribute with no value (boolean shorthand)
+    tsx`<div style />`,
+    // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
+    tsx`<div style={} />`,
   ],
 });

@@ -26,6 +26,24 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            new ResizeObserver(() => {});
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "unexpectedFloatingInstance",
+        },
+      ],
+    },
+    {
+      code: tsx`
         import React, { useEffect, useRef } from 'react';
 
         function Example() {
@@ -43,24 +61,6 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           messageId: "expectedDisconnectOrUnobserveInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
-            new ResizeObserver(() => {});
-          }, []);
-
-          return <div />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "unexpectedFloatingInstance",
         },
       ],
     },
@@ -105,6 +105,44 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "expectedDisconnectOrUnobserveInCleanup",
         },
       ],
+    },
+    {
+      code: tsx`
+        import { useEffect } from 'react';
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            (observer.observe as any)(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+    },
+    {
+      // A disconnect inside the observer's own callback is not a reliable cleanup:
+      // the callback may never run if the component unmounts before the element resizes
+      code: tsx`
+        import { useEffect, useRef } from 'react';
+
+        function Component() {
+          const ref = useRef<HTMLDivElement>(null);
+
+          useEffect(() => {
+            if (!ref.current) return;
+            const observer = new ResizeObserver(([entry]) => {
+              console.log(entry.contentRect);
+              observer.disconnect();
+            });
+            observer.observe(ref.current);
+          }, []);
+
+          return <div ref={ref} />;
+        }
+      `,
+      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
     },
     {
       code: tsx`
@@ -158,44 +196,6 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
-    {
-      code: tsx`
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
-            const observer = new ResizeObserver(() => {});
-            (observer.observe as any)(document.body);
-          }, []);
-
-          return <div />;
-        }
-      `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
-    },
-    {
-      // A disconnect inside the observer's own callback is not a reliable cleanup:
-      // the callback may never run if the component unmounts before the element resizes
-      code: tsx`
-        import { useEffect, useRef } from 'react';
-
-        function Component() {
-          const ref = useRef<HTMLDivElement>(null);
-
-          useEffect(() => {
-            if (!ref.current) return;
-            const observer = new ResizeObserver(([entry]) => {
-              console.log(entry.contentRect);
-              observer.disconnect();
-            });
-            observer.observe(ref.current);
-          }, []);
-
-          return <div ref={ref} />;
-        }
-      `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
-    },
   ],
   valid: [
     tsx`
@@ -213,48 +213,13 @@ ruleTester.run(RULE_NAME, rule, {
         return <div />;
       }
     `,
-    // A disconnect inside the observer's own callback with a disconnect in the cleanup function as a fallback
-    tsx`
-      import { useEffect, useRef } from 'react';
-
-      function Component() {
-        const ref = useRef<HTMLDivElement>(null);
-
-        useEffect(() => {
-          if (!ref.current) return;
-          const observer = new ResizeObserver(([entry]) => {
-            console.log(entry.contentRect);
-            observer.disconnect();
-          });
-          observer.observe(ref.current);
-          return () => observer.disconnect(); // fallback: might be unmounted before the callback runs
-        }, []);
-
-        return <div ref={ref} />;
-      }
-    `,
-    tsx`
-      import { useEffect } from 'react';
-
-      function Component() {
-        useEffect(() => {
-          const observer = new ResizeObserver(() => {}) as ResizeObserver;
-          observer.observe(document.body);
-          return () => {
-            observer.disconnect();
-          }
-        }, []);
-
-        return <div />;
-      }
-    `,
     tsx`
       import { useEffect } from 'react';
 
       function Component() {
         useEffect(() => {
           const observer = new ResizeObserver(() => {});
-          observer.observe(document.body as HTMLElement);
+          observer.observe(document.body);
           return () => {
             observer.unobserve(document.body);
           }
@@ -277,6 +242,21 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div ref={ref} />;
+      }
+    `,
+    tsx`
+      import { useEffect } from 'react';
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body as HTMLElement);
+          return () => {
+            observer.unobserve(document.body);
+          }
+        }, []);
+
+        return <div />;
       }
     `,
     tsx`
@@ -334,10 +314,10 @@ ruleTester.run(RULE_NAME, rule, {
 
       function Component() {
         useEffect(() => {
-          const observer = new ResizeObserver(() => {});
+          const observer = new ResizeObserver(() => {}) as ResizeObserver;
           observer.observe(document.body);
           return () => {
-            observer.unobserve(document.body);
+            observer.disconnect();
           }
         }, []);
 
@@ -397,6 +377,26 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
 
         return <div />;
+      }
+    `,
+    // A disconnect inside the observer's own callback with a disconnect in the cleanup function as a fallback
+    tsx`
+      import { useEffect, useRef } from 'react';
+
+      function Component() {
+        const ref = useRef<HTMLDivElement>(null);
+
+        useEffect(() => {
+          if (!ref.current) return;
+          const observer = new ResizeObserver(([entry]) => {
+            console.log(entry.contentRect);
+            observer.disconnect();
+          });
+          observer.observe(ref.current);
+          return () => observer.disconnect(); // fallback: might be unmounted before the callback runs
+        }, []);
+
+        return <div ref={ref} />;
       }
     `,
     // The observed/unobserved element is derived from a CallExpression (`getEl()`).
