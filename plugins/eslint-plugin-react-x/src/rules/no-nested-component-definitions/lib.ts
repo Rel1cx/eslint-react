@@ -1,4 +1,4 @@
-import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";
@@ -38,4 +38,32 @@ export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.
   const prop = Traverse.findParent(node, Check.is(AST.ObjectExpression));
   if (prop == null) return false;
   return prop === call.arguments[1];
+}
+
+/**
+ * Resolve the name a function is bound to through a chain of wrapping call expressions,
+ * e.g. `const Component = useCallback(() => <div />, [])` resolves to `Component`.
+ * @param node The function node to resolve the bound name for
+ * @returns The bound name if the call chain ends at a variable declarator with an identifier, `null` otherwise
+ */
+export function getWrapperCallBoundName(node: TSESTreeFunction) {
+  let current: TSESTree.Node = node;
+  let parent = current.parent;
+  while (Check.isTypeExpression(parent)) {
+    current = parent;
+    parent = parent.parent;
+  }
+  // Unwrap wrapping call expressions where the function is an argument (not the callee)
+  while (parent.type === AST.CallExpression && Extract.unwrap(parent.callee) !== current) {
+    current = parent;
+    parent = parent.parent;
+    while (Check.isTypeExpression(parent)) {
+      current = parent;
+      parent = parent.parent;
+    }
+  }
+  if (parent.type !== AST.VariableDeclarator || parent.id.type !== AST.Identifier) {
+    return null;
+  }
+  return parent.id.name;
 }

@@ -799,6 +799,132 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // https://github.com/Rel1cx/eslint-react/issues/1927
+      code: tsx`
+        export const Parent = () => {
+          const A = () => <div>a</div>;
+          const B = memo(() => <div>b</div>);
+          const C = useCallback(() => <div>c</div>, []);
+          return <Consumer render={{ A, B, C }} />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            name: "A",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            name: "B",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            name: "C",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = useCallback(memo(() => <div />), []);
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = memo(React.useCallback(() => <div />, []));
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const CustomOption = useCallback(() => <div />, []);
+
+          return <Select components={{ Option: CustomOption }} />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "CustomOption",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            const MemoizedNestedComponent = useCallback(() => <div />, []);
+
+            return <MemoizedNestedComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1192,6 +1318,50 @@ ruleTester.run(RULE_NAME, rule, {
 
       		return this.props.children
       	}
+      }
+    `,
+    // Component defined at the top level and wrapped in useCallback is fine
+    // NOTE: This case calls `useCallback` at the top level, which violates the Rules of Hooks in real code; it is used as a test fixture only
+    tsx`
+      const MemoizedComponent = useCallback(() => <div />, []);
+
+      function ParentComponent() {
+        return <MemoizedComponent />;
+      }
+    `,
+    // Lowercase names are not treated as components
+    tsx`
+      function ParentComponent() {
+        const renderItem = useCallback(() => <div />, []);
+        return <List renderItem={renderItem} />;
+      }
+    `,
+    // Event handlers wrapped in useCallback are not components
+    tsx`
+      function ParentComponent() {
+        const handleClick = useCallback(() => {
+          console.log("click");
+        }, []);
+        return <button onClick={handleClick} />;
+      }
+    `,
+    // List rendering patterns: array method callbacks are not component definitions
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.map((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.flatMap((item) => [<li key={item.id} />]);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.filter((item) => item.visible).map((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
       }
     `,
   ],

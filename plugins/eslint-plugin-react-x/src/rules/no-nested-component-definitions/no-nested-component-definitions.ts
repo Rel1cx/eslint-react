@@ -3,7 +3,7 @@ import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
+import { getWrapperCallBoundName, isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
@@ -38,7 +38,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
-    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback;
 
   // Collectors to find all component definitions in the code
   const fc = core.getFunctionComponentCollector(context, { hint });
@@ -62,8 +63,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         // Iterate over function components to find nested definitions
         for (const { name, node: component } of fComponents) {
-          // Skip anonymous function components to reduce false positives
-          if (name == null) continue;
+          // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`)
+          // for components the collector could not name
+          const resolvedName = name ?? getWrapperCallBoundName(component);
+          // Skip anonymous function components and names that don't follow component naming to reduce false positives
+          if (resolvedName == null || !core.isFunctionComponentNameLoose(resolvedName)) continue;
           // Skip components that are directly returned from a render prop
           // if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
           // Check if the component is defined inside a JSX attribute's value
@@ -72,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             // if (!core.isDeclaredInRenderPropLoose(component)) {
             context.report({
               data: {
-                name,
+                name: resolvedName,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
@@ -86,7 +90,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
-                name,
+                name: resolvedName,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
@@ -99,7 +103,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (findEnclosingComponent(component) != null) {
             context.report({
               data: {
-                name,
+                name: resolvedName,
                 suggestion: component.parent.type === AST.Property
                   ? "Move it to the top level or pass it as a prop."
                   : "Move it to the top level.",
@@ -114,7 +118,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (isInsideRenderMethod(component)) {
             context.report({
               data: {
-                name,
+                name: resolvedName,
                 suggestion: "Move it to the top level.",
               },
               messageId: "default",
