@@ -908,6 +908,97 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function ParentComponent() {
+          const ConnectedNestedComponent = connect(null, { increment })((props) => <div />);
+
+          return <ConnectedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ConnectedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const RoutedNestedComponent = withRouter((props) => <div />);
+
+          return <RoutedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "RoutedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const FormNestedComponent = withFormik({ mapPropsToValues: () => ({}) })((props) => <div />);
+
+          return <FormNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "FormNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const FragmentNestedComponent = createFragmentContainer((props) => <div />);
+
+          return <FragmentNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "FragmentNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      // Custom HOCs following the `with*` naming convention are also component wrappers
+      code: tsx`
+        function ParentComponent() {
+          const AuthedNestedComponent = withAuth((props) => <div />);
+
+          return <AuthedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "AuthedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
           const CustomOption = useCallback(() => <div />, []);
 
           return <Select components={{ Option: CustomOption }} />;
@@ -1370,12 +1461,20 @@ ruleTester.run(RULE_NAME, rule, {
         return <ul>{List}</ul>;
       }
     `,
-    // Only memo, forwardRef, useCallback and observer are treated as component wrappers;
-    // arbitrary wrappers are not unwrapped for name resolution
+    // Only well-known wrappers and `with*` HOCs are unwrapped for name resolution;
+    // arbitrary factory calls are not
     tsx`
       function ParentComponent() {
-        const Wrapped = withHoc(() => <div />);
+        const Wrapped = register(() => <div />);
         return <Wrapped />;
+      }
+    `,
+    // Loaders passed to `lazy`/`dynamic` are not render functions and are covered by
+    // no-nested-lazy-component-declarations instead
+    tsx`
+      function ParentComponent() {
+        const LazyComponent = lazy(() => import("./Foo"));
+        return <LazyComponent />;
       }
     `,
     tsx`
