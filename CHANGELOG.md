@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.18.2 (2026-08-05)
+
+### 🐞 Fixes
+
+- `react-x/no-nested-component-definitions`: fixed a regression where nested components wrapped in `useCallback` (e.g. `const C = useCallback(() => <div />, []);`) were no longer reported — the rule now resolves the component name through well-known component wrappers (`memo`, `forwardRef`, `useCallback`, `observer`, react-redux's `connect`, Relay's `create*Container` helpers, Apollo's `graphql`, and `with*` HOCs, including curried forms like `connect(...)(Component)`) up to the enclosing variable declarator, and no longer misreports array method callbacks (`flatMap`, `forEach`, `reduce`, etc.) in list rendering patterns. (#1928, closes #1927)
+
+### 🏗️ Internal
+
+- Bumped `effect` to `3.22.1`, `eslint-plugin-jsdoc` to `63.3.3`, `textlint` to `15.8.0`, `js-yaml` to `4.3.1`, `axios` to `1.19.0`, `nx` to `23.1.1`, `vite` to `8.2.0`, `@vitejs/plugin-react` to `6.0.5`, `fumadocs` to `16.14.0`, `fumadocs-mdx` to `15.2.2`, `preact` to `10.29.8`, `globals` to `17.9.0`, `lucide-react` to `1.28.0`, `@types/react` to `19.2.18`, `@types/react-dom` to `19.2.4`, and `pnpm` to `11.20.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.1...v5.18.2
+
 ## v5.18.1 (2026-07-30)
 
 ### 📝 Documentation

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.18.2] - 2026-08-05
+
 ### Fixed
 
 - Fixed a regression where nested components wrapped in `useCallback` (e.g. `const C = useCallback(() => <div />, []);` inside another component) were no longer reported. The rule now falls back to resolving the component name through the wrapping call chain up to the enclosing variable declarator when the collector could not name the component. Closes #1927. (#1927)
