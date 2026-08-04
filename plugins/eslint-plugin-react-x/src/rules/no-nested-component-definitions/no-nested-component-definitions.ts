@@ -53,57 +53,54 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Gather all function and class components found by the collectors
         const fComponents = [...fc.api.getAllComponents(program)];
         const cComponents = [...cc.api.getAllComponents(program)];
+        // Node sets for O(1) lookup when walking up the ancestor chain
+        const fComponentNodes = new Set(fComponents.map((c) => c.node));
+        const cComponentNodes = new Set(cComponents.map((c) => c.node));
         // Helper to find the enclosing component of a node
         function findEnclosingComponent(node: TSESTree.Node) {
           return Traverse.findParent(node, (n) => {
-            if (Check.isFunction(n)) return fComponents.some((c) => c.node === n);
-            if (Check.isClass(n)) return cComponents.some((c) => c.node === n);
+            if (Check.isFunction(n)) return fComponentNodes.has(n);
+            if (Check.isClass(n)) return cComponentNodes.has(n);
             return false;
           });
         }
         // Iterate over function components to find nested definitions
-        for (const { name, node: component } of fComponents) {
+        // eslint-disable-next-line prefer-const
+        for (let { name, node: component } of fComponents) {
           // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`)
           // for components the collector could not name
-          const resolvedName = name ?? getWrapperCallBoundName(component);
+          name ??= getWrapperCallBoundName(context, component);
           // Skip anonymous function components and names that don't follow component naming to reduce false positives
-          if (resolvedName == null || !core.isFunctionComponentNameLoose(resolvedName)) continue;
-          // Skip components that are directly returned from a render prop
-          // if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
+          if (name == null || !core.isFunctionComponentNameLoose(name)) continue;
           // Check if the component is defined inside a JSX attribute's value
           if (isInsideJSXAttributeValue(component)) {
-            // Allow if it's part of a render prop pattern
-            // if (!core.isDeclaredInRenderPropLoose(component)) {
             context.report({
               data: {
-                name: resolvedName,
+                name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
               node: component,
             });
-            // }
-
             continue;
           }
           // Check if the component is defined inside the props of a `createElement` call
           if (isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
-                name: resolvedName,
+                name,
                 suggestion: "Move it to the top level or pass it as a prop.",
               },
               messageId: "default",
               node: component,
             });
-
             continue;
           }
           // Check for direct nesting inside another function component
           if (findEnclosingComponent(component) != null) {
             context.report({
               data: {
-                name: resolvedName,
+                name,
                 suggestion: component.parent.type === AST.Property
                   ? "Move it to the top level or pass it as a prop."
                   : "Move it to the top level.",
@@ -111,14 +108,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "default",
               node: component,
             });
-
             continue;
           }
           // Check if the component is defined inside a class component's render method
           if (isInsideRenderMethod(component)) {
             context.report({
               data: {
-                name: resolvedName,
+                name,
                 suggestion: "Move it to the top level.",
               },
               messageId: "default",

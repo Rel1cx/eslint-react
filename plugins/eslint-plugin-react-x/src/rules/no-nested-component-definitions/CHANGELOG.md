@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed a regression where nested components wrapped in `useCallback` (e.g. `const C = useCallback(() => <div />, []);` inside another component) were no longer reported. The rule now falls back to resolving the component name through the wrapping call chain up to the enclosing variable declarator when the collector could not name the component. Closes #1927. (#1927)
-- Excluded `flatMap` callbacks from component detection via the existing `DoNotIncludeFunctionDefinedAsArrayFlatMapCallback` hint, so list rendering patterns like `const List = items.flatMap(...)` are not misreported. (#1927)
+- Excluded array method callbacks from being misreported in list rendering patterns: `flatMap` callbacks are excluded from component detection via the existing `DoNotIncludeFunctionDefinedAsArrayFlatMapCallback` hint, and the fallback name resolution only unwraps `memo`, `forwardRef`, `useCallback` and `observer` calls, so member calls on data objects (e.g. `Array.from`, `items.forEach`, `items.reduce`) are never treated as component wrappers. (#1927)
 
 ## [5.2.3-beta.0] - 2026-04-14
 

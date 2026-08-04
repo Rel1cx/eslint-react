@@ -890,6 +890,24 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function ParentComponent() {
+          const ObservedNestedComponent = observer(() => <div />);
+
+          return <ObservedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ObservedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
           const CustomOption = useCallback(() => <div />, []);
 
           return <Select components={{ Option: CustomOption }} />;
@@ -1352,6 +1370,14 @@ ruleTester.run(RULE_NAME, rule, {
         return <ul>{List}</ul>;
       }
     `,
+    // Only memo, forwardRef, useCallback and observer are treated as component wrappers;
+    // arbitrary wrappers are not unwrapped for name resolution
+    tsx`
+      function ParentComponent() {
+        const Wrapped = withHoc(() => <div />);
+        return <Wrapped />;
+      }
+    `,
     tsx`
       function ParentComponent({ items }) {
         const List = items.flatMap((item) => [<li key={item.id} />]);
@@ -1361,6 +1387,32 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`
       function ParentComponent({ items }) {
         const List = items.filter((item) => item.visible).map((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    // Member calls on data objects are not component wrappers, so their callbacks are never
+    // mistaken for wrapped components even when assigned to an uppercase variable
+    tsx`
+      function ParentComponent({ items }) {
+        const List = Array.from(items, (item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.forEach((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.reduce((acc, item) => <li key={item.id} />, null);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.filter((item) => <li key={item.id} />);
         return <ul>{List}</ul>;
       }
     `,
