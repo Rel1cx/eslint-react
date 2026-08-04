@@ -799,6 +799,241 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // https://github.com/Rel1cx/eslint-react/issues/1927
+      code: tsx`
+        export const Parent = () => {
+          const A = () => <div>a</div>;
+          const B = memo(() => <div>b</div>);
+          const C = useCallback(() => <div>c</div>, []);
+          return <Consumer render={{ A, B, C }} />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            name: "A",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            name: "B",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+        {
+          data: {
+            name: "C",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = React.useCallback(() => <div />, []);
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = useCallback(memo(() => <div />), []);
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const MemoizedNestedComponent = memo(React.useCallback(() => <div />, []));
+
+          return <MemoizedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const ObservedNestedComponent = observer(() => <div />);
+
+          return <ObservedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ObservedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const ConnectedNestedComponent = connect(null, { increment })((props) => <div />);
+
+          return <ConnectedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ConnectedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const RoutedNestedComponent = withRouter((props) => <div />);
+
+          return <RoutedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "RoutedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const FormNestedComponent = withFormik({ mapPropsToValues: () => ({}) })((props) => <div />);
+
+          return <FormNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "FormNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const FragmentNestedComponent = createFragmentContainer((props) => <div />);
+
+          return <FragmentNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "FragmentNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      // Custom HOCs following the `with*` naming convention are also component wrappers
+      code: tsx`
+        function ParentComponent() {
+          const AuthedNestedComponent = withAuth((props) => <div />);
+
+          return <AuthedNestedComponent />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "AuthedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        function ParentComponent() {
+          const CustomOption = useCallback(() => <div />, []);
+
+          return <Select components={{ Option: CustomOption }} />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "CustomOption",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            const MemoizedNestedComponent = useCallback(() => <div />, []);
+
+            return <MemoizedNestedComponent />;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "MemoizedNestedComponent",
+            suggestion: "Move it to the top level.",
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1192,6 +1427,92 @@ ruleTester.run(RULE_NAME, rule, {
 
       		return this.props.children
       	}
+      }
+    `,
+    // Component defined at the top level and wrapped in useCallback is fine
+    // NOTE: This case calls `useCallback` at the top level, which violates the Rules of Hooks in real code; it is used as a test fixture only
+    tsx`
+      const MemoizedComponent = useCallback(() => <div />, []);
+
+      function ParentComponent() {
+        return <MemoizedComponent />;
+      }
+    `,
+    // Lowercase names are not treated as components
+    tsx`
+      function ParentComponent() {
+        const renderItem = useCallback(() => <div />, []);
+        return <List renderItem={renderItem} />;
+      }
+    `,
+    // Event handlers wrapped in useCallback are not components
+    tsx`
+      function ParentComponent() {
+        const handleClick = useCallback(() => {
+          console.log("click");
+        }, []);
+        return <button onClick={handleClick} />;
+      }
+    `,
+    // List rendering patterns: array method callbacks are not component definitions
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.map((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    // Only well-known wrappers and `with*` HOCs are unwrapped for name resolution;
+    // arbitrary factory calls are not
+    tsx`
+      function ParentComponent() {
+        const Wrapped = register(() => <div />);
+        return <Wrapped />;
+      }
+    `,
+    // Loaders passed to `lazy`/`dynamic` are not render functions and are covered by
+    // no-nested-lazy-component-declarations instead
+    tsx`
+      function ParentComponent() {
+        const LazyComponent = lazy(() => import("./Foo"));
+        return <LazyComponent />;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.flatMap((item) => [<li key={item.id} />]);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.filter((item) => item.visible).map((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    // Member calls on data objects are not component wrappers, so their callbacks are never
+    // mistaken for wrapped components even when assigned to an uppercase variable
+    tsx`
+      function ParentComponent({ items }) {
+        const List = Array.from(items, (item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.forEach((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.reduce((acc, item) => <li key={item.id} />, null);
+        return <ul>{List}</ul>;
+      }
+    `,
+    tsx`
+      function ParentComponent({ items }) {
+        const List = items.filter((item) => <li key={item.id} />);
+        return <ul>{List}</ul>;
       }
     `,
   ],

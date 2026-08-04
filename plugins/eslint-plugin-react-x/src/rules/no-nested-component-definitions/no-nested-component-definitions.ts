@@ -3,7 +3,7 @@ import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
+import { getWrapperCallBoundName, isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
@@ -38,7 +38,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     | core.FunctionComponentDetectionHint.RequireBothBranchesOfConditionalExpressionToBeJsx
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayPatternElement
     | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayExpressionElement
-    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback;
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayMapCallback
+    | core.FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArrayFlatMapCallback;
 
   // Collectors to find all component definitions in the code
   const fc = core.getFunctionComponentCollector(context, { hint });
@@ -52,24 +53,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // Gather all function and class components found by the collectors
         const fComponents = [...fc.api.getAllComponents(program)];
         const cComponents = [...cc.api.getAllComponents(program)];
+        // Node sets for O(1) lookup when walking up the ancestor chain
+        const fComponentNodes = new Set(fComponents.map((c) => c.node));
+        const cComponentNodes = new Set(cComponents.map((c) => c.node));
         // Helper to find the enclosing component of a node
         function findEnclosingComponent(node: TSESTree.Node) {
           return Traverse.findParent(node, (n) => {
-            if (Check.isFunction(n)) return fComponents.some((c) => c.node === n);
-            if (Check.isClass(n)) return cComponents.some((c) => c.node === n);
+            if (Check.isFunction(n)) return fComponentNodes.has(n);
+            if (Check.isClass(n)) return cComponentNodes.has(n);
             return false;
           });
         }
         // Iterate over function components to find nested definitions
-        for (const { name, node: component } of fComponents) {
-          // Skip anonymous function components to reduce false positives
-          if (name == null) continue;
-          // Skip components that are directly returned from a render prop
-          // if (core.isDirectValueOfRenderPropertyLoose(component)) continue;
+        // eslint-disable-next-line prefer-const
+        for (let { name, node: component } of fComponents) {
+          // Fall back to the name bound through a wrapping call chain (e.g. `const C = useCallback(() => ..., [])`)
+          // for components the collector could not name
+          name ??= getWrapperCallBoundName(context, component);
+          // Skip anonymous function components and names that don't follow component naming to reduce false positives
+          if (name == null || !core.isFunctionComponentNameLoose(name)) continue;
           // Check if the component is defined inside a JSX attribute's value
           if (isInsideJSXAttributeValue(component)) {
-            // Allow if it's part of a render prop pattern
-            // if (!core.isDeclaredInRenderPropLoose(component)) {
             context.report({
               data: {
                 name,
@@ -78,8 +82,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "default",
               node: component,
             });
-            // }
-
             continue;
           }
           // Check if the component is defined inside the props of a `createElement` call
@@ -92,7 +94,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "default",
               node: component,
             });
-
             continue;
           }
           // Check for direct nesting inside another function component
@@ -107,7 +108,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               messageId: "default",
               node: component,
             });
-
             continue;
           }
           // Check if the component is defined inside a class component's render method
