@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "preact": "^10.29.7"
+    "preact": "^10.29.8"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
