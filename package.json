@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.18.1",
+  "version": "5.18.2",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -86,7 +86,7 @@
     "import-integrity-lint": "^1.2.0",
     "mdxlint": "^1.0.0",
     "nx": "^23.1.1",
-    "preact": "^10.29.7",
+    "preact": "^10.29.8",
     "publint": "^0.3.22",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -106,7 +106,7 @@
     "typescript-eslint": "^8.65.0",
     "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@11.18.0",
+  "packageManager": "pnpm@11.20.0",
   "engines": {
     "node": ">=22.0.0"
   }
