@@ -116,8 +116,8 @@ export function isInitializedFromMutableHook(context: RuleContext, node: TSESTre
   const { additionalMutableHooks } = getSettingsFromContext(context);
   return isInitializedFromCall(context, node, (init) => {
     const name = Extract.getCalleeName(init);
-    if (name != null && additionalMutableHooks.test(name)) return true;
-    return KNOWN_MUTATING_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
+    if (name == null) return false;
+    return KNOWN_MUTATING_HOOKS.has(name) || additionalMutableHooks.test(name);
   });
 }
 
