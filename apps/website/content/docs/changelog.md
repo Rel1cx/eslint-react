@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.18.3 (2026-08-06)
+
+### 🐞 Fixes
+
+- `react-x/no-nested-component-definitions`: narrowed the `with*` HOC detection in the fallback name resolution to well-known wrappers only (react-router v5's `withRouter`, Formik's `withFormik`, and recompose's `withProps`, `withState`, `withHandlers`, and `withLifecycle`) — custom HOCs following the `with*` naming convention are no longer treated as component wrappers. (#1929)
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` to `8.66.0` and `next` to `16.3.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.2...v5.18.3
+
 ## v5.18.2 (2026-08-05)
 
 ### 🐞 Fixes
