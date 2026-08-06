@@ -33,6 +33,8 @@ A function that mutates a variable captured from an enclosing scope is, in effec
 
 Mutations to `ref`-like values (an identifier named `ref` or ending in `Ref`) are exempted, since refs are mutable by design.
 
+Writes through values returned by navigation hooks (`useHistory`, `useNavigate`, `useNavigation`, `useRouter`) are exempted as well, since those values are external mutable stores rather than captured local values. Custom hooks that return such stores can be registered with the `additionalMutableHooks` setting.
+
 ## Examples
 
 ```tsx
@@ -70,6 +72,29 @@ Custom ref hooks can also be configured via shared ESLint settings, which apply 
       "additionalRefHooks": "(useMyRef|useCustomRef)"
     }
   }
+}
+```
+
+Custom hooks that return external mutable stores (like the values returned by navigation hooks) can be registered with `additionalMutableHooks`:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalMutableHooks": "(useWorld|useMyStore)"
+    }
+  }
+}
+```
+
+```tsx
+// 🟢 Allowed: `world` is an external mutable store, not a captured local value
+function Component() {
+  const world = useWorld();
+  const onClose = useCallback(() => {
+    world.set({ open: false });
+  }, [world]);
+  return <AnotherComponent onClose={onClose} />;
 }
 ```
 

@@ -31,7 +31,7 @@ export const MUTATING_METHODS = new Set([
 ]);
 
 /**
- * Known navigation hooks.
+ * Known navigation hooks, which return external mutable stores.
  */
 export const NAVIGATION_HOOKS = new Set([
   "useHistory",
@@ -89,9 +89,11 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
   return isInitializedFromCall(context, node, (init) => core.isUseRefLikeCall(init, additionalRefHooks));
 }
 
-export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
-  const callee = Extract.unwrap(node.callee);
-  return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
+export function isInitializedFromMutableHook(context: RuleContext, node: TSESTree.Expression) {
+  const { additionalMutableHooks } = getSettingsFromContext(context);
+  return isInitializedFromCall(context, node, (init) => {
+    const name = Extract.getCalleeName(init);
+    if (name != null && additionalMutableHooks.test(name)) return true;
     return NAVIGATION_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
   });
 }

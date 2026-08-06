@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { MutationFact } from "./collect";
-import { isKnownNonMutatingMethodCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
+import { isInitializedFromMutableHook, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
 
 export type MutationEffect = {
   name: string;
@@ -23,11 +23,20 @@ function isRefMutation(context: RuleContext, mutation: MutationFact) {
   return isRefLikeChain(context, mutation.target);
 }
 
+/**
+ * Writes through a value returned by a mutable hook (ex: a navigation object or a
+ * configured external store) are intended, not mutations of a captured local value.
+ * Reassignments of the binding itself (`kind: "binding"`) are still mutations.
+ */
+function isMutableStoreMutation(context: RuleContext, mutation: MutationFact) {
+  return mutation.kind === "value" && isInitializedFromMutableHook(context, mutation.target);
+}
+
 export function inferMutableFunctions(context: RuleContext, mutations: readonly MutationFact[]): MutableFunctionMap {
   const mutableFunctions: MutableFunctionMap = new Map();
 
   for (const mutation of mutations) {
-    if (mutation.node.type === AST.CallExpression && isKnownNonMutatingMethodCall(context, mutation.node)) continue;
+    if (isMutableStoreMutation(context, mutation)) continue;
     if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
