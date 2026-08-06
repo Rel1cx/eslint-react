@@ -58,6 +58,11 @@ export const ESLintReactSettingsSchema = z.object({
    * @example "useMyEffect|useCustomEffect"
    */
   additionalEffectHooks: z.optional(z.string()),
+  /**
+   * Regex pattern matching custom hooks that return external mutable stores.
+   * @example "useMyStore|useCustomStore"
+   */
+  additionalMutableHooks: z.optional(z.string()),
 });
 
 /**
@@ -92,6 +97,8 @@ export interface ESLintReactSettingsNormalized {
   additionalStateHooks: RegExpLike;
   /** Regex pattern matching custom hooks that should be treated as effect hooks. */
   additionalEffectHooks: RegExpLike;
+  /** Regex pattern matching custom hooks that return external mutable stores. */
+  additionalMutableHooks: RegExpLike;
 }
 
 /** The default ESLint React settings. */
@@ -161,6 +168,7 @@ export const normalizeSettings = ({
   additionalRefHooks,
   additionalStateHooks,
   additionalEffectHooks,
+  additionalMutableHooks,
   ...rest
 }: ESLintReactSettings) => {
   return {
@@ -174,6 +182,7 @@ export const normalizeSettings = ({
     additionalRefHooks: toRegExp(additionalRefHooks),
     additionalStateHooks: toRegExp(additionalStateHooks),
     additionalEffectHooks: toRegExp(additionalEffectHooks),
+    additionalMutableHooks: toRegExp(additionalMutableHooks),
   } as const satisfies ESLintReactSettingsNormalized;
 };
 
