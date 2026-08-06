@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Narrowed the `with*` HOC detection in the fallback name resolution to well-known wrappers only: react-router v5's `withRouter`, Formik's `withFormik`, and recompose's `withProps`, `withState`, `withHandlers` and `withLifecycle`. Custom HOCs following the `with*` naming convention are no longer treated as component wrappers.
+
 ## [5.18.2] - 2026-08-05
 
 ### Fixed

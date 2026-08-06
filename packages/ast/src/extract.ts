@@ -50,6 +50,22 @@ export function getCalleeName(node: TSESTree.CallExpression): string | null {
 }
 
 /**
+ * Unwrap curried call wrappers like `connect(...)(Component)` to get the innermost call expression.
+ * Type expressions and chain expressions around each callee are unwrapped along the way.
+ * @param node The outermost call expression to inspect.
+ * @returns The innermost call expression, whose callee is not itself a call expression.
+ */
+export function getInnermostCall(node: TSESTree.CallExpression): TSESTree.CallExpression {
+  let call = node;
+  let callee = unwrap(call.callee);
+  while (callee.type === AST.CallExpression) {
+    call = callee;
+    callee = unwrap(call.callee);
+  }
+  return call;
+}
+
+/**
  * Get the static name of an object property's key.
  * @param property The property to inspect.
  * @param effort `"min"` only matches plain identifiers; `"max"` also resolves string literals and simple template literals.
