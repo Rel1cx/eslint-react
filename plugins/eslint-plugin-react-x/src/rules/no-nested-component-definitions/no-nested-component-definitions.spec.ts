@@ -978,18 +978,17 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
-      // Custom HOCs following the `with*` naming convention are also component wrappers
       code: tsx`
         function ParentComponent() {
-          const AuthedNestedComponent = withAuth((props) => <div />);
+          const PropsNestedComponent = withProps({ className: "nested" })((props) => <div />);
 
-          return <AuthedNestedComponent />;
+          return <PropsNestedComponent />;
         }
       `,
       errors: [
         {
           data: {
-            name: "AuthedNestedComponent",
+            name: "PropsNestedComponent",
             suggestion: "Move it to the top level.",
           },
           messageId: "default",
@@ -1036,6 +1035,14 @@ ruleTester.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    // Custom HOCs following the `with*` naming convention are not well-known wrappers
+    tsx`
+      function ParentComponent() {
+        const AuthedNestedComponent = withAuth((props) => <div />);
+
+        return <AuthedNestedComponent />;
+      }
+    `,
     tsx`
       function ParentComponent() {
         return (

@@ -2,7 +2,7 @@ import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { findProperty, getCalleeName, getFullyQualifiedName, getIdentifierAt, getPropertyName, unwrap } from "./extract";
+import { findProperty, getCalleeName, getFullyQualifiedName, getIdentifierAt, getInnermostCall, getPropertyName, unwrap } from "./extract";
 
 function getFirstCallExpression(code: string): TSESTree.CallExpression {
   return getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -184,6 +184,35 @@ describe("getFullyQualifiedName", () => {
     const code = "foo();";
     const node = getFirstCallExpression(code);
     expect(getFullyQualifiedName(node, makeGetText(code))).toBe("foo()");
+  });
+});
+
+describe("getInnermostCall", () => {
+  it("should return the call unchanged when the callee is not a call", () => {
+    const node = getFirstCallExpression("memo(Component);");
+    expect(getInnermostCall(node)).toBe(node);
+  });
+
+  it("should unwrap a curried wrapper call", () => {
+    const code = "connect(mapStateToProps)(Component);";
+    const node = getFirstCallExpression(code);
+    const inner = getInnermostCall(node);
+    expect(inner).not.toBe(node);
+    expect(code.slice(inner.range[0], inner.range[1])).toBe("connect(mapStateToProps)");
+  });
+
+  it("should unwrap nested curried wrapper calls", () => {
+    const code = "withState(a)(withHandlers(b))(Component);";
+    const node = getFirstCallExpression(code);
+    const inner = getInnermostCall(node);
+    expect(code.slice(inner.range[0], inner.range[1])).toBe("withState(a)");
+  });
+
+  it("should unwrap type and chain expressions around callees", () => {
+    const code = "(connect(mapStateToProps) as any)(Component);";
+    const node = getFirstCallExpression(code);
+    const inner = getInnermostCall(node);
+    expect(code.slice(inner.range[0], inner.range[1])).toBe("connect(mapStateToProps)");
   });
 });
 
