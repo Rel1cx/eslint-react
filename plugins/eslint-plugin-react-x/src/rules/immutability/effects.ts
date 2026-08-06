@@ -36,8 +36,8 @@ export function inferMutableFunctions(context: RuleContext, mutations: readonly 
   const mutableFunctions: MutableFunctionMap = new Map();
 
   for (const mutation of mutations) {
-    if (isMutableStoreMutation(context, mutation)) continue;
     if (isRefMutation(context, mutation)) continue;
+    if (isMutableStoreMutation(context, mutation)) continue;
     const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
     const origin = mutation.kind === "binding"
