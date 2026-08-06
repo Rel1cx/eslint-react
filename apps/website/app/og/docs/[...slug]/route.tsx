@@ -1,7 +1,7 @@
 import { getPageImage, source } from "@/lib/source";
-import { ImageResponse } from "@takumi-rs/image-response";
-import { generate as DefaultImage } from "fumadocs-ui/og/takumi";
+import { generate as DefaultImage } from "fumadocs-ui/og";
 import { notFound } from "next/navigation";
+import { ImageResponse } from "next/og";
 
 export const revalidate = false;
 
@@ -13,7 +13,6 @@ export async function GET(_req: Request, { params }: RouteContext<"/og/docs/[...
   return new ImageResponse(
     <DefaultImage description={page.data.description} site="ESLint React" title={page.data.title} />,
     {
-      format: "webp",
       height: 630,
       width: 1200,
     },

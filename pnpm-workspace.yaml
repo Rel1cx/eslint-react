@@ -68,8 +68,8 @@ overrides:
   mermaid: "^11.16.1"
   # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.66.0 and nx 23.1.0
   minimatch: "^10.2.6"
-  next: "^16.3.0"
-  postcss: "^8.5.25"
+  next: "16.3.0"
+  postcss: "^8.5.26"
   react-dom: "^19.2.8"
   react: "^19.2.8"
   # Transitive dependency via nx 23.1.0 and others
