@@ -1248,6 +1248,25 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Provenance is per declaration, not per destructured element: every binding
+    // declared from a store hook call is exempt, including siblings of the one
+    // holding the store.
+    {
+      code: tsx`
+        function Component() {
+          const { store, actions } = useMyStore();
+          return <button onClick={() => {
+            store.set("open", false);
+            actions.push("open");
+          }} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalMutableHooks: "/^use\\w*Store$/u",
+        },
+      },
+    },
     // The store is still recognized through an intermediate alias.
     {
       code: tsx`
