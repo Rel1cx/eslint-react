@@ -99,6 +99,16 @@ Example matching `useMyEffect` and `useCustomEffect`:
 additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
 ```
 
+### `additionalMutableHooks`
+
+A regex pattern for matching custom hooks that return external mutable stores (like the values returned by navigation hooks). Writes through such values are not reported as mutations of captured local values. The value must be a valid JavaScript RegExp string with delimiters and flags.
+
+Example matching `useWorld` and `useMyStore`:
+
+```ts
+additionalMutableHooks: "/^(useWorld|useMyStore)$/u",
+```
+
 ## Basic Configuration Example
 
 ```ts title="eslint.config.ts"
@@ -133,6 +143,7 @@ export default [
         additionalRefHooks: "/^(useMyRef|useCustomRef)$/u", // Regex pattern for custom hooks treated as ref hooks
         additionalStateHooks: "/^(useMyState|useCustomState)$/u", // Regex pattern for custom hooks treated as state hooks
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u", // Regex pattern for custom hooks treated as effect hooks
+        additionalMutableHooks: "/^(useWorld|useMyStore)$/u", // Regex pattern for custom hooks returning external mutable stores
       },
     },
   },
@@ -172,6 +183,7 @@ export default [
         additionalRefHooks: "/^(useMyRef|useCustomRef)$/u",
         additionalStateHooks: "/^(useMyState|useCustomState)$/u",
         additionalEffectHooks: "/^(useMyEffect|useCustomEffect)$/u",
+        additionalMutableHooks: "/^(useWorld|useMyStore)$/u",
       },
     },
   },

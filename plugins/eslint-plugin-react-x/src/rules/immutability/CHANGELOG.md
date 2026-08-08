@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added support for the `additionalMutableHooks` setting, which registers custom hooks that return external mutable stores. Writes through values initialized by such hooks are exempted like the values returned by navigation hooks.
+
+### Changed
+
+- Extended the navigation-hook exemption from mutating method calls to all writes through the returned value (e.g. `store.count = 1`, `delete store.stale`). Reassignments of the binding itself are still reported.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed
