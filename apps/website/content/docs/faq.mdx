@@ -94,6 +94,7 @@ Additionally, configuring ESLint React and your project settings correctly ensur
   - **React Version**: Set `version` (e.g., `"detect"` or `"19.2.7"`) to ensure semantic analysis matches your available React features.
   - **React Compiler**: Align `compilationMode` with your React Compiler configuration so rules respect its optimization strategies.
   - **Custom Hooks**: Use `additionalRefHooks`, `additionalStateHooks` and `additionalEffectHooks` regex patterns to help the analyzer recognize and validate your custom hooks as standard ref, state or effect hooks.
+  - **External Mutable Stores**: Use the `additionalMutableHooks` regex pattern for custom hooks that return external mutable stores, so writes through their return values are not reported as mutations of captured local values.
   - **Polymorphic Components**: Define `polymorphicPropName` (e.g., `"as"`) so rules can correctly infer the rendered underlying element type.
   - **Custom Import Sources**: Specify `importSource` if you use non-standard distributions (like `"@pika/react"`).
 
