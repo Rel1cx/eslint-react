@@ -5,7 +5,11 @@ All notable changes to the `react-x/no-class-component` rule will be documented 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.18.4] - 2026-08-12
+
+### Fixed
+
+- Reports now highlight the class name (or the `class` keyword for anonymous classes) instead of the entire class declaration. Closes #1932. (#1934)
 
 ## [5.2.3-beta.0] - 2026-04-14
 

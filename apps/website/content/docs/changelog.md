@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.18.4 (2026-08-12)
+
+### 🐞 Fixes
+
+- `react-x/no-class-component`: reports are now located on the class name (falling back to the `class` token for anonymous classes) instead of the entire class declaration. (#1934, closes #1932)
+
+### 🏗️ Internal
+
+- Bumped `eslint` to `10.8.1`, `@types/node` to `26.2.0`, `eslint-plugin-package-json` to `1.7.0`, `eslint-plugin-react-refresh` to `0.5.4`, `fumadocs` to `16.14.3`, `fumadocs-mdx` to `15.2.3`, `lucide-react` to `1.31.0`, `postcss` to `8.5.26`, and `pnpm` to `11.21.0`.
+
+### New Contributors
+
+- **Ankit Soni** (@ankitprahladsoni) made their first contribution in #1934.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.3...v5.18.4
+
 ## v5.18.3 (2026-08-06)
 
 ### 🐞 Fixes
