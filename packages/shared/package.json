@@ -45,9 +45,9 @@
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.2.0",
     "@types/picomatch": "^4.0.3",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3"
   },

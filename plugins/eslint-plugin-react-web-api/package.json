@@ -59,7 +59,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "dedent": "^1.7.2",
-    "eslint": "^10.8.0",
+    "eslint": "^10.8.1",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3"
   },
