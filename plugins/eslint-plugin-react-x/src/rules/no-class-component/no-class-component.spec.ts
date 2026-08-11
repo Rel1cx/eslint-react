@@ -279,6 +279,69 @@ ruleTester.run(RULE_NAME, rule, {
       ],
     },
     {
+      name: "class component reported on the class name only",
+      code: tsx`
+        class ParentComponent extends React.Component {
+          render() {
+            return <div />;
+          }
+        }
+      `,
+      errors: [
+        {
+          column: 7,
+          data: {
+            name: "ParentComponent",
+          },
+          endColumn: 22,
+          endLine: 1,
+          line: 1,
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "class component assigned to a variable reported on the variable name",
+      code: tsx`
+        const ParentComponent = class extends React.Component {
+          render() {
+            return <div />;
+          }
+        };
+      `,
+      errors: [
+        {
+          column: 7,
+          data: {
+            name: "ParentComponent",
+          },
+          endColumn: 22,
+          endLine: 1,
+          line: 1,
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "anonymous class component reported on the class keyword",
+      code: tsx`
+        export default class extends React.Component {
+          render() {
+            return <div />;
+          }
+        }
+      `,
+      errors: [
+        {
+          column: 16,
+          endColumn: 21,
+          endLine: 1,
+          line: 1,
+          messageId: "default",
+        },
+      ],
+    },
+    {
       name: "error boundary with static componentDidCatch",
       code: tsx`
         class ErrorBoundary extends React.Component {

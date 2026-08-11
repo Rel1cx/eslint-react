@@ -32,14 +32,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     visitor,
     {
       "Program:exit"(program) {
-        for (const { name = "anonymous", node: component } of api.getAllComponents(program)) {
+        for (const { id, name = "anonymous", node: component } of api.getAllComponents(program)) {
           if (component.body.body.some((m) => core.isComponentDidCatch(m) || core.isGetDerivedStateFromError(m))) {
             continue;
           }
+          const classToken = context.sourceCode.getFirstToken(component, {
+            filter: (token) => token.value === "class",
+          });
           context.report({
             data: {
               name,
             },
+            loc: (id ?? classToken ?? component).loc,
             messageId: "default",
             node: component,
           });
