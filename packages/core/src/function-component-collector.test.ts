@@ -15,6 +15,18 @@ function collectComponents(code: string) {
   );
 }
 
+function collectComponentsWithDisplayName(code: string) {
+  return runCollector(
+    code,
+    (context) =>
+      getFunctionComponentCollector(context as never, {
+        hint: DEFAULT_COMPONENT_DETECTION_HINT,
+        collectDisplayName: true,
+      }),
+    (api, program) => api.getAllComponents(program),
+  );
+}
+
 describe("getFunctionComponentCollector", () => {
   it("should collect regular hook calls in components", () => {
     const components = collectComponents(
@@ -129,5 +141,30 @@ describe("getFunctionComponentCollector", () => {
     expect(components[0]?.hookCalls).toHaveLength(2);
     expect(components[0]?.hookCalls.some((call) => call.type === "CallExpression")).toBe(true);
     expect(components[0]?.hookCalls.some((call) => call.type === "TaggedTemplateExpression")).toBe(true);
+  });
+
+  it("should collect displayName assignment for a component", () => {
+    const components = collectComponentsWithDisplayName(
+      "const Component = () => <div />; Component.displayName = 'MyComponent';",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).not.toBeNull();
+    expect(components[0]?.displayName?.type).toBe("Literal");
+  });
+
+  it("should not collect displayName assignment without collectDisplayName option", () => {
+    const components = collectComponents(
+      "const Component = () => <div />; Component.displayName = 'MyComponent';",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).toBeNull();
+  });
+
+  it("should not match nested member expression displayName assignment", () => {
+    const components = collectComponentsWithDisplayName(
+      "const Components = { Nav: () => <div /> }; Components.Nav.displayName = 'Nav';",
+    );
+    expect(components).toHaveLength(1);
+    expect(components[0]?.displayName).toBeNull();
   });
 });

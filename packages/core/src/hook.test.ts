@@ -373,4 +373,18 @@ describe("isUseEffectCleanupCallback", () => {
   it("should return false for null", () => {
     expect(isUseEffectCleanupCallback(null)).toBe(false);
   });
+
+  it("should return false for cleanup function returned via variable reference", () => {
+    const code = "useEffect(() => { const cleanup = () => {}; return cleanup; })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression && node.parent.type === AST.VariableDeclarator) {
+          expect(isUseEffectCleanupCallback(node)).toBe(false);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });

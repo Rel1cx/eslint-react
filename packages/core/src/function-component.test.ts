@@ -319,4 +319,20 @@ describe("isFunctionComponentDefinition", () => {
     }, true);
     expect(found).toBe(true);
   });
+
+  it("does not exclude named callbacks in arbitrary calls even when hint is set", () => {
+    const code = "const x = someHelper(function Component() { return <div /> })";
+    let found = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (Check.isFunction(node)) {
+          const hintWithExclude = DEFAULT_COMPONENT_DETECTION_HINT
+            | FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback;
+          expect(isFunctionComponentDefinition(context, node, hintWithExclude)).toBe(true);
+          found = true;
+        }
+      },
+    }, true);
+    expect(found).toBe(true);
+  });
 });

@@ -54,6 +54,22 @@ describe("isFunctionHasCallInInitPath", () => {
     }, true);
     expect(result).toBe(true);
   });
+
+  it("should detect memo in nested HOC init path", () => {
+    const code = "const Component = memo(forwardRef(() => {}))";
+    let result = false;
+    simpleTraverse(parseCode(code).ast, {
+      enter(node) {
+        if (node.type === AST.ArrowFunctionExpression) {
+          const initPath = getFunctionInitPath(node);
+          if (initPath != null) {
+            result = isFunctionHasCallInInitPath("memo", initPath);
+          }
+        }
+      },
+    }, true);
+    expect(result).toBe(true);
+  });
 });
 
 describe("getFunctionId", () => {

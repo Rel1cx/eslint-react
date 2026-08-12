@@ -193,6 +193,13 @@ describe("isJsxLike", () => {
     it("should detect React.createElement when callee is wrapped in TSAsExpression", () => {
       expect(run("(React.createElement as any)('div', null, null);")).toBe(true);
     });
+
+    it("treats any createElement call as JSX-like (current heuristic)", () => {
+      // This documents the current loose behavior: isJsxLike does not verify
+      // that createElement comes from React, so user-defined createElement
+      // functions are also considered JSX-like.
+      expect(run("const createElement = () => {}; createElement('div');")).toBe(true);
+    });
   });
 
   describe("identifier resolution", () => {

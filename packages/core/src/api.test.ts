@@ -1,6 +1,10 @@
-/// <reference types="node" />
-
+import type { RuleContext } from "@eslint-react/eslint";
+import { parseCode } from "@local/testkit";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
+
+import { isAPI } from "./api";
 
 /**
  * This function mirrors the core matching logic inside `isAPI` from
@@ -208,5 +212,58 @@ describe("isAPI matching logic (PR #1660 bugfix)", () => {
       expect(matchesReactAPIBuggy("React.createElement", "createElement")).toBe(true);
       expect(matchesReactAPI("React.createElement", "createElement")).toBe(true);
     });
+  });
+});
+
+describe("isAPI (actual export)", () => {
+  function createMockContext(code: string): RuleContext {
+    return {
+      sourceCode: {
+        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+        getScope: () => ({}),
+      },
+    } as unknown as RuleContext;
+  }
+
+  function testAPI(code: string, api: string, expected: boolean) {
+    const parsed = parseCode(code);
+    const context = createMockContext(code);
+    let result: boolean | null = null;
+    simpleTraverse(parsed.ast, {
+      enter(node) {
+        const parent = node.parent;
+        if (
+          parent?.type === AST.ExpressionStatement
+          && (node.type === AST.Identifier || node.type === AST.MemberExpression)
+        ) {
+          result = isAPI(api)(context, node);
+        }
+      },
+    }, true);
+    expect(result).toBe(expected);
+  }
+
+  it("matches exact identifier", () => {
+    testAPI("createElement;", "createElement", true);
+  });
+
+  it("matches single namespace prefix", () => {
+    testAPI("React.createElement;", "createElement", true);
+  });
+
+  it("matches deep namespace prefix", () => {
+    testAPI("a.b.createElement;", "createElement", true);
+  });
+
+  it("matches Children API with namespace", () => {
+    testAPI("React.Children.map;", "Children.map", true);
+  });
+
+  it("does not match substring without dot separator", () => {
+    testAPI("myCreateElement;", "createElement", false);
+  });
+
+  it("does not match different API", () => {
+    testAPI("React.memo;", "createElement", false);
   });
 });
