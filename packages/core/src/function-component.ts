@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
@@ -18,41 +19,30 @@ import type { SemanticNode } from "./semantic";
 export interface FunctionComponentSemanticNode extends SemanticNode {
   /** The identifier or identifier sequence of the component. */
   id: FunctionID;
-
   /** The kind of component. */
   kind: "component";
-
   /** The AST node of the function. */
   node: TSESTreeFunction;
-
   /** Flags describing the component's characteristics. */
   flag: bigint;
-
   /** Hint for how the component was detected. */
   hint: bigint;
-
   /** List of expressions returned by the component. */
   rets: TSESTree.ReturnStatement["argument"][];
-
   /** The initialization path of the function. */
   initPath:
     | null
     | FunctionInitPath;
-
   /** Indicates if the component is inside an export default declaration. */
   isExportDefault: boolean;
-
   /** Indicates if the component is itself an export default declaration. */
   isExportDefaultDeclaration: boolean;
-
   /** List of hook calls within the component. */
   hookCalls: HookCall[];
-
   /** The display name of the component. */
   displayName:
     | null
     | TSESTree.Expression;
-
   /** The directives used in the function (ex: "use strict", "use client", etc.). */
   directives: TSESTreeDirective[];
 }
@@ -262,31 +252,18 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
     return false;
   }
 
-  // 2. Check immediate contextual exclusions
-  const isCreateElementArg = ((): boolean => {
-    let p = node.parent;
-    while (Check.isTypeExpression(p)) p = p.parent;
-    if (p.type !== AST.CallExpression || !isCreateElementCall(context, p)) return false;
-    return p.arguments.slice(2).some((arg) => Extract.unwrap(arg) === node);
-  })();
-  switch (true) {
-    case isCreateElementArg:
-      return false;
-    case isRenderMethodCallback(node):
-      return false;
-  }
-
-  // 3. Traverse up to find the non-type expression parent
+  // 2. Traverse up to find the non-type expression parent
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;
 
+  // 3. Check immediate contextual exclusions
+  if (isRenderMethodCallback(node)) return false;
+  if (parent.type === AST.CallExpression && isCreateElementCall(context, parent) && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === node)) {
+    return false;
+  }
+
   // 4. Apply contextual exclusions via hints
-  const parentCallee = parent.type === AST.CallExpression
-    ? Extract.unwrap(parent.callee)
-    : null;
-  const parentCalleeName = parent.type === AST.CallExpression
-    ? Extract.getCalleeName(parent)
-    : null;
+  const [parentCallee, parentCalleeName] = parent.type === AST.CallExpression ? [Extract.unwrap(parent.callee), Extract.getCalleeName(parent)] : [null, null];
   switch (true) {
     case Check.isOneOf([AST.ArrowFunctionExpression, AST.FunctionExpression])(node)
       && parent.type === AST.Property
