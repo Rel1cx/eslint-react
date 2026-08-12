@@ -343,6 +343,31 @@ const checkDocs = Effect.gen(function*() {
       yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedDescription)}`);
     }
 
+    // Verify the "Full Name" sections contain the correct rule names
+    const scopedNameIndex = contentLines.findIndex((line) => line.startsWith("**Full Name in") && line.includes(`eslint-plugin-react-${domain}`));
+    const expectedScopedName = `react-${domain}/${basename}`;
+    const providedScopedName = scopedNameIndex === -1 ? undefined : contentLines.at(scopedNameIndex + 3)?.trim();
+    if (providedScopedName !== expectedScopedName) {
+      errorCount++;
+      yield* Effect.logError(ansis.red(`  Found 1 mismatched full name (scoped plugin) in documentation for rule ${rulename}`));
+      yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedScopedName)}`);
+      yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedScopedName)}`);
+    }
+
+    if (!EXCLUDED_VERIFY_DOMAINS.has(domain as PluginDomain)) {
+      const fullNameIndex = contentLines.findIndex((line) => line.startsWith("**Full Name in [`@eslint-react/eslint-plugin`]"));
+      const expectedFullName = domain === "x"
+        ? `@eslint-react/${basename}`
+        : `@eslint-react/${domain}-${basename}`;
+      const providedFullName = fullNameIndex === -1 ? undefined : contentLines.at(fullNameIndex + 3)?.trim();
+      if (providedFullName !== expectedFullName) {
+        errorCount++;
+        yield* Effect.logError(ansis.red(`  Found 1 mismatched full name (@eslint-react/eslint-plugin) in documentation for rule ${rulename}`));
+        yield* Effect.logError(`    Expected: ${ansis.bgGreen(expectedFullName)}`);
+        yield* Effect.logError(`    Provided: ${ansis.bgYellow(providedFullName)}`);
+      }
+    }
+
     // Verify the presets section exists if the rule has non-zero severities
     const presetsIndex = contentLines.findIndex((line) => line.startsWith("**Presets**"));
     if (presetsIndex === -1) {
