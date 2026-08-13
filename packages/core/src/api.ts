@@ -1,6 +1,5 @@
 import { Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
-import { dual } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export declare namespace isAPI {
@@ -29,7 +28,12 @@ export function isAPI(api: string): isAPI.ReturnType {
     if (name.endsWith(`.${api}`)) return true;
     return false;
   };
-  return dual(2, func);
+  function dual(context: RuleContext, node: null | TSESTree.Node): boolean;
+  function dual(context: RuleContext): (node: null | TSESTree.Node) => boolean;
+  function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
+    return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node) => func(context, node);
+  }
+  return dual;
 }
 
 export declare namespace isAPICall {
@@ -51,7 +55,12 @@ export function isAPICall(api: string): isAPICall.ReturnType {
     if (node.type !== AST.CallExpression) return false;
     return isAPI(api)(context, Extract.unwrap(node.callee));
   };
-  return dual(2, func);
+  function dual(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
+  function dual(context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+  function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
+    return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node): node is TSESTree.CallExpression => func(context, node);
+  }
+  return dual;
 }
 
 // React API checks

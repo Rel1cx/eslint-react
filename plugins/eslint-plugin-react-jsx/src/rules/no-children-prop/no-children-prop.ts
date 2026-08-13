@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { findCreateElementChildrenProp } from "@/utils/find-create-element-children-prop";
 import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -39,7 +39,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const childrenProp = findCreateElementChildrenProp(context, node);
+      const childrenProp = core.getCreateElementProp(context, node, "children");
       if (childrenProp == null) return;
 
       context.report({

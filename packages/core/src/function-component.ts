@@ -6,6 +6,7 @@ import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";
 import { isRenderMethodCallback } from "./class-component";
+import { isCreateElementChildrenArgument } from "./create-element";
 import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
 import type { HookCall } from "./hook";
 import { JsxDetectionHint } from "./jsx";
@@ -258,9 +259,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
 
   // 3. Check immediate contextual exclusions
   if (isRenderMethodCallback(node)) return false;
-  if (parent.type === AST.CallExpression && isCreateElementCall(context, parent) && parent.arguments.slice(2).some((arg) => Extract.unwrap(arg) === node)) {
-    return false;
-  }
+  if (isCreateElementChildrenArgument(context, node)) return false;
 
   // 4. Apply contextual exclusions via hints
   const [parentCallee, parentCalleeName] = parent.type === AST.CallExpression ? [Extract.unwrap(parent.callee), Extract.getCalleeName(parent)] : [null, null];

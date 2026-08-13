@@ -126,6 +126,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [{ messageId: "default" }],
     },
     {
+      name: "index as key in React.createElement props wrapped in a type expression",
+      code: tsx`foo.map((bar, i) => React.createElement('Foo', { key: i } as const))`,
+      errors: [{ messageId: "default" }],
+    },
+    {
       name: "index in template literal as key in React.createElement",
       code: tsx`foo.map((bar, i) => React.createElement('Foo', { key: \`foo-\${i}\` }))`,
       errors: [{ messageId: "default" }],

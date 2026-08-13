@@ -96,21 +96,6 @@ export function getWrapperCallBoundName(context: RuleContext, node: TSESTreeFunc
 }
 
 /**
- * Check if the node is inside `createElement`'s props argument
- * @param context The rule context
- * @param node The AST node to check
- * @returns `true` if the node is inside `createElement`'s props
- */
-export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.Node) {
-  const call = Traverse.findParent(node, core.isCreateElementCall(context));
-  if (call == null) return false;
-  // The props object is the second argument of createElement
-  const prop = Traverse.findParent(node, Check.is(AST.ObjectExpression));
-  if (prop == null) return false;
-  return prop === call.arguments[1];
-}
-
-/**
  * Check if the node is inside a JSX attribute value
  * @param node The AST node to check
  * @returns `true` if the node is inside a JSX attribute value
