@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.18.6 (2026-08-13)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: added `createElement` helper APIs (`getCreateElementChildrenArguments`, `getCreateElementProp`, `getCreateElementPropsObject`, `getCreateElementTypeArgument`, `isCreateElementChildrenArgument`, and `isInsideCreateElementProps`) and reused them in `react-x/no-children-prop-with-children`, `react-x/no-children-prop`, `react-x/no-array-index-key`, and `react-x/no-nested-component-definitions`. (#1937)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.5...v5.18.6
+
 ## v5.18.5 (2026-08-13)
 
 ### 📝 Documentation
