@@ -3,7 +3,7 @@ import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { getWrapperCallBoundName, isInsideCreateElementProps, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
+import { getWrapperCallBoundName, isInsideJSXAttributeValue, isInsideRenderMethod } from "./lib";
 
 export const RULE_NAME = "no-nested-component-definitions";
 
@@ -85,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             continue;
           }
           // Check if the component is defined inside the props of a `createElement` call
-          if (isInsideCreateElementProps(context, component)) {
+          if (core.isInsideCreateElementProps(context, component)) {
             context.report({
               data: {
                 name,

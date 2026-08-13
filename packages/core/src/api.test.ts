@@ -4,7 +4,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
-import { isAPI } from "./api";
+import { isAPI, isAPICall, isCreateElementCall } from "./api";
 
 /**
  * This function mirrors the core matching logic inside `isAPI` from
@@ -265,5 +265,62 @@ describe("isAPI (actual export)", () => {
 
   it("does not match different API", () => {
     testAPI("React.memo;", "createElement", false);
+  });
+});
+
+describe("dual signature: curried form (context first)", () => {
+  function createMockContext(code: string): RuleContext {
+    return {
+      sourceCode: {
+        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+        getScope: () => ({}),
+      },
+    } as unknown as RuleContext;
+  }
+
+  function parseLastExpression(code: string) {
+    const parsed = parseCode(code);
+    const last = parsed.ast.body.at(-1);
+    if (last?.type !== AST.ExpressionStatement) {
+      throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);
+    }
+    return { context: createMockContext(code), node: last.expression };
+  }
+
+  it("isAPI curried form agrees with the two-argument form", () => {
+    const { context, node } = parseLastExpression("React.createElement;");
+    expect(isAPI("createElement")(context, node)).toBe(true);
+    expect(isAPI("createElement")(context)(node)).toBe(true);
+  });
+
+  it("isAPI curried form rejects non-matching nodes", () => {
+    const { context, node } = parseLastExpression("React.memo;");
+    expect(isAPI("createElement")(context, node)).toBe(false);
+    expect(isAPI("createElement")(context)(node)).toBe(false);
+  });
+
+  it("isAPICall curried form agrees with the two-argument form", () => {
+    const { context, node } = parseLastExpression(`React.createElement("div", null);`);
+    expect(isAPICall("createElement")(context, node)).toBe(true);
+    expect(isAPICall("createElement")(context)(node)).toBe(true);
+  });
+
+  it("isAPICall curried form rejects non-matching calls", () => {
+    const { context, node } = parseLastExpression(`React.cloneElement(element);`);
+    expect(isAPICall("createElement")(context, node)).toBe(false);
+    expect(isAPICall("createElement")(context)(node)).toBe(false);
+  });
+
+  it("isAPICall curried form handles null and non-call nodes", () => {
+    const { context, node } = parseLastExpression(`React.createElement("div", null);`);
+    const predicate = isAPICall("createElement")(context);
+    expect(predicate(null)).toBe(false);
+    expect(predicate(node.type === AST.CallExpression ? node.arguments[0] as TSESTree.Node : node)).toBe(false);
+  });
+
+  it("derived predicates (ex: isCreateElementCall) work in curried form", () => {
+    const { context, node } = parseLastExpression(`createElement("div", null);`);
+    expect(isCreateElementCall(context, node)).toBe(true);
+    expect(isCreateElementCall(context)(node)).toBe(true);
   });
 });

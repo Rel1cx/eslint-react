@@ -51,9 +51,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return node.type === AST.Identifier && isArrayIndexReference(context, node);
   }
 
-  // Checks if a call expression is `React.createElement` or `React.cloneElement`
-  function isCreateOrCloneElementCall(node: TSESTree.Node): node is TSESTree.CallExpression {
-    return core.isCreateElementCall(context, node) || core.isCloneElementCall(context, node);
+  // Gets the props object of a `createElement` or `cloneElement` call
+  function getPropsObject(node: TSESTree.CallExpression): TSESTree.ObjectExpression | null {
+    const props = node.arguments[1];
+    if (core.isCreateElementCall(context, node)) {
+      return core.getCreateElementPropsObject(context, node);
+    }
+    if (!core.isCloneElementCall(context, node)) return null;
+    return props?.type === AST.ObjectExpression ? props : null;
   }
 
   /**
@@ -115,10 +120,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     // Handles 'key' props in `createElement` and `cloneElement` calls
     CallExpression(node) {
-      if (!isCreateOrCloneElementCall(node)) return;
-      const [, props] = node.arguments;
-      if (props?.type !== AST.ObjectExpression) return;
-      for (const property of props.properties) {
+      const propsObject = getPropsObject(node);
+      if (propsObject == null) return;
+      for (const property of propsObject.properties) {
         const value = getKeyPropValue(property);
         if (value == null) continue;
         for (const desc of visitKeyExpression(value)) {
