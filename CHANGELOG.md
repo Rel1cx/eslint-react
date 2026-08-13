@@ -1,5 +1,20 @@
 # Changelog
 
+## v5.18.5 (2026-08-13)
+
+### 📝 Documentation
+
+- `react-jsx/no-leaked-dollar`: corrected the full rule name in the documentation from `@eslint-react/no-leaked-dollar` to `@eslint-react/jsx-no-leaked-dollar`. (#1935)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: simplified function component detection logic.
+- `@eslint-react/core`: added missing test cases for API exports, nested HOC init paths, named callback exclusion, displayName collection, indirect cleanup callbacks, and custom `createElement` heuristics.
+- Added a script check that verifies rule docs include correct full name sections.
+- Bumped `typescript-eslint` to `8.67.0`, `eslint-plugin-package-json` to `1.7.1`, and `globals` to `17.10.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.4...v5.18.5
+
 ## v5.18.4 (2026-08-12)
 
 ### 🐞 Fixes
