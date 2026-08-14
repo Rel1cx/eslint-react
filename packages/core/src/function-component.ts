@@ -179,10 +179,10 @@ export function isFunctionComponentNameLoose(name: string) {
 export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
   if (id == null) return allowNone;
-  if (id.type === AST.Identifier) {
+  if (Check.isIdentifier(id)) {
     return isFunctionComponentNameLoose(id.name);
   }
-  if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
+  if (id.type === AST.MemberExpression && Check.isIdentifier(id.property)) {
     return isFunctionComponentNameLoose(id.property.name);
   }
   return false;

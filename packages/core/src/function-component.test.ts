@@ -24,7 +24,7 @@ function createMockContext(): RuleContext {
   return {
     sourceCode: {
       getText: (node: TSESTree.Node) => {
-        if (node.type === AST.Identifier) {
+        if (Check.isIdentifier(node)) {
           return node.name;
         }
         return "";
@@ -180,7 +180,7 @@ describe("getFunctionComponentId", () => {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionComponentId(context, node);
           expect(id).not.toBeNull();
-          if (id?.type === AST.Identifier) {
+          if (id != null && Check.isIdentifier(id)) {
             expect(id.name).toBe(expectedName);
           }
           found = true;

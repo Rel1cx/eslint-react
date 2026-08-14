@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -101,7 +102,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
       let itemRef: TSESTree.Identifier | null = null;
       simpleTraverse(ast, {
         enter(node, parent) {
-          if (node.type === AST.Identifier && node.name === "item" && parent?.type === AST.ExpressionStatement) {
+          if (Check.isIdentifier(node, "item") && parent?.type === AST.ExpressionStatement) {
             itemRef = node;
           }
         },

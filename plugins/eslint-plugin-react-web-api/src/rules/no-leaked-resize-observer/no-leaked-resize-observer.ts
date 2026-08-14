@@ -97,20 +97,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      const unwrappedCallee = Extract.unwrap(node.callee);
-      if (unwrappedCallee.type !== AST.MemberExpression) {
+      const callee = Extract.unwrap(node.callee);
+      if (callee.type !== AST.MemberExpression) {
         return;
       }
       const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
       if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
         return;
       }
-      const { object } = unwrappedCallee;
+      const { object } = callee;
       match(getCallKind(context, node))
         .with("disconnect", () => {
           dEntries.push({
             kind: "ResizeObserver",
-            callee: node.callee,
+            callee,
             method: "disconnect",
             node,
             observer: object,
@@ -124,7 +124,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           oEntries.push({
             kind: "ResizeObserver",
-            callee: node.callee,
+            callee,
             element,
             method: "observe",
             node,
@@ -139,7 +139,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           uEntries.push({
             kind: "ResizeObserver",
-            callee: node.callee,
+            callee,
             element,
             method: "unobserve",
             node,

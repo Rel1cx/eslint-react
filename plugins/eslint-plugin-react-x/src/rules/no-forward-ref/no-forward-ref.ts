@@ -89,7 +89,7 @@ function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
     case AST.Identifier:
       return isInitializedFromReact(callee.name, initialScope, importSource);
     case AST.MemberExpression:
-      return callee.object.type === AST.Identifier
+      return Check.isIdentifier(callee.object)
         && isInitializedFromReact(callee.object.name, initialScope, importSource);
     default:
       return false;

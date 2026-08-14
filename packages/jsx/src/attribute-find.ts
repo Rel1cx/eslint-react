@@ -1,4 +1,4 @@
-import { type TSESTreeJSXAttributeLike, Traverse } from "@eslint-react/ast";
+import { Check, type TSESTreeJSXAttributeLike, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -75,11 +75,11 @@ export function findSpreadProperty(
   seen: Set<TSESTree.Node> = new Set(),
 ): TSESTree.Property | undefined {
   let objectExpression: TSESTree.ObjectExpression | undefined;
-  if (argument.type === AST.Identifier) {
+  if (Check.isIdentifier(argument)) {
     // Follow identifier aliases (`const b = a`) until a non-identifier
     // initializer is reached, mirroring `getStaticValue`'s identifier tracking.
     let initNode: TSESTree.Node | null = resolve(context, argument);
-    while (initNode != null && initNode.type === AST.Identifier && !seen.has(initNode)) {
+    while (initNode != null && Check.isIdentifier(initNode) && !seen.has(initNode)) {
       seen.add(initNode);
       initNode = resolve(context, initNode);
     }
@@ -103,7 +103,7 @@ export function findSpreadProperty(
         if (getStaticValue(key, keyScope)?.value === name) return property;
         continue;
       }
-      if (key.type === AST.Identifier && key.name === name) return property;
+      if (Check.isIdentifier(key, name)) return property;
       if (key.type === AST.Literal && key.value === name) return property;
       continue;
     }

@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
 function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | null {
   const callee = Extract.unwrap(node.callee);
   if (callee.type !== AST.MemberExpression) return null;
-  if (callee.property.type !== AST.Identifier) return null;
+  if (!Check.isIdentifier(callee.property)) return null;
   const position = INDEX_PARAM_POSITIONS.get(callee.property.name);
   if (position == null) return null;
   const callback = node.arguments[position];

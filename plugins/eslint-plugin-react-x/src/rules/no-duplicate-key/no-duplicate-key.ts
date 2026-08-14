@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (n.type !== AST.CallExpression) return false;
               const callee = Extract.unwrap(n.callee);
               return callee.type === AST.MemberExpression
-                && callee.property.type === AST.Identifier
+                && Check.isIdentifier(callee.property)
                 && callee.property.name === "map";
             },
           );

@@ -51,8 +51,8 @@ export const isEqual: {
       }
       return true;
     }
-    case a.type === AST.Identifier
-      && b.type === AST.Identifier:
+    case Check.isIdentifier(a)
+      && Check.isIdentifier(b):
       return a.name === b.name;
     case a.type === AST.PrivateIdentifier
       && b.type === AST.PrivateIdentifier:

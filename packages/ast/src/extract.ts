@@ -40,10 +40,10 @@ export function findProperty(properties: TSESTree.ObjectLiteralElement[], name: 
  */
 export function getCalleeName(node: TSESTree.CallExpression): string | null {
   const callee = unwrap(node.callee);
-  if (callee.type === AST.Identifier) {
+  if (Check.isIdentifier(callee)) {
     return callee.name;
   }
-  if (callee.type === AST.MemberExpression && !callee.computed && callee.property.type === AST.Identifier) {
+  if (callee.type === AST.MemberExpression && !callee.computed && Check.isIdentifier(callee.property)) {
     return callee.property.name;
   }
   return null;
@@ -73,7 +73,7 @@ export function getInnermostCall(node: TSESTree.CallExpression): TSESTree.CallEx
  */
 export function getPropertyName(property: TSESTree.Property, effort: "min" | "max" = "min"): string | null {
   const key = unwrap(property.key);
-  if (key.type === AST.Identifier && !property.computed) return key.name;
+  if (Check.isIdentifier(key) && !property.computed) return key.name;
   if (effort === "min") return null;
   if (key.type === AST.Literal && typeof key.value === "string") return key.value;
   if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
@@ -123,9 +123,9 @@ export function getIdentifierAt(node: TSESTree.Expression | TSESTree.PrivateIden
   let current: TSESTree.Node = unwrap(node);
   while (current.type === AST.MemberExpression) {
     const property = unwrap(current.property);
-    identifiers.unshift(property.type === AST.Identifier ? property : null);
+    identifiers.unshift(Check.isIdentifier(property) ? property : null);
     current = unwrap(current.object);
   }
-  identifiers.unshift(current.type === AST.Identifier ? current : null);
+  identifiers.unshift(Check.isIdentifier(current) ? current : null);
   return identifiers.at(position) ?? null;
 }

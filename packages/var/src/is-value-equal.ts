@@ -38,8 +38,8 @@ export function isValueEqual(
       && b.type === AST.TemplateElement: {
       return a.value.cooked === b.value.cooked;
     }
-    case a.type === AST.Identifier
-      && b.type === AST.Identifier: {
+    case Check.isIdentifier(a)
+      && Check.isIdentifier(b): {
       const aDefNode = resolve(context, a);
       const bDefNode = resolve(context, b);
       const aDefNodeParent = aDefNode?.parent;

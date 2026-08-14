@@ -74,13 +74,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       AssignmentExpression(node: TSESTree.AssignmentExpression) {
         if (node.operator !== "=") return;
         const left = Extract.unwrap(node.left);
-        if (left.type === AST.Identifier) {
+        if (Check.isIdentifier(left)) {
           addIdentifierBinding(left, node.right, node.range[0]);
           return;
         }
-        if (left.type !== AST.MemberExpression || left.property.type !== AST.Identifier) return;
+        if (left.type !== AST.MemberExpression || !Check.isIdentifier(left.property)) return;
         const object = Extract.unwrap(left.object);
-        if (object.type === AST.Identifier) {
+        if (Check.isIdentifier(object)) {
           addMemberBinding(object, left.property.name, node.right, node.range[0]);
         }
       },
@@ -93,11 +93,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       JSXAttribute(node: TSESTree.JSXAttribute) {
         if (node.name.type !== AST.JSXIdentifier || node.name.name !== "ref" || node.value?.type !== AST.JSXExpressionContainer) return;
         const expression = Extract.unwrap(node.value.expression);
-        if (expression.type !== AST.Identifier) return;
+        if (!Check.isIdentifier(expression)) return;
         addJsxRef(expression);
       },
       MemberExpression(node: TSESTree.MemberExpression) {
-        if (node.property.type !== AST.Identifier || node.property.name !== "current") return;
+        if (!Check.isIdentifier(node.property, "current")) return;
         refAccesses.push(getRefAccess(node));
       },
       "Program:exit"(program) {
@@ -197,7 +197,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           for (const argument of callArguments) {
             if (argument.type === AST.SpreadElement) continue;
             const value = Extract.unwrap(argument);
-            if (value.type !== AST.Identifier) continue;
+            if (!Check.isIdentifier(value)) continue;
             const variable = getVariable(value);
             if (variable == null || resolveRef(variable, value.range[0]) == null) continue;
             context.report({ messageId: "refPassedToFunction", node: value });
@@ -205,7 +205,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
       },
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
-        if (node.id.type !== AST.Identifier || node.init == null) return;
+        if (!Check.isIdentifier(node.id) || node.init == null) return;
         addIdentifierBinding(node.id, node.init, node.range[0]);
       },
     },

@@ -37,10 +37,10 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
   if ("superClass" in node && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
-      case node.superClass.type === AST.Identifier:
+      case Check.isIdentifier(node.superClass):
         return re.test(node.superClass.name);
       case node.superClass.type === AST.MemberExpression
-        && node.superClass.property.type === AST.Identifier:
+        && Check.isIdentifier(node.superClass.property):
         return re.test(node.superClass.property.name);
     }
   }
@@ -57,10 +57,10 @@ export function isPureComponent(node: TSESTree.Node) {
   if ("superClass" in node && node.superClass != null) {
     const re = /^PureComponent$/u;
     switch (true) {
-      case node.superClass.type === AST.Identifier:
+      case Check.isIdentifier(node.superClass):
         return re.test(node.superClass.name);
       case node.superClass.type === AST.MemberExpression
-        && node.superClass.property.type === AST.Identifier:
+        && Check.isIdentifier(node.superClass.property):
         return re.test(node.superClass.property.name);
     }
   }
@@ -75,7 +75,7 @@ function createLifecycleChecker(methodName: string, isStatic = false) {
   return (node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition => (
     Check.isPropertyOrMethod(node)
     && node.static === isStatic
-    && node.key.type === AST.Identifier
+    && Check.isIdentifier(node.key)
     && node.key.name === methodName
   );
 }
@@ -110,7 +110,6 @@ export const isUnsafeComponentWillMount = createLifecycleChecker("UNSAFE_compone
 export const isUnsafeComponentWillReceiveProps = createLifecycleChecker("UNSAFE_componentWillReceiveProps");
 /** @deprecated Class components are legacy. */
 export const isUnsafeComponentWillUpdate = createLifecycleChecker("UNSAFE_componentWillUpdate");
-
 /** @deprecated Class components are legacy. */
 export const isGetDefaultProps = createLifecycleChecker("getDefaultProps", true);
 /** @deprecated Class components are legacy. */
@@ -130,7 +129,7 @@ export const isGetDerivedStateFromError = createLifecycleChecker("getDerivedStat
  */
 export function isRenderMethodLike(node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition {
   return Check.isPropertyOrMethod(node)
-    && node.key.type === AST.Identifier
+    && Check.isIdentifier(node.key)
     && node.key.name.startsWith("render")
     && Check.isOneOf([AST.ClassDeclaration, AST.ClassExpression])(node.parent.parent);
 }
@@ -144,9 +143,8 @@ export function isRenderMethodCallback(node: TSESTreeFunction) {
   const parent = node.parent;
   const grandparent = parent.parent;
   const greatGrandparent = grandparent?.parent;
-  return greatGrandparent != null
-    && isRenderMethodLike(parent)
-    && isClassComponent(greatGrandparent);
+  if (greatGrandparent == null) return false;
+  return isRenderMethodLike(parent) && isClassComponent(greatGrandparent);
 }
 
 // #endregion
@@ -163,7 +161,7 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
   return (
     callee.type === AST.MemberExpression
-    && callee.object.type === AST.ThisExpression
+    && Extract.unwrap(callee.object).type === AST.ThisExpression
     && Extract.getCalleeName(node) === "setState"
   );
 }
@@ -178,11 +176,12 @@ export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
   const { left } = node;
   let current: TSESTree.Node = Extract.unwrap(left);
   while (current.type === AST.MemberExpression) {
-    const { object, property } = current;
-    if (object.type === AST.ThisExpression && property.type === AST.Identifier && property.name === "state") {
+    const object = Extract.unwrap(current.object);
+    const property = current.property;
+    if (object.type === AST.ThisExpression && Check.isIdentifier(property, "state")) {
       return true;
     }
-    current = Extract.unwrap(object);
+    current = object;
   }
   return false;
 }

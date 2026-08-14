@@ -230,7 +230,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
     const callee = Extract.unwrap(node.callee);
 
     // Check direct function calls: memo(...)
-    if (callee.type === AST.Identifier) {
+    if (Check.isIdentifier(callee)) {
       return callee.name === callName;
     }
 

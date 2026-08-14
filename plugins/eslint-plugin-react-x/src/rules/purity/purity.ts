@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       CallExpression(node: TSESTree.CallExpression) {
         const expr = Extract.unwrap(node.callee);
         switch (true) {
-          case expr.type === AST.Identifier: {
+          case Check.isIdentifier(expr): {
             const builtinName = resolveBuiltinObjectName(context, expr);
             if (builtinName == null) return;
             const globalThisImpure = IMPURE_FUNCS.get("globalThis");
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             break;
           }
           case expr.type === AST.MemberExpression
-            && expr.property.type === AST.Identifier: {
+            && Check.isIdentifier(expr.property): {
             const rootId = Extract.getIdentifierAt(expr.object, 0);
             if (rootId == null) return;
             const objectName = resolveBuiltinObjectName(context, rootId);
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       },
       NewExpression(node: TSESTree.NewExpression) {
         const expr = Extract.unwrap(node.callee);
-        if (expr.type !== AST.Identifier) return;
+        if (!Check.isIdentifier(expr)) return;
         const builtinName = resolveBuiltinObjectName(context, expr);
         if (builtinName == null) return;
         if (!IMPURE_CTORS.has(builtinName)) return;

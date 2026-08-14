@@ -139,7 +139,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return variableNodeParent
       .id
       .elements
-      .findIndex((e) => e?.type === AST.Identifier && e.name === id.name) === at;
+      .findIndex((e) => e != null && Check.isIdentifier(e, id.name)) === at;
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {
@@ -360,7 +360,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       for (const { callee } of trackedFnCalls) {
         const unwrappedCallee = Extract.unwrap(callee);
-        if (unwrappedCallee.type !== AST.Identifier) {
+        if (!Check.isIdentifier(unwrappedCallee)) {
           continue;
         }
         const setStateCalls = getSetStateCalls(context, unwrappedCallee);

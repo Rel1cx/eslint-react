@@ -50,13 +50,13 @@ export function resolveGlobalOrigin(
   if (expression.type === AST.MemberExpression) {
     return resolveGlobalOrigin(context, expression.object, seen);
   }
-  if (expression.type !== AST.Identifier) return null;
+  if (!Check.isIdentifier(expression)) return null;
   if (isGlobalVariable(context, expression)) return expression;
 
   const variable = findVariable(context.sourceCode.getScope(expression), expression);
   const definition = variable?.defs.length === 1 ? variable.defs[0] : null;
   if (definition?.type !== DefinitionType.Variable) return null;
-  if (definition.node.id.type !== AST.Identifier || definition.node.init == null) return null;
+  if (!Check.isIdentifier(definition.node.id) || definition.node.init == null) return null;
   const declaration = definition.node.parent;
   if (declaration.kind !== "const") return null;
 
@@ -99,7 +99,7 @@ export function resolveToFunction(
 ): TSESTreeFunction | null {
   const expression = Extract.unwrap(node);
   if (Check.isFunction(expression)) return expression;
-  if (expression.type !== AST.Identifier || seen.has(expression)) return null;
+  if (!Check.isIdentifier(expression) || seen.has(expression)) return null;
   seen.add(expression);
   const resolved = resolve(context, expression);
   if (resolved == null) return null;

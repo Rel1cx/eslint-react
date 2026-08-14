@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import { isUseRefLikeCall } from "@eslint-react/core";
 import { type RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
@@ -14,7 +15,7 @@ export function getRefInitNode(
   switch (true) {
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
-      && node.parent.object.type === AST.Identifier:
+      && Check.isIdentifier(node.parent.object):
       return getRefInit(context, node.parent.object.name, initialScope);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node
@@ -45,7 +46,7 @@ export function getRefInit(
     switch (true) {
       // const identifier = anotherRef.current;
       case init.type === AST.MemberExpression
-        && init.object.type === AST.Identifier
+        && Check.isIdentifier(init.object)
         && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
         return init;
       // const identifier = useRef();

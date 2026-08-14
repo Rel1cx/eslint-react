@@ -19,7 +19,7 @@ function isGlobalOrModuleVariable(variable: Scope.Variable) {
 }
 
 function isRefMutation(context: RuleContext, mutation: MutationFact) {
-  if (mutation.target.type === AST.Identifier) return isRefLikeName(mutation.target.name);
+  if (Check.isIdentifier(mutation.target)) return isRefLikeName(mutation.target.name);
   return isRefLikeChain(context, mutation.target);
 }
 

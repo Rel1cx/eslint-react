@@ -51,7 +51,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
         // Handles direct calls to 'render' (ex: from `import { render } from 'react-dom'`)
-        case callee.type === AST.Identifier
+        case Check.isIdentifier(callee)
           && renderNames.has(callee.name)
           // Check if the return value is being used
           && isReturnValueUsed(node):
@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return;
         // Handles member expression calls like 'ReactDOM.render'
         case callee.type === AST.MemberExpression
-          && callee.object.type === AST.Identifier
+          && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
           && reactDomNames.has(callee.object.name)
           // Check if the return value is being used
@@ -83,7 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         switch (specifier.type) {
           // Handles named imports like `import { render } from 'react-dom'`
           case AST.ImportSpecifier:
-            if (specifier.imported.type !== AST.Identifier) continue;
+            if (!Check.isIdentifier(specifier.imported)) continue;
             if (specifier.imported.name === "render") {
               renderNames.add(specifier.local.name);
             }

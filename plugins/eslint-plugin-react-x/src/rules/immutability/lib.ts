@@ -43,7 +43,7 @@ export const NAVIGATION_HOOKS = new Set([
 export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
   if (Check.isFunction(expr)) return expr;
-  if (expr.type !== AST.Identifier || seen.has(expr)) return null;
+  if (!Check.isIdentifier(expr) || seen.has(expr)) return null;
   seen.add(expr);
   const resolved = resolve(context, expr);
   return resolved == null ? null : resolveToFunctionNode(context, resolved, seen);
@@ -55,7 +55,7 @@ export function resolveVariableOrigin(context: RuleContext, variable: Scope.Vari
   const def = variable.defs.length === 1 ? variable.defs[0] : null;
   if (def?.type !== DefinitionType.Variable || def.node.init == null) return variable;
   const init = Extract.unwrap(def.node.init);
-  if (init.type !== AST.Identifier) return variable;
+  if (!Check.isIdentifier(init)) return variable;
   const source = findVariable(context.sourceCode.getScope(init), init);
   return source == null ? variable : resolveVariableOrigin(context, source, seen);
 }
@@ -65,15 +65,15 @@ export function isRefLikeName(name: string) {
 }
 
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
-  if (node.type === AST.Identifier) return isRefLikeName(node.name);
+  if (Check.isIdentifier(node)) return isRefLikeName(node.name);
   if (node.type !== AST.MemberExpression) return false;
-  return node.property.type === AST.Identifier
+  return Check.isIdentifier(node.property)
     ? isRefLikeName(node.property.name) || hasRefLikeNameInChain(node.object)
     : hasRefLikeNameInChain(node.object);
 }
 
 function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
-  const root = node.type === AST.Identifier ? node : Extract.getIdentifierAt(node, 0);
+  const root = Check.isIdentifier(node) ? node : Extract.getIdentifierAt(node, 0);
   if (root == null) return false;
   const variable = findVariable(context.sourceCode.getScope(root), root);
   if (variable == null) return false;

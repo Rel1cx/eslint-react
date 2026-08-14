@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import { isInitializedFromReact } from "@eslint-react/var";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -18,7 +19,7 @@ export function isFromReact(
   switch (true) {
     case node.parent.type === AST.MemberExpression
       && node.parent.property === node
-      && node.parent.object.type === AST.Identifier:
+      && Check.isIdentifier(node.parent.object):
       return isInitializedFromReact(node.parent.object.name, initialScope, importSource);
     case node.parent.type === AST.JSXMemberExpression
       && node.parent.property === node

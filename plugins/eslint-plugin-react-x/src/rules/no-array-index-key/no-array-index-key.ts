@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -31,24 +31,12 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-/**
- * Gets the value of an object property named 'key' (e.g. in `createElement('div', { key: ... })`).
- * @param property The object literal member to inspect.
- * @returns The value of the 'key' property, or `null` if the member is not one.
- */
-function getKeyPropValue(property: TSESTree.ObjectLiteralElement): TSESTree.Node | null {
-  if (property.type !== AST.Property || property.computed) return null;
-  const isKeyName = (property.key.type === AST.Identifier && property.key.name === "key")
-    || (property.key.type === AST.Literal && property.key.value === "key");
-  return isKeyName ? property.value : null;
-}
-
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   type Descriptor = ReportDescriptor<MessageID> & { node: TSESTree.Node };
 
   // Checks if a given node is an identifier that resolves to an array index parameter
   function isArrayIndex(node: TSESTree.Node): node is TSESTree.Identifier {
-    return node.type === AST.Identifier && isArrayIndexReference(context, node);
+    return Check.isIdentifier(node) && isArrayIndexReference(context, node);
   }
 
   // Gets the props object of a `createElement` or `cloneElement` call
@@ -123,8 +111,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const propsObject = getPropsObject(node);
       if (propsObject == null) return;
       for (const property of propsObject.properties) {
-        const value = getKeyPropValue(property);
-        if (value == null) continue;
+        if (property.type !== AST.Property) continue;
+        if (property.computed) continue;
+        if (Extract.getPropertyName(property, "max") !== "key") continue;
+        const value = property.value;
         for (const desc of visitKeyExpression(value)) {
           context.report(desc);
         }

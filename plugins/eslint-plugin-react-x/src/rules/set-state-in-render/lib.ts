@@ -34,10 +34,10 @@ export function isInsideEventHandler(node: TSESTree.Node, stopAt: TSESTreeFuncti
 export function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
   const id = core.getFunctionId(node);
   if (id == null) return false;
-  if (id.type === AST.Identifier) {
+  if (Check.isIdentifier(id)) {
     return core.isFunctionComponentName(id.name) || core.isHookName(id.name);
   }
-  if (id.type === AST.MemberExpression && id.property.type === AST.Identifier) {
+  if (id.type === AST.MemberExpression && Check.isIdentifier(id.property)) {
     return core.isFunctionComponentName(id.property.name) || core.isHookName(id.property.name);
   }
   return false;

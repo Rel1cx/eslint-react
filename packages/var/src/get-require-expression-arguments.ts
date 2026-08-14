@@ -1,4 +1,4 @@
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -11,7 +11,7 @@ export function getRequireExpressionArguments(node: TSESTree.Node) {
   const unwrapped = Extract.unwrap(node);
   if (unwrapped.type === AST.CallExpression) {
     const callee = Extract.unwrap(unwrapped.callee);
-    if (callee.type === AST.Identifier && callee.name === "require") {
+    if (Check.isIdentifier(callee, "require")) {
       return unwrapped.arguments;
     }
   }

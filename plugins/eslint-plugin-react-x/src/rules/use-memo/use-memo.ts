@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const left = Extract.unwrap(node.left);
         // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
         // to match React Compiler's StoreContext semantics.
-        if (left.type !== AST.Identifier) return;
+        if (!Check.isIdentifier(left)) return;
         if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
 
         const scope = context.sourceCode.getScope(left);
@@ -122,7 +122,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (firstParam == null) return;
         context.report({
           messageId: "noParameters",
-          node: firstParam.type === AST.Identifier ? firstParam : callback,
+          node: Check.isIdentifier(firstParam) ? firstParam : callback,
         });
       }
 

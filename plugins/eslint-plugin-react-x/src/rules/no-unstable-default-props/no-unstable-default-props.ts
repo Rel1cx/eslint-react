@@ -60,18 +60,18 @@ export default createRule<Options, MessageID>({
 function extractIdentifier(node: TSESTree.Node): string | null {
   if (node.type === AST.NewExpression) {
     const callee = Extract.unwrap(node.callee);
-    if (callee.type === AST.Identifier) {
+    if (Check.isIdentifier(callee)) {
       return callee.name;
     }
   }
   if (node.type === AST.CallExpression) {
     const callee = Extract.unwrap(node.callee);
-    if (callee.type === AST.Identifier) {
+    if (Check.isIdentifier(callee)) {
       return callee.name;
     }
     if (callee.type === AST.MemberExpression) {
       const { object } = callee;
-      if (object.type === AST.Identifier) {
+      if (Check.isIdentifier(object)) {
         return object.name;
       }
     }

@@ -14,8 +14,8 @@ export function containsUseComments(context: RuleContext, node: TSESTree.Node) {
 export function isTestMock(node: TSESTree.Node | null): node is TSESTree.MemberExpression {
   return node != null
     && node.type === AST.MemberExpression
-    && node.object.type === AST.Identifier
-    && node.property.type === AST.Identifier
+    && Check.isIdentifier(node.object)
+    && Check.isIdentifier(node.property)
     && node.property.name === "mock";
 }
 
