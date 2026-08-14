@@ -48,7 +48,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
   if (call.type !== AST.CallExpression) return false;
   const callee = Extract.unwrap(call.callee);
   if (callee.type !== AST.MemberExpression) return false;
-  if (callee.property.type !== AST.Identifier) return false;
+  if (!Check.isIdentifier(callee.property)) return false;
   const indexPosition = INDEX_PARAM_POSITIONS.get(callee.property.name);
   if (indexPosition == null) return false;
   // The callback is the first argument, or the second for `Children.map`/`Children.forEach`
@@ -73,7 +73,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
 export function getIdentifiersFromBinaryExpression(
   side: TSESTree.BinaryExpression["left"],
 ): readonly TSESTree.Identifier[] {
-  if (side.type === AST.Identifier) {
+  if (Check.isIdentifier(side)) {
     return [side];
   }
   if (side.type === AST.BinaryExpression) {

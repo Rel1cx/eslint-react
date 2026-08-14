@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
         // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
-        case callee.type === AST.Identifier
+        case Check.isIdentifier(callee)
           && renderNames.has(callee.name):
           context.report({
             fix: buildFix(context, node),
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return;
         // Case 2: Member expression call, e.g., `ReactDOM.render()`
         case callee.type === AST.MemberExpression
-          && callee.object.type === AST.Identifier
+          && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
           && reactDomNames.has(callee.object.name):
           context.report({
@@ -77,7 +77,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         switch (specifier.type) {
           // Handles: import { render } from 'react-dom'
           case AST.ImportSpecifier:
-            if (specifier.imported.type !== AST.Identifier) continue;
+            if (!Check.isIdentifier(specifier.imported)) continue;
             if (specifier.imported.name === "render") {
               renderNames.add(specifier.local.name);
             }

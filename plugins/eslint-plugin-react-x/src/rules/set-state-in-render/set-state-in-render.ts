@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return initNodeParent
       .id
       .elements
-      .findIndex((e) => e?.type === AST.Identifier && e.name === topLevelId.name) === at;
+      .findIndex((e) => e != null && Check.isIdentifier(e, topLevelId.name)) === at;
   }
 
   function isSetStateCall(node: TSESTree.CallExpression) {

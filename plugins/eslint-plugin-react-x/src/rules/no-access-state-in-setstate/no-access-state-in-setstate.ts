@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { Check, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -91,7 +91,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // Check if the property being accessed is `state`
-      if (node.property.type !== AST.Identifier || node.property.name !== "state") {
+      if (!Check.isIdentifier(node.property, "state")) {
         return;
       }
       // Report an issue if `this.state` is accessed
@@ -140,8 +140,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .some((prop) =>
           prop.type === AST.Property
           && !prop.computed
-          && prop.key.type === AST.Identifier
-          && prop.key.name === "state"
+          && Check.isIdentifier(prop.key, "state")
         );
       if (!hasState) {
         return;

@@ -60,7 +60,7 @@ export function createBindingResolver(context: RuleContext) {
 
   function getBindingValue(node: TSESTree.Node): BindingValue {
     const value = Extract.unwrap(node);
-    if (value.type === AST.Identifier) {
+    if (Check.isIdentifier(value)) {
       const variable = getVariable(value);
       return variable == null ? { kind: "unknown" } : { kind: "variable", variable };
     }
@@ -68,7 +68,7 @@ export function createBindingResolver(context: RuleContext) {
     if (value.type === AST.CallExpression && (core.isUseRefLikeCall(value, additionalRefHooks) || core.isCreateRefCall(context, value))) {
       return { kind: "ref" };
     }
-    if (value.type === AST.MemberExpression && value.property.type === AST.Identifier) {
+    if (value.type === AST.MemberExpression && Check.isIdentifier(value.property)) {
       if (isRefLikeName(value.property.name)) return { kind: "ref" };
     }
     return { kind: "unknown" };
@@ -143,14 +143,14 @@ export function createBindingResolver(context: RuleContext) {
   function resolveCallable(node: TSESTree.Node, position: number): TSESTreeFunction | null {
     const callee = Extract.unwrap(node);
     if (isFunctionExpressionLike(callee)) return callee;
-    if (callee.type === AST.Identifier) {
+    if (Check.isIdentifier(callee)) {
       const variable = getVariable(callee);
       return variable == null ? null : resolveFunction(variable, position);
     }
-    if (callee.type !== AST.MemberExpression || callee.property.type !== AST.Identifier) return null;
+    if (callee.type !== AST.MemberExpression || !Check.isIdentifier(callee.property)) return null;
     const object = Extract.unwrap(callee.object);
     const property = callee.property.name;
-    if (object.type !== AST.Identifier) return null;
+    if (!Check.isIdentifier(object)) return null;
     const variable = getVariable(object);
     if (variable == null) return null;
     const event = getLatestValue(memberBindings.get(variable)?.get(property), position);
@@ -162,13 +162,13 @@ export function createBindingResolver(context: RuleContext) {
 
   function getRefTarget(node: TSESTree.MemberExpression): { identity: Variable | null } | null {
     const object = Extract.unwrap(node.object);
-    if (object.type === AST.Identifier) {
+    if (Check.isIdentifier(object)) {
       const variable = getVariable(object);
       if (variable == null) return null;
       const identity = resolveRef(variable, node.range[0]);
       return identity == null ? null : { identity };
     }
-    if (object.type === AST.MemberExpression && object.property.type === AST.Identifier) {
+    if (object.type === AST.MemberExpression && Check.isIdentifier(object.property)) {
       if (isRefLikeName(object.property.name)) return { identity: null };
     }
     return null;
@@ -179,13 +179,13 @@ export function createBindingResolver(context: RuleContext) {
       test,
       (candidate) => {
         if (candidate.type !== AST.MemberExpression) return false;
-        if (candidate.property.type !== AST.Identifier || candidate.property.name !== "current") return false;
+        if (!Check.isIdentifier(candidate.property, "current")) return false;
         return getRefTarget(candidate)?.identity === identity;
       },
       (candidate) => {
         if (candidate.type === AST.Literal) return candidate.value == null;
         if (candidate.type === AST.UnaryExpression && candidate.operator === "void") return true;
-        if (candidate.type !== AST.Identifier || candidate.name !== "undefined") return false;
+        if (!Check.isIdentifier(candidate, "undefined")) return false;
         const variable = getVariable(candidate);
         return variable == null || variable.defs.length === 0;
       },

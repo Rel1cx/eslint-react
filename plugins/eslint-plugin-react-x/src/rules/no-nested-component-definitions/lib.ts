@@ -89,7 +89,7 @@ export function getWrapperCallBoundName(context: RuleContext, node: TSESTreeFunc
       parent = parent.parent;
     }
   }
-  if (parent.type !== AST.VariableDeclarator || parent.id.type !== AST.Identifier) {
+  if (parent.type !== AST.VariableDeclarator || !Check.isIdentifier(parent.id)) {
     return null;
   }
   return parent.id.name;

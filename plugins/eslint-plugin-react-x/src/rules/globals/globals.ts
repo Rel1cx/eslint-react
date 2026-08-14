@@ -62,7 +62,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function recordWrite(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
-    if (target.type === AST.Identifier) {
+    if (Check.isIdentifier(target)) {
       // Reassigning a local alias changes only the local binding. Alias
       // provenance matters only when mutating a property of the aliased value.
       if (!isGlobalVariable(context, target)) return;

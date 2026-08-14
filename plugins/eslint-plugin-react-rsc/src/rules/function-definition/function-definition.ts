@@ -168,7 +168,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!hasFileLevelUseServerDirective) return;
       const decl = Extract.unwrap(node.declaration);
       // export default serverFunction;
-      if (decl.type === AST.Identifier) {
+      if (Check.isIdentifier(decl)) {
         reportNonAsyncFunction(resolve(context, decl), "file");
         return;
       }

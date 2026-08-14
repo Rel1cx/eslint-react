@@ -14,7 +14,7 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
   // Base case: the node itself is an Identifier
-  if (node.type === AST.Identifier) {
+  if (Check.isIdentifier(node)) {
     identifiers.push(node);
   }
   // CallExpression / NewExpression arguments: foo(a, b)
@@ -138,7 +138,7 @@ export function isHookDecl(node: TSESTree.Node): node is
   & { init: TSESTree.CallExpression }
 {
   if (node.type !== AST.VariableDeclarator) return false;
-  if (node.id.type !== AST.Identifier) return false;
+  if (!Check.isIdentifier(node.id)) return false;
   const init = node.init;
   if (init == null || init.type !== AST.CallExpression) return false;
   const name = Extract.getCalleeName(init);
@@ -161,7 +161,7 @@ export function isInitializedFromRef(
     switch (true) {
       // const identifier = anotherRef.current;
       case init.type === AST.MemberExpression
-        && init.object.type === AST.Identifier
+        && Check.isIdentifier(init.object)
         && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
         return true;
       // const identifier = useRef();
@@ -215,7 +215,7 @@ function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
 export function getSetStateCallExpression(
   node: TSESTree.CallExpression | TSESTree.Identifier,
 ): TSESTree.CallExpression | TSESTree.Identifier {
-  return node.type === AST.Identifier && node.parent.type === AST.CallExpression
+  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression
     ? node.parent
     : node;
 }

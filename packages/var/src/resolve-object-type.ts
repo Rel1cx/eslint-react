@@ -134,7 +134,7 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
       }
 
       // Handle static factory methods (e.g. Array.from(), Object.create())
-      if (callee.type === AST.MemberExpression && callee.object.type === AST.Identifier) {
+      if (callee.type === AST.MemberExpression && Check.isIdentifier(callee.object)) {
         const objName = callee.object.name;
         const methodName = Extract.getCalleeName(node);
         switch (objName) {

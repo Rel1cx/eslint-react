@@ -1,3 +1,4 @@
+import { Check } from "@eslint-react/ast";
 import { runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -21,7 +22,7 @@ function findIdentifierRefs(root: TSESTree.Node, name: string): TSESTree.Identif
   const result: TSESTree.Identifier[] = [];
   simpleTraverse(root, {
     enter(node) {
-      if (node.type === AST.Identifier && node.name === name) {
+      if (Check.isIdentifier(node, name)) {
         const parent = node.parent;
         if (parent.type === AST.VariableDeclarator && parent.id === node) return;
         if (parent.type === AST.FunctionDeclaration && parent.id === node) return;

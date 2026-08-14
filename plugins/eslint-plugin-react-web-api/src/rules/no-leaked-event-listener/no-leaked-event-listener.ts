@@ -133,13 +133,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (!ComponentPhaseRelevance.has(fKind)) {
         return;
       }
-      const unwrappedCallee = Extract.unwrap(node.callee);
+      const callee = Extract.unwrap(node.callee);
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
           // https://github.com/Rel1cx/eslint-react/issues/1323
-          const isFromReactNative = unwrappedCallee.type === AST.MemberExpression
-            && unwrappedCallee.object.type === AST.Identifier
-            && isInitializedFromReactNative(unwrappedCallee.object.name, context.sourceCode.getScope(node));
+          const isFromReactNative = callee.type === AST.MemberExpression
+            && Check.isIdentifier(callee.object)
+            && isInitializedFromReactNative(callee.object.name, context.sourceCode.getScope(node));
           if (isFromReactNative) {
             return;
           }
@@ -150,7 +150,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const opts = options == null
             ? defaultOptions
             : getOptions(context, options);
-          const { callee } = node;
           checkInlineFunction(node, callKind, opts);
           aEntries.push({
             ...opts,
@@ -170,7 +169,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const opts = options == null
             ? defaultOptions
             : getOptions(context, options);
-          const { callee } = node;
           checkInlineFunction(node, callKind, opts);
           rEntries.push({
             ...opts,

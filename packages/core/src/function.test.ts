@@ -95,7 +95,7 @@ describe("getFunctionId", () => {
         if (Check.isFunction(node) && node.type === expectedType) {
           const id = getFunctionId(node);
           expect(id).not.toBeNull();
-          if (id?.type === AST.Identifier) {
+          if (id != null && Check.isIdentifier(id)) {
             expect(id.name).toBe(expectedName);
           }
           found = true;
