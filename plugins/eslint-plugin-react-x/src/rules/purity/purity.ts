@@ -77,9 +77,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const builtinName = resolveBuiltinObjectName(context, expr);
         if (builtinName == null) return;
         if (!IMPURE_CTORS.has(builtinName)) return;
-        // `new Date(arg)` with arguments is pure (deterministic),
-        // only `new Date()` without arguments is impure (depends on current time).
-        if (builtinName === "Date" && node.arguments.length > 0) return;
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
