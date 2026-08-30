@@ -1829,5 +1829,54 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // https://github.com/Rel1cx/eslint-react/issues/1944
+    {
+      name: "render-phase setState with an effect calling a prop function",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        export function One({ target, onDone }: { target: number; onDone: () => void }) {
+          const [page, setPage] = useState(1);
+          if (page !== target) setPage(target);
+          useEffect(() => {
+            onDone();
+          }, [onDone, target]);
+          return <div>{page}</div>;
+        }
+      `,
+    },
+    // https://github.com/Rel1cx/eslint-react/issues/1944
+    {
+      name: "render-phase setState with multiple effects calling a prop function",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        export function Two({ target, onDone }: { target: number; onDone: () => void }) {
+          const [page, setPage] = useState(1);
+          if (page !== target) setPage(target);
+          useEffect(() => {
+            onDone();
+          }, [onDone, target]);
+          useEffect(() => {
+            onDone();
+          }, [onDone]);
+          return <div>{page}</div>;
+        }
+      `,
+    },
+    // https://github.com/Rel1cx/eslint-react/issues/1944
+    {
+      name: "render-phase setState with a prop function passed to useEffect as setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        export function Component({ target, onDone }: { target: number; onDone: () => void }) {
+          const [page, setPage] = useState(1);
+          if (page !== target) setPage(target);
+          useEffect(onDone, [onDone, target]);
+          return <div>{page}</div>;
+        }
+      `,
+    },
   ],
 });
