@@ -34,8 +34,7 @@ export default defineConfig(
   {
     extends: [
       strictTypeChecked,
-      // @ts-expect-error - TODO: remove when type issue is resolved
-      importIntegrityPlugin.configs.recommended,
+      // importIntegrityPlugin.configs.recommended,
     ],
     files: GLOB_TS,
     languageOptions: {

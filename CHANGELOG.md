@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.18.7 (2026-09-02)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: no longer misattributes render-phase `setState` calls to effects when the state updater is passed through a prop function. (#1945)
+
+### 🏗️ Internal
+
+- Bumped `typescript-eslint` to `8.69.0`, `eslint` to `10.9.1`, `vitest` to `4.1.11`, `@types/node` to `26.4.0`, `@types/react-dom` to `19.2.5`, `eslint-plugin-package-json` to `1.8.0`, `import-integrity-lint` to `1.3.0`, `nx` to `23.1.3`, `publint` to `0.3.24`, `typedoc-plugin-markdown` to `4.13.0`, and `pnpm` to `11.25.0`.
+
+### New Contributors
+
+- **Anmol Sharma** (@cyclomati) made their first contribution in #1945.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.6...v5.18.7
+
 ## v5.18.6 (2026-08-13)
 
 ### 🏗️ Internal
