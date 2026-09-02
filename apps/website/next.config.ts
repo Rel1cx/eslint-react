@@ -1,5 +1,6 @@
 /* eslint-disable perfectionist/sort-objects */
 import { createMDX } from "fumadocs-mdx/next";
+import { NextConfig } from "next";
 
 const withMDX = createMDX();
 
@@ -97,6 +98,6 @@ const config = {
       },
     ];
   },
-};
+} as const satisfies NextConfig;
 
 export default withMDX(config);

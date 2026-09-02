@@ -30,7 +30,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.5",
     "jiti": "^2.7.0",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "typescript-eslint": "^8.69.0",
     "vite": "^8.2.2"
   },

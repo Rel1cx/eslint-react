@@ -61,7 +61,7 @@
     "dedent": "^1.7.2",
     "eslint": "^10.9.1",
     "tsdown": "^0.22.14",
-    "typescript": "7.0.2"
+    "typescript": "6.0.3"
   },
   "peerDependencies": {
     "eslint": "*",

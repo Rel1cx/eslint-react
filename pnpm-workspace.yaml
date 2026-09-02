@@ -54,6 +54,8 @@ overrides:
   dompurify: "^3.4.14"
   # Transitive dependency via fumadocs-mdx 15.2.0, tsx 4.23.1 and vite 8.1.5
   esbuild: "^0.28.2"
+  # Transitive dependency via ajv 8.20.0, fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
+  fast-uri: "^3.1.5"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   follow-redirects: "^1.16.0"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
