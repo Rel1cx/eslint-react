@@ -34,7 +34,8 @@ export default defineConfig(
   {
     extends: [
       strictTypeChecked,
-      // importIntegrityPlugin.configs.recommended,
+      // @ts-expect-error - import-integrity plugin has incompatible type definitions
+      importIntegrityPlugin.configs.recommended,
     ],
     files: GLOB_TS,
     languageOptions: {

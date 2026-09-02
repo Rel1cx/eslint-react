@@ -1,0 +1,22 @@
+diff --git a/dist/util/files.js b/dist/util/files.js
+index 8d424fac15db4d27fa0e6ba630bb2c11f30a96b6..e03972dab5366d61be1a817f558f68fd0f21c086 100644
+--- a/dist/util/files.js
++++ b/dist/util/files.js
+@@ -171,7 +171,7 @@ export function isFileIgnored(packageRootDir, filePath) {
+     }
+     // Check override patterns first - if matched, file is NOT ignored
+     for (const { dir, ig } of data.overrides) {
+-        if (filePath.startsWith(dir) && ig.ignores(relative(dir, filePath))) {
++        if (filePath.startsWith(dir + sep) && ig.ignores(relative(dir, filePath))) {
+             data.cache.set(filePath, false);
+             return false;
+         }
+@@ -181,7 +181,7 @@ export function isFileIgnored(packageRootDir, filePath) {
+         // Ignore file paths are relative to the directory the ignore file is in,
+         // and needs files passed in to check to also be relative to that same
+         // directory, so we get the relative path to the ignore file directory
+-        if (filePath.startsWith(dir) && ig.ignores(relative(dir, filePath))) {
++        if (filePath.startsWith(dir + sep) && ig.ignores(relative(dir, filePath))) {
+             data.cache.set(filePath, true);
+             return true;
+         }

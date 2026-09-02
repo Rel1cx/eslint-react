@@ -90,3 +90,5 @@ overrides:
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
+patchedDependencies:
+  import-integrity-lint: patches/import-integrity-lint.patch
