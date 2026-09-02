@@ -55,12 +55,12 @@ Composable ESLint rules for React and friends.
 
 - [`@eslint-react/eslint-plugin`](https://npmx.dev/package/@eslint-react/eslint-plugin) - A unified plugin that combines all individual plugins into one. Get complete, out-of-the-box rule coverage with instant feedback.
 
-> [!NOTE]\
+> [!NOTE]
 > Don't know which one to use? See our [FAQ](https://eslint-react.xyz/docs/faq#which-one-should-i-use-unified-plugin-or-individual-plugins) for guidance.
 
 ## Installation
 
-> [!NOTE]\
+> [!NOTE]
 > ESLint React requires the following minimum versions:
 >
 > - Node.js: 22.0.0

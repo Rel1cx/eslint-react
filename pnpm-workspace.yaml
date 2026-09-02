@@ -59,7 +59,7 @@ overrides:
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   form-data: "^4.0.6"
   # Transitive dependency via depcheck 1.4.7
-  js-yaml: "^4.3.2"
+  js-yaml: "^5.4.1"
   # Transitive dependency via dagre-d3-es 7.0.14 (mermaid 11.16.0)
   lodash-es: "^4.18.1"
   # Transitive dependency via depcheck 1.4.7 and @textlint/linter-formatter 15.8.0
@@ -92,3 +92,17 @@ trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
+minimumReleaseAgeExclude:
+  - "@nubjs/nub-darwin-arm64@0.8.2"
+  - "@nubjs/nub-darwin-x64@0.8.2"
+  - "@nubjs/nub-linux-arm64-musl@0.8.2"
+  - "@nubjs/nub-linux-arm64@0.8.2"
+  - "@nubjs/nub-linux-x64-musl@0.8.2"
+  - "@nubjs/nub-linux-x64@0.8.2"
+  - "@nubjs/nub-win32-arm64@0.8.2"
+  - "@nubjs/nub-win32-x64@0.8.2"
+  - "@nubjs/nub@0.8.2"
+  - "@types/node@26.4.1"
+  - eslint-plugin-jsdoc@64.3.4
+  - globals@17.12.0
+  - lucide-react@1.39.0

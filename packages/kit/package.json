@@ -54,7 +54,7 @@
     "@local/configs": "workspace:*",
     "eslint": "^10.9.1",
     "tsdown": "^0.22.14",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "eslint": "*",
