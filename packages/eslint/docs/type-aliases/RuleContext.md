@@ -1,9 +1,9 @@
 [@eslint-react/eslint](../README.md) / RuleContext
 
-# Type Alias: RuleContext\<MessageIds, Options\>
+# Type Alias: RuleContext\<MessageIds _extends_ `string` = `string`, Options _extends_ readonly `unknown`[] = readonly `unknown`[]\>
 
 ```ts
-type RuleContext<MessageIds, Options> = tseslint.RuleContext<MessageIds, Options>;
+type RuleContext<MessageIds extends string = string, Options extends readonly unknown[] = readonly unknown[]> = tseslint.RuleContext<MessageIds, Options>;
 ```
 
 Represents the ESLint rule context.

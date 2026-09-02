@@ -60,7 +60,7 @@ pipe<A>(this: A): A;
 #### Call Signature
 
 ```ts
-pipe<A, B>(this: A, ab: (_: A) => B): B;
+pipe<A, B = never>(this: A, ab: (_: A) => B): B;
 ```
 
 ##### Type Parameters
@@ -84,10 +84,11 @@ pipe<A, B>(this: A, ab: (_: A) => B): B;
 #### Call Signature
 
 ```ts
-pipe<A, B, C>(
+pipe<A, B = never, C = never>(
    this: A, 
    ab: (_: A) => B, 
-   bc: (_: B) => C): C;
+   bc: (_: B) => C
+): C;
 ```
 
 ##### Type Parameters
@@ -113,11 +114,12 @@ pipe<A, B, C>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D>(
+pipe<A, B = never, C = never, D = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
-   cd: (_: C) => D): D;
+   cd: (_: C) => D
+): D;
 ```
 
 ##### Type Parameters
@@ -145,12 +147,13 @@ pipe<A, B, C, D>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E>(
+pipe<A, B = never, C = never, D = never, E = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
    cd: (_: C) => D, 
-   de: (_: D) => E): E;
+   de: (_: D) => E
+): E;
 ```
 
 ##### Type Parameters
@@ -180,13 +183,14 @@ pipe<A, B, C, D, E>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F>(
+pipe<A, B = never, C = never, D = never, E = never, F = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
    cd: (_: C) => D, 
    de: (_: D) => E, 
-   ef: (_: E) => F): F;
+   ef: (_: E) => F
+): F;
 ```
 
 ##### Type Parameters
@@ -218,14 +222,15 @@ pipe<A, B, C, D, E, F>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
    cd: (_: C) => D, 
    de: (_: D) => E, 
    ef: (_: E) => F, 
-   fg: (_: F) => G): G;
+   fg: (_: F) => G
+): G;
 ```
 
 ##### Type Parameters
@@ -259,7 +264,7 @@ pipe<A, B, C, D, E, F, G>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -267,7 +272,8 @@ pipe<A, B, C, D, E, F, G, H>(
    de: (_: D) => E, 
    ef: (_: E) => F, 
    fg: (_: F) => G, 
-   gh: (_: G) => H): H;
+   gh: (_: G) => H
+): H;
 ```
 
 ##### Type Parameters
@@ -303,7 +309,7 @@ pipe<A, B, C, D, E, F, G, H>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -312,7 +318,8 @@ pipe<A, B, C, D, E, F, G, H, I>(
    ef: (_: E) => F, 
    fg: (_: F) => G, 
    gh: (_: G) => H, 
-   hi: (_: H) => I): I;
+   hi: (_: H) => I
+): I;
 ```
 
 ##### Type Parameters
@@ -350,7 +357,7 @@ pipe<A, B, C, D, E, F, G, H, I>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -360,7 +367,8 @@ pipe<A, B, C, D, E, F, G, H, I, J>(
    fg: (_: F) => G, 
    gh: (_: G) => H, 
    hi: (_: H) => I, 
-   ij: (_: I) => J): J;
+   ij: (_: I) => J
+): J;
 ```
 
 ##### Type Parameters
@@ -400,7 +408,7 @@ pipe<A, B, C, D, E, F, G, H, I, J>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -411,7 +419,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K>(
    gh: (_: G) => H, 
    hi: (_: H) => I, 
    ij: (_: I) => J, 
-   jk: (_: J) => K): K;
+   jk: (_: J) => K
+): K;
 ```
 
 ##### Type Parameters
@@ -453,7 +462,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -465,7 +474,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
    hi: (_: H) => I, 
    ij: (_: I) => J, 
    jk: (_: J) => K, 
-   kl: (_: K) => L): L;
+   kl: (_: K) => L
+): L;
 ```
 
 ##### Type Parameters
@@ -509,7 +519,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -522,7 +532,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
    ij: (_: I) => J, 
    jk: (_: J) => K, 
    kl: (_: K) => L, 
-   lm: (_: L) => M): M;
+   lm: (_: L) => M
+): M;
 ```
 
 ##### Type Parameters
@@ -568,7 +579,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -582,7 +593,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
    jk: (_: J) => K, 
    kl: (_: K) => L, 
    lm: (_: L) => M, 
-   mn: (_: M) => N): N;
+   mn: (_: M) => N
+): N;
 ```
 
 ##### Type Parameters
@@ -630,7 +642,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -645,7 +657,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
    kl: (_: K) => L, 
    lm: (_: L) => M, 
    mn: (_: M) => N, 
-   no: (_: N) => O): O;
+   no: (_: N) => O
+): O;
 ```
 
 ##### Type Parameters
@@ -695,7 +708,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -711,7 +724,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
    lm: (_: L) => M, 
    mn: (_: M) => N, 
    no: (_: N) => O, 
-   op: (_: O) => P): P;
+   op: (_: O) => P
+): P;
 ```
 
 ##### Type Parameters
@@ -763,7 +777,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -780,7 +794,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
    mn: (_: M) => N, 
    no: (_: N) => O, 
    op: (_: O) => P, 
-   pq: (_: P) => Q): Q;
+   pq: (_: P) => Q
+): Q;
 ```
 
 ##### Type Parameters
@@ -834,7 +849,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -852,7 +867,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
    no: (_: N) => O, 
    op: (_: O) => P, 
    pq: (_: P) => Q, 
-   qr: (_: Q) => R): R;
+   qr: (_: Q) => R
+): R;
 ```
 
 ##### Type Parameters
@@ -908,7 +924,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -927,7 +943,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
    op: (_: O) => P, 
    pq: (_: P) => Q, 
    qr: (_: Q) => R, 
-   rs: (_: R) => S): S;
+   rs: (_: R) => S
+): S;
 ```
 
 ##### Type Parameters
@@ -985,7 +1002,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never, T = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -1005,7 +1022,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
    pq: (_: P) => Q, 
    qr: (_: Q) => R, 
    rs: (_: R) => S, 
-   st: (_: S) => T): T;
+   st: (_: S) => T
+): T;
 ```
 
 ##### Type Parameters
@@ -1065,7 +1083,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never, T = never, U = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -1086,7 +1104,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
    qr: (_: Q) => R, 
    rs: (_: R) => S, 
    st: (_: S) => T, 
-   tu: (_: T) => U): U;
+   tu: (_: T) => U
+): U;
 ```
 
 ##### Type Parameters
@@ -1148,7 +1167,7 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
 #### Call Signature
 
 ```ts
-pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never, O = never, P = never, Q = never, R = never, S = never, T = never, U = never>(
    this: A, 
    ab: (_: A) => B, 
    bc: (_: B) => C, 
@@ -1169,7 +1188,8 @@ pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
    qr: (_: Q) => R, 
    rs: (_: R) => S, 
    st: (_: S) => T, 
-   tu: (_: T) => U): U;
+   tu: (_: T) => U
+): U;
 ```
 
 ##### Type Parameters

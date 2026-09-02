@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function flow<A, B>(ab: (...a: A) => B): (...a: A) => B;
+function flow<A extends readonly unknown[], B = never>(ab: (...a: A) => B): (...a: A) => B;
 ```
 
 Performs left-to-right function composition.
@@ -63,7 +63,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C>(ab: (...a: A) => B, bc: (b: B) => C): (...a: A) => C;
+function flow<A extends readonly unknown[], B = never, C = never>(ab: (...a: A) => B, bc: (b: B) => C): (...a: A) => C;
 ```
 
 Performs left-to-right function composition.
@@ -123,7 +123,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -189,7 +189,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -258,7 +258,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E, F>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -330,7 +330,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E, F, G>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -405,7 +405,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E, F, G, H>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -483,7 +483,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E, F, G, H, I>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
@@ -564,7 +564,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A, B, C, D, E, F, G, H, I, J>(
+function flow<A extends readonly unknown[], B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
   ab: (...a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,

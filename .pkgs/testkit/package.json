@@ -36,21 +36,21 @@
     "publish": "node --run build:docs && node --run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^8.67.0",
-    "@typescript-eslint/rule-tester": "^8.67.0",
-    "@typescript-eslint/types": "^8.67.0",
-    "@typescript-eslint/typescript-estree": "^8.67.0",
-    "@typescript-eslint/utils": "^8.67.0"
+    "@typescript-eslint/parser": "^8.69.0",
+    "@typescript-eslint/rule-tester": "^8.69.0",
+    "@typescript-eslint/types": "^8.69.0",
+    "@typescript-eslint/typescript-estree": "^8.69.0",
+    "@typescript-eslint/utils": "^8.69.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.1",
     "expect-type": "^1.4.0",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=22.0.0"

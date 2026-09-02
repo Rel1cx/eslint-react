@@ -71,7 +71,7 @@ console.log(pipe(2, sum(3))); // 5
 ## Call Signature
 
 ```ts
-<DataLast, DataFirst>(arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
+<DataLast extends (...args: any[]) => any, DataFirst extends (...args: any[]) => any>(arity: Parameters<DataFirst>["length"], body: DataFirst): DataLast & DataFirst;
 ```
 
 ### Type Parameters
@@ -95,7 +95,7 @@ console.log(pipe(2, sum(3))); // 5
 ## Call Signature
 
 ```ts
-<DataLast, DataFirst>(isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
+<DataLast extends (...args: any[]) => any, DataFirst extends (...args: any[]) => any>(isDataFirst: (args: IArguments) => boolean, body: DataFirst): DataLast & DataFirst;
 ```
 
 ### Type Parameters

@@ -37,22 +37,22 @@
   },
   "dependencies": {
     "@eslint-react/kit": "workspace:*",
-    "@typescript-eslint/types": "^8.67.0",
-    "@typescript-eslint/typescript-estree": "^8.67.0",
-    "@typescript-eslint/utils": "^8.67.0",
+    "@typescript-eslint/types": "^8.69.0",
+    "@typescript-eslint/typescript-estree": "^8.69.0",
+    "@typescript-eslint/utils": "^8.69.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@tsconfig/node24": "^24.0.4",
+    "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^8.1.1",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
-    "eslint": "^10.8.1",
+    "@types/react-dom": "^19.2.5",
+    "eslint": "^10.9.1",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.67.0"
+    "typescript-eslint": "^8.69.0"
   },
   "engines": {
     "node": ">=22.0.0"

@@ -332,10 +332,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
-      const getSetStateCalls = (
-        context: RuleContext,
-        id: TSESTree.Identifier,
-      ): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
+      const getSetStateCalls = (context: RuleContext, id: TSESTree.Identifier): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
         // The value of a function parameter (e.g. a function received via props) is provided
         // by the caller and cannot be resolved to a function defined in this component.
         // `resolve` maps a parameter to its containing function, which would wrongly attribute

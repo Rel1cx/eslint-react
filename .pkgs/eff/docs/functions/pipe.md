@@ -132,7 +132,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B>(a: A, ab: (a: A) => B): B;
+function pipe<A, B = never>(a: A, ab: (a: A) => B): B;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -261,7 +261,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C>(
+function pipe<A, B = never, C = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -396,7 +396,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D>(
+function pipe<A, B = never, C = never, D = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -534,7 +534,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E>(
+function pipe<A, B = never, C = never, D = never, E = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -675,7 +675,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -819,7 +819,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -966,7 +966,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1116,7 +1116,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1269,7 +1269,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1425,7 +1425,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1584,7 +1584,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1746,7 +1746,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -1911,7 +1911,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N>(
+function pipe<A, B = never, C = never, D = never, E = never, F = never, G = never, H = never, I = never, J = never, K = never, L = never, M = never, N = never>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2079,7 +2079,23 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2250,7 +2266,24 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+  P = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2424,7 +2457,25 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+  P = never,
+  Q = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2601,7 +2652,26 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+  P = never,
+  Q = never,
+  R = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2781,7 +2851,27 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+  P = never,
+  Q = never,
+  R = never,
+  S = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
@@ -2964,7 +3054,28 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T>(
+function pipe<
+  A,
+  B = never,
+  C = never,
+  D = never,
+  E = never,
+  F = never,
+  G = never,
+  H = never,
+  I = never,
+  J = never,
+  K = never,
+  L = never,
+  M = never,
+  N = never,
+  O = never,
+  P = never,
+  Q = never,
+  R = never,
+  S = never,
+  T = never,
+>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,

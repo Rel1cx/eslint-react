@@ -3,7 +3,7 @@
 # Function: tupled()
 
 ```ts
-function tupled<A, B>(f: (...a: A) => B): (a: A) => B;
+function tupled<A extends readonly unknown[], B>(f: (...a: A) => B): (a: A) => B;
 ```
 
 Creates a tupled version of this function: instead of `n` arguments, it accepts a single tuple argument.

@@ -1,9 +1,9 @@
 [@local/eff](../README.md) / FunctionN
 
-# Type Alias: FunctionN\<A, B\>
+# Type Alias: FunctionN\<A _extends_ `ReadonlyArray`\<`unknown`\>, B\>
 
 ```ts
-type FunctionN<A, B> = (...args: A) => B;
+type FunctionN<A extends ReadonlyArray<unknown>, B> = (...args: A) => B;
 ```
 
 Represents a function with multiple arguments.

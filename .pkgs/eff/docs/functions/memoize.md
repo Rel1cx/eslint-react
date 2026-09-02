@@ -3,7 +3,7 @@
 # Function: memoize()
 
 ```ts
-function memoize<A, O>(f: (a: A) => O): (ast: A) => O;
+function memoize<A extends object, O>(f: (a: A) => O): (ast: A) => O;
 ```
 
 Creates a memoized function whose input is an object, caching results by

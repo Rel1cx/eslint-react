@@ -3,7 +3,7 @@
 # Function: getNodeInRule()
 
 ```ts
-function getNodeInRule<T>(code: string, visitorKey: string): {
+function getNodeInRule<T extends Node>(code: string, visitorKey: string): {
   context: TestRuleContext;
   node: T;
 };

@@ -3,7 +3,7 @@
 # Function: Mixin()
 
 ```ts
-function Mixin<TBase>(klass: TBase): TBase & PipeableConstructor;
+function Mixin<TBase extends (...args: readonly any[]) => any>(klass: TBase): TBase & PipeableConstructor;
 ```
 
 Returns a subclass of the provided class that adds the standard `pipe`

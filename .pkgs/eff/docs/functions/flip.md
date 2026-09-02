@@ -3,7 +3,7 @@
 # Function: flip()
 
 ```ts
-function flip<A, B, C>(f: (...a: A) => (...b: B) => C): (...b: B) => (...a: A) => C;
+function flip<A extends unknown[], B extends unknown[], C>(f: (...a: A) => (...b: B) => C): (...b: B) => (...a: A) => C;
 ```
 
 Reverses the order of arguments for a curried function.

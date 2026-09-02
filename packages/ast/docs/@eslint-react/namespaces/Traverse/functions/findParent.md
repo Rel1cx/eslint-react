@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function findParent<T>(
+function findParent<T extends Node>(
   node: Node | null,
   test: Predicate<T>,
   stop?: NodePredicate,

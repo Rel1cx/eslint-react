@@ -31,7 +31,7 @@ getPlugin(): Plugin;
 ### use()
 
 ```ts
-use<F>(factory: F, ...args: Parameters<F>): Builder;
+use<F extends (...args: any[]) => RuleFunction>(factory: F, ...args: Parameters<F>): Builder;
 ```
 
 #### Type Parameters

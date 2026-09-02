@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function getOrInsert<K, V>(
+function getOrInsert<K extends WeakKey, V>(
   map: WeakMap<K, V>,
   key: K,
   defaultValue: V,

@@ -48,17 +48,17 @@
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
-    "@typescript-eslint/types": "^8.67.0",
-    "@typescript-eslint/utils": "^8.67.0",
+    "@typescript-eslint/types": "^8.69.0",
+    "@typescript-eslint/utils": "^8.69.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "dedent": "^1.7.2",
-    "eslint": "^10.8.1",
+    "eslint": "^10.9.1",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3"
   },

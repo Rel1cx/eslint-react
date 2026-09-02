@@ -24,26 +24,26 @@ onlyBuiltDependencies:
 
 overrides:
   "@types/react": "^19.2.18"
-  "@types/react-dom": "^19.2.4"
+  "@types/react-dom": "^19.2.5"
   # Transitive dependency via typescript-eslint 8.67.0
-  "@typescript-eslint/eslint-plugin": "^8.67.0"
-  "@typescript-eslint/parser": "^8.67.0"
+  "@typescript-eslint/eslint-plugin": "^8.69.0"
+  "@typescript-eslint/parser": "^8.69.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/project-service": "^8.67.0"
+  "@typescript-eslint/project-service": "^8.69.0"
   # Preventive pin, no installed package depends on it
-  "@typescript-eslint/rule-schema-to-typescript-types": "^8.67.0"
-  "@typescript-eslint/rule-tester": "^8.67.0"
-  "@typescript-eslint/scope-manager": "^8.67.0"
+  "@typescript-eslint/rule-schema-to-typescript-types": "^8.69.0"
+  "@typescript-eslint/rule-tester": "^8.69.0"
+  "@typescript-eslint/scope-manager": "^8.69.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/tsconfig-utils": "^8.67.0"
-  "@typescript-eslint/type-utils": "^8.67.0"
-  "@typescript-eslint/types": "^8.67.0"
-  "@typescript-eslint/typescript-estree": "^8.67.0"
-  "@typescript-eslint/utils": "^8.67.0"
+  "@typescript-eslint/tsconfig-utils": "^8.69.0"
+  "@typescript-eslint/type-utils": "^8.69.0"
+  "@typescript-eslint/types": "^8.69.0"
+  "@typescript-eslint/typescript-estree": "^8.69.0"
+  "@typescript-eslint/utils": "^8.69.0"
   # Transitive dependency via @typescript-eslint/parser 8.67.0
-  "@typescript-eslint/visitor-keys": "^8.67.0"
+  "@typescript-eslint/visitor-keys": "^8.69.0"
   # Transitive dependency via nx 23.1.0
-  axios: "^1.19.0"
+  axios: "^1.20.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
   brace-expansion: "^5.0.9"
   # Transitive dependency via fumadocs-mdx 15.2.0 and unified-args 11.0.1
@@ -51,7 +51,7 @@ overrides:
   # Transitive dependency via tsdown 0.22.12
   defu: "^6.1.7"
   # Transitive dependency via mermaid 11.16.0
-  dompurify: "^3.4.13"
+  dompurify: "^3.4.14"
   # Transitive dependency via fumadocs-mdx 15.2.0, tsx 4.23.1 and vite 8.1.5
   esbuild: "^0.28.2"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
@@ -59,16 +59,16 @@ overrides:
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   form-data: "^4.0.6"
   # Transitive dependency via depcheck 1.4.7
-  js-yaml: "^4.3.1"
+  js-yaml: "^4.3.2"
   # Transitive dependency via dagre-d3-es 7.0.14 (mermaid 11.16.0)
   lodash-es: "^4.18.1"
   # Transitive dependency via depcheck 1.4.7 and @textlint/linter-formatter 15.8.0
   lodash: "^4.18.1"
   # Transitive dependency via @theguild/remark-mermaid 0.3.0
-  mermaid: "^11.16.1"
+  mermaid: "^11.17.2"
   # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.67.0 and nx 23.1.0
   minimatch: "^10.2.6"
-  next: "16.3.0"
+  next: "16.3.4"
   postcss: "^8.5.26"
   react-dom: "^19.2.8"
   react: "^19.2.8"
@@ -79,14 +79,14 @@ overrides:
   ts-api-utils: "^2.5.0"
   # Transitive dependency via nx 23.1.0 and others
   tslib: "^2.8.1"
-  typescript-eslint: "^8.67.0"
+  typescript-eslint: "^8.69.0"
   typescript: "6.0.3"
   # Transitive dependency via @types/node 26.1.2
-  undici-types: "^8.10.0"
+  undici-types: "^8.10.1"
   # Transitive dependency via @effect/platform-node 0.107.0
-  undici: "^8.10.0"
+  undici: "^8.10.1"
   # Transitive dependency via @effect/sql 0.51.1
-  uuid: "^14.0.1"
+  uuid: "^14.0.2"
 
 trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day

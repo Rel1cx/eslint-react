@@ -3,7 +3,7 @@
 # Function: untupled()
 
 ```ts
-function untupled<A, B>(f: (a: A) => B): (...a: A) => B;
+function untupled<A extends readonly unknown[], B>(f: (a: A) => B): (...a: A) => B;
 ```
 
 Converts a tupled function back to an uncurried function.

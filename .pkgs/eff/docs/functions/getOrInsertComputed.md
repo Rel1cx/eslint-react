@@ -5,7 +5,7 @@
 ## Call Signature
 
 ```ts
-function getOrInsertComputed<K, V>(
+function getOrInsertComputed<K extends WeakKey, V>(
   map: WeakMap<K, V>,
   key: K,
   callback: (key: K) => V,

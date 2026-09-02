@@ -38,21 +38,21 @@
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
-    "@typescript-eslint/scope-manager": "^8.67.0",
-    "@typescript-eslint/types": "^8.67.0",
-    "@typescript-eslint/utils": "^8.67.0",
+    "@typescript-eslint/scope-manager": "^8.69.0",
+    "@typescript-eslint/types": "^8.69.0",
+    "@typescript-eslint/utils": "^8.69.0",
     "ts-pattern": "^5.9.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
-    "@typescript-eslint/parser": "^8.67.0",
-    "@typescript-eslint/typescript-estree": "^8.67.0",
-    "eslint": "^10.8.1",
+    "@typescript-eslint/parser": "^8.69.0",
+    "@typescript-eslint/typescript-estree": "^8.69.0",
+    "eslint": "^10.9.1",
     "tsdown": "^0.22.14",
     "typescript": "6.0.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.11"
   },
   "peerDependencies": {
     "eslint": "*",
