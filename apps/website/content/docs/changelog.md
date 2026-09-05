@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.18.8 (2026-09-05)
+
+### 🐞 Fixes
+
+- Preset configs (`recommended`, `strict`, etc.) now register the same plugin object as the package's default export, so ESLint no longer reports a "Cannot redefine plugin" error when the plugin is registered manually and a preset is extended at the same time. (#1947, closes #1946)
+
+### 🏗️ Internal
+
+- Re-enabled the `import-integrity-lint` plugin and patched its path prefix check so sibling directories like `examples/preact` and `examples/preact-compat` no longer collide.
+- Pinned `fast-uri` to `^3.1.5` to fix CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7).
+- Bumped `@effect/language-service` to `0.87.2`, `@effect/platform` to `0.97.1`, `@effect/platform-node` to `0.108.1`, `@nubjs/nub` to `0.8.2`, `@types/node` to `26.4.1`, `dprint` to `0.57.0`, and `lucide-react` to `1.39.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.7...v5.18.8
+
 ## v5.18.7 (2026-09-02)
 
 ### 🐞 Fixes
