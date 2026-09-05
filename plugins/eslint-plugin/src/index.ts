@@ -54,7 +54,13 @@ function createConfig(base: { plugins?: Record<string, unknown> } & Record<strin
     ...base,
     plugins: {
       ...base.plugins,
-      "@eslint-react": plugin,
+      // Use a getter to resolve the plugin reference lazily so every config registers the same
+      // object as the default export below. Otherwise ESLint reports a "Cannot redefine plugin"
+      // error when users register the plugin manually and also extend one of the presets.
+      // See https://github.com/Rel1cx/eslint-react/issues/1946
+      get ["@eslint-react"]() {
+        return finalPlugin;
+      },
     },
   };
 }

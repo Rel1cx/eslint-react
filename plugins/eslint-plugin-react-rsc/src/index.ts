@@ -13,6 +13,22 @@ type ConfigName =
   | "strict"
   | "strict-typescript";
 
+function createConfig(base: { plugins?: Record<string, unknown> } & Record<string, unknown>): Linter.Config {
+  return {
+    ...base,
+    plugins: {
+      ...base.plugins,
+      // Use a getter to resolve the plugin reference lazily so every config registers the same
+      // object as the default export below. Otherwise ESLint reports a "Cannot redefine plugin"
+      // error when users register the plugin manually and also extend one of the presets.
+      // See https://github.com/Rel1cx/eslint-react/issues/1946
+      get ["react-rsc"]() {
+        return finalPlugin;
+      },
+    },
+  };
+}
+
 const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> } = {
   ...plugin,
   configs: {
@@ -23,19 +39,19 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
     /**
      * Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects
      */
-    ["recommended"]: recommendedConfig,
+    ["recommended"]: createConfig(recommendedConfig),
     /**
      * Same as the `recommended` preset but disables rules that can be enforced by TypeScript
      */
-    ["recommended-typescript"]: recommendedTypeScriptConfig,
+    ["recommended-typescript"]: createConfig(recommendedTypeScriptConfig),
     /**
      * More strict version of the `recommended` preset
      */
-    ["strict"]: strictConfig,
+    ["strict"]: createConfig(strictConfig),
     /**
      * Same as the `strict` preset but disables rules that can be enforced by TypeScript
      */
-    ["strict-typescript"]: strictTypeScriptConfig,
+    ["strict-typescript"]: createConfig(strictTypeScriptConfig),
   },
 };
 
