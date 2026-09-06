@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.18.9 (2026-09-06)
+
+### 🏗️ Internal
+
+- Bumped `eslint` to `10.10.0`, `vitest` to `5.0.0`, `tsdown` to `0.23.0`, `nx` to `23.2.0`, `dprint` to `0.57.4`, `@types/react-dom` to `19.2.7`, `@eslint/compat` to `2.1.1`, and `@nubjs/nub` to `0.8.3`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.8...v5.18.9
+
 ## v5.18.8 (2026-09-05)
 
 ### 🐞 Fixes
