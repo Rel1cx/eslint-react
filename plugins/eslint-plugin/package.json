@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint-plugin",
-  "version": "5.18.9",
+  "version": "5.18.10",
   "description": "ESLint React's unified ESLint plugin that combines all individual plugins into one.",
   "keywords": [
     "react",

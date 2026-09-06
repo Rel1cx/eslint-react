@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.18.10 (2026-09-06)
+
+### 🐞 Fixes
+
+- The remaining `disable-*` preset configs in `react-x` and `react-rsc` now also register the same plugin object as the package's default export, so ESLint no longer reports a "Cannot redefine plugin" error when combining them with a manually registered plugin. (follow-up to #1947, see #1946)
+
+### 🏗️ Internal
+
+- Website: removed `fumadocs-twoslash` from `serverExternalPackages` to fix a prerender error.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.9...v5.18.10
+
 ## v5.18.9 (2026-09-06)
 
 ### 🏗️ Internal
