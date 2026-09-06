@@ -13,6 +13,7 @@
   - `collect.ts`
   - `effects.ts`
   - `lib.ts`
+  - `origins.ts`
   - `immutability.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoFreezingKnownMutableFunctions.ts`
@@ -28,18 +29,19 @@
 
 ## 1. Summary
 
-| Area                       | Alignment                       | Main difference                                                                                         |
-| -------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Mutable-function model     | Same goal                       | SPEC consumes inferred aliasing effects; IMPL infers from selected AST mutation syntax                  |
-| Captured variables         | Aligned for resolvable bindings | IMPL excludes unresolved globals and global/module-scope bindings                                       |
-| Transitive nested closures | Covered                         | IMPL walks lexical ancestors; SPEC propagates mutation effects                                          |
-| Function aliases           | Partial                         | IMPL follows variable-declarator initializer chains only                                                |
-| Mutation targets           | Partial                         | IMPL follows identifier initializer aliases, but not assignments or member storage                      |
-| Freeze sinks               | Core forms covered              | IMPL collects only direct JSX attributes, non-spread hook arguments, and direct hook return expressions |
-| Ref exception              | Heuristic approximation         | Names and aliased `useRef()` initializers replace the SPEC's type-based check                           |
-| Diagnostics                | Same two locations              | IMPL emits two ESLint problems instead of one diagnostic with two details                               |
+| Area                         | Alignment                       | Main difference                                                                                         |
+| ---------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Mutable-function model       | Same goal                       | SPEC consumes inferred aliasing effects; IMPL infers from selected AST mutation syntax                  |
+| Captured variables           | Aligned for resolvable bindings | IMPL excludes unresolved globals and global/module-scope bindings                                       |
+| Transitive nested closures   | Covered                         | IMPL walks lexical ancestors; SPEC propagates mutation effects                                          |
+| Function aliases             | Partial                         | IMPL follows variable-declarator initializer chains only                                                |
+| Mutation targets             | Partial                         | IMPL follows identifier initializer aliases, but not assignments or member storage                      |
+| Freeze sinks                 | Core forms covered              | IMPL collects only direct JSX attributes, non-spread hook arguments, and direct hook return expressions |
+| Ref exception                | Heuristic approximation         | Names and aliased `useRef()` initializers replace the SPEC's type-based check                           |
+| Diagnostics                  | Same two locations              | IMPL emits two ESLint problems instead of one diagnostic with two details                               |
+| Direct props/state mutations | Not covered by SPEC             | IMPL deliberately extends the SPEC with a direct-mutation layer; see §7                                 |
 
-Overall, the IMPL matches the SPEC's three principal use cases, but it is a syntax- and naming-based approximation rather than an effect-equivalent implementation.
+Overall, the IMPL matches the SPEC's three principal use cases, but it is a syntax- and naming-based approximation rather than an effect-equivalent implementation. It additionally implements a direct props/state mutation layer that is a deliberate extension beyond the SPEC (see §7).
 
 ## 2. Detection model
 
@@ -162,7 +164,23 @@ The IMPL emits two independent ESLint reports per sink:
 
 This preserves both locations but changes problem counts and grouping. If the same mutable function is used at two sinks, the IMPL emits four reports: two usage reports and two mutation reports at the same mutation location. The SPEC's reason (`Cannot modify local variables after render completes`) is not emitted as an ESLint message; `meta.docs.description` only provides a general rule description.
 
-## 7. Test coverage notes
+## 7. Deliberate extensions beyond the SPEC
+
+Since 2026-09, the IMPL includes a second detection layer (`inferDirectMutations` in `effects.ts`, with origin classification in `origins.ts`) that has no counterpart in `ValidateNoFreezingKnownMutableFunctions`. It was added for <https://github.com/Rel1cx/eslint-react/issues/1941> to cover mutation shapes the compiler pass deliberately leaves to other validations:
+
+- **Direct mutation of props/state**: a member assignment, update, deletion, or mutating method call is reported at the mutation site (messageId `direct`) when the mutated root identifier resolves — through the same identifier-initializer alias tracing used for mutation targets — to a component's first parameter (props, including destructured bindings) or to element 0 of a `useState`-like/`useReducer` array-pattern destructuring. This applies regardless of whether the mutation sits inside a function that reaches a freeze sink; mutation nodes already reported through a sink are not reported twice.
+- **Shallow copies**: a variable initialized by an object/array literal that spreads a props/state value (`const copy = { ...state }`, `const copy = [...state]`) is classified as a shallow copy. Mutations through it are only reported when the mutated object lies at least one member access below the copy's root (`copy[k].x = v`, `copy.x.push(1)`), because the copy's own top-level slots (`copy.x = v`, `copy.push(1)`) are new values. Spread arguments that are not plain identifiers are not traced.
+
+The upstream compiler has the same shallow-copy blind spot in its mutation validation (reported as <https://github.com/facebook/react/issues/37316>); this layer closes the gap locally rather than mirroring it.
+
+Known boundaries of this extension:
+
+- Binding reassignments (`x = v`) are not treated as direct mutations of props/state.
+- State is recognized only at index 0 of an array-pattern destructuring; a binding of the whole tuple is not classified.
+- Ref exemptions (naming heuristic and `useRef()` provenance) apply to this layer exactly as to the sink-based one.
+- Component detection for props parameters is heuristic (`isFunctionComponentDefinition`); parameters of hooks and non-component functions are not treated as props.
+
+## 8. Test coverage notes
 
 `immutability.spec.ts` pins the IMPL behavior for:
 
@@ -172,6 +190,7 @@ This preserves both locations but changes problem counts and grouping. If the sa
 - conditional mutations, module-scope exclusion, initializer mutation aliases, and first-mutation selection;
 - ref naming and aliased `useRef()` initializer behavior;
 - navigation-method exemptions for values initialized by `useNavigate()`, `useNavigation()`, and `useRouter()`, including variable-declarator alias coverage for router values;
-- unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes.
+- unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes;
+- direct mutations of props (plain and destructured parameters), `useState`/`useReducer` state values, namespaced and settings-configured state hooks, identifier aliases of state, and nested mutations through object/array shallow copies, including the copy's own top-level writes, setter-index, shadowing, deep-copy, and non-component-parameter exclusions.
 
-These tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.
+The sink-related tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.

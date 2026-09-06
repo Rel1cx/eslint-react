@@ -1,6 +1,6 @@
 ---
 title: immutability
-description: Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values.
+description: Validates against mutating props, state, and other immutable values, including through functions passed into frozen contexts such as JSX props, hook arguments, and hook return values.
 ---
 
 <Callout type="warn">
@@ -25,7 +25,15 @@ react-x/immutability
 
 ## Rule Details
 
-A function that mutates a variable captured from an enclosing scope is, in effect, a mutable value: unlike a mutable array or object, the caller of the function has no way to prevent the mutation from happening once the function is invoked. This rule flags such functions when they are handed to a context that expects a stable, "frozen" value:
+This rule validates that values React treats as immutable are not mutated, in two ways:
+
+**Direct mutations.** A member assignment, update, or deletion (`x.foo = v`, `x[0]++`, `delete x.foo`) or a mutating method call (`x.push(1)`) is flagged when the mutated value's root identifier resolves — through variable-declarator aliases — to:
+
+- A component's props (including destructured props)
+- A state value returned from `useState`, `useReducer`, or a custom hook matching the `additionalStateHooks` setting
+- A shallow copy of either (`const copy = { ...state }` / `const copy = [...state]`), when the mutation reaches a nested value: the copy's own top-level slots are new, but nested objects and arrays are still shared with the original
+
+**Functions reaching frozen contexts.** A function that mutates a variable captured from an enclosing scope is, in effect, a mutable value: unlike a mutable array or object, the caller of the function has no way to prevent the mutation from happening once the function is invoked. This rule flags such functions when they are handed to a context that expects a stable, "frozen" value:
 
 - Passed as a JSX prop
 - Passed as an argument to a hook call
@@ -34,6 +42,42 @@ A function that mutates a variable captured from an enclosing scope is, in effec
 Mutations to `ref`-like values (an identifier named `ref` or ending in `Ref`) are exempted, since refs are mutable by design.
 
 ## Examples
+
+```tsx
+// 🔴 Problem: `handleChange` mutates the state value in place
+function Example({ initial }) {
+  const [values, setValues] = useState(initial);
+  const handleChange = (itemId, diff) => {
+    values[itemId].confirmedQuantity = diff;
+    setValues(values);
+  };
+}
+```
+
+```tsx
+// 🔴 Problem: a shallow copy still shares nested values with the original state
+function Example({ initial }) {
+  const [values, setValues] = useState(initial);
+  const handleChange = (itemId, diff) => {
+    const copyValues = { ...values };
+    copyValues[itemId].confirmedQuantity = diff; // copyValues[itemId] === values[itemId]
+    setValues(copyValues);
+  };
+}
+```
+
+```tsx
+// 🟢 Recommended: copy every level along the mutated path
+function Example({ initial }) {
+  const [values, setValues] = useState(initial);
+  const handleChange = (itemId, diff) => {
+    setValues({
+      ...values,
+      [itemId]: { ...values[itemId], confirmedQuantity: diff },
+    });
+  };
+}
+```
 
 ```tsx
 // 🔴 Problem: `fn` mutates `cache` after render
@@ -68,6 +112,18 @@ Custom ref hooks can also be configured via shared ESLint settings, which apply 
   "settings": {
     "react-x": {
       "additionalRefHooks": "(useMyRef|useCustomRef)"
+    }
+  }
+}
+```
+
+Custom state hooks whose returned values should be treated as immutable state can be configured the same way:
+
+```json
+{
+  "settings": {
+    "react-x": {
+      "additionalStateHooks": "(useMyState|useCustomState)"
     }
   }
 }

@@ -5,6 +5,13 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Added a direct-mutation detection pass: member assignments, updates, deletions, and mutating method calls are now reported when the mutated value resolves — through variable-declarator aliases — to a component's props, a `useState`/`useReducer` state value (or a custom hook matching the `additionalStateHooks` setting), independent of whether the mutation happens inside a function that reaches a freeze sink. Closes #1941. (#1941)
+- Added shallow-copy awareness: nested mutations through an object/array literal built by spreading a props or state value (`const copy = { ...state }` / `const copy = [...state]`) are reported, since the nested values are still shared with the original. Writes to the copy's own top-level slots are not reported.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed

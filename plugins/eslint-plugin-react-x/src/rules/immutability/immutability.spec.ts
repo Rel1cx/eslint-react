@@ -665,6 +665,230 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "a" }, messageId: "default" },
       ],
     },
+
+    // Direct mutation of a useState value, with no closure reaching a freeze
+    // sink (https://github.com/Rel1cx/eslint-react/issues/1941).
+    {
+      code: tsx`
+        function Example({ initial }) {
+          const [values, setValues] = useState(initial);
+          const handleChange = (itemId, diff) => {
+            values[itemId].confirmedQuantity = diff;
+            setValues(values);
+          };
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a state value returned from 'useState' and must be treated as immutable.",
+            name: "values",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Mutation reached through a shallow copy of state: the copy's own slots are
+    // new, but `copyValues[itemId]` still references the original nested object
+    // (https://github.com/Rel1cx/eslint-react/issues/1941).
+    {
+      code: tsx`
+        function Example({ initial }) {
+          const [values, setValues] = useState(initial);
+          const handleChange = (itemId, diff) => {
+            const copyValues = { ...values };
+            copyValues[itemId].confirmedQuantity = diff;
+            setValues(copyValues);
+          };
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a shallow copy of 'values'; mutating nested values through it mutates 'values' in place.",
+            name: "copyValues",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Direct mutation of props in the component body.
+    {
+      code: tsx`
+        function Component(props) {
+          props.count = 1;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Direct mutation of a destructured prop inside a handler that is never
+    // passed to a freeze sink.
+    {
+      code: tsx`
+        function Component({ items }) {
+          const handleClick = () => {
+            items.push(1);
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // `delete` on a props property.
+    {
+      code: tsx`
+        function Component(props) {
+          const reset = () => {
+            delete props.count;
+          };
+          reset();
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // UpdateExpression on a member of a useReducer state value.
+    {
+      code: tsx`
+        function Component() {
+          const [state, dispatch] = useReducer(reducer, { count: 0 });
+          const increment = () => {
+            state.count++;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // Mutating method call on a state value.
+    {
+      code: tsx`
+        function Component() {
+          const [items, setItems] = useState([]);
+          const add = () => {
+            items.push(1);
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // Nested mutation through an array shallow copy of state.
+    {
+      code: tsx`
+        function Component() {
+          const [items, setItems] = useState([]);
+          const toggle = (index) => {
+            const copy = [...items];
+            copy[index].done = true;
+            setItems(copy);
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // Nested mutation through a shallow copy of props.
+    {
+      code: tsx`
+        function Component(props) {
+          const handleClick = () => {
+            const copy = { ...props };
+            copy.user.name = "x";
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // An identifier alias of a state value is traced back to the state origin.
+    {
+      code: tsx`
+        function Component() {
+          const [values, setValues] = useState({});
+          const alias = values;
+          const handleChange = () => {
+            alias.count = 1;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // Namespaced state hook calls are recognized.
+    {
+      code: tsx`
+        function Component() {
+          const [values, setValues] = React.useState({});
+          const handleChange = () => {
+            values.count = 1;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+    },
+    // Custom state hooks configured via `additionalStateHooks` are recognized.
+    {
+      code: tsx`
+        function Component() {
+          const [values, setValues] = useMyState({});
+          const handleChange = () => {
+            values.count = 1;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "direct" },
+      ],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useMyState",
+        },
+      },
+    },
+    // A mutation already reported through a freeze sink is not reported again
+    // by the direct-mutation pass.
+    {
+      code: tsx`
+        function Component(props) {
+          const onClick = () => {
+            props.count = 1;
+          };
+          return <button onClick={onClick} />;
+        }
+      `,
+      errors: [
+        { data: { name: "props" }, messageId: "mutates" },
+        { data: { name: "props" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1166,6 +1390,88 @@ ruleTester.run(RULE_NAME, rule, {
           ref.current.inner = event.target.value;
         });
         return <input onChange={onChange} />;
+      }
+    `,
+    // Writing a shallow copy's own top-level slot is not a mutation of state.
+    tsx`
+      function Example({ initial }) {
+        const [values, setValues] = useState(initial);
+        const handleChange = (itemId, diff) => {
+          const copyValues = { ...values };
+          copyValues[itemId] = { ...copyValues[itemId], confirmedQuantity: diff };
+          setValues(copyValues);
+        };
+      }
+    `,
+    // Mutating a shallow-copied array itself only affects the new array.
+    tsx`
+      function Component() {
+        const [items, setItems] = useState([]);
+        const add = () => {
+          const copy = [...items];
+          copy.push(1);
+          setItems(copy);
+        };
+      }
+    `,
+    // The setter at index 1 of the tuple is not a state value.
+    tsx`
+      function Component() {
+        const [values, setValues] = useState({});
+        const handleChange = () => {
+          setValues.extra = 1;
+        };
+      }
+    `,
+    // Parameters of non-component functions are not props.
+    tsx`
+      function helper(props) {
+        props.count = 1;
+      }
+    `,
+    // Parameters of custom hooks are not component props.
+    tsx`
+      function useFoo(cache) {
+        const flush = () => {
+          cache.set("key", "value");
+        };
+        flush();
+      }
+    `,
+    // A handler parameter shadowing the component's props name is not props.
+    tsx`
+      function Component(props) {
+        const onClick = (props) => {
+          props.count = 1;
+        };
+        return <div />;
+      }
+    `,
+    // Deep copies do not share nested references with the original.
+    tsx`
+      function Component() {
+        const [values, setValues] = useState({});
+        const handleChange = () => {
+          const copy = structuredClone(values);
+          copy.a.b = 1;
+        };
+      }
+    `,
+    // Spreading a mutable local value does not create a frozen origin.
+    tsx`
+      function Component() {
+        const local = { nested: { count: 0 } };
+        const copy = { ...local };
+        copy.nested.count = 1;
+      }
+    `,
+    // Ref-like props remain exempt from the direct-mutation pass.
+    tsx`
+      function Component(props) {
+        const onClick = () => {
+          props.myRef.current = 1;
+        };
+        onClick();
       }
     `,
   ],
