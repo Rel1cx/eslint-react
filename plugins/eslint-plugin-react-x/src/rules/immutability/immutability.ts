@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { createImmutabilityCollector } from "./collect";
-import { inferMutableFunctions } from "./effects";
+import { inferDirectMutations, inferMutableFunctions } from "./effects";
 import { resolveToFunctionNode } from "./lib";
 
 export const RULE_NAME = "immutability";
@@ -14,6 +14,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
+  | "direct"
   | "mutates";
 
 export default createRule<[], MessageID>({
@@ -21,11 +22,12 @@ export default createRule<[], MessageID>({
     type: "problem",
     docs: {
       description:
-        "Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values.",
+        "Validates against mutating props, state, and other immutable values, including through functions passed into frozen contexts such as JSX props, hook arguments, and hook return values.",
     },
     messages: {
       default:
         "This function may (indirectly) reassign or modify '{{name}}' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead.",
+      direct: "Do not mutate '{{name}}' directly. {{detail}}",
       mutates: "This modifies '{{name}}'.",
     },
     schema: [],
@@ -50,26 +52,38 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
         }
 
+        const reportedMutations = new Set<TSESTree.Node>();
         const mutableFunctions = inferMutableFunctions(context, collector.facts.mutations);
-        if (mutableFunctions.size === 0) return;
+        if (mutableFunctions.size > 0) {
+          const reportedSinks = new Set<TSESTree.Node>();
+          for (const sink of collector.facts.sinks) {
+            const expression = sink.expression;
+            if (reportedSinks.has(expression)) continue;
+            const fn = resolveToFunctionNode(context, expression);
+            if (fn == null) continue;
+            const mutation = mutableFunctions.get(fn);
+            if (mutation == null) continue;
+            reportedSinks.add(expression);
+            reportedMutations.add(mutation.node);
+            context.report({
+              data: { name: mutation.name },
+              messageId: "default",
+              node: expression,
+            });
+            context.report({
+              data: { name: mutation.name },
+              messageId: "mutates",
+              node: mutation.node,
+            });
+          }
+        }
 
-        const reported = new Set<TSESTree.Node>();
-        for (const sink of collector.facts.sinks) {
-          const expression = sink.expression;
-          if (reported.has(expression)) continue;
-          const fn = resolveToFunctionNode(context, expression);
-          if (fn == null) continue;
-          const mutation = mutableFunctions.get(fn);
-          if (mutation == null) continue;
-          reported.add(expression);
+        for (const mutation of inferDirectMutations(context, collector.facts.mutations)) {
+          if (reportedMutations.has(mutation.node)) continue;
+          reportedMutations.add(mutation.node);
           context.report({
-            data: { name: mutation.name },
-            messageId: "default",
-            node: expression,
-          });
-          context.report({
-            data: { name: mutation.name },
-            messageId: "mutates",
+            data: { name: mutation.name, detail: mutation.detail },
+            messageId: "direct",
             node: mutation.node,
           });
         }

@@ -40,6 +40,15 @@ export const NAVIGATION_HOOKS = new Set([
   "useRouter",
 ]);
 
+export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
+  let current: TSESTree.Node | undefined = node;
+  while (current != null) {
+    if (current === ancestor) return true;
+    current = current.parent;
+  }
+  return false;
+}
+
 export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
   if (Check.isFunction(expr)) return expr;
