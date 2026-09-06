@@ -35,7 +35,7 @@ const finalPlugin: ESLint.Plugin & { configs: Record<ConfigName, Linter.Config> 
     /**
      * Disable experimental rules that might be subject to change in the future
      */
-    ["disable-experimental"]: disableExperimentalConfig,
+    ["disable-experimental"]: createConfig(disableExperimentalConfig),
     /**
      * Enforce rules that are recommended by ESLint React for general purpose React + React DOM projects
      */
