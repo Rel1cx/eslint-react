@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Tagged template literal hook calls (e.g. `useMotionTemplate\`...\``) are now recognized as valid hook usage, preventing false positives for custom hooks that call hooks only through tagged templates. (#1909)
+- Tagged template literal hook calls are now recognized as valid hook usage, preventing false positives for custom hooks that call hooks only through tagged templates. (#1909)
 
 ## [5.14.9] - 2026-07-15
 

@@ -48,9 +48,9 @@
     "@tsconfig/strictest": "^2.0.8",
     "@tsconfig/vite-react": "^8.1.1",
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5",
-    "eslint": "^10.9.1",
-    "tsdown": "^0.22.14",
+    "@types/react-dom": "^19.2.7",
+    "eslint": "^10.10.0",
+    "tsdown": "^0.23.0",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.69.0"
   },

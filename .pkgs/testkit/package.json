@@ -46,11 +46,11 @@
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.5",
     "@tsconfig/strictest": "^2.0.8",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "expect-type": "^1.4.0",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "6.0.3",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.0"
   },
   "engines": {
     "node": ">=22.0.0"

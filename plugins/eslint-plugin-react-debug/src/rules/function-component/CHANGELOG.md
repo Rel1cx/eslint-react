@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Reported component `hookCalls` counts now include tagged template literal hook calls (e.g. `useMotionTemplate\`...\``). (#1909)
+- Reported component ``hookCalls`` counts now include tagged template literal hook calls (e.g. ``useMotionTemplate\``...\``). (#1909)
 
 ## [5.2.3-beta.0] - 2026-04-14
 
