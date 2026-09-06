@@ -13,7 +13,6 @@ const config = {
     ignoreBuildErrors: true,
   },
   serverExternalPackages: [
-    "fumadocs-twoslash",
     "twoslash",
     "typescript",
   ],
