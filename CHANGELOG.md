@@ -1,5 +1,14 @@
 # Changelog
 
+## v5.19.0 (2026-09-07)
+
+### ✨ New
+
+- `react-x/immutability`: direct mutations of props and state are now reported — member assignments, updates, deletions, and mutating method calls are flagged when the mutated value resolves (through variable-declarator aliases) to a component's props, a `useState`/`useReducer` state value, or a custom hook matching the `additionalStateHooks` setting, independent of whether the mutation happens inside a function that reaches a freeze sink. (#1948, closes #1941)
+- `react-x/immutability`: added shallow-copy awareness — nested mutations through an object/array literal built by spreading a props or state value (e.g. `const copy = { ...state }` / `const copy = [...state]`) are reported, since the nested values are still shared with the original; writes to the copy's own top-level slots are not reported. (#1948)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.18.10...v5.19.0
+
 ## v5.18.10 (2026-09-06)
 
 ### 🐞 Fixes
