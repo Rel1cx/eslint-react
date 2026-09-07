@@ -1788,5 +1788,20 @@ ruleTester.run(RULE_NAME, rule, {
         handle();
       }
     `,
+    tsx`
+      function useWorld() {
+        return useContext(WorldContext);
+      }
+
+      function Component() {
+        const world = useWorld(); // returns a external mutable store
+
+        const onClose = useCallback(() => {
+          world.set({});
+        }, [world]);
+
+        return <AnotherComponent onClose={onClose} />;
+      }
+    `,
   ],
 });

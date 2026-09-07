@@ -30,16 +30,6 @@ export const KNOWN_MUTATING_METHODS = new Set([
   "unshift",
 ]);
 
-/**
- * Known mutating hooks.
- */
-export const KNOWN_MUTATING_HOOKS = new Set([
-  "useHistory",
-  "useNavigate",
-  "useNavigation",
-  "useRouter",
-]);
-
 export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
   let current: TSESTree.Node | undefined = node;
   while (current != null) {
@@ -116,8 +106,12 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
 
 export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
+  const customHooks = core.getEnvConfig(context).customHooks;
+  const mutableHooks = Object.entries(customHooks)
+    .filter(([, config]) => config.valueKind === "mutable")
+    .map(([hook]) => hook);
   return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
-    return KNOWN_MUTATING_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
+    return mutableHooks.some((hook) => core.isAPICall(hook)(context, init));
   });
 }
 
