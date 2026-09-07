@@ -14,7 +14,7 @@ import type { Scope } from "@typescript-eslint/utils/ts-eslint";
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
  */
-export const MUTATING_METHODS = new Set([
+export const KNOWN_MUTATING_METHODS = new Set([
   "add",
   "clear",
   "copyWithin",
@@ -31,9 +31,9 @@ export const MUTATING_METHODS = new Set([
 ]);
 
 /**
- * Known navigation hooks.
+ * Known mutating hooks.
  */
-export const NAVIGATION_HOOKS = new Set([
+export const KNOWN_MUTATING_HOOKS = new Set([
   "useHistory",
   "useNavigate",
   "useNavigation",
@@ -47,6 +47,22 @@ export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
     current = current.parent;
   }
   return false;
+}
+
+export function isComponentPropsDefinition(context: RuleContext, def: Scope.Definition) {
+  if (def.type !== DefinitionType.Parameter) return false;
+  const fn = def.node;
+  if (!Check.isFunction(fn)) return false;
+  const firstParam = fn.params.at(0);
+  if (firstParam == null || !isNodeWithin(def.name, firstParam)) return false;
+  return core.isFunctionComponentDefinition(context, fn, core.DEFAULT_COMPONENT_DETECTION_HINT);
+}
+
+export function getStateHookName(context: RuleContext, init: TSESTree.CallExpression) {
+  const { additionalStateHooks } = getSettingsFromContext(context);
+  if (core.isUseStateLikeCall(init, additionalStateHooks)) return Extract.getCalleeName(init) ?? "useState";
+  if (core.isUseReducerCall(context, init)) return "useReducer";
+  return null;
 }
 
 export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
@@ -101,7 +117,7 @@ export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Exp
 export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
   return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
-    return NAVIGATION_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
+    return KNOWN_MUTATING_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
   });
 }
 

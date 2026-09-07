@@ -1,12 +1,10 @@
 import { Check, Extract } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
-import { isNodeWithin, resolveVariableOrigin } from "./lib";
+import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVariableOrigin } from "./lib";
 
 /**
  * An origin that must be treated as immutable, resolved from a mutated variable.
@@ -15,22 +13,6 @@ export type FrozenOrigin =
   | { kind: "props"; name: string }
   | { kind: "state"; name: string; hook: string }
   | { kind: "shallow-copy"; name: string; original: string };
-
-function isComponentPropsDefinition(context: RuleContext, def: Scope.Definition) {
-  if (def.type !== DefinitionType.Parameter) return false;
-  const fn = def.node;
-  if (!Check.isFunction(fn)) return false;
-  const firstParam = fn.params.at(0);
-  if (firstParam == null || !isNodeWithin(def.name, firstParam)) return false;
-  return core.isFunctionComponentDefinition(context, fn, core.DEFAULT_COMPONENT_DETECTION_HINT);
-}
-
-function getStateHookName(context: RuleContext, init: TSESTree.CallExpression) {
-  const { additionalStateHooks } = getSettingsFromContext(context);
-  if (core.isUseStateLikeCall(init, additionalStateHooks)) return Extract.getCalleeName(init) ?? "useState";
-  if (core.isUseReducerCall(context, init)) return "useReducer";
-  return null;
-}
 
 /**
  * Classify whether a variable ultimately holds a value that must be treated as
@@ -41,11 +23,7 @@ function getStateHookName(context: RuleContext, init: TSESTree.CallExpression) {
  * @param seen Variables already visited during spread recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
-export function classifyFrozenOrigin(
-  context: RuleContext,
-  variable: Scope.Variable,
-  seen: Set<Scope.Variable> = new Set(),
-): FrozenOrigin | null {
+export function classifyFrozenOrigin(context: RuleContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): FrozenOrigin | null {
   if (seen.has(variable)) return null;
   seen.add(variable);
   const origin = resolveVariableOrigin(context, variable);

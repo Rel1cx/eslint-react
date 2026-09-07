@@ -889,6 +889,240 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "props" }, messageId: "default" },
       ],
     },
+
+    // Logical assignment operators (`||=`) on a captured identifier count as
+    // binding mutations; the collector does not filter by operator.
+    {
+      code: tsx`
+        function Component() {
+          let count = 0;
+          const fn = () => {
+            count ||= 1;
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "count" }, messageId: "mutates" },
+        { data: { name: "count" }, messageId: "default" },
+      ],
+    },
+    // Logical assignment (`??=`) to a props property is a direct mutation.
+    {
+      code: tsx`
+        function Component(props) {
+          props.count ??= 1;
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A mutating method invoked through a member chain resolves to the root
+    // identifier of the chain.
+    {
+      code: tsx`
+        function Component() {
+          const [state, setState] = useState({ list: [] });
+          const add = () => {
+            state.list.push(1);
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a state value returned from 'useState' and must be treated as immutable.",
+            name: "state",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // `useReducer` state mutations name the hook in the detail message.
+    {
+      code: tsx`
+        function Component() {
+          const [state, dispatch] = useReducer(reducer, { count: 0 });
+          const increment = () => {
+            state.count += 1;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a state value returned from 'useReducer' and must be treated as immutable.",
+            name: "state",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The shallow-copy detail message names both the copy and the original.
+    {
+      code: tsx`
+        function Component(props) {
+          const handleClick = () => {
+            const copy = { ...props };
+            copy.user.name = "x";
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a shallow copy of 'props'; mutating nested values through it mutates 'props' in place.",
+            name: "copy",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A shallow copy of a shallow copy is traced one hop: the detail names the
+    // intermediate copy as the original.
+    {
+      code: tsx`
+        function Component() {
+          const [values, setValues] = useState({});
+          const handle = () => {
+            const copy1 = { ...values };
+            const copy2 = { ...copy1 };
+            copy2.a.b = 1;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a shallow copy of 'copy1'; mutating nested values through it mutates 'copy1' in place.",
+            name: "copy2",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A property destructured from props is traced back to the props origin, so
+    // the report names 'props', not the destructured binding.
+    {
+      code: tsx`
+        function Component(props) {
+          const { user } = props;
+          const handle = () => {
+            user.name = "x";
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // `delete` through a computed member of props is a direct mutation.
+    {
+      code: tsx`
+        function Component(props) {
+          const reset = () => {
+            delete props[key];
+          };
+          reset();
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The navigation-hook exemption is an exact allowlist: a value returned
+    // from any other hook is not exempt from the `.push()` heuristic.
+    {
+      code: tsx`
+        function Component() {
+          const nav = useCustomNav();
+          const fn = () => {
+            nav.push("/dashboard");
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { data: { name: "nav" }, messageId: "mutates" },
+        { data: { name: "nav" }, messageId: "default" },
+      ],
+    },
+    // Props of a component defined as an arrow function are frozen too.
+    {
+      code: tsx`
+        const Component = (props) => {
+          props.count = 1;
+          return <div />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Direct mutations are not deduplicated against each other: two distinct
+    // mutation sites of the same state value are both reported.
+    {
+      code: tsx`
+        function Component() {
+          const [state, setState] = useState({ a: 0 });
+          const inc = () => {
+            state.a++;
+          };
+          const dec = () => {
+            state.a--;
+          };
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a state value returned from 'useState' and must be treated as immutable.",
+            name: "state",
+          },
+          messageId: "direct",
+        },
+        {
+          data: {
+            detail: "It is a state value returned from 'useState' and must be treated as immutable.",
+            name: "state",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1472,6 +1706,86 @@ ruleTester.run(RULE_NAME, rule, {
           props.myRef.current = 1;
         };
         onClick();
+      }
+    `,
+    // A `useState` result that is not destructured into an array pattern is
+    // not classified as a state value.
+    tsx`
+      function Component() {
+        const pair = useState({});
+        const handle = () => {
+          pair[0].value = 1;
+        };
+        handle();
+      }
+    `,
+    // Custom ref hooks configured via `additionalRefHooks` are exempt.
+    {
+      code: tsx`
+        function Component() {
+          const box = useMyRef([]);
+          const fn = () => {
+            box.current.push(1);
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useMyRef",
+        },
+      },
+    },
+    // Only the first parameter of a component is treated as props.
+    tsx`
+      function Component(props, context) {
+        context.count = 1;
+        return <div />;
+      }
+    `,
+    // Destructuring assignment targets are not collected as mutations.
+    tsx`
+      function Component() {
+        let a;
+        let b;
+        const fn = () => {
+          [a, b] = [1, 2];
+        };
+        return <Foo fn={fn} />;
+      }
+    `,
+    // Returning a mutable function from a component is not a freeze context;
+    // only hook return values are sinks.
+    tsx`
+      function Component() {
+        const cache = new Map();
+        return () => {
+          cache.set("key", "value");
+        };
+      }
+    `,
+    // Only spread literals create shallow-copy origins; `Object.assign` copies
+    // are not tracked.
+    tsx`
+      function Component() {
+        const [values, setValues] = useState({});
+        const handle = () => {
+          const copy = Object.assign({}, values);
+          copy.a.b = 1;
+        };
+        handle();
+      }
+    `,
+    // A spread argument that is not a plain identifier is not traced back to
+    // an origin.
+    tsx`
+      function Component() {
+        const [values, setValues] = useState({});
+        const handle = () => {
+          const copy = { ...getValues() };
+          copy.a.b = 1;
+        };
+        handle();
       }
     `,
   ],

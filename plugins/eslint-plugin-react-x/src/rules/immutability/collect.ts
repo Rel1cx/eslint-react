@@ -2,7 +2,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import type { RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { MUTATING_METHODS } from "./lib";
+import { KNOWN_MUTATING_METHODS } from "./lib";
 
 export type MutationFact = {
   kind: "binding" | "value";
@@ -57,7 +57,7 @@ export function createImmutabilityCollector() {
       const callee = Extract.unwrap(node.callee);
       if (callee.type === AST.MemberExpression) {
         const method = Extract.getCalleeName(node);
-        if (method != null && MUTATING_METHODS.has(method)) {
+        if (method != null && KNOWN_MUTATING_METHODS.has(method)) {
           const root = Extract.getIdentifierAt(callee.object, 0);
           if (root != null) pushMutation("value", node, callee.object, root);
         }
