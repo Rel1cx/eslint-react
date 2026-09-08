@@ -59,7 +59,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!Check.isIdentifier(left)) return;
         if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
 
-        const scope = context.sourceCode.getScope(left);
+        const src = context.sourceCode;
+        const scope = src.getScope(left);
         const variable = findVariable(scope, left);
         if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
           return;

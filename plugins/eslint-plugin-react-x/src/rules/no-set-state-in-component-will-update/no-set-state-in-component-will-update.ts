@@ -27,8 +27,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   // Fast path: skip if `componentWillUpdate` is not present in the file
-  if (!context.sourceCode.text.includes("componentWillUpdate")) return {};
+  if (!src.text.includes("componentWillUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isThisSetStateCall(node)) {
@@ -48,9 +49,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Get the scope of the 'componentWillUpdate' method
-      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+      const enclosingMethodScope = src.getScope(enclosingMethodNode);
       // Get the scope where 'this.setState' is called
-      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+      const setStateCallParentScope = src.getScope(node).upper;
 
       // Report an error if 'this.setState' is called directly inside 'componentWillUpdate'
       if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {

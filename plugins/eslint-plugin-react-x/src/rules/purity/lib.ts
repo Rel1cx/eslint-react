@@ -570,7 +570,8 @@ export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Id
   if (seen.has(node.name)) return null;
   seen.add(node.name);
 
-  const scope = context.sourceCode.getScope(node);
+  const src = context.sourceCode;
+  const scope = src.getScope(node);
   const variable = findVariable(scope, node);
 
   // No variable found -> treat as global

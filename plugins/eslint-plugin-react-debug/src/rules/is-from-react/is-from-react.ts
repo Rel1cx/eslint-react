@@ -31,6 +31,7 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const { importSource } = getSettingsFromContext(context);
+  const src = context.sourceCode;
 
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const shouldSkipDuplicate = node.parent.type === AST.ImportSpecifier
@@ -38,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       && node.parent.imported.name === node.parent.local.name;
     if (shouldSkipDuplicate) return;
     const name = node.name;
-    const initialScope = context.sourceCode.getScope(node);
+    const initialScope = src.getScope(node);
     if (!isFromReact(node, initialScope, importSource)) return;
     context.report({
       data: {

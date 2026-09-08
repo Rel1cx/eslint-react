@@ -123,9 +123,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
+
   // Fast path: skip if `fetch` is not present in the file
-  if (!context.sourceCode.text.includes("fetch")) return {};
-  if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+  if (!src.text.includes("fetch")) return {};
+  if (!/use\w*Effect/u.test(src.text)) return {};
 
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const fetchEntries: FetchEntry[] = [];

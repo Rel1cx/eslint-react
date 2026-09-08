@@ -82,7 +82,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  */
 function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
   const { importSource } = getSettingsFromContext(context);
-  const initialScope = context.sourceCode.getScope(node);
+  const src = context.sourceCode;
+  const initialScope = src.getScope(node);
   // Check if the callee is `forwardRef` or `React.forwardRef`
   const callee = Extract.unwrap(node.callee);
   switch (callee.type) {
@@ -137,17 +138,17 @@ function buildFixForComponentProps(
   node: TSESTreeFunction,
   typeArguments: TSESTree.TypeNode[],
 ) {
-  const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
+  const src = context.sourceCode;
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
   if (arg0 == null) {
-    const openParen = context.sourceCode.getFirstToken(node, { filter: (t) => t.value === "(" });
+    const openParen = src.getFirstToken(node, { filter: (t) => t.value === "(" });
     if (openParen == null) return [];
     if (typeArg0 == null || typeArg1 == null) {
       return [];
     }
-    const typeArg0Text = getText(typeArg0);
-    const typeArg1Text = getText(typeArg1);
+    const typeArg0Text = src.getText(typeArg0);
+    const typeArg1Text = src.getText(typeArg1);
     return [
       fixer.insertTextAfter(openParen, `{ ref }: ${typeArg1Text} & { ref?: React.RefObject<${typeArg0Text} | null> }`),
     ];
@@ -155,7 +156,7 @@ function buildFixForComponentProps(
   // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
     .with({ type: AST.Identifier }, (n) => `...${n.name}`)
-    .with({ type: AST.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
+    .with({ type: AST.ObjectPattern }, (n) => n.properties.map((n) => src.getText(n)).join(", "))
     .otherwise(() => null);
   // Determines the new `ref` prop text
   const fixedArg1Text = match(arg1)
@@ -184,8 +185,8 @@ function buildFixForComponentProps(
     ] as const;
   }
   // If type arguments exist, update props and add types
-  const typeArg0Text = getText(typeArg0);
-  const typeArg1Text = getText(typeArg1);
+  const typeArg0Text = src.getText(typeArg0);
+  const typeArg1Text = src.getText(typeArg1);
   return [
     fixer.replaceText(
       arg0,

@@ -1147,8 +1147,9 @@ export function noDirectAccessProps(): RuleFunction {
           const [props] = node.params;
           if (props == null) continue;
           if (props.type !== "Identifier") continue;
+          const src = context.sourceCode;
           const propName = props.name;
-          const propVariable = context.sourceCode.getScope(node).variables.find((v) => v.name === propName);
+          const propVariable = src.getScope(node).variables.find((v) => v.name === propName);
           const propReferences = propVariable?.references ?? [];
           for (const ref of propReferences) {
             const { parent } = ref.identifier;

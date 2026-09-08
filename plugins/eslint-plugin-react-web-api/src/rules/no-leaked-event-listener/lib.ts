@@ -36,6 +36,7 @@ export const defaultOptions: {
 };
 
 export function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument): typeof defaultOptions {
+  const src = context.sourceCode;
   function visit(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
@@ -58,7 +59,7 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
               case AST.Literal:
                 return Boolean(value.value);
               default:
-                return Boolean(getStaticValue(value, context.sourceCode.getScope(node))?.value);
+                return Boolean(getStaticValue(value, src.getScope(node))?.value);
             }
           })
           .otherwise(() => false);

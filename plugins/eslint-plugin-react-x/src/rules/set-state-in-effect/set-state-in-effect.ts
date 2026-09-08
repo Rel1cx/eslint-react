@@ -51,6 +51,7 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 
+  const src = context.sourceCode;
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const setupFnRef: { current: TSESTreeFunction | null } = { current: null };
@@ -62,7 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
 
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const getText = (n: TSESTree.Node) => src.getText(n);
 
   const onSetupFunctionEnter = (node: TSESTreeFunction) => {
     setupFnRef.current = node;
@@ -161,7 +162,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!isAt || index == null) {
           return false;
         }
-        const indexScope = context.sourceCode.getScope(node);
+        const indexScope = src.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
         return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
@@ -177,7 +178,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return false;
         }
         const property = callee.property;
-        const propertyScope = context.sourceCode.getScope(node);
+        const propertyScope = src.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
         return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
@@ -226,7 +227,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 const isUsingRefValue = (n: TSESTree.Node): boolean => {
                   switch (n.type) {
                     case AST.Identifier:
-                      return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
+                      return isInitializedFromRef(context, n.name, src.getScope(n));
                     case AST.MemberExpression:
                       return isUsingRefValue(n.object);
                     case AST.CallExpression:
@@ -260,7 +261,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (isRefGatedContext(context, node)) return;
               context.report({
                 data: {
-                  name: context.sourceCode.getText(Extract.unwrap(node.callee)),
+                  name: src.getText(Extract.unwrap(node.callee)),
                 },
                 messageId: "default",
                 node,
@@ -337,7 +338,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // by the caller and cannot be resolved to a function defined in this component.
         // `resolve` maps a parameter to its containing function, which would wrongly attribute
         // the component's own render-phase setState calls to the effect (https://github.com/Rel1cx/eslint-react/issues/1944).
-        const variable = findVariable(context.sourceCode.getScope(id), id);
+        const variable = findVariable(src.getScope(id), id);
         if (variable != null && variable.defs.some((def) => def.type === DefinitionType.Parameter)) {
           return [];
         }

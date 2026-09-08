@@ -36,6 +36,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
       if (!core.isAssignmentToThisState(node)) return;
@@ -51,7 +52,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (parentClass == null) return;
       // Report an error if 'this.state' is directly mutated in a class component
       // and the mutation is not inside the constructor
-      if (core.isClassComponent(parentClass) && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
+      if (core.isClassComponent(parentClass) && src.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
         context.report({
           messageId: "default",
           node,

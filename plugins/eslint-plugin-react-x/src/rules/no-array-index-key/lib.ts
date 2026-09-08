@@ -34,7 +34,8 @@ const INDEX_PARAM_POSITIONS = new Map<string, number>([
  * @returns `true` if the identifier resolves to an array index parameter.
  */
 export function isArrayIndexReference(context: RuleContext, node: TSESTree.Identifier): boolean {
-  const variable = findVariable(context.sourceCode.getScope(node), node);
+  const src = context.sourceCode;
+  const variable = findVariable(src.getScope(node), node);
   const def = variable?.defs.at(0);
   if (def == null || def.type !== DefinitionType.Parameter) return false;
   const callback = def.node;

@@ -151,6 +151,7 @@ export function isInitializedFromRef(
   initialScope: Scope,
   seen = new Set<string>(),
 ): boolean {
+  const src = context.sourceCode;
   const { additionalRefHooks } = getSettingsFromContext(context);
   if (seen.has(name)) return false;
   seen.add(name);
@@ -170,7 +171,7 @@ export function isInitializedFromRef(
         return true;
       // const { foo } = ref.current.getBoundingClientRect();
       case init.type === AST.CallExpression:
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
+        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, src.getScope(id), seen));
     }
   }
   return false;
@@ -202,7 +203,8 @@ export function isRefGatedContext(
 }
 
 function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
-  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id)));
+  const src = context.sourceCode;
+  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, src.getScope(id)));
 }
 
 /**

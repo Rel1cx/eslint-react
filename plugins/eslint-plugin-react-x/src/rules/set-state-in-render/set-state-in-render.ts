@@ -39,6 +39,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   const { additionalStateHooks } = getSettingsFromContext(context);
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const componentFnRef: { current: TSESTreeFunction | null } = { current: null };
@@ -81,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!isAt || index == null) {
           return false;
         }
-        const indexScope = context.sourceCode.getScope(node);
+        const indexScope = src.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
         return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
@@ -97,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return false;
         }
         const property = callee.property;
-        const propertyScope = context.sourceCode.getScope(node);
+        const propertyScope = src.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
         return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
@@ -147,7 +148,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (componentHasEarlyReturn.current) return;
       context.report({
         data: {
-          name: context.sourceCode.getText(Extract.unwrap(node.callee)),
+          name: src.getText(Extract.unwrap(node.callee)),
         },
         messageId: "default",
         node,

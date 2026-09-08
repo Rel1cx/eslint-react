@@ -2,8 +2,6 @@ import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
-import { flow } from "@local/eff";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -12,7 +10,6 @@ import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
 import { P, match } from "ts-pattern";
-import { report } from "./lib";
 
 export const RULE_NAME = "no-leaked-conditional-rendering";
 
@@ -41,9 +38,10 @@ export default createRule<[], MessageID>({
 // TODO: Evaluate whether it's possible to directly inspect type variants of `node.expression` within a JSX expression container to improve coverage.
 // This is currently not implemented to reduce false positives.
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const ctx = core.buildRichContext(context);
   // Fast path: if the file does not contain '&&', there is no need to run this rule
-  if (!context.sourceCode.text.includes("&&")) return {};
-  const { version } = getSettingsFromContext(context);
+  if (!ctx.hasText("&&")) return {};
+  const { version } = ctx.settings;
 
   // Defines the type variants that are safe to use on the left side of a '&&' expression
   // These types do not render unwanted values (like 0, NaN, or '')
@@ -85,6 +83,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (Check.is(AST.JSXExpressionContainer)(node)) return visit(node.expression, seen);
     if (Check.isJSX(node)) return null;
     if (Check.isTypeExpression(node)) return visit(node.expression, seen);
+    const src = ctx.src;
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -96,11 +95,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return visit(right, seen);
         }
 
-        const initialScope = context.sourceCode.getScope(left);
+        const initialScope = src.getScope(left);
         // Specifically check for 'NaN', which is a falsy value that gets rendered
         if (Check.isIdentifier(left, "NaN") || getStaticValue(left, initialScope)?.value === "NaN") {
           return {
-            data: { value: context.sourceCode.getText(left) },
+            data: { value: src.getText(left) },
             messageId: "default",
             node: left,
           } as const;
@@ -121,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
         // If the left side is not valid, report an error
         return {
-          data: { value: context.sourceCode.getText(left) },
+          data: { value: src.getText(left) },
           messageId: "default",
           node: left,
         } as const;
@@ -134,7 +133,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .with({ type: AST.Identifier }, (n) => {
         if (seen.has(n.name)) return null;
         seen.add(n.name);
-        const variable = findVariable(context.sourceCode.getScope(n), n.name);
+        const variable = findVariable(src.getScope(n), n.name);
         const variableDefNode = variable?.defs.at(0)?.node;
         return match(variableDefNode)
           .with(
@@ -147,6 +146,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       .otherwise(() => null);
   }
   return {
-    JSXExpressionContainer: flow(visit, report(context)),
+    JSXExpressionContainer(node) {
+      ctx.report(visit(node));
+    },
   };
 }

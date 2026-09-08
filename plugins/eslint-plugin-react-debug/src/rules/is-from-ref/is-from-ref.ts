@@ -29,13 +29,14 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
-    const initialScope = context.sourceCode.getScope(node);
+    const initialScope = src.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
     if (refInit != null) {
       const json = stringify({
         name: node.name,
-        init: context.sourceCode.getText(refInit),
+        init: src.getText(refInit),
       });
       context.report({
         data: { json },

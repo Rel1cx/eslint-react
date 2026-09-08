@@ -68,13 +68,16 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
+
   // Fast path: skip if `addEventListener` is not present in the file
-  if (!context.sourceCode.text.includes("addEventListener")) {
+  if (!src.text.includes("addEventListener")) {
     return {};
   }
-  if (!/use\w*Effect/u.test(context.sourceCode.text)) {
+  if (!/use\w*Effect/u.test(src.text)) {
     return {};
   }
+
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
@@ -139,7 +142,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // https://github.com/Rel1cx/eslint-react/issues/1323
           const isFromReactNative = callee.type === AST.MemberExpression
             && Check.isIdentifier(callee.object)
-            && isInitializedFromReactNative(callee.object.name, context.sourceCode.getScope(node));
+            && isInitializedFromReactNative(callee.object.name, src.getScope(node));
           if (isFromReactNative) {
             return;
           }

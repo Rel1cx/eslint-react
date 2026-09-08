@@ -1,11 +1,11 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import { type RichContext, isAPICall } from "@eslint-react/core";
 import { ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { MutationFact } from "./collect";
-import { isKnownNonMutatingMethodCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
+import { getMutableHookNames, isInitializedFromCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
 import { classifyFrozenOrigin } from "./origins";
 
 export type MutationEffect = {
@@ -25,22 +25,29 @@ function isGlobalOrModuleVariable(variable: Scope.Variable) {
   return variable.defs.length === 0 || variable.scope.type === ScopeType.global || variable.scope.type === ScopeType.module;
 }
 
-function isRefMutation(context: RuleContext, mutation: MutationFact) {
+function isRefMutation(ctx: RichContext, mutation: MutationFact) {
   if (Check.isIdentifier(mutation.target)) return isRefLikeName(mutation.target.name);
-  return isRefLikeChain(context, mutation.target);
+  return isRefLikeChain(ctx, mutation.target);
 }
 
-export function inferMutableFunctions(context: RuleContext, mutations: readonly MutationFact[]): MutableFunctionMap {
+export function inferMutableFunctions(ctx: RichContext, mutations: readonly MutationFact[]): MutableFunctionMap {
+  const src = ctx.src;
+  const env = ctx.getEnvConfig();
+  const mutableHooks = getMutableHookNames(env);
   const mutableFunctions: MutableFunctionMap = new Map();
 
   for (const mutation of mutations) {
-    if (mutation.node.type === AST.CallExpression && isKnownNonMutatingMethodCall(context, mutation.node)) continue;
-    if (isRefMutation(context, mutation)) continue;
-    const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
+    if (mutation.node.type === AST.CallExpression) {
+      const callee = Extract.unwrap(mutation.node.callee);
+      // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
+      if (Check.isExpression(callee) && isInitializedFromCall(ctx, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(ctx._, init)))) continue;
+    }
+    if (isRefMutation(ctx, mutation)) continue;
+    const variable = findVariable(src.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
     const origin = mutation.kind === "binding"
       ? variable
-      : resolveVariableOrigin(context, variable);
+      : resolveVariableOrigin(ctx, variable);
     if (isGlobalOrModuleVariable(origin)) continue;
 
     const declaration = origin.identifiers.at(0) ?? null;
@@ -65,16 +72,23 @@ function getMutatedObject(mutation: MutationFact): TSESTree.Node {
   return target.type === AST.MemberExpression ? Extract.unwrap(target.object) : target;
 }
 
-export function inferDirectMutations(context: RuleContext, mutations: readonly MutationFact[]): DirectMutation[] {
+export function inferDirectMutations(ctx: RichContext, mutations: readonly MutationFact[]): DirectMutation[] {
+  const src = ctx.src;
+  const env = ctx.getEnvConfig();
+  const mutableHooks = getMutableHookNames(env);
   const directMutations: DirectMutation[] = [];
 
   for (const mutation of mutations) {
     if (mutation.kind !== "value") continue;
-    if (mutation.node.type === AST.CallExpression && isKnownNonMutatingMethodCall(context, mutation.node)) continue;
-    if (isRefMutation(context, mutation)) continue;
-    const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
+    if (mutation.node.type === AST.CallExpression) {
+      const callee = Extract.unwrap(mutation.node.callee);
+      // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
+      if (Check.isExpression(callee) && isInitializedFromCall(ctx, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(ctx._, init)))) continue;
+    }
+    if (isRefMutation(ctx, mutation)) continue;
+    const variable = findVariable(src.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
-    const origin = classifyFrozenOrigin(context, variable);
+    const origin = classifyFrozenOrigin(ctx, variable);
     if (origin == null) continue;
     switch (origin.kind) {
       case "props": {

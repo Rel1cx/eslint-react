@@ -85,6 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         nEntries.push({ func, node });
       },
       "Program:exit"(node) {
+        const src = context.sourceCode;
         const comps = fc.api.getAllComponents(node);
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];
@@ -92,7 +93,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (!funcs.some((f) => f.node === func)) continue;
           context.report({
             data: {
-              name: context.sourceCode.getText(node),
+              name: src.getText(node),
             },
             messageId: "default",
             node,

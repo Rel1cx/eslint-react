@@ -34,9 +34,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   const { compilationMode, version } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
+  if (compilationMode === "annotation" && src.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { api, visitor } = core.getFunctionComponentCollector(context);
   const constructions = new WeakMap<TSESTreeFunction, ObjectType[]>();

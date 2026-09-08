@@ -51,7 +51,8 @@ const mergedCache = new WeakMap<RuleContext["sourceCode"], Required<JsxConfig>>(
  * @returns Fully‑populated `JsxConfig` derived from compiler options.
  */
 export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig> {
-  const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
+  const src = context.sourceCode;
+  const options = src.parserServices?.program?.getCompilerOptions() ?? {};
   return {
     jsx: options.jsx ?? ts.JsxEmit.ReactJSX,
     jsxFactory: options.jsxFactory ?? "React.createElement",
@@ -71,14 +72,15 @@ export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<
  * @returns Partial `JsxConfig` containing only the values found in pragmas.
  */
 export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
-  const cached = annotationCache.get(context.sourceCode);
+  const src = context.sourceCode;
+  const cached = annotationCache.get(src);
   if (cached != null) return cached;
 
   const options: JsxConfig = {};
 
   // Fast path – skip comment scanning when the file has no `@jsx` at all.
-  if (!context.sourceCode.text.includes("@jsx")) {
-    annotationCache.set(context.sourceCode, options);
+  if (!src.text.includes("@jsx")) {
+    annotationCache.set(src, options);
     return options;
   }
 
@@ -86,7 +88,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
 
   // Iterate in reverse so that the *last* pragma wins (mirrors tsc behaviour).
-  for (const comment of context.sourceCode.getAllComments().reverse()) {
+  for (const comment of src.getAllComments().reverse()) {
     const value = comment.value;
     jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];
     jsxFrag ??= value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
@@ -99,7 +101,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? ts.JsxEmit.React : ts.JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
 
-  annotationCache.set(context.sourceCode, options);
+  annotationCache.set(src, options);
   return options;
 }
 

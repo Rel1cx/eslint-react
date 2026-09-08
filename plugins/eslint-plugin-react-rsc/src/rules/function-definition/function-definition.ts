@@ -82,11 +82,12 @@ function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
 }
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: skip if neither `use server` nor `use client` is present
-  const text = context.sourceCode.text;
-  if (!text.includes("use server") && !text.includes("use client")) return {};
+  const src = context.sourceCode;
 
-  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
+  // Fast path: skip if neither `use server` nor `use client` is present
+  if (!src.text.includes("use server") && !src.text.includes("use client")) return {};
+
+  const hasFileLevelUseServerDirective = src.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
   function buildFixForAsync(node: TSESTreeFunction): ReportFixFunction | null {
     // Arrow functions: insert before the node (before parameters)
@@ -103,12 +104,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (parent.kind !== "method") return null;
         let target: TSESTree.Node | TSESTree.Token = parent.key;
         if (parent.computed) {
-          const openBracket = context.sourceCode.getTokenBefore(parent.key);
+          const openBracket = src.getTokenBefore(parent.key);
           if (openBracket?.value !== "[") return null;
           target = openBracket;
         }
         if (node.generator) {
-          const star = context.sourceCode.getTokenBefore(target);
+          const star = src.getTokenBefore(target);
           if (star?.value !== "*") return null;
           target = star;
         }
@@ -116,7 +117,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     }
     // Function declarations/expressions: insert before the "function" token
-    const functionToken = context.sourceCode.getFirstToken(node);
+    const functionToken = src.getFirstToken(node);
     if (functionToken == null) return null;
     return (fixer) => fixer.insertTextBefore(functionToken, "async ");
   }

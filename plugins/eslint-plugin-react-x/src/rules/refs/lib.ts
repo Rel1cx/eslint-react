@@ -55,7 +55,8 @@ export function createBindingResolver(context: RuleContext) {
   const jsxRefs = new Set<Variable>();
 
   function getVariable(node: TSESTree.Identifier): Variable | null {
-    return findVariable(context.sourceCode.getScope(node), node) ?? null;
+    const src = context.sourceCode;
+    return findVariable(src.getScope(node), node) ?? null;
   }
 
   function getBindingValue(node: TSESTree.Node): BindingValue {

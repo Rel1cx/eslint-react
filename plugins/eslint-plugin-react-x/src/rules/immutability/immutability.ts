@@ -38,7 +38,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const hooks = core.getHookCollector(context);
+  const ctx = core.buildRichContext(context);
+  const hooks = core.getHookCollector(ctx._);
   const collector = createImmutabilityCollector();
 
   return merge(
@@ -53,24 +54,24 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
 
         const reportedMutations = new Set<TSESTree.Node>();
-        const mutableFunctions = inferMutableFunctions(context, collector.facts.mutations);
+        const mutableFunctions = inferMutableFunctions(ctx, collector.facts.mutations);
         if (mutableFunctions.size > 0) {
           const reportedSinks = new Set<TSESTree.Node>();
           for (const sink of collector.facts.sinks) {
             const expression = sink.expression;
             if (reportedSinks.has(expression)) continue;
-            const fn = resolveToFunctionNode(context, expression);
+            const fn = resolveToFunctionNode(ctx, expression);
             if (fn == null) continue;
             const mutation = mutableFunctions.get(fn);
             if (mutation == null) continue;
             reportedSinks.add(expression);
             reportedMutations.add(mutation.node);
-            context.report({
+            ctx.report({
               data: { name: mutation.name },
               messageId: "default",
               node: expression,
             });
-            context.report({
+            ctx.report({
               data: { name: mutation.name },
               messageId: "mutates",
               node: mutation.node,
@@ -78,10 +79,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
         }
 
-        for (const mutation of inferDirectMutations(context, collector.facts.mutations)) {
+        for (const mutation of inferDirectMutations(ctx, collector.facts.mutations)) {
           if (reportedMutations.has(mutation.node)) continue;
           reportedMutations.add(mutation.node);
-          context.report({
+          ctx.report({
             data: { name: mutation.name, detail: mutation.detail },
             messageId: "direct",
             node: mutation.node,

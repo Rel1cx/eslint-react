@@ -28,6 +28,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   const { additionalStateHooks } = getSettingsFromContext(context);
   const stateEntries: { name: string; node: TSESTree.Identifier }[] = [];
 
@@ -44,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     },
     "Program:exit"() {
       for (const { name, node } of stateEntries) {
-        const scope = context.sourceCode.getScope(node);
+        const scope = src.getScope(node);
         const variable = findVariable(scope, name);
         if (variable == null) continue;
 

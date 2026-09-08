@@ -26,7 +26,8 @@ export const MUTATING_ARRAY_METHODS = new Set([
  * global/module scope.
  */
 export function isGlobalVariable(context: RuleContext, node: TSESTree.Identifier): boolean {
-  const variable = findVariable(context.sourceCode.getScope(node), node);
+  const src = context.sourceCode;
+  const variable = findVariable(src.getScope(node), node);
   if (variable == null || variable.defs.length === 0) return true;
   return variable.scope.type === ScopeType.global || variable.scope.type === ScopeType.module;
 }
@@ -43,6 +44,7 @@ export function resolveGlobalOrigin(
   node: TSESTree.Expression,
   seen = new Set<TSESTree.Node>(),
 ): TSESTree.Identifier | null {
+  const src = context.sourceCode;
   const expression = Extract.unwrap(node);
   if (seen.has(expression)) return null;
   seen.add(expression);
@@ -53,7 +55,7 @@ export function resolveGlobalOrigin(
   if (!Check.isIdentifier(expression)) return null;
   if (isGlobalVariable(context, expression)) return expression;
 
-  const variable = findVariable(context.sourceCode.getScope(expression), expression);
+  const variable = findVariable(src.getScope(expression), expression);
   const definition = variable?.defs.length === 1 ? variable.defs[0] : null;
   if (definition?.type !== DefinitionType.Variable) return null;
   if (!Check.isIdentifier(definition.node.id) || definition.node.init == null) return null;

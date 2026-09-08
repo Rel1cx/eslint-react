@@ -29,6 +29,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
   const { api, visitor } = core.getFunctionComponentCollector(
     context,
     {
@@ -47,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 name: name ?? "anonymous",
                 displayName: displayName == null
                   ? "none"
-                  : context.sourceCode.getText(displayName),
+                  : src.getText(displayName),
                 forwardRef: (flag & core.FunctionComponentFlag.ForwardRef) > 0n,
                 hookCalls: hookCalls.length,
                 memo: (flag & core.FunctionComponentFlag.Memo) > 0n,

@@ -72,11 +72,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!hasDisplayNameAssignment) {
           context.report({
             fix(fixer) {
+              const src = context.sourceCode;
               // Ensure the fix is applied correctly
               if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
               // Insert `ContextName.displayName = "ContextName";` after the creation
               return fixer.insertTextAfter(
-                context.sourceCode.getTokenAfter(call) ?? call,
+                src.getTokenAfter(call) ?? call,
                 [
                   "\n",
                   id.name,

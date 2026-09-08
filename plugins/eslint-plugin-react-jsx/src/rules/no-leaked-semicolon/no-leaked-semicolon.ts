@@ -35,8 +35,9 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.JSXText) {
+    const src = context.sourceCode;
     if (!Check.isJSXElementOrFragment(node.parent)) return;
-    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.sourceCode.getText(node))) return;
+    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(src.getText(node))) return;
     context.report({
       messageId: "default",
       node,

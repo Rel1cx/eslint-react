@@ -3,6 +3,7 @@ export * from "./class";
 export * from "./class-component";
 export * from "./class-component-collector";
 export * from "./create-element";
+export * from "./ctx";
 export * from "./env";
 export * from "./env-config";
 export * from "./function";

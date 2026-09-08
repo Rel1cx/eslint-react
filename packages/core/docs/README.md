@@ -36,6 +36,7 @@
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md)                     | Represents a function semantic node.                                                                                       |
 | [HookCall](type-aliases/HookCall.md)                                             | Represents a hook call, which can be a call expression or a tagged template expression.                                    |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md)                             | BitFlags for configuring JSX detection behavior.                                                                           |
+| [RichContext](type-aliases/RichContext.md)                                       | -                                                                                                                          |
 | [TypeVariant](type-aliases/TypeVariant.md)                                       | Represents the variant of a type for boolean expression analysis.                                                          |
 
 ## Variables
@@ -136,6 +137,7 @@
 
 | Function                                                                              | Description                                                                                                                                              |
 | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [buildRichContext](functions/buildRichContext.md)                                     | Builds a `RichContext` from a rule's `RuleContext`.                                                                                                      |
 | [~~getClassComponentCollector~~](functions/getClassComponentCollector.md)             | Get an api and visitor object for the rule to collect class components.                                                                                  |
 | [getClassId](functions/getClassId.md)                                                 | Get the class identifier of a class node.                                                                                                                |
 | [getCreateElementChildrenArguments](functions/getCreateElementChildrenArguments.md)   | Get the children arguments (the arguments after the props object) of a `createElement` call.                                                             |

@@ -58,7 +58,8 @@ export function collectUsedPropsOfRestElement(context: RuleContext, usedPropKeys
 }
 
 export function collectUsedPropKeysOfIdentifier(context: RuleContext, usedPropKeys: Set<string>, identifier: TSESTree.Identifier): boolean {
-  const scope = context.sourceCode.getScope(identifier);
+  const src = context.sourceCode;
+  const scope = src.getScope(identifier);
   const variable = scope.variables.find((v) => v.name === identifier.name);
   if (variable == null) return false;
 

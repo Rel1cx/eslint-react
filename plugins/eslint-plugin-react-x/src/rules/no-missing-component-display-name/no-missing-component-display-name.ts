@@ -25,8 +25,10 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  const src = context.sourceCode;
+
   // Fast path: skip if `memo` or `forwardRef` is not present in the file
-  if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) return {};
+  if (!src.text.includes("memo") && !src.text.includes("forwardRef")) return {};
 
   const { api, visitor } = core.getFunctionComponentCollector(context, {
     collectDisplayName: true,
