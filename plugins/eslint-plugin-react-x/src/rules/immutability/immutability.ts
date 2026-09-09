@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { createImmutabilityCollector } from "./collect";
 import { inferDirectMutations, inferMutableFunctions } from "./effects";
@@ -33,13 +35,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const ctx = core.buildRichContext(context);
-  const hooks = core.getHookCollector(ctx._);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const hooks = core.getHookCollector(context._);
   const collector = createImmutabilityCollector();
 
   return merge(
@@ -54,24 +55,24 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
 
         const reportedMutations = new Set<TSESTree.Node>();
-        const mutableFunctions = inferMutableFunctions(ctx, collector.facts.mutations);
+        const mutableFunctions = inferMutableFunctions(context, collector.facts.mutations);
         if (mutableFunctions.size > 0) {
           const reportedSinks = new Set<TSESTree.Node>();
           for (const sink of collector.facts.sinks) {
             const expression = sink.expression;
             if (reportedSinks.has(expression)) continue;
-            const fn = resolveToFunctionNode(ctx, expression);
+            const fn = resolveToFunctionNode(context, expression);
             if (fn == null) continue;
             const mutation = mutableFunctions.get(fn);
             if (mutation == null) continue;
             reportedSinks.add(expression);
             reportedMutations.add(mutation.node);
-            ctx.report({
+            context.report({
               data: { name: mutation.name },
               messageId: "default",
               node: expression,
             });
-            ctx.report({
+            context.report({
               data: { name: mutation.name },
               messageId: "mutates",
               node: mutation.node,
@@ -79,10 +80,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
         }
 
-        for (const mutation of inferDirectMutations(ctx, collector.facts.mutations)) {
+        for (const mutation of inferDirectMutations(context, collector.facts.mutations)) {
           if (reportedMutations.has(mutation.node)) continue;
           reportedMutations.add(mutation.node);
-          ctx.report({
+          context.report({
             data: { name: mutation.name, detail: mutation.detail },
             messageId: "direct",
             node: mutation.node,

@@ -25,14 +25,14 @@ function isGlobalOrModuleVariable(variable: Scope.Variable) {
   return variable.defs.length === 0 || variable.scope.type === ScopeType.global || variable.scope.type === ScopeType.module;
 }
 
-function isRefMutation(ctx: RichContext, mutation: MutationFact) {
+function isRefMutation(context: RichContext, mutation: MutationFact) {
   if (Check.isIdentifier(mutation.target)) return isRefLikeName(mutation.target.name);
-  return isRefLikeChain(ctx, mutation.target);
+  return isRefLikeChain(context, mutation.target);
 }
 
-export function inferMutableFunctions(ctx: RichContext, mutations: readonly MutationFact[]): MutableFunctionMap {
-  const src = ctx.src;
-  const env = ctx.getEnvConfig();
+export function inferMutableFunctions(context: RichContext, mutations: readonly MutationFact[]): MutableFunctionMap {
+  const src = context.src;
+  const env = context.getEnvConfig();
   const mutableHooks = getMutableHookNames(env);
   const mutableFunctions: MutableFunctionMap = new Map();
 
@@ -40,14 +40,16 @@ export function inferMutableFunctions(ctx: RichContext, mutations: readonly Muta
     if (mutation.node.type === AST.CallExpression) {
       const callee = Extract.unwrap(mutation.node.callee);
       // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
-      if (Check.isExpression(callee) && isInitializedFromCall(ctx, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(ctx._, init)))) continue;
+      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context._, init)))) {
+        continue;
+      }
     }
-    if (isRefMutation(ctx, mutation)) continue;
+    if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(src.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
     const origin = mutation.kind === "binding"
       ? variable
-      : resolveVariableOrigin(ctx, variable);
+      : resolveVariableOrigin(context, variable);
     if (isGlobalOrModuleVariable(origin)) continue;
 
     const declaration = origin.identifiers.at(0) ?? null;
@@ -72,9 +74,9 @@ function getMutatedObject(mutation: MutationFact): TSESTree.Node {
   return target.type === AST.MemberExpression ? Extract.unwrap(target.object) : target;
 }
 
-export function inferDirectMutations(ctx: RichContext, mutations: readonly MutationFact[]): DirectMutation[] {
-  const src = ctx.src;
-  const env = ctx.getEnvConfig();
+export function inferDirectMutations(context: RichContext, mutations: readonly MutationFact[]): DirectMutation[] {
+  const src = context.src;
+  const env = context.getEnvConfig();
   const mutableHooks = getMutableHookNames(env);
   const directMutations: DirectMutation[] = [];
 
@@ -83,12 +85,14 @@ export function inferDirectMutations(ctx: RichContext, mutations: readonly Mutat
     if (mutation.node.type === AST.CallExpression) {
       const callee = Extract.unwrap(mutation.node.callee);
       // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
-      if (Check.isExpression(callee) && isInitializedFromCall(ctx, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(ctx._, init)))) continue;
+      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context._, init)))) {
+        continue;
+      }
     }
-    if (isRefMutation(ctx, mutation)) continue;
+    if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(src.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
-    const origin = classifyFrozenOrigin(ctx, variable);
+    const origin = classifyFrozenOrigin(context, variable);
     if (origin == null) continue;
     switch (origin.kind) {
       case "props": {

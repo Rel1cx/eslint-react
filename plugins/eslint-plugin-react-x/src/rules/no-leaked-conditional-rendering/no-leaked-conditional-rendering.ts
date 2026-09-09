@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -31,17 +33,17 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
 // TODO: Evaluate whether it's possible to directly inspect type variants of `node.expression` within a JSX expression container to improve coverage.
 // This is currently not implemented to reduce false positives.
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const ctx = core.buildRichContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: if the file does not contain '&&', there is no need to run this rule
-  if (!ctx.hasText("&&")) return {};
-  const { version } = ctx.settings;
+  if (!context.hasText("&&")) return {};
+
+  const { version } = context.settings;
 
   // Defines the type variants that are safe to use on the left side of a '&&' expression
   // These types do not render unwanted values (like 0, NaN, or '')
@@ -63,7 +65,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       : ["string", "falsy string"] as const,
   ] as const satisfies core.TypeVariant[];
 
-  const services = ESLintUtils.getParserServices(context, false);
+  const services = ESLintUtils.getParserServices(context._, false);
 
   /**
    * Recursively inspects a node to find potential leaked conditional rendering
@@ -83,7 +85,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (Check.is(AST.JSXExpressionContainer)(node)) return visit(node.expression, seen);
     if (Check.isJSX(node)) return null;
     if (Check.isTypeExpression(node)) return visit(node.expression, seen);
-    const src = ctx.src;
+    const src = context.src;
 
     // Pattern match on the node type to apply specific logic
     return match<typeof node, ReportDescriptor<MessageID> | null>(node)
@@ -147,7 +149,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     JSXExpressionContainer(node) {
-      ctx.report(visit(node));
+      context.report(visit(node));
     },
   };
 }
