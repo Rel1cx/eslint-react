@@ -36,9 +36,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.JSXText) {
-    const src = context.src;
     if (!Check.isJSXElementOrFragment(node.parent)) return;
-    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(src.getText(node))) return;
+    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.getText(node))) return;
     context.report({
       messageId: "default",
       node,

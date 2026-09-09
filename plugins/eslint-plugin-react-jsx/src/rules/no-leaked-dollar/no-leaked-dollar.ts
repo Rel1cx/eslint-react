@@ -36,8 +36,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
-
   // Fast path: skip if no '$' in the source code
   if (!context.hasText("$")) return {};
   function visit(node: TSESTreeJSXElementLike) {
@@ -52,15 +50,16 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
         child.value.trim() === "$"
         && node.children.every((sibling, siblingIndex) => siblingIndex === index || siblingIndex === index + 1 || isNonSubstantiveChild(sibling))
       ) continue;
+
       // Only report a literal '$' at the end of the raw text node.
-      const rawText = src.getText(child);
+      const rawText = context.getText(child);
       if (!rawText.endsWith("$")) continue;
       const dollarStart = child.range[1] - 1;
       const dollarEnd = child.range[1];
       context.report({
         loc: {
-          end: src.getLocFromIndex(dollarEnd),
-          start: src.getLocFromIndex(dollarStart),
+          end: context.src.getLocFromIndex(dollarEnd),
+          start: context.src.getLocFromIndex(dollarStart),
         },
         messageId: "default",
         node: child,

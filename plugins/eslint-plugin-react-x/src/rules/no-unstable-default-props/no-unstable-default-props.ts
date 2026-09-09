@@ -82,8 +82,8 @@ function extractIdentifier(node: TSESTree.Node): string | null {
 }
 
 export function create(context: RichContext<MessageID, Options>, [options]: Options): RuleListener {
-  const src = context.src;
   const { compilationMode } = context.settings;
+  const src = context.src;
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && src.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);

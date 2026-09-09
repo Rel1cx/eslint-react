@@ -100,7 +100,6 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
-      const src = context.src;
       for (const { hasDuplicate, keys } of keyedEntries.values()) {
         if (!hasDuplicate) {
           continue;
@@ -109,7 +108,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
         for (const key of keys) {
           context.report({
             data: {
-              value: src.getText(key),
+              value: context.getText(key),
             },
             messageId: "default",
             node: key,

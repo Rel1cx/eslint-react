@@ -29,9 +29,9 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
   // Fast path: skip if `componentWillUpdate` is not present in the file
   if (!context.hasText("componentWillUpdate")) return {};
+  const src = context.src;
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isThisSetStateCall(node)) {

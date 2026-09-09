@@ -35,8 +35,8 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
   const { compilationMode, version } = context.settings;
+  const src = context.src;
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && src.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");

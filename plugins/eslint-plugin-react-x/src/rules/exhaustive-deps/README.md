@@ -19,4 +19,4 @@ Changes to the rule logic should be made upstream in the React repository and th
 
 The following local adaptations have been made to integrate with `eslint-plugin-react-x`:
 
-- `getAdditionalEffectHooksFromSettings` has been replaced by `context.settings` from the `RichContext` provided by `@eslint-react/core`, reading `additionalEffectHooks` from the `react-x` settings namespace.
+- `getAdditionalEffectHooksFromSettings` has been replaced by `getSettingsFromContext` from `@eslint-react/shared`, reading `additionalEffectHooks` from the `react-x` settings namespace.

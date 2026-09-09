@@ -30,14 +30,13 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
-    const initialScope = src.getScope(node);
+    const initialScope = context.src.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
     if (refInit != null) {
       const json = stringify({
         name: node.name,
-        init: src.getText(refInit),
+        init: context.getText(refInit),
       });
       context.report({
         data: { json },

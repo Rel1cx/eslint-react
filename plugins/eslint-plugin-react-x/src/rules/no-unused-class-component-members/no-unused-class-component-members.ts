@@ -30,8 +30,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
-
   // A stack to keep track of class nodes, to handle nested classes
   const classStack: TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
@@ -83,7 +81,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
       // Report members that are defined but not used
       context.report({
         data: {
-          className: id != null ? src.getText(id) : "Component",
+          className: id != null ? context.getText(id) : "Component",
           methodName,
         },
         messageId: "default",

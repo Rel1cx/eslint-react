@@ -10,9 +10,8 @@ import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
  * @returns A fix that removes the attribute and its preceding whitespace
  */
 export function removeJsxAttribute(context: RichContext, fixer: RuleFixer, attribute: TSESTree.JSXAttribute): RuleFix {
-  const src = context.src;
   // Expand the removal range to also cover whitespace before the attribute
   let start = attribute.range[0];
-  while (start > 0 && /\s/.test(src.text[start - 1] ?? "")) start--;
+  while (start > 0 && /\s/.test(context.src.text[start - 1] ?? "")) start--;
   return fixer.removeRange([start, attribute.range[1]]);
 }

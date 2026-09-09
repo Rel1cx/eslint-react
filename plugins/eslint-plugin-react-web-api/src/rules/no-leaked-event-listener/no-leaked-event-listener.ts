@@ -69,8 +69,6 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
-
   // Fast path: skip if `addEventListener` is not present in the file
   if (!context.hasText("addEventListener")) {
     return {};
@@ -143,7 +141,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
           // https://github.com/Rel1cx/eslint-react/issues/1323
           const isFromReactNative = callee.type === AST.MemberExpression
             && Check.isIdentifier(callee.object)
-            && isInitializedFromReactNative(callee.object.name, src.getScope(node));
+            && isInitializedFromReactNative(callee.object.name, context.src.getScope(node));
           if (isFromReactNative) {
             return;
           }

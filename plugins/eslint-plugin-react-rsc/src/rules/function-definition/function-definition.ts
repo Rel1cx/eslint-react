@@ -84,11 +84,10 @@ function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
 }
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const src = context.src;
-
   // Fast path: skip if neither `use server` nor `use client` is present
   if (!context.hasText("use server") && !context.hasText("use client")) return {};
 
+  const src = context.src;
   const hasFileLevelUseServerDirective = src.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
   function buildFixForAsync(node: TSESTreeFunction): ReportFixFunction | null {

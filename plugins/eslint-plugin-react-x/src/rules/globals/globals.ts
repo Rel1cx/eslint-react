@@ -64,7 +64,6 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
   }
 
   function recordWrite(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
-    const src = context.src;
     if (Check.isIdentifier(target)) {
       // Reassigning a local alias changes only the local binding. Alias
       // provenance matters only when mutating a property of the aliased value.
@@ -76,7 +75,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
     const origin = resolveGlobalOrigin(context, target.object);
     if (origin == null) return;
     recordEffect(node, "mutatingGlobalProperty", {
-      name: src.getText(target),
+      name: context.getText(target),
     });
   }
 
