@@ -40,7 +40,7 @@
     "eslint-plugin-perfectionist": "^5.11.0",
     "eslint-plugin-regexp": "^3.3.0",
     "eslint-plugin-unicorn": "^74.0.0",
-    "typescript-eslint": "^8.69.0"
+    "typescript-eslint": "^8.70.0"
   },
   "devDependencies": {
     "eslint": "^10.10.0",

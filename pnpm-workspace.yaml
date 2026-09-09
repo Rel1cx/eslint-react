@@ -26,22 +26,22 @@ overrides:
   "@types/react": "^19.2.18"
   "@types/react-dom": "^19.2.7"
   # Transitive dependency via typescript-eslint 8.67.0
-  "@typescript-eslint/eslint-plugin": "^8.69.0"
-  "@typescript-eslint/parser": "^8.69.0"
+  "@typescript-eslint/eslint-plugin": "^8.70.0"
+  "@typescript-eslint/parser": "^8.70.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/project-service": "^8.69.0"
+  "@typescript-eslint/project-service": "^8.70.0"
   # Preventive pin, no installed package depends on it
-  "@typescript-eslint/rule-schema-to-typescript-types": "^8.69.0"
-  "@typescript-eslint/rule-tester": "^8.69.0"
-  "@typescript-eslint/scope-manager": "^8.69.0"
+  "@typescript-eslint/rule-schema-to-typescript-types": "^8.70.0"
+  "@typescript-eslint/rule-tester": "^8.70.0"
+  "@typescript-eslint/scope-manager": "^8.70.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/tsconfig-utils": "^8.69.0"
-  "@typescript-eslint/type-utils": "^8.69.0"
-  "@typescript-eslint/types": "^8.69.0"
-  "@typescript-eslint/typescript-estree": "^8.69.0"
-  "@typescript-eslint/utils": "^8.69.0"
+  "@typescript-eslint/tsconfig-utils": "^8.70.0"
+  "@typescript-eslint/type-utils": "^8.70.0"
+  "@typescript-eslint/types": "^8.70.0"
+  "@typescript-eslint/typescript-estree": "^8.70.0"
+  "@typescript-eslint/utils": "^8.70.0"
   # Transitive dependency via @typescript-eslint/parser 8.67.0
-  "@typescript-eslint/visitor-keys": "^8.69.0"
+  "@typescript-eslint/visitor-keys": "^8.70.0"
   # Transitive dependency via nx 23.1.0
   axios: "^1.20.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
@@ -51,7 +51,7 @@ overrides:
   # Transitive dependency via tsdown 0.22.12
   defu: "^6.1.7"
   # Transitive dependency via mermaid 11.16.0
-  dompurify: "^3.4.14"
+  dompurify: "^3.4.15"
   # Transitive dependency via fumadocs-mdx 15.2.0, tsx 4.23.1 and vite 8.1.5
   esbuild: "^0.28.2"
   # Transitive dependency via ajv 8.20.0, fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
@@ -60,7 +60,7 @@ overrides:
   follow-redirects: "^1.16.0"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   form-data: "^4.0.6"
-  fumadocs-twoslash: "3.3.0"
+  fumadocs-twoslash: "3.3.1"
   # Transitive dependency via depcheck 1.4.7
   js-yaml: "^5.4.1"
   # Transitive dependency via dagre-d3-es 7.0.14 (mermaid 11.16.0)
@@ -82,7 +82,7 @@ overrides:
   ts-api-utils: "^2.5.0"
   # Transitive dependency via nx 23.1.0 and others
   tslib: "^2.8.1"
-  typescript-eslint: "^8.69.0"
+  typescript-eslint: "^8.70.0"
   typescript: "6.0.3"
   # Transitive dependency via @types/node 26.1.2
   undici-types: "^8.10.2"
