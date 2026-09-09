@@ -3,7 +3,7 @@
 # Function: getCreateElementPropsObject()
 
 ```ts
-function getCreateElementPropsObject(context: RuleContext, node: Node | null): ObjectExpression | null;
+function getCreateElementPropsObject(context: RichContext, node: Node | null): ObjectExpression | null;
 ```
 
 Get the props object (the second argument) of a `createElement` call.
@@ -14,10 +14,10 @@ arguments yield `null`.
 
 ## Parameters
 
-| Parameter | Type             | Description              |
-| --------- | ---------------- | ------------------------ |
-| `context` | `RuleContext`    | The ESLint rule context. |
-| `node`    | `Node` \| `null` | The node to inspect.     |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
+| `node`    | `Node` \| `null`                                | The node to inspect.   |
 
 ## Returns
 

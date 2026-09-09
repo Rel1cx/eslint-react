@@ -1342,6 +1342,9 @@ importers:
       '@eslint-react/ast':
         specifier: workspace:*
         version: link:../../packages/ast
+      '@eslint-react/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@eslint-react/eslint':
         specifier: workspace:*
         version: link:../../packages/eslint

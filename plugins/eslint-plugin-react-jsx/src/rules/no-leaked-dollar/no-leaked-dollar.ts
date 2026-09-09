@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -30,15 +31,15 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const src = context.sourceCode;
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const src = context.src;
 
   // Fast path: skip if no '$' in the source code
-  if (!src.text.includes("$")) return {};
+  if (!context.hasText("$")) return {};
   function visit(node: TSESTreeJSXElementLike) {
     for (const [index, child] of node.children.entries()) {
       if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;

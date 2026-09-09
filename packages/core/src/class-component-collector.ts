@@ -1,10 +1,10 @@
 import { Extract, type TSESTreeClass } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
+import type { RichContext } from "./ctx";
 
 // #region Component Collector Legacy
 
@@ -23,10 +23,10 @@ export declare namespace getClassComponentCollector {
 
 /**
  * Get an api and visitor object for the rule to collect class components.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function getClassComponentCollector(context: RuleContext): getClassComponentCollector.ReturnType {
+export function getClassComponentCollector(context: RichContext): getClassComponentCollector.ReturnType {
   const components = new Map<string, ClassComponentSemanticNode>();
 
   const api = {
@@ -35,7 +35,7 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
     },
   } as const;
 
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const getText = context.getText;
   const collect = (node: TSESTreeClass) => {
     if (!isClassComponent(node)) {
       return;

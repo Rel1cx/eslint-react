@@ -1,7 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -146,13 +144,13 @@ export function isHookDecl(node: TSESTree.Node): node is
 }
 
 export function isInitializedFromRef(
-  context: RuleContext,
+  context: core.RichContext,
   name: string,
   initialScope: Scope,
   seen = new Set<string>(),
 ): boolean {
-  const src = context.sourceCode;
-  const { additionalRefHooks } = getSettingsFromContext(context);
+  const src = context.src;
+  const { additionalRefHooks } = context.settings;
   if (seen.has(name)) return false;
   seen.add(name);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
@@ -180,12 +178,12 @@ export function isInitializedFromRef(
 /**
  * Check if a setState call is inside a conditional block whose test expression
  * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`).
- * @param context The ESLint rule context
+ * @param context The rich rule context
  * @param node The AST node to check
  * @returns `true` if the node is inside a ref-gated conditional block
  */
 export function isRefGatedContext(
-  context: RuleContext,
+  context: core.RichContext,
   node: TSESTree.Node,
 ): boolean {
   let current: TSESTree.Node | undefined = node.parent;
@@ -202,8 +200,8 @@ export function isRefGatedContext(
   return false;
 }
 
-function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
-  const src = context.sourceCode;
+function isRefInExpression(context: core.RichContext, node: TSESTree.Node): boolean {
+  const src = context.src;
   return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, src.getScope(id)));
 }
 

@@ -40,7 +40,7 @@ export function inferMutableFunctions(context: RichContext, mutations: readonly 
     if (mutation.node.type === AST.CallExpression) {
       const callee = Extract.unwrap(mutation.node.callee);
       // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
-      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context._, init)))) {
+      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context, init)))) {
         continue;
       }
     }
@@ -85,7 +85,7 @@ export function inferDirectMutations(context: RichContext, mutations: readonly M
     if (mutation.node.type === AST.CallExpression) {
       const callee = Extract.unwrap(mutation.node.callee);
       // Calls on a value returned from a hook configured with `valueKind: "mutable"` mutate freely and are not mutations.
-      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context._, init)))) {
+      if (Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => mutableHooks.some((hook) => isAPICall(hook)(context, init)))) {
         continue;
       }
     }

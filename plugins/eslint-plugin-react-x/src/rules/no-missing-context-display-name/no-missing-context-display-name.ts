@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -25,13 +27,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: if 'createContext' is not in the file, this rule doesn't apply
-  if (!context.sourceCode.text.includes("createContext")) return {};
+  if (!context.hasText("createContext")) return {};
   // Stores all `React.createContext` call expressions
   const createCalls: TSESTree.CallExpression[] = [];
   // Stores all `displayName` assignment expressions
@@ -66,13 +68,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (left.type !== AST.MemberExpression) return false;
             const object = left.object;
             // Check if the object in the assignment matches the context's identifier
-            return isAssignmentTargetEqual(context, id, object);
+            return isAssignmentTargetEqual(context._, id, object);
           });
         // If no `displayName` is found, report an error and provide a fix
         if (!hasDisplayNameAssignment) {
           context.report({
             fix(fixer) {
-              const src = context.sourceCode;
+              const src = context.src;
               // Ensure the fix is applied correctly
               if (id.type !== AST.Identifier || id.parent !== call.parent) return [];
               // Insert `ContextName.displayName = "ContextName";` after the creation

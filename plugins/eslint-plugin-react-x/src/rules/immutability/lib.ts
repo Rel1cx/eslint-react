@@ -37,19 +37,19 @@ export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
   return false;
 }
 
-export function isComponentPropsDefinition(ctx: core.RichContext, def: Scope.Definition) {
+export function isComponentPropsDefinition(context: core.RichContext, def: Scope.Definition) {
   if (def.type !== DefinitionType.Parameter) return false;
   const fn = def.node;
   if (!Check.isFunction(fn)) return false;
   const firstParam = fn.params.at(0);
   if (firstParam == null || !isNodeWithin(def.name, firstParam)) return false;
-  return core.isFunctionComponentDefinition(ctx._, fn, core.DEFAULT_COMPONENT_DETECTION_HINT);
+  return core.isFunctionComponentDefinition(context, fn, core.DEFAULT_COMPONENT_DETECTION_HINT);
 }
 
-export function getStateHookName(ctx: core.RichContext, init: TSESTree.CallExpression) {
-  const { additionalStateHooks } = ctx.settings;
+export function getStateHookName(context: core.RichContext, init: TSESTree.CallExpression) {
+  const { additionalStateHooks } = context.settings;
   if (core.isUseStateLikeCall(init, additionalStateHooks)) return Extract.getCalleeName(init) ?? "useState";
-  if (core.isUseReducerCall(ctx._, init)) return "useReducer";
+  if (core.isUseReducerCall(context, init)) return "useReducer";
   return null;
 }
 
@@ -59,17 +59,17 @@ export function getMutableHookNames(env: core.EnvConfig) {
     .map(([hook]) => hook);
 }
 
-export function resolveToFunctionNode(ctx: core.RichContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
+export function resolveToFunctionNode(context: core.RichContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
   if (Check.isFunction(expr)) return expr;
   if (!Check.isIdentifier(expr) || seen.has(expr)) return null;
   seen.add(expr);
-  const resolved = resolve(ctx._, expr);
-  return resolved == null ? null : resolveToFunctionNode(ctx, resolved, seen);
+  const resolved = resolve(context._, expr);
+  return resolved == null ? null : resolveToFunctionNode(context, resolved, seen);
 }
 
-export function resolveVariableOrigin(ctx: core.RichContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): Scope.Variable {
-  const src = ctx.src;
+export function resolveVariableOrigin(context: core.RichContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): Scope.Variable {
+  const src = context.src;
   if (seen.has(variable)) return variable;
   seen.add(variable);
   const def = variable.defs.length === 1 ? variable.defs[0] : null;
@@ -77,7 +77,7 @@ export function resolveVariableOrigin(ctx: core.RichContext, variable: Scope.Var
   const init = Extract.unwrap(def.node.init);
   if (!Check.isIdentifier(init)) return variable;
   const source = findVariable(src.getScope(init), init);
-  return source == null ? variable : resolveVariableOrigin(ctx, source, seen);
+  return source == null ? variable : resolveVariableOrigin(context, source, seen);
 }
 
 export function isRefLikeName(name: string) {
@@ -92,24 +92,24 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
     : hasRefLikeNameInChain(node.object);
 }
 
-export function isInitializedFromCall(ctx: core.RichContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
+export function isInitializedFromCall(context: core.RichContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
   const root = Check.isIdentifier(node) ? node : Extract.getIdentifierAt(node, 0);
   if (root == null) return false;
-  const src = ctx.src;
+  const src = context.src;
   const variable = findVariable(src.getScope(root), root);
   if (variable == null) return false;
-  const origin = resolveVariableOrigin(ctx, variable);
+  const origin = resolveVariableOrigin(context, variable);
   const def = origin.defs.length === 1 ? origin.defs[0] : null;
   if (def?.type !== DefinitionType.Variable || def.node.init == null) return false;
   const init = Extract.unwrap(def.node.init);
   return init.type === AST.CallExpression && isCall(init);
 }
 
-export function isInitializedFromUseRef(ctx: core.RichContext, node: TSESTree.Expression) {
-  const { additionalRefHooks } = ctx.settings;
-  return isInitializedFromCall(ctx, node, (init) => core.isUseRefLikeCall(init, additionalRefHooks));
+export function isInitializedFromUseRef(context: core.RichContext, node: TSESTree.Expression) {
+  const { additionalRefHooks } = context.settings;
+  return isInitializedFromCall(context, node, (init) => core.isUseRefLikeCall(init, additionalRefHooks));
 }
 
-export function isRefLikeChain(ctx: core.RichContext, node: TSESTree.Expression) {
-  return hasRefLikeNameInChain(node) || isInitializedFromUseRef(ctx, node);
+export function isRefLikeChain(context: core.RichContext, node: TSESTree.Expression) {
+  return hasRefLikeNameInChain(node) || isInitializedFromUseRef(context, node);
 }

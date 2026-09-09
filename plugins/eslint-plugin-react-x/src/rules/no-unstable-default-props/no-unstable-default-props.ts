@@ -1,8 +1,10 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -53,7 +55,7 @@ export default createRule<Options, MessageID>({
     schema,
   },
   name: RULE_NAME,
-  create,
+  create: (context, options) => create(buildRichContext(context), options),
   defaultOptions,
 });
 
@@ -79,9 +81,9 @@ function extractIdentifier(node: TSESTree.Node): string | null {
   return null;
 }
 
-export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
-  const src = context.sourceCode;
-  const { compilationMode } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, Options>, [options]: Options): RuleListener {
+  const src = context.src;
+  const { compilationMode } = context.settings;
   if (compilationMode === "infer" || compilationMode === "all") return {};
   if (compilationMode === "annotation" && src.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const { api, visitor } = core.getFunctionComponentCollector(context);
@@ -113,7 +115,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
           }
           const { value } = prop;
           const { right } = value;
-          const construction = resolveObjectType(context, value);
+          const construction = resolveObjectType(context._, value);
           if (construction == null) {
             continue;
           }

@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type ReportFixFunction, type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type ReportFixFunction, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
@@ -41,7 +43,7 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
@@ -81,11 +83,11 @@ function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
   return null;
 }
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const src = context.sourceCode;
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const src = context.src;
 
   // Fast path: skip if neither `use server` nor `use client` is present
-  if (!src.text.includes("use server") && !src.text.includes("use client")) return {};
+  if (!context.hasText("use server") && !context.hasText("use client")) return {};
 
   const hasFileLevelUseServerDirective = src.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
@@ -170,7 +172,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const decl = Extract.unwrap(node.declaration);
       // export default serverFunction;
       if (Check.isIdentifier(decl)) {
-        reportNonAsyncFunction(resolve(context, decl), "file");
+        reportNonAsyncFunction(resolve(context._, decl), "file");
         return;
       }
       // export default function serverFunction() {}
@@ -196,7 +198,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.source != null) return;
       // export { foo }
       for (const spec of node.specifiers) {
-        reportNonAsyncFunction(resolve(context, spec.local), "file");
+        reportNonAsyncFunction(resolve(context._, spec.local), "file");
       }
     },
     FunctionDeclaration: checkFunction,

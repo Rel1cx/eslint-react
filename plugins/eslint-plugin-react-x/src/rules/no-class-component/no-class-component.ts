@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 
 export const RULE_NAME = "no-class-component";
 
@@ -20,19 +22,19 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `Component` is not present in the file
-  if (!context.sourceCode.text.includes("Component")) return {};
+  if (!context.hasText("Component")) return {};
   const { api, visitor } = core.getClassComponentCollector(context);
   return merge(
     visitor,
     {
       "Program:exit"(program) {
-        const src = context.sourceCode;
+        const src = context.src;
         for (const { id, name = "anonymous", node: component } of api.getAllComponents(program)) {
           if (component.body.body.some((m) => core.isComponentDidCatch(m) || core.isGetDerivedStateFromError(m))) {
             continue;

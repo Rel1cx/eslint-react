@@ -40,7 +40,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const hooks = core.getHookCollector(context._);
+  const hooks = core.getHookCollector(context);
   const collector = createImmutabilityCollector();
 
   return merge(

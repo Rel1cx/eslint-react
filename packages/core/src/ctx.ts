@@ -27,15 +27,15 @@ export function buildRichContext<M extends string = string, O extends readonly u
   const src = context.sourceCode;
   let envConfig: EnvConfig | null = null;
   let jsxConfig: Required<JsxConfig> | null = null;
-  return {
+  const rich: RichContext<M, O> = {
     _: context,
     ast: src.ast,
     src,
     report: (desc?: ReportDescriptor<M>) => {
       if (desc != null) context.report(desc);
     },
-    getEnvConfig: () => envConfig ??= getEnvConfig(context),
-    getJsxConfig: () => jsxConfig ??= getJsxConfig(context),
+    getEnvConfig: () => envConfig ??= getEnvConfig(rich),
+    getJsxConfig: () => jsxConfig ??= getJsxConfig(rich),
     getText: (...args) => src.getText(...args),
     hasText: (expr: RegExp | string) => {
       if (typeof expr === "string") return src.text.includes(expr);
@@ -45,4 +45,5 @@ export function buildRichContext<M extends string = string, O extends readonly u
     },
     settings: getSettingsFromContext(context),
   };
+  return rich;
 }

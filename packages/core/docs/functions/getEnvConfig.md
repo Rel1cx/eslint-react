@@ -3,16 +3,16 @@
 # Function: getEnvConfig()
 
 ```ts
-function getEnvConfig(_: RuleContext): EnvConfig;
+function getEnvConfig(_: RichContext): EnvConfig;
 ```
 
 Generates the environment config from the rule context.
 
 ## Parameters
 
-| Parameter | Type          | Description       |
-| --------- | ------------- | ----------------- |
-| `_`       | `RuleContext` | The rule context. |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `_`       | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
 
 ## Returns
 

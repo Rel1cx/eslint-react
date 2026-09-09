@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-set-state-in-component-will-update";
@@ -22,14 +24,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const src = context.sourceCode;
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const src = context.src;
   // Fast path: skip if `componentWillUpdate` is not present in the file
-  if (!src.text.includes("componentWillUpdate")) return {};
+  if (!context.hasText("componentWillUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isThisSetStateCall(node)) {

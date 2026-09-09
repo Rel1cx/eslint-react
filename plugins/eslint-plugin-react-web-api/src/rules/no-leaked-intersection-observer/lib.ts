@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/eslint";
+import { type RichContext } from "@eslint-react/core";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -9,10 +9,10 @@ export function isNewIntersectionObserver(node: TSESTree.Node | null) {
   return Check.isIdentifier(callee, "IntersectionObserver");
 }
 
-export function isFromObserver(context: RuleContext, node: TSESTree.Expression): boolean {
+export function isFromObserver(context: RichContext, node: TSESTree.Expression): boolean {
   switch (true) {
     case Check.isIdentifier(node): {
-      const initNode = resolve(context, node);
+      const initNode = resolve(context._, node);
       const unwrapped = initNode == null ? null : Extract.unwrap(initNode);
       return isNewIntersectionObserver(unwrapped);
     }

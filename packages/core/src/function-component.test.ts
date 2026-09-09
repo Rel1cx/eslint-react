@@ -1,10 +1,10 @@
 import { Check } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
+import type { RichContext } from "./ctx";
 import { getFunctionInitPath } from "./function";
 import {
   DEFAULT_COMPONENT_DETECTION_HINT,
@@ -20,18 +20,15 @@ import {
   isFunctionWithLooseComponentName,
 } from "./function-component";
 
-function createMockContext(): RuleContext {
+function createMockContext(): RichContext {
   return {
-    sourceCode: {
-      getText: (node: TSESTree.Node) => {
-        if (Check.isIdentifier(node)) {
-          return node.name;
-        }
-        return "";
-      },
-      getScope: () => ({}),
+    getText: (node: TSESTree.Node) => {
+      if (Check.isIdentifier(node)) {
+        return node.name;
+      }
+      return "";
     },
-  } as unknown as RuleContext;
+  } as unknown as RichContext;
 }
 
 describe("isFunctionComponentName", () => {

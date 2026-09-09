@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { IMPURE_CTORS, IMPURE_FUNCS, resolveBuiltinObjectName } from "./lib";
 
@@ -23,11 +25,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const hc = core.getHookCollector(context);
   const fc = core.getFunctionComponentCollector(context);
   const cEntries: {
@@ -85,7 +87,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         nEntries.push({ func, node });
       },
       "Program:exit"(node) {
-        const src = context.sourceCode;
+        const src = context.src;
         const comps = fc.api.getAllComponents(node);
         const hooks = hc.api.getAllHooks(node);
         const funcs = [...comps, ...hooks];

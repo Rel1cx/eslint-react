@@ -1,12 +1,12 @@
 /* eslint-disable perfectionist/sort-interfaces */
 /* eslint-disable perfectionist/sort-objects */
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { RE_COMPONENT_NAME, RE_COMPONENT_NAME_LOOSE } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isCreateElementCall, isForwardRefCall, isMemoCall } from "./api";
 import { isRenderMethodCallback } from "./class-component";
 import { isCreateElementChildrenArgument } from "./create-element";
+import type { RichContext } from "./ctx";
 import { type FunctionID, type FunctionInitPath, getFunctionId, isFunctionHasCallInInitPath } from "./function";
 import type { HookCall } from "./hook";
 import { JsxDetectionHint } from "./jsx";
@@ -91,22 +91,22 @@ export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponent
 
 /**
  * Check if the node is a call expression for a component wrapper.
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @param node The node to check.
  * @returns `true` if the node is a call expression for a component wrapper.
  */
-export function isFunctionComponentWrapperCall(context: RuleContext, node: TSESTree.Node) {
+export function isFunctionComponentWrapperCall(context: RichContext, node: TSESTree.Node) {
   if (node.type !== AST.CallExpression) return false;
   return isMemoCall(context, node) || isForwardRefCall(context, node);
 }
 
 /**
  * Check if the node is a callback function passed to a component wrapper.
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @param node The node to check.
  * @returns `true` if the node is a callback function passed to a component wrapper.
  */
-export function isFunctionComponentWrapperCallback(context: RuleContext, node: TSESTree.Node) {
+export function isFunctionComponentWrapperCallback(context: RichContext, node: TSESTree.Node) {
   if (!Check.isFunction(node)) return false;
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;
@@ -120,11 +120,11 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
 
 /**
  * Get function component identifier from `const Component = memo(() => {});`.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param node The AST node to get the function component identifier from.
  * @internal
  */
-export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): FunctionID {
+export function getFunctionComponentId(context: RichContext, node: TSESTreeFunction): FunctionID {
   const functionId = getFunctionId(node);
   if (functionId != null) {
     return functionId;
@@ -171,12 +171,12 @@ export function isFunctionComponentNameLoose(name: string) {
 
 /**
  * Check if a function has a loose component name.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param fn The function to check.
  * @param allowNone Whether to allow no name.
  * @returns `true` if the function has a loose component name.
  */
-export function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone = false) {
+export function isFunctionWithLooseComponentName(context: RichContext, fn: TSESTreeFunction, allowNone = false) {
   const id = getFunctionComponentId(context, fn);
   if (id == null) return allowNone;
   if (Check.isIdentifier(id)) {
@@ -242,12 +242,12 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
 /**
  * Check if the function node is a valid React component definition.
  *
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param node The function node to analyze.
  * @param hint Component detection hints (bit flags) to customize detection logic.
  * @returns `true` if the node is considered a component definition.
  */
-export function isFunctionComponentDefinition(context: RuleContext, node: TSESTreeFunction, hint: bigint) {
+export function isFunctionComponentDefinition(context: RichContext, node: TSESTreeFunction, hint: bigint) {
   // 1. Check for basic naming conventions
   if (!isFunctionWithLooseComponentName(context, node, true)) {
     return false;

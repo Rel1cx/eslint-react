@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAttribute } from "@eslint-react/jsx";
 import { dropWhile, not } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -25,14 +25,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast-path: if 'key=' is not in the source code, skip the rule.
-  if (!context.sourceCode.text.includes("key=")) return {};
-  const { jsx } = core.getJsxConfig(context);
+  if (!context.hasText("key=")) return {};
+  const { jsx } = context.getJsxConfig();
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
   const isJsxSpreadAttribute = Check.is(AST.JSXSpreadAttribute);
   return {

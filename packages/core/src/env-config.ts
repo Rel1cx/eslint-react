@@ -1,5 +1,5 @@
 /* eslint-disable perfectionist/sort-objects */
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "./ctx";
 
 export interface EnvConfig {
   customHooks: {
@@ -57,10 +57,10 @@ export interface EnvConfig {
  * Generates the environment config from the rule context.
  *
  * @todo Infer the config properties from the rule context.
- * @param _ The rule context.
+ * @param _ The rich rule context.
  * @returns The environment config.
  */
-export function getEnvConfig(_: RuleContext): EnvConfig {
+export function getEnvConfig(_: RichContext): EnvConfig {
   return {
     customHooks: {
       useFragment: {

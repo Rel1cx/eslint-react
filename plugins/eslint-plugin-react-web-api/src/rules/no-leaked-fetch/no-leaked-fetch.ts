@@ -1,7 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findProperty, resolveToObjectExpression } from "./lib";
@@ -52,7 +53,7 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
 }
 
 function getControllerFromSignal(
-  context: RuleContext,
+  context: RichContext,
   node: TSESTree.Node,
 ): { controller: TSESTree.Node | null; isParamSignal: boolean } {
   node = Extract.unwrap(node);
@@ -60,7 +61,7 @@ function getControllerFromSignal(
     case AST.MemberExpression:
       return { controller: node.object, isParamSignal: false };
     case AST.Identifier: {
-      const resolved = resolve(context, node);
+      const resolved = resolve(context._, node);
       const resolvedUnwrapped = resolved == null ? null : Extract.unwrap(resolved);
       if (resolvedUnwrapped?.type === AST.MemberExpression) {
         return { controller: resolvedUnwrapped.object, isParamSignal: false };
@@ -78,7 +79,7 @@ function getControllerFromSignal(
 }
 
 function getFetchController(
-  context: RuleContext,
+  context: RichContext,
   node: TSESTree.CallExpression,
 ): { controller: TSESTree.Node | null; isParamSignal: boolean } {
   const [, optionsArg] = node.arguments;
@@ -118,16 +119,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const src = context.sourceCode;
-
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `fetch` is not present in the file
-  if (!src.text.includes("fetch")) return {};
-  if (!/use\w*Effect/u.test(src.text)) return {};
+  if (!context.hasText("fetch")) return {};
+  if (!context.hasText(/use\w*Effect/u)) return {};
 
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const fetchEntries: FetchEntry[] = [];
@@ -185,7 +184,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (fEntry.isParamSignal) {
           continue;
         }
-        const hasMatchingAbort = abortEntries.some((aEntry) => isAssignmentTargetEqual(context, aEntry.controller, controller));
+        const hasMatchingAbort = abortEntries.some((aEntry) => isAssignmentTargetEqual(context._, aEntry.controller, controller));
         if (!hasMatchingAbort) {
           context.report({
             messageId: "expectedAbortInCleanup",

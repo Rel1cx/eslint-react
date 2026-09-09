@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-duplicate-key";
@@ -29,13 +30,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `key=` is not present in the file
-  if (!context.sourceCode.text.includes("key=")) return {};
+  if (!context.hasText("key=")) return {};
   // Map to store key attributes grouped by their parent node
   const keyedEntries = new Map<TSESTree.Node, KeyedEntry>();
   // Helper function to check if two key attribute values are equal
@@ -99,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
-      const src = context.sourceCode;
+      const src = context.src;
       for (const { hasDuplicate, keys } of keyedEntries.values()) {
         if (!hasDuplicate) {
           continue;

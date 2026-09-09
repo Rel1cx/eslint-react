@@ -1,7 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
@@ -48,14 +46,14 @@ type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
 
 // Binding resolution
 
-export function createBindingResolver(context: RuleContext) {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+export function createBindingResolver(context: core.RichContext) {
+  const { additionalRefHooks } = context.settings;
   const bindings = new Map<Variable, BindingEvent[]>();
   const memberBindings = new Map<Variable, Map<string, BindingEvent[]>>();
   const jsxRefs = new Set<Variable>();
 
   function getVariable(node: TSESTree.Identifier): Variable | null {
-    const src = context.sourceCode;
+    const src = context.src;
     return findVariable(src.getScope(node), node) ?? null;
   }
 

@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -562,15 +562,15 @@ export const PURE_CTORS: ReadonlySet<string> = new Set([
  * Follows simple assignment chains like `const M = Math` or `const w = window`.
  * Returns `null` if the identifier is locally defined (parameter, import, function declaration, etc.)
  * or resolves to a non-builtin source.
- * @param context - The rule context.
+ * @param context - The rich rule context.
  * @param node - The identifier node to resolve.
  * @param seen - A set of already visited identifier names to prevent infinite loops.
  */
-export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Identifier, seen = new Set<string>()): string | null {
+export function resolveBuiltinObjectName(context: RichContext, node: TSESTree.Identifier, seen = new Set<string>()): string | null {
   if (seen.has(node.name)) return null;
   seen.add(node.name);
 
-  const src = context.sourceCode;
+  const src = context.src;
   const scope = src.getScope(node);
   const variable = findVariable(scope, node);
 

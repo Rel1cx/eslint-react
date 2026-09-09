@@ -1,7 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type EventListenerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
@@ -63,18 +64,18 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const src = context.sourceCode;
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const src = context.src;
 
   // Fast path: skip if `addEventListener` is not present in the file
-  if (!src.text.includes("addEventListener")) {
+  if (!context.hasText("addEventListener")) {
     return {};
   }
-  if (!/use\w*Effect/u.test(src.text)) {
+  if (!context.hasText(/use\w*Effect/u)) {
     return {};
   }
 
@@ -99,7 +100,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     return isSameObject(aCallee, rCallee)
       && Compare.isEqual(aListener, rListener)
-      && isValueEqual(context, aType, rType)
+      && isValueEqual(context._, aType, rType)
       && aCapture === rCapture;
   }
   function checkInlineFunction(

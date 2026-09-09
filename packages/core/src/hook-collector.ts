@@ -1,8 +1,8 @@
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
+import type { RichContext } from "./ctx";
 import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId, isHookTag } from "./hook";
 
@@ -22,13 +22,13 @@ export declare namespace getHookCollector {
 
 /**
  * Get an api and visitor object for the rule to collect hooks.
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @returns The api and visitor of the collector.
  */
-export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
+export function getHookCollector(context: RichContext): getHookCollector.ReturnType {
   const hooks = new Map<string, HookSemanticNode>();
   const functionEntries: FunctionEntry[] = [];
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const getText = context.getText;
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);

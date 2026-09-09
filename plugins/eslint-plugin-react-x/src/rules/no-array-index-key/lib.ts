@@ -1,6 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -33,8 +32,8 @@ const INDEX_PARAM_POSITIONS = new Map<string, number>([
  * @param node The identifier to check.
  * @returns `true` if the identifier resolves to an array index parameter.
  */
-export function isArrayIndexReference(context: RuleContext, node: TSESTree.Identifier): boolean {
-  const src = context.sourceCode;
+export function isArrayIndexReference(context: core.RichContext, node: TSESTree.Identifier): boolean {
+  const src = context.src;
   const variable = findVariable(src.getScope(node), node);
   const def = variable?.defs.at(0);
   if (def == null || def.type !== DefinitionType.Parameter) return false;
