@@ -34,6 +34,7 @@ export const projects = [
   { owner: "rari-build", repo: "rari" },
   { owner: "react-navigation", repo: "react-navigation" },
   { owner: "refined-github", repo: "refined-github" },
+  { owner: "remeda", repo: "remeda" },
   { owner: "TanStack", repo: "devtools" },
   { owner: "TanStack", repo: "form" },
   { owner: "TanStack", repo: "hotkeys" },
