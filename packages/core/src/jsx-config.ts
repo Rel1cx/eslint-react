@@ -1,6 +1,6 @@
-import type { RuleContext } from "@eslint-react/eslint";
 import { RE_ANNOTATION_JSX, RE_ANNOTATION_JSX_FRAG, RE_ANNOTATION_JSX_IMPORT_SOURCE, RE_ANNOTATION_JSX_RUNTIME } from "@eslint-react/shared";
 import ts from "typescript";
+import type { RichContext } from "./ctx";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -25,16 +25,8 @@ export interface JsxConfig {
 // Caches
 // ---------------------------------------------------------------------------
 
-/**
- * Weak‑map cache keyed by `sourceCode` so that the (potentially expensive)
- * pragma‑scanning pass runs at most once per file.
- */
-const annotationCache = new WeakMap<RuleContext["sourceCode"], JsxConfig>();
-
-/**
- * Weak‑map cache for the fully‑merged config (compiler options + annotation).
- */
-const mergedCache = new WeakMap<RuleContext["sourceCode"], Required<JsxConfig>>();
+const cache0 = new WeakMap<RichContext["src"], JsxConfig>();
+const cache1 = new WeakMap<RichContext["src"], Required<JsxConfig>>();
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -47,11 +39,12 @@ const mergedCache = new WeakMap<RuleContext["sourceCode"], Required<JsxConfig>>(
  * Falls back to sensible React defaults when no compiler options are
  * available (e.g. when the file is parsed without type information).
  *
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @returns Fully‑populated `JsxConfig` derived from compiler options.
  */
-export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig> {
-  const options = context.sourceCode.parserServices?.program?.getCompilerOptions() ?? {};
+export function getJsxConfigFromCompilerOptions(context: RichContext): Required<JsxConfig> {
+  const src = context.src;
+  const options = src.parserServices?.program?.getCompilerOptions() ?? {};
   return {
     jsx: options.jsx ?? ts.JsxEmit.ReactJSX,
     jsxFactory: options.jsxFactory ?? "React.createElement",
@@ -67,18 +60,19 @@ export function getJsxConfigFromCompilerOptions(context: RuleContext): Required<
  * The result is cached per `sourceCode` instance via a `WeakMap` so that
  * repeated calls from different rules analysing the same file are free.
  *
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @returns Partial `JsxConfig` containing only the values found in pragmas.
  */
-export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
-  const cached = annotationCache.get(context.sourceCode);
+export function getJsxConfigFromAnnotation(context: RichContext): JsxConfig {
+  const src = context.src;
+  const cached = cache0.get(src);
   if (cached != null) return cached;
 
   const options: JsxConfig = {};
 
   // Fast path – skip comment scanning when the file has no `@jsx` at all.
-  if (!context.sourceCode.text.includes("@jsx")) {
-    annotationCache.set(context.sourceCode, options);
+  if (!src.text.includes("@jsx")) {
+    cache0.set(src, options);
     return options;
   }
 
@@ -86,7 +80,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   let jsx, jsxFrag, jsxRuntime, jsxImportSource;
 
   // Iterate in reverse so that the *last* pragma wins (mirrors tsc behaviour).
-  for (const comment of context.sourceCode.getAllComments().reverse()) {
+  for (const comment of src.getAllComments().reverse()) {
     const value = comment.value;
     jsx ??= value.match(RE_ANNOTATION_JSX)?.[1];
     jsxFrag ??= value.match(RE_ANNOTATION_JSX_FRAG)?.[1];
@@ -99,7 +93,7 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
   if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? ts.JsxEmit.React : ts.JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
 
-  annotationCache.set(context.sourceCode, options);
+  cache0.set(src, options);
   return options;
 }
 
@@ -111,11 +105,11 @@ export function getJsxConfigFromAnnotation(context: RuleContext): JsxConfig {
  *
  * This is the main entry‑point most consumers should use.
  *
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @returns Fully‑populated, merged `JsxConfig`.
  */
-export function getJsxConfig(context: RuleContext): Required<JsxConfig> {
-  const cached = mergedCache.get(context.sourceCode);
+export function getJsxConfig(context: RichContext): Required<JsxConfig> {
+  const cached = cache1.get(context.src);
   if (cached != null) return cached;
 
   const merged: Required<JsxConfig> = {
@@ -123,6 +117,6 @@ export function getJsxConfig(context: RuleContext): Required<JsxConfig> {
     ...getJsxConfigFromAnnotation(context),
   };
 
-  mergedCache.set(context.sourceCode, merged);
+  cache1.set(context.src, merged);
   return merged;
 }

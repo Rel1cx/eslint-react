@@ -1,9 +1,10 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
@@ -29,14 +30,15 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { compilationMode, version } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const { compilationMode, version } = context.settings;
+  const src = context.src;
   if (compilationMode === "infer" || compilationMode === "all") return {};
-  if (compilationMode === "annotation" && context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
+  if (compilationMode === "annotation" && src.ast.body.some((stmt) => Check.isDirective(stmt, "use memo"))) return {};
   const isReact18OrBelow = compare(version, "19.0.0", "<");
   const { api, visitor } = core.getFunctionComponentCollector(context);
   const constructions = new WeakMap<TSESTreeFunction, ObjectType[]>();
@@ -62,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const value = attribute.value;
         if (value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = value.expression;
-        const construction = resolveObjectType(context, valueExpression);
+        const construction = resolveObjectType(context._, valueExpression);
         if (construction == null) return;
         if (core.isHookCall(construction.node)) {
           return;

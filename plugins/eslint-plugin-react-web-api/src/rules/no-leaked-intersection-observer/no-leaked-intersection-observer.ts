@@ -1,7 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -34,7 +35,7 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 
 // #region Helpers
 
-function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
+function getCallKind(context: RichContext, node: TSESTree.CallExpression): CallKind {
   const callee = Extract.unwrap(node.callee);
   if (callee.type !== AST.Identifier && callee.type !== AST.MemberExpression) {
     return "other";
@@ -69,13 +70,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `IntersectionObserver` is not present in the file
-  if (!context.sourceCode.text.includes("IntersectionObserver")) {
+  if (!context.hasText("IntersectionObserver")) {
     return {};
   }
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
@@ -178,11 +179,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // A disconnect inside the observer's own callback (the observe-once pattern) is not a reliable
         // cleanup: the callback may never run if the component unmounts before the element intersects
         const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
-        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
+        if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context._, e.observer, id))) {
           continue;
         }
-        const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+        const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context._, e.observer, id));
+        const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context._, e.observer, id));
         const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || Check.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
         const hasDynamicallyAdded = oentries
@@ -192,7 +193,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           continue;
         }
         for (const oEntry of oentries) {
-          if (uentries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
+          if (uentries.some((uEntry) => isAssignmentTargetEqual(context._, uEntry.element, oEntry.element))) {
             continue;
           }
           context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

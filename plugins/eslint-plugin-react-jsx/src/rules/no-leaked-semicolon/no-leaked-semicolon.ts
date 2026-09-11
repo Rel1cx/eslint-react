@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-semicolon";
@@ -29,14 +30,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.JSXText) {
     if (!Check.isJSXElementOrFragment(node.parent)) return;
-    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.sourceCode.getText(node))) return;
+    if (!/^;+[ \t]*(?:\r\n|\r|\n)/u.test(context.getText(node))) return;
     context.report({
       messageId: "default",
       node,

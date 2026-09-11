@@ -57,6 +57,7 @@ export type ObjectType =
  */
 export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null): ObjectType | null {
   if (node == null) return null;
+  const src = context.sourceCode;
   switch (node.type) {
     case AST.JSXElement:
     case AST.JSXFragment:
@@ -83,7 +84,7 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
     case AST.Identifier: {
       // Parameters are externally supplied values whose type cannot be statically
       // determined — skip resolution and treat them as unknown.
-      const scope = context.sourceCode.getScope(node);
+      const scope = src.getScope(node);
       // Use the latest definition (`at: -1`) because we want the object's
       // current runtime type. If a variable is reassigned or redeclared,
       // earlier definitions are shadowed and no longer represent the value

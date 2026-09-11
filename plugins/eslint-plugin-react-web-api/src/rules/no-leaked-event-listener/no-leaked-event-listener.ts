@@ -1,7 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type EventListenerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
@@ -63,18 +64,19 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `addEventListener` is not present in the file
-  if (!context.sourceCode.text.includes("addEventListener")) {
+  if (!context.hasText("addEventListener")) {
     return {};
   }
-  if (!/use\w*Effect/u.test(context.sourceCode.text)) {
+  if (!context.hasText(/use\w*Effect/u)) {
     return {};
   }
+
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
@@ -96,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     return isSameObject(aCallee, rCallee)
       && Compare.isEqual(aListener, rListener)
-      && isValueEqual(context, aType, rType)
+      && isValueEqual(context._, aType, rType)
       && aCapture === rCapture;
   }
   function checkInlineFunction(
@@ -139,7 +141,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // https://github.com/Rel1cx/eslint-react/issues/1323
           const isFromReactNative = callee.type === AST.MemberExpression
             && Check.isIdentifier(callee.object)
-            && isInitializedFromReactNative(callee.object.name, context.sourceCode.getScope(node));
+            && isInitializedFromReactNative(callee.object.name, context.src.getScope(node));
           if (isFromReactNative) {
             return;
           }

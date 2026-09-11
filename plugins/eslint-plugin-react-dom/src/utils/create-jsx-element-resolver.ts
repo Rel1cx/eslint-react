@@ -1,6 +1,5 @@
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { getAttributeStaticValue, getElementFullType } from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -14,8 +13,8 @@ import type { TSESTree } from "@typescript-eslint/types";
  * @param context The ESLint rule context
  * @returns An object with a resolve method to determine element types
  */
-export function createJsxElementResolver(context: RuleContext) {
-  const { polymorphicPropName } = getSettingsFromContext(context);
+export function createJsxElementResolver(context: RichContext) {
+  const { polymorphicPropName } = context.settings;
   return {
     /**
      * Resolves the JSX element to determine its type and the underlying DOM element type
@@ -41,7 +40,7 @@ export function createJsxElementResolver(context: RuleContext) {
       }
 
       // Try to get the value of the polymorphic prop (ex: 'as' or 'component')
-      const polyPropValue = getAttributeStaticValue(context, node, polymorphicPropName);
+      const polyPropValue = getAttributeStaticValue(context._, node, polymorphicPropName);
 
       // If we have a string value, use it as the DOM element type
       if (typeof polyPropValue === "string") {

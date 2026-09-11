@@ -12,7 +12,8 @@ function kebabToCamel(str: string): string {
 
 function generateRuleTs(ruleName: string): string {
   return [
-    `import { type RuleContext, type RuleFeature } from "@eslint-react/eslint";`,
+    `import { type RichContext, buildRichContext } from "@eslint-react/core";`,
+    `import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";`,
     ``,
     `import { createRule } from "@/utils/create-rule";`,
     ``,
@@ -34,11 +35,11 @@ function generateRuleTs(ruleName: string): string {
     `    schema: [],`,
     `  },`,
     `  name: RULE_NAME,`,
-    `  create,`,
+    `  create: (context) => create(buildRichContext(context)),`,
     `  defaultOptions: [],`,
     `});`,
     ``,
-    `export function create(context: RuleContext<MessageID, []>) {`,
+    `export function create(context: RichContext<MessageID, []>): RuleListener {`,
     `  return {`,
     `    // TODO: Add AST visitor methods.`,
     `  };`,

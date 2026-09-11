@@ -25,7 +25,8 @@ export function isValueEqual(
 ): boolean {
   a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
-  const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
+  const src = context.sourceCode;
+  const [aScope, bScope] = [src.getScope(a), src.getScope(b)];
   switch (true) {
     case a === b: {
       return true;

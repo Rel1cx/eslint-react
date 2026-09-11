@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -18,12 +18,12 @@ export type FrozenOrigin =
  * Classify whether a variable ultimately holds a value that must be treated as
  * immutable: a component's props, a state value returned from `useState`-like or
  * `useReducer` calls, or a shallow copy (spread literal) of either.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param variable The variable to classify.
  * @param seen Variables already visited during spread recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
-export function classifyFrozenOrigin(context: RuleContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): FrozenOrigin | null {
+export function classifyFrozenOrigin(context: RichContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): FrozenOrigin | null {
   if (seen.has(variable)) return null;
   seen.add(variable);
   const origin = resolveVariableOrigin(context, variable);
@@ -54,7 +54,8 @@ export function classifyFrozenOrigin(context: RuleContext, variable: Scope.Varia
         if (element?.type !== AST.SpreadElement) continue;
         const argument = Extract.unwrap(element.argument);
         if (!Check.isIdentifier(argument)) continue;
-        const source = findVariable(context.sourceCode.getScope(argument), argument);
+        const src = context.src;
+        const source = findVariable(src.getScope(argument), argument);
         if (source == null) continue;
         const inner = classifyFrozenOrigin(context, source, seen);
         if (inner != null) return { kind: "shallow-copy", name: origin.name, original: inner.name };

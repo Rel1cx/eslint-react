@@ -1,10 +1,10 @@
-import type { RuleContext } from "@eslint-react/eslint";
 import { parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { isAPI, isAPICall, isCreateElementCall } from "./api";
+import type { RichContext } from "./ctx";
 
 /**
  * This function mirrors the core matching logic inside `isAPI` from
@@ -216,13 +216,10 @@ describe("isAPI matching logic (PR #1660 bugfix)", () => {
 });
 
 describe("isAPI (actual export)", () => {
-  function createMockContext(code: string): RuleContext {
+  function createMockContext(code: string): RichContext {
     return {
-      sourceCode: {
-        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
-        getScope: () => ({}),
-      },
-    } as unknown as RuleContext;
+      getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+    } as unknown as RichContext;
   }
 
   function testAPI(code: string, api: string, expected: boolean) {
@@ -269,13 +266,10 @@ describe("isAPI (actual export)", () => {
 });
 
 describe("dual signature: curried form (context first)", () => {
-  function createMockContext(code: string): RuleContext {
+  function createMockContext(code: string): RichContext {
     return {
-      sourceCode: {
-        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
-        getScope: () => ({}),
-      },
-    } as unknown as RuleContext;
+      getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+    } as unknown as RichContext;
   }
 
   function parseLastExpression(code: string) {

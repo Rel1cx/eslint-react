@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasChildren } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -32,11 +34,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       const childrenProp = core.getCreateElementProp(context, node, "children");
@@ -52,7 +54,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
     JSXElement(node) {
-      const childrenProp = findAttribute(context, node, "children");
+      const childrenProp = findAttribute(context._, node, "children");
       if (childrenProp == null || !hasChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove

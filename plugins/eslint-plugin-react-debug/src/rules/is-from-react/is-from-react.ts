@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isFromReact } from "./lib";
 
@@ -25,12 +25,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { importSource } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const { importSource } = context.settings;
 
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const shouldSkipDuplicate = node.parent.type === AST.ImportSpecifier
@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       && node.parent.imported.name === node.parent.local.name;
     if (shouldSkipDuplicate) return;
     const name = node.name;
-    const initialScope = context.sourceCode.getScope(node);
+    const initialScope = context.src.getScope(node);
     if (!isFromReact(node, initialScope, importSource)) return;
     context.report({
       data: {

@@ -1,7 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolve } from "@eslint-react/var";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -30,16 +28,6 @@ export const KNOWN_MUTATING_METHODS = new Set([
   "unshift",
 ]);
 
-/**
- * Known mutating hooks.
- */
-export const KNOWN_MUTATING_HOOKS = new Set([
-  "useHistory",
-  "useNavigate",
-  "useNavigation",
-  "useRouter",
-]);
-
 export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
   let current: TSESTree.Node | undefined = node;
   while (current != null) {
@@ -49,7 +37,7 @@ export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
   return false;
 }
 
-export function isComponentPropsDefinition(context: RuleContext, def: Scope.Definition) {
+export function isComponentPropsDefinition(context: core.RichContext, def: Scope.Definition) {
   if (def.type !== DefinitionType.Parameter) return false;
   const fn = def.node;
   if (!Check.isFunction(fn)) return false;
@@ -58,30 +46,37 @@ export function isComponentPropsDefinition(context: RuleContext, def: Scope.Defi
   return core.isFunctionComponentDefinition(context, fn, core.DEFAULT_COMPONENT_DETECTION_HINT);
 }
 
-export function getStateHookName(context: RuleContext, init: TSESTree.CallExpression) {
-  const { additionalStateHooks } = getSettingsFromContext(context);
+export function getStateHookName(context: core.RichContext, init: TSESTree.CallExpression) {
+  const { additionalStateHooks } = context.settings;
   if (core.isUseStateLikeCall(init, additionalStateHooks)) return Extract.getCalleeName(init) ?? "useState";
   if (core.isUseReducerCall(context, init)) return "useReducer";
   return null;
 }
 
-export function resolveToFunctionNode(context: RuleContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
+export function getMutableHookNames(env: core.EnvConfig) {
+  return Object.entries(env.customHooks)
+    .filter(([, config]) => config.valueKind === "mutable")
+    .map(([hook]) => hook);
+}
+
+export function resolveToFunctionNode(context: core.RichContext, node: TSESTree.Node, seen: Set<TSESTree.Node> = new Set()): TSESTreeFunction | null {
   const expr = Extract.unwrap(node);
   if (Check.isFunction(expr)) return expr;
   if (!Check.isIdentifier(expr) || seen.has(expr)) return null;
   seen.add(expr);
-  const resolved = resolve(context, expr);
+  const resolved = resolve(context._, expr);
   return resolved == null ? null : resolveToFunctionNode(context, resolved, seen);
 }
 
-export function resolveVariableOrigin(context: RuleContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): Scope.Variable {
+export function resolveVariableOrigin(context: core.RichContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): Scope.Variable {
+  const src = context.src;
   if (seen.has(variable)) return variable;
   seen.add(variable);
   const def = variable.defs.length === 1 ? variable.defs[0] : null;
   if (def?.type !== DefinitionType.Variable || def.node.init == null) return variable;
   const init = Extract.unwrap(def.node.init);
   if (!Check.isIdentifier(init)) return variable;
-  const source = findVariable(context.sourceCode.getScope(init), init);
+  const source = findVariable(src.getScope(init), init);
   return source == null ? variable : resolveVariableOrigin(context, source, seen);
 }
 
@@ -97,10 +92,11 @@ export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
     : hasRefLikeNameInChain(node.object);
 }
 
-function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
+export function isInitializedFromCall(context: core.RichContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
   const root = Check.isIdentifier(node) ? node : Extract.getIdentifierAt(node, 0);
   if (root == null) return false;
-  const variable = findVariable(context.sourceCode.getScope(root), root);
+  const src = context.src;
+  const variable = findVariable(src.getScope(root), root);
   if (variable == null) return false;
   const origin = resolveVariableOrigin(context, variable);
   const def = origin.defs.length === 1 ? origin.defs[0] : null;
@@ -109,18 +105,11 @@ function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, 
   return init.type === AST.CallExpression && isCall(init);
 }
 
-export function isInitializedFromUseRef(context: RuleContext, node: TSESTree.Expression) {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+export function isInitializedFromUseRef(context: core.RichContext, node: TSESTree.Expression) {
+  const { additionalRefHooks } = context.settings;
   return isInitializedFromCall(context, node, (init) => core.isUseRefLikeCall(init, additionalRefHooks));
 }
 
-export function isKnownNonMutatingMethodCall(context: RuleContext, node: TSESTree.CallExpression) {
-  const callee = Extract.unwrap(node.callee);
-  return Check.isExpression(callee) && isInitializedFromCall(context, callee, (init) => {
-    return KNOWN_MUTATING_HOOKS.values().some((hook) => core.isAPICall(hook)(context, init));
-  });
-}
-
-export function isRefLikeChain(context: RuleContext, node: TSESTree.Expression) {
+export function isRefLikeChain(context: core.RichContext, node: TSESTree.Expression) {
   return hasRefLikeNameInChain(node) || isInitializedFromUseRef(context, node);
 }

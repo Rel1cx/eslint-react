@@ -154,10 +154,10 @@ export const decodeSettings = (settings: unknown): ESLintReactSettings => {
  * @returns The normalized ESLint React settings.
  */
 export const normalizeSettings = ({
+  version,
   importSource = "react",
   compilationMode,
   polymorphicPropName = "as",
-  version,
   additionalRefHooks,
   additionalStateHooks,
   additionalEffectHooks,
@@ -165,12 +165,12 @@ export const normalizeSettings = ({
 }: ESLintReactSettings) => {
   return {
     ...rest,
-    importSource,
-    compilationMode: compilationMode ?? "off",
-    polymorphicPropName,
     version: match(version)
       .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.3.0"))
       .otherwise(identity),
+    importSource,
+    compilationMode: compilationMode ?? "off",
+    polymorphicPropName,
     additionalRefHooks: toRegExp(additionalRefHooks),
     additionalStateHooks: toRegExp(additionalStateHooks),
     additionalEffectHooks: toRegExp(additionalEffectHooks),

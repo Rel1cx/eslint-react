@@ -1,6 +1,5 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext } from "@eslint-react/eslint";
 import { findParentAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -44,7 +43,7 @@ const isWithStateCall = core.isAPICall("withState");
  * @param arg The function node passed to the call
  * @returns `true` if the call is a component wrapper call
  */
-function isComponentWrapperCall(context: RuleContext, call: TSESTree.CallExpression, arg: TSESTree.Node) {
+function isComponentWrapperCall(context: core.RichContext, call: TSESTree.CallExpression, arg: TSESTree.Node) {
   // The function is the callee (e.g. an IIFE), not an argument
   if (Extract.unwrap(call.callee) === arg) return false;
   // Unwrap curried wrappers like `connect(...)(Component)`
@@ -73,7 +72,7 @@ function isComponentWrapperCall(context: RuleContext, call: TSESTree.CallExpress
  * @param node The function node to resolve the bound name for
  * @returns The bound name, or `null` if the call chain does not end at an identifier declarator
  */
-export function getWrapperCallBoundName(context: RuleContext, node: TSESTreeFunction) {
+export function getWrapperCallBoundName(context: core.RichContext, node: TSESTreeFunction) {
   let current: TSESTree.Node = node;
   let parent = current.parent;
   while (Check.isTypeExpression(parent)) {

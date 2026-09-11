@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -26,14 +26,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `useFormState` is not present in the file
-  if (!context.sourceCode.text.includes("useFormState")) return {};
-  const settings = getSettingsFromContext(context);
+  if (!context.hasText("useFormState")) return {};
+  const settings = context.settings;
   // This rule only applies to React 19.0.0 and above
   if (compare(settings.version, "19.0.0", "<")) return {};
 
@@ -94,13 +94,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource } = getSettingsFromContext(context);
+function buildFix(context: RichContext, node: TSESTree.CallExpression) {
+  const { importSource } = context.settings;
   return (fixer: RuleFixer) => {
     // The fix consists of two parts:
     return [
       // 1. Add `import { useActionState } from "react";` at the top of the file
-      fixer.insertTextBefore(context.sourceCode.ast, `import { useActionState } from "${importSource}";\n`),
+      fixer.insertTextBefore(context.ast, `import { useActionState } from "${importSource}";\n`),
       // 2. Replace `useFormState` with `useActionState` in the function call
       fixer.replaceText(node.callee, "useActionState"),
     ];

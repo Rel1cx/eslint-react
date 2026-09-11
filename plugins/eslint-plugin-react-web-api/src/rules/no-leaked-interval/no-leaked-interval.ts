@@ -1,7 +1,8 @@
 import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
@@ -55,20 +56,20 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `setInterval` is not present in the file
-  if (!context.sourceCode.text.includes("setInterval")) {
+  if (!context.hasText("setInterval")) {
     return {};
   }
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const sEntries: TimerEntry[] = [];
   const cEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
-    return isAssignmentTargetEqual(context, a.timerId, b.timerId);
+    return isAssignmentTargetEqual(context._, a.timerId, b.timerId);
   }
   return {
     [":function"](node: TSESTreeFunction) {

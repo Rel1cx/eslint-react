@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { createImmutabilityCollector } from "./collect";
 import { inferDirectMutations, inferMutableFunctions } from "./effects";
@@ -33,11 +35,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const collector = createImmutabilityCollector();
 

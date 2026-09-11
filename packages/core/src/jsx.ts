@@ -1,7 +1,7 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { RichContext } from "./ctx";
 
 /**
  * BitFlags for configuring JSX detection behavior.
@@ -67,7 +67,7 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
  * circular definitions (e.g. `var a = b; var b = a;`) are detected and
  * treated as not JSX-like instead of recursing indefinitely.
  *
- * @param context The ESLint rule context (needed for variable resolution).
+ * @param context The rich rule context (needed for variable resolution).
  * @param node The AST node to analyze.
  * @param hint Optional bit-flags to adjust detection behavior. Defaults to {@link DEFAULT_JSX_DETECTION_HINT}.
  * @returns Whether the node is considered JSX-like.
@@ -82,7 +82,7 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
  * ```
  */
 export function isJsxLike(
-  context: RuleContext,
+  context: RichContext,
   node: TSESTree.Node | null,
   hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
 ): boolean {
@@ -155,7 +155,7 @@ export function isJsxLike(
         // Guard against circular variable definitions (e.g. `var a = b; var b = a;`).
         if (seen.has(node)) return false;
         seen.add(node);
-        return visit(resolve(context, node));
+        return visit(resolve(context._, node));
       }
     }
 

@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -40,12 +42,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("useMemo")) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("useMemo")) return {};
 
   function validateNoOuterVariableReassignment(callback: TSESTree.FunctionLike): ReportDescriptor<MessageID>[] {
     const violations: ReportDescriptor<MessageID>[] = [];
@@ -59,7 +61,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!Check.isIdentifier(left)) return;
         if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
 
-        const scope = context.sourceCode.getScope(left);
+        const src = context.src;
+        const scope = src.getScope(left);
         const variable = findVariable(scope, left);
         if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
           return;

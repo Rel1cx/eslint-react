@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -30,12 +31,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("$")) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  // Fast path: skip if no '$' in the source code
+  if (!context.hasText("$")) return {};
   function visit(node: TSESTreeJSXElementLike) {
     for (const [index, child] of node.children.entries()) {
       if (child.type !== AST.JSXText || !child.value.endsWith("$")) continue;
@@ -48,15 +50,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         child.value.trim() === "$"
         && node.children.every((sibling, siblingIndex) => siblingIndex === index || siblingIndex === index + 1 || isNonSubstantiveChild(sibling))
       ) continue;
+
       // Only report a literal '$' at the end of the raw text node.
-      const rawText = context.sourceCode.getText(child);
+      const rawText = context.getText(child);
       if (!rawText.endsWith("$")) continue;
       const dollarStart = child.range[1] - 1;
       const dollarEnd = child.range[1];
       context.report({
         loc: {
-          end: context.sourceCode.getLocFromIndex(dollarEnd),
-          start: context.sourceCode.getLocFromIndex(dollarStart),
+          end: context.src.getLocFromIndex(dollarEnd),
+          start: context.src.getLocFromIndex(dollarStart),
         },
         messageId: "default",
         node: child,

@@ -4,7 +4,7 @@
 
 ```ts
 function getCreateElementProp(
-  context: RuleContext,
+  context: RichContext,
   node: Node | null,
   name: string,
 ): Property | null;
@@ -17,11 +17,11 @@ string-literal and simple template-literal keys (computed or not).
 
 ## Parameters
 
-| Parameter | Type             | Description                                                |
-| --------- | ---------------- | ---------------------------------------------------------- |
-| `context` | `RuleContext`    | The ESLint rule context.                                   |
-| `node`    | `Node` \| `null` | The node to inspect.                                       |
-| `name`    | `string`         | The property name to look for (ex: `"children"`, `"key"`). |
+| Parameter | Type                                            | Description                                                |
+| --------- | ----------------------------------------------- | ---------------------------------------------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context.                                     |
+| `node`    | `Node` \| `null`                                | The node to inspect.                                       |
+| `name`    | `string`                                        | The property name to look for (ex: `"children"`, `"key"`). |
 
 ## Returns
 

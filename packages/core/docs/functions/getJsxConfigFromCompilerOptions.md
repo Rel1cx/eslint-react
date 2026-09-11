@@ -3,7 +3,7 @@
 # Function: getJsxConfigFromCompilerOptions()
 
 ```ts
-function getJsxConfigFromCompilerOptions(context: RuleContext): Required<JsxConfig>;
+function getJsxConfigFromCompilerOptions(context: RichContext): Required<JsxConfig>;
 ```
 
 Read JSX configuration from the TypeScript compiler options exposed by the
@@ -14,9 +14,9 @@ available (e.g. when the file is parsed without type information).
 
 ## Parameters
 
-| Parameter | Type          | Description              |
-| --------- | ------------- | ------------------------ |
-| `context` | `RuleContext` | The ESLint rule context. |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
 
 ## Returns
 

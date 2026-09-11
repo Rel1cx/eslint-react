@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { LIFECYCLE_METHODS } from "./lib";
 
@@ -23,11 +25,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // A stack to keep track of class nodes, to handle nested classes
   const classStack: TSESTreeClass[] = [];
   // A stack to keep track of method/property nodes
@@ -79,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Report members that are defined but not used
       context.report({
         data: {
-          className: id != null ? context.sourceCode.getText(id) : "Component",
+          className: id != null ? context.getText(id) : "Component",
           methodName,
         },
         messageId: "default",

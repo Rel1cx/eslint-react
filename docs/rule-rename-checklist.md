@@ -76,7 +76,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
   - Update the createRule import to `import { createRule } from "@/utils/create-rule";`.
   - Add a fast-path skip guard if applicable:
     ```ts
-    if (!context.sourceCode.text.includes("<hookName>")) return {};
+    if (!context.hasText("<hookName>")) return {};
     ```
 - [ ] Create `src/rules/<rule-name>/<rule-name>.spec.ts`:
   - Copy tests from the source plugin.

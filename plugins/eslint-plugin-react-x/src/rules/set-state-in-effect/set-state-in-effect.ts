@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
@@ -44,14 +45,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText(/use\w*Effect/u)) return {};
 
-  const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
+  const { additionalEffectHooks, additionalStateHooks } = context.settings;
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const setupFnRef: { current: TSESTreeFunction | null } = { current: null };
   const setupFnIds: TSESTree.Identifier[] = [];
@@ -61,8 +62,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const setStateInEffectArg = new WeakMap<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInEffectSetup = new Map<TSESTree.CallExpression, TSESTree.Identifier[]>();
   const setStateInHookCallbacks = new WeakMap<TSESTree.Node, TSESTree.CallExpression[]>();
-
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
   const onSetupFunctionEnter = (node: TSESTreeFunction) => {
     setupFnRef.current = node;
@@ -96,9 +95,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   function getCallName(node: TSESTree.Node) {
     if (node.type === AST.CallExpression) {
-      return Extract.getFullyQualifiedName(node.callee, getText);
+      return Extract.getFullyQualifiedName(node.callee, context.getText);
     }
-    return Extract.getFullyQualifiedName(node, getText);
+    return Extract.getFullyQualifiedName(node, context.getText);
   }
 
   function getCallKind(node: TSESTree.CallExpression) {
@@ -129,7 +128,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
-    const initNode = resolve(context, id);
+    const initNode = resolve(context._, id);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
@@ -161,7 +160,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!isAt || index == null) {
           return false;
         }
-        const indexScope = context.sourceCode.getScope(node);
+        const indexScope = context.src.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
         return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
@@ -177,7 +176,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return false;
         }
         const property = callee.property;
-        const propertyScope = context.sourceCode.getScope(node);
+        const propertyScope = context.src.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
         return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
@@ -222,11 +221,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               // setState() without arguments, which is invalid but other tools will report it
               if (args0 == null) return;
               // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
-              function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+              function isArgumentUsingRefValue(context: RichContext<MessageID, []>, node: TSESTree.CallExpressionArgument) {
                 const isUsingRefValue = (n: TSESTree.Node): boolean => {
                   switch (n.type) {
                     case AST.Identifier:
-                      return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
+                      return isInitializedFromRef(context, n.name, context.src.getScope(n));
                     case AST.MemberExpression:
                       return isUsingRefValue(n.object);
                     case AST.CallExpression:
@@ -251,7 +250,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 if (isUsingRefValue(node)) return true;
                 // Case 2: setState(() => ref.current.scrollTop);
                 return Check.isFunction(node)
-                  && context.sourceCode
+                  && context.src
                     .getScope(node.body)
                     .references
                     .some((r) => isUsingRefValue(r.identifier));
@@ -260,7 +259,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (isRefGatedContext(context, node)) return;
               context.report({
                 data: {
-                  name: context.sourceCode.getText(Extract.unwrap(node.callee)),
+                  name: context.getText(Extract.unwrap(node.callee)),
                 },
                 messageId: "default",
                 node,
@@ -332,16 +331,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
-      const getSetStateCalls = (context: RuleContext, id: TSESTree.Identifier): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
+      const getSetStateCalls = (context: RichContext<MessageID, []>, id: TSESTree.Identifier): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
         // The value of a function parameter (e.g. a function received via props) is provided
         // by the caller and cannot be resolved to a function defined in this component.
         // `resolve` maps a parameter to its containing function, which would wrongly attribute
         // the component's own render-phase setState calls to the effect (https://github.com/Rel1cx/eslint-react/issues/1944).
-        const variable = findVariable(context.sourceCode.getScope(id), id);
+        const variable = findVariable(context.src.getScope(id), id);
         if (variable != null && variable.defs.some((def) => def.type === DefinitionType.Parameter)) {
           return [];
         }
-        const node = resolve(context, id);
+        const node = resolve(context._, id);
         switch (node?.type) {
           case AST.ArrowFunctionExpression:
           case AST.FunctionDeclaration:

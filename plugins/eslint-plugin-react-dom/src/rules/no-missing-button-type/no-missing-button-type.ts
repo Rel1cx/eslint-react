@@ -1,6 +1,7 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-missing-button-type";
@@ -29,11 +30,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
@@ -45,7 +46,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if the 'type' attribute already exists on the button element
-      if (hasAttribute(context, node, "type")) {
+      if (hasAttribute(context._, node, "type")) {
         return;
       }
 

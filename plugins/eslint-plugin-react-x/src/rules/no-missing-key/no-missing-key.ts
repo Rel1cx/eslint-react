@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, type TSESTreeJSXElementLike } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
@@ -28,7 +30,7 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
@@ -48,7 +50,7 @@ function getIteratorCallback(node: TSESTree.CallExpression): TSESTreeFunction | 
   return callback;
 }
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   type Descriptor = ReportDescriptor<MessageID> & { node: TSESTreeJSXElementLike };
 
   // Tracks how many `Children.toArray()` calls we are currently inside of;
@@ -64,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visitItemExpression(node: TSESTree.Expression): Descriptor[] {
     switch (node.type) {
       case AST.JSXElement:
-        return hasAttribute(context, node, "key")
+        return hasAttribute(context._, node, "key")
           ? []
           : [{ messageId: "default", node }];
       case AST.JSXFragment:
