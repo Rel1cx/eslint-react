@@ -25,16 +25,8 @@ export interface JsxConfig {
 // Caches
 // ---------------------------------------------------------------------------
 
-/**
- * Weak‑map cache keyed by `sourceCode` so that the (potentially expensive)
- * pragma‑scanning pass runs at most once per file.
- */
-const annotationCache = new WeakMap<RichContext["src"], JsxConfig>();
-
-/**
- * Weak‑map cache for the fully‑merged config (compiler options + annotation).
- */
-const mergedCache = new WeakMap<RichContext["src"], Required<JsxConfig>>();
+const cache0 = new WeakMap<RichContext["src"], JsxConfig>();
+const cache1 = new WeakMap<RichContext["src"], Required<JsxConfig>>();
 
 // ---------------------------------------------------------------------------
 // Public API
@@ -73,14 +65,14 @@ export function getJsxConfigFromCompilerOptions(context: RichContext): Required<
  */
 export function getJsxConfigFromAnnotation(context: RichContext): JsxConfig {
   const src = context.src;
-  const cached = annotationCache.get(src);
+  const cached = cache0.get(src);
   if (cached != null) return cached;
 
   const options: JsxConfig = {};
 
   // Fast path – skip comment scanning when the file has no `@jsx` at all.
   if (!src.text.includes("@jsx")) {
-    annotationCache.set(src, options);
+    cache0.set(src, options);
     return options;
   }
 
@@ -101,7 +93,7 @@ export function getJsxConfigFromAnnotation(context: RichContext): JsxConfig {
   if (jsxRuntime != null) options.jsx = jsxRuntime === "classic" ? ts.JsxEmit.React : ts.JsxEmit.ReactJSX;
   if (jsxImportSource != null) options.jsxImportSource = jsxImportSource;
 
-  annotationCache.set(src, options);
+  cache0.set(src, options);
   return options;
 }
 
@@ -117,7 +109,7 @@ export function getJsxConfigFromAnnotation(context: RichContext): JsxConfig {
  * @returns Fully‑populated, merged `JsxConfig`.
  */
 export function getJsxConfig(context: RichContext): Required<JsxConfig> {
-  const cached = mergedCache.get(context.src);
+  const cached = cache1.get(context.src);
   if (cached != null) return cached;
 
   const merged: Required<JsxConfig> = {
@@ -125,6 +117,6 @@ export function getJsxConfig(context: RichContext): Required<JsxConfig> {
     ...getJsxConfigFromAnnotation(context),
   };
 
-  mergedCache.set(context.src, merged);
+  cache1.set(context.src, merged);
   return merged;
 }

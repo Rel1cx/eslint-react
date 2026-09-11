@@ -1,11 +1,11 @@
 /* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RichContext, buildRichContext } from "@eslint-react/core";
 import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { MUTATING_ARRAY_METHODS, getAssignmentTargets, isGlobalVariable, resolveGlobalOrigin, resolveToFunction } from "./lib";
+import { match } from "ts-pattern";
+import { createGlobalsCollector } from "./collect";
+import { type GlobalMutationEffect, collectReachableEffects, inferCallGraph, inferGlobalMutations } from "./effects";
 
 export const RULE_NAME = "globals";
 
@@ -17,12 +17,6 @@ export type MessageID =
   | "mutatingGlobal"
   | "mutatingGlobalArrayMethod"
   | "mutatingGlobalProperty";
-
-type GlobalMutationEffect = {
-  data: Record<string, string>;
-  messageId: MessageID;
-  node: TSESTree.Node;
-};
 
 export default createRule<[], MessageID>({
   meta: {
@@ -43,112 +37,36 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
-  const hc = core.getHookCollector(context);
-  const fc = core.getFunctionComponentCollector(context);
-
-  // Like the SPEC's function signatures, these summaries keep creation of an
-  // effect separate from applying it in a component or hook render.
-  const directEffects = new Map<TSESTreeFunction, GlobalMutationEffect[]>();
-  const callGraph = new Map<TSESTreeFunction, Set<TSESTreeFunction>>();
-
-  function getEnclosingFunction(node: TSESTree.Node): TSESTreeFunction | null {
-    return Traverse.findParent(node, Check.isFunction);
-  }
-
-  function recordEffect(node: TSESTree.Node, messageId: MessageID, data: Record<string, string>) {
-    const enclosing = getEnclosingFunction(node);
-    if (enclosing == null) return;
-    const effects = directEffects.get(enclosing) ?? [];
-    effects.push({ data, messageId, node });
-    directEffects.set(enclosing, effects);
-  }
-
-  function recordWrite(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
-    if (Check.isIdentifier(target)) {
-      // Reassigning a local alias changes only the local binding. Alias
-      // provenance matters only when mutating a property of the aliased value.
-      if (!isGlobalVariable(context, target)) return;
-      recordEffect(node, "mutatingGlobal", { name: target.name });
-      return;
-    }
-
-    const origin = resolveGlobalOrigin(context, target.object);
-    if (origin == null) return;
-    recordEffect(node, "mutatingGlobalProperty", {
-      name: context.getText(target),
-    });
-  }
-
-  function recordCallEdge(node: TSESTree.CallExpression) {
-    const caller = getEnclosingFunction(node);
-    if (caller == null) return;
-    const callee = resolveToFunction(context, node.callee);
-    if (callee == null) return;
-    const callees = callGraph.get(caller) ?? new Set<TSESTreeFunction>();
-    callees.add(callee);
-    callGraph.set(caller, callees);
-  }
+  const hooks = core.getHookCollector(context);
+  const comps = core.getFunctionComponentCollector(context);
+  const collector = createGlobalsCollector();
 
   return merge(
-    hc.visitor,
-    fc.visitor,
+    hooks.visitor,
+    comps.visitor,
+    collector.visitor,
     {
-      AssignmentExpression(node: TSESTree.AssignmentExpression) {
-        for (const target of getAssignmentTargets(node.left)) {
-          recordWrite(node, target);
-        }
-      },
-      CallExpression(node: TSESTree.CallExpression) {
-        recordCallEdge(node);
-
-        const callee = Extract.unwrap(node.callee);
-        if (callee.type !== AST.MemberExpression) return;
-        const method = Extract.getCalleeName(node);
-        if (method == null || !MUTATING_ARRAY_METHODS.has(method)) return;
-
-        const origin = resolveGlobalOrigin(context, callee.object);
-        if (origin == null) return;
-        recordEffect(node, "mutatingGlobalArrayMethod", {
-          name: origin.name,
-          method,
-        });
-      },
       "Program:exit"(program) {
         const renderFunctions = [
-          ...fc.api.getAllComponents(program),
-          ...hc.api.getAllHooks(program),
-        ];
-        const visited = new Set<TSESTreeFunction>();
-        const reported = new Set<GlobalMutationEffect>();
+          ...comps.api.getAllComponents(program),
+          ...hooks.api.getAllHooks(program),
+        ].map(({ node }) => node);
 
-        function applyFunctionEffects(func: TSESTreeFunction) {
-          if (visited.has(func)) return;
-          visited.add(func);
+        const directEffects = inferGlobalMutations(context, collector.facts);
+        const callGraph = inferCallGraph(context, collector.facts.callEdges);
 
-          for (const effect of directEffects.get(func) ?? []) {
-            if (reported.has(effect)) continue;
-            reported.add(effect);
-            context.report(effect);
-          }
-          for (const callee of callGraph.get(func) ?? []) {
-            applyFunctionEffects(callee);
-          }
+        for (const effect of collectReachableEffects(renderFunctions, directEffects, callGraph)) {
+          const data = effect.method == null ? { name: effect.name } : { name: effect.name, method: effect.method };
+          context.report({
+            data,
+            messageId: match<GlobalMutationEffect, MessageID>(effect)
+              .with({ kind: "global" }, () => "mutatingGlobal")
+              .with({ kind: "method" }, () => "mutatingGlobalArrayMethod")
+              .with({ kind: "property" }, () => "mutatingGlobalProperty")
+              .exhaustive(),
+            node: effect.node,
+          });
         }
-
-        for (const { node } of renderFunctions) {
-          applyFunctionEffects(node);
-        }
-      },
-      UnaryExpression(node: TSESTree.UnaryExpression) {
-        if (node.operator !== "delete") return;
-        const argument = Extract.unwrap(node.argument);
-        if (argument.type !== AST.MemberExpression) return;
-        recordWrite(node, argument);
-      },
-      UpdateExpression(node: TSESTree.UpdateExpression) {
-        const argument = Extract.unwrap(node.argument);
-        if (argument.type !== AST.Identifier && argument.type !== AST.MemberExpression) return;
-        recordWrite(node, argument);
       },
     },
   );

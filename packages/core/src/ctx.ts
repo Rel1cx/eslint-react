@@ -39,8 +39,6 @@ export function buildRichContext<M extends string = string, O extends readonly u
     getText: (...args) => src.getText(...args),
     hasText: (expr: RegExp | string) => {
       if (typeof expr === "string") return src.text.includes(expr);
-      // Reset `lastIndex` so repeated calls with the same global/sticky regex stay consistent.
-      expr.lastIndex = 0;
       return expr.test(src.text);
     },
     settings: getSettingsFromContext(context),
