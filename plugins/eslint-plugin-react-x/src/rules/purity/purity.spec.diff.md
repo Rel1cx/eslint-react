@@ -40,9 +40,9 @@ Detection uses only `IMPURE_FUNCS` and `IMPURE_CTORS`. Although `lib.ts` also ex
 - **ESLint**: only names present in `IMPURE_FUNCS` or `IMPURE_CTORS` are candidates.
 - **ESLint aliases**: `resolveBuiltinObjectName` follows simple variable-initializer chains to a global root, such as `const M = Math` and `const D = Date`.
 - **ESLint shadowing**: parameters, imports, function declarations, and other local definitions do not resolve as built-ins; implicit or unresolved globals do.
-- **ESLint constructors**: constructors in `IMPURE_CTORS` are reported, except `new Date(arg)` is allowed when at least one argument is present; zero-argument `new Date()` is reported.
+- **ESLint constructors**: constructors in `IMPURE_CTORS` are reported, including `new Date(...)` with or without arguments.
 
-**Verdict**: Alias, shadowing, and the `new Date(arg)` exception are explicit ESLint behaviors. The cited React fixture does not establish corresponding upstream behavior.
+**Verdict**: Alias and shadowing are explicit ESLint behaviors. `new Date(...)` constructor calls are reported like the other constructors in `IMPURE_CTORS`.
 
 ## 3. Reporting
 
@@ -69,7 +69,7 @@ There is no current upstream dual-location diagnostic to reproduce. The React ex
 
 - React's active branch, option gate, signature check, `Purity` category, reason, and single call location.
 - The standalone React validator is present but not connected to `Pipeline.ts`.
-- ESLint's exclusive use of `IMPURE_FUNCS` / `IMPURE_CTORS`, component-hook ownership check, alias resolution, shadowing handling, and `new Date(arg)` exception.
+- ESLint's exclusive use of `IMPURE_FUNCS` / `IMPURE_CTORS`, component-hook ownership check, alias resolution, shadowing handling, and Date constructor handling.
 
 ### Fixture-verified
 

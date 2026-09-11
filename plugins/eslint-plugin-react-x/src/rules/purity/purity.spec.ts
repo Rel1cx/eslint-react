@@ -304,6 +304,41 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: tsx`
         function Component() {
+          const date = new Date("2024-01-01");
+          return <div>{date.toISOString()}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component({ timestamp }: { timestamp: number }) {
+          const date = new Date(timestamp);
+          return <div>{date.toISOString()}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component({ year, month, day }: { year: number; month: number; day: number }) {
+          const date = new Date(year, month, day);
+          return <div>{date.toISOString()}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component({ myDate }: { myDate: string }) {
+          return new Date(myDate) < new Date("2020-01-01") ? <span>one</span> : <span>two</span>;
+        }
+      `,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function Component() {
           const ws = new WebSocket("ws://example.com");
           return <div>Content</div>;
         }
@@ -524,6 +559,15 @@ ruleTester.run(RULE_NAME, rule, {
         function useDate() {
           const d = new Date();
           return d;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        function useFormattedDate(input: string) {
+          const date = new Date(input);
+          return date.toLocaleDateString();
         }
       `,
       errors: [{ messageId: "default" }],
@@ -1419,48 +1463,6 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         function Component() {
           return React.createElement("div", null, "Content");
-        }
-      `,
-    },
-    // -------------------------------------------------------------------------
-    // new Date(arg) with arguments is pure (deterministic)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component({ myDate }: { myDate: string }) {
-          return new Date(myDate) < new Date("2020-01-01") ? <span>one</span> : <span>two</span>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const date = new Date("2024-01-01");
-          return <div>{date.toISOString()}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component({ timestamp }: { timestamp: number }) {
-          const date = new Date(timestamp);
-          return <div>{date.toISOString()}</div>;
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function useFormattedDate(input: string) {
-          const date = new Date(input);
-          return date.toLocaleDateString();
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component({ year, month, day }: { year: number; month: number; day: number }) {
-          const date = new Date(year, month, day);
-          return <div>{date.toISOString()}</div>;
         }
       `,
     },
