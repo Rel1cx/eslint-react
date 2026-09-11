@@ -166,7 +166,7 @@ export const normalizeSettings = ({
   return {
     ...rest,
     version: match(version)
-      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.2.7"))
+      .with(P.union(P.nullish, "", "detect"), () => getReactVersion("19.3.0"))
       .otherwise(identity),
     importSource,
     compilationMode: compilationMode ?? "off",

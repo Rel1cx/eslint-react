@@ -23,8 +23,8 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  "@types/react": "^19.2.18"
-  "@types/react-dom": "^19.2.7"
+  "@types/react": "^19.3.0"
+  "@types/react-dom": "^19.3.0"
   # Transitive dependency via typescript-eslint 8.67.0
   "@typescript-eslint/eslint-plugin": "^8.70.0"
   "@typescript-eslint/parser": "^8.70.0"
@@ -73,8 +73,8 @@ overrides:
   minimatch: "^10.2.6"
   next: "16.3.4"
   postcss: "^8.5.28"
-  react-dom: "^19.2.8"
-  react: "^19.2.8"
+  react-dom: "^19.3.0"
+  react: "^19.3.0"
   # Transitive dependency via nx 23.1.0 and others
   semver: "^7.8.5"
   # Transitive dependency via nx 23.1.0
@@ -84,6 +84,8 @@ overrides:
   tslib: "^2.8.1"
   typescript-eslint: "^8.70.0"
   typescript: "6.0.3"
+  # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
+  vite: "^8.3.0"
   # Transitive dependency via @types/node 26.1.2
   undici-types: "^8.10.2"
   # Transitive dependency via @effect/platform-node 0.107.0
@@ -95,34 +97,3 @@ trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
-minimumReleaseAgeExclude:
-  - "@nubjs/nub-darwin-arm64@0.8.2"
-  - "@nubjs/nub-darwin-x64@0.8.2"
-  - "@nubjs/nub-linux-arm64-musl@0.8.2"
-  - "@nubjs/nub-linux-arm64@0.8.2"
-  - "@nubjs/nub-linux-x64-musl@0.8.2"
-  - "@nubjs/nub-linux-x64@0.8.2"
-  - "@nubjs/nub-win32-arm64@0.8.2"
-  - "@nubjs/nub-win32-x64@0.8.2"
-  - "@nubjs/nub@0.8.2"
-  - "@types/node@26.4.1"
-  - eslint-plugin-jsdoc@64.3.4 || 64.3.6
-  - globals@17.12.0
-  - lucide-react@1.39.0
-  - "@dprint/android-arm64@0.57.4"
-  - "@dprint/android-x64@0.57.4"
-  - "@dprint/darwin-arm64@0.57.4"
-  - "@dprint/darwin-x64@0.57.4"
-  - "@dprint/linux-arm64-glibc@0.57.4"
-  - "@dprint/linux-arm64-musl@0.57.4"
-  - "@dprint/linux-loong64-glibc@0.57.4"
-  - "@dprint/linux-loong64-musl@0.57.4"
-  - "@dprint/linux-ppc64-glibc@0.57.4"
-  - "@dprint/linux-ppc64-musl@0.57.4"
-  - "@dprint/linux-riscv64-glibc@0.57.4"
-  - "@dprint/linux-x64-glibc@0.57.4"
-  - "@dprint/linux-x64-musl@0.57.4"
-  - "@dprint/win32-arm64@0.57.4"
-  - "@dprint/win32-x64@0.57.4"
-  - "@es-joy/jsdoccomment@0.97.0"
-  - dprint@0.57.4
