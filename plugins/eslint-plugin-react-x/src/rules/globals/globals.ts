@@ -39,12 +39,12 @@ export default createRule<[], MessageID>({
 export function create(context: RichContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const comps = core.getFunctionComponentCollector(context);
-  const collector = createGlobalsCollector();
+  const globs = createGlobalsCollector();
 
   return merge(
     hooks.visitor,
     comps.visitor,
-    collector.visitor,
+    globs.visitor,
     {
       "Program:exit"(program) {
         const renderFunctions = [
@@ -52,8 +52,8 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
           ...hooks.api.getAllHooks(program),
         ].map(({ node }) => node);
 
-        const directEffects = inferGlobalMutations(context, collector.facts);
-        const callGraph = inferCallGraph(context, collector.facts.callEdges);
+        const directEffects = inferGlobalMutations(context, globs.facts);
+        const callGraph = inferCallGraph(context, globs.facts.callEdges);
 
         for (const effect of collectReachableEffects(renderFunctions, directEffects, callGraph)) {
           const data = effect.method == null ? { name: effect.name } : { name: effect.name, method: effect.method };
