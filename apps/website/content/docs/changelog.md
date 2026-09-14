@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.19.1 (2026-09-15)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: the first parameter of a function is now classified as props only when the function is a confirmed component — one that returns JSX or calls hooks — so mutating the first parameter of a function that merely looks like a component (e.g. an event-handler factory whose returned function never renders and calls no hooks) is no longer reported. (#1952, closes #1951)
+
+### 🏗️ Internal
+
+- `react-x/immutability`: renamed `MUTATING_METHODS`/`NAVIGATION_HOOKS` to `KNOWN_MUTATING_METHODS`/`KNOWN_MUTATING_HOOKS` and added precise behavior boundary tests.
+- `react-x/globals`: restructured internals (split into `collect`, `effects`, and `origins` modules) to match the in-progress `feat/environment-config` implementation; no behavior change.
+- Website: awaited the async llms.txt index generation and fixed the website data update step to run before building.
+- CI: removed the generated file verification step.
+- Bumped `typescript-eslint` to `8.70.0`, `react`/`react-dom` to `19.3.0`, `next` to `16.3.5`, `vite` to `8.3.0`, `effect` to `3.22.2`, `fumadocs` to `16.15.10`, `eslint-plugin-jsdoc` to `64.3.9`, `tailwind-merge` to `3.7.0`, `ansis` to `4.4.0`, `nx` to `23.2.1`, `eslint-plugin-react-refresh` to `0.5.6`, `eslint-plugin-package-json` to `1.8.1`, `@types/node` to `26.5.1`, `@types/react` to `19.3.0`, `@types/react-dom` to `19.3.0`, and `pnpm` to `12.4.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.19.0...v5.19.1
+
 ## v5.19.0 (2026-09-07)
 
 ### ✨ New

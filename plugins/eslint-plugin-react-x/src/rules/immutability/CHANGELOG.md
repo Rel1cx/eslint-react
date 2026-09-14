@@ -5,6 +5,16 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.19.1] - 2026-09-15
+
+### Fixed
+
+- The first parameter of a function is now classified as props only when the function is a confirmed component — one that returns JSX or calls hooks — so mutating the first parameter of a function that merely looks like a component (e.g. an event-handler factory whose returned function never renders and calls no hooks) is no longer reported. Closes #1951. (#1952)
+
+### Changed
+
+- Renamed `MUTATING_METHODS`/`NAVIGATION_HOOKS` to `KNOWN_MUTATING_METHODS`/`KNOWN_MUTATING_HOOKS` and added precise behavior boundary tests.
+
 ## [5.19.0] - 2026-09-07
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/monorepo",
-  "version": "5.19.0",
+  "version": "5.19.1",
   "private": true,
   "description": "Monorepo for eslint-plugin-react-[x, jsx, rsc, dom, web-api, naming-convention].",
   "keywords": [
@@ -75,7 +75,7 @@
     "@typescript-eslint/parser": "^8.70.0",
     "@typescript-eslint/rule-tester": "^8.70.0",
     "@typescript-eslint/types": "^8.70.0",
-    "ansis": "^4.3.1",
+    "ansis": "^4.4.0",
     "compare-versions": "^6.1.1",
     "dedent": "^1.7.2",
     "depcheck": "^1.4.7",
