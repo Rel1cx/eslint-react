@@ -3,7 +3,7 @@
 # Function: getJsxConfig()
 
 ```ts
-function getJsxConfig(context: RuleContext): Required<JsxConfig>;
+function getJsxConfig(context: RichContext): Required<JsxConfig>;
 ```
 
 Get the fully‑merged JSX configuration for the current file.
@@ -15,9 +15,9 @@ This is the main entry‑point most consumers should use.
 
 ## Parameters
 
-| Parameter | Type          | Description              |
-| --------- | ------------- | ------------------------ |
-| `context` | `RuleContext` | The ESLint rule context. |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
 
 ## Returns
 

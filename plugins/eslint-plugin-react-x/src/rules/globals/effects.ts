@@ -1,5 +1,5 @@
 import { Check, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { CallEdgeFact, GlobalsFacts } from "./collect";
 import { resolveToFunction } from "./lib";
@@ -17,7 +17,7 @@ export type GlobalMutationEffect = {
  * ones that reach a global/module binding, grouped by the function that
  * performs them.
  */
-export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts): Map<TSESTreeFunction, GlobalMutationEffect[]> {
+export function inferGlobalMutations(context: RichContext, facts: GlobalsFacts): Map<TSESTreeFunction, GlobalMutationEffect[]> {
   const directEffects = new Map<TSESTreeFunction, GlobalMutationEffect[]>();
 
   function pushEffect(enclosingFunction: TSESTreeFunction, effect: GlobalMutationEffect) {
@@ -43,7 +43,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
     if (origin == null) continue;
     pushEffect(write.enclosingFunction, {
       kind: "property",
-      name: context.sourceCode.getText(write.target),
+      name: context.getText(write.target),
       method: null,
       node: write.node,
     });
@@ -64,7 +64,7 @@ export function inferGlobalMutations(context: RuleContext, facts: GlobalsFacts):
 }
 
 /** Resolve the collected call edges into a function-to-function call graph. */
-export function inferCallGraph(context: RuleContext, callEdges: readonly CallEdgeFact[]): Map<TSESTreeFunction, Set<TSESTreeFunction>> {
+export function inferCallGraph(context: RichContext, callEdges: readonly CallEdgeFact[]): Map<TSESTreeFunction, Set<TSESTreeFunction>> {
   const callGraph = new Map<TSESTreeFunction, Set<TSESTreeFunction>>();
   for (const edge of callEdges) {
     const callee = resolveToFunction(context, edge.callee);

@@ -1,12 +1,12 @@
 import { Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { RichContext } from "./ctx";
 
 export declare namespace isAPI {
   /** The dual-signature predicate type returned by {@link isAPI}. */
   type ReturnType = {
-    (context: RuleContext, node: null | TSESTree.Node): boolean;
-    (context: RuleContext): (node: null | TSESTree.Node) => boolean;
+    (context: RichContext, node: null | TSESTree.Node): boolean;
+    (context: RichContext): (node: null | TSESTree.Node) => boolean;
   };
 }
 
@@ -16,21 +16,20 @@ export declare namespace isAPI {
  * @returns A predicate function to check if a node matches the API.
  */
 export function isAPI(api: string): isAPI.ReturnType {
-  const func = (context: RuleContext, node: null | TSESTree.Node) => {
+  const func = (context: RichContext, node: null | TSESTree.Node) => {
     if (node == null) return false;
     const expr = Extract.unwrap(node);
-    const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
     // Get the fully qualified name of the unwrapped expression
-    const name = Extract.getFullyQualifiedName(expr, getText);
+    const name = Extract.getFullyQualifiedName(expr, context.getText);
     // Check if the fully qualified name equals the API
     if (name === api) return true;
     // Check if the fully qualified name ends with `.${api}`
     if (name.endsWith(`.${api}`)) return true;
     return false;
   };
-  function dual(context: RuleContext, node: null | TSESTree.Node): boolean;
-  function dual(context: RuleContext): (node: null | TSESTree.Node) => boolean;
-  function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
+  function dual(context: RichContext, node: null | TSESTree.Node): boolean;
+  function dual(context: RichContext): (node: null | TSESTree.Node) => boolean;
+  function dual(context: RichContext, ...rest: [] | [null | TSESTree.Node]) {
     return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node) => func(context, node);
   }
   return dual;
@@ -39,8 +38,8 @@ export function isAPI(api: string): isAPI.ReturnType {
 export declare namespace isAPICall {
   /** The dual-signature predicate type returned by {@link isAPICall}. */
   type ReturnType = {
-    (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
-    (context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+    (context: RichContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
+    (context: RichContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
   };
 }
 
@@ -50,14 +49,14 @@ export declare namespace isAPICall {
  * @returns A predicate function to check if a node is a call to the API.
  */
 export function isAPICall(api: string): isAPICall.ReturnType {
-  const func = (context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
+  const func = (context: RichContext, node: null | TSESTree.Node): node is TSESTree.CallExpression => {
     if (node == null) return false;
     if (node.type !== AST.CallExpression) return false;
     return isAPI(api)(context, Extract.unwrap(node.callee));
   };
-  function dual(context: RuleContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
-  function dual(context: RuleContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
-  function dual(context: RuleContext, ...rest: [] | [null | TSESTree.Node]) {
+  function dual(context: RichContext, node: null | TSESTree.Node): node is TSESTree.CallExpression;
+  function dual(context: RichContext): (node: null | TSESTree.Node) => node is TSESTree.CallExpression;
+  function dual(context: RichContext, ...rest: [] | [null | TSESTree.Node]) {
     return rest.length === 1 ? func(context, rest[0]) : (node: null | TSESTree.Node): node is TSESTree.CallExpression => func(context, node);
   }
   return dual;

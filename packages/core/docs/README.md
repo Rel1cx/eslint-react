@@ -16,6 +16,7 @@
 | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | [~~ClassComponentSemanticNode~~](interfaces/ClassComponentSemanticNode.md)   | -                                                                                                                                             |
 | [ClientFunctionSemanticNode](interfaces/ClientFunctionSemanticNode.md)       | Represents a client function semantic node.                                                                                                   |
+| [EnvConfig](interfaces/EnvConfig.md)                                         | -                                                                                                                                             |
 | [FunctionComponentSemanticNode](interfaces/FunctionComponentSemanticNode.md) | Represents a React Function Component.                                                                                                        |
 | [HookSemanticNode](interfaces/HookSemanticNode.md)                           | Represents a semantic hook node in the AST.                                                                                                   |
 | [JsxConfig](interfaces/JsxConfig.md)                                         | Resolved JSX configuration derived from compiler options and / or pragma annotations found in the source file.                                |
@@ -35,6 +36,7 @@
 | [FunctionSemanticNode](type-aliases/FunctionSemanticNode.md)                     | Represents a function semantic node.                                                                                       |
 | [HookCall](type-aliases/HookCall.md)                                             | Represents a hook call, which can be a call expression or a tagged template expression.                                    |
 | [JsxDetectionHint](type-aliases/JsxDetectionHint.md)                             | BitFlags for configuring JSX detection behavior.                                                                           |
+| [RichContext](type-aliases/RichContext.md)                                       | -                                                                                                                          |
 | [TypeVariant](type-aliases/TypeVariant.md)                                       | Represents the variant of a type for boolean expression analysis.                                                          |
 
 ## Variables
@@ -135,12 +137,14 @@
 
 | Function                                                                              | Description                                                                                                                                              |
 | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [buildRichContext](functions/buildRichContext.md)                                     | Builds a `RichContext` from a rule's `RuleContext`.                                                                                                      |
 | [~~getClassComponentCollector~~](functions/getClassComponentCollector.md)             | Get an api and visitor object for the rule to collect class components.                                                                                  |
 | [getClassId](functions/getClassId.md)                                                 | Get the class identifier of a class node.                                                                                                                |
 | [getCreateElementChildrenArguments](functions/getCreateElementChildrenArguments.md)   | Get the children arguments (the arguments after the props object) of a `createElement` call.                                                             |
 | [getCreateElementProp](functions/getCreateElementProp.md)                             | Find a statically named property in the props object of a `createElement` call.                                                                          |
 | [getCreateElementPropsObject](functions/getCreateElementPropsObject.md)               | Get the props object (the second argument) of a `createElement` call.                                                                                    |
 | [getCreateElementTypeArgument](functions/getCreateElementTypeArgument.md)             | Get the type argument (the first argument) of a `createElement` call.                                                                                    |
+| [getEnvConfig](functions/getEnvConfig.md)                                             | Generates the environment config from the rule context.                                                                                                  |
 | [getFullyQualifiedNameEx](functions/getFullyQualifiedNameEx.md)                       | Get the fully qualified name of a symbol, handling cases that `ts.TypeChecker.getFullyQualifiedName` does not handle (ex: `export as namespace preact`). |
 | [getFunctionComponentCollector](functions/getFunctionComponentCollector.md)           | Get an api and visitor object for the rule to collect function components.                                                                               |
 | [getFunctionDirectives](functions/getFunctionDirectives.md)                           | Get the directives of a function (ex: "use strict", "use client", "use server").                                                                         |

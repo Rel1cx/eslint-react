@@ -3,16 +3,16 @@
 # ~~Function: getClassComponentCollector()~~
 
 ```ts
-function getClassComponentCollector(context: RuleContext): ReturnType;
+function getClassComponentCollector(context: RichContext): ReturnType;
 ```
 
 Get an api and visitor object for the rule to collect class components.
 
 ## Parameters
 
-| Parameter | Type          | Description       |
-| --------- | ------------- | ----------------- |
-| `context` | `RuleContext` | The rule context. |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
 
 ## Returns
 

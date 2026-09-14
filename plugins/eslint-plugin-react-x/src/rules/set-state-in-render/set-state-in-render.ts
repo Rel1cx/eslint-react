@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { not } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -34,12 +35,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { additionalStateHooks } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const { additionalStateHooks } = context.settings;
   const functionEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const componentFnRef: { current: TSESTreeFunction | null } = { current: null };
   const componentHasEarlyReturn: { current: boolean } = { current: false };
@@ -49,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isIdFromUseStateCall(topLevelId: TSESTree.Identifier, at?: number) {
-    const initNode = resolve(context, topLevelId);
+    const initNode = resolve(context._, topLevelId);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
@@ -81,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (!isAt || index == null) {
           return false;
         }
-        const indexScope = context.sourceCode.getScope(node);
+        const indexScope = context.src.getScope(node);
         const indexValue = getStaticValue(index, indexScope)?.value;
         return indexValue === 1 && isIdFromUseStateCall(innerCallee.object);
       }
@@ -97,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           return false;
         }
         const property = callee.property;
-        const propertyScope = context.sourceCode.getScope(node);
+        const propertyScope = context.src.getScope(node);
         const propertyValue = getStaticValue(property, propertyScope)?.value;
         return propertyValue === 1 && isIdFromUseStateCall(callee.object, 1);
       }
@@ -147,7 +148,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (componentHasEarlyReturn.current) return;
       context.report({
         data: {
-          name: context.sourceCode.getText(Extract.unwrap(node.callee)),
+          name: context.src.getText(Extract.unwrap(node.callee)),
         },
         messageId: "default",
         node,

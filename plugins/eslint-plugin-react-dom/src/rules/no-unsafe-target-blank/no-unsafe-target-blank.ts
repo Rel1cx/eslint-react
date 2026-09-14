@@ -1,6 +1,7 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isExternalLinkLike, isSafeRel } from "./lib";
@@ -30,11 +31,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
@@ -44,15 +45,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "a") return;
 
       // Check if target="_blank" is present
-      const targetValueString = getAttributeStaticValue(context, node, "target");
+      const targetValueString = getAttributeStaticValue(context._, node, "target");
       if (targetValueString !== "_blank") return;
 
       // Check if href points to an external resource
-      const hrefValueString = getAttributeStaticValue(context, node, "href");
+      const hrefValueString = getAttributeStaticValue(context._, node, "href");
       if (!isExternalLinkLike(hrefValueString)) return;
 
       // Check if rel prop exists and is secure
-      const relProp = findAttribute(context, node, "rel");
+      const relProp = findAttribute(context._, node, "rel");
 
       // No rel prop case - suggest adding one
       if (relProp == null) {
@@ -73,7 +74,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Check if existing rel prop is secure
-      const relValueString = getAttributeStaticValue(context, node, "rel");
+      const relValueString = getAttributeStaticValue(context._, node, "rel");
       if (isSafeRel(relValueString)) return;
 
       // Existing rel prop is not secure - suggest replacing it

@@ -1,5 +1,5 @@
 import { Extract } from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/eslint";
+import { type RichContext } from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -24,10 +24,10 @@ const DYNAMIC_EXPRESSION_TYPES: ReadonlySet<TSESTree.Node["type"]> = new Set([
 ]);
 
 export function findVariableForIdentifier(
-  context: RuleContext,
+  context: RichContext,
   identifier: TSESTree.Identifier | TSESTree.JSXIdentifier,
 ): TSESLint.Scope.Variable | null {
-  const scope = context.sourceCode.getScope(identifier);
+  const scope = context.src.getScope(identifier);
   return findVariable(scope, identifier.name);
 }
 
@@ -36,7 +36,7 @@ export function findVariableForIdentifier(
  * Recurses through identifier references and both branches of ternaries.
  */
 function findDynamicCreationSite(
-  context: RuleContext,
+  context: RichContext,
   node: TSESTree.Node,
   isInsideRender: IsInsideRender,
   seen: Set<TSESLint.Scope.Variable>,
@@ -66,7 +66,7 @@ function findDynamicCreationSite(
  * right-hand side is dynamically created.
  */
 function findReassignmentCreationSite(
-  context: RuleContext,
+  context: RichContext,
   variable: TSESLint.Scope.Variable,
   isInsideRender: IsInsideRender,
   seen: Set<TSESLint.Scope.Variable>,
@@ -82,7 +82,7 @@ function findReassignmentCreationSite(
 }
 
 export function getDynamicComponentSource(
-  context: RuleContext,
+  context: RichContext,
   variable: TSESLint.Scope.Variable,
   isInsideRender: IsInsideRender,
   seen = new Set<TSESLint.Scope.Variable>(),

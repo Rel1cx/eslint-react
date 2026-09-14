@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReact } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -34,16 +35,16 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `forwardRef` is not present in the file
-  if (!context.sourceCode.text.includes("forwardRef")) {
+  if (!context.hasText("forwardRef")) {
     return {};
   }
-  const { version } = getSettingsFromContext(context);
+  const { version } = context.settings;
   // Skip if React version is less than 19.0.0
   if (compare(version, "19.0.0", "<")) {
     return {};
@@ -80,9 +81,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * @param node The CallExpression node to check
  * @returns True if the call can be auto-fixed, false otherwise
  */
-function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const { importSource } = getSettingsFromContext(context);
-  const initialScope = context.sourceCode.getScope(node);
+function couldFix(context: RichContext, node: TSESTree.CallExpression) {
+  const { importSource } = context.settings;
+  const src = context.src;
+  const initialScope = src.getScope(node);
   // Check if the callee is `forwardRef` or `React.forwardRef`
   const callee = Extract.unwrap(node.callee);
   switch (callee.type) {
@@ -102,7 +104,7 @@ function couldFix(context: RuleContext, node: TSESTree.CallExpression) {
  * @param node The `forwardRef` call expression
  * @returns A fixer function that applies the changes
  */
-function buildFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
+function buildFix(context: RichContext, node: TSESTree.CallExpression): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
     const [componentNode] = node.arguments;
     if (componentNode == null || !Check.isFunction(componentNode)) {
@@ -132,22 +134,22 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: 
  * @returns An array of fixes for the component's signature
  */
 function buildFixForComponentProps(
-  context: RuleContext,
+  context: RichContext,
   fixer: RuleFixer,
   node: TSESTreeFunction,
   typeArguments: TSESTree.TypeNode[],
 ) {
-  const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
+  const src = context.src;
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;
   if (arg0 == null) {
-    const openParen = context.sourceCode.getFirstToken(node, { filter: (t) => t.value === "(" });
+    const openParen = src.getFirstToken(node, { filter: (t) => t.value === "(" });
     if (openParen == null) return [];
     if (typeArg0 == null || typeArg1 == null) {
       return [];
     }
-    const typeArg0Text = getText(typeArg0);
-    const typeArg1Text = getText(typeArg1);
+    const typeArg0Text = src.getText(typeArg0);
+    const typeArg1Text = src.getText(typeArg1);
     return [
       fixer.insertTextAfter(openParen, `{ ref }: ${typeArg1Text} & { ref?: React.RefObject<${typeArg0Text} | null> }`),
     ];
@@ -155,7 +157,7 @@ function buildFixForComponentProps(
   // Determines how to spread or list props from the first argument
   const fixedArg0Text = match(arg0)
     .with({ type: AST.Identifier }, (n) => `...${n.name}`)
-    .with({ type: AST.ObjectPattern }, (n) => n.properties.map(getText).join(", "))
+    .with({ type: AST.ObjectPattern }, (n) => n.properties.map((n) => src.getText(n)).join(", "))
     .otherwise(() => null);
   // Determines the new `ref` prop text
   const fixedArg1Text = match(arg1)
@@ -184,8 +186,8 @@ function buildFixForComponentProps(
     ] as const;
   }
   // If type arguments exist, update props and add types
-  const typeArg0Text = getText(typeArg0);
-  const typeArg1Text = getText(typeArg1);
+  const typeArg0Text = src.getText(typeArg0);
+  const typeArg1Text = src.getText(typeArg1);
   return [
     fixer.replaceText(
       arg0,

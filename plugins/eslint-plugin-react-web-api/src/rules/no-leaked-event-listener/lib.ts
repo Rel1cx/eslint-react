@@ -1,15 +1,15 @@
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext } from "@eslint-react/eslint";
+import { type RichContext } from "@eslint-react/core";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
 
-export function getSignalValueExpression(context: RuleContext, node: TSESTree.Node | null): TSESTree.Node | null {
+export function getSignalValueExpression(context: RichContext, node: TSESTree.Node | null): TSESTree.Node | null {
   if (node == null) return null;
   switch (node.type) {
     case AST.Identifier: {
-      const resolved = resolve(context, node);
+      const resolved = resolve(context._, node);
       const unwrapped = resolved == null ? null : Extract.unwrap(resolved);
       // If the identifier is a function parameter (resolve returns the containing function),
       // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
@@ -35,11 +35,11 @@ export const defaultOptions: {
   signal: null,
 };
 
-export function getOptions(context: RuleContext, node: TSESTree.CallExpressionArgument): typeof defaultOptions {
+export function getOptions(context: RichContext, node: TSESTree.CallExpressionArgument): typeof defaultOptions {
   function visit(node: TSESTree.Node): typeof defaultOptions {
     switch (node.type) {
       case AST.Identifier: {
-        const initNode = resolve(context, node);
+        const initNode = resolve(context._, node);
         if (initNode?.type === AST.ObjectExpression) {
           return visit(initNode);
         }
@@ -58,7 +58,7 @@ export function getOptions(context: RuleContext, node: TSESTree.CallExpressionAr
               case AST.Literal:
                 return Boolean(value.value);
               default:
-                return Boolean(getStaticValue(value, context.sourceCode.getScope(node))?.value);
+                return Boolean(getStaticValue(value, context.src.getScope(node))?.value);
             }
           })
           .otherwise(() => false);

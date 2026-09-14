@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 
 export const RULE_NAME = "no-flush-sync";
 
@@ -20,13 +21,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `flushSync` is not present in the file
-  if (!context.sourceCode.text.includes("flushSync")) return {};
+  if (!context.hasText("flushSync")) return {};
   return {
     CallExpression(node) {
       // Handles cases like `flushSync()` and `ReactDOM.flushSync()`

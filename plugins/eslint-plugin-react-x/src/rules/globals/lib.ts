@@ -1,5 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -46,12 +46,12 @@ export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier 
 }
 
 /** Resolve a direct call target, following simple function aliases. */
-export function resolveToFunction(context: RuleContext, node: TSESTree.Node, seen = new Set<TSESTree.Node>()): TSESTreeFunction | null {
+export function resolveToFunction(context: RichContext, node: TSESTree.Node, seen = new Set<TSESTree.Node>()): TSESTreeFunction | null {
   const expression = Extract.unwrap(node);
   if (Check.isFunction(expression)) return expression;
   if (!Check.isIdentifier(expression) || seen.has(expression)) return null;
   seen.add(expression);
-  const resolved = resolve(context, expression);
+  const resolved = resolve(context._, expression);
   if (resolved == null) return null;
   return resolveToFunction(context, resolved, seen);
 }

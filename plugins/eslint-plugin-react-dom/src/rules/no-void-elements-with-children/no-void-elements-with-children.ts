@@ -1,6 +1,7 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAnyAttribute } from "@eslint-react/jsx";
 import { VOID_ELEMENTS } from "./lib";
 
@@ -22,11 +23,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
@@ -38,7 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
-      if (node.children.length > 0 || hasAnyAttribute(context, node, ["children", "dangerouslySetInnerHTML"])) {
+      if (node.children.length > 0 || hasAnyAttribute(context._, node, ["children", "dangerouslySetInnerHTML"])) {
         context.report({
           data: {
             elementType: domElementType,

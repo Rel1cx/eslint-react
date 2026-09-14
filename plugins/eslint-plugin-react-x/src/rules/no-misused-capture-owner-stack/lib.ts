@@ -1,5 +1,4 @@
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching } from "ts-pattern";
 
@@ -9,7 +8,7 @@ import { P, isMatching } from "ts-pattern";
  * @param node The AST node
  * @returns True if the node is a member expression that accesses `process.env.NODE_ENV`, false otherwise
  */
-export function isProcessEnvNodeEnv(context: RuleContext, node: TSESTree.Node | null): node is TSESTree.Node {
+export function isProcessEnvNodeEnv(context: core.RichContext, node: TSESTree.Node | null): node is TSESTree.Node {
   return node != null && core.isAPI("process.env.NODE_ENV")(context, node);
 }
 
@@ -22,7 +21,7 @@ export function isProcessEnvNodeEnv(context: RuleContext, node: TSESTree.Node | 
  * @returns True if the node is a binary expression that compares `process.env.NODE_ENV` with the specified value, false otherwise
  */
 export function isProcessEnvNodeEnvCompare(
-  context: RuleContext,
+  context: core.RichContext,
   node: TSESTree.Node | null,
   operator: "===" | "!==",
   value: "development" | "production",
@@ -41,7 +40,7 @@ export function isProcessEnvNodeEnvCompare(
 }
 
 // Helper function to check if a node is a development-only `if` statement
-export function isDevelopmentOnlyCheck(context: RuleContext, node: TSESTree.Node): node is TSESTree.IfStatement {
+export function isDevelopmentOnlyCheck(context: core.RichContext, node: TSESTree.Node): node is TSESTree.IfStatement {
   if (node.type !== AST.IfStatement) return false;
   return isProcessEnvNodeEnvCompare(context, node.test, "!==", "production");
 }

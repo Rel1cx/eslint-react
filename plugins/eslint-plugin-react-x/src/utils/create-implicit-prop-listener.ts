@@ -1,5 +1,7 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext } from "@eslint-react/core";
+import { type RuleListener } from "@eslint-react/eslint";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import { ESLintUtils } from "@typescript-eslint/utils";
@@ -23,7 +25,7 @@ import ts from "typescript";
  * @returns A rule listener reporting on JSX spread attributes
  */
 export function createImplicitPropListener(
-  context: RuleContext,
+  context: RichContext,
   options: {
     name: string;
     isAllowedProp: (fqn: string) => boolean;
@@ -32,7 +34,7 @@ export function createImplicitPropListener(
   },
 ): RuleListener {
   const { name, isAllowedProp, isAllowedType, onImplicitProp } = options;
-  const services = ESLintUtils.getParserServices(context, false);
+  const services = ESLintUtils.getParserServices(context._, false);
   const checker = services.program.getTypeChecker();
   const getFqn = (symbol: ts.Symbol) => core.getFullyQualifiedNameEx(checker, symbol).toLowerCase();
   return {

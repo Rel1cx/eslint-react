@@ -1,6 +1,7 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
@@ -28,11 +29,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
@@ -42,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "iframe") return;
 
       // Find the 'sandbox' prop on the iframe element.
-      const sandboxProp = findAttribute(context, node, "sandbox");
+      const sandboxProp = findAttribute(context._, node, "sandbox");
 
       // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
@@ -63,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // Resolve the value of the 'sandbox' attribute; for spread attributes
       // the named property is extracted automatically
-      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
+      const sandboxValue = resolveAttributeValue(context._, sandboxProp, "sandbox");
       // If the value is a static string, the prop is correctly used
       if (typeof sandboxValue.toStatic() === "string") return;
 

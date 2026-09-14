@@ -15,8 +15,8 @@ A precheck is _necessary but not sufficient_: passing it only means the term's t
 ### Single-term check
 
 ```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("forwardRef")) {
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("forwardRef")) {
     return {};
   }
   // ...full AST visitors
@@ -32,7 +32,7 @@ Rules that currently omit the text precheck but still use term-based visitors: `
 When any one of several independent terms can trigger the rule, OR-combine the checks:
 
 ```ts
-if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includes("forwardRef")) {
+if (!context.hasText("memo") && !context.hasText("forwardRef")) {
   return {};
 }
 ```
@@ -42,7 +42,7 @@ Used by: `no-missing-component-display-name`, `react-rsc/function-definition`.
 ### Regex check (term families)
 
 ```ts
-if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+if (!context.hasText(/use\w*Effect/u)) return {};
 ```
 
 Used by: `set-state-in-effect`, `no-leaked-fetch` (second check), `no-leaked-event-listener` (second check).
@@ -50,9 +50,9 @@ Used by: `set-state-in-effect`, `no-leaked-fetch` (second check), `no-leaked-eve
 ### Non-identifier substring check
 
 ```ts
-if (!context.sourceCode.text.includes("key=")) return {}; // no-duplicate-key
-if (!context.sourceCode.text.includes("&&")) return {}; // no-leaked-conditional-rendering
-if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
+if (!context.hasText("key=")) return {}; // no-duplicate-key
+if (!context.hasText("&&")) return {}; // no-leaked-conditional-rendering
+if (!context.hasText("try")) return {}; // error-boundaries
 ```
 
 ## Version Gating
@@ -60,9 +60,9 @@ if (!context.sourceCode.text.includes("try")) return {}; // error-boundaries
 After the text precheck, some rules read the configured React version and bail out if it is too old:
 
 ```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("forwardRef")) return {};
-  const { version } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("forwardRef")) return {};
+  const { version } = context.settings;
   if (compare(version, "19.0.0", "<")) return {};
   // ...full AST visitors
 }
@@ -99,8 +99,8 @@ A few rules change behavior based on version rather than bailing out:
 Collector + `Program:exit` example:
 
 ```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("Component")) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("Component")) return {};
 
   const { api, visitor } = core.getClassComponentCollector(context);
 
@@ -117,8 +117,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 Stack-based example:
 
 ```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("setState")) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("setState")) return {};
 
   const classStack: [node: ClassNode, isComponent: boolean][] = [];
   const methodStack: [node: MethodNode, isStatic: boolean][] = [];

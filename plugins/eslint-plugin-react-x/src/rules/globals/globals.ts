@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { match } from "ts-pattern";
 import { createGlobalsCollector } from "./collect";
 import { type GlobalMutationEffect, collectReachableEffects, inferCallGraph, inferGlobalMutations } from "./effects";
@@ -30,11 +32,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create: create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const comps = core.getFunctionComponentCollector(context);
   const globs = createGlobalsCollector();

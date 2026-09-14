@@ -1,13 +1,11 @@
 import { Check } from "@eslint-react/ast";
-import { isUseRefLikeCall } from "@eslint-react/core";
-import { type RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, isUseRefLikeCall } from "@eslint-react/core";
 import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 export function getRefInitNode(
-  context: RuleContext,
+  context: RichContext,
   node: TSESTree.Identifier | TSESTree.JSXIdentifier,
   initialScope: Scope,
 ) {
@@ -34,11 +32,11 @@ export function getRefInitNode(
  * @returns The init expression node if the variable is derived from a ref, or null otherwise
  */
 export function getRefInit(
-  context: RuleContext,
+  context: RichContext,
   name: string,
   initialScope: Scope,
 ): TSESTree.Expression | null {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+  const { additionalRefHooks } = context.settings;
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init;

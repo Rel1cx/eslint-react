@@ -1,5 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -18,14 +18,14 @@ export type FrozenOrigin =
  * Classify whether a variable ultimately holds a value that must be treated as
  * immutable: a component's props, a state value returned from `useState`-like or
  * `useReducer` calls, or a shallow copy (spread literal) of either.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param variable The variable to classify.
  * @param components The confirmed function component nodes in the file.
  * @param seen Variables already visited during spread recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
 export function classifyFrozenOrigin(
-  context: RuleContext,
+  context: RichContext,
   variable: Scope.Variable,
   components: readonly TSESTreeFunction[],
   seen: Set<Scope.Variable> = new Set(),
@@ -60,7 +60,8 @@ export function classifyFrozenOrigin(
         if (element?.type !== AST.SpreadElement) continue;
         const argument = Extract.unwrap(element.argument);
         if (!Check.isIdentifier(argument)) continue;
-        const source = findVariable(context.sourceCode.getScope(argument), argument);
+        const src = context.src;
+        const source = findVariable(src.getScope(argument), argument);
         if (source == null) continue;
         const inner = classifyFrozenOrigin(context, source, components, seen);
         if (inner != null) return { kind: "shallow-copy", name: origin.name, original: inner.name };
