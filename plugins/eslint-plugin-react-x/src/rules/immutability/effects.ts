@@ -74,7 +74,10 @@ function getMutatedObject(mutation: MutationFact): TSESTree.Node {
   return target.type === AST.MemberExpression ? Extract.unwrap(target.object) : target;
 }
 
-export function inferDirectMutations(context: RuleContext, mutations: readonly MutationFact[], components: readonly TSESTreeFunction[]): DirectMutation[] {
+export function inferDirectMutations(context: RichContext, mutations: readonly MutationFact[], components: readonly TSESTreeFunction[]): DirectMutation[] {
+  const src = context.src;
+  const env = context.getEnvConfig();
+  const mutableHooks = getMutableHookNames(env);
   const directMutations: DirectMutation[] = [];
 
   for (const mutation of mutations) {

@@ -1,5 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -25,7 +25,7 @@ export type FrozenOrigin =
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
 export function classifyFrozenOrigin(
-  context: RuleContext,
+  context: RichContext,
   variable: Scope.Variable,
   components: readonly TSESTreeFunction[],
   seen: Set<Scope.Variable> = new Set(),
