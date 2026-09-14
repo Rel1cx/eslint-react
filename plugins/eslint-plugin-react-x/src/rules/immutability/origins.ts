@@ -1,5 +1,5 @@
-import { Check, Extract } from "@eslint-react/ast";
-import type { RichContext } from "@eslint-react/core";
+import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -20,16 +20,22 @@ export type FrozenOrigin =
  * `useReducer` calls, or a shallow copy (spread literal) of either.
  * @param context The rich rule context.
  * @param variable The variable to classify.
+ * @param components The confirmed function component nodes in the file.
  * @param seen Variables already visited during spread recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
-export function classifyFrozenOrigin(context: RichContext, variable: Scope.Variable, seen: Set<Scope.Variable> = new Set()): FrozenOrigin | null {
+export function classifyFrozenOrigin(
+  context: RuleContext,
+  variable: Scope.Variable,
+  components: readonly TSESTreeFunction[],
+  seen: Set<Scope.Variable> = new Set(),
+): FrozenOrigin | null {
   if (seen.has(variable)) return null;
   seen.add(variable);
   const origin = resolveVariableOrigin(context, variable);
   const def = origin.defs.length === 1 ? origin.defs[0] : null;
   if (def == null) return null;
-  if (isComponentPropsDefinition(context, def)) {
+  if (isComponentPropsDefinition(def, components)) {
     return { kind: "props", name: origin.name };
   }
   if (def.type !== DefinitionType.Variable) return null;
@@ -57,7 +63,7 @@ export function classifyFrozenOrigin(context: RichContext, variable: Scope.Varia
         const src = context.src;
         const source = findVariable(src.getScope(argument), argument);
         if (source == null) continue;
-        const inner = classifyFrozenOrigin(context, source, seen);
+        const inner = classifyFrozenOrigin(context, source, components, seen);
         if (inner != null) return { kind: "shallow-copy", name: origin.name, original: inner.name };
       }
       return null;

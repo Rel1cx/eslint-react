@@ -74,10 +74,7 @@ function getMutatedObject(mutation: MutationFact): TSESTree.Node {
   return target.type === AST.MemberExpression ? Extract.unwrap(target.object) : target;
 }
 
-export function inferDirectMutations(context: RichContext, mutations: readonly MutationFact[]): DirectMutation[] {
-  const src = context.src;
-  const env = context.getEnvConfig();
-  const mutableHooks = getMutableHookNames(env);
+export function inferDirectMutations(context: RuleContext, mutations: readonly MutationFact[], components: readonly TSESTreeFunction[]): DirectMutation[] {
   const directMutations: DirectMutation[] = [];
 
   for (const mutation of mutations) {
@@ -92,7 +89,7 @@ export function inferDirectMutations(context: RichContext, mutations: readonly M
     if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(src.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
-    const origin = classifyFrozenOrigin(context, variable);
+    const origin = classifyFrozenOrigin(context, variable, components);
     if (origin == null) continue;
     switch (origin.kind) {
       case "props": {

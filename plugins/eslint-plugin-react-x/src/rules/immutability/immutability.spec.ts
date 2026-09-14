@@ -1091,6 +1091,99 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A component returned by a higher-order function is still a component:
+    // its first parameter is props (https://github.com/Rel1cx/eslint-react/issues/1951).
+    {
+      code: tsx`
+        const withFoo = (v) => (props) => {
+          props.count = 1;
+          return <div />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A returned component whose JSX return is behind a conditional is still
+    // confirmed (both branches are JSX).
+    {
+      code: tsx`
+        const withFoo = (v) => (props) => {
+          props.count = 1;
+          return v ? <div /> : <span />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A named function expression returned by a factory is confirmed by its
+    // JSX return; the name plays no role.
+    {
+      code: tsx`
+        const factory = () => function Inner(props) {
+          props.count = 1;
+          return <div />;
+        };
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A memo-wrapped component is confirmed through the wrapper callback.
+    {
+      code: tsx`
+        const Component = memo((props) => {
+          props.count = 1;
+          return <div />;
+        });
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Hook calls confirm a component even without a JSX return.
+    {
+      code: tsx`
+        function Component(props) {
+          const [state] = useState(0);
+          props.count = state;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must be treated as immutable.",
+            name: "props",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
     // Direct mutations are not deduplicated against each other: two distinct
     // mutation sites of the same state value are both reported.
     {
@@ -1662,6 +1755,68 @@ ruleTester.run(RULE_NAME, rule, {
       function helper(props) {
         props.count = 1;
       }
+    `,
+    // A parameter of an arrow function returned by another function is not
+    // props unless the returned function is actually a component
+    // (https://github.com/Rel1cx/eslint-react/issues/1951).
+    tsx`
+      export const curriedArrow = (v) => (obj) => {
+        obj.a = 1;
+        return v;
+      };
+    `,
+    // An explicit non-JSX return type annotation does not change that.
+    tsx`
+      export const curriedTyped = (v: string) => (obj: { a: number }): string => {
+        obj.a = 1;
+        return v;
+      };
+    `,
+    // A returned arrow function with no return value is not a component.
+    tsx`
+      export const curriedNoReturn = (v) => (obj) => {
+        obj.a = 1;
+      };
+    `,
+    // https://github.com/Rel1cx/eslint-react/issues/1951
+    tsx`
+      export const createHeaderSetter = (value) => {
+        return (next) => async (req) => {
+          req.headers.set("x-example", value);
+          return await next(req);
+        };
+      };
+    `,
+    // A function declaration returning a handler is not a component either.
+    tsx`
+      function factory(v) {
+        return (obj) => {
+          obj.a = 1;
+          return v;
+        };
+      }
+    `,
+    // A component-like name alone is not enough: without a JSX return or hook
+    // calls the returned function is not a confirmed component.
+    tsx`
+      const factory = () => function Transform(props) {
+        props.count = 1;
+      };
+    `,
+    // A function that never returns JSX and calls no hooks is not confirmed
+    // as a component, even with a component-like name.
+    tsx`
+      function Component(props) {
+        props.count = 1;
+      }
+    `,
+    // Only the first parameter of a confirmed component is props; mutating a
+    // later parameter of a returned component is allowed.
+    tsx`
+      const withFoo = (v) => (props, ctx) => {
+        ctx.count = 1;
+        return <div />;
+      };
     `,
     // Parameters of custom hooks are not component props.
     tsx`
