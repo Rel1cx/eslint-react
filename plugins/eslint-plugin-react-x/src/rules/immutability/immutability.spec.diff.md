@@ -170,6 +170,7 @@ Since 2026-09, the IMPL includes a second detection layer (`inferDirectMutations
 
 - **Direct mutation of props/state**: a member assignment, update, deletion, or mutating method call is reported at the mutation site (messageId `direct`) when the mutated root identifier resolves — through the same identifier-initializer alias tracing used for mutation targets — to a component's first parameter (props, including destructured bindings) or to element 0 of a `useState`-like/`useReducer` array-pattern destructuring. This applies regardless of whether the mutation sits inside a function that reaches a freeze sink; mutation nodes already reported through a sink are not reported twice.
 - **Shallow copies**: a variable initialized by an object/array literal that spreads a props/state value (`const copy = { ...state }`, `const copy = [...state]`) is classified as a shallow copy. Mutations through it are only reported when the mutated object lies at least one member access below the copy's root (`copy[k].x = v`, `copy.x.push(1)`), because the copy's own top-level slots (`copy.x = v`, `copy.push(1)`) are new values. Spread arguments that are not plain identifiers are not traced.
+- **For-of iterators**: bindings introduced by a `for-of` statement are classified as immutable when the iterated expression resolves to props or state. This includes destructured iterator bindings, identifier aliases, and member expressions rooted in a frozen value.
 
 The upstream compiler has the same shallow-copy blind spot in its mutation validation (reported as <https://github.com/facebook/react/issues/37316>); this layer closes the gap locally rather than mirroring it.
 
@@ -191,6 +192,6 @@ Known boundaries of this extension:
 - ref naming and aliased `useRef()` initializer behavior;
 - navigation-method exemptions for values initialized by `useNavigate()`, `useNavigation()`, and `useRouter()`, including variable-declarator alias coverage for router values;
 - unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes;
-- direct mutations of props (plain and destructured parameters), `useState`/`useReducer` state values, namespaced and settings-configured state hooks, identifier aliases of state, and nested mutations through object/array shallow copies, including the copy's own top-level writes, setter-index, shadowing, deep-copy, and non-component-parameter exclusions.
+- direct mutations of props (plain and destructured parameters), `useState`/`useReducer` state values, namespaced and settings-configured state hooks, identifier aliases of state, for-of iterators over props/state, and nested mutations through object/array shallow copies, including the copy's own top-level writes, setter-index, shadowing, deep-copy, local-iterator, and non-component-parameter exclusions.
 
 The sink-related tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.
