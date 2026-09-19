@@ -254,8 +254,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -360,7 +360,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
 
   .pkgs/configs:
     dependencies:
@@ -374,8 +374,8 @@ importers:
         specifier: ^2.1.3
         version: 2.1.3(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))
       eslint-plugin-jsdoc:
-        specifier: ^64.5.0
-        version: 64.5.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
+        specifier: ^64.5.2
+        version: 64.5.2(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       eslint-plugin-perfectionist:
         specifier: ^5.11.1
         version: 5.11.1(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
@@ -402,8 +402,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.13.3
-        version: 0.13.3(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.13.5
+        version: 0.13.5(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typedoc:
         specifier: ^0.28.20
         version: 0.28.20(typescript@6.0.3)
@@ -519,7 +519,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
 
   apps/website:
     dependencies:
@@ -578,8 +578,8 @@ importers:
         specifier: ^2.0.14
         version: 2.0.14
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -615,22 +615,22 @@ importers:
         version: 0.5.7(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))
       fumadocs-core:
         specifier: ^16.15.11
-        version: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+        version: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
       fumadocs-docgen:
         specifier: ^3.1.1
-        version: 3.1.1(@types/estree@1.0.9)(@types/hast@3.0.5)(@types/mdast@4.0.4)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(mdast-util-mdx@3.0.0(supports-color@9.4.0))
+        version: 3.1.1(@types/estree@1.0.9)(@types/hast@3.0.5)(@types/mdast@4.0.4)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(mdast-util-mdx@3.0.0(supports-color@9.4.0))
       fumadocs-mdx:
         specifier: ^15.4.1
-        version: 15.4.1(@types/mdast@4.0.4)(@types/mdx@2.0.14)(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(rolldown@1.2.7)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 15.4.1(@types/mdast@4.0.4)(@types/mdx@2.0.14)(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(rolldown@1.2.7)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       fumadocs-twoslash:
         specifier: 3.3.1
-        version: 3.3.1(e8c7c0cf796fb630b997eebe080cb0d0)
+        version: 3.3.1(6d77689178df231c2a9e04a0a87867c9)
       fumadocs-typescript:
         specifier: ^5.4.1
-        version: 5.4.1(498d4f1f4627bd3375a3673590db64ca)
+        version: 5.4.1(5bd9708d30ac6ed287b032d441e0c2d1)
       fumadocs-ui:
         specifier: ^16.15.11
-        version: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
+        version: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
       import-integrity-lint:
         specifier: ^1.3.0
         version: 1.3.0(patch_hash=ef120391f21243bbdb53f7d6c390b55e0635b1ca3d47254629d9fcf35d2d5107)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
@@ -638,14 +638,14 @@ importers:
         specifier: ^0.5.2
         version: 0.5.2(supports-color@9.4.0)
       lucide-react:
-        specifier: ^1.46.0
-        version: 1.46.0(react@19.3.0)
+        specifier: ^1.47.0
+        version: 1.47.0(react@19.3.0)
       next:
         specifier: 16.3.5
-        version: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next-view-transitions:
         specifier: ^0.3.5
-        version: 0.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 0.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       postcss:
         specifier: ^8.5.28
         version: 8.5.28
@@ -668,8 +668,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.13.3
-        version: 0.13.3(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.13.5
+        version: 0.13.5(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       twoslash:
         specifier: ^0.3.9
         version: 0.3.9(supports-color@9.4.0)(typescript@6.0.3)
@@ -684,7 +684,7 @@ importers:
     dependencies:
       next:
         specifier: 16.3.5
-        version: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        version: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react:
         specifier: ^19.3.0
         version: 19.3.0
@@ -714,8 +714,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -752,7 +752,7 @@ importers:
         version: 10.0.1(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))
       '@preact/preset-vite':
         specifier: ^2.10.6
-        version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       '@tsconfig/node24':
         specifier: ^24.0.5
         version: 24.0.5
@@ -760,8 +760,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -779,7 +779,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       vite:
         specifier: ^8.3.0
-        version: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   examples/preact-compat:
     dependencies:
@@ -795,7 +795,7 @@ importers:
         version: 10.0.1(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))
       '@preact/preset-vite':
         specifier: ^2.10.6
-        version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       '@tsconfig/node24':
         specifier: ^24.0.5
         version: 24.0.5
@@ -803,8 +803,8 @@ importers:
         specifier: ^2.0.8
         version: 2.0.8
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -822,7 +822,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       vite:
         specifier: ^8.3.0
-        version: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   examples/react-dom:
     dependencies:
@@ -856,7 +856,7 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: ^6.1.1
-        version: 6.1.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 6.1.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -874,7 +874,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       vite:
         specifier: ^8.3.0
-        version: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   examples/react-dom-js:
     dependencies:
@@ -899,7 +899,7 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: ^6.1.1
-        version: 6.1.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 6.1.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -914,7 +914,7 @@ importers:
         version: 17.12.0
       vite:
         specifier: ^8.3.0
-        version: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   examples/react-dom-with-custom-rules:
     dependencies:
@@ -960,7 +960,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       '@vitejs/plugin-react':
         specifier: ^6.1.1
-        version: 6.1.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 6.1.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -981,7 +981,7 @@ importers:
         version: 8.70.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       vite:
         specifier: ^8.3.0
-        version: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   packages/ast:
     dependencies:
@@ -1021,7 +1021,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
 
   packages/core:
     dependencies:
@@ -1076,7 +1076,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
 
   packages/eslint:
     dependencies:
@@ -1091,8 +1091,8 @@ importers:
         specifier: ^24.0.5
         version: 24.0.5
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -1208,8 +1208,8 @@ importers:
         specifier: ^24.0.5
         version: 24.0.5
       '@types/node':
-        specifier: ^26.6.0
-        version: 26.6.0
+        specifier: ^26.6.1
+        version: 26.6.1
       '@types/picomatch':
         specifier: ^4.0.3
         version: 4.0.3
@@ -1270,7 +1270,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: ^5.0.1
-        version: 5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+        version: 5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
 
   plugins/eslint-plugin:
     dependencies:
@@ -1709,8 +1709,8 @@ importers:
         specifier: ^1.0.30
         version: 1.0.30(typescript@6.0.3)
       tsl-dx:
-        specifier: ^0.13.3
-        version: 0.13.3(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^0.13.5
+        version: 0.13.5(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -3945,6 +3945,9 @@ packages:
   '@types/node@26.6.0':
     resolution: {integrity: sha512-FWWQhDlKSnEJVe+CTJCQL8Fol7s1MKo3Ud0fjryxoOoH+hwMIPxol0MguYrLi2I0VvIFwOU2DwdWET2+px15qg==}
 
+  '@types/node@26.6.1':
+    resolution: {integrity: sha512-VqGJBMCtdhqkBUCcBLvywI0NJ+KLuVzgNnlBUNFOQjqVxzo2lxLUNg1DSey8+u2u6ktswSAxg+s68QLzWHNOuA==}
+
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
@@ -5073,11 +5076,15 @@ packages:
     peerDependencies:
       eslint: ^8.45.0 || ^9.0.0 || ^10.0.0
 
-  eslint-plugin-jsdoc@64.5.0:
-    resolution: {integrity: sha512-At1L7de/11zGlecxnoXw81hy/xfcnzzXCJX71HTpXt7FPa8bK+nAYRB73pvTfoR3DkTToToQsI6iyX4EbVfGcg==}
+  eslint-plugin-jsdoc@64.5.2:
+    resolution: {integrity: sha512-GirLf/jpVQ/HSLVT98ztIrJ8GUlWWrrwExkofqzeIjjOxlqFtyqnpkRs30FLwEKh0xHEpgy35CU0qFn0I/Mh9w==}
     engines: {node: ^22.22.2 || >=24.15.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0
+      typescript: 6.0.3
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   eslint-plugin-package-json@1.8.1:
     resolution: {integrity: sha512-/Adb7EHfwIM2t13zdBuB6IjIsNSDkbPT+T9ZlIK0N6aAnj9hiekqFlFbUpEIsiQX4Zv7bASBDP2C3hu362e2kw==}
@@ -6157,8 +6164,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@1.46.0:
-    resolution: {integrity: sha512-Bv+FZXgZPrxc/NCl1e7JJVQFLdiCxYgxNVhqoV7X0p6I8ADJo8DxBnK1auH0fZz4AmqOJ3jgneL4f1i8LJQRAA==}
+  lucide-react@1.47.0:
+    resolution: {integrity: sha512-o8C23aXpNQypRY73W7fW02EyvWJinEMXgKeGjFoKym0zj3Q73hD97A1IQps1g8C14HTGsOpZL0Am+xjfgFZAbg==}
     peerDependencies:
       react: ^19.3.0
 
@@ -7427,8 +7434,8 @@ packages:
       unrun:
         optional: true
 
-  tsl-dx@0.13.3:
-    resolution: {integrity: sha512-JYsgPqznWD+RWSUUfbhQMVHs6MeHgEHh4aJyMKqmSm7I1T2eKEaanq0VTH8t9DVjIagJ4yfTrwsoLF+ZION7VQ==}
+  tsl-dx@0.13.5:
+    resolution: {integrity: sha512-a14Gn/vp/rxSgb1PhLEj0zlW/LKARXWPsvBxMFxGYIQzTbssQwYf9scFNdCtAhjGd0WmEgt4Cle/UvyH1ZfNdg==}
     peerDependencies:
       tsl: ^1.0.30
       typescript: 6.0.3
@@ -8970,19 +8977,19 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@preact/preset-vite@2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
+  '@preact/preset-vite@2.10.6(@babel/core@7.29.7(supports-color@9.4.0))(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@9.4.0)
       '@babel/plugin-transform-react-jsx': 7.29.7(@babel/core@7.29.7(supports-color@9.4.0))(supports-color@9.4.0)
       '@babel/plugin-transform-react-jsx-development': 7.29.7(@babel/core@7.29.7(supports-color@9.4.0))(supports-color@9.4.0)
-      '@prefresh/vite': 2.4.12(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+      '@prefresh/vite': 2.4.12(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       '@rollup/pluginutils': 5.4.0
       babel-plugin-transform-hook-names: 1.0.2(@babel/core@7.29.7(supports-color@9.4.0))
       debug: 4.4.3(supports-color@9.4.0)
       magic-string: 0.30.21
       picocolors: 1.1.1
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
-      vite-prerender-plugin: 0.5.13(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite-prerender-plugin: 0.5.13(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       zimmerframe: 1.1.5
     transitivePeerDependencies:
       - preact
@@ -8997,7 +9004,7 @@ snapshots:
 
   '@prefresh/utils@1.2.1': {}
 
-  '@prefresh/vite@2.4.12(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
+  '@prefresh/vite@2.4.12(preact@10.29.8)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.7(supports-color@9.4.0)
       '@prefresh/babel-plugin': 0.5.3
@@ -9005,7 +9012,7 @@ snapshots:
       '@prefresh/utils': 1.2.1
       '@rollup/pluginutils': 4.2.1
       preact: 10.29.8
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -9975,6 +9982,10 @@ snapshots:
     dependencies:
       undici-types: 8.10.2
 
+  '@types/node@26.6.1':
+    dependencies:
+      undici-types: 8.10.2
+
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/parse-json@4.0.2': {}
@@ -10208,19 +10219,19 @@ snapshots:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
 
-  '@vitejs/plugin-react@6.1.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
+  '@vitejs/plugin-react@6.1.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
-  '@vitest/mocker@5.0.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
+  '@vitest/mocker@5.0.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.1
       estree-walker: 3.0.3
       magic-string: 1.2.3
     optionalDependencies:
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   '@vitest/spy@5.0.1': {}
 
@@ -11131,7 +11142,7 @@ snapshots:
     dependencies:
       eslint: 10.10.0(jiti@2.7.0)(supports-color@9.4.0)
 
-  eslint-plugin-jsdoc@64.5.0(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3):
+  eslint-plugin-jsdoc@64.5.2(eslint@10.10.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3):
     dependencies:
       '@es-joy/jsdoccomment': 0.97.0
       '@es-joy/resolve.exports': 1.2.0
@@ -11149,9 +11160,10 @@ snapshots:
       semver: 7.8.5
       spdx-expression-parse: 5.0.0
       to-valid-identifier: 1.0.0
+    optionalDependencies:
+      typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   eslint-plugin-package-json@1.8.1(eslint@10.10.0(jiti@2.7.0)(supports-color@7.2.0)):
     dependencies:
@@ -11513,7 +11525,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4):
+  fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4):
     dependencies:
       '@fumari/image-size': 0.1.1
       estree-util-value-to-estree: 3.5.0
@@ -11541,19 +11553,19 @@ snapshots:
       '@types/hast': 3.0.5
       '@types/mdast': 4.0.4
       '@types/react': 19.3.0
-      lucide-react: 1.46.0(react@19.3.0)
-      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      lucide-react: 1.47.0(react@19.3.0)
+      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
       zod: 4.5.4
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-docgen@3.1.1(@types/estree@1.0.9)(@types/hast@3.0.5)(@types/mdast@4.0.4)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(mdast-util-mdx@3.0.0(supports-color@9.4.0)):
+  fumadocs-docgen@3.1.1(@types/estree@1.0.9)(@types/hast@3.0.5)(@types/mdast@4.0.4)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(mdast-util-mdx@3.0.0(supports-color@9.4.0)):
     dependencies:
       estree-util-to-js: 2.0.0
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
       npm-to-yarn: 3.2.0
       unified: 11.0.5
       unist-util-visit: 5.1.0
@@ -11567,14 +11579,14 @@ snapshots:
       '@types/mdast': 4.0.4
       mdast-util-mdx: 3.0.0(supports-color@9.4.0)
 
-  fumadocs-mdx@15.4.1(@types/mdast@4.0.4)(@types/mdx@2.0.14)(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(rolldown@1.2.7)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
+  fumadocs-mdx@15.4.1(@types/mdast@4.0.4)(@types/mdx@2.0.14)(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)(rolldown@1.2.7)(supports-color@9.4.0)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
     dependencies:
       '@mdx-js/mdx': 3.1.1(supports-color@9.4.0)
       '@standard-schema/spec': 1.1.0
       chokidar: 5.0.0
       esbuild: 0.28.2
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
       github-slugger: 2.0.0
       magic-string: 1.2.3
       mdast-util-mdx: 3.0.0(supports-color@9.4.0)
@@ -11593,20 +11605,20 @@ snapshots:
       '@types/mdast': 4.0.4
       '@types/mdx': 2.0.14
       '@types/react': 19.3.0
-      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
       rolldown: 1.2.7
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-twoslash@3.3.1(e8c7c0cf796fb630b997eebe080cb0d0):
+  fumadocs-twoslash@3.3.1(6d77689178df231c2a9e04a0a87867c9):
     dependencies:
       '@base-ui/react': 1.8.0(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@shikijs/twoslash': 4.4.3(supports-color@9.4.0)(typescript@6.0.3)
       cn: 0.2.6
-      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
-      fumadocs-ui: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
+      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+      fumadocs-ui: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
       mdast-util-from-markdown: 2.0.3(supports-color@9.4.0)
       mdast-util-gfm: 3.1.0(supports-color@9.4.0)
       mdast-util-to-hast: 13.2.1
@@ -11622,10 +11634,10 @@ snapshots:
       - date-fns
       - supports-color
 
-  fumadocs-typescript@5.4.1(498d4f1f4627bd3375a3673590db64ca):
+  fumadocs-typescript@5.4.1(5bd9708d30ac6ed287b032d441e0c2d1):
     dependencies:
       estree-util-value-to-estree: 3.5.0
-      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
       hast-util-to-estree: 3.1.3(supports-color@9.4.0)
       hast-util-to-jsx-runtime: 2.3.6(supports-color@9.4.0)
       react: 19.3.0
@@ -11641,11 +11653,11 @@ snapshots:
       '@types/hast': 3.0.5
       '@types/mdast': 4.0.4
       '@types/react': 19.3.0
-      fumadocs-ui: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
+      fumadocs-ui: 16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3)
     transitivePeerDependencies:
       - supports-color
 
-  fumadocs-ui@16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3):
+  fumadocs-ui@16.15.11(@types/mdx@2.0.14)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(fumadocs-core@16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(tailwindcss@4.3.3):
     dependencies:
       '@fuma-translate/react': 1.0.2(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@fumadocs/tailwind': 0.1.2(tailwindcss@4.3.3)
@@ -11661,8 +11673,8 @@ snapshots:
       '@radix-ui/react-tabs': 1.1.21(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       class-variance-authority: 0.7.1
       cn: 0.2.6
-      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.46.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
-      lucide-react: 1.46.0(react@19.3.0)
+      fumadocs-core: 16.15.11(@mdx-js/mdx@3.1.1(supports-color@9.4.0))(@modelcontextprotocol/server@2.0.0)(@types/estree-jsx@1.0.5)(@types/hast@3.0.5)(@types/mdast@4.0.4)(@types/react@19.3.0)(lucide-react@1.47.0(react@19.3.0))(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(supports-color@9.4.0)(zod@4.5.4)
+      lucide-react: 1.47.0(react@19.3.0)
       motion: 13.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next-themes: 0.4.6(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
@@ -11675,7 +11687,7 @@ snapshots:
     optionalDependencies:
       '@types/mdx': 2.0.14
       '@types/react': 19.3.0
-      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
     transitivePeerDependencies:
       - '@types/react-dom'
       - tailwindcss
@@ -12307,7 +12319,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.46.0(react@19.3.0):
+  lucide-react@1.47.0(react@19.3.0):
     dependencies:
       react: 19.3.0
 
@@ -13182,13 +13194,13 @@ snapshots:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
 
-  next-view-transitions@0.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  next-view-transitions@0.3.5(next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
-      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      next: 16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)
 
-  next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+  next@16.3.5(@babel/core@7.29.7(supports-color@9.4.0))(@types/node@26.6.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
     dependencies:
       '@next/env': 16.3.5
       '@swc/helpers': 0.5.23
@@ -13207,7 +13219,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 16.3.5
       '@next/swc-win32-arm64-msvc': 16.3.5
       '@next/swc-win32-x64-msvc': 16.3.5
-      sharp: 0.35.4(@types/node@26.6.0)
+      sharp: 0.35.4(@types/node@26.6.1)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
@@ -14035,7 +14047,7 @@ snapshots:
 
   semver@7.8.5: {}
 
-  sharp@0.35.4(@types/node@26.6.0):
+  sharp@0.35.4(@types/node@26.6.1):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -14066,7 +14078,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.4
       '@img/sharp-win32-ia32': 0.35.4
       '@img/sharp-win32-x64': 0.35.4
-      '@types/node': 26.6.0
+      '@types/node': 26.6.1
     optional: true
 
   shebang-command@2.0.0:
@@ -14370,7 +14382,7 @@ snapshots:
       - oxc-resolver
       - vue-tsc
 
-  tsl-dx@0.13.3(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
+  tsl-dx@0.13.5(tsl@1.0.30(typescript@6.0.3))(typescript@6.0.3):
     dependencies:
       ts-pattern: 5.9.0
       tsl: 1.0.30(typescript@6.0.3)
@@ -14679,7 +14691,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-prerender-plugin@0.5.13(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
+  vite-prerender-plugin@0.5.13(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
     dependencies:
       kolorist: 1.8.0
       magic-string: 0.30.21
@@ -14687,9 +14699,9 @@ snapshots:
       simple-code-frame: 1.3.0
       source-map: 0.7.6
       stack-trace: 1.0.0
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
-  vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0):
+  vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -14697,17 +14709,17 @@ snapshots:
       rolldown: 1.2.7
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 26.6.0
+      '@types/node': 26.6.1
       esbuild: 0.28.2
       fsevents: 2.3.3
       jiti: 2.7.0
       tsx: 4.23.13
       yaml: 2.9.0
 
-  vitest@5.0.1(@types/node@26.6.0)(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
+  vitest@5.0.1(@types/node@26.6.1)(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.1(vite@8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+      '@vitest/mocker': 5.0.1(vite@8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       chai: 6.2.2
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -14718,10 +14730,10 @@ snapshots:
       tinybench: 6.1.4
       tinyexec: 1.3.0
       tinyglobby: 0.2.17
-      vite: 8.3.0(@types/node@26.6.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      vite: 8.3.0(@types/node@26.6.1)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 26.6.0
+      '@types/node': 26.6.1
     transitivePeerDependencies:
       - msw
 

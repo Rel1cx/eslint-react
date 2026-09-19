@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint",
-  "version": "5.19.1",
+  "version": "5.20.0",
   "description": "ESLint React's ESLint types and utils.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@tsconfig/node24": "^24.0.5",
-    "@types/node": "^26.6.0",
+    "@types/node": "^26.6.1",
     "eslint": "^10.10.0",
     "tsdown": "^0.23.0",
     "typescript": "6.0.3"
