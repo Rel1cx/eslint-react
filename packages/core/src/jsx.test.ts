@@ -10,7 +10,7 @@ import { JsxDetectionHint, isJsxLike } from "./jsx";
  */
 function parseLastExpression(code: string) {
   const parsed = parseCode(code);
-  const context = createScopeContext(parsed);
+  const context = createScopeContext(parsed, code);
   const last = parsed.ast.body.at(-1);
   if (last?.type !== AST.ExpressionStatement) {
     throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);
