@@ -1,16 +1,22 @@
 import { createScopeContext, parseCode } from "@local/testkit";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
+import type { RichContext } from "./ctx";
 import { JsxDetectionHint, isJsxLike } from "./jsx";
 
 /**
  * Parses `code` and returns the expression of the last top-level
- * `ExpressionStatement` together with a scope-aware rule context.
+ * `ExpressionStatement` together with a scope-aware rich context.
  */
 function parseLastExpression(code: string) {
   const parsed = parseCode(code);
-  const context = createScopeContext(parsed, code);
+  // `isJsxLike` reaches into `context._` for scope-based resolution and
+  // `context.getText` for `createElement` API name checks.
+  const context = {
+    _: createScopeContext(parsed),
+    getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+  } as unknown as RichContext;
   const last = parsed.ast.body.at(-1);
   if (last?.type !== AST.ExpressionStatement) {
     throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);

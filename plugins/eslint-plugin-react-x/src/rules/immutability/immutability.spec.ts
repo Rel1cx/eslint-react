@@ -2369,6 +2369,21 @@ ruleTester.run(RULE_NAME, rule, {
         handle();
       }
     `,
+    tsx`
+      function useWorld() {
+        return useContext(WorldContext);
+      }
+
+      function Component() {
+        const world = useWorld(); // returns a external mutable store
+
+        const onClose = useCallback(() => {
+          world.set({});
+        }, [world]);
+
+        return <AnotherComponent onClose={onClose} />;
+      }
+    `,
     // Mutating the iterator variable of a for-of over a local mutable value is
     // allowed; only collections derived from props/state are frozen.
     tsx`

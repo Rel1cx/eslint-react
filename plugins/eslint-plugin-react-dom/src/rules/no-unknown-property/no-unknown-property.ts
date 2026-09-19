@@ -1,6 +1,7 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import {
   getAttributeTagsMap,
   getStandardName,
@@ -64,7 +65,7 @@ const messages = {
   unknownPropWithStandardName: "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };
 
-export default createRule({
+export default createRule<Options[], MessageID>({
   meta: {
     type: "problem",
     docs: {
@@ -90,7 +91,7 @@ export default createRule({
     }],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
@@ -99,13 +100,13 @@ export default createRule({
  * @param context ESLint rule context
  * @returns Rule listener
  */
-export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
+export function create(context: RichContext<MessageID, Options[]>): RuleListener {
   /**
    * Gets the ignore configuration from rule options
    * @returns Array of attribute names to ignore
    */
   function getIgnoreConfig(): string[] {
-    return context.options[0]?.ignore ?? DEFAULTS.ignore;
+    return context._.options[0]?.ignore ?? DEFAULTS.ignore;
   }
 
   /**
@@ -113,7 +114,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
    * @returns Whether data attributes must be lowercase
    */
   function getRequireDataLowercase(): boolean {
-    return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
+    return context._.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
   return {

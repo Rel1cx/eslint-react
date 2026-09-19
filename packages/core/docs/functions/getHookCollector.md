@@ -3,16 +3,16 @@
 # Function: getHookCollector()
 
 ```ts
-function getHookCollector(context: RuleContext): ReturnType;
+function getHookCollector(context: RichContext): ReturnType;
 ```
 
 Get an api and visitor object for the rule to collect hooks.
 
 ## Parameters
 
-| Parameter | Type          | Description              |
-| --------- | ------------- | ------------------------ |
-| `context` | `RuleContext` | The ESLint rule context. |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
 
 ## Returns
 

@@ -3,17 +3,17 @@
 # Function: getCreateElementTypeArgument()
 
 ```ts
-function getCreateElementTypeArgument(context: RuleContext, node: Node | null): CallExpressionArgument | null;
+function getCreateElementTypeArgument(context: RichContext, node: Node | null): CallExpressionArgument | null;
 ```
 
 Get the type argument (the first argument) of a `createElement` call.
 
 ## Parameters
 
-| Parameter | Type             | Description              |
-| --------- | ---------------- | ------------------------ |
-| `context` | `RuleContext`    | The ESLint rule context. |
-| `node`    | `Node` \| `null` | The node to inspect.     |
+| Parameter | Type                                            | Description            |
+| --------- | ----------------------------------------------- | ---------------------- |
+| `context` | [`RichContext`](../type-aliases/RichContext.md) | The rich rule context. |
+| `node`    | `Node` \| `null`                                | The node to inspect.   |
 
 ## Returns
 

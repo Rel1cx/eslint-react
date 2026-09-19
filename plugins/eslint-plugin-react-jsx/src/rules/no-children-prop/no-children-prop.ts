@@ -1,8 +1,10 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { removeJsxAttribute } from "@/utils/remove-jsx-attribute";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { RuleFix, RuleFixer } from "@typescript-eslint/utils/ts-eslint";
@@ -32,11 +34,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       const childrenProp = core.getCreateElementProp(context, node, "children");
@@ -48,7 +50,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       });
     },
     JSXElement(node) {
-      const childrenProp = findAttribute(context, node, "children");
+      const childrenProp = findAttribute(context._, node, "children");
       if (childrenProp == null) return;
 
       // Spread attributes cannot be converted to element content safely,
@@ -83,17 +85,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
 /**
  * Turns the value of a 'children' JSXAttribute into text usable as element content
- * @param context The rule context
+ * @param context The rich rule context
  * @param attribute The 'children' JSXAttribute node
  * @returns The text to insert as element content, or `null` when no usable value exists
  */
-function getChildrenText(context: RuleContext, attribute: TSESTree.JSXAttribute): string | null {
+function getChildrenText(context: RichContext, attribute: TSESTree.JSXAttribute): string | null {
   const { value } = attribute;
   if (value?.type === AST.Literal) {
     return escapeJsxText(String(value.value));
   }
   if (value?.type === AST.JSXExpressionContainer && value.expression.type !== AST.JSXEmptyExpression) {
-    const exprText = context.sourceCode.getText(value.expression);
+    const exprText = context.getText(value.expression);
     return Check.isJSXElementOrFragment(value.expression) ? exprText : `{${exprText}}`;
   }
   return null;
@@ -115,15 +117,15 @@ function escapeJsxText(text: string): string {
 
 /**
  * Builds the fix that moves the 'children' prop value into the element's content
- * @param context The rule context object
+ * @param context The rich rule context
  * @param node The JSXElement node being reported
  * @param prop The 'children' JSXAttribute to remove
  * @param childrenText The text to insert as element content
  * @returns A fixer function that applies the changes
  */
-function buildFix(context: RuleContext, node: TSESTree.JSXElement, prop: TSESTree.JSXAttribute, childrenText: string): (fixer: RuleFixer) => RuleFix[] {
+function buildFix(context: RichContext, node: TSESTree.JSXElement, prop: TSESTree.JSXAttribute, childrenText: string): (fixer: RuleFixer) => RuleFix[] {
   return (fixer) => {
-    const sourceCode = context.sourceCode;
+    const sourceCode = context.src;
     const { openingElement } = node;
     const removePropFix = removeJsxAttribute(context, fixer, prop);
 

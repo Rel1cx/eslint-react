@@ -1,7 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-set-state-in-component-did-update";
@@ -22,13 +24,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const src = context.src;
   // Fast path: skip if `componentDidUpdate` is not present in the file
-  if (!context.sourceCode.text.includes("componentDidUpdate")) return {};
+  if (!context.hasText("componentDidUpdate")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isThisSetStateCall(node)) {
@@ -48,9 +51,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Get the scope of the 'componentDidUpdate' method
-      const enclosingMethodScope = context.sourceCode.getScope(enclosingMethodNode);
+      const enclosingMethodScope = src.getScope(enclosingMethodNode);
       // Get the scope where 'this.setState' is called
-      const setStateCallParentScope = context.sourceCode.getScope(node).upper;
+      const setStateCallParentScope = src.getScope(node).upper;
 
       // Report an error if 'this.setState' is called directly inside 'componentDidUpdate'
       if (enclosingMethodNode.parent === enclosingClassNode.body && setStateCallParentScope === enclosingMethodScope) {

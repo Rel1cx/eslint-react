@@ -6,7 +6,6 @@ import { Extract, type TSESTreeFunction, type TSESTreeTypeExpression, Traverse }
 import * as core from "@eslint-react/core";
 import type { RuleContext, RuleFix, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import type { ESLintReactSettingsNormalized } from "@eslint-react/shared";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLint, Linter } from "eslint";
 import { randomBytes } from "node:crypto";
@@ -108,6 +107,7 @@ export interface RuleToolkit {
 }
 
 function makeRuleToolkit(context: RuleContext): RuleToolkit {
+  const ctx = core.buildRichContext(context);
   return {
     ast: {
       findParent: Traverse.findParent,
@@ -116,7 +116,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
 
     collect: {
       components(context, options?) {
-        const { api, visitor } = core.getFunctionComponentCollector(context, options);
+        const { api, visitor } = core.getFunctionComponentCollector(context === ctx._ ? ctx : core.buildRichContext(context), options);
         return {
           query: {
             all(program) {
@@ -127,7 +127,7 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
         };
       },
       hooks(context) {
-        const { api, visitor } = core.getHookCollector(context);
+        const { api, visitor } = core.getHookCollector(context === ctx._ ? ctx : core.buildRichContext(context));
         return {
           query: {
             all(program) {
@@ -151,56 +151,56 @@ function makeRuleToolkit(context: RuleContext): RuleToolkit {
     },
 
     is: {
-      API: (api) => core.isAPI(api)(context),
-      APICall: (api) => core.isAPICall(api)(context),
-      captureOwnerStackCall: core.isCaptureOwnerStackCall(context),
-      childrenCountCall: core.isChildrenCountCall(context),
-      childrenForEachCall: core.isChildrenForEachCall(context),
-      childrenMapCall: core.isChildrenMapCall(context),
-      childrenOnlyCall: core.isChildrenOnlyCall(context),
-      childrenToArrayCall: core.isChildrenToArrayCall(context),
-      cloneElementCall: core.isCloneElementCall(context),
-      componentDecl: (node, hint) => core.isFunctionComponentDefinition(context, node, hint),
+      API: (api) => core.isAPI(api)(ctx),
+      APICall: (api) => core.isAPICall(api)(ctx),
+      captureOwnerStackCall: core.isCaptureOwnerStackCall(ctx),
+      childrenCountCall: core.isChildrenCountCall(ctx),
+      childrenForEachCall: core.isChildrenForEachCall(ctx),
+      childrenMapCall: core.isChildrenMapCall(ctx),
+      childrenOnlyCall: core.isChildrenOnlyCall(ctx),
+      childrenToArrayCall: core.isChildrenToArrayCall(ctx),
+      cloneElementCall: core.isCloneElementCall(ctx),
+      componentDecl: (node, hint) => core.isFunctionComponentDefinition(ctx, node, hint),
       componentName: core.isFunctionComponentName,
       componentNameLoose: core.isFunctionComponentNameLoose,
-      componentWrapperCall: (node) => core.isFunctionComponentWrapperCall(context, node),
-      componentWrapperCallback: (node) => core.isFunctionComponentWrapperCallback(context, node),
-      createContextCall: core.isCreateContextCall(context),
-      createElementCall: core.isCreateElementCall(context),
-      createRefCall: core.isCreateRefCall(context),
-      forwardRefCall: core.isForwardRefCall(context),
+      componentWrapperCall: (node) => core.isFunctionComponentWrapperCall(ctx, node),
+      componentWrapperCallback: (node) => core.isFunctionComponentWrapperCallback(ctx, node),
+      createContextCall: core.isCreateContextCall(ctx),
+      createElementCall: core.isCreateElementCall(ctx),
+      createRefCall: core.isCreateRefCall(ctx),
+      forwardRefCall: core.isForwardRefCall(ctx),
       hookCall: core.isHookCall,
       hookDecl: core.isHookDefinition,
       hookName: core.isHookName,
-      lazyCall: core.isLazyCall(context),
-      memoCall: core.isMemoCall(context),
-      useActionStateCall: core.isUseActionStateCall(context),
-      useCall: core.isUseCall(context),
-      useCallbackCall: core.isUseCallbackCall(context),
-      useContextCall: core.isUseContextCall(context),
-      useDebugValueCall: core.isUseDebugValueCall(context),
-      useDeferredValueCall: core.isUseDeferredValueCall(context),
-      useEffectCall: core.isUseEffectCall(context),
+      lazyCall: core.isLazyCall(ctx),
+      memoCall: core.isMemoCall(ctx),
+      useActionStateCall: core.isUseActionStateCall(ctx),
+      useCall: core.isUseCall(ctx),
+      useCallbackCall: core.isUseCallbackCall(ctx),
+      useContextCall: core.isUseContextCall(ctx),
+      useDebugValueCall: core.isUseDebugValueCall(ctx),
+      useDeferredValueCall: core.isUseDeferredValueCall(ctx),
+      useEffectCall: core.isUseEffectCall(ctx),
       useEffectCleanupCallback: core.isUseEffectCleanupCallback,
       useEffectLikeCall: core.isUseEffectLikeCall,
       useEffectSetupCallback: core.isUseEffectSetupCallback,
-      useFormStatusCall: core.isUseFormStatusCall(context),
-      useIdCall: core.isUseIdCall(context),
-      useImperativeHandleCall: core.isUseImperativeHandleCall(context),
-      useInsertionEffectCall: core.isUseInsertionEffectCall(context),
-      useLayoutEffectCall: core.isUseLayoutEffectCall(context),
-      useMemoCall: core.isUseMemoCall(context),
-      useOptimisticCall: core.isUseOptimisticCall(context),
-      useReducerCall: core.isUseReducerCall(context),
-      useRefCall: core.isUseRefCall(context),
+      useFormStatusCall: core.isUseFormStatusCall(ctx),
+      useIdCall: core.isUseIdCall(ctx),
+      useImperativeHandleCall: core.isUseImperativeHandleCall(ctx),
+      useInsertionEffectCall: core.isUseInsertionEffectCall(ctx),
+      useLayoutEffectCall: core.isUseLayoutEffectCall(ctx),
+      useMemoCall: core.isUseMemoCall(ctx),
+      useOptimisticCall: core.isUseOptimisticCall(ctx),
+      useReducerCall: core.isUseReducerCall(ctx),
+      useRefCall: core.isUseRefCall(ctx),
       useRefLikeCall: core.isUseRefLikeCall,
-      useStateCall: core.isUseStateCall(context),
+      useStateCall: core.isUseStateCall(ctx),
       useStateLikeCall: core.isUseStateLikeCall,
-      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall(context),
-      useTransitionCall: core.isUseTransitionCall(context),
+      useSyncExternalStoreCall: core.isUseSyncExternalStoreCall(ctx),
+      useTransitionCall: core.isUseTransitionCall(ctx),
     },
 
-    settings: getSettingsFromContext(context),
+    settings: ctx.settings,
   };
 }
 

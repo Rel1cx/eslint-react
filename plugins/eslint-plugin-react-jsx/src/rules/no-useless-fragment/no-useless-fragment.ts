@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, type TSESTreeJSXElementLike } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { collapseMultilineText, getChildren, hasAnyAttribute, isFragmentElement, isHostElement, isWhitespaceText } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
@@ -58,21 +58,21 @@ export default createRule<Options, MessageID>({
     schema,
   },
   name: RULE_NAME,
-  create,
+  create: (context, options) => create(buildRichContext(context), options),
   defaultOptions,
 });
 
-export function create(context: RuleContext<MessageID, Options>, [option]: Options): RuleListener {
+export function create(context: RichContext<MessageID, Options>, [option]: Options): RuleListener {
   const options: ResolvedOptions = {
     allowEmptyFragment: option.allowEmptyFragment ?? false,
     allowExpressions: option.allowExpressions ?? true,
   };
-  const jsxConfig = core.getJsxConfig(context);
+  const jsxConfig = context.getJsxConfig();
 
   return {
     JSXElement(node) {
       if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
-      if (hasAnyAttribute(context, node, ["key", "ref"])) return;
+      if (hasAnyAttribute(context._, node, ["key", "ref"])) return;
       visitFragment(context, node, options);
     },
     JSXFragment(node) {
@@ -87,11 +87,11 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
  * A fragment may be reported for **two independent reasons** on the same
  * node (e.g. `<p><>foo</></p>` is both "placed inside a host component"
  * and "contains less than two children").
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param node The fragment node to inspect.
  * @param options The resolved rule options.
  */
-function visitFragment(context: RuleContext, node: TSESTreeJSXElementLike, options: ResolvedOptions) {
+function visitFragment(context: RichContext, node: TSESTreeJSXElementLike, options: ResolvedOptions) {
   const reasons: string[] = [];
 
   // A fragment inside a host component is always redundant — the host
@@ -177,14 +177,14 @@ function isSafeToFix(node: TSESTreeJSXElementLike) {
 /**
  * Build an autofix that unwraps the fragment, replacing it with its
  * meaningful children content.  Returns `null` when the fix is unsafe.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @param node The fragment node to fix.
  */
-function buildFix(context: RuleContext, node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
+function buildFix(context: RichContext, node: TSESTreeJSXElementLike): ((fixer: RuleFixer) => RuleFix) | null {
   if (!isSafeToFix(node)) return null;
 
   return (fixer) => {
-    const sourceCode = context.sourceCode;
+    const sourceCode = context.src;
     let text = "";
     for (const child of node.children) {
       if (child.type === AST.JSXText) {

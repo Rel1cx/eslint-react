@@ -74,6 +74,7 @@ export function findSpreadProperty(
   name: string,
   seen: Set<TSESTree.Node> = new Set(),
 ): TSESTree.Property | undefined {
+  const src = context.sourceCode;
   let objectExpression: TSESTree.ObjectExpression | undefined;
   if (Check.isIdentifier(argument)) {
     // Follow identifier aliases (`const b = a`) until a non-identifier
@@ -99,7 +100,7 @@ export function findSpreadProperty(
     if (property.type === AST.Property) {
       const { key } = property;
       if (property.computed) {
-        const keyScope = context.sourceCode.getScope(key);
+        const keyScope = src.getScope(key);
         if (getStaticValue(key, keyScope)?.value === name) return property;
         continue;
       }

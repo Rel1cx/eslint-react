@@ -47,11 +47,11 @@ export default createRule<[], MessageID>({
     schema: [], // or JSON Schema for options
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     // AST visitors
   };
@@ -67,21 +67,21 @@ Conventions:
 
 ## Core Dependencies
 
-| Package                | Purpose                                                                         |
-| ---------------------- | ------------------------------------------------------------------------------- |
-| `@eslint-react/ast`    | AST traversal, checks, extraction (`Check`, `Extract`, `Traverse`)              |
-| `@eslint-react/core`   | React semantics: hook detection, component collection, `Children` API detection |
-| `@eslint-react/jsx`    | JSX helpers: attribute reading, element type resolution                         |
-| `@eslint-react/var`    | Variable resolution, assignment tracking                                        |
-| `@eslint-react/shared` | Shared settings (`getSettingsFromContext`)                                      |
-| `@eslint-react/eslint` | `RuleContext`, `RuleFeature`, `merge`                                           |
+| Package                | Purpose                                                                                 |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| `@eslint-react/ast`    | AST traversal, checks, extraction (`Check`, `Extract`, `Traverse`)                      |
+| `@eslint-react/core`   | React semantics: hook detection, component collection, `RichContext`/`buildRichContext` |
+| `@eslint-react/jsx`    | JSX helpers: attribute reading, element type resolution                                 |
+| `@eslint-react/var`    | Variable resolution, assignment tracking                                                |
+| `@eslint-react/shared` | Shared constants and types                                                              |
+| `@eslint-react/eslint` | `RuleContext`, `RuleFeature`, `RuleListener`, `merge`                                   |
 
 ## `react-web-api` Pattern: Two-Phase Collection
 
 All `react-web-api` rules use a **collect-and-match** pattern: a `:function` / `:function:exit` pair tracks the current function's lifecycle phase (`setup` / `cleanup`), `CallExpression` records acquire/release operations (e.g. `addEventListener` / `removeEventListener`), and `Program:exit` pairs them and reports unmatched acquires.
 
 ```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const aEntries: AddEntry[] = [];
   const rEntries: RemoveEntry[] = [];

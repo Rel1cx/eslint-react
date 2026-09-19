@@ -1,6 +1,5 @@
 // Ported from https://github.com/jsx-eslint/eslint-plugin-react/blob/master/lib/rules/no-unknown-property.js
-import { type RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import type { RichContext } from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type CompareOperator, compare } from "compare-versions";
 
@@ -931,11 +930,11 @@ export const REACT_19_ATTRIBUTE_TAGS_MAP: TagsMap = {
  * @returns Comparison result
  */
 export function testReactVersion(
-  context: RuleContext<string, unknown[]>,
+  context: RichContext<string, unknown[]>,
   comparator: CompareOperator,
   version: string,
 ): boolean {
-  const { version: localVersion } = getSettingsFromContext(context);
+  const { version: localVersion } = context.settings;
   return compare(localVersion, version, comparator);
 }
 
@@ -944,7 +943,7 @@ export function testReactVersion(
  * @param context ESLint rule context
  * @returns Array of valid DOM property names
  */
-export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): string[] {
+export function getDOMPropertyNames(context: RichContext<string, unknown[]>): string[] {
   const ALL_DOM_PROPERTY_NAMES: string[] = DOM_PROPERTY_NAMES_TWO_WORDS.concat(DOM_PROPERTY_NAMES_ONE_WORD);
 
   // React version-specific property handling
@@ -974,7 +973,7 @@ export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): st
  * @param context ESLint rule context
  * @returns Map of attributes to allowed tags
  */
-export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): TagsMap {
+export function getAttributeTagsMap(context: RichContext<string, unknown[]>): TagsMap {
   if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
     return { ...ATTRIBUTE_TAGS_MAP, ...REACT_19_ATTRIBUTE_TAGS_MAP };
   }
@@ -1072,7 +1071,7 @@ export function has(obj: StringMap | TagsMap, key: string): boolean {
  * @param context ESLint context
  * @returns Standard name or undefined
  */
-export function getStandardName(name: string, context: RuleContext<string, unknown[]>): string | null {
+export function getStandardName(name: string, context: RichContext<string, unknown[]>): string | null {
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
     return DOM_ATTRIBUTE_NAMES[name] ?? null;
   }
@@ -1089,8 +1088,8 @@ export function getStandardName(name: string, context: RuleContext<string, unkno
  * @returns Node's text
  */
 export function getText(
-  context: RuleContext<string, unknown[]>,
+  context: RichContext<string, unknown[]>,
   node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName,
 ): string {
-  return context.sourceCode.getText(node);
+  return context.getText(node);
 }

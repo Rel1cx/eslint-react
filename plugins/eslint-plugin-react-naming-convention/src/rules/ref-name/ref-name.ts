@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -25,12 +26,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const { additionalRefHooks } = context.settings;
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseRefLikeCall(node, additionalRefHooks)) return;

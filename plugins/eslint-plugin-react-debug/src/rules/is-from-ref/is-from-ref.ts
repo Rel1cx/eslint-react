@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { type TSESTree } from "@typescript-eslint/types";
 import { getRefInitNode } from "./lib";
 
@@ -24,18 +25,18 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
-    const initialScope = context.sourceCode.getScope(node);
+    const initialScope = context.src.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
     if (refInit != null) {
       const json = stringify({
         name: node.name,
-        init: context.sourceCode.getText(refInit),
+        init: context.getText(refInit),
       });
       context.report({
         data: { json },

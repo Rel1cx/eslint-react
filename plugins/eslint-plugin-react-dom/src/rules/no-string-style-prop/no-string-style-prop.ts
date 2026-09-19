@@ -1,5 +1,6 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-string-style-prop";
@@ -20,11 +21,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // This rule only applies to host elements (ex: <div />, <span />), not custom components
@@ -33,13 +34,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       // Find the 'style' prop on the element
-      const styleProp = findAttribute(context, node, "style");
+      const styleProp = findAttribute(context._, node, "style");
       if (styleProp == null) {
         return;
       }
 
       // Resolve the static value of the 'style' prop
-      const styleValue = resolveAttributeValue(context, styleProp);
+      const styleValue = resolveAttributeValue(context._, styleProp);
       const staticValue = styleValue.toStatic();
 
       // If the resolved value is a string, report an error

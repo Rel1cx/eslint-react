@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { compare } from "compare-versions";
 
 export const RULE_NAME = "no-context-provider";
@@ -30,14 +31,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `Provider` is not present in the file
-  if (!context.sourceCode.text.includes("Provider")) return {};
-  const { version } = getSettingsFromContext(context);
+  if (!context.hasText("Provider")) return {};
+  const { version } = context.settings;
   // This rule only applies to React 19 and later
   if (compare(version, "19.0.0", "<")) return {};
   return {

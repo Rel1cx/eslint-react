@@ -1,5 +1,6 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, hasAttribute, isPaddingWhitespace } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-dangerously-set-innerhtml-with-children";
@@ -20,20 +21,20 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
-  if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
+  if (!context.hasText("dangerouslySetInnerHTML")) return {};
 
   return {
     JSXElement(node) {
       // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
-      if (!hasAttribute(context, node, "dangerouslySetInnerHTML")) return;
+      if (!hasAttribute(context._, node, "dangerouslySetInnerHTML")) return;
       // Check for a 'children' prop or actual child nodes that are not just whitespace
-      const childrenPropOrNode = findAttribute(context, node, "children")
+      const childrenPropOrNode = findAttribute(context._, node, "children")
         ?? node.children.find((child) => !isPaddingWhitespace(child));
       // If no children are found, the rule passes
       if (childrenPropOrNode == null) return;

@@ -1,12 +1,13 @@
 import { runCollector } from "@local/testkit";
 import { describe, expect, it } from "vitest";
 
+import { buildRichContext } from "./ctx";
 import { getHookCollector } from "./hook-collector";
 
 function collectHooks(code: string) {
   return runCollector(
     code,
-    (context) => getHookCollector(context as never),
+    (context) => getHookCollector(buildRichContext(context as never)),
     (api, program) => api.getAllHooks(program),
   );
 }
