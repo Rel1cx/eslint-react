@@ -1,9 +1,8 @@
 import { createRule } from "@/utils/create-rule";
-import * as core from "@eslint-react/core";
+import { Check, Extract } from "@eslint-react/ast";
 import { type RichContext, buildRichContext } from "@eslint-react/core";
 import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-
-const isFlushSyncCall = core.isAPICall("flushSync");
+import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-flush-sync";
 
@@ -30,11 +29,54 @@ export default createRule<[], MessageID>({
 export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `flushSync` is not present in the file
   if (!context.hasText("flushSync")) return {};
+
+  // Keep track of imports from 'react-dom'.
+  const reactDomNames = new Set<string>(); // For `import ReactDOM from 'react-dom'`
+  const flushSyncNames = new Set<string>(); // For `import { flushSync } from 'react-dom'`
+
   return {
     CallExpression(node) {
-      // Handles cases like `flushSync()` and `ReactDOM.flushSync()`
-      if (isFlushSyncCall(context, node)) {
-        context.report({ messageId: "default", node });
+      const callee = Extract.unwrap(node.callee);
+      switch (true) {
+        // Case 1: Direct call to `flushSync()`.
+        case Check.isIdentifier(callee)
+          && flushSyncNames.has(callee.name):
+          context.report({
+            messageId: "default",
+            node,
+          });
+          return;
+        // Case 2: Call on a `react-dom` import, like `ReactDOM.flushSync()`
+        case callee.type === AST.MemberExpression
+          && Check.isIdentifier(callee.object)
+          && Extract.getCalleeName(node) === "flushSync"
+          && reactDomNames.has(callee.object.name):
+          context.report({
+            messageId: "default",
+            node,
+          });
+          return;
+      }
+    },
+    ImportDeclaration(node) {
+      const [baseSource] = node.source.value.split("/");
+      // We only care about imports from 'react-dom'
+      if (baseSource !== "react-dom") return;
+      for (const specifier of node.specifiers) {
+        switch (specifier.type) {
+          // `import { flushSync } from 'react-dom'`
+          case AST.ImportSpecifier:
+            if (!Check.isIdentifier(specifier.imported)) continue;
+            if (specifier.imported.name === "flushSync") {
+              flushSyncNames.add(specifier.local.name);
+            }
+            continue;
+          // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
+          case AST.ImportDefaultSpecifier:
+          case AST.ImportNamespaceSpecifier:
+            reactDomNames.add(specifier.local.name);
+            continue;
+        }
       }
     },
   };
