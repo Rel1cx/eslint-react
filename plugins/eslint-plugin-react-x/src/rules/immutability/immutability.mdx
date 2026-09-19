@@ -32,6 +32,7 @@ This rule validates that values React treats as immutable are not mutated, in tw
 - A component's props (including destructured props)
 - A state value returned from `useState`, `useReducer`, or a custom hook matching the `additionalStateHooks` setting
 - A shallow copy of either (`const copy = { ...state }` / `const copy = [...state]`), when the mutation reaches a nested value: the copy's own top-level slots are new, but nested objects and arrays are still shared with the original
+- A `for...of` iterator variable whose iterated collection resolves to one of the above (`for (const item of items)`, including member expressions like `for (const item of props.items)`): the iterator *is* each element of the collection, so mutating it mutates an element of the original in place
 
 **Functions reaching frozen contexts.** A function that mutates a variable captured from an enclosing scope is, in effect, a mutable value: unlike a mutable array or object, the caller of the function has no way to prevent the mutation from happening once the function is invoked. This rule flags such functions when they are handed to a context that expects a stable, "frozen" value:
 
@@ -63,6 +64,16 @@ function Example({ initial }) {
     copyValues[itemId].confirmedQuantity = diff; // copyValues[itemId] === values[itemId]
     setValues(copyValues);
   };
+}
+```
+
+```tsx
+// 🔴 Problem: the for-of iterator variable *is* each element of the state array
+function Example({ initial }) {
+  const [items, setItems] = useState(initial);
+  for (const item of items) {
+    item.done = true; // mutates an element of `items` in place
+  }
 }
 ```
 

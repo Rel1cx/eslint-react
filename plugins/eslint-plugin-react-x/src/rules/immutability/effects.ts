@@ -77,14 +77,6 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
     const origin = classifyFrozenOrigin(context, variable, components);
     if (origin == null) continue;
     switch (origin.kind) {
-      case "iterator": {
-        directMutations.push({
-          name: origin.name,
-          detail: `It is an item from '${origin.source}', which must be treated as immutable.`,
-          node: mutation.node,
-        });
-        break;
-      }
       case "props": {
         directMutations.push({
           name: origin.name,
@@ -108,6 +100,17 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
         directMutations.push({
           name: origin.name,
           detail: `It is a shallow copy of '${origin.original}'; mutating nested values through it mutates '${origin.original}' in place.`,
+          node: mutation.node,
+        });
+        break;
+      }
+      case "iterator": {
+        // Unlike a shallow copy's top-level slots, the iterator variable *is*
+        // each element of the collection, so every member mutation through it
+        // mutates an element of the original in place.
+        directMutations.push({
+          name: origin.name,
+          detail: `It is an element of '${origin.original}' and must be treated as immutable.`,
           node: mutation.node,
         });
         break;
