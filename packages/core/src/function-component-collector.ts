@@ -51,7 +51,7 @@ export function getFunctionComponentCollector(
   } = options;
 
   const functionEntries: FunctionEntry[] = [];
-  const components = new Map<string, FunctionComponentSemanticNode>();
+  const components = context.sem.components;
 
   const getText = context.getText;
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;

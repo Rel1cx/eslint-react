@@ -26,7 +26,7 @@ export declare namespace getHookCollector {
  * @returns The api and visitor of the collector.
  */
 export function getHookCollector(context: RichContext): getHookCollector.ReturnType {
-  const hooks = new Map<string, HookSemanticNode>();
+  const hooks = context.sem.hooks;
   const functionEntries: FunctionEntry[] = [];
   const getText = context.getText;
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;

@@ -37,13 +37,13 @@ export function isNodeWithin(node: TSESTree.Node, ancestor: TSESTree.Node) {
   return false;
 }
 
-export function isComponentPropsDefinition(def: Scope.Definition, components: readonly TSESTreeFunction[]) {
+export function isComponentPropsDefinition(context: core.RichContext, def: Scope.Definition) {
   if (def.type !== DefinitionType.Parameter) return false;
   const fn = def.node;
   if (!Check.isFunction(fn)) return false;
   const firstParam = fn.params.at(0);
   if (firstParam == null || !isNodeWithin(def.name, firstParam)) return false;
-  return components.includes(fn);
+  return context.sem.components.values().some((c) => c.node === fn);
 }
 
 export function getStateHookName(context: core.RichContext, init: TSESTree.CallExpression) {

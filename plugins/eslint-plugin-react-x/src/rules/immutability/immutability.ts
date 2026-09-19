@@ -82,8 +82,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
           }
         }
 
-        const funcs = comps.api.getAllComponents(program).map((comp) => comp.node);
-        for (const mutation of inferDirectMutations(context, immut.facts.mutations, funcs)) {
+        for (const mutation of inferDirectMutations(context, immut.facts.mutations)) {
           if (reportedMutations.has(mutation.node)) continue;
           reportedMutations.add(mutation.node);
           context.report({

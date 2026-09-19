@@ -4,12 +4,18 @@ import type { RuleContext } from "@eslint-react/eslint";
 import { type ESLintReactSettingsNormalized, getSettingsFromContext } from "@eslint-react/shared";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { type EnvConfig, getEnvConfig } from "./env-config";
+import type { FunctionComponentSemanticNode } from "./function-component";
+import type { HookSemanticNode } from "./hook";
 import { type JsxConfig, getJsxConfig } from "./jsx-config";
 
 export type RichContext<M extends string = string, O extends readonly unknown[] = readonly unknown[]> = {
   _: RuleContext<M, O>;
   ast: RuleContext["sourceCode"]["ast"];
   src: RuleContext["sourceCode"];
+  sem: {
+    hooks: Map<string, HookSemanticNode>;
+    components: Map<string, FunctionComponentSemanticNode>;
+  };
   report(desc: ReportDescriptor<M> | null | undefined): void;
   hasText: (expr: RegExp | string) => boolean;
   getText: RuleContext["sourceCode"]["getText"];
@@ -31,6 +37,10 @@ export function buildRichContext<M extends string = string, O extends readonly u
     _: context,
     ast: src.ast,
     src,
+    sem: {
+      hooks: new Map(),
+      components: new Map(),
+    },
     report: (desc?: ReportDescriptor<M>) => {
       if (desc != null) context.report(desc);
     },
