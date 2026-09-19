@@ -46,16 +46,11 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
     comps.visitor,
     globs.visitor,
     {
-      "Program:exit"(program) {
-        const renderFunctions = [
-          ...comps.api.getAllComponents(program),
-          ...hooks.api.getAllHooks(program),
-        ].map(({ node }) => node);
-
+      "Program:exit"() {
         const directEffects = inferGlobalMutations(context, globs.facts);
         const callGraph = inferCallGraph(context, globs.facts.callEdges);
 
-        for (const effect of collectReachableEffects(renderFunctions, directEffects, callGraph)) {
+        for (const effect of collectReachableEffects(context, directEffects, callGraph)) {
           const data = effect.method == null ? { name: effect.name } : { name: effect.name, method: effect.method };
           context.report({
             data,

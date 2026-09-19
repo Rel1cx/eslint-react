@@ -80,9 +80,11 @@ export function inferCallGraph(context: RichContext, callEdges: readonly CallEdg
  * Like the SPEC's function signatures, these summaries keep creation of an
  * effect separate from applying it in a component or hook render: walk the
  * call graph from each render function and gather every reachable effect once.
+ * Render functions are the collected function components and hooks shared via
+ * `context.sem`.
  */
 export function collectReachableEffects(
-  renderFunctions: readonly TSESTreeFunction[],
+  context: RichContext,
   directEffects: Map<TSESTreeFunction, GlobalMutationEffect[]>,
   callGraph: Map<TSESTreeFunction, Set<TSESTreeFunction>>,
 ): GlobalMutationEffect[] {
@@ -104,8 +106,12 @@ export function collectReachableEffects(
     }
   }
 
-  for (const func of renderFunctions) {
-    applyFunctionEffects(func);
+  for (const { node } of context.sem.hooks.values()) {
+    applyFunctionEffects(node);
+  }
+
+  for (const { node } of context.sem.components.values()) {
+    applyFunctionEffects(node);
   }
 
   return reachable;
