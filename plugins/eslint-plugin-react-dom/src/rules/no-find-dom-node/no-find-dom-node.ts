@@ -1,6 +1,8 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+
+const isFindDOMNodeCall = core.isAPICall("findDOMNode");
 
 export const RULE_NAME = "no-find-dom-node";
 
@@ -30,7 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       // Handles cases like `findDOMNode()` and `ReactDOM.findDOMNode()`.
-      if (Extract.getCalleeName(node) === "findDOMNode") {
+      if (isFindDOMNodeCall(context, node)) {
         context.report({ messageId: "default", node });
       }
     },

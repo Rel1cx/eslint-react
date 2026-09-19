@@ -3,6 +3,8 @@ import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
+const isFlushSyncCall = core.isAPICall("flushSync");
+
 export const RULE_NAME = "no-flush-sync";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
