@@ -10,6 +10,10 @@
 
 - Bumped `@types/node` to `26.6.1`, `tsl-dx` to `0.13.5`, `eslint-plugin-jsdoc` to `64.5.2`, `lucide-react` to `1.47.0`, and `pnpm` to `12.4.2`.
 
+### New Contributors
+
+- **Michael@WCD** (@Michael-WhiteCapData) made their first contribution in #1953.
+
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.19.1...v5.20.0
 
 ## v5.19.1 (2026-09-15)
