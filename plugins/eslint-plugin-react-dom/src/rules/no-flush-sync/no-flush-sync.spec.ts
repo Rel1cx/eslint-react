@@ -140,6 +140,19 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // Aliased named import
+    {
+      code: tsx`
+        import { flushSync as fs } from 'react-dom';
+
+        fs(() => {
+          setSomething(123);
+        });
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+    },
     // With callback result
     {
       code: tsx`
@@ -216,7 +229,17 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
-    // Local function named flushSync (detected due to simple text matching)
+  ],
+  valid: [
+    // Same method name from another package
+    {
+      code: tsx`
+        import { destination } from 'pino';
+
+        destination().flushSync();
+      `,
+    },
+    // Local function named flushSync
     {
       code: tsx`
         function flushSync(callback) {
@@ -224,32 +247,14 @@ ruleTester.run(RULE_NAME, rule, {
         }
         flushSync(() => {});
       `,
-      errors: [
-        { messageId: "default" },
-      ],
     },
-    // Object method named flushSync (detected due to simple text matching)
+    // Object method named flushSync
     {
       code: tsx`
         const obj = {
           flushSync() {}
         };
         obj.flushSync();
-      `,
-      errors: [
-        { messageId: "default" },
-      ],
-    },
-  ],
-  valid: [
-    // Aliased import is not detected by this rule (limitation of simple text search)
-    {
-      code: tsx`
-        import { flushSync as fs } from 'react-dom';
-
-        fs(() => {
-          setSomething(123);
-        });
       `,
     },
     // Different identifier
