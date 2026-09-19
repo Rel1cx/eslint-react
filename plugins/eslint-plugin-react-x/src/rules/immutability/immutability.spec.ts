@@ -745,6 +745,68 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "direct" },
       ],
     },
+    // A for-of iterator over a prop collection remains immutable.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            item.modified = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an item from 'items', which must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Iterator provenance is preserved through state aliases and destructuring.
+    {
+      code: tsx`
+        function Component() {
+          const [items] = useState([]);
+          const alias = items;
+          for (const { value } of alias) {
+            value.tags.push("changed");
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an item from 'items', which must be treated as immutable.",
+            name: "value",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Member-expression collections are traced to their props root.
+    {
+      code: tsx`
+        function Component(props) {
+          for (const item of props.items) {
+            item.modified = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an item from 'props', which must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
     // `delete` on a props property.
     {
       code: tsx`
@@ -1728,6 +1790,16 @@ ruleTester.run(RULE_NAME, rule, {
           copyValues[itemId] = { ...copyValues[itemId], confirmedQuantity: diff };
           setValues(copyValues);
         };
+      }
+    `,
+    // Iterators over mutable local collections remain mutable.
+    tsx`
+      function Component() {
+        const items = [{ modified: false }];
+        for (const item of items) {
+          item.modified = true;
+        }
+        return <div />;
       }
     `,
     // Mutating a shallow-copied array itself only affects the new array.

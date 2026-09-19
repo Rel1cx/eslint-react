@@ -10,6 +10,7 @@ import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVari
  * An origin that must be treated as immutable, resolved from a mutated variable.
  */
 export type FrozenOrigin =
+  | { kind: "iterator"; name: string; source: string }
   | { kind: "props"; name: string }
   | { kind: "state"; name: string; hook: string }
   | { kind: "shallow-copy"; name: string; original: string };
@@ -17,7 +18,8 @@ export type FrozenOrigin =
 /**
  * Classify whether a variable ultimately holds a value that must be treated as
  * immutable: a component's props, a state value returned from `useState`-like or
- * `useReducer` calls, or a shallow copy (spread literal) of either.
+ * `useReducer` calls, a for-of iterator over either, or a shallow copy (spread
+ * literal) of either.
  * @param context The rule context.
  * @param variable The variable to classify.
  * @param components The confirmed function component nodes in the file.
@@ -39,6 +41,16 @@ export function classifyFrozenOrigin(
     return { kind: "props", name: origin.name };
   }
   if (def.type !== DefinitionType.Variable) return null;
+  const forOf = def.parent.parent;
+  if (forOf.type === AST.ForOfStatement) {
+    const right = forOf.right;
+    const root = Check.isIdentifier(right) ? right : Extract.getIdentifierAt(right, 0);
+    if (root == null) return null;
+    const source = findVariable(context.sourceCode.getScope(root), root);
+    if (source == null) return null;
+    const inner = classifyFrozenOrigin(context, source, components, seen);
+    return inner == null ? null : { kind: "iterator", name: origin.name, source: inner.name };
+  }
   const init = def.node.init == null ? null : Extract.unwrap(def.node.init);
   if (init == null) return null;
   switch (init.type) {

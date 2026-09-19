@@ -77,6 +77,14 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
     const origin = classifyFrozenOrigin(context, variable, components);
     if (origin == null) continue;
     switch (origin.kind) {
+      case "iterator": {
+        directMutations.push({
+          name: origin.name,
+          detail: `It is an item from '${origin.source}', which must be treated as immutable.`,
+          node: mutation.node,
+        });
+        break;
+      }
       case "props": {
         directMutations.push({
           name: origin.name,
