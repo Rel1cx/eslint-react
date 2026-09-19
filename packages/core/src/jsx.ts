@@ -1,6 +1,7 @@
-import { Check, Extract } from "@eslint-react/ast";
+import { Check } from "@eslint-react/ast";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { isCreateElementCall } from "./api";
 import type { RichContext } from "./ctx";
 
 /**
@@ -145,7 +146,7 @@ export function isJsxLike(
         if (hint & JsxDetectionHint.DoNotIncludeJsxWithCreateElementValue) {
           return false;
         }
-        return Extract.getCalleeName(node) === "createElement";
+        return isCreateElementCall(context, node);
       }
 
       case AST.Identifier: {

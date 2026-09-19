@@ -1,7 +1,9 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import { type RichContext, buildRichContext } from "@eslint-react/core";
 import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+
+const isFlushSyncCall = core.isAPICall("flushSync");
 
 export const RULE_NAME = "no-flush-sync";
 
@@ -31,7 +33,7 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
       // Handles cases like `flushSync()` and `ReactDOM.flushSync()`
-      if (Extract.getCalleeName(node) === "flushSync") {
+      if (isFlushSyncCall(context, node)) {
         context.report({ messageId: "default", node });
       }
     },

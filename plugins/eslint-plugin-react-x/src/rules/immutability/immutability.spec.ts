@@ -1364,6 +1364,284 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // `for await` shares the ForOfStatement node type, so its iterator
+    // variable is traced exactly like a synchronous for-of.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for await (const item of items) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // An array-pattern iterator binding is traced the same way as a plain
+    // identifier binding; the mutated pattern element is the reported name.
+    {
+      code: tsx`
+        function Component() {
+          const [entries] = useState([]);
+          for (const [id, value] of entries) {
+            value.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'entries' and must be treated as immutable.",
+            name: "value",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // `let` vs `const` does not matter for value mutations through the
+    // iterator variable; only rebinding the binding itself is exempt.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (let item of items) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // UpdateExpression on an iterator member is a value mutation.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            item.count++;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // `delete` on an iterator member is a value mutation.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            delete item.done;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The iterated collection is resolved through optional chaining to its
+    // props root.
+    {
+      code: tsx`
+        function Component(props) {
+          for (const item of props?.items) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'props' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Type assertions around the iterated collection are unwrapped before the
+    // root identifier is extracted.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items as Item[]) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Iterating props itself: the collection root is the props parameter.
+    {
+      code: tsx`
+        function Component(props) {
+          for (const item of props) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'props' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // A member-expression collection rooted at a useReducer state value
+    // resolves to the state origin.
+    {
+      code: tsx`
+        function Component() {
+          const [state, dispatch] = useReducer(reducer, { items: [] });
+          for (const item of state.items) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'state' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Nested for-of loops: the inner iterator's origin is the outer iterator
+    // variable, so the detail names the outer iterator one hop up.
+    {
+      code: tsx`
+        function Component({ groups }) {
+          for (const item of groups) {
+            for (const sub of item.children) {
+              sub.done = true;
+            }
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'item' and must be treated as immutable.",
+            name: "sub",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // An iterator mutation nested in a closure that never reaches a freeze
+    // sink is still caught by the direct-mutation pass.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            setTimeout(() => {
+              item.done = true;
+            });
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // An iterator mutation inside a handler passed to a freeze sink is caught
+    // by the direct-mutation pass only: the sink pass's origin walk stops at
+    // the loop-local declaration and never marks the handler mutable.
+    {
+      code: tsx`
+        function Component({ items }) {
+          const onClick = () => {
+            for (const item of items) {
+              item.done = true;
+            }
+          };
+          return <button onClick={onClick} />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The same mutation inside a hook argument reaches a freeze sink first:
+    // the sink pass reports it but names the iterator variable (its origin
+    // walk does not trace for-of bindings), and the direct pass is then
+    // deduplicated against the reported mutation node.
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            useEffect(() => {
+              item.done = true;
+            });
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { data: { name: "item" }, messageId: "default" },
+        { data: { name: "item" }, messageId: "mutates" },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -2152,6 +2430,83 @@ ruleTester.run(RULE_NAME, rule, {
         for (const item of items) {
           item.done = true;
         }
+      }
+    `,
+    // An uninitialized declarator outside a for-of is not an iterator binding;
+    // a later assignment from a props element is not tracked.
+    tsx`
+      function Component({ items }) {
+        let item;
+        item = items[0];
+        item.done = true;
+        return <div />;
+      }
+    `,
+    // A classic for statement is not a for-of: its uninitialized declarator
+    // does not share any iterated collection's origin.
+    tsx`
+      function Component({ items }) {
+        for (let item;;) {
+          item = items[0];
+          item.done = true;
+          break;
+        }
+        return <div />;
+      }
+    `,
+    // Iterating a deep copy shares no element references with the original.
+    tsx`
+      function Component({ items }) {
+        const copy = structuredClone(items);
+        for (const item of copy) {
+          item.done = true;
+        }
+        return <div />;
+      }
+    `,
+    // A collection that does not resolve to a variable has no frozen origin.
+    tsx`
+      function Component() {
+        for (const item of someGlobal) {
+          item.done = true;
+        }
+        return <div />;
+      }
+    `,
+    // Cyclic spread aliases terminate via the `seen` guard and yield no
+    // frozen origin instead of recursing forever.
+    tsx`
+      function Component() {
+        const a = [...b];
+        const b = [...a];
+        for (const item of a) {
+          item.done = true;
+        }
+        return <div />;
+      }
+    `,
+    // Rebinding the iterator variable inside a freeze-sunk closure is a
+    // binding mutation: it neither marks the handler mutable nor reports a
+    // direct value mutation.
+    tsx`
+      function Component({ items }) {
+        const onClick = () => {
+          for (let item of items) {
+            item = { done: true };
+          }
+        };
+        return <button onClick={onClick} />;
+      }
+    `,
+    // Scope resolution is exact: after the loop the identifier refers to the
+    // shadowed outer local binding, which has no frozen origin.
+    tsx`
+      function Component({ items }) {
+        const item = { done: false };
+        for (const item of items) {
+        }
+        item.done = true;
+        return <div />;
       }
     `,
   ],
