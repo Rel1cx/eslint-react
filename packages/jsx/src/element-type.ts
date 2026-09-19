@@ -9,13 +9,11 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * - `<React.Fragment>` -> `"React.Fragment"`
  * - `<xml:space>` -> `"xml:space"`
  * - `<></>` -> `""`.
- * @param node A `JSXElement` or `JSXFragment` node.
- * @returns The fully-qualified element type string.
+ * @param node The `JSXElement` or `JSXFragment` node.
+ * @returns The fully qualified element type string.
  */
 export function getElementFullType(node: TSESTreeJSXElementLike) {
-  if (node.type === AST.JSXFragment) {
-    return "";
-  }
+  if (node.type === AST.JSXFragment) return "";
   function getQualifiedName(
     node:
       | TSESTree.JSXIdentifier
@@ -40,7 +38,7 @@ export function getElementFullType(node: TSESTreeJSXElementLike) {
  * - `<Foo.Bar.Baz>` -> `"Baz"`
  * - `<div>` -> `"div"`
  * - `<></>` -> `""`.
- * @param node A `JSXElement` or `JSXFragment` node.
+ * @param node The `JSXElement` or `JSXFragment` node.
  * @returns The last segment of the element type, or `""` for fragments.
  */
 export function getElementSelfType(node: TSESTreeJSXElementLike) {

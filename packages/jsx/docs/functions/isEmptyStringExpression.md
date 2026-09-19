@@ -6,21 +6,20 @@
 function isEmptyStringExpression(node: JSXChild): boolean;
 ```
 
-Check whether a JSX child node is an empty string expression (`{""}`).
+Check if the node is an empty string expression (`{""}`).
 
-React's reconciler and SSR renderer explicitly skip empty strings,
-producing no DOM node (see `ReactChildFiber.js` and `ReactFizzConfigDOM.js`).
-Such expressions are therefore treated as non-rendered children, in the same
-way as whitespace padding.
+React's reconciler and SSR renderer explicitly skip empty strings, producing no
+DOM node, so such expressions are treated as non-rendered children, same as
+whitespace padding.
 
 ## Parameters
 
-| Parameter | Type       | Description       |
-| --------- | ---------- | ----------------- |
-| `node`    | `JSXChild` | A JSX child node. |
+| Parameter | Type       | Description                  |
+| --------- | ---------- | ---------------------------- |
+| `node`    | `JSXChild` | The JSX child node to check. |
 
 ## Returns
 
 `boolean`
 
-`true` when the node is a `{""}` expression container.
+`true` if the node is a `{""}` expression container.

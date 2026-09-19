@@ -159,11 +159,9 @@ export function isRenderMethodCallback(node: TSESTreeFunction) {
  */
 export function isThisSetStateCall(node: TSESTree.CallExpression) {
   const callee = Extract.unwrap(node.callee);
-  return (
-    callee.type === AST.MemberExpression
+  return callee.type === AST.MemberExpression
     && Extract.unwrap(callee.object).type === AST.ThisExpression
-    && Extract.getCalleeName(node) === "setState"
-  );
+    && Extract.getCalleeName(node) === "setState";
 }
 
 /**

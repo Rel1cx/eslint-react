@@ -22,11 +22,8 @@ export function isAPI(api: string): isAPI.ReturnType {
     const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
     // Get the fully qualified name of the unwrapped expression
     const name = Extract.getFullyQualifiedName(expr, getText);
-    // Check if the fully qualified name equals the API
-    if (name === api) return true;
-    // Check if the fully qualified name ends with `.${api}`
-    if (name.endsWith(`.${api}`)) return true;
-    return false;
+    // Check if the fully qualified name equals the API or ends with `.${api}`
+    return name === api || name.endsWith(`.${api}`);
   };
   function dual(context: RuleContext, node: null | TSESTree.Node): boolean;
   function dual(context: RuleContext): (node: null | TSESTree.Node) => boolean;

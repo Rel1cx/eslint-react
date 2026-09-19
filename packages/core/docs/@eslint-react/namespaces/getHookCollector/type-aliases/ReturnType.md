@@ -5,7 +5,7 @@
 ```ts
 type ReturnType = {
   api: {
-    getAllHooks: HookSemanticNode[];
+    getAllHooks: (node: TSESTree.Program) => HookSemanticNode[];
   };
   visitor: ESLintUtils.RuleListener;
 };
@@ -15,8 +15,8 @@ The api and visitor pair returned by [getHookCollector](../../../../functions/ge
 
 ## Properties
 
-| Property                                | Type                                                                                     |
-| --------------------------------------- | ---------------------------------------------------------------------------------------- |
-| <a id="property-api"></a> `api`         | \{ `getAllHooks`: [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; \} |
-| `api.getAllHooks`                       | [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]                       |
-| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener`                                                               |
+| Property                                | Type                                                                                                                     |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| <a id="property-api"></a> `api`         | \{ `getAllHooks`: (`node`: `TSESTree.Program`) => [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]; \} |
+| `api.getAllHooks`                       | (`node`: `TSESTree.Program`) => [`HookSemanticNode`](../../../../interfaces/HookSemanticNode.md)[]                       |
+| <a id="property-visitor"></a> `visitor` | `ESLintUtils.RuleListener`                                                                                               |

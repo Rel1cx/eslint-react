@@ -26,4 +26,4 @@ Mirrors Babel's `buildChildren` helper:
 
 `JSXChild`[]
 
-An array of children nodes that contribute to rendered output.
+The children nodes that contribute to rendered output.

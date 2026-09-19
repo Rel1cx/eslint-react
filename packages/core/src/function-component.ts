@@ -76,12 +76,8 @@ export const FunctionComponentFlag = {
  */
 export function getFunctionComponentFlagFromInitPath(initPath: FunctionComponentSemanticNode["initPath"]) {
   let flag = FunctionComponentFlag.None;
-  if (initPath != null && isFunctionHasCallInInitPath("memo", initPath)) {
-    flag |= FunctionComponentFlag.Memo;
-  }
-  if (initPath != null && isFunctionHasCallInInitPath("forwardRef", initPath)) {
-    flag |= FunctionComponentFlag.ForwardRef;
-  }
+  if (initPath != null && isFunctionHasCallInInitPath("memo", initPath)) flag |= FunctionComponentFlag.Memo;
+  if (initPath != null && isFunctionHasCallInInitPath("forwardRef", initPath)) flag |= FunctionComponentFlag.ForwardRef;
   return flag;
 }
 
@@ -126,9 +122,7 @@ export function isFunctionComponentWrapperCallback(context: RuleContext, node: T
  */
 export function getFunctionComponentId(context: RuleContext, node: TSESTreeFunction): FunctionID {
   const functionId = getFunctionId(node);
-  if (functionId != null) {
-    return functionId;
-  }
+  if (functionId != null) return functionId;
   let parent = node.parent;
   while (Check.isTypeExpression(parent)) parent = parent.parent;
   switch (true) {
@@ -249,9 +243,7 @@ export const DEFAULT_COMPONENT_DETECTION_HINT = 0n
  */
 export function isFunctionComponentDefinition(context: RuleContext, node: TSESTreeFunction, hint: bigint) {
   // 1. Check for basic naming conventions
-  if (!isFunctionWithLooseComponentName(context, node, true)) {
-    return false;
-  }
+  if (!isFunctionWithLooseComponentName(context, node, true)) return false;
 
   // 2. Traverse up to find the non-type expression parent
   let parent = node.parent;
@@ -297,9 +289,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
       && getFunctionId(node) == null
       && !isFunctionComponentWrapperCall(context, parent)
       && !isCreateElementCall(context, parent):
-      if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) {
-        return false;
-      }
+      if (hint & FunctionComponentDetectionHint.DoNotIncludeFunctionDefinedAsArbitraryCallExpressionCallback) return false;
       break;
   }
 
@@ -316,8 +306,7 @@ export function isFunctionComponentDefinition(context: RuleContext, node: TSESTr
   );
 
   if (significantParent == null) return true;
-  if (significantParent.type === AST.JSXExpressionContainer) return false;
-  return true;
+  return significantParent.type !== AST.JSXExpressionContainer;
 }
 
 // #endregion

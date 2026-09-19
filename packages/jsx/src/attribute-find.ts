@@ -6,15 +6,12 @@ import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { getAttributeName } from "./attribute-name";
 
 /**
- * Find a JSX attribute (or spread attribute containing the property) by name on a given element.
+ * Find a JSX attribute (or a spread attribute containing the property) by name.
  *
- * Returns the last matching attribute to mirror React's behavior where later props win,
- * or `undefined` when the attribute is not present.
- *
+ * Returns the last matching attribute to mirror React's behavior where later props win.
  * Spread attributes are resolved when possible: if the spread argument is an identifier
- * that resolves to an object expression, the object's properties are searched for a matching key.
- * Nested object expressions and nested spread identifiers are also resolved
- * (see {@link findSpreadProperty}).
+ * that resolves to an object expression, the object's properties are searched for a
+ * matching key (see {@link findSpreadProperty}).
  * @param context The ESLint rule context (needed for variable resolution in spread attributes).
  * @param element The `JSXElement` node to search.
  * @param name The attribute name to look for (ex: "className").
@@ -30,14 +27,10 @@ export function findAttribute(context: RuleContext, element: TSESTree.JSXElement
 }
 
 /**
- * Walk up the AST from `node` to find the nearest ancestor that is a `JSXAttribute`
- * and (optionally) passes a predicate.
- *
- * This is useful when a rule visitor enters a deeply nested node (ex: a `Literal`
- * inside an expression container) and needs to know which JSX attribute it belongs to.
+ * Walk up the AST from `node` to find the nearest `JSXAttribute` ancestor, optionally matching a predicate.
  * @param node The starting node for the upward search.
- * @param test Optional predicate to filter candidate `JSXAttribute` nodes. When omitted every `JSXAttribute` ancestor matches.
- * @returns The first matching `JSXAttribute` ancestor, or `undefined` if none is found before reaching the root.
+ * @param test Optional predicate to filter candidate `JSXAttribute` nodes.
+ * @returns The first matching `JSXAttribute` ancestor, or `undefined` when none is found.
  */
 export function findParentAttribute(node: TSESTree.Node, test: (node: TSESTree.JSXAttribute) => boolean = () => true): TSESTree.JSXAttribute | undefined {
   const guard = (n: TSESTree.Node): n is TSESTree.JSXAttribute => {

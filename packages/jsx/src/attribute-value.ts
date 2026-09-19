@@ -7,13 +7,11 @@ import { findAttribute, findSpreadProperty } from "./attribute-find";
 /**
  * Discriminated union representing the resolved value of a JSX attribute.
  *
- * Each variant carries the original AST `node` (where applicable — the
- * `boolean` variant has no value node and reports `null`) and a `toStatic()`
- * helper that attempts to collapse the value into a plain JavaScript value
- * at analysis time.
- *
- * `toStatic()` returns `undefined` whenever no static value is available;
- * structural information is carried by `kind`, value information by `toStatic()`.
+ * Each variant carries the original AST `node` (the `boolean` variant has no value
+ * node and reports `null`) and a `toStatic()` helper that attempts to collapse the
+ * value into a plain JavaScript value at analysis time. `toStatic()` returns
+ * `undefined` when no static value is available; structural information is carried
+ * by `kind`, value information by `toStatic()`.
  */
 export type AttributeValue =
   | { readonly kind: "boolean"; readonly node: null; toStatic(): true }
@@ -25,17 +23,11 @@ export type AttributeValue =
   | { readonly kind: "spreadProps"; getProperty(name: string): unknown; readonly node: TSESTree.JSXSpreadAttribute["argument"]; toStatic(): unknown };
 
 /**
- * Resolve the value of a JSX attribute (or spread attribute) into an
- * {@link AttributeValue} descriptor that can be inspected further.
+ * Resolve the value of a JSX attribute (or spread attribute) into an {@link AttributeValue} descriptor.
  *
- * This is the low-level building block; it operates on a single attribute
- * node that the caller has already located. For the higher-level "find by
- * name and resolve" combo, see {@link getAttributeValue}.
- *
- * When the attribute is a `JSXSpreadAttribute`, passing `name` (typically the
- * same name the attribute was found by) makes `toStatic()` return the static
- * value of that named property, eliminating the need to branch on
- * `kind === "spreadProps"` at the call site.
+ * When the attribute is a `JSXSpreadAttribute`, passing `name` (typically the name
+ * the attribute was found by) makes `toStatic()` return the static value of that
+ * named property. For the higher-level "find by name and resolve" combo, see {@link getAttributeValue}.
  * @param context The ESLint rule context (needed for scope look-ups).
  * @param attribute A `JSXAttribute` or `JSXSpreadAttribute` node.
  * @param name Optional property name used to resolve `toStatic()` for spread attributes.
@@ -55,13 +47,11 @@ export function resolveAttributeValue(
 /**
  * Find an attribute by name on a JSX element and resolve its value in a single call.
  *
- * This is a convenience composition of {@link findAttribute} and
- * {@link resolveAttributeValue} that eliminates the most common two-step
- * pattern in lint rules.
+ * Convenience composition of {@link findAttribute} and {@link resolveAttributeValue}.
  * @param context The ESLint rule context.
  * @param element The `JSXElement` node to search.
  * @param name The attribute name to look up (ex: "className").
- * @returns An {@link AttributeValue} descriptor, or `undefined` when the attribute is not present on the element.
+ * @returns An {@link AttributeValue} descriptor, or `undefined` when the attribute is not present.
  */
 export function getAttributeValue(context: RuleContext, element: TSESTree.JSXElement, name: string): AttributeValue | undefined {
   const attr = findAttribute(context, element, name);
@@ -70,18 +60,12 @@ export function getAttributeValue(context: RuleContext, element: TSESTree.JSXEle
 }
 
 /**
- * Find an attribute by name on a JSX element and collapse its value to a plain
- * JavaScript value in a single step.
+ * Find an attribute by name on a JSX element and collapse its value to a plain JavaScript value.
  *
- * This is a convenience composition of {@link findAttribute} ->
- * {@link resolveAttributeValue} -> `toStatic()`, with automatic handling of the
- * `spreadProps` case (extracts the named property from the spread object).
- *
- * Returns `undefined` both when the attribute is absent and when its value
- * cannot be statically determined; use {@link findAttribute} or
- * {@link hasAttribute} when presence itself matters.
+ * Returns `undefined` both when the attribute is absent and when its value cannot
+ * be statically determined; use {@link hasAttribute} when presence itself matters.
  * @param context The ESLint rule context.
- * @param element The `JSXElement` node to inspect.
+ * @param element The `JSXElement` node to check.
  * @param name The attribute name to look up (ex: "className").
  * @returns The static value of the attribute, or `undefined` when absent or indeterminate.
  */

@@ -12,11 +12,11 @@ const thisBlockTypes = [
 ] as const;
 
 /**
- * Check if the value of a node equals the value of another node.
- * @param context The rule context.
+ * Check if two nodes have equal values.
+ * @param context The ESLint rule context.
  * @param a The first node to compare.
  * @param b The second node to compare.
- * @returns `true` if the node values are equal.
+ * @returns `true` if the two nodes have equal values.
  */
 export function isValueEqual(
   context: RuleContext,

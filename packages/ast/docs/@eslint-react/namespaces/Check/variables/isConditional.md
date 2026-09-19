@@ -21,12 +21,10 @@ Check if a node is a conditional expression or a control flow statement.
 
 ## Parameters
 
-| Parameter | Type                            | Description        |
-| --------- | ------------------------------- | ------------------ |
-| `node`    | `Node` \| `null` \| `undefined` | The node to check. |
+| Parameter | Type                            |
+| --------- | ------------------------------- |
+| `node`    | `Node` \| `null` \| `undefined` |
 
 ## Returns
 
 node is ConditionalExpression \| DoWhileStatement \| ForInStatement \| ForOfStatement \| ForStatement \| IfStatement \| LogicalExpression \| SwitchStatement \| WhileStatement
-
-`true` if the node is conditional.

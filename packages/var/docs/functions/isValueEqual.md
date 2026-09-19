@@ -10,13 +10,13 @@ function isValueEqual(
 ): boolean;
 ```
 
-Check if the value of a node equals the value of another node.
+Check if two nodes have equal values.
 
 ## Parameters
 
 | Parameter | Type          | Description                 |
 | --------- | ------------- | --------------------------- |
-| `context` | `RuleContext` | The rule context.           |
+| `context` | `RuleContext` | The ESLint rule context.    |
 | `a`       | `Node`        | The first node to compare.  |
 | `b`       | `Node`        | The second node to compare. |
 
@@ -24,4 +24,4 @@ Check if the value of a node equals the value of another node.
 
 `boolean`
 
-`true` if the node values are equal.
+`true` if the two nodes have equal values.

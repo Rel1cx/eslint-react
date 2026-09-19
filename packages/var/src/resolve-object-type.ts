@@ -10,9 +10,7 @@ import { resolve } from "./resolve";
 export type ObjectType =
   | {
     kind: "jsx";
-    node:
-      | TSESTree.JSXElement
-      | TSESTree.JSXFragment;
+    node: TSESTree.JSXElement | TSESTree.JSXFragment;
   }
   | {
     kind: "array";
@@ -28,16 +26,11 @@ export type ObjectType =
   }
   | {
     kind: "instance";
-    node:
-      | TSESTree.NewExpression
-      | TSESTree.ThisExpression;
+    node: TSESTree.NewExpression | TSESTree.ThisExpression;
   }
   | {
     kind: "function";
-    node:
-      | TSESTree.FunctionDeclaration
-      | TSESTree.FunctionExpression
-      | TSESTree.ArrowFunctionExpression;
+    node: TSESTree.FunctionDeclaration | TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression;
   }
   | {
     kind: "regexp";
@@ -50,10 +43,10 @@ export type ObjectType =
   };
 
 /**
- * Resolve the object type of the given node.
- * @param context The rule context.
+ * Resolve the object type of the node.
+ * @param context The ESLint rule context.
  * @param node The node to resolve.
- * @returns The object type of the node, or `null` if it cannot be resolved.
+ * @returns The object type of the node, or `null` when it cannot be resolved.
  */
 export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null): ObjectType | null {
   if (node == null) return null;
@@ -75,20 +68,18 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
     case AST.ArrowFunctionExpression:
       return { kind: "function", node } as const;
     case AST.Literal: {
-      if ("regex" in node) {
-        return { kind: "regexp", node } as const;
-      }
+      if ("regex" in node) return { kind: "regexp", node } as const;
       return null;
     }
     case AST.Identifier: {
-      // Parameters are externally supplied values whose type cannot be statically
-      // determined — skip resolution and treat them as unknown.
       const scope = context.sourceCode.getScope(node);
       // Use the latest definition (`at: -1`) because we want the object's
       // current runtime type. If a variable is reassigned or redeclared,
       // earlier definitions are shadowed and no longer represent the value
       // this identifier evaluates to at this point in the program.
       const def = scope.set.get(node.name)?.defs.at(-1);
+      // Parameters are externally supplied values whose type cannot be statically
+      // determined — skip resolution and treat them as unknown.
       if (def?.type === DefinitionType.Parameter) return null;
       const initNode = resolve(context, node, { at: -1, localOnly: true });
       if (initNode == null) return null;
@@ -108,13 +99,8 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
       return resolveObjectType(context, node.consequent) ?? resolveObjectType(context, node.alternate);
     }
     case AST.SequenceExpression: {
-      if (node.expressions.length === 0) {
-        return null;
-      }
-      return resolveObjectType(
-        context,
-        node.expressions[node.expressions.length - 1] ?? null,
-      );
+      if (node.expressions.length === 0) return null;
+      return resolveObjectType(context, node.expressions.at(-1) ?? null);
     }
     case AST.CallExpression: {
       const callee = Extract.unwrap(node.callee);

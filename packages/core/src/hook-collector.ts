@@ -14,7 +14,7 @@ export declare namespace getHookCollector {
   /** The api and visitor pair returned by {@link getHookCollector}. */
   type ReturnType = {
     api: {
-      getAllHooks(node: TSESTree.Program): HookSemanticNode[];
+      getAllHooks: (node: TSESTree.Program) => HookSemanticNode[];
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -26,8 +26,9 @@ export declare namespace getHookCollector {
  * @returns The api and visitor of the collector.
  */
 export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
-  const hooks = new Map<string, HookSemanticNode>();
   const functionEntries: FunctionEntry[] = [];
+  const hooks = new Map<string, HookSemanticNode>();
+
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
@@ -49,16 +50,18 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     } as const satisfies FunctionEntry;
     functionEntries.push(entry);
     if (!entry.isHookDefinition) return;
-    hooks.set(key, entry);
+    hooks.set(entry.key, entry);
   };
   const onFunctionExit = () => {
-    functionEntries.pop();
+    return functionEntries.pop();
   };
+
   const api = {
     getAllHooks(_: TSESTree.Program) {
       return [...hooks.values()];
     },
   } as const;
+
   const visitor = {
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
@@ -69,7 +72,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
       if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
     },
-    CallExpression(node) {
+    CallExpression(node: TSESTree.CallExpression) {
       if (!isHookCall(node)) return;
       const entry = getCurrentEntry();
       if (entry == null) return;

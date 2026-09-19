@@ -12,9 +12,7 @@ function getAttributeValue(
 
 Find an attribute by name on a JSX element and resolve its value in a single call.
 
-This is a convenience composition of [findAttribute](findAttribute.md) and
-[resolveAttributeValue](resolveAttributeValue.md) that eliminates the most common two-step
-pattern in lint rules.
+Convenience composition of [findAttribute](findAttribute.md) and [resolveAttributeValue](resolveAttributeValue.md).
 
 ## Parameters
 
@@ -28,4 +26,4 @@ pattern in lint rules.
 
 `AttributeValue` \| `undefined`
 
-An AttributeValue descriptor, or `undefined` when the attribute is not present on the element.
+An AttributeValue descriptor, or `undefined` when the attribute is not present.

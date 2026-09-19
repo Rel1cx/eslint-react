@@ -9,7 +9,7 @@ const isAttribute: {
 };
 ```
 
-Check whether a node is a `JSXAttribute` with the given name.
+Check if the node is a `JSXAttribute` with the given name.
 
 Only plain identifier names are matched (ex: `className`); namespaced
 attributes (ex: `xml:space`) do not match.
@@ -56,7 +56,7 @@ Supports both data-first and data-last (curried) call styles:
 
 **node**
 
-The AST node to test.
+The node to check.
 
 ## Param
 
@@ -66,4 +66,4 @@ The attribute name to match (ex: "className").
 
 ## Returns
 
-`true` when the node is a `JSXAttribute` named `name`.
+`true` if the node is a `JSXAttribute` named `name`.

@@ -29,17 +29,9 @@ export declare namespace getClassComponentCollector {
 export function getClassComponentCollector(context: RuleContext): getClassComponentCollector.ReturnType {
   const components = new Map<string, ClassComponentSemanticNode>();
 
-  const api = {
-    getAllComponents(_: TSESTree.Program) {
-      return [...components.values()];
-    },
-  } as const;
-
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(node)) {
-      return;
-    }
+    if (!isClassComponent(node)) return;
     const id = getClassId(node);
     const key = randomBytes(8).toString("hex");
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
@@ -59,11 +51,16 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
     );
   };
 
+  const api = {
+    getAllComponents(_: TSESTree.Program) {
+      return [...components.values()];
+    },
+  } as const;
+
   const visitor = {
     ClassDeclaration: collect,
     ClassExpression: collect,
   } as const satisfies ESLintUtils.RuleListener;
-
   return { api, visitor } as const;
 }
 

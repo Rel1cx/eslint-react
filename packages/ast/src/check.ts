@@ -10,7 +10,7 @@ export const is = ASTUtils.isNodeOfType;
 /** Check if a node is one of the given types. */
 export const isOneOf = ASTUtils.isNodeOfTypes;
 
-// Directive check
+// Directive guards
 
 /**
  * Check if a node is a directive statement (ex: `"use client"`), optionally matching a specific directive name.
@@ -22,7 +22,7 @@ export function isDirective(node: TSESTree.Node, name?: string): node is TSESTre
   return node.type === AST.ExpressionStatement && (name == null || node.directive === name);
 }
 
-// Identifier check
+// Identifier guards
 
 /**
  * Check if a node is an identifier, optionally matching a specific name.
@@ -34,7 +34,7 @@ export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTr
   return node.type === AST.Identifier && (name == null || node.name === name);
 }
 
-// Composite type guards
+// Composite guards
 
 /** Check if a node is a class declaration or class expression. */
 export const isClass = isOneOf([AST.ClassDeclaration, AST.ClassExpression]);
@@ -97,7 +97,7 @@ export const isJSX = isOneOf([
   AST.JSXText,
 ]);
 
-// TypeScript type guards
+// TypeScript guards
 
 /** Check if a node is a TypeScript type expression (assertion, non-null, satisfies, or instantiation). */
 export const isTypeExpression = isOneOf([
@@ -155,11 +155,7 @@ export const isExpression = isOneOf([
   AST.YieldExpression,
 ]);
 
-/**
- * Check if a node is a conditional expression or a control flow statement.
- * @param node The node to check.
- * @returns `true` if the node is conditional.
- */
+/** Check if a node is a conditional expression or a control flow statement. */
 export const isConditional = isOneOf([
   AST.DoWhileStatement,
   AST.ForInStatement,

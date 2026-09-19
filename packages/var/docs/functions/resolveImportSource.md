@@ -24,4 +24,4 @@ Resolve the import source of a variable by walking its latest definition.
 
 `string` \| `null`
 
-The import source, or `null` if it cannot be resolved.
+The import source, or `null` when it cannot be resolved.
