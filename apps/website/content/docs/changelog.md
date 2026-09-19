@@ -2,6 +2,22 @@
 title: Changelog
 ---
 
+## v5.20.0 (2026-09-19)
+
+### ✨ New
+
+- `react-x/immutability`: mutations on `for...of` iterator variables (e.g. `for (const item of items) { item.done = true; }`), including destructured iterator bindings, are now reported when the iterated collection resolves through its root identifier to a component's props, a state value, or a shallow copy of either, since the iterator variable is bound to each shared element of the original collection. Member-expression collections (`for (const item of props.items)`) are traced to their root; `for...in` loops and right sides without a root identifier are not traced. (#1953, closes #1764)
+
+### 🏗️ Internal
+
+- Bumped `@types/node` to `26.6.1`, `tsl-dx` to `0.13.5`, `eslint-plugin-jsdoc` to `64.5.2`, `lucide-react` to `1.47.0`, and `pnpm` to `12.4.2`.
+
+### New Contributors
+
+- **Michael@WCD** (@Michael-WhiteCapData) made their first contribution in #1953.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.19.1...v5.20.0
+
 ## v5.19.1 (2026-09-15)
 
 ### 🐞 Fixes

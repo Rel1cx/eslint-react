@@ -122,6 +122,17 @@ export function inferDirectMutations(context: RichContext, mutations: readonly M
         });
         break;
       }
+      case "iterator": {
+        // Unlike a shallow copy's top-level slots, the iterator variable *is*
+        // each element of the collection, so every member mutation through it
+        // mutates an element of the original in place.
+        directMutations.push({
+          name: origin.name,
+          detail: `It is an element of '${origin.original}' and must be treated as immutable.`,
+          node: mutation.node,
+        });
+        break;
+      }
     }
   }
 

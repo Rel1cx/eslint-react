@@ -5,6 +5,12 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.20.0] - 2026-09-19
+
+### Added
+
+- Added `for...of` iterator variable detection: mutations on a variable declared on the left side of a `for...of` statement (e.g. `for (const item of items) { item.done = true; }`), including destructured iterator bindings, are now reported when the iterated collection resolves through its root identifier to a component's props, a state value, or a shallow copy of either, since the iterator variable is bound to each shared element of the original collection. Member-expression collections (`for (const item of props.items)`) are traced to their root. `for...in` loops and right sides without a root identifier are not traced. Closes #1764.
+
 ## [5.19.1] - 2026-09-15
 
 ### Fixed

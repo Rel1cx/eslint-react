@@ -12,16 +12,18 @@ import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVari
 export type FrozenOrigin =
   | { kind: "props"; name: string }
   | { kind: "state"; name: string; hook: string }
-  | { kind: "shallow-copy"; name: string; original: string };
+  | { kind: "shallow-copy"; name: string; original: string }
+  | { kind: "iterator"; name: string; original: string };
 
 /**
  * Classify whether a variable ultimately holds a value that must be treated as
  * immutable: a component's props, a state value returned from `useState`-like or
- * `useReducer` calls, or a shallow copy (spread literal) of either.
+ * `useReducer` calls, a shallow copy (spread literal) of either, or a `for...of`
+ * iterator variable whose iterated collection resolves to one of those.
  * @param context The rich rule context.
  * @param variable The variable to classify.
  * @param components The confirmed function component nodes in the file.
- * @param seen Variables already visited during spread recursion.
+ * @param seen Variables already visited during spread/iterator recursion.
  * @returns The frozen origin, or `null` when the variable is not derived from one.
  */
 export function classifyFrozenOrigin(
@@ -39,8 +41,21 @@ export function classifyFrozenOrigin(
     return { kind: "props", name: origin.name };
   }
   if (def.type !== DefinitionType.Variable) return null;
-  const init = def.node.init == null ? null : Extract.unwrap(def.node.init);
-  if (init == null) return null;
+  // `for (const item of items)`: the iterator variable is bound to each element
+  // of the iterated collection, so it shares the collection's frozen origin.
+  // The right side is traced through its root identifier, so member-expression
+  // collections (`for (const item of props.items)`) resolve to their root.
+  if (def.node.init == null) {
+    const loop = def.node.parent.parent;
+    if (loop.type !== AST.ForOfStatement || loop.left !== def.node.parent) return null;
+    const root = Extract.getIdentifierAt(loop.right, 0);
+    if (root == null) return null;
+    const source = findVariable(context.src.getScope(root), root);
+    if (source == null) return null;
+    const inner = classifyFrozenOrigin(context, source, components, seen);
+    return inner == null ? null : { kind: "iterator", name: origin.name, original: inner.name };
+  }
+  const init = Extract.unwrap(def.node.init);
   switch (init.type) {
     // `const [state, setState] = useState(...)`: only the element at index 0 is the state value.
     case AST.CallExpression: {

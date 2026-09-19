@@ -745,6 +745,48 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "direct" },
       ],
     },
+    // Iterator provenance is preserved through state aliases and destructuring.
+    {
+      code: tsx`
+        function Component() {
+          const [items] = useState([]);
+          const alias = items;
+          for (const { value } of alias) {
+            value.tags.push("changed");
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "value",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Member-expression collections are traced to their props root.
+    {
+      code: tsx`
+        function Component(props) {
+          for (const item of props.items) {
+            item.modified = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'props' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
     // `delete` on a props property.
     {
       code: tsx`
@@ -1211,6 +1253,112 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             detail: "It is a state value returned from 'useState' and must be treated as immutable.",
             name: "state",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Mutating a for-of iterator variable over props mutates an element of the
+    // props value in place (https://github.com/Rel1cx/eslint-react/issues/1764).
+    {
+      code: tsx`
+        function Component({ items }) {
+          for (const item of items) {
+            item.modified = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The same applies when the iterated collection is a state value.
+    {
+      code: tsx`
+        function Component() {
+          const [items, setItems] = useState([]);
+          for (const item of items) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Mutating method calls on the iterator variable are mutations too.
+    {
+      code: tsx`
+        function Component({ lists }) {
+          for (const list of lists) {
+            list.push(1);
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'lists' and must be treated as immutable.",
+            name: "list",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // The iterated collection is traced through variable-declarator aliases.
+    {
+      code: tsx`
+        function Component({ items }) {
+          const list = items;
+          for (const item of list) {
+            item.modified = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'items' and must be treated as immutable.",
+            name: "item",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Iterating a shallow copy still shares elements with the original, so the
+    // detail names the copy the iterator was bound from.
+    {
+      code: tsx`
+        function Component() {
+          const [items, setItems] = useState([]);
+          const copy = [...items];
+          for (const item of copy) {
+            item.done = true;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is an element of 'copy' and must be treated as immutable.",
+            name: "item",
           },
           messageId: "direct",
         },
@@ -1956,6 +2104,54 @@ ruleTester.run(RULE_NAME, rule, {
         }, [world]);
 
         return <AnotherComponent onClose={onClose} />;
+      }
+    `,
+    // Mutating the iterator variable of a for-of over a local mutable value is
+    // allowed; only collections derived from props/state are frozen.
+    tsx`
+      function Component() {
+        const items = [{ done: false }];
+        for (const item of items) {
+          item.done = true;
+        }
+        return <div />;
+      }
+    `,
+    // A for-in loop iterates keys, not elements of a frozen collection.
+    tsx`
+      function Component({ items }) {
+        for (const key in items) {
+          key.modified = true;
+        }
+        return <div />;
+      }
+    `,
+    // Reassigning the iterator binding itself is not a value mutation.
+    tsx`
+      function Component({ items }) {
+        for (let item of items) {
+          item = { done: true };
+        }
+        return <div />;
+      }
+    `,
+    // A for-of whose right side has no root identifier is not traced back to
+    // an origin.
+    tsx`
+      function Component({ items }) {
+        for (const item of getItems()) {
+          item.done = true;
+        }
+        return <div />;
+      }
+    `,
+    // Iterating over a parameter of a non-component function is not iterating
+    // over props.
+    tsx`
+      function helper({ items }) {
+        for (const item of items) {
+          item.done = true;
+        }
       }
     `,
   ],
