@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 import { getRefInitNode } from "./lib";
 
 export const RULE_NAME = "is-from-ref";
@@ -32,17 +32,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.sourceCode.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
-    if (refInit != null) {
-      const json = stringify({
-        name: node.name,
-        init: context.sourceCode.getText(refInit),
-      });
-      context.report({
-        data: { json },
-        messageId: "default",
-        node,
-      });
-    }
+    if (refInit == null) return;
+    context.report({
+      data: {
+        json: stringify({
+          name: node.name,
+          init: context.sourceCode.getText(refInit),
+        }),
+      },
+      messageId: "default",
+      node,
+    });
   }
   return { Identifier: visit, JSXIdentifier: visit };
 }

@@ -19,7 +19,6 @@ export default createRule<[], MessageID>({
     },
     messages: {
       default: "{{json}}",
-      // "[function component] name: {{name}}, memo: {{memo}}, forwardRef: {{forwardRef}}, hookCalls: {{hookCalls}}, displayName: {{displayName}}.",
     },
     schema: [],
   },
