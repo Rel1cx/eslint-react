@@ -1,3 +1,4 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RichContext, buildRichContext } from "@eslint-react/core";
