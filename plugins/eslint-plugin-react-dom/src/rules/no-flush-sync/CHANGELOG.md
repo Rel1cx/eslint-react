@@ -5,6 +5,16 @@ All notable changes to the `react-dom/no-flush-sync` rule will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.20.1] - 2026-09-20
+
+### Fixed
+
+- Only report `flushSync` calls when `flushSync` is actually imported from `react-dom` (via named, default, or namespace import), avoiding false positives on unrelated same-named functions. (#1943, #1954)
+
+### Changed
+
+- Aligned rule code style with `no-hydrate` and consolidated AST checks on the `Check`/`Extract` helpers.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed
