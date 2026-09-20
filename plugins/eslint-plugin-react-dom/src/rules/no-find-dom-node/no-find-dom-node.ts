@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 
 const isFindDOMNodeCall = core.isAPICall("findDOMNode");
 
@@ -22,13 +24,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `findDOMNode` is not present in the file
-  if (!context.sourceCode.text.includes("findDOMNode")) return {};
+  if (!context.hasText("findDOMNode")) return {};
   return {
     CallExpression(node) {
       // Handles cases like `findDOMNode()` and `ReactDOM.findDOMNode()`.

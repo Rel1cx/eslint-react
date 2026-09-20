@@ -1,10 +1,10 @@
 import { Extract, type TSESTreeClass } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
 import { getClassId } from "./class";
 import { type ClassComponentSemanticNode, isClassComponent } from "./class-component";
+import type { RichContext } from "./ctx";
 
 // #region Component Collector Legacy
 
@@ -23,15 +23,23 @@ export declare namespace getClassComponentCollector {
 
 /**
  * Get an api and visitor object for the rule to collect class components.
- * @param context The rule context.
+ * @param context The rich rule context.
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
-export function getClassComponentCollector(context: RuleContext): getClassComponentCollector.ReturnType {
+export function getClassComponentCollector(context: RichContext): getClassComponentCollector.ReturnType {
   const components = new Map<string, ClassComponentSemanticNode>();
 
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const api = {
+    getAllComponents(_: TSESTree.Program) {
+      return [...components.values()];
+    },
+  } as const;
+
+  const getText = context.getText;
   const collect = (node: TSESTreeClass) => {
-    if (!isClassComponent(node)) return;
+    if (!isClassComponent(node)) {
+      return;
+    }
     const id = getClassId(node);
     const key = randomBytes(8).toString("hex");
     const name = id == null ? null : Extract.getFullyQualifiedName(id, getText);
@@ -51,16 +59,11 @@ export function getClassComponentCollector(context: RuleContext): getClassCompon
     );
   };
 
-  const api = {
-    getAllComponents(_: TSESTree.Program) {
-      return [...components.values()];
-    },
-  } as const;
-
   const visitor = {
     ClassDeclaration: collect,
     ClassExpression: collect,
   } as const satisfies ESLintUtils.RuleListener;
+
   return { api, visitor } as const;
 }
 

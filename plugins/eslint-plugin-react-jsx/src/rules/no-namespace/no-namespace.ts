@@ -1,5 +1,6 @@
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType } from "@eslint-react/jsx";
 
 export const RULE_NAME = "no-namespace";
@@ -20,11 +21,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const name = getElementFullType(node);

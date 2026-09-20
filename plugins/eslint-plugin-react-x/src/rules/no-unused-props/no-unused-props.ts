@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { ESLintUtils, type ParserServicesWithTypeInformation } from "@typescript-eslint/utils";
 import type ts from "typescript";
@@ -24,12 +26,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const services = ESLintUtils.getParserServices(context, false);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const services = ESLintUtils.getParserServices(context._, false);
   const checker = services.program.getTypeChecker();
   const { api, visitor } = core.getFunctionComponentCollector(context);
 
@@ -79,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   });
 }
 
-function reportUnusedProp(context: RuleContext<MessageID, []>, services: ParserServicesWithTypeInformation, prop: ts.Symbol) {
+function reportUnusedProp(context: RichContext<MessageID, []>, services: ParserServicesWithTypeInformation, prop: ts.Symbol) {
   const declaration = prop.getDeclarations()?.[0];
   if (declaration == null) return;
 

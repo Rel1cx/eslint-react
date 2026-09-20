@@ -1,6 +1,8 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -23,12 +25,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("useId")) return {};
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  if (!context.hasText("useId")) return {};
   return {
     CallExpression(node: TSESTree.CallExpression) {
       if (!core.isUseIdCall(context, node)) return;

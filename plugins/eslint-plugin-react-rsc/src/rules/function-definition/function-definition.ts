@@ -1,8 +1,9 @@
+/* tsl-ignore dx/no-duplicate-imports */
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import type { ReportFixFunction } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type ReportFixFunction, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type * as tseslint from "@typescript-eslint/utils/ts-eslint";
@@ -43,22 +44,22 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if neither `use server` nor `use client` is present
-  const text = context.sourceCode.text;
-  if (!text.includes("use server") && !text.includes("use client")) return {};
+  if (!context.hasText("use server") && !context.hasText("use client")) return {};
 
-  const hasFileLevelUseServerDirective = context.sourceCode.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
+  const src = context.src;
+  const hasFileLevelUseServerDirective = src.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
   function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID) {
     if (node == null) return;
     const fn = Extract.unwrap(node);
     if (!Check.isFunction(fn) || fn.async) return;
-    context.report({ fix: buildFixForAsync(context.sourceCode, fn), messageId, node: fn });
+    context.report({ fix: buildFixForAsync(src, fn), messageId, node: fn });
   }
 
   function checkFileDirectives(program: TSESTree.Program) {
@@ -135,7 +136,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const decl = Extract.unwrap(node.declaration);
       // export default serverFunction;
       if (Check.isIdentifier(decl)) {
-        reportNonAsyncFunction(resolve(context, decl), "file");
+        reportNonAsyncFunction(resolve(context._, decl), "file");
         return;
       }
       // export default function serverFunction() {}
@@ -161,7 +162,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (node.source != null) return;
       // export { foo }
       for (const spec of node.specifiers) {
-        reportNonAsyncFunction(resolve(context, spec.local), "file");
+        reportNonAsyncFunction(resolve(context._, spec.local), "file");
       }
     },
     FunctionDeclaration: checkFunction,

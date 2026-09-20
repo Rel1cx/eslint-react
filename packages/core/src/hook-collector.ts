@@ -1,8 +1,8 @@
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { ESLintUtils } from "@typescript-eslint/utils";
 import { randomBytes } from "node:crypto";
+import type { RichContext } from "./ctx";
 import { getFunctionId } from "./function";
 import { type HookSemanticNode, isHookCall, isHookId, isHookTag } from "./hook";
 
@@ -14,7 +14,7 @@ export declare namespace getHookCollector {
   /** The api and visitor pair returned by {@link getHookCollector}. */
   type ReturnType = {
     api: {
-      getAllHooks: (node: TSESTree.Program) => HookSemanticNode[];
+      getAllHooks(node: TSESTree.Program): HookSemanticNode[];
     };
     visitor: ESLintUtils.RuleListener;
   };
@@ -22,14 +22,13 @@ export declare namespace getHookCollector {
 
 /**
  * Get an api and visitor object for the rule to collect hooks.
- * @param context The ESLint rule context.
+ * @param context The rich rule context.
  * @returns The api and visitor of the collector.
  */
-export function getHookCollector(context: RuleContext): getHookCollector.ReturnType {
+export function getHookCollector(context: RichContext): getHookCollector.ReturnType {
+  const hooks = context.sem.hooks;
   const functionEntries: FunctionEntry[] = [];
-  const hooks = new Map<string, HookSemanticNode>();
-
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+  const getText = context.getText;
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);
@@ -50,18 +49,16 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     } as const satisfies FunctionEntry;
     functionEntries.push(entry);
     if (!entry.isHookDefinition) return;
-    hooks.set(entry.key, entry);
+    hooks.set(key, entry);
   };
   const onFunctionExit = () => {
-    return functionEntries.pop();
+    functionEntries.pop();
   };
-
   const api = {
     getAllHooks(_: TSESTree.Program) {
       return [...hooks.values()];
     },
   } as const;
-
   const visitor = {
     ":function": onFunctionEnter,
     ":function:exit": onFunctionExit,
@@ -72,7 +69,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
       if (body.type === AST.BlockStatement) return;
       entry.rets.push(body);
     },
-    CallExpression(node: TSESTree.CallExpression) {
+    CallExpression(node) {
       if (!isHookCall(node)) return;
       const entry = getCurrentEntry();
       if (entry == null) return;

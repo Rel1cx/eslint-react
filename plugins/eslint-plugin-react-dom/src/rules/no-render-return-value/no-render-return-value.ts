@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-render-return-value";
@@ -36,13 +37,13 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Sets to track imported names for 'ReactDOM' and 'render'
-  const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
+  const reactDomNames = new Set<string>(["ReactDOM"]);
   const renderNames = new Set<string>();
 
   return {

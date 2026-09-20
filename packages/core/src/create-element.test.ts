@@ -1,4 +1,4 @@
-import { collectNodes, createScopeContext, getFirstNodeOfType, parseCode } from "@local/testkit";
+import { collectNodes, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -10,26 +10,34 @@ import {
   isCreateElementChildrenArgument,
   isInsideCreateElementProps,
 } from "./create-element";
+import type { RichContext } from "./ctx";
+
+/**
+ * Builds a rich-context-like object whose `getText` reads from `code`
+ * (the only context surface the create-element helpers use).
+ */
+function createMockContext(code: string): RichContext {
+  return {
+    getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
+  } as unknown as RichContext;
+}
 
 /**
  * Parses `code` and returns the first `CallExpression` together with a
- * scope-aware rule context.
+ * rich context.
  */
 function parseCallExpression(code: string) {
-  const parsed = parseCode(code);
-  const context = createScopeContext(parsed);
+  const context = createMockContext(code);
   return { context, node: getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression) };
 }
 
 function parseNode<T extends TSESTree.Node>(code: string, type: T["type"]) {
-  const parsed = parseCode(code);
-  const context = createScopeContext(parsed);
+  const context = createMockContext(code);
   return { context, node: getFirstNodeOfType<T>(code, type) };
 }
 
 /**
- * Reads the source text of `node` via its range (the mock context from
- * `createScopeContext` does not implement `sourceCode.getText`).
+ * Reads the source text of `node` via its range.
  */
 function textOf(code: string, node: null | TSESTree.Node): string | null {
   return node == null ? null : code.slice(node.range[0], node.range[1]);
@@ -135,8 +143,7 @@ describe("isCreateElementChildrenArgument", () => {
 
   it("should return true through wrapping type expressions", () => {
     const code = `React.createElement("div", null, (child as any));`;
-    const parsed = parseCode(code);
-    const context = createScopeContext(parsed);
+    const context = createMockContext(code);
     const node = collectNodes<TSESTree.Identifier>(code, AST.Identifier).find((id) => id.name === "child");
     expect(node).toBeDefined();
     expect(isCreateElementChildrenArgument(context, node!)).toBe(true);

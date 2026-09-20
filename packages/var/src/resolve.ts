@@ -43,7 +43,8 @@ export function resolve(
   }>,
 ): TSESTree.Node | null {
   const { at = 0, localOnly = false } = options ?? {};
-  const scope = context.sourceCode.getScope(node);
+  const src = context.sourceCode;
+  const scope = src.getScope(node);
   const variable = localOnly
     ? scope.set.get(node.name)
     : findVariable(scope, node);

@@ -1,7 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { RefsFacts } from "./collect";
@@ -27,14 +25,14 @@ type BindingEvent = PositionedValue<BindingValue>;
  * Maps are keyed by ESLint variables, not source names, so shadowed
  * identifiers and separate components cannot contaminate each other.
  */
-export function createBindingResolver(context: RuleContext, facts: RefsFacts) {
-  const { additionalRefHooks } = getSettingsFromContext(context);
+export function createBindingResolver(context: core.RichContext, facts: RefsFacts) {
+  const { additionalRefHooks } = context.settings;
   const bindings = new Map<Variable, BindingEvent[]>();
   const memberBindings = new Map<Variable, Map<string, BindingEvent[]>>();
   const jsxRefs = new Set<Variable>();
 
   function getVariable(node: TSESTree.Identifier): Variable | null {
-    return findVariable(context.sourceCode.getScope(node), node) ?? null;
+    return findVariable(context.src.getScope(node), node) ?? null;
   }
 
   function getBindingValue(node: TSESTree.Node): BindingValue {

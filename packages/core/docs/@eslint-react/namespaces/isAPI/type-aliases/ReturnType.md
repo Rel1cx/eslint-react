@@ -4,8 +4,8 @@
 
 ```ts
 type ReturnType = {
-  (context: RuleContext, node: Node | null): boolean;
-  (context: RuleContext): (node: Node | null) => boolean;
+  (context: RichContext, node: Node | null): boolean;
+  (context: RichContext): (node: Node | null) => boolean;
 };
 ```
 
@@ -14,15 +14,15 @@ The dual-signature predicate type returned by [isAPI](../../../../functions/isAP
 ## Call Signature
 
 ```ts
-(context: RuleContext, node: Node | null): boolean;
+(context: RichContext, node: Node | null): boolean;
 ```
 
 ### Parameters
 
-| Parameter | Type             |
-| --------- | ---------------- |
-| `context` | `RuleContext`    |
-| `node`    | `Node` \| `null` |
+| Parameter | Type                                                     |
+| --------- | -------------------------------------------------------- |
+| `context` | [`RichContext`](../../../../type-aliases/RichContext.md) |
+| `node`    | `Node` \| `null`                                         |
 
 ### Returns
 
@@ -31,14 +31,14 @@ The dual-signature predicate type returned by [isAPI](../../../../functions/isAP
 ## Call Signature
 
 ```ts
-(context: RuleContext): (node: Node | null) => boolean;
+(context: RichContext): (node: Node | null) => boolean;
 ```
 
 ### Parameters
 
-| Parameter | Type          |
-| --------- | ------------- |
-| `context` | `RuleContext` |
+| Parameter | Type                                                     |
+| --------- | -------------------------------------------------------- |
+| `context` | [`RichContext`](../../../../type-aliases/RichContext.md) |
 
 ### Returns
 

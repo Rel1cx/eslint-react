@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -26,14 +26,14 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if `hydrate` is not present in the file
-  if (!context.sourceCode.text.includes("hydrate")) return {};
-  const settings = getSettingsFromContext(context);
+  if (!context.hasText("hydrate")) return {};
+  const settings = context.settings;
   // This rule only applies to React 18.0.0 and later.
   if (compare(settings.version, "18.0.0", "<")) return {};
 
@@ -91,15 +91,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
-  const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
+function buildFix(context: RichContext, node: TSESTree.CallExpression) {
+  const getText = (n: TSESTree.Node) => context.getText(n);
   return (fixer: RuleFixer) => {
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
     // The fix consists of two parts:
     return [
       // 1. Add the new import for `hydrateRoot`
-      fixer.insertTextBefore(context.sourceCode.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
+      fixer.insertTextBefore(context.ast, 'import { hydrateRoot } from "react-dom/client";\n'),
       // 2. Replace `hydrate(element, container)` with `hydrateRoot(container, element)`
       // Note that the arguments are swapped
       fixer.replaceText(node, `hydrateRoot(${getText(arg1)}, ${getText(arg0)})`),

@@ -1,5 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
+import type { RichContext } from "@eslint-react/core";
 import { DefinitionType, ScopeType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -8,8 +8,8 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  * Return whether an identifier is an unresolved global or is declared in the
  * global/module scope.
  */
-export function isGlobalVariable(context: RuleContext, node: TSESTree.Identifier): boolean {
-  const variable = findVariable(context.sourceCode.getScope(node), node);
+export function isGlobalVariable(context: RichContext, node: TSESTree.Identifier): boolean {
+  const variable = findVariable(context.src.getScope(node), node);
   if (variable == null || variable.defs.length === 0) return true;
   return variable.scope.type === ScopeType.global || variable.scope.type === ScopeType.module;
 }
@@ -21,7 +21,7 @@ export function isGlobalVariable(context: RuleContext, node: TSESTree.Identifier
  * It gives the rule useful Alias effects without pretending to perform full
  * control-flow analysis for reassigned locals.
  */
-export function resolveGlobalOrigin(context: RuleContext, node: TSESTree.Expression, seen = new Set<TSESTree.Node>()): TSESTree.Identifier | null {
+export function resolveGlobalOrigin(context: RichContext, node: TSESTree.Expression, seen = new Set<TSESTree.Node>()): TSESTree.Identifier | null {
   const expression = Extract.unwrap(node);
   if (seen.has(expression)) return null;
   seen.add(expression);
@@ -32,7 +32,7 @@ export function resolveGlobalOrigin(context: RuleContext, node: TSESTree.Express
   if (!Check.isIdentifier(expression)) return null;
   if (isGlobalVariable(context, expression)) return expression;
 
-  const variable = findVariable(context.sourceCode.getScope(expression), expression);
+  const variable = findVariable(context.src.getScope(expression), expression);
   const definition = variable?.defs.length === 1 ? variable.defs[0] : null;
   if (definition?.type !== DefinitionType.Variable) return null;
   if (!Check.isIdentifier(definition.node.id) || definition.node.init == null) return null;

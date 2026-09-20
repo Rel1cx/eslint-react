@@ -1,6 +1,7 @@
 import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
 import { isUnsafeSandboxCombination } from "./lib";
 
@@ -22,11 +23,11 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
+export function create(context: RichContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
@@ -36,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       // 2. Get the 'sandbox' attribute from the 'iframe' element
-      const sandboxProp = findAttribute(context, node, "sandbox");
+      const sandboxProp = findAttribute(context._, node, "sandbox");
       // If there's no 'sandbox' attribute, there's nothing to check
       if (sandboxProp == null) {
         return;
@@ -44,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // 3. Resolve the static value of the 'sandbox' attribute; for spread
       // attributes the named property is extracted automatically
-      const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
+      const sandboxValue = resolveAttributeValue(context._, sandboxProp, "sandbox");
 
       // 4. Check if the 'sandbox' value has the unsafe combination
       if (isUnsafeSandboxCombination(sandboxValue.toStatic())) {

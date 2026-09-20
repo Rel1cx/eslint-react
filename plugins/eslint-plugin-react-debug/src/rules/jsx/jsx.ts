@@ -1,8 +1,8 @@
 import { createRule } from "@/utils/create-rule";
 import { stringify } from "@/utils/stringify";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { type RichContext, buildRichContext } from "@eslint-react/core";
+import { type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getElementFullType, isFragmentElement } from "@eslint-react/jsx";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { P, match } from "ts-pattern";
@@ -28,12 +28,12 @@ export default createRule<[], MessageID>({
     schema: [],
   },
   name: RULE_NAME,
-  create,
+  create: (context) => create(buildRichContext(context)),
   defaultOptions: [],
 });
 
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const jsxConfig = core.getJsxConfig(context);
+export function create(context: RichContext<MessageID, []>): RuleListener {
+  const jsxConfig = context.getJsxConfig();
   function visit(node: TSESTreeJSXElementLike) {
     context.report({
       data: {
