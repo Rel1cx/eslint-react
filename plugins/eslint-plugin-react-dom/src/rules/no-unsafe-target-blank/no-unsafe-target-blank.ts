@@ -2,7 +2,6 @@ import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, getAttributeStaticValue } from "@eslint-react/jsx";
-import type { TSESTree } from "@typescript-eslint/types";
 import { isExternalLinkLike, isSafeRel } from "./lib";
 
 export const RULE_NAME = "no-unsafe-target-blank";
@@ -11,9 +10,9 @@ export const RULE_FEATURES = [
   "FIX",
 ] as const satisfies RuleFeature[];
 
-export type MessageID = "default" | RuleSuggestMessageID;
-
-export type RuleSuggestMessageID = "addRelNoreferrerNoopener";
+export type MessageID =
+  | "addRelNoreferrerNoopener"
+  | "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -38,23 +37,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const resolver = createJsxElementResolver(context);
 
   return {
-    JSXElement(node: TSESTree.JSXElement) {
-      // Only process anchor tags (<a>)
+    JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
       if (domElementType !== "a") return;
 
-      // Check if target="_blank" is present
-      const targetValueString = getAttributeStaticValue(context, node, "target");
-      if (targetValueString !== "_blank") return;
+      const targetValue = getAttributeStaticValue(context, node, "target");
+      if (targetValue !== "_blank") return;
 
-      // Check if href points to an external resource
-      const hrefValueString = getAttributeStaticValue(context, node, "href");
-      if (!isExternalLinkLike(hrefValueString)) return;
+      const hrefValue = getAttributeStaticValue(context, node, "href");
+      if (!isExternalLinkLike(hrefValue)) return;
 
-      // Check if rel prop exists and is secure
       const relProp = findAttribute(context, node, "rel");
-
-      // No rel prop case - suggest adding one
       if (relProp == null) {
         context.report({
           messageId: "default",
@@ -72,11 +65,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
 
-      // Check if existing rel prop is secure
-      const relValueString = getAttributeStaticValue(context, node, "rel");
-      if (isSafeRel(relValueString)) return;
+      const relValue = getAttributeStaticValue(context, node, "rel");
+      if (isSafeRel(relValue)) return;
 
-      // Existing rel prop is not secure - suggest replacing it
       context.report({
         messageId: "default",
         node: relProp,

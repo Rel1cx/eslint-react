@@ -31,29 +31,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   return {
     JSXElement(node) {
-      // 1. Resolve the JSX element to see if it's a DOM 'iframe'. If not, we don't need to check it
-      if (resolver.resolve(node).domElementType !== "iframe") {
-        return;
-      }
-      // 2. Get the 'sandbox' attribute from the 'iframe' element
+      const { domElementType } = resolver.resolve(node);
+      if (domElementType !== "iframe") return;
+
       const sandboxProp = findAttribute(context, node, "sandbox");
-      // If there's no 'sandbox' attribute, there's nothing to check
-      if (sandboxProp == null) {
-        return;
-      }
+      if (sandboxProp == null) return;
 
-      // 3. Resolve the static value of the 'sandbox' attribute; for spread
-      // attributes the named property is extracted automatically
+      // Resolve the value of the 'sandbox' attribute; for spread attributes
+      // the named property is extracted automatically
       const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
+      if (!isUnsafeSandboxCombination(sandboxValue.toStatic())) return;
 
-      // 4. Check if the 'sandbox' value has the unsafe combination
-      if (isUnsafeSandboxCombination(sandboxValue.toStatic())) {
-        // If it's unsafe, report an error
-        context.report({
-          messageId: "default",
-          node: sandboxValue.node ?? sandboxProp,
-        });
-      }
+      context.report({
+        messageId: "default",
+        node: sandboxValue.node ?? sandboxProp,
+      });
     },
   };
 }

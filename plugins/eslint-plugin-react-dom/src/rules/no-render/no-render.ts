@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext, RuleFeature, RuleFixer, RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -34,22 +34,22 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `render` is not present in the file
   if (!context.sourceCode.text.includes("render")) return {};
-  const settings = getSettingsFromContext(context);
+
   // This rule only applies to React 18.0.0 and later
+  const settings = getSettingsFromContext(context);
   if (compare(settings.version, "18.0.0", "<")) return {};
 
   // Lookup of local bindings imported from 'react-dom', with the 'ReactDOM' global pre-registered as a namespace binding.
   const imports = createImportLookup(context.sourceCode.ast, {
-    source: "react-dom",
     builtinNamespaces: ["ReactDOM"],
+    source: "react-dom",
   });
 
   return {
-    // Visitor for call expressions, e.g., render() or ReactDOM.render()
     CallExpression(node) {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
-        // Case 1: Direct call to 'render', e.g., from `import { render } from 'react-dom'`
+        // Case 1: Direct call to `render()`
         case Check.isIdentifier(callee)
           && imports.has(callee.name, "render"):
           context.report({
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node,
           });
           return;
-        // Case 2: Member expression call, e.g., `ReactDOM.render()`
+        // Case 2: Member call like `ReactDOM.render()`
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
@@ -74,22 +74,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   };
 }
 
-/**
- * Provides a fixer function to replace `render(app, container)` with `createRoot(container).render(app)`
- * @param context The rule context
- * @param node The `CallExpression` node to fix
- * @returns A fixer function or null if the fix cannot be applied
- */
+// Replaces `render(element, container)` with `createRoot(container).render(element)`
 function buildFix(context: RuleContext, node: TSESTree.CallExpression) {
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   return (fixer: RuleFixer) => {
     // `render` takes two arguments: component and container
     const [arg0, arg1] = node.arguments;
     if (arg0 == null || arg1 == null) return null;
+    // The fix consists of two parts:
     return [
-      // Add `import { createRoot } from "react-dom/client";` at the top of the file
+      // 1. Add the new import for `createRoot`
       fixer.insertTextBefore(context.sourceCode.ast, 'import { createRoot } from "react-dom/client";\n'),
-      // Replace `render(arg0, arg1)` with `createRoot(arg1).render(arg0)`
+      // 2. Replace `render(element, container)` with `createRoot(container).render(element)`; note that the arguments are swapped
       fixer.replaceText(node, `createRoot(${getText(arg1)}).render(${getText(arg0)})`),
     ];
   };

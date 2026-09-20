@@ -1,6 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext, RuleFeature, RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
@@ -37,7 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     CallExpression(node) {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
-        // Case 1: Direct call to `flushSync()`.
+        // Case 1: Direct call to `flushSync()`
         case Check.isIdentifier(callee)
           && imports.has(callee.name, "flushSync"):
           context.report({
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node,
           });
           return;
-        // Case 2: Call on a `react-dom` import, like `ReactDOM.flushSync()`
+        // Case 2: Member call like `ReactDOM.flushSync()`
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "flushSync"

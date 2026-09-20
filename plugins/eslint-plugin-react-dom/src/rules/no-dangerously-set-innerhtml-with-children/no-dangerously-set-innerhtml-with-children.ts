@@ -25,22 +25,19 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Fast path: if the file doesn't contain `dangerouslySetInnerHTML`, we don't need to do anything
+  // Fast path: skip if `dangerouslySetInnerHTML` is not present in the file
   if (!context.sourceCode.text.includes("dangerouslySetInnerHTML")) return {};
 
   return {
     JSXElement(node) {
-      // Check if the element has the 'dangerouslySetInnerHTML' prop. If not, we can stop
       if (!hasAttribute(context, node, "dangerouslySetInnerHTML")) return;
-      // Check for a 'children' prop or actual child nodes that are not just whitespace
-      const childrenPropOrNode = findAttribute(context, node, "children")
+      // Look for a 'children' prop or a child node that is not just whitespace
+      const fact = findAttribute(context, node, "children")
         ?? node.children.find((child) => !isPaddingWhitespace(child));
-      // If no children are found, the rule passes
-      if (childrenPropOrNode == null) return;
-      // If both 'dangerouslySetInnerHTML' and children are present, report an error
+      if (fact == null) return;
       context.report({
         messageId: "default",
-        node: childrenPropOrNode,
+        node: fact,
       });
     },
   };

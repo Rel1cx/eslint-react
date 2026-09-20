@@ -15,10 +15,6 @@ import {
   tagNameHasDot,
 } from "./lib";
 
-// ------------------------------------------------------------------------------
-// Rule Definition
-// ------------------------------------------------------------------------------
-
 export const RULE_NAME = "no-unknown-property";
 
 export const RULE_FEATURES = [
@@ -30,7 +26,7 @@ export const RULE_FEATURES = [
 // Types
 // ------------------------------------------------------------------------------
 
-type MessageID =
+export type MessageID =
   | "dataLowercaseRequired"
   | "invalidPropOnTag"
   | "unknownProp"
@@ -94,39 +90,26 @@ export default createRule({
   defaultOptions: [],
 });
 
-/**
- * Create function for the ESLint rule
- * @param context ESLint rule context
- * @returns Rule listener
- */
 export function create(context: RuleContext<MessageID, Options[]>): RuleListener {
-  /**
-   * Gets the ignore configuration from rule options
-   * @returns Array of attribute names to ignore
-   */
   function getIgnoreConfig(): string[] {
     return context.options[0]?.ignore ?? DEFAULTS.ignore;
   }
 
-  /**
-   * Gets the requireDataLowercase option from rule options
-   * @returns Whether data attributes must be lowercase
-   */
   function getRequireDataLowercase(): boolean {
     return context.options[0]?.requireDataLowercase ?? DEFAULTS.requireDataLowercase;
   }
 
   return {
-    JSXAttribute(node): void {
-      const ignoreNames: string[] = getIgnoreConfig();
-      const actualName: string = getText(context, node.name);
+    JSXAttribute(node) {
+      const ignoreNames = getIgnoreConfig();
+      const actualName = getText(context, node.name);
 
       // Skip checking if the attribute name is in the ignore list
       if (ignoreNames.includes(actualName)) {
         return;
       }
 
-      const name: string = normalizeAttributeCase(actualName);
+      const name = normalizeAttributeCase(actualName);
 
       // Ignore tags like <Foo.bar />
       if (tagNameHasDot(node)) {
@@ -151,7 +134,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
       // Handle ARIA attributes
       if (isValidAriaAttribute(name)) return;
 
-      const tagName: string | null = getTagName(node);
+      const tagName = getTagName(node);
 
       // Special case for fbt/fbs nodes
       if (tagName === "fbt" || tagName === "fbs") return;
@@ -182,7 +165,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
       }
 
       // Check if the attribute name is similar to a standard property name
-      const standardName: string | null = getStandardName(name, context);
+      const standardName = getStandardName(name, context);
 
       const hasStandardNameButIsNotUsed = standardName != null && standardName !== name;
       const usesStandardName = standardName != null && standardName === name;

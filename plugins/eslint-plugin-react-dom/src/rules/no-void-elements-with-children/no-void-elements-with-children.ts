@@ -2,7 +2,7 @@ import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { hasAnyAttribute } from "@eslint-react/jsx";
-import { VOID_ELEMENTS } from "./lib";
+import { KNOWN_VOID_ELEMENTS } from "./lib";
 
 export const RULE_NAME = "no-void-elements-with-children";
 
@@ -32,10 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       const { domElementType } = resolver.resolve(node);
-      // If the element is not a void element, do nothing
-      if (!VOID_ELEMENTS.has(domElementType)) {
-        return;
-      }
+      if (!KNOWN_VOID_ELEMENTS.has(domElementType)) return;
 
       // Report an error if the void element has children, a 'children' prop, or 'dangerouslySetInnerHTML'
       if (node.children.length > 0 || hasAnyAttribute(context, node, ["children", "dangerouslySetInnerHTML"])) {
