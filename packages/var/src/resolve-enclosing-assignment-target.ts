@@ -1,39 +1,38 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
+/** The possible assignment targets returned by {@link resolveEnclosingAssignmentTarget}. */
+export type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
+
 /**
- * Resolve the enclosing assignment target (variable, property, etc.) of a node.
- *
- * @param node The starting node.
- * @returns The enclosing assignment target node, or `null` if not found.
+ * Resolve the enclosing assignment target (variable, property, etc.) of the node.
+ * @param node The starting node for the upward search.
+ * @returns The enclosing assignment target node, or `null` when not found.
  */
 export function resolveEnclosingAssignmentTarget(node: TSESTree.Node) {
-  switch (true) {
-    // Case: variable declaration (const x = new ResizeObserver())
-    case node.type === AST.VariableDeclarator:
+  switch (node.type) {
+    // Variable declaration (const x = new ResizeObserver())
+    case AST.VariableDeclarator:
       return node.id;
 
-    // Case: assignment expression (x = new ResizeObserver())
-    case node.type === AST.AssignmentExpression:
+    // Assignment expression (x = new ResizeObserver())
+    case AST.AssignmentExpression:
       return node.left;
 
-    // Case: class property definition (class X { y = new ResizeObserver() })
-    case node.type === AST.PropertyDefinition:
+    // Class property definition (class X { y = new ResizeObserver() })
+    case AST.PropertyDefinition:
       return node.key;
 
-    // Case: export default declaration (export default new ResizeObserver())
-    case node.type === AST.ExportDefaultDeclaration:
+    // Export default declaration (export default new ResizeObserver())
+    case AST.ExportDefaultDeclaration:
       return node.declaration;
 
-    // Case: reached block scope boundary or program root
-    case node.type === AST.BlockStatement
-      || node.type === AST.Program:
+    // Reached block scope boundary or program root
+    case AST.BlockStatement:
+    case AST.Program:
       return null;
 
-    // Continue traversing up the AST until we find an identifier
+    // Continue traversing up the AST until an assignment target is found
     default:
       return resolveEnclosingAssignmentTarget(node.parent);
   }
 }
-
-/** The possible assignment targets returned by {@link resolveEnclosingAssignmentTarget}. */
-export type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;

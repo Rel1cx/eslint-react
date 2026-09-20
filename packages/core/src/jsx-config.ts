@@ -2,9 +2,7 @@ import { RE_ANNOTATION_JSX, RE_ANNOTATION_JSX_FRAG, RE_ANNOTATION_JSX_IMPORT_SOU
 import ts from "typescript";
 import type { RichContext } from "./ctx";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
+// #region Types
 
 /**
  * Resolved JSX configuration derived from compiler options and / or pragma
@@ -21,16 +19,16 @@ export interface JsxConfig {
   jsxImportSource?: string;
 }
 
-// ---------------------------------------------------------------------------
-// Caches
-// ---------------------------------------------------------------------------
+// #endregion
+
+// #region Caches
 
 const cache0 = new WeakMap<RichContext["src"], JsxConfig>();
 const cache1 = new WeakMap<RichContext["src"], Required<JsxConfig>>();
 
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
+// #endregion
+
+// #region Public API
 
 /**
  * Read JSX configuration from the TypeScript compiler options exposed by the
@@ -101,7 +99,7 @@ export function getJsxConfigFromAnnotation(context: RichContext): JsxConfig {
  * Get the fully‑merged JSX configuration for the current file.
  *
  * Compiler options provide the base values; pragma annotations found in the
- * source override them where present.  The result is cached per `sourceCode`.
+ * source override them where present. The result is cached per `sourceCode`.
  *
  * This is the main entry‑point most consumers should use.
  *
@@ -120,3 +118,5 @@ export function getJsxConfig(context: RichContext): Required<JsxConfig> {
   cache1.set(context.src, merged);
   return merged;
 }
+
+// #endregion

@@ -2,6 +2,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 type Predicate<T extends TSESTree.Node> = (node: TSESTree.Node) => node is T;
 type NodePredicate = (node: TSESTree.Node) => boolean;
+
 /**
  * Walk up the AST from `node` to find the nearest ancestor matching a predicate.
  * @param node The starting node for the upward search.
@@ -24,9 +25,9 @@ export function findParent(node: TSESTree.Node | null, test: NodePredicate, stop
 }
 
 /**
- * Finds the nearest TryStatement whose `try` block (not catch/finally) encloses the given node.
+ * Find the nearest `TryStatement` whose `try` block (not `catch`/`finally`) encloses the given node.
  * @param node The node to check.
- * @returns The enclosing TryStatement, or null if none is found.
+ * @returns The enclosing `TryStatement`, or `null` when none is found.
  */
 export function findEnclosingTryBlock(node: TSESTree.Node): TSESTree.TryStatement | null {
   const parent = node.parent;

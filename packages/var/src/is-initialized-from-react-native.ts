@@ -6,7 +6,7 @@ import { resolveImportSource } from "./resolve-import-source";
  * @param name The variable name.
  * @param initialScope The initial scope.
  * @param importSource Alternative import source of React Native (ex: "react-native-web").
- * @returns `true` if the variable is initialized from a React Native import.
+ * @returns `true` if the variable is initialized or derived from a React Native import.
  * @internal
  */
 export function isInitializedFromReactNative(

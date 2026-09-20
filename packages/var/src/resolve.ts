@@ -24,13 +24,13 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  * | `Type`                   | type alias node                              | `null`                             |
  * | `ImplicitGlobalVariable` | any node                                     | `null`                             |
  *
- * @param context The ESLint rule context used for scope lookup.
+ * @param context The ESLint rule context.
  * @param node The identifier to resolve.
  * @param options Optional settings:
  * - `at`: Index of the definition to resolve (default: `0` for the first definition).
  * - `localOnly`: If `true`, only consider variables declared in the same scope as the identifier
- *   will miss variables declared in an outer scope). When `false` (default), traverse the scope
- *   chain upward via `findVariable` so that references to outer-scope bindings are resolved
+ *   (this will miss variables declared in an outer scope). When `false` (default), traverse the
+ *   scope chain upward via `findVariable` so that references to outer-scope bindings are resolved
  *   correctly.
  * @returns The resolved node, or `null` if the identifier cannot be resolved to a value node.
  */

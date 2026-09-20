@@ -1,32 +1,16 @@
 import { Check } from "@eslint-react/ast";
-import { parseCode } from "@local/testkit";
+import { getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { resolveEnclosingAssignmentTarget } from "./resolve-enclosing-assignment-target";
 
-function findFirstNodeOfType<T extends TSESTree.Node>(ast: TSESTree.Program, type: AST): T {
-  let found: T | undefined;
-  simpleTraverse(ast, {
-    enter(node) {
-      if (found == null && node.type === type) {
-        found = node as T;
-      }
-    },
-  }, true);
-  if (found == null) {
-    throw new Error(`No node of type ${type} found in the AST`);
-  }
-  return found;
-}
-
 describe("resolveEnclosingAssignmentTarget", () => {
   describe("basic functionality", () => {
     it("should return the variable identifier for a VariableDeclarator", () => {
       const code = "const x = new ResizeObserver(() => {})";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       const result = resolveEnclosingAssignmentTarget(newExpr);
 
@@ -37,8 +21,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
     it("should return the left side for an AssignmentExpression", () => {
       const code = "let x; x = new ResizeObserver(() => {})";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       const result = resolveEnclosingAssignmentTarget(newExpr);
 
@@ -49,8 +32,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
     it("should return the property key for a PropertyDefinition", () => {
       const code = "class Foo { y = new ResizeObserver(() => {}) }";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       const result = resolveEnclosingAssignmentTarget(newExpr);
 
@@ -61,8 +43,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
     it("should return null when hitting a BlockStatement boundary", () => {
       const code = "function foo() { new ResizeObserver(() => {}) }";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       const result = resolveEnclosingAssignmentTarget(newExpr);
 
@@ -71,8 +52,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
     it("should return null when hitting the Program boundary", () => {
       const code = "new ResizeObserver(() => {})";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       const result = resolveEnclosingAssignmentTarget(newExpr);
 
@@ -83,8 +63,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
   describe("issue verification", () => {
     it("ExportDefaultDeclaration is now recognized as an assignment target", () => {
       const code = "export default new ResizeObserver(() => {})";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       // ExportDefaultDeclaration is now handled — it returns the declaration node.
       const result = resolveEnclosingAssignmentTarget(newExpr);
@@ -120,8 +99,7 @@ describe("resolveEnclosingAssignmentTarget", () => {
 
     it("Property in object literal — returns outer VariableDeclarator id instead of property key", () => {
       const code = "const obj = { foo: new ResizeObserver(() => {}) }";
-      const { ast } = parseCode(code);
-      const newExpr = findFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
+      const newExpr = getFirstNodeOfType<TSESTree.NewExpression>(code, AST.NewExpression);
 
       // The function walks up: NewExpression → Property (not handled, falls through
       // to default) → ObjectExpression (not handled) → VariableDeclarator → returns

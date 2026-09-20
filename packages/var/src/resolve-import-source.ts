@@ -10,7 +10,7 @@ import { getRequireExpressionArguments } from "./get-require-expression-argument
  * @param name The variable name.
  * @param initialScope The initial scope.
  * @param seen The set of already visited variable names (for cycle detection).
- * @returns The import source, or `null` if it cannot be resolved.
+ * @returns The import source, or `null` when it cannot be resolved.
  */
 export function resolveImportSource(name: string, initialScope: Scope, seen = new Set<string>()) {
   if (seen.has(name)) return null;
@@ -20,24 +20,24 @@ export function resolveImportSource(name: string, initialScope: Scope, seen = ne
   const { node, parent } = latestDef;
   if (node.type === AST.VariableDeclarator && node.init != null) {
     const init = Extract.unwrap(node.init);
-    // check for: variable = Source.variable
+    // Check for: variable = Source.variable
     if (init.type === AST.MemberExpression && init.object.type === AST.Identifier) {
       return resolveImportSource(init.object.name, initialScope, seen);
     }
-    // check for: { variable } = Source
+    // Check for: { variable } = Source
     if (init.type === AST.Identifier) {
       return resolveImportSource(init.name, initialScope, seen);
     }
-    // check for: variable = require('source') or variable = require('source').variable
+    // Check for: variable = require('source') or variable = require('source').variable
     const args = getRequireExpressionArguments(init);
     const arg0 = args?.[0];
     if (arg0 == null || !isMatching({ type: AST.Literal, value: P.string }, arg0)) {
       return null;
     }
-    // check for: require('source') or require('source/...')
+    // Check for: require('source') or require('source/...')
     return arg0.value;
   }
-  // latest definition is an import declaration: import { variable } from 'source'
+  // The latest definition is an import declaration: import { variable } from 'source'
   if (parent?.type === AST.ImportDeclaration) return parent.source.value;
   return null;
 }

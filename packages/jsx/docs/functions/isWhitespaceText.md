@@ -6,20 +6,19 @@
 function isWhitespaceText(node: JSXChild): boolean;
 ```
 
-Check whether a JSX child node is any whitespace-only text.
+Check if the node is whitespace-only text.
 
-This is a looser variant of [isPaddingWhitespace](isPaddingWhitespace.md); it matches every
-`JSXText` node whose raw content is empty after trimming, regardless of
-whether it contains a newline.
+Looser variant of [isPaddingWhitespace](isPaddingWhitespace.md); matches every `JSXText` node
+whose raw content is empty after trimming, regardless of newlines.
 
 ## Parameters
 
-| Parameter | Type       | Description       |
-| --------- | ---------- | ----------------- |
-| `node`    | `JSXChild` | A JSX child node. |
+| Parameter | Type       | Description                  |
+| --------- | ---------- | ---------------------------- |
+| `node`    | `JSXChild` | The JSX child node to check. |
 
 ## Returns
 
 `boolean`
 
-`true` when the node is a whitespace-only `JSXText`.
+`true` if the node is a whitespace-only `JSXText`.

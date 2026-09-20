@@ -6,17 +6,17 @@
 function resolveObjectType(context: RuleContext, node: Node | null): ObjectType | null;
 ```
 
-Resolve the object type of the given node.
+Resolve the object type of the node.
 
 ## Parameters
 
-| Parameter | Type             | Description          |
-| --------- | ---------------- | -------------------- |
-| `context` | `RuleContext`    | The rule context.    |
-| `node`    | `Node` \| `null` | The node to resolve. |
+| Parameter | Type             | Description              |
+| --------- | ---------------- | ------------------------ |
+| `context` | `RuleContext`    | The ESLint rule context. |
+| `node`    | `Node` \| `null` | The node to resolve.     |
 
 ## Returns
 
 [`ObjectType`](../type-aliases/ObjectType.md) \| `null`
 
-The object type of the node, or `null` if it cannot be resolved.
+The object type of the node, or `null` when it cannot be resolved.

@@ -143,10 +143,10 @@ export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
     case Check.isPropertyOrMethod(node.parent)
       && node.parent.value === node:
       return node.parent.key;
-      // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
-      //
-      // const {MaybeComponent = () => {}} = {};
-      // ({MaybeComponent = () => {}} = {});
+    // Follow spec convention for `IsAnonymousFunctionDefinition()` usage.
+    //
+    // const {MaybeComponent = () => {}} = {};
+    // ({MaybeComponent = () => {}} = {});
     case node.parent.type === AST.AssignmentPattern
       && node.parent.right === node:
       return node.parent.left;
@@ -223,22 +223,12 @@ export function getFunctionInitPath(node: TSESTreeFunction): null | FunctionInit
  */
 export function isFunctionHasCallInInitPath(callName: string, initPath: FunctionInitPath): boolean {
   return initPath.some((node) => {
-    if (node.type !== AST.CallExpression) {
-      return false;
-    }
-
+    if (node.type !== AST.CallExpression) return false;
     const callee = Extract.unwrap(node.callee);
-
     // Check direct function calls: memo(...)
-    if (Check.isIdentifier(callee)) {
-      return callee.name === callName;
-    }
-
+    if (Check.isIdentifier(callee)) return callee.name === callName;
     // Check member expressions: React.memo(...)
-    if (callee.type === AST.MemberExpression && "name" in callee.property) {
-      return callee.property.name === callName;
-    }
-
+    if (callee.type === AST.MemberExpression && "name" in callee.property) return callee.property.name === callName;
     return false;
   });
 }

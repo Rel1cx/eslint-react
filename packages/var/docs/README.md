@@ -11,8 +11,8 @@
 
 | Function                                                                          | Description                                                                                                |
 | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| [isValueEqual](functions/isValueEqual.md)                                         | Check if the value of a node equals the value of another node.                                             |
+| [isValueEqual](functions/isValueEqual.md)                                         | Check if two nodes have equal values.                                                                      |
 | [resolve](functions/resolve.md)                                                   | Resolve an identifier to the AST node that represents its value, suitable for use in ESLint rule analysis. |
-| [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md) | Resolve the enclosing assignment target (variable, property, etc.) of a node.                              |
+| [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md) | Resolve the enclosing assignment target (variable, property, etc.) of the node.                            |
 | [resolveImportSource](functions/resolveImportSource.md)                           | Resolve the import source of a variable by walking its latest definition.                                  |
-| [resolveObjectType](functions/resolveObjectType.md)                               | Resolve the object type of the given node.                                                                 |
+| [resolveObjectType](functions/resolveObjectType.md)                               | Resolve the object type of the node.                                                                       |

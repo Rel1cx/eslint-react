@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { globSync } from "tinyglobby";
 import { defineConfig } from "tsl";
 import { noDuplicateExports, noDuplicateImports, noMultilineTemplateExpressionWithoutAutoDedent, noUnsafeAs, nullish } from "tsl-dx";

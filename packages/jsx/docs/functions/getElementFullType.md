@@ -16,12 +16,12 @@ Get the string representation of a JSX element's type.
 
 ## Parameters
 
-| Parameter | Type                     | Description                           |
-| --------- | ------------------------ | ------------------------------------- |
-| `node`    | `TSESTreeJSXElementLike` | A `JSXElement` or `JSXFragment` node. |
+| Parameter | Type                     | Description                             |
+| --------- | ------------------------ | --------------------------------------- |
+| `node`    | `TSESTreeJSXElementLike` | The `JSXElement` or `JSXFragment` node. |
 
 ## Returns
 
 `string`
 
-The fully-qualified element type string.
+The fully qualified element type string.
