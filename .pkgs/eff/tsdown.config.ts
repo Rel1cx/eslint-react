@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { buildConfig } from "@local/configs/tsdown.config.base";
 import type { UserConfig } from "tsdown";
 
