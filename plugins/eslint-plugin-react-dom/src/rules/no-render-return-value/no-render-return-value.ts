@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import type { RuleContext, RuleFeature, RuleListener } from "@eslint-react/eslint";
+import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-render-return-value";
@@ -41,9 +42,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Sets to track imported names for 'ReactDOM' and 'render'
-  const reactDomNames = new Set<string>(["ReactDOM", "ReactDOM"]);
-  const renderNames = new Set<string>();
+  // Track local binding names of imports from 'react-dom', with 'ReactDOM' as a builtin namespace binding.
+  const imports = createImportLookup(context.sourceCode.ast, {
+    source: "react-dom",
+    builtinNamespaces: ["ReactDOM"],
+  });
 
   return {
     // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
@@ -52,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       switch (true) {
         // Handles direct calls to 'render' (ex: from `import { render } from 'react-dom'`)
         case Check.isIdentifier(callee)
-          && renderNames.has(callee.name)
+          && imports.has(callee.name, "render")
           // Check if the return value is being used
           && isReturnValueUsed(node):
           context.report({
@@ -64,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
-          && reactDomNames.has(callee.object.name)
+          && imports.hasNamespace(callee.object.name)
           // Check if the return value is being used
           && isReturnValueUsed(node):
           context.report({
@@ -72,28 +75,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             node,
           });
           return;
-      }
-    },
-    // Tracks imports from 'react-dom' to identify 'ReactDOM' and 'render' related identifiers
-    ImportDeclaration(node) {
-      // Check if the import source is 'react-dom' or 'react-dom/client'
-      const [baseSource] = node.source.value.split("/");
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // Handles named imports like `import { render } from 'react-dom'`
-          case AST.ImportSpecifier:
-            if (!Check.isIdentifier(specifier.imported)) continue;
-            if (specifier.imported.name === "render") {
-              renderNames.add(specifier.local.name);
-            }
-            continue;
-          // Handles default or namespace imports like `import ReactDOM from 'react-dom'`
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
-        }
       }
     },
   };

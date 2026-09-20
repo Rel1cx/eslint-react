@@ -4,6 +4,24 @@
 
 ```ts
 function resolveEnclosingAssignmentTarget(node: Node):
+  | FunctionDeclarationWithName
+  | TSDeclareFunctionNoDeclare
+  | TSDeclareFunctionWithDeclare
+  | TSEnumDeclaration
+  | TSInterfaceDeclaration
+  | TSModuleDeclarationGlobal
+  | TSModuleDeclarationModuleWithIdentifierId
+  | TSModuleDeclarationModuleWithStringIdDeclared
+  | TSModuleDeclarationModuleWithStringIdNotDeclared
+  | TSModuleDeclarationNamespace
+  | TSTypeAliasDeclaration
+  | ConstDeclaration
+  | LetOrVarDeclaredDeclaration
+  | LetOrVarNonDeclaredDeclaration
+  | UsingInForOfDeclaration
+  | UsingInNormalContextDeclaration
+  | StringLiteral
+  | Identifier
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody
@@ -17,10 +35,8 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | ClassDeclarationWithOptionalName
   | ClassExpression
   | ConditionalExpression
-  | FunctionDeclarationWithName
   | FunctionDeclarationWithOptionalName
   | FunctionExpression
-  | Identifier
   | ImportExpression
   | JSXElement
   | JSXFragment
@@ -29,7 +45,6 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | NullLiteral
   | NumberLiteral
   | RegExpLiteral
-  | StringLiteral
   | LogicalExpression
   | MemberExpressionComputedName
   | MemberExpressionNonComputedName
@@ -44,19 +59,9 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | TemplateLiteral
   | ThisExpression
   | TSAsExpression
-  | TSDeclareFunctionNoDeclare
-  | TSDeclareFunctionWithDeclare
-  | TSEnumDeclaration
   | TSInstantiationExpression
-  | TSInterfaceDeclaration
-  | TSModuleDeclarationGlobal
-  | TSModuleDeclarationModuleWithIdentifierId
-  | TSModuleDeclarationModuleWithStringIdDeclared
-  | TSModuleDeclarationModuleWithStringIdNotDeclared
-  | TSModuleDeclarationNamespace
   | TSNonNullExpression
   | TSSatisfiesExpression
-  | TSTypeAliasDeclaration
   | TSTypeAssertion
   | UnaryExpressionBitwiseNot
   | UnaryExpressionDelete
@@ -66,11 +71,6 @@ function resolveEnclosingAssignmentTarget(node: Node):
   | UnaryExpressionTypeof
   | UnaryExpressionVoid
   | UpdateExpression
-  | ConstDeclaration
-  | LetOrVarDeclaredDeclaration
-  | LetOrVarNonDeclaredDeclaration
-  | UsingInForOfDeclaration
-  | UsingInNormalContextDeclaration
   | YieldNoStarExpression
   | YieldStarExpression
   | null;
@@ -86,6 +86,24 @@ Resolve the enclosing assignment target (variable, property, etc.) of the node.
 
 ## Returns
 
+\| `FunctionDeclarationWithName`
+\| `TSDeclareFunctionNoDeclare`
+\| `TSDeclareFunctionWithDeclare`
+\| `TSEnumDeclaration`
+\| `TSInterfaceDeclaration`
+\| `TSModuleDeclarationGlobal`
+\| `TSModuleDeclarationModuleWithIdentifierId`
+\| `TSModuleDeclarationModuleWithStringIdDeclared`
+\| `TSModuleDeclarationModuleWithStringIdNotDeclared`
+\| `TSModuleDeclarationNamespace`
+\| `TSTypeAliasDeclaration`
+\| `ConstDeclaration`
+\| `LetOrVarDeclaredDeclaration`
+\| `LetOrVarNonDeclaredDeclaration`
+\| `UsingInForOfDeclaration`
+\| `UsingInNormalContextDeclaration`
+\| `StringLiteral`
+\| `Identifier`
 \| `ArrayExpression`
 \| `ArrayPattern`
 \| `ArrowFunctionExpressionWithBlockBody`
@@ -99,10 +117,8 @@ Resolve the enclosing assignment target (variable, property, etc.) of the node.
 \| `ClassDeclarationWithOptionalName`
 \| `ClassExpression`
 \| `ConditionalExpression`
-\| `FunctionDeclarationWithName`
 \| `FunctionDeclarationWithOptionalName`
 \| `FunctionExpression`
-\| `Identifier`
 \| `ImportExpression`
 \| `JSXElement`
 \| `JSXFragment`
@@ -111,7 +127,6 @@ Resolve the enclosing assignment target (variable, property, etc.) of the node.
 \| `NullLiteral`
 \| `NumberLiteral`
 \| `RegExpLiteral`
-\| `StringLiteral`
 \| `LogicalExpression`
 \| `MemberExpressionComputedName`
 \| `MemberExpressionNonComputedName`
@@ -126,19 +141,9 @@ Resolve the enclosing assignment target (variable, property, etc.) of the node.
 \| `TemplateLiteral`
 \| `ThisExpression`
 \| `TSAsExpression`
-\| `TSDeclareFunctionNoDeclare`
-\| `TSDeclareFunctionWithDeclare`
-\| `TSEnumDeclaration`
 \| `TSInstantiationExpression`
-\| `TSInterfaceDeclaration`
-\| `TSModuleDeclarationGlobal`
-\| `TSModuleDeclarationModuleWithIdentifierId`
-\| `TSModuleDeclarationModuleWithStringIdDeclared`
-\| `TSModuleDeclarationModuleWithStringIdNotDeclared`
-\| `TSModuleDeclarationNamespace`
 \| `TSNonNullExpression`
 \| `TSSatisfiesExpression`
-\| `TSTypeAliasDeclaration`
 \| `TSTypeAssertion`
 \| `UnaryExpressionBitwiseNot`
 \| `UnaryExpressionDelete`
@@ -148,11 +153,6 @@ Resolve the enclosing assignment target (variable, property, etc.) of the node.
 \| `UnaryExpressionTypeof`
 \| `UnaryExpressionVoid`
 \| `UpdateExpression`
-\| `ConstDeclaration`
-\| `LetOrVarDeclaredDeclaration`
-\| `LetOrVarNonDeclaredDeclaration`
-\| `UsingInForOfDeclaration`
-\| `UsingInNormalContextDeclaration`
 \| `YieldNoStarExpression`
 \| `YieldStarExpression`
 \| `null`
