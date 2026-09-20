@@ -2,7 +2,7 @@
 
 ## What Is a Fact-Based Rule?
 
-TODO.
+A fact-based rule cannot decide whether code is a violation from a single AST node — the verdict depends on correlating evidence gathered at distant sites in the file (e.g. a mutation is only a violation when the mutated binding originates from props or state). Instead of reporting directly from visitors, the rule splits the work into a pipeline: collect raw facts during traversal, resolve what each fact refers to (origins), infer typed effects from facts + origins, and report in one place at `Program:exit`. Used by `globals`, `immutability`, and `refs`.
 
 ## Directory Structure
 
@@ -15,6 +15,8 @@ src/rules/<rule-name>/
 ├── lib.ts               # Pure AST helpers (no RuleContext, no rule state)
 └── <rule-name>.spec.ts  # Tests
 ```
+
+Only the pattern-specific files are shown; every rule directory also contains the standard `<rule-name>.mdx`, `CHANGELOG.md`, `<rule-name>.spec.md`, and `<rule-name>.spec.diff.md` files.
 
 Add a layer only when the rule file would otherwise own that responsibility. `immutability` uses all four; `globals` needs no resolver state beyond two pure functions in `origins.ts`.
 
@@ -30,7 +32,7 @@ Answers "what does this identifier/member actually refer to?": global-or-module 
 
 ### `effects.ts` — inference, no reporting
 
-Pure functions that turn facts into typed effect/violation objects with a `kind` discriminant. They never call `context.report`; they return data and let the rule file report, which keeps inference testable and makes multi-site reporting a rule-file concern.
+Functions that turn facts into typed effect/violation objects (usually with a `kind` discriminant; `immutability` instead keeps its `kind` discriminants on the origin types in `origins.ts`). They take `RuleContext` where scope lookups are needed, but they never call `context.report`; they return data and let the rule file report, which keeps inference testable and makes multi-site reporting a rule-file concern.
 
 ### `<rule-name>.ts` — orchestration and reporting
 
@@ -38,4 +40,11 @@ The rule file merges the `@eslint-react/core` collectors with the rule's own, ru
 
 ## When to Use This Pattern
 
-TODO.
+Reach for this pattern when a rule meets most of the following:
+
+- The violation depends on **provenance**: where a binding came from matters as much as what happens to it (props/state origins, global-or-module bindings, ref-holding variables).
+- Evidence must be **correlated across distant sites** — declarations, assignments, and uses that simple ancestor walks cannot connect.
+- Reporting happens at **multiple sites** for one logical violation, so keeping `context.report` out of the inference layer avoids scattered, duplicated report logic.
+- The inference logic is complex enough to deserve **isolated unit tests** against plain data (facts in, effects out).
+
+Do not use it for rules where a single visitor with local state (term-based fast path) or one `@eslint-react/core` collector suffices — the extra layers only earn their keep when interpretation would otherwise tangle with traversal.

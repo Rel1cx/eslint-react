@@ -85,8 +85,8 @@ All `react-web-api` rules use a **collect-and-match** pattern: a `:function` / `
 ```ts
 export function create(context: RichContext<MessageID, []>): RuleListener {
   const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
-  const aEntries: AddEntry[] = [];
-  const rEntries: RemoveEntry[] = [];
+  const aEntries: AEntry[] = [];
+  const rEntries: REntry[] = [];
 
   return {
     [":function"](node: TSESTreeFunction) {
@@ -107,12 +107,12 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
 
 ## `react-x` Patterns
 
-| Pattern                   | Description                                                                      | Example                             |
-| ------------------------- | -------------------------------------------------------------------------------- | ----------------------------------- |
-| Simple check rules        | Detect an AST pattern and report immediately.                                    | `no-children-to-array`              |
-| State-tracking rules      | Maintain local flags across visitors.                                            | `no-missing-key`                    |
-| Component-collector rules | Use `core.getFunctionComponentCollector(context)` and process at `Program:exit`. | `no-unstable-context-value`         |
-| CFG rules                 | Use ESLint code-path analysis.                                                   | `exhaustive-deps`, `rules-of-hooks` |
+| Pattern                   | Description                                                                      | Example                     |
+| ------------------------- | -------------------------------------------------------------------------------- | --------------------------- |
+| Simple check rules        | Detect an AST pattern and report immediately.                                    | `no-children-to-array`      |
+| State-tracking rules      | Maintain local flags across visitors.                                            | `no-missing-key`            |
+| Component-collector rules | Use `core.getFunctionComponentCollector(context)` and process at `Program:exit`. | `no-unstable-context-value` |
+| CFG rules                 | Use ESLint code-path analysis (`onCodePathStart` / segment events).              | `rules-of-hooks`            |
 
 Component-collector example:
 

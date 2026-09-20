@@ -2,15 +2,15 @@
 
 This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 
-| Alias | Target    | Purpose                                               |
-| ----- | --------- | ----------------------------------------------------- |
-| `@/`  | `./src/*` | Current package's source tree.                        |
-| `#/`  | `../../*` | Workspace root — test helpers and build scripts only. |
+| Alias | Target    | Purpose                                                              |
+| ----- | --------- | -------------------------------------------------------------------- |
+| `@/`  | `./src/*` | Current plugin's source tree (only `plugins/*` tsconfigs define it). |
+| `#/`  | `../../*` | Workspace root — test helpers and build scripts only.                |
 
 ## Usage
 
 ```ts
-// Inside a package's src/
+// Inside a plugin's src/ (packages/* do not define the `@/` alias)
 import { createRule } from "@/utils/create-rule"; // 🟢 Preferred
 import { createRule } from "../../utils/create-rule"; // 🔴 Avoid
 
@@ -32,7 +32,7 @@ Per-plugin `tsconfig.json`:
 
 ```json
 {
-  "extends": ["@local/configs/tsconfig.base.json"],
+  "extends": ["@local/configs/tsconfig.base.json", "@tsconfig/node24/tsconfig.json"],
   "compilerOptions": {
     "paths": {
       "@": ["./src"],
@@ -44,6 +44,8 @@ Per-plugin `tsconfig.json`:
   "include": ["src"]
 }
 ```
+
+(Other compiler options and the `exclude` array are omitted for brevity.)
 
 The workspace root `tsconfig.json` only declares `#` / `#/*` for root-level files.
 

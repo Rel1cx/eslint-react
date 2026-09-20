@@ -36,6 +36,8 @@ Label taxonomy for `Rel1cx/eslint-react` issues and pull requests.
 | `area: compiler`  | `#C5DEF5` | React Compiler SPEC alignment    |
 | `area: website`   | `#B4E9FF` | Documentation website            |
 
+Note: `area:` labels currently cover only a subset of the repo. There are no dedicated labels for `eslint-plugin-react-debug`, `eslint-plugin-react-naming-convention`, `eslint-plugin-react-rsc`, `eslint-plugin-react-web-api`, the meta `eslint-plugin`, or most `packages/*`; use `area: core` or the closest match until new labels are added. `area: compiler` is a cross-cutting concern (the compiler-SPEC rules live in `eslint-plugin-react-x`), not a package of its own.
+
 ### `status:` — Maintainer workflow state
 
 | Label                    | Color     | Description                              |
@@ -115,3 +117,5 @@ When closing an issue:
 | `Good First Issue`          | `good first issue`       |
 | `Duplicate`                 | `duplicate`              |
 | `Wontfix`                   | `wontfix`                |
+
+Dependabot still applies its default labels (`dependencies`, `github_actions`, `javascript`) on its own PRs; these coexist with `type: dependencies` and are not part of the curated taxonomy above.

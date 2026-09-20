@@ -39,6 +39,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
   - `strict.ts`
   - `strict-typescript.ts`
   - `strict-type-checked.ts`
+  - `disable-type-checked.ts`
   - `disable-experimental.ts`
 
 ### A7. Preset Configs (`@eslint-react/eslint-plugin`)
@@ -56,9 +57,9 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### A9. Verify
 
-- [ ] `pnpm tsc --noEmit`
-- [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts`
-- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "<old-name>" plugins/ packages/` — no leftover references
+- [ ] `pnpm tsc --noEmit` (run from the repo root)
+- [ ] `pnpm vitest run src/rules/<new-name>/<new-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
+- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "<old-name>" plugins/ packages/` — no leftover references (run from the repo root)
 
 ---
 
@@ -111,9 +112,9 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### B8. Verify
 
-- [ ] `pnpm tsc --noEmit` in all affected packages.
-- [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts`
-- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "react-<source>/<rule-name>" plugins/ packages/` — no stale references
+- [ ] `pnpm tsc --noEmit` in all affected packages (run from each package directory, or from the repo root).
+- [ ] `pnpm vitest run src/rules/<rule-name>/<rule-name>.spec.ts` (run from `plugins/eslint-plugin-react-x/`)
+- [ ] `grep -r --exclude-dir=node_modules --exclude-dir=dist "react-<source>/<rule-name>" plugins/ packages/` — no stale references (run from the repo root)
 
 ---
 
@@ -139,7 +140,7 @@ react-x/<rule-name>
 
 **Features**
 
-`⚙️` ← use `🔧` for fixable, `🔄` for codemod, `🧪` for experimental rules
+`⚙️` ← one badge per entry in `RULE_FEATURES`: `⚙️` = CFG (configurable), `🐞` = DBG (debugging), `🔧` = FIX (fixable), `🔄` = MOD (codemod), `💭` = TSC (type checking), `🧪` = EXP (experimental). List every badge that applies.
 
 **Presets**
 

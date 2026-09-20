@@ -50,9 +50,10 @@ Used by: `set-state-in-effect`, `no-leaked-fetch` (second check), `no-leaked-eve
 ### Non-identifier substring check
 
 ```ts
-if (!context.hasText("key=")) return {}; // no-duplicate-key
+if (!context.hasText("$")) return {}; // no-leaked-dollar
 if (!context.hasText("&&")) return {}; // no-leaked-conditional-rendering
 if (!context.hasText("try")) return {}; // error-boundaries
+if (!context.hasText("key=")) return {}; // no-duplicate-key, no-key-after-spread
 ```
 
 ## Version Gating
@@ -120,8 +121,8 @@ Stack-based example:
 export function create(context: RichContext<MessageID, []>): RuleListener {
   if (!context.hasText("setState")) return {};
 
-  const classStack: [node: ClassNode, isComponent: boolean][] = [];
-  const methodStack: [node: MethodNode, isStatic: boolean][] = [];
+  const classStack: [node: TSESTree.ClassDeclaration | TSESTree.ClassExpression, isComponent: boolean][] = [];
+  const methodStack: [node: TSESTreeMethodOrPropertyDefinition, isStatic: boolean][] = [];
   const setStateStack: [node: CallExpression, hasThisState: boolean][] = [];
 
   return {
@@ -195,10 +196,12 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
 | `no-dangerously-set-innerhtml`               | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
 | `no-dangerously-set-innerhtml-with-children` | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
 | `no-find-dom-node`                           | `react-dom`         | `includes("findDOMNode")`                            | —           | `CallExpression` immediate                     |
-| `no-flush-sync`                              | `react-dom`         | `includes("flushSync")`                              | —           | `CallExpression` immediate                     |
+| `no-flush-sync`                              | `react-dom`         | `includes("flushSync")`                              | —           | Import-tracking                                |
 | `no-hydrate`                                 | `react-dom`         | `includes("hydrate")`                                | `>= 18.0.0` | Import-tracking                                |
 | `no-render`                                  | `react-dom`         | `includes("render")`                                 | `>= 18.0.0` | Import-tracking                                |
 | `no-use-form-state`                          | `react-dom`         | `includes("useFormState")`                           | `>= 19.0.0` | Import-tracking                                |
+| `no-key-after-spread`                        | `react-jsx`         | `includes("key=")`                                   | —           | `JSXOpeningElement` immediate                  |
+| `no-leaked-dollar`                           | `react-jsx`         | `includes("$")`                                      | —           | `JSXElement`/`JSXFragment` immediate           |
 | `context-name`                               | `naming-convention` | `includes("createContext")`                          | —           | `CallExpression` immediate                     |
 | `id-name`                                    | `naming-convention` | `includes("useId")`                                  | —           | `CallExpression` immediate                     |
 | `function-definition`                        | `react-rsc`         | `includes("use server") \|\| includes("use client")` | —           | Directive-aware traversal                      |
