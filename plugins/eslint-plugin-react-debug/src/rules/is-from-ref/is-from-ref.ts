@@ -33,17 +33,17 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
   function visit(node: TSESTree.Identifier | TSESTree.JSXIdentifier) {
     const initialScope = context.src.getScope(node);
     const refInit = getRefInitNode(context, node, initialScope);
-    if (refInit != null) {
-      const json = stringify({
-        name: node.name,
-        init: context.getText(refInit),
-      });
-      context.report({
-        data: { json },
-        messageId: "default",
-        node,
-      });
-    }
+    if (refInit == null) return;
+    context.report({
+      data: {
+        json: stringify({
+          name: node.name,
+          init: context.getText(refInit),
+        }),
+      },
+      messageId: "default",
+      node,
+    });
   }
   return { Identifier: visit, JSXIdentifier: visit };
 }

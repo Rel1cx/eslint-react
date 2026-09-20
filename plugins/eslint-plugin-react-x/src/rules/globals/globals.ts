@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RichContext, buildRichContext } from "@eslint-react/core";
 import { type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { match } from "ts-pattern";
-import { createGlobalsCollector } from "./collect";
+import { createFactCollector } from "./collect";
 import { type GlobalMutationEffect, collectReachableEffects, inferCallGraph, inferGlobalMutations } from "./effects";
 
 export const RULE_NAME = "globals";
@@ -39,16 +39,16 @@ export default createRule<[], MessageID>({
 export function create(context: RichContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const comps = core.getFunctionComponentCollector(context);
-  const globs = createGlobalsCollector();
+  const facts = createFactCollector();
 
   return merge(
     hooks.visitor,
     comps.visitor,
-    globs.visitor,
+    facts.visitor,
     {
       "Program:exit"() {
-        const directEffects = inferGlobalMutations(context, globs.facts);
-        const callGraph = inferCallGraph(context, globs.facts.callEdges);
+        const directEffects = inferGlobalMutations(context, facts.facts);
+        const callGraph = inferCallGraph(context, facts.facts.callEdges);
 
         for (const effect of collectReachableEffects(context, directEffects, callGraph)) {
           const data = effect.method == null ? { name: effect.name } : { name: effect.name, method: effect.method };

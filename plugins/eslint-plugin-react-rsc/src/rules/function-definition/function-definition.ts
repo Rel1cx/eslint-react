@@ -6,7 +6,8 @@ import { type RichContext, buildRichContext } from "@eslint-react/core";
 import { type ReportFixFunction, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { P, isMatching } from "ts-pattern";
+import type * as tseslint from "@typescript-eslint/utils/ts-eslint";
+import { matchDirective } from "./lib";
 
 export const RULE_NAME = "function-definition";
 
@@ -47,42 +48,6 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
-type DirectiveName = "use client" | "use server";
-
-interface DirectiveMatch {
-  /**
-   * - `well-formed`: a string literal recognized by the parser as a directive
-   * - `misplaced`: a string literal that appears after other code, so the parser did not treat it as a directive
-   * - `backtick`: a template literal, which is never a valid directive
-   */
-  kind: "backtick" | "misplaced" | "well-formed";
-  name: DirectiveName;
-  node: TSESTree.ExpressionStatement;
-}
-
-function isDirectiveName(value: unknown): value is DirectiveName {
-  return value === "use client" || value === "use server";
-}
-
-function matchDirective(stmt: TSESTree.Statement): DirectiveMatch | null {
-  if (stmt.type !== AST.ExpressionStatement) return null;
-  const { expression } = stmt;
-  if (isMatching({ type: AST.Literal, value: P.string }, expression)) {
-    if (!isDirectiveName(expression.value)) return null;
-    return {
-      kind: stmt.directive != null ? "well-formed" : "misplaced",
-      name: expression.value,
-      node: stmt,
-    };
-  }
-  if (expression.type === AST.TemplateLiteral && expression.expressions.length === 0 && expression.quasis.length === 1) {
-    const value = expression.quasis[0]?.value.cooked;
-    if (!isDirectiveName(value)) return null;
-    return { kind: "backtick", name: value, node: stmt };
-  }
-  return null;
-}
-
 export function create(context: RichContext<MessageID, []>): RuleListener {
   // Fast path: skip if neither `use server` nor `use client` is present
   if (!context.hasText("use server") && !context.hasText("use client")) return {};
@@ -90,44 +55,11 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
   const src = context.src;
   const hasFileLevelUseServerDirective = src.ast.body.some((stmt) => Check.isDirective(stmt, "use server"));
 
-  function buildFixForAsync(node: TSESTreeFunction): ReportFixFunction | null {
-    // Arrow functions: insert before the node (before parameters)
-    if (node.type === AST.ArrowFunctionExpression) {
-      return (fixer) => fixer.insertTextBefore(node, "async ");
-    }
-    if (node.type === AST.FunctionExpression) {
-      const { parent } = node;
-      if (parent.type === AST.Property && parent.value === node) {
-        if (parent.kind !== "init") return null;
-        if (parent.method) return (fixer) => fixer.insertTextBefore(parent, "async ");
-      }
-      if (parent.type === AST.MethodDefinition && parent.value === node) {
-        if (parent.kind !== "method") return null;
-        let target: TSESTree.Node | TSESTree.Token = parent.key;
-        if (parent.computed) {
-          const openBracket = src.getTokenBefore(parent.key);
-          if (openBracket?.value !== "[") return null;
-          target = openBracket;
-        }
-        if (node.generator) {
-          const star = src.getTokenBefore(target);
-          if (star?.value !== "*") return null;
-          target = star;
-        }
-        return (fixer) => fixer.insertTextBefore(target, "async ");
-      }
-    }
-    // Function declarations/expressions: insert before the "function" token
-    const functionToken = src.getFirstToken(node);
-    if (functionToken == null) return null;
-    return (fixer) => fixer.insertTextBefore(functionToken, "async ");
-  }
-
   function reportNonAsyncFunction(node: TSESTree.Node | null, messageId: MessageID) {
     if (node == null) return;
     const fn = Extract.unwrap(node);
     if (!Check.isFunction(fn) || fn.async) return;
-    context.report({ fix: buildFixForAsync(fn), messageId, node: fn });
+    context.report({ fix: buildFixForAsync(src, fn), messageId, node: fn });
   }
 
   function checkFileDirectives(program: TSESTree.Program) {
@@ -162,6 +94,39 @@ export function create(context: RichContext<MessageID, []>): RuleListener {
     if (core.isFunctionHasDirective(node, "use server")) {
       reportNonAsyncFunction(node, "local");
     }
+  }
+
+  function buildFixForAsync(sourceCode: tseslint.SourceCode, node: TSESTreeFunction): ReportFixFunction | null {
+    // Arrow functions: insert before the node (before parameters)
+    if (node.type === AST.ArrowFunctionExpression) {
+      return (fixer) => fixer.insertTextBefore(node, "async ");
+    }
+    if (node.type === AST.FunctionExpression) {
+      const { parent } = node;
+      if (parent.type === AST.Property && parent.value === node) {
+        if (parent.kind !== "init") return null;
+        if (parent.method) return (fixer) => fixer.insertTextBefore(parent, "async ");
+      }
+      if (parent.type === AST.MethodDefinition && parent.value === node) {
+        if (parent.kind !== "method") return null;
+        let target: TSESTree.Node | TSESTree.Token = parent.key;
+        if (parent.computed) {
+          const openBracket = sourceCode.getTokenBefore(parent.key);
+          if (openBracket?.value !== "[") return null;
+          target = openBracket;
+        }
+        if (node.generator) {
+          const star = sourceCode.getTokenBefore(target);
+          if (star?.value !== "*") return null;
+          target = star;
+        }
+        return (fixer) => fixer.insertTextBefore(target, "async ");
+      }
+    }
+    // Function declarations/expressions: insert before the "function" token
+    const functionToken = sourceCode.getFirstToken(node);
+    if (functionToken == null) return null;
+    return (fixer) => fixer.insertTextBefore(functionToken, "async ");
   }
 
   return {

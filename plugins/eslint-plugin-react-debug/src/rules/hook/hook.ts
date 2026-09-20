@@ -31,7 +31,6 @@ export default createRule<[], MessageID>({
 
 export function create(context: RichContext<MessageID, []>): RuleListener {
   const { api, visitor } = core.getHookCollector(context);
-
   return merge(
     visitor,
     {

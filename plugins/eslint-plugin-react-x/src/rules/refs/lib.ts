@@ -1,7 +1,5 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
-import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 const SYNC_ARRAY_CALLBACKS = new Set([
   "every",
@@ -25,199 +23,15 @@ export type RefAccess = {
   node: TSESTree.MemberExpression;
 };
 
-export type Variable = NonNullable<ReturnType<typeof findVariable>>;
+export type NullCheckBranch = "alternate" | "consequent";
 
-type PositionedValue<T> = {
-  position: number;
-  value: T;
-};
+export type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
 
-type BindingValue =
-  | { kind: "function"; node: TSESTreeFunction }
-  | { kind: "ref" }
-  | { kind: "unknown" }
-  | { kind: "variable"; variable: Variable };
-
-type BindingEvent = PositionedValue<BindingValue>;
-
-type NullCheckBranch = "alternate" | "consequent";
-
-type GetNullBranch = (test: TSESTree.Expression) => NullCheckBranch | null;
-
-// Binding resolution
-
-export function createBindingResolver(context: core.RichContext) {
-  const { additionalRefHooks } = context.settings;
-  const bindings = new Map<Variable, BindingEvent[]>();
-  const memberBindings = new Map<Variable, Map<string, BindingEvent[]>>();
-  const jsxRefs = new Set<Variable>();
-
-  function getVariable(node: TSESTree.Identifier): Variable | null {
-    const src = context.src;
-    return findVariable(src.getScope(node), node) ?? null;
-  }
-
-  function getBindingValue(node: TSESTree.Node): BindingValue {
-    const value = Extract.unwrap(node);
-    if (Check.isIdentifier(value)) {
-      const variable = getVariable(value);
-      return variable == null ? { kind: "unknown" } : { kind: "variable", variable };
-    }
-    if (isFunctionExpressionLike(value)) return { kind: "function", node: value };
-    if (value.type === AST.CallExpression && (core.isUseRefLikeCall(value, additionalRefHooks) || core.isCreateRefCall(context, value))) {
-      return { kind: "ref" };
-    }
-    if (value.type === AST.MemberExpression && Check.isIdentifier(value.property)) {
-      if (isRefLikeName(value.property.name)) return { kind: "ref" };
-    }
-    return { kind: "unknown" };
-  }
-
-  function addBinding(variable: Variable, value: BindingValue, position: number) {
-    const events = bindings.get(variable) ?? [];
-    bindings.set(variable, events);
-    events.push({ position, value });
-  }
-
-  function addIdentifierBinding(node: TSESTree.Identifier, value: TSESTree.Node, position = node.range[0]) {
-    const variable = getVariable(node);
-    if (variable != null) addBinding(variable, getBindingValue(value), position);
-  }
-
-  function addFunctionBinding(node: TSESTree.Identifier, value: TSESTreeFunction, position: number) {
-    const variable = getVariable(node);
-    if (variable != null) addBinding(variable, { kind: "function", node: value }, position);
-  }
-
-  function addMemberBinding(object: TSESTree.Identifier, property: string, value: TSESTree.Node, position: number) {
-    const variable = getVariable(object);
-    if (variable == null) return;
-    const properties = memberBindings.get(variable) ?? new Map<string, BindingEvent[]>();
-    memberBindings.set(variable, properties);
-    const events = properties.get(property) ?? [];
-    properties.set(property, events);
-    events.push({ position, value: getBindingValue(value) });
-  }
-
-  function addJsxRef(node: TSESTree.Identifier) {
-    const variable = getVariable(node);
-    if (variable != null) jsxRefs.add(variable);
-  }
-
-  function resolveRef(variable: Variable, position: number, seen = new Set<Variable>()): Variable | null {
-    if (seen.has(variable)) return null;
-    seen.add(variable);
-    if (jsxRefs.has(variable) || isRefLikeName(variable.name)) return variable;
-    const event = getLatestValue(bindings.get(variable), position);
-    if (event != null) {
-      switch (event.value.kind) {
-        case "ref":
-          return variable;
-        case "variable":
-          return resolveRef(event.value.variable, event.position, seen);
-        case "function":
-        case "unknown":
-          return null;
-      }
-    }
-    return null;
-  }
-
-  function resolveFunction(variable: Variable, position: number, seen = new Set<Variable>()): TSESTreeFunction | null {
-    if (seen.has(variable)) return null;
-    seen.add(variable);
-    const event = getLatestValue(bindings.get(variable), position);
-    if (event == null) return null;
-    switch (event.value.kind) {
-      case "function":
-        return event.value.node;
-      case "variable":
-        return resolveFunction(event.value.variable, event.position, seen);
-      case "ref":
-      case "unknown":
-        return null;
-    }
-  }
-
-  function resolveCallable(node: TSESTree.Node, position: number): TSESTreeFunction | null {
-    const callee = Extract.unwrap(node);
-    if (isFunctionExpressionLike(callee)) return callee;
-    if (Check.isIdentifier(callee)) {
-      const variable = getVariable(callee);
-      return variable == null ? null : resolveFunction(variable, position);
-    }
-    if (callee.type !== AST.MemberExpression || !Check.isIdentifier(callee.property)) return null;
-    const object = Extract.unwrap(callee.object);
-    const property = callee.property.name;
-    if (!Check.isIdentifier(object)) return null;
-    const variable = getVariable(object);
-    if (variable == null) return null;
-    const event = getLatestValue(memberBindings.get(variable)?.get(property), position);
-    if (event == null) return null;
-    if (event.value.kind === "function") return event.value.node;
-    if (event.value.kind === "variable") return resolveFunction(event.value.variable, event.position);
-    return null;
-  }
-
-  function getRefTarget(node: TSESTree.MemberExpression): { identity: Variable | null } | null {
-    const object = Extract.unwrap(node.object);
-    if (Check.isIdentifier(object)) {
-      const variable = getVariable(object);
-      if (variable == null) return null;
-      const identity = resolveRef(variable, node.range[0]);
-      return identity == null ? null : { identity };
-    }
-    if (object.type === AST.MemberExpression && Check.isIdentifier(object.property)) {
-      if (isRefLikeName(object.property.name)) return { identity: null };
-    }
-    return null;
-  }
-
-  function getNullBranch(test: TSESTree.Expression, identity: Variable): NullCheckBranch | null {
-    return getNullCheckBranch(
-      test,
-      (candidate) => {
-        if (candidate.type !== AST.MemberExpression) return false;
-        if (!Check.isIdentifier(candidate.property, "current")) return false;
-        return getRefTarget(candidate)?.identity === identity;
-      },
-      (candidate) => {
-        if (candidate.type === AST.Literal) return candidate.value == null;
-        if (candidate.type === AST.UnaryExpression && candidate.operator === "void") return true;
-        if (!Check.isIdentifier(candidate, "undefined")) return false;
-        const variable = getVariable(candidate);
-        return variable == null || variable.defs.length === 0;
-      },
-    );
-  }
-
-  return {
-    addFunctionBinding,
-    addIdentifierBinding,
-    addJsxRef,
-    addMemberBinding,
-    getNullBranch,
-    getRefTarget,
-    getVariable,
-    resolveCallable,
-    resolveRef,
-  };
-}
-
-function getLatestValue<T>(events: PositionedValue<T>[] | undefined, position: number): PositionedValue<T> | null {
-  let latest: PositionedValue<T> | null = null;
-  for (const event of events ?? []) {
-    if (event.position > position) continue;
-    if (latest == null || event.position >= latest.position) latest = event;
-  }
-  return latest;
-}
-
-function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
+export function isFunctionExpressionLike(node: TSESTree.Node): node is TSESTree.FunctionExpression | TSESTree.ArrowFunctionExpression {
   return node.type === AST.FunctionExpression || node.type === AST.ArrowFunctionExpression;
 }
 
-function isRefLikeName(name: string): boolean {
+export function isRefLikeName(name: string): boolean {
   return name === "ref" || name.endsWith("Ref");
 }
 
@@ -301,7 +115,7 @@ function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolean {
  * Truthiness checks such as `!ref.current` are deliberately excluded: falsy ref values are not
  * necessarily uninitialized.
  */
-function getNullCheckBranch(
+export function getNullCheckBranch(
   test: TSESTree.Expression,
   isCheckedValue: (node: TSESTree.Node) => boolean,
   isNullishValue: (node: TSESTree.Node) => boolean,
