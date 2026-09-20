@@ -135,6 +135,22 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
+    // Member expression component with a polymorphic prop (ex: motion.div)
+    {
+      code: tsx`<motion.div as="iframe" />;`,
+      errors: [
+        {
+          messageId: "missingSandboxAttribute",
+          suggestions: [
+            {
+              data: { value: "" },
+              messageId: "addSandboxAttribute",
+              output: tsx`<motion.div sandbox="" as="iframe" />;`,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     '<iframe sandbox="" />;',
@@ -202,5 +218,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe {...{ "sandbox": "allow-downloads" }} />;`,
     // Not an iframe
     tsx`<div sandbox />;`,
+    // Boundary: member expression without a polymorphic prop is not an iframe
+    "<motion.iframe />;",
   ],
 });

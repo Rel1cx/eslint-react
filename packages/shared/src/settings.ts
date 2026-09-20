@@ -85,7 +85,7 @@ export interface ESLintReactSettingsNormalized {
   /** The React Compiler compilation mode, or "off" when not used. */
   compilationMode: ESLintReactSettings["compilationMode"] | "off";
   /** The prop name used for polymorphic components. */
-  polymorphicPropName: string | null;
+  polymorphicPropName: string;
   /** Regex pattern matching custom hooks that should be treated as ref hooks. */
   additionalRefHooks: RegExpLike;
   /** Regex pattern matching custom hooks that should be treated as state hooks. */

@@ -135,6 +135,67 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Polymorphic prop provided via spread props
+    {
+      code: tsx`
+        const props = { as: "a" };
+        <Box {...props} href="https://react.dev" target="_blank"></Box>;
+      `,
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: tsx`
+                const props = { as: "a" };
+                <Box rel="noreferrer noopener" {...props} href="https://react.dev" target="_blank"></Box>;
+              `,
+            },
+          ],
+        },
+      ],
+    },
+    // Member expression component with a polymorphic prop (ex: motion.div)
+    {
+      code: '<motion.div as="a" href="https://react.dev" target="_blank"></motion.div>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<motion.div rel="noreferrer noopener" as="a" href="https://react.dev" target="_blank"></motion.div>',
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
+    // Uppercase polymorphic prop value is normalized to lowercase
+    {
+      code: '<PolyComponent as="A" href="https://react.dev" target="_blank"></PolyComponent>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "addRelNoreferrerNoopener",
+              output: '<PolyComponent rel="noreferrer noopener" as="A" href="https://react.dev" target="_blank"></PolyComponent>',
+            },
+          ],
+        },
+      ],
+      settings: {
+        "react-x": {
+          polymorphicPropName: "as",
+        },
+      },
+    },
     // TODO: Restore Link component test when support for additionalComponents is implemented. See issue #<issue-number>.
     // },
     // {
@@ -391,6 +452,19 @@ ruleTester.run(RULE_NAME, rule, {
     //     },
     //   },
     // },
+    // Boundary: the polymorphic prop on a host element is ignored
+    '<div as="a" href="https://react.dev" target="_blank"></div>',
+    // Boundary: non-string polymorphic prop value falls back to the element name
+    '<Box as={Link} href="https://react.dev" target="_blank"></Box>',
+    // Boundary: later props win, spread 'as' overrides the explicit 'as'
+    {
+      code: tsx`
+        const props = { as: "div" };
+        <Box as="a" {...props} href="https://react.dev" target="_blank"></Box>;
+      `,
+    },
+    // Member expression without a polymorphic prop is not treated as a host element
+    '<motion.a href="https://react.dev" target="_blank"></motion.a>',
     {
       code: '<PolyComponent as="a" href="https://react.dev" target="_blank" rel="noreferrer"></PolyComponent>',
       settings: {
