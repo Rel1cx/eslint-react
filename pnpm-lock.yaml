@@ -1393,6 +1393,9 @@ importers:
       '@eslint-react/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@eslint-react/var':
+        specifier: workspace:*
+        version: link:../../packages/var
       '@typescript-eslint/types':
         specifier: ^8.70.0
         version: 8.70.0

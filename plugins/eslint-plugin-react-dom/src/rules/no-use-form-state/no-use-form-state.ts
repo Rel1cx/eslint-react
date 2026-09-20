@@ -1,7 +1,8 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import type { RuleContext, RuleFeature, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -37,10 +38,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // This rule only applies to React 19.0.0 and above
   if (compare(settings.version, "19.0.0", "<")) return {};
 
-  // Keep track of 'react-dom' import names (ex: 'ReactDOM')
-  const reactDomNames = new Set<string>();
-  // Keep track of local names for 'useFormState' import
-  const useFormStateNames = new Set<string>();
+  // Track local binding names of imports from 'react-dom'.
+  const imports = createImportLookup(context.sourceCode.ast, { source: "react-dom" });
 
   return {
     // This visitor function is called for every function call in the code
@@ -49,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       switch (true) {
         // Case 1: Direct call like `useFormState(...)`
         case Check.isIdentifier(callee)
-          && useFormStateNames.has(callee.name):
+          && imports.has(callee.name, "useFormState"):
           context.report({
             fix: buildFix(context, node),
             messageId: "default",
@@ -60,35 +59,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "useFormState"
-          && reactDomNames.has(callee.object.name):
+          && imports.hasNamespace(callee.object.name):
           context.report({
             fix: buildFix(context, node),
             messageId: "default",
             node,
           });
           return;
-      }
-    },
-    // This visitor function is called for every import declaration
-    ImportDeclaration(node) {
-      const [baseSource] = node.source.value.split("/");
-      // We are only interested in imports from 'react-dom'
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // Handles: import { useFormState } from 'react-dom';
-          case AST.ImportSpecifier:
-            if (!Check.isIdentifier(specifier.imported)) continue;
-            if (specifier.imported.name === "useFormState") {
-              useFormStateNames.add(specifier.local.name);
-            }
-            continue;
-          // Handles: import ReactDOM from 'react-dom'; or import * as ReactDOM from 'react-dom';
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
-        }
       }
     },
   };

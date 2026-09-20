@@ -1,7 +1,8 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import { type RuleContext, type RuleFeature, type RuleFixer, type RuleListener } from "@eslint-react/eslint";
+import type { RuleContext, RuleFeature, RuleFixer, RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { createImportLookup } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 
@@ -37,9 +38,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // This rule only applies to React 18.0.0 and later.
   if (compare(settings.version, "18.0.0", "<")) return {};
 
-  // Keep track of imports from 'react-dom'.
-  const reactDomNames = new Set<string>(); // For `import ReactDOM from 'react-dom'`
-  const hydrateNames = new Set<string>(); // For `import { hydrate } from 'react-dom'`
+  // Track local binding names of imports from 'react-dom'.
+  const imports = createImportLookup(context.sourceCode.ast, { source: "react-dom" });
 
   return {
     CallExpression(node) {
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       switch (true) {
         // Case 1: Direct call to `hydrate()`.
         case Check.isIdentifier(callee)
-          && hydrateNames.has(callee.name):
+          && imports.has(callee.name, "hydrate"):
           context.report({
             fix: buildFix(context, node),
             messageId: "default",
@@ -58,34 +58,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "hydrate"
-          && reactDomNames.has(callee.object.name):
+          && imports.hasNamespace(callee.object.name):
           context.report({
             fix: buildFix(context, node),
             messageId: "default",
             node,
           });
           return;
-      }
-    },
-    ImportDeclaration(node) {
-      const [baseSource] = node.source.value.split("/");
-      // We only care about imports from 'react-dom'
-      if (baseSource !== "react-dom") return;
-      for (const specifier of node.specifiers) {
-        switch (specifier.type) {
-          // `import { hydrate } from 'react-dom'`
-          case AST.ImportSpecifier:
-            if (!Check.isIdentifier(specifier.imported)) continue;
-            if (specifier.imported.name === "hydrate") {
-              hydrateNames.add(specifier.local.name);
-            }
-            continue;
-          // `import ReactDOM from 'react-dom'` or `import * as ReactDOM from 'react-dom'`
-          case AST.ImportDefaultSpecifier:
-          case AST.ImportNamespaceSpecifier:
-            reactDomNames.add(specifier.local.name);
-            continue;
-        }
       }
     },
   };
