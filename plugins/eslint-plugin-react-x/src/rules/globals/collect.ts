@@ -27,7 +27,7 @@ export type GlobalsFacts = {
   writes: WriteFact[];
 };
 
-export function createGlobalsCollector() {
+export function createFactCollector() {
   const facts: GlobalsFacts = {
     callEdges: [],
     methodCalls: [],
