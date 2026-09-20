@@ -2,38 +2,85 @@ import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
- * One entry per local import binding, mirroring the specification's ImportEntry model.
+ * A single local import binding, modeled after the specification's ImportEntry.
  *
- * Entries are the ground truth of the lookup; every query derives from them.
+ * Entries are the ground truth of the lookup: one is recorded per import
+ * specifier (or pre-registered builtin namespace), and every query on
+ * {@link ImportLookup} is answered from them.
  */
 export interface ImportEntry {
-  /** The import form: `"named"` also covers default imports (whose `name` is `"default"`). */
+  /**
+   * The import form.
+   *
+   * `"named"` covers both named imports and default imports; a default import
+   * is distinguished by its {@link ImportEntry.name} being `"default"`.
+   */
   kind: "named" | "namespace";
-  /** The imported export name; `"default"` for default imports, `""` for namespace imports. */
+  /**
+   * The name of the imported export.
+   *
+   * `"default"` for default imports and `""` for namespace imports, which
+   * bind the module as a whole rather than a single export.
+   */
   name: string;
-  /** The local binding name. */
+  /** The local name the import is bound to (the alias when one is used). */
   local: string;
-  /** The decoded module specifier as written, e.g. `"react-dom/client"`. */
+  /** The module specifier as written in the source, e.g. `"react-dom/client"`. */
   specifier: string;
 }
 
+/**
+ * A read-only index over the local import bindings of a program.
+ *
+ * All queries are O(1) or O(k) lookups over indexes built once at creation
+ * time, and results preserve source order.
+ */
 export interface ImportLookup {
-  /** By local name: the import entry a local name is bound to, if any. */
+  /**
+   * Look up the import entry a local name is bound to.
+   *
+   * @param local - The local binding name.
+   * @returns The matching entry, or `undefined` if the name is not imported.
+   */
   binding(local: string): ImportEntry | undefined;
-  /** By imported name: all local bindings of the export `name`, in source order. */
+  /**
+   * Look up all local bindings of a given imported export name.
+   *
+   * @param name - The imported export name (`"default"` for default imports).
+   * @returns The matching entries in source order, possibly empty.
+   */
   bindingsOf(name: string): readonly ImportEntry[];
-  /** Every import entry, in source order. */
+  /** Return every import entry, in source order. */
   all(): readonly ImportEntry[];
-  /** Derived: `local` is bound to the named export `name`. */
+  /**
+   * Check whether a local name is bound to a specific imported export.
+   *
+   * @param local - The local binding name.
+   * @param name - The imported export name.
+   */
   has(local: string, name: string): boolean;
-  /** Derived: `local` is a default or namespace binding. */
+  /**
+   * Check whether a local name is a default or namespace binding, i.e. one
+   * that refers to the module as a whole rather than to a single named export.
+   *
+   * @param local - The local binding name.
+   */
   hasNamespace(local: string): boolean;
 }
 
+/** Options for {@link createImportLookup}. */
 export interface ImportLookupOptions {
-  /** The base import source to track, e.g. `"react-dom"` (`"react-dom/client"` is grouped under `"react-dom"`). */
+  /**
+   * The base import source to track, e.g. `"react-dom"`.
+   *
+   * Subpath imports are grouped under their base, so `"react-dom/client"`
+   * matches a source of `"react-dom"`.
+   */
   source: string;
-  /** Local names to pre-register as namespace bindings (e.g. a `ReactDOM` global that needs no import). */
+  /**
+   * Local names to pre-register as namespace bindings without an import
+   * statement, e.g. a `ReactDOM` global provided by the environment.
+   */
   builtinNamespaces?: readonly string[];
 }
 
@@ -41,9 +88,14 @@ export interface ImportLookupOptions {
  * Create a lookup of local import bindings from a source by scanning the
  * top-level imports of a program.
  *
- * Entries are kept in source order with both indexes (by local name, by imported
- * name) built during the scan, so every query works immediately. Aliases
- * (`import { flushSync as fs }`) are handled naturally.
+ * Entries are kept in source order, and both indexes (by local name and by
+ * imported name) are built during the same scan, so every query works
+ * immediately after creation. Aliases (`import { flushSync as fs }`) are
+ * handled naturally: the alias is the entry's local name.
+ *
+ * @param program - The program whose top-level import declarations to scan.
+ * @param options - The source to track and optional builtin namespaces.
+ * @returns An {@link ImportLookup} over the matching import bindings.
  *
  * @example
  * ```typescript
@@ -78,18 +130,15 @@ export function createImportLookup(program: TSESTree.Program, options: ImportLoo
     if (baseSource !== source) continue;
     for (const specifierNode of statement.specifiers) {
       switch (specifierNode.type) {
-        // `import { flushSync } from 'react-dom'`
         case AST.ImportSpecifier: {
           const { imported, local } = specifierNode;
           if (imported.type !== AST.Identifier) continue;
           add({ kind: "named", name: imported.name, local: local.name, specifier });
           continue;
         }
-        // `import ReactDOM from 'react-dom'`
         case AST.ImportDefaultSpecifier:
           add({ kind: "named", name: "default", local: specifierNode.local.name, specifier });
           continue;
-        // `import * as ReactDOM from 'react-dom'`
         case AST.ImportNamespaceSpecifier:
           add({ kind: "namespace", name: "", local: specifierNode.local.name, specifier });
           continue;

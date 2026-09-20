@@ -2,11 +2,11 @@
 
 ## Interfaces
 
-| Interface                                                | Description                                                                          |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [ImportEntry](interfaces/ImportEntry.md)                 | One entry per local import binding, mirroring the specification's ImportEntry model. |
-| [ImportLookup](interfaces/ImportLookup.md)               | -                                                                                    |
-| [ImportLookupOptions](interfaces/ImportLookupOptions.md) | -                                                                                    |
+| Interface                                                | Description                                                                   |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [ImportEntry](interfaces/ImportEntry.md)                 | A single local import binding, modeled after the specification's ImportEntry. |
+| [ImportLookup](interfaces/ImportLookup.md)               | A read-only index over the local import bindings of a program.                |
+| [ImportLookupOptions](interfaces/ImportLookupOptions.md) | Options for [createImportLookup](functions/createImportLookup.md).            |
 
 ## Type Aliases
 

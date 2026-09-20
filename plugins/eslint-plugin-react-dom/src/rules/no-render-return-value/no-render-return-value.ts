@@ -42,7 +42,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // Track local binding names of imports from 'react-dom', with 'ReactDOM' as a builtin namespace binding.
+  // Lookup of local bindings imported from 'react-dom', with the 'ReactDOM' global pre-registered as a namespace binding.
   const imports = createImportLookup(context.sourceCode.ast, {
     source: "react-dom",
     builtinNamespaces: ["ReactDOM"],

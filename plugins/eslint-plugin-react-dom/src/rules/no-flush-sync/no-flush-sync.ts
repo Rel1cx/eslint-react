@@ -30,7 +30,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `flushSync` is not present in the file
   if (!context.sourceCode.text.includes("flushSync")) return {};
 
-  // Track local binding names of imports from 'react-dom'.
+  // Lookup of local bindings imported from 'react-dom', used to match callees below.
   const imports = createImportLookup(context.sourceCode.ast, { source: "react-dom" });
 
   return {

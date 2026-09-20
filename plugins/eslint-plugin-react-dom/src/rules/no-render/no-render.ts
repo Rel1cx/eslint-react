@@ -38,7 +38,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // This rule only applies to React 18.0.0 and later
   if (compare(settings.version, "18.0.0", "<")) return {};
 
-  // Track local binding names of imports from 'react-dom', with 'ReactDOM' as a builtin namespace binding.
+  // Lookup of local bindings imported from 'react-dom', with the 'ReactDOM' global pre-registered as a namespace binding.
   const imports = createImportLookup(context.sourceCode.ast, {
     source: "react-dom",
     builtinNamespaces: ["ReactDOM"],

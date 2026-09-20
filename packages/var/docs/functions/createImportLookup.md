@@ -9,20 +9,23 @@ function createImportLookup(program: Program, options: ImportLookupOptions): Imp
 Create a lookup of local import bindings from a source by scanning the
 top-level imports of a program.
 
-Entries are kept in source order with both indexes (by local name, by imported
-name) built during the scan, so every query works immediately. Aliases
-(`import { flushSync as fs }`) are handled naturally.
+Entries are kept in source order, and both indexes (by local name and by
+imported name) are built during the same scan, so every query works
+immediately after creation. Aliases (`import { flushSync as fs }`) are
+handled naturally: the alias is the entry's local name.
 
 ## Parameters
 
-| Parameter | Type                                                          |
-| --------- | ------------------------------------------------------------- |
-| `program` | `Program`                                                     |
-| `options` | [`ImportLookupOptions`](../interfaces/ImportLookupOptions.md) |
+| Parameter | Type                                                          | Description                                              |
+| --------- | ------------------------------------------------------------- | -------------------------------------------------------- |
+| `program` | `Program`                                                     | The program whose top-level import declarations to scan. |
+| `options` | [`ImportLookupOptions`](../interfaces/ImportLookupOptions.md) | The source to track and optional builtin namespaces.     |
 
 ## Returns
 
 [`ImportLookup`](../interfaces/ImportLookup.md)
+
+An [ImportLookup](../interfaces/ImportLookup.md) over the matching import bindings.
 
 ## Example
 

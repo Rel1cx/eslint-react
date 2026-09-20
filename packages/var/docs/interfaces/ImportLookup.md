@@ -2,6 +2,11 @@
 
 # Interface: ImportLookup
 
+A read-only index over the local import bindings of a program.
+
+All queries are O(1) or O(k) lookups over indexes built once at creation
+time, and results preserve source order.
+
 ## Methods
 
 ### all()
@@ -10,7 +15,7 @@
 all(): readonly ImportEntry[];
 ```
 
-Every import entry, in source order.
+Return every import entry, in source order.
 
 #### Returns
 
@@ -24,17 +29,19 @@ readonly [`ImportEntry`](ImportEntry.md)[]
 binding(local: string): ImportEntry | undefined;
 ```
 
-By local name: the import entry a local name is bound to, if any.
+Look up the import entry a local name is bound to.
 
 #### Parameters
 
-| Parameter | Type     |
-| --------- | -------- |
-| `local`   | `string` |
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `local`   | `string` | The local binding name. |
 
 #### Returns
 
 [`ImportEntry`](ImportEntry.md) \| `undefined`
+
+The matching entry, or `undefined` if the name is not imported.
 
 ---
 
@@ -44,17 +51,19 @@ By local name: the import entry a local name is bound to, if any.
 bindingsOf(name: string): readonly ImportEntry[];
 ```
 
-By imported name: all local bindings of the export `name`, in source order.
+Look up all local bindings of a given imported export name.
 
 #### Parameters
 
-| Parameter | Type     |
-| --------- | -------- |
-| `name`    | `string` |
+| Parameter | Type     | Description                                                 |
+| --------- | -------- | ----------------------------------------------------------- |
+| `name`    | `string` | The imported export name (`"default"` for default imports). |
 
 #### Returns
 
 readonly [`ImportEntry`](ImportEntry.md)[]
+
+The matching entries in source order, possibly empty.
 
 ---
 
@@ -64,14 +73,14 @@ readonly [`ImportEntry`](ImportEntry.md)[]
 has(local: string, name: string): boolean;
 ```
 
-Derived: `local` is bound to the named export `name`.
+Check whether a local name is bound to a specific imported export.
 
 #### Parameters
 
-| Parameter | Type     |
-| --------- | -------- |
-| `local`   | `string` |
-| `name`    | `string` |
+| Parameter | Type     | Description               |
+| --------- | -------- | ------------------------- |
+| `local`   | `string` | The local binding name.   |
+| `name`    | `string` | The imported export name. |
 
 #### Returns
 
@@ -85,13 +94,14 @@ Derived: `local` is bound to the named export `name`.
 hasNamespace(local: string): boolean;
 ```
 
-Derived: `local` is a default or namespace binding.
+Check whether a local name is a default or namespace binding, i.e. one
+that refers to the module as a whole rather than to a single named export.
 
 #### Parameters
 
-| Parameter | Type     |
-| --------- | -------- |
-| `local`   | `string` |
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `local`   | `string` | The local binding name. |
 
 #### Returns
 
