@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
-import { createImmutabilityCollector } from "./collect";
+import { createFactCollector } from "./collect";
 import { inferDirectMutations, inferMutableFunctions } from "./effects";
 import { resolveToFunctionNode } from "./lib";
 
@@ -40,25 +40,25 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const comps = core.getFunctionComponentCollector(context);
-  const immut = createImmutabilityCollector();
+  const facts = createFactCollector();
 
   return merge(
     hooks.visitor,
     comps.visitor,
-    immut.visitor,
+    facts.visitor,
     {
       "Program:exit"(program) {
         for (const hook of hooks.api.getAllHooks(program)) {
           for (const expression of hook.rets) {
-            if (expression != null) immut.facts.sinks.push({ kind: "hook-return", expression });
+            if (expression != null) facts.facts.sinks.push({ kind: "hook-return", expression });
           }
         }
 
         const reportedMutations = new Set<TSESTree.Node>();
-        const mutableFunctions = inferMutableFunctions(context, immut.facts.mutations);
+        const mutableFunctions = inferMutableFunctions(context, facts.facts.mutations);
         if (mutableFunctions.size > 0) {
           const reportedSinks = new Set<TSESTree.Node>();
-          for (const sink of immut.facts.sinks) {
+          for (const sink of facts.facts.sinks) {
             const expression = sink.expression;
             if (reportedSinks.has(expression)) continue;
             const fn = resolveToFunctionNode(context, expression);
@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
 
         const funcs = comps.api.getAllComponents(program).map((comp) => comp.node);
-        for (const mutation of inferDirectMutations(context, immut.facts.mutations, funcs)) {
+        for (const mutation of inferDirectMutations(context, facts.facts.mutations, funcs)) {
           if (reportedMutations.has(mutation.node)) continue;
           reportedMutations.add(mutation.node);
           context.report({

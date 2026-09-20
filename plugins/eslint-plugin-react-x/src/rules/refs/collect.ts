@@ -31,7 +31,7 @@ export type RefsFacts = {
  * are never reachable during render and are not collected. All inference is
  * deferred to `Program:exit`.
  */
-export function createRefsCollector() {
+export function createFactCollector() {
   const facts: RefsFacts = {
     bindings: [],
     callEdges: [],

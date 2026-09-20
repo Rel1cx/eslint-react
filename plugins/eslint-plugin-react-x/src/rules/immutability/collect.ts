@@ -22,7 +22,7 @@ export type ImmutabilityFacts = {
   sinks: SinkFact[];
 };
 
-export function createImmutabilityCollector() {
+export function createFactCollector() {
   const facts: ImmutabilityFacts = {
     mutations: [],
     sinks: [],

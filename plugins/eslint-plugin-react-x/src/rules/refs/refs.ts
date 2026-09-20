@@ -3,7 +3,7 @@ import type { TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { match } from "ts-pattern";
-import { createRefsCollector } from "./collect";
+import { createFactCollector } from "./collect";
 import { type RefViolation, collectReachableFunctions, inferCallGraph, inferRefPassViolations, inferRefViolations } from "./effects";
 import { createBindingResolver } from "./origins";
 
@@ -42,12 +42,12 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   const hooks = core.getHookCollector(context);
   const comps = core.getFunctionComponentCollector(context);
-  const refs = createRefsCollector();
+  const facts = createFactCollector();
 
   return merge(
     hooks.visitor,
     comps.visitor,
-    refs.visitor,
+    facts.visitor,
     {
       "Program:exit"(program) {
         const boundaries = new Set<TSESTreeFunction>([
@@ -55,12 +55,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           ...hooks.api.getAllHooks(program).map((hook) => hook.node),
         ]);
 
-        const resolver = createBindingResolver(context, refs.facts);
-        const callGraph = inferCallGraph(boundaries, refs.facts.callEdges, resolver.resolveCallable);
+        const resolver = createBindingResolver(context, facts.facts);
+        const callGraph = inferCallGraph(boundaries, facts.facts.callEdges, resolver.resolveCallable);
         const reachability = collectReachableFunctions(boundaries, callGraph);
         const violations = [
-          ...inferRefViolations(refs.facts.refAccesses, boundaries, reachability, resolver),
-          ...inferRefPassViolations(refs.facts.callEdges, boundaries, reachability, resolver),
+          ...inferRefViolations(facts.facts.refAccesses, boundaries, reachability, resolver),
+          ...inferRefPassViolations(facts.facts.callEdges, boundaries, reachability, resolver),
         ];
 
         for (const violation of violations) {
