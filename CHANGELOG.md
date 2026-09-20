@@ -1,5 +1,23 @@
 # Changelog
 
+## v5.20.1 (2026-09-20)
+
+### 🐞 Fixes
+
+- `react-dom/no-flush-sync`: `flushSync` calls are now detected by tracking `react-dom` imports directly instead of matching by name, so aliased named imports (e.g. `import { flushSync as fs } from "react-dom"`) and default/namespace member calls (e.g. `ReactDOM.flushSync()`) are reported, while local functions, object methods, and same-named APIs from other packages (e.g. pino's `destination().flushSync()`) are no longer misreported. (#1954, closes #1943)
+
+### 🏗️ Internal
+
+- `react-dom/no-flush-sync` and `react-dom/no-find-dom-node`: API call checks now use `core.isAPICall`; `core.isJsxLike` now uses `isCreateElementCall`.
+- Added Node types reference to all package tsl/tsdown configs.
+- Bumped `eslint` to `10.11.0`, `eslint-plugin-jsdoc` to `64.5.4`, `eslint-plugin-package-json` to `1.9.0`, `typedoc-plugin-markdown` to `4.13.1`, `@types/node` to `26.6.2`, `pnpm` to `12.5.1`, and the dprint JSON plugin to `0.24.0`.
+
+### New Contributors
+
+- **changbaebang** (@changbaebang) made their first contribution in #1954.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.0...v5.20.1
+
 ## v5.20.0 (2026-09-19)
 
 ### ✨ New
