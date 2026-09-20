@@ -1,9 +1,5 @@
 # Rule Implementation Patterns Fact-Based
 
-How complex `react-x` rules separate fact collection, provenance resolution, and effect inference into layered modules.
-
-Related: [`rule-implementation-patterns.md`](./rule-implementation-patterns.md) for the general anatomy of a rule file, [`rule-implementation-patterns-term-based.md`](./rule-implementation-patterns-term-based.md) for text prechecks.
-
 ## What Is a Fact-Based Rule?
 
 TODO.
