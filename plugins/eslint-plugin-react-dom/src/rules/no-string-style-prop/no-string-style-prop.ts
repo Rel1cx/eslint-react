@@ -28,28 +28,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     JSXElement(node) {
       // This rule only applies to host elements (ex: <div />, <span />), not custom components
-      if (!isHostElement(node)) {
-        return;
-      }
+      if (!isHostElement(node)) return;
 
-      // Find the 'style' prop on the element
       const styleProp = findAttribute(context, node, "style");
-      if (styleProp == null) {
-        return;
-      }
+      if (styleProp == null) return;
 
-      // Resolve the static value of the 'style' prop
       const styleValue = resolveAttributeValue(context, styleProp);
-      const staticValue = styleValue.toStatic();
+      if (typeof styleValue.toStatic() !== "string") return;
 
-      // If the resolved value is a string, report an error
-      // e.g., <div style="color: red;" />
-      if (typeof staticValue === "string") {
-        context.report({
-          messageId: "default",
-          node: styleValue.node ?? styleProp,
-        });
-      }
+      context.report({
+        messageId: "default",
+        node: styleValue.node ?? styleProp,
+      });
     },
   };
 }

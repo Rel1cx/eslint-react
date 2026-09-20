@@ -1,5 +1,5 @@
 // A set of HTML void elements that cannot have children
-export const VOID_ELEMENTS = new Set([
+export const KNOWN_VOID_ELEMENTS = new Set([
   "area",
   "base",
   "br",

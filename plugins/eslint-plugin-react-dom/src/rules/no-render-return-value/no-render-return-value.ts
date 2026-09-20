@@ -1,17 +1,15 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract } from "@eslint-react/ast";
-import type { RuleContext, RuleFeature, RuleListener } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { createImportLookup } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-render-return-value";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "default";
-
 // Parent AST node types that indicate the return value of `ReactDOM.render` is being used
-const banParentTypes = [
+export const BANNED_PARENT_TYPES = [
   AST.VariableDeclarator,
   AST.Property,
   AST.ReturnStatement,
@@ -19,11 +17,7 @@ const banParentTypes = [
   AST.AssignmentExpression,
 ];
 
-function isReturnValueUsed(node: TSESTree.CallExpression) {
-  let parent = node.parent;
-  while (Check.isTypeExpression(parent)) parent = parent.parent;
-  return banParentTypes.includes(parent.type);
-}
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -42,33 +36,33 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if `render` is not present in the file
+  if (!context.sourceCode.text.includes("render")) return {};
+
   // Lookup of local bindings imported from 'react-dom', with the 'ReactDOM' global pre-registered as a namespace binding.
   const imports = createImportLookup(context.sourceCode.ast, {
-    source: "react-dom",
     builtinNamespaces: ["ReactDOM"],
+    source: "react-dom",
   });
 
   return {
-    // Checks for calls to 'render' or 'ReactDOM.render' and reports if their return value is used
     CallExpression(node) {
       const callee = Extract.unwrap(node.callee);
       switch (true) {
-        // Handles direct calls to 'render' (ex: from `import { render } from 'react-dom'`)
+        // Case 1: Direct call to `render()`
         case Check.isIdentifier(callee)
           && imports.has(callee.name, "render")
-          // Check if the return value is being used
           && isReturnValueUsed(node):
           context.report({
             messageId: "default",
             node,
           });
           return;
-        // Handles member expression calls like 'ReactDOM.render'
+        // Case 2: Member call like `ReactDOM.render()`
         case callee.type === AST.MemberExpression
           && Check.isIdentifier(callee.object)
           && Extract.getCalleeName(node) === "render"
           && imports.hasNamespace(callee.object.name)
-          // Check if the return value is being used
           && isReturnValueUsed(node):
           context.report({
             messageId: "default",
@@ -78,4 +72,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
   };
+}
+
+function isReturnValueUsed(node: TSESTree.CallExpression) {
+  let parent = node.parent;
+  while (Check.isTypeExpression(parent)) parent = parent.parent;
+  return BANNED_PARENT_TYPES.includes(parent.type);
 }
