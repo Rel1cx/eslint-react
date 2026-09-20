@@ -85,6 +85,58 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Member expression component with a polymorphic prop (ex: motion.div)
+    {
+      code: tsx`<motion.div as="button">Click me</motion.div>;`,
+      errors: [
+        {
+          messageId: "missingTypeAttribute",
+          suggestions: [
+            {
+              data: { type: "button" },
+              messageId: "addTypeAttribute",
+              output: tsx`<motion.div type="button" as="button">Click me</motion.div>;`,
+            },
+            {
+              data: { type: "submit" },
+              messageId: "addTypeAttribute",
+              output: tsx`<motion.div type="submit" as="button">Click me</motion.div>;`,
+            },
+            {
+              data: { type: "reset" },
+              messageId: "addTypeAttribute",
+              output: tsx`<motion.div type="reset" as="button">Click me</motion.div>;`,
+            },
+          ],
+        },
+      ],
+    },
+    // Uppercase polymorphic prop value is normalized to lowercase
+    {
+      code: tsx`<PolyComponent as="BUTTON">Click me</PolyComponent>;`,
+      errors: [
+        {
+          messageId: "missingTypeAttribute",
+          suggestions: [
+            {
+              data: { type: "button" },
+              messageId: "addTypeAttribute",
+              output: tsx`<PolyComponent type="button" as="BUTTON">Click me</PolyComponent>;`,
+            },
+            {
+              data: { type: "submit" },
+              messageId: "addTypeAttribute",
+              output: tsx`<PolyComponent type="submit" as="BUTTON">Click me</PolyComponent>;`,
+            },
+            {
+              data: { type: "reset" },
+              messageId: "addTypeAttribute",
+              output: tsx`<PolyComponent type="reset" as="BUTTON">Click me</PolyComponent>;`,
+            },
+          ],
+        },
+      ],
+    },
   ],
   valid: [
     '<button type="button">Click me</button>;',
@@ -142,6 +194,10 @@ ruleTester.run(RULE_NAME, rule, {
         return <PolyComponent as="span">Click me</PolyComponent>;
       }
     `,
+    // Boundary: member expression without a polymorphic prop is not a button
+    "<motion.button>Click me</motion.button>;",
+    // Boundary: non-string polymorphic prop value falls back to the element name
+    "<PolyComponent as={ButtonComponent}>Click me</PolyComponent>;",
     // Empty type attribute (attribute exists)
     tsx`<button type="">Click me</button>;`,
     // Boolean shorthand type (attribute exists)

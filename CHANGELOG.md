@@ -1,5 +1,22 @@
 # Changelog
 
+## v5.20.2 (2026-09-20)
+
+### 🐞 Fixes
+
+- Fixed false negatives in the JSX element resolver used by the `react-dom` rules: polymorphic components written as member expressions (e.g. `<motion.div as="button">`) were mistaken for host elements, so the polymorphic prop was ignored and these rules skipped them entirely; they are now resolved through the polymorphic prop and checked like the underlying DOM element. String values of the polymorphic prop are also normalized to lowercase, so `as="BUTTON"` is treated as `button`. Affected rules:
+  - `react-dom/no-missing-button-type`
+  - `react-dom/no-missing-iframe-sandbox`
+  - `react-dom/no-unsafe-iframe-sandbox`
+  - `react-dom/no-unsafe-target-blank`
+  - `react-dom/no-void-elements-with-children`
+
+### 🏗️ Internal
+
+- The normalized `polymorphicPropName` setting type is corrected from `string | null` to `string` — it could never be `null` at runtime — and the unreachable `null` branch in the JSX element resolver used by the `react-dom` rules is removed.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.1...v5.20.2
+
 ## v5.20.1 (2026-09-20)
 
 ### 🐞 Fixes

@@ -95,6 +95,26 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Member expression component with a polymorphic prop (ex: motion.div)
+    {
+      code: tsx`<motion.div as="br">Foo</motion.div>;`,
+      errors: [
+        {
+          data: { elementType: "br" },
+          messageId: "default",
+        },
+      ],
+    },
+    // Uppercase polymorphic prop value is normalized to lowercase
+    {
+      code: tsx`<PolyComponent as="IMG" children="Foo" />;`,
+      errors: [
+        {
+          data: { elementType: "img" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     "<div>Foo</div>;",
@@ -113,5 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Boundary: member expression without a polymorphic prop is not a void element
+    "<motion.br>Foo</motion.br>;",
   ],
 });

@@ -134,6 +134,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox="allow-scripts\nallow-same-origin" />;`,
       errors: [{ messageId: "default" }],
     },
+    // Member expression component with a polymorphic prop (ex: motion.div)
+    {
+      code: tsx`<motion.div as="iframe" sandbox="allow-scripts allow-same-origin" />;`,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     '<iframe sandbox="" />;',
@@ -219,5 +224,7 @@ ruleTester.run(RULE_NAME, rule, {
     tsx`<iframe sandbox={true} />;`,
     // Boundary: JSXAttribute with empty expression container (resolveAttributeValue handles JSXEmptyExpression)
     tsx`<iframe sandbox={} />;`,
+    // Boundary: member expression without a polymorphic prop is not an iframe
+    '<motion.iframe sandbox="allow-scripts allow-same-origin" />;',
   ],
 });
