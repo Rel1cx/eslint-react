@@ -41,7 +41,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedTimeoutId" }],
+      errors: [
+        {
+          messageId: "expectedTimeoutId",
+        },
+      ],
     },
     {
       code: tsx`
@@ -183,7 +187,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect, useRef } from "react";
+      import { useEffect } from "react";
 
       function Example() {
         useEffect(() => {
@@ -198,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect, useRef } from "react";
+      import { useEffect } from "react";
 
       function Example() {
         useEffect(() => {
@@ -216,7 +220,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect, useRef } from "react";
+      import { useEffect } from "react";
 
       function Example() {
         useEffect(() => {

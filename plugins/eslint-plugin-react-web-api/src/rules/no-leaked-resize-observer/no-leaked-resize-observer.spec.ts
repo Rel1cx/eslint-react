@@ -7,26 +7,7 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
-        import { useEffect } from 'react';
-
-        function Component() {
-          useEffect(() => {
-            const observer = new ResizeObserver(() => {});
-            observer.observe(document.body);
-          }, []);
-
-          return <div />;
-        }
-      `,
-      errors: [
-        {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
-        },
-      ],
-    },
-    {
-      code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
@@ -44,14 +25,33 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import React, { useEffect, useRef } from 'react';
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            observer.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import React, { useEffect, useRef } from "react";
 
         function Example() {
           const ref = useRef<HTMLDivElement>(null);
 
           useEffect(() => {
             if (!ref.current) return;
-            const ro = new ResizeObserver(() => console.log('resize'));
+            const ro = new ResizeObserver(() => console.log("resize"));
             ro.observe(ref.current);
           }, []);
 
@@ -66,13 +66,13 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
             const observer = new ResizeObserver(() => {});
             observer.observe(document.body);
-            observer.observe(document.querySelector('.selector')!);
+            observer.observe(document.querySelector(".selector")!);
             return () => {
               observer.unobserve(document.body);
             }
@@ -89,7 +89,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
@@ -108,7 +108,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
@@ -119,13 +119,17 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
     },
     {
       // A disconnect inside the observer's own callback is not a reliable cleanup:
       // the callback may never run if the component unmounts before the element resizes
       code: tsx`
-        import { useEffect, useRef } from 'react';
+        import { useEffect, useRef } from "react";
 
         function Component() {
           const ref = useRef<HTMLDivElement>(null);
@@ -142,20 +146,24 @@ ruleTester.run(RULE_NAME, rule, {
           return <div ref={ref} />;
         }
       `,
-      errors: [{ messageId: "expectedDisconnectOrUnobserveInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
             const observer = new ResizeObserver(() => {});
-            for (const element of document.querySelectorAll('.selector')) {
+            for (const element of document.querySelectorAll(".selector")) {
               observer.observe(element);
             }
             return () => {
-              for (const element of document.querySelectorAll('.selector')) {
+              for (const element of document.querySelectorAll(".selector")) {
                 observer.unobserve(element);
               }
             }
@@ -172,16 +180,16 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
-        import { useEffect } from 'react';
+        import { useEffect } from "react";
 
         function Component() {
           useEffect(() => {
             const observer = new ResizeObserver(() => {});
-            Array.from(document.querySelectorAll('.selector')).forEach(element => {
+            Array.from(document.querySelectorAll(".selector")).forEach(element => {
               observer.observe(element);
             });
             return () => {
-              Array.from(document.querySelectorAll('.selector')).forEach(element => {
+              Array.from(document.querySelectorAll(".selector")).forEach(element => {
                 observer.unobserve(element);
               });
             }
@@ -199,7 +207,7 @@ ruleTester.run(RULE_NAME, rule, {
   ],
   valid: [
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -214,7 +222,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -229,14 +237,14 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import React, { useEffect, useRef } from 'react';
+      import React, { useEffect, useRef } from "react";
 
       function Example() {
         const ref = useRef<HTMLDivElement>(null);
 
         useEffect(() => {
           if (!ref.current) return;
-          const ro = new ResizeObserver(() => console.log('resize'));
+          const ro = new ResizeObserver(() => console.log("resize"));
           ro.observe(ref.current);
           return () => ro.disconnect();
         }, []);
@@ -245,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -260,7 +268,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -276,13 +284,13 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
           const observer = new ResizeObserver(() => {});
           observer.observe(document.body);
-          observer.observe(document.querySelector('.selector')!);
+          observer.observe(document.querySelector(".selector")!);
           return () => {
             observer.disconnect();
           }
@@ -292,16 +300,16 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
           const observer = new ResizeObserver(() => {});
           observer.observe(document.body);
-          observer.observe(document.querySelector('.selector')!);
+          observer.observe(document.querySelector(".selector")!);
           return () => {
             observer.unobserve(document.body);
-            observer.unobserve(document.querySelector('.selector')!);
+            observer.unobserve(document.querySelector(".selector")!);
             observer.disconnect();
           }
         }, []);
@@ -310,7 +318,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -325,7 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -346,12 +354,12 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
           const observer = new ResizeObserver(() => {});
-          for (const element of document.querySelectorAll('.selector')) {
+          for (const element of document.querySelectorAll(".selector")) {
             observer.observe(element);
           }
           return () => {
@@ -363,12 +371,12 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
           const observer = new ResizeObserver(() => {});
-          Array.from(document.querySelectorAll('.selector')).forEach(element => {
+          Array.from(document.querySelectorAll(".selector")).forEach(element => {
             observer.observe(element);
           });
           return () => {
@@ -381,7 +389,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // A disconnect inside the observer's own callback with a disconnect in the cleanup function as a fallback
     tsx`
-      import { useEffect, useRef } from 'react';
+      import { useEffect, useRef } from "react";
 
       function Component() {
         const ref = useRef<HTMLDivElement>(null);
@@ -403,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
     // Relies on `Compare.isEqual` supporting `CallExpression` so observe/unobserve
     // are matched.
     tsx`
-      import { useEffect } from 'react';
+      import { useEffect } from "react";
 
       function Component() {
         useEffect(() => {
@@ -419,7 +427,7 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // TODO: Add support for `ResizeObserver` instance in `useRef`
     // tsx`
-    //   import { useEffect, useRef } from 'react';
+    //   import { useEffect, useRef } from "react";
 
     //   function Component() {
     //     const observerRef = useRef<ResizeObserver>(new ResizeObserver(() => {}));
@@ -427,10 +435,10 @@ ruleTester.run(RULE_NAME, rule, {
     //       const observer = observerRef.current;
     //       if (!observer) return;
     //       observer.observe(document.body);
-    //       observer.observe(document.querySelector('.selector')!);
+    //       observer.observe(document.querySelector(".selector")!);
     //       return () => {
     //         observer.unobserve(document.body);
-    //         observer.unobserve(document.querySelector('.selector')!);
+    //         observer.unobserve(document.querySelector(".selector")!);
     //       }
     //     }, []);
 
@@ -438,16 +446,16 @@ ruleTester.run(RULE_NAME, rule, {
     //   }
     // `,
     // tsx`
-    //   import { useEffect, useRef } from 'react';
+    //   import { useEffect, useRef } from "react";
 
     //   function Component() {
     //     const observerRef = useRef<ResizeObserver>(new ResizeObserver(() => {}));
     //     useEffect(() => {
     //       observerRef.current.observe(document.body);
-    //       observerRef.current.observe(document.querySelector('.selector')!);
+    //       observerRef.current.observe(document.querySelector(".selector")!);
     //       return () => {
     //         observerRef.current.unobserve(document.body);
-    //         observerRef.current.unobserve(document.querySelector('.selector')!);
+    //         observerRef.current.unobserve(document.querySelector(".selector")!);
     //       }
     //     }, []);
 

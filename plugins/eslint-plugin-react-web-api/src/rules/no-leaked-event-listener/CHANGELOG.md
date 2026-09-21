@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Report listeners that are only added inside the effect cleanup when the matching `removeEventListener` is in the setup (reversed setup/cleanup pairing), since a listener attached on unmount is never removed.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

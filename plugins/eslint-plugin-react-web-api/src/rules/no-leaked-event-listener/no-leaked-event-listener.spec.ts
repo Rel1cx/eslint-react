@@ -7,6 +7,8 @@ ruleTester.run(RULE_NAME, rule, {
   invalid: [
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", handleResize);
@@ -21,6 +23,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     { // Even if the event listener is added with an once, it may still be necessary to properly cancel untriggered listeners when the component is unmounted, so this case needs to be placed in invalid.
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize1 = () => {};
@@ -36,6 +40,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize1 = () => {};
@@ -55,6 +61,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {});
@@ -81,6 +89,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {}, { once: true });
@@ -107,6 +117,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             window.addEventListener("resize", () => {}, { once: true });
@@ -135,6 +147,8 @@ ruleTester.run(RULE_NAME, rule, {
     // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const ac = new AbortController();
@@ -150,6 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: AbortController signal-based cleanup is not checked yet (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
     //     function Example() {
@@ -170,6 +185,8 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -188,6 +205,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -206,6 +225,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -224,6 +245,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -242,6 +265,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -260,6 +285,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -278,6 +305,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -296,6 +325,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -314,6 +345,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const options = { capture: true };
@@ -333,6 +366,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const options = { capture: true };
@@ -352,6 +387,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -371,6 +408,8 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             const handleResize = () => {};
@@ -389,6 +428,7 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // TODO: AbortController signal-based cleanup is not checked yet (https://github.com/Rel1cx/eslint-react/issues/1282)
     // {
     //   code: tsx`
     //     const abortController = new AbortController();
@@ -435,13 +475,19 @@ ruleTester.run(RULE_NAME, rule, {
     // },
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
             (window.addEventListener as any)("resize", handleResize);
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedRemoveEventListenerInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -661,6 +707,8 @@ ruleTester.run(RULE_NAME, rule, {
     // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
     {
       code: tsx`
+        import { useEffect } from "react";
+
         function Example() {
           useEffect(() => {
               const ac = new AbortController()
@@ -670,13 +718,84 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "expectedRemoveEventListenerInCleanup" },
-        { messageId: "unexpectedInlineFunction" },
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+        {
+          messageId: "unexpectedInlineFunction",
+        },
+      ],
+    },
+    // Reversed setup/cleanup pairing is a leak: the listener is only added on unmount
+    {
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Example() {
+          const rHandleResize = useRef(() => {});
+          useEffect(() => {
+            window.removeEventListener("resize", rHandleResize.current);
+            return () => {
+              window.addEventListener("resize", rHandleResize.current);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useEffect, useRef } from "react";
+
+        function Example() {
+          const rHandleResize = useRef(() => {});
+          useEffect(() => {
+            window.removeEventListener("resize", rHandleResize.current);
+          }, []);
+          useEffect(() => {
+            return () => {
+              window.addEventListener("resize", rHandleResize.current);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    {
+      code: tsx`
+        import { useEffect, useLayoutEffect, useRef } from "react";
+
+        function Example() {
+          const rHandleResize = useRef(() => {});
+          useLayoutEffect(() => {
+            return () => {
+              window.addEventListener("resize", rHandleResize.current);
+            };
+          }, []);
+          useEffect(() => {
+            window.removeEventListener("resize", rHandleResize.current);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
       ],
     },
   ],
   valid: [
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -688,6 +807,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useCallback, useEffect } from "react";
+
       function Example() {
         const handleResize = useCallback(() => {}, []);
         useEffect(() => {
@@ -699,6 +820,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useMemo } from "react";
+
       function Example() {
         const handleResize = useMemo(() => () => {}, []);
         useEffect(() => {
@@ -710,6 +833,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -721,6 +846,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -732,6 +859,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -743,6 +872,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -754,6 +885,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -765,6 +898,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -777,6 +912,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -789,6 +926,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -801,6 +940,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const options = { capture: true };
@@ -813,6 +954,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       const abortController = new AbortController();
       function Example() {
         const rHandleResize = useRef(() => {});
@@ -825,6 +968,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       const abortController = new AbortController();
       function Example() {
         const rHandleResize = useRef(() => {});
@@ -838,6 +983,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -847,6 +994,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -857,6 +1006,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
             const ac = new AbortController()
@@ -868,6 +1019,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -879,6 +1032,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -890,6 +1045,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -901,6 +1058,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -912,6 +1071,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -923,6 +1084,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -935,6 +1098,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const handleResize = () => {};
@@ -947,6 +1112,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -964,6 +1131,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -977,6 +1146,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -991,6 +1162,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useLayoutEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useEffect(() => {
@@ -1004,6 +1177,8 @@ ruleTester.run(RULE_NAME, rule, {
       }
     `,
     tsx`
+      import { useEffect, useLayoutEffect, useRef } from "react";
+
       function Example() {
         const rHandleResize = useRef(() => {});
         useLayoutEffect(() => {
@@ -1013,43 +1188,6 @@ ruleTester.run(RULE_NAME, rule, {
         }, []);
         useEffect(() => {
           window.addEventListener("resize", rHandleResize.current);
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
-        }, []);
-        useEffect(() => {
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-      }
-    `,
-    tsx`
-      function Example() {
-        const rHandleResize = useRef(() => {});
-        useLayoutEffect(() => {
-          return () => {
-            window.addEventListener("resize", rHandleResize.current);
-          };
-        }, []);
-        useEffect(() => {
-          window.removeEventListener("resize", rHandleResize.current);
         }, []);
       }
     `,
@@ -1236,6 +1374,7 @@ ruleTester.run(RULE_NAME, rule, {
       };
     `,
     tsx`
+      import { useEffect } from "react";
       import { BackHandler } from "react-native";
 
       useEffect(() => {
@@ -1258,6 +1397,8 @@ ruleTester.run(RULE_NAME, rule, {
     // The object of the `addEventListener`/`removeEventListener` callee is a
     // `CallExpression` (`window.matchMedia('(prefers-color-scheme: dark)')`).
     tsx`
+      import { useEffect } from "react";
+
       function Example() {
         useEffect(() => {
           const listener = (e: MediaQueryListEvent) => {};

@@ -1,10 +1,10 @@
-import { type ComponentPhaseKind, ComponentPhaseRelevance, type TimerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { type TSESTree } from "@typescript-eslint/types";
-import { P, isMatching } from "ts-pattern";
+import { P, isMatching, match } from "ts-pattern";
 
 // #region Rule Metadata
 
@@ -20,10 +20,14 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ComponentPhaseKind | "other";
-type EventMethodKind = "setTimeout" | "clearTimeout";
-type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type CallKind = EventMethodKind | EffectMethodKind | "other";
+type FunctionKind = "cleanup" | "setup" | "other";
+type TimerMethodKind = "setTimeout" | "clearTimeout";
+type CallKind = TimerMethodKind | "other";
+
+interface TimerEntry {
+  node: TSESTree.CallExpression;
+  timerId: TSESTree.Node;
+}
 
 // #endregion
 
@@ -34,6 +38,12 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   if (name != null && isMatching(P.union("setTimeout", "clearTimeout"))(name)) {
     return name;
   }
+  return "other";
+}
+
+function getFunctionKind(node: TSESTreeFunction): FunctionKind {
+  if (isUseEffectSetupCallback(node)) return "setup";
+  if (isUseEffectCleanupCallback(node)) return "cleanup";
   return "other";
 }
 
@@ -63,77 +73,63 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setTimeout")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  const fEntries: FunctionKind[] = [];
   const sEntries: TimerEntry[] = [];
-  const rEntries: TimerEntry[] = [];
+  const cEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
   return {
     [":function"](node: TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
-      fEntries.push({ kind, node });
+      fEntries.push(getFunctionKind(node));
     },
     [":function:exit"]() {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      const fEntry = fEntries.findLast((f) => f.kind !== "other");
-      if (!ComponentPhaseRelevance.has(fEntry?.kind)) {
+      const fKind = fEntries.findLast((kind) => kind !== "other");
+      if (fKind == null) {
         return;
       }
-      switch (getCallKind(node)) {
-        case "setTimeout": {
+      match(getCallKind(node))
+        .with("setTimeout", () => {
           const timeoutIdNode = resolveEnclosingAssignmentTarget(node);
           if (timeoutIdNode == null) {
             context.report({
               messageId: "expectedTimeoutId",
               node,
             });
-            break;
+            return;
           }
           sEntries.push({
-            kind: "timeout",
-            callee: node.callee,
             node,
-            phase: fEntry.kind,
             timerId: timeoutIdNode,
           });
-          break;
-        }
-        case "clearTimeout": {
+        })
+        .with("clearTimeout", () => {
           const [timeoutIdNode] = node.arguments;
           if (timeoutIdNode == null) {
-            break;
+            return;
           }
-          rEntries.push({
-            kind: "timeout",
-            callee: node.callee,
+          cEntries.push({
             node,
-            phase: fEntry.kind,
             timerId: timeoutIdNode,
           });
-          break;
-        }
-      }
+        })
+        .otherwise(() => null);
     },
     ["Program:exit"]() {
       for (const sEntry of sEntries) {
-        if (rEntries.some((rEntry) => isInverseEntry(sEntry, rEntry))) {
+        if (cEntries.some((cEntry) => isInverseEntry(sEntry, cEntry))) {
           continue;
         }
-        switch (sEntry.phase) {
-          case "setup":
-          case "cleanup":
-            context.report({
-              data: {
-                kind: "useEffect",
-              },
-              messageId: "expectedClearTimeoutInCleanup",
-              node: sEntry.node,
-            });
-            continue;
-        }
+        context.report({
+          data: {
+            kind: "useEffect",
+          },
+          messageId: "expectedClearTimeoutInCleanup",
+          node: sEntry.node,
+        });
       }
     },
   };

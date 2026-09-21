@@ -26,12 +26,10 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
 }
 
 export const defaultOptions: {
-  capture: boolean | null;
-  // once: boolean | null;
+  capture: boolean;
   signal: TSESTree.Node | null;
 } = {
   capture: false,
-  // once: false,
   signal: null,
 };
 
