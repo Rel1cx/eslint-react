@@ -1,6 +1,6 @@
-import { type ComponentPhaseKind, ComponentPhaseRelevance, type EventListenerEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -21,13 +21,30 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ComponentPhaseKind | "other";
+type FunctionKind = "cleanup" | "setup" | "other";
 type EventMethodKind = "addEventListener" | "removeEventListener";
-type EffectMethodKind = "useEffect" | "useInsertionEffect" | "useLayoutEffect";
-type CallKind = EventMethodKind | EffectMethodKind | "abort" | "other";
+type CallKind = EventMethodKind | "other";
 
-export type AEntry = EventListenerEntry & { method: "addEventListener" };
-export type REntry = EventListenerEntry & { method: "removeEventListener" };
+type AEntry = {
+  type: TSESTree.Node;
+  callee: TSESTree.Node;
+  capture: boolean;
+  listener: TSESTree.Node;
+  method: "addEventListener";
+  node: TSESTree.CallExpression;
+  phase: "cleanup" | "setup";
+  signal: TSESTree.Node | null;
+};
+
+type REntry = {
+  type: TSESTree.Node;
+  callee: TSESTree.Node;
+  capture: boolean;
+  listener: TSESTree.Node;
+  method: "removeEventListener";
+  node: TSESTree.CallExpression;
+  phase: "cleanup" | "setup";
+};
 
 // #endregion
 
@@ -35,14 +52,16 @@ export type REntry = EventListenerEntry & { method: "removeEventListener" };
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("addEventListener", "removeEventListener", "abort"))(name)) {
+  if (name != null && isMatching(P.union("addEventListener", "removeEventListener"))(name)) {
     return name;
   }
   return "other";
 }
 
 function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-  return getPhaseKindOfFunction(node) ?? "other";
+  if (isUseEffectSetupCallback(node)) return "setup";
+  if (isUseEffectCleanupCallback(node)) return "cleanup";
+  return "other";
 }
 
 // #endregion
@@ -75,10 +94,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  const fEntries: FunctionKind[] = [];
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
-  const abortedSignals: TSESTree.Expression[] = [];
+  // FIXME: bare global calls (`addEventListener(...)` without a receiver, i.e. `window`) never pair up
+  // because only MemberExpression callees are compared - both sides bare should fall back to
+  // `Compare.isEqual(a, b)`.
   function isSameObject(a: TSESTree.Node, b: TSESTree.Node) {
     switch (true) {
       case a.type === AST.MemberExpression
@@ -91,7 +112,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
     const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
     const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (ComponentPhaseRelevance.get(aPhase) !== rPhase) {
+    if (aPhase !== "setup" || rPhase !== "cleanup") {
       return false;
     }
     return isSameObject(aCallee, rCallee)
@@ -99,7 +120,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       && isValueEqual(context, aType, rType)
       && aCapture === rCapture;
   }
-  function checkInlineFunction(
+  function visitInlineFunction(
     node: TSESTree.CallExpression,
     callKind: EventMethodKind,
     options: typeof defaultOptions,
@@ -119,18 +140,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     [":function"](node: TSESTreeFunction) {
-      const kind = getFunctionKind(node);
-      fEntries.push({ kind, node });
+      fEntries.push(getFunctionKind(node));
     },
     [":function:exit"]() {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+      const fKind = fEntries.findLast((kind) => kind !== "other");
       if (fKind == null) {
-        return;
-      }
-      if (!ComponentPhaseRelevance.has(fKind)) {
         return;
       }
       const callee = Extract.unwrap(node.callee);
@@ -150,7 +167,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const opts = options == null
             ? defaultOptions
             : getOptions(context, options);
-          checkInlineFunction(node, callKind, opts);
+          visitInlineFunction(node, callKind, opts);
           aEntries.push({
             ...opts,
             type,
@@ -169,47 +186,35 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const opts = options == null
             ? defaultOptions
             : getOptions(context, options);
-          checkInlineFunction(node, callKind, opts);
+          visitInlineFunction(node, callKind, opts);
           rEntries.push({
-            ...opts,
             type,
             callee,
+            capture: opts.capture,
             listener,
             method: "removeEventListener",
             node,
             phase: fKind,
           });
         })
-        .with("abort", () => {
-          abortedSignals.push(node.callee);
-        })
         .otherwise(() => null);
     },
     ["Program:exit"]() {
       for (const aEntry of aEntries) {
         const signal = aEntry.signal;
-        // https://github.com/Rel1cx/eslint-react/issues/1282#issuecomment-3536511881
-        // if (signal != null && abortedSignals.some((a) => isSameObject(a, signal))) {
-        //   continue;
-        // }
         if (signal != null) {
           continue;
         }
         if (rEntries.some((rEntry) => isInverseEntry(aEntry, rEntry))) {
           continue;
         }
-        switch (aEntry.phase) {
-          case "setup":
-          case "cleanup":
-            context.report({
-              data: {
-                effectMethodKind: "useEffect",
-              },
-              messageId: "expectedRemoveEventListenerInCleanup",
-              node: aEntry.node,
-            });
-            continue;
-        }
+        context.report({
+          data: {
+            effectMethodKind: "useEffect",
+          },
+          messageId: "expectedRemoveEventListenerInCleanup",
+          node: aEntry.node,
+        });
       }
     },
   };

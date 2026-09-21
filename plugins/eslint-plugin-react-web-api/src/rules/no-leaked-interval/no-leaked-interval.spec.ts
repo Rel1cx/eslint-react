@@ -41,7 +41,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedIntervalId" }],
+      errors: [
+        {
+          messageId: "expectedIntervalId",
+        },
+      ],
     },
     {
       code: tsx`

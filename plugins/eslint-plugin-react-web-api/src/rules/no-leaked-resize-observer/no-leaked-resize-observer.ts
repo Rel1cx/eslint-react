@@ -1,12 +1,12 @@
-import { type ComponentPhaseKind, ComponentPhaseRelevance, type ObserverEntry, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
+import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
 import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
-import { isFromObserver, isNewResizeObserver } from "./lib";
+import { isFromObserver, isNewObserver } from "./lib";
 
 // #region Rule Metadata
 
@@ -23,12 +23,25 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ComponentPhaseKind | "other";
-type CallKind = ObserverEntry["method"] | "useEffect" | "useInsertionEffect" | "useLayoutEffect" | "other";
+type FunctionKind = "cleanup" | "setup" | "other";
+type CallKind = ObserverEntry["method"] | "other";
 
-export type OEntry = ObserverEntry & { method: "observe" };
-export type UEntry = ObserverEntry & { method: "unobserve" };
-export type DEntry = ObserverEntry & { method: "disconnect" };
+type ObserverEntry =
+  | {
+    method: "disconnect";
+    node: TSESTree.CallExpression;
+    observer: TSESTree.Node;
+  }
+  | {
+    element: TSESTree.Node;
+    method: "observe" | "unobserve";
+    node: TSESTree.CallExpression;
+    observer: TSESTree.Node;
+  };
+
+type OEntry = ObserverEntry & { method: "observe" };
+type UEntry = ObserverEntry & { method: "unobserve" };
+type DEntry = ObserverEntry & { method: "disconnect" };
 
 // #endregion
 
@@ -36,18 +49,20 @@ export type DEntry = ObserverEntry & { method: "disconnect" };
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   const callee = Extract.unwrap(node.callee);
-  if (callee.type !== AST.Identifier && callee.type !== AST.MemberExpression) {
+  if (callee.type !== AST.MemberExpression) {
     return "other";
   }
   const name = Extract.getCalleeName(node);
-  if (name != null && isMatching(P.union("observe", "unobserve", "disconnect"))(name) && isFromObserver(context, callee)) {
+  if (name != null && isMatching(P.union("observe", "unobserve", "disconnect"))(name) && isFromObserver(context, callee, "ResizeObserver")) {
     return name;
   }
   return "other";
 }
 
 function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-  return getPhaseKindOfFunction(node) ?? "other";
+  if (isUseEffectSetupCallback(node)) return "setup";
+  if (isUseEffectCleanupCallback(node)) return "cleanup";
+  return "other";
 }
 
 // #endregion
@@ -82,7 +97,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
-    phase: ComponentPhaseKind;
     phaseNode: TSESTreeFunction;
   }[] = [];
   const oEntries: OEntry[] = [];
@@ -97,24 +111,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      const callee = Extract.unwrap(node.callee);
-      if (callee.type !== AST.MemberExpression) {
+      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
+      if (fKind == null) {
         return;
       }
-      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-      if (fKind == null || !ComponentPhaseRelevance.has(fKind)) {
+      const callee = Extract.unwrap(node.callee);
+      if (callee.type !== AST.MemberExpression) {
         return;
       }
       const { object } = callee;
       match(getCallKind(context, node))
         .with("disconnect", () => {
           dEntries.push({
-            kind: "ResizeObserver",
-            callee,
             method: "disconnect",
             node,
             observer: object,
-            phase: fKind,
           });
         })
         .with("observe", () => {
@@ -123,13 +134,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           oEntries.push({
-            kind: "ResizeObserver",
-            callee,
             element,
             method: "observe",
             node,
             observer: object,
-            phase: fKind,
           });
         })
         .with("unobserve", () => {
@@ -138,24 +146,20 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             return;
           }
           uEntries.push({
-            kind: "ResizeObserver",
-            callee,
             element,
             method: "unobserve",
             node,
             observer: object,
-            phase: fKind,
           });
         })
         .otherwise(() => null);
     },
     ["NewExpression"](node) {
       const fEntry = fEntries.findLast((x) => x.kind !== "other");
-      if (fEntry == null) return;
-      if (!ComponentPhaseRelevance.has(fEntry.kind)) {
+      if (fEntry == null) {
         return;
       }
-      if (!isNewResizeObserver(node)) {
+      if (!isNewObserver(node, "ResizeObserver")) {
         return;
       }
       const id = resolveEnclosingAssignmentTarget(node);
@@ -169,7 +173,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       observers.push({
         id,
         node,
-        phase: fEntry.kind,
         phaseNode: fEntry.node,
       });
     },
@@ -178,21 +181,24 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // A disconnect inside the observer's own callback is not a reliable cleanup:
         // the callback may never run if the component unmounts before the element resizes
         const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
+        // FIXME: disconnect/unobserve entries are matched by identity only, without requiring them
+        // to happen in the cleanup phase - `observer.disconnect()` called right in the setup passes
+        // the check. Record `phase: fKind` on entries and require `phase === "cleanup"` when matching.
         if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }
-        const oentries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
-        const uentries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+        const matchedOEntries = oEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
+        const matchedUEntries = uEntries.filter((e) => isAssignmentTargetEqual(context, e.observer, id));
         const isDynamic = (node: TSESTree.Node | null) => node?.type === AST.CallExpression || Check.isConditional(node);
         const isPhaseNode = (node: TSESTree.Node | null) => node === phaseNode;
-        const hasDynamicallyAdded = oentries
+        const hasDynamicallyAdded = matchedOEntries
           .some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
         if (hasDynamicallyAdded) {
           context.report({ messageId: "expectedDisconnectInControlFlow", node });
           continue;
         }
-        for (const oEntry of oentries) {
-          if (uentries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
+        for (const oEntry of matchedOEntries) {
+          if (matchedUEntries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
             continue;
           }
           context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });

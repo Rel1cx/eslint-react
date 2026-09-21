@@ -14,7 +14,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -24,7 +28,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -34,7 +42,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -44,19 +56,28 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
-    // Cleanup returns a non-function
+    // Cleanup returns a non-function, so the fetch is never aborted
     {
       code: tsx`
         function Example() {
           useEffect(() => {
-            fetch("/api/user");
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal });
             return null;
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Different effect kinds
     {
@@ -67,7 +88,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -77,7 +102,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -87,7 +116,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     // fetch inside control flow (if / for)
     {
@@ -100,7 +133,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     {
       code: tsx`
@@ -112,7 +149,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     // fetch inside try/catch
     {
@@ -125,7 +166,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     // Computed identifier key is not a static "signal" option: the property name is the runtime value of the variable
     {
@@ -139,7 +184,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     // Computed string literal keys are not statically resolved, so the "signal" option is not recognized
     {
@@ -154,7 +203,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortController" }],
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
     },
     // Signal provided but no matching abort in cleanup
     {
@@ -166,7 +219,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -177,7 +234,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -189,7 +250,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -201,7 +266,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -212,7 +281,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -223,7 +296,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Signal wrapped in type expression without cleanup (unwrap)
     {
@@ -235,7 +312,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Options wrapped in type expression without cleanup (unwrap)
     {
@@ -247,7 +328,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     {
       code: tsx`
@@ -260,7 +345,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Multiple fetches with different controllers, only one aborted
     {
@@ -275,7 +364,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Aborting the wrong controller
     {
@@ -289,7 +382,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
     // Aborting wrong controller wrapped in type expression (unwrap)
     {
@@ -303,7 +400,11 @@ ruleTester.run(RULE_NAME, rule, {
           }, []);
         }
       `,
-      errors: [{ messageId: "expectedAbortInCleanup" }],
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
     },
   ],
   valid: [

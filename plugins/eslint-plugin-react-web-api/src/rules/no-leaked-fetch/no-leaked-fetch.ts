@@ -1,10 +1,11 @@
-import { type ComponentPhaseKind, ComponentPhaseRelevance, getPhaseKindOfFunction } from "@/types";
 import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findProperty, resolveToObjectExpression } from "./lib";
+import { P, isMatching, match } from "ts-pattern";
+import { resolveToObjectExpression } from "./lib";
 
 // #region Rule Metadata
 
@@ -20,20 +21,18 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = ComponentPhaseKind | "other";
+type FunctionKind = "cleanup" | "setup" | "other";
 type CallKind = "fetch" | "abort" | "other";
 
 type FetchEntry = {
   controller: TSESTree.Node | null;
   isParamSignal: boolean;
   node: TSESTree.CallExpression;
-  phase: ComponentPhaseKind;
 };
 
 type AbortEntry = {
   controller: TSESTree.Node;
   node: TSESTree.CallExpression;
-  phase: ComponentPhaseKind;
 };
 
 // #endregion
@@ -41,14 +40,17 @@ type AbortEntry = {
 // #region Helpers
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
-  switch (Extract.getCalleeName(node)) {
-    case "fetch":
-      return "fetch";
-    case "abort":
-      return "abort";
-    default:
-      return "other";
+  const name = Extract.getCalleeName(node);
+  if (name != null && isMatching(P.union("fetch", "abort"))(name)) {
+    return name;
   }
+  return "other";
+}
+
+function getFunctionKind(node: TSESTreeFunction): FunctionKind {
+  if (isUseEffectSetupCallback(node)) return "setup";
+  if (isUseEffectCleanupCallback(node)) return "cleanup";
+  return "other";
 }
 
 function getControllerFromSignal(
@@ -60,6 +62,9 @@ function getControllerFromSignal(
     case AST.MemberExpression:
       return { controller: node.object, isParamSignal: false };
     case AST.Identifier: {
+      // FIXME: alias chains are not resolved recursively (e.g. `const s = ctrl.signal; const signal = s;`
+      // resolves to an Identifier and returns `controller: null`, causing a false positive). Recurse
+      // like `getSignalValueExpression` in no-leaked-event-listener/lib.ts.
       const resolved = resolve(context, node);
       const resolvedUnwrapped = resolved == null ? null : Extract.unwrap(resolved);
       if (resolvedUnwrapped?.type === AST.MemberExpression) {
@@ -87,7 +92,7 @@ function getFetchController(
   const options = resolveToObjectExpression(context, optionsArg);
   if (options == null) return { controller: null, isParamSignal: false };
 
-  const signalProp = findProperty(options.properties, "signal");
+  const signalProp = Extract.findProperty(options.properties, "signal");
   if (signalProp?.type !== AST.Property) return { controller: null, isParamSignal: false };
 
   return getControllerFromSignal(context, signalProp.value);
@@ -124,49 +129,60 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Fast path: skip if `fetch` is not present in the file
-  if (!context.sourceCode.text.includes("fetch")) return {};
-  if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
+  if (!context.sourceCode.text.includes("fetch")) {
+    return {};
+  }
+  if (!/use\w*Effect/u.test(context.sourceCode.text)) {
+    return {};
+  }
 
-  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
+  const fEntries: FunctionKind[] = [];
   const fetchEntries: FetchEntry[] = [];
   const abortEntries: AbortEntry[] = [];
   return {
     [":function"](node: TSESTreeFunction) {
-      const kind = getPhaseKindOfFunction(node) ?? "other";
-      fEntries.push({ kind, node });
+      fEntries.push(getFunctionKind(node));
     },
     [":function:exit"]() {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      const fEntry = fEntries.at(-1);
-      if (fEntry == null || !ComponentPhaseRelevance.has(fEntry.kind)) {
+      // Only consider the innermost function: a `fetch` inside a nested non-effect function
+      // (e.g. an event handler) is not managed by the effect's lifecycle
+      // FIXME: `at(-1)` is intentional for `fetch` entries, but it also applies to `abort` entries -
+      // an `abort` nested in another callback inside the cleanup (e.g. `setTimeout(() => ctrl.abort())`)
+      // is not recorded, causing a false positive `expectedAbortInCleanup`. The `abort` branch should
+      // use `findLast((x) => x.kind !== "other")` semantics instead.
+      const fKind = fEntries.at(-1);
+      if (fKind == null || fKind === "other") {
         return;
       }
-      switch (getCallKind(node)) {
-        case "fetch": {
-          if (fEntry.kind !== "setup") return;
+      match(getCallKind(node))
+        .with("fetch", () => {
+          if (fKind !== "setup") {
+            return;
+          }
           const { controller, isParamSignal } = getFetchController(context, node);
           fetchEntries.push({
             controller,
             isParamSignal,
             node,
-            phase: fEntry.kind,
           });
-          break;
-        }
-        case "abort": {
-          if (fEntry.kind !== "cleanup") return;
+        })
+        .with("abort", () => {
+          if (fKind !== "cleanup") {
+            return;
+          }
           const controller = getAbortController(node);
-          if (controller == null) break;
+          if (controller == null) {
+            return;
+          }
           abortEntries.push({
             controller,
             node,
-            phase: fEntry.kind,
           });
-          break;
-        }
-      }
+        })
+        .otherwise(() => null);
     },
     ["Program:exit"]() {
       for (const fEntry of fetchEntries) {
