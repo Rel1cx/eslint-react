@@ -39,40 +39,40 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const childrenProp = core.getCreateElementProp(context, node, "children");
-      if (childrenProp == null) return;
+      const prop = core.getCreateElementProp(context, node, "children");
+      if (prop == null) return;
 
       context.report({
         messageId: "default",
-        node: childrenProp,
+        node: prop,
       });
     },
     JSXElement(node) {
-      const childrenProp = findAttribute(context, node, "children");
-      if (childrenProp == null) return;
+      const prop = findAttribute(context, node, "children");
+      if (prop == null) return;
 
       // Spread attributes cannot be converted to element content safely,
       // so report without a suggestion
-      if (childrenProp.type !== AST.JSXAttribute) {
-        context.report({ messageId: "default", node: childrenProp });
+      if (prop.type !== AST.JSXAttribute) {
+        context.report({ messageId: "default", node: prop });
         return;
       }
 
       // Turn the 'children' prop value into text usable as element content
-      const childrenText = getChildrenText(context, childrenProp);
+      const childrenText = getChildrenText(context, prop);
 
       // Cannot extract a meaningful children value – report without suggestion
       if (childrenText == null) {
-        context.report({ messageId: "default", node: childrenProp });
+        context.report({ messageId: "default", node: prop });
         return;
       }
 
       context.report({
         messageId: "default",
-        node: childrenProp,
+        node: prop,
         suggest: [
           {
-            fix: buildFix(context, node, childrenProp, childrenText),
+            fix: buildFix(context, node, prop, childrenText),
             messageId: "moveChildrenToContent",
           },
         ],

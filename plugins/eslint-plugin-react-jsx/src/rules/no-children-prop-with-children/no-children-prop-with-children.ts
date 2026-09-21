@@ -39,8 +39,8 @@ export default createRule<[], MessageID>({
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     CallExpression(node) {
-      const childrenProp = core.getCreateElementProp(context, node, "children");
-      if (childrenProp == null) return;
+      const prop = core.getCreateElementProp(context, node, "children");
+      if (prop == null) return;
 
       // `createElement(type, props, ...children)` treats arguments after the
       // props object as children content; without them there is no conflict
@@ -48,26 +48,28 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       context.report({
         messageId: "default",
-        node: childrenProp,
+        node: prop,
       });
     },
     JSXElement(node) {
-      const childrenProp = findAttribute(context, node, "children");
-      if (childrenProp == null || !hasChildren(node)) return;
+      const prop = findAttribute(context, node, "children");
+      if (prop == null || !hasChildren(node)) return;
 
       // If children comes from a spread attribute we cannot safely remove
       // just the `children` key from it, so report without suggestions.
-      if (childrenProp.type !== AST.JSXAttribute) {
-        context.report({ messageId: "default", node: childrenProp });
+      if (prop.type !== AST.JSXAttribute) {
+        context.report({ messageId: "default", node: prop });
         return;
       }
 
       context.report({
         messageId: "default",
-        node: childrenProp,
+        node: prop,
         suggest: [
           {
-            fix: (fixer) => removeJsxAttribute(context, fixer, childrenProp),
+            fix(fixer) {
+              return removeJsxAttribute(context, fixer, prop);
+            },
             messageId: "removeChildrenProp",
           },
           {

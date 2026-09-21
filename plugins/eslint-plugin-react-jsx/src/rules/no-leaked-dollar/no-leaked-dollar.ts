@@ -35,6 +35,7 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
+  // Fast path: skip if '$' is not present in the file
   if (!context.sourceCode.text.includes("$")) return {};
   function visit(node: TSESTreeJSXElementLike) {
     for (const [index, child] of node.children.entries()) {
