@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.20.5 (2026-09-21)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-fetch`: fixed a false positive where an `abort` call nested in a callback within the cleanup function (e.g. `setTimeout(() => ctrl.abort())`) was not recognized, causing a spurious `expectedAbortInCleanup` report; the `abort` lookup now finds the nearest enclosing setup/cleanup function instead of requiring the innermost one. (#1962)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.4...v5.20.5
+
 ## v5.20.4 (2026-09-21)
 
 ### 🐞 Fixes
