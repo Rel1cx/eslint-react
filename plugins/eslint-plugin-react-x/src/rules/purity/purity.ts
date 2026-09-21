@@ -57,8 +57,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           case expr.type === AST.MemberExpression
             && Check.isIdentifier(expr.property): {
-            const rootId = Extract.getIdentifierAt(expr.object, 0);
-            if (rootId == null) return;
+            const rootId = Extract.getMemberChain(expr.object).at(0);
+            if (rootId == null || !Check.isIdentifier(rootId)) return;
             const objectName = resolveBuiltinObjectName(context, rootId);
             if (objectName == null) return;
             const propertyName = expr.property.name;

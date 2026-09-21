@@ -48,8 +48,8 @@ export function classifyFrozenOrigin(
   if (def.node.init == null) {
     const loop = def.node.parent.parent;
     if (loop.type !== AST.ForOfStatement || loop.left !== def.node.parent) return null;
-    const root = Extract.getIdentifierAt(loop.right, 0);
-    if (root == null) return null;
+    const root = Extract.getMemberChain(loop.right).at(0);
+    if (root == null || !Check.isIdentifier(root)) return null;
     const source = findVariable(context.sourceCode.getScope(root), root);
     if (source == null) return null;
     const inner = classifyFrozenOrigin(context, source, components, seen);

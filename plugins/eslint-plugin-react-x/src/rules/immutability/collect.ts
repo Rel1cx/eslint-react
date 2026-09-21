@@ -39,6 +39,12 @@ export function createFactCollector() {
     facts.mutations.push({ kind, enclosingFunction, node, root, target });
   }
 
+  function pushMemberMutation(node: TSESTree.Node, target: TSESTree.Expression) {
+    const root = Extract.getMemberChain(target).at(0);
+    if (root == null || !Check.isIdentifier(root)) return;
+    pushMutation("value", node, target, root);
+  }
+
   const visitor: RuleListener = {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
       const target = Extract.unwrap(node.left);
@@ -46,11 +52,9 @@ export function createFactCollector() {
         case AST.Identifier:
           pushMutation("binding", node, target, target);
           return;
-        case AST.MemberExpression: {
-          const root = Extract.getIdentifierAt(target, 0);
-          if (root != null) pushMutation("value", node, target, root);
+        case AST.MemberExpression:
+          pushMemberMutation(node, target);
           return;
-        }
       }
     },
     CallExpression(node: TSESTree.CallExpression) {
@@ -58,8 +62,7 @@ export function createFactCollector() {
       if (callee.type === AST.MemberExpression) {
         const method = Extract.getCalleeName(node);
         if (method != null && KNOWN_MUTATING_METHODS.has(method)) {
-          const root = Extract.getIdentifierAt(callee.object, 0);
-          if (root != null) pushMutation("value", node, callee.object, root);
+          pushMemberMutation(node, callee.object);
         }
       }
       if (!core.isHookCall(node)) return;
@@ -78,8 +81,7 @@ export function createFactCollector() {
       if (node.operator !== "delete") return;
       const target = Extract.unwrap(node.argument);
       if (target.type !== AST.MemberExpression) return;
-      const root = Extract.getIdentifierAt(target, 0);
-      if (root != null) pushMutation("value", node, target, root);
+      pushMemberMutation(node, target);
     },
     UpdateExpression(node: TSESTree.UpdateExpression) {
       const target = Extract.unwrap(node.argument);
@@ -87,11 +89,9 @@ export function createFactCollector() {
         case AST.Identifier:
           pushMutation("binding", node, target, target);
           return;
-        case AST.MemberExpression: {
-          const root = Extract.getIdentifierAt(target, 0);
-          if (root != null) pushMutation("value", node, target, root);
+        case AST.MemberExpression:
+          pushMemberMutation(node, target);
           return;
-        }
       }
     },
   };
