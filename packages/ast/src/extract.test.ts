@@ -2,7 +2,7 @@ import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { findProperty, getCalleeName, getFullyQualifiedName, getIdentifierAt, getInnermostCall, getPropertyName, unwrap } from "./extract";
+import { findProperty, getCalleeName, getFullyQualifiedName, getInnermostCall, getMemberChain, getPropertyName, unwrap } from "./extract";
 
 function getFirstCallExpression(code: string): TSESTree.CallExpression {
   return getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -272,59 +272,55 @@ describe("getPropertyName", () => {
   });
 });
 
-describe("getIdentifierAt", () => {
-  it("should return an identifier at either edge", () => {
+describe("getMemberChain", () => {
+  it("should return the identifier itself for a bare identifier", () => {
     const node = getFirstNodeOfType<TSESTree.Identifier>("foo;", AST.Identifier);
-    expect(getIdentifierAt(node, 0)).toBe(node);
-    expect(getIdentifierAt(node, -1)).toBe(node);
+    expect(getMemberChain(node)).toEqual([node]);
   });
 
-  it("should return the leftmost identifier at position 0", () => {
+  it("should return the base followed by each member property", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar.baz;", AST.MemberExpression);
-    expect(getIdentifierAt(node, 0)).toMatchObject({ name: "foo", type: AST.Identifier });
-  });
-
-  it("should return the rightmost identifier at position -1", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar.baz;", AST.MemberExpression);
-    expect(getIdentifierAt(node, -1)).toMatchObject({ name: "baz", type: AST.Identifier });
-  });
-
-  it("should support intermediate positive and negative positions", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar.baz;", AST.MemberExpression);
-    expect(getIdentifierAt(node, 1)).toMatchObject({ name: "bar", type: AST.Identifier });
-    expect(getIdentifierAt(node, -2)).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+      { name: "baz", type: AST.Identifier },
+    ]);
   });
 
   it("should unwrap type and chain expressions", () => {
     const node = getFirstNodeOfType<TSESTree.TSAsExpression>("foo?.bar as unknown;", AST.TSAsExpression);
-    expect(getIdentifierAt(node, 0)).toMatchObject({ name: "foo", type: AST.Identifier });
-    expect(getIdentifierAt(node, -1)).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+    ]);
   });
 
-  it("should return null for a non-identifier at the target position", () => {
+  it("should include a non-identifier base in the chain", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>("this.foo;", AST.MemberExpression);
-    expect(getIdentifierAt(node, 0)).toBe(null);
-    expect(getIdentifierAt(node, -1)).toMatchObject({ name: "foo", type: AST.Identifier });
+    expect(getMemberChain(node)).toMatchObject([
+      { type: AST.ThisExpression },
+      { name: "foo", type: AST.Identifier },
+    ]);
   });
 
-  it("should return a computed identifier at the target position", () => {
+  it("should include a computed identifier property in the chain", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo[bar];", AST.MemberExpression);
-    expect(getIdentifierAt(node, -1)).toMatchObject({ name: "bar", type: AST.Identifier });
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { name: "bar", type: AST.Identifier },
+    ]);
   });
 
-  it("should return null when the target property is not an identifier", () => {
+  it("should include a non-identifier property in the chain", () => {
     const node = getFirstNodeOfType<TSESTree.MemberExpression>('foo["bar"];', AST.MemberExpression);
-    expect(getIdentifierAt(node, -1)).toBe(null);
+    expect(getMemberChain(node)).toMatchObject([
+      { name: "foo", type: AST.Identifier },
+      { value: "bar", type: AST.Literal },
+    ]);
   });
 
-  it("should return null when the position is out of bounds", () => {
-    const node = getFirstNodeOfType<TSESTree.MemberExpression>("foo.bar;", AST.MemberExpression);
-    expect(getIdentifierAt(node, 2)).toBe(null);
-    expect(getIdentifierAt(node, -3)).toBe(null);
-  });
-
-  it("should return null for a private identifier", () => {
+  it("should return the private identifier itself for a bare private identifier", () => {
     const node = getFirstNodeOfType<TSESTree.PrivateIdentifier>("class Foo { #bar; }", AST.PrivateIdentifier);
-    expect(getIdentifierAt(node, 0)).toBe(null);
+    expect(getMemberChain(node)).toEqual([node]);
   });
 });

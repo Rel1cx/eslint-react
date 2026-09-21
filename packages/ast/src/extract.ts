@@ -113,19 +113,19 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
 }
 
 /**
- * Get the identifier at a given position in a member expression chain (ex: position `0` in `a.b.c` is `a`).
- * @param node The expression to walk.
- * @param position The position of the identifier to return.
- * @returns The identifier at the given position, or `null` when there is none.
+ * Get the member chain of an expression (ex: `[a, b, c]` for `a.b.c`), starting from the base object.
+ * Type expressions and chain expressions are unwrapped along the way.
+ * @param node The expression to inspect.
+ * @returns The base node followed by each member property in access order.
  */
-export function getIdentifierAt(node: TSESTree.Expression | TSESTree.PrivateIdentifier, position: number): TSESTree.Identifier | null {
-  const identifiers: Array<TSESTree.Identifier | null> = [];
+export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdentifier) {
+  const members: Exclude<TSESTree.Node, TSESTreeTypeExpression>[] = [];
   let current: TSESTree.Node = unwrap(node);
   while (current.type === AST.MemberExpression) {
     const property = unwrap(current.property);
-    identifiers.unshift(Check.isIdentifier(property) ? property : null);
+    members.unshift(property);
     current = unwrap(current.object);
   }
-  identifiers.unshift(Check.isIdentifier(current) ? current : null);
-  return identifiers.at(position) ?? null;
+  members.unshift(current);
+  return members;
 }

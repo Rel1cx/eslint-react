@@ -90,16 +90,14 @@ export function isRefLikeName(name: string) {
 }
 
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
-  if (Check.isIdentifier(node)) return isRefLikeName(node.name);
-  if (node.type !== AST.MemberExpression) return false;
-  return Check.isIdentifier(node.property)
-    ? isRefLikeName(node.property.name) || hasRefLikeNameInChain(node.object)
-    : hasRefLikeNameInChain(node.object);
+  const unwrapped = Extract.unwrap(node);
+  if (!Check.isExpression(unwrapped)) return false;
+  return Extract.getMemberChain(unwrapped).some((member) => Check.isIdentifier(member) && isRefLikeName(member.name));
 }
 
 function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {
-  const root = Check.isIdentifier(node) ? node : Extract.getIdentifierAt(node, 0);
-  if (root == null) return false;
+  const root = Extract.getMemberChain(node).at(0);
+  if (root == null || !Check.isIdentifier(root)) return false;
   const variable = findVariable(context.sourceCode.getScope(root), root);
   if (variable == null) return false;
   const origin = resolveVariableOrigin(context, variable);
