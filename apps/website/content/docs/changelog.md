@@ -2,6 +2,18 @@
 title: Changelog
 ---
 
+## v5.20.4 (2026-09-21)
+
+### 🐞 Fixes
+
+- `react-web-api/no-leaked-event-listener`: listeners that are only added inside the effect cleanup are now reported when the matching `removeEventListener` is in the setup (reversed setup/cleanup pairing), since a listener attached on unmount is never removed. (#1961)
+
+### 🏗️ Internal
+
+- `react-jsx` and `react-web-api` rules: unified rule code style and variable naming across the plugins. (#1960, #1961)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.3...v5.20.4
+
 ## v5.20.3 (2026-09-21)
 
 ### 🏗️ Internal
