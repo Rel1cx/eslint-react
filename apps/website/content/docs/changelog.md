@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.20.3 (2026-09-21)
+
+### 🏗️ Internal
+
+- `@eslint-react/ast`: replaced `getIdentifierAt` with the new `getMemberChain` helper and moved `getInnermostCall` to its sole consumer in `react-x/no-nested-component-definitions`. (#1959)
+- `react-dom` rules: unified rule code style and variable naming across the plugin, and switched `no-find-dom-node` to import-aware detection via `createImportLookup`. (#1958)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.2...v5.20.3
+
 ## v5.20.2 (2026-09-20)
 
 ### 🐞 Fixes

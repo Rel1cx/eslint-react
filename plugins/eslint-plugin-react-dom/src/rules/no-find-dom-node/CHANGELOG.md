@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.20.3] - 2026-09-20
 
-### Fixed
-
-- Only report `findDOMNode` calls when `findDOMNode` is actually imported from `react-dom` (via named, default, or namespace import), accessed through the `React`/`ReactDOM` globals, or called as the bare `findDOMNode` global, avoiding false positives on unrelated same-named member calls (e.g. `foo.findDOMNode()`).
-
 ### Changed
 
 - Aligned rule code style with `no-flush-sync` and switched to import-aware detection via `createImportLookup`, consolidated AST checks on the `Check`/`Extract` helpers.
