@@ -9,21 +9,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<ns:testcomponent />`,
       errors: [{
         data: { name: "ns:testcomponent" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     {
       code: tsx`<Ns:TestComponent />`,
       errors: [{
         data: { name: "Ns:TestComponent" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     {
       code: tsx`<svg:circle cx="50" cy="50" r="40" />`,
       errors: [{
         data: { name: "svg:circle" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     // Casing variant
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<ns:testComponent />`,
       errors: [{
         data: { name: "ns:testComponent" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     // With attributes
@@ -39,7 +39,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<ns:Component className="x" />`,
       errors: [{
         data: { name: "ns:Component" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     // With closing tag
@@ -47,7 +47,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<ns:Component></ns:Component>`,
       errors: [{
         data: { name: "ns:Component" },
-        messageId: "noNamespace",
+        messageId: "default",
       }],
     },
     // Self-closing with nested member expression is not possible in JSX namespace syntax

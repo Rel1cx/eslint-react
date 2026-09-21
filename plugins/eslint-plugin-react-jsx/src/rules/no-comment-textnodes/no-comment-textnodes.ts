@@ -1,7 +1,6 @@
 import { createRule } from "@/utils/create-rule";
 import { Check } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-comment-textnodes";
 
@@ -26,10 +25,11 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  function visit(node: TSESTree.JSXText) {
-    if (!Check.isJSXElementOrFragment(node.parent)) return;
-    if (!/^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node))) return;
-    context.report({ messageId: "default", node });
-  }
-  return { JSXText: visit };
+  return {
+    JSXText(node) {
+      if (!Check.isJSXElementOrFragment(node.parent)) return;
+      if (!/^\s*\/(?:\/|\*)/mu.test(context.sourceCode.getText(node))) return;
+      context.report({ messageId: "default", node });
+    },
+  };
 }

@@ -67,11 +67,11 @@ export function create(context: RuleContext<MessageID, Options>, [option]: Optio
     allowEmptyFragment: option.allowEmptyFragment ?? false,
     allowExpressions: option.allowExpressions ?? true,
   };
-  const jsxConfig = core.getJsxConfig(context);
+  const { jsxFragmentFactory } = core.getJsxConfig(context);
 
   return {
     JSXElement(node) {
-      if (!isFragmentElement(node, jsxConfig.jsxFragmentFactory)) return;
+      if (!isFragmentElement(node, jsxFragmentFactory)) return;
       if (hasAnyAttribute(context, node, ["key", "ref"])) return;
       visitFragment(context, node, options);
     },

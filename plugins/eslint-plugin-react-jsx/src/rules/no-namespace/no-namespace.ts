@@ -6,7 +6,7 @@ export const RULE_NAME = "no-namespace";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "noNamespace";
+export type MessageID = "default";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -15,7 +15,7 @@ export default createRule<[], MessageID>({
       description: "Disallow JSX namespace syntax, as React does not support them.",
     },
     messages: {
-      noNamespace: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
+      default: "A React component '{{name}}' must not be in a namespace, as React does not support them.",
     },
     schema: [],
   },
@@ -33,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         data: {
           name,
         },
-        messageId: "noNamespace",
+        messageId: "default",
         node: node.openingElement.name,
       });
     },
