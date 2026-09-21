@@ -50,19 +50,21 @@ export function getCalleeName(node: TSESTree.CallExpression): string | null {
 }
 
 /**
- * Unwrap curried call wrappers like `connect(...)(Component)` to get the innermost call expression.
- * Type expressions and chain expressions around each callee are unwrapped along the way.
- * @param node The outermost call expression to inspect.
- * @returns The innermost call expression, whose callee is not itself a call expression.
+ * Get the member chain of an expression (ex: `[a, b, c]` for `a.b.c`), starting from the base object.
+ * Type expressions and chain expressions are unwrapped along the way.
+ * @param node The expression to inspect.
+ * @returns The base node followed by each member property in access order.
  */
-export function getInnermostCall(node: TSESTree.CallExpression): TSESTree.CallExpression {
-  let call = node;
-  let callee = unwrap(call.callee);
-  while (callee.type === AST.CallExpression) {
-    call = callee;
-    callee = unwrap(call.callee);
+export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdentifier) {
+  const members: Exclude<TSESTree.Node, TSESTreeTypeExpression>[] = [];
+  let current: TSESTree.Node = unwrap(node);
+  while (current.type === AST.MemberExpression) {
+    const property = unwrap(current.property);
+    members.unshift(property);
+    current = unwrap(current.object);
   }
-  return call;
+  members.unshift(current);
+  return members;
 }
 
 /**
@@ -110,22 +112,4 @@ export function getFullyQualifiedName(node: TSESTree.Node, getText: (node: TSEST
     default:
       return getText(expr);
   }
-}
-
-/**
- * Get the member chain of an expression (ex: `[a, b, c]` for `a.b.c`), starting from the base object.
- * Type expressions and chain expressions are unwrapped along the way.
- * @param node The expression to inspect.
- * @returns The base node followed by each member property in access order.
- */
-export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdentifier) {
-  const members: Exclude<TSESTree.Node, TSESTreeTypeExpression>[] = [];
-  let current: TSESTree.Node = unwrap(node);
-  while (current.type === AST.MemberExpression) {
-    const property = unwrap(current.property);
-    members.unshift(property);
-    current = unwrap(current.object);
-  }
-  members.unshift(current);
-  return members;
 }

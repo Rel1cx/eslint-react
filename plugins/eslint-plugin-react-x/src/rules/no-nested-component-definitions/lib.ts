@@ -48,7 +48,7 @@ function isComponentWrapperCall(context: RuleContext, call: TSESTree.CallExpress
   // The function is the callee (e.g. an IIFE), not an argument
   if (Extract.unwrap(call.callee) === arg) return false;
   // Unwrap curried wrappers like `connect(...)(Component)`
-  call = Extract.getInnermostCall(call);
+  call = getInnermostCall(call);
   if (isConnectCall(context, call)) return true;
   if (isCreateFragmentContainerCall(context, call)) return true;
   if (isCreatePaginationContainerCall(context, call)) return true;
@@ -65,6 +65,22 @@ function isComponentWrapperCall(context: RuleContext, call: TSESTree.CallExpress
   if (isWithRouterCall(context, call)) return true;
   if (isWithStateCall(context, call)) return true;
   return false;
+}
+
+/**
+ * Unwrap curried call wrappers like `connect(...)(Component)` to get the innermost call expression.
+ * Type expressions and chain expressions around each callee are unwrapped along the way.
+ * @param node The outermost call expression to inspect.
+ * @returns The innermost call expression, whose callee is not itself a call expression.
+ */
+function getInnermostCall(node: TSESTree.CallExpression): TSESTree.CallExpression {
+  let call = node;
+  let callee = Extract.unwrap(call.callee);
+  while (callee.type === AST.CallExpression) {
+    call = callee;
+    callee = Extract.unwrap(call.callee);
+  }
+  return call;
 }
 
 /**
