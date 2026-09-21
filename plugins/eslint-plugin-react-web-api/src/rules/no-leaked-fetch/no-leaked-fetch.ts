@@ -53,10 +53,7 @@ function getFunctionKind(node: TSESTreeFunction): FunctionKind {
   return "other";
 }
 
-function getControllerFromSignal(
-  context: RuleContext,
-  node: TSESTree.Node,
-): { controller: TSESTree.Node | null; isParamSignal: boolean } {
+function getControllerFromSignal(context: RuleContext, node: TSESTree.Node): { controller: TSESTree.Node | null; isParamSignal: boolean } {
   node = Extract.unwrap(node);
   switch (node.type) {
     case AST.MemberExpression:
@@ -82,10 +79,7 @@ function getControllerFromSignal(
   }
 }
 
-function getFetchController(
-  context: RuleContext,
-  node: TSESTree.CallExpression,
-): { controller: TSESTree.Node | null; isParamSignal: boolean } {
+function getFetchController(context: RuleContext, node: TSESTree.CallExpression): { controller: TSESTree.Node | null; isParamSignal: boolean } {
   const [, optionsArg] = node.arguments;
   if (optionsArg == null) return { controller: null, isParamSignal: false };
 
@@ -147,19 +141,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       fEntries.pop();
     },
     ["CallExpression"](node) {
-      // Only consider the innermost function: a `fetch` inside a nested non-effect function
-      // (e.g. an event handler) is not managed by the effect's lifecycle
-      // FIXME: `at(-1)` is intentional for `fetch` entries, but it also applies to `abort` entries -
-      // an `abort` nested in another callback inside the cleanup (e.g. `setTimeout(() => ctrl.abort())`)
-      // is not recorded, causing a false positive `expectedAbortInCleanup`. The `abort` branch should
-      // use `findLast((x) => x.kind !== "other")` semantics instead.
-      const fKind = fEntries.at(-1);
-      if (fKind == null || fKind === "other") {
-        return;
-      }
       match(getCallKind(node))
         .with("fetch", () => {
-          if (fKind !== "setup") {
+          // Only consider the innermost function: a `fetch` inside a nested non-effect function
+          // (e.g. an event handler) is not managed by the effect's lifecycle
+          if (fEntries.at(-1) !== "setup") {
             return;
           }
           const { controller, isParamSignal } = getFetchController(context, node);
@@ -170,7 +156,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           });
         })
         .with("abort", () => {
-          if (fKind !== "cleanup") {
+          // An `abort` may be nested in a callback within the cleanup function
+          // (e.g. `setTimeout(() => ctrl.abort())`), so find the nearest enclosing
+          // setup/cleanup function instead of requiring the innermost one
+          if (fEntries.findLast((kind) => kind !== "other") !== "cleanup") {
             return;
           }
           const controller = getAbortController(node);
@@ -199,8 +188,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (fEntry.isParamSignal) {
           continue;
         }
-        const hasMatchingAbort = abortEntries.some((aEntry) => isAssignmentTargetEqual(context, aEntry.controller, controller));
-        if (!hasMatchingAbort) {
+        if (!abortEntries.some((aEntry) => isAssignmentTargetEqual(context, aEntry.controller, controller))) {
           context.report({
             messageId: "expectedAbortInCleanup",
             node: fEntry.node,
