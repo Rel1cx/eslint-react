@@ -406,6 +406,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // abort nested in a callback in the setup function instead of the cleanup function
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal });
+            setTimeout(() => ctrl.abort(), 5000);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
+    },
+    // abort nested in a callback outside any effect
+    {
+      code: tsx`
+        function Example() {
+          const ctrl = new AbortController();
+
+          useEffect(() => {
+            fetch("/api/user", { signal: ctrl.signal });
+          }, []);
+
+          const handleClick = () => {
+            setTimeout(() => ctrl.abort(), 100);
+          };
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -754,6 +792,67 @@ ruleTester.run(RULE_NAME, rule, {
           fetch("/api/user", { signal: getController().signal });
           return () => {
             getController().abort();
+          };
+        }, []);
+      }
+    `,
+    // abort nested in a callback inside the cleanup function
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal });
+          return () => {
+            setTimeout(() => ctrl.abort(), 100);
+          };
+        }, []);
+      }
+    `,
+    // abort nested in a promise callback inside the cleanup function
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal });
+          return () => {
+            Promise.resolve().then(() => ctrl.abort());
+          };
+        }, []);
+      }
+    `,
+    // abort nested in a locally declared function inside the cleanup function
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal });
+          return () => {
+            function doAbort() {
+              ctrl.abort();
+            }
+            doAbort();
+          };
+        }, []);
+      }
+    `,
+    // abort nested multiple levels deep inside the cleanup function
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const ctrl = new AbortController();
+          fetch("/api/user", { signal: ctrl.signal });
+          return () => {
+            setTimeout(() => {
+              Promise.resolve().then(() => ctrl.abort());
+            }, 100);
           };
         }, []);
       }

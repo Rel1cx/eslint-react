@@ -5,6 +5,12 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a false positive where an `abort` call nested in a callback within the cleanup function (e.g. `setTimeout(() => ctrl.abort())`) was not recognized, causing a spurious `expectedAbortInCleanup` report. The `abort` lookup now finds the nearest enclosing setup/cleanup function instead of requiring the innermost one.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed
