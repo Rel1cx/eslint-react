@@ -3,7 +3,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import { resolve } from "@eslint-react/var";
+import { resolveOrigin } from "@eslint-react/var";
 import { constVoid, getOrInsertComputed, not } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -129,7 +129,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
 
   function isIdFromUseStateCall(id: TSESTree.Identifier, at?: number) {
-    const initNode = resolve(context, id);
+    const initNode = resolveOrigin(context, id);
     if (initNode == null) return false;
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
@@ -335,13 +335,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const getSetStateCalls = (context: RuleContext, id: TSESTree.Identifier): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
         // The value of a function parameter (e.g. a function received via props) is provided
         // by the caller and cannot be resolved to a function defined in this component.
-        // `resolve` maps a parameter to its containing function, which would wrongly attribute
+        // `resolveOrigin` maps a parameter to its containing function, which would wrongly attribute
         // the component's own render-phase setState calls to the effect (https://github.com/Rel1cx/eslint-react/issues/1944).
         const variable = findVariable(context.sourceCode.getScope(id), id);
         if (variable != null && variable.defs.some((def) => def.type === DefinitionType.Parameter)) {
           return [];
         }
-        const node = resolve(context, id);
+        const node = resolveOrigin(context, id);
         switch (node?.type) {
           case AST.ArrowFunctionExpression:
           case AST.FunctionDeclaration:

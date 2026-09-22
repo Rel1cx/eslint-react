@@ -8,3 +8,4 @@ export * from "./resolve";
 export * from "./resolve-enclosing-assignment-target";
 export * from "./resolve-import-source";
 export * from "./resolve-object-type";
+export * from "./resolve-origin";

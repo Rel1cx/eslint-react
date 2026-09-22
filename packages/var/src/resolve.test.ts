@@ -24,6 +24,10 @@ function findIdentifierReferences(ast: TSESTree.Program, name: string): TSESTree
       if (parent.type === AST.ClassDeclaration && parent.id === node) return;
       if (parent.type === AST.ImportSpecifier) return;
       if (parent.type === AST.ImportDefaultSpecifier) return;
+      if (parent.type === AST.TSEnumDeclaration && parent.id === node) return;
+      if (parent.type === AST.TSEnumMember && parent.id === node) return;
+      if (parent.type === AST.TSModuleDeclaration && parent.id === node) return;
+      if (parent.type === AST.TSTypeAliasDeclaration && parent.id === node) return;
       // dprint-ignore
       // Skip function parameters (Identifier directly inside a function params array)
       if ((parent.type === AST.FunctionDeclaration || parent.type === AST.FunctionExpression || parent.type === AST.ArrowFunctionExpression) && parent.params.some((p) => p === node)) {
@@ -79,18 +83,16 @@ describe("resolve", () => {
     expect(node?.type).toBe(AST.ClassDeclaration);
   });
 
-  it("should resolve a Parameter to the containing function node", () => {
+  it("should return null for a Parameter since its value is supplied by the caller", () => {
     const code = "function bar(p) { p; }";
     const facts = runInRule(code, (context, ast) => {
       const refs = findIdentifierReferences(ast, "p");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
-      return [resolved];
+      return [{ resolved }];
     });
     expect(facts).toHaveLength(1);
-    const node = facts[0];
-    expect(node).not.toBeNull();
-    expect(node?.type).toBe(AST.FunctionDeclaration);
+    expect(facts[0]?.resolved).toBeNull();
   });
 
   it("should return null for an ImportBinding", () => {
@@ -111,6 +113,67 @@ describe("resolve", () => {
       const refs = findIdentifierReferences(ast, "x");
       expect(refs.length).toBeGreaterThanOrEqual(1);
       const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for an object destructured binding instead of the source object", () => {
+    const code = "const { a } = obj; a;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "a");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    // The declarator's `init` is the source object `obj`, not the value of `a`
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a renamed object destructured binding", () => {
+    const code = "const { b: a } = obj; a;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "a");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for an array destructured binding", () => {
+    const code = "const [x] = arr; x;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "x");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a nested destructured binding", () => {
+    const code = "const { p: { q } } = obj; q;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "q");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a destructured binding with a default value", () => {
+    const code = "const { a = 1 } = obj; a;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "a");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
       return [{ resolved }];
     });
     expect(facts).toHaveLength(1);
@@ -165,5 +228,178 @@ describe("resolve", () => {
     expect((resolvedDefault as TSESTree.Literal | undefined)?.value).toBe(99);
     // localOnly: true should not find it since it's in an outer scope
     expect(resolvedLocal).toBeNull();
+  });
+
+  it("should resolve a same-scope variable when localOnly is true", () => {
+    const code = "const x = 1; x;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "x");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!, { localOnly: true });
+      return [resolved];
+    });
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
+    expect(node).not.toBeNull();
+    expect(node?.type).toBe(AST.Literal);
+    expect((node as TSESTree.Literal | undefined)?.value).toBe(1);
+  });
+
+  it("should return null for an undeclared identifier", () => {
+    const code = "undeclared;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "undeclared");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null when the `at` index is out of range", () => {
+    const code = "const x = 1; x;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "x");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const ref = refs[0]!;
+      return [{
+        beyondEnd: resolve(context, ref, { at: 1 }),
+        beforeStart: resolve(context, ref, { at: -2 }),
+      }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.beyondEnd).toBeNull();
+    expect(facts[0]?.beforeStart).toBeNull();
+  });
+
+  it("should resolve a named FunctionExpression to the FunctionExpression node", () => {
+    const code = "const f = function g() { g; };";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "g");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [resolved];
+    });
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
+    expect(node).not.toBeNull();
+    expect(node?.type).toBe(AST.FunctionExpression);
+  });
+
+  it("should resolve a named ClassExpression to the ClassExpression node", () => {
+    const code = "const C = class K { static { K; } };";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "K");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [resolved];
+    });
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
+    expect(node).not.toBeNull();
+    expect(node?.type).toBe(AST.ClassExpression);
+  });
+
+  it("should return null for an arrow function parameter", () => {
+    const code = "const f = (p) => { p; };";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "p");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a parameter of a function type signature", () => {
+    const code = "type F = (p: number) => void;";
+    const facts = runInRule(code, (context, ast) => {
+      // The only `p` here is the parameter name inside the TSFunctionType
+      const refs = findIdentifierReferences(ast, "p");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a CatchClause binding", () => {
+    const code = "try {} catch (e) { e; }";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "e");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[refs.length - 1]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should resolve a TSEnumName to the TSEnumDeclaration node", () => {
+    const code = "enum Color { Red } Color;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "Color");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [resolved];
+    });
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
+    expect(node).not.toBeNull();
+    expect(node?.type).toBe(AST.TSEnumDeclaration);
+  });
+
+  it("should resolve a TSEnumMember to its initializer", () => {
+    const code = "enum E { A = 1, B = A }";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "A");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [resolved];
+    });
+    expect(facts).toHaveLength(1);
+    const node = facts[0];
+    expect(node).not.toBeNull();
+    expect(node?.type).toBe(AST.Literal);
+    expect((node as TSESTree.Literal | undefined)?.value).toBe(1);
+  });
+
+  it("should return null for a TSEnumMember without an initializer", () => {
+    const code = "enum E { A, B = A }";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "A");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a TSModuleName", () => {
+    const code = "namespace NS { export const v = 1; } NS.v;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "NS");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
+  });
+
+  it("should return null for a type alias reference", () => {
+    const code = "type T = number; const x: T = 1;";
+    const facts = runInRule(code, (context, ast) => {
+      const refs = findIdentifierReferences(ast, "T");
+      expect(refs.length).toBeGreaterThanOrEqual(1);
+      const resolved = resolve(context, refs[0]!);
+      return [{ resolved }];
+    });
+    expect(facts).toHaveLength(1);
+    expect(facts[0]?.resolved).toBeNull();
   });
 });

@@ -1,6 +1,6 @@
 import { Check, Extract } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
-import { resolve } from "@eslint-react/var";
+import { resolve, resolveOrigin } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { P, match } from "ts-pattern";
@@ -9,9 +9,9 @@ export function getSignalValueExpression(context: RuleContext, node: TSESTree.No
   if (node == null) return null;
   switch (node.type) {
     case AST.Identifier: {
-      const resolved = resolve(context, node);
+      const resolved = resolveOrigin(context, node);
       const unwrapped = resolved == null ? null : Extract.unwrap(resolved);
-      // If the identifier is a function parameter (resolve returns the containing function),
+      // If the identifier is a function parameter (resolveOrigin returns the containing function),
       // treat it as a valid signal expression (e.g. `signal` from foxact/use-abortable-effect).
       if (unwrapped != null && Check.isFunction(unwrapped)) {
         return node;

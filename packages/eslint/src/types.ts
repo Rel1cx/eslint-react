@@ -4,13 +4,7 @@ import type * as tseslint from "@typescript-eslint/utils/ts-eslint";
  * Represents the ESLint rule context.
  * @since 0.0.1
  */
-export type RuleContext<
-  MessageIds extends string = string,
-  Options extends readonly unknown[] = readonly unknown[],
-> = tseslint.RuleContext<
-  MessageIds,
-  Options
->;
+export type RuleContext<M extends string = string, O extends readonly unknown[] = readonly unknown[]> = tseslint.RuleContext<M, O>;
 
 /**
  * Represents the feature of a rule.
