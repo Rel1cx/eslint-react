@@ -36,6 +36,8 @@ export interface ImportEntry {
  * time, and results preserve source order.
  */
 export interface ImportLookup {
+  /** Return every import entry, in source order. */
+  all(): readonly ImportEntry[];
   /**
    * Look up the import entry a local name is bound to.
    *
@@ -50,8 +52,6 @@ export interface ImportLookup {
    * @returns The matching entries in source order, possibly empty.
    */
   bindingsOf(name: string): readonly ImportEntry[];
-  /** Return every import entry, in source order. */
-  all(): readonly ImportEntry[];
   /**
    * Check whether a local name is bound to a specific imported export.
    *
@@ -71,17 +71,17 @@ export interface ImportLookup {
 /** Options for {@link createImportLookup}. */
 export interface ImportLookupOptions {
   /**
+   * Local names to pre-register as namespace bindings without an import
+   * statement, e.g. a `ReactDOM` global provided by the environment.
+   */
+  builtinNamespaces?: readonly string[];
+  /**
    * The base import source to track, e.g. `"react-dom"`.
    *
    * Subpath imports are grouped under their base, so `"react-dom/client"`
    * matches a source of `"react-dom"`.
    */
   source: string;
-  /**
-   * Local names to pre-register as namespace bindings without an import
-   * statement, e.g. a `ReactDOM` global provided by the environment.
-   */
-  builtinNamespaces?: readonly string[];
 }
 
 /**
@@ -111,7 +111,7 @@ export interface ImportLookupOptions {
  * ```
  */
 export function createImportLookup(program: TSESTree.Program, options: ImportLookupOptions): ImportLookup {
-  const { source, builtinNamespaces = [] } = options;
+  const { builtinNamespaces = [], source } = options;
   const entries: ImportEntry[] = [];
   const byLocal = new Map<string, ImportEntry>();
   const byName = new Map<string, ImportEntry[]>();
@@ -146,14 +146,14 @@ export function createImportLookup(program: TSESTree.Program, options: ImportLoo
     }
   }
   return {
+    all() {
+      return entries;
+    },
     binding(local) {
       return byLocal.get(local);
     },
     bindingsOf(name) {
       return byName.get(name) ?? [];
-    },
-    all() {
-      return entries;
     },
     has(local, name) {
       return byLocal.get(local)?.name === name;
