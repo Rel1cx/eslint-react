@@ -56,6 +56,30 @@ export default defineConfig(
       },
     },
   },
+  {
+    files: ["packages/*/src/**/*.ts", "plugins/*/src/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-restricted-imports": ["error", {
+        patterns: [
+          {
+            allowTypeImports: true,
+            message: "Runtime code must not load ESLint.",
+            regex: "^eslint(/.*)?$",
+          },
+          {
+            allowTypeImports: true,
+            message: "Use the `getConstrainedTypeAtLocation` helper instead.",
+            regex: "^@typescript-eslint/type-utils(/.*)?$",
+          },
+          {
+            allowTypeImports: true,
+            message: "Use `@typescript-eslint/utils/ast-utils` or `@typescript-eslint/utils/eslint-utils` instead.",
+            regex: "^@typescript-eslint/utils(/(?!(?:ast|eslint)-utils$).*)?$",
+          },
+        ],
+      }],
+    },
+  },
   // Scripts and Configs (Relaxed, No Type Checking)
   {
     extends: [
