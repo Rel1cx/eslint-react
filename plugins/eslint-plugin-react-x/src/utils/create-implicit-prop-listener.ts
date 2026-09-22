@@ -1,10 +1,10 @@
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleListener } from "@eslint-react/eslint";
-import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
 import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import { unionConstituents } from "ts-api-utils";
 import ts from "typescript";
+import { getConstrainedTypeAtLocation } from "./get-constrained-type-at-location";
 
 /**
  * Creates a listener that detects JSX spread attributes implicitly passing a given prop

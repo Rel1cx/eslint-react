@@ -49,7 +49,6 @@
     "@eslint-react/shared": "workspace:*",
     "@eslint-react/var": "workspace:*",
     "@typescript-eslint/scope-manager": "^8.70.0",
-    "@typescript-eslint/type-utils": "^8.70.0",
     "@typescript-eslint/types": "^8.70.0",
     "@typescript-eslint/typescript-estree": "^8.70.0",
     "@typescript-eslint/utils": "^8.70.0",

@@ -1656,9 +1656,6 @@ importers:
       '@typescript-eslint/scope-manager':
         specifier: ^8.70.0
         version: 8.70.0
-      '@typescript-eslint/type-utils':
-        specifier: ^8.70.0
-        version: 8.70.0(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       '@typescript-eslint/types':
         specifier: ^8.70.0
         version: 8.70.0
