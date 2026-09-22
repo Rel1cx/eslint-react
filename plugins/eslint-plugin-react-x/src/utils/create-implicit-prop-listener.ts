@@ -2,7 +2,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleListener } from "@eslint-react/eslint";
 import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import type { TSESTree } from "@typescript-eslint/types";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import { unionConstituents } from "ts-api-utils";
 import ts from "typescript";
 
