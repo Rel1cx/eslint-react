@@ -102,6 +102,76 @@ describe("isValueEqual", () => {
     });
   });
 
+  describe("callback parameters (resolveOrigin contract)", () => {
+    // isValueEqual resolves parameter identifiers via `resolveOrigin`, which maps a
+    // parameter to its containing function. Two parameters at the same position of
+    // callbacks passed to structurally equal callees are considered value-equal.
+    it("should return true for same-position parameters of callbacks passed to equal callees", () => {
+      const code = [
+        "xs.forEach((a) => foo(a));",
+        "xs.forEach((b) => bar(b));",
+      ].join("\n");
+      const fact = runInRule(code, (context, ast) => {
+        const aRefs = findIdentifierRefs(ast, "a");
+        const bRefs = findIdentifierRefs(ast, "b");
+        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
+        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
+        expect(aRef).toBeDefined();
+        expect(bRef).toBeDefined();
+        return isValueEqual(context, aRef!, bRef!);
+      });
+      expect(fact).toBe(true);
+    });
+
+    it("should return false for same-position parameters of callbacks passed to different callees", () => {
+      const code = [
+        "xs.forEach((a) => foo(a));",
+        "xs.map((b) => bar(b));",
+      ].join("\n");
+      const fact = runInRule(code, (context, ast) => {
+        const aRefs = findIdentifierRefs(ast, "a");
+        const bRefs = findIdentifierRefs(ast, "b");
+        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
+        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
+        expect(aRef).toBeDefined();
+        expect(bRef).toBeDefined();
+        return isValueEqual(context, aRef!, bRef!);
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should return false for different-position parameters of the same callback", () => {
+      const code = "xs.forEach((a, b) => { foo(a); bar(b); });";
+      const fact = runInRule(code, (context, ast) => {
+        const aRefs = findIdentifierRefs(ast, "a");
+        const bRefs = findIdentifierRefs(ast, "b");
+        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
+        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
+        expect(aRef).toBeDefined();
+        expect(bRef).toBeDefined();
+        return isValueEqual(context, aRef!, bRef!);
+      });
+      expect(fact).toBe(false);
+    });
+
+    it("should return false for parameters of non-callback functions", () => {
+      const code = [
+        "function f(a) { foo(a); }",
+        "function h(b) { bar(b); }",
+      ].join("\n");
+      const fact = runInRule(code, (context, ast) => {
+        const aRefs = findIdentifierRefs(ast, "a");
+        const bRefs = findIdentifierRefs(ast, "b");
+        const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
+        const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
+        expect(aRef).toBeDefined();
+        expect(bRef).toBeDefined();
+        return isValueEqual(context, aRef!, bRef!);
+      });
+      expect(fact).toBe(false);
+    });
+  });
+
   describe("issue verification", () => {
     it("FIXED: MemberExpression computed property now uses value equality", () => {
       // Previously `isValueEqual` used `Compare.areEqual(a.property, b.property)` for

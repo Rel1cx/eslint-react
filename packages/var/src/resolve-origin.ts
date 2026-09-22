@@ -1,11 +1,12 @@
+import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /**
- * Resolve an identifier to the AST node that represents its value,
- * suitable for use in ESLint rule analysis.
+ * Resolve an identifier to the AST node its value **originates from**,
+ * suitable for origin/pedigree tracking in ESLint rule analysis.
  *
  * The resolution follows these rules per definition type:
  *
@@ -15,13 +16,24 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  * | `ClassName`              | `ClassDeclaration` / `ClassExpression`       | `def.node`                         |
  * | `FunctionName`           | `FunctionDeclaration` / `FunctionExpression` | `def.node`                         |
  * | `ImplicitGlobalVariable` | any node                                     | `null`                             |
- * | `ImportBinding`          | import specifier                             | `null`                             |
- * | `Parameter`              | containing function node                     | `null` (the value is supplied by the caller) |
+ * | `ImportBinding`          | import specifier                             | `def.node` (the import specifier)  |
+ * | `Parameter`              | containing function node                     | `def.node` (if a real function)    |
  * | `TSEnumMember`           | `TSEnumMember`                               | `def.node.initializer` (or `null`) |
  * | `TSEnumName`             | `TSEnumDeclaration`                          | `def.node`                         |
  * | `TSModuleName`           | `TSModuleDeclaration`                        | `null`                             |
  * | `Type`                   | type alias node                              | `null`                             |
- * | `Variable`               | `VariableDeclarator`                         | `def.node.init` for a plain identifier binding; `null` for destructured bindings or missing init |
+ * | `Variable`               | `VariableDeclarator`                         | `def.node.init` (or `null`), including for destructured bindings |
+ *
+ * Unlike {@link resolve}, a binding declared through a destructuring
+ * pattern (e.g. `setState` in `const [state, setState] = useState()`) resolves to the
+ * declarator's initializer (the `useState()` call), i.e. the source expression the
+ * binding derives from rather than the binding's own value; and a parameter resolves
+ * to the containing function node (the binding's declaration site) instead of `null`;
+ * and an import binding resolves to its import specifier (whose parent
+ * `ImportDeclaration` carries the module source) instead of `null`.
+ *
+ * Use this for origin/pedigree tracking ("what produced this value?"); use
+ * {@link resolve} when the precise value of the binding is needed.
  *
  * @param context The ESLint rule context.
  * @param node The identifier to resolve.
@@ -31,12 +43,9 @@ import { findVariable } from "@typescript-eslint/utils/ast-utils";
  *   (this will miss variables declared in an outer scope). When `false` (default), traverse the
  *   scope chain upward via `findVariable` so that references to outer-scope bindings are resolved
  *   correctly.
- * @returns The resolved node, or `null` if the identifier cannot be resolved to a value node.
- *
- * For origin/pedigree tracking that maps destructured bindings to the declarator's
- * initializer, see {@link resolveOrigin}.
+ * @returns The resolved origin node, or `null` if the identifier cannot be resolved.
  */
-export function resolve(
+export function resolveOrigin(
   context: RuleContext,
   node: TSESTree.Identifier,
   options?: Partial<{
@@ -62,23 +71,19 @@ export function resolve(
     case DefinitionType.ClassName:
       return def.node;
 
-    // Return the initializer expression (if any)
+    // Return the initializer expression (if any); destructured bindings resolve to
+    // the declarator's initializer as their origin (e.g. `const [s, setS] = useState()`)
     case DefinitionType.Variable: {
-      const { id, init } = def.node;
-      // For destructured bindings (e.g. `const { a } = obj`), `def.node` is the whole
-      // declarator whose `init` is the source object, not the binding's own value.
-      // Only a plain identifier binding (`id === def.name`) has `init` as its value.
-      if (id !== def.name) return null;
+      const { init } = def.node;
       if (init == null) return null;
       // Guard against unexpected AST shapes that could cause infinite loops
       if ("declarations" in init) return null;
       return init;
     }
 
-    // A parameter's value is supplied by the caller and is not statically known.
-    // (`resolveOrigin` returns the containing function node as the binding's origin.)
+    // Return containing function node only for real functions (not type signatures)
     case DefinitionType.Parameter:
-      return null;
+      return Check.isFunction(def.node) ? def.node : null;
 
     // Return enum declaration for member inspection
     case DefinitionType.TSEnumName:
@@ -88,9 +93,10 @@ export function resolve(
     case DefinitionType.TSEnumMember:
       return def.node.initializer ?? null;
 
-    // Import bindings reference external values - not locally available
+    // Import bindings reference external values; return the import specifier as the
+    // origin so callers can trace the module source via its parent ImportDeclaration
     case DefinitionType.ImportBinding:
-      return null;
+      return def.node;
 
     // Catch clause bindings hold dynamic error values - not statically determinable
     case DefinitionType.CatchClause:

@@ -2,7 +2,7 @@ import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
-import { resolve } from "./resolve";
+import { resolveOrigin } from "./resolve-origin";
 
 const thisBlockTypes = [
   AST.FunctionDeclaration,
@@ -18,11 +18,7 @@ const thisBlockTypes = [
  * @param b The second node to compare.
  * @returns `true` if the two nodes have equal values.
  */
-export function isValueEqual(
-  context: RuleContext,
-  a: TSESTree.Node,
-  b: TSESTree.Node,
-): boolean {
+export function isValueEqual(context: RuleContext, a: TSESTree.Node, b: TSESTree.Node): boolean {
   a = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   b = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
   const [aScope, bScope] = [context.sourceCode.getScope(a), context.sourceCode.getScope(b)];
@@ -40,8 +36,8 @@ export function isValueEqual(
     }
     case Check.isIdentifier(a)
       && Check.isIdentifier(b): {
-      const aDefNode = resolve(context, a);
-      const bDefNode = resolve(context, b);
+      const aDefNode = resolveOrigin(context, a);
+      const bDefNode = resolveOrigin(context, b);
       const aDefNodeParent = aDefNode?.parent;
       const bDefNodeParent = bDefNode?.parent;
       const aVar = findVariable(aScope, a);

@@ -227,6 +227,26 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "cache" }, messageId: "default" },
       ],
     },
+    // Hook returning its own parameter: the sink identifier is a parameter, which
+    // `resolveOrigin` maps to the containing hook function — the mutation performed by
+    // that hook is therefore attributed to the returned value.
+    {
+      code: tsx`
+        function Component() {
+          const cache = new Map();
+          function useHelper(cb) {
+            cache.set("key", "value");
+            return cb;
+          }
+          useHelper(() => {});
+          return <Foo />;
+        }
+      `,
+      errors: [
+        { data: { name: "cache" }, messageId: "mutates" },
+        { data: { name: "cache" }, messageId: "default" },
+      ],
+    },
     // Hook calls through a member expression (`React.useEffect`) are sinks too.
     {
       code: tsx`

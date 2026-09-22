@@ -2,7 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { isAssignmentTargetEqual, resolve } from "@eslint-react/var";
+import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 import { resolveToObjectExpression } from "./lib";
@@ -62,7 +62,7 @@ function getControllerFromSignal(context: RuleContext, node: TSESTree.Node): { c
       // FIXME: alias chains are not resolved recursively (e.g. `const s = ctrl.signal; const signal = s;`
       // resolves to an Identifier and returns `controller: null`, causing a false positive). Recurse
       // like `getSignalValueExpression` in no-leaked-event-listener/lib.ts.
-      const resolved = resolve(context, node);
+      const resolved = resolveOrigin(context, node);
       const resolvedUnwrapped = resolved == null ? null : Extract.unwrap(resolved);
       if (resolvedUnwrapped?.type === AST.MemberExpression) {
         return { controller: resolvedUnwrapped.object, isParamSignal: false };

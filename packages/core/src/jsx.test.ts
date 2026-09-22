@@ -1,5 +1,6 @@
 import { createScopeContext, parseCode } from "@local/testkit";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { JsxDetectionHint, isJsxLike } from "./jsx";
@@ -222,6 +223,31 @@ describe("isJsxLike", () => {
     it("should not recurse infinitely on circular variable definitions", () => {
       expect(run("var a = b; var b = a; a;")).toBe(false);
       expect(run("var a = a; a;")).toBe(false);
+    });
+
+    it("should return false for an identifier bound to a function parameter", () => {
+      // With value semantics (`resolve`), a parameter has no statically known value —
+      // it is supplied by the caller.
+      const code = "function f(x) { return x; }";
+      const parsed = parseCode(code);
+      const context = createScopeContext(parsed, code);
+      const xRefs: TSESTree.Identifier[] = [];
+      simpleTraverse(parsed.ast, {
+        enter(node, parent) {
+          if (node.type === AST.Identifier && node.name === "x" && parent?.type === AST.ReturnStatement) {
+            xRefs.push(node);
+          }
+        },
+      }, true);
+      expect(xRefs).toHaveLength(1);
+      expect(isJsxLike(context, xRefs[0]!)).toBe(false);
+    });
+
+    it("should return false for an identifier bound through a destructuring pattern", () => {
+      // With value semantics (`resolve`), a destructured binding's value is a member of
+      // the source object, not the initializer itself — so it is not JSX-like even when
+      // the declarator's init is JSX.
+      expect(run("const { el } = <div />; el;")).toBe(false);
     });
   });
 

@@ -1,9 +1,9 @@
-[@eslint-react/var](../README.md) / resolve
+[@eslint-react/var](../README.md) / resolveOrigin
 
-# Function: resolve()
+# Function: resolveOrigin()
 
 ```ts
-function resolve(
+function resolveOrigin(
   context: RuleContext,
   node: Identifier,
   options?: Partial<{
@@ -13,24 +13,35 @@ function resolve(
 ): Node | null;
 ```
 
-Resolve an identifier to the AST node that represents its value,
-suitable for use in ESLint rule analysis.
+Resolve an identifier to the AST node its value **originates from**,
+suitable for origin/pedigree tracking in ESLint rule analysis.
 
 The resolution follows these rules per definition type:
 
-| Definition type          | `def.node`                                   | Returns                                                                                          |
-| ------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `CatchClause`            | `CatchClause`                                | `null`                                                                                           |
-| `ClassName`              | `ClassDeclaration` / `ClassExpression`       | `def.node`                                                                                       |
-| `FunctionName`           | `FunctionDeclaration` / `FunctionExpression` | `def.node`                                                                                       |
-| `ImplicitGlobalVariable` | any node                                     | `null`                                                                                           |
-| `ImportBinding`          | import specifier                             | `null`                                                                                           |
-| `Parameter`              | containing function node                     | `null` (the value is supplied by the caller)                                                     |
-| `TSEnumMember`           | `TSEnumMember`                               | `def.node.initializer` (or `null`)                                                               |
-| `TSEnumName`             | `TSEnumDeclaration`                          | `def.node`                                                                                       |
-| `TSModuleName`           | `TSModuleDeclaration`                        | `null`                                                                                           |
-| `Type`                   | type alias node                              | `null`                                                                                           |
-| `Variable`               | `VariableDeclarator`                         | `def.node.init` for a plain identifier binding; `null` for destructured bindings or missing init |
+| Definition type          | `def.node`                                   | Returns                                                          |
+| ------------------------ | -------------------------------------------- | ---------------------------------------------------------------- |
+| `CatchClause`            | `CatchClause`                                | `null`                                                           |
+| `ClassName`              | `ClassDeclaration` / `ClassExpression`       | `def.node`                                                       |
+| `FunctionName`           | `FunctionDeclaration` / `FunctionExpression` | `def.node`                                                       |
+| `ImplicitGlobalVariable` | any node                                     | `null`                                                           |
+| `ImportBinding`          | import specifier                             | `def.node` (the import specifier)                                |
+| `Parameter`              | containing function node                     | `def.node` (if a real function)                                  |
+| `TSEnumMember`           | `TSEnumMember`                               | `def.node.initializer` (or `null`)                               |
+| `TSEnumName`             | `TSEnumDeclaration`                          | `def.node`                                                       |
+| `TSModuleName`           | `TSModuleDeclaration`                        | `null`                                                           |
+| `Type`                   | type alias node                              | `null`                                                           |
+| `Variable`               | `VariableDeclarator`                         | `def.node.init` (or `null`), including for destructured bindings |
+
+Unlike [resolve](resolve.md), a binding declared through a destructuring
+pattern (e.g. `setState` in `const [state, setState] = useState()`) resolves to the
+declarator's initializer (the `useState()` call), i.e. the source expression the
+binding derives from rather than the binding's own value; and a parameter resolves
+to the containing function node (the binding's declaration site) instead of `null`;
+and an import binding resolves to its import specifier (whose parent
+`ImportDeclaration` carries the module source) instead of `null`.
+
+Use this for origin/pedigree tracking ("what produced this value?"); use
+[resolve](resolve.md) when the precise value of the binding is needed.
 
 ## Parameters
 
@@ -44,7 +55,4 @@ The resolution follows these rules per definition type:
 
 `Node` \| `null`
 
-The resolved node, or `null` if the identifier cannot be resolved to a value node.
-
-For origin/pedigree tracking that maps destructured bindings to the declarator's
-initializer, see [resolveOrigin](resolveOrigin.md).
+The resolved origin node, or `null` if the identifier cannot be resolved.
