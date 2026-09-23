@@ -911,6 +911,82 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Member-function alias: `random` resolves to Math.random, not just Math
+    {
+      code: tsx`
+        function Component() {
+          const random = Math.random;
+          const id = random();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Destructured member-function alias
+    {
+      code: tsx`
+        function Component() {
+          const { random } = Math;
+          const id = random();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Destructured member-function alias of Date.now
+    {
+      code: tsx`
+        function Component() {
+          const { now } = Date;
+          const t = now();
+          return <div>{t}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Renamed destructured member-function alias
+    {
+      code: tsx`
+        function Component() {
+          const { random: rand } = Math;
+          const id = rand();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Intermediate catalog objects are followed: window.Math.random is Math.random
+    {
+      code: tsx`
+        function Component() {
+          const id = window.Math.random();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Alias through an intermediate catalog object
+    {
+      code: tsx`
+        function Component() {
+          const M = window.Math;
+          const id = M.random();
+          return <div key={id}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Constructor alias through a catalog global member
+    {
+      code: tsx`
+        function Component() {
+          const W = window.WebSocket;
+          const socket = new W("/ws");
+          return <div>{String(socket.readyState)}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/error.invalid-impure-functions-in-render
     {
       code: tsx`
@@ -1490,6 +1566,46 @@ ruleTester.run(RULE_NAME, rule, {
           function fetch() { return "mock"; }
           const result = fetch();
           return <div>{result}</div>;
+        }
+      `,
+    },
+    // A destructured local object is not a builtin alias
+    {
+      code: tsx`
+        function Component() {
+          const math = { random: () => 0.5 };
+          const { random } = math;
+          const id = random();
+          return <div>{id}</div>;
+        }
+      `,
+    },
+    // Unknown-global roots are not followed through catalog object names
+    {
+      code: tsx`
+        function Component() {
+          const id = foo.Math.random();
+          return <div>{id}</div>;
+        }
+      `,
+    },
+    // Constructor member aliases are trusted only for known catalog objects
+    {
+      code: tsx`
+        function Component() {
+          const W = foo.WebSocket;
+          const socket = new W("/ws");
+          return <div>{String(socket.readyState)}</div>;
+        }
+      `,
+    },
+    // The `new Date(arg)` exception also applies through a catalog member alias
+    {
+      code: tsx`
+        function Component() {
+          const D = window.Date;
+          const date = new D(2020, 0, 1);
+          return <div>{date.toISOString()}</div>;
         }
       `,
     },

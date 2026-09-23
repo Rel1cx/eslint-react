@@ -45,16 +45,18 @@ export function createFactCollector() {
     pushMutation("value", node, target, root);
   }
 
+  function pushTargetMutation(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
+    if (Check.isIdentifier(target)) {
+      pushMutation("binding", node, target, target);
+      return;
+    }
+    pushMemberMutation(node, target);
+  }
+
   const visitor: RuleListener = {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      const target = Extract.unwrap(node.left);
-      switch (target.type) {
-        case AST.Identifier:
-          pushMutation("binding", node, target, target);
-          return;
-        case AST.MemberExpression:
-          pushMemberMutation(node, target);
-          return;
+      for (const target of Extract.getAssignmentTargets(node.left)) {
+        pushTargetMutation(node, target);
       }
     },
     CallExpression(node: TSESTree.CallExpression) {
@@ -69,6 +71,18 @@ export function createFactCollector() {
       for (const argument of node.arguments) {
         if (argument.type === AST.SpreadElement) continue;
         facts.sinks.push({ kind: "hook-argument", expression: argument });
+      }
+    },
+    ForInStatement(node: TSESTree.ForInStatement) {
+      if (node.left.type === AST.VariableDeclaration) return;
+      for (const target of Extract.getAssignmentTargets(node.left)) {
+        pushTargetMutation(node, target);
+      }
+    },
+    ForOfStatement(node: TSESTree.ForOfStatement) {
+      if (node.left.type === AST.VariableDeclaration) return;
+      for (const target of Extract.getAssignmentTargets(node.left)) {
+        pushTargetMutation(node, target);
       }
     },
     JSXAttribute(node: TSESTree.JSXAttribute) {

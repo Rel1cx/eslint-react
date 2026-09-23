@@ -1,7 +1,7 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import type { CallEdgeFact, RefAccessFact } from "./collect";
+import type { CallEdgeFact, PassSiteFact, RefAccessFact } from "./collect";
 import { getGuardDisposition, getSynchronousCallbackIndexes, isAfterTerminatingNonNullGuard, isGuardTestAccess, isReachedThroughFunctions } from "./lib";
 import type { BindingResolver, Variable } from "./origins";
 
@@ -69,10 +69,7 @@ export function inferCallGraph(
  * Walk the call graph from each render boundary and gather every function
  * reached during that boundary's render.
  */
-export function collectReachableFunctions(
-  boundaries: ReadonlySet<TSESTreeFunction>,
-  callGraph: RenderCallGraph,
-): Map<TSESTreeFunction, Set<TSESTreeFunction>> {
+export function collectReachableFunctions(boundaries: ReadonlySet<TSESTreeFunction>, callGraph: RenderCallGraph): Map<TSESTreeFunction, Set<TSESTreeFunction>> {
   const reachedByBoundary = new Map<TSESTreeFunction, Set<TSESTreeFunction>>();
   for (const boundary of boundaries) {
     const reached = new Set<TSESTreeFunction>([boundary]);
@@ -145,27 +142,58 @@ export function inferRefViolations(
 }
 
 /**
+ * Get the statically known name of a pass-site callee, whether it is a plain
+ * call, a constructor call, or a tagged template.
+ */
+function getPassSiteCalleeName(node: PassSiteFact["node"]): string | null {
+  const callee = Extract.unwrap(node.type === AST.TaggedTemplateExpression ? node.tag : node.callee);
+  if (Check.isIdentifier(callee)) return callee.name;
+  if (callee.type === AST.MemberExpression && !callee.computed && Check.isIdentifier(callee.property)) {
+    return callee.property.name;
+  }
+  return null;
+}
+
+/**
+ * The `mergeRefs` exemption is name-based but alias-aware: a simple variable
+ * alias of a `mergeRefs` binding keeps the exemption.
+ */
+function isMergeRefsCallee(
+  callee: TSESTree.Node,
+  calleeName: string | null,
+  position: number,
+  resolver: Pick<BindingResolver, "getVariable" | "resolveAliasTarget">,
+): boolean {
+  if (calleeName === "mergeRefs") return true;
+  if (callee.type !== AST.Identifier) return false;
+  const variable = resolver.getVariable(callee);
+  return variable != null && resolver.resolveAliasTarget(variable, position).name === "mergeRefs";
+}
+
+/**
  * Passing a ref to an unknown function can expose its value during render.
  * Hook callbacks, mergeRefs, and the existing render-prop compatibility case
  * remain exempt.
  */
 export function inferRefPassViolations(
-  callEdges: readonly CallEdgeFact[],
+  passSites: readonly PassSiteFact[],
   boundaries: ReadonlySet<TSESTreeFunction>,
   reachability: Reachability,
-  resolver: Pick<BindingResolver, "getVariable" | "resolveRef">,
+  resolver: Pick<BindingResolver, "getVariable" | "resolveAliasTarget" | "resolveRef">,
 ): RefViolation[] {
   const violations: RefViolation[] = [];
 
-  for (const edge of callEdges) {
-    const boundary = getBoundaryOf(edge.caller, boundaries);
-    if (boundary == null || !isReachedDuringRender(edge.node, boundary, reachability)) continue;
-    const call = edge.node;
-    const callee = Extract.unwrap(call.callee);
-    const calleeName = Extract.getCalleeName(call);
-    const callArguments = call.arguments;
-    if (core.isHookCall(call) || calleeName === "mergeRefs" || (calleeName === "render" && callee.type === AST.MemberExpression)) continue;
-    for (const argument of callArguments) {
+  for (const site of passSites) {
+    const boundary = getBoundaryOf(site.caller, boundaries);
+    if (boundary == null || !isReachedDuringRender(site.node, boundary, reachability)) continue;
+    const node = site.node;
+    const callee = Extract.unwrap(node.type === AST.TaggedTemplateExpression ? node.tag : node.callee);
+    const calleeName = getPassSiteCalleeName(node);
+    const args = node.type === AST.TaggedTemplateExpression ? node.quasi.expressions : node.arguments;
+    if (node.type === AST.CallExpression && core.isHookCall(node)) continue;
+    if (isMergeRefsCallee(callee, calleeName, node.range[0], resolver)) continue;
+    if (calleeName === "render" && callee.type === AST.MemberExpression) continue;
+    for (const argument of args) {
       if (argument.type === AST.SpreadElement) continue;
       const value = Extract.unwrap(argument);
       if (!Check.isIdentifier(value)) continue;

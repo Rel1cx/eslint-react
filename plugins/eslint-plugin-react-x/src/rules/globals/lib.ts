@@ -1,7 +1,7 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolveOrigin } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /**
  * Array methods that mutate the array in place.
@@ -18,32 +18,6 @@ export const MUTATING_ARRAY_METHODS = new Set([
   "splice",
   "unshift",
 ]);
-
-/**
- * Collect every write target in an assignment, including destructuring
- * patterns such as `[local, globalValue] = source`.
- */
-export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier | TSESTree.MemberExpression)[] {
-  const target = Extract.unwrap(node);
-  switch (target.type) {
-    case AST.Identifier:
-    case AST.MemberExpression:
-      return [target];
-    case AST.ArrayPattern:
-      return target.elements.flatMap((element) => element == null ? [] : getAssignmentTargets(element));
-    case AST.AssignmentPattern:
-      return getAssignmentTargets(target.left);
-    case AST.ObjectPattern:
-      return target.properties.flatMap((property) => {
-        if (property.type === AST.RestElement) return getAssignmentTargets(property.argument);
-        return getAssignmentTargets(property.value);
-      });
-    case AST.RestElement:
-      return getAssignmentTargets(target.argument);
-    default:
-      return [];
-  }
-}
 
 /** Resolve a direct call target, following simple function aliases. */
 export function resolveToFunction(context: RuleContext, node: TSESTree.Node, seen = new Set<TSESTree.Node>()): TSESTreeFunction | null {

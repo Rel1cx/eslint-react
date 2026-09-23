@@ -71,14 +71,60 @@ export function getRefAccess(node: TSESTree.MemberExpression): RefAccess {
     ? parent.left === node || Extract.unwrap(parent.left) === node
     : parent.type === AST.UpdateExpression
     ? parent.argument === node || Extract.unwrap(parent.argument) === node
+    : parent.type === AST.UnaryExpression && parent.operator === "delete"
+    ? parent.argument === node || Extract.unwrap(parent.argument) === node
     : false;
   return {
     isInitializationWrite: parent.type === AST.AssignmentExpression
       && parent.operator === "="
       && (parent.left === node || Extract.unwrap(parent.left) === node),
-    isWrite: isDirectWrite || isNestedRefCurrentWrite(node),
+    isWrite: isDirectWrite || isNestedRefCurrentWrite(node) || isPatternWriteTarget(node),
     node,
   };
+}
+
+/**
+ * Check whether `node` (a `ref.current` MemberExpression) is assigned through a
+ * destructuring pattern or a for-in/of loop target, e.g.
+ * `({ a: ref.current } = value)`, `[ref.current] = value`,
+ * `({ a: ref.current.x } = value)`, or `for (ref.current of items)`. Defaults
+ * and computed keys inside patterns are reads, not writes.
+ */
+function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
+  let child: TSESTree.Node = node;
+  let current: TSESTree.Node = node.parent;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  while (true) {
+    switch (current.type) {
+      case AST.MemberExpression:
+        // The ref access may be the root of a deeper member target, e.g.
+        // `({ a: ref.current.x } = value)`. Only the object position extends
+        // the write target; a computed property (`b[ref.current]`) is a read.
+        if (current.object !== child && Extract.unwrap(current.object) !== child) return false;
+        break;
+      case AST.Property:
+        // Only the value position is a write target; computed keys are reads.
+        if (current.value !== child) return false;
+        break;
+      case AST.ObjectPattern:
+      case AST.ArrayPattern:
+      case AST.RestElement:
+        break;
+      case AST.AssignmentPattern:
+        // The default value is evaluated, not assigned.
+        if (current.left !== child) return false;
+        break;
+      case AST.AssignmentExpression:
+        return current.operator === "=" && current.left === child;
+      case AST.ForInStatement:
+      case AST.ForOfStatement:
+        return current.left === child;
+      default:
+        return false;
+    }
+    child = current;
+    current = current.parent;
+  }
 }
 
 /**
@@ -102,6 +148,9 @@ function isNestedRefCurrentWrite(node: TSESTree.MemberExpression): boolean {
       return parent.left === outer || Extract.unwrap(parent.left) === outer;
     }
     if (parent.type === AST.UpdateExpression) {
+      return parent.argument === outer || Extract.unwrap(parent.argument) === outer;
+    }
+    if (parent.type === AST.UnaryExpression && parent.operator === "delete") {
       return parent.argument === outer || Extract.unwrap(parent.argument) === outer;
     }
     return false;

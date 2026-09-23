@@ -104,7 +104,10 @@ named local function parameter. Passing a ref to such a function is still report
 ## 5. Passing refs to functions
 
 Directly passing a known ref to a non-hook function during render is reported. Hook calls,
-`mergeRefs`, and member calls named `render` retain their compatibility exemptions.
+`mergeRefs` (including simple variable aliases of a `mergeRefs` binding), and member calls
+named `render` retain their compatibility exemptions. Constructor calls and tagged templates
+are checked the same way as plain calls; their callees are not resolved into the render call
+graph.
 
 **Remaining difference**: without compiler type/calling-convention information, a member named
 `render` or function named `mergeRefs` cannot always be proven to be the intended helper.
@@ -112,8 +115,11 @@ Directly passing a known ref to a non-hook function during render is reported. H
 ## 6. Nested property writes
 
 Writes such as `ref.current.inner = value` and `ref.current.inner++` are classified as render-time
-writes rather than reads. They are not accepted as lazy initialization because only a direct
-assignment to `ref.current` initializes the ref container.
+writes rather than reads. So are destructuring assignments (`({ a: ref.current } = value)`,
+`[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`),
+for-in/of loop targets (`for (ref.current of items)`, `for (ref.current.x of items)`), and `delete`
+operations (`delete ref.current`, `delete ref.current.inner`). They are not accepted as lazy
+initialization because only a direct assignment to `ref.current` initializes the ref container.
 
 The React fixture `error.invalid-set-and-read-ref-nested-property-during-render` reports both the nested write and the subsequent read. Together with the corresponding local IMPL test, this boundary is fixture-verified as aligned.
 
@@ -138,3 +144,7 @@ initialization at the second initialization site.
    option is disabled or when compiler type inference classifies the value differently.
 4. Render-helper exemptions are based partly on callable names because ESLint does not have the
    compiler's calling-convention metadata.
+5. The `await` boundary is not modeled: a write after `await` inside an async function called during
+   render runs in a microtask, but is conservatively reported as a render-time write.
+6. `while`/`do-while` conditions do not form null-guard regions. The compiler's guard recognition is
+   likewise limited to `if` terminals, so this is kept as a parity-preserving limitation.

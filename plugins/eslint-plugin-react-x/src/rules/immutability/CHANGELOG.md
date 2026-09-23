@@ -5,6 +5,12 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Destructuring assignment targets (`({ a: props.x } = value)`, `[state.value] = value`, including nested patterns and member targets with defaults) and `for...in`/`for...of` loop targets without a declaration (`for (props.current of items)`) are now collected as mutations instead of being missed entirely.
+
 ## [5.20.0] - 2026-09-19
 
 ### Added
