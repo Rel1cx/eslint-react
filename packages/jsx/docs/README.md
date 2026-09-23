@@ -2,9 +2,10 @@
 
 ## Type Aliases
 
-| Type Alias                                 | Description                                           |
-| ------------------------------------------ | ----------------------------------------------------- |
-| [ElementTest](type-aliases/ElementTest.md) | A test that determines whether a JSX element matches. |
+| Type Alias                                       | Description                                                             |
+| ------------------------------------------------ | ----------------------------------------------------------------------- |
+| [AttributeValue](type-aliases/AttributeValue.md) | Discriminated union representing the resolved value of a JSX attribute. |
+| [ElementTest](type-aliases/ElementTest.md)       | A test that determines whether a JSX element matches.                   |
 
 ## Variables
 
@@ -36,4 +37,4 @@
 | [isHostElement](functions/isHostElement.md)                     | Check if the node is a host (intrinsic / DOM) element, that is, a `JSXElement` whose tag name starts with a lowercase letter (ex: `<div>` vs `<MyComponent>`).                                                                  |
 | [isPaddingWhitespace](functions/isPaddingWhitespace.md)         | Check if the node is whitespace padding that React would trim away during rendering, that is, a `JSXText` node that cleans to nothing (see [collapseMultilineText](functions/collapseMultilineText.md)) and contains a newline. |
 | [isWhitespaceText](functions/isWhitespaceText.md)               | Check if the node is whitespace-only text.                                                                                                                                                                                      |
-| [resolveAttributeValue](functions/resolveAttributeValue.md)     | Resolve the value of a JSX attribute (or spread attribute) into an AttributeValue descriptor.                                                                                                                                   |
+| [resolveAttributeValue](functions/resolveAttributeValue.md)     | Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](type-aliases/AttributeValue.md) descriptor.                                                                                                 |

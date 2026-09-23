@@ -86,15 +86,15 @@ describe("isElement", () => {
 
 describe("isFragmentElement", () => {
   it("matches the shorthand fragment syntax", () => {
-    expect(isFragmentElement(parseJsx("<></>;"))).toBe(true);
+    expect(isFragmentElement(parseJsx("<></>;"), "React.Fragment")).toBe(true);
   });
 
-  it("matches <Fragment> with the default factory", () => {
-    expect(isFragmentElement(parseJsx("<Fragment />;"))).toBe(true);
+  it("matches <Fragment> with the React.Fragment factory", () => {
+    expect(isFragmentElement(parseJsx("<Fragment />;"), "React.Fragment")).toBe(true);
   });
 
-  it("matches <React.Fragment> with the default factory", () => {
-    expect(isFragmentElement(parseJsx("<React.Fragment />;"))).toBe(true);
+  it("matches <React.Fragment> with the React.Fragment factory", () => {
+    expect(isFragmentElement(parseJsx("<React.Fragment />;"), "React.Fragment")).toBe(true);
   });
 
   it("matches a custom factory", () => {
@@ -103,8 +103,8 @@ describe("isFragmentElement", () => {
 
   it("compares only the self name segment of the factory", () => {
     // The heuristic matches any `<*.Fragment>` regardless of the qualifier.
-    expect(isFragmentElement(parseJsx("<Preact.Fragment />;"))).toBe(true);
-    expect(isFragmentElement(parseJsx("<Foo />;"))).toBe(false);
+    expect(isFragmentElement(parseJsx("<Preact.Fragment />;"), "React.Fragment")).toBe(true);
+    expect(isFragmentElement(parseJsx("<Foo />;"), "React.Fragment")).toBe(false);
   });
 });
 

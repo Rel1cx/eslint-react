@@ -166,6 +166,28 @@ describe("isJsxLike", () => {
     });
   });
 
+  describe("TS wrapper expressions", () => {
+    it.each([
+      ["(<div />) as any;", true],
+      ["(<div />) satisfies unknown;", true],
+      ["(<div />)!;", true],
+      ["(<div /> as any)!;", true],
+      ["(0 as any);", false],
+    ])("with default hint: %s === %s", (code, expected) => {
+      expect(run(code)).toBe(expected);
+    });
+
+    it("should resolve identifiers through TS wrappers", () => {
+      expect(run("const el = <div /> as any; el;")).toBe(true);
+      expect(run("const el = 0 as any; el;")).toBe(false);
+    });
+
+    it("should unwrap await expressions", () => {
+      expect(run("const el = <div />; await el;")).toBe(true);
+      expect(run("await someUnknownIdentifier;")).toBe(false);
+    });
+  });
+
   describe("call expressions", () => {
     it.each([
       ["createElement('div');", true],

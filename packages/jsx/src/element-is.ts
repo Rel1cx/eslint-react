@@ -48,11 +48,17 @@ export function isElement(node: TSESTree.Node | null | undefined, test?: Element
  * against the self name (last dot-separated segment) of both the node and the
  * configured factory, so `<React.Fragment>` matches `"React.Fragment"` and
  * `<Fragment>` matches `"Fragment"`.
+ *
+ * The factory is a required parameter (no implicit `"React.Fragment"` default) so
+ * that callers always pass the project-configured pragma — see `getJsxConfig` in
+ * `@eslint-react/core` — and cannot silently use the wrong factory under a custom
+ * JSX runtime (ex: Preact). Note the self-name comparison is a heuristic: any
+ * `<*.Fragment>` member expression matches, regardless of the qualifier.
  * @param node The node to check.
  * @param jsxFragmentFactory The configured fragment factory string (ex: "React.Fragment").
  * @returns `true` if the node represents a React Fragment.
  */
-export function isFragmentElement(node: TSESTree.Node, jsxFragmentFactory = "React.Fragment"): node is TSESTreeJSXElementLike {
+export function isFragmentElement(node: TSESTree.Node, jsxFragmentFactory: string): node is TSESTreeJSXElementLike {
   if (node.type === AST.JSXFragment) return true;
   if (node.type !== AST.JSXElement) return false;
 
