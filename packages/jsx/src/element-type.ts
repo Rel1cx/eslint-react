@@ -37,7 +37,7 @@ export function getElementFullType(node: TSESTreeJSXElementLike) {
  *
  * - `<Foo.Bar.Baz>` -> `"Baz"`
  * - `<div>` -> `"div"`
- * - `<></>` -> `""`.
+ * - `<></>` -> `""`
  * @param node The `JSXElement` or `JSXFragment` node.
  * @returns The last segment of the element type, or `""` for fragments.
  */

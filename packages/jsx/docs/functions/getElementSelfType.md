@@ -10,7 +10,7 @@ Get the self name (last dot-separated segment) of a JSX element type.
 
 - `<Foo.Bar.Baz>` -> `"Baz"`
 - `<div>` -> `"div"`
-- `<></>` -> `""`.
+- `<></>` -> `""`
 
 ## Parameters
 

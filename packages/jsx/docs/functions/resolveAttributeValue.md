@@ -10,7 +10,7 @@ function resolveAttributeValue(
 ): AttributeValue;
 ```
 
-Resolve the value of a JSX attribute (or spread attribute) into an AttributeValue descriptor.
+Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
 
 When the attribute is a `JSXSpreadAttribute`, passing `name` (typically the name
 the attribute was found by) makes `toStatic()` return the static value of that
@@ -26,6 +26,6 @@ named property. For the higher-level "find by name and resolve" combo, see [getA
 
 ## Returns
 
-`AttributeValue`
+[`AttributeValue`](../type-aliases/AttributeValue.md)
 
 A discriminated-union descriptor of the attribute's value.
