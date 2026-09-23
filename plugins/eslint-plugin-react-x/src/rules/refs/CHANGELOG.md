@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Destructuring assignments (`({ a: ref.current } = value)`, `[ref.current] = value`), for-in/of loop targets (`for (ref.current of items)`), and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
+- Destructuring assignments (`({ a: ref.current } = value)`, `[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`), for-in/of loop targets (`for (ref.current of items)`), and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
 
 ## [5.18.0] - 2026-07-23
 

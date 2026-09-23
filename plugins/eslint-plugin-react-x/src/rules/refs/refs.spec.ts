@@ -1548,6 +1548,59 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "writeDuringRender" }],
     },
+    // Destructuring writes to a nested property of ref.current are classified as
+    // render-time writes, not reads
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({ x: 0 });
+          ({ a: ref.current.x } = getValues());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A nested property write through a pattern is still a write inside the non-null
+    // branch of a null guard, where reads are exempt
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({ x: 0 });
+          if (ref.current != null) {
+            ({ a: ref.current.x } = getValues());
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A for-of loop target that is a nested property of ref.current writes on every iteration
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef({ x: 0 });
+          for (ref.current.x of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A computed member expression using ref.current as its key inside a pattern is a
+    // read, not a write
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef({ x: 0 });
+          for (item[ref.current] of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
     // A default value inside a destructuring pattern is evaluated, not assigned: the access
     // stays a read
     {

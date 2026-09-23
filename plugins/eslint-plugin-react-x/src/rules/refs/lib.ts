@@ -86,9 +86,9 @@ export function getRefAccess(node: TSESTree.MemberExpression): RefAccess {
 /**
  * Check whether `node` (a `ref.current` MemberExpression) is assigned through a
  * destructuring pattern or a for-in/of loop target, e.g.
- * `({ a: ref.current } = value)`, `[ref.current] = value`, or
- * `for (ref.current of items)`. Defaults and computed keys inside patterns are
- * reads, not writes.
+ * `({ a: ref.current } = value)`, `[ref.current] = value`,
+ * `({ a: ref.current.x } = value)`, or `for (ref.current of items)`. Defaults
+ * and computed keys inside patterns are reads, not writes.
  */
 function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
   let child: TSESTree.Node = node;
@@ -96,6 +96,12 @@ function isPatternWriteTarget(node: TSESTree.MemberExpression): boolean {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   while (true) {
     switch (current.type) {
+      case AST.MemberExpression:
+        // The ref access may be the root of a deeper member target, e.g.
+        // `({ a: ref.current.x } = value)`. Only the object position extends
+        // the write target; a computed property (`b[ref.current]`) is a read.
+        if (current.object !== child && Extract.unwrap(current.object) !== child) return false;
+        break;
       case AST.Property:
         // Only the value position is a write target; computed keys are reads.
         if (current.value !== child) return false;

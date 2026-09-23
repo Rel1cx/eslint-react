@@ -116,7 +116,8 @@ graph.
 
 Writes such as `ref.current.inner = value` and `ref.current.inner++` are classified as render-time
 writes rather than reads. So are destructuring assignments (`({ a: ref.current } = value)`,
-`[ref.current] = value`), for-in/of loop targets (`for (ref.current of items)`), and `delete`
+`[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`),
+for-in/of loop targets (`for (ref.current of items)`, `for (ref.current.x of items)`), and `delete`
 operations (`delete ref.current`, `delete ref.current.inner`). They are not accepted as lazy
 initialization because only a direct assignment to `ref.current` initializes the ref container.
 
