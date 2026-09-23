@@ -347,6 +347,94 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "noReassigningOuterVariables" }],
     },
+    // Rule 3: Reassigning outer variable through object destructuring
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ source }) {
+          let outer;
+          const value = useMemo(() => {
+            ({ value: outer } = source);
+            return outer;
+          }, [source]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
+    // Rule 3: Reassigning outer variable through array destructuring
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ source }) {
+          let outer;
+          const value = useMemo(() => {
+            [outer] = source;
+            return outer;
+          }, [source]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
+    // Rule 3: Reassigning multiple outer variables through one destructuring pattern
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ source }) {
+          let a;
+          let b;
+          const value = useMemo(() => {
+            [a, b] = source;
+            return a + b;
+          }, [source]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "noReassigningOuterVariables" },
+        { messageId: "noReassigningOuterVariables" },
+      ],
+    },
+    // Rule 3: Reassigning outer variable as a for-of loop target
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ items }) {
+          let outer;
+          const value = useMemo(() => {
+            for (outer of items) {
+              console.log(outer);
+            }
+            return outer;
+          }, [items]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
+    // Rule 3: Reassigning outer variable as a for-in loop target
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ record }) {
+          let outer;
+          const value = useMemo(() => {
+            for (outer in record) {
+              console.log(outer);
+            }
+            return outer;
+          }, [record]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "noReassigningOuterVariables" }],
+    },
     // Rule 3: Reassigning outer variable alongside other violations
     // Errors are sorted by source position: mustReturnAValue (on callbackArg) comes
     // before noParameters (on firstParam) which comes before noReassigningOuterVariables
@@ -952,6 +1040,48 @@ ruleTester.run(RULE_NAME, rule, {
       function Component({ a, b }) {
         const merged = { ...useMemo(() => a, []), ...useMemo(() => b, []) };
         return <div>{merged}</div>;
+      }
+    `,
+    // Destructured reassignment of a variable declared inside the callback is allowed
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ source }) {
+        const value = useMemo(() => {
+          let local;
+          [local] = source;
+          return local;
+        }, [source]);
+        return <div>{value}</div>;
+      }
+    `,
+    // Destructured property targets are property mutations, not variable reassignments,
+    // and stay exempt like plain `ref.current = ...`
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ source }) {
+        const box = { current: null };
+        const value = useMemo(() => {
+          ({ value: box.current } = source);
+          return box.current;
+        }, [source]);
+        return <div>{value}</div>;
+      }
+    `,
+    // A for-of loop with its own declaration does not reassign an outer variable
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const value = useMemo(() => {
+          let sum = 0;
+          for (const item of items) {
+            sum += item;
+          }
+          return sum;
+        }, [items]);
+        return <div>{value}</div>;
       }
     `,
   ],

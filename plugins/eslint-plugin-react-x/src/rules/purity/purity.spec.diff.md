@@ -38,7 +38,7 @@ Detection uses only `IMPURE_FUNCS` and `IMPURE_CTORS`. Although `lib.ts` also ex
 
 - **React**: the active source condition is `signature.impure`; the verified React fixture covers `Date.now`, `performance.now`, and `Math.random`.
 - **ESLint**: only names present in `IMPURE_FUNCS` or `IMPURE_CTORS` are candidates.
-- **ESLint aliases**: `resolveBuiltinObjectName` follows simple variable-initializer chains to a global root, such as `const M = Math` and `const D = Date`.
+- **ESLint aliases**: `resolveBuiltinObjectName` returns a builtin object name plus an optional property path. It follows simple variable-initializer chains to a global root (`const M = Math`), member-function aliases (`const random = Math.random`, `const { random } = Math`), and intermediate catalog objects (`window.Math.random`). Unknown-global roots are not followed through catalog object names, and constructor member aliases are trusted only for known catalog objects.
 - **ESLint shadowing**: parameters, imports, function declarations, and other local definitions do not resolve as built-ins; implicit or unresolved globals do.
 - **ESLint constructors**: constructors in `IMPURE_CTORS` are reported, except `new Date(arg)` is allowed when at least one argument is present; zero-argument `new Date()` is reported.
 

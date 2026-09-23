@@ -5,6 +5,12 @@ All notable changes to the `react-x/globals` rule will be documented in this fil
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- `for...in`/`for...of` loop targets without a declaration (`for (globalValue of items)`, `for ({ a: globalObj.x } of items)`) are now collected as writes instead of being missed entirely. Destructuring assignment targets were already covered.
+
 ## [5.14.2] - 2026-07-11
 
 ### Changed

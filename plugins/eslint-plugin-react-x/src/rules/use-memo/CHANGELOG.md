@@ -5,6 +5,12 @@ All notable changes to the `react-x/use-memo` rule will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Reassignments of outer variables through destructuring patterns (`({ value: outer } = source)`, `[outer] = source`) and `for...in`/`for...of` loop targets without a declaration (`for (outer of items)`) inside `useMemo` callbacks are now reported instead of being missed. Property mutation targets remain exempt, matching the React Compiler's `StoreContext` semantics.
+
 ## [5.6.2] - 2026-04-30
 
 ### Fixed

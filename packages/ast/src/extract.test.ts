@@ -2,7 +2,7 @@ import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
-import { findProperty, getCalleeName, getFullyQualifiedName, getMemberChain, getPropertyName, unwrap } from "./extract";
+import { findProperty, getAssignmentTargets, getCalleeName, getFullyQualifiedName, getMemberChain, getPropertyName, unwrap } from "./extract";
 
 function getFirstCallExpression(code: string): TSESTree.CallExpression {
   return getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
@@ -293,5 +293,48 @@ describe("getMemberChain", () => {
   it("should return the private identifier itself for a bare private identifier", () => {
     const node = getFirstNodeOfType<TSESTree.PrivateIdentifier>("class Foo { #bar; }", AST.PrivateIdentifier);
     expect(getMemberChain(node)).toEqual([node]);
+  });
+});
+
+describe("getAssignmentTargets", () => {
+  function getTargets(code: string): string[] {
+    const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(code, AST.AssignmentExpression);
+    return getAssignmentTargets(node.left).map((target) => code.slice(target.range[0], target.range[1]));
+  }
+
+  it("should return a bare identifier target", () => {
+    expect(getTargets("foo = 1;")).toEqual(["foo"]);
+  });
+
+  it("should return a member expression target", () => {
+    expect(getTargets("foo.bar = 1;")).toEqual(["foo.bar"]);
+  });
+
+  it("should expand array pattern targets", () => {
+    expect(getTargets("[a, , b.c] = source;")).toEqual(["a", "b.c"]);
+  });
+
+  it("should expand object pattern targets", () => {
+    expect(getTargets("({ a, b: c.d } = source);")).toEqual(["a", "c.d"]);
+  });
+
+  it("should expand nested patterns", () => {
+    expect(getTargets("({ a: [b.c] } = source);")).toEqual(["b.c"]);
+  });
+
+  it("should treat the left side of a default as the target", () => {
+    expect(getTargets("({ a: b.c = 1 } = source);")).toEqual(["b.c"]);
+  });
+
+  it("should expand rest element targets", () => {
+    expect(getTargets("[...rest.x] = source;")).toEqual(["rest.x"]);
+  });
+
+  it("should unwrap type expressions on the target", () => {
+    expect(getTargets("(foo as unknown) = 1;")).toEqual(["foo"]);
+  });
+
+  it("should return no targets for non-target expressions", () => {
+    expect(getTargets("foo() = 1;")).toEqual([]);
   });
 });

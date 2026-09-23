@@ -5,6 +5,12 @@ All notable changes to the `react-x/purity` rule will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Builtin alias resolution now preserves the property path in addition to the root object name: member-function aliases (`const random = Math.random; random()`), destructured aliases (`const { random } = Math; random()`, `const { now } = Date; now()`), and intermediate catalog objects (`window.Math.random()`, `const M = window.Math`) are now detected instead of being missed. Constructor member aliases (`const W = window.WebSocket; new W()`) are detected when the source object is a known catalog global; unknown-global roots are not followed, preventing speculative reports.
+
 ## [5.5.3-beta.1] - 2026-04-27
 
 ### Added

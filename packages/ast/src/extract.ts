@@ -68,6 +68,36 @@ export function getMemberChain(node: TSESTree.Expression | TSESTree.PrivateIdent
 }
 
 /**
+ * Collect every write target of an assignment or loop target, expanding
+ * destructuring patterns such as `[local, globalValue] = source` or
+ * `({ a: obj.x } = source)`. Defaults (`{ a = source }`) are not targets;
+ * their left side is.
+ * @param node The assignment left side or for-in/of loop target to inspect.
+ * @returns The identifier and member expression targets being written.
+ */
+export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier | TSESTree.MemberExpression)[] {
+  const target = unwrap(node);
+  switch (target.type) {
+    case AST.Identifier:
+    case AST.MemberExpression:
+      return [target];
+    case AST.ArrayPattern:
+      return target.elements.flatMap((element) => element == null ? [] : getAssignmentTargets(element));
+    case AST.AssignmentPattern:
+      return getAssignmentTargets(target.left);
+    case AST.ObjectPattern:
+      return target.properties.flatMap((property) => {
+        if (property.type === AST.RestElement) return getAssignmentTargets(property.argument);
+        return getAssignmentTargets(property.value);
+      });
+    case AST.RestElement:
+      return getAssignmentTargets(target.argument);
+    default:
+      return [];
+  }
+}
+
+/**
  * Get the static name of an object property's key.
  * @param property The property to inspect.
  * @param effort `"min"` only matches plain identifiers; `"max"` also resolves string literals and simple template literals.

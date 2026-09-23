@@ -1192,6 +1192,606 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "refPassedToFunction" }],
     },
+    // -------------------------------------------------------------------------
+    // Precise behavior boundaries
+    // -------------------------------------------------------------------------
+    // The initializer passed as the third argument to `useReducer` runs synchronously during
+    // render (synchronous callback index 2), just like the reducer at index 0
+    {
+      code: tsx`
+        function Component(props) {
+          const ref = useRef(props.value);
+          const [state] = useReducer(reducer, props.initial, () => ref.current);
+          return <Stringify state={state} />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // `.reduce()` callbacks execute synchronously during render (allow-listed array method)
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(0);
+          const total = items.reduce((sum, item) => sum + ref.current, 0);
+          return <div>{total}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Synchronous array callbacks are recognized by method name only: a `map` member call on a
+    // non-array receiver is still treated as executing during render
+    {
+      code: tsx`
+        function Component({ store }) {
+          const ref = useRef(0);
+          const values = store.map(() => ref.current);
+          return <div>{values}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Namespaced hook calls are recognized by property name: `React.useMemo` runs during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const value = React.useMemo(() => ref.current, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // A write in the non-null branch of a null guard is still a violation: only reads are
+    // exempt on the branch where the ref is known to be initialized
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            console.log("uninitialized");
+          } else {
+            ref.current = 42;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Compound assignment inside a null guard is not lazy initialization: only a direct `=`
+    // assignment initializes the ref container
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          if (ref.current == null) {
+            ref.current += 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // `??=` inside a null guard is not lazy initialization either, even though it is
+    // semantically equivalent here
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current ??= createValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Compound conditions are not null guards: the test must be exactly a nullish comparison
+    {
+      code: tsx`
+        function Component({ enabled }) {
+          const ref = useRef(null);
+          if (ref.current == null && enabled) {
+            ref.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // `typeof` checks are not null guards: only exact `==`/`===`/`!=`/`!==` comparisons against
+    // null, undefined, or void expressions qualify
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(undefined);
+          if (typeof ref.current === "undefined") {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // A locally bound `undefined` is not the global undefined value, so the comparison is not
+    // a null guard
+    {
+      code: tsx`
+        function Component() {
+          const undefined = "shadowed";
+          const ref = useRef(null);
+          if (ref.current === undefined) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // Double negation is not unwrapped: only a single `!` around the comparison flips the
+    // guarded branch
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!!(ref.current === null)) {
+            ref.current = 1;
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // The nearest preceding sibling guard decides: a closer non-terminating guard hides an
+    // earlier terminating one, so the write is not protected
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            return <div>{ref.current}</div>;
+          }
+          if (ref.current !== null) {
+            console.log("not terminating");
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // The inverted early-return protection applies only to writes that are direct siblings of
+    // the guard in the same block; it does not extend into nested blocks
+    {
+      code: tsx`
+        function Component({ cond }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            return <div />;
+          }
+          if (cond) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Guard regions are built from `if` statements only: a conditional expression with the
+    // same shape is not a null guard
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ref.current == null ? ref.current = 1 : null;
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // Duplicate lazy initialization through an alias: the initialization budget is tracked per
+    // ref identity, not per access path
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const alias = ref;
+          if (ref.current == null) {
+            ref.current = 1;
+          }
+          if (alias.current == null) {
+            alias.current = 2;
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "duplicateRefInit" }],
+    },
+    // Member-path refs (`props.ref`) carry no scoped identity, so the null-guard exemption
+    // does not apply: both the guard read and the guarded write are reported
+    {
+      code: tsx`
+        function Component(props) {
+          if (props.ref.current == null) {
+            props.ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // The `render` exemption for passing refs applies to member calls only (`props.render(ref)`);
+    // a bare function named `render` is not exempt
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          render(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Render reachability is not condition-sensitive: a call guarded by an unrelated condition
+    // still reaches the callee during render
+    {
+      code: tsx`
+        function Component({ cond }) {
+          const ref = useRef(null);
+          const read = () => ref.current;
+          if (cond) {
+            read();
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Reachability propagates transitively through the render call graph to a fixed point
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const inner = () => ref.current;
+          const outer = () => inner();
+          return <div>{outer()}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Ref identity is not propagated into a non-ref-like function parameter: passing the ref is
+    // reported, but the access through the parameter is not independently modeled
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const read = (value) => value.current;
+          return <div>{read(ref)}</div>;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // A ref-like parameter name is itself treated as a ref by the naming heuristic, so the
+    // access inside the reached function is reported in addition to the pass
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const read = (ref) => ref.current;
+          return <div>{read(ref)}</div>;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "refPassedToFunction" },
+      ],
+    },
+    // Nested property update expressions (`ref.current.count++`) are classified as
+    // render-time writes, same as nested property assignments
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({ count: 0 });
+          ref.current.count++;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Object destructuring writes to ref.current are classified as render-time writes
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ({ a: ref.current } = getValues());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Array destructuring writes to ref.current are classified as render-time writes
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          [ref.current] = getValues();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Nested patterns in destructuring writes are classified as render-time writes
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ({ a: [ref.current] } = getValues());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A default value inside a destructuring pattern is evaluated, not assigned: the access
+    // stays a read
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          ({ a = ref.current } = getValues());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // A for-of loop target writes ref.current on every iteration
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(null);
+          for (ref.current of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A destructured for-of loop target writes ref.current on every iteration
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(null);
+          for ({ a: ref.current } of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // A for-in loop target writes ref.current on every iteration
+    {
+      code: tsx`
+        function Component({ record }) {
+          const ref = useRef(null);
+          for (ref.current in record) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Iterating over ref.current is still a read: only the loop target position is a write
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef([]);
+          for (const item of ref.current) {
+            console.log(item);
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // `delete ref.current` mutates the ref container and is classified as a write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          delete ref.current;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // `delete` on a nested property of ref.current is classified as a write
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef({ inner: 1 });
+          delete ref.current.inner;
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Refs created by custom hooks configured via `additionalRefHooks` are validated even when
+    // the bound name is not ref-like
+    {
+      code: tsx`
+        function Component() {
+          const box = useMyRef(null);
+          const val = box.current;
+          return <div>{val}</div>;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useMyRef",
+        },
+      },
+    },
+    // -------------------------------------------------------------------------
+    // Defect verification: known gaps and conservative limits
+    // Each case locks the currently observed behavior of a suspected defect.
+    // Cases marked KNOWN GAP misclassify or miss a violation and are fix candidates.
+    // -------------------------------------------------------------------------
+    // Conservative limit: the await boundary is not modeled — a write after `await` inside an
+    // async helper called during render actually runs in a microtask, but is still reported
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const load = async () => {
+            await Promise.resolve();
+            ref.current = 1;
+          };
+          load();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "writeDuringRender" }],
+    },
+    // Optional calls are unwrapped before resolution, so `read?.()` reaches the callee
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const read = () => ref.current;
+          read?.();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Optional member calls on tracked object properties are reached the same way
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const object = {};
+          object.foo = () => ref.current;
+          object.foo?.();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // Reading ref.current on the right-hand side of the initialization write is itself a
+    // render-time read; only the guard test access is exempt
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current == null) {
+            ref.current = compute(ref.current);
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "readDuringRender" }],
+    },
+    // While-loop conditions are not null guards (only `if` statements build guard regions),
+    // so both the loop test read and the body write are reported
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          while (ref.current == null) {
+            ref.current = compute();
+          }
+          return <div />;
+        }
+      `,
+      errors: [
+        { messageId: "readDuringRender" },
+        { messageId: "writeDuringRender" },
+      ],
+    },
+    // Refs passed through optional calls are still checked
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          someFn?.(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Passing a ref to a constructor during render is checked the same way as passing it to
+    // a plain function
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const widget = new Widget(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Passing a ref to a member constructor during render
+    {
+      code: tsx`
+        function Component({ widgets }) {
+          const ref = useRef(null);
+          const widget = new widgets.Widget(ref);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // Passing a ref to a tagged template during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const text = tpl\`value: \${ref}\`;
+          return <div>{text}</div>;
+        }
+      `,
+      errors: [{ messageId: "refPassedToFunction" }],
+    },
+    // The `mergeRefs` exemption survives simple variable aliases, but only while the alias
+    // still resolves to `mergeRefs`: after reassignment the exemption is lost
+    {
+      code: tsx`
+        import { mergeRefs } from "react-refs";
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          let combine = mergeRefs;
+          combine = otherCombine;
+          const merged = combine(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+      errors: [
+        { messageId: "refPassedToFunction" },
+        { messageId: "refPassedToFunction" },
+      ],
+    },
   ],
   valid: [
     // Read ref in effect
@@ -2139,6 +2739,265 @@ ruleTester.run(RULE_NAME, rule, {
         function SecondComponent() {
           const value = { current: 1 };
           return <div>{value.current}</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Precise behavior boundaries
+    // -------------------------------------------------------------------------
+    // `void` expressions are nullish values: `ref.current === void 0` is a null guard
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(undefined);
+          if (ref.current === void 0) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // A single negation flips the guarded branch: `!(ref.current != null)` protects the
+    // consequent, so lazy initialization there is allowed
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (!(ref.current != null)) {
+            ref.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // `throw` terminates a function like `return`: an inverted guard whose non-null branch
+    // throws protects the following initialization
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            throw new Error("already initialized");
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Termination is checked recursively: a non-null branch ending in an if/else where both
+    // sides return still protects the following initialization
+    {
+      code: tsx`
+        function Component({ cond }) {
+          const ref = useRef(null);
+          if (ref.current !== null) {
+            if (cond) {
+              return <div>a</div>;
+            } else {
+              return <div>b</div>;
+            }
+          }
+          ref.current = createValue();
+          return <div />;
+        }
+      `,
+    },
+    // Timers are deferred callbacks: even created directly in the component body, they remain
+    // outside render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          setTimeout(() => {
+            ref.current = 1;
+          }, 100);
+          return <div />;
+        }
+      `,
+    },
+    // Only allow-listed method names are treated as synchronous array callbacks: `toSorted` is
+    // not in the list, so its compare function is not reached during render
+    {
+      code: tsx`
+        function Component({ items }) {
+          const ref = useRef(0);
+          const sorted = items.toSorted((a, b) => a - b + ref.current);
+          return <div>{sorted}</div>;
+        }
+      `,
+    },
+    // Inline JSX ref callbacks run at commit time, not during render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          return <div ref={(el) => { ref.current = el; }} />;
+        }
+      `,
+    },
+    // Reachability propagates only outward from the render boundary: a helper called solely
+    // from an unreached event handler is itself unreached
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const readRef = () => ref.current;
+          const handleClick = () => {
+            console.log(readRef());
+          };
+          return <button onClick={handleClick}>Click</button>;
+        }
+      `,
+    },
+    // A shadowed binding is a distinct variable: the inner `node` does not resolve to the
+    // outer ref identity, even inside a function reached during render. (A ref-like shadowed
+    // name would still be caught by the naming heuristic, which is checked before bindings.)
+    {
+      code: tsx`
+        function Component() {
+          const node = useRef(null);
+          const helper = () => {
+            const node = { current: 1 };
+            return node.current;
+          };
+          return <div>{helper()}</div>;
+        }
+      `,
+    },
+    // Spread arguments are not inspected when checking refs passed to functions
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          someFn(...[ref]);
+          return <div />;
+        }
+      `,
+    },
+    // Passing a ref to a hook is exempt: hooks may legitimately accept refs
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          useCustomHook(ref);
+          return <div />;
+        }
+      `,
+    },
+    // The `mergeRefs` exemption is name-based: it also applies to member calls
+    {
+      code: tsx`
+        function Component({ refUtils }) {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          const merged = refUtils.mergeRefs(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+    },
+    // The `mergeRefs` exemption survives a simple variable alias
+    {
+      code: tsx`
+        import { mergeRefs } from "react-refs";
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          const combine = mergeRefs;
+          const merged = combine(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+    },
+    // The `mergeRefs` exemption survives a chain of variable aliases
+    {
+      code: tsx`
+        import { mergeRefs } from "react-refs";
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          const combine = mergeRefs;
+          const combineRefs = combine;
+          const merged = combineRefs(ref1, ref2);
+          return <div ref={merged} />;
+        }
+      `,
+    },
+    // Null-guard matching is identity-based: a guard on `ref.current` protects an
+    // initialization written through an alias of the same ref
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const alias = ref;
+          if (ref.current == null) {
+            alias.current = createValue();
+          }
+          return <div />;
+        }
+      `,
+    },
+    // The single-initialization budget is per ref identity: two distinct refs may each be
+    // lazily initialized once
+    {
+      code: tsx`
+        function Component() {
+          const ref1 = useRef(null);
+          const ref2 = useRef(null);
+          if (ref1.current == null) {
+            ref1.current = 1;
+          }
+          if (ref2.current == null) {
+            ref2.current = 2;
+          }
+          return <div />;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Defect verification: known gaps and conservative limits
+    // -------------------------------------------------------------------------
+    // Lazy initialization is recognized inside a helper reached during render: guard analysis
+    // applies within the helper's own function body
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const init = () => {
+            if (ref.current == null) {
+              ref.current = 1;
+            }
+          };
+          init();
+          return <div />;
+        }
+      `,
+    },
+    // Reads anywhere in the else chain of a null guard are in the proven non-null region,
+    // including the tests of nested else-if conditions
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(0);
+          if (ref.current === null) {
+            ref.current = 1;
+          } else if (ref.current > 5) {
+            console.log(ref.current);
+          }
+          return <div />;
+        }
+      `,
+    },
+    // Passing a ref to a constructor inside an event handler is allowed: the handler runs
+    // outside render
+    {
+      code: tsx`
+        function Component() {
+          const ref = useRef(null);
+          const handleClick = () => {
+            const widget = new Widget(ref);
+            widget.mount();
+          };
+          return <button onClick={handleClick}>Click</button>;
         }
       `,
     },

@@ -33,6 +33,7 @@ The IMPL creates effects for:
 
 - identifier and property writes in `AssignmentExpression`
 - nested array/object destructuring assignment targets
+- identifier, member, and destructured targets of `for...in`/`for...of` loops without a declaration
 - identifier and property `UpdateExpression` targets
 - property deletion with `delete`
 - known mutating array method calls

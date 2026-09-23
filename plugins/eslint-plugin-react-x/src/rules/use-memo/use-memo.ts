@@ -50,25 +50,43 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   function validateNoOuterVariableReassignment(callback: TSESTree.FunctionLike): ReportDescriptor<MessageID>[] {
     const violations: ReportDescriptor<MessageID>[] = [];
     if (callback.body == null) return violations;
+
+    function checkWriteTarget(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
+      // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
+      // to match React Compiler's StoreContext semantics.
+      if (!Check.isIdentifier(target)) return;
+      if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
+
+      const scope = context.sourceCode.getScope(target);
+      const variable = findVariable(scope, target);
+      if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
+        return;
+      }
+
+      violations.push({
+        messageId: "noReassigningOuterVariables",
+        node: target,
+      });
+    }
+
     simpleTraverse(callback.body, {
       enter(node) {
-        if (node.type !== AST.AssignmentExpression) return;
-        const left = Extract.unwrap(node.left);
-        // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
-        // to match React Compiler's StoreContext semantics.
-        if (!Check.isIdentifier(left)) return;
-        if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
-
-        const scope = context.sourceCode.getScope(left);
-        const variable = findVariable(scope, left);
-        if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
-          return;
+        switch (node.type) {
+          case AST.AssignmentExpression: {
+            for (const target of Extract.getAssignmentTargets(node.left)) {
+              checkWriteTarget(node, target);
+            }
+            return;
+          }
+          case AST.ForInStatement:
+          case AST.ForOfStatement: {
+            if (node.left.type === AST.VariableDeclaration) return;
+            for (const target of Extract.getAssignmentTargets(node.left)) {
+              checkWriteTarget(node, target);
+            }
+            return;
+          }
         }
-
-        violations.push({
-          messageId: "noReassigningOuterVariables",
-          node: left,
-        });
       },
     });
     return violations;

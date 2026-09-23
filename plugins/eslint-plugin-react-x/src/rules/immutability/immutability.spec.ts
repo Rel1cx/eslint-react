@@ -1661,6 +1661,88 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "item" }, messageId: "default" },
         { data: { name: "item" }, messageId: "mutates" },
       ],
+    }, // Destructuring assignment targets are collected as mutations, same as plain assignments
+    {
+      code: tsx`
+        function Component() {
+          let a;
+          let b;
+          const fn = () => {
+            [a, b] = [1, 2];
+          };
+          return <Foo fn={fn} />;
+        }
+      `,
+      errors: [
+        { messageId: "mutates" },
+        { messageId: "default" },
+      ],
+    },
+    // Object destructuring writes to props are mutations
+    {
+      code: tsx`
+        function Component(props) {
+          ({ user: props.user } = getData());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
+    },
+    // Array destructuring writes to state are mutations
+    {
+      code: tsx`
+        function Component() {
+          const [state] = useState({ value: 0 });
+          [state.value] = getValues();
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
+    },
+    // Nested destructuring writes to props are mutations
+    {
+      code: tsx`
+        function Component(props) {
+          ({ a: [props.x] } = getData());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
+    },
+    // A pattern default with a member target writes props
+    {
+      code: tsx`
+        function Component(props) {
+          ({ a: props.x = 1 } = getData());
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
+    },
+    // A for-of loop target writes props on every iteration
+    {
+      code: tsx`
+        function Component(props) {
+          for (props.current of getItems()) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
+    },
+    // A for-in loop target writes state on every iteration
+    {
+      code: tsx`
+        function Component() {
+          const [state] = useState({ key: "" });
+          for (state.key in getRecord()) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "direct" }],
     },
   ],
   valid: [
@@ -2342,17 +2424,6 @@ ruleTester.run(RULE_NAME, rule, {
       function Component(props, context) {
         context.count = 1;
         return <div />;
-      }
-    `,
-    // Destructuring assignment targets are not collected as mutations.
-    tsx`
-      function Component() {
-        let a;
-        let b;
-        const fn = () => {
-          [a, b] = [1, 2];
-        };
-        return <Foo fn={fn} />;
       }
     `,
     // Returning a mutable function from a component is not a freeze context;
