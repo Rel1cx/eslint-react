@@ -1,7 +1,7 @@
 import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolveOrigin } from "@eslint-react/var";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESTree } from "@typescript-eslint/types";
 
 /**
  * Array methods that mutate the array in place.
