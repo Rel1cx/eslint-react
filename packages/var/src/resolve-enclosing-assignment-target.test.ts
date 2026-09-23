@@ -115,16 +115,18 @@ describe("resolveEnclosingAssignmentTarget", () => {
       expect((result as TSESTree.Identifier).name).toBe("obj");
     });
 
-    it("node.parent == null boundary check handles Program root correctly", () => {
+    it("Program case terminates traversal at the root correctly", () => {
       const code = "const x = 1; function foo() { return x; }";
       const { ast } = parseCode(code);
 
-      // The Program node's parent is undefined, so the `node.parent == null`
-      // guard correctly stops traversal at the root.
+      // The Program node's parent is undefined, so traversal must stop via
+      // the `Program` case returning null (there is no `node.parent == null`
+      // guard in the implementation).
       expect((ast as any).parent).toBeUndefined();
 
-      // Verify that no node in a standard AST has parent === node
-      // (the old dead-code guard that was replaced with `node.parent == null`).
+      // Verify that no node in a standard AST has parent === node — a
+      // self-referencing parent would cause infinite recursion in the
+      // default branch.
       const allNodes: TSESTree.Node[] = [];
       simpleTraverse(ast, {
         enter(node) {
