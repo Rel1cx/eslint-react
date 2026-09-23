@@ -6,9 +6,13 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/refs`: destructuring assignments (`({ a: ref.current } = value)`, `[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`), for-in/of loop targets (`for (ref.current of items)`), and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
+- `react-x/globals`: `for...in`/`for...of` loop targets without a declaration (e.g. `for (globalValue of items)`) are now collected as writes instead of being missed.
+- `react-x/immutability`: destructuring assignment targets (e.g. `({ a: props.x } = value)`) and `for...in`/`for...of` loop targets without a declaration are now collected as mutations instead of being missed.
+- `react-x/purity`: builtin alias resolution now preserves the property path, so aliases of impure builtins (`const random = Math.random; random()`, `const { now } = Date; now()`, `window.Math.random()`) are now detected instead of being missed; unknown-global roots are not followed, preventing speculative reports.
+- `react-x/refs`: destructuring assignments, for-in/of loop targets, and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
 - `react-x/refs`: refs passed to constructor calls (`new Widget(ref)`) and tagged templates are now checked for render-time exposure, same as refs passed to plain functions.
 - `react-x/refs`: the `mergeRefs` exemption for passing refs now survives simple variable aliases (`const combine = mergeRefs`), resolved position-aware so reassigned aliases lose it again.
+- `react-x/use-memo`: reassignments of outer variables through destructuring patterns and `for...in`/`for...of` loop targets inside `useMemo` callbacks are now reported instead of being missed; property mutation targets remain exempt, matching the React Compiler's `StoreContext` semantics.
 
 ### 🏗️ Internal
 
