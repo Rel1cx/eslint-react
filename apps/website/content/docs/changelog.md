@@ -6,8 +6,8 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/refs`: refs passed to constructor calls (`new Widget(ref)`) and tagged templates are now checked for render-time exposure, same as refs passed to plain functions.
 - `react-x/refs`: destructuring assignments (`({ a: ref.current } = value)`, `[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`), for-in/of loop targets (`for (ref.current of items)`), and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
+- `react-x/refs`: refs passed to constructor calls (`new Widget(ref)`) and tagged templates are now checked for render-time exposure, same as refs passed to plain functions.
 - `react-x/refs`: the `mergeRefs` exemption for passing refs now survives simple variable aliases (`const combine = mergeRefs`), resolved position-aware so reassigned aliases lose it again.
 
 ### 🏗️ Internal
