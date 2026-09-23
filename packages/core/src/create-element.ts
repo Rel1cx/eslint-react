@@ -67,7 +67,7 @@ export function getCreateElementProp(context: RuleContext, node: null | TSESTree
   const propsObject = getCreateElementPropsObject(context, node);
   if (propsObject == null) return null;
   for (const prop of propsObject.properties) {
-    if (prop.type === AST.Property && Extract.getPropertyName(prop, "max") === name) {
+    if (prop.type === AST.Property && Extract.getPropertyName(prop, "std") === name) {
       return prop;
     }
   }

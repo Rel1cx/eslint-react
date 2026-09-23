@@ -55,6 +55,27 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
+    // Report spread arguments without suggesting replacement of the spread
+    {
+      code: tsx`<iframe {...{ sandbox: undefined }} />;`,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        column: 13,
+        suggestions: [],
+      }],
+    },
+    {
+      code: tsx`
+        const props = { sandbox: getSandbox() };
+        <iframe {...props} />;
+      `,
+      errors: [{
+        messageId: "missingSandboxAttribute",
+        line: 2,
+        column: 13,
+        suggestions: [],
+      }],
+    },
     // Boolean expression sandbox value
     {
       code: tsx`

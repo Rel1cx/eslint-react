@@ -582,7 +582,7 @@ function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSES
     if (property.type !== AST.Property) continue;
     const target = property.value.type === AST.AssignmentPattern ? property.value.left : property.value;
     if (target !== name) continue;
-    return Extract.getPropertyName(property, "max");
+    return Extract.getPropertyName(property, "std");
   }
   return null;
 }

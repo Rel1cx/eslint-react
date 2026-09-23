@@ -169,6 +169,56 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Inline spread props with string style
+    {
+      code: tsx`<div {...{ style: "color: red;" }} />`,
+      errors: [{ messageId: "default", column: 10 }],
+    },
+    // Spread props with string style can be statically resolved
+    {
+      code: tsx`
+        const props = { style: "color: red;" };
+        <div {...props} />
+      `,
+      errors: [{ messageId: "default", line: 2, column: 10 }],
+    },
+    // Alias chains in spread props are followed
+    {
+      code: tsx`
+        const inner = { style: "color: red;" };
+        const props = inner;
+        <div {...props} />
+      `,
+      errors: [{ messageId: "default", line: 3, column: 10 }],
+    },
+    // Later attributes and spread properties win
+    {
+      code: tsx`<div style={{ color: "blue" }} {...{ style: "color: red;" }} />`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`<div {...{ style: { color: "blue" } }} style="color: red;" />`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const props = { style: "color: red;" };
+        <div {...{ style: { color: "blue" } }} {...props} />
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      code: tsx`
+        const props = { style: "color: red;" };
+        <div {...{ style: { color: "blue" }, ...props }} />
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // A later spread without style does not override it
+    {
+      code: tsx`<div {...{ style: "color: red;" }} {...{ id: "example" }} />`,
+      errors: [{ messageId: "default" }],
+    },
     // Multiple spaces in string
     {
       code: tsx`<div style="  color:   red  ;  " />`,
@@ -278,11 +328,26 @@ ruleTester.run(RULE_NAME, rule, {
         return <div style={getStyleString()} />;
       }
     `,
-    // Spread props with string style - can't be statically resolved
+    // Spread props with object, unknown, or missing style
+    tsx`<div {...{ style: { color: "red" } }} />`,
+    tsx`<div {...{ style: getStyle() }} />`,
+    tsx`<div {...{ id: "example" }} />`,
+    tsx`<div {...props} />`,
+    // Later attributes and spread properties win
+    tsx`<div {...{ style: "color: red;" }} style={{ color: "blue" }} />`,
+    tsx`<div style="color: red;" {...{ style: { color: "blue" } }} />`,
     tsx`
       const props = { style: "color: red;" };
-      <div {...props} />
+      <div {...props} {...{ style: { color: "blue" } }} />
     `,
+    tsx`
+      const props = { style: "color: red;" };
+      <div {...{ ...props, style: { color: "blue" } }} />
+    `,
+    tsx`<div style="color: red;" {...{ style: undefined }} />`,
+    tsx`<div style="color: red;" {...{ style: getStyle() }} />`,
+    // Custom components are ignored even when spread style is a string
+    tsx`<StatusBar {...{ style: "auto" }} />`,
     // Number style (invalid but not string)
     tsx`<div style={123} />`,
     // Boolean style (invalid but not string)

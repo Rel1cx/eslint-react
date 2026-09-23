@@ -1,4 +1,6 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import type { TSESLint } from "@typescript-eslint/utils";
+import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
 
@@ -99,11 +101,20 @@ export function getAssignmentTargets(node: TSESTree.Node): (TSESTree.Identifier 
 
 /**
  * Get the static name of an object property's key.
+ *
+ * Symbol keys and object/function key coercion are not supported by this string-name lookup.
  * @param property The property to inspect.
- * @param effort `"min"` only matches plain identifiers; `"max"` also resolves string literals and simple template literals.
+ * @param effort `"min"` only matches plain identifiers; `"std"` also resolves string literals and simple template literals;
+ * `"max"` additionally evaluates computed keys and converts known primitive keys to strings.
+ * @param initialScope The key's scope for `"max"` evaluation. Without it, scope-dependent keys cannot be resolved.
+ * Ignored by `"min"` and `"std"`.
  * @returns The property name, or `null` when it cannot be statically determined.
  */
-export function getPropertyName(property: TSESTree.Property, effort: "min" | "max" = "min"): string | null {
+export function getPropertyName(
+  property: TSESTree.Property,
+  effort: "min" | "std" | "max" = "min",
+  initialScope?: TSESLint.Scope.Scope,
+): string | null {
   const key = unwrap(property.key);
   if (Check.isIdentifier(key) && !property.computed) return key.name;
   if (effort === "min") return null;
@@ -111,7 +122,12 @@ export function getPropertyName(property: TSESTree.Property, effort: "min" | "ma
   if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
     return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
   }
-  return null;
+  if (effort === "std") return null;
+  const result = getStaticValue(key, initialScope);
+  if (result == null) return null;
+  const { value } = result;
+  if (typeof value === "symbol" || typeof value === "function" || (typeof value === "object" && value !== null)) return null;
+  return String(value);
 }
 
 /**

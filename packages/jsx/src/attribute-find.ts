@@ -1,8 +1,7 @@
-import { Check, type TSESTreeJSXAttributeLike, Traverse } from "@eslint-react/ast";
+import { Extract, type TSESTreeJSXAttributeLike, Traverse } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 import { getAttributeName } from "./attribute-name";
 
 /**
@@ -43,18 +42,18 @@ export function findParentAttribute(node: TSESTree.Node, test: (node: TSESTree.J
  * Find the `Property` node that provides a given key inside a spread argument.
  *
  * This is the single resolution routine shared by {@link findAttribute} (existence
- * checks) and the `spreadProps` variant of `resolveAttributeValue` (value extraction):
+ * checks), {@link resolveAttribute}, and {@link resolveAttributeValue} (named value extraction):
  *
  * - An `Identifier` argument is resolved to its initializer via variable
- *   resolution, following alias chains (`const b = a`) like `getStaticValue`
- *   does; an `ObjectExpression` argument is searched directly.
+ *   resolution, following alias chains (`const b = a`); an `ObjectExpression`
+ *   argument is searched directly. TypeScript expression wrappers are unwrapped.
  * - Properties are walked **in reverse** so that later entries win, matching
  *   JavaScript object semantics (`{ ...a, k: 1 }` -> the literal `k`).
  * - Nested `SpreadElement`s (identifiers or inline object expressions) are
  *   searched recursively; a `seen` set guards against circular references.
- * - Plain identifier keys and string literal keys are matched directly;
- *   computed keys are matched when they are statically evaluable
- *   (ex: `{ ["class" + "Name"]: 1 }`).
+ * - Statically known primitive keys use JavaScript string-key coercion, including
+ *   numeric and computed keys (ex: `{ ["class" + "Name"]: 1 }`). Symbol keys and
+ *   object/function key coercion are not supported by this string-name lookup.
  * @param context The ESLint rule context (needed for variable resolution).
  * @param argument The spread argument expression to search.
  * @param name The property name to look for.
@@ -67,37 +66,22 @@ export function findSpreadProperty(
   name: string,
   seen: Set<TSESTree.Node> = new Set(),
 ): TSESTree.Property | undefined {
-  let objectExpression: TSESTree.ObjectExpression | undefined;
-  if (Check.isIdentifier(argument)) {
-    // Follow identifier aliases (`const b = a`) until a non-identifier
-    // initializer is reached, mirroring `getStaticValue`'s identifier tracking.
-    let initNode: TSESTree.Node | null = resolve(context, argument);
-    while (initNode != null && Check.isIdentifier(initNode) && !seen.has(initNode)) {
-      seen.add(initNode);
-      initNode = resolve(context, initNode);
-    }
-    if (initNode?.type === AST.ObjectExpression) {
-      objectExpression = initNode;
-    }
-  } else if (argument.type === AST.ObjectExpression) {
-    objectExpression = argument;
+  let node: TSESTree.Node = Extract.unwrap(argument);
+  while (node.type === AST.Identifier && !seen.has(node)) {
+    seen.add(node);
+    const initializer = resolve(context, node);
+    if (initializer == null) return undefined;
+    node = Extract.unwrap(initializer);
   }
-  if (objectExpression == null || seen.has(objectExpression)) return undefined;
-  seen.add(objectExpression);
+  if (node.type !== AST.ObjectExpression || seen.has(node)) return undefined;
+  seen.add(node);
 
-  const { properties } = objectExpression;
+  const { properties } = node;
   for (let i = properties.length - 1; i >= 0; i--) {
     const property = properties[i];
     if (property == null) continue;
     if (property.type === AST.Property) {
-      const { key } = property;
-      if (property.computed) {
-        const keyScope = context.sourceCode.getScope(key);
-        if (getStaticValue(key, keyScope)?.value === name) return property;
-        continue;
-      }
-      if (Check.isIdentifier(key, name)) return property;
-      if (key.type === AST.Literal && key.value === name) return property;
+      if (Extract.getPropertyName(property, "max", context.sourceCode.getScope(property.key)) === name) return property;
       continue;
     }
     const found = findSpreadProperty(context, property.argument, name, seen);

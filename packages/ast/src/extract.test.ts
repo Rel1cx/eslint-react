@@ -1,4 +1,4 @@
-import { getFirstNodeOfType } from "@local/testkit";
+import { getFirstNodeOfType, getNodeInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -205,40 +205,101 @@ describe("getPropertyName", () => {
     });
   });
 
-  describe('"max" effort', () => {
+  describe('"std" effort', () => {
     it("should return the name of a non-computed identifier property", () => {
       const property = getFirstProperty("({ foo: 1 });");
-      expect(getPropertyName(property, "max")).toBe("foo");
+      expect(getPropertyName(property, "std")).toBe("foo");
     });
 
     it("should return null for a computed identifier property", () => {
       const property = getFirstProperty("({ [foo]: 1 });");
-      expect(getPropertyName(property, "max")).toBe(null);
+      expect(getPropertyName(property, "std")).toBe(null);
     });
 
     it("should return the value of a string literal property", () => {
       const property = getFirstProperty('({ "foo": 1 });');
-      expect(getPropertyName(property, "max")).toBe("foo");
+      expect(getPropertyName(property, "std")).toBe("foo");
     });
 
     it("should return the value of a computed string literal property", () => {
       const property = getFirstProperty('({ ["foo"]: 1 });');
-      expect(getPropertyName(property, "max")).toBe("foo");
+      expect(getPropertyName(property, "std")).toBe("foo");
     });
 
     it("should return the value of a static template literal property", () => {
       const property = getFirstProperty("({ [`foo`]: 1 });");
-      expect(getPropertyName(property, "max")).toBe("foo");
+      expect(getPropertyName(property, "std")).toBe("foo");
     });
 
     it("should return null for a dynamic template literal property", () => {
       const property = getFirstProperty("({ [`foo${bar}`]: 1 });");
-      expect(getPropertyName(property, "max")).toBe(null);
+      expect(getPropertyName(property, "std")).toBe(null);
     });
 
     it("should return null for a numeric literal property", () => {
       const property = getFirstProperty("({ 1: true });");
-      expect(getPropertyName(property, "max")).toBe(null);
+      expect(getPropertyName(property, "std")).toBe(null);
+    });
+
+    it.each([
+      ['({ "": 1 });', ""],
+      ["({ [``]: 1 });", ""],
+      ['({ ["foo" as const]: 1 });', "foo"],
+    ])("preserves syntax-only name extraction: %s", (code, expected) => {
+      expect(getPropertyName(getFirstProperty(code), "std")).toBe(expected);
+    });
+  });
+
+  describe('"max" effort', () => {
+    it.each([
+      ["({ foo: 1 });", "foo"],
+      ['({ "foo": 1 });', "foo"],
+      ["({ [`foo`]: 1 });", "foo"],
+      ['({ "": 1 });', ""],
+      ["({ [``]: 1 });", ""],
+      ['({ ["f" + "oo"]: 1 });', "foo"],
+      ["({ [`foo${1 + 1}`]: 1 });", "foo2"],
+      ["({ 1: true });", "1"],
+      ["({ 1n: true });", "1"],
+      ["({ [false]: 1 });", "false"],
+      ["({ [null]: 1 });", "null"],
+      ["({ [void 0]: 1 });", "undefined"],
+      ["({ [(1 + 1) as number]: 1 });", "2"],
+    ])("resolves syntax and primitive keys without a scope: %s", (code, expected) => {
+      expect(getPropertyName(getFirstProperty(code), "max")).toBe(expected);
+    });
+
+    it.each([
+      ['const key = "foo"; ({ [key]: 1 });', "foo"],
+      ['const key = "foo"; const alias = key; ({ [alias]: 1 });', "foo"],
+      ['const key = "foo"; ({ [`${key}bar`]: 1 });', "foobar"],
+      ["({ [undefined]: 1 });", "undefined"],
+      ['const key = "outer"; function f() { const key = "inner"; return { [key]: 1 }; }', "inner"],
+    ])("evaluates names in the supplied scope: %s", (code, expected) => {
+      const { context, node } = getNodeInRule<TSESTree.Property>(code, "Property");
+      expect(getPropertyName(node, "max", context.sourceCode.getScope(node.key))).toBe(expected);
+    });
+
+    it("does not resolve a local binding without its scope or evaluate it at lower efforts", () => {
+      const { context, node } = getNodeInRule<TSESTree.Property>('const key = "foo"; ({ [key]: 1 });', "Property");
+      const scope = context.sourceCode.getScope(node.key);
+      expect(getPropertyName(node, "max")).toBeNull();
+      expect(getPropertyName(node, "min", scope)).toBeNull();
+      expect(getPropertyName(node, "std", scope)).toBeNull();
+      expect(getPropertyName(node, "max", scope)).toBe("foo");
+    });
+
+    it.each([
+      "({ [unknownKey]: 1 });",
+      "({ [getKey()]: 1 });",
+      "({ [Symbol.iterator]: 1 });",
+      "({ [{}]: 1 });",
+      "({ [{ toString: null }]: 1 });",
+      "({ [String]: 1 });",
+      "function f(undefined) { return { [undefined]: 1 }; }",
+    ])("rejects unknown names, symbols, and object/function coercion: %s", (code) => {
+      const { context, node } = getNodeInRule<TSESTree.Property>(code, "Property");
+      expect(getPropertyName(node, "max", context.sourceCode.getScope(node.key))).toBeNull();
     });
   });
 });

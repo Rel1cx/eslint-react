@@ -2,30 +2,53 @@
 
 # Function: resolveAttributeValue()
 
+## Call Signature
+
+```ts
+function resolveAttributeValue(context: RuleContext, attribute: JSXAttribute): AttributeValue;
+```
+
+Resolve a plain JSX attribute into a syntax descriptor without evaluating it.
+
+### Parameters
+
+| Parameter   | Type           | Description                   |
+| ----------- | -------------- | ----------------------------- |
+| `context`   | `RuleContext`  | The ESLint rule context.      |
+| `attribute` | `JSXAttribute` | The JSX attribute to resolve. |
+
+### Returns
+
+[`AttributeValue`](../type-aliases/AttributeValue.md)
+
+The attribute's value descriptor.
+
+## Call Signature
+
 ```ts
 function resolveAttributeValue(
   context: RuleContext,
   attribute: TSESTreeJSXAttributeLike,
-  name?: string,
-): AttributeValue;
+  name: string,
+): AttributeValue | undefined;
 ```
 
-Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.
+Resolve an attribute found by name, extracting that property for a spread.
 
-When the attribute is a `JSXSpreadAttribute`, passing `name` (typically the name
-the attribute was found by) makes `toStatic()` return the static value of that
-named property. For the higher-level "find by name and resolve" combo, see [getAttributeValue](getAttributeValue.md).
+A spread requires a property name: a props object is not itself an attribute
+value. This uses [findSpreadProperty](findSpreadProperty.md)'s best-effort lookup; an unresolved
+property does not prove that the spread lacks it at runtime.
 
-## Parameters
+### Parameters
 
-| Parameter   | Type                       | Description                                                                |
-| ----------- | -------------------------- | -------------------------------------------------------------------------- |
-| `context`   | `RuleContext`              | The ESLint rule context (needed for scope look-ups).                       |
-| `attribute` | `TSESTreeJSXAttributeLike` | A `JSXAttribute` or `JSXSpreadAttribute` node.                             |
-| `name?`     | `string`                   | Optional property name used to resolve `toStatic()` for spread attributes. |
+| Parameter   | Type                       | Description                                                         |
+| ----------- | -------------------------- | ------------------------------------------------------------------- |
+| `context`   | `RuleContext`              | The ESLint rule context (needed for spread property lookup).        |
+| `attribute` | `TSESTreeJSXAttributeLike` | A plain or spread JSX attribute.                                    |
+| `name`      | `string`                   | The property to extract for a spread; ignored for plain attributes. |
 
-## Returns
+### Returns
 
-[`AttributeValue`](../type-aliases/AttributeValue.md)
+[`AttributeValue`](../type-aliases/AttributeValue.md) \| `undefined`
 
-A discriminated-union descriptor of the attribute's value.
+The value descriptor, or `undefined` when the spread property cannot be found.

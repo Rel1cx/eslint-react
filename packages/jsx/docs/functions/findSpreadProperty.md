@@ -14,18 +14,18 @@ function findSpreadProperty(
 Find the `Property` node that provides a given key inside a spread argument.
 
 This is the single resolution routine shared by [findAttribute](findAttribute.md) (existence
-checks) and the `spreadProps` variant of `resolveAttributeValue` (value extraction):
+checks), [resolveAttribute](resolveAttribute.md), and [resolveAttributeValue](resolveAttributeValue.md) (named value extraction):
 
 - An `Identifier` argument is resolved to its initializer via variable
-  resolution, following alias chains (`const b = a`) like `getStaticValue`
-  does; an `ObjectExpression` argument is searched directly.
+  resolution, following alias chains (`const b = a`); an `ObjectExpression`
+  argument is searched directly. TypeScript expression wrappers are unwrapped.
 - Properties are walked **in reverse** so that later entries win, matching
   JavaScript object semantics (`{ ...a, k: 1 }` -> the literal `k`).
 - Nested `SpreadElement`s (identifiers or inline object expressions) are
   searched recursively; a `seen` set guards against circular references.
-- Plain identifier keys and string literal keys are matched directly;
-  computed keys are matched when they are statically evaluable
-  (ex: `{ ["class" + "Name"]: 1 }`).
+- Statically known primitive keys use JavaScript string-key coercion, including
+  numeric and computed keys (ex: `{ ["class" + "Name"]: 1 }`). Symbol keys and
+  object/function key coercion are not supported by this string-name lookup.
 
 ## Parameters
 

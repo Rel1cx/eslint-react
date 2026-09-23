@@ -1,9 +1,9 @@
 import type { RuleContext } from "@eslint-react/eslint";
 import { getNodeInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
-import { getAttributeStaticValue, getAttributeValue, resolveAttributeValue } from "./attribute-value";
+import { type AttributeValue, evaluateAttributeValue, getAttributeStaticValue, getAttributeValue, resolveAttributeValue } from "./attribute-value";
 
 function parseJsxElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
   const { context, node } = getNodeInRule<TSESTree.JSXElement>(code, "JSXElement");
@@ -16,177 +16,202 @@ function getAttribute(element: TSESTree.JSXElement, index = 0) {
   return attr;
 }
 
+function getPlainAttribute(element: TSESTree.JSXElement): TSESTree.JSXAttribute {
+  const attribute = getAttribute(element);
+  if (attribute.type !== AST.JSXAttribute) throw new Error("expected a plain attribute");
+  return attribute;
+}
+
+function requireValue(value: AttributeValue | undefined): AttributeValue {
+  if (value == null) throw new Error("expected an attribute value");
+  return value;
+}
+
 describe("resolveAttributeValue", () => {
-  it("resolves a boolean attribute", () => {
+  it("describes boolean shorthand without inventing a value node", () => {
     const { context, element } = parseJsxElement("<input disabled />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("boolean");
-    expect(value.node).toBeNull();
-    expect(value.toStatic()).toBe(true);
+    const attribute = getPlainAttribute(element);
+    const value = resolveAttributeValue(context, attribute);
+    expectTypeOf(value).toEqualTypeOf<AttributeValue>();
+    expect(value).toEqual({ kind: "boolean", node: null });
   });
 
-  it("resolves a literal attribute", () => {
-    const { context, element } = parseJsxElement('<div className="x" />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("literal");
-    expect(value.node?.type).toBe(AST.Literal);
-    expect(value.toStatic()).toBe("x");
+  it.each(
+    [
+      ['<div attr="x" />;', "literal", AST.Literal],
+      ['<div attr={"x"} />;', "literal", AST.Literal],
+      ['<div {...{ attr: "x" }} />;', "literal", AST.Literal],
+      ["<div attr={1 + 1} />;", "expression", AST.BinaryExpression],
+      ["<div {...{ attr: 1 + 1 }} />;", "expression", AST.BinaryExpression],
+      ["<div attr={Math.random()} />;", "expression", AST.CallExpression],
+      ["<div attr={/* nothing */} />;", "empty", AST.JSXEmptyExpression],
+      ["<div attr=<span /> />;", "element", AST.JSXElement],
+      ["<div attr={<span />} />;", "element", AST.JSXElement],
+      ["<div {...{ attr: <span /> }} />;", "element", AST.JSXElement],
+      ["<div attr={<></>} />;", "fragment", AST.JSXFragment],
+      ["<div {...{ attr: <></> }} />;", "fragment", AST.JSXFragment],
+    ] as const,
+  )("normalizes value syntax: %s", (code, kind, type) => {
+    const { context, element } = parseJsxElement(code);
+    const attribute = getAttribute(element);
+    const value = requireValue(resolveAttributeValue(context, attribute, "attr"));
+    expect(value.kind).toBe(kind);
+    expect(value.node?.type).toBe(type);
+    expect(value).not.toHaveProperty("attribute");
+    expect(value).not.toHaveProperty("toStatic");
+    expect(value).not.toHaveProperty("getProperty");
   });
 
-  it("resolves a statically evaluable expression", () => {
-    const { context, element } = parseJsxElement("<div tabIndex={1 + 1} />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("unknown");
-    expect(value.toStatic()).toBe(2);
+  it("preserves the actual spread property value node", () => {
+    const { context, element } = parseJsxElement('<div {...{ attr: "x" }} />;');
+    const attribute = getAttribute(element);
+    if (attribute.type !== AST.JSXSpreadAttribute || attribute.argument.type !== AST.ObjectExpression) {
+      throw new Error("expected an object spread");
+    }
+    const property = attribute.argument.properties[0];
+    if (property?.type !== AST.Property) throw new Error("expected a property");
+    const value = resolveAttributeValue(context, attribute, "attr");
+    expectTypeOf(value).toEqualTypeOf<AttributeValue | undefined>();
+    expect(value?.node).toBe(property.value);
   });
 
-  it("resolves an expression referencing a constant", () => {
-    const { context, element } = parseJsxElement("const x = 5; <div id={x} />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("unknown");
-    expect(value.toStatic()).toBe(5);
+  it("returns undefined for a missing spread property", () => {
+    const { context, element } = parseJsxElement('<div {...{ attr: "x" }} />;');
+    expect(resolveAttributeValue(context, getAttribute(element), "missing")).toBeUndefined();
   });
 
-  it("returns undefined for a non-static expression", () => {
-    const { context, element } = parseJsxElement("<div id={Math.random()} />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("unknown");
-    expect(value.toStatic()).toBeUndefined();
+  it("returns undefined for an unresolvable spread", () => {
+    const { context, element } = parseJsxElement("<div {...props} />;");
+    expect(resolveAttributeValue(context, getAttribute(element), "attr")).toBeUndefined();
   });
 
-  it("resolves an empty expression container as a missing value", () => {
-    const { context, element } = parseJsxElement("<div attr={/* nothing */} />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("missing");
-    expect(value.node?.type).toBe(AST.JSXEmptyExpression);
-    expect(value.toStatic()).toBeUndefined();
+  it("requires a property name for spreads at both type and runtime boundaries", () => {
+    const { context, element } = parseJsxElement('<div {...{ attr: "x" }} />;');
+    const attribute = getAttribute(element);
+    expect(() => {
+      // @ts-expect-error A spread is a props object, not a single attribute value.
+      resolveAttributeValue(context, attribute);
+    }).toThrow(TypeError);
   });
 
-  it("resolves a JSX element value", () => {
-    const { context, element } = parseJsxElement("<div attr=<span /> />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("element");
-    expect(value.node?.type).toBe(AST.JSXElement);
-    expect(value.toStatic()).toBeUndefined();
+  it("ignores the lookup name for a plain attribute", () => {
+    const { context, element } = parseJsxElement('<div attr="x" />;');
+    const attribute = getPlainAttribute(element);
+    expect(resolveAttributeValue(context, attribute, "other")).toEqual(resolveAttributeValue(context, attribute));
   });
 
-  it("resolves properties of an inline spread object", () => {
-    const { context, element } = parseJsxElement('<div {...{ className: "x", n: Math.random() }} />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("spreadProps");
-    if (value.kind !== "spreadProps") return;
-    expect(value.getProperty("className")).toBe("x");
-    expect(value.getProperty("n")).toBeUndefined();
-    expect(value.getProperty("missing")).toBeUndefined();
+  it("retains the non-standard JSXSpreadChild syntax without evaluating it", () => {
+    const { context, element } = parseJsxElement("<div>{...children}</div>;");
+    const node = element.children[0];
+    if (node?.type !== AST.JSXSpreadChild) throw new Error("expected a spread child");
+    // Parsers do not produce spread children in attribute position, but TSESTree permits it.
+    const attribute: TSESTree.JSXAttribute = {
+      ...getPlainAttribute(parseJsxElement("<div attr />;").element),
+      value: node,
+    };
+    const value = resolveAttributeValue(context, attribute);
+    expect(value).toEqual({ kind: "spreadChild", node });
+    expect(evaluateAttributeValue(context, value)).toBeUndefined();
+  });
+});
+
+describe("evaluateAttributeValue", () => {
+  it.each(
+    [
+      ["<div attr />;", true],
+      ['<div attr="x" />;', "x"],
+      ["<div attr={false} />;", false],
+      ["<div attr={0} />;", 0],
+      ["<div attr={null} />;", null],
+      ["<div attr={1 + 1} />;", 2],
+      ["const x = 5; <div attr={x} />;", 5],
+      ["<div attr={undefined} />;", undefined],
+      ["<div attr={void 0} />;", undefined],
+      ["<div {...{ attr: undefined }} />;", undefined],
+      ["<div attr={{ nested: [1, 2] }} />;", { nested: [1, 2] }],
+    ] as const,
+  )("wraps a known static value: %s", (code, expected) => {
+    const { context, element } = parseJsxElement(code);
+    const value = requireValue(getAttributeValue(context, element, "attr"));
+    expect(evaluateAttributeValue(context, value)).toEqual({ value: expected });
   });
 
-  it("resolves properties of a spread identifier", () => {
-    const { context, element } = parseJsxElement('const props = { className: "x" }; <div {...props} />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("spreadProps");
-    if (value.kind !== "spreadProps") return;
-    expect(value.getProperty("className")).toBe("x");
+  it.each([
+    "<div attr={Math.random()} />;",
+    "<div attr={notDefined} />;",
+    "<div attr={/* empty */} />;",
+    "<div attr=<span /> />;",
+    "<div attr={<span />} />;",
+    "<div attr={<></>} />;",
+    "<div {...{ attr: Math.random() }} />;",
+    "<div {...{ get attr() { return 'x'; } }} />;",
+  ])("returns no result when evaluation is unavailable: %s", (code) => {
+    const { context, element } = parseJsxElement(code);
+    const value = requireValue(getAttributeValue(context, element, "attr"));
+    expect(evaluateAttributeValue(context, value)).toBeUndefined();
   });
 
-  it("resolves properties through identifier aliases", () => {
-    const { context, element } = parseJsxElement('const a = { className: "x" }; const b = a; <div {...b} />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    if (value.kind !== "spreadProps") throw new Error("expected spreadProps");
-    expect(value.getProperty("className")).toBe("x");
-  });
-
-  it("resolves properties behind statically evaluable computed keys", () => {
-    const { context, element } = parseJsxElement('<div {...{ ["class" + "Name"]: "x" }} />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    if (value.kind !== "spreadProps") throw new Error("expected spreadProps");
-    expect(value.getProperty("className")).toBe("x");
-  });
-
-  it("applies later-props-win semantics inside spread objects", () => {
-    const { context, element } = parseJsxElement("<div {...{ ...{ a: 1 }, a: 2 }} />;");
-    const value = resolveAttributeValue(context, getAttribute(element));
-    if (value.kind !== "spreadProps") throw new Error("expected spread");
-    expect(value.getProperty("a")).toBe(2);
-  });
-
-  it("toStatic() returns undefined for spread attributes without a name", () => {
-    const { context, element } = parseJsxElement('<div {...{ className: "x" }} />;');
-    const value = resolveAttributeValue(context, getAttribute(element));
-    expect(value.kind).toBe("spreadProps");
-    expect(value.toStatic()).toBeUndefined();
-  });
-
-  it("toStatic() resolves the named property for spread attributes", () => {
-    const { context, element } = parseJsxElement('<div {...{ className: "x" }} />;');
-    const value = resolveAttributeValue(context, getAttribute(element), "className");
-    expect(value.kind).toBe("spreadProps");
-    expect(value.toStatic()).toBe("x");
-  });
-
-  it("toStatic() ignores the name for plain attributes", () => {
-    const { context, element } = parseJsxElement('<div className="x" />;');
-    const value = resolveAttributeValue(context, getAttribute(element), "className");
-    expect(value.kind).toBe("literal");
-    expect(value.toStatic()).toBe("x");
+  it("evaluates spread properties in their declaration scope, not their use scope", () => {
+    const { context, element } = parseJsxElement(
+      'const x = "outer"; const props = { attr: x }; function Component() { const x = "inner"; return <div {...props} />; }',
+    );
+    const value = requireValue(getAttributeValue(context, element, "attr"));
+    expect(evaluateAttributeValue(context, value)).toEqual({ value: "outer" });
   });
 });
 
 describe("getAttributeValue", () => {
-  it("returns undefined when the attribute is absent", () => {
-    const { context, element } = parseJsxElement("<div />;");
-    expect(getAttributeValue(context, element, "className")).toBeUndefined();
+  it("distinguishes absent, empty, dynamic, and known undefined values", () => {
+    const { context, element } = parseJsxElement("<div empty={} dynamic={foo()} known={undefined} />;");
+    expect(getAttributeValue(context, element, "absent")).toBeUndefined();
+    const empty = requireValue(getAttributeValue(context, element, "empty"));
+    const dynamic = requireValue(getAttributeValue(context, element, "dynamic"));
+    const known = requireValue(getAttributeValue(context, element, "known"));
+    expect(empty.kind).toBe("empty");
+    expect(dynamic.kind).toBe("expression");
+    expect(known.kind).toBe("expression");
+    expect(evaluateAttributeValue(context, empty)).toBeUndefined();
+    expect(evaluateAttributeValue(context, dynamic)).toBeUndefined();
+    expect(evaluateAttributeValue(context, known)).toEqual({ value: undefined });
   });
 
-  it("returns the resolved value descriptor when present", () => {
-    const { context, element } = parseJsxElement('<div className="x" />;');
-    const value = getAttributeValue(context, element, "className");
-    expect(value?.kind).toBe("literal");
-    expect(value?.toStatic()).toBe("x");
-  });
-
-  it("resolves the named property of a spread attribute", () => {
-    const { context, element } = parseJsxElement('const props = { className: "x" }; <div {...props} />;');
-    const value = getAttributeValue(context, element, "className");
-    expect(value?.kind).toBe("spreadProps");
-    expect(value?.toStatic()).toBe("x");
+  it("preserves dynamic spread property syntax even when evaluation fails", () => {
+    const { context, element } = parseJsxElement("<div {...{ attr: foo() }} />;");
+    const value = requireValue(getAttributeValue(context, element, "attr"));
+    expect(value.kind).toBe("expression");
+    expect(value.node?.type).toBe(AST.CallExpression);
+    expect(evaluateAttributeValue(context, value)).toBeUndefined();
   });
 });
 
 describe("getAttributeStaticValue", () => {
-  it("returns undefined when the attribute is absent", () => {
-    const { context, element } = parseJsxElement("<div />;");
-    expect(getAttributeStaticValue(context, element, "className")).toBeUndefined();
+  it.each(
+    [
+      ["<div />;", undefined],
+      ['<div attr="x" />;', "x"],
+      ["<div attr />;", true],
+      ["<div attr={Math.random()} />;", undefined],
+      ["<div attr={undefined} />;", undefined],
+      ["<div attr={} />;", undefined],
+      ['const props = { attr: "x" }; <div {...props} />;', "x"],
+      ['const a = { attr: "x" }; const b = a; <div {...b} />;', "x"],
+      ['<div {...{ ["at" + "tr"]: "x" }} />;', "x"],
+      ["<div {...{ ...{ attr: 1 }, attr: 2 }} />;", 2],
+      ["<div {...{ attr: 2, ...{ attr: 1 } }} />;", 1],
+      ['const props = { attr: "first" }; <div {...props} attr="second" />;', "second"],
+      ['const props = { attr: "second" }; <div attr="first" {...props} />;', "second"],
+      ['<div attr="a" attr="b" />;', "b"],
+      ['<div attr="a" {...{ attr: undefined }} />;', undefined],
+      ['<div attr="a" {...{ attr: foo() }} />;', undefined],
+      ["const a = b; const b = a; <div {...a} />;", undefined],
+    ] as const,
+  )("returns the best-effort static value: %s", (code, expected) => {
+    const { context, element } = parseJsxElement(code);
+    expect(getAttributeStaticValue(context, element, "attr")).toBe(expected);
   });
 
-  it("returns the literal value", () => {
-    const { context, element } = parseJsxElement('<div className="x" />;');
-    expect(getAttributeStaticValue(context, element, "className")).toBe("x");
-  });
-
-  it("returns true for a boolean attribute", () => {
-    const { context, element } = parseJsxElement("<input disabled />;");
-    expect(getAttributeStaticValue(context, element, "disabled")).toBe(true);
-  });
-
-  it("returns undefined for a non-static expression", () => {
-    const { context, element } = parseJsxElement("<div id={Math.random()} />;");
-    expect(getAttributeStaticValue(context, element, "id")).toBeUndefined();
-  });
-
-  it("resolves the named property from a spread", () => {
-    const { context, element } = parseJsxElement('const props = { className: "x" }; <div {...props} />;');
-    expect(getAttributeStaticValue(context, element, "className")).toBe("x");
-  });
-
-  it("respects later-props-win semantics", () => {
-    const { context, element } = parseJsxElement(
-      'const props = { className: "first" }; <div {...props} className="second" />;',
-    );
-    expect(getAttributeStaticValue(context, element, "className")).toBe("second");
-  });
-
-  it("returns the last value when the attribute is duplicated", () => {
-    const { context, element } = parseJsxElement('<div className="a" className="b" />;');
-    expect(getAttributeStaticValue(context, element, "className")).toBe("b");
+  it("retains best-effort lookup through unknown spreads", () => {
+    const { context, element } = parseJsxElement('<div attr="known" {...unknownProps} />;');
+    expect(getAttributeStaticValue(context, element, "attr")).toBe("known");
   });
 });

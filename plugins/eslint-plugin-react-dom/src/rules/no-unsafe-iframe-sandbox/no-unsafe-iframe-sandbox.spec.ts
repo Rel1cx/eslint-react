@@ -109,12 +109,12 @@ ruleTester.run(RULE_NAME, rule, {
         const props = inner;
         <iframe {...props} />;
       `,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "default", line: 3, column: 13 }],
     },
     // String literal keys in spread props are checked
     {
       code: tsx`<iframe {...{ "sandbox": "allow-scripts allow-same-origin" }} />;`,
-      errors: [{ messageId: "default" }],
+      errors: [{ messageId: "default", column: 13 }],
     },
     // Statically evaluable computed keys in spread props are checked
     {
