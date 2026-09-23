@@ -63,6 +63,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             && Check.isIdentifier(expr.property): {
             const resolved = resolveBuiltinMember(context, expr);
             if (resolved == null || resolved.property == null) return;
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!IMPURE_FUNCS.get(resolved.object)?.has(resolved.property)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;

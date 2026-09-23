@@ -2,7 +2,7 @@
 title: Changelog
 ---
 
-## v5.20.7 (2026-09-24)
+## v5.20.8 (2026-09-24)
 
 ### 🐞 Fixes
 
@@ -14,7 +14,7 @@ title: Changelog
 - `@eslint-react/jsx`: exported the `AttributeValue` type from the package entry point.
 - `@eslint-react/var`: renamed the `AssignmentTarget` type to `EnclosingAssignmentTarget` and inlined `getRequireExpressionArguments` into its sole consumer.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.6...v5.20.7
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.6...v5.20.8
 
 ## v5.20.6 (2026-09-23)
 
