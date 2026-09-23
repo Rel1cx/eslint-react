@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.20.7 (2026-09-24)
+
+### 🐞 Fixes
+
+- `@eslint-react/core`: `isJsxLike` now recognizes JSX wrapped in TypeScript expressions (`as`, `satisfies`, type assertions, and non-null assertions) and `await` expressions.
+- `@eslint-react/jsx`: `isFragmentElement` now requires the configured `jsxFragmentFactory`, avoiding an implicit React fragment factory for custom JSX runtimes.
+
+### 🏗️ Internal
+
+- `@eslint-react/jsx`: exported the `AttributeValue` type from the package entry point.
+- `@eslint-react/var`: renamed the `AssignmentTarget` type to `EnclosingAssignmentTarget` and inlined `getRequireExpressionArguments` into its sole consumer.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.6...v5.20.7
+
 ## v5.20.6 (2026-09-23)
 
 ### 🐞 Fixes
