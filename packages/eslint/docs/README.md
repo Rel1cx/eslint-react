@@ -24,6 +24,7 @@
 
 ## Functions
 
-| Function                    | Description                                                  |
-| --------------------------- | ------------------------------------------------------------ |
-| [merge](functions/merge.md) | Merge multiple visitor objects into a single visitor object. |
+| Function                      | Description                                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| [merge](functions/merge.md)   | Merge multiple visitor objects into a single visitor object. |
+| [report](functions/report.md) | Creates a report function for the given rule context.        |

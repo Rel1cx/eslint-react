@@ -4,7 +4,6 @@ import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import {
-  isAssignmentToThisState,
   isClassComponent,
   isComponentDidCatch,
   isComponentDidMount,
@@ -216,125 +215,6 @@ describe("isThisSetStateCall", () => {
       enter(node) {
         if (node.type === AST.CallExpression) {
           result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-});
-
-describe("isAssignmentToThisState", () => {
-  it("should return true for this.state = {}", () => {
-    const code = "this.state = {}";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return true for this.state.foo = 'baz'", () => {
-    const code = "this.state.foo = 'baz'";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return true for this.state.foo.bar = 'baz'", () => {
-    const code = "this.state.foo.bar = 'baz'";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return true for (this.state as any).foo = 'baz'", () => {
-    const code = "(this.state as any).foo = 'baz'";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return false for unrelated assignments", () => {
-    const code = "this.props = {}";
-    let result = true;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(false);
-  });
-
-  it("should return false for this.props.foo = 'baz'", () => {
-    const code = "this.props.foo = 'baz'";
-    let result = true;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(false);
-  });
-
-  it("should return true for (this as any).state = {}", () => {
-    const code = "(this as any).state = {}";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return true for (this as any).state.foo = 'baz'", () => {
-    const code = "(this as any).state.foo = 'baz'";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
-        }
-      },
-    }, true);
-    expect(result).toBe(true);
-  });
-
-  it("should return true for this!.state = {}", () => {
-    const code = "this!.state = {}";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.AssignmentExpression) {
-          result = isAssignmentToThisState(node);
         }
       },
     }, true);

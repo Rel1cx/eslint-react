@@ -123,5 +123,18 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    {
+      name: "no Component class",
+      code: tsx`
+        class C {
+          state = {
+            foo: 1,
+          };
+          render() {
+            return <div onClick={() => this.setState({ foo: this.state.foo + 1 })} />;
+          }
+        }
+      `,
+    },
   ],
 });

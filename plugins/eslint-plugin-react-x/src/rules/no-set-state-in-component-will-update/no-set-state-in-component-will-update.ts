@@ -37,10 +37,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Find the enclosing class component
       const enclosingClassNode = Traverse.findParent(node, core.isClassComponent);
       // Find the enclosing 'componentWillUpdate' method
-      const enclosingMethodNode = Traverse.findParent(
-        node,
-        (n) => n === enclosingClassNode || core.isComponentWillUpdate(n),
-      );
+      const enclosingMethodNode = Traverse.findParent(node, (n) => n === enclosingClassNode || core.isComponentWillUpdate(n));
 
       // Ensure 'this.setState' is inside a 'componentWillUpdate' method within a class component
       if (enclosingClassNode == null || enclosingMethodNode == null || enclosingMethodNode === enclosingClassNode) {
