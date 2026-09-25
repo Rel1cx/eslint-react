@@ -1,13 +1,13 @@
 import { createRule } from "@/utils/create-rule";
+import { getConstrainedTypeAtLocation } from "@/utils/get-constrained-type-at-location";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, report } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
-import { getConstrainedTypeAtLocation } from "@typescript-eslint/type-utils";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { ESLintUtils } from "@typescript-eslint/utils";
 import { findVariable, getStaticValue } from "@typescript-eslint/utils/ast-utils";
+import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
 import { compare } from "compare-versions";
 import { unionConstituents } from "ts-api-utils";
