@@ -24,7 +24,7 @@ Add a layer only when the rule file would otherwise own that responsibility. `im
 
 ### `collect.ts` — facts, no interpretation
 
-`createXCollector()` returns `{ facts, visitor }`. Facts are plain data: AST nodes, source positions, and the `enclosingFunction` captured eagerly at visit time (`Traverse.findParent(node, Check.isFunction)`), so inference never re-walks ancestors. The collector performs only the syntactic classification needed to route a node into the right fact list (helpers like `getRefAccess` live in `lib.ts`).
+`createXCollector()` returns `{ facts, visitor }`. Facts are plain data: AST nodes, source positions, and the `enclosingFunction` captured eagerly at visit time (`Traverse.findParent(node, Check.isFunction)`), so inference never re-walks ancestors. The collector performs only the syntactic classification needed to route a node into the right fact list.
 
 ### `origins.ts` — provenance
 
