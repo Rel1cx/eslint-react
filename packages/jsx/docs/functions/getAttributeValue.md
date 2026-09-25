@@ -24,6 +24,6 @@ Convenience composition of [findAttribute](findAttribute.md) and [resolveAttribu
 
 ## Returns
 
-`AttributeValue` \| `undefined`
+[`AttributeValue`](../type-aliases/AttributeValue.md) \| `undefined`
 
-An AttributeValue descriptor, or `undefined` when the attribute is not present.
+An [AttributeValue](../type-aliases/AttributeValue.md) descriptor, or `undefined` when the attribute is not present.

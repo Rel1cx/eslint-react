@@ -10,10 +10,10 @@
 
 ## Type Aliases
 
-| Type Alias                                           | Description                                                                                                                    |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [AssignmentTarget](type-aliases/AssignmentTarget.md) | The possible assignment targets returned by [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md). |
-| [ObjectType](type-aliases/ObjectType.md)             | Represents the type classification of an object node.                                                                          |
+| Type Alias                                                             | Description                                                                                                                    |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [EnclosingAssignmentTarget](type-aliases/EnclosingAssignmentTarget.md) | The possible assignment targets returned by [resolveEnclosingAssignmentTarget](functions/resolveEnclosingAssignmentTarget.md). |
+| [ObjectType](type-aliases/ObjectType.md)                               | Represents the type classification of an object node.                                                                          |
 
 ## Functions
 

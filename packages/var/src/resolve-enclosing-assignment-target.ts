@@ -1,7 +1,7 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /** The possible assignment targets returned by {@link resolveEnclosingAssignmentTarget}. */
-export type AssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
+export type EnclosingAssignmentTarget = ReturnType<typeof resolveEnclosingAssignmentTarget>;
 
 /**
  * Resolve the enclosing assignment target (variable, property, etc.) of the node.

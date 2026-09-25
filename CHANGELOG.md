@@ -1,5 +1,38 @@
 # Changelog
 
+## v5.20.8 (2026-09-24)
+
+### 🐞 Fixes
+
+- `@eslint-react/core`: `isJsxLike` now recognizes JSX wrapped in TypeScript expressions (`as`, `satisfies`, type assertions, and non-null assertions) and `await` expressions.
+- `@eslint-react/jsx`: `isFragmentElement` now requires the configured `jsxFragmentFactory`, avoiding an implicit React fragment factory for custom JSX runtimes.
+
+### 🏗️ Internal
+
+- `@eslint-react/jsx`: exported the `AttributeValue` type from the package entry point.
+- `@eslint-react/var`: renamed the `AssignmentTarget` type to `EnclosingAssignmentTarget` and inlined `getRequireExpressionArguments` into its sole consumer.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.6...v5.20.8
+
+## v5.20.6 (2026-09-23)
+
+### 🐞 Fixes
+
+- `react-x/globals`: `for...in`/`for...of` loop targets without a declaration (e.g. `for (globalValue of items)`) are now collected as writes instead of being missed.
+- `react-x/immutability`: destructuring assignment targets (e.g. `({ a: props.x } = value)`) and `for...in`/`for...of` loop targets without a declaration are now collected as mutations instead of being missed.
+- `react-x/purity`: builtin alias resolution now preserves the property path, so aliases of impure builtins (`const random = Math.random; random()`, `const { now } = Date; now()`, `window.Math.random()`) are now detected instead of being missed; unknown-global roots are not followed, preventing speculative reports.
+- `react-x/refs`: destructuring assignments, for-in/of loop targets, and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
+- `react-x/refs`: refs passed to constructor calls (`new Widget(ref)`) and tagged templates are now checked for render-time exposure, same as refs passed to plain functions.
+- `react-x/refs`: the `mergeRefs` exemption for passing refs now survives simple variable aliases (`const combine = mergeRefs`), resolved position-aware so reassigned aliases lose it again.
+- `react-x/use-memo`: reassignments of outer variables through destructuring patterns and `for...in`/`for...of` loop targets inside `useMemo` callbacks are now reported instead of being missed; property mutation targets remain exempt, matching the React Compiler's `StoreContext` semantics.
+
+### 🏗️ Internal
+
+- `@eslint-react/var`: split `resolve` into a value-based `resolve` and a new origin-based `resolveOrigin`, and updated the consumers in `react-web-api` and `react-x` rules accordingly. (#1964)
+- Bumped `fumadocs` to `16.15.12`, `fumadocs-mdx` to `15.4.3`, `tsl-dx` to `0.13.6`, `eslint-plugin-de-morgan` to `2.2.0`, and `eslint-plugin-regexp` to `3.3.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.5...v5.20.6
+
 ## v5.20.5 (2026-09-21)
 
 ### 🐞 Fixes

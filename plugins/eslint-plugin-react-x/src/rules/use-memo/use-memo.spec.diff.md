@@ -41,12 +41,12 @@ Both sides check `callback.async || callback.generator`.
 
 ### Rule 3: No reassigning outer variables
 
-The SPEC detects this via HIR `StoreContext` instructions targeting closure-captured context variables. The IMPL uses ESLint scope analysis on `AssignmentExpression` nodes, distinguishing local from outer variables.
+The SPEC detects this via HIR `StoreContext` instructions targeting closure-captured context variables. The IMPL uses ESLint scope analysis on assignment write targets, distinguishing local from outer variables. Write targets are collected from plain assignments, destructuring patterns (`({ a } = source)`, `[a] = source`), and `for...in`/`for...of` loop targets without a declaration (`for (x of items)`).
 
 Key IMPL differences:
 
 - Assignments inside nested functions are explicitly excluded.
-- Property mutations (e.g., `ref.current = ...`) are ignored; only direct identifier assignments (`x = ...`) are flagged.
+- Property mutations (e.g., `ref.current = ...`) are ignored; only direct identifier targets (`x = ...`, including identifiers reached through destructuring patterns and loop targets) are flagged.
 
 **Verdict**: The IMPL checks a narrower set of AST assignments; this is not equivalent to the SPEC's `StoreContext` check.
 

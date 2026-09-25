@@ -1,6 +1,6 @@
 {
   "name": "@eslint-react/eslint",
-  "version": "5.20.5",
+  "version": "5.20.8",
   "description": "ESLint React's ESLint types and utils.",
   "homepage": "https://github.com/Rel1cx/eslint-react",
   "bugs": {
@@ -36,7 +36,7 @@
     "publish": "node --run build && node --run lint:publish"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^8.70.0"
+    "@typescript-eslint/utils": "^8.70.1"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",

@@ -558,15 +558,77 @@ export const PURE_CTORS: ReadonlySet<string> = new Set([
 ]);
 
 /**
- * Recursively resolve an identifier to the root builtin global object name.
- * Follows simple assignment chains like `const M = Math` or `const w = window`.
+ * The result of resolving an identifier or member expression to a builtin
+ * global: the catalog object name plus an optional property path segment, e.g.
+ * `Math.random` resolves to `{ object: "Math", property: "random" }` while
+ * `Math` alone resolves to `{ object: "Math", property: null }`.
+ */
+export type BuiltinResolution = {
+  object: string;
+  property: string | null;
+};
+
+export function isCatalogObject(name: string): boolean {
+  return IMPURE_FUNCS.has(name) || PURE_FUNCS.has(name);
+}
+
+/**
+ * Find the property key under which `name` is bound in an object destructuring
+ * pattern, e.g. `"random"` for `random` in `const { random } = Math` or for
+ * `r` in `const { random: r } = Math`.
+ */
+function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSESTree.Identifier): string | null {
+  for (const property of pattern.properties) {
+    if (property.type !== AST.Property) continue;
+    const target = property.value.type === AST.AssignmentPattern ? property.value.left : property.value;
+    if (target !== name) continue;
+    return Extract.getPropertyName(property, "max");
+  }
+  return null;
+}
+
+/**
+ * Resolve a member expression to a builtin object name and property, e.g.
+ * `window.Math.random` resolves to `{ object: "Math", property: "random" }`.
+ * Intermediate segments are followed only while they name known catalog
+ * objects (`window`, `Math`, ...), so unknown-global chains like
+ * `foo.Math.random` do not resolve.
+ */
+export function resolveBuiltinMember(
+  context: RuleContext,
+  node: TSESTree.MemberExpression,
+  seen = new Set<string>(),
+): BuiltinResolution | null {
+  const chain = Extract.getMemberChain(node);
+  const rootId = chain.at(0);
+  if (rootId == null || !Check.isIdentifier(rootId)) return null;
+  const segments = chain.slice(1);
+  if (segments.length === 0 || !segments.every((segment) => Check.isIdentifier(segment))) return null;
+  const resolved = resolveBuiltinObjectName(context, rootId, seen);
+  if (resolved == null) return null;
+  let object = resolved.property ?? resolved.object;
+  const names = segments.map((segment) => segment.name);
+  if (isCatalogObject(object)) {
+    for (const name of names.slice(0, -1)) {
+      if (!isCatalogObject(name)) break;
+      object = name;
+    }
+  }
+  return { object, property: names.at(-1) ?? null };
+}
+
+/**
+ * Recursively resolve an identifier to a builtin global object name and
+ * optional property. Follows simple assignment chains like `const M = Math`,
+ * member-function aliases like `const random = Math.random`, and destructured
+ * aliases like `const { random } = Math`.
  * Returns `null` if the identifier is locally defined (parameter, import, function declaration, etc.)
  * or resolves to a non-builtin source.
  * @param context - The rule context.
  * @param node - The identifier node to resolve.
  * @param seen - A set of already visited identifier names to prevent infinite loops.
  */
-export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Identifier, seen = new Set<string>()): string | null {
+export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Identifier, seen = new Set<string>()): BuiltinResolution | null {
   if (seen.has(node.name)) return null;
   seen.add(node.name);
 
@@ -574,26 +636,33 @@ export function resolveBuiltinObjectName(context: RuleContext, node: TSESTree.Id
   const variable = findVariable(scope, node);
 
   // No variable found -> treat as global
-  if (variable == null) return node.name;
+  if (variable == null) return { object: node.name, property: null };
 
   const def = variable.defs[0];
-  if (def == null) return node.name; // implicit global
+  if (def == null) return { object: node.name, property: null }; // implicit global
 
   if (def.type === DefinitionType.ImplicitGlobalVariable) {
-    return node.name;
+    return { object: node.name, property: null };
   }
 
   if (def.type === DefinitionType.Variable && def.node.init != null) {
     const init = Extract.unwrap(def.node.init);
-    if (Check.isIdentifier(init)) {
-      return resolveBuiltinObjectName(context, init, seen);
+    const resolved = Check.isIdentifier(init)
+      ? resolveBuiltinObjectName(context, init, seen)
+      : init.type === AST.MemberExpression
+      ? resolveBuiltinMember(context, init, seen)
+      : null;
+    if (resolved == null) return null;
+    // Destructured declarations (`const { random } = Math`) bind the pattern
+    // key's property of the source object, not the source object itself.
+    if (def.node.id.type === AST.ObjectPattern) {
+      const key = getDestructuredPropertyName(def.node.id, def.name);
+      if (key == null) return null;
+      return { object: resolved.property ?? resolved.object, property: key };
     }
-    if (init.type === AST.MemberExpression) {
-      const rootId = Extract.getMemberChain(init).at(0);
-      if (rootId != null && Check.isIdentifier(rootId)) {
-        return resolveBuiltinObjectName(context, rootId, seen);
-      }
-    }
+    // Array-pattern bindings (`const [x] = source`) are elements, not the source.
+    if (def.node.id.type === AST.ArrayPattern) return null;
+    return resolved;
   }
 
   // Other definitions (Parameter, FunctionName, ImportBinding, etc.) are not builtins

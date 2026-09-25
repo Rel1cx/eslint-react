@@ -1,5 +1,6 @@
 import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
-import type { RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
+import type { RuleContext } from "./types";
 
 function getDocsUrl(ruleName: string) {
   return `https://eslint-react.xyz/docs/rules/${ruleName}`;
@@ -7,6 +8,18 @@ function getDocsUrl(ruleName: string) {
 
 /** The rule creator that generates documentation URLs for ESLint React rules. */
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
+
+/**
+ * Creates a report function for the given rule context.
+ * @param context The ESLint rule context.
+ * @returns A function that can be used to report violations.
+ */
+export function report(context: RuleContext) {
+  return (desc?: null | ReportDescriptor<string>) => {
+    if (desc == null) return;
+    context.report(desc);
+  };
+}
 
 /**
  * Merge multiple visitor objects into a single visitor object.

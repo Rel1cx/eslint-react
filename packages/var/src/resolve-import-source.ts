@@ -1,9 +1,24 @@
-import { Extract } from "@eslint-react/ast";
+import { Check, Extract } from "@eslint-react/ast";
 import type { Scope } from "@typescript-eslint/scope-manager";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching } from "ts-pattern";
-import { getRequireExpressionArguments } from "./get-require-expression-arguments";
+
+/**
+ * Get the arguments of a require expression.
+ * @param node The node to check.
+ * @returns The require expression arguments, or `null` when the node is not a require expression.
+ */
+function getRequireExpressionArguments(node: TSESTree.Node) {
+  const unwrapped = Extract.unwrap(node);
+  if (unwrapped.type === AST.CallExpression) {
+    const callee = Extract.unwrap(unwrapped.callee);
+    if (Check.isIdentifier(callee, "require")) return unwrapped.arguments;
+    return null;
+  }
+  if (unwrapped.type === AST.MemberExpression) return getRequireExpressionArguments(unwrapped.object);
+  return null;
+}
 
 /**
  * Resolve the import source of a variable by walking its latest definition.

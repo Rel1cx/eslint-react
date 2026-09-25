@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@e
 import { getSettingsFromContext, toRegExp } from "@eslint-react/shared";
 import { resolveObjectType } from "@eslint-react/var";
 import { getOrInsertComputed } from "@local/eff";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { AST_NODE_TYPES as AST, TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { match } from "ts-pattern";
 import { type ObjectDestructuringVariableDeclarator, SEL_OBJECT_DESTRUCTURING_VARIABLE_DECLARATOR, getHumanReadableKind } from "./lib";
@@ -57,28 +57,6 @@ export default createRule<Options, MessageID>({
   defaultOptions,
 });
 
-function extractIdentifier(node: TSESTree.Node): string | null {
-  if (node.type === AST.NewExpression) {
-    const callee = Extract.unwrap(node.callee);
-    if (Check.isIdentifier(callee)) {
-      return callee.name;
-    }
-  }
-  if (node.type === AST.CallExpression) {
-    const callee = Extract.unwrap(node.callee);
-    if (Check.isIdentifier(callee)) {
-      return callee.name;
-    }
-    if (callee.type === AST.MemberExpression) {
-      const { object } = callee;
-      if (Check.isIdentifier(object)) {
-        return object.name;
-      }
-    }
-  }
-  return null;
-}
-
 export function create(context: RuleContext<MessageID, Options>, [options]: Options): RuleListener {
   const { compilationMode } = getSettingsFromContext(context);
   if (compilationMode === "infer" || compilationMode === "all") return {};
@@ -100,8 +78,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
         const properties = match(props)
           .with({ type: AST.ObjectPattern }, ({ properties }) => properties)
           .with({ type: AST.Identifier }, ({ name }) => {
-            return declarators
-              .get(component)
+            return declarators.get(component)
               ?.filter((d) => d.init.name === name)
               .flatMap((d) => d.id.properties) ?? [];
           })
@@ -120,8 +97,17 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
             continue;
           }
           if (safePatterns.length > 0) {
-            const identifier = extractIdentifier(right);
-            if (identifier != null && safePatterns.some((pattern) => pattern.test(identifier))) {
+            const getName = (n: TSESTree.Node) => Check.isIdentifier(n) ? n.name : null;
+            const name = match(right)
+              .with({ type: AST.NewExpression }, (n) => getName(n.callee))
+              .with({ type: AST.CallExpression }, (n) => {
+                return match(Extract.unwrap(n.callee))
+                  .when(Check.isIdentifier, ({ name }) => name)
+                  .when(Check.is(AST.MemberExpression), ({ object }) => getName(object))
+                  .otherwise(() => null);
+              })
+              .otherwise(() => null);
+            if (name != null && safePatterns.some((pattern) => pattern.test(name))) {
               continue;
             }
           }

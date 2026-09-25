@@ -1,5 +1,4 @@
 export * from "./create-import-lookup";
-export * from "./get-require-expression-arguments";
 export * from "./is-assignment-target-equal";
 export * from "./is-initialized-from-react";
 export * from "./is-initialized-from-react-native";

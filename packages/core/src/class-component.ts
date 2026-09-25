@@ -163,25 +163,3 @@ export function isThisSetStateCall(node: TSESTree.CallExpression) {
     && Extract.unwrap(callee.object).type === AST.ThisExpression
     && Extract.getCalleeName(node) === "setState";
 }
-
-/**
- * Check if the assignment expression assigns to `this.state`.
- * @param node The assignment expression node to check.
- * @returns `true` if the node assigns to `this.state`.
- * @deprecated Class components are legacy. This function exists only to support legacy rules.
- */
-export function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
-  const { left } = node;
-  let current: TSESTree.Node = Extract.unwrap(left);
-  while (current.type === AST.MemberExpression) {
-    const object = Extract.unwrap(current.object);
-    const property = current.property;
-    if (object.type === AST.ThisExpression && Check.isIdentifier(property, "state")) {
-      return true;
-    }
-    current = object;
-  }
-  return false;
-}
-
-// #endregion

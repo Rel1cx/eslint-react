@@ -1,7 +1,7 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { MUTATING_ARRAY_METHODS, getAssignmentTargets } from "./lib";
+import { MUTATING_ARRAY_METHODS } from "./lib";
 
 export type WriteFact = {
   enclosingFunction: TSESTreeFunction;
@@ -46,7 +46,7 @@ export function createFactCollector() {
 
   const visitor: RuleListener = {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      for (const target of getAssignmentTargets(node.left)) {
+      for (const target of Extract.getAssignmentTargets(node.left)) {
         pushWrite(node, target);
       }
     },
@@ -62,6 +62,18 @@ export function createFactCollector() {
       if (method == null || !MUTATING_ARRAY_METHODS.has(method)) return;
       if (caller == null) return;
       facts.methodCalls.push({ enclosingFunction: caller, method, node, receiver: callee.object });
+    },
+    ForInStatement(node: TSESTree.ForInStatement) {
+      if (node.left.type === AST.VariableDeclaration) return;
+      for (const target of Extract.getAssignmentTargets(node.left)) {
+        pushWrite(node, target);
+      }
+    },
+    ForOfStatement(node: TSESTree.ForOfStatement) {
+      if (node.left.type === AST.VariableDeclaration) return;
+      for (const target of Extract.getAssignmentTargets(node.left)) {
+        pushWrite(node, target);
+      }
     },
     UnaryExpression(node: TSESTree.UnaryExpression) {
       if (node.operator !== "delete") return;

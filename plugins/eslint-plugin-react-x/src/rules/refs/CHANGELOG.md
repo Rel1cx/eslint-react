@@ -5,6 +5,20 @@ All notable changes to the `react-x/refs` rule will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.20.6] - 2026-09-23
+
+### Added
+
+- Refs passed to constructor calls (`new Widget(ref)`) and tagged templates are now checked for render-time exposure, same as refs passed to plain functions.
+
+### Changed
+
+- The `mergeRefs` exemption for passing refs now survives simple variable aliases (`const combine = mergeRefs`), resolved position-aware so reassigned aliases lose it again.
+
+### Fixed
+
+- Destructuring assignments (`({ a: ref.current } = value)`, `[ref.current] = value`, including nested member targets like `({ a: ref.current.x } = value)`), for-in/of loop targets (`for (ref.current of items)`), and `delete` operations on `ref.current` are now classified as writes instead of being misreported as reads.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed

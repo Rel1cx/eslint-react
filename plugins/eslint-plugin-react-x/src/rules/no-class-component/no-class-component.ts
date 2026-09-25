@@ -36,9 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           if (component.body.body.some((m) => core.isComponentDidCatch(m) || core.isGetDerivedStateFromError(m))) {
             continue;
           }
-          const classToken = context.sourceCode.getFirstToken(component, {
-            filter: (token) => token.value === "class",
-          });
+          const classToken = context.sourceCode.getFirstToken(component, { filter: (token) => token.value === "class" });
           context.report({
             data: {
               name,

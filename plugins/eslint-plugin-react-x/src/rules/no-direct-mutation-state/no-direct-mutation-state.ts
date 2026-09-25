@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Traverse } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -9,15 +9,6 @@ export const RULE_NAME = "no-direct-mutation-state";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID = "default";
-
-function isConstructorFunction(
-  node: TSESTree.Node,
-): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
-  return Check.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
-    && Check.isPropertyOrMethod(node.parent)
-    && Check.isIdentifier(node.parent.key)
-    && node.parent.key.name === "constructor";
-}
 
 export default createRule<[], MessageID>({
   meta: {
@@ -35,12 +26,35 @@ export default createRule<[], MessageID>({
   defaultOptions: [],
 });
 
+function isConstructorFunction(node: TSESTree.Node): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
+  return Check.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
+    && Check.isPropertyOrMethod(node.parent)
+    && Check.isIdentifier(node.parent.key)
+    && node.parent.key.name === "constructor";
+}
+
+function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
+  const { left } = node;
+  let current: TSESTree.Node = Extract.unwrap(left);
+  while (current.type === AST.MemberExpression) {
+    const object = Extract.unwrap(current.object);
+    const property = current.property;
+    if (object.type === AST.ThisExpression && Check.isIdentifier(property, "state")) {
+      return true;
+    }
+    current = object;
+  }
+  return false;
+}
+
+// #endregion
+
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   return {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
-      if (!core.isAssignmentToThisState(node)) return;
+      if (!isAssignmentToThisState(node)) return;
       // Find the parent class of the assignment
-      const parentClass = Traverse.findParent(
+      const fact = Traverse.findParent(
         node,
         Check.isOneOf([
           AST.ClassDeclaration,
@@ -48,10 +62,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         ]),
       );
       // If the assignment is not inside a class, do nothing
-      if (parentClass == null) return;
+      if (fact == null) return;
       // Report an error if 'this.state' is directly mutated in a class component
       // and the mutation is not inside the constructor
-      if (core.isClassComponent(parentClass) && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
+      if (core.isClassComponent(fact) && context.sourceCode.getScope(node).block !== Traverse.findParent(node, isConstructorFunction)) {
         context.report({
           messageId: "default",
           node,

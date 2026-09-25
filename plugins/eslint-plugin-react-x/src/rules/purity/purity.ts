@@ -3,7 +3,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { IMPURE_CTORS, IMPURE_FUNCS, resolveBuiltinObjectName } from "./lib";
+import { IMPURE_CTORS, IMPURE_FUNCS, isCatalogObject, resolveBuiltinMember, resolveBuiltinObjectName } from "./lib";
 
 export const RULE_NAME = "purity";
 
@@ -46,10 +46,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const expr = Extract.unwrap(node.callee);
         switch (true) {
           case Check.isIdentifier(expr): {
-            const builtinName = resolveBuiltinObjectName(context, expr);
-            if (builtinName == null) return;
-            const globalThisImpure = IMPURE_FUNCS.get("globalThis");
-            if (globalThisImpure == null || !globalThisImpure.has(builtinName)) return;
+            const resolved = resolveBuiltinObjectName(context, expr);
+            if (resolved == null) return;
+            // Bare globals (`fetch()`) resolve without a property; member-function
+            // aliases (`const r = Math.random; r()`) resolve with one.
+            const isImpure = resolved.property != null
+              ? IMPURE_FUNCS.get(resolved.object)?.has(resolved.property) ?? false
+              : IMPURE_FUNCS.get("globalThis")?.has(resolved.object) ?? false;
+            if (!isImpure) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
@@ -57,13 +61,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           }
           case expr.type === AST.MemberExpression
             && Check.isIdentifier(expr.property): {
-            const rootId = Extract.getMemberChain(expr.object).at(0);
-            if (rootId == null || !Check.isIdentifier(rootId)) return;
-            const objectName = resolveBuiltinObjectName(context, rootId);
-            if (objectName == null) return;
-            const propertyName = expr.property.name;
-            const objectImpure = IMPURE_FUNCS.get(objectName);
-            if (objectImpure == null || !objectImpure.has(propertyName)) return;
+            const resolved = resolveBuiltinMember(context, expr);
+            if (resolved == null || resolved.property == null) return;
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            if (!IMPURE_FUNCS.get(resolved.object)?.has(resolved.property)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
@@ -74,12 +75,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       NewExpression(node: TSESTree.NewExpression) {
         const expr = Extract.unwrap(node.callee);
         if (!Check.isIdentifier(expr)) return;
-        const builtinName = resolveBuiltinObjectName(context, expr);
-        if (builtinName == null) return;
-        if (!IMPURE_CTORS.has(builtinName)) return;
+        const resolved = resolveBuiltinObjectName(context, expr);
+        if (resolved == null) return;
+        // A member alias (`const W = window.WebSocket`) names the constructor in its
+        // property; trust it only when the source object is a known catalog global.
+        const ctorName = resolved.property != null && isCatalogObject(resolved.object)
+          ? resolved.property
+          : resolved.object;
+        if (!IMPURE_CTORS.has(ctorName)) return;
         // `new Date(arg)` with arguments is pure (deterministic),
         // only `new Date()` without arguments is impure (depends on current time).
-        if (builtinName === "Date" && node.arguments.length > 0) return;
+        if (ctorName === "Date" && node.arguments.length > 0) return;
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });

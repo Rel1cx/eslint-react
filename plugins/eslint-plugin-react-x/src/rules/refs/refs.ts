@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const reachability = collectReachableFunctions(boundaries, callGraph);
         const violations = [
           ...inferRefViolations(facts.facts.refAccesses, boundaries, reachability, resolver),
-          ...inferRefPassViolations(facts.facts.callEdges, boundaries, reachability, resolver),
+          ...inferRefPassViolations(facts.facts.passSites, boundaries, reachability, resolver),
         ];
 
         for (const violation of violations) {

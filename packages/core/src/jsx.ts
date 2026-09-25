@@ -82,11 +82,7 @@ export const DEFAULT_JSX_DETECTION_HINT: JsxDetectionHint = 0n
  * }
  * ```
  */
-export function isJsxLike(
-  context: RuleContext,
-  node: TSESTree.Node | null,
-  hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT,
-): boolean {
+export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint: JsxDetectionHint = DEFAULT_JSX_DETECTION_HINT): boolean {
   const seen = new Set<TSESTree.Identifier>();
   function visit(node: TSESTree.Node | null): boolean {
     if (node == null) return false;
@@ -95,6 +91,16 @@ export function isJsxLike(
     if (Check.isJSX(node)) return true;
 
     switch (node.type) {
+      // Type-level wrappers don't change the runtime value; unwrap them.
+      case AST.TSAsExpression:
+      case AST.TSSatisfiesExpression:
+      case AST.TSTypeAssertion:
+      case AST.TSNonNullExpression:
+        return visit(node.expression);
+
+      case AST.AwaitExpression:
+        return visit(node.argument);
+
       case AST.Literal: {
         switch (typeof node.value) {
           case "boolean":

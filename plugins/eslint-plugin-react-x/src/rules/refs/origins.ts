@@ -124,6 +124,21 @@ export function createBindingResolver(context: RuleContext, facts: RefsFacts) {
     }
   }
 
+  /**
+   * Follow simple variable-to-variable aliases to the terminal variable, e.g.
+   * `const combine = mergeRefs` resolves to the `mergeRefs` variable itself.
+   * Position-aware, so a reassigned alias resolves to its latest source.
+   */
+  function resolveAliasTarget(variable: Variable, position: number, seen = new Set<Variable>()): Variable {
+    if (seen.has(variable)) return variable;
+    seen.add(variable);
+    const event = getLatestValue(bindings.get(variable), position);
+    if (event != null && event.value.kind === "variable") {
+      return resolveAliasTarget(event.value.variable, event.position, seen);
+    }
+    return variable;
+  }
+
   function resolveCallable(node: TSESTree.Node, position: number): TSESTreeFunction | null {
     const callee = Extract.unwrap(node);
     if (isFunctionExpressionLike(callee)) return callee;
@@ -180,6 +195,7 @@ export function createBindingResolver(context: RuleContext, facts: RefsFacts) {
     getNullBranch,
     getRefTarget,
     getVariable,
+    resolveAliasTarget,
     resolveCallable,
     resolveRef,
   };

@@ -420,6 +420,48 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "mutatingGlobal" }],
     },
+    // -------------------------------------------------------------------------
+    // for-in/of loop targets
+    // -------------------------------------------------------------------------
+    // A for-of loop target reassigns the global on every iteration
+    {
+      code: tsx`
+        let globalValue = 0;
+        function Component({ items }) {
+          for (globalValue of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
+    // A destructured for-of loop target writes the global property on every iteration
+    {
+      code: tsx`
+        const globalObj = { x: 0 };
+        function Component({ items }) {
+          for ({ a: globalObj.x } of items) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobalProperty" }],
+    },
+    // A for-in loop target reassigns the global on every iteration
+    {
+      code: tsx`
+        let globalKey = "";
+        function Component({ record }) {
+          for (globalKey in record) {
+            console.log("iterated");
+          }
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "mutatingGlobal" }],
+    },
     {
       code: tsx`
         let someGlobal = false;
