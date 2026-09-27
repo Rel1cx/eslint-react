@@ -5,6 +5,15 @@ import rule, { RULE_NAME } from "./no-leaked-conditional-rendering";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {
   invalid: [
+    {
+      name: "reports a generic value with a numeric constraint",
+      code: tsx`
+        function App<T extends number>({ value }: { value: T }) {
+          return <>{value && <span />}</>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
     // Test case for a variable initialized to 0
     {
       code: tsx`
@@ -289,6 +298,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    {
+      name: "accepts a generic value with a boolean constraint",
+      code: tsx`
+        function App<T extends boolean>({ value }: { value: T }) {
+          return <>{value && <span />}</>;
+        }
+      `,
+    },
+    {
+      name: "preserves an unconstrained generic value",
+      code: tsx`
+        function App<T>({ value }: { value: T }) {
+          return <>{value && <span />}</>;
+        }
+      `,
+    },
     tsx`
       /// <reference types="react" />
       /// <reference types="react-dom" />

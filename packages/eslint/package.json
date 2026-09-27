@@ -36,6 +36,7 @@
     "publish": "node --run build && node --run lint:publish"
   },
   "dependencies": {
+    "@typescript-eslint/types": "^8.70.1",
     "@typescript-eslint/utils": "^8.70.1"
   },
   "devDependencies": {
@@ -49,6 +50,11 @@
   "peerDependencies": {
     "eslint": "*",
     "typescript": "*"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=22.0.0"

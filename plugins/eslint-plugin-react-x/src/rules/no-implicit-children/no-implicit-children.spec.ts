@@ -280,6 +280,22 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
     },
   ],
   valid: [
+    {
+      name: "accepts a generic spread constrained to props without children",
+      code: tsx`
+        function App<T extends { id: string }>(props: T) {
+          return <div {...props} />;
+        }
+      `,
+    },
+    {
+      name: "accepts an unconstrained generic spread",
+      code: tsx`
+        function App<T>(props: T) {
+          return <div {...props} />;
+        }
+      `,
+    },
     // Valid: passing children explicitly via JSX, not via spread
     tsx`
       const App = () => {

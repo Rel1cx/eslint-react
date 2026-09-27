@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { ASTUtils } from "@typescript-eslint/utils";
+import * as ASTUtils from "@typescript-eslint/utils/ast-utils";
 import type { TSESTreeDirective } from "./types";
 
 // Base guards

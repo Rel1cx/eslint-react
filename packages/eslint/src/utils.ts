@@ -1,4 +1,4 @@
-import { ESLintUtils } from "@typescript-eslint/utils";
+import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 import type { ReportDescriptor, RuleListener } from "@typescript-eslint/utils/ts-eslint";
 import type { RuleContext } from "./types";
 
