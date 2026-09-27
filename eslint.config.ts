@@ -63,18 +63,18 @@ export default defineConfig(
         patterns: [
           {
             allowTypeImports: true,
-            message: "Runtime code must not load ESLint.",
+            message: "Runtime code must not load ESLint. Use the helpers from `@eslint-react/eslint` instead.",
             regex: "^eslint(/.*)?$",
-          },
-          {
-            allowTypeImports: true,
-            message: "Use the `getConstrainedTypeAtLocation` helper instead.",
-            regex: "^@typescript-eslint/type-utils(/.*)?$",
           },
           {
             allowTypeImports: true,
             message: "Use `@typescript-eslint/utils/ast-utils` or `@typescript-eslint/utils/eslint-utils` instead.",
             regex: "^@typescript-eslint/utils(/(?!(?:ast|eslint)-utils$).*)?$",
+          },
+          {
+            allowTypeImports: true,
+            message: "Use `getConstrainedTypeAtLocation` from `@eslint-react/eslint` instead.",
+            regex: "^@typescript-eslint/type-utils(/.*)?$",
           },
         ],
       }],

@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { getConstrainedTypeAtLocation } from "@/utils/get-constrained-type-at-location";
 import { Check } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener, report } from "@eslint-react/eslint";
+import { type RuleContext, type RuleFeature, type RuleListener, getConstrainedTypeAtLocation, report } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { flow } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";

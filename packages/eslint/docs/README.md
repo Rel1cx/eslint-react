@@ -24,7 +24,8 @@
 
 ## Functions
 
-| Function                      | Description                                                  |
-| ----------------------------- | ------------------------------------------------------------ |
-| [merge](functions/merge.md)   | Merge multiple visitor objects into a single visitor object. |
-| [report](functions/report.md) | Creates a report function for the given rule context.        |
+| Function                                                                  | Description                                                                               |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [getConstrainedTypeAtLocation](functions/getConstrainedTypeAtLocation.md) | Resolves the given node's type. Will return the type's generic constraint, if it has one. |
+| [merge](functions/merge.md)                                               | Merge multiple visitor objects into a single visitor object.                              |
+| [report](functions/report.md)                                             | Creates a report function for the given rule context.                                     |

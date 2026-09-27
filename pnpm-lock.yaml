@@ -1080,6 +1080,9 @@ importers:
 
   packages/eslint:
     dependencies:
+      '@typescript-eslint/types':
+        specifier: ^8.70.1
+        version: 8.70.1
       '@typescript-eslint/utils':
         specifier: ^8.70.1
         version: 8.70.1(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
@@ -1308,6 +1311,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.3.0
         version: 19.3.0(@types/react@19.3.0)
+      dedent:
+        specifier: ^1.7.2
+        version: 1.7.2
       eslint:
         specifier: ^10.11.0
         version: 10.11.0(jiti@2.7.0)(supports-color@9.4.0)
@@ -1656,9 +1662,6 @@ importers:
       '@typescript-eslint/scope-manager':
         specifier: ^8.70.1
         version: 8.70.1
-      '@typescript-eslint/type-utils':
-        specifier: ^8.70.1
-        version: 8.70.1(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
       '@typescript-eslint/types':
         specifier: ^8.70.1
         version: 8.70.1

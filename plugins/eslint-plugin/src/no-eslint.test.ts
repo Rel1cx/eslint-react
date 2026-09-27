@@ -1,5 +1,7 @@
 import dedent from "dedent";
 import { execFileSync } from "node:child_process";
+import { existsSync, readdirSync } from "node:fs";
+import { registerHooks } from "node:module";
 import { describe, it } from "vitest";
 
 const loadWithoutESLint = dedent`
@@ -31,18 +33,13 @@ const loadWithoutESLint = dedent`
   }
 `;
 
-const pluginDirectories = [
-  "eslint-plugin",
-  "eslint-plugin-react-debug",
-  "eslint-plugin-react-dom",
-  "eslint-plugin-react-jsx",
-  "eslint-plugin-react-naming-convention",
-  "eslint-plugin-react-rsc",
-  "eslint-plugin-react-web-api",
-  "eslint-plugin-react-x",
-];
+const pluginDirectories = readdirSync(new URL("../../", import.meta.url), { withFileTypes: true })
+  .filter((entry) => entry.isDirectory() && existsSync(new URL(`../../${entry.name}/package.json`, import.meta.url)))
+  .map((entry) => entry.name)
+  .sort();
 
-describe("plugin loading", () => {
+// `module.registerHooks` requires Node.js >= 22.15.0; skip on older runtimes.
+describe.skipIf(typeof registerHooks !== "function")("plugin loading", () => {
   it.each(pluginDirectories)("loads %s without ESLint", (directory) => {
     execFileSync(process.execPath, ["--input-type=module", "--eval", loadWithoutESLint], {
       cwd: new URL(`../../${directory}/`, import.meta.url),
