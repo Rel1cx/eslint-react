@@ -5,7 +5,7 @@ A minimal setup example for using ESLint React's rules through [Oxlint's JS plug
 ## Usage
 
 ```sh
-npm install
+pnpm install
 npm run lint
 ```
 
