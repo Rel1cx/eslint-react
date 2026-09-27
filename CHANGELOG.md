@@ -1,5 +1,23 @@
 # Changelog
 
+## v5.21.0 (2026-09-28)
+
+### ✨ New
+
+- The plugins can now be used with Oxlint without an `eslint` installation: `eslint` is now an optional peer dependency across all published packages, and the rule utilities no longer eagerly load the `eslint` package at import time. (#1965)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`: removed the unused `isAssignmentToThisState` helper, and simplified the `react-x` class-component rules (`no-access-state-in-setstate`, `no-class-component`, `no-direct-mutation-state`, `no-set-state-in-*`) accordingly.
+- `@eslint-react/eslint`: added a local `getConstrainedTypeAtLocation` helper (adapted from `@typescript-eslint/type-utils`) so consumers don't need to load `@typescript-eslint/type-utils`, whose entry point eagerly loads the `eslint` package. (#1965)
+- Bumped `typescript-eslint` to `8.70.1`, `fumadocs` to `16.15.14`, `fumadocs-mdx` to `15.4.5`, `vite` to `8.3.1`, and other dependencies.
+
+### New Contributors
+
+- **Dom Porada** (@porada) made their first contribution in #1965.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.20.8...v5.21.0
+
 ## v5.20.8 (2026-09-24)
 
 ### 🐞 Fixes
