@@ -6,6 +6,8 @@ A minimal setup example for using ESLint React's rules through [Oxlint's JS plug
 
 ```sh
 pnpm install
+npm run dev
+npm run build
 npm run lint
 ```
 

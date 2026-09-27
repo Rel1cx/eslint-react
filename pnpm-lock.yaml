@@ -929,6 +929,15 @@ importers:
       '@eslint-react/eslint-plugin':
         specifier: workspace:*
         version: link:../../plugins/eslint-plugin
+      '@tsconfig/node24':
+        specifier: ^24.0.5
+        version: 24.0.5
+      '@tsconfig/strictest':
+        specifier: ^2.0.8
+        version: 2.0.8
+      '@tsconfig/vite-react':
+        specifier: ^8.1.1
+        version: 8.1.1
       '@types/node':
         specifier: ^26.6.3
         version: 26.6.3
@@ -938,12 +947,18 @@ importers:
       '@types/react-dom':
         specifier: ^19.3.0
         version: 19.3.0(@types/react@19.3.0)
+      '@vitejs/plugin-react':
+        specifier: ^6.1.1
+        version: 6.1.1(vite@8.3.1(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       oxlint:
         specifier: ^1.85.0
         version: 1.85.0
       typescript:
         specifier: 6.0.3
         version: 6.0.3
+      vite:
+        specifier: ^8.3.1
+        version: 8.3.1(@types/node@26.6.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
 
   examples/react-dom-with-custom-rules:
     dependencies:

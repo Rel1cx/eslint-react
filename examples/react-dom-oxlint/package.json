@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "node --experimental-strip-types ./scripts/check-no-eslint.ts && oxlint"
+    "build": "tsc -b && vite build",
+    "dev": "vite",
+    "lint": "node --experimental-strip-types ./scripts/check-no-eslint.ts && oxlint",
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.3.0",
@@ -12,11 +15,16 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "workspace:*",
+    "@tsconfig/node24": "^24.0.5",
+    "@tsconfig/strictest": "^2.0.8",
+    "@tsconfig/vite-react": "^8.1.1",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "oxlint": "^1.85.0",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vite": "^8.3.1"
   },
   "engines": {
     "node": ">=22.15.0"
