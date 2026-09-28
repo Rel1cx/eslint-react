@@ -156,14 +156,20 @@ export function isInitializedFromRef(
   seen.add(name);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;
-    const init = node.init;
+    const init = node.init == null ? null : Extract.unwrap(node.init);
     if (init == null) continue;
     switch (true) {
       // const identifier = anotherRef.current;
-      case init.type === AST.MemberExpression
-        && Check.isIdentifier(init.object)
-        && (init.object.name === "ref" || init.object.name.endsWith("Ref")):
-        return true;
+      // const identifier = containerRef.current.offsetWidth;
+      case init.type === AST.MemberExpression: {
+        // Walk to the root of the member chain (ex: `containerRef` in `containerRef.current.offsetWidth`)
+        let object = Extract.unwrap(init.object);
+        while (object.type === AST.MemberExpression) {
+          object = Extract.unwrap(object.object);
+        }
+        return Check.isIdentifier(object)
+          && (object.name === "ref" || object.name.endsWith("Ref"));
+      }
       // const identifier = useRef();
       case init.type === AST.CallExpression
         && core.isUseRefLikeCall(init, additionalRefHooks):

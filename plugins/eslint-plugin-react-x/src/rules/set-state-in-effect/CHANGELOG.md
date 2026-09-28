@@ -5,6 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Local variables initialized from a nested member expression rooted at a ref (ex: `const offsetWidth = containerRef.current.offsetWidth; setWidth(offsetWidth)`) are now recognized as ref-derived values and no longer reported — previously only single-level member expressions like `const el = containerRef.current` were detected.
+
 ## [5.18.0] - 2026-07-23
 
 ### Changed

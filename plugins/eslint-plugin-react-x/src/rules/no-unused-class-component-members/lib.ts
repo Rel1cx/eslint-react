@@ -16,3 +16,14 @@ export const LIFECYCLE_METHODS = new Set([
   "UNSAFE_componentWillReceiveProps",
   "UNSAFE_componentWillUpdate",
 ]);
+
+// A set of method names that host environments invoke through refs (e.g. React Native's `NativeMethods`
+// interface) without any statically visible usage, so they should not be flagged as unused
+export const HOST_CONVENTION_METHODS = new Set([
+  "blur",
+  "focus",
+  "measure",
+  "measureInWindow",
+  "measureLayout",
+  "setNativeProps",
+]);

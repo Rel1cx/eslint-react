@@ -5,6 +5,13 @@ All notable changes to the `react-x/purity` rule will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Async function components in modules without a `use client` directive are treated as Server Components and are no longer reported — they render once per request on the server, so calls like `Date.now()` or `cookieStore.get()` are valid there.
+- Impure calls in `useRef` initializer arguments (ex: `useRef(document.createElement("div"))`) are no longer reported — the initializer is evaluated on every render but stored only on the first one, which is a widely used idiom (ex: portals).
+
 ## [5.20.6] - 2026-09-23
 
 ### Fixed

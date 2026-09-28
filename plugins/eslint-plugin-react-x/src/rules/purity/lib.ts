@@ -1,4 +1,5 @@
 import { Check, Extract } from "@eslint-react/ast";
+import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
@@ -570,6 +571,27 @@ export type BuiltinResolution = {
 
 export function isCatalogObject(name: string): boolean {
   return IMPURE_FUNCS.has(name) || PURE_FUNCS.has(name);
+}
+
+/**
+ * Check if the program has a top-level `use client` directive, marking the
+ * module as a client module in React Server Components conventions.
+ */
+export function hasUseClientDirective(program: TSESTree.Program): boolean {
+  return program.body.some((stmt) => stmt.type === AST.ExpressionStatement && stmt.directive === "use client");
+}
+
+/**
+ * Check if the node is an argument of a `useRef`-like call, e.g.
+ * `useRef(document.createElement("div"))`. The initializer is evaluated on
+ * every render but stored only on the first one, which is a widely used idiom
+ * (ex: portals), so impure calls in this position are exempted.
+ */
+export function isUseRefInitializerArgument(node: TSESTree.CallExpression | TSESTree.NewExpression): boolean {
+  const { parent } = node;
+  return parent.type === AST.CallExpression
+    && parent.arguments.some((arg) => arg === node)
+    && core.isUseRefLikeCall(parent);
 }
 
 /**

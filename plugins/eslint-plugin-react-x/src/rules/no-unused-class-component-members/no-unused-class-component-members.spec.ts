@@ -381,6 +381,23 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      name: "host convention exemption is exact-match; lookalike names are reported",
+      code: tsx`
+        class Foo extends React.Component {
+          measureFoo() {}
+          render() {
+            return null;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: { className: "Foo", methodName: "measureFoo" },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -856,6 +873,25 @@ ruleTester.run(RULE_NAME, rule, {
           componentWillUnmount() {}
           render() {
             return <SomeComponent />;
+          }
+        }
+      `,
+    },
+    {
+      name: "host convention methods invoked through refs are ignored",
+      code: tsx`
+        class Foo extends React.Component {
+          setNativeProps(updates) {
+            this.root.setNativeProps(updates);
+          }
+          measure(callback) {
+            this.root.measure(callback);
+          }
+          focus() {
+            this.root.focus();
+          }
+          render() {
+            return <SomeComponent ref={(ref) => this.root = ref} />;
           }
         }
       `,

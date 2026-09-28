@@ -264,7 +264,7 @@ ruleTester.run(RULE_NAME, rule, {
           data: {
             json: stringify({
               name: "useNestedHook",
-              hookCalls: 0,
+              hookCalls: 1,
             }),
           },
           messageId: "default",

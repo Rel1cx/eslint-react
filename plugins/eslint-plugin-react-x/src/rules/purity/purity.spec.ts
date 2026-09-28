@@ -1044,6 +1044,80 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Async function components in a `use client` module are client components, still flagged
+    {
+      code: tsx`
+        "use client";
+
+        async function Component() {
+          const timestamp = Date.now();
+          return <div>Rendered at: {timestamp}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Directive detection is quote-agnostic: single-quoted 'use client' also marks a client module
+    {
+      code: tsx`
+        'use client';
+
+        async function Component() {
+          const timestamp = Date.now();
+          return <div>Rendered at: {timestamp}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Async custom hooks are not exempted (only async components are)
+    {
+      code: tsx`
+        async function useTimestamp() {
+          const t = Date.now();
+          return t;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // The useRef exemption does not extend to impure calls passed directly to useState
+    {
+      code: tsx`
+        function Component() {
+          const [el] = useState(document.createElement("div"));
+          return <div>{el.tagName}</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // `Object.assign` mutating an existing (non-literal) target is still flagged
+    {
+      code: tsx`
+        function Component({ target, source }) {
+          Object.assign(target, source);
+          return <div>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // `Object.assign` is treated as impure even when the target is a fresh literal
+    {
+      code: tsx`
+        function Component({ overrides }) {
+          const props = Object.assign({}, defaults, overrides);
+          return <div {...props}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // Impure calls outside `useRef` initializer arguments are still flagged
+    {
+      code: tsx`
+        function Component() {
+          const element = document.createElement("div");
+          return <div ref={(ref) => ref?.append(element)}>Content</div>;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     // -------------------------------------------------------------------------
@@ -1698,6 +1772,74 @@ ruleTester.run(RULE_NAME, rule, {
             return () => g.clearTimeout(id);
           }, []);
           return <div>Content</div>;
+        }
+      `,
+    },
+    // -------------------------------------------------------------------------
+    // Server Components: async function components in modules without a
+    // `use client` directive render once per request on the server
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        async function Page() {
+          const timestamp = Date.now();
+          return <div>Rendered at: {timestamp}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        async function Page() {
+          const date = new Date();
+          return <div>Rendered at: {date.toISOString()}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        export default async function Page() {
+          const session = cookieStore.get("session");
+          return <div>{session?.value}</div>;
+        }
+      `,
+    },
+    // Sync components in modules without `use client` are shared components, still flagged — see invalid cases
+    // -------------------------------------------------------------------------
+    // Impure calls in `useRef` initializer arguments are exempted (portal idiom)
+    // -------------------------------------------------------------------------
+    {
+      code: tsx`
+        function Component() {
+          const elementRef = useRef(document.createElement("div"));
+          return createPortal(<div>Content</div>, elementRef.current);
+        }
+      `,
+    },
+    {
+      code: tsx`
+        function Component() {
+          const dateRef = useRef(new Date());
+          return <div>Created at: {dateRef.current.toISOString()}</div>;
+        }
+      `,
+    },
+    // The useRef exemption also covers the member-expression form React.useRef
+    {
+      code: tsx`
+        function Component() {
+          const elementRef = React.useRef(document.createElement("div"));
+          return createPortal(<div>Content</div>, elementRef.current);
+        }
+      `,
+    },
+    // A backtick `use client` is not a directive, so the module is treated as a server module
+    {
+      code: tsx`
+        \`use client\`;
+
+        async function Page() {
+          const timestamp = Date.now();
+          return <div>Rendered at: {timestamp}</div>;
         }
       `,
     },
