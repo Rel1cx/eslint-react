@@ -103,7 +103,7 @@ export function isInsideCreateElementProps(context: RuleContext, node: TSESTree.
   const call = Traverse.findParent(node, isCreateElementCall(context));
   if (call == null) return false;
   // The props object is the second argument of createElement
-  const prop = Traverse.findParent(node, Check.is(AST.ObjectExpression));
+  const prop = Traverse.findParent(node, Check.isObjectExpression);
   if (prop == null) return false;
   return prop === call.arguments[1];
 }

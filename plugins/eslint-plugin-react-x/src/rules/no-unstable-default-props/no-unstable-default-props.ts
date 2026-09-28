@@ -103,7 +103,7 @@ export function create(context: RuleContext<MessageID, Options>, [options]: Opti
               .with({ type: AST.CallExpression }, (n) => {
                 return match(Extract.unwrap(n.callee))
                   .when(Check.isIdentifier, ({ name }) => name)
-                  .when(Check.is(AST.MemberExpression), ({ object }) => getName(object))
+                  .when(Check.isMemberExpression, ({ object }) => getName(object))
                   .otherwise(() => null);
               })
               .otherwise(() => null);

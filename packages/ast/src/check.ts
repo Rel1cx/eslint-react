@@ -34,6 +34,22 @@ export function isIdentifier(node: TSESTree.Node, name?: string): node is TSESTr
   return node.type === AST.Identifier && (name == null || node.name === name);
 }
 
+// Expression guards
+
+/** Check if a node is a call expression. */
+export const isCallExpression = is(AST.CallExpression);
+
+/** Check if a node is a member expression. */
+export const isMemberExpression = is(AST.MemberExpression);
+
+/** Check if a node is an object expression. */
+export const isObjectExpression = is(AST.ObjectExpression);
+
+// Statement guards
+
+/** Check if a node is a return statement. */
+export const isReturnStatement = is(AST.ReturnStatement);
+
 // Composite guards
 
 /** Check if a node is a class declaration or class expression. */
@@ -64,6 +80,12 @@ export const isPropertyOrMethod = isOneOf([
 
 /** Check if a node is a JSX element. */
 export const isJSXElement = is(AST.JSXElement);
+
+/** Check if a node is a JSX expression container. */
+export const isJSXExpressionContainer = is(AST.JSXExpressionContainer);
+
+/** Check if a node is a JSX spread attribute. */
+export const isJSXSpreadAttribute = is(AST.JSXSpreadAttribute);
 
 /** Check if a node is a JSX fragment. */
 export const isJSXFragment = is(AST.JSXFragment);

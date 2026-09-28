@@ -2,7 +2,6 @@ import { createRule } from "@/utils/create-rule";
 import { Check, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-access-state-in-setstate";
 
@@ -36,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     MemberExpression(node) {
       if (!core.isAPI("this.state")(context, node)) return;
       // dprint-ignore
-      const fact = Traverse.findParent(Traverse.findParent(node, (n) => Check.is(AST.CallExpression)(n) && core.isThisSetStateCall(n)), Check.isClass)
+      const fact = Traverse.findParent(Traverse.findParent(node, (n) => Check.isCallExpression(n) && core.isThisSetStateCall(n)), Check.isClass)
       if (fact == null || !core.isClassComponent(fact)) return;
       context.report({
         messageId: "default",

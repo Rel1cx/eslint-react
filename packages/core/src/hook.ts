@@ -204,7 +204,7 @@ export function isUseEffectSetupCallback(node: TSESTree.Node | null) {
 export function isUseEffectCleanupCallback(node: TSESTree.Node | null) {
   if (node == null) return false;
   const expr = Extract.unwrap(node);
-  const returnStatement = Traverse.findParent(expr, Check.is(AST.ReturnStatement));
+  const returnStatement = Traverse.findParent(expr, Check.isReturnStatement);
   const enclosingFunction = Traverse.findParent(expr, Check.isFunction);
   const enclosingFunctionOfReturn = Traverse.findParent(returnStatement, Check.isFunction);
 

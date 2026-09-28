@@ -4,7 +4,6 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAttribute } from "@eslint-react/jsx";
 import { dropWhile, not } from "@local/eff";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import ts from "typescript";
 
 export const RULE_NAME = "no-key-after-spread";
@@ -34,7 +33,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("key=")) return {};
   const { jsx } = core.getJsxConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
-  const isJsxSpreadAttribute = Check.is(AST.JSXSpreadAttribute);
+  const isJsxSpreadAttribute = Check.isJSXSpreadAttribute;
   return {
     JSXOpeningElement(node) {
       // A 'key' after any spread prop falls back to createElement (deoptimization).

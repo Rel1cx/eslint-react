@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   ): ReportDescriptor<MessageID> | null {
     // Base cases for recursion: null or irrelevant nodes
     if (node == null) return null;
-    if (Check.is(AST.JSXExpressionContainer)(node)) return visit(node.expression, seen);
+    if (Check.isJSXExpressionContainer(node)) return visit(node.expression, seen);
     if (Check.isJSX(node)) return null;
     if (Check.isTypeExpression(node)) return visit(node.expression, seen);
 
