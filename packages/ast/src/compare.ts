@@ -59,8 +59,7 @@ export const isEqual: {
       return a.name === b.name;
     case a.type === AST.MemberExpression
       && b.type === AST.MemberExpression:
-      return isEqual(a.property, b.property)
-        && isEqual(a.object, b.object);
+      return isEqual(a.property, b.property) && isEqual(a.object, b.object);
     case a.type === AST.CallExpression
       && b.type === AST.CallExpression: {
       if (a.optional !== b.optional) {
@@ -90,12 +89,10 @@ export const isEqual: {
       return a.name === b.name;
     case a.type === AST.JSXNamespacedName
       && b.type === AST.JSXNamespacedName:
-      return isEqual(a.namespace, b.namespace)
-        && isEqual(a.name, b.name);
+      return isEqual(a.namespace, b.namespace) && isEqual(a.name, b.name);
     case a.type === AST.JSXMemberExpression
       && b.type === AST.JSXMemberExpression:
-      return isEqual(a.object, b.object)
-        && isEqual(a.property, b.property);
+      return isEqual(a.object, b.object) && isEqual(a.property, b.property);
     case a.type === AST.JSXAttribute
       && b.type === AST.JSXAttribute: {
       if (!isEqual(a.name, b.name)) {
