@@ -6,19 +6,18 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/no-unnecessary-use-prefix`: hook calls nested inside non-hook callbacks (e.g. `items.map((item) => useItem(item))`) are now attributed to the enclosing hook, preventing false positives for hooks that call other hooks only within nested callbacks; functions named exactly `use` (e.g. polyfills of React's `use` API) are no longer reported; hooks defined in the mock implementation argument of test mock module registrations (e.g. `mock.module("...", { namedExports: { useTranslation: () => ... } })` in bun:test) are no longer reported. (#1971)
-- `react-x/no-unused-class-component-members`: methods invoked by host environments through refs (React Native's `NativeMethods` interface: `setNativeProps`, `measure`, `measureInWindow`, `measureLayout`, `focus`, `blur`) are no longer reported as unused. (#1971)
-- `react-x/purity`: async function components in modules without a `use client` directive are treated as Server Components and are no longer reported — they render once per request on the server, so calls like `Date.now()` or `cookieStore.get()` are valid there; impure calls in `useRef` initializer arguments (ex: `useRef(document.createElement("div"))`) are no longer reported — the initializer is evaluated on every render but stored only on the first one, which is a widely used idiom (ex: portals). (#1971)
-- `react-x/set-state-in-effect`: local variables initialized from a nested member expression rooted at a ref (ex: `const offsetWidth = containerRef.current.offsetWidth; setWidth(offsetWidth)`) are now recognized as ref-derived values and no longer reported — previously only single-level member expressions like `const el = containerRef.current` were detected. (#1971)
+- `react-x/no-unnecessary-use-prefix`: hooks that call other hooks only within nested callbacks, functions named exactly `use`, and hooks defined in test mock module registrations are no longer reported. (#1971)
+- `react-x/no-unused-class-component-members`: methods invoked by host environments through refs (React Native's `NativeMethods`) are no longer reported as unused. (#1971)
+- `react-x/purity`: async function components in modules without a `use client` directive and impure calls in `useRef` initializer arguments are no longer reported. (#1971)
+- `react-x/set-state-in-effect`: local variables initialized from nested member expressions rooted at a ref are now recognized as ref-derived values and no longer reported. (#1971)
 
 ### 🏗️ Internal
 
-- `@eslint-react/ast`: predefined and exported common node-type helpers (`isCallExpression`, `isMemberExpression`, `isObjectExpression`, `isReturnStatement`, `isJSXExpressionContainer`, `isJSXSpreadAttribute`) in the `Check` namespace, and migrated call sites across `core` and the plugins to them.
-- Bumped the dprint json plugin to `0.25.0` and the markup plugin to `0.27.5`.
+- `@eslint-react/ast`: predefined and exported common node-type helpers in the `Check` namespace and migrated call sites to them.
 
 ### 📝 Documentation
 
-- Website rule docs no longer include the per-rule `## Versions` section.
+- Website rule docs no longer include the per-rule `## Versions` section; a rule's changelog can be viewed directly via the `Rule Changelog` link under the `## Resources` section of each rule doc.
 
 **Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.21.1...v5.21.2
 
