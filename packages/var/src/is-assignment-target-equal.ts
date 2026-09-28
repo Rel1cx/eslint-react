@@ -1,4 +1,4 @@
-import { Compare } from "@eslint-react/ast";
+import { Check, Compare, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { isValueEqual } from "./is-value-equal";
@@ -16,5 +16,12 @@ export function isAssignmentTargetEqual(
   a: TSESTree.Node,
   b: TSESTree.Node,
 ) {
-  return Compare.isEqual(a, b) || isValueEqual(context, a, b);
+  const unwrappedA = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
+  const unwrappedB = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
+  // Same-name identifiers in different scopes are different variables,
+  // so they must be compared by scope-aware value equality, not by name.
+  if (Check.isIdentifier(unwrappedA) && Check.isIdentifier(unwrappedB)) {
+    return isValueEqual(context, unwrappedA, unwrappedB);
+  }
+  return Compare.isEqual(unwrappedA, unwrappedB) || isValueEqual(context, unwrappedA, unwrappedB);
 }
