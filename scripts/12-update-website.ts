@@ -25,11 +25,6 @@ interface RuleReference {
   targetRule: string;
 }
 
-interface ChangelogVersion {
-  title: string;
-  body: string;
-}
-
 type RuleRelationsMap = Map<string, RuleReference[]>;
 
 function parseRuleRelations(content: string): RuleRelationsMap {
@@ -123,99 +118,13 @@ const collectDocs = Effect.gen(function*() {
   });
 });
 
-function parseChangelogVersions(content: string): ChangelogVersion[] {
-  const lines = content.split("\n");
-  const versions: Array<{ title: string; body: string[] }> = [];
-  let current: { title: string; body: string[] } | null = null;
-
-  for (const line of lines) {
-    // eslint-disable-next-line regexp/no-super-linear-backtracking
-    const match = /^## (\[.+\].*)$/.exec(line);
-    if (match != null) {
-      const [, title] = match;
-      if (title == null) continue;
-      if (current != null) versions.push(current);
-      current = { title, body: [] };
-    } else if (current != null) {
-      current.body.push(line);
-    }
-  }
-  if (current != null) versions.push(current);
-
-  return versions
-    .map((v) => ({
-      title: v.title,
-      body: v.body.join("\n").trim(),
-    }))
-    .filter((v) => v.body !== "")
-    .filter((v) => !v.title.includes("-beta."))
-    .filter((v) => !v.title.includes("-next."))
-    .filter((v) => !v.title.includes("-rc."));
-}
-
-function generateVersionsAccordion(versions: ChangelogVersion[]): string {
-  const items = versions.map((v) => `<Accordion title="${v.title}">\n\n${v.body}\n\n</Accordion>`);
-
-  return ["", "## Versions", "", "<Accordions>", ...items, "</Accordions>", ""].join("\n");
-}
-
-function addAccordionImport(content: string): string {
-  if (content.includes('from "fumadocs-ui/components/accordion"')) return content;
-
-  const frontmatterEnd = /^---\n[\s\S]*?\n---\n/.exec(content);
-  if (frontmatterEnd != null) {
-    const index = frontmatterEnd.index + frontmatterEnd[0].length;
-    return `${content.slice(0, index)}import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n${content.slice(index)}`;
-  }
-
-  return `import { Accordion, Accordions } from "fumadocs-ui/components/accordion";\n\n${content}`;
-}
-
-function insertVersionsSection(content: string, versionsSection: string): string {
-  const resourcesMatch = /\n## Resources\n/.exec(content);
-  if (resourcesMatch != null) {
-    const index = resourcesMatch.index;
-    return `${content.slice(0, index)}${versionsSection}${content.slice(index)}`;
-  }
-
-  const seeAlsoMatch = /\n---\n\n## See Also\n/.exec(content);
-  if (seeAlsoMatch != null) {
-    const index = seeAlsoMatch.index;
-    return `${content.slice(0, index)}${versionsSection}\n${content.slice(index)}`;
-  }
-
-  return `${content}${versionsSection}`;
-}
-
-const generateRuleVersions = Effect.fnUntraced(
-  function*(meta: RuleMeta) {
-    const fs = yield* FileSystem.FileSystem;
-    const path = yield* Path.Path;
-    const changelogPath = path.join(path.dirname(meta.source), "CHANGELOG.md");
-    const exists = yield* fs.exists(changelogPath);
-    if (!exists) return "";
-
-    const changelogContent = yield* fs.readFileString(changelogPath, "utf8");
-    const versions = parseChangelogVersions(changelogContent);
-    if (versions.length === 0) return "";
-
-    return generateVersionsAccordion(versions);
-  },
-);
-
 const copyRuleDoc = Effect.fnUntraced(
-  function*(meta: RuleMeta, relations: RuleRelationsMap, versionsMap: Map<string, string>) {
+  function*(meta: RuleMeta, relations: RuleRelationsMap) {
     const fs = yield* FileSystem.FileSystem;
     const path = yield* Path.Path;
     const dir = path.dirname(meta.destination);
     yield* fs.makeDirectory(dir, { recursive: true });
-    let content = yield* fs.readFileString(meta.source, "utf8");
-
-    const versionsSection = versionsMap.get(meta.name);
-    if (versionsSection != null && versionsSection !== "") {
-      content = addAccordionImport(content);
-      content = insertVersionsSection(content, versionsSection);
-    }
+    const content = yield* fs.readFileString(meta.source, "utf8");
 
     const contentWithSeeAlsoSection = content + generateSeeAlsoSection(meta, relations);
     yield* fs.writeFileString(meta.destination, contentWithSeeAlsoSection);
@@ -292,7 +201,7 @@ const processChangelog = Effect.gen(function*() {
 const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold("Processing rule documentation..."));
 
-  // Pass 1: Collect rule documentation metadata, relations, and versions
+  // Pass 1: Collect rule documentation metadata and relations
   const metas = yield* collectDocs;
   const relations = yield* loadRuleRelations;
 
@@ -304,21 +213,8 @@ const program = Effect.gen(function*() {
 
   yield* Effect.log(`Loaded ${ansis.bold(relations.size.toString())} rule relations.`);
 
-  const versionsSections = yield* Effect.forEach(metas, (meta) => generateRuleVersions(meta), { concurrency: 8 });
-  const versionsMap = versionsSections.reduce((map, section, i) => {
-    const meta = metas[i];
-    if (meta != null && section != null && section !== "") map.set(meta.name, section);
-    return map;
-  }, new Map<string, string>());
-
-  yield* Effect.log(
-    versionsMap.size === 0
-      ? ansis.yellow("No rule changelogs found.")
-      : `Generated versions sections for ${ansis.bold(versionsMap.size.toString())} rule(s).`,
-  );
-
-  // Pass 2: Copy rule docs to website with Versions and See Also sections
-  yield* Effect.forEach(metas, (meta) => copyRuleDoc(meta, relations, versionsMap), { concurrency: 8 });
+  // Pass 2: Copy rule docs to website with See Also sections
+  yield* Effect.forEach(metas, (meta) => copyRuleDoc(meta, relations), { concurrency: 8 });
 
   // Pass 3: Generate rules meta.json and process changelog (independent)
   yield* Effect.all([generateRuleMetaJson(metas), processChangelog], { concurrency: 2 });
