@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-timeout` rule will be docume
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a false negative where a `setTimeout` created in one effect was treated as cleared when a cleanup in another effect cleared a different variable with the same name (e.g. two effects each declaring their own `const timeoutId`); identifier matching now resolves both sides to their variables by scope instead of comparing names only.
+
+### Changed
+
+- Replaced manual function-context stack tracking with `Traverse.findParent` ancestor lookup when checking whether a call is inside an effect setup or cleanup callback.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

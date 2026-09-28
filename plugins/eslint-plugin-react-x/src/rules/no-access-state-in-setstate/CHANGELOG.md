@@ -5,6 +5,18 @@ All notable changes to the `react-x/no-access-state-in-setstate` rule will be do
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.21.0] - 2026-09-28
+
+### Changed
+
+- Simplified the rule to a single `MemberExpression` visitor: `this.state` accesses are matched by fully qualified name and verified by walking up the AST (`Traverse.findParent`) to the enclosing `this.setState` call and class component, replacing manual context stack tracking.
+- Each `this.state` access inside a `setState` call is now reported individually instead of only once per call.
+- `this.state` accesses inside static methods are no longer exempt from reporting.
+
+### Removed
+
+- Destructuring `state` from `this` (e.g. `const { state } = this`) inside a `setState` call is no longer detected.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed
