@@ -96,8 +96,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const dEntries: DEntry[] = [];
   return {
     ["CallExpression"](node) {
-      const isInEffectCallback = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)) != null;
-      if (!isInEffectCallback) {
+      if (Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)) == null) {
         return;
       }
       const callee = Extract.unwrap(node.callee);
@@ -140,10 +139,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
     },
     ["NewExpression"](node) {
-      const fn = Traverse.findParent(
-        node,
-        (n): n is TSESTreeFunction => Check.isFunction(n) && (isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)),
-      );
+      const fn = Traverse.findParent(node, (n): n is TSESTreeFunction => Check.isFunction(n) && (isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)));
       if (fn == null) {
         return;
       }

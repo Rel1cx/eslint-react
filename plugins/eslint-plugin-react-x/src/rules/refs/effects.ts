@@ -17,9 +17,7 @@ type Reachability = ReadonlyMap<TSESTreeFunction, ReadonlySet<TSESTreeFunction>>
 
 /** The nearest strict ancestor of `node` that is a component or hook. */
 function findBoundary(node: TSESTree.Node, boundaries: ReadonlySet<TSESTreeFunction>): TSESTreeFunction | null {
-  return Traverse.findParent(node, (candidate): candidate is TSESTreeFunction => {
-    return Check.isFunction(candidate) && boundaries.has(candidate);
-  });
+  return Traverse.findParent(node, (candidate): candidate is TSESTreeFunction => Check.isFunction(candidate) && boundaries.has(candidate));
 }
 
 /** The boundary containing `node`, where `node` is the nearest enclosing function of the fact. */

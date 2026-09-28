@@ -15,8 +15,7 @@ export function isTestMock(node: TSESTree.Node | null): node is TSESTree.MemberE
   return node != null
     && node.type === AST.MemberExpression
     && Check.isIdentifier(node.object)
-    && Check.isIdentifier(node.property)
-    && node.property.name === "mock";
+    && Check.isIdentifier(node.property, "mock");
 }
 
 export function isTestMockCallback(node: TSESTree.Node | null) {

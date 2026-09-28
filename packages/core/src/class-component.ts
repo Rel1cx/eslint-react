@@ -75,8 +75,7 @@ function createLifecycleChecker(methodName: string, isStatic = false) {
   return (node: TSESTree.Node): node is TSESTreeMethodOrPropertyDefinition => (
     Check.isPropertyOrMethod(node)
     && node.static === isStatic
-    && Check.isIdentifier(node.key)
-    && node.key.name === methodName
+    && Check.isIdentifier(node.key, methodName)
   );
 }
 

@@ -79,9 +79,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             (n): n is TSESTree.CallExpression => {
               if (n.type !== AST.CallExpression) return false;
               const callee = Extract.unwrap(n.callee);
-              return callee.type === AST.MemberExpression
-                && Check.isIdentifier(callee.property)
-                && callee.property.name === "map";
+              if (callee.type !== AST.MemberExpression) return false;
+              return Check.isIdentifier(callee.property, "map");
             },
           );
           const iter = Traverse.findParent(jsxElement, Check.isFunction, (n) => n === call);

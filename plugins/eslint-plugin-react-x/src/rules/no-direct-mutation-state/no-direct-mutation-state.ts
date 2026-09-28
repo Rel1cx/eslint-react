@@ -29,8 +29,7 @@ export default createRule<[], MessageID>({
 function isConstructorFunction(node: TSESTree.Node): node is TSESTree.FunctionDeclaration | TSESTree.FunctionExpression {
   return Check.isOneOf([AST.FunctionDeclaration, AST.FunctionExpression])(node)
     && Check.isPropertyOrMethod(node.parent)
-    && Check.isIdentifier(node.parent.key)
-    && node.parent.key.name === "constructor";
+    && Check.isIdentifier(node.parent.key, "constructor");
 }
 
 function isAssignmentToThisState(node: TSESTree.AssignmentExpression) {
@@ -54,13 +53,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     AssignmentExpression(node: TSESTree.AssignmentExpression) {
       if (!isAssignmentToThisState(node)) return;
       // Find the parent class of the assignment
-      const fact = Traverse.findParent(
-        node,
-        Check.isOneOf([
-          AST.ClassDeclaration,
-          AST.ClassExpression,
-        ]),
-      );
+      const fact = Traverse.findParent(node, Check.isClass);
       // If the assignment is not inside a class, do nothing
       if (fact == null) return;
       // Report an error if 'this.state' is directly mutated in a class component
