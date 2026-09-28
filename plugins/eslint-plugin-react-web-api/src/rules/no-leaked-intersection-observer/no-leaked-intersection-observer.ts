@@ -23,7 +23,6 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = "cleanup" | "setup" | "other";
 type CallKind = ObserverEntry["method"] | "other";
 
 type ObserverEntry =
@@ -59,12 +58,6 @@ function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallK
   return "other";
 }
 
-function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-  if (isUseEffectSetupCallback(node)) return "setup";
-  if (isUseEffectCleanupCallback(node)) return "cleanup";
-  return "other";
-}
-
 // #endregion
 
 // #region Rule Implementation
@@ -93,7 +86,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("IntersectionObserver")) {
     return {};
   }
-  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
   const observers: {
     id: TSESTree.Node;
     node: TSESTree.NewExpression;
@@ -103,16 +95,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const uEntries: UEntry[] = [];
   const dEntries: DEntry[] = [];
   return {
-    [":function"](node: TSESTreeFunction) {
-      const kind = getFunctionKind(node);
-      fEntries.push({ kind, node });
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
     ["CallExpression"](node) {
-      const fKind = fEntries.findLast((x) => x.kind !== "other")?.kind;
-      if (fKind == null) {
+      const isInEffectCallback = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)) != null;
+      if (!isInEffectCallback) {
         return;
       }
       const callee = Extract.unwrap(node.callee);
@@ -155,8 +140,11 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
     },
     ["NewExpression"](node) {
-      const fEntry = fEntries.findLast((x) => x.kind !== "other");
-      if (fEntry == null) {
+      const fn = Traverse.findParent(
+        node,
+        (n): n is TSESTreeFunction => Check.isFunction(n) && (isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)),
+      );
+      if (fn == null) {
         return;
       }
       if (!isNewObserver(node, "IntersectionObserver")) {
@@ -173,7 +161,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       observers.push({
         id,
         node,
-        phaseNode: fEntry.node,
+        phaseNode: fn,
       });
     },
     ["Program:exit"]() {
@@ -183,7 +171,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const isInsideObserverCallback = (e: DEntry) => Traverse.findParent(e.node, (n) => n === node) != null;
         // FIXME: disconnect/unobserve entries are matched by identity only, without requiring them
         // to happen in the cleanup phase - `observer.disconnect()` called right in the setup passes
-        // the check. Record `phase: fKind` on entries and require `phase === "cleanup"` when matching.
+        // the check. Record the `phase` on entries and require `phase === "cleanup"` when matching.
         if (dEntries.some((e) => !isInsideObserverCallback(e) && isAssignmentTargetEqual(context, e.observer, id))) {
           continue;
         }

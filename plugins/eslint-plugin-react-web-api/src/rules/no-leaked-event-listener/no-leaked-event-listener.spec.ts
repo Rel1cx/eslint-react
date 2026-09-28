@@ -791,6 +791,128 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Deeply nested in setup (inside a setTimeout callback) but never removed: the phase lookup skips intermediate plain functions
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            setTimeout(() => {
+              window.addEventListener("resize", handleResize);
+            }, 100);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // A 'removeEventListener' in a plain nested function of the setup body (not the returned cleanup) has phase "setup", so it does not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+            const cleanup = () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // Pins current behavior: a named function declaration returned as cleanup is not recognized as a cleanup callback,
+    // so its 'removeEventListener' is treated as phase "setup" and does not pair (likely a false positive)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            window.addEventListener("resize", handleResize);
+            function cleanup() {
+              window.removeEventListener("resize", handleResize);
+            }
+            return cleanup;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // Pins current behavior: a non-function-wrapped setup (memo(() => {...})) is treated as the setup callback,
+    // but the returned cleanup is not recognized, so nothing pairs (likely a false positive)
+    {
+      code: tsx`
+        import { memo, useEffect } from "react";
+
+        function Example() {
+          const handleResize = () => {};
+          useEffect(memo(() => {
+            window.addEventListener("resize", handleResize);
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }), []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // Custom effect hooks matching /^use\w*Effect$/ are treated as effect hooks
+    {
+      code: tsx`
+        import { useCustomEffect } from "./hooks";
+
+        function Example() {
+          const handleResize = () => {};
+          useCustomEffect(() => {
+            window.addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // Effects inside a custom hook (non-component function) are checked as well
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function useWindowSize() {
+          const handleResize = () => {};
+          useEffect(() => {
+            window.addEventListener("resize", handleResize);
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -1411,6 +1533,148 @@ ruleTester.run(RULE_NAME, rule, {
               .removeEventListener('change', listener);
           };
         }, []);
+      }
+    `,
+    // The phase lookup skips intermediate plain functions: an 'addEventListener' nested in a setTimeout callback in setup
+    // still pairs with a 'removeEventListener' in cleanup
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          setTimeout(() => {
+            window.addEventListener("resize", handleResize);
+          }, 100);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Same for an async IIFE inside setup
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          void (async () => {
+            window.addEventListener("resize", handleResize);
+          })();
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // A 'removeEventListener' nested in a plain function inside the cleanup callback still has phase "cleanup" and pairs
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleResize = () => {};
+          window.addEventListener("resize", handleResize);
+          return () => {
+            const teardown = () => {
+              window.removeEventListener("resize", handleResize);
+            };
+            teardown();
+          };
+        }, []);
+      }
+    `,
+    // Pins current behavior: a setup callback passed as an identifier reference is not analyzed at all,
+    // so a leak inside it is not reported (likely a false negative)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const handleResize = () => {};
+        const setup = () => {
+          window.addEventListener("resize", handleResize);
+        };
+        useEffect(setup, []);
+      }
+    `,
+    // Pairing is file-global: an 'addEventListener' in the outer component's effect pairs with a 'removeEventListener'
+    // in the cleanup of an effect of a component defined inside it
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const handleResize = () => {};
+        useEffect(() => {
+          window.addEventListener("resize", handleResize);
+        }, []);
+        function Inner() {
+          useEffect(() => {
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+          return null;
+        }
+        return null;
+      }
+    `,
+    // Same for an effect nested inside another effect's setup
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const handleResize = () => {};
+        useEffect(() => {
+          window.addEventListener("resize", handleResize);
+          useEffect(() => {
+            return () => {
+              window.removeEventListener("resize", handleResize);
+            };
+          }, []);
+        }, []);
+      }
+    `,
+    // A call in the deps array position is not inside a setup/cleanup callback and is ignored
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const handleResize = () => {};
+        useEffect(() => {
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, [window.addEventListener("scroll", handleResize)]);
+      }
+    `,
+    // Calls inside a useCallback body are not inside a setup/cleanup callback and are ignored
+    tsx`
+      import { useCallback, useEffect } from "react";
+
+      function Example() {
+        const handleResize = () => {};
+        const subscribe = useCallback(() => {
+          window.addEventListener("scroll", handleResize);
+        }, []);
+        useEffect(() => {
+          window.addEventListener("resize", handleResize);
+          return () => {
+            window.removeEventListener("resize", handleResize);
+          };
+        }, []);
+      }
+    `,
+    // Hook name boundary: 'useEffectOnce' does not match /^use\w*Effect$/, so its callback is not an effect setup
+    tsx`
+      import { useEffectOnce } from "./hooks";
+
+      function Example() {
+        const handleResize = () => {};
+        useEffectOnce(() => {
+          window.addEventListener("resize", handleResize);
+        });
       }
     `,
   ],

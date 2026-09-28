@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## Unreleased
+
+### 🐞 Fixes
+
+- Fixed missed reports where a timer, fetch controller, or observer created in one effect was treated as cleaned up because an unrelated cleanup in another effect referenced a different variable with the same name; identifier matching now resolves both sides to their variables by scope instead of comparing names only. Affected rules:
+  - `react-web-api/no-leaked-timeout`
+  - `react-web-api/no-leaked-interval`
+  - `react-web-api/no-leaked-fetch`
+  - `react-web-api/no-leaked-resize-observer`
+  - `react-web-api/no-leaked-intersection-observer`
+
+### 🏗️ Internal
+
+- Simplified the `react-web-api` leaked-resource rules by replacing manual function-context stack tracking with `Traverse.findParent` ancestor lookup, and added boundary tests covering deeply nested callbacks, cross-effect pairing, and wrapped or referenced setup callbacks. Affected rules:
+  - `react-web-api/no-leaked-timeout`
+  - `react-web-api/no-leaked-interval`
+  - `react-web-api/no-leaked-fetch`
+  - `react-web-api/no-leaked-event-listener`
+  - `react-web-api/no-leaked-resize-observer`
+  - `react-web-api/no-leaked-intersection-observer`
+- `@eslint-react/var`: `isAssignmentTargetEqual` no longer short-circuits same-name identifiers through structural equality; identifier pairs are compared with scope-aware value equality.
+
 ## v5.21.0 (2026-09-28)
 
 ### ✨ New

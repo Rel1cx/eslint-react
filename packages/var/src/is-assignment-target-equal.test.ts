@@ -83,4 +83,27 @@ describe("isAssignmentTargetEqual", () => {
     });
     expect(fact).toBe(false);
   });
+
+  it("should return true for identifiers referring to the same variable", () => {
+    const code = "const x = 1; foo(x); bar(x);";
+    const fact = runInRule(code, (context, ast) => {
+      const refs = findIdentifierRefs(ast, "x").filter((r) => r.parent.type === AST.CallExpression);
+      expect(refs).toHaveLength(2);
+      return isAssignmentTargetEqual(context, refs[0]!, refs[1]!);
+    });
+    expect(fact).toBe(true);
+  });
+
+  it("should return false for same-name identifiers referring to different variables", () => {
+    // The two `x` bindings live in different function scopes, so they are
+    // different variables even though `Compare.isEqual` would call them equal
+    // by name.
+    const code = "function a() { const x = 1; foo(x); } function b() { const x = 2; bar(x); }";
+    const fact = runInRule(code, (context, ast) => {
+      const refs = findIdentifierRefs(ast, "x").filter((r) => r.parent.type === AST.CallExpression);
+      expect(refs).toHaveLength(2);
+      return isAssignmentTargetEqual(context, refs[0]!, refs[1]!);
+    });
+    expect(fact).toBe(false);
+  });
 });

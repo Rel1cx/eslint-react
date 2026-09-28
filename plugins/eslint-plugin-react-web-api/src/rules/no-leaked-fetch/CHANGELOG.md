@@ -5,6 +5,16 @@ All notable changes to the `react-web-api/no-leaked-fetch` rule will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Fixed a false negative where a `fetch` started in one effect was treated as aborted when a cleanup in another effect aborted a different `AbortController` variable with the same name (e.g. two effects each declaring their own `const controller`); controller matching now resolves identifiers to their variables by scope instead of comparing names only.
+
+### Changed
+
+- Replaced manual function-context stack tracking with `Traverse.findParent` ancestor lookup when checking whether a `fetch` or `abort` call is inside an effect setup or cleanup callback.
+
 ## [5.20.5] - 2026-09-21
 
 ### Fixed
