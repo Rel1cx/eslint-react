@@ -5,6 +5,12 @@ All notable changes to the `react-x/purity` rule will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.21.3] - 2026-09-29
+
+### Removed
+
+- Removed the exemption for impure calls in `useRef` initializer arguments (ex: `useRef(document.createElement("div"))`) added in 5.21.2 — such calls are reported again. (#1972)
+
 ## [5.21.2] - 2026-09-29
 
 ### Fixed

@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.21.3 (2026-09-29)
+
+### 🐞 Fixes
+
+- `react-x/purity`: reverted the v5.21.2 exemption for impure calls in `useRef` initializer arguments (ex: `useRef(document.createElement("div"))`); such calls are reported again. (#1972)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.21.2...v5.21.3
+
 ## v5.21.2 (2026-09-29)
 
 ### 🐞 Fixes
