@@ -36,7 +36,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     MemberExpression(node) {
       if (!core.isAPI("this.state")(context, node)) return;
       // dprint-ignore
-      const fact = Traverse.findParent(Traverse.findParent(node, (n) => Check.is(AST.CallExpression)(n) && core.isThisSetStateCall(n)), (n) => Check.isClass(n))
+      const fact = Traverse.findParent(Traverse.findParent(node, (n) => Check.is(AST.CallExpression)(n) && core.isThisSetStateCall(n)), Check.isClass)
       if (fact == null || !core.isClassComponent(fact)) return;
       context.report({
         messageId: "default",
