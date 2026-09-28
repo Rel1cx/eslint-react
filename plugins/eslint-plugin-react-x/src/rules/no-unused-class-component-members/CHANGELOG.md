@@ -5,6 +5,12 @@ All notable changes to the `react-x/no-unused-class-component-members` rule will
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Removed the manual class and method context stacks; the enclosing class and method are now resolved at the hit point with `Traverse.findParent` ancestor lookup, and the per-class member definition/usage maps are initialized lazily.
+
 ## [5.14.9] - 2026-07-15
 
 ### Changed

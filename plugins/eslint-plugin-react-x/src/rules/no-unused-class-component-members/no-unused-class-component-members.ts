@@ -1,7 +1,8 @@
 import { createRule } from "@/utils/create-rule";
-import { type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { Check, type TSESTreeClass, type TSESTreeMethodOrPropertyDefinition, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { LIFECYCLE_METHODS } from "./lib";
 
@@ -28,38 +29,22 @@ export default createRule<[], MessageID>({
 });
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
-  // A stack to keep track of class nodes, to handle nested classes
-  const classStack: TSESTreeClass[] = [];
-  // A stack to keep track of method/property nodes
-  const methodStack: TSESTreeMethodOrPropertyDefinition[] = [];
   // Stores all defined properties and methods for each class component
   const propertyDefs = new WeakMap<TSESTreeClass, Set<TSESTree.Identifier>>();
   // Stores all used properties and methods for each class component
   const propertyUsages = new WeakMap<TSESTreeClass, Set<string>>();
 
-  // Called when the AST traversal enters a class declaration or expression
-  function classEnter(node: TSESTreeClass) {
-    classStack.push(node);
+  // Called when the AST traversal exits a class declaration or expression
+  function classExit(node: TSESTreeClass) {
     if (!core.isClassComponent(node)) {
       return;
     }
-    // Initialize sets for definitions and usages for the current class component
-    propertyDefs.set(node, new Set());
-    propertyUsages.set(node, new Set());
-  }
-
-  // Called when the AST traversal exits a class declaration or expression
-  function classExit() {
-    const currentClass = classStack.pop();
-    if (currentClass == null || !core.isClassComponent(currentClass)) {
-      return;
-    }
-    const id = core.getClassId(currentClass);
-    const defs = propertyDefs.get(currentClass);
-    const usages = propertyUsages.get(currentClass);
+    const id = core.getClassId(node);
+    const defs = propertyDefs.get(node);
     if (defs == null) {
       return;
     }
+    const usages = propertyUsages.get(node);
     // Compare definitions and usages to find unused members
     for (const def of defs) {
       const methodName = def.name;
@@ -70,7 +55,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If a member is a lifecycle method, skip it
       // except for shouldComponentUpdate in PureComponent, which is implicitly unused
       if (LIFECYCLE_METHODS.has(methodName)) {
-        if (methodName === "shouldComponentUpdate" && core.isPureComponent(currentClass)) {
+        if (methodName === "shouldComponentUpdate" && core.isPureComponent(node)) {
           // shouldComponentUpdate is unused in PureComponent
         } else {
           continue;
@@ -90,8 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
   // Called when the AST traversal enters a method or property definition
   function methodEnter(node: TSESTreeMethodOrPropertyDefinition) {
-    methodStack.push(node);
-    const currentClass = classStack.at(-1);
+    const currentClass = Traverse.findParent(node, Check.isClass);
     if (currentClass == null || !core.isClassComponent(currentClass)) {
       return;
     }
@@ -101,24 +85,17 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     // Add the member to the definitions set for the current class
     if (!node.computed && node.key.type === AST.Identifier) {
-      propertyDefs.get(currentClass)?.add(node.key);
+      getOrInsertComputed(propertyDefs, currentClass, () => new Set<TSESTree.Identifier>()).add(node.key);
     }
   }
 
-  // Called when the AST traversal exits a method or property definition
-  function methodExit() {
-    methodStack.pop();
-  }
-
   return {
-    ClassDeclaration: classEnter,
     "ClassDeclaration:exit": classExit,
-    ClassExpression: classEnter,
     "ClassExpression:exit": classExit,
     // Visitor for MemberExpression to track property usages and definitions
     MemberExpression(node) {
-      const currentClass = classStack.at(-1);
-      const currentMethod = methodStack.at(-1);
+      const currentClass = Traverse.findParent(node, Check.isClass);
+      const currentMethod = Traverse.findParent(node, Check.isPropertyOrMethod);
       if (currentClass == null || currentMethod == null) {
         return;
       }
@@ -131,20 +108,18 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
       // Detect assignments like `this.property = xxx` as definitions
       if (node.parent.type === AST.AssignmentExpression && node.parent.left === node) {
-        propertyDefs.get(currentClass)?.add(node.property);
+        getOrInsertComputed(propertyDefs, currentClass, () => new Set<TSESTree.Identifier>()).add(node.property);
         return;
       }
       // Detect usages like `this.property()` or `x = this.property`
-      propertyUsages.get(currentClass)?.add(node.property.name);
+      getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(node.property.name);
     },
     MethodDefinition: methodEnter,
-    "MethodDefinition:exit": methodExit,
     PropertyDefinition: methodEnter,
-    "PropertyDefinition:exit": methodExit,
     // Visitor for VariableDeclarator to track property usages via destructuring
     VariableDeclarator(node) {
-      const currentClass = classStack.at(-1);
-      const currentMethod = methodStack.at(-1);
+      const currentClass = Traverse.findParent(node, Check.isClass);
+      const currentMethod = Traverse.findParent(node, Check.isPropertyOrMethod);
       if (currentClass == null || currentMethod == null) {
         return;
       }
@@ -156,7 +131,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const prop of node.id.properties) {
           if (prop.type === AST.Property && !prop.computed && prop.key.type === AST.Identifier) {
             // Add destructured properties to the usages set
-            propertyUsages.get(currentClass)?.add(prop.key.name);
+            getOrInsertComputed(propertyUsages, currentClass, () => new Set<string>()).add(prop.key.name);
           }
         }
       }
