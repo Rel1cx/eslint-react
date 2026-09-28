@@ -204,6 +204,120 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      // `observe` nested in a plain function declared inside the setup is still collected:
+      // `Traverse.findParent` skips intermediate non-effect functions up to the setup callback
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            function init() {
+              observer.observe(document.body);
+            }
+            init();
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      // `observe` nested in a `setTimeout` callback inside the setup is treated as dynamically added:
+      // the nearest dynamic-or-phase ancestor of the call is the `setTimeout` call, not the setup
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            setTimeout(() => {
+              observer.observe(document.body);
+            }, 100);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectInControlFlow",
+        },
+      ],
+    },
+    {
+      // An instance created inside the cleanup callback itself is still tracked
+      // (the cleanup callback is accepted as its phase node) and still requires a disconnect
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Component() {
+          useEffect(() => {
+            return () => {
+              const observer = new ResizeObserver(() => {});
+              observer.observe(document.body);
+            };
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      // `useLayoutEffect` matches the useEffect-like hook pattern and is checked the same way
+      code: tsx`
+        import { useLayoutEffect } from "react";
+
+        function Component() {
+          useLayoutEffect(() => {
+            const observer = new ResizeObserver(() => {});
+            observer.observe(document.body);
+          }, []);
+
+          return <div />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
+    {
+      // Effects of a component defined inside another component are analyzed the same way
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Outer() {
+          function Inner() {
+            useEffect(() => {
+              const observer = new ResizeObserver(() => {});
+              observer.observe(document.body);
+            }, []);
+
+            return <div />;
+          }
+
+          return <Inner />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedDisconnectOrUnobserveInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -421,6 +535,151 @@ ruleTester.run(RULE_NAME, rule, {
             observer.unobserve(getEl());
           };
         }, []);
+
+        return <div />;
+      }
+    `,
+    // `observe` nested in a plain function declared inside the setup pairs with a disconnect in the cleanup
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          function init() {
+            observer.observe(document.body);
+          }
+          init();
+          return () => {
+            observer.disconnect();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // `observe` dynamically added in a `setTimeout` callback passes as long as a `disconnect`
+    // exists: the disconnect check runs before (and short-circuits) the dynamic-observe check
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          setTimeout(() => {
+            observer.observe(document.body);
+          }, 100);
+          return () => {
+            observer.disconnect();
+          };
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // FIXME behavior: a `disconnect` called right in the setup (no cleanup returned) satisfies
+    // the check - entries are matched by identity only, without requiring the cleanup phase
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          observer.disconnect();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // A named function declaration returned as the cleanup is not recognized as a cleanup
+    // callback by the predicates, but its `disconnect` is still collected via the enclosing
+    // setup callback and matched by identity
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+          function cleanup() {
+            observer.disconnect();
+          }
+          return cleanup;
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Cross-effect pairing: entries are matched by identity across the whole component, so an
+    // observer created in one effect's setup and disconnected in another effect's cleanup passes
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        let observer: ResizeObserver;
+
+        useEffect(() => {
+          observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+        }, []);
+
+        useEffect(() => {
+          return () => observer.disconnect();
+        }, []);
+
+        return <div />;
+      }
+    `,
+    // Setup passed as an identifier reference is not analyzed: the standalone function is not
+    // the direct first argument of the effect call, so the leak is not detected
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        const setup = () => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+        };
+        useEffect(setup, []);
+
+        return <div />;
+      }
+    `,
+    // Setup wrapped in another call is not analyzed: the function is not the direct first
+    // argument of the effect call, so the leak is not detected
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(identity(() => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+        }), []);
+
+        return <div />;
+      }
+    `,
+    // Instances created outside any effect callback (module top level, event handlers) are ignored
+    tsx`
+      const topLevel = new ResizeObserver(() => {});
+      topLevel.observe(document.body);
+
+      function Component() {
+        const handleClick = () => {
+          const observer = new ResizeObserver(() => {});
+          observer.observe(document.body);
+        };
+
+        return <div onClick={handleClick} />;
+      }
+    `,
+    // An instance created in the deps array (not inside any callback) is ignored
+    tsx`
+      import { useEffect } from "react";
+
+      function Component() {
+        useEffect(() => {}, [new ResizeObserver(() => {})]);
 
         return <div />;
       }

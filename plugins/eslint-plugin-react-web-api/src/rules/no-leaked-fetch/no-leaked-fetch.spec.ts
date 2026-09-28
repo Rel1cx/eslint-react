@@ -444,6 +444,105 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Setup with an expression body: the innermost function is the setup itself
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => fetch("/api/user"), []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
+    },
+    // Effects of components nested inside another component are still checked
+    {
+      code: tsx`
+        function Parent() {
+          function Child() {
+            useEffect(() => {
+              fetch("/api/user");
+            }, []);
+            return null;
+          }
+          return <Child />;
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortController",
+        },
+      ],
+    },
+    // Cleanup returned via an identifier reference is not recognized as a cleanup
+    // callback (only an inline `return () => ...` / `return function ...` is), so the
+    // abort inside `cleanup` is not collected
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal });
+            function cleanup() {
+              ctrl.abort();
+            }
+            return cleanup;
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
+    },
+    // An abort in another effect's cleanup does not pair when the controllers have
+    // different names
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrlA = new AbortController();
+            fetch("/api/user", { signal: ctrlA.signal });
+          }, []);
+
+          useEffect(() => {
+            const ctrlB = new AbortController();
+            return () => ctrlB.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
+    },
+    // An abort in another effect's cleanup does not pair when the controllers are
+    // different variables with the same name: controller matching resolves
+    // identifiers to their variables, not just their names
+    {
+      code: tsx`
+        function Example() {
+          useEffect(() => {
+            const ctrl = new AbortController();
+            fetch("/api/user", { signal: ctrl.signal });
+          }, []);
+
+          useEffect(() => {
+            const ctrl = new AbortController();
+            return () => ctrl.abort();
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedAbortInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     // Basic valid cases
@@ -854,6 +953,117 @@ ruleTester.run(RULE_NAME, rule, {
               Promise.resolve().then(() => ctrl.abort());
             }, 100);
           };
+        }, []);
+      }
+    `,
+    // fetch in an async IIFE inside the setup function is not checked: the innermost
+    // function is the IIFE, not the setup callback
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          (async () => {
+            await fetch("/api/user");
+          })();
+        }, []);
+      }
+    `,
+    // fetch nested two function levels deep inside the setup function is not checked
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const handleClick = () => {
+            const load = () => {
+              fetch("/api/user");
+            };
+            load();
+          };
+          button.addEventListener("click", handleClick);
+        }, []);
+      }
+    `,
+    // fetch inside the cleanup function is not checked: the innermost function is
+    // the cleanup callback, not the setup callback
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          return () => {
+            fetch("/api/unsubscribe");
+          };
+        }, []);
+      }
+    `,
+    // fetch inside a useCallback is not checked
+    tsx`
+      import { useCallback, useEffect } from "react";
+
+      function Example() {
+        const load = useCallback(() => {
+          fetch("/api/user");
+        }, []);
+      }
+    `,
+    // fetch at module top level is not checked
+    tsx`
+      import { useEffect } from "react";
+
+      fetch("/api/user");
+
+      function Example() {
+        return null;
+      }
+    `,
+    // Setup passed as an identifier reference is not recognized (the setup must be
+    // an inline function expression), so the fetch inside is not checked
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const setup = () => {
+          fetch("/api/user");
+        };
+        useEffect(setup, []);
+      }
+    `,
+    // Setup wrapped in a type expression is not recognized as a setup callback, so
+    // the fetch inside is not checked
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect((() => {
+          fetch("/api/user");
+        }) as any, []);
+      }
+    `,
+    // fetch in the dependency array is not checked: the innermost function is the
+    // component, not a setup callback
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {}, [fetch("/api/user")]);
+      }
+    `,
+    // An abort in another effect's cleanup pairs when it references the same
+    // controller variable (matching is file-wide, not per-effect)
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        const ctrl = new AbortController();
+
+        useEffect(() => {
+          fetch("/api/user", { signal: ctrl.signal });
+        }, []);
+
+        useEffect(() => {
+          return () => ctrl.abort();
         }, []);
       }
     `,

@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { Extract, Traverse } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
@@ -20,7 +20,6 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = "cleanup" | "setup" | "other";
 type TimerMethodKind = "setInterval" | "clearInterval";
 type CallKind = TimerMethodKind | "other";
 
@@ -38,12 +37,6 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   if (name != null && isMatching(P.union("setInterval", "clearInterval"))(name)) {
     return name;
   }
-  return "other";
-}
-
-function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-  if (isUseEffectSetupCallback(node)) return "setup";
-  if (isUseEffectCleanupCallback(node)) return "cleanup";
   return "other";
 }
 
@@ -73,22 +66,15 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("setInterval")) {
     return {};
   }
-  const fEntries: FunctionKind[] = [];
   const sEntries: TimerEntry[] = [];
   const cEntries: TimerEntry[] = [];
   function isInverseEntry(a: TimerEntry, b: TimerEntry) {
     return isAssignmentTargetEqual(context, a.timerId, b.timerId);
   }
   return {
-    [":function"](node: TSESTreeFunction) {
-      fEntries.push(getFunctionKind(node));
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
     ["CallExpression"](node) {
-      const fKind = fEntries.findLast((kind) => kind !== "other");
-      if (fKind == null) {
+      const fn = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n));
+      if (fn == null) {
         return;
       }
       match(getCallKind(node))

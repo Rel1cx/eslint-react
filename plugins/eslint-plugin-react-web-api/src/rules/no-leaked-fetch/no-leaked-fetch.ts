@@ -1,5 +1,5 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, type TSESTreeFunction } from "@eslint-react/ast";
+import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
@@ -21,7 +21,6 @@ export type MessageID =
 
 // #region Types
 
-type FunctionKind = "cleanup" | "setup" | "other";
 type CallKind = "fetch" | "abort" | "other";
 
 type FetchEntry = {
@@ -44,12 +43,6 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
   if (name != null && isMatching(P.union("fetch", "abort"))(name)) {
     return name;
   }
-  return "other";
-}
-
-function getFunctionKind(node: TSESTreeFunction): FunctionKind {
-  if (isUseEffectSetupCallback(node)) return "setup";
-  if (isUseEffectCleanupCallback(node)) return "cleanup";
   return "other";
 }
 
@@ -130,22 +123,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     return {};
   }
 
-  const fEntries: FunctionKind[] = [];
   const fetchEntries: FetchEntry[] = [];
   const abortEntries: AbortEntry[] = [];
   return {
-    [":function"](node: TSESTreeFunction) {
-      fEntries.push(getFunctionKind(node));
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
     ["CallExpression"](node) {
       match(getCallKind(node))
         .with("fetch", () => {
           // Only consider the innermost function: a `fetch` inside a nested non-effect function
           // (e.g. an event handler) is not managed by the effect's lifecycle
-          if (fEntries.at(-1) !== "setup") {
+          const fn = Traverse.findParent(node, Check.isFunction);
+          if (fn == null || !isUseEffectSetupCallback(fn)) {
             return;
           }
           const { controller, isParamSignal } = getFetchController(context, node);
@@ -159,7 +146,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // An `abort` may be nested in a callback within the cleanup function
           // (e.g. `setTimeout(() => ctrl.abort())`), so find the nearest enclosing
           // setup/cleanup function instead of requiring the innermost one
-          if (fEntries.findLast((kind) => kind !== "other") !== "cleanup") {
+          const fn = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n));
+          if (fn == null || !isUseEffectCleanupCallback(fn)) {
             return;
           }
           const controller = getAbortController(node);
