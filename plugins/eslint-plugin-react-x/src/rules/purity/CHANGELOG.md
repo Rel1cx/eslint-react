@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Async function components in modules without a `use client` directive are treated as Server Components and are no longer reported — they render once per request on the server, so calls like `Date.now()` or `cookieStore.get()` are valid there.
-- Impure calls in `useRef` initializer arguments (ex: `useRef(document.createElement("div"))`) are no longer reported — the initializer is evaluated on every render but stored only on the first one, which is a widely used idiom (ex: portals).
 
 ## [5.20.6] - 2026-09-23
 

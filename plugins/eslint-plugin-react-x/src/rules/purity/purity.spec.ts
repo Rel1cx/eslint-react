@@ -1078,16 +1078,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
-    // The useRef exemption does not extend to impure calls passed directly to useState
-    {
-      code: tsx`
-        function Component() {
-          const [el] = useState(document.createElement("div"));
-          return <div>{el.tagName}</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
     // `Object.assign` mutating an existing (non-literal) target is still flagged
     {
       code: tsx`
@@ -1104,16 +1094,6 @@ ruleTester.run(RULE_NAME, rule, {
         function Component({ overrides }) {
           const props = Object.assign({}, defaults, overrides);
           return <div {...props}>Content</div>;
-        }
-      `,
-      errors: [{ messageId: "default" }],
-    },
-    // Impure calls outside `useRef` initializer arguments are still flagged
-    {
-      code: tsx`
-        function Component() {
-          const element = document.createElement("div");
-          return <div ref={(ref) => ref?.append(element)}>Content</div>;
         }
       `,
       errors: [{ messageId: "default" }],
@@ -1804,34 +1784,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
     },
     // Sync components in modules without `use client` are shared components, still flagged — see invalid cases
-    // -------------------------------------------------------------------------
-    // Impure calls in `useRef` initializer arguments are exempted (portal idiom)
-    // -------------------------------------------------------------------------
-    {
-      code: tsx`
-        function Component() {
-          const elementRef = useRef(document.createElement("div"));
-          return createPortal(<div>Content</div>, elementRef.current);
-        }
-      `,
-    },
-    {
-      code: tsx`
-        function Component() {
-          const dateRef = useRef(new Date());
-          return <div>Created at: {dateRef.current.toISOString()}</div>;
-        }
-      `,
-    },
-    // The useRef exemption also covers the member-expression form React.useRef
-    {
-      code: tsx`
-        function Component() {
-          const elementRef = React.useRef(document.createElement("div"));
-          return createPortal(<div>Content</div>, elementRef.current);
-        }
-      `,
-    },
     // A backtick `use client` is not a directive, so the module is treated as a server module
     {
       code: tsx`

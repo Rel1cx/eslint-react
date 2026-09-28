@@ -3,15 +3,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import {
-  IMPURE_CTORS,
-  IMPURE_FUNCS,
-  hasUseClientDirective,
-  isCatalogObject,
-  isUseRefInitializerArgument,
-  resolveBuiltinMember,
-  resolveBuiltinObjectName,
-} from "./lib";
+import { IMPURE_CTORS, IMPURE_FUNCS, hasUseClientDirective, isCatalogObject, resolveBuiltinMember, resolveBuiltinObjectName } from "./lib";
 
 export const RULE_NAME = "purity";
 
@@ -62,7 +54,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               ? IMPURE_FUNCS.get(resolved.object)?.has(resolved.property) ?? false
               : IMPURE_FUNCS.get("globalThis")?.has(resolved.object) ?? false;
             if (!isImpure) return;
-            if (isUseRefInitializerArgument(node)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
@@ -74,7 +65,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (resolved == null || resolved.property == null) return;
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!IMPURE_FUNCS.get(resolved.object)?.has(resolved.property)) return;
-            if (isUseRefInitializerArgument(node)) return;
             const func = Traverse.findParent(node, Check.isFunction);
             if (func == null) return;
             cEntries.push({ func, node });
@@ -96,7 +86,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         // `new Date(arg)` with arguments is pure (deterministic),
         // only `new Date()` without arguments is impure (depends on current time).
         if (ctorName === "Date" && node.arguments.length > 0) return;
-        if (isUseRefInitializerArgument(node)) return;
         const func = Traverse.findParent(node, Check.isFunction);
         if (func == null) return;
         nEntries.push({ func, node });
