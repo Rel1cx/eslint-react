@@ -31,6 +31,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
 
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
   const getCurrentEntry = () => functionEntries.at(-1) ?? null;
+  const getCurrentHookEntry = () => functionEntries.findLast((entry) => entry.isHookDefinition) ?? null;
   const onFunctionEnter = (node: TSESTreeFunction) => {
     const id = getFunctionId(node);
     const key = randomBytes(8).toString("hex");
@@ -74,7 +75,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     },
     CallExpression(node: TSESTree.CallExpression) {
       if (!isHookCall(node)) return;
-      const entry = getCurrentEntry();
+      const entry = getCurrentHookEntry();
       if (entry == null) return;
       entry.hookCalls.push(node);
     },
@@ -85,7 +86,7 @@ export function getHookCollector(context: RuleContext): getHookCollector.ReturnT
     },
     TaggedTemplateExpression(node: TSESTree.TaggedTemplateExpression) {
       if (!isHookTag(node.tag)) return;
-      const entry = getCurrentEntry();
+      const entry = getCurrentHookEntry();
       if (entry == null) return;
       entry.hookCalls.push(node);
     },

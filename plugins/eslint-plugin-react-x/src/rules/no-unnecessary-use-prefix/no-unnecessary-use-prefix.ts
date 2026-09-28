@@ -1,8 +1,7 @@
 import { createRule } from "@/utils/create-rule";
-import { Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
-import { WELL_KNOWN_HOOKS, containsUseComments, isTestMockCallback } from "./lib";
+import { WELL_KNOWN_HOOKS, containsUseComments, isInTestMock } from "./lib";
 
 export const RULE_NAME = "no-unnecessary-use-prefix";
 
@@ -51,8 +50,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (containsUseComments(context, node)) {
           continue;
         }
-        // If the hook is defined inside a `vi.mock` callback for testing, skip it
-        if (Traverse.findParent(node, isTestMockCallback) != null) {
+        // If the hook is defined inside a test mock (ex: `vi.mock`, `mock.module`), skip it
+        if (isInTestMock(node)) {
           continue;
         }
         // If none of the above, it's a regular function with 'use' prefix. Report it

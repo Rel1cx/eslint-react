@@ -1034,6 +1034,40 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // A local variable not derived from a ref is still reported
+    {
+      name: "setState with local variable derived from a non-ref member chain",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const innerWidth = window.document.documentElement.clientWidth;
+            setWidth(innerWidth);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // The member chain must be rooted at a ref-named identifier; `.current` alone is not enough
+    {
+      name: "setState with local variable derived from a non-ref root with .current in the chain",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const w = someObj.current.offsetWidth;
+            setWidth(w);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -1453,6 +1487,38 @@ ruleTester.run(RULE_NAME, rule, {
           const el = containerRef.current;
           useEffect(() => {
             setWidth(el.getBoundingClientRect().width);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via nested member access",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const offsetWidth = containerRef.current.offsetWidth;
+            setWidth(offsetWidth);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with variable derived from ref.current via optional chaining",
+      code: tsx`
+        import { useEffect, useState, useRef } from "react";
+
+        function Component() {
+          const containerRef = useRef(null);
+          const [width, setWidth] = useState(0);
+          useEffect(() => {
+            const w = containerRef.current?.offsetWidth;
+            setWidth(w);
           }, []);
           return null;
         }

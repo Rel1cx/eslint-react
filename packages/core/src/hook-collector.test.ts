@@ -33,6 +33,22 @@ describe("getHookCollector", () => {
     expect(inner?.hookCalls[0]?.type).toBe("CallExpression");
   });
 
+  it("should attribute hook calls inside nested non-hook callbacks to the enclosing hook", () => {
+    const hooks = collectHooks(
+      "function useMulti(items) { return items.map((item) => useItem(item)); }",
+    );
+    expect(hooks).toHaveLength(1);
+    expect(hooks[0]?.name).toBe("useMulti");
+    expect(hooks[0]?.hookCalls).toHaveLength(1);
+  });
+
+  it("should not attribute hook calls inside nested callbacks of a non-hook function", () => {
+    const hooks = collectHooks(
+      "function App() { return () => useState(0); }",
+    );
+    expect(hooks).toHaveLength(0);
+  });
+
   it("should collect hook with expression body", () => {
     const hooks = collectHooks("const useExpressionBody = () => useState(0);");
     expect(hooks).toHaveLength(1);

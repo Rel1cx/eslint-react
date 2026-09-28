@@ -191,6 +191,30 @@ function Component() {
 }
 ```
 
+### Reading request-time data in Server Components
+
+Async function components in modules without a `use client` directive are treated as Server Components. They render once per request on the server, so reading request-time data during render is valid there and not reported.
+
+```tsx
+// 🔵 OK: async Server Component in a module without "use client"
+async function Page() {
+  const timestamp = Date.now();
+  return <div>Rendered at: {timestamp}</div>;
+}
+```
+
+### Impure calls in useRef initializers
+
+Impure calls in `useRef` initializer arguments are not reported. The initializer is evaluated on every render but stored only on the first one — a widely used idiom, for example to create a portal container.
+
+```tsx
+// 🔵 OK: the element is created once and kept stable across renders
+function Component() {
+  const elementRef = useRef(document.createElement("div"));
+  return createPortal(<div>Content</div>, elementRef.current);
+}
+```
+
 ## Resources
 
 - [Rule Source](https://github.com/Rel1cx/eslint-react/tree/main/plugins/eslint-plugin-react-x/src/rules/purity/purity.ts)

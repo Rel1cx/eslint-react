@@ -4,7 +4,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { LIFECYCLE_METHODS } from "./lib";
+import { HOST_CONVENTION_METHODS, LIFECYCLE_METHODS } from "./lib";
 
 export const RULE_NAME = "no-unused-class-component-members";
 
@@ -60,6 +60,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         } else {
           continue;
         }
+      }
+      // If a member is invoked by the host environment through refs (ex: `setNativeProps` in React Native), skip it
+      if (HOST_CONVENTION_METHODS.has(methodName)) {
+        continue;
       }
       // Report members that are defined but not used
       context.report({

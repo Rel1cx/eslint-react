@@ -5,6 +5,14 @@ All notable changes to the `react-x/no-unnecessary-use-prefix` rule will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Hook calls nested inside non-hook callbacks (e.g. `items.map((item) => useItem(item))`) are now attributed to the enclosing hook, preventing false positives for hooks that call other hooks only within nested callbacks.
+- Functions named exactly `use` (e.g. polyfills of React's `use` API) are no longer reported.
+- Hooks defined in the mock implementation argument of test mock module registrations (e.g. `mock.module("...", { namedExports: { useTranslation: () => ... } })` in bun:test) are no longer reported.
+
 ## [5.16.0] - 2026-07-15
 
 ### Fixed

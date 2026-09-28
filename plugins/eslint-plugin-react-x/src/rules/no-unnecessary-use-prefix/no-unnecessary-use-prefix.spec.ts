@@ -114,21 +114,19 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A hook defined OUTSIDE the mock call and merely referenced inside it is still reported
     {
       code: tsx`
-        export function useNestedHook() {
-            const fn = () => {
-                const [state, setState] = useState("state");
-                return state;
-            };
-
-            return [state, setState, useInnerHook] as const;
+        function useThing() {
+          return 1;
         }
+
+        vi.mock("src/module", () => ({ useThing }));
       `,
       errors: [
         {
           data: {
-            name: "useNestedHook",
+            name: "useThing",
           },
           messageId: "default",
         },
@@ -209,6 +207,51 @@ ruleTester.run(RULE_NAME, rule, {
       vi.mock("src/components/session/session", () => ({
         useSession: () => mockUseSession(),
       }));
+    `,
+    // Hook calls nested in non-hook callbacks are attributed to the enclosing hook
+    tsx`
+      export function useNestedHook() {
+          const fn = () => {
+              const [state, setState] = useState("state");
+              return state;
+          };
+
+          return [state, setState, useInnerHook] as const;
+      }
+    `,
+    tsx`
+      function useMultiResizable(items) {
+        return items.map((item) => useSingleResizable(item));
+      }
+    `,
+    // The React `use` API itself and its polyfills
+    tsx`
+      export const use = typeof React.use === "function"
+        ? React.use
+        : (usable) => usable._runtime();
+    `,
+    // bun:test style module mocks
+    tsx`
+      mock.module("react-i18next", {
+        namedExports: {
+          useTranslation: () => _stableI18n,
+          Trans: ({ i18nKey }) => i18nKey,
+        },
+      });
+    `,
+    // Object-form second argument of a test mock registration
+    tsx`
+      jest.mock("react-i18next", {
+        namedExports: {
+          useTranslation: () => stableI18n,
+        },
+      });
+    `,
+    // The React `use` API as a plain function declaration
+    tsx`
+      export function use(usable) {
+        return usable._runtime();
+      }
     `,
   ],
 });
