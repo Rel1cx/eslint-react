@@ -2,11 +2,11 @@
 title: Changelog
 ---
 
-## Unreleased
+## v5.21.1 (2026-09-28)
 
 ### 🐞 Fixes
 
-- Fixed missed reports where a timer, fetch controller, or observer created in one effect was treated as cleaned up because an unrelated cleanup in another effect referenced a different variable with the same name; identifier matching now resolves both sides to their variables by scope instead of comparing names only. Affected rules:
+- Fixed missed reports where a timer, fetch controller, or observer created in one effect was treated as cleaned up because an unrelated cleanup in another effect referenced a different variable with the same name; identifier matching now resolves both sides to their variables by scope instead of comparing names only. (#1969) Affected rules:
   - `react-web-api/no-leaked-timeout`
   - `react-web-api/no-leaked-interval`
   - `react-web-api/no-leaked-fetch`
@@ -15,14 +15,17 @@ title: Changelog
 
 ### 🏗️ Internal
 
-- Simplified the `react-web-api` leaked-resource rules by replacing manual function-context stack tracking with `Traverse.findParent` ancestor lookup, and added boundary tests covering deeply nested callbacks, cross-effect pairing, and wrapped or referenced setup callbacks. Affected rules:
+- Simplified the `react-web-api` leaked-resource rules by replacing manual function-context stack tracking with `Traverse.findParent` ancestor lookup, and added boundary tests covering deeply nested callbacks, cross-effect pairing, and wrapped or referenced setup callbacks. (#1969) Affected rules:
   - `react-web-api/no-leaked-timeout`
   - `react-web-api/no-leaked-interval`
   - `react-web-api/no-leaked-fetch`
   - `react-web-api/no-leaked-event-listener`
   - `react-web-api/no-leaked-resize-observer`
   - `react-web-api/no-leaked-intersection-observer`
-- `@eslint-react/var`: `isAssignmentTargetEqual` no longer short-circuits same-name identifiers through structural equality; identifier pairs are compared with scope-aware value equality.
+- `@eslint-react/var`: `isAssignmentTargetEqual` no longer short-circuits same-name identifiers through structural equality; identifier pairs are compared with scope-aware value equality. (#1969)
+- `react-x/no-unused-class-component-members`: removed the manual class and method context stacks; the enclosing class and method are now resolved at the hit point with `Traverse.findParent` ancestor lookup, and the per-class member definition/usage maps are initialized lazily. (#1970)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.21.0...v5.21.1
 
 ## v5.21.0 (2026-09-28)
 
