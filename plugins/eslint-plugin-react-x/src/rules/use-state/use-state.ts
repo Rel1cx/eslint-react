@@ -120,6 +120,13 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
       let parent = node.parent;
       while (Check.isTypeExpression(parent)) parent = parent.parent;
+
+      // Allow returning the useState result directly, e.g., `return useState()`,
+      // a common pattern in custom hooks, regardless of the rule's options.
+      // https://github.com/Rel1cx/eslint-react/issues/1963
+      if (parent.type === AST.ReturnStatement) return;
+      if (parent.type === AST.ArrowFunctionExpression) return;
+
       if (parent.type !== AST.VariableDeclarator) {
         if (!enforceAssignment) return;
         context.report({ messageId: "invalidAssignment", node });

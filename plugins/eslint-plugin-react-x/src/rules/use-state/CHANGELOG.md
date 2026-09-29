@@ -5,6 +5,12 @@ All notable changes to the `react-x/use-state` rule will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.23.0] - 2026-09-29
+
+### Changed
+
+- Returning the `useState` result directly (ex: `return React.useState()`) is now allowed regardless of the rule's options, matching the exemption in the original `react/hook-use-state` rule — a common pattern in custom hooks. This includes explicit `return` statements, arrow function implicit returns, and type-asserted returns (ex: `return useState(0) as [number, Dispatch<number>]`). Lazy initialization checks still apply to the arguments. (#1963)
+
 ## [5.3.1-beta.0] - 2026-04-20
 
 ### Fixed
