@@ -2,6 +2,19 @@
 title: Changelog
 ---
 
+## v5.22.1 (2026-09-29)
+
+### 🐞 Fixes
+
+- `react-x/use-state`: returning the `useState` result directly (ex: `return React.useState()`) is now allowed regardless of the rule's options, matching the exemption in the original `react/hook-use-state` rule — a common pattern in custom hooks. This includes explicit `return` statements, arrow function implicit returns, and type-asserted returns (ex: `return useState(0) as [number, Dispatch<number>]`); lazy initialization checks still apply to the arguments. (#1974, closes #1963)
+
+### 📝 Documentation
+
+- Added a note about `eslint` being an optional peer dependency to the READMEs and the website's getting-started guides.
+- Simplified the `@eslint-react/kit` README to point to the full documentation.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.22.0...v5.22.1
+
 ## v5.22.0 (2026-09-29)
 
 ### ✨ New
