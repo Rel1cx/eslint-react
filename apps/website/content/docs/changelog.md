@@ -6,7 +6,7 @@ title: Changelog
 
 ### 🐞 Fixes
 
-- `react-x/use-state`: returning the `useState` result directly (ex: `return React.useState()`) is now allowed regardless of the rule's options, matching the exemption in the original `react/hook-use-state` rule — a common pattern in custom hooks. This includes explicit `return` statements, arrow function implicit returns, and type-asserted returns (ex: `return useState(0) as [number, Dispatch<number>]`); lazy initialization checks still apply to the arguments. (#1974, closes #1963)
+- `react-x/use-state`: directly returning the `useState` result (ex: `return React.useState()`) is now allowed regardless of the rule's options, matching the exemption in the original `react/hook-use-state` rule. Covers explicit, implicit (arrow function), and type-asserted returns; lazy initialization checks still apply. (#1974, closes #1963)
 
 ### 📝 Documentation
 
