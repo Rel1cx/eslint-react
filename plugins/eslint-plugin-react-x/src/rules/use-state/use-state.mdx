@@ -33,7 +33,7 @@ react-x/use-state
 
 This rule covers three concerns:
 
-1. The return value of `useState` must be destructured into a value and setter pair (ex: `const [count, setCount] = useState(0)`). Bare calls or assignments (ex: `useState(0)` or `const count = useState(0)`) are reported as invalid usage.
+1. The return value of `useState` must be destructured into a value and setter pair (ex: `const [count, setCount] = useState(0)`). Bare calls or assignments (ex: `useState(0)` or `const count = useState(0)`) are reported as invalid usage. Returning the result directly (ex: `return useState()`) is allowed, as it is a common pattern in custom hooks.
 2. The setter must be named symmetrically — `set` followed by the capitalized value name (ex: `count` -> `setCount`). The state value must be a plain identifier; destructured patterns (`ObjectPattern`, `ArrayPattern`, etc.) are reported as an invalid assignment form.
 3. Function calls passed directly as the initial state argument are reported. Wrapping them in an initializer function (ex: `() => getValue()`) avoids re-invoking the function on every render.
 
@@ -65,6 +65,17 @@ import { useState } from "react";
 function Component() {
   const [value] = useState(() => expensiveSetup());
   return <div>{value}</div>;
+}
+```
+
+Returning the result directly is also allowed, regardless of the rule's options:
+
+```tsx
+// 🔵 OK: useState result is directly returned
+import React from "react";
+
+export default function useColor() {
+  return React.useState();
 }
 ```
 
@@ -182,7 +193,7 @@ type Options = {
 
 #### `enforceAssignment`
 
-When `true`, requires `useState` to be destructured into a `[value, setter]` array pattern. Bare assignments (ex: `const state = useState(0)`) or calls without any assignment are reported.
+When `true`, requires `useState` to be destructured into a `[value, setter]` array pattern. Bare assignments (ex: `const state = useState(0)`) or calls without any assignment are reported. Returning the `useState` result directly (ex: `return useState()`) is always allowed, even when this option is `true`.
 
 Default: `true`
 

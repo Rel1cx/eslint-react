@@ -433,15 +433,6 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidAssignment" }],
     },
-    // useState in return statement (should not crash when parent is ReturnStatement)
-    {
-      code: tsx`
-        function Component() {
-          return useState(0);
-        }
-      `,
-      errors: [{ messageId: "invalidAssignment" }],
-    },
   ],
   valid: [
     // --- Assignment / setter naming ---
@@ -596,6 +587,42 @@ ruleTester.run(RULE_NAME, rule, {
         function Component() {
           const [count, setCount] = useState(0) as [number, (n: number) => void];
           return <div>{count}</div>;
+        }
+      `,
+    },
+    {
+      code: tsx`
+        import React from 'react';
+        export default function useColor() {
+          // useState result is directly returned
+          return React.useState();
+        }
+      `,
+    },
+    // useState result is directly returned — allowed regardless of options
+    // https://github.com/Rel1cx/eslint-react/issues/1963
+    tsx`
+      function useColor() {
+        return useState(0);
+      }
+    `,
+    {
+      code: tsx`
+        function useColor() {
+          return React.useState();
+        }
+      `,
+      options: [{ enforceAssignment: true, enforceLazyInitialization: true, enforceSetterName: true }],
+    },
+    {
+      code: tsx`
+        const useColor = () => useState("red");
+      `,
+    },
+    {
+      code: tsx`
+        function useCounter() {
+          return useState(0) as [number, (n: number) => void];
         }
       `,
     },
