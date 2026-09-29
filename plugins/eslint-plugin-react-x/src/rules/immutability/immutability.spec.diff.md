@@ -2,11 +2,11 @@
 
 ## Verification metadata
 
-- **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `helpers.ts` (ESLint AST rule)
+- **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint AST rule)
 - **SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
-- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
-- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-07-14`
+- **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
+- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
+- **Last verified**: `2026-09-30`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `immutability.ts`
@@ -22,6 +22,7 @@
   - `src/__tests__/fixtures/compiler/error.invalid-pass-mutable-function-as-prop.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/error.invalid-hook-function-argument-mutates-local-variable.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/error.invalid-return-mutable-function-from-hook.{js,expect.md}`
+  - `src/__tests__/fixtures/compiler/error.invalid-update-expression-context-variable-in-effect.{js,expect.md}`
 
 > Scope: this report compares the validation behavior implemented by this rule with the compiler pass described by the local SPEC. The compiler pass consumes HIR operands that have already been assigned `Freeze` effects; it does not itself decide which JSX or hook syntax receives those effects. Therefore, syntax-specific sink omissions below are confirmed IMPL boundaries, but their exact compiler behavior also depends on upstream HIR/effect inference.
 
@@ -53,6 +54,7 @@ The compiler pass operates on HIR after aliasing-effect inference:
 2. Known mutation effects propagate through `LoadLocal`, `StoreLocal`, and nested function effects.
 3. A diagnostic is produced when a known-mutable function reaches an operand with `Effect.Freeze`.
 4. Standalone conditional effects (`MutateConditionally` and `MutateTransitiveConditionally`) do not create known-mutable functions, although they can propagate an already-known mutation.
+5. Since React commit `d0a776cde3fc` (2026-09-11), update expressions (`x++`, `--x`) on captured (context) values also produce a `Mutate` effect, so a function whose only context mutation is an update expression is now known-mutable. Previously update expressions produced only a `Create` effect and this pass could not flag them.
 
 ### IMPL
 
@@ -67,23 +69,23 @@ The mutable-function map stores one representative mutation per function. In the
 
 ## 3. Mutation recognition
 
-| Mutation form                                             | IMPL behavior                                                                           |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Captured identifier assignment (`x = value`, `x += 1`)    | Detected                                                                                |
-| Captured identifier update (`x++`, `--x`)                 | Detected                                                                                |
-| Member assignment/update (`x.foo = value`, `x[0]++`)      | Detected from the root identifier                                                       |
-| Member deletion (`delete x.foo`)                          | Detected from the root identifier                                                       |
-| Receiver method (`push`, `set`, `add`, etc.)              | Detected when in `MUTATING_METHODS`, unless initialized by a recognized navigation hook |
-| Computed string property (`cache["set"](...)`)            | Detected                                                                                |
-| Optional-chain receiver (`cache?.set(...)`)               | Detected                                                                                |
-| Conditional syntactic mutation (`if (cond) x++`)          | Treated as definite                                                                     |
-| Ordinary function call (`mutate(x)`, `fn()`)              | Not treated as a mutation                                                               |
-| Receiver without a root identifier (`getItems().push(1)`) | Ignored                                                                                 |
-| Unresolvable/implicit-global root                         | Ignored                                                                                 |
+| Mutation form                                             | IMPL behavior                                                                                 |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Captured identifier assignment (`x = value`, `x += 1`)    | Detected                                                                                      |
+| Captured identifier update (`x++`, `--x`)                 | Detected                                                                                      |
+| Member assignment/update (`x.foo = value`, `x[0]++`)      | Detected from the root identifier                                                             |
+| Member deletion (`delete x.foo`)                          | Detected from the root identifier                                                             |
+| Receiver method (`push`, `set`, `add`, etc.)              | Detected when in `KNOWN_MUTATING_METHODS`, unless initialized by a recognized navigation hook |
+| Computed property (`cache["set"](...)`)                   | Ignored; computed member callees are not statically resolved                                  |
+| Optional-chain receiver (`cache?.set(...)`)               | Detected                                                                                      |
+| Conditional syntactic mutation (`if (cond) x++`)          | Treated as definite                                                                           |
+| Ordinary function call (`mutate(x)`, `fn()`)              | Not treated as a mutation                                                                     |
+| Receiver without a root identifier (`getItems().push(1)`) | Ignored                                                                                       |
+| Unresolvable/implicit-global root                         | Ignored                                                                                       |
 
 Important precision differences:
 
-- **No type-driven method effects**: matching method names are treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. A name- and initializer-provenance-based exception treats allow-listed mutating-method calls as non-mutating when the receiver originates from `useNavigate()`, `useNavigation()`, or `useRouter()`; variable-declarator aliases are followed. Hook recognition is textual rather than import-aware, so same-named custom hooks can cause false negatives. Mutators absent from `MUTATING_METHODS` are missed.
+- **No type-driven method effects**: matching method names are treated as mutating regardless of receiver type, so a custom `obj.push()` is a false positive. A name- and initializer-provenance-based exception treats allow-listed mutating-method calls as non-mutating when the receiver originates from `useHistory()`, `useNavigate()`, `useNavigation()`, or `useRouter()` (the `KNOWN_MUTATING_HOOKS` set); variable-declarator aliases are followed. Hook recognition is textual rather than import-aware, so same-named custom hooks can cause false negatives. Mutators absent from `KNOWN_MUTATING_METHODS` are missed.
 - **Initializer-only mutation-target alias propagation**: identifier aliases declared with an initializer are traced to their origin, including aliases created inside the callback. Assignment aliases (`let alias; alias = cache`), destructuring, member storage, and subsequent writes to an initialized alias are not modeled.
 - **No call-effect propagation**: a wrapper such as `() => fn()` is not marked mutable merely because `fn` is known-mutable. The SPEC can represent this through inferred transitive effects.
 - **Conditional over-approximation**: the IMPL has no equivalent of conditional aliasing effects, so any recognized mutation syntax is considered definite even when control-flow conditional.
@@ -106,6 +108,8 @@ It does not resolve:
 - member storage (`obj.fn`, including `{ fn }`);
 - functions returned by calls (`makeFn()`);
 - functions wrapped in arrays, objects, or other expressions.
+
+Resolution routes through `@eslint-react/var`'s `resolveOrigin`; destructured bindings resolve to their declarator's initializer.
 
 Nested-closure propagation is separate from alias resolution: a syntactic mutation in a nested function marks each lexical ancestor up to the function that declares the mutated root.
 
@@ -146,7 +150,8 @@ Consequences:
 - `const timerRef = { current: 0 }` is also exempt, causing a deliberate false negative.
 - `myref.current = value` is not exempt because matching is case-sensitive.
 - `const alias = mounted; alias.current = true` is exempt when `mounted` originates from `useRef()`.
-- Assignment aliases, subsequent writes, custom ref-like hooks, destructured refs, and unnamed ref-like props are not modeled unless the naming heuristic happens to match.
+- Hooks listed in the `additionalRefHooks` shared setting are honored by the initializer provenance check.
+- Assignment aliases, subsequent writes, destructured refs, and unnamed ref-like props are not modeled unless the naming heuristic happens to match.
 - Direct identifier assignment/update uses only the name heuristic; the `useRef()` initializer check is applied to member-chain mutation paths.
 
 ## 6. Diagnostics
@@ -162,6 +167,8 @@ The IMPL emits two independent ESLint reports per sink:
 - `default` at the sink expression;
 - `mutates` at the representative mutation expression.
 
+Identical sink expression nodes are deduplicated, so the same sink node never produces duplicate usage reports.
+
 This preserves both locations but changes problem counts and grouping. If the same mutable function is used at two sinks, the IMPL emits four reports: two usage reports and two mutation reports at the same mutation location. The SPEC's reason (`Cannot modify local variables after render completes`) is not emitted as an ESLint message; `meta.docs.description` only provides a general rule description.
 
 ## 7. Deliberate extensions beyond the SPEC
@@ -170,7 +177,7 @@ Since 2026-09, the IMPL includes a second detection layer (`inferDirectMutations
 
 - **Direct mutation of props/state**: a member assignment, destructuring assignment target (`({ a: props.x } = value)`), `for...in`/`for...of` loop target without a declaration, update, deletion, or mutating method call is reported at the mutation site (messageId `direct`) when the mutated root identifier resolves — through the same identifier-initializer alias tracing used for mutation targets — to a component's first parameter (props, including destructured bindings) or to element 0 of a `useState`-like/`useReducer` array-pattern destructuring. This applies regardless of whether the mutation sits inside a function that reaches a freeze sink; mutation nodes already reported through a sink are not reported twice.
 - **Shallow copies**: a variable initialized by an object/array literal that spreads a props/state value (`const copy = { ...state }`, `const copy = [...state]`) is classified as a shallow copy. Mutations through it are only reported when the mutated object lies at least one member access below the copy's root (`copy[k].x = v`, `copy.x.push(1)`), because the copy's own top-level slots (`copy.x = v`, `copy.push(1)`) are new values. Spread arguments that are not plain identifiers are not traced.
-- **`for...of` iterator variables**: added for <https://github.com/Rel1cx/eslint-react/issues/1764>. A variable declared on the left side of a `for...of` statement (`for (const item of items)`), including bindings inside a destructured pattern, is bound to each element of the iterated collection, so when the right side resolves through its root identifier to a frozen origin (props, state, or a shallow copy of either), the iterator variable is treated as immutable. Member-expression collections (`for (const item of props.items)`) are traced to their root (`props`). Unlike a shallow copy's top-level slots, the iterator _is_ the shared element, so every member mutation through it is reported. `for...in` loops, right sides without a root identifier (`for (const x of getItems())`), and reassignment of the iterator binding (`item = ...`) are not covered.
+- **`for...of` iterator variables**: added for <https://github.com/Rel1cx/eslint-react/issues/1764>. A variable declared on the left side of a `for...of` statement (`for (const item of items)`), including bindings inside a destructured pattern, is bound to each element of the iterated collection, so when the right side resolves through its root identifier to a frozen origin (props, state, or a shallow copy of either), the iterator variable is treated as immutable. Member-expression collections (`for (const item of props.items)`) are traced to their root (`props`). Unlike a shallow copy's top-level slots, the iterator _is_ the shared element, so every member mutation through it is reported. Nested iterators classify recursively: `for (const sub of item.children)` is covered when `item` is itself a frozen iterator. `for...in` loops, right sides without a root identifier (`for (const x of getItems())`), and reassignment of the iterator binding (`item = ...`) are not covered.
 
 The upstream compiler has the same shallow-copy blind spot in its mutation validation (reported as <https://github.com/facebook/react/issues/37316>); this layer closes the gap locally rather than mirroring it.
 
@@ -186,13 +193,13 @@ Known boundaries of this extension:
 `immutability.spec.ts` pins the IMPL behavior for:
 
 - the three core sink categories;
-- assignment, update, delete, member, computed-property, optional-chain, and allow-listed method mutations;
+- assignment, update, delete, member, optional-chain, and allow-listed method mutations, plus the computed-property non-resolution boundary;
 - recursive function initializer aliases and nested lexical closures;
 - conditional mutations, module-scope exclusion, initializer mutation aliases, and first-mutation selection;
-- ref naming and aliased `useRef()` initializer behavior;
-- navigation-method exemptions for values initialized by `useNavigate()`, `useNavigation()`, and `useRouter()`, including variable-declarator alias coverage for router values;
+- ref naming, aliased `useRef()` initializer behavior, and the `additionalRefHooks` shared setting;
+- navigation-method exemptions for values initialized by `useHistory()`, `useNavigate()`, `useNavigation()`, and `useRouter()`, including variable-declarator alias coverage for router values;
 - unsupported assignment aliases, member/call wrappers, indirect calls, non-identifier roots, unresolved globals, and omitted sink shapes;
 - direct mutations of props (plain and destructured parameters), `useState`/`useReducer` state values, namespaced and settings-configured state hooks, identifier aliases of state, and nested mutations through object/array shallow copies, including the copy's own top-level writes, setter-index, shadowing, deep-copy, and non-component-parameter exclusions;
-- mutations on `for...of` iterator variables whose iterated collection is props, state, a declarator alias of either, a member expression rooted in either, or a shallow copy of either, including destructured iterator bindings and mutating method calls on the iterator, plus the `for...in`, root-identifier-less right side, iterator-binding reassignment, local collection, and non-component-parameter exclusions.
+- mutations on `for...of` iterator variables whose iterated collection is props, state, a declarator alias of either, a member expression rooted in either, or a shallow copy of either, including destructured iterator bindings, nested iterators (`for (const sub of item.children)`), and mutating method calls on the iterator, plus the `for...in`, root-identifier-less right side, iterator-binding reassignment, local collection, and non-component-parameter exclusions.
 
 The sink-related tests establish ESLint-rule boundaries only. They do not independently prove how the compiler frontend assigns aliasing or `Freeze` effects to every corresponding JavaScript syntax shape.
