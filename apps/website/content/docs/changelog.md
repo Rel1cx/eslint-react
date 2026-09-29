@@ -6,12 +6,12 @@ title: Changelog
 
 ### ✨ New
 
-- `react-x/static-components`: dynamic creation-site tracing now follows both sides of logical expressions (ex: `const C = DefaultComponent || (() => <div />)`) and the final element of sequence expressions (ex: `const C = (setup(), () => <div />)`), in variable initializers and reassignments alike. (#1975)
+- `react-x/static-components`: dynamic creation-site tracing now follows both sides of logical expressions (ex: `const C = DefaultComponent || (() => <div />)`) and the last element of sequence expressions (ex: `const C = (setup(), () => <div />)`), in initializers and reassignments alike. (#1975)
 
 ### 🐞 Fixes
 
-- `react-x/static-components`: component parameters of nested non-component functions (ex: `function render(Comp) { return <Comp /> }`) are no longer mistaken for components created during render; definitions are now judged by definition type instead of AST node type. (#1975)
-- `react-x/static-components`: the `createdHere` diagnostic is now reported once per creation site instead of once per JSX usage of the same component; the `default` diagnostic remains per usage. (#1975)
+- `react-x/static-components`: parameters of nested non-component functions (ex: `function render(Comp) { return <Comp /> }`) are no longer mistaken for render-created components; definitions are judged by definition type instead of AST node type. (#1975)
+- `react-x/static-components`: `createdHere` is now reported once per creation site instead of once per JSX usage; the `default` diagnostic remains per usage. (#1975)
 
 ### 🏗️ Internal
 
