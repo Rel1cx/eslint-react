@@ -1,5 +1,17 @@
 # Changelog
 
+## v5.22.0 (2026-09-29)
+
+### ✨ New
+
+- `react-dom/no-unknown-property`: added React 19.3 properties to the known property allowlist — `onFullscreenChange`, `onFullscreenError` (and their `Capture` variants), `credentialless`, and `maskType` gated on React version `>= 19.3.0`, plus `closedby` (`dialog`), `shadowrootmode`/`shadowrootclonable`/`shadowrootdelegatesfocus`/`shadowrootserializable` (`template`), `onScrollEnd` (+ `Capture`), and `onLoad` on `body`. (#1973)
+
+### 🏗️ Internal
+
+- Bumped `fumadocs-core` and `fumadocs-ui` to `16.15.15`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.21.3...v5.22.0
+
 ## v5.21.3 (2026-09-29)
 
 ### 🐞 Fixes
