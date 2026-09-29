@@ -2,14 +2,17 @@
 
 ## Verification metadata
 
-- **IMPL**: `globals.ts` + `helpers.ts` (ESLint rule)
+- **IMPL**: `globals.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects`)
-- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
-- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-07-14`
+- **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
+- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
+- **Last verified**: `2026-09-30`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `globals.ts`
+  - `collect.ts`
+  - `effects.ts`
+  - `origins.ts`
   - `helpers.ts`
   - `globals.spec.ts`
 - **React sources/fixtures**:
@@ -21,9 +24,9 @@ The SPEC runs abstract interpretation over SSA-form HIR. It computes instruction
 
 The IMPL runs on the ESLint AST without type information or HIR. It mirrors the relevant parts of the SPEC with three lightweight phases:
 
-1. Resolve global/module bindings and stable local aliases.
-2. Summarize direct mutation effects and direct local call edges per function.
-3. Starting from detected components and Hooks, apply effects transitively through the call graph.
+1. Collect write, mutating method-call, and direct local call-edge facts during AST traversal (`collect.ts`).
+2. Summarize direct global-mutation effects per function, resolving global/module bindings and stable local aliases on demand (`effects.ts`, `origins.ts`).
+3. Starting from detected components and Hooks, apply effects transitively through the direct-call graph at `Program:exit` (`effects.ts`, driven by `globals.ts`).
 
 This separation is important: a function may carry a global mutation effect without executing during render.
 
@@ -92,7 +95,7 @@ The SPEC derives receiver mutation from built-in function signatures. The IMPL u
 copyWithin, fill, pop, push, reverse, shift, sort, splice, unshift;
 ```
 
-Computed static property names such as `items["push"]()` are supported. This remains less general than the SPEC and can neither recognize arbitrary user-defined mutators nor prove the receiver's runtime type.
+Only non-computed method calls are recognized; computed property names such as `items["push"]()` are not statically resolved. This remains less general than the SPEC and can neither recognize arbitrary user-defined mutators nor prove the receiver's runtime type.
 
 ## 6. Render boundaries
 
@@ -117,7 +120,7 @@ Diagnostics are reported at the original mutation site, including when the effec
 - No SSA, control-flow fixed point, or phi-node handling.
 - No `ValueKind` lattice or frozen/context value validation.
 - Alias resolution is limited to stable direct `const` chains.
-- Method effects use a fixed array-method set instead of type signatures.
+- Method effects use a fixed array-method set instead of type signatures, and computed method names are not resolved.
 - Dynamic calls and callback execution semantics are not inferred.
 - Component/Hook coverage depends on the repository's collectors rather than compiler entrypoint metadata.
 

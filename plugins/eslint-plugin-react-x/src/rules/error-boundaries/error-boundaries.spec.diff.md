@@ -4,13 +4,14 @@
 
 - **IMPL**: `error-boundaries.ts` (ESLint rule)
 - **SPEC**: `error-boundaries.spec.md` (React Compiler `ValidateNoJSXInTryStatement`)
-- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
-- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-07-14`
+- **Implementation commit**: `cdad818d0c2e5d5006769950cdeca71717c52950`
+- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
+- **Last verified**: `2026-09-30`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `error-boundaries.ts`
   - `error-boundaries.spec.ts`
+  - `packages/ast/src/traverse.ts` (`Traverse.findEnclosingTryBlock`)
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoJSXInTryStatement.ts`
   - `src/__tests__/fixtures/compiler/invalid-jsx-in-try-with-catch.js`
@@ -22,7 +23,7 @@
 
 ## 1. Detection mechanism and breadth
 
-**Source — React pass.** `validateNoJSXInTryStatement(fn)` iterates `fn.body.blocks`, maintains an `activeTryBlocks` stack, and reports every `JsxExpression` or `JsxFragment` instruction encountered while that stack is non-empty.
+**Source — React pass.** `validateNoJSXInTryStatement(fn)` iterates `fn.body.blocks`, maintains an `activeTryBlocks` stack, and reports every `JsxExpression` or `JsxFragment` instruction encountered while that stack is non-empty. The pass is only run when `outputMode` is `'lint'` (facebook/react#35216).
 
 **Source — IMPL.** The rule collects function components and hooks, then checks JSX-like values from their collected `rets`. It does not visit every JSX creation site. Separately, it collects `use()` calls and reports those that are in a matching try body belonging to a collected component or hook.
 
@@ -32,7 +33,7 @@
 
 ## 2. Try ancestry, catch, and finally
 
-**Source — IMPL traversal.** `getEnclosingTryBlock` uses a custom `while` parent-chain, not repeated `Traverse.findParent` calls. For each ancestor `TryStatement`, it walks from the original node toward that try and matches only if the path passes through `TryStatement.block`.
+**Source — IMPL traversal.** The rule delegates try-body ancestry to `Traverse.findEnclosingTryBlock` (extracted into `packages/ast/src/traverse.ts` from this rule). It is a recursive parent-chain walk, not repeated `Traverse.findParent` calls: walking up from the original node, a `TryStatement` matches only when the node currently being walked is directly that try's `TryStatement.block`.
 
 Consequently:
 
