@@ -251,7 +251,7 @@ ruleTester.run(RULE_NAME, rule, {
         {
           data: {
             name: "onLoad",
-            allowedTags: "script, img, link, picture, iframe, object, source",
+            allowedTags: "script, img, link, picture, iframe, object, source, body",
             tagName: "div",
           },
           messageId: "invalidPropOnTag",
@@ -567,6 +567,161 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // React 19.3 properties are unknown under older React versions
+    {
+      code: "<div onFullscreenChange={handler} />",
+      settings: {
+        "react-x": {
+          version: "19.2.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "onFullscreenChange",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<iframe credentialless src="https://example.com" />',
+      settings: {
+        "react-x": {
+          version: "19.2.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "credentialless",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    {
+      code: '<mask maskType="alpha" />',
+      settings: {
+        "react-x": {
+          version: "19.2.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "maskType",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    // No `maskType` hint before React 19.3
+    {
+      code: '<mask mask-type="alpha" />',
+      settings: {
+        "react-x": {
+          version: "19.2.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "mask-type",
+          },
+          messageId: "unknownProp",
+        },
+      ],
+    },
+    // React 19.3: `credentialless` is only allowed on `iframe`
+    {
+      code: "<div credentialless />",
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "credentialless",
+            allowedTags: "iframe",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
+    // React 19.3: React warns on `credentialLess`, the standard name is lowercase
+    {
+      code: '<iframe credentialLess src="https://example.com" />',
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "credentialLess",
+            standardName: "credentialless",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<iframe credentialless src="https://example.com" />',
+    },
+    // React 19.3: `mask-type` gets a casing hint to `maskType`
+    {
+      code: '<mask mask-type="alpha" />',
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "mask-type",
+            standardName: "maskType",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: '<mask maskType="alpha" />',
+    },
+    {
+      code: "<div onfullscreenchange={handler} />",
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+      errors: [
+        {
+          data: {
+            name: "onfullscreenchange",
+            standardName: "onFullscreenChange",
+          },
+          messageId: "unknownPropWithStandardName",
+        },
+      ],
+      output: "<div onFullscreenChange={handler} />",
+    },
+    // `closedby` is only allowed on `dialog`
+    {
+      code: '<div closedby="any" />',
+      errors: [
+        {
+          data: {
+            name: "closedby",
+            allowedTags: "dialog",
+            tagName: "div",
+          },
+          messageId: "invalidPropOnTag",
+        },
+      ],
+    },
     {
       code: tsx`
       <div className="App" data-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash-crash:c="customValue">
@@ -710,6 +865,45 @@ ruleTester.run(RULE_NAME, rule, {
     { code: '<applet align="top" />' },
     { code: '<marker fill="#000" />' },
     { code: '<dialog onClose={handler} open id="dialog" returnValue="something" onCancel={handler2} />' },
+    { code: '<dialog closedby="any" />' },
+    { code: '<template shadowrootmode="open" shadowrootclonable shadowrootdelegatesfocus shadowrootserializable />' },
+    { code: "<div onScrollEnd={handler} onScrollEndCapture={handler} />" },
+    { code: "<body onLoad={handler} />" },
+    // React 19.3: fullscreen change/error events
+    {
+      code: "<div onFullscreenChange={handler} onFullscreenError={handler} />",
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+    },
+    {
+      code: "<div onFullscreenChangeCapture={handler} onFullscreenErrorCapture={handler} />",
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+    },
+    // React 19.3: `credentialless` on `iframe`
+    {
+      code: '<iframe credentialless src="https://example.com" />',
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+    },
+    // React 19.3: `maskType` on SVG `<mask>`
+    {
+      code: '<mask maskType="alpha" />',
+      settings: {
+        "react-x": {
+          version: "19.3.0",
+        },
+      },
+    },
     {
       code: tsx`
         <table align="top">

@@ -133,6 +133,7 @@ export const ATTRIBUTE_TAGS_MAP: TagsMap = {
   autoPictureInPicture: ["video"],
   charset: ["meta"],
   checked: ["input"],
+  closedby: ["dialog"],
   controls: ["audio", "video"],
   controlsList: ["audio", "video"],
   // image is required for SVG support, all other tags are HTML.
@@ -187,7 +188,7 @@ export const ATTRIBUTE_TAGS_MAP: TagsMap = {
   onEncrypted: ["audio", "video"],
   onEnded: ["audio", "video"],
   onError: ["audio", "video", "img", "link", "source", "script", "picture", "iframe"],
-  onLoad: ["script", "img", "link", "picture", "iframe", "object", "source"],
+  onLoad: ["script", "img", "link", "picture", "iframe", "object", "source", "body"],
   onLoadedData: ["audio", "video"],
   onLoadedMetadata: ["audio", "video"],
   onLoadStart: ["audio", "video"],
@@ -210,6 +211,10 @@ export const ATTRIBUTE_TAGS_MAP: TagsMap = {
   property: ["meta"],
   returnValue: ["dialog"],
   scrolling: ["iframe"],
+  shadowrootclonable: ["template"],
+  shadowrootdelegatesfocus: ["template"],
+  shadowrootmode: ["template"],
+  shadowrootserializable: ["template"],
   valign: ["tr", "td", "th", "thead", "tbody", "tfoot", "colgroup", "col"], // deprecated, but known
   viewBox: ["marker", "pattern", "svg", "symbol", "view"],
   webkitAllowFullScreen: ["iframe", "video"],
@@ -515,6 +520,7 @@ export const DOM_PROPERTY_NAMES_TWO_WORDS: string[] = [
   "onMouseUp",
   "onPaste",
   "onScroll",
+  "onScrollEnd",
   "onSelect",
   "onSubmit",
   "onToggle",
@@ -768,6 +774,7 @@ export const DOM_PROPERTY_NAMES_TWO_WORDS: string[] = [
   "onTouchMoveCapture",
   "onTouchStartCapture",
   "onScrollCapture",
+  "onScrollEndCapture",
   "onWheelCapture",
   "onAnimationEndCapture",
   "onAnimationIteration",
@@ -924,6 +931,35 @@ export const REACT_19_ATTRIBUTE_TAGS_MAP: TagsMap = {
 };
 
 /**
+ * DOM properties added in React 19.3
+ */
+export const REACT_19_3_PROPS: string[] = [
+  // https://github.com/facebook/react/pull/36148
+  "credentialless",
+  // https://github.com/facebook/react/pull/35921
+  "maskType",
+  // https://github.com/facebook/react/pull/34621
+  "onFullscreenChange",
+  "onFullscreenChangeCapture",
+  "onFullscreenError",
+  "onFullscreenErrorCapture",
+];
+
+/**
+ * Tag-specific attributes added in React 19.3
+ */
+export const REACT_19_3_ATTRIBUTE_TAGS_MAP: TagsMap = {
+  credentialless: ["iframe"],
+};
+
+/**
+ * SVG attribute mappings added in React 19.3
+ */
+export const REACT_19_3_SVGDOM_ATTRIBUTE_NAMES: StringMap = {
+  "mask-type": "maskType",
+};
+
+/**
  * Tests React version against a comparator
  * @param context ESLint context
  * @param comparator Comparison operator
@@ -966,6 +1002,11 @@ export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): st
     ALL_DOM_PROPERTY_NAMES.push(...REACT_19_PROPS.map((prop) => prop.toLowerCase()));
   }
 
+  // Fullscreen events, `credentialless`, and `maskType` were added in React v19.3.0
+  if (testReactVersion(context, ">=", "19.3.0")) {
+    ALL_DOM_PROPERTY_NAMES.push(...REACT_19_3_PROPS);
+  }
+
   return ALL_DOM_PROPERTY_NAMES;
 }
 
@@ -975,10 +1016,14 @@ export function getDOMPropertyNames(context: RuleContext<string, unknown[]>): st
  * @returns Map of attributes to allowed tags
  */
 export function getAttributeTagsMap(context: RuleContext<string, unknown[]>): TagsMap {
+  let attributeTagsMap = ATTRIBUTE_TAGS_MAP;
   if (testReactVersion(context, ">=", "19.0.0-rc.0")) {
-    return { ...ATTRIBUTE_TAGS_MAP, ...REACT_19_ATTRIBUTE_TAGS_MAP };
+    attributeTagsMap = { ...attributeTagsMap, ...REACT_19_ATTRIBUTE_TAGS_MAP };
   }
-  return ATTRIBUTE_TAGS_MAP;
+  if (testReactVersion(context, ">=", "19.3.0")) {
+    attributeTagsMap = { ...attributeTagsMap, ...REACT_19_3_ATTRIBUTE_TAGS_MAP };
+  }
+  return attributeTagsMap;
 }
 
 /**
@@ -1076,8 +1121,11 @@ export function getStandardName(name: string, context: RuleContext<string, unkno
   if (has(DOM_ATTRIBUTE_NAMES, name)) {
     return DOM_ATTRIBUTE_NAMES[name] ?? null;
   }
-  if (has(SVGDOM_ATTRIBUTE_NAMES, name)) {
-    return SVGDOM_ATTRIBUTE_NAMES[name] ?? null;
+  const svgAttributeNames = testReactVersion(context, ">=", "19.3.0")
+    ? { ...SVGDOM_ATTRIBUTE_NAMES, ...REACT_19_3_SVGDOM_ATTRIBUTE_NAMES }
+    : SVGDOM_ATTRIBUTE_NAMES;
+  if (has(svgAttributeNames, name)) {
+    return svgAttributeNames[name] ?? null;
   }
   return getDOMPropertyNames(context).find((element) => element.toLowerCase() === name.toLowerCase()) ?? null;
 }
@@ -1088,9 +1136,6 @@ export function getStandardName(name: string, context: RuleContext<string, unkno
  * @param node Node to get text from
  * @returns Node's text
  */
-export function getText(
-  context: RuleContext<string, unknown[]>,
-  node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName,
-): string {
+export function getText(context: RuleContext<string, unknown[]>, node: TSESTree.JSXIdentifier | TSESTree.JSXNamespacedName): string {
   return context.sourceCode.getText(node);
 }
