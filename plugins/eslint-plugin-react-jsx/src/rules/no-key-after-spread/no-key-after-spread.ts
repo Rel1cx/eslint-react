@@ -33,11 +33,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("key=")) return {};
   const { jsx } = core.getJsxConfig(context);
   if (jsx !== ts.JsxEmit.ReactJSX && jsx !== ts.JsxEmit.ReactJSXDev) return {};
-  const isJsxSpreadAttribute = Check.isJSXSpreadAttribute;
   return {
     JSXOpeningElement(node) {
       // A 'key' after any spread prop falls back to createElement (deoptimization).
-      for (const n of dropWhile(node.attributes, not(isJsxSpreadAttribute)).filter(isAttribute("key"))) {
+      for (const n of dropWhile(node.attributes, not(Check.isJSXSpreadAttribute)).filter(isAttribute("key"))) {
         context.report({ messageId: "default", node: n });
       }
     },
