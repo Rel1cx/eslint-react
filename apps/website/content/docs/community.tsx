@@ -1,6 +1,7 @@
 export const projects = [
   { owner: "Ajaxy", repo: "telegram-tt" },
   { owner: "apache", repo: "hadoop" },
+  { owner: "argoproj", repo: "argo-cd" },
   { owner: "clash-verge-rev", repo: "clash-verge-rev" },
   { owner: "clientIO", repo: "joint" },
   { owner: "DimensionDev", repo: "Maskbook" },
@@ -17,6 +18,7 @@ export const projects = [
   { owner: "logancyang", repo: "obsidian-copilot" },
   { owner: "marigold-ui", repo: "marigold" },
   { owner: "mcp-use", repo: "mcp-use" },
+  { owner: "microsoft", repo: "griffel" },
   { owner: "mikotoIO", repo: "mikoto" },
   { owner: "mozilla", repo: "pontoon" },
   { owner: "Nexus-Mods", repo: "Vortex" },
@@ -42,6 +44,7 @@ export const projects = [
   { owner: "TanStack", repo: "query" },
   { owner: "TanStack", repo: "router" },
   { owner: "TanStack", repo: "store" },
+  { owner: "TanStack", repo: "table" },
   { owner: "tennaproject", repo: "tenna-editor" },
   { owner: "toss", repo: "suspensive" },
   { owner: "vatger", repo: "atciss" },
@@ -54,6 +57,7 @@ export const presets = [
   { owner: "antfu", repo: "eslint-config" },
   { owner: "azat-io", repo: "eslint-config" },
   { owner: "RebeccaStevens", repo: "eslint-config-rebeccastevens" },
+  { owner: "sanity-io", repo: "eslint-config-studio" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
   { owner: "upleveled", repo: "eslint-config-upleveled" },
 ];
