@@ -2,14 +2,17 @@
 
 ## Verification metadata
 
-- **IMPL**: `static-components.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `static-components.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `lib.ts` (ESLint rule)
 - **SPEC**: `static-components.spec.md` (React Compiler `ValidateStaticComponents`)
-- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
+- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0` (last full verification; the IMPL has since been restructured into the fact-based layout listed below, and the behaviors enumerated in this report were re-verified against the restructured sources)
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-07-14`
+- **Last verified**: `2026-09-30`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `static-components.ts`
+  - `collect.ts`
+  - `origins.ts`
+  - `effects.ts`
   - `lib.ts`
   - `static-components.spec.ts`
 - **React sources/fixtures**:
@@ -26,17 +29,17 @@ The SPEC pass scans one already-lowered `HIRFunction`. It records HIR values pro
 
 The React Pipeline is not equivalent to invoking that pass on source-shaped HIR. Before static-component validation it may run `DropManualMemoization`, then runs additional transforms including IIFE inlining, SSA conversion, redundant-phi elimination, constant propagation, dead-code elimination, and instruction-kind rewriting. Source-level behavior must therefore be established from the Pipeline output or an end-to-end fixture, not from the validator switch alone.
 
-The IMPL scans the ESLint AST, collects uppercase `JSXIdentifier` tags, resolves bindings through ESLint scope data, and traces declarations, initializers, identifier aliases, ternary branches, and simple identifier reassignments. A collected function or class component supplies its syntactic render boundary.
+The IMPL scans the ESLint AST, collects uppercase `JSXIdentifier` tags, resolves bindings through ESLint scope data, and traces declarations, initializers, identifier aliases, ternary branches, both sides of logical expressions, the final element of sequence expressions, and simple identifier reassignments. A collected function or class component supplies its syntactic render boundary.
 
 ## 2. Dynamic values and propagation
 
-| Area                  | SPEC pass                                                                                                                                                      | IMPL                                                                                                                             |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Direct dynamic values | Every HIR `FunctionExpression`, `NewExpression`, `MethodCall`, and `CallExpression` result is marked dynamic; the pass does not inspect call return semantics. | AST arrow/function/class expressions, calls, and `new` expressions are dynamic when resolved inside a collected render boundary. |
-| Declarations          | Depends on how source declarations were lowered into HIR before the pass.                                                                                      | Nested function and class declarations are explicitly dynamic.                                                                   |
-| Calls                 | HIR distinguishes `MethodCall` and `CallExpression`.                                                                                                           | ESTree represents both ordinary and member calls as `CallExpression`; this is an IR distinction, not by itself a behavior gap.   |
-| Local flow            | `LoadLocal`, `StoreLocal`, and phi operands propagate tracked identifiers.                                                                                     | Variable definitions, identifier initializer chains, ternary branches, and simple assignment writes are traced recursively.      |
-| Control-flow evidence | The conditional upstream fixture locks one `if/else` assignment joined through HIR flow.                                                                       | Local tests lock dynamic values in either ternary branch and one imperative reassignment case.                                   |
+| Area                  | SPEC pass                                                                                                                                                      | IMPL                                                                                                                                                                                                       |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Direct dynamic values | Every HIR `FunctionExpression`, `NewExpression`, `MethodCall`, and `CallExpression` result is marked dynamic; the pass does not inspect call return semantics. | AST arrow/function/class expressions, calls, and `new` expressions are dynamic when resolved inside a collected render boundary.                                                                           |
+| Declarations          | Depends on how source declarations were lowered into HIR before the pass.                                                                                      | Nested function and class declarations are explicitly dynamic.                                                                                                                                             |
+| Calls                 | HIR distinguishes `MethodCall` and `CallExpression`.                                                                                                           | ESTree represents both ordinary and member calls as `CallExpression`; this is an IR distinction, not by itself a behavior gap.                                                                             |
+| Local flow            | `LoadLocal`, `StoreLocal`, and phi operands propagate tracked identifiers.                                                                                     | Variable definitions, identifier initializer chains, ternary branches, logical-expression sides, sequence-expression final elements, and simple assignment writes are traced recursively.                  |
+| Control-flow evidence | The conditional upstream fixture locks one `if/else` assignment joined through HIR flow.                                                                       | Local tests lock dynamic values in either ternary branch, both sides of a logical expression, the final element of a sequence expression, and imperative reassignments including ternary right-hand sides. |
 
 AST `ArrowFunctionExpression`, `ClassExpression`, `FunctionDeclaration`, and `ClassDeclaration` names cannot be compared directly with the HIR `FunctionExpression` kind. Their presence on only one side's explicit list does **not** establish that the IMPL covers more source forms than React.
 
