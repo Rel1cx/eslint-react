@@ -5,6 +5,12 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.23.0] - 2026-09-30
+
+### Changed
+
+- Renamed the internal `lib.ts` module to `helpers.ts`; no behavior change. (#1976)
+
 ## [5.20.6] - 2026-09-23
 
 ### Fixed

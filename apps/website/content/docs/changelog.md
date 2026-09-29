@@ -2,6 +2,25 @@
 title: Changelog
 ---
 
+## v5.23.0 (2026-09-30)
+
+### ✨ New
+
+- `react-x/static-components`: dynamic creation-site tracing now follows both sides of logical expressions (ex: `const C = DefaultComponent || (() => <div />)`) and the final element of sequence expressions (ex: `const C = (setup(), () => <div />)`), in variable initializers and reassignments alike. (#1975)
+
+### 🐞 Fixes
+
+- `react-x/static-components`: component parameters of nested non-component functions (ex: `function render(Comp) { return <Comp /> }`) are no longer mistaken for components created during render; definitions are now judged by definition type instead of AST node type. (#1975)
+- `react-x/static-components`: the `createdHere` diagnostic is now reported once per creation site instead of once per JSX usage of the same component; the `default` diagnostic remains per usage. (#1975)
+
+### 🏗️ Internal
+
+- `react-x/static-components`: restructured the rule to the fact-based implementation pattern — `collect.ts` (usage facts), `origins.ts` (creation-site resolution), and `effects.ts` (effect inference) are now separate modules, with reporting centralized in `Program:exit`; added 14 boundary test cases covering creation-site resolution, render boundaries, and per-usage reporting. (#1975)
+- Renamed `lib.ts` to `helpers.ts` in the fact-based `react-x` rules (`globals`, `immutability`, `refs`). (#1976)
+- Bumped `@effect/language-service` to `0.87.3` and `oxlint` to `1.86.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.22.1...v5.23.0
+
 ## v5.22.1 (2026-09-29)
 
 ### 🐞 Fixes
