@@ -2,18 +2,24 @@
 
 ## Verification metadata
 
-- **IMPL**: `refs.ts` + `helpers.ts` (ESLint rule)
+- **IMPL**: `refs.ts` + `collect.ts` + `effects.ts` + `origins.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `refs.spec.md` (React Compiler `ValidateNoRefAccessInRender`)
-- **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
-- **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
-- **Last verified**: `2026-07-14`
+- **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
+- **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
+- **Last verified**: `2026-09-30`
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `refs.ts`
+  - `collect.ts`
+  - `effects.ts`
+  - `origins.ts`
   - `helpers.ts`
   - `refs.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoRefAccessInRender.ts`
+  - `src/Entrypoint/Pipeline.ts`
+  - `src/HIR/Environment.ts`
+  - `src/TypeInference/InferTypes.ts`
   - `src/__tests__/fixtures/compiler/error.ref-initialization-nonif.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/allow-ref-lazy-initialization-with-logical.{js,expect.md}`
   - `src/__tests__/fixtures/compiler/error.invalid-set-and-read-ref-nested-property-during-render.{js,expect.md}`
@@ -43,11 +49,14 @@ general post-dominator analysis.
 
 | Source category                     | SPEC                                                     | IMPL                                                      |
 | ----------------------------------- | -------------------------------------------------------- | --------------------------------------------------------- |
-| `useRef()` return value             | Detected by inferred type                                | Detected via `isUseRefCall`                               |
+| `useRef()` return value             | Detected by inferred type                                | Detected via `isUseRefLikeCall`                           |
 | `createRef()` return value          | Detected by inferred type                                | Detected via `isCreateRefCall`                            |
 | Variable alias of a ref             | Propagated by identifier/ref IDs                         | Propagated by scoped binding identity and source position |
 | Prop/member named `ref` or `*Ref`   | Inferred type plus `enableTreatRefLikeIdentifiersAsRefs` | Always detected by naming heuristic                       |
 | Identifier used in a JSX `ref` prop | Detected                                                 | Detected by scoped variable identity                      |
+
+Custom ref-returning hooks can be registered through the shared `additionalRefHooks` setting, which
+`isUseRefLikeCall` honors; the verified compiler sources have no equivalent option.
 
 **Remaining difference**: the IMPL intentionally preserves the rule's existing `ref`/`*Ref` naming
 heuristic without a feature toggle. React's `enableTreatRefLikeIdentifiersAsRefs` defaults to `true` at
@@ -65,6 +74,9 @@ comparison:
 
 It also supports the inverted early-return form only when the non-null branch unconditionally
 returns or throws. Unrelated nested conditions do not hide an outer null guard.
+
+Reading `ref.current` inside the guard test itself is not reported, and reads in the complementary
+branch proven non-null are allowed; writes there are still reported.
 
 Truthiness checks such as `if (!ref.current)` are not treated as null guards because valid initialized
 values can be falsy. Arbitrary comparison values are likewise rejected.
