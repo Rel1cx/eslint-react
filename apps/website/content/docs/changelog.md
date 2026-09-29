@@ -19,7 +19,12 @@ title: Changelog
 
 ### ✨ New
 
-- `react-dom/no-unknown-property`: added React 19.3 properties to the known property allowlist — `onFullscreenChange`, `onFullscreenError` (and their `Capture` variants), `credentialless`, and `maskType` gated on React version `>= 19.3.0`, plus `closedby` (`dialog`), `shadowrootmode`/`shadowrootclonable`/`shadowrootdelegatesfocus`/`shadowrootserializable` (`template`), `onScrollEnd` (+ `Capture`), and `onLoad` on `body`. (#1973)
+- `react-dom/no-unknown-property`: added React 19.3 properties to the known property allowlist. (#1973)
+  - `closedby` on `dialog`
+  - `onFullscreenChange`, `onFullscreenError` (and their `Capture` variants), `credentialless`, and `maskType` — gated on React version `>= 19.3.0`
+  - `onLoad` on `body`
+  - `onScrollEnd` (and its `Capture` variant)
+  - `shadowrootmode`, `shadowrootclonable`, `shadowrootdelegatesfocus`, and `shadowrootserializable` on `template`
 
 ### 🏗️ Internal
 
