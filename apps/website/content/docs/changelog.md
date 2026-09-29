@@ -2,6 +2,27 @@
 title: Changelog
 ---
 
+## v5.23.1 (2026-09-30)
+
+### 🏗️ Internal
+
+- Re-verified and synchronized the IMPL-SPEC diff reports for the following `react-x` rules. (#1977, #1978)
+  - `react-x/error-boundaries`
+  - `react-x/globals`
+  - `react-x/immutability`
+  - `react-x/purity`
+  - `react-x/refs`
+  - `react-x/set-state-in-effect`
+  - `react-x/set-state-in-render`
+  - `react-x/use-memo`
+- Bumped `typescript-eslint` to `8.71.0`, `tsl-dx` to `0.13.7`, and `pnpm` to `12.8.1`.
+
+### 📝 Documentation
+
+- Added argo-cd, griffel, tanstack/table, and eslint-config-studio to the website's community lists.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.0...v5.23.1
+
 ## v5.23.0 (2026-09-30)
 
 ### ✨ New
