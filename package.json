@@ -56,7 +56,7 @@
     "update:website": "nub ./scripts/12-update-website.ts"
   },
   "devDependencies": {
-    "@effect/language-service": "^0.87.2",
+    "@effect/language-service": "^0.87.3",
     "@effect/platform": "^0.97.2",
     "@effect/platform-node": "^0.108.2",
     "@eslint-react/eslint-plugin": "workspace:*",
