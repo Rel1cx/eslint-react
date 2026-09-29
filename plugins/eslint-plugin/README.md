@@ -68,10 +68,9 @@ Composable ESLint rules for React and friends.
 > - TypeScript: 5.0.0
 
 > [!NOTE]
-> The `eslint` package is an optional peer dependency, so the plugins can also be loaded by other runtimes
-> (e.g. Oxlint's JS plugins) without ESLint installed. Note that transitive peer requirements (e.g. from
-> `@typescript-eslint/utils`) may still cause package managers to install ESLint automatically unless peer
-> auto-installation is disabled.
+> The `eslint` package is an optional peer dependency, so the plugins also run without ESLint in other runtimes (e.g.
+> Oxlint's JS plugins), though transitive peers may still auto-install
+> ESLint unless peer auto-installation is disabled.
 
 ### Install
 
