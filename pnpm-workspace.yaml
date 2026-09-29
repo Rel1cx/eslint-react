@@ -26,22 +26,22 @@ overrides:
   "@types/react": "^19.3.0"
   "@types/react-dom": "^19.3.0"
   # Transitive dependency via typescript-eslint 8.67.0
-  "@typescript-eslint/eslint-plugin": "^8.70.1"
-  "@typescript-eslint/parser": "^8.70.1"
+  "@typescript-eslint/eslint-plugin": "^8.71.0"
+  "@typescript-eslint/parser": "^8.71.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/project-service": "^8.70.1"
+  "@typescript-eslint/project-service": "^8.71.0"
   # Preventive pin, no installed package depends on it
-  "@typescript-eslint/rule-schema-to-typescript-types": "^8.70.1"
-  "@typescript-eslint/rule-tester": "^8.70.1"
-  "@typescript-eslint/scope-manager": "^8.70.1"
+  "@typescript-eslint/rule-schema-to-typescript-types": "^8.71.0"
+  "@typescript-eslint/rule-tester": "^8.71.0"
+  "@typescript-eslint/scope-manager": "^8.71.0"
   # Transitive dependency via @typescript-eslint/typescript-estree 8.67.0
-  "@typescript-eslint/tsconfig-utils": "^8.70.1"
-  "@typescript-eslint/type-utils": "^8.70.1"
-  "@typescript-eslint/types": "^8.70.1"
-  "@typescript-eslint/typescript-estree": "^8.70.1"
-  "@typescript-eslint/utils": "^8.70.1"
+  "@typescript-eslint/tsconfig-utils": "^8.71.0"
+  "@typescript-eslint/type-utils": "^8.71.0"
+  "@typescript-eslint/types": "^8.71.0"
+  "@typescript-eslint/typescript-estree": "^8.71.0"
+  "@typescript-eslint/utils": "^8.71.0"
   # Transitive dependency via @typescript-eslint/parser 8.67.0
-  "@typescript-eslint/visitor-keys": "^8.70.1"
+  "@typescript-eslint/visitor-keys": "^8.71.0"
   # Transitive dependency via nx 23.1.0
   axios: "^1.20.0"
   # Transitive dependency via nx 23.1.0 and minimatch 10.2.5
@@ -82,7 +82,7 @@ overrides:
   ts-api-utils: "^2.5.0"
   # Transitive dependency via nx 23.1.0 and others
   tslib: "^2.8.1"
-  typescript-eslint: "^8.70.1"
+  typescript-eslint: "^8.71.0"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
   vite: "^8.3.1"
@@ -99,3 +99,5 @@ trustPolicy: "no-downgrade"
 minimumReleaseAge: 1440 # 1 day
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
+minimumReleaseAgeExclude:
+  - tsl-dx@0.13.7

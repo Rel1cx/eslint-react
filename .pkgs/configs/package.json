@@ -40,14 +40,14 @@
     "eslint-plugin-perfectionist": "^5.12.1",
     "eslint-plugin-regexp": "^3.3.1",
     "eslint-plugin-unicorn": "^74.0.0",
-    "typescript-eslint": "^8.70.1"
+    "typescript-eslint": "^8.71.0"
   },
   "devDependencies": {
     "eslint": "^10.11.0",
     "tinyglobby": "^0.2.17",
     "tsdown": "^0.23.0",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.13.6",
+    "tsl-dx": "^0.13.7",
     "typedoc": "^0.28.20",
     "typedoc-plugin-file-overview": "^0.2.0",
     "typedoc-plugin-markdown": "^4.13.1",
@@ -57,7 +57,7 @@
   "peerDependencies": {
     "eslint": "*",
     "tsl": "^1.0.30",
-    "tsl-dx": "^0.13.2",
+    "tsl-dx": "^0.13.7",
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.12.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
