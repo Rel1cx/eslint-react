@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `static-components.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `static-components.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `static-components.spec.md` (React Compiler `ValidateStaticComponents`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0` (last full verification; the IMPL has since been restructured into the fact-based layout listed below, and the behaviors enumerated in this report were re-verified against the restructured sources)
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
@@ -13,7 +13,7 @@
   - `collect.ts`
   - `origins.ts`
   - `effects.ts`
-  - `lib.ts`
+  - `helpers.ts`
   - `static-components.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateStaticComponents.ts`

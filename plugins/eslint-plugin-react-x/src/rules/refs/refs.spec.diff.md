@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `refs.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `refs.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `refs.spec.md` (React Compiler `ValidateNoRefAccessInRender`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
@@ -10,7 +10,7 @@
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `refs.ts`
-  - `lib.ts`
+  - `helpers.ts`
   - `refs.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoRefAccessInRender.ts`

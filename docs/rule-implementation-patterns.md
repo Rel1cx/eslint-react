@@ -15,7 +15,7 @@ src/rules/<rule-name>/
 
 `react-x` has 53 rules. `react-web-api` has 6 rules (all `no-leaked-*`).
 
-Rules that correlate facts across the whole file (`globals`, `immutability`, `refs`) use a layered multi-file layout (`collect.ts` / `origins.ts` / `effects.ts` / `lib.ts`) instead of a single `<rule-name>.ts`. See [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md).
+Rules that correlate facts across the whole file (`globals`, `immutability`, `refs`) use a layered multi-file layout (`collect.ts` / `origins.ts` / `effects.ts` / `helpers.ts`) instead of a single `<rule-name>.ts`. See [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md).
 
 ## `createRule` Utility
 

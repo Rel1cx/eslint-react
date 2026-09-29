@@ -2,7 +2,7 @@ import type { RuleContext } from "@eslint-react/eslint";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { ComponentUsageFact } from "./collect";
-import type { IsInsideRender } from "./lib";
+import type { IsInsideRender } from "./helpers";
 import { resolveDynamicComponentOrigin } from "./origins";
 
 export type CreatedComponentEffect = {

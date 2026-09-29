@@ -5,7 +5,7 @@ import { getSettingsFromContext } from "@eslint-react/shared";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { RefsFacts } from "./collect";
-import { type NullCheckBranch, getNullCheckBranch, isFunctionExpressionLike, isRefLikeName } from "./lib";
+import { type NullCheckBranch, getNullCheckBranch, isFunctionExpressionLike, isRefLikeName } from "./helpers";
 
 export type Variable = NonNullable<ReturnType<typeof findVariable>>;
 

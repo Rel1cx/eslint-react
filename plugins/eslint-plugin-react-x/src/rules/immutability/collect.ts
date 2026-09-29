@@ -2,7 +2,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import type { RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { KNOWN_MUTATING_METHODS } from "./lib";
+import { KNOWN_MUTATING_METHODS } from "./helpers";
 
 export type MutationFact = {
   kind: "binding" | "value";
