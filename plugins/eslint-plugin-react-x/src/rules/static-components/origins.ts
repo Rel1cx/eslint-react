@@ -4,7 +4,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { TSESLint } from "@typescript-eslint/utils";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import { type IsInsideRender, KNOWN_DYNAMIC_EXPRESSION_TYPES } from "./lib";
+import { type IsInsideRender, KNOWN_DYNAMIC_EXPRESSION_TYPES } from "./helpers";
 
 export type DynamicComponentOrigin = {
   creationNode: TSESTree.Node | null;

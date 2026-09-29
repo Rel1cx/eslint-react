@@ -4,7 +4,7 @@ import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@e
 import type { TSESTree } from "@typescript-eslint/types";
 import { createFactCollector } from "./collect";
 import { inferDirectMutations, inferMutableFunctions } from "./effects";
-import { resolveToFunctionNode } from "./lib";
+import { resolveToFunctionNode } from "./helpers";
 
 export const RULE_NAME = "immutability";
 

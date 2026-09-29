@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `globals.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `globals.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `globals.spec.md` (React Compiler `InferMutationAliasingEffects`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
@@ -10,7 +10,7 @@
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `globals.ts`
-  - `lib.ts`
+  - `helpers.ts`
   - `globals.spec.ts`
 - **React sources/fixtures**:
   - `src/Inference/InferMutationAliasingEffects.ts`

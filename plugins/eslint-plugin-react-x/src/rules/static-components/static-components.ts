@@ -4,7 +4,7 @@ import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@e
 import type { TSESTree } from "@typescript-eslint/types";
 import { createFactCollector } from "./collect";
 import { inferCreatedComponents } from "./effects";
-import { createRenderBoundaryChecker } from "./lib";
+import { createRenderBoundaryChecker } from "./helpers";
 
 export const RULE_NAME = "static-components";
 

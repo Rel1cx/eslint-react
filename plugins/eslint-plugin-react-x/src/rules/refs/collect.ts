@@ -1,7 +1,7 @@
 import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RuleListener } from "@eslint-react/eslint";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { type RefAccess, getRefAccess } from "./lib";
+import { type RefAccess, getRefAccess } from "./helpers";
 
 export type BindingFact =
   | { id: TSESTree.Identifier; kind: "function"; node: TSESTreeFunction; position: number }

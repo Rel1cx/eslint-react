@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `lib.ts` (ESLint AST rule)
+- **IMPL**: `immutability.ts` + `collect.ts` + `effects.ts` + `helpers.ts` (ESLint AST rule)
 - **SPEC**: `immutability.spec.md` (React Compiler `ValidateNoFreezingKnownMutableFunctions`)
 - **Implementation commit**: `55c10db7bae04d49606792767530cc1e786dd5a0`
 - **React commit**: `c0c39a6b3907eaab35f43074949e2957a2a734c1`
@@ -12,7 +12,7 @@
   - `immutability.ts`
   - `collect.ts`
   - `effects.ts`
-  - `lib.ts`
+  - `helpers.ts`
   - `origins.ts`
   - `immutability.spec.ts`
 - **React sources/fixtures**:

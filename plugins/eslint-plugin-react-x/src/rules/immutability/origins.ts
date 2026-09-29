@@ -4,7 +4,7 @@ import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
-import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVariableOrigin } from "./lib";
+import { getStateHookName, isComponentPropsDefinition, isNodeWithin, resolveVariableOrigin } from "./helpers";
 
 /**
  * An origin that must be treated as immutable, resolved from a mutated variable.

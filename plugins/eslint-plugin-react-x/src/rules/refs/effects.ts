@@ -2,7 +2,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { CallEdgeFact, PassSiteFact, RefAccessFact } from "./collect";
-import { getGuardDisposition, getSynchronousCallbackIndexes, isAfterTerminatingNonNullGuard, isGuardTestAccess, isReachedThroughFunctions } from "./lib";
+import { getGuardDisposition, getSynchronousCallbackIndexes, isAfterTerminatingNonNullGuard, isGuardTestAccess, isReachedThroughFunctions } from "./helpers";
 import type { BindingResolver, Variable } from "./origins";
 
 export type RefViolation = {

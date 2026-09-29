@@ -12,7 +12,7 @@ src/rules/<rule-name>/
 ├── collect.ts           # Fact collector: createXCollector() -> { facts, visitor }
 ├── origins.ts           # Provenance: resolve facts to the bindings they refer to
 ├── effects.ts           # Inference: facts + origins -> typed violation/effect objects
-├── lib.ts               # Pure AST helpers (no RuleContext, no rule state)
+├── helpers.ts           # Pure AST helpers (no RuleContext, no rule state)
 └── <rule-name>.spec.ts  # Tests
 ```
 

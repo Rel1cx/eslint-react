@@ -5,7 +5,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import type { MutationFact } from "./collect";
-import { isKnownNonMutatingMethodCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./lib";
+import { isKnownNonMutatingMethodCall, isRefLikeChain, isRefLikeName, resolveVariableOrigin } from "./helpers";
 import { classifyFrozenOrigin } from "./origins";
 
 export type MutationEffect = {
