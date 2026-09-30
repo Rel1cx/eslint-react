@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.23.2 (2026-09-30)
+
+### 🏗️ Internal
+
+- Removed unused dependencies and fixed phantom dependencies across the workspace.
+- Bumped `next` to `16.3.7`, `fumadocs-core` and `fumadocs-ui` to `16.15.16`, and `eslint-plugin-package-json` to `1.10.1`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.1...v5.23.2
+
 ## v5.23.1 (2026-09-30)
 
 ### 🏗️ Internal
