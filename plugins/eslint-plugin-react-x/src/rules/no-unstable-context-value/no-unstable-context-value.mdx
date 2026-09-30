@@ -25,10 +25,8 @@ react-x/no-unstable-context-value
 
 React will re-render all consumers of a context whenever the context value changes, and if the value is not stable this can lead to unnecessary re-renders.
 
-In React 19, `<Context>` can be used directly as a provider, so this rule heuristically treats any JSX component whose name ends with `Context` (or `CONTEXT`) as a context provider.
-
-<Callout type="warn" title="Heuristic Detection">
-  This React 19 detection is purely name-based. Contexts whose identifiers don't follow the `Context` suffix convention (e.g. `const theme = createContext("")`) will not be detected. To close this gap, also enable the [`naming-convention/context-name`](https://eslint-react.xyz/docs/rules/naming-convention-context-name) rule so that every context in your project follows the naming convention this rule relies on.
+<Callout type="warn">
+  Since React 19 allows `<Context>` to be used as a provider directly, this rule treats any component whose name ends with `Context` (or `CONTEXT`) as a context provider. A context that doesn't follow this naming convention (e.g. `const theme = createContext("")`) will be missed. Enable [`react-naming-convention/context-name`](./naming-convention-context-name) alongside this rule to enforce the naming convention this detection depends on.
 </Callout>
 
 ## Examples
