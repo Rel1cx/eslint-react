@@ -473,5 +473,38 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/23240
+    // oxlint's jsx-no-target-blank compared the target and rel conditions
+    // structurally and false-positived on the compound `isEnabledA && isEnabledB`
+    // condition; our rule only acts on statically resolvable `target="_blank"` with
+    // an external `href`, so neither condition shape is reported
+    {
+      code: tsx`
+        function Component({ href, isEnabledA, isEnabledB }) {
+          return (
+            <a
+              href={href}
+              target={isEnabledA && isEnabledB ? "_blank" : undefined}
+              rel={isEnabledA && isEnabledB ? "noreferrer" : undefined}
+            />
+          );
+        }
+      `,
+    },
+    // Ported from https://github.com/oxc-project/oxc/issues/23240
+    // The single-boolean counterpart from the same issue, which oxlint already handled
+    {
+      code: tsx`
+        function Component({ href, isEnabled }) {
+          return (
+            <a
+              href={href}
+              target={isEnabled ? "_blank" : undefined}
+              rel={isEnabled ? "noreferrer" : undefined}
+            />
+          );
+        }
+      `,
+    },
   ],
 });

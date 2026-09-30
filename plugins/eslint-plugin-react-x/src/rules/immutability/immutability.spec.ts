@@ -1744,6 +1744,47 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "direct" }],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/25910
+    // Reassigning a destructured prop binding is a direct mutation of the binding,
+    // matching upstream react-hooks/immutability ("This value cannot be modified").
+    {
+      code: tsx`
+        export default function Repro({ value }: { value: string }) {
+          value = value + "!";
+          return (
+            <button onClick={() => console.log(value)}>{value}</button>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a prop of this component and must not be reassigned.",
+            name: "value",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
+    // Reassigning a state binding returned from useState is a direct mutation too.
+    {
+      code: tsx`
+        function Component({ initial }) {
+          let [count] = useState(initial);
+          count = count + 1;
+          return <div>{count}</div>;
+        }
+      `,
+      errors: [
+        {
+          data: {
+            detail: "It is a state value returned from 'useState' and must not be reassigned.",
+            name: "count",
+          },
+          messageId: "direct",
+        },
+      ],
+    },
   ],
   valid: [
     tsx`
@@ -2584,6 +2625,73 @@ ruleTester.run(RULE_NAME, rule, {
         item.done = true;
         return <div />;
       }
+    `,
+    // Ported from https://github.com/oxc-project/oxc/issues/26222
+    // A react-native-reanimated shared value is a mutable container living outside
+    // React state; writing `sharedVal.value` in an event handler is the documented
+    // API. Registering `useSharedValue` via the `additionalRefHooks` setting makes
+    // its return value exempt like a ref.
+    {
+      code: tsx`
+        import { useSharedValue } from 'react-native-reanimated';
+
+        function SomeComponent() {
+          const sharedVal = useSharedValue(0);
+          return (
+            <Button
+              onPress={() => (sharedVal.value = Math.random())}
+              title="Randomize"
+            />
+          );
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useSharedValue",
+        },
+      },
+    },
+    // Companion case: the same write placed directly in the component body is
+    // exempt for the same `additionalRefHooks` reason.
+    {
+      code: tsx`
+        import { useSharedValue } from 'react-native-reanimated';
+
+        function SomeComponent() {
+          const sharedVal = useSharedValue(0);
+          sharedVal.value = 1;
+          return <Button title="Randomize" />;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalRefHooks: "useSharedValue",
+        },
+      },
+    },
+    // -------------------------------------------------------------------------
+    // Defect verification: known gaps and conservative limits
+    // -------------------------------------------------------------------------
+    // Ported from https://github.com/oxc-project/oxc/issues/26094
+    // Qwik's useSignal returns a Signal whose `.value` is designed to be
+    // mutated; oxlint's react(immutability) false-positives on it (closed
+    // upstream as "react plugin is not for Qwik"). Here no report is
+    // expected: the mutating callback is wrapped in `$()` (not a hook call or
+    // JSX sink) and the hook returns an object literal, so the sink pass
+    // never sees it, and the direct pass only tracks props/state origins.
+    tsx`
+      import { useSignal, $ } from "@qwik.dev/core";
+
+      export const useVote = () => {
+        const isVoting = useSignal(false);
+
+        const handleVote$ = $(async () => {
+          if (isVoting.value) return;
+          isVoting.value = true;
+        });
+
+        return { handleVote$ };
+      };
     `,
   ],
 });

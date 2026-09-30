@@ -652,5 +652,48 @@ ruleTester.run(RULE_NAME, rule, {
         export const clusterFrameMap = observable.map<string, ClusterFrameInfo>();
       `,
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/23973
+    // oxlint's `react/jsx-key` reported this as a false positive even though `key`
+    // is present inside the spread object (closed as not planned: upstream
+    // eslint-plugin-react only misses it because it skips `return` statements
+    // nested in `switch` cases, and oxlint kept its deeper detection). Our rule
+    // does not have this problem: it collects switch-case returns AND resolves
+    // the spread identifier to its object literal, finds `key` inside, and
+    // correctly stays silent. A variant without `key` in the spread object is
+    // still reported on both branches (verified during porting).
+    {
+      name: "spread props with key inside object in switch-case returns",
+      code: tsx`
+        const items = [
+            { id: 'a', type: 'foo' },
+            { id: 'b', type: 'bar' },
+        ];
+
+        const Test = () => (
+            <>
+                {items.map((item) => {
+                    const props = { key: item.id, className: 'x' };
+                    switch (item.type) {
+                        case 'foo':
+                            return <div {...props}>foo</div>;
+                        default:
+                            return <span {...props}>bar</span>;
+                    }
+                })}
+            </>
+        );
+      `,
+    },
+    // Same pattern without the `switch` (upstream eslint-plugin-react reports
+    // this one; our rule still resolves the spread and stays silent)
+    {
+      name: "spread props with key inside object in map callback",
+      code: tsx`
+        items.map((item) => {
+          const props = { key: item.id, className: 'x' };
+          return <div {...props}>foo</div>;
+        });
+      `,
+    },
   ],
 });

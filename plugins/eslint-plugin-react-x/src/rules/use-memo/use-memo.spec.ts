@@ -1084,5 +1084,23 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>{value}</div>;
       }
     `,
+    // Ported from https://github.com/oxc-project/oxc/issues/26090
+    // Computed property destructuring inside a hook crashed oxlint's compiler-based
+    // react linter with an internal invariant ([InferMutationAliasingEffects] Expected
+    // value kind to be initialized); the issue was closed as upstream parity (the
+    // official compiler has the same limitation), i.e. this is legal user code.
+    // Our rules are AST-based, so the assertion is: no crash, no report.
+    tsx`
+      import { useMemo, useState } from 'react';
+
+      const Key = { Compact: 'compact' } as const;
+
+      export const useExample = () => {
+        const [settings] = useState<Record<string, string>>({});
+        const { [Key.Compact]: value } = settings;
+
+        return useMemo(() => value ?? '', [value]);
+      };
+    `,
   ],
 });

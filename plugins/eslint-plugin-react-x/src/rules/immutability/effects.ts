@@ -69,13 +69,36 @@ export function inferDirectMutations(context: RuleContext, mutations: readonly M
   const directMutations: DirectMutation[] = [];
 
   for (const mutation of mutations) {
-    if (mutation.kind !== "value") continue;
     if (mutation.node.type === AST.CallExpression && isKnownNonMutatingMethodCall(context, mutation.node)) continue;
     if (isRefMutation(context, mutation)) continue;
     const variable = findVariable(context.sourceCode.getScope(mutation.root), mutation.root);
     if (variable == null) continue;
     const origin = classifyFrozenOrigin(context, variable, components);
     if (origin == null) continue;
+    if (mutation.kind === "binding") {
+      // Rebinding a frozen binding (`props.x` destructured to `x`, then `x = ...`)
+      // discards the immutable value the component received. Only props and state
+      // bindings are frozen; rebinding an iterator or shallow-copy binding is harmless.
+      switch (origin.kind) {
+        case "props": {
+          directMutations.push({
+            name: origin.name,
+            detail: "It is a prop of this component and must not be reassigned.",
+            node: mutation.node,
+          });
+          break;
+        }
+        case "state": {
+          directMutations.push({
+            name: origin.name,
+            detail: `It is a state value returned from '${origin.hook}' and must not be reassigned.`,
+            node: mutation.node,
+          });
+          break;
+        }
+      }
+      continue;
+    }
     switch (origin.kind) {
       case "props": {
         directMutations.push({

@@ -1845,6 +1845,70 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "refPassedToFunction" },
       ],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/26710
+    // eslint-plugin-react-hooks reports nothing for this documented lazy ref
+    // initialization idiom. Our rule reports both the top-level `??=` write and the
+    // following read: a deliberate conservative choice consistent with the existing
+    // "Write ref.current with nullish coalescing assignment" and "`??=` inside a null
+    // guard is not lazy initialization either" tests, which only exempt `=` writes
+    // guarded by an exact nullish comparison
+    {
+      code: tsx`
+        import { useEffect, useRef } from 'react';
+
+        export const useOwner = (): symbol => {
+          const ownerRef = useRef<symbol | null>(null);
+          ownerRef.current ??= Symbol('owner');
+          const owner = ownerRef.current;
+
+          useEffect(() => {
+            console.log(owner);
+          }, [owner]);
+
+          return owner;
+        };
+      `,
+      errors: [
+        { messageId: "writeDuringRender" },
+        { messageId: "readDuringRender" },
+      ],
+    },
+    // Ported from https://github.com/oxc-project/oxc/issues/26709
+    // oxlint reported the same location 4-6 times (duplicate diagnostics); our rule
+    // reports exactly once per location — one `writeDuringRender` for the `??=` write
+    // and one `readDuringRender` for the read on the next line, no duplicates. The
+    // reports themselves are the same deliberate conservative choice as in the case
+    // above (eslint-plugin-react-hooks reports nothing here)
+    {
+      code: tsx`
+        import { useEffect, useRef } from 'react';
+
+        const clearOwned = (owner: symbol): void => {
+          console.log(owner);
+        };
+
+        export const useOwner = (items: number[], index: number, count: number): void => {
+          const ownerRef = useRef<symbol | null>(null);
+          ownerRef.current ??= Symbol('owner');
+          const owner = ownerRef.current;
+
+          useEffect(() => {
+            const item = items[index];
+            if (count === 0 || item === undefined) {
+              clearOwned(owner);
+              return;
+            }
+            console.log(item, owner);
+          }, [index, items, count, owner]);
+
+          useEffect(() => () => clearOwned(owner), [owner]);
+        };
+      `,
+      errors: [
+        { messageId: "writeDuringRender" },
+        { messageId: "readDuringRender" },
+      ],
+    },
   ],
   valid: [
     // Read ref in effect
@@ -3051,6 +3115,45 @@ ruleTester.run(RULE_NAME, rule, {
             widget.mount();
           };
           return <button onClick={handleClick}>Click</button>;
+        }
+      `,
+    },
+    // Ported from https://github.com/oxc-project/oxc/issues/23753
+    // oxc's react-compiler rule false-positived here with "Cannot access refs during
+    // render" for the floating-ui pattern. Our rule reports nothing: `refs` is not a
+    // ref-like name (only `ref` and `*Ref` are), nothing is assigned from `useRef`, and
+    // JSX `ref` attribute marking only covers bare identifiers — `refs.setReference` and
+    // `refs.setFloating` are callback refs passed as member expressions
+    {
+      code: tsx`
+        import { useFloating } from "@floating-ui/react";
+
+        function App() {
+          const {refs, floatingStyles} = useFloating();
+
+          return (
+            <>
+              <div ref={refs.setReference} />
+              <div ref={refs.setFloating} style={floatingStyles} />
+            </>
+          );
+        }
+      `,
+    },
+    // Ported from https://github.com/oxc-project/oxc/issues/25049
+    // The oxc report was a MemoDependencies false positive on a self-referencing nested
+    // closure; the snippet contains no ref access at all and is out of scope for this
+    // rule. Kept as a no-crash / no-false-positive regression case
+    {
+      code: tsx`
+        import { useCallback } from "react";
+
+        function Component() {
+          useCallback(() => {
+            const bar = () => {
+              console.log(bar);
+            };
+          }, []);
         }
       `,
     },

@@ -174,8 +174,10 @@ export function isInitializedFromRef(
       case init.type === AST.CallExpression
         && core.isUseRefLikeCall(init, additionalRefHooks):
         return true;
-      // const { foo } = ref.current.getBoundingClientRect();
-      case init.type === AST.CallExpression:
+      // Trace through arbitrary expressions so a ref read reaching the binding
+      // via an intermediate computation still counts:
+      // const dv = visible - prevVisible.current;
+      default:
         return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
     }
   }
@@ -193,6 +195,7 @@ export function isRefGatedContext(
   context: RuleContext,
   node: TSESTree.Node,
 ): boolean {
+  let child: TSESTree.Node = node;
   let current: TSESTree.Node | undefined = node.parent;
   while (current != null) {
     if (Check.isFunction(current)) break;
@@ -202,8 +205,26 @@ export function isRefGatedContext(
     if (current.type === AST.ConditionalExpression) {
       if (isRefInExpression(context, current.test)) return true;
     }
+    if (current.type === AST.BlockStatement) {
+      // A preceding early-return guard gates the rest of the block as well:
+      // if (prevRef.current === value) return;
+      // setState(...);
+      const index = current.body.findIndex((statement) => statement === child);
+      for (const statement of current.body.slice(0, Math.max(0, index))) {
+        if (statement.type !== AST.IfStatement) continue;
+        if (!isRefInExpression(context, statement.test)) continue;
+        if (isTerminatingStatement(statement.consequent)) return true;
+      }
+    }
+    child = current;
     current = current.parent;
   }
+  return false;
+}
+
+function isTerminatingStatement(node: TSESTree.Node): boolean {
+  if (node.type === AST.ReturnStatement || node.type === AST.ThrowStatement) return true;
+  if (node.type === AST.BlockStatement) return node.body.some(isTerminatingStatement);
   return false;
 }
 

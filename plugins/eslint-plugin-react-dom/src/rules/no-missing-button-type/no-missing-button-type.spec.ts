@@ -216,5 +216,29 @@ ruleTester.run(RULE_NAME, rule, {
         return Foo.createElement("button");
       }
     `,
+    // Ported from https://github.com/oxc-project/oxc/issues/20546
+    // oxlint's button-has-type reported the dynamic `type` assignment as an invalid
+    // value even though the prop type is constrained to valid button types. Our rule
+    // only flags a missing `type` attribute and deliberately treats any dynamic
+    // value (like upstream's documented `type={condition ? "button" : "submit"}`
+    // correct example) as present, so there is nothing to report here
+    tsx`
+      interface TransparentButtonProps {
+        children?: ReactNode;
+        type?: "button" | "submit" | "reset";
+        onClick: () => void;
+      }
+
+      const TransparentButton = observer((props: TransparentButtonProps) => {
+        return (
+          <button
+            type={props.type ?? "button"}
+            onClick={props.onClick}
+          >
+            {props.children}
+          </button>
+        );
+      });
+    `,
   ],
 });

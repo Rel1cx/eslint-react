@@ -1522,5 +1522,31 @@ ruleTester.run(RULE_NAME, rule, {
         return <ul>{List}</ul>;
       }
     `,
+    // Ported from https://github.com/oxc-project/oxc/issues/22608
+    // oxlint flagged event handlers that pass JSX to a function; the handler does not return
+    // JSX, so it is not a component definition
+    tsx`
+      function MyComponent() {
+        return (
+          <Button
+            onClick={() => {
+              showToast(<Toast label="Button clicked" />);
+            }}
+          />
+        );
+      }
+    `,
+    tsx`
+      function MyComponent() {
+        useMutation(MUTATION, {
+          onCompleted: (data) => {
+            if (data.errors) {
+              showToast(<ErrorToast />);
+            }
+          },
+        });
+        return <div />;
+      }
+    `,
   ],
 });
