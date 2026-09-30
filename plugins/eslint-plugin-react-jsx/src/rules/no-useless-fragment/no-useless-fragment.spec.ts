@@ -827,6 +827,172 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       output: null,
     },
+    // A `@jsxFrag` pragma redefines which element is treated as a fragment
+    {
+      code: tsx`
+        /** @jsxFrag VFrag */
+        <VFrag><div /></VFrag>
+      `,
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: tsx`
+        /** @jsxFrag VFrag */
+        <div />
+      `,
+    },
+    // A spread attribute that statically resolves to an object without key/ref does not
+    // exempt the fragment, but makes the fix unsafe
+    {
+      code: "<Fragment {...{ id: 1 }}><div /></Fragment>",
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // A single spread child is always useless (it is not a JSXExpressionContainer, so
+    // allowExpressions does not apply) and can never be unwrapped outside JSX
+    {
+      code: "<>{...props}</>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // The same spread child inside a host component is safe to unwrap
+    {
+      code: "<div><>{...props}</></div>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div>{...props}</div>",
+    },
+    // A single expression child inside a custom component is only useless with
+    // allowExpressions: false, and even then cannot be unwrapped safely
+    {
+      code: "<Foo><>{value}</></Foo>",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // A single element child is useless regardless of allowExpressions; a custom
+    // component parent still blocks the fix
+    {
+      code: "<Foo><><span /></></Foo>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Empty fragment inside a custom component: reported, but not safe to fix
+    {
+      code: "<Foo><></></Foo>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // allowEmptyFragment does not suppress the host-component reason (shorthand syntax)
+    {
+      code: "<div><></></div>",
+      options: [{ allowEmptyFragment: true }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "placed inside a host component" },
+          messageId: "default",
+        },
+      ],
+      output: "<div></div>",
+    },
+    // A member-expression component (ex: `<Foo.Bar>`) is not a host element, so a
+    // useless fragment inside it is reported but never auto-fixed
+    {
+      code: "<Foo.Bar><>x</></Foo.Bar>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // A useless fragment nested inside another fragment is reported, but unwrapping is
+    // unsafe because the parent fragment is not a host element
+    {
+      code: "<><><div /></><span /></>",
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Single text child in attribute position with allowExpressions: false: the
+    // text-child exception requires allowExpressions, and the fix would produce
+    // invalid JavaScript
+    {
+      code: "<Fooo content={<>text</>} />",
+      options: [{ allowExpressions: false }],
+      errors: [
+        {
+          type: AST.JSXFragment,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: null,
+    },
+    // Only key/ref exempt a fragment; other attributes are silently dropped by the fix
+    {
+      code: '<Fragment className="x"><div /></Fragment>',
+      errors: [
+        {
+          type: AST.JSXElement,
+          data: { reason: "contains less than two children" },
+          messageId: "default",
+        },
+      ],
+      output: "<div />",
+    },
   ],
   valid: [
     "<><Foo /><Bar /></>",
@@ -949,6 +1115,23 @@ ruleTester.run(RULE_NAME, rule, {
     {
       code: "<div attr={<><Foo /><Bar /></>} />",
       options: [{ allowExpressions: false }],
+    },
+    // With a `@jsxFrag` pragma, `<React.Fragment>` is no longer treated as a fragment
+    tsx`
+      /** @jsxFrag VFrag */
+      <React.Fragment><div /></React.Fragment>
+    `,
+    // A key spread from an inline object expression exempts the fragment,
+    // same as a literal key attribute
+    "<Fragment {...{ key: 'k' }}><div /></Fragment>",
+    // key/ref exemption is checked before the emptiness check
+    '<Fragment key="k" />',
+    // A single expression child inside a custom component is allowed by default
+    "<Foo><>{value}</></Foo>",
+    // Empty fragment inside a custom component with allowEmptyFragment: true
+    {
+      code: "<Foo><></></Foo>",
+      options: [{ allowEmptyFragment: true }],
     },
   ],
 });

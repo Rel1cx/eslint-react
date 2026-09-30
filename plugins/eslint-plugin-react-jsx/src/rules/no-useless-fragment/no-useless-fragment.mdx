@@ -143,6 +143,8 @@ Default: `false`
 
 When set to `true`, allows fragments that contain a single expression child.
 
+This option only applies to a single **expression container** child (`<>{expr}</>`). A fragment whose single meaningful child is an element (`<><Foo /></>`) or a spread child (`<>{...props}</>`) is still reported regardless of this option.
+
 Default: `true`
 
 ## Note
