@@ -345,6 +345,36 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`foo.map((bar, i) => React.createElement('Foo', { 'key': i }))`,
       errors: [{ messageId: "default" }],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/20940
+    // oxlint reported the diagnostic over the entire props object span, so an
+    // `eslint-disable-next-line` comment targeting the `key,` line could not
+    // suppress it. Our rule reports on the `key` identifier itself (line 6),
+    // which a disable comment on the line above covers.
+    {
+      name: "diagnostic on key identifier in React.cloneElement props, suppressible by disable comment",
+      code: tsx`
+        function Clone({ children }: { children: React.ReactElement[] }) {
+          return (
+            <div>
+              {children.map((child, key) =>
+                React.cloneElement(child, {
+                  key,
+                })
+              )}
+            </div>
+          )
+        }
+      `,
+      errors: [
+        {
+          messageId: "default",
+          line: 6,
+          column: 11,
+          endLine: 6,
+          endColumn: 14,
+        },
+      ],
+    },
   ],
   valid: [
     {

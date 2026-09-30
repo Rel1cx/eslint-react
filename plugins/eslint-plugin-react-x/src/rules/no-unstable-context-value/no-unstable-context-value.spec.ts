@@ -198,6 +198,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/26575
+    // oxlint (like upstream eslint-plugin-react) misses the React 19 shorthand when the
+    // context is imported; our rule recognizes it via the `*Context` name heuristic
+    {
+      code: tsx`
+        import { ImportedContext } from './context';
+
+        export function Repro() {
+          return (
+            <>
+              <ImportedContext value={{}} />
+              <ImportedContext.Provider value={{}} />
+            </>
+          );
+        }
+      `,
+      errors: [
+        {
+          data: {
+            kind: "object expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
+          messageId: "unstableContextValue",
+        },
+        {
+          data: {
+            kind: "object expression",
+            suggestion: "Consider wrapping it in a useMemo hook.",
+          },
+          messageId: "unstableContextValue",
+        },
+      ],
+      settings: {
+        "react-x": {
+          version: "19.0.0",
+        },
+      },
+    },
   ],
   valid: [
     {

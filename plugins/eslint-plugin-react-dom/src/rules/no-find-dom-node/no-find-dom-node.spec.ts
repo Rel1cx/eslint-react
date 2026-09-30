@@ -111,6 +111,26 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/22468
+    // oxlint's react plugin rules only ran on JSX-capable files (.tsx), so this
+    // .ts file was never checked; our rule has no file-type gating and reports
+    // the violation regardless of the filename
+    {
+      code: tsx`
+        import React from "react";
+        import ReactDOM from "react-dom";
+
+        class Demo extends React.Component {
+          foo() {
+            ReactDOM.findDOMNode(this);
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+      ],
+      filename: "demo.ts",
+    },
   ],
   valid: [
     // Different identifier

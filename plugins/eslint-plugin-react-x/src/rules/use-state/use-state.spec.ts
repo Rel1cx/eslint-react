@@ -433,6 +433,26 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalidAssignment" }],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/24952
+    // oxlint flagged intentionally unused getter/setter names; its maintainers made this a
+    // config option defaulting to the upstream (report) behavior, which matches our default.
+    // Our `enforceSetterName: false` option is the equivalent opt-out (see valid cases below).
+    {
+      code: tsx`
+        const Component = () => {
+          const [_, id] = useState(1);
+        }
+      `,
+      errors: [{ messageId: "invalidSetterName" }],
+    },
+    {
+      code: tsx`
+        const Component = () => {
+          const [id, _] = useState(1);
+        }
+      `,
+      errors: [{ messageId: "invalidSetterName" }],
+    },
   ],
   valid: [
     // --- Assignment / setter naming ---
@@ -625,6 +645,25 @@ ruleTester.run(RULE_NAME, rule, {
           return useState(0) as [number, (n: number) => void];
         }
       `,
+    },
+    // Ported from https://github.com/oxc-project/oxc/issues/24952
+    // Intentionally unused getter/setter names are allowed when setter-name enforcement is
+    // opted out via `enforceSetterName: false`
+    {
+      code: tsx`
+        const Component = () => {
+          const [_, id] = useState(1);
+        }
+      `,
+      options: [{ enforceSetterName: false }],
+    },
+    {
+      code: tsx`
+        const Component = () => {
+          const [id, _] = useState(1);
+        }
+      `,
+      options: [{ enforceSetterName: false }],
     },
   ],
 });

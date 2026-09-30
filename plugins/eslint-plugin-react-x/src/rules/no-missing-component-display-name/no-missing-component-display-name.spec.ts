@@ -186,9 +186,58 @@ ruleTester.run(RULE_NAME, rule, {
         someGlobalFunc(<div />);
       });
     `,
+    // Ported from https://github.com/oxc-project/oxc/issues/25165
+    // oxlint (and upstream eslint-plugin-react) flag the inner anonymous JSX-returning arrow
+    // even when immediately invoked; our rule deliberately only targets memo/forwardRef-wrapped
+    // components, so it intentionally does not report here
     tsx`
       const createCallback = () => () => <div />;
       createCallback()();
+    `,
+    // Ported from https://github.com/oxc-project/oxc/issues/25618
+    // oxlint anchored the diagnostic on the outer HOC arrow and missed the inner JSX-returning
+    // arrow; our rule only targets memo/forwardRef-wrapped components, so neither arrow is reported
+    tsx`
+      export const HOC =
+        ({ label }: { label: string }) =>
+        ({ onSubmit }: { onSubmit: () => void }) => <button onClick={onSubmit}>{label}</button>;
+    `,
+    // memo-wrapped variant of the curried HOC: the memo-wrapped outer arrow returns a function,
+    // not JSX, so it is not collected as a component and no displayName is required
+    tsx`
+      export const HOC = React.memo(
+        ({ label }: { label: string }) =>
+        ({ onSubmit }: { onSubmit: () => void }) => <button onClick={onSubmit}>{label}</button>,
+      );
+    `,
+    // Ported from https://github.com/oxc-project/oxc/issues/23478
+    // oxlint false positive: camelCase helper returning JSX flagged as a component missing
+    // display name; our rule only targets memo/forwardRef-wrapped components, so no report
+    tsx`
+      export default function Testing() {
+        const renderThing = () => <div>Thing</div>;
+        return <div>{renderThing()}</div>;
+      }
+      Testing.displayName = "Testing";
+    `,
+    // Ported from https://github.com/oxc-project/oxc/issues/23267
+    // oxlint false positive: named default-exported function with an assigned displayName was
+    // still flagged; our rule skips named functions and only targets memo/forwardRef wrappers
+    tsx`
+      export default function Testing() {
+        return <div>Text</div>;
+      }
+      Testing.displayName = "Testing";
+    `,
+    // Ported from https://github.com/oxc-project/oxc/issues/21632
+    // oxlint false positive: named default-exported class component flagged as missing display
+    // name; our rule only collects function components, so classes are never reported
+    tsx`
+      export default class Logo extends React.Component<{ onClick: () => void }> {
+        render() {
+          return <div onClick={this.props.onClick} />;
+        }
+      }
     `,
   ],
 });

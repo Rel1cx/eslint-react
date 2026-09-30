@@ -158,6 +158,40 @@ ruleTester.run(RULE_NAME, rule, {
         messageId: "default",
       }],
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/25625
+    // oxlint's native rule only reported the two static chains; upstream
+    // eslint-plugin-react reports all five assignments including the computed ones
+    {
+      name: "Direct mutation via computed member access in assignment target",
+      code: tsx`
+        import { Component } from 'react';
+
+        class Example extends Component {
+          a() {
+            this.state.x = 1;
+          }
+          b() {
+            this.state.x.y = 1;
+          }
+          c(id) {
+            this.state.x[id] = 1;
+          }
+          d(id) {
+            this.state.x[id].y = 1;
+          }
+          e(id) {
+            this.state.items[id].prop = {};
+          }
+        }
+      `,
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {

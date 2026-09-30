@@ -1944,5 +1944,49 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Ported from https://github.com/oxc-project/oxc/issues/26007
+    // setState behind an early-return guard derived from a ref read through a local
+    // variable: react-hooks 7.1.1 and oxlint both allow this (the issue was closed
+    // upstream as intended behavior). The ref read is traced through `dv`, and the
+    // `if (dv === 0) return;` sibling guard exempts the following setState.
+    {
+      name: "setState behind an early-return guard derived from a ref read via local variable",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        export function Bar({ visible }) {
+          const prevVisible = useRef(0);
+          const [direction, setDirection] = useState(null);
+
+          useEffect(() => {
+            const dv = visible - prevVisible.current;
+            if (dv === 0) return;
+            setDirection("right");
+          }, [visible]);
+
+          return <p>{direction}</p>;
+        }
+      `,
+    },
+    // An early-return guard whose test reads a ref directly also gates the rest of the block.
+    {
+      name: "setState behind an early-return guard reading a ref directly",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        export function Bar({ visible }) {
+          const prevVisible = useRef(0);
+          const [direction, setDirection] = useState(null);
+
+          useEffect(() => {
+            if (prevVisible.current === visible) return;
+            prevVisible.current = visible;
+            setDirection("right");
+          }, [visible]);
+
+          return <p>{direction}</p>;
+        }
+      `,
+    },
   ],
 });
