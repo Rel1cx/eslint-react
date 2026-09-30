@@ -44,7 +44,6 @@
   },
   "dependencies": {
     "@eslint-react/ast": "workspace:*",
-    "@eslint-react/core": "workspace:*",
     "@eslint-react/eslint": "workspace:*",
     "@eslint-react/jsx": "workspace:*",
     "@eslint-react/shared": "workspace:*",
@@ -55,7 +54,6 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@local/eff": "workspace:*",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dedent": "^1.7.2",

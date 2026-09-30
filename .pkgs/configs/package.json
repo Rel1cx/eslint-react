@@ -35,6 +35,7 @@
   "dependencies": {
     "@eslint/config-helpers": "^0.7.0",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@tsconfig/strictest": "^2.0.8",
     "eslint-plugin-de-morgan": "^2.2.0",
     "eslint-plugin-jsdoc": "^64.5.4",
     "eslint-plugin-perfectionist": "^5.12.1",

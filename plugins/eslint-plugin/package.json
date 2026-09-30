@@ -58,7 +58,6 @@
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
-    "@local/eff": "workspace:*",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "dedent": "^1.7.2",

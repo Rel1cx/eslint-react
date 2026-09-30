@@ -38,14 +38,12 @@
   "dependencies": {
     "@typescript-eslint/types": "^8.71.0",
     "@typescript-eslint/typescript-estree": "^8.71.0",
-    "@typescript-eslint/utils": "^8.71.0",
-    "string-ts": "^2.3.1"
+    "@typescript-eslint/utils": "^8.71.0"
   },
   "devDependencies": {
     "@local/configs": "workspace:*",
     "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
-    "@typescript-eslint/parser": "^8.71.0",
     "eslint": "^10.11.0",
     "tsdown": "^0.23.0",
     "typescript": "6.0.3",

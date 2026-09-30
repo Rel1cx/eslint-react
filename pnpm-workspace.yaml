@@ -61,11 +61,9 @@ overrides:
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   form-data: "^4.0.6"
   fumadocs-twoslash: "3.3.1"
-  # Transitive dependency via depcheck 1.4.7
-  js-yaml: "^5.4.2"
   # Transitive dependency via dagre-d3-es 7.0.14 (mermaid 11.16.0)
   lodash-es: "^4.18.1"
-  # Transitive dependency via depcheck 1.4.7 and @textlint/linter-formatter 15.8.0
+  # Transitive dependency via @textlint/linter-formatter 15.8.0
   lodash: "^4.18.1"
   # Transitive dependency via @theguild/remark-mermaid 0.3.0
   mermaid: "^11.17.2"
