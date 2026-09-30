@@ -5,11 +5,11 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.23.3] - 2026-09-30
 
 ### Fixed
 
-- Ref reads traced through intermediate local computations (ex: `const dv = visible - prevVisible.current`) are now recognized as ref-derived values, and a preceding early-return guard whose test is ref-derived (ex: `if (dv === 0) return;`) now exempts the `setState` calls that follow it — previously only `setState` nested directly inside a ref-gated `if`/conditional was exempted. Aligns with `react-hooks` 7.1.1.
+- Ref reads traced through intermediate local computations (ex: `const dv = visible - prevVisible.current`) are now recognized as ref-derived values, and a preceding early-return guard whose test is ref-derived (ex: `if (dv === 0) return;`) now exempts the `setState` calls that follow it — previously only `setState` nested directly inside a ref-gated `if`/conditional was exempted. Aligns with `react-hooks` 7.1.1. (#1979)
 
 ## [5.21.2] - 2026-09-29
 

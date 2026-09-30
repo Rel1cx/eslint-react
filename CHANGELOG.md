@@ -1,5 +1,19 @@
 # Changelog
 
+## v5.23.3 (2026-09-30)
+
+### 🐞 Fixes
+
+- `react-x/immutability`: reassigning a binding that resolves to component props or state (`value = value + "!"`, `count++`, including destructuring and `for...of` rebinding forms) is now reported as a direct mutation, matching upstream `react-hooks/immutability`; rebinding iterator or shallow-copy bindings remains allowed. (#1979)
+- `react-x/set-state-in-effect`: ref reads traced through intermediate local computations (ex: `const dv = visible - prevVisible.current`) are now recognized as ref-derived values, and a preceding early-return guard whose test is ref-derived (ex: `if (dv === 0) return;`) now exempts the `setState` calls that follow it — previously only `setState` nested directly inside a ref-gated `if`/conditional was exempted. Aligns with `react-hooks` 7.1.1. (#1979)
+
+### 📝 Documentation
+
+- `react-x/no-unstable-context-value`: documented the React 19 `<Context>` provider detection heuristic and its name-based limitations. (#1979)
+- Updated the README badges to reference `eslint-plugin-react-x`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.2...v5.23.3
+
 ## v5.23.2 (2026-09-30)
 
 ### 🏗️ Internal

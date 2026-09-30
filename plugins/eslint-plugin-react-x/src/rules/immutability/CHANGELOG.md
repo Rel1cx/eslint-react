@@ -5,11 +5,11 @@ All notable changes to the `react-x/immutability` rule will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.23.3] - 2026-09-30
 
 ### Fixed
 
-- Reassigning a binding that resolves to component props or state (`value = value + "!"`, `count++`, including destructuring and `for...of` rebinding forms) is now reported as a direct mutation, matching upstream `react-hooks/immutability`; rebinding iterator or shallow-copy bindings remains allowed.
+- Reassigning a binding that resolves to component props or state (`value = value + "!"`, `count++`, including destructuring and `for...of` rebinding forms) is now reported as a direct mutation, matching upstream `react-hooks/immutability`; rebinding iterator or shallow-copy bindings remains allowed. (#1979)
 
 ## [5.23.0] - 2026-09-30
 
