@@ -23,9 +23,46 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 ```
 
-Used by: `no-access-state-in-setstate`, `no-class-component`, `no-component-will-*`, `no-create-ref`, `no-forward-ref`, `no-missing-context-display-name`, `no-misused-capture-owner-stack`, `no-set-state-in-component-*`, `no-unsafe-component-will-*`, `no-use-context`, `use-memo`, `context-name`, `id-name`, `no-leaked-timeout`, `no-leaked-interval`, `no-leaked-resize-observer`, `no-leaked-intersection-observer`, `no-leaked-fetch` (first check), `no-leaked-event-listener` (first check).
+Used by:
 
-Rules that currently omit the text precheck but still use term-based visitors: `no-children-count`, `no-children-for-each`, `no-children-map`, `no-children-only`, `no-children-to-array`, `no-clone-element`, `no-direct-mutation-state`, `ref-name`.
+- `react-x/no-access-state-in-setstate`
+- `react-x/no-class-component`
+- `react-x/no-component-will-*`
+- `react-x/no-context-provider`
+- `react-x/no-create-ref`
+- `react-x/no-forward-ref`
+- `react-x/no-missing-context-display-name`
+- `react-x/no-misused-capture-owner-stack`
+- `react-x/no-set-state-in-component-*`
+- `react-x/no-unsafe-component-will-*`
+- `react-x/no-use-context`
+- `react-x/use-memo`
+- `react-dom/no-dangerously-set-innerhtml`
+- `react-dom/no-dangerously-set-innerhtml-with-children`
+- `react-dom/no-find-dom-node`
+- `react-dom/no-flush-sync`
+- `react-dom/no-hydrate`
+- `react-dom/no-render`
+- `react-dom/no-use-form-state`
+- `react-web-api/no-leaked-event-listener` (first check).
+- `react-web-api/no-leaked-fetch` (first check)
+- `react-web-api/no-leaked-intersection-observer`
+- `react-web-api/no-leaked-interval`
+- `react-web-api/no-leaked-resize-observer`
+- `react-web-api/no-leaked-timeout`
+- `react-naming-convention/context-name`
+- `react-naming-convention/id-name`
+
+Rules that currently omit the text precheck but still use term-based visitors:
+
+- `react-x/no-children-count`
+- `react-x/no-children-for-each`
+- `react-x/no-children-map`
+- `react-x/no-children-only`
+- `react-x/no-children-to-array`
+- `react-x/no-clone-element`
+- `react-x/no-direct-mutation-state`
+- `react-naming-convention/ref-name`
 
 ### Multi-term check
 
@@ -37,7 +74,7 @@ if (!context.sourceCode.text.includes("memo") && !context.sourceCode.text.includ
 }
 ```
 
-Used by: `no-missing-component-display-name`, `react-rsc/function-definition`.
+Used by: `react-x/no-missing-component-display-name`, `react-rsc/function-definition`.
 
 ### Regex check (term families)
 
@@ -45,7 +82,7 @@ Used by: `no-missing-component-display-name`, `react-rsc/function-definition`.
 if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
 ```
 
-Used by: `set-state-in-effect`, `no-leaked-fetch` (second check), `no-leaked-event-listener` (second check).
+Used by: `react-x/set-state-in-effect`, `react-web-api/no-leaked-fetch` (second check), `react-web-api/no-leaked-event-listener` (second check).
 
 ### Non-identifier substring check
 
@@ -69,33 +106,21 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 ```
 
-| Rule                  | Term           | Version gate |
-| --------------------- | -------------- | ------------ |
-| `no-forward-ref`      | `forwardRef`   | `>= 19.0.0`  |
-| `no-use-context`      | `useContext`   | `>= 19.0.0`  |
-| `no-context-provider` | `Provider`     | `>= 19.0.0`  |
-| `no-use-form-state`   | `useFormState` | `>= 19.0.0`  |
-| `no-hydrate`          | `hydrate`      | `>= 18.0.0`  |
-| `no-render`           | `render`       | `>= 18.0.0`  |
+| Rule                          | Term           | Version gate |
+| ----------------------------- | -------------- | ------------ |
+| `react-x/no-forward-ref`      | `forwardRef`   | `>= 19.0.0`  |
+| `react-x/no-use-context`      | `useContext`   | `>= 19.0.0`  |
+| `react-x/no-context-provider` | `Provider`     | `>= 19.0.0`  |
+| `react-dom/no-use-form-state` | `useFormState` | `>= 19.0.0`  |
+| `react-dom/no-hydrate`        | `hydrate`      | `>= 18.0.0`  |
+| `react-dom/no-render`         | `render`       | `>= 18.0.0`  |
 
 A few rules change behavior based on version rather than bailing out:
 
-| Rule                              | Version-dependent behavior                                                                             |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `no-leaked-conditional-rendering` | React 18+ treats empty strings as safe; older versions exclude `"string"` / `"falsy string"` variants. |
-| `no-unstable-context-value`       | React 18 and below check `.Provider`; React 19 also checks bare `Context`.                             |
-
-## Visitor Strategies After the Fast Path
-
-| Strategy                           | Description                                                                            | Examples                                                                                                |
-| ---------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Immediate report on matching node  | Visit the exact AST node type and report when a helper confirms the term.              | `no-clone-element`, `no-forward-ref`, `no-use-context`, `no-find-dom-node`, `use-memo`, `no-children-*` |
-| Immediate report + ancestor lookup | Visit the matching node, then walk up to confirm the enclosing context.                | `no-set-state-in-component-*`                                                                           |
-| Collector + `Program:exit`         | Collect components/classes/hooks via `@eslint-react/core`, validate in bulk.           | `no-class-component`, `no-component-will-*`, `no-unstable-context-value`                                |
-| Ad-hoc collect + `Program:exit`    | Maintain custom arrays/maps and match on exit.                                         | `no-missing-context-display-name`, `no-duplicate-key`                                                   |
-| Stack-based tracking               | Track nested contexts (class/method/setState stacks) and report on `MemberExpression`. | `no-access-state-in-setstate`                                                                           |
-| Web-API collect-and-match          | Track function phase, collect acquire/release calls, pair them on `Program:exit`.      | All `react-web-api/no-leaked-*` rules                                                                   |
-| Import-tracking                    | Track local React DOM import names and match calls.                                    | `no-hydrate`, `no-render`, `no-use-form-state`                                                          |
+| Rule                                      | Version-dependent behavior                                                                             |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `react-x/no-leaked-conditional-rendering` | React 18+ treats empty strings as safe; older versions exclude `"string"` / `"falsy string"` variants. |
+| `react-x/no-unstable-context-value`       | React 18 and below check `.Provider`; React 19 also checks bare `Context`.                             |
 
 Collector + `Program:exit` example:
 
@@ -115,49 +140,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 }
 ```
 
-Stack-based example:
-
-```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  if (!context.sourceCode.text.includes("setState")) return {};
-
-  const classStack: [node: TSESTree.ClassDeclaration | TSESTree.ClassExpression, isComponent: boolean][] = [];
-  const methodStack: [node: TSESTreeMethodOrPropertyDefinition, isStatic: boolean][] = [];
-  const setStateStack: [node: CallExpression, hasThisState: boolean][] = [];
-
-  return {
-    CallExpression(node) {
-      if (core.isThisSetStateCall(node)) {
-        setStateStack.push([node, false]);
-      }
-    },
-    "CallExpression:exit"(node) {
-      if (core.isThisSetStateCall(node)) setStateStack.pop();
-    },
-    ClassDeclaration(node) {
-      classStack.push([node, core.isClassComponent(node)]);
-    },
-    "ClassDeclaration:exit"() {
-      classStack.pop();
-    },
-    MemberExpression(node) {
-      const [, isComponent] = classStack.at(-1) ?? [];
-      const [, isStatic] = methodStack.at(-1) ?? [];
-      const [setState] = setStateStack.at(-1) ?? [];
-      if (!isComponent || isStatic || setState == null) return;
-      if (node.property.type === AST.Identifier && node.property.name === "state") {
-        context.report({ messageId: "default", node });
-      }
-    },
-  };
-}
-```
-
 ## Rule Precheck and Visitor Strategy Reference
 
 | Rule                                         | Plugin              | Precheck                                             | Extra gate  | Visitor strategy                               |
 | -------------------------------------------- | ------------------- | ---------------------------------------------------- | ----------- | ---------------------------------------------- |
-| `no-access-state-in-setstate`                | `react-x`           | `includes("setState")`                               | —           | Stack-based                                    |
 | `no-children-map`                            | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
 | `no-children-count`                          | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
 | `no-children-for-each`                       | `react-x`           | _none_                                               | —           | `MemberExpression` immediate                   |
@@ -195,7 +181,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 | `no-leaked-intersection-observer`            | `react-web-api`     | `includes("IntersectionObserver")`                   | —           | Web-API collect-and-match                      |
 | `no-dangerously-set-innerhtml`               | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
 | `no-dangerously-set-innerhtml-with-children` | `react-dom`         | `includes("dangerouslySetInnerHTML")`                | —           | `JSXElement` immediate                         |
-| `no-find-dom-node`                           | `react-dom`         | `includes("findDOMNode")`                            | —           | `CallExpression` immediate                     |
+| `no-find-dom-node`                           | `react-dom`         | `includes("findDOMNode")`                            | —           | Import-tracking                                |
 | `no-flush-sync`                              | `react-dom`         | `includes("flushSync")`                              | —           | Import-tracking                                |
 | `no-hydrate`                                 | `react-dom`         | `includes("hydrate")`                                | `>= 18.0.0` | Import-tracking                                |
 | `no-render`                                  | `react-dom`         | `includes("render")`                                 | `>= 18.0.0` | Import-tracking                                |

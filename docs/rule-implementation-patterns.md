@@ -1,7 +1,5 @@
 # Rule Implementation Patterns
 
-Patterns used in `plugins/eslint-plugin-react-x` and `plugins/eslint-plugin-react-web-api`.
-
 ## Directory Structure
 
 Each rule lives in its own folder:
@@ -12,8 +10,6 @@ src/rules/<rule-name>/
 ├── <rule-name>.spec.ts  # Tests
 └── lib.ts               # Optional helpers for complex rules
 ```
-
-`react-x` has 53 rules. `react-web-api` has 6 rules (all `no-leaked-*`).
 
 Rules that correlate facts across the whole file (`globals`, `immutability`, `refs`) use a layered multi-file layout (`collect.ts` / `origins.ts` / `effects.ts` / `helpers.ts`) instead of a single `<rule-name>.ts`. See [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md).
 
@@ -77,33 +73,6 @@ Conventions:
 | `@eslint-react/var`    | Variable resolution, assignment tracking                                        |
 | `@eslint-react/shared` | Shared settings (`getSettingsFromContext`)                                      |
 | `@eslint-react/eslint` | `RuleContext`, `RuleFeature`, `merge`                                           |
-
-## `react-web-api` Pattern: Two-Phase Collection
-
-All `react-web-api` rules use a **collect-and-match** pattern: a `:function` / `:function:exit` pair tracks the current function's lifecycle phase (`setup` / `cleanup`), `CallExpression` records acquire/release operations (e.g. `addEventListener` / `removeEventListener`), and `Program:exit` pairs them and reports unmatched acquires.
-
-```ts
-export function create(context: RuleContext<MessageID, []>): RuleListener {
-  const fEntries: { kind: FunctionKind; node: TSESTreeFunction }[] = [];
-  const aEntries: AEntry[] = [];
-  const rEntries: REntry[] = [];
-
-  return {
-    [":function"](node: TSESTreeFunction) {
-      fEntries.push({ kind: getPhaseKindOfFunction(node) ?? "other", node });
-    },
-    [":function:exit"]() {
-      fEntries.pop();
-    },
-    CallExpression(node) {
-      // Detect target calls and push to aEntries / rEntries
-    },
-    "Program:exit"() {
-      // Match aEntries against rEntries and report mismatches
-    },
-  };
-}
-```
 
 ## `react-x` Patterns
 

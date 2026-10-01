@@ -8,6 +8,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] Rename `src/rules/<old-name>/<old-name>.ts` → `src/rules/<new-name>/<new-name>.ts`
 - [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` → `src/rules/<new-name>/<new-name>.spec.ts`
+- [ ] Rename `src/rules/<old-name>/<old-name>.spec.md` → `src/rules/<new-name>/<new-name>.spec.md`
+- [ ] Rename `src/rules/<old-name>/<old-name>.spec.diff.md` → `src/rules/<new-name>/<new-name>.diff.md`
 - [ ] Rename `src/rules/<old-name>/<old-name>.mdx` → `src/rules/<new-name>/<new-name>.mdx`
 - [ ] Rename `src/rules/<old-name>/CHANGELOG.md` → `src/rules/<new-name>/CHANGELOG.md`
 

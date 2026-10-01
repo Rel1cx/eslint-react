@@ -1,7 +1,7 @@
 name: 📚 Docs Report
 title: "[docs] "
 description: Report a documentation issue or suggest improvements
-labels: ["type: documentation"]
+labels: ["type: docs"]
 
 body:
   - type: markdown

@@ -1,7 +1,7 @@
 name: 💬 Rule Request
 title: "[rule] "
 description: Suggest a rule
-labels: ["rule request"]
+labels: ["type: new-rule"]
 
 body:
   - type: markdown
