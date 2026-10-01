@@ -16,7 +16,8 @@
 // -----------------------------------------------------------------------------
 
 import { Extract } from "@eslint-react/ast";
-import { type RuleFeature, getSettingsFromContext } from "@eslint-react/shared";
+import type { RuleFeature } from "@eslint-react/eslint";
+import { getSettingsFromContext } from "@eslint-react/shared";
 import type { TSESTree } from "@typescript-eslint/types";
 import type { Rule, Scope } from "eslint";
 import { CodePathAnalyzer } from "./lib";
