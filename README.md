@@ -67,11 +67,6 @@ Composable ESLint rules for React and friends.
 > - ESLint: 10.3.0
 > - TypeScript: 5.0.0
 
-> [!NOTE]
-> The `eslint` package is an optional peer dependency, so the plugins also run without ESLint in other runtimes (e.g.
-> Oxlint's JS plugins), though transitive peers may still auto-install
-> ESLint unless peer auto-installation is disabled.
-
 ### Install
 
 ```sh
