@@ -913,8 +913,112 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A removeEventListener inside a setup-phase function does not pair when the cleanup never calls that function
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example({ ref }) {
+          useEffect(() => {
+            const element = ref.current;
+            if (element == null) {
+              return;
+            }
+            const restoreSnap = () => {
+              element.removeEventListener("scrollend", restoreSnap);
+            };
+            const onPointerEnd = () => {
+              element.addEventListener("scrollend", restoreSnap);
+            };
+            element.addEventListener("pointerup", onPointerEnd);
+            return () => {
+              element.removeEventListener("pointerup", onPointerEnd);
+            };
+          }, [ref]);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // A remover function called from another effect's cleanup does not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const handleResize = () => {};
+            const removeListener = () => {
+              window.removeEventListener("resize", handleResize);
+            };
+            window.addEventListener("resize", handleResize);
+          }, []);
+          useEffect(() => {
+            return () => {
+              removeListener();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
+    // A self-removing listener whose remover is also called from the cleanup is not leaked
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ ref }) {
+        useEffect(() => {
+          const element = ref.current;
+          if (element == null) {
+            return;
+          }
+          const restoreSnap = () => {
+            element.removeEventListener("scrollend", restoreSnap);
+          };
+          const onPointerEnd = () => {
+            element.addEventListener("scrollend", restoreSnap);
+          };
+          element.addEventListener("pointerup", onPointerEnd);
+          return () => {
+            element.removeEventListener("pointerup", onPointerEnd);
+            restoreSnap();
+          };
+        }, [ref]);
+      }
+    `,
+    // Same pattern with a function declaration as the remover
+    tsx`
+      import { useEffect } from "react";
+
+      function Example({ ref }) {
+        useEffect(() => {
+          const element = ref.current;
+          if (element == null) {
+            return;
+          }
+          function restoreSnap() {
+            element.removeEventListener("scrollend", restoreSnap);
+          }
+          const onPointerEnd = () => {
+            element.addEventListener("scrollend", restoreSnap);
+          };
+          element.addEventListener("pointerup", onPointerEnd);
+          return () => {
+            element.removeEventListener("pointerup", onPointerEnd);
+            restoreSnap();
+          };
+        }, [ref]);
+      }
+    `,
     tsx`
       import { useEffect } from "react";
 

@@ -1,8 +1,9 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
-import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
+import { getFunctionId, isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 import { defaultOptions, getOptions } from "./lib";
@@ -28,6 +29,7 @@ type AEntry = {
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: boolean;
+  effect: TSESTree.Node | null;
   listener: TSESTree.Node;
   method: "addEventListener";
   node: TSESTree.CallExpression;
@@ -39,6 +41,7 @@ type REntry = {
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: boolean;
+  effect: TSESTree.Node | null;
   listener: TSESTree.Node;
   method: "removeEventListener";
   node: TSESTree.CallExpression;
@@ -89,6 +92,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
+  // Names of functions called within each effect's cleanup, keyed by the effect call node.
+  const cleanupCallees = new Map<TSESTree.Node, Set<string>>();
   // FIXME: bare global calls (`addEventListener(...)` without a receiver, i.e. `window`) never pair up
   // because only MemberExpression callees are compared - both sides bare should fall back to
   // `Compare.isEqual(a, b)`.
@@ -102,15 +107,34 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
-    const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
-    const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (aPhase !== "setup" || rPhase !== "cleanup") {
+    const { type: aType, callee: aCallee, capture: aCapture, effect: aEffect, listener: aListener, phase: aPhase } = aEntry;
+    const { type: rType, callee: rCallee, capture: rCapture, effect: rEffect, listener: rListener, phase: rPhase } = rEntry;
+    if (aPhase !== "setup") {
       return false;
     }
-    return isSameObject(aCallee, rCallee)
-      && Compare.isEqual(aListener, rListener)
-      && isValueEqual(context, aType, rType)
-      && aCapture === rCapture;
+    if (
+      !isSameObject(aCallee, rCallee)
+      || !Compare.isEqual(aListener, rListener)
+      || !isValueEqual(context, aType, rType)
+      || aCapture !== rCapture
+    ) {
+      return false;
+    }
+    if (rPhase === "cleanup") {
+      return true;
+    }
+    // A `removeEventListener` that sits in a setup-phase function is still
+    // removed on unmount when the cleanup calls that function (e.g. a
+    // self-removing listener whose remover is also invoked from the cleanup).
+    if (aEffect == null || aEffect !== rEffect) {
+      return false;
+    }
+    const enclosingFunction = Traverse.findParent(rEntry.node, Check.isFunction);
+    const id = enclosingFunction == null ? null : getFunctionId(enclosingFunction);
+    if (id == null || id.type !== AST.Identifier) {
+      return false;
+    }
+    return cleanupCallees.get(aEffect)?.has(id.name) ?? false;
   }
   function visitInlineFunction(
     node: TSESTree.CallExpression,
@@ -137,6 +161,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const fKind = isUseEffectSetupCallback(fn) ? "setup" : "cleanup";
+      const setupFn = fKind === "setup" ? fn : Traverse.findParent(fn, Check.isFunction);
+      const effect = setupFn == null ? null : Extract.unwrap(setupFn).parent ?? null;
       const callee = Extract.unwrap(node.callee);
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
@@ -159,6 +185,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             ...opts,
             type,
             callee,
+            effect,
             listener,
             method: "addEventListener",
             node,
@@ -178,11 +205,22 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             type,
             callee,
             capture: opts.capture,
+            effect,
             listener,
             method: "removeEventListener",
             node,
             phase: fKind,
           });
+        })
+        .with("other", () => {
+          if (fKind !== "cleanup" || effect == null) {
+            return;
+          }
+          const name = Extract.getCalleeName(node);
+          if (name == null) {
+            return;
+          }
+          getOrInsertComputed(cleanupCallees, effect, () => new Set<string>()).add(name);
         })
         .otherwise(() => null);
     },
