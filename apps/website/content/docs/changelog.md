@@ -2,6 +2,28 @@
 title: Changelog
 ---
 
+## v5.23.4 (2026-10-03)
+
+### 🐞 Fixes
+
+- Added the missing `react-x/static-components` rule to the `disable-experimental` preset. (#1980)
+- Fixed type imports in `react-x/exhaustive-deps` and `react-x/rules-of-hooks` (`RuleFeature` is now imported from `@eslint-react/eslint` instead of `@eslint-react/shared`).
+
+### 📝 Documentation
+
+- `react-jsx/no-useless-fragment`: clarified the scope of the `allowExpressions` option and unified experimental-rule callout wording across rule docs.
+- `react-x`: unified cross-rule references in rule docs to full rule names.
+- Removed low-relevance entries from the further reading sections of rule docs, and removed a redundant note about `eslint` being an optional peer dependency.
+- Fixed inaccuracies in internal documentation. (#1980)
+
+### 🏗️ Internal
+
+- Adopted `ts-pattern` for type checks in `@eslint-react/core`, `@eslint-react/jsx`, and the `react-dom` plugin, and declared the missing `ts-pattern` dependencies.
+- Added behavior boundary tests for `react-jsx/no-useless-fragment`.
+- Bumped `fumadocs-core`, `fumadocs-ui`, and `lucide-react` in the website.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.3...v5.23.4
+
 ## v5.23.3 (2026-09-30)
 
 ### 🐞 Fixes
