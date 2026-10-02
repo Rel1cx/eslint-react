@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- A `removeEventListener` inside a setup-phase function now pairs with its `addEventListener` when the effect cleanup calls that function (e.g. a self-removing listener whose remover is also invoked from the cleanup), fixing false positives for listeners that are added inside event handlers but still removed on unmount.
+- A `removeEventListener` inside a setup-phase function now pairs with its `addEventListener` when the effect cleanup calls that function (e.g. a self-removing listener whose remover is also invoked from the cleanup), fixing false positives for listeners that are added inside event handlers but still removed on unmount. Calls in the cleanup are resolved to the functions they refer to — including methods of local object literals called via a member expression (e.g. `handlers.stop()`) — so a member call with an unresolvable receiver or a shadowed same-named function no longer pairs by name coincidence.
 
 ## [5.21.1] - 2026-09-28
 

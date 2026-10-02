@@ -969,6 +969,64 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A member call in the cleanup does not pair with a same-named local remover function
+    // when its receiver cannot be resolved to a local object literal
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example({ handlers }) {
+          useEffect(() => {
+            const onResize = () => {};
+            function stop() {
+              window.removeEventListener("resize", onResize);
+            }
+            window.addEventListener("resize", onResize);
+            return () => {
+              handlers.stop();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
+    // A remover shadowed by a same-named function does not pair when the cleanup calls the
+    // outer one (the pointerup listener added by `attach` is leaked as well)
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const onResize = () => {};
+            const attach = () => {
+              const stop = () => {
+                window.removeEventListener("resize", onResize);
+              };
+              document.addEventListener("pointerup", stop);
+            };
+            const stop = () => {};
+            window.addEventListener("resize", onResize);
+            attach();
+            return () => {
+              stop();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+        {
+          messageId: "expectedRemoveEventListenerInCleanup",
+        },
+      ],
+    },
   ],
   valid: [
     // A self-removing listener whose remover is also called from the cleanup is not leaked
@@ -1017,6 +1075,25 @@ ruleTester.run(RULE_NAME, rule, {
             restoreSnap();
           };
         }, [ref]);
+      }
+    `,
+    // Same pattern with the remover as a method of a local object called via a member expression
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const onResize = () => {};
+          const handlers = {
+            stop() {
+              window.removeEventListener("resize", onResize);
+            },
+          };
+          window.addEventListener("resize", onResize);
+          return () => {
+            handlers.stop();
+          };
+        }, []);
       }
     `,
     tsx`
