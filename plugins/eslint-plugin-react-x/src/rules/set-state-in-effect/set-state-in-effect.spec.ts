@@ -1212,6 +1212,130 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // Diagnostics are sorted by source position, so the report for the setState
+    // inside `helper` (line 7) precedes the direct one in the setup (line 12).
+    {
+      name: "direct and indirectly reached setState in the same setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const helper = () => {
+            setB(1);
+          };
+          useEffect(() => {
+            helper();
+            setA(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setB" }, messageId: "default" },
+        { data: { name: "setA" }, messageId: "default" },
+      ],
+    },
+    // A setState function passed as the effect setup is reported at its own
+    // position (line 12), after the setState inside `helper` (line 7).
+    {
+      name: "setState passed as setup alongside a tracked call in another effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const helper = () => {
+            setB(1);
+          };
+          useEffect(() => {
+            helper();
+          }, []);
+          useEffect(setA, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setB" }, messageId: "default" },
+        { data: { name: "setA" }, messageId: "default" },
+      ],
+    },
+    // SetState reached through a setup identifier passed to useEffect is reported
+    // after setState reached through a call in an inline setup body, even though
+    // the inline setup appears earlier in source order.
+    {
+      name: "setState via a tracked call is reported before setState via a setup identifier",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const [b, setB] = useState(0);
+          const helper = () => {
+            setB(1);
+          };
+          function setupFn() {
+            setA(1);
+          }
+          useEffect(() => {
+            helper();
+          }, []);
+          useEffect(setupFn, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setB" }, messageId: "default" },
+        { data: { name: "setA" }, messageId: "default" },
+      ],
+    },
+    // A nested useEffect setup shadows the outer one; after the inner setup is
+    // exited, the outer setup body is no longer treated as the active setup, so
+    // the trailing setState is not reported.
+    {
+      name: "setState in a nested effect setup shadows the outer setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            useEffect(() => {
+              setData(1);
+            }, []);
+            setData(2);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // The tuple-index setter form is also recognized when reached indirectly
+    // through a function invoked from the setup.
+    {
+      name: "setState via array index reached indirectly",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const data = useState(0);
+          const helper = () => {
+            data[1](1);
+          };
+          useEffect(() => {
+            helper();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "data[1]" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -2227,6 +2351,88 @@ ruleTester.run(RULE_NAME, rule, {
           return detected;
         }
       `,
+    },
+    // Only a single-level IIFE directly inside the setup counts as immediate;
+    // a doubly nested IIFE is not resolved back to the setup.
+    {
+      name: "setState in a doubly nested IIFE inside the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            (() => {
+              (() => {
+                setData(1);
+              })();
+            })();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // Calls made inside an IIFE are not tracked as calls of the setup, so a
+    // setState behind a local function invoked only from the IIFE is not reached.
+    {
+      name: "setState behind a local function invoked only from an IIFE in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            (() => {
+              const inner = () => setData(1);
+              inner();
+            })();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The body of an async function is skipped entirely, so an async helper
+    // invoked synchronously from the setup is not resolved to its setState.
+    {
+      name: "setState inside an async function invoked from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const fetchAndSet = async () => {
+            setData(1);
+          };
+          useEffect(() => {
+            fetchAndSet();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A hook name configured as both a state hook and an effect hook is classified
+    // as a state hook first, so the call is not treated as an effect setup.
+    {
+      name: "hook name configured as both additionalStateHooks and additionalEffectHooks",
+      code: tsx`
+        import { useEffect, useCallback, useState } from "react";
+
+        function Component() {
+          const [x, setX] = useState(0);
+          const setAll = useCallback(() => {
+            setX(1);
+          }, []);
+          useWeird(setAll, []);
+          useEffect(() => {}, []);
+          return null;
+        }
+      `,
+      settings: {
+        "react-x": {
+          additionalStateHooks: "useWeird",
+          additionalEffectHooks: "useWeird",
+        },
+      },
     },
   ],
 });

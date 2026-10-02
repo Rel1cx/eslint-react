@@ -1,10 +1,6 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import type { RuleContext } from "@eslint-react/eslint";
-import { getSettingsFromContext } from "@eslint-react/shared";
-import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
 /**
  * Get all nested identifiers in a expression like node
@@ -73,23 +69,19 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
   }
   // ChainExpression: obj?.prop
   if (node.type === AST.ChainExpression) {
-    const chunk = getNestedIdentifiers(node.expression);
-    identifiers.push(...chunk);
+    identifiers.push(...getNestedIdentifiers(node.expression));
   }
   // TSNonNullExpression: expr!
   if (node.type === AST.TSNonNullExpression) {
-    const chunk = getNestedIdentifiers(node.expression);
-    identifiers.push(...chunk);
+    identifiers.push(...getNestedIdentifiers(node.expression));
   }
   // TSAsExpression: expr as Type
   if (node.type === AST.TSAsExpression) {
-    const chunk = getNestedIdentifiers(node.expression);
-    identifiers.push(...chunk);
+    identifiers.push(...getNestedIdentifiers(node.expression));
   }
   // TSSatisfiesExpression: expr satisfies Type
   if (node.type === AST.TSSatisfiesExpression) {
-    const chunk = getNestedIdentifiers(node.expression);
-    identifiers.push(...chunk);
+    identifiers.push(...getNestedIdentifiers(node.expression));
   }
   // ConditionalExpression: a ? b : c
   if (node.type === AST.ConditionalExpression) {
@@ -145,135 +137,32 @@ export function isHookDecl(node: TSESTree.Node): node is
   return name != null && core.isHookName(name);
 }
 
-export function isInitializedFromRef(
-  context: RuleContext,
-  name: string,
-  initialScope: Scope,
-  seen = new Set<string>(),
-): boolean {
-  const { additionalRefHooks } = getSettingsFromContext(context);
-  if (seen.has(name)) return false;
-  seen.add(name);
-  for (const def of findVariable(initialScope, name)?.defs ?? []) {
-    // A parameter named `ref`/`xxxRef` is treated as a ref by the same naming
-    // heuristic used for member-chain roots (ex: `function useDetect(ref) { ... ref.current ... }`)
-    if (def.type === DefinitionType.Parameter) {
-      if (def.name.type === AST.Identifier && (def.name.name === "ref" || def.name.name.endsWith("Ref"))) {
-        return true;
-      }
-      continue;
-    }
-    const { node } = def;
-    if (node.type !== AST.VariableDeclarator) continue;
-    const init = node.init == null ? null : Extract.unwrap(node.init);
-    if (init == null) continue;
-    switch (true) {
-      // const identifier = anotherRef.current;
-      // const identifier = containerRef.current.offsetWidth;
-      case init.type === AST.MemberExpression: {
-        let current: TSESTree.Node = init;
-        // Walk the member chain; a `<ref-named>.current` link marks the value
-        // as read from a ref (ex: `popover.contentRef.current`)
-        while (current.type === AST.MemberExpression) {
-          const property = Extract.unwrap(current.property);
-          const object = Extract.unwrap(current.object);
-          if (!current.computed && Check.isIdentifier(property, "current")) {
-            const sourceName = getRefSourceName(object);
-            if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
-              return true;
-            }
-          }
-          current = object;
-        }
-        // const identifier = containerRef.foo; (rooted at a ref-named identifier)
-        if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
-          return true;
-        }
-        // Fall back to tracing the identifiers used inside the chain so a
-        // ref-rooted local still counts (ex: `scroller.clientWidth` where
-        // `const scroller = scrollerRef.current`)
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
-      }
-      // const identifier = useRef();
-      case init.type === AST.CallExpression
-        && core.isUseRefLikeCall(init, additionalRefHooks):
-        return true;
-      // Trace through arbitrary expressions so a ref read reaching the binding
-      // via an intermediate computation still counts:
-      // const dv = visible - prevVisible.current;
-      default:
-        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
-    }
-  }
-  return false;
+export function isThenCall(node: TSESTree.CallExpression) {
+  const callee = Extract.unwrap(node.callee);
+  return callee.type === AST.MemberExpression
+    && Extract.getCalleeName(node) === "then";
 }
 
-/**
- * Get the name that identifies the source of a `.current` member access.
- * @param node The object of the member expression
- * @returns The identifier name, the last property name of a member chain, or null
- */
-function getRefSourceName(node: TSESTree.Node): string | null {
-  switch (node.type) {
-    case AST.Identifier:
-      return node.name;
-    case AST.MemberExpression: {
-      const property = Extract.unwrap(node.property);
-      return !node.computed && property.type === AST.Identifier
-        ? property.name
-        : null;
-    }
-    default:
-      return null;
-  }
-}
-
-/**
- * Check if a setState call is inside a conditional block whose test expression
- * is derived from a ref value (e.g. `if (prevRef.current !== value) setState(...)`).
- * @param context The ESLint rule context
- * @param node The AST node to check
- * @returns `true` if the node is inside a ref-gated conditional block
- */
-export function isRefGatedContext(
-  context: RuleContext,
-  node: TSESTree.Node,
-): boolean {
-  let child: TSESTree.Node = node;
-  let current: TSESTree.Node | undefined = node.parent;
-  while (current != null) {
-    if (Check.isFunction(current)) break;
-    if (current.type === AST.IfStatement) {
-      if (isRefInExpression(context, current.test)) return true;
-    }
-    if (current.type === AST.ConditionalExpression) {
-      if (isRefInExpression(context, current.test)) return true;
-    }
-    if (current.type === AST.BlockStatement) {
-      // A preceding early-return guard gates the rest of the block as well:
-      // if (prevRef.current === value) return;
-      // setState(...);
-      const index = current.body.findIndex((statement) => statement === child);
-      for (const statement of current.body.slice(0, Math.max(0, index))) {
-        if (statement.type !== AST.IfStatement) continue;
-        if (!isRefInExpression(context, statement.test)) continue;
-        if (isTerminatingStatement(statement.consequent)) return true;
-      }
-    }
-    child = current;
-    current = current.parent;
-  }
-  return false;
-}
-
-function isTerminatingStatement(node: TSESTree.Node): boolean {
+export function isTerminatingStatement(node: TSESTree.Node): boolean {
   if (node.type === AST.ReturnStatement || node.type === AST.ThrowStatement) return true;
   if (node.type === AST.BlockStatement) return node.body.some(isTerminatingStatement);
   return false;
 }
 
-function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
-  return getNestedIdentifiers(node).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id)));
+/**
+ * Get the display name of a setState call reference for reporting.
+ * @param node The setState call node (CallExpression or Identifier)
+ * @param getText The source text getter
+ * @returns The fully qualified name of the call
+ */
+export function getCallName(
+  node: TSESTree.CallExpression | TSESTree.Identifier,
+  getText: (node: TSESTree.Node) => string,
+) {
+  if (node.type === AST.CallExpression) {
+    return Extract.getFullyQualifiedName(node.callee, getText);
+  }
+  return Extract.getFullyQualifiedName(node, getText);
 }
 
 /**

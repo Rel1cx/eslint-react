@@ -172,7 +172,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 | `no-unsafe-component-will-update`            | `react-x`                 | `includes("UNSAFE_componentWillUpdate")`             | —                           | Collector + `Program:exit`                     |
 | `no-use-context`                             | `react-x`                 | `includes("useContext")`                             | `>= 19.0.0`                 | `CallExpression` immediate                     |
 | `use-memo`                                   | `react-x`                 | `includes("useMemo")`                                | —                           | `CallExpression` immediate + nested validation |
-| `set-state-in-effect`                        | `react-x`                 | `/use\w*Effect/u`                                    | —                           | Function-phase stack + collect-and-match       |
 | `error-boundaries`                           | `react-x`                 | `includes("try")`                                    | —                           | Dual collector + `Program:exit`                |
 | `no-leaked-event-listener`                   | `react-web-api`           | `includes("addEventListener")` + `/use\w*Effect/u`   | —                           | Web-API collect-and-match                      |
 | `no-leaked-fetch`                            | `react-web-api`           | `includes("fetch")` + `/use\w*Effect/u`              | —                           | Web-API collect-and-match                      |
