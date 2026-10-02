@@ -1,10 +1,10 @@
-import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as FileSystem from "@effect/platform/FileSystem";
-import * as Path from "@effect/platform/Path";
+import * as NodeServices from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
+import * as FileSystem from "effect/FileSystem";
+import * as Path from "effect/Path";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
 import { P, isMatching, match } from "ts-pattern";
@@ -503,16 +503,16 @@ const checkIndex = Effect.gen(function*() {
     // Locate the section heading and table boundaries
     const headerStartIndex = relevantLines.findIndex((line) => line.startsWith(`## ${heading}`));
     if (headerStartIndex === -1) {
-      return yield* Effect.dieMessage(`Could not find section for ${heading} in ${target}`);
+      return yield* Effect.die(new Error(`Could not find section for ${heading} in ${target}`));
     }
     const tableStartIndex = relevantLines
       .findIndex((line, index) => index > headerStartIndex && line.startsWith("| Rule"));
     if (tableStartIndex === -1) {
-      return yield* Effect.dieMessage(`Could not find table for ${heading} in ${target}`);
+      return yield* Effect.die(new Error(`Could not find table for ${heading} in ${target}`));
     }
     const tableEndIndex = relevantLines.findIndex((line, index) => index > tableStartIndex && line.trim() === "");
     if (tableEndIndex === -1) {
-      return yield* Effect.dieMessage(`Could not find the end of the table for ${heading} in ${target}`);
+      return yield* Effect.die(new Error(`Could not find the end of the table for ${heading} in ${target}`));
     }
 
     // Verify each table row (skip header and separator rows)
@@ -604,4 +604,4 @@ const program = Effect.gen(function*() {
   }
 });
 
-program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);

@@ -1,9 +1,9 @@
-import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as FileSystem from "@effect/platform/FileSystem";
-import * as Path from "@effect/platform/Path";
+import * as NodeServices from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
+import * as FileSystem from "effect/FileSystem";
+import * as Path from "effect/Path";
 import { DOMAIN_METAS, PLUGIN_DOMAINS, type PluginDomain, buildRuleFileName, parseRuleFileName } from "./00-constants";
 import { glob } from "./01-helpers";
 
@@ -225,4 +225,4 @@ const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold.green("Documentation processing completed."));
 });
 
-program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);

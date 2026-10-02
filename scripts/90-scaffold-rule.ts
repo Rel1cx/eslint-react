@@ -1,9 +1,9 @@
-import * as NodeContext from "@effect/platform-node/NodeContext";
 import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as FileSystem from "@effect/platform/FileSystem";
-import * as Path from "@effect/platform/Path";
+import * as NodeServices from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
+import * as FileSystem from "effect/FileSystem";
+import * as Path from "effect/Path";
 import { DOMAIN_META_BY_KEY, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, buildPluginPrefix } from "./00-constants";
 
 function kebabToCamel(str: string): string {
@@ -320,4 +320,4 @@ const program = Effect.gen(function*() {
   yield* Effect.log(`  5. Run ${ansis.cyan("node --run build")} and ${ansis.cyan("node --run test")} to verify`);
 });
 
-program.pipe(Effect.provide(NodeContext.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);
