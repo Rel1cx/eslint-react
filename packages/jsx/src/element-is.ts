@@ -1,5 +1,6 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { P, match } from "ts-pattern";
 import { getElementFullType } from "./element-type";
 
 /**
@@ -29,15 +30,12 @@ export function isElement(node: TSESTree.Node | null | undefined, test?: Element
   if (node.type !== AST.JSXElement && node.type !== AST.JSXFragment) return false;
   // No test, confirm that it is a JSX element / fragment.
   if (test == null) return true;
-  const elementType = getElementFullType(node);
-  switch (typeof test) {
-    case "string":
-      return elementType === test;
-    case "function":
-      return test(elementType, node);
-    default:
-      return test.includes(elementType);
-  }
+  const type = getElementFullType(node);
+  return match(test)
+    .with(P.string, (t) => type === t)
+    .with(P.array(), (t) => t.includes(type))
+    .with(P.instanceOf(Function), (t) => t(type, node))
+    .exhaustive();
 }
 
 /**

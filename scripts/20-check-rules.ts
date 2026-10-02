@@ -7,7 +7,7 @@ import { identity } from "effect";
 import * as Effect from "effect/Effect";
 import * as NodePath from "node:path";
 import { pathToFileURL } from "node:url";
-import { P, match } from "ts-pattern";
+import { P, isMatching, match } from "ts-pattern";
 import { DOMAIN_METAS, DOMAIN_META_BY_KEY, EXCLUDED_VERIFY_DOMAINS, PLUGIN_DOMAINS, type PluginDomain, buildConfigKey, entries, keys } from "./00-constants";
 import { glob, isRuleEntryFile } from "./01-helpers";
 
@@ -54,7 +54,7 @@ const collectRegisteredRules = Effect.gen(function*() {
     const meta = DOMAIN_META_BY_KEY[domain as PluginDomain];
     const mod = yield* Effect.tryPromise(() => import(pathToFileURL(NodePath.resolve(file)).href));
     const ruleName = mod.RULE_NAME;
-    if (typeof ruleName !== "string") continue;
+    if (!isMatching(P.string, ruleName)) continue;
     const configKey = buildConfigKey(meta.key, ruleName);
     rules.push({ domain, name: ruleName, configKey });
   }

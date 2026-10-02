@@ -2,6 +2,7 @@ import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
+import { P, isMatching } from "ts-pattern";
 
 export const RULE_NAME = "no-missing-iframe-sandbox";
 
@@ -65,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // the named property is extracted automatically
       const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
       // If the value is a static string, the prop is correctly used
-      if (typeof sandboxValue.toStatic() === "string") return;
+      if (isMatching(P.string, sandboxValue.toStatic())) return;
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({

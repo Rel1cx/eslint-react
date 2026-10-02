@@ -2,6 +2,7 @@ import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
 import { resolve } from "@eslint-react/var";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { P, match } from "ts-pattern";
 import { isCreateElementCall } from "./api";
 
 /**
@@ -102,20 +103,14 @@ export function isJsxLike(context: RuleContext, node: TSESTree.Node | null, hint
         return visit(node.argument);
 
       case AST.Literal: {
-        switch (typeof node.value) {
-          case "boolean":
-            return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBooleanValue);
-          case "string":
-            return !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue);
-          case "number":
-            return !(hint & JsxDetectionHint.DoNotIncludeJsxWithNumberValue);
-          case "bigint":
-            return !(hint & JsxDetectionHint.DoNotIncludeJsxWithBigIntValue);
-        }
-        // The only nullish literal value is `null`; other object-valued
-        // literals (e.g. RegExp) are never JSX-like.
-        return node.value == null
-          && !(hint & JsxDetectionHint.DoNotIncludeJsxWithNullValue);
+        return match(node.value)
+          .with(P.nullish, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithNullValue))
+          .with(P.boolean, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithBooleanValue))
+          .with(P.string, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithStringValue))
+          .with(P.number, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithNumberValue))
+          .with(P.bigint, () => !(hint & JsxDetectionHint.DoNotIncludeJsxWithBigIntValue))
+          .with(P.instanceOf(RegExp), () => false)
+          .exhaustive();
       }
 
       case AST.TemplateLiteral:
