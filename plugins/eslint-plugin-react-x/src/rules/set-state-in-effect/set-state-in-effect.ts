@@ -29,10 +29,8 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!/use\w*Effect/u.test(context.sourceCode.text)) return {};
-
   const { additionalEffectHooks, additionalStateHooks } = getSettingsFromContext(context);
   const facts = createFactCollector(additionalStateHooks, additionalEffectHooks);
-
   return merge(
     facts.visitor,
     {
