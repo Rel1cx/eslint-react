@@ -9,8 +9,8 @@ export const RULE_NAME = "error-boundaries";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "tryCatchWithJsx"
-  | "tryCatchWithUse";
+  | "try-catch-with-jsx"
+  | "try-catch-with-use";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -19,8 +19,8 @@ export default createRule<[], MessageID>({
       description: "Validates usage of Error Boundaries instead of try/catch for errors in child components.",
     },
     messages: {
-      tryCatchWithJsx: "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
-      tryCatchWithUse:
+      "try-catch-with-jsx": "Use an Error Boundary to catch errors in child components. Try/catch can't catch errors during React's rendering process.",
+      "try-catch-with-use":
         "Use an Error Boundary instead of try/catch around the 'use' hook. The 'use' hook suspends the component, and its errors can only be caught by Error Boundaries.",
     },
     schema: [],
@@ -66,7 +66,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           const func = Traverse.findParent(stmt, (n) => funcs.some((f) => f.node === n));
           if (stmt != null && func != null && !reported.has(stmt)) {
             context.report({
-              messageId: "tryCatchWithUse",
+              messageId: "try-catch-with-use",
               node: stmt,
             });
             reported.add(stmt);
@@ -80,7 +80,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             const stmt = Traverse.findEnclosingTryBlock(ret);
             if (stmt != null && !reported.has(stmt)) {
               context.report({
-                messageId: "tryCatchWithJsx",
+                messageId: "try-catch-with-jsx",
                 node: stmt,
               });
               reported.add(stmt);

@@ -9,21 +9,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<button>Click me</button>;`,
       errors: [
         {
-          messageId: "missingTypeAttribute",
+          messageId: "missing-type-attribute",
           suggestions: [
             {
               data: { type: "button" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="button">Click me</button>;`,
             },
             {
               data: { type: "submit" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="submit">Click me</button>;`,
             },
             {
               data: { type: "reset" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="reset">Click me</button>;`,
             },
           ],
@@ -34,21 +34,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<button />;`,
       errors: [
         {
-          messageId: "missingTypeAttribute",
+          messageId: "missing-type-attribute",
           suggestions: [
             {
               data: { type: "button" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="button" />;`,
             },
             {
               data: { type: "submit" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="submit" />;`,
             },
             {
               data: { type: "reset" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<button type="reset" />;`,
             },
           ],
@@ -59,21 +59,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="button">Click me</PolyComponent>;`,
       errors: [
         {
-          messageId: "missingTypeAttribute",
+          messageId: "missing-type-attribute",
           suggestions: [
             {
               data: { type: "button" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="button" as="button">Click me</PolyComponent>;`,
             },
             {
               data: { type: "submit" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="submit" as="button">Click me</PolyComponent>;`,
             },
             {
               data: { type: "reset" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="reset" as="button">Click me</PolyComponent>;`,
             },
           ],
@@ -90,21 +90,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<motion.div as="button">Click me</motion.div>;`,
       errors: [
         {
-          messageId: "missingTypeAttribute",
+          messageId: "missing-type-attribute",
           suggestions: [
             {
               data: { type: "button" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<motion.div type="button" as="button">Click me</motion.div>;`,
             },
             {
               data: { type: "submit" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<motion.div type="submit" as="button">Click me</motion.div>;`,
             },
             {
               data: { type: "reset" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<motion.div type="reset" as="button">Click me</motion.div>;`,
             },
           ],
@@ -116,21 +116,21 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="BUTTON">Click me</PolyComponent>;`,
       errors: [
         {
-          messageId: "missingTypeAttribute",
+          messageId: "missing-type-attribute",
           suggestions: [
             {
               data: { type: "button" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="button" as="BUTTON">Click me</PolyComponent>;`,
             },
             {
               data: { type: "submit" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="submit" as="BUTTON">Click me</PolyComponent>;`,
             },
             {
               data: { type: "reset" },
-              messageId: "addTypeAttribute",
+              messageId: "add-type-attribute",
               output: tsx`<PolyComponent type="reset" as="BUTTON">Click me</PolyComponent>;`,
             },
           ],

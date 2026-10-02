@@ -13,9 +13,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "directMutation"
-  | "indirectMutation"
-  | "mutationSite";
+  | "direct-mutation"
+  | "indirect-mutation"
+  | "mutation-site";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,10 +25,10 @@ export default createRule<[], MessageID>({
         "Validates against mutating props, state, and other immutable values, including through functions passed into frozen contexts such as JSX props, hook arguments, and hook return values.",
     },
     messages: {
-      directMutation: "Do not mutate '{{name}}' directly. {{detail}}",
-      indirectMutation:
+      "direct-mutation": "Do not mutate '{{name}}' directly. {{detail}}",
+      "indirect-mutation":
         "This function may (indirectly) reassign or modify '{{name}}' after render, which can cause inconsistent behavior on subsequent renders. Consider using state instead.",
-      mutationSite: "This modifies '{{name}}'.",
+      "mutation-site": "This modifies '{{name}}'.",
     },
     schema: [],
   },
@@ -69,12 +69,12 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             reportedMutations.add(mutation.node);
             context.report({
               data: { name: mutation.name },
-              messageId: "indirectMutation",
+              messageId: "indirect-mutation",
               node: expression,
             });
             context.report({
               data: { name: mutation.name },
-              messageId: "mutationSite",
+              messageId: "mutation-site",
               node: mutation.node,
             });
           }
@@ -86,7 +86,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           reportedMutations.add(mutation.node);
           context.report({
             data: { name: mutation.name, detail: mutation.detail },
-            messageId: "directMutation",
+            messageId: "direct-mutation",
             node: mutation.node,
           });
         }

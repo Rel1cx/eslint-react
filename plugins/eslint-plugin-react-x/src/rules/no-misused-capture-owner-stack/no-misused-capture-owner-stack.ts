@@ -13,8 +13,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "useNamespaceImport"
-  | "missingDevelopmentOnlyCheck";
+  | "use-namespace-import"
+  | "missing-development-only-check";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,9 +23,9 @@ export default createRule<[], MessageID>({
       description: "Prevents incorrect usage of 'captureOwnerStack'.",
     },
     messages: {
-      missingDevelopmentOnlyCheck:
+      "missing-development-only-check":
         `Don't call 'captureOwnerStack' directly. Use 'if (process.env.NODE_ENV !== "production") {...}' to conditionally access it.`,
-      useNamespaceImport:
+      "use-namespace-import":
         "Don't use named imports of 'captureOwnerStack' in files that are bundled for development and production. Use a namespace import instead.",
     },
     schema: [],
@@ -47,7 +47,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Check if the call is wrapped in a development-only conditional block
       if (Traverse.findParent(node, (n) => isDevelopmentOnlyCheck(context, n)) == null) {
         context.report({
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
           node,
         });
       }
@@ -60,7 +60,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         if (specifier.type !== AST.ImportSpecifier) continue;
         if (!Check.isIdentifier(specifier.imported, "captureOwnerStack")) continue;
         context.report({
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
           node: specifier,
         });
       }

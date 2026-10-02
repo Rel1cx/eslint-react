@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // Bare return (no value)
     {
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // All return paths are bare returns
     {
@@ -46,7 +46,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // Multiple return statements but all are bare
     {
@@ -63,7 +63,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // useMemo result not assigned to a variable (side-effect only, no return)
     {
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "resultMustBeUsed" }],
+      errors: [{ messageId: "result-must-be-used" }],
     },
     // useMemo result not assigned even though callback returns a value
     {
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "resultMustBeUsed" }],
+      errors: [{ messageId: "result-must-be-used" }],
     },
     // React namespace call not assigned
     {
@@ -105,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "resultMustBeUsed" }],
+      errors: [{ messageId: "result-must-be-used" }],
     },
     // Callback accepting parameters
     {
@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "noParameters" }],
+      errors: [{ messageId: "no-parameters" }],
     },
     // Callback accepting multiple parameters
     {
@@ -131,7 +131,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{result}</div>;
         }
       `,
-      errors: [{ messageId: "noParameters" }],
+      errors: [{ messageId: "no-parameters" }],
     },
     // Async callback
     {
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "noAsyncOrGeneratorFunctions" }],
+      errors: [{ messageId: "no-async-or-generator-functions" }],
     },
     // Generator callback
     {
@@ -160,7 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "noAsyncOrGeneratorFunctions" }],
+      errors: [{ messageId: "no-async-or-generator-functions" }],
     },
     // Callback with both parameter and missing return
     {
@@ -175,8 +175,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mustReturnAValue" },
-        { messageId: "noParameters" },
+        { messageId: "must-return-a-value" },
+        { messageId: "no-parameters" },
       ],
     },
     // FunctionExpression callback with no return
@@ -191,7 +191,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // Callback wrapped in TSAsExpression with no return value
     {
@@ -205,7 +205,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{processed}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // useMemo with no return value — both useMemo and React.useMemo (from React Compiler fixtures)
     {
@@ -226,8 +226,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mustReturnAValue" },
-        { messageId: "mustReturnAValue" },
+        { messageId: "must-return-a-value" },
+        { messageId: "must-return-a-value" },
       ],
     },
     // useMemo with bare return (from React Compiler fixtures)
@@ -240,7 +240,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "mustReturnAValue" }],
+      errors: [{ messageId: "must-return-a-value" }],
     },
     // useMemo result unused (from React Compiler fixtures)
     {
@@ -252,7 +252,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "resultMustBeUsed" }],
+      errors: [{ messageId: "result-must-be-used" }],
     },
     // useMemo callback with args (from React Compiler fixtures)
     {
@@ -262,7 +262,7 @@ ruleTester.run(RULE_NAME, rule, {
           return x;
         }
       `,
-      errors: [{ messageId: "noParameters" }],
+      errors: [{ messageId: "no-parameters" }],
     },
     // React.useMemo async callback (from React Compiler fixtures)
     {
@@ -275,8 +275,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noAsyncOrGeneratorFunctions" },
-        { messageId: "mustReturnAValue" },
+        { messageId: "no-async-or-generator-functions" },
+        { messageId: "must-return-a-value" },
       ],
     },
     // Rule 3: Reassigning outer variable (from React Compiler fixtures)
@@ -295,7 +295,7 @@ ruleTester.run(RULE_NAME, rule, {
           return [x, y];
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable with compound assignment
     {
@@ -311,7 +311,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable inside conditional
     {
@@ -329,7 +329,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable inside FunctionExpression callback (boundary itself is a function, stop must win)
     {
@@ -345,7 +345,7 @@ ruleTester.run(RULE_NAME, rule, {
           return [outer, y];
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable through object destructuring
     {
@@ -361,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable through array destructuring
     {
@@ -377,7 +377,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning multiple outer variables through one destructuring pattern
     {
@@ -395,8 +395,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "noReassigningOuterVariables" },
-        { messageId: "noReassigningOuterVariables" },
+        { messageId: "no-reassigning-outer-variables" },
+        { messageId: "no-reassigning-outer-variables" },
       ],
     },
     // Rule 3: Reassigning outer variable as a for-of loop target
@@ -415,7 +415,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable as a for-in loop target
     {
@@ -433,7 +433,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "noReassigningOuterVariables" }],
+      errors: [{ messageId: "no-reassigning-outer-variables" }],
     },
     // Rule 3: Reassigning outer variable alongside other violations
     // Errors are sorted by source position: mustReturnAValue (on callbackArg) comes
@@ -452,9 +452,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mustReturnAValue" },
-        { messageId: "noParameters" },
-        { messageId: "noReassigningOuterVariables" },
+        { messageId: "must-return-a-value" },
+        { messageId: "no-parameters" },
+        { messageId: "no-reassigning-outer-variables" },
       ],
     },
   ],

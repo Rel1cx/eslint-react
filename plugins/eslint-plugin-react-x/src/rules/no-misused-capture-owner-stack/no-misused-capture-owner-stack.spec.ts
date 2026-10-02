@@ -11,7 +11,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
       ],
     },
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
       ],
     },
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
       ],
     },
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -69,11 +69,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -87,7 +87,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -106,7 +106,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -148,7 +148,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -162,11 +162,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -185,11 +185,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -203,11 +203,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -226,11 +226,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },
@@ -249,11 +249,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.ImportSpecifier,
-          messageId: "useNamespaceImport",
+          messageId: "use-namespace-import",
         },
         {
           type: AST.CallExpression,
-          messageId: "missingDevelopmentOnlyCheck",
+          messageId: "missing-development-only-check",
         },
       ],
     },

@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -34,7 +34,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -75,15 +75,15 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
         {
           data: { eventMethodKind: "addEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
         {
           data: { eventMethodKind: "removeEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
       ],
     },
@@ -103,15 +103,15 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
         {
           data: { eventMethodKind: "addEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
         {
           data: { eventMethodKind: "removeEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
       ],
     },
@@ -132,15 +132,15 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { effectMethodKind: "useEffect", eventMethodKind: "addEventListener" },
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
         {
           data: { eventMethodKind: "addEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
         {
           data: { eventMethodKind: "removeEventListener" },
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
       ],
     },
@@ -160,7 +160,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -179,7 +179,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //       messageId: "expected-remove-event-listener-in-cleanup",
     //     },
     //   ],
     // },
@@ -199,7 +199,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -219,7 +219,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -239,7 +239,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -259,7 +259,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -279,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -299,7 +299,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -319,7 +319,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -339,7 +339,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -360,7 +360,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -381,7 +381,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -402,7 +402,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -424,7 +424,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -445,10 +445,10 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //       messageId: "expected-remove-event-listener-in-cleanup",
     //     },
     //     {
-    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //       messageId: "expected-remove-event-listener-in-cleanup",
     //     },
     //   ],
     // },
@@ -469,7 +469,7 @@ ruleTester.run(RULE_NAME, rule, {
     //   `,
     //   errors: [
     //     {
-    //       messageId: "expectedRemoveEventListenerInCleanup",
+    //       messageId: "expected-remove-event-listener-in-cleanup",
     //     },
     //   ],
     // },
@@ -485,7 +485,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -515,7 +515,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -546,7 +546,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -577,7 +577,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -607,7 +607,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -638,7 +638,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -669,7 +669,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -700,7 +700,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -719,10 +719,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
         {
-          messageId: "unexpectedInlineFunction",
+          messageId: "unexpected-inline-function",
         },
       ],
     },
@@ -743,7 +743,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -765,7 +765,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -787,7 +787,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -807,7 +807,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -828,7 +828,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -851,7 +851,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -873,7 +873,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -891,7 +891,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -909,7 +909,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -939,7 +939,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -965,7 +965,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -990,7 +990,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },
@@ -1020,10 +1020,10 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
         {
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
         },
       ],
     },

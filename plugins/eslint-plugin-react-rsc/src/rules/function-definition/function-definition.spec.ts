@@ -465,7 +465,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from 'react';
         'use client';
       `,
-      errors: [{ messageId: "fileDirectivePosition" }],
+      errors: [{ messageId: "file-directive-position" }],
     },
     {
       name: "File-level 'use server' directive after an import",
@@ -473,7 +473,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from 'react';
         'use server';
       `,
-      errors: [{ messageId: "fileDirectivePosition" }],
+      errors: [{ messageId: "file-directive-position" }],
     },
     {
       name: "File-level 'use client' directive after a statement",
@@ -481,7 +481,7 @@ ruleTester.run(RULE_NAME, rule, {
         const x = 1;
         'use client';
       `,
-      errors: [{ messageId: "fileDirectivePosition" }],
+      errors: [{ messageId: "file-directive-position" }],
     },
     {
       name: "File-level 'use server' directive after an export",
@@ -489,14 +489,14 @@ ruleTester.run(RULE_NAME, rule, {
         export const x = 1;
         'use server';
       `,
-      errors: [{ messageId: "fileDirectivePosition" }],
+      errors: [{ messageId: "file-directive-position" }],
     },
     {
       name: "Parenthesized file-level 'use server' directive",
       code: tsx`
         ('use server');
       `,
-      errors: [{ messageId: "fileDirectivePosition", data: { name: "use server" } }],
+      errors: [{ messageId: "file-directive-position", data: { name: "use server" } }],
       output: null,
     },
     // File-level directive quote style
@@ -505,14 +505,14 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         \`use client\`;
       `,
-      errors: [{ messageId: "fileDirectiveQuote" }],
+      errors: [{ messageId: "file-directive-quote" }],
     },
     {
       name: "File-level 'use server' directive in a template literal",
       code: tsx`
         \`use server\`;
       `,
-      errors: [{ messageId: "fileDirectiveQuote" }],
+      errors: [{ messageId: "file-directive-quote" }],
     },
     // Local directive position
     {
@@ -528,7 +528,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "localDirectivePosition" }],
+      errors: [{ messageId: "local-directive-position" }],
     },
     {
       name: "Local 'use server' directive after a return statement in an async function",
@@ -542,7 +542,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "localDirectivePosition" }],
+      errors: [{ messageId: "local-directive-position" }],
     },
     {
       name: "Local 'use server' directive after a statement in a top-level function",
@@ -553,7 +553,7 @@ ruleTester.run(RULE_NAME, rule, {
           return value;
         }
       `,
-      errors: [{ messageId: "localDirectivePosition", data: { name: "use server" } }],
+      errors: [{ messageId: "local-directive-position", data: { name: "use server" } }],
       output: null,
     },
     // Local directive quote style
@@ -569,7 +569,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "localDirectiveQuote" }],
+      errors: [{ messageId: "local-directive-quote" }],
     },
     {
       name: "Local 'use client' directive in a template literal",
@@ -583,7 +583,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "localDirectiveQuote" }],
+      errors: [{ messageId: "local-directive-quote" }],
     },
     {
       name: "Local 'use server' directive in a template literal in a top-level async function",
@@ -594,7 +594,7 @@ ruleTester.run(RULE_NAME, rule, {
           return value;
         }
       `,
-      errors: [{ messageId: "localDirectiveQuote", data: { name: "use server" } }],
+      errors: [{ messageId: "local-directive-quote", data: { name: "use server" } }],
       output: null,
     },
     // Local directive not allowed inside a function body
@@ -610,7 +610,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "localDirectiveUnexpected" }],
+      errors: [{ messageId: "local-directive-unexpected" }],
     },
     {
       name: "Local 'use client' directive inside a top-level function",
@@ -621,7 +621,7 @@ ruleTester.run(RULE_NAME, rule, {
           return value;
         }
       `,
-      errors: [{ messageId: "localDirectiveUnexpected", data: { name: "use client" } }],
+      errors: [{ messageId: "local-directive-unexpected", data: { name: "use client" } }],
       output: null,
     },
   ],

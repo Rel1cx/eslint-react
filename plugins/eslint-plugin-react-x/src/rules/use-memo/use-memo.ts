@@ -13,11 +13,11 @@ export const RULE_NAME = "use-memo";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "noParameters"
-  | "noAsyncOrGeneratorFunctions"
-  | "noReassigningOuterVariables"
-  | "mustReturnAValue"
-  | "resultMustBeUsed";
+  | "no-parameters"
+  | "no-async-or-generator-functions"
+  | "no-reassigning-outer-variables"
+  | "must-return-a-value"
+  | "result-must-be-used";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,15 +26,15 @@ export default createRule<[], MessageID>({
       description: "Validates that 'useMemo' is called with a callback that returns a value.",
     },
     messages: {
-      mustReturnAValue:
+      "must-return-a-value":
         "useMemo() callbacks must return a value.\n\nThis useMemo() callback doesn't return a value. useMemo() is for computing and caching values, not for arbitrary side effects.",
-      noAsyncOrGeneratorFunctions:
+      "no-async-or-generator-functions":
         "useMemo() callbacks may not be async or generator functions.\n\nuseMemo() callbacks are called once and must synchronously return a value.",
-      noParameters:
+      "no-parameters":
         "useMemo() callbacks may not accept parameters.\n\nuseMemo() callbacks are called by React to cache calculations across re-renders. They should not take parameters. Instead, directly reference the props, state, or local variables needed for the computation.",
-      noReassigningOuterVariables:
+      "no-reassigning-outer-variables":
         "useMemo() callbacks may not reassign variables declared outside of the callback.\n\nuseMemo() callbacks must be pure functions and cannot reassign variables defined outside of the callback function.",
-      resultMustBeUsed:
+      "result-must-be-used":
         "useMemo() result is unused.\n\nThis useMemo() value is unused. useMemo() is for computing and caching values, not for arbitrary side effects.",
     },
     schema: [],
@@ -64,7 +64,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
 
       violations.push({
-        messageId: "noReassigningOuterVariables",
+        messageId: "no-reassigning-outer-variables",
         node: target,
       });
     }
@@ -123,7 +123,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       if (!isAssigned) {
         context.report({
-          messageId: "resultMustBeUsed",
+          messageId: "result-must-be-used",
           node,
         });
         return;
@@ -139,7 +139,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const firstParam = callback.params[0];
         if (firstParam == null) return;
         context.report({
-          messageId: "noParameters",
+          messageId: "no-parameters",
           node: Check.isIdentifier(firstParam) ? firstParam : callback,
         });
       }
@@ -147,7 +147,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // Rule 2: No Async or Generator Functions — must synchronously return a value
       if (callback.async || callback.generator) {
         context.report({
-          messageId: "noAsyncOrGeneratorFunctions",
+          messageId: "no-async-or-generator-functions",
           node: callback,
         });
       }
@@ -169,7 +169,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const returnStatements = getNestedReturnStatements(callback);
       if (returnStatements.length === 0) {
         context.report({
-          messageId: "mustReturnAValue",
+          messageId: "must-return-a-value",
           node: callbackArg,
         });
         return;
@@ -178,7 +178,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const hasValueReturn = returnStatements.some((stmt) => stmt.argument != null);
       if (!hasValueReturn) {
         context.report({
-          messageId: "mustReturnAValue",
+          messageId: "must-return-a-value",
           node: callbackArg,
         });
       }

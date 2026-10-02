@@ -12,9 +12,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "mutatingGlobal"
-  | "mutatingGlobalArrayMethod"
-  | "mutatingGlobalProperty";
+  | "mutating-global"
+  | "mutating-global-array-method"
+  | "mutating-global-property";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,9 +23,9 @@ export default createRule<[], MessageID>({
       description: "Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.",
     },
     messages: {
-      mutatingGlobal: "Do not mutate '{{name}}' during render. Global variables exist outside React's control and make rendering impure.",
-      mutatingGlobalArrayMethod: "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
-      mutatingGlobalProperty: "Do not mutate '{{name}}' during render. Modifying global objects during render makes rendering impure.",
+      "mutating-global": "Do not mutate '{{name}}' during render. Global variables exist outside React's control and make rendering impure.",
+      "mutating-global-array-method": "Do not call '{{method}}()' on '{{name}}' during render. Mutating global arrays during render makes rendering impure.",
+      "mutating-global-property": "Do not mutate '{{name}}' during render. Modifying global objects during render makes rendering impure.",
     },
     schema: [],
   },
@@ -58,9 +58,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           context.report({
             data,
             messageId: match<GlobalMutationEffect, MessageID>(effect)
-              .with({ kind: "global" }, () => "mutatingGlobal")
-              .with({ kind: "method" }, () => "mutatingGlobalArrayMethod")
-              .with({ kind: "property" }, () => "mutatingGlobalProperty")
+              .with({ kind: "global" }, () => "mutating-global")
+              .with({ kind: "method" }, () => "mutating-global-array-method")
+              .with({ kind: "property" }, () => "mutating-global-property")
               .exhaustive(),
             node: effect.node,
           });

@@ -17,8 +17,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "items" }, messageId: "mutationSite" },
-        { data: { name: "items" }, messageId: "indirectMutation" },
+        { data: { name: "items" }, messageId: "mutation-site" },
+        { data: { name: "items" }, messageId: "indirect-mutation" },
       ],
     },
     // Plain reassignment (`=`) of a captured identifier.
@@ -33,8 +33,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "message" }, messageId: "mutationSite" },
-        { data: { name: "message" }, messageId: "indirectMutation" },
+        { data: { name: "message" }, messageId: "mutation-site" },
+        { data: { name: "message" }, messageId: "indirect-mutation" },
       ],
     },
     // Reassignment via UpdateExpression.
@@ -49,8 +49,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "count" }, messageId: "mutationSite" },
-        { data: { name: "count" }, messageId: "indirectMutation" },
+        { data: { name: "count" }, messageId: "mutation-site" },
+        { data: { name: "count" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutating assignment operator (`+=`) on a captured variable.
@@ -65,8 +65,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "count" }, messageId: "mutationSite" },
-        { data: { name: "count" }, messageId: "indirectMutation" },
+        { data: { name: "count" }, messageId: "mutation-site" },
+        { data: { name: "count" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation via property assignment on a captured object.
@@ -81,8 +81,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "state" }, messageId: "mutationSite" },
-        { data: { name: "state" }, messageId: "indirectMutation" },
+        { data: { name: "state" }, messageId: "mutation-site" },
+        { data: { name: "state" }, messageId: "indirect-mutation" },
       ],
     },
     // UpdateExpression on a member expression of a captured object.
@@ -97,8 +97,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "state" }, messageId: "mutationSite" },
-        { data: { name: "state" }, messageId: "indirectMutation" },
+        { data: { name: "state" }, messageId: "mutation-site" },
+        { data: { name: "state" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation via `delete` on a captured object property.
@@ -113,8 +113,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "state" }, messageId: "mutationSite" },
-        { data: { name: "state" }, messageId: "indirectMutation" },
+        { data: { name: "state" }, messageId: "mutation-site" },
+        { data: { name: "state" }, messageId: "indirect-mutation" },
       ],
     },
     // Assignment through a computed member resolves to the same root identifier.
@@ -129,8 +129,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "items" }, messageId: "mutationSite" },
-        { data: { name: "items" }, messageId: "indirectMutation" },
+        { data: { name: "items" }, messageId: "mutation-site" },
+        { data: { name: "items" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation on a deeply nested property of a captured object.
@@ -145,8 +145,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "state" }, messageId: "mutationSite" },
-        { data: { name: "state" }, messageId: "indirectMutation" },
+        { data: { name: "state" }, messageId: "mutation-site" },
+        { data: { name: "state" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutating method invoked through optional chaining.
@@ -161,8 +161,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation happens before the (aliased) freeze usage in source order,
@@ -178,8 +178,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Inline function passed directly as a JSX prop: the freeze usage (the
@@ -192,8 +192,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
     // Inline function passed directly as a hook argument.
@@ -207,8 +207,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
     // Named function expression passed as a hook argument.
@@ -223,8 +223,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Hook returning its own parameter: the sink identifier is a parameter, which
@@ -243,8 +243,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Hook calls through a member expression (`React.useEffect`) are sinks too.
@@ -260,8 +260,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // The bare `use` function counts as a hook call by name.
@@ -277,8 +277,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Function returned from a hook.
@@ -293,8 +293,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
     // A hook defined as an arrow function assigned to a `use*` variable is
@@ -309,8 +309,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
     // Implicit arrow-body returns from a hook are also return-value sinks.
@@ -321,8 +321,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
       ],
     },
     // Type assertions around the sink expression are unwrapped.
@@ -337,8 +337,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutating a parameter captured from the enclosing component scope.
@@ -352,8 +352,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Conditional mutations are still treated as definite mutations.
@@ -368,8 +368,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation effect propagates through a simple local alias (`fn2 = fn`).
@@ -385,8 +385,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation effect propagates through a chain of simple local aliases.
@@ -403,8 +403,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // An alias declared inside the callback is traced back to the captured
@@ -421,8 +421,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Reassigning an alias mutates the alias binding, not the value from its initializer.
@@ -438,8 +438,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "alias" }, messageId: "mutationSite" },
-        { data: { name: "alias" }, messageId: "indirectMutation" },
+        { data: { name: "alias" }, messageId: "mutation-site" },
+        { data: { name: "alias" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation effect propagates through nested inline closures.
@@ -457,8 +457,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Mutation nested inside multiple closure layers still marks the outermost
@@ -480,8 +480,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // Same mutable function passed to two different sinks reports two usage-site
@@ -497,10 +497,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "mutationSite" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
-        { data: { name: "cache" }, messageId: "indirectMutation" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "mutation-site" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
+        { data: { name: "cache" }, messageId: "indirect-mutation" },
       ],
     },
     // JSX props are purely syntactic freeze contexts: even a lowercase
@@ -516,8 +516,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "items" }, messageId: "mutationSite" },
-        { data: { name: "items" }, messageId: "indirectMutation" },
+        { data: { name: "items" }, messageId: "mutation-site" },
+        { data: { name: "items" }, messageId: "indirect-mutation" },
       ],
     },
     // Method-name heuristic flags any `.push()` call regardless of receiver type.
@@ -532,8 +532,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "obj" }, messageId: "mutationSite" },
-        { data: { name: "obj" }, messageId: "indirectMutation" },
+        { data: { name: "obj" }, messageId: "mutation-site" },
+        { data: { name: "obj" }, messageId: "indirect-mutation" },
       ],
     },
     // When a function mutates multiple captured variables, only the first
@@ -551,8 +551,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "a" }, messageId: "mutationSite" },
-        { data: { name: "a" }, messageId: "indirectMutation" },
+        { data: { name: "a" }, messageId: "mutation-site" },
+        { data: { name: "a" }, messageId: "indirect-mutation" },
       ],
     },
     // The enclosing-function walk stops exactly at the function declaring the
@@ -571,8 +571,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "items" }, messageId: "mutationSite" },
-        { data: { name: "items" }, messageId: "indirectMutation" },
+        { data: { name: "items" }, messageId: "mutation-site" },
+        { data: { name: "items" }, messageId: "indirect-mutation" },
       ],
     },
     // The ref-name heuristic is case-sensitive: `myref` does not end with "Ref".
@@ -587,8 +587,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "myref" }, messageId: "mutationSite" },
-        { data: { name: "myref" }, messageId: "indirectMutation" },
+        { data: { name: "myref" }, messageId: "mutation-site" },
+        { data: { name: "myref" }, messageId: "indirect-mutation" },
       ],
     },
     // Initializer provenance requires exactly one definition for the origin.
@@ -604,8 +604,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "mounted" }, messageId: "mutationSite" },
-        { data: { name: "mounted" }, messageId: "indirectMutation" },
+        { data: { name: "mounted" }, messageId: "mutation-site" },
+        { data: { name: "mounted" }, messageId: "indirect-mutation" },
       ],
     },
 
@@ -623,8 +623,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "x" }, messageId: "mutationSite" },
-        { data: { name: "x" }, messageId: "indirectMutation" },
+        { data: { name: "x" }, messageId: "mutation-site" },
+        { data: { name: "x" }, messageId: "indirect-mutation" },
       ],
     },
     // A callback that reassigns its own binding (ported from React Compiler's
@@ -639,8 +639,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "callback" }, messageId: "mutationSite" },
-        { data: { name: "callback" }, messageId: "indirectMutation" },
+        { data: { name: "callback" }, messageId: "mutation-site" },
+        { data: { name: "callback" }, messageId: "indirect-mutation" },
       ],
     },
     // A hook that returns a function capturing and reassigning a local variable
@@ -655,8 +655,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "x" }, messageId: "indirectMutation" },
-        { data: { name: "x" }, messageId: "mutationSite" },
+        { data: { name: "x" }, messageId: "indirect-mutation" },
+        { data: { name: "x" }, messageId: "mutation-site" },
       ],
     },
     // Conditional reassignment plus a mutating method in a JSX event handler
@@ -681,8 +681,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "a" }, messageId: "mutationSite" },
-        { data: { name: "a" }, messageId: "indirectMutation" },
+        { data: { name: "a" }, messageId: "mutation-site" },
+        { data: { name: "a" }, messageId: "indirect-mutation" },
       ],
     },
 
@@ -704,7 +704,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a state value returned from 'useState' and must be treated as immutable.",
             name: "values",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -728,7 +728,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a shallow copy of 'values'; mutating nested values through it mutates 'values' in place.",
             name: "copyValues",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -746,7 +746,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -762,7 +762,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Iterator provenance is preserved through state aliases and destructuring.
@@ -783,7 +783,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "value",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -803,7 +803,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'props' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -819,7 +819,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // UpdateExpression on a member of a useReducer state value.
@@ -834,7 +834,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Mutating method call on a state value.
@@ -849,7 +849,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Nested mutation through an array shallow copy of state.
@@ -866,7 +866,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Nested mutation through a shallow copy of props.
@@ -881,7 +881,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // An identifier alias of a state value is traced back to the state origin.
@@ -897,7 +897,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Namespaced state hook calls are recognized.
@@ -912,7 +912,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
     },
     // Custom state hooks configured via `additionalStateHooks` are recognized.
@@ -927,7 +927,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "directMutation" },
+        { messageId: "direct-mutation" },
       ],
       settings: {
         "react-x": {
@@ -947,8 +947,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "props" }, messageId: "mutationSite" },
-        { data: { name: "props" }, messageId: "indirectMutation" },
+        { data: { name: "props" }, messageId: "mutation-site" },
+        { data: { name: "props" }, messageId: "indirect-mutation" },
       ],
     },
 
@@ -965,8 +965,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "count" }, messageId: "mutationSite" },
-        { data: { name: "count" }, messageId: "indirectMutation" },
+        { data: { name: "count" }, messageId: "mutation-site" },
+        { data: { name: "count" }, messageId: "indirect-mutation" },
       ],
     },
     // Logical assignment (`??=`) to a props property is a direct mutation.
@@ -983,7 +983,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1005,7 +1005,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a state value returned from 'useState' and must be treated as immutable.",
             name: "state",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1026,7 +1026,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a state value returned from 'useReducer' and must be treated as immutable.",
             name: "state",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1047,7 +1047,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a shallow copy of 'props'; mutating nested values through it mutates 'props' in place.",
             name: "copy",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1071,7 +1071,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a shallow copy of 'copy1'; mutating nested values through it mutates 'copy1' in place.",
             name: "copy2",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1093,7 +1093,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1114,7 +1114,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1131,8 +1131,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "nav" }, messageId: "mutationSite" },
-        { data: { name: "nav" }, messageId: "indirectMutation" },
+        { data: { name: "nav" }, messageId: "mutation-site" },
+        { data: { name: "nav" }, messageId: "indirect-mutation" },
       ],
     },
     // Props of a component defined as an arrow function are frozen too.
@@ -1149,7 +1149,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1168,7 +1168,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1187,7 +1187,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1206,7 +1206,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1224,7 +1224,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1242,7 +1242,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must be treated as immutable.",
             name: "props",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1267,14 +1267,14 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a state value returned from 'useState' and must be treated as immutable.",
             name: "state",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
         {
           data: {
             detail: "It is a state value returned from 'useState' and must be treated as immutable.",
             name: "state",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1295,7 +1295,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1316,7 +1316,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1336,7 +1336,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'lists' and must be treated as immutable.",
             name: "list",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1357,7 +1357,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1380,7 +1380,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'copy' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1401,7 +1401,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1423,7 +1423,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'entries' and must be treated as immutable.",
             name: "value",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1444,7 +1444,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1464,7 +1464,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1484,7 +1484,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1505,7 +1505,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'props' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1526,7 +1526,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1546,7 +1546,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'props' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1568,7 +1568,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'state' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1591,7 +1591,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'item' and must be treated as immutable.",
             name: "sub",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1614,7 +1614,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1638,7 +1638,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is an element of 'items' and must be treated as immutable.",
             name: "item",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1658,8 +1658,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { data: { name: "item" }, messageId: "indirectMutation" },
-        { data: { name: "item" }, messageId: "mutationSite" },
+        { data: { name: "item" }, messageId: "indirect-mutation" },
+        { data: { name: "item" }, messageId: "mutation-site" },
       ],
     }, // Destructuring assignment targets are collected as mutations, same as plain assignments
     {
@@ -1674,8 +1674,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mutationSite" },
-        { messageId: "indirectMutation" },
+        { messageId: "mutation-site" },
+        { messageId: "indirect-mutation" },
       ],
     },
     // Object destructuring writes to props are mutations
@@ -1686,7 +1686,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // Array destructuring writes to state are mutations
     {
@@ -1697,7 +1697,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // Nested destructuring writes to props are mutations
     {
@@ -1707,7 +1707,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // A pattern default with a member target writes props
     {
@@ -1717,7 +1717,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // A for-of loop target writes props on every iteration
     {
@@ -1729,7 +1729,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // A for-in loop target writes state on every iteration
     {
@@ -1742,7 +1742,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "directMutation" }],
+      errors: [{ messageId: "direct-mutation" }],
     },
     // Ported from https://github.com/oxc-project/oxc/issues/25910
     // Reassigning a destructured prop binding is a direct mutation of the binding,
@@ -1762,7 +1762,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a prop of this component and must not be reassigned.",
             name: "value",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },
@@ -1781,7 +1781,7 @@ ruleTester.run(RULE_NAME, rule, {
             detail: "It is a state value returned from 'useState' and must not be reassigned.",
             name: "count",
           },
-          messageId: "directMutation",
+          messageId: "direct-mutation",
         },
       ],
     },

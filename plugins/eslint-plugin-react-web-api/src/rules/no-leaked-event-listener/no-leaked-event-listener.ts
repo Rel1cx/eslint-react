@@ -16,8 +16,8 @@ export const RULE_NAME = "no-leaked-event-listener";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "expectedRemoveEventListenerInCleanup"
-  | "unexpectedInlineFunction";
+  | "expected-remove-event-listener-in-cleanup"
+  | "unexpected-inline-function";
 
 // #endregion
 
@@ -157,9 +157,9 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'addEventListener' in a component or custom hook has a corresponding 'removeEventListener'.",
     },
     messages: {
-      expectedRemoveEventListenerInCleanup:
+      "expected-remove-event-listener-in-cleanup":
         "An 'addEventListener' in '{{effectMethodKind}}' should have a corresponding 'removeEventListener' in its cleanup function.",
-      unexpectedInlineFunction: "A/an '{{eventMethodKind}}' should not have an inline listener function.",
+      "unexpected-inline-function": "A/an '{{eventMethodKind}}' should not have an inline listener function.",
     },
     schema: [],
   },
@@ -234,7 +234,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
     context.report({
       data: { eventMethodKind: callKind },
-      messageId: "unexpectedInlineFunction",
+      messageId: "unexpected-inline-function",
       node: listener,
     });
   }
@@ -326,7 +326,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           data: {
             effectMethodKind: "useEffect",
           },
-          messageId: "expectedRemoveEventListenerInCleanup",
+          messageId: "expected-remove-event-listener-in-cleanup",
           node: aEntry.node,
         });
       }

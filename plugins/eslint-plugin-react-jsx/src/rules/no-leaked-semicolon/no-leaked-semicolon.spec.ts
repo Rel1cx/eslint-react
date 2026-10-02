@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -52,7 +52,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -84,7 +84,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -146,7 +146,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => (
                   <div>
@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -210,7 +210,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -244,7 +244,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (
@@ -268,7 +268,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: "<div><span />  \n</div>",
             },
           ],
@@ -284,7 +284,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`<div><span />	
 </div>`,
             },
@@ -301,7 +301,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`<div><span />
 </div>`,
             },
@@ -325,7 +325,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeSemicolon",
+              messageId: "remove-semicolon",
               output: tsx`
                 const Component = () => {
                   return (

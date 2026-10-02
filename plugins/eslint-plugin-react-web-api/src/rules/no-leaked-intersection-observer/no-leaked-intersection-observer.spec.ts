@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "unexpectedFloatingInstance",
+          messageId: "unexpected-floating-instance",
         },
       ],
     },
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -57,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -76,7 +76,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -98,7 +98,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -121,7 +121,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -151,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -206,7 +206,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectInControlFlow",
+          messageId: "expected-disconnect-in-control-flow",
         },
       ],
     },
@@ -232,7 +232,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectInControlFlow",
+          messageId: "expected-disconnect-in-control-flow",
         },
       ],
     },
@@ -256,7 +256,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -279,7 +279,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectInControlFlow",
+          messageId: "expected-disconnect-in-control-flow",
         },
       ],
     },
@@ -302,7 +302,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -322,7 +322,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },
@@ -346,7 +346,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedDisconnectOrUnobserveInCleanup",
+          messageId: "expected-disconnect-or-unobserve-in-cleanup",
         },
       ],
     },

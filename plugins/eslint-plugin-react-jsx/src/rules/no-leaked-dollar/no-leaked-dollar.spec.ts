@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               // Should use JSX expression syntax instead
               output: tsx`
                 const App = () => <>Hello {user.name}</>
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 const App = (props) => {
                     return <div>Hello {props.name}</div>;
@@ -72,7 +72,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 const App = (props) => {
                     return <div>{props.name} is your name</div>;
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               // Fix first occurrence only
               output: tsx`
                 function App({ count, total }) {
@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               // Fix second occurrence only
               output: tsx`
                 function App({ count, total }) {
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 const App = (props) => {
                     return <div>Hello {props.name} is your name</div>;
@@ -170,7 +170,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 const App = () => <>Hello \${user.name}</>
               `,
@@ -191,7 +191,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 const App = () => <>$\${user.name}</>
               `,
@@ -217,7 +217,7 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 16,
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>{a}{b}</div>;
@@ -242,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>Hello {world} {price}</div>;
@@ -270,7 +270,7 @@ ruleTester.run(RULE_NAME, rule, {
           endColumn: 19,
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>{a}{b}</div>;
@@ -293,7 +293,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div><span>Hello {user}</span></div>;
@@ -316,7 +316,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>Price: $$\${value}</div>;
@@ -339,7 +339,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>Hello {<span>world</span>}</div>;
@@ -363,7 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>$$\${expr}</div>;
@@ -389,7 +389,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`
                 function App() {
                   return <div>Hello
@@ -409,7 +409,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`<div>{cond ? a : b}{y}</div>`,
             },
           ],
@@ -424,7 +424,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeDollarSign",
+              messageId: "remove-dollar-sign",
               output: tsx`<div>{/* c */}{a}</div>`,
             },
           ],

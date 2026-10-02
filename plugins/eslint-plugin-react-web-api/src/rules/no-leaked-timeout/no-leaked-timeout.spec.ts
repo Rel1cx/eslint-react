@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedTimeoutId",
+          messageId: "expected-timeout-id",
         },
       ],
     },
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedTimeoutId",
+          messageId: "expected-timeout-id",
         },
       ],
     },
@@ -43,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedTimeoutId",
+          messageId: "expected-timeout-id",
         },
       ],
     },
@@ -57,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedTimeoutId",
+          messageId: "expected-timeout-id",
         },
       ],
     },
@@ -156,7 +156,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },
@@ -175,7 +175,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearTimeoutInCleanup",
+          messageId: "expected-clear-timeout-in-cleanup",
         },
       ],
     },

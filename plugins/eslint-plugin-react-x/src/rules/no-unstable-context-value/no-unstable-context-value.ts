@@ -14,7 +14,7 @@ export const RULE_NAME = "no-unstable-context-value";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "unstableContextValue";
+export type MessageID = "unstable-context-value";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
       description: "Prevents non-stable values (i.e., object literals) from being used as a value for 'Context.Provider'.",
     },
     messages: {
-      unstableContextValue:
+      "unstable-context-value":
         "A/an '{{kind}}' passed as the value prop to the context provider should not be constructed. It will change on every render. {{suggestion}}",
     },
     schema: [],
@@ -82,7 +82,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 kind: getHumanReadableKind(constructionNode),
                 suggestion,
               },
-              messageId: "unstableContextValue",
+              messageId: "unstable-context-value",
               node: constructionNode,
             });
           }

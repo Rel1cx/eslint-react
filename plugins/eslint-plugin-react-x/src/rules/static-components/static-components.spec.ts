@@ -18,7 +18,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -40,7 +40,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -82,7 +82,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -105,7 +105,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -124,7 +124,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -144,7 +144,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -166,7 +166,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Nested" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Nested" },
@@ -185,7 +185,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "B" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "B" },
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "B" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "B" },
@@ -223,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "B" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "B" },
@@ -243,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "B" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "B" },
@@ -264,7 +264,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -282,7 +282,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -300,7 +300,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -318,7 +318,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -341,7 +341,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -362,7 +362,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Foo" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Foo" },
@@ -386,7 +386,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -411,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "ChildComponent" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "ChildComponent" },
@@ -434,7 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -457,7 +457,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "Component" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "Component" },
@@ -480,7 +480,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "A" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "A" },
@@ -500,7 +500,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -520,7 +520,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -546,7 +546,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -569,7 +569,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -591,7 +591,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -616,7 +616,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -638,7 +638,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -659,7 +659,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -680,7 +680,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },
@@ -700,7 +700,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           data: { name: "C" },
-          messageId: "createdHere",
+          messageId: "created-here",
         },
         {
           data: { name: "C" },

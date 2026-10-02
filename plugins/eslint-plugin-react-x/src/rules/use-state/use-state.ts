@@ -17,9 +17,9 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "invalidAssignment"
-  | "invalidInitialization"
-  | "invalidSetterName";
+  | "invalid-assignment"
+  | "invalid-initialization"
+  | "invalid-setter-name";
 
 type Options = readonly [
   | null
@@ -67,10 +67,10 @@ export default createRule<Options, MessageID>({
         "Enforces correct usage of 'useState', including destructuring, symmetric naming of the value and setter, and wrapping expensive initializers in a lazy initializer function.",
     },
     messages: {
-      invalidAssignment: "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
-      invalidInitialization:
+      "invalid-assignment": "useState should be destructured into a value and setter pair, e.g., const [state, setState] = useState(...).",
+      "invalid-initialization":
         "To prevent re-computation, consider using lazy initial state for useState calls that involve function calls. Ex: 'useState(() => getValue())'.",
-      invalidSetterName: "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
+      "invalid-setter-name": "The setter should be named 'set' followed by the capitalized state variable name, e.g., 'setState' for 'state'.",
     },
     schema,
   },
@@ -102,7 +102,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
             if (Traverse.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
-            context.report({ messageId: "invalidInitialization", node: expr });
+            context.report({ messageId: "invalid-initialization", node: expr });
           }
           // Check for function call expressions, e.g., `myFunction()`
           for (const expr of getNestedCallExpressions(useStateInput)) {
@@ -113,7 +113,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
             if (Traverse.findParent(expr, (n) => core.isUseCall(context, n)) != null) continue;
-            context.report({ messageId: "invalidInitialization", node: expr });
+            context.report({ messageId: "invalid-initialization", node: expr });
           }
         }
       }
@@ -129,21 +129,21 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
 
       if (parent.type !== AST.VariableDeclarator) {
         if (!enforceAssignment) return;
-        context.report({ messageId: "invalidAssignment", node });
+        context.report({ messageId: "invalid-assignment", node });
         return;
       }
 
       const id = resolveEnclosingAssignmentTarget(node);
       if (id?.type !== AST.ArrayPattern) {
         if (!enforceAssignment) return;
-        context.report({ messageId: "invalidAssignment", node: id ?? node });
+        context.report({ messageId: "invalid-assignment", node: id ?? node });
         return;
       }
 
       const [value, setter] = id.elements;
       if (value == null) {
         if (!enforceAssignment) return;
-        context.report({ messageId: "invalidAssignment", node: id });
+        context.report({ messageId: "invalid-assignment", node: id });
         return;
       }
 
@@ -154,17 +154,17 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
       // Destructured patterns (ObjectPattern, ArrayPattern, etc.) cannot be
       // symmetrically named, so report them as an invalid assignment form.
       if (value.type !== AST.Identifier) {
-        context.report({ messageId: "invalidAssignment", node: value });
+        context.report({ messageId: "invalid-assignment", node: value });
         return;
       }
 
       if (setter.type !== AST.Identifier || !setter.name.startsWith("set")) {
-        context.report({ messageId: "invalidSetterName", node: setter });
+        context.report({ messageId: "invalid-setter-name", node: setter });
         return;
       }
 
       if (snakeCase(setter.name) !== `set_${snakeCase(value.name)}`) {
-        context.report({ messageId: "invalidSetterName", node: setter });
+        context.report({ messageId: "invalid-setter-name", node: setter });
       }
     },
   };

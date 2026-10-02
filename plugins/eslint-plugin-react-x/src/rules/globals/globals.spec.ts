@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Count: {renderCount}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Count: {renderCount}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -36,7 +36,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Count: {renderCount}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // -------------------------------------------------------------------------
     // Assignment to module-level let/const
@@ -49,7 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{moduleState}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // -------------------------------------------------------------------------
     // Modifying window / globalThis properties
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>User: {userId}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -70,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>User: {userId}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -79,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Page: {title}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Global mutation on globalThis / window via UpdateExpression
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{globalThis.counter}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -100,7 +100,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{window.title}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Mutating global arrays
@@ -113,7 +113,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -133,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -143,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -153,7 +153,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -163,7 +163,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -173,7 +173,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -183,7 +183,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -193,7 +193,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>Events: {events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     // -------------------------------------------------------------------------
     // Cache manipulation (global object property assignment)
@@ -208,7 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{cache[id]}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -218,7 +218,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{cache[id]}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Arrow function components
@@ -231,7 +231,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         };
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -241,7 +241,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{id}</div>;
         };
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Mutations in custom hooks
@@ -254,7 +254,7 @@ ruleTester.run(RULE_NAME, rule, {
           return hookCalls;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -264,7 +264,7 @@ ruleTester.run(RULE_NAME, rule, {
           return log;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -274,7 +274,7 @@ ruleTester.run(RULE_NAME, rule, {
           return registry;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Multiple mutations in same component
@@ -290,8 +290,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mutatingGlobal" },
-        { messageId: "mutatingGlobal" },
+        { messageId: "mutating-global" },
+        { messageId: "mutating-global" },
       ],
     },
     {
@@ -304,8 +304,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mutatingGlobalArrayMethod" },
-        { messageId: "mutatingGlobalArrayMethod" },
+        { messageId: "mutating-global-array-method" },
+        { messageId: "mutating-global-array-method" },
       ],
     },
     // -------------------------------------------------------------------------
@@ -318,7 +318,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{items.push(1)}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     // -------------------------------------------------------------------------
     // Mutating global object nested property
@@ -331,7 +331,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{state.nested.value}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Optional chaining and type expression wrapping (should still report)
@@ -344,7 +344,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -354,7 +354,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{events.length}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalArrayMethod" }],
+      errors: [{ messageId: "mutating-global-array-method" }],
     },
     {
       code: tsx`
@@ -363,7 +363,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // -------------------------------------------------------------------------
     // Aliasing and transitive effects
@@ -377,7 +377,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{cache.value}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -388,7 +388,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{cache.value}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     {
       code: tsx`
@@ -397,7 +397,7 @@ ruleTester.run(RULE_NAME, rule, {
           return { x };
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -407,8 +407,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mutatingGlobal" },
-        { messageId: "mutatingGlobal" },
+        { messageId: "mutating-global" },
+        { messageId: "mutating-global" },
       ],
     },
     {
@@ -418,7 +418,7 @@ ruleTester.run(RULE_NAME, rule, {
           return { x };
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // -------------------------------------------------------------------------
     // for-in/of loop targets
@@ -434,7 +434,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // A destructured for-of loop target writes the global property on every iteration
     {
@@ -447,7 +447,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // A for-in loop target reassigns the global on every iteration
     {
@@ -460,7 +460,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -476,7 +476,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{String(someGlobal)}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     {
       code: tsx`
@@ -490,7 +490,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{String(someGlobal)}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.mutate-global-increment-op-invalid-react.js
     {
@@ -501,7 +501,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.store-property-in-global.js
     {
@@ -512,7 +512,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{wat.test}</div>;
         }
       `,
-      errors: [{ messageId: "mutatingGlobalProperty" }],
+      errors: [{ messageId: "mutating-global-property" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.reassignment-to-global.js
     {
@@ -524,8 +524,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "mutatingGlobal" },
-        { messageId: "mutatingGlobal" },
+        { messageId: "mutating-global" },
+        { messageId: "mutating-global" },
       ],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler error.update-global-should-bailout.tsx
@@ -537,7 +537,7 @@ ruleTester.run(RULE_NAME, rule, {
           return renderCount;
         }
       `,
-      errors: [{ messageId: "mutatingGlobal" }],
+      errors: [{ messageId: "mutating-global" }],
     },
   ],
   valid: [

@@ -13,7 +13,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const value = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Name 'unique' without 'id'",
@@ -21,7 +21,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const unique = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Name without 'id' via React namespace",
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
         const foo = React.useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Name with all-caps 'ID'",
@@ -37,7 +37,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const myID = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "All-caps name 'ID'",
@@ -45,7 +45,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const ID = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Single-letter uppercase name",
@@ -53,7 +53,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const I = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Single-letter lowercase name",
@@ -61,7 +61,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const i = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Leading underscore in name",
@@ -69,7 +69,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const _id = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Multiple declarators with an invalid id name",
@@ -77,7 +77,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const id = useId(), value = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     // Other assignment targets
     {
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         ctxs.myValue = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Class property with invalid id name",
@@ -93,7 +93,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         class Foo { value = useId(); }
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Nested member expression assignment with invalid id name",
@@ -101,7 +101,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         obj.nested.value = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Variable initialized with an object literal containing useId",
@@ -109,7 +109,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const ids = { myId: useId() };
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Assignment after declaration with invalid id name",
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
         let value;
         value = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Chained assignment with invalid id name",
@@ -126,14 +126,14 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         a = b = useId();
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Computed member expression assignment with invalid id name",
       code: tsx`
         ctxs[value] = useId();
       `,
-      errors: [{ messageId: "invalidIdName", type: AST.MemberExpression }],
+      errors: [{ messageId: "invalid-id-name", type: AST.MemberExpression }],
       output: null,
     },
     // Indirect useId calls
@@ -143,7 +143,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const value = condition ? useId() : "";
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "Logical expression initializer with invalid id name",
@@ -151,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const value = useId() || "";
       `,
-      errors: [{ messageId: "invalidIdName" }],
+      errors: [{ messageId: "invalid-id-name" }],
     },
     {
       name: "useId wrapped in another call with invalid id name",
@@ -159,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const value = wrap(useId());
       `,
-      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      errors: [{ messageId: "invalid-id-name", type: AST.Identifier }],
       output: null,
     },
     {
@@ -168,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useId } from "react";
         const valueFactory = () => useId();
       `,
-      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      errors: [{ messageId: "invalid-id-name", type: AST.Identifier }],
       output: null,
     },
     {
@@ -176,7 +176,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const value = (useId as () => string)();
       `,
-      errors: [{ messageId: "invalidIdName", type: AST.Identifier }],
+      errors: [{ messageId: "invalid-id-name", type: AST.Identifier }],
       output: null,
     },
   ],

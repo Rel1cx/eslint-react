@@ -11,7 +11,7 @@ export const RULE_NAME = "ref-name";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "invalidRefName";
+export type MessageID = "invalid-ref-name";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -20,7 +20,7 @@ export default createRule<[], MessageID>({
       description: "Enforces identifier names assigned from 'useRef' calls to be either 'ref' or end with 'Ref'.",
     },
     messages: {
-      invalidRefName: "A ref identifier must be named 'ref' or ending in 'Ref'.",
+      "invalid-ref-name": "A ref identifier must be named 'ref' or ending in 'Ref'.",
     },
     schema: [],
   },
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (id == null) return;
       if (name.endsWith("Ref") || name === "ref") return;
       context.report({
-        messageId: "invalidRefName",
+        messageId: "invalid-ref-name",
         node: id,
       });
     },

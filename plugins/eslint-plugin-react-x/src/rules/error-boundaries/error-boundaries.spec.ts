@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -31,7 +31,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -43,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -79,7 +79,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         };
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         };
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithUse" }],
+      errors: [{ messageId: "try-catch-with-use" }],
     },
     {
       code: tsx`
@@ -117,7 +117,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "tryCatchWithUse" }],
+      errors: [{ messageId: "try-catch-with-use" }],
     },
     {
       code: tsx`
@@ -130,7 +130,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithUse" }],
+      errors: [{ messageId: "try-catch-with-use" }],
     },
     {
       code: tsx`
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithUse" }],
+      errors: [{ messageId: "try-catch-with-use" }],
     },
     {
       code: tsx`
@@ -157,7 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -189,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     {
       code: tsx`
@@ -209,7 +209,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-logical-and-optional.js
     {
@@ -223,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-multiple-value-blocks.js
     {
@@ -243,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     // Derived from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler try-catch-nullish-coalescing.js
     {
@@ -257,7 +257,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     // JSX in catch block nested inside outer try - should report outer try
     {
@@ -274,7 +274,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithJsx" }],
+      errors: [{ messageId: "try-catch-with-jsx" }],
     },
     // use() in catch block nested inside outer try - should report outer try
     {
@@ -292,7 +292,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "tryCatchWithUse" }],
+      errors: [{ messageId: "try-catch-with-use" }],
     },
   ],
   valid: [

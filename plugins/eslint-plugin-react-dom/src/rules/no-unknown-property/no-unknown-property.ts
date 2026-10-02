@@ -27,10 +27,10 @@ export const RULE_FEATURES = [
 // ------------------------------------------------------------------------------
 
 export type MessageID =
-  | "dataLowercaseRequired"
-  | "invalidPropOnTag"
-  | "unknownProp"
-  | "unknownPropWithStandardName";
+  | "data-lowercase-required"
+  | "invalid-prop-on-tag"
+  | "unknown-prop"
+  | "unknown-prop-with-standard-name";
 
 interface Options {
   ignore?: string[];
@@ -54,10 +54,11 @@ const DEFAULTS: {
 // ------------------------------------------------------------------------------
 
 const messages = {
-  dataLowercaseRequired: "React does not recognize data-* props with uppercase characters on a DOM element. Found '{{name}}', use '{{lowerCaseName}}' instead",
-  invalidPropOnTag: "Invalid property '{{name}}' found on tag '{{tagName}}', but it is only allowed on: {{allowedTags}}",
-  unknownProp: "Unknown property '{{name}}' found",
-  unknownPropWithStandardName: "Unknown property '{{name}}' found, use '{{standardName}}' instead",
+  "data-lowercase-required":
+    "React does not recognize data-* props with uppercase characters on a DOM element. Found '{{name}}', use '{{lowerCaseName}}' instead",
+  "invalid-prop-on-tag": "Invalid property '{{name}}' found on tag '{{tagName}}', but it is only allowed on: {{allowedTags}}",
+  "unknown-prop": "Unknown property '{{name}}' found",
+  "unknown-prop-with-standard-name": "Unknown property '{{name}}' found, use '{{standardName}}' instead",
 };
 
 export default createRule({
@@ -124,7 +125,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
               name: actualName,
               lowerCaseName: actualName.toLowerCase(),
             },
-            messageId: "dataLowercaseRequired",
+            messageId: "data-lowercase-required",
             node,
           });
         }
@@ -157,7 +158,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
               allowedTags: allowedTags.join(", "),
               tagName,
             },
-            messageId: "invalidPropOnTag",
+            messageId: "invalid-prop-on-tag",
             node,
           });
         }
@@ -184,7 +185,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
           fix(fixer) {
             return fixer.replaceText(node.name, standardName);
           },
-          messageId: "unknownPropWithStandardName",
+          messageId: "unknown-prop-with-standard-name",
           node,
         });
         return;
@@ -195,7 +196,7 @@ export function create(context: RuleContext<MessageID, Options[]>): RuleListener
         data: {
           name: actualName,
         },
-        messageId: "unknownProp",
+        messageId: "unknown-prop",
         node,
       });
     },

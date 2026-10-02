@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedIntervalId",
+          messageId: "expected-interval-id",
         },
       ],
     },
@@ -29,7 +29,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedIntervalId",
+          messageId: "expected-interval-id",
         },
       ],
     },
@@ -43,7 +43,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedIntervalId",
+          messageId: "expected-interval-id",
         },
       ],
     },
@@ -57,7 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -71,7 +71,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -85,7 +85,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -119,7 +119,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedIntervalId",
+          messageId: "expected-interval-id",
         },
       ],
     },
@@ -156,7 +156,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },
@@ -175,7 +175,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedClearIntervalInCleanup",
+          messageId: "expected-clear-interval-in-cleanup",
         },
       ],
     },

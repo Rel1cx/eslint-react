@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const count = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Name without 'Ref' suffix with generic type argument",
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const input = useRef<HTMLInputElement>(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Name without 'Ref' suffix via React namespace",
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
         const count = React.useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Name without 'Ref' suffix with generic type argument via React namespace",
@@ -36,14 +36,14 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
         const input = React.useRef<HTMLInputElement>(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Name without 'Ref' suffix without import",
       code: tsx`
         const value = useRef(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Name with all-caps 'REF' suffix",
@@ -51,7 +51,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const myREF = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "All-caps name 'REF'",
@@ -59,7 +59,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const REF = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Single-letter uppercase name",
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const R = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Single-letter lowercase name",
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const r = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Leading underscore in name",
@@ -83,7 +83,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const _ref = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Multiple declarators with an invalid ref name",
@@ -91,7 +91,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const ref = useRef(null), value = useRef(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     // Other assignment targets
     {
@@ -99,7 +99,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         refs.myValue = useRef();
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Class property with invalid ref name",
@@ -107,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         class Foo { value = useRef(0); }
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Nested member expression assignment with invalid ref name",
@@ -115,7 +115,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         obj.nested.value = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Variable initialized with an object literal containing useRef",
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const refs = { myRef: useRef(0) };
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Assignment after declaration with invalid ref name",
@@ -132,7 +132,7 @@ ruleTester.run(RULE_NAME, rule, {
         let value;
         value = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Chained assignment with invalid ref name",
@@ -140,14 +140,14 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         a = b = useRef(0);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Computed member expression assignment with invalid ref name",
       code: tsx`
         refs[value] = useRef(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
     // Indirect useRef calls
@@ -157,7 +157,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const value = condition ? useRef(0) : { current: null };
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "Logical expression initializer with invalid ref name",
@@ -165,14 +165,14 @@ ruleTester.run(RULE_NAME, rule, {
         import { useRef } from "react";
         const value = useRef(0) || { current: null };
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
     },
     {
       name: "useRef call on a non-React namespace with invalid ref name",
       code: tsx`
         const value = hooks.useRef(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
     {
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const value = (useRef as typeof useRef)(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
     {
@@ -188,7 +188,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const value = (useRef(null) as { current: null }).current;
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
     {
@@ -196,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const value = () => useRef(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
     {
@@ -204,7 +204,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const value = useRef?.(null);
       `,
-      errors: [{ messageId: "invalidRefName" }],
+      errors: [{ messageId: "invalid-ref-name" }],
       output: null,
     },
   ],

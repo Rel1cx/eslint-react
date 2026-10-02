@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -30,7 +30,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -44,7 +44,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -75,7 +75,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -90,7 +90,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -104,7 +104,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -135,7 +135,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -151,7 +151,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -168,7 +168,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -186,7 +186,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -205,7 +205,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -221,7 +221,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -236,7 +236,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -252,7 +252,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -268,7 +268,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -283,7 +283,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -298,7 +298,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -314,7 +314,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -330,7 +330,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -347,7 +347,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -366,7 +366,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -384,7 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -402,7 +402,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -419,7 +419,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -440,7 +440,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -453,7 +453,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -472,7 +472,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortController",
+          messageId: "expected-abort-controller",
         },
       ],
     },
@@ -494,7 +494,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -516,7 +516,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },
@@ -539,7 +539,7 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "expectedAbortInCleanup",
+          messageId: "expected-abort-in-cleanup",
         },
       ],
     },

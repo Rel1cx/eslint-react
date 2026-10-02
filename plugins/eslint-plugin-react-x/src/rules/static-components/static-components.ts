@@ -12,7 +12,7 @@ export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "default"
-  | "createdHere";
+  | "created-here";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -25,7 +25,7 @@ export default createRule<[], MessageID>({
         "Cannot create components during render. Components created during render will reset their state each time they are created. Declare components outside of render.",
 
       // Subordinate error messages reported at the component creation site.
-      createdHere: "The component is created during render here.",
+      "created-here": "The component is created during render here.",
     },
     schema: [],
   },
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             reportedCreations.add(effect.creationNode);
             context.report({
               data: { name: effect.name },
-              messageId: "createdHere",
+              messageId: "created-here",
               node: effect.creationNode,
             });
           }

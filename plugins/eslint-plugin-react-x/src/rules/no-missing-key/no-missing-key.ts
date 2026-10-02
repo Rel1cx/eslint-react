@@ -13,7 +13,7 @@ export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
   | "default"
-  | "unexpectedFragmentSyntax";
+  | "unexpected-fragment-syntax";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     },
     messages: {
       default: "Missing 'key' for element when rendering list.",
-      unexpectedFragmentSyntax: "Use fragment component instead of '<>' because it does not support `key`.",
+      "unexpected-fragment-syntax": "Use fragment component instead of '<>' because it does not support `key`.",
     },
     schema: [],
   },
@@ -68,7 +68,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           ? []
           : [{ messageId: "default", node }];
       case AST.JSXFragment:
-        return [{ messageId: "unexpectedFragmentSyntax", node }];
+        return [{ messageId: "unexpected-fragment-syntax", node }];
       case AST.ConditionalExpression:
         return [
           ...visitItemExpression(node.consequent),

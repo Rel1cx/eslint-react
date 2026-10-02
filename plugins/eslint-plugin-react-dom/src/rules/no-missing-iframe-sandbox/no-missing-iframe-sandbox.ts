@@ -11,8 +11,8 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "addSandboxAttribute"
-  | "missingSandboxAttribute";
+  | "add-sandbox-attribute"
+  | "missing-sandbox-attribute";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,8 +23,8 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      addSandboxAttribute: "Add sandbox attribute with value '{{ value }}'.",
-      missingSandboxAttribute: "Missing an explicit sandbox attribute for iframe.",
+      "add-sandbox-attribute": "Add sandbox attribute with value '{{ value }}'.",
+      "missing-sandbox-attribute": "Missing an explicit sandbox attribute for iframe.",
     },
     schema: [],
   },
@@ -48,7 +48,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // If the 'sandbox' prop is missing, report an error
       if (sandboxProp == null) {
         context.report({
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           node: node.openingElement,
           suggest: [{
             data: { value: "" },
@@ -56,7 +56,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               // Suggest adding a 'sandbox' attribute
               return fixer.insertTextAfter(node.openingElement.name, ` sandbox=""`);
             },
-            messageId: "addSandboxAttribute",
+            messageId: "add-sandbox-attribute",
           }],
         });
         return;
@@ -70,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
 
       // If the value is not a static string (ex: a variable), report an error
       context.report({
-        messageId: "missingSandboxAttribute",
+        messageId: "missing-sandbox-attribute",
         node: sandboxValue.node ?? sandboxProp,
         suggest: [
           {
@@ -81,7 +81,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               // Suggest replacing the prop with a valid one
               return fixer.replaceText(sandboxProp, `sandbox=""`);
             },
-            messageId: "addSandboxAttribute",
+            messageId: "add-sandbox-attribute",
           },
         ],
       });

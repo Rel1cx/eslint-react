@@ -9,7 +9,7 @@ export const RULE_NAME = "id-name";
 
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
-export type MessageID = "invalidIdName";
+export type MessageID = "invalid-id-name";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -18,7 +18,7 @@ export default createRule<[], MessageID>({
       description: "Enforces identifier names assigned from 'useId' calls to be either 'id' or end with 'Id'.",
     },
     messages: {
-      invalidIdName: "An identifier assigned from 'useId' must be named 'id' or end with 'Id'.",
+      "invalid-id-name": "An identifier assigned from 'useId' must be named 'id' or end with 'Id'.",
     },
     schema: [],
   },
@@ -41,7 +41,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (id == null) return;
       if (name.endsWith("Id") || name === "id") return;
       context.report({
-        messageId: "invalidIdName",
+        messageId: "invalid-id-name",
         node: id,
       });
     },
