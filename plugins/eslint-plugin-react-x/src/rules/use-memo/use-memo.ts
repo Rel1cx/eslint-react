@@ -1,12 +1,8 @@
 import { createRule } from "@/utils/create-rule";
-import { Check, Extract, Traverse } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
-import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
-import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import { findVariable } from "@typescript-eslint/utils/ast-utils";
-import type { ReportDescriptor } from "@typescript-eslint/utils/ts-eslint";
-import { getNestedReturnStatements, isDeclaredInsideCallback } from "./lib";
+import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { createFactCollector } from "./collect";
+import { inferViolations } from "./effects";
 
 export const RULE_NAME = "use-memo";
 
@@ -46,142 +42,18 @@ export default createRule<[], MessageID>({
 
 export function create(context: RuleContext<MessageID, []>): RuleListener {
   if (!context.sourceCode.text.includes("useMemo")) return {};
-
-  function validateNoOuterVariableReassignment(callback: TSESTree.FunctionLike): ReportDescriptor<MessageID>[] {
-    const violations: ReportDescriptor<MessageID>[] = [];
-    if (callback.body == null) return violations;
-
-    function checkWriteTarget(node: TSESTree.Node, target: TSESTree.Identifier | TSESTree.MemberExpression) {
-      // Only flag direct variable reassignment (x = …), not property mutations (ref.current = …)
-      // to match React Compiler's StoreContext semantics.
-      if (!Check.isIdentifier(target)) return;
-      if (Traverse.findParent(node, Check.isFunction, (n) => n === callback) != null) return;
-
-      const scope = context.sourceCode.getScope(target);
-      const variable = findVariable(scope, target);
-      if (variable != null && variable.defs.length > 0 && isDeclaredInsideCallback(variable, callback)) {
-        return;
-      }
-
-      violations.push({
-        messageId: "no-reassigning-outer-variables",
-        node: target,
-      });
-    }
-
-    simpleTraverse(callback.body, {
-      enter(node) {
-        switch (node.type) {
-          case AST.AssignmentExpression: {
-            for (const target of Extract.getAssignmentTargets(node.left)) {
-              checkWriteTarget(node, target);
-            }
-            return;
-          }
-          case AST.ForInStatement:
-          case AST.ForOfStatement: {
-            if (node.left.type === AST.VariableDeclaration) return;
-            for (const target of Extract.getAssignmentTargets(node.left)) {
-              checkWriteTarget(node, target);
-            }
-            return;
-          }
+  const facts = createFactCollector(core.isUseMemoCall(context));
+  return merge(
+    facts.visitor,
+    {
+      "Program:exit"() {
+        for (const violation of inferViolations(context, facts.facts)) {
+          context.report({
+            messageId: violation.kind,
+            node: violation.node,
+          });
         }
       },
-    });
-    return violations;
-  }
-  return {
-    CallExpression(node) {
-      if (!core.isUseMemoCall(context, node)) return;
-
-      // Rule 5: Result must be used (not discarded)
-      let parent = node.parent;
-      while (Check.isTypeExpression(parent)) parent = parent.parent;
-      const isAssigned = parent.type === AST.VariableDeclarator
-        || parent.type === AST.AssignmentExpression
-        || parent.type === AST.AssignmentPattern
-        || parent.type === AST.Property
-        || parent.type === AST.ReturnStatement
-        || parent.type === AST.JSXExpressionContainer
-        || parent.type === AST.CallExpression
-        || parent.type === AST.NewExpression
-        || parent.type === AST.ArrayExpression
-        || parent.type === AST.ConditionalExpression
-        || parent.type === AST.LogicalExpression
-        || parent.type === AST.SequenceExpression
-        || parent.type === AST.SpreadElement
-        || parent.type === AST.TemplateLiteral
-        || parent.type === AST.BinaryExpression
-        || parent.type === AST.UnaryExpression
-        || parent.type === AST.MemberExpression
-        || parent.type === AST.TaggedTemplateExpression
-        || parent.type === AST.ChainExpression
-        || parent.type === AST.ArrowFunctionExpression
-        || parent.type === AST.ForOfStatement
-        || parent.type === AST.ForInStatement;
-
-      if (!isAssigned) {
-        context.report({
-          messageId: "result-must-be-used",
-          node,
-        });
-        return;
-      }
-
-      const [callbackArg] = node.arguments;
-      if (callbackArg == null) return;
-      const callback = Extract.unwrap(callbackArg);
-      if (!Check.isFunction(callback)) return;
-
-      // Rule 1: No Parameters — useMemo callbacks must not accept parameters
-      if (callback.params.length > 0) {
-        const firstParam = callback.params[0];
-        if (firstParam == null) return;
-        context.report({
-          messageId: "no-parameters",
-          node: Check.isIdentifier(firstParam) ? firstParam : callback,
-        });
-      }
-
-      // Rule 2: No Async or Generator Functions — must synchronously return a value
-      if (callback.async || callback.generator) {
-        context.report({
-          messageId: "no-async-or-generator-functions",
-          node: callback,
-        });
-      }
-
-      // Rule 3: No Reassigning Outer Variables — must be pure
-      for (const violation of validateNoOuterVariableReassignment(callback)) {
-        context.report(violation);
-      }
-
-      // Rule 4: Must Return a Value — useMemo is for computing values, not side effects
-      // Arrow functions with concise body always return a value
-      if (callback.type === AST.ArrowFunctionExpression && callback.body.type !== AST.BlockStatement) {
-        return;
-      }
-
-      const body = callback.body;
-      if (body.type !== AST.BlockStatement) return;
-
-      const returnStatements = getNestedReturnStatements(callback);
-      if (returnStatements.length === 0) {
-        context.report({
-          messageId: "must-return-a-value",
-          node: callbackArg,
-        });
-        return;
-      }
-
-      const hasValueReturn = returnStatements.some((stmt) => stmt.argument != null);
-      if (!hasValueReturn) {
-        context.report({
-          messageId: "must-return-a-value",
-          node: callbackArg,
-        });
-      }
     },
-  };
+  );
 }

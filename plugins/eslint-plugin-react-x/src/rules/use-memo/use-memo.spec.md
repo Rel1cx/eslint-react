@@ -14,7 +14,10 @@
   - `src/__tests__/fixtures/compiler/error.invalid-reassign-variable-in-usememo.{js,expect.md}`
 - **Implementation sources**:
   - `plugins/eslint-plugin-react-x/src/rules/use-memo/use-memo.ts`
-  - `plugins/eslint-plugin-react-x/src/rules/use-memo/lib.ts`
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/collect.ts`
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/effects.ts`
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/origins.ts`
+  - `plugins/eslint-plugin-react-x/src/rules/use-memo/helpers.ts`
 
 ## File
 
