@@ -7,19 +7,14 @@ packages:
 
 allowBuilds:
   "@nubjs/nub": true
-  "@parcel/watcher": true
   dprint: true
   esbuild: true
-  msgpackr-extract: true
   nx: true
   sharp: true
 
 onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - core-js
   - dprint
   - esbuild
-  - msgpackr-extract
   - sharp
 
 overrides:
@@ -86,7 +81,7 @@ overrides:
   vite: "^8.3.2"
   # Transitive dependency via @types/node 26.1.2
   undici-types: "^8.11.2"
-  # Transitive dependency via @effect/platform-node 0.107.0
+  # Transitive dependency via @effect/platform-node 4.0.0
   undici: "^8.11.2"
   # Transitive dependency via @effect/sql 0.51.1
   uuid: "^14.0.2"

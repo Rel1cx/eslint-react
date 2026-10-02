@@ -1,6 +1,6 @@
-import * as FileSystem from "@effect/platform/FileSystem";
 import * as Arr from "effect/Array";
 import * as Effect from "effect/Effect";
+import * as FileSystem from "effect/FileSystem";
 import * as Fn from "effect/Function";
 import { not, or } from "effect/Predicate";
 import * as Str from "effect/String";
