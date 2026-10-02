@@ -70,9 +70,7 @@ export function isArrayIndexReference(context: RuleContext, node: TSESTree.Ident
  * @param side The binary expression (or one of its sides) to collect from.
  * @returns The identifiers found in the expression.
  */
-export function getIdentifiersFromBinaryExpression(
-  side: TSESTree.BinaryExpression["left"],
-): readonly TSESTree.Identifier[] {
+export function getIdentifiersFromBinaryExpression(side: TSESTree.BinaryExpression["left"]): readonly TSESTree.Identifier[] {
   if (Check.isIdentifier(side)) {
     return [side];
   }

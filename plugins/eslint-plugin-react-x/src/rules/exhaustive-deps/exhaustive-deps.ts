@@ -165,10 +165,7 @@ const rule = {
     >();
     const useEffectEventVariables = new WeakSet<Expression>();
 
-    function memoizeWithWeakMap(
-      fn: (resolved: Scope.Variable) => boolean,
-      map: WeakMap<Scope.Variable, boolean>,
-    ) {
+    function memoizeWithWeakMap(fn: (resolved: Scope.Variable) => boolean, map: WeakMap<Scope.Variable, boolean>) {
       return function(arg: Scope.Variable): boolean {
         if (map.has(arg)) {
           // to verify cache hits:
@@ -407,9 +404,7 @@ const rule = {
       }
 
       // Some are just functions that don't reference anything dynamic.
-      function isFunctionWithoutCapturedValues(
-        resolved: Scope.Variable,
-      ): boolean {
+      function isFunctionWithoutCapturedValues(resolved: Scope.Variable): boolean {
         if (!isArray(resolved.defs)) {
           return false;
         }
@@ -1023,12 +1018,7 @@ const rule = {
         return finalPath;
       }
 
-      function getWarningMessage(
-        deps: Set<string>,
-        singlePrefix: string,
-        label: string,
-        fixVerb: string,
-      ): string | null {
+      function getWarningMessage(deps: Set<string>, singlePrefix: string, label: string, fixVerb: string): string | null {
         if (deps.size === 0) {
           return null;
         }
@@ -1558,10 +1548,7 @@ function collectRecommendations({
   });
 
   // Tree manipulation helpers.
-  function getOrCreateNodeByPath(
-    rootNode: DependencyTreeNode,
-    path: string,
-  ): DependencyTreeNode {
+  function getOrCreateNodeByPath(rootNode: DependencyTreeNode, path: string): DependencyTreeNode {
     const keys = path.split(".");
     let node = rootNode;
     for (const key of keys) {
@@ -1574,11 +1561,7 @@ function collectRecommendations({
     }
     return node;
   }
-  function markAllParentsByPath(
-    rootNode: DependencyTreeNode,
-    path: string,
-    fn: (node: DependencyTreeNode) => void,
-  ): void {
+  function markAllParentsByPath(rootNode: DependencyTreeNode, path: string, fn: (node: DependencyTreeNode) => void): void {
     const keys = path.split(".");
     let node = rootNode;
     for (const key of keys) {
@@ -1600,12 +1583,7 @@ function collectRecommendations({
     satisfyingDependencies,
     key => key,
   );
-  function scanTreeRecursively(
-    node: DependencyTreeNode,
-    missingPaths: Set<string>,
-    satisfyingPaths: Set<string>,
-    keyToPath: (key: string) => string,
-  ): void {
+  function scanTreeRecursively(node: DependencyTreeNode, missingPaths: Set<string>, satisfyingPaths: Set<string>, keyToPath: (key: string) => string): void {
     node.children.forEach((child, key) => {
       const path = keyToPath(key);
       if (child.isSatisfiedRecursively) {
@@ -1870,11 +1848,7 @@ function getDependency(node: Node): Node {
  * It just means there is an optional member somewhere inside.
  * This particular node might still represent a required member, so check .optional field.
  */
-function markNode(
-  node: Node,
-  optionalChains: Map<string, boolean> | null,
-  result: string,
-): void {
+function markNode(node: Node, optionalChains: Map<string, boolean> | null, result: string): void {
   if (optionalChains) {
     if ("optional" in node && node.optional) {
       // We only want to consider it optional if *all* usages were optional.
@@ -1896,10 +1870,7 @@ function markNode(
  * foo.bar(.)baz -> 'foo.bar.baz'
  * Otherwise throw.
  */
-function analyzePropertyChain(
-  node: Node,
-  optionalChains: Map<string, boolean> | null,
-): string {
+function analyzePropertyChain(node: Node, optionalChains: Map<string, boolean> | null): string {
   if (node.type === "Identifier" || node.type === "JSXIdentifier") {
     const result = node.name;
     if (optionalChains) {
@@ -1939,9 +1910,7 @@ function analyzePropertyChain(
   }
 }
 
-function getNodeWithoutReactNamespace(
-  node: Expression | Super,
-): Expression | Identifier | Super {
+function getNodeWithoutReactNamespace(node: Expression | Super): Expression | Identifier | Super {
   if (
     node.type === "MemberExpression"
     && node.object.type === "Identifier"
@@ -1959,13 +1928,10 @@ function getNodeWithoutReactNamespace(
 // 0 for useEffect/useMemo/useCallback(fn).
 // 1 for useImperativeHandle(ref, fn).
 // For additionally configured Hooks, assume that they're like useEffect (0).
-function getReactiveHookCallbackIndex(
-  calleeNode: Expression | Super,
-  options?: {
-    additionalHooks: RegExp | undefined;
-    enableDangerousAutofixThisMayCauseInfiniteLoops?: boolean;
-  },
-): 0 | -1 | 1 {
+function getReactiveHookCallbackIndex(calleeNode: Expression | Super, options?: {
+  additionalHooks: RegExp | undefined;
+  enableDangerousAutofixThisMayCauseInfiniteLoops?: boolean;
+}): 0 | -1 | 1 {
   const node = getNodeWithoutReactNamespace(calleeNode);
   if (node.type !== "Identifier") {
     return -1;

@@ -3,11 +3,7 @@
 # Function: findAttribute()
 
 ```ts
-function findAttribute(
-  context: RuleContext,
-  element: JSXElement,
-  name: string,
-): TSESTreeJSXAttributeLike | undefined;
+function findAttribute(context: RuleContext, element: JSXElement, name: string): TSESTreeJSXAttributeLike | undefined;
 ```
 
 Find a JSX attribute (or a spread attribute containing the property) by name.

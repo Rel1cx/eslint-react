@@ -3,11 +3,7 @@
 # Function: isFunctionComponentDefinition()
 
 ```ts
-function isFunctionComponentDefinition(
-  context: RuleContext,
-  node: TSESTreeFunction,
-  hint: bigint,
-): boolean;
+function isFunctionComponentDefinition(context: RuleContext, node: TSESTreeFunction, hint: bigint): boolean;
 ```
 
 Check if the function node is a valid React component definition.

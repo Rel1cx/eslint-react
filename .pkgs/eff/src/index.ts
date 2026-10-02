@@ -101,10 +101,7 @@ export function not<T>(predicate: (data: T) => boolean) {
  * @returns A guard function that checks if either predicate is true.
  * @category guards
  */
-export function or<T, S extends T, U extends T>(
-  a: (data: T) => data is S,
-  b: (data: T) => data is U,
-): (data: T) => data is S | U;
+export function or<T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
 export function or<T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
 export function or<T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
 export function or<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
@@ -215,13 +212,7 @@ export interface Pipeable {
   pipe<A, B = never>(this: A, ab: (_: A) => B): B;
   pipe<A, B = never, C = never>(this: A, ab: (_: A) => B, bc: (_: B) => C): C;
   pipe<A, B = never, C = never, D = never>(this: A, ab: (_: A) => B, bc: (_: B) => C, cd: (_: C) => D): D;
-  pipe<A, B = never, C = never, D = never, E = never>(
-    this: A,
-    ab: (_: A) => B,
-    bc: (_: B) => C,
-    cd: (_: C) => D,
-    de: (_: D) => E,
-  ): E;
+  pipe<A, B = never, C = never, D = never, E = never>(this: A, ab: (_: A) => B, bc: (_: B) => C, cd: (_: C) => D, de: (_: D) => E): E;
   pipe<A, B = never, C = never, D = never, E = never, F = never>(
     this: A,
     ab: (_: A) => B,
@@ -835,9 +826,7 @@ export interface PipeableConstructor {
  * @category constructors
  * @since 4.0.0
  */
-export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(
-  klass: TBase,
-): TBase & PipeableConstructor => (class extends klass {
+export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(klass: TBase): TBase & PipeableConstructor => (class extends klass {
   pipe() {
     return pipeArguments(this, arguments);
   }
@@ -1269,11 +1258,8 @@ export const constVoid: LazyArg<void> = constUndefined;
  * @category combinators
  * @since 2.0.0
  */
-export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(
-  f: (...a: A) => (...b: B) => C,
-): (...b: B) => (...a: A) => C =>
-(...b) =>
-(...a) => f(...a)(...b);
+export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(f: (...a: A) => (...b: B) => C): (...b: B) => (...a: A) => C => (...b) => (...a) =>
+  f(...a)(...b);
 
 /**
  * Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
@@ -1494,24 +1480,9 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  */
 export function pipe<A>(a: A): A;
 export function pipe<A, B = never>(a: A, ab: (a: A) => B): B;
-export function pipe<A, B = never, C = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-): C;
-export function pipe<A, B = never, C = never, D = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-): D;
-export function pipe<A, B = never, C = never, D = never, E = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-): E;
+export function pipe<A, B = never, C = never>(a: A, ab: (a: A) => B, bc: (b: B) => C): C;
+export function pipe<A, B = never, C = never, D = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D): D;
+export function pipe<A, B = never, C = never, D = never, E = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E): E;
 export function pipe<A, B = never, C = never, D = never, E = never, F = never>(
   a: A,
   ab: (a: A) => B,
@@ -1528,15 +1499,7 @@ export function pipe<
   E = never,
   F = never,
   G = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-): G;
+>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G): G;
 export function pipe<
   A,
   B = never,
@@ -1546,16 +1509,7 @@ export function pipe<
   F = never,
   G = never,
   H = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-): H;
+>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G, gh: (g: G) => H): H;
 export function pipe<
   A,
   B = never,
@@ -1566,17 +1520,7 @@ export function pipe<
   G = never,
   H = never,
   I = never,
->(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-): I;
+>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G, gh: (g: G) => H, hi: (h: H) => I): I;
 export function pipe<
   A,
   B = never,
@@ -1977,13 +1921,8 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  * @category combinators
  * @since 2.0.0
  */
-export function flow<A extends ReadonlyArray<unknown>, B = never>(
-  ab: (...a: A) => B,
-): (...a: A) => B;
-export function flow<A extends ReadonlyArray<unknown>, B = never, C = never>(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-): (...a: A) => C;
+export function flow<A extends ReadonlyArray<unknown>, B = never>(ab: (...a: A) => B): (...a: A) => B;
+export function flow<A extends ReadonlyArray<unknown>, B = never, C = never>(ab: (...a: A) => B, bc: (b: B) => C): (...a: A) => C;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,
@@ -1996,12 +1935,7 @@ export function flow<
   C = never,
   D = never,
   E = never,
->(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-): (...a: A) => E;
+>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E): (...a: A) => E;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,
@@ -2009,13 +1943,7 @@ export function flow<
   D = never,
   E = never,
   F = never,
->(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-): (...a: A) => F;
+>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F): (...a: A) => F;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,
@@ -2024,14 +1952,7 @@ export function flow<
   E = never,
   F = never,
   G = never,
->(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-): (...a: A) => G;
+>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G): (...a: A) => G;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,
@@ -2041,15 +1962,7 @@ export function flow<
   F = never,
   G = never,
   H = never,
->(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-): (...a: A) => H;
+>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G, gh: (g: G) => H): (...a: A) => H;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,
@@ -2060,16 +1973,7 @@ export function flow<
   G = never,
   H = never,
   I = never,
->(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-  ef: (e: E) => F,
-  fg: (f: F) => G,
-  gh: (g: G) => H,
-  hi: (h: H) => I,
-): (...a: A) => I;
+>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E, ef: (e: E) => F, fg: (f: F) => G, gh: (g: G) => H, hi: (h: H) => I): (...a: A) => I;
 export function flow<
   A extends ReadonlyArray<unknown>,
   B = never,

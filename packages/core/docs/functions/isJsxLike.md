@@ -3,11 +3,7 @@
 # Function: isJsxLike()
 
 ```ts
-function isJsxLike(
-  context: RuleContext,
-  node: Node | null,
-  hint?: bigint,
-): boolean;
+function isJsxLike(context: RuleContext, node: Node | null, hint?: bigint): boolean;
 ```
 
 Check if the node represents JSX-like content based on heuristics.

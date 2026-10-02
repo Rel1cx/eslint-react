@@ -138,9 +138,7 @@ function isInsideDoWhileLoop(node: Node | undefined): node is DoWhileStatement {
   return false;
 }
 
-function isInsideTryCatch(
-  node: Node | undefined,
-): node is TryStatement | CatchClause {
+function isInsideTryCatch(node: Node | undefined): node is TryStatement | CatchClause {
   while (node) {
     if (node.type === "TryStatement" || node.type === "CatchClause") {
       return true;
@@ -150,9 +148,7 @@ function isInsideTryCatch(
   return false;
 }
 
-function getNodeWithoutReactNamespace(
-  node: Expression | Super,
-): Expression | Identifier | Super {
+function getNodeWithoutReactNamespace(node: Expression | Super): Expression | Identifier | Super {
   if (
     node.type === "MemberExpression"
     && node.object.type === "Identifier"
@@ -352,10 +348,7 @@ const rule = {
          *
          * Populates `cyclic` with cyclic segments.
          */
-        function countPathsFromStart(
-          segment: Rule.CodePathSegment,
-          pathHistory?: Set<string>,
-        ): bigint {
+        function countPathsFromStart(segment: Rule.CodePathSegment, pathHistory?: Set<string>): bigint {
           const { cache } = countPathsFromStart;
           let paths = cache.get(segment.id);
           const pathList = new Set<string>(pathHistory);
@@ -426,10 +419,7 @@ const rule = {
          * Populates `cyclic` with cyclic segments.
          */
 
-        function countPathsToEnd(
-          segment: Rule.CodePathSegment,
-          pathHistory?: Set<string>,
-        ): bigint {
+        function countPathsToEnd(segment: Rule.CodePathSegment, pathHistory?: Set<string>): bigint {
           const { cache } = countPathsToEnd;
           let paths = cache.get(segment.id);
           const pathList = new Set(pathHistory);
@@ -493,9 +483,7 @@ const rule = {
          * so we would return that.
          */
 
-        function shortestPathLengthToStart(
-          segment: Rule.CodePathSegment,
-        ): number {
+        function shortestPathLengthToStart(segment: Rule.CodePathSegment): number {
           const { cache } = shortestPathLengthToStart;
           let length = cache.get(segment.id);
 

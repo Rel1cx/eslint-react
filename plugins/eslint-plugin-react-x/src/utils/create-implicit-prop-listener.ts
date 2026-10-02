@@ -21,15 +21,12 @@ import ts from "typescript";
  * @param options.onImplicitProp A callback invoked with the spread attribute node when an implicit prop is detected
  * @returns A rule listener reporting on JSX spread attributes
  */
-export function createImplicitPropListener(
-  context: RuleContext,
-  options: {
-    name: string;
-    isAllowedProp: (fqn: string) => boolean;
-    isAllowedType: (fqn: string) => boolean;
-    onImplicitProp: (node: TSESTree.JSXSpreadAttribute) => void;
-  },
-): RuleListener {
+export function createImplicitPropListener(context: RuleContext, options: {
+  name: string;
+  isAllowedProp: (fqn: string) => boolean;
+  isAllowedType: (fqn: string) => boolean;
+  onImplicitProp: (node: TSESTree.JSXSpreadAttribute) => void;
+}): RuleListener {
   const { name, isAllowedProp, isAllowedType, onImplicitProp } = options;
   const services = ESLintUtils.getParserServices(context, false);
   const checker = services.program.getTypeChecker();

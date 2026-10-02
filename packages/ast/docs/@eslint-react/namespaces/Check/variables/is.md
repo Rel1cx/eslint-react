@@ -3,11 +3,7 @@
 # Variable: is
 
 ```ts
-const is: <NodeType>(
-  nodeType: NodeType,
-) => (
-  node: Node | null | undefined,
-) => node is
+const is: <NodeType>(nodeType: NodeType) => (node: Node | null | undefined) => node is
   | Extract<Program, { type: NodeType }>
   | Extract<AccessorPropertyComputedName, { type: NodeType }>
   | Extract<AccessorPropertyNonComputedName, { type: NodeType }>

@@ -3,11 +3,7 @@
 # Function: lintWithConfig()
 
 ```ts
-function lintWithConfig(
-  config: Config<RulesConfig> | Config<RulesConfig>[],
-  patterns: string[],
-  cwd?: string,
-): Promise<LintResult[]>;
+function lintWithConfig(config: Config<RulesConfig> | Config<RulesConfig>[], patterns: string[], cwd?: string): Promise<LintResult[]>;
 ```
 
 ## Parameters

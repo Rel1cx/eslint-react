@@ -131,12 +131,7 @@ function buildFix(context: RuleContext, node: TSESTree.CallExpression): (fixer: 
  * @param typeArguments The type arguments from the `forwardRef` call
  * @returns An array of fixes for the component's signature
  */
-function buildFixForComponentProps(
-  context: RuleContext,
-  fixer: RuleFixer,
-  node: TSESTreeFunction,
-  typeArguments: TSESTree.TypeNode[],
-) {
+function buildFixForComponentProps(context: RuleContext, fixer: RuleFixer, node: TSESTreeFunction, typeArguments: TSESTree.TypeNode[]) {
   const getText = (node: TSESTree.Node) => context.sourceCode.getText(node);
   const [arg0, arg1] = node.params;
   const [typeArg0, typeArg1] = typeArguments;

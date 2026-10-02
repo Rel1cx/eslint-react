@@ -39,10 +39,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   // Map to store key attributes grouped by their parent node
   const keyedEntries = new Map<TSESTree.Node, KeyedEntry>();
   // Helper function to check if two key attribute values are equal
-  function isKeyValueEqual(
-    a: TSESTree.JSXAttribute,
-    b: TSESTree.JSXAttribute,
-  ): boolean {
+  function isKeyValueEqual(a: TSESTree.JSXAttribute, b: TSESTree.JSXAttribute): boolean {
     const aValue = a.value;
     const bValue = b.value;
     // If either value is null, they are not considered equal

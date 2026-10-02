@@ -390,12 +390,7 @@ function isReachable(segment: CodePathSegment): boolean {
  * `end` is `-1`, this creates `[g, h]`. This `g` is from `a`, `c`, and `e`.
  * This `h` is from `b`, `d`, and `f`.
  */
-function makeSegments(
-  context: ForkContext,
-  begin: number,
-  end: number,
-  create: SegmentFactory,
-): CodePathSegment[] {
+function makeSegments(context: ForkContext, begin: number, end: number, create: SegmentFactory): CodePathSegment[] {
   const list = context.segmentsList;
   const normalizedBegin = begin >= 0 ? begin : list.length + begin;
   const normalizedEnd = end >= 0 ? end : list.length + end;
@@ -544,12 +539,7 @@ class ForkContext {
  *
  * This adds only reachable and used segments.
  */
-function addToReturnedOrThrown(
-  dest: CodePathSegment[],
-  others: CodePathSegment[],
-  all: CodePathSegment[],
-  segments: CodePathSegment[],
-): void {
+function addToReturnedOrThrown(dest: CodePathSegment[], others: CodePathSegment[], all: CodePathSegment[], segments: CodePathSegment[]): void {
   for (let i = 0; i < segments.length; ++i) {
     const segment = segments[i]!;
     dest.push(segment);
@@ -636,11 +626,7 @@ function removeConnection(prevSegments: CodePathSegment[], nextSegments: CodePat
 /**
  * Creates looping path.
  */
-function makeLooped(
-  state: CodePathState,
-  unflattenedFromSegments: CodePathSegment[],
-  unflattenedToSegments: CodePathSegment[],
-): void {
+function makeLooped(state: CodePathState, unflattenedFromSegments: CodePathSegment[], unflattenedToSegments: CodePathSegment[]): void {
   const fromSegments = CodePathSegment.flattenUnusedSegments(unflattenedFromSegments);
   const toSegments = CodePathSegment.flattenUnusedSegments(unflattenedToSegments);
   const end = Math.min(fromSegments.length, toSegments.length);
@@ -662,11 +648,7 @@ function makeLooped(
  * - Adds `false` paths to paths which are leaving from the loop.
  * - Sets `true` paths to paths which go to the body.
  */
-function finalizeTestSegmentsOfFor(
-  context: ForLoopContext,
-  choiceContext: ChoiceContext,
-  head: CodePathSegment[],
-): void {
+function finalizeTestSegmentsOfFor(context: ForLoopContext, choiceContext: ChoiceContext, head: CodePathSegment[]): void {
   if (!choiceContext.processed) {
     choiceContext.trueForkContext.add(head);
     choiceContext.falseForkContext.add(head);
@@ -695,10 +677,7 @@ class CodePathState {
   returnedForkContext: SegmentDestination;
   thrownForkContext: SegmentDestination;
 
-  constructor(
-    idGenerator: IdGenerator,
-    onLooped: (fromSegment: CodePathSegment, toSegment: CodePathSegment) => void,
-  ) {
+  constructor(idGenerator: IdGenerator, onLooped: (fromSegment: CodePathSegment, toSegment: CodePathSegment) => void) {
     this.idGenerator = idGenerator;
     this.notifyLooped = onLooped;
     this.forkContext = ForkContext.newRoot(idGenerator);

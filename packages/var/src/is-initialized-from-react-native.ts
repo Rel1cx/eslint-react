@@ -9,11 +9,7 @@ import { resolveImportSource } from "./resolve-import-source";
  * @returns `true` if the variable is initialized or derived from a React Native import.
  * @internal
  */
-export function isInitializedFromReactNative(
-  name: string,
-  initialScope: Scope,
-  importSource = "react-native",
-) {
+export function isInitializedFromReactNative(name: string, initialScope: Scope, importSource = "react-native") {
   return [
     "react_native",
     "reactnative",

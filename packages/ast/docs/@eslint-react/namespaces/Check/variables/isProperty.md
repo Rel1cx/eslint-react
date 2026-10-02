@@ -3,9 +3,7 @@
 # Variable: isProperty
 
 ```ts
-const isProperty: (
-  node: Node | null | undefined,
-) => node is
+const isProperty: (node: Node | null | undefined) => node is
   | PropertyDefinitionComputedName
   | PropertyDefinitionNonComputedName
   | TSIndexSignature

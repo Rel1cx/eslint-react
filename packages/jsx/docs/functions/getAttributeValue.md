@@ -3,11 +3,7 @@
 # Function: getAttributeValue()
 
 ```ts
-function getAttributeValue(
-  context: RuleContext,
-  element: JSXElement,
-  name: string,
-): AttributeValue | undefined;
+function getAttributeValue(context: RuleContext, element: JSXElement, name: string): AttributeValue | undefined;
 ```
 
 Find an attribute by name on a JSX element and resolve its value in a single call.

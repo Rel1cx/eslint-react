@@ -3,11 +3,7 @@
 # Function: isFunctionWithLooseComponentName()
 
 ```ts
-function isFunctionWithLooseComponentName(
-  context: RuleContext,
-  fn: TSESTreeFunction,
-  allowNone?: boolean,
-): boolean;
+function isFunctionWithLooseComponentName(context: RuleContext, fn: TSESTreeFunction, allowNone?: boolean): boolean;
 ```
 
 Check if a function has a loose component name.

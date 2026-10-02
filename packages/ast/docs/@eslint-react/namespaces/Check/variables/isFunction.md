@@ -3,9 +3,7 @@
 # Variable: isFunction
 
 ```ts
-const isFunction: (
-  node: Node | null | undefined,
-) => node is
+const isFunction: (node: Node | null | undefined) => node is
   | ArrowFunctionExpressionWithBlockBody
   | ArrowFunctionExpressionWithExpressionBody
   | FunctionDeclarationWithName

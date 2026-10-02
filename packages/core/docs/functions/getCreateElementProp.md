@@ -3,11 +3,7 @@
 # Function: getCreateElementProp()
 
 ```ts
-function getCreateElementProp(
-  context: RuleContext,
-  node: Node | null,
-  name: string,
-): Property | null;
+function getCreateElementProp(context: RuleContext, node: Node | null, name: string): Property | null;
 ```
 
 Find a statically named property in the props object of a `createElement` call.

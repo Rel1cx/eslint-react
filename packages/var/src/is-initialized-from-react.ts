@@ -9,10 +9,6 @@ import { resolveImportSource } from "./resolve-import-source";
  * @returns `true` if the variable is initialized or derived from a React import.
  * @internal
  */
-export function isInitializedFromReact(
-  name: string,
-  initialScope: Scope,
-  importSource = "react",
-) {
+export function isInitializedFromReact(name: string, initialScope: Scope, importSource = "react") {
   return name.toLowerCase() === "react" || Boolean(resolveImportSource(name, initialScope)?.startsWith(importSource));
 }

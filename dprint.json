@@ -4,6 +4,8 @@
     "indentWidth": 2,
     "quoteStyle": "preferDouble",
     "quoteProps": "asNeeded",
+    "arguments.preferSingleLine": false,
+    "parameters.preferSingleLine": true,
     "importDeclaration.sortNamedImports": "caseSensitive",
     "exportDeclaration.sortNamedExports": "caseSensitive",
     "module.sortImportDeclarations": "caseSensitive",

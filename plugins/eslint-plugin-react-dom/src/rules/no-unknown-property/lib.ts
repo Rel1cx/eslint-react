@@ -966,11 +966,7 @@ export const REACT_19_3_SVGDOM_ATTRIBUTE_NAMES: StringMap = {
  * @param version Version to compare against
  * @returns Comparison result
  */
-export function testReactVersion(
-  context: RuleContext<string, unknown[]>,
-  comparator: CompareOperator,
-  version: string,
-): boolean {
+export function testReactVersion(context: RuleContext<string, unknown[]>, comparator: CompareOperator, version: string): boolean {
   const { version: localVersion } = getSettingsFromContext(context);
   return compare(localVersion, version, comparator);
 }

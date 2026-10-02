@@ -3,11 +3,7 @@
 # Function: isValueEqual()
 
 ```ts
-function isValueEqual(
-  context: RuleContext,
-  a: Node,
-  b: Node,
-): boolean;
+function isValueEqual(context: RuleContext, a: Node, b: Node): boolean;
 ```
 
 Check if two nodes have equal values.

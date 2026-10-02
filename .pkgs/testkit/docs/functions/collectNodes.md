@@ -3,11 +3,7 @@
 # Function: collectNodes()
 
 ```ts
-function collectNodes<T extends Node>(
-  code: string,
-  type: T["type"],
-  options?: ParseCodeOptions,
-): T[];
+function collectNodes<T extends Node>(code: string, type: T["type"], options?: ParseCodeOptions): T[];
 ```
 
 ## Type Parameters

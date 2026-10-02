@@ -3,9 +3,7 @@
 # Function: isESLintReactSettings()
 
 ```ts
-function isESLintReactSettings(
-  settings: unknown,
-): settings is {
+function isESLintReactSettings(settings: unknown): settings is {
   additionalEffectHooks?: string;
   additionalRefHooks?: string;
   additionalStateHooks?: string;

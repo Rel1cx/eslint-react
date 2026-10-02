@@ -3,11 +3,7 @@
 # Function: resolveAttributeValue()
 
 ```ts
-function resolveAttributeValue(
-  context: RuleContext,
-  attribute: TSESTreeJSXAttributeLike,
-  name?: string,
-): AttributeValue;
+function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike, name?: string): AttributeValue;
 ```
 
 Resolve the value of a JSX attribute (or spread attribute) into an [AttributeValue](../type-aliases/AttributeValue.md) descriptor.

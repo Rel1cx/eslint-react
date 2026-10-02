@@ -3,11 +3,7 @@
 # Function: getFirstNodeOfType()
 
 ```ts
-function getFirstNodeOfType<T extends Node>(
-  code: string,
-  type: T["type"],
-  options?: ParseCodeOptions,
-): T;
+function getFirstNodeOfType<T extends Node>(code: string, type: T["type"], options?: ParseCodeOptions): T;
 ```
 
 ## Type Parameters

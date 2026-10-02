@@ -123,11 +123,7 @@ assert.strictEqual(f("aaa"), 6);
 ## Call Signature
 
 ```ts
-function flow<A extends readonly unknown[], B = never, C = never, D = never>(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-): (...a: A) => D;
+function flow<A extends readonly unknown[], B = never, C = never, D = never>(ab: (...a: A) => B, bc: (b: B) => C, cd: (c: C) => D): (...a: A) => D;
 ```
 
 Performs left-to-right function composition.

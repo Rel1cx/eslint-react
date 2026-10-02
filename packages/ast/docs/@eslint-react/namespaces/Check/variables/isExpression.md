@@ -3,9 +3,7 @@
 # Variable: isExpression
 
 ```ts
-const isExpression: (
-  node: Node | null | undefined,
-) => node is
+const isExpression: (node: Node | null | undefined) => node is
   | ArrayExpression
   | ArrayPattern
   | ArrowFunctionExpressionWithBlockBody

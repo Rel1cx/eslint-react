@@ -11,11 +11,7 @@ import { isValueEqual } from "./is-value-equal";
  * @returns `true` if the assignment targets are equal.
  * @internal
  */
-export function isAssignmentTargetEqual(
-  context: RuleContext,
-  a: TSESTree.Node,
-  b: TSESTree.Node,
-) {
+export function isAssignmentTargetEqual(context: RuleContext, a: TSESTree.Node, b: TSESTree.Node) {
   const unwrappedA = Check.isTypeExpression(a) ? Extract.unwrap(a) : a;
   const unwrappedB = Check.isTypeExpression(b) ? Extract.unwrap(b) : b;
   // Same-name identifiers in different scopes are different variables,

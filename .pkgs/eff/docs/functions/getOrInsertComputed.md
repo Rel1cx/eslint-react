@@ -5,11 +5,7 @@
 ## Call Signature
 
 ```ts
-function getOrInsertComputed<K extends WeakKey, V>(
-  map: WeakMap<K, V>,
-  key: K,
-  callback: (key: K) => V,
-): V;
+function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, callback: (key: K) => V): V;
 ```
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.
@@ -38,11 +34,7 @@ The existing value for the key, or the newly computed value.
 ## Call Signature
 
 ```ts
-function getOrInsertComputed<K, V>(
-  map: Map<K, V>,
-  key: K,
-  callback: (key: K) => V,
-): V;
+function getOrInsertComputed<K, V>(map: Map<K, V>, key: K, callback: (key: K) => V): V;
 ```
 
 Retrieves a value from a Map or WeakMap if the key exists, or computes and stores a new value if it doesn't.

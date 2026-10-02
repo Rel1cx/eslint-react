@@ -3,11 +3,7 @@
 # Function: getAttributeStaticValue()
 
 ```ts
-function getAttributeStaticValue(
-  context: RuleContext,
-  element: JSXElement,
-  name: string,
-): unknown;
+function getAttributeStaticValue(context: RuleContext, element: JSXElement, name: string): unknown;
 ```
 
 Find an attribute by name on a JSX element and collapse its value to a plain JavaScript value.

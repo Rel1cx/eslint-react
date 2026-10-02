@@ -3,11 +3,7 @@
 # Function: resolveImportSource()
 
 ```ts
-function resolveImportSource(
-  name: string,
-  initialScope: Scope,
-  seen?: Set<string>,
-): string | null;
+function resolveImportSource(name: string, initialScope: Scope, seen?: Set<string>): string | null;
 ```
 
 Resolve the import source of a variable by walking its latest definition.

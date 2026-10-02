@@ -261,11 +261,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-): C;
+function pipe<A, B = never, C = never>(a: A, ab: (a: A) => B, bc: (b: B) => C): C;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -396,12 +392,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never, D = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-): D;
+function pipe<A, B = never, C = never, D = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D): D;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of
@@ -534,13 +525,7 @@ console.log(result); // "11"
 ## Call Signature
 
 ```ts
-function pipe<A, B = never, C = never, D = never, E = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C,
-  cd: (c: C) => D,
-  de: (d: D) => E,
-): E;
+function pipe<A, B = never, C = never, D = never, E = never>(a: A, ab: (a: A) => B, bc: (b: B) => C, cd: (c: C) => D, de: (d: D) => E): E;
 ```
 
 Pipes the value of an expression through a left-to-right sequence of

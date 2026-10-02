@@ -3,11 +3,7 @@
 # Function: hasAttribute()
 
 ```ts
-function hasAttribute(
-  context: RuleContext,
-  element: JSXElement,
-  name: string,
-): boolean;
+function hasAttribute(context: RuleContext, element: JSXElement, name: string): boolean;
 ```
 
 Check if the element has an attribute with the given name.

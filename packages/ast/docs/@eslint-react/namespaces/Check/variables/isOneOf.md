@@ -3,11 +3,7 @@
 # Variable: isOneOf
 
 ```ts
-const isOneOf: <NodeTypes>(
-  nodeTypes: NodeTypes,
-) => (
-  node: Node | null | undefined,
-) => node is
+const isOneOf: <NodeTypes>(nodeTypes: NodeTypes) => (node: Node | null | undefined) => node is
   | Extract<Program, { type: NodeTypes[number] }>
   | Extract<AccessorPropertyComputedName, { type: NodeTypes[number] }>
   | Extract<AccessorPropertyNonComputedName, { type: NodeTypes[number] }>

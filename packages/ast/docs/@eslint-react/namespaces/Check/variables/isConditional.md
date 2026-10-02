@@ -3,9 +3,7 @@
 # Variable: isConditional
 
 ```ts
-const isConditional: (
-  node: Node | null | undefined,
-) => node is
+const isConditional: (node: Node | null | undefined) => node is
   | ConditionalExpression
   | DoWhileStatement
   | ForInStatement

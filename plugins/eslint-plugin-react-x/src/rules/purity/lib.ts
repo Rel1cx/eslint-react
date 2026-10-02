@@ -602,11 +602,7 @@ function getDestructuredPropertyName(pattern: TSESTree.ObjectPattern, name: TSES
  * objects (`window`, `Math`, ...), so unknown-global chains like
  * `foo.Math.random` do not resolve.
  */
-export function resolveBuiltinMember(
-  context: RuleContext,
-  node: TSESTree.MemberExpression,
-  seen = new Set<string>(),
-): BuiltinResolution | null {
+export function resolveBuiltinMember(context: RuleContext, node: TSESTree.MemberExpression, seen = new Set<string>()): BuiltinResolution | null {
   const chain = Extract.getMemberChain(node);
   const rootId = chain.at(0);
   if (rootId == null || !Check.isIdentifier(rootId)) return null;

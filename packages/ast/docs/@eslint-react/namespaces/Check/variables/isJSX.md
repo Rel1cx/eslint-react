@@ -3,9 +3,7 @@
 # Variable: isJSX
 
 ```ts
-const isJSX: (
-  node: Node | null | undefined,
-) => node is
+const isJSX: (node: Node | null | undefined) => node is
   | JSXAttribute
   | JSXClosingElement
   | JSXClosingFragment

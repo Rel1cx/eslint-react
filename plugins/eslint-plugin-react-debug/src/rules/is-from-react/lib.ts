@@ -10,11 +10,7 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  * @param importSource The import source to check against
  * @returns Whether the identifier node is initialized from React
  */
-export function isFromReact(
-  node: TSESTree.Identifier | TSESTree.JSXIdentifier,
-  initialScope: Scope,
-  importSource = "react",
-) {
+export function isFromReact(node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope, importSource = "react") {
   const name = node.name;
   switch (true) {
     case node.parent.type === AST.MemberExpression

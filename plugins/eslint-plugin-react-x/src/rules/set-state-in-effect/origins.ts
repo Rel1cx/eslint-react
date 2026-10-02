@@ -84,12 +84,7 @@ export function createSetStateResolver(context: RuleContext) {
   return { isSetStateCall, isSetStateId, isUseStateCall } as const;
 }
 
-export function isInitializedFromRef(
-  context: RuleContext,
-  name: string,
-  initialScope: Scope,
-  seen = new Set<string>(),
-): boolean {
+export function isInitializedFromRef(context: RuleContext, name: string, initialScope: Scope, seen = new Set<string>()): boolean {
   const { additionalRefHooks } = getSettingsFromContext(context);
   if (seen.has(name)) return false;
   seen.add(name);
@@ -195,10 +190,7 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
  * @param node The AST node to check
  * @returns `true` if the node is inside a ref-gated conditional block
  */
-export function isRefGatedContext(
-  context: RuleContext,
-  node: TSESTree.Node,
-): boolean {
+export function isRefGatedContext(context: RuleContext, node: TSESTree.Node): boolean {
   let child: TSESTree.Node = node;
   let current: TSESTree.Node | undefined = node.parent;
   while (current != null) {

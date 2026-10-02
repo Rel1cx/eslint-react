@@ -33,11 +33,7 @@ export type AttributeValue =
  * @param name Optional property name used to resolve `toStatic()` for spread attributes.
  * @returns A discriminated-union descriptor of the attribute's value.
  */
-export function resolveAttributeValue(
-  context: RuleContext,
-  attribute: TSESTreeJSXAttributeLike,
-  name?: string,
-): AttributeValue {
+export function resolveAttributeValue(context: RuleContext, attribute: TSESTreeJSXAttributeLike, name?: string): AttributeValue {
   if (attribute.type === AST.JSXAttribute) {
     return resolveJsxAttribute(context, attribute);
   }
@@ -146,11 +142,7 @@ function resolveJsxAttribute(context: RuleContext, node: TSESTree.JSXAttribute):
   }
 }
 
-function resolveJsxSpreadAttribute(
-  context: RuleContext,
-  node: TSESTree.JSXSpreadAttribute,
-  name?: string,
-): AttributeValue {
+function resolveJsxSpreadAttribute(context: RuleContext, node: TSESTree.JSXSpreadAttribute, name?: string): AttributeValue {
   const getProperty = (propertyName: string): unknown => {
     const property = findSpreadProperty(context, node.argument, propertyName);
     if (property == null) return undefined;

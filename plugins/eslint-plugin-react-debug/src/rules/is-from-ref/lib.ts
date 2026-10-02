@@ -6,11 +6,7 @@ import type { Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
-export function getRefInitNode(
-  context: RuleContext,
-  node: TSESTree.Identifier | TSESTree.JSXIdentifier,
-  initialScope: Scope,
-) {
+export function getRefInitNode(context: RuleContext, node: TSESTree.Identifier | TSESTree.JSXIdentifier, initialScope: Scope) {
   const name = node.name;
   switch (true) {
     case node.parent.type === AST.MemberExpression
@@ -33,11 +29,7 @@ export function getRefInitNode(
  * @param initialScope The initial scope
  * @returns The init expression node if the variable is derived from a ref, or null otherwise
  */
-export function getRefInit(
-  context: RuleContext,
-  name: string,
-  initialScope: Scope,
-): TSESTree.Expression | null {
+export function getRefInit(context: RuleContext, name: string, initialScope: Scope): TSESTree.Expression | null {
   const { additionalRefHooks } = getSettingsFromContext(context);
   for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
     if (node.type !== AST.VariableDeclarator) continue;

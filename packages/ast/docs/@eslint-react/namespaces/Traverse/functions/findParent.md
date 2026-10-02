@@ -5,11 +5,7 @@
 ## Call Signature
 
 ```ts
-function findParent<T extends Node>(
-  node: Node | null,
-  test: Predicate<T>,
-  stop?: NodePredicate,
-): T | null;
+function findParent<T extends Node>(node: Node | null, test: Predicate<T>, stop?: NodePredicate): T | null;
 ```
 
 Walk up the AST from `node` to find the nearest ancestor matching a predicate.
@@ -37,11 +33,7 @@ The first matching ancestor, or `null` when none is found.
 ## Call Signature
 
 ```ts
-function findParent(
-  node: Node | null,
-  test: NodePredicate,
-  stop?: NodePredicate,
-): Node | null;
+function findParent(node: Node | null, test: NodePredicate, stop?: NodePredicate): Node | null;
 ```
 
 Walk up the AST from `node` to find the nearest ancestor matching a predicate.

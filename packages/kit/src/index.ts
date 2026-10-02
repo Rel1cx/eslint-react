@@ -36,13 +36,10 @@ export interface RuleToolkit {
   };
 
   collect: {
-    components(
-      context: RuleContext,
-      options?: {
-        collectDisplayName?: boolean;
-        hint?: bigint;
-      },
-    ): CollectorWithContext<core.FunctionComponentSemanticNode>;
+    components(context: RuleContext, options?: {
+      collectDisplayName?: boolean;
+      hint?: bigint;
+    }): CollectorWithContext<core.FunctionComponentSemanticNode>;
     hooks(context: RuleContext): CollectorWithContext<core.HookSemanticNode>;
   };
 
@@ -259,38 +256,32 @@ declare module "@typescript-eslint/utils/ts-eslint" {
     MessageIds extends string = string,
     Options extends readonly unknown[] = readonly unknown[],
   > {
-    report(
-      descriptor: {
-        readonly data?: Readonly<Record<string, unknown>>;
-        readonly fix?:
-          | ((
-            fixer: RuleFixer,
-          ) =>
+    report(descriptor: {
+      readonly data?: Readonly<Record<string, unknown>>;
+      readonly fix?:
+        | ((fixer: RuleFixer) =>
+          | IterableIterator<RuleFix>
+          | readonly RuleFix[]
+          | RuleFix
+          | null)
+        | null;
+      readonly loc?:
+        | Readonly<TSESTree.SourceLocation>
+        | Readonly<TSESTree.Position>;
+      readonly message: string;
+      readonly node: TSESTree.Node;
+      readonly suggest?:
+        | readonly {
+          readonly data?: Readonly<Record<string, unknown>>;
+          readonly desc: string;
+          readonly fix: (fixer: RuleFixer) =>
             | IterableIterator<RuleFix>
             | readonly RuleFix[]
             | RuleFix
-            | null)
-          | null;
-        readonly loc?:
-          | Readonly<TSESTree.SourceLocation>
-          | Readonly<TSESTree.Position>;
-        readonly message: string;
-        readonly node: TSESTree.Node;
-        readonly suggest?:
-          | readonly {
-            readonly data?: Readonly<Record<string, unknown>>;
-            readonly desc: string;
-            readonly fix: (
-              fixer: RuleFixer,
-            ) =>
-              | IterableIterator<RuleFix>
-              | readonly RuleFix[]
-              | RuleFix
-              | null;
-          }[]
-          | null;
-      },
-    ): void;
+            | null;
+        }[]
+        | null;
+    }): void;
   }
 }
 

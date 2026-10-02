@@ -5,11 +5,7 @@
 ## Call Signature
 
 ```ts
-function getOrInsert<K extends WeakKey, V>(
-  map: WeakMap<K, V>,
-  key: K,
-  defaultValue: V,
-): V;
+function getOrInsert<K extends WeakKey, V>(map: WeakMap<K, V>, key: K, defaultValue: V): V;
 ```
 
 Retrieves a value from a Map or WeakMap if the key exists, or inserts and returns a default value if it doesn't.
@@ -38,11 +34,7 @@ The existing value for the key, or the inserted default value.
 ## Call Signature
 
 ```ts
-function getOrInsert<K, V>(
-  map: Map<K, V>,
-  key: K,
-  defaultValue: V,
-): V;
+function getOrInsert<K, V>(map: Map<K, V>, key: K, defaultValue: V): V;
 ```
 
 Retrieves a value from a Map or WeakMap if the key exists, or inserts and returns a default value if it doesn't.

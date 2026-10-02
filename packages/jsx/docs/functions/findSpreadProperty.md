@@ -3,12 +3,7 @@
 # Function: findSpreadProperty()
 
 ```ts
-function findSpreadProperty(
-  context: RuleContext,
-  argument: Expression,
-  name: string,
-  seen?: Set<Node>,
-): Property | undefined;
+function findSpreadProperty(context: RuleContext, argument: Expression, name: string, seen?: Set<Node>): Property | undefined;
 ```
 
 Find the `Property` node that provides a given key inside a spread argument.

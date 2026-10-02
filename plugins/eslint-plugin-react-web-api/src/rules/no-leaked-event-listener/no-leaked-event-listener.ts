@@ -224,11 +224,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     const id = getFunctionId(enclosingFunction);
     return id != null && id.type === AST.Identifier && callees.names.has(id.name);
   }
-  function visitInlineFunction(
-    node: TSESTree.CallExpression,
-    callKind: EventMethodKind,
-    options: typeof defaultOptions,
-  ) {
+  function visitInlineFunction(node: TSESTree.CallExpression, callKind: EventMethodKind, options: typeof defaultOptions) {
     const listener = node.arguments.at(1);
     if (!Check.isFunction(listener)) {
       return;

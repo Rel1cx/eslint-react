@@ -3,11 +3,7 @@
 # Function: hasAnyAttribute()
 
 ```ts
-function hasAnyAttribute(
-  context: RuleContext,
-  element: JSXElement,
-  names: string[],
-): boolean;
+function hasAnyAttribute(context: RuleContext, element: JSXElement, names: string[]): boolean;
 ```
 
 Check if the element has at least one of the given attributes.

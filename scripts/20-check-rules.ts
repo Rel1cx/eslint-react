@@ -113,12 +113,7 @@ const checkConfigKeysValid = Effect.fnUntraced(
 );
 
 const checkHierarchy = Effect.fnUntraced(
-  function*(
-    parentName: string,
-    parentRules: Record<string, unknown>,
-    childName: string,
-    childRules: Record<string, unknown>,
-  ) {
+  function*(parentName: string, parentRules: Record<string, unknown>, childName: string, childRules: Record<string, unknown>) {
     const parentKeys = new Set(keys(parentRules));
     const childKeys = new Set(keys(childRules));
     let errorCount = 0;

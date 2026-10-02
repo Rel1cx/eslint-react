@@ -28,12 +28,7 @@ export function createFactCollector() {
     sinks: [],
   };
 
-  function pushMutation(
-    kind: MutationFact["kind"],
-    node: TSESTree.Node,
-    target: TSESTree.Expression,
-    root: TSESTree.Identifier,
-  ) {
+  function pushMutation(kind: MutationFact["kind"], node: TSESTree.Node, target: TSESTree.Expression, root: TSESTree.Identifier) {
     const enclosingFunction = Traverse.findParent(node, Check.isFunction);
     if (enclosingFunction == null) return;
     facts.mutations.push({ kind, enclosingFunction, node, root, target });
