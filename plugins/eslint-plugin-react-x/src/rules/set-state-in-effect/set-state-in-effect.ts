@@ -187,6 +187,42 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
 
+  // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
+  function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
+    const isUsingRefValue = (n: TSESTree.Node): boolean => {
+      switch (n.type) {
+        case AST.Identifier:
+          return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
+        case AST.MemberExpression:
+          return isUsingRefValue(n.object);
+        case AST.CallExpression:
+          return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
+        case AST.BinaryExpression:
+        case AST.LogicalExpression:
+          return isUsingRefValue(n.left) || isUsingRefValue(n.right);
+        case AST.UnaryExpression:
+        case AST.UpdateExpression:
+          return isUsingRefValue(n.argument);
+        case AST.ConditionalExpression:
+          return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
+        case AST.SequenceExpression:
+          return n.expressions.some(isUsingRefValue);
+        case AST.AssignmentExpression:
+          return isUsingRefValue(n.right);
+        default:
+          return false;
+      }
+    };
+    // Case 1: setState(ref.current.scrollTop);
+    if (isUsingRefValue(node)) return true;
+    // Case 2: setState(() => ref.current.scrollTop);
+    return Check.isFunction(node)
+      && context.sourceCode
+        .getScope(node.body)
+        .references
+        .some((r) => isUsingRefValue(r.identifier));
+  }
+
   return {
     ":function"(node: TSESTreeFunction) {
       const kind = getFunctionKind(node);
@@ -221,41 +257,6 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               const args0 = node.arguments.at(0);
               // setState() without arguments, which is invalid but other tools will report it
               if (args0 == null) return;
-              // Check if the setState call is using a ref value, which is safe to use in an effect (ex: `setState(ref.current.scrollTop)`)
-              function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.CallExpressionArgument) {
-                const isUsingRefValue = (n: TSESTree.Node): boolean => {
-                  switch (n.type) {
-                    case AST.Identifier:
-                      return isInitializedFromRef(context, n.name, context.sourceCode.getScope(n));
-                    case AST.MemberExpression:
-                      return isUsingRefValue(n.object);
-                    case AST.CallExpression:
-                      return isUsingRefValue(n.callee) || getNestedIdentifiers(n).some(isUsingRefValue);
-                    case AST.BinaryExpression:
-                    case AST.LogicalExpression:
-                      return isUsingRefValue(n.left) || isUsingRefValue(n.right);
-                    case AST.UnaryExpression:
-                    case AST.UpdateExpression:
-                      return isUsingRefValue(n.argument);
-                    case AST.ConditionalExpression:
-                      return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
-                    case AST.SequenceExpression:
-                      return n.expressions.some(isUsingRefValue);
-                    case AST.AssignmentExpression:
-                      return isUsingRefValue(n.right);
-                    default:
-                      return false;
-                  }
-                };
-                // Case 1: setState(ref.current.scrollTop);
-                if (isUsingRefValue(node)) return true;
-                // Case 2: setState(() => ref.current.scrollTop);
-                return Check.isFunction(node)
-                  && context.sourceCode
-                    .getScope(node.body)
-                    .references
-                    .some((r) => isUsingRefValue(r.identifier));
-              }
               if (isArgumentUsingRefValue(context, args0)) return;
               if (isRefGatedContext(context, node)) return;
               context.report({
@@ -332,6 +333,16 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       }
     },
     "Program:exit"() {
+      // The ref-derived value exemption that applies to direct setup calls
+      // applies to indirectly reached setState calls as well (ex: a `measure`
+      // helper invoked from the setup whose setState carries DOM measurements)
+      const isExemptSetStateCall = (setStateCall: TSESTree.CallExpression | TSESTree.Identifier) => {
+        const callNode = getSetStateCallExpression(setStateCall);
+        if (isRefGatedContext(context, callNode)) return true;
+        if (callNode.type !== AST.CallExpression) return false;
+        const args0 = callNode.arguments.at(0);
+        return args0 != null && isArgumentUsingRefValue(context, args0);
+      };
       const getSetStateCalls = (context: RuleContext, id: TSESTree.Identifier): TSESTree.CallExpression[] | TSESTree.Identifier[] => {
         // The value of a function parameter (e.g. a function received via props) is provided
         // by the caller and cannot be resolved to a function defined in this component.
@@ -354,7 +365,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       };
       for (const [, calls] of setStateInEffectSetup) {
         for (const call of calls) {
-          if (isRefGatedContext(context, getSetStateCallExpression(call))) continue;
+          if (isExemptSetStateCall(call)) continue;
           context.report({
             data: {
               name: call.name,
@@ -371,7 +382,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         const setStateCalls = getSetStateCalls(context, unwrappedCallee);
         for (const setStateCall of setStateCalls) {
-          if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
+          if (isExemptSetStateCall(setStateCall)) continue;
           context.report({
             data: {
               name: getCallName(setStateCall),
@@ -384,7 +395,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       for (const id of setupFnIds) {
         const setStateCalls = getSetStateCalls(context, id);
         for (const setStateCall of setStateCalls) {
-          if (isRefGatedContext(context, getSetStateCallExpression(setStateCall))) continue;
+          if (isExemptSetStateCall(setStateCall)) continue;
           context.report({
             data: {
               name: getCallName(setStateCall),

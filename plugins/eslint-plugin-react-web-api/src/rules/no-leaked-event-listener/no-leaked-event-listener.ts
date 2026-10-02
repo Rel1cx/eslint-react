@@ -1,9 +1,11 @@
 import { createRule } from "@/utils/create-rule";
 import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
-import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
+import { getFunctionId, isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
+import { getOrInsertComputed } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
 import { defaultOptions, getOptions } from "./lib";
 
@@ -28,6 +30,7 @@ type AEntry = {
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: boolean;
+  effect: TSESTree.Node | null;
   listener: TSESTree.Node;
   method: "addEventListener";
   node: TSESTree.CallExpression;
@@ -39,10 +42,23 @@ type REntry = {
   type: TSESTree.Node;
   callee: TSESTree.Node;
   capture: boolean;
+  effect: TSESTree.Node | null;
   listener: TSESTree.Node;
   method: "removeEventListener";
   node: TSESTree.CallExpression;
   phase: "cleanup" | "setup";
+};
+
+// A function called from an effect cleanup, either resolved to its function
+// node or, when it cannot be resolved locally (ex: received via props), reduced
+// to its name.
+type CleanupCallee =
+  | { kind: "function"; node: TSESTree.Node }
+  | { kind: "name"; name: string };
+
+type CleanupCallees = {
+  functions: Set<TSESTree.Node>;
+  names: Set<string>;
 };
 
 // #endregion
@@ -55,6 +71,79 @@ function getCallKind(node: TSESTree.CallExpression): CallKind {
     return name;
   }
   return "other";
+}
+
+/**
+ * Resolve the callee of a call inside an effect cleanup to the function it refers to.
+ * A bare call (`stop()`) resolves through the scope to the local function; a member call
+ * (`handlers.stop()`) only counts when the receiver resolves to a local object literal
+ * whose matching property is a function — an unresolvable member call says nothing about
+ * a same-named local function. Falls back to the callee name when a bare call cannot be
+ * resolved locally.
+ * @param context The ESLint rule context
+ * @param node The call expression to resolve
+ * @returns The resolved function or the callee name, or null when neither applies
+ */
+function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTree.CallExpression): CleanupCallee | null {
+  const callee = Extract.unwrap(node.callee);
+  switch (callee.type) {
+    // stop()
+    case AST.Identifier: {
+      const variable = findVariable(context.sourceCode.getScope(node), callee);
+      const defNode = variable?.defs.at(-1)?.node;
+      const fn = defNode == null
+        ? null
+        : defNode.type === AST.FunctionDeclaration
+        ? defNode
+        : defNode.type === AST.VariableDeclarator && defNode.init != null
+        ? Extract.unwrap(defNode.init)
+        : null;
+      return fn != null && Check.isFunction(fn)
+        ? { kind: "function", node: fn }
+        : { kind: "name", name: callee.name };
+    }
+    // handlers.stop()
+    case AST.MemberExpression: {
+      if (callee.computed) {
+        return null;
+      }
+      const property = Extract.unwrap(callee.property);
+      const object = Extract.unwrap(callee.object);
+      if (property.type !== AST.Identifier || object.type !== AST.Identifier) {
+        return null;
+      }
+      const variable = findVariable(context.sourceCode.getScope(node), object);
+      const defNode = variable?.defs.at(-1)?.node;
+      if (defNode?.type !== AST.VariableDeclarator || defNode.init == null) {
+        return null;
+      }
+      const init = Extract.unwrap(defNode.init);
+      if (init.type !== AST.ObjectExpression) {
+        return null;
+      }
+      for (const prop of init.properties) {
+        if (prop.type !== AST.Property || prop.computed) {
+          continue;
+        }
+        const key = Extract.unwrap(prop.key);
+        const keyName = key.type === AST.Identifier
+          ? key.name
+          : key.type === AST.Literal && typeof key.value === "string"
+          ? key.value
+          : null;
+        if (keyName !== property.name) {
+          continue;
+        }
+        const value = Extract.unwrap(prop.value);
+        if (Check.isFunction(value)) {
+          return { kind: "function", node: value };
+        }
+      }
+      return null;
+    }
+    default:
+      return null;
+  }
 }
 
 // #endregion
@@ -89,6 +178,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   const aEntries: AEntry[] = [];
   const rEntries: REntry[] = [];
+  // Functions called within each effect's cleanup, keyed by the effect call node.
+  const cleanupCallees = new Map<TSESTree.Node, CleanupCallees>();
   // FIXME: bare global calls (`addEventListener(...)` without a receiver, i.e. `window`) never pair up
   // because only MemberExpression callees are compared - both sides bare should fall back to
   // `Compare.isEqual(a, b)`.
@@ -102,15 +193,36 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     }
   }
   function isInverseEntry(aEntry: AEntry, rEntry: REntry) {
-    const { type: aType, callee: aCallee, capture: aCapture, listener: aListener, phase: aPhase } = aEntry;
-    const { type: rType, callee: rCallee, capture: rCapture, listener: rListener, phase: rPhase } = rEntry;
-    if (aPhase !== "setup" || rPhase !== "cleanup") {
+    const { type: aType, callee: aCallee, capture: aCapture, effect: aEffect, listener: aListener, phase: aPhase } = aEntry;
+    const { type: rType, callee: rCallee, capture: rCapture, effect: rEffect, listener: rListener, phase: rPhase } = rEntry;
+    if (aPhase !== "setup") {
       return false;
     }
-    return isSameObject(aCallee, rCallee)
-      && Compare.isEqual(aListener, rListener)
-      && isValueEqual(context, aType, rType)
-      && aCapture === rCapture;
+    if (!isSameObject(aCallee, rCallee) || !Compare.isEqual(aListener, rListener) || !isValueEqual(context, aType, rType) || aCapture !== rCapture) {
+      return false;
+    }
+    if (rPhase === "cleanup") {
+      return true;
+    }
+    // A `removeEventListener` that sits in a setup-phase function is still
+    // removed on unmount when the cleanup calls that function (e.g. a
+    // self-removing listener whose remover is also invoked from the cleanup).
+    if (aEffect == null || aEffect !== rEffect) {
+      return false;
+    }
+    const enclosingFunction = Traverse.findParent(rEntry.node, Check.isFunction);
+    if (enclosingFunction == null) {
+      return false;
+    }
+    const callees = cleanupCallees.get(aEffect);
+    if (callees == null) {
+      return false;
+    }
+    if (callees.functions.has(enclosingFunction)) {
+      return true;
+    }
+    const id = getFunctionId(enclosingFunction);
+    return id != null && id.type === AST.Identifier && callees.names.has(id.name);
   }
   function visitInlineFunction(
     node: TSESTree.CallExpression,
@@ -137,6 +249,8 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         return;
       }
       const fKind = isUseEffectSetupCallback(fn) ? "setup" : "cleanup";
+      const setupFn = fKind === "setup" ? fn : Traverse.findParent(fn, Check.isFunction);
+      const effect = setupFn == null ? null : Extract.unwrap(setupFn).parent ?? null;
       const callee = Extract.unwrap(node.callee);
       match(getCallKind(node))
         .with("addEventListener", (callKind) => {
@@ -159,6 +273,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             ...opts,
             type,
             callee,
+            effect,
             listener,
             method: "addEventListener",
             node,
@@ -178,11 +293,27 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             type,
             callee,
             capture: opts.capture,
+            effect,
             listener,
             method: "removeEventListener",
             node,
             phase: fKind,
           });
+        })
+        .with("other", () => {
+          if (fKind !== "cleanup" || effect == null) {
+            return;
+          }
+          const callee = resolveCleanupCallee(context, node);
+          if (callee == null) {
+            return;
+          }
+          const callees = getOrInsertComputed(cleanupCallees, effect, (): CleanupCallees => ({ functions: new Set(), names: new Set() }));
+          if (callee.kind === "function") {
+            callees.functions.add(callee.node);
+          } else {
+            callees.names.add(callee.name);
+          }
         })
         .otherwise(() => null);
     },

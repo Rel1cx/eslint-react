@@ -2,7 +2,7 @@ import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
-import type { Scope } from "@typescript-eslint/scope-manager";
+import { DefinitionType, type Scope } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 
@@ -154,7 +154,16 @@ export function isInitializedFromRef(
   const { additionalRefHooks } = getSettingsFromContext(context);
   if (seen.has(name)) return false;
   seen.add(name);
-  for (const { node } of findVariable(initialScope, name)?.defs ?? []) {
+  for (const def of findVariable(initialScope, name)?.defs ?? []) {
+    // A parameter named `ref`/`xxxRef` is treated as a ref by the same naming
+    // heuristic used for member-chain roots (ex: `function useDetect(ref) { ... ref.current ... }`)
+    if (def.type === DefinitionType.Parameter) {
+      if (def.name.type === AST.Identifier && (def.name.name === "ref" || def.name.name.endsWith("Ref"))) {
+        return true;
+      }
+      continue;
+    }
+    const { node } = def;
     if (node.type !== AST.VariableDeclarator) continue;
     const init = node.init == null ? null : Extract.unwrap(node.init);
     if (init == null) continue;
@@ -162,13 +171,28 @@ export function isInitializedFromRef(
       // const identifier = anotherRef.current;
       // const identifier = containerRef.current.offsetWidth;
       case init.type === AST.MemberExpression: {
-        // Walk to the root of the member chain (ex: `containerRef` in `containerRef.current.offsetWidth`)
-        let object = Extract.unwrap(init.object);
-        while (object.type === AST.MemberExpression) {
-          object = Extract.unwrap(object.object);
+        let current: TSESTree.Node = init;
+        // Walk the member chain; a `<ref-named>.current` link marks the value
+        // as read from a ref (ex: `popover.contentRef.current`)
+        while (current.type === AST.MemberExpression) {
+          const property = Extract.unwrap(current.property);
+          const object = Extract.unwrap(current.object);
+          if (!current.computed && Check.isIdentifier(property, "current")) {
+            const sourceName = getRefSourceName(object);
+            if (sourceName === "ref" || sourceName?.endsWith("Ref") === true) {
+              return true;
+            }
+          }
+          current = object;
         }
-        return Check.isIdentifier(object)
-          && (object.name === "ref" || object.name.endsWith("Ref"));
+        // const identifier = containerRef.foo; (rooted at a ref-named identifier)
+        if (Check.isIdentifier(current) && (current.name === "ref" || current.name.endsWith("Ref"))) {
+          return true;
+        }
+        // Fall back to tracing the identifiers used inside the chain so a
+        // ref-rooted local still counts (ex: `scroller.clientWidth` where
+        // `const scroller = scrollerRef.current`)
+        return getNestedIdentifiers(init).some((id) => isInitializedFromRef(context, id.name, context.sourceCode.getScope(id), seen));
       }
       // const identifier = useRef();
       case init.type === AST.CallExpression
@@ -182,6 +206,26 @@ export function isInitializedFromRef(
     }
   }
   return false;
+}
+
+/**
+ * Get the name that identifies the source of a `.current` member access.
+ * @param node The object of the member expression
+ * @returns The identifier name, the last property name of a member chain, or null
+ */
+function getRefSourceName(node: TSESTree.Node): string | null {
+  switch (node.type) {
+    case AST.Identifier:
+      return node.name;
+    case AST.MemberExpression: {
+      const property = Extract.unwrap(node.property);
+      return !node.computed && property.type === AST.Identifier
+        ? property.name
+        : null;
+    }
+    default:
+      return null;
+  }
 }
 
 /**
@@ -242,7 +286,7 @@ function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
 export function getSetStateCallExpression(
   node: TSESTree.CallExpression | TSESTree.Identifier,
 ): TSESTree.CallExpression | TSESTree.Identifier {
-  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression
+  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node
     ? node.parent
     : node;
 }
