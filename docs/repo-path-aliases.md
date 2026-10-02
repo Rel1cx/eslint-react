@@ -2,10 +2,10 @@
 
 This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 
-| Alias | Target             | Purpose                                                                                     |
-| ----- | ------------------ | ------------------------------------------------------------------------------------------- |
+| Alias | Target             | Purpose                                                                                    |
+| ----- | ------------------ | ------------------------------------------------------------------------------------------ |
 | `@/`  | `./src/*` or `./*` | Current package's source tree (`plugins/*` tsconfigs → `./src/*`; `apps/website` → `./*`). |
-| `#/`  | `../../*`          | Workspace root — test helpers and build scripts only.                                       |
+| `#/`  | `../../*`          | Workspace root — test helpers and build scripts only.                                      |
 
 ## Usage
 
