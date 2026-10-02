@@ -125,10 +125,7 @@ export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Ide
   return identifiers;
 }
 
-export function isHookDecl(node: TSESTree.Node): node is
-  & TSESTree.VariableDeclarator
-  & { init: TSESTree.CallExpression }
-{
+export function isHookDecl(node: TSESTree.Node): node is TSESTree.VariableDeclarator & { init: TSESTree.CallExpression } {
   if (node.type !== AST.VariableDeclarator) return false;
   if (!Check.isIdentifier(node.id)) return false;
   const init = node.init;
@@ -155,10 +152,7 @@ export function isTerminatingStatement(node: TSESTree.Node): boolean {
  * @param getText The source text getter
  * @returns The fully qualified name of the call
  */
-export function getCallName(
-  node: TSESTree.CallExpression | TSESTree.Identifier,
-  getText: (node: TSESTree.Node) => string,
-) {
+export function getCallName(node: TSESTree.CallExpression | TSESTree.Identifier, getText: (node: TSESTree.Node) => string) {
   if (node.type === AST.CallExpression) {
     return Extract.getFullyQualifiedName(node.callee, getText);
   }
@@ -172,9 +166,7 @@ export function getCallName(
  * @param node The setState call node (CallExpression or Identifier)
  * @returns The actual CallExpression node
  */
-export function getSetStateCallExpression(
-  node: TSESTree.CallExpression | TSESTree.Identifier,
-): TSESTree.CallExpression | TSESTree.Identifier {
+export function getSetStateCallExpression(node: TSESTree.CallExpression | TSESTree.Identifier): TSESTree.CallExpression | TSESTree.Identifier {
   return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node
     ? node.parent
     : node;
