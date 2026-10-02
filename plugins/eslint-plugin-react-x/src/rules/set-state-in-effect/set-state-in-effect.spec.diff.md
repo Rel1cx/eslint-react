@@ -2,7 +2,7 @@
 
 ## Verification metadata
 
-- **IMPL**: `set-state-in-effect.ts` + `lib.ts` (ESLint rule)
+- **IMPL**: `set-state-in-effect.ts` + `collect.ts` + `origins.ts` + `effects.ts` + `helpers.ts` (ESLint rule)
 - **SPEC**: `set-state-in-effect.spec.md` (React Compiler `ValidateNoSetStateInEffects`)
 - **Implementation commit**: `629632d3d4bf810db428b99b604c0a90ebe8a262`
 - **React commit**: `7c6ac13e19fef500b7f669a16bbd01ecc95965ca`
@@ -10,7 +10,10 @@
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `set-state-in-effect.ts`
-  - `lib.ts`
+  - `collect.ts`
+  - `origins.ts`
+  - `effects.ts`
+  - `helpers.ts`
   - `set-state-in-effect.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateNoSetStateInEffects.ts`
@@ -24,7 +27,7 @@
 
 React runs `inlineImmediatelyInvokedFunctionExpressions` before `validateNoSetStateInEffects`. The validation then walks HIR, propagates a `setStateFunctions` map through `LoadLocal`/`StoreLocal`, summarizes `FunctionExpression`s with `getSetStateCall`, and recognizes the three built-in effect hook types plus `useEffectEvent` explicitly. Since React commit `d083ec1da1e5` (2026-09-22) it additionally runs `computeBlocksStartingAfterAwait` over the effect function's own CFG: a block "starts after await" only when every predecessor path passed an `Await`, and within a block an `Await` instruction flips an `isAfterAwait` flag for subsequent instructions; setState calls reached only after an await are skipped. The analysis does not recurse into nested function expressions for this check.
 
-The IMPL walks the ESLint AST. It reports direct setters in the effect setup immediately, treats only syntactic IIFEs as `immediate`, treats async functions and `.then` callbacks as `deferred`, and records setter calls in ordinary functions or hook initializers for resolution at `Program:exit`. Resolution uses `resolveOrigin` and excludes identifiers defined as function parameters (e.g. functions received via props), so a component's own render-phase setState is not attributed to an effect that calls a prop function. It additionally supports configured state/effect hooks via `additionalStateHooks`/`additionalEffectHooks`.
+The IMPL walks the ESLint AST in a fact-based pipeline: a collector records call, setup-identifier, and setter-reference facts with their function-phase context, and inference runs once at `Program:exit`. It reports direct setters in the effect setup, treats only syntactic IIFEs as `immediate`, treats async functions and `.then` callbacks as `deferred`, and groups setter calls by the ordinary function or hook initializer that contains them for later resolution. Resolution uses `resolveOrigin` and excludes identifiers defined as function parameters (e.g. functions received via props), so a component's own render-phase setState is not attributed to an effect that calls a prop function. It additionally supports configured state/effect hooks via `additionalStateHooks`/`additionalEffectHooks`.
 
 ## 2. Verified behavior boundaries
 

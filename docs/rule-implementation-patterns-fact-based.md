@@ -2,7 +2,7 @@
 
 ## What Is a Fact-Based Rule?
 
-A fact-based rule cannot decide whether code is a violation from a single AST node — the verdict depends on correlating evidence gathered at distant sites in the file (e.g. a mutation is only a violation when the mutated binding originates from props or state). Instead of reporting directly from visitors, the rule splits the work into a pipeline: collect raw facts during traversal, resolve what each fact refers to (origins), infer typed effects from facts + origins, and report in one place at `Program:exit`. Used by `globals`, `immutability`, `refs`, and `static-components`.
+A fact-based rule cannot decide whether code is a violation from a single AST node — the verdict depends on correlating evidence gathered at distant sites in the file (e.g. a mutation is only a violation when the mutated binding originates from props or state). Instead of reporting directly from visitors, the rule splits the work into a pipeline: collect raw facts during traversal, resolve what each fact refers to (origins), infer typed effects from facts + origins, and report in one place at `Program:exit`. Used by `globals`, `immutability`, `refs`, `set-state-in-effect`, and `static-components`.
 
 ## Directory Structure
 
