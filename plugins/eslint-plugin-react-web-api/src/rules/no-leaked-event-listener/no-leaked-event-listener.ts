@@ -112,12 +112,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     if (aPhase !== "setup") {
       return false;
     }
-    if (
-      !isSameObject(aCallee, rCallee)
-      || !Compare.isEqual(aListener, rListener)
-      || !isValueEqual(context, aType, rType)
-      || aCapture !== rCapture
-    ) {
+    if (!isSameObject(aCallee, rCallee) || !Compare.isEqual(aListener, rListener) || !isValueEqual(context, aType, rType) || aCapture !== rCapture) {
       return false;
     }
     if (rPhase === "cleanup") {

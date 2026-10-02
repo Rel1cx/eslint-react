@@ -1068,6 +1068,150 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "default" }],
     },
+    // The ref-derived value exemption does not extend to prop-derived values reached indirectly
+    {
+      name: "setState with prop-derived value inside a useCallback invoked from the effect",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function Component({ value }) {
+          const [state, setState] = useState(0);
+          const update = useCallback(() => {
+            setState(value);
+          }, [value]);
+          useEffect(() => {
+            update();
+          }, [update]);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // A literal argument is not ref-derived even when reached indirectly
+    {
+      name: "setState with literal value inside a function invoked from the effect",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ open }) {
+          const [count, setCount] = useState(0);
+          useEffect(() => {
+            const reset = () => {
+              setCount(0);
+            };
+            if (open) {
+              reset();
+            }
+          }, [open]);
+          return null;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // FIXME false positive: the setState arguments are parameters of a helper that the
+    // setup only ever feeds with DOM measurements, but the rule cannot map call-site
+    // arguments to parameter positions (and here some call sites also pass literals).
+    // Should become valid once call-site-sensitive argument mapping is supported.
+    // Distilled from facebook/astryx packages/core/src/Selector/hooks.ts (commitPosition).
+    {
+      name: "setState with measurement values passed through a helper's parameters",
+      code: tsx`
+        import { useCallback, useLayoutEffect, useRef, useState } from "react";
+
+        function useSelectedItemOffset({ isOpen, listboxRef, anchorRef }) {
+          const [offset, setOffset] = useState(0);
+          const [isPositioned, setIsPositioned] = useState(false);
+
+          const commitPosition = useCallback(
+            (nextOffset, nextIsPositioned) => {
+              setOffset(nextOffset);
+              setIsPositioned(nextIsPositioned);
+            },
+            [],
+          );
+
+          useLayoutEffect(() => {
+            if (!isOpen) {
+              commitPosition(0, false);
+              return;
+            }
+            if (!listboxRef.current || !anchorRef.current) {
+              commitPosition(0, true);
+              return;
+            }
+            const anchorRect = anchorRef.current.getBoundingClientRect();
+            commitPosition(anchorRect.top, true);
+          }, [isOpen, commitPosition]);
+
+          return { offset, isPositioned };
+        }
+      `,
+      // Reported once per call site in the setup, for each setState in the helper
+      errors: [
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+        { messageId: "default" },
+      ],
+    },
+    // FIXME false positive: same parameter-mediation limitation with a single call site.
+    // Should become valid once call-site-sensitive argument mapping is supported.
+    // Distilled from facebook/astryx packages/core/src/BottomSheet/useSheetGestures.ts
+    // (recordSettledLayoutOffset).
+    {
+      name: "setState with a measurement value passed through a recording helper's parameter",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function useSheetGestures({ isOpen }) {
+          const [settledLayoutOffset, setSettledLayoutOffset] = useState(0);
+          const recordSettledLayoutOffset = useCallback((offset) => {
+            const normalizedOffset = Math.max(0, offset);
+            setSettledLayoutOffset(normalizedOffset);
+          }, []);
+          useEffect(() => {
+            recordSettledLayoutOffset(42);
+          }, [recordSettledLayoutOffset]);
+          return settledLayoutOffset;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
+    // FIXME false positive: the measured element is a DOM node held in state (written by a
+    // callback ref), which the ref-name heuristic cannot recognize as a measurement source.
+    // Should become valid once state-held DOM elements are treated like ref-derived sources.
+    // Distilled from facebook/astryx packages/core/src/hooks/useScrollableArea.ts.
+    {
+      name: "setState with measurements of a DOM element held in state",
+      code: tsx`
+        import { useCallback, useLayoutEffect, useState } from "react";
+
+        function useScrollableArea() {
+          const [viewport, setViewport] = useState(null);
+          const [measured, setMeasured] = useState(null);
+          const viewportRef = useCallback((node) => {
+            setViewport((current) => (current === node ? current : node));
+          }, []);
+          useLayoutEffect(() => {
+            if (viewport == null) {
+              return;
+            }
+            const measure = () => {
+              const next = {
+                inline: viewport.scrollWidth > viewport.clientWidth,
+                block: viewport.scrollHeight > viewport.clientHeight,
+              };
+              setMeasured((current) => (current === next ? current : next));
+            };
+            measure();
+          }, [viewport]);
+          return measured;
+        }
+      `,
+      errors: [{ messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -1985,6 +2129,102 @@ ruleTester.run(RULE_NAME, rule, {
           }, [visible]);
 
           return <p>{direction}</p>;
+        }
+      `,
+    },
+    // The ref-derived value exemption also applies to setState reached indirectly
+    // (via a function or hook callback invoked from the setup)
+    {
+      name: "setState with ref-derived value inside a useCallback invoked from the effect",
+      code: tsx`
+        import { useCallback, useEffect, useRef, useState } from "react";
+
+        function Component({ isOpen }) {
+          const menuRef = useRef(null);
+          const [hasOverflow, setHasOverflow] = useState(false);
+          const measureOverflow = useCallback(() => {
+            const menu = menuRef.current;
+            if (menu == null) {
+              return;
+            }
+            const nextHasOverflow = menu.scrollHeight > menu.clientHeight + 1;
+            setHasOverflow((current) => (current === nextHasOverflow ? current : nextHasOverflow));
+          }, []);
+          useEffect(() => {
+            if (!isOpen) {
+              return;
+            }
+            measureOverflow();
+          }, [isOpen, measureOverflow]);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with ref-derived value via a ref-rooted local inside a function invoked from the effect",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const scrollerRef = useRef(null);
+          const [paneSize, setPaneSize] = useState(0);
+          useEffect(() => {
+            const measure = () => {
+              const scroller = scrollerRef.current;
+              if (scroller == null) {
+                return;
+              }
+              const measured = scroller.clientWidth;
+              if (measured > 0) {
+                setPaneSize(measured);
+              }
+            };
+            measure();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    {
+      name: "setState with value derived from a ref link nested in a member chain",
+      code: tsx`
+        import { useCallback, useEffect, useState } from "react";
+
+        function Component({ popover }) {
+          const [hasOverflow, setHasOverflow] = useState(false);
+          const measureOverflow = useCallback(() => {
+            const surface = popover.contentRef.current;
+            if (surface == null) {
+              return;
+            }
+            const nextHasOverflow = surface.scrollHeight > surface.clientHeight + 1
+              || surface.scrollWidth > surface.clientWidth + 1;
+            setHasOverflow((current) => (current === nextHasOverflow ? current : nextHasOverflow));
+          }, [popover.contentRef]);
+          useEffect(() => {
+            measureOverflow();
+          }, [measureOverflow]);
+          return null;
+        }
+      `,
+    },
+    // A parameter named `ref`/`xxxRef` is a ref by the same naming heuristic used for locals
+    {
+      name: "setState with value derived from a ref received as a parameter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function useDetectedMode(ref, computeMode) {
+          const [detected, setDetected] = useState(null);
+          useEffect(() => {
+            const surface = ref.current?.parentElement ?? null;
+            if (surface === null) {
+              return;
+            }
+            const next = computeMode(surface);
+            setDetected((current) => (current === next ? current : next));
+          });
+          return detected;
         }
       `,
     },
