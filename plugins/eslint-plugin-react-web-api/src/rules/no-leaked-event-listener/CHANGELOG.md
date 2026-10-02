@@ -5,11 +5,11 @@ All notable changes to the `react-web-api/no-leaked-event-listener` rule will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.23.5] - 2026-10-03
 
 ### Fixed
 
-- A `removeEventListener` inside a setup-phase function now pairs with its `addEventListener` when the effect cleanup calls that function (e.g. a self-removing listener whose remover is also invoked from the cleanup), fixing false positives for listeners that are added inside event handlers but still removed on unmount. Calls in the cleanup are resolved to the functions they refer to — including methods of local object literals called via a member expression (e.g. `handlers.stop()`) — so a member call with an unresolvable receiver or a shadowed same-named function no longer pairs by name coincidence.
+- A `removeEventListener` inside a setup-phase function now pairs with its `addEventListener` when the effect cleanup calls that function (e.g. a self-removing listener whose remover is also invoked from the cleanup), fixing false positives for listeners that are added inside event handlers but still removed on unmount. Calls in the cleanup are resolved to the functions they refer to — including methods of local object literals called via a member expression (e.g. `handlers.stop()`) — so a member call with an unresolvable receiver or a shadowed same-named function no longer pairs by name coincidence. (#1982)
 
 ## [5.21.1] - 2026-09-28
 

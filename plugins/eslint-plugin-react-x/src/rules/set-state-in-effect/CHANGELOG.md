@@ -5,12 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.23.5] - 2026-10-03
 
 ### Fixed
 
-- The ref-derived value exemption now also applies to `setState` calls reached indirectly — via a function or hook callback invoked from the effect setup (ex: a `measureOverflow` `useCallback` called from the setup whose `setState` carries DOM measurements) — previously only `setState` written directly in the setup body was exempted.
-- More ref read shapes are recognized as ref-derived values: a `<ref-named>.current` link anywhere in a member chain (ex: `const surface = popover.contentRef.current`), locals rooted at another ref-derived local (ex: `scroller.clientWidth` where `const scroller = scrollerRef.current`), and reads through a parameter named `ref`/`xxxRef` (ex: `function useDetect(ref) { ... ref.current ... }`).
+- The ref-derived value exemption now also applies to `setState` calls reached indirectly — via a function or hook callback invoked from the effect setup (ex: a `measureOverflow` `useCallback` called from the setup whose `setState` carries DOM measurements) — previously only `setState` written directly in the setup body was exempted. (#1982)
+- More ref read shapes are recognized as ref-derived values: a `<ref-named>.current` link anywhere in a member chain (ex: `const surface = popover.contentRef.current`), locals rooted at another ref-derived local (ex: `scroller.clientWidth` where `const scroller = scrollerRef.current`), and reads through a parameter named `ref`/`xxxRef` (ex: `function useDetect(ref) { ... ref.current ... }`). (#1982)
 
 ## [5.23.3] - 2026-09-30
 
