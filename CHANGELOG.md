@@ -4,9 +4,9 @@
 
 ### 🐞 Fixes
 
-- `react-x/set-state-in-effect`: the ref-derived value exemption now also applies to `setState` calls reached indirectly — via a function or hook callback invoked from the effect setup (ex: a `measureOverflow` `useCallback` called from the setup whose `setState` carries DOM measurements) — previously only `setState` written directly in the setup body was exempted. (#1982)
-- `react-x/set-state-in-effect`: more ref read shapes are recognized as ref-derived values: a `<ref-named>.current` link anywhere in a member chain (ex: `const surface = popover.contentRef.current`), locals rooted at another ref-derived local (ex: `scroller.clientWidth` where `const scroller = scrollerRef.current`), and reads through a parameter named `ref`/`xxxRef` (ex: `function useDetect(ref) { ... ref.current ... }`). (#1982)
-- `react-web-api/no-leaked-event-listener`: a `removeEventListener` inside a function called from the effect cleanup now pairs with its `addEventListener`, fixing false positives for listeners added in event handlers but removed on unmount; cleanup calls are resolved to the actual functions they refer to, so shadowed same-named functions no longer pair by name coincidence. (#1982)
+- `react-x/set-state-in-effect`: the ref-derived value exemption now also covers `setState` calls reached indirectly through functions or hook callbacks invoked from the effect setup, not only `setState` written directly in the setup body. (#1982)
+- `react-x/set-state-in-effect`: more ref read shapes are recognized as ref-derived values — `<ref-named>.current` anywhere in a member chain, locals derived from other ref-derived locals, and reads through a `ref`/`xxxRef` parameter. (#1982)
+- `react-web-api/no-leaked-event-listener`: `removeEventListener` inside a function called from the effect cleanup now pairs with its `addEventListener`, fixing false positives for listeners removed on unmount; cleanup calls resolve to the actual functions, so same-named shadowed functions no longer pair by coincidence. (#1982)
 
 ### 🏗️ Internal
 
