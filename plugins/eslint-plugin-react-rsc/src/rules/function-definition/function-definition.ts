@@ -12,12 +12,12 @@ export const RULE_NAME = "function-definition";
 
 export type MessageID =
   | "file"
-  | "fileDirectivePosition"
-  | "fileDirectiveQuote"
+  | "file-directive-position"
+  | "file-directive-quote"
   | "local"
-  | "localDirectivePosition"
-  | "localDirectiveQuote"
-  | "localDirectiveUnexpected";
+  | "local-directive-position"
+  | "local-directive-quote"
+  | "local-directive-unexpected";
 
 export const RULE_FEATURES = [
   "FIX",
@@ -33,12 +33,12 @@ export default createRule<[], MessageID>({
     fixable: "code",
     messages: {
       file: "Functions exported from files with `use server` directive are React Server Functions and therefore must be async.",
-      fileDirectivePosition: "The '{{name}}' directive must be at the very beginning of the file, before any imports or other code.",
-      fileDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
+      "file-directive-position": "The '{{name}}' directive must be at the very beginning of the file, before any imports or other code.",
+      "file-directive-quote": "The '{{name}}' directive must be written with single or double quotes, not backticks.",
       local: "Functions with `use server` directive are React Server Functions and therefore must be async.",
-      localDirectivePosition: "The '{{name}}' directive must be at the very beginning of the function body.",
-      localDirectiveQuote: "The '{{name}}' directive must be written with single or double quotes, not backticks.",
-      localDirectiveUnexpected: "The '{{name}}' directive can only be used at the top of a file, not inside a function body.",
+      "local-directive-position": "The '{{name}}' directive must be at the very beginning of the function body.",
+      "local-directive-quote": "The '{{name}}' directive must be written with single or double quotes, not backticks.",
+      "local-directive-unexpected": "The '{{name}}' directive can only be used at the top of a file, not inside a function body.",
     },
     schema: [],
   },
@@ -67,7 +67,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (match == null || match.kind === "well-formed") continue;
       context.report({
         data: { name: match.name },
-        messageId: match.kind === "backtick" ? "fileDirectiveQuote" : "fileDirectivePosition",
+        messageId: match.kind === "backtick" ? "file-directive-quote" : "file-directive-position",
         node: match.node,
       });
     }
@@ -80,13 +80,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (match == null) continue;
       switch (true) {
         case match.kind === "backtick":
-          context.report({ data: { name: match.name }, messageId: "localDirectiveQuote", node: match.node });
+          context.report({ data: { name: match.name }, messageId: "local-directive-quote", node: match.node });
           break;
         case match.name === "use client":
-          context.report({ data: { name: match.name }, messageId: "localDirectiveUnexpected", node: match.node });
+          context.report({ data: { name: match.name }, messageId: "local-directive-unexpected", node: match.node });
           break;
         case match.kind === "misplaced":
-          context.report({ data: { name: match.name }, messageId: "localDirectivePosition", node: match.node });
+          context.report({ data: { name: match.name }, messageId: "local-directive-position", node: match.node });
           break;
       }
     }

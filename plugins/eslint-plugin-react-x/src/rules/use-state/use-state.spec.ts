@@ -16,7 +16,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -26,7 +26,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -38,7 +38,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -48,7 +48,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -58,7 +58,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     {
       code: tsx`
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     {
       code: tsx`
@@ -80,7 +80,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     {
       code: tsx`
@@ -92,7 +92,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     {
       code: tsx`
@@ -103,7 +103,7 @@ ruleTester.run(RULE_NAME, rule, {
           return [count1, setCount];
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     // ObjectPattern value — cannot derive a canonical setter name, always invalid
     {
@@ -116,7 +116,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -128,7 +128,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     {
       code: tsx`
@@ -140,7 +140,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     // useState callee wrapped in TSAsExpression (should still detect and report invalid setter name)
     {
@@ -152,7 +152,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     // useState with type arguments (TSInstantiationExpression)
     {
@@ -164,7 +164,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{count}</div>;
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     // --- Lazy initialization ---
     {
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -182,7 +182,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -192,7 +192,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -202,7 +202,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -212,7 +212,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -222,7 +222,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -232,7 +232,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -242,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -252,11 +252,11 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
         {
           type: AST.NewExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -275,7 +275,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
     },
@@ -285,7 +285,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -296,7 +296,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -309,7 +309,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -320,7 +320,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.NewExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -331,7 +331,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.NewExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -341,7 +341,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -351,7 +351,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -361,7 +361,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       options: [{ enforceAssignment: false }],
@@ -378,7 +378,7 @@ ruleTester.run(RULE_NAME, rule, {
       errors: [
         {
           type: AST.CallExpression,
-          messageId: "invalidInitialization",
+          messageId: "invalid-initialization",
         },
       ],
       settings: {
@@ -395,7 +395,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
       settings: {
         "react-x": {
           additionalStateHooks: "/^usePreviousState$/u",
@@ -411,7 +411,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{state[0]}</div>;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     // useState in conditional expression (should not crash when parent is ConditionalExpression)
     {
@@ -421,7 +421,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{x}</div>;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     // useState in array expression (should not crash when parent is ArrayExpression)
     {
@@ -431,7 +431,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{arr[0][0]}</div>;
         }
       `,
-      errors: [{ messageId: "invalidAssignment" }],
+      errors: [{ messageId: "invalid-assignment" }],
     },
     // Ported from https://github.com/oxc-project/oxc/issues/24952
     // oxlint flagged intentionally unused getter/setter names; its maintainers made this a
@@ -443,7 +443,7 @@ ruleTester.run(RULE_NAME, rule, {
           const [_, id] = useState(1);
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
     {
       code: tsx`
@@ -451,7 +451,7 @@ ruleTester.run(RULE_NAME, rule, {
           const [id, _] = useState(1);
         }
       `,
-      errors: [{ messageId: "invalidSetterName" }],
+      errors: [{ messageId: "invalid-setter-name" }],
     },
   ],
   valid: [

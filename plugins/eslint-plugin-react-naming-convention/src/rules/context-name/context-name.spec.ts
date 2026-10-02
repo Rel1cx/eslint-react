@@ -12,7 +12,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const Theme = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Lowercase name without 'Context' suffix",
@@ -20,7 +20,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const theme = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "PascalCase name without 'Context' suffix via React namespace",
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
         const Theme = React.createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Lowercase name without 'Context' suffix via React namespace",
@@ -36,21 +36,21 @@ ruleTester.run(RULE_NAME, rule, {
         import React from "react";
         const theme = React.createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Lowercase 'context' suffix",
       code: tsx`
         const themecontext = React.createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Lowercase 'context' suffix with React version settings",
       code: tsx`
         const themecontext = React.createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
       settings: {
         "react-x": {
           version: "19.0.0",
@@ -62,7 +62,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         const themeContext = React.createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "All-caps 'CONTEXT' suffix",
@@ -70,7 +70,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const ThemeCONTEXT = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Name with trailing digit after 'Context' suffix",
@@ -78,7 +78,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const ThemeContext2 = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "'Context' not at the end of the name",
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const MyContextExtra = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "All-caps name",
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const CONTEXT = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Single-letter name",
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const C = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Leading underscore in name",
@@ -110,7 +110,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const _Context = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Multiple declarators with an invalid context name",
@@ -118,7 +118,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const ThemeContext = createContext(""), value = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     // Other assignment targets
     {
@@ -126,7 +126,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
         ctxs.themecontext = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Class property with invalid context name",
@@ -134,7 +134,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         class Foo { theme = createContext(""); }
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Nested member expression assignment with invalid context name",
@@ -142,7 +142,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         obj.nested.theme = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Variable initialized with an object literal containing createContext",
@@ -155,7 +155,7 @@ ruleTester.run(RULE_NAME, rule, {
         endColumn: 15,
         endLine: 2,
         line: 2,
-        messageId: "invalidContextName",
+        messageId: "invalid-context-name",
         suggestions: [],
       }],
       output: null,
@@ -167,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
         let value;
         value = createContext("");
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Chained assignment with invalid context name",
@@ -180,7 +180,7 @@ ruleTester.run(RULE_NAME, rule, {
         endColumn: 6,
         endLine: 2,
         line: 2,
-        messageId: "invalidContextName",
+        messageId: "invalid-context-name",
         suggestions: [],
       }],
       output: null,
@@ -196,7 +196,7 @@ ruleTester.run(RULE_NAME, rule, {
         endColumn: 12,
         endLine: 2,
         line: 2,
-        messageId: "invalidContextName",
+        messageId: "invalid-context-name",
         suggestions: [],
       }],
       output: null,
@@ -208,7 +208,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const value = condition ? createContext("") : null;
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Logical expression initializer with invalid context name",
@@ -216,7 +216,7 @@ ruleTester.run(RULE_NAME, rule, {
         import { createContext } from "react";
         const value = createContext("") || null;
       `,
-      errors: [{ messageId: "invalidContextName" }],
+      errors: [{ messageId: "invalid-context-name" }],
     },
     {
       name: "Arrow function returning createContext with invalid context name",
@@ -228,7 +228,7 @@ ruleTester.run(RULE_NAME, rule, {
         endColumn: 12,
         endLine: 1,
         line: 1,
-        messageId: "invalidContextName",
+        messageId: "invalid-context-name",
         suggestions: [],
       }],
       output: null,
@@ -243,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
         endColumn: 12,
         endLine: 1,
         line: 1,
-        messageId: "invalidContextName",
+        messageId: "invalid-context-name",
         suggestions: [],
       }],
       output: null,

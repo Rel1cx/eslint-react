@@ -14,8 +14,8 @@ export const RULE_NAME = "no-leaked-fetch";
 export const RULE_FEATURES = ["EXP"] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "expectedAbortController"
-  | "expectedAbortInCleanup";
+  | "expected-abort-controller"
+  | "expected-abort-in-cleanup";
 
 // #endregion
 
@@ -104,8 +104,8 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'fetch' in a component or custom hook has a corresponding 'AbortController' abort in the cleanup function.",
     },
     messages: {
-      expectedAbortController: "A 'fetch' must be provided with an 'AbortController' for proper cleanup.",
-      expectedAbortInCleanup: "A 'fetch' started in effect must be aborted with 'AbortController.abort' in the cleanup function.",
+      "expected-abort-controller": "A 'fetch' must be provided with an 'AbortController' for proper cleanup.",
+      "expected-abort-in-cleanup": "A 'fetch' started in effect must be aborted with 'AbortController.abort' in the cleanup function.",
     },
     schema: [],
   },
@@ -166,7 +166,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const controller = fEntry.controller;
         if (controller == null) {
           context.report({
-            messageId: "expectedAbortController",
+            messageId: "expected-abort-controller",
             node: fEntry.node,
           });
           continue;
@@ -178,7 +178,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         }
         if (!abortEntries.some((aEntry) => isAssignmentTargetEqual(context, aEntry.controller, controller))) {
           context.report({
-            messageId: "expectedAbortInCleanup",
+            messageId: "expected-abort-in-cleanup",
             node: fEntry.node,
           });
         }

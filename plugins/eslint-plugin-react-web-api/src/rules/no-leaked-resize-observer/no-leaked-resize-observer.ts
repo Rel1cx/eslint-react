@@ -15,9 +15,9 @@ export const RULE_NAME = "no-leaked-resize-observer";
 export const RULE_FEATURES = [] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "expectedDisconnectInControlFlow"
-  | "expectedDisconnectOrUnobserveInCleanup"
-  | "unexpectedFloatingInstance";
+  | "expected-disconnect-in-control-flow"
+  | "expected-disconnect-or-unobserve-in-cleanup"
+  | "unexpected-floating-instance";
 
 // #endregion
 
@@ -69,10 +69,10 @@ export default createRule<[], MessageID>({
       description: "Enforces that every 'ResizeObserver' created in a component or custom hook has a corresponding 'ResizeObserver.disconnect()'.",
     },
     messages: {
-      expectedDisconnectInControlFlow:
+      "expected-disconnect-in-control-flow":
         "Dynamically added 'ResizeObserver.observe' should be cleared all at once using 'ResizeObserver.disconnect' in the cleanup function.",
-      expectedDisconnectOrUnobserveInCleanup: "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
-      unexpectedFloatingInstance: "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
+      "expected-disconnect-or-unobserve-in-cleanup": "A 'ResizeObserver' instance created in 'useEffect' must be disconnected in the cleanup function.",
+      "unexpected-floating-instance": "A 'ResizeObserver' instance created in component or custom hook must be assigned to a variable for proper cleanup.",
     },
     schema: [],
   },
@@ -149,7 +149,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       const id = resolveEnclosingAssignmentTarget(node);
       if (id == null) {
         context.report({
-          messageId: "unexpectedFloatingInstance",
+          messageId: "unexpected-floating-instance",
           node,
         });
         return;
@@ -178,14 +178,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         const hasDynamicallyAdded = matchedOEntries
           .some((e) => !isPhaseNode(Traverse.findParent(e.node, or(isDynamic, isPhaseNode))));
         if (hasDynamicallyAdded) {
-          context.report({ messageId: "expectedDisconnectInControlFlow", node });
+          context.report({ messageId: "expected-disconnect-in-control-flow", node });
           continue;
         }
         for (const oEntry of matchedOEntries) {
           if (matchedUEntries.some((uEntry) => isAssignmentTargetEqual(context, uEntry.element, oEntry.element))) {
             continue;
           }
-          context.report({ messageId: "expectedDisconnectOrUnobserveInCleanup", node: oEntry.node });
+          context.report({ messageId: "expected-disconnect-or-unobserve-in-cleanup", node: oEntry.node });
         }
       }
     },

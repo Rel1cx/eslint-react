@@ -14,10 +14,10 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "readDuringRender"
-  | "writeDuringRender"
-  | "refPassedToFunction"
-  | "duplicateRefInit";
+  | "read-during-render"
+  | "write-during-render"
+  | "ref-passed-to-function"
+  | "duplicate-ref-init";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,11 +26,11 @@ export default createRule<[], MessageID>({
       description: "Validates correct usage of refs by checking that 'ref.current' is not read or written during render.",
     },
     messages: {
-      duplicateRefInit:
+      "duplicate-ref-init":
         "Ref is initialized more than once during render. Only a single 'if (ref.current == null)' initialization is allowed; move any additional initialization into an effect or event handler.",
-      readDuringRender: "Cannot access refs during render",
-      refPassedToFunction: "Passing a ref to a function may read its value during render",
-      writeDuringRender: "Cannot update ref during render",
+      "read-during-render": "Cannot access refs during render",
+      "ref-passed-to-function": "Passing a ref to a function may read its value during render",
+      "write-during-render": "Cannot update ref during render",
     },
     schema: [],
   },
@@ -66,10 +66,10 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         for (const violation of violations) {
           context.report({
             messageId: match<RefViolation, MessageID>(violation)
-              .with({ kind: "duplicate-init" }, () => "duplicateRefInit")
-              .with({ kind: "pass" }, () => "refPassedToFunction")
-              .with({ kind: "read" }, () => "readDuringRender")
-              .with({ kind: "write" }, () => "writeDuringRender")
+              .with({ kind: "duplicate-init" }, () => "duplicate-ref-init")
+              .with({ kind: "pass" }, () => "ref-passed-to-function")
+              .with({ kind: "read" }, () => "read-during-render")
+              .with({ kind: "write" }, () => "write-during-render")
               .exhaustive(),
             node: violation.node,
           });

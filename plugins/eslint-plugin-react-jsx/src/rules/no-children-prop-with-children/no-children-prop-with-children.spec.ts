@@ -12,11 +12,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<div>Children</div>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="Children"></div>;',
             },
           ],
@@ -30,11 +30,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<MyComponent>Children</MyComponent>",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<MyComponent children="Children"></MyComponent>',
             },
           ],
@@ -48,11 +48,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<MyComponent>{children}</MyComponent>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: tsx`<MyComponent children={children}></MyComponent>;`,
             },
           ],
@@ -66,11 +66,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: '<MyComponent className="class-name">Children</MyComponent>;',
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<MyComponent className="class-name" children="Children"></MyComponent>;',
             },
           ],
@@ -84,11 +84,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: '<MyComponent className="class-name">Children</MyComponent>;',
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<MyComponent children="Children" className="class-name"></MyComponent>;',
             },
           ],
@@ -102,11 +102,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: tsx`<div>\n  <span />\n</div>;`,
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: "<div children={<div />}></div>;",
             },
           ],
@@ -120,11 +120,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: tsx`<div>\n  <span />\n</div>;`,
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: "<div children={[<div />, <div />]}></div>;",
             },
           ],
@@ -139,11 +139,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<div><span /></div>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: "<div children={someVar}></div>;",
             },
           ],
@@ -158,11 +158,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<div><a /><b /></div>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="x"></div>;',
             },
           ],
@@ -177,11 +177,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<div>text<span />more</div>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="x"></div>;',
             },
           ],
@@ -196,11 +196,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<Foo.Bar>content</Foo.Bar>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<Foo.Bar children="x"></Foo.Bar>;',
             },
           ],
@@ -215,11 +215,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: "<div>{content}</div>;",
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="x"></div>;',
             },
           ],
@@ -242,7 +242,7 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: tsx`
                 <MyComponent
                   className="test"
@@ -253,7 +253,7 @@ ruleTester.run(RULE_NAME, rule, {
               `,
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: tsx`
                 <MyComponent
                   className="test"
@@ -272,8 +272,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>text</div>;" },
-            { messageId: "removeChildrenContent", output: "<div children></div>;" },
+            { messageId: "remove-children-prop", output: "<div>text</div>;" },
+            { messageId: "remove-children-content", output: "<div children></div>;" },
           ],
         },
       ],
@@ -285,8 +285,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: tsx`<div><span /></div>;` },
-            { messageId: "removeChildrenContent", output: tsx`<div children={condition ? <A /> : <B />}></div>;` },
+            { messageId: "remove-children-prop", output: tsx`<div><span /></div>;` },
+            { messageId: "remove-children-content", output: tsx`<div children={condition ? <A /> : <B />}></div>;` },
           ],
         },
       ],
@@ -298,8 +298,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children=""></div>;' },
+            { messageId: "remove-children-prop", output: "<div>content</div>;" },
+            { messageId: "remove-children-content", output: '<div children=""></div>;' },
           ],
         },
       ],
@@ -311,8 +311,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>content</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children=" "></div>;' },
+            { messageId: "remove-children-prop", output: "<div>content</div>;" },
+            { messageId: "remove-children-content", output: '<div children=" "></div>;' },
           ],
         },
       ],
@@ -338,11 +338,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: '<div>{""}hello</div>;',
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="x"></div>;',
             },
           ],
@@ -356,11 +356,11 @@ ruleTester.run(RULE_NAME, rule, {
           messageId: "default",
           suggestions: [
             {
-              messageId: "removeChildrenProp",
+              messageId: "remove-children-prop",
               output: tsx`<div>{""}<span /></div>;`,
             },
             {
-              messageId: "removeChildrenContent",
+              messageId: "remove-children-content",
               output: '<div children="x"></div>;',
             },
           ],
@@ -374,8 +374,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{/* comment */}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{/* comment */}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -387,8 +387,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div><></></div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div><></></div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -400,8 +400,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: '<div>{"  "}</div>;' },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: '<div>{"  "}</div>;' },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -413,8 +413,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{``}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{``}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -426,8 +426,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{null}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{null}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -438,8 +438,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{0}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{0}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -450,8 +450,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{false}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{false}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],
@@ -462,8 +462,8 @@ ruleTester.run(RULE_NAME, rule, {
         {
           messageId: "default",
           suggestions: [
-            { messageId: "removeChildrenProp", output: "<div>{}</div>;" },
-            { messageId: "removeChildrenContent", output: '<div children="x"></div>;' },
+            { messageId: "remove-children-prop", output: "<div>{}</div>;" },
+            { messageId: "remove-children-content", output: '<div children="x"></div>;' },
           ],
         },
       ],

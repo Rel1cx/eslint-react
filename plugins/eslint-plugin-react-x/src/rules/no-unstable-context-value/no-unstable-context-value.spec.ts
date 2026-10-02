@@ -17,7 +17,7 @@ ruleTester.run(RULE_NAME, rule, {
           kind: "object expression",
           suggestion: "Consider wrapping it in a useMemo hook.",
         },
-        messageId: "unstableContextValue",
+        messageId: "unstable-context-value",
       }],
     },
     {
@@ -33,7 +33,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "array expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
     },
@@ -50,7 +50,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "arrow function expression",
             suggestion: "Consider wrapping it in a useCallback hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
     },
@@ -67,7 +67,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "new expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
     },
@@ -86,7 +86,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "object expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
     },
@@ -102,7 +102,7 @@ ruleTester.run(RULE_NAME, rule, {
           kind: "object expression",
           suggestion: "Consider wrapping it in a useMemo hook.",
         },
-        messageId: "unstableContextValue",
+        messageId: "unstable-context-value",
       }],
       settings: {
         "react-x": {
@@ -123,7 +123,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "array expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
       settings: {
@@ -145,7 +145,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "array expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
       settings: {
@@ -167,7 +167,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "array expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
       settings: {
@@ -189,7 +189,7 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "object expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
       settings: {
@@ -220,14 +220,14 @@ ruleTester.run(RULE_NAME, rule, {
             kind: "object expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
         {
           data: {
             kind: "object expression",
             suggestion: "Consider wrapping it in a useMemo hook.",
           },
-          messageId: "unstableContextValue",
+          messageId: "unstable-context-value",
         },
       ],
       settings: {

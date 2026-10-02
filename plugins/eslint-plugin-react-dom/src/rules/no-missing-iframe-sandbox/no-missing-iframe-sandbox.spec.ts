@@ -9,11 +9,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe />;`,
       errors: [
         {
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "addSandboxAttribute",
+              messageId: "add-sandbox-attribute",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -24,11 +24,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<iframe sandbox />;`,
       errors: [
         {
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "addSandboxAttribute",
+              messageId: "add-sandbox-attribute",
               output: tsx`<iframe sandbox="" />;`,
             },
           ],
@@ -43,10 +43,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missingSandboxAttribute",
+        messageId: "missing-sandbox-attribute",
         suggestions: [{
           data: { value: "" },
-          messageId: "addSandboxAttribute",
+          messageId: "add-sandbox-attribute",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -63,10 +63,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missingSandboxAttribute",
+        messageId: "missing-sandbox-attribute",
         suggestions: [{
           data: { value: "" },
-          messageId: "addSandboxAttribute",
+          messageId: "add-sandbox-attribute",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -79,11 +79,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" />;`,
       errors: [
         {
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "addSandboxAttribute",
+              messageId: "add-sandbox-attribute",
               output: tsx`<PolyComponent sandbox="" as="iframe" />;`,
             },
           ],
@@ -99,11 +99,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<PolyComponent as="iframe" sandbox />;`,
       errors: [
         {
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "addSandboxAttribute",
+              messageId: "add-sandbox-attribute",
               output: tsx`<PolyComponent as="iframe" sandbox="" />;`,
             },
           ],
@@ -123,10 +123,10 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "missingSandboxAttribute",
+        messageId: "missing-sandbox-attribute",
         suggestions: [{
           data: { value: "" },
-          messageId: "addSandboxAttribute",
+          messageId: "add-sandbox-attribute",
           output: tsx`
             function App() {
               return <iframe sandbox="" />;
@@ -140,11 +140,11 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`<motion.div as="iframe" />;`,
       errors: [
         {
-          messageId: "missingSandboxAttribute",
+          messageId: "missing-sandbox-attribute",
           suggestions: [
             {
               data: { value: "" },
-              messageId: "addSandboxAttribute",
+              messageId: "add-sandbox-attribute",
               output: tsx`<motion.div sandbox="" as="iframe" />;`,
             },
           ],

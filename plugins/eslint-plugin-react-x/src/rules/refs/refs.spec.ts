@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Writing ref.current during render (useRef)
@@ -28,7 +28,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Both read and write during render
@@ -42,8 +42,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // Reading ref.current in JSX expression
@@ -55,7 +55,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading from a ref passed via JSX ref prop
@@ -68,7 +68,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading in arrow function component
@@ -81,7 +81,7 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current in a hook during render
@@ -94,7 +94,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Writing ref.current in a hook during render
@@ -107,7 +107,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Hook writing ref during render with assignment from prop
@@ -120,7 +120,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Ref in memo-wrapped component
@@ -133,7 +133,7 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref in forwardRef-wrapped component
@@ -146,7 +146,7 @@ ruleTester.run(RULE_NAME, rule, {
         });
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // React.useRef
@@ -159,7 +159,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // React.createRef
@@ -172,7 +172,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // createRef
@@ -185,7 +185,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current during render (naming convention: ends with Ref)
@@ -197,7 +197,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current during render (naming convention: exactly "ref")
@@ -209,7 +209,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Writing ref.current during render (naming convention)
@@ -221,7 +221,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Ref accessed via naming convention in arrow function with expression body
@@ -230,7 +230,7 @@ ruleTester.run(RULE_NAME, rule, {
         const Component = ({ myRef }) => <div>{myRef.current}</div>;
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Non-ref-named variable from useRef read during render
@@ -243,7 +243,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current as argument to a function call during render
@@ -256,7 +256,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current passed as JSX prop
@@ -268,7 +268,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current in ternary during render
@@ -280,7 +280,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current in logical expression during render
@@ -293,8 +293,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "readDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "read-during-render" },
       ],
     },
     // Reading ref.current in template literal during render
@@ -307,7 +307,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref read in nullish coalescing during render
@@ -320,7 +320,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Reading ref.current via optional chaining during render
@@ -333,7 +333,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref read chained with property access during render
@@ -346,7 +346,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref read in JSX spread attribute during render
@@ -358,7 +358,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref read in array destructuring during render
@@ -371,7 +371,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Ref read passed to Object.keys during render
@@ -384,7 +384,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Unconditional write not matching lazy init pattern
@@ -397,7 +397,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Write inside non-null-check conditional (not lazy init)
@@ -412,7 +412,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Update expression (ref.current++)
@@ -425,7 +425,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Pre-increment (++ref.current)
@@ -438,7 +438,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Decrement expression (ref.current--)
@@ -451,7 +451,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Compound assignment (ref.current += 1)
@@ -464,7 +464,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Compound assignment (ref.current -= 1)
@@ -477,7 +477,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Write ref.current with nullish coalescing assignment
@@ -490,7 +490,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Multiple refs both accessed during render
@@ -505,8 +505,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "readDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "read-during-render" },
       ],
     },
     // Multiple refs: one in effect (safe), one during render (unsafe)
@@ -523,7 +523,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Alias tracking: direct alias read
@@ -536,7 +536,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{val}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Alias tracking: chained alias read
     {
@@ -549,7 +549,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{val}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Alias tracking: alias write
     {
@@ -561,7 +561,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Alias tracking: reassignment alias read
     {
@@ -574,7 +574,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{val}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ref passed to function
     {
@@ -585,7 +585,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Ref passed to console.log
     {
@@ -596,7 +596,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Ref passed to function via alias
     {
@@ -608,7 +608,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Write through TSNonNullExpression during render should report writeDuringRender
     {
@@ -620,7 +620,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Write through TSAsExpression during render should report writeDuringRender
@@ -633,7 +633,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Write through TSNonNullExpression on the ref object itself
@@ -646,7 +646,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Write through TSAsExpression on the ref object itself
@@ -659,7 +659,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "writeDuringRender",
+        messageId: "write-during-render",
       }],
     },
     // Read ref.current after lazy init block (the read itself is not inside the if body)
@@ -674,7 +674,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [{
-        messageId: "readDuringRender",
+        messageId: "read-during-render",
       }],
     },
     // Duplicate null-guarded initialization: only the first guarded write is allowed, a second
@@ -692,7 +692,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "duplicateRefInit" }],
+      errors: [{ messageId: "duplicate-ref-init" }],
     },
     // Duplicate null-guarded initialization within the same if-block
     {
@@ -706,7 +706,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "duplicateRefInit" }],
+      errors: [{ messageId: "duplicate-ref-init" }],
     },
     // Ref write inside switch statement (not lazy init, loop should break on SwitchCase)
     {
@@ -720,7 +720,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // An inverted guard is safe only when its non-null branch terminates
     {
@@ -734,7 +734,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Early-return initialization is still limited to one write
     {
@@ -747,7 +747,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "duplicateRefInit" }],
+      errors: [{ messageId: "duplicate-ref-init" }],
     },
     // Truthiness is not a null guard: initialized refs may legitimately contain falsy values
     {
@@ -761,8 +761,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // useMemo callbacks execute synchronously during render
@@ -774,7 +774,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Array iteration callbacks execute synchronously during render
     {
@@ -787,7 +787,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     {
       code: tsx`
@@ -799,7 +799,7 @@ ruleTester.run(RULE_NAME, rule, {
           });
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // A helper reached through a synchronous callback is reached during render
     {
@@ -810,7 +810,7 @@ ruleTester.run(RULE_NAME, rule, {
           return items.map(() => renderItem());
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Function declarations and IIFEs participate in render reachability
     {
@@ -823,7 +823,7 @@ ruleTester.run(RULE_NAME, rule, {
           }
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     {
       code: tsx`
@@ -832,7 +832,7 @@ ruleTester.run(RULE_NAME, rule, {
           return (() => ref.current)();
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-access-ref-during-render.js
     {
@@ -843,7 +843,7 @@ ruleTester.run(RULE_NAME, rule, {
           return value;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-disallow-mutating-ref-in-render.js
     {
@@ -854,7 +854,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <button ref={ref} />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-pass-ref-to-function.js
     {
@@ -865,7 +865,7 @@ ruleTester.run(RULE_NAME, rule, {
           return x;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-ref-access-render-unary.js
     {
@@ -876,7 +876,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{current}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-write-ref-prop-in-render.js
     {
@@ -887,7 +887,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.invalid-ref-value-as-props.js
     {
@@ -897,7 +897,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Foo ref={ref.current} />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.ref-initialization-nonif.js
     // Hoisted guard variable does NOT protect the ref write
@@ -913,8 +913,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // Ported from react/compiler/packages/babel-plugin-react-compiler/src/__tests__/fixtures/compiler/.../error.ref-initialization-other.js
@@ -930,7 +930,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // error.invalid-ref-in-callback-invoked-during-render
     // `renderItem` is reached through the synchronous callback passed to `.map()`.
@@ -945,7 +945,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Items>{props.items.map(item => renderItem(item))}</Items>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-access-ref-in-state-initializer
     // The lazy initializer passed to `useState` runs synchronously during render, so ref
@@ -958,7 +958,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Stringify state={state} />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-access-ref-in-reducer
     {
@@ -969,7 +969,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Stringify state={state} />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-read-ref-prop-in-render-property-load
     // MemberExpression.current is supported when the base looks like a ref (`props.ref`).
@@ -980,7 +980,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-disallow-mutating-refs-in-render-transitive
     // A helper function that mutates a ref is tracked, and calling it (even through a simple
@@ -997,7 +997,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <button ref={ref} />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // error.invalid-aliased-ref-in-callback-invoked-during-render
     {
@@ -1012,7 +1012,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Items>{props.items.map(item => renderItem(item))}</Items>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // error.invalid-access-ref-in-render-mutate-object-with-ref-function
     // Functions assigned to object properties (`object.foo = () => ref.current`) are tracked,
@@ -1028,7 +1028,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{refValue}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Nested property write and read (from React Compiler fixtures)
     {
@@ -1040,8 +1040,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "writeDuringRender" },
-        { messageId: "readDuringRender" },
+        { messageId: "write-during-render" },
+        { messageId: "read-during-render" },
       ],
     },
     // Inferred ref (name ends with Ref but not from useRef) (from React Compiler fixtures)
@@ -1053,7 +1053,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Stringify foo={fooRef} />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Ref read directly inside memo-wrapped arrow function component (boundary is ArrowFunctionExpression, stop must win)
     {
@@ -1064,7 +1064,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{val}</div>;
         });
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // ref.current === null as expression statement should not crash isInNullCheckTest
     {
@@ -1077,8 +1077,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // ref.current === null in variable declaration should not crash isInNullCheckTest
@@ -1092,8 +1092,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // ref.current === null in logical expression should not crash isInNullCheckTest
@@ -1107,8 +1107,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // !(ref.current === null) as expression statement is not a guard
@@ -1122,8 +1122,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // -------------------------------------------------------------------------
@@ -1143,7 +1143,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value.current}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // A JSX ref marker in one component must not mark a same-named binding in another component
     {
@@ -1157,7 +1157,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{node.current}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Same-named helper bindings retain independent render reachability
     {
@@ -1172,7 +1172,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{read()}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Passing a ref through an alias in one component must not affect a plain alias elsewhere
     {
@@ -1190,7 +1190,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // -------------------------------------------------------------------------
     // Precise behavior boundaries
@@ -1205,7 +1205,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <Stringify state={state} />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // `.reduce()` callbacks execute synchronously during render (allow-listed array method)
     {
@@ -1216,7 +1216,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{total}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Synchronous array callbacks are recognized by method name only: a `map` member call on a
     // non-array receiver is still treated as executing during render
@@ -1228,7 +1228,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{values}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Namespaced hook calls are recognized by property name: `React.useMemo` runs during render
     {
@@ -1239,7 +1239,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{value}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // A write in the non-null branch of a null guard is still a violation: only reads are
     // exempt on the branch where the ref is known to be initialized
@@ -1255,7 +1255,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Compound assignment inside a null guard is not lazy initialization: only a direct `=`
     // assignment initializes the ref container
@@ -1269,7 +1269,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // `??=` inside a null guard is not lazy initialization either, even though it is
     // semantically equivalent here
@@ -1283,7 +1283,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Compound conditions are not null guards: the test must be exactly a nullish comparison
     {
@@ -1297,8 +1297,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // `typeof` checks are not null guards: only exact `==`/`===`/`!=`/`!==` comparisons against
@@ -1314,8 +1314,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // A locally bound `undefined` is not the global undefined value, so the comparison is not
@@ -1332,8 +1332,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // Double negation is not unwrapped: only a single `!` around the comparison flips the
@@ -1349,8 +1349,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // The nearest preceding sibling guard decides: a closer non-terminating guard hides an
@@ -1369,7 +1369,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // The inverted early-return protection applies only to writes that are direct siblings of
     // the guard in the same block; it does not extend into nested blocks
@@ -1386,7 +1386,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Guard regions are built from `if` statements only: a conditional expression with the
     // same shape is not a null guard
@@ -1399,8 +1399,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // Duplicate lazy initialization through an alias: the initialization budget is tracked per
@@ -1419,7 +1419,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "duplicateRefInit" }],
+      errors: [{ messageId: "duplicate-ref-init" }],
     },
     // Member-path refs (`props.ref`) carry no scoped identity, so the null-guard exemption
     // does not apply: both the guard read and the guarded write are reported
@@ -1433,8 +1433,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // The `render` exemption for passing refs applies to member calls only (`props.render(ref)`);
@@ -1447,7 +1447,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Render reachability is not condition-sensitive: a call guarded by an unrelated condition
     // still reaches the callee during render
@@ -1462,7 +1462,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Reachability propagates transitively through the render call graph to a fixed point
     {
@@ -1474,7 +1474,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{outer()}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Ref identity is not propagated into a non-ref-like function parameter: passing the ref is
     // reported, but the access through the parameter is not independently modeled
@@ -1486,7 +1486,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{read(ref)}</div>;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // A ref-like parameter name is itself treated as a ref by the naming heuristic, so the
     // access inside the reached function is reported in addition to the pass
@@ -1499,8 +1499,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "refPassedToFunction" },
+        { messageId: "read-during-render" },
+        { messageId: "ref-passed-to-function" },
       ],
     },
     // Nested property update expressions (`ref.current.count++`) are classified as
@@ -1513,7 +1513,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Object destructuring writes to ref.current are classified as render-time writes
     {
@@ -1524,7 +1524,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Array destructuring writes to ref.current are classified as render-time writes
     {
@@ -1535,7 +1535,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Nested patterns in destructuring writes are classified as render-time writes
     {
@@ -1546,7 +1546,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Destructuring writes to a nested property of ref.current are classified as
     // render-time writes, not reads
@@ -1558,7 +1558,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // A nested property write through a pattern is still a write inside the non-null
     // branch of a null guard, where reads are exempt
@@ -1572,7 +1572,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // A for-of loop target that is a nested property of ref.current writes on every iteration
     {
@@ -1585,7 +1585,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // A computed member expression using ref.current as its key inside a pattern is a
     // read, not a write
@@ -1599,7 +1599,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // A default value inside a destructuring pattern is evaluated, not assigned: the access
     // stays a read
@@ -1611,7 +1611,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // A for-of loop target writes ref.current on every iteration
     {
@@ -1624,7 +1624,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // A destructured for-of loop target writes ref.current on every iteration
     {
@@ -1637,7 +1637,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // A for-in loop target writes ref.current on every iteration
     {
@@ -1650,7 +1650,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Iterating over ref.current is still a read: only the loop target position is a write
     {
@@ -1663,7 +1663,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // `delete ref.current` mutates the ref container and is classified as a write
     {
@@ -1674,7 +1674,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // `delete` on a nested property of ref.current is classified as a write
     {
@@ -1685,7 +1685,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Refs created by custom hooks configured via `additionalRefHooks` are validated even when
     // the bound name is not ref-like
@@ -1697,7 +1697,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{val}</div>;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
       settings: {
         "react-x": {
           additionalRefHooks: "useMyRef",
@@ -1723,7 +1723,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "writeDuringRender" }],
+      errors: [{ messageId: "write-during-render" }],
     },
     // Optional calls are unwrapped before resolution, so `read?.()` reaches the callee
     {
@@ -1735,7 +1735,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Optional member calls on tracked object properties are reached the same way
     {
@@ -1748,7 +1748,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // Reading ref.current on the right-hand side of the initialization write is itself a
     // render-time read; only the guard test access is exempt
@@ -1762,7 +1762,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "readDuringRender" }],
+      errors: [{ messageId: "read-during-render" }],
     },
     // While-loop conditions are not null guards (only `if` statements build guard regions),
     // so both the loop test read and the body write are reported
@@ -1777,8 +1777,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "readDuringRender" },
-        { messageId: "writeDuringRender" },
+        { messageId: "read-during-render" },
+        { messageId: "write-during-render" },
       ],
     },
     // Refs passed through optional calls are still checked
@@ -1790,7 +1790,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Passing a ref to a constructor during render is checked the same way as passing it to
     // a plain function
@@ -1802,7 +1802,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Passing a ref to a member constructor during render
     {
@@ -1813,7 +1813,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div />;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // Passing a ref to a tagged template during render
     {
@@ -1824,7 +1824,7 @@ ruleTester.run(RULE_NAME, rule, {
           return <div>{text}</div>;
         }
       `,
-      errors: [{ messageId: "refPassedToFunction" }],
+      errors: [{ messageId: "ref-passed-to-function" }],
     },
     // The `mergeRefs` exemption survives simple variable aliases, but only while the alias
     // still resolves to `mergeRefs`: after reassignment the exemption is lost
@@ -1841,8 +1841,8 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
       errors: [
-        { messageId: "refPassedToFunction" },
-        { messageId: "refPassedToFunction" },
+        { messageId: "ref-passed-to-function" },
+        { messageId: "ref-passed-to-function" },
       ],
     },
     // Ported from https://github.com/oxc-project/oxc/issues/26710
@@ -1869,8 +1869,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "writeDuringRender" },
-        { messageId: "readDuringRender" },
+        { messageId: "write-during-render" },
+        { messageId: "read-during-render" },
       ],
     },
     // Ported from https://github.com/oxc-project/oxc/issues/26709
@@ -1905,8 +1905,8 @@ ruleTester.run(RULE_NAME, rule, {
         };
       `,
       errors: [
-        { messageId: "writeDuringRender" },
-        { messageId: "readDuringRender" },
+        { messageId: "write-during-render" },
+        { messageId: "read-during-render" },
       ],
     },
   ],

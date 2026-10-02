@@ -207,14 +207,14 @@ ruleTester.run(RULE_NAME, rule, {
     {
       name: "fragment in conditional branch in array literal",
       code: tsx`[x ? <>{x}</> : <App key="1" />];`,
-      errors: [{ messageId: "unexpectedFragmentSyntax" }],
+      errors: [{ messageId: "unexpected-fragment-syntax" }],
     },
     {
       name: "fragment in map callback",
       code: tsx`[1, 2, 3].map(x => <>{x}</>);`,
       errors: [
         {
-          messageId: "unexpectedFragmentSyntax",
+          messageId: "unexpected-fragment-syntax",
         },
       ],
     },
@@ -223,7 +223,7 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`[<></>];`,
       errors: [
         {
-          messageId: "unexpectedFragmentSyntax",
+          messageId: "unexpected-fragment-syntax",
         },
       ],
     },
@@ -255,13 +255,13 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [
         {
-          messageId: "unexpectedFragmentSyntax",
+          messageId: "unexpected-fragment-syntax",
         },
         {
           messageId: "default",
         },
         {
-          messageId: "unexpectedFragmentSyntax",
+          messageId: "unexpected-fragment-syntax",
         },
       ],
     },

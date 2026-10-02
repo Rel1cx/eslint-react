@@ -12,8 +12,8 @@ export const RULE_FEATURES = [
 export const BUTTON_TYPES = ["button", "submit", "reset"] as const;
 
 export type MessageID =
-  | "addTypeAttribute"
-  | "missingTypeAttribute";
+  | "add-type-attribute"
+  | "missing-type-attribute";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,8 +23,8 @@ export default createRule<[], MessageID>({
     },
     hasSuggestions: true,
     messages: {
-      addTypeAttribute: "Add type attribute with value '{{ type }}'.",
-      missingTypeAttribute: "Missing an explicit type attribute for button.",
+      "add-type-attribute": "Add type attribute with value '{{ type }}'.",
+      "missing-type-attribute": "Missing an explicit type attribute for button.",
     },
     schema: [],
   },
@@ -42,14 +42,14 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (domElementType !== "button") return;
       if (hasAttribute(context, node, "type")) return;
       context.report({
-        messageId: "missingTypeAttribute",
+        messageId: "missing-type-attribute",
         node: node.openingElement,
         suggest: BUTTON_TYPES.map((type) => ({
           data: { type },
           fix(fixer) {
             return fixer.insertTextAfter(node.openingElement.name, ` type="${type}"`);
           },
-          messageId: "addTypeAttribute",
+          messageId: "add-type-attribute",
         } as const)),
       });
     },

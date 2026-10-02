@@ -10,7 +10,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "removeSemicolon";
+  | "remove-semicolon";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Leaked ';' in JSX. This ';' will be rendered as text nodes.",
-      removeSemicolon: "Remove the text node ';'.",
+      "remove-semicolon": "Remove the text node ';'.",
     },
     schema: [],
   },
@@ -45,7 +45,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix(fixer) {
               return fixer.removeRange([node.range[0], node.range[0] + 1]);
             },
-            messageId: "removeSemicolon",
+            messageId: "remove-semicolon",
           },
         ],
       });

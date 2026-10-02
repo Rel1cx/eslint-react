@@ -11,7 +11,7 @@ export const RULE_FEATURES = [
 ] as const satisfies RuleFeature[];
 
 export type MessageID =
-  | "addRelNoreferrerNoopener"
+  | "add-rel-noreferrer-noopener"
   | "default";
 
 export default createRule<[], MessageID>({
@@ -23,7 +23,7 @@ export default createRule<[], MessageID>({
     fixable: "code",
     hasSuggestions: true,
     messages: {
-      addRelNoreferrerNoopener: `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
+      "add-rel-noreferrer-noopener": `Add 'rel="noreferrer noopener"' to the link to prevent security risks.`,
       default: `Using 'target="_blank"' on an external link without 'rel="noreferrer noopener"' is a security risk.`,
     },
     schema: [],
@@ -59,7 +59,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
                 ` rel="noreferrer noopener"`,
               );
             },
-            messageId: "addRelNoreferrerNoopener",
+            messageId: "add-rel-noreferrer-noopener",
           }],
         });
         return;
@@ -75,7 +75,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           fix(fixer) {
             return fixer.replaceText(relProp, `rel="noreferrer noopener"`);
           },
-          messageId: "addRelNoreferrerNoopener",
+          messageId: "add-rel-noreferrer-noopener",
         }],
       });
     },

@@ -13,8 +13,8 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "removeChildrenContent"
-  | "removeChildrenProp";
+  | "remove-children-content"
+  | "remove-children-prop";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -26,8 +26,8 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Do not pass 'children' as a prop when the element already has children content.",
-      removeChildrenContent: "Remove the nested children content.",
-      removeChildrenProp: "Remove the 'children' prop.",
+      "remove-children-content": "Remove the nested children content.",
+      "remove-children-prop": "Remove the 'children' prop.",
     },
     schema: [],
   },
@@ -70,7 +70,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             fix(fixer) {
               return removeJsxAttribute(context, fixer, prop);
             },
-            messageId: "removeChildrenProp",
+            messageId: "remove-children-prop",
           },
           {
             fix(fixer) {
@@ -79,7 +79,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
               if (first == null || last == null) return [];
               return fixer.removeRange([first.range[0], last.range[1]]);
             },
-            messageId: "removeChildrenContent",
+            messageId: "remove-children-content",
           },
         ],
       });

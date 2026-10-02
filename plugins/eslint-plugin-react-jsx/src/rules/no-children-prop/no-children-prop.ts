@@ -15,7 +15,7 @@ export const RULE_FEATURES = [
 
 export type MessageID =
   | "default"
-  | "moveChildrenToContent";
+  | "move-children-to-content";
 
 export default createRule<[], MessageID>({
   meta: {
@@ -27,7 +27,7 @@ export default createRule<[], MessageID>({
     hasSuggestions: true,
     messages: {
       default: "Do not pass 'children' as props.",
-      moveChildrenToContent: "Move 'children' to element content.",
+      "move-children-to-content": "Move 'children' to element content.",
     },
     schema: [],
   },
@@ -73,7 +73,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         suggest: [
           {
             fix: buildFix(context, node, prop, childrenText),
-            messageId: "moveChildrenToContent",
+            messageId: "move-children-to-content",
           },
         ],
       });
