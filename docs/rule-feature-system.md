@@ -1,6 +1,6 @@
 # Rule Feature System
 
-Every rule declares a `RULE_FEATURES` constant. This typed metadata drives documentation badges and rule categorization in the rules index.
+Every rule declares a `RULE_FEATURES` constant. This typed metadata is the source of truth for the documentation badges and rule categorization in the rules index; the badges themselves are handwritten and validated against `RULE_FEATURES` by `node --run check:rules`.
 
 ## Feature Flags
 
@@ -19,7 +19,7 @@ export type RuleFeature =
 | Feature | When to use                                           | Preset impact                       |
 | ------- | ----------------------------------------------------- | ----------------------------------- |
 | `CFG`   | `meta.schema` or `defaultOptions` is non-empty.       | Flagged as configurable in docs.    |
-| `FIX`   | Uses `context.report({ fix })` or `suggest`.          | Flagged as fixable in docs / IDE.   |
+| `FIX`   | Uses `context.report({ fix })` or `suggest`.          | Flagged as fixable in docs.         |
 | `MOD`   | Rule is a one-time codemod.                           | Reserved for migration tooling.     |
 | `TSC`   | Uses parser services / type checker.                  | Disabled by `disable-type-checked`. |
 | `EXP`   | Rule has known issues or targets unstable React APIs. | Disabled by `disable-experimental`. |
@@ -89,7 +89,7 @@ export const rules: Linter.RulesRecord = {
 
 1. Remove `"EXP"` from `RULE_FEATURES`.
 2. Remove the rule from `disable-experimental.ts`.
-3. Add it to `recommended.ts` or `strict.ts`.
+3. Add it to the domain preset it belongs to (e.g. `x.ts`) — it then flows into `recommended` and `strict` automatically — or add it directly to `strict.ts`.
 4. Remove experimental warnings from its `.mdx` docs.
 5. Run `node --run check:rules`.
 6. Update `CHANGELOG.md`.

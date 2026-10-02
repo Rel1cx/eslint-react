@@ -2,10 +2,10 @@
 
 This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 
-| Alias | Target    | Purpose                                                                           |
-| ----- | --------- | --------------------------------------------------------------------------------- |
-| `@/`  | `./src/*` | Current plugin's source tree (only `apps/*` and `plugins/*` tsconfigs define it). |
-| `#/`  | `../../*` | Workspace root — test helpers and build scripts only.                             |
+| Alias | Target             | Purpose                                                                                    |
+| ----- | ------------------ | ------------------------------------------------------------------------------------------ |
+| `@/`  | `./src/*` or `./*` | Current package's source tree (`plugins/*` tsconfigs → `./src/*`; `apps/website` → `./*`). |
+| `#/`  | `../../*`          | Workspace root — test helpers and build scripts only.                                      |
 
 ## Usage
 
@@ -19,7 +19,7 @@ import { ruleTester } from "#/testing/helpers"; // 🟢 Preferred
 import { ruleTester } from "../../../../testing/helpers"; // 🔴 Avoid
 ```
 
-Test infrastructure lives in the internal `@local/testkit` package (`.pkgs/testkit`); `#/testing/helpers` is a thin re-export shim kept for backward compatibility. New package-level unit tests may import directly from `@local/testkit`:
+Test infrastructure lives in the internal `@local/testkit` package (`.pkgs/testkit`). Plugin rule tests import it through the `#/testing/helpers` re-export shim — this is the import the scaffold script generates for new rules. Package-level unit tests may import directly from `@local/testkit`:
 
 ```ts
 // Inside a package's *.test.ts
