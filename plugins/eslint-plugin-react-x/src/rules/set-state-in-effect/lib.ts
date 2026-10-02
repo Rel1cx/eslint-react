@@ -286,7 +286,7 @@ function isRefInExpression(context: RuleContext, node: TSESTree.Node): boolean {
 export function getSetStateCallExpression(
   node: TSESTree.CallExpression | TSESTree.Identifier,
 ): TSESTree.CallExpression | TSESTree.Identifier {
-  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression
+  return Check.isIdentifier(node) && node.parent.type === AST.CallExpression && node.parent.callee === node
     ? node.parent
     : node;
 }
