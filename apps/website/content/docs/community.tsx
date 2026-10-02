@@ -60,4 +60,5 @@ export const presets = [
   { owner: "sanity-io", repo: "eslint-config-studio" },
   { owner: "SukkaW", repo: "eslint-config-sukka" },
   { owner: "upleveled", repo: "eslint-config-upleveled" },
+  { owner: "xojs", repo: "eslint-config-xo-react" },
 ];
