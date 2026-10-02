@@ -8,25 +8,29 @@ Each rule lives in its own folder:
 src/rules/<rule-name>/
 ├── <rule-name>.ts       # Main rule implementation
 ├── <rule-name>.spec.ts  # Tests
+├── <rule-name>.mdx      # Rule documentation
+├── CHANGELOG.md         # Per-rule changelog
 └── lib.ts               # Optional helpers for complex rules
 ```
 
-Rules that correlate facts across the whole file (`globals`, `immutability`, `refs`) use a layered multi-file layout (`collect.ts` / `origins.ts` / `effects.ts` / `helpers.ts`) instead of a single `<rule-name>.ts`. See [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md).
+Rules that correlate facts across the whole file (`globals`, `immutability`, `refs`) add a layered multi-file layout (`collect.ts` / `origins.ts` / `effects.ts` / `helpers.ts`) alongside the main `<rule-name>.ts`. See [`rule-implementation-patterns-fact-based.md`](./rule-implementation-patterns-fact-based.md). Rules ported from `eslint-plugin-react-hooks` may additionally carry `<rule-name>.spec.md` and `<rule-name>.spec.diff.md` files (and, for `exhaustive-deps` / `rules-of-hooks`, a `README.md` and `LICENSE`).
 
 ## `createRule` Utility
 
-Both plugins wrap `ESLintUtils.RuleCreator`:
+Every plugin that ships rules (all except the meta `eslint-plugin`) wraps `ESLintUtils.RuleCreator`:
 
 ```ts
 // src/utils/create-rule.ts
-import { ESLintUtils } from "@typescript-eslint/utils";
+import * as ESLintUtils from "@typescript-eslint/utils/eslint-utils";
 
-const getDocsUrl = (ruleName: string) => `https://eslint-react.xyz/docs/rules/${ruleName}`;
+function getDocsUrl(ruleName: string) {
+  return `https://eslint-react.xyz/docs/rules/${ruleName}`;
+}
 
 export const createRule = ESLintUtils.RuleCreator(getDocsUrl);
 ```
 
-`react-web-api` prefixes the rule name with `web-api-` in its URL.
+All plugins except `react-x` prefix the rule name in the docs URL: `debug-`, `dom-`, `jsx-`, `naming-convention-`, `rsc-`, and `web-api-`.
 
 ## Rule File Template
 
@@ -72,6 +76,7 @@ Conventions:
 | `@eslint-react/jsx`    | JSX helpers: attribute reading, element type resolution                         |
 | `@eslint-react/var`    | Variable resolution, assignment tracking                                        |
 | `@eslint-react/shared` | Shared settings (`getSettingsFromContext`)                                      |
+| `@eslint-react/kit`    | Utilities for building custom React rules                                       |
 | `@eslint-react/eslint` | `RuleContext`, `RuleFeature`, `merge`                                           |
 
 ## `react-x` Patterns
@@ -131,7 +136,7 @@ ruleTester.run(RULE_NAME, rule, {
 
 Use `ruleTester` for basic tests and `ruleTesterWithTypes` for rules requiring type information. For tests pinned to a specific JSX runtime, use `createRuleTesterForJsxEmit(ts.JsxEmit.ReactJSX)` instead of hand-rolling a `new RuleTester({...})`.
 
-All of the above helpers live in the internal `@local/testkit` package (`.pkgs/testkit`) and are re-exported through `#/testing/helpers` for backward compatibility.
+All of the above helpers live in the internal `@local/testkit` package (`.pkgs/testkit`) and are re-exported through `#/testing/helpers`, which is what plugin rule tests import (the scaffold script generates this import for new rules).
 
 Package-level unit tests (`packages/*/src/*.test.ts`) import harnesses directly from `@local/testkit` instead of defining their own:
 
@@ -150,4 +155,4 @@ const hooks = runCollector(code, (context) => getHookCollector(context as never)
 
 ## Path Aliases
 
-Both plugins use `@/` for intra-package imports and `#/` for workspace-root test utilities. See [`repo-path-aliases.md`](./repo-path-aliases.md) for details.
+All rule plugins use `@/` for intra-package imports and `#/` for workspace-root test utilities. See [`repo-path-aliases.md`](./repo-path-aliases.md) for details.

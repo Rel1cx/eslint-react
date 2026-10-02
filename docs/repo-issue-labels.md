@@ -118,4 +118,4 @@ When closing an issue:
 | `Duplicate`                 | `duplicate`              |
 | `Wontfix`                   | `wontfix`                |
 
-Dependabot still applies its default labels (`dependencies`, `github_actions`) on its own PRs; these coexist with `type: dependencies` and are not part of the curated taxonomy above.
+Dependabot still applies its default labels (`dependencies`, `github_actions`) on its own PRs; these coexist with `type: dependencies` and are not part of the curated taxonomy above. A legacy `javascript` label also remains from an earlier npm Dependabot setup — the current `.github/dependabot.yml` only covers GitHub Actions.

@@ -8,10 +8,9 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 - [ ] Rename `src/rules/<old-name>/<old-name>.ts` → `src/rules/<new-name>/<new-name>.ts`
 - [ ] Rename `src/rules/<old-name>/<old-name>.spec.ts` → `src/rules/<new-name>/<new-name>.spec.ts`
-- [ ] Rename `src/rules/<old-name>/<old-name>.spec.md` → `src/rules/<new-name>/<new-name>.spec.md`
-- [ ] Rename `src/rules/<old-name>/<old-name>.spec.diff.md` → `src/rules/<new-name>/<new-name>.diff.md`
 - [ ] Rename `src/rules/<old-name>/<old-name>.mdx` → `src/rules/<new-name>/<new-name>.mdx`
 - [ ] Rename `src/rules/<old-name>/CHANGELOG.md` → `src/rules/<new-name>/CHANGELOG.md`
+- [ ] If present (only for rules ported from `eslint-plugin-react-hooks`): rename `.spec.md` / `.spec.diff.md` the same way, keeping the full `<new-name>.spec.diff.md` name. Note `exhaustive-deps/` and `rules-of-hooks/` also contain a `README.md` and `LICENSE` that move with the directory.
 
 ### A2. Rule Implementation
 
@@ -57,6 +56,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 - [ ] Update the new-rules bullet entry name.
 - [ ] Update the upgrade checklist entry.
 
+(These changelog sections appear in major-version releases; minor/patch releases only have `### ✨ New` / `### 🐞 Fixes`-style sections.)
+
 ### A9. Verify
 
 - [ ] `pnpm tsc --noEmit` (run from the repo root)
@@ -98,7 +99,7 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 
 ### B5. Preset Configs (`@eslint-react/eslint-plugin`)
 
-- [ ] Add `"@eslint-react/<rule-name>": "<severity>"` to `x.ts`, `all.ts`, and `recommended.ts` if replacing an old namespaced key.
+- [ ] Add `"@eslint-react/<rule-name>": "<severity>"` to `x.ts` and `all.ts` if replacing an old namespaced key (`recommended.ts` is composed from the domain presets and takes no explicit rule keys).
 
 ### B6. Source Plugin Cleanup
 
@@ -111,6 +112,8 @@ Checklist for renaming or moving rules in `eslint-plugin-react-x` and `@eslint-r
 - [ ] Add a preset-changes row: `react-<source>/<rule-name>` → `react-x/<rule-name>`.
 - [ ] Add a new-rules bullet entry for `react-x/<rule-name>`.
 - [ ] Add an upgrade checklist entry for the new rule.
+
+(As in A8, these changelog sections appear in major-version releases.)
 
 ### B8. Verify
 

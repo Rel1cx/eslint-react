@@ -57,7 +57,7 @@ overrides:
   # Transitive dependency via ajv 8.20.0, fixes CVE-2026-18446 (GHSA-7p8r-x3mc-p8w7)
   fast-uri: "^4.2.1"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
-  follow-redirects: "^1.16.0"
+  follow-redirects: "^1.16.1"
   # Transitive dependency via axios 1.18.1 and nx 23.1.0
   form-data: "^4.0.6"
   fumadocs-twoslash: "3.3.1"
@@ -69,7 +69,7 @@ overrides:
   mermaid: "^11.17.2"
   # Transitive dependency via eslint 10.8.0, @typescript-eslint/typescript-estree 8.67.0 and nx 23.1.0
   minimatch: "^10.2.6"
-  next: "16.3.7"
+  next: "16.3.8"
   postcss: "^8.5.28"
   react-dom: "^19.3.0"
   react: "^19.3.0"
@@ -83,7 +83,7 @@ overrides:
   typescript-eslint: "^8.71.0"
   typescript: "6.0.3"
   # Keep a single vite copy in the tree (fumadocs-mdx's peer otherwise stays on an older resolution)
-  vite: "^8.3.1"
+  vite: "^8.3.2"
   # Transitive dependency via @types/node 26.1.2
   undici-types: "^8.11.2"
   # Transitive dependency via @effect/platform-node 0.107.0
