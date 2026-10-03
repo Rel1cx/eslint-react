@@ -1,7 +1,7 @@
 import { getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import tsx from "dedent";
 import { describe, expect, it } from "vitest";
-
 import { getNestedReturnStatements } from "./helpers";
 
 function countReturns(node: TSESTree.Node): number {
@@ -153,7 +153,7 @@ describe("getNestedReturnStatements", () => {
   });
 
   it("should collect only same-function returns scattered across deeply nested blocks, loops, and branches", () => {
-    const code = `
+    const code = tsx`
       function f(x) {
         if (x > 0) {
           for (;;) {

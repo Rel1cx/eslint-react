@@ -2,6 +2,20 @@
 title: Changelog
 ---
 
+## v5.24.0-beta.1 (2026-10-04)
+
+### 🐞 Fixes
+
+- `react-x/set-state-in-effect`: more value shapes are recognized as ref-derived `setState` arguments: interpolations in template literals (ex: ``setData(`${ref.current}`)``), tagged templates (both the quasi and a ref-derived tag), object and array literals (ex: `setData({ value: ref.current })`), and spreads (ex: `setData({ ...ref.current })`) — previously these fell through to the default case and were reported. (#1988)
+
+### 🏗️ Internal
+
+- `react-x/use-state`: aligned the `CallExpression`/`NewExpression` visitor keys of the nested-expression collectors to callee-first order, matching `eslint-visitor-keys`; no behavior change. (#1988)
+- Added complex-nesting boundary tests for the `getNested*` helpers used by `react-x/no-missing-key`, `react-x/set-state-in-effect`, `react-x/use-memo`, and `react-x/use-state`. (#1988)
+- Bumped `fumadocs-core` and `fumadocs-ui` to `16.15.18`, `fumadocs-mdx` to `15.4.6`, `lucide-react` to `1.50.0`, and `@types/node` to `26.6.4`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.0-beta.0...v5.24.0-beta.1
+
 ## v5.24.0-beta.0 (2026-10-03)
 
 ### 🏗️ Internal
