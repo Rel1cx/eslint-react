@@ -3,6 +3,7 @@ import { Extract, Traverse } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
+import { or } from "@local/eff";
 import { type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 
@@ -31,6 +32,8 @@ interface TimerEntry {
 // #endregion
 
 // #region Helpers
+
+const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   const name = Extract.getCalleeName(node);
@@ -73,7 +76,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   }
   return {
     ["CallExpression"](node) {
-      const fn = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n));
+      const fn = Traverse.findParent(node, isUseEffectCallback);
       if (fn == null) {
         return;
       }

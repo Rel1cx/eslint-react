@@ -2,6 +2,7 @@ import { createRule } from "@/utils/create-rule";
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isEmptyStringExpression, isWhitespaceText } from "@eslint-react/jsx";
+import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 export const RULE_NAME = "no-leaked-dollar";
@@ -80,7 +81,9 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
  * empty expression (ex: `{}` or a comment), or an empty string expression.
  * @param child The JSX child node to check.
  */
+const isWhitespaceOrEmptyStringExpression = or(isWhitespaceText, isEmptyStringExpression);
+
 function isNonSubstantiveChild(child: TSESTree.JSXChild): boolean {
-  if (isWhitespaceText(child) || isEmptyStringExpression(child)) return true;
+  if (isWhitespaceOrEmptyStringExpression(child)) return true;
   return child.type === AST.JSXExpressionContainer && child.expression.type === AST.JSXEmptyExpression;
 }

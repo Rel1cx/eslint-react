@@ -3,7 +3,7 @@ import { Check, Extract, type TSESTreeFunction, Traverse } from "@eslint-react/a
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveEnclosingAssignmentTarget } from "@eslint-react/var";
-import { or } from "@local/eff";
+import { and, or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 import { isFromObserver, isNewObserver } from "./lib";
@@ -45,6 +45,8 @@ type DEntry = ObserverEntry & { method: "disconnect" };
 // #endregion
 
 // #region Helpers
+
+const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
 function getCallKind(context: RuleContext, node: TSESTree.CallExpression): CallKind {
   const callee = Extract.unwrap(node.callee);
@@ -96,7 +98,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
   const dEntries: DEntry[] = [];
   return {
     ["CallExpression"](node) {
-      if (Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)) == null) {
+      if (Traverse.findParent(node, isUseEffectCallback) == null) {
         return;
       }
       const callee = Extract.unwrap(node.callee);
@@ -139,7 +141,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
         .otherwise(() => null);
     },
     ["NewExpression"](node) {
-      const fn = Traverse.findParent(node, (n): n is TSESTreeFunction => Check.isFunction(n) && (isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n)));
+      const fn = Traverse.findParent(node, and(Check.isFunction, isUseEffectCallback));
       if (fn == null) {
         return;
       }

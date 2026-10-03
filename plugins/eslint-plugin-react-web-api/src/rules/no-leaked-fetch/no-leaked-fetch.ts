@@ -3,6 +3,7 @@ import { Check, Extract, Traverse } from "@eslint-react/ast";
 import { isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isAssignmentTargetEqual, resolveOrigin } from "@eslint-react/var";
+import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { P, isMatching, match } from "ts-pattern";
 import { resolveToObjectExpression } from "./lib";
@@ -37,6 +38,8 @@ type AbortEntry = {
 // #endregion
 
 // #region Helpers
+
+const isUseEffectCallback = or(isUseEffectSetupCallback, isUseEffectCleanupCallback);
 
 function getCallKind(node: TSESTree.CallExpression): CallKind {
   const name = Extract.getCalleeName(node);
@@ -146,7 +149,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
           // An `abort` may be nested in a callback within the cleanup function
           // (e.g. `setTimeout(() => ctrl.abort())`), so find the nearest enclosing
           // setup/cleanup function instead of requiring the innermost one
-          const fn = Traverse.findParent(node, (n) => isUseEffectSetupCallback(n) || isUseEffectCleanupCallback(n));
+          const fn = Traverse.findParent(node, isUseEffectCallback);
           if (fn == null || !isUseEffectCleanupCallback(fn)) {
             return;
           }

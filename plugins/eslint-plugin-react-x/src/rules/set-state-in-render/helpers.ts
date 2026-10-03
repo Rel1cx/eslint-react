@@ -1,15 +1,18 @@
 import { Check, type TSESTreeFunction } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
+import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+
+const isComponentOrHookName = or(core.isFunctionComponentName, core.isHookName);
 
 export function isComponentOrHookLikeFunction(node: TSESTreeFunction) {
   const id = core.getFunctionId(node);
   if (id == null) return false;
   if (Check.isIdentifier(id)) {
-    return core.isFunctionComponentName(id.name) || core.isHookName(id.name);
+    return isComponentOrHookName(id.name);
   }
   if (id.type === AST.MemberExpression && Check.isIdentifier(id.property)) {
-    return core.isFunctionComponentName(id.property.name) || core.isHookName(id.property.name);
+    return isComponentOrHookName(id.property.name);
   }
   return false;
 }
