@@ -457,6 +457,64 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "no-reassigning-outer-variables" },
       ],
     },
+    // The only value return lives in a nested arrow function; the callback's
+    // own returns are bare, so the nested value return must not count
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component() {
+          const value = useMemo(() => {
+            const f = () => {
+              return <div />;
+            };
+            f();
+            return;
+          }, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "must-return-a-value" }],
+    },
+    // The only return at any depth belongs to a nested function declaration;
+    // the callback body itself never returns
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component({ items }) {
+          const value = useMemo(() => {
+            function helper() {
+              return items.length;
+            }
+            helper();
+          }, [items]);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "must-return-a-value" }],
+    },
+    // Value returns inside a class getter nested in the callback are excluded;
+    // the callback's own bare return still violates must-return-a-value
+    {
+      code: tsx`
+        import { useMemo } from "react";
+
+        function Component() {
+          const value = useMemo(() => {
+            class A {
+              get size() {
+                return 42;
+              }
+            }
+            new A();
+            return;
+          }, []);
+          return <div>{value}</div>;
+        }
+      `,
+      errors: [{ messageId: "must-return-a-value" }],
+    },
   ],
   valid: [
     // Arrow function with concise body (always returns)
@@ -1101,6 +1159,74 @@ ruleTester.run(RULE_NAME, rule, {
 
         return useMemo(() => value ?? '', [value]);
       };
+    `,
+    // Returns scattered across try/catch, switch cases, and nested blocks all
+    // count as the callback's own returns
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ kind, data }) {
+        const value = useMemo(() => {
+          try {
+            switch (kind) {
+              case "a": {
+                if (data) {
+                  return { nested: data };
+                }
+                return "a";
+              }
+              default: {
+                return "fallback";
+              }
+            }
+          } catch {
+            return "error";
+          }
+        }, [kind, data]);
+        return <div>{value}</div>;
+      }
+    `,
+    // Returns in some branches but falls through in others: the rule only
+    // requires at least one value return, not a return on every path
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ flag }) {
+        const value = useMemo(() => {
+          if (flag) {
+            return 1;
+          } else if (flag === false) {
+            console.log("falls through");
+          }
+        }, [flag]);
+        return <div>{value}</div>;
+      }
+    `,
+    // A nested function's return never satisfies the callback's own return
+    // requirement, but here the callback returns the nested function's result
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const value = useMemo(() => {
+          function helper() {
+            return items.length;
+          }
+          return helper();
+        }, [items]);
+        return <div>{value}</div>;
+      }
+    `,
+    // Boundary contrast: an expression-bodied callback is treated as always
+    // returning a value even though its only ReturnStatement is nested inside
+    // an inner function
+    tsx`
+      import { useMemo } from "react";
+
+      function Component({ items }) {
+        const value = useMemo(() => (() => items.length)(), [items]);
+        return <div>{value}</div>;
+      }
     `,
   ],
 });

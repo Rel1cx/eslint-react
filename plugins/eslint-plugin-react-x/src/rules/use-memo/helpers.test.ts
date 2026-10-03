@@ -72,4 +72,117 @@ describe("getNestedReturnStatements", () => {
     const node = getFirstNodeOfType<TSESTree.IfStatement>(code, AST.IfStatement);
     expect(countReturns(node)).toBe(1);
   });
+
+  it("should collect returns in switch cases of the same function", () => {
+    const code = "function f() { switch (x) { case 1: return 1; default: return 2; } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(2);
+  });
+
+  it("should collect returns across try, catch, and finally of the same function", () => {
+    const code = "function f() { try { return 1; } catch { return 2; } finally { } return 3; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(3);
+  });
+
+  it("should collect returns inside loops of the same function", () => {
+    const code = "function f() { for (;;) { return 1; } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should collect returns inside labeled blocks and loops of the same function", () => {
+    const code = "function f() { label: { return 1; } while (x) { return 2; } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(2);
+  });
+
+  it("should exclude returns of doubly nested functions", () => {
+    const code = "function f() { return 1; function g() { return 2; function h() { return 3; } } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should exclude returns of class property arrow functions nested in the function", () => {
+    const code = "function f() { return 0; class A { p = () => { return 1; }; } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should exclude returns of functions nested in class static blocks", () => {
+    const code = "function f() { return 0; class A { static { const g = () => { return 1; }; } } }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should collect the root return statement itself when the root is a ReturnStatement", () => {
+    const code = "function f() { return 1; return 2; }";
+    const node = getFirstNodeOfType<TSESTree.ReturnStatement>(code, AST.ReturnStatement);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should use a nested function root as its own boundary", () => {
+    const code = "function f() { return 1; function g() { return 2; function h() { return 3; } } }";
+    const root = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    const g = getFirstNodeOfType<TSESTree.FunctionDeclaration>(root.body, AST.FunctionDeclaration);
+    expect(countReturns(g)).toBe(1);
+  });
+
+  it("should treat the enclosing arrow of a block-statement root as the boundary", () => {
+    const code = "const f = () => { if (a) return 1; const g = () => { return 2; }; return 3; };";
+    const arrow = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(countReturns(arrow.body)).toBe(2);
+  });
+
+  it("should collect returns of async functions", () => {
+    const code = "async function f() { return 1; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should collect returns of generator functions", () => {
+    const code = "function* g() { yield 1; return 2; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should exclude returns of getters in object literals nested in the function", () => {
+    const code = "function f() { return 0; const o = { get x() { return 1; } }; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should collect only same-function returns scattered across deeply nested blocks, loops, and branches", () => {
+    const code = `
+      function f(x) {
+        if (x > 0) {
+          for (;;) {
+            while (true) {
+              try {
+                if (x > 5) {
+                  return 1;
+                } else {
+                  return 2;
+                }
+              } catch (e) {
+                const h = () => { return 3; };
+                return 4;
+              }
+            }
+          }
+        } else if (x < 0) {
+          switch (x) {
+            case -1: return 5;
+            default: {
+              function g() { return 6; }
+              return 7;
+            }
+          }
+        }
+        return 8;
+      }
+    `;
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(6);
+  });
 });

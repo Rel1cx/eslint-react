@@ -167,6 +167,18 @@ export function isArgumentUsingRefValue(context: RuleContext, node: TSESTree.Cal
         return isUsingRefValue(n.consequent) || isUsingRefValue(n.alternate);
       case AST.SequenceExpression:
         return n.expressions.some(isUsingRefValue);
+      case AST.TemplateLiteral:
+        return n.expressions.some(isUsingRefValue);
+      case AST.TaggedTemplateExpression:
+        return isUsingRefValue(n.tag) || isUsingRefValue(n.quasi);
+      case AST.ObjectExpression:
+        return n.properties.some(isUsingRefValue);
+      case AST.Property:
+        return isUsingRefValue(n.value);
+      case AST.ArrayExpression:
+        return n.elements.some((element) => element != null && isUsingRefValue(element));
+      case AST.SpreadElement:
+        return isUsingRefValue(n.argument);
       case AST.AssignmentExpression:
         return isUsingRefValue(n.right);
       default:

@@ -17,16 +17,16 @@ describe("getNestedIdentifiers", () => {
     expect(getNames(getFirstExpression("42;"))).toEqual([]);
   });
 
-  it("should visit call arguments before the callee", () => {
-    expect(getNames(getFirstExpression("foo(a, b);"))).toEqual(["a", "b", "foo"]);
+  it("should visit the callee before the call arguments", () => {
+    expect(getNames(getFirstExpression("foo(a, b);"))).toEqual(["foo", "a", "b"]);
   });
 
-  it("should visit new arguments before the callee", () => {
-    expect(getNames(getFirstExpression("new Foo(a);"))).toEqual(["a", "Foo"]);
+  it("should visit the callee before the new arguments", () => {
+    expect(getNames(getFirstExpression("new Foo(a);"))).toEqual(["Foo", "a"]);
   });
 
-  it("should visit nested calls inside-out per argument", () => {
-    expect(getNames(getFirstExpression("foo(bar(x), y);"))).toEqual(["x", "bar", "y", "foo"]);
+  it("should visit a callee before descending into its arguments", () => {
+    expect(getNames(getFirstExpression("foo(bar(x), y);"))).toEqual(["foo", "bar", "x", "y"]);
   });
 
   it("should skip holes in array expressions", () => {
@@ -154,5 +154,74 @@ describe("getNestedIdentifiers", () => {
   it("should not descend into for-of declaration left sides", () => {
     const node = getFirstNodeOfType<TSESTree.ForOfStatement>("for (const k of obj) { foo(); }", AST.ForOfStatement);
     expect(getNames(node)).toEqual(["obj"]);
+  });
+
+  it("should collect a deep mixed nesting of calls, news, and members in exact order", () => {
+    expect(getNames(getFirstExpression("foo(bar(x), new Baz(y)).qux;"))).toEqual(["foo", "bar", "x", "Baz", "y"]);
+  });
+
+  it("should collect only the roots and computed keys of mixed member chains", () => {
+    expect(getNames(getFirstExpression("a.b[c].d[e];"))).toEqual(["a", "c", "e"]);
+  });
+
+  it("should visit the optional member callee before the call arguments", () => {
+    expect(getNames(getFirstExpression("a?.b?.[c]?.(d);"))).toEqual(["a", "c", "d"]);
+  });
+
+  it("should visit the object of a member callee before the call arguments", () => {
+    expect(getNames(getFirstExpression("a.b(c);"))).toEqual(["a", "c"]);
+  });
+
+  it("should collect renamed pattern values and defaults but not keys", () => {
+    const pattern = getFirstNodeOfType<TSESTree.ObjectPattern>("const { a: { b = c }, d: [e] } = f;", AST.ObjectPattern);
+    expect(getNames(pattern)).toEqual(["b", "c", "e"]);
+  });
+
+  it("should visit a sequence mixing assignment and conditional in order", () => {
+    expect(getNames(getFirstExpression("(a = b, c ? d : e);"))).toEqual(["a", "b", "c", "d", "e"]);
+  });
+
+  it("should visit a template literal nested in a tagged template", () => {
+    expect(getNames(getFirstExpression("tag`${`${a}${b}`}`;"))).toEqual(["tag", "a", "b"]);
+  });
+
+  it("should visit spread elements nested in call arguments and arrays", () => {
+    expect(getNames(getFirstExpression("f(...[g, ...h]);"))).toEqual(["f", "g", "h"]);
+  });
+
+  it("should exclude function bodies nested among collected nodes", () => {
+    expect(getNames(getFirstExpression("foo(() => { return bar; }, baz);"))).toEqual(["foo", "baz"]);
+  });
+
+  it("should exclude class expressions nested in collected nodes", () => {
+    expect(getNames(getFirstExpression("foo(class extends Bar {});"))).toEqual(["foo"]);
+  });
+
+  it("should unwrap stacked TS wrappers and instantiation calls", () => {
+    const options: ParseCodeOptions = { filePath: fixturePath("file.ts") };
+    expect(getNames(getFirstExpression("(x as A)!;", options))).toEqual(["x"]);
+    expect(getNames(getFirstExpression("f<number>(g);", options))).toEqual(["f", "g"]);
+  });
+
+  it("should visit an await nested in a yield argument", () => {
+    const node = getFirstNodeOfType<TSESTree.YieldExpression>("function* g() { yield await x; }", AST.YieldExpression);
+    expect(getNames(node)).toEqual(["x"]);
+  });
+
+  it("should visit update arguments through member chains", () => {
+    expect(getNames(getFirstExpression("++a.b[c];"))).toEqual(["a", "c"]);
+  });
+
+  it("should collect a deep stress nesting alternating call, member, template, and binary in exact order", () => {
+    expect(getNames(getFirstExpression("f(g.h(`${i + o(p)}`), k[l]).m[n];"))).toEqual([
+      "f",
+      "g",
+      "i",
+      "o",
+      "p",
+      "k",
+      "l",
+      "n",
+    ]);
   });
 });
