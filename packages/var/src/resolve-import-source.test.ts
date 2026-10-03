@@ -1,12 +1,24 @@
 /// <reference types="node" />
 
-import { fixturePath, getModuleScope, parseCode } from "@local/testkit";
+import { fixturePath, parseCode } from "@local/testkit";
+import type { Scope } from "@typescript-eslint/utils/ts-eslint";
 import { describe, expect, it } from "vitest";
-
 import { resolveImportSource } from "./resolve-import-source";
 
 function parse(code: string) {
   return parseCode(code, { filePath: fixturePath("file.ts"), sourceType: "module" });
+}
+
+/**
+ * Returns the module scope (first child of the global scope) of a parsed
+ * program.
+ * @param parsed The result of `parseCode`.
+ * @returns The module scope of the parsed program.
+ */
+function getModuleScope(parsed: ReturnType<typeof parseCode>): Scope.Scope {
+  const ret = parsed.scopeManager.globalScope?.childScopes[0];
+  if (ret == null) throw new Error('getModuleScope: the global scope has no child scopes; parse with sourceType: "module"');
+  return ret;
 }
 
 describe("resolveImportSource", () => {

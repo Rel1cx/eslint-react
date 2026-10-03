@@ -3,7 +3,6 @@
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
-import type { TSESLint } from "@typescript-eslint/utils";
 import { isFunction } from "@typescript-eslint/utils/ast-utils";
 import path from "node:path";
 
@@ -26,7 +25,10 @@ export function parseCode(code: string, options: ParseCodeOptions = {}): ReturnT
   const { filePath = path.join(getFixturesRootDir(), "estree.tsx"), jsx, sourceType } = options;
   const parsed = parseForESLint(code, {
     disallowAutomaticSingleRunInference: true,
+    ecmaVersion: "latest",
     filePath,
+    sourceType: "module",
+    tokens: true,
     ...(jsx == null ? {} : { jsx }),
     ...(sourceType == null ? {} : { sourceType }),
   });
@@ -97,19 +99,17 @@ export function findIdentifierReferences(input: string | TSESTree.Node, name: st
     enter(node) {
       if (node.type !== AST.Identifier || node.name !== name) return;
       const parent: TSESTree.Node | undefined = node.parent;
-      if (parent.type === AST.VariableDeclarator && parent.id === node) return;
-      if (parent.type === AST.FunctionDeclaration && parent.id === node) return;
       if (parent.type === AST.ClassDeclaration && parent.id === node) return;
-      if (parent.type === AST.ImportSpecifier) return;
+      if (parent.type === AST.FunctionDeclaration && parent.id === node) return;
       if (parent.type === AST.ImportDefaultSpecifier) return;
+      if (parent.type === AST.ImportSpecifier) return;
+      if (parent.type === AST.Property && parent.key === node && !parent.computed) return;
       if (parent.type === AST.TSEnumDeclaration && parent.id === node) return;
       if (parent.type === AST.TSEnumMember && parent.id === node) return;
       if (parent.type === AST.TSModuleDeclaration && parent.id === node) return;
       if (parent.type === AST.TSTypeAliasDeclaration && parent.id === node) return;
-      if (parent.type === AST.Property && parent.key === node && !parent.computed) return;
-      if (isFunction(parent) && parent.params.some((p) => p === node)) {
-        return;
-      }
+      if (parent.type === AST.VariableDeclarator && parent.id === node) return;
+      if (isFunction(parent) && parent.params.some((p) => p === node)) return;
       refs.push(node);
     },
   });
@@ -154,22 +154,4 @@ export function getLastExpression(code: string, options: ParseCodeOptions = {}):
  */
 export function getTextOf(code: string, node: TSESTree.Node): string {
   return code.slice(node.range[0], node.range[1]);
-}
-
-/**
- * Returns the module scope (first child of the global scope) of a parsed
- * program.
- * @param parsed The result of `parseCode`.
- * @returns The module scope of the parsed program.
- */
-export function getModuleScope(parsed: ReturnType<typeof parseCode>): TSESLint.Scope.Scope {
-  const globalScope = parsed.scopeManager.globalScope;
-  if (globalScope == null) {
-    throw new Error("getModuleScope: the parsed program has no global scope");
-  }
-  const moduleScope = globalScope.childScopes[0];
-  if (moduleScope == null) {
-    throw new Error('getModuleScope: the global scope has no child scopes; parse with sourceType: "module"');
-  }
-  return moduleScope;
 }

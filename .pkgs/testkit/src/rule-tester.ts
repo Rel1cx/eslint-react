@@ -18,6 +18,7 @@ export const defaultLanguageOptions = {
     projectService: false,
     warnOnUnsupportedTypeScriptVersion: false,
   },
+  sourceType: "module",
 } as const satisfies RuleTesterConfig["languageOptions"];
 
 export const defaultLanguageOptionsWithTypes = {
@@ -28,6 +29,7 @@ export const defaultLanguageOptionsWithTypes = {
     tsconfigRootDir: getFixturesRootDir(),
     warnOnUnsupportedTypeScriptVersion: false,
   },
+  sourceType: "module",
 } as const satisfies RuleTesterConfig["languageOptions"];
 
 export const ruleTester = new RuleTester({

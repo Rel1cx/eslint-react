@@ -13,6 +13,7 @@ const defaultLanguageOptionsWithTypes: {
     tsconfigRootDir: string;
     warnOnUnsupportedTypeScriptVersion: false;
   };
+  sourceType: "module";
 };
 ```
 
@@ -27,3 +28,4 @@ const defaultLanguageOptionsWithTypes: {
 | `parserOptions.projectService`                      | `true`                                                                                                                                            | `true`        |
 | `parserOptions.tsconfigRootDir`                     | `string`                                                                                                                                          | -             |
 | `parserOptions.warnOnUnsupportedTypeScriptVersion`  | `false`                                                                                                                                           | `false`       |
+| <a id="property-sourcetype"></a> `sourceType`       | `"module"`                                                                                                                                        | `"module"`    |

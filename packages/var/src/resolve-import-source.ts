@@ -10,13 +10,13 @@ import { P, isMatching } from "ts-pattern";
  * @returns The require expression arguments, or `null` when the node is not a require expression.
  */
 function getRequireExpressionArguments(node: TSESTree.Node) {
-  const unwrapped = Extract.unwrap(node);
-  if (unwrapped.type === AST.CallExpression) {
-    const callee = Extract.unwrap(unwrapped.callee);
-    if (Check.isIdentifier(callee, "require")) return unwrapped.arguments;
+  const expr = Extract.unwrap(node);
+  if (expr.type === AST.CallExpression) {
+    const callee = Extract.unwrap(expr.callee);
+    if (Check.isIdentifier(callee, "require")) return expr.arguments;
     return null;
   }
-  if (unwrapped.type === AST.MemberExpression) return getRequireExpressionArguments(unwrapped.object);
+  if (expr.type === AST.MemberExpression) return getRequireExpressionArguments(expr.object);
   return null;
 }
 

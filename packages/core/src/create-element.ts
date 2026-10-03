@@ -31,8 +31,8 @@ export function getCreateElementPropsObject(context: RuleContext, node: null | T
   if (!isCreateElementCall(context, node)) return null;
   const propsArg = node.arguments[1];
   if (propsArg == null) return null;
-  const propsObject = Extract.unwrap(propsArg);
-  return propsObject.type === AST.ObjectExpression ? propsObject : null;
+  const expr = Extract.unwrap(propsArg);
+  return expr.type === AST.ObjectExpression ? expr : null;
 }
 
 /**

@@ -90,9 +90,9 @@ export function isRefLikeName(name: string) {
 }
 
 export function hasRefLikeNameInChain(node: TSESTree.Node): boolean {
-  const unwrapped = Extract.unwrap(node);
-  if (!Check.isExpression(unwrapped)) return false;
-  return Extract.getMemberChain(unwrapped).some((member) => Check.isIdentifier(member) && isRefLikeName(member.name));
+  const expr = Extract.unwrap(node);
+  if (!Check.isExpression(expr)) return false;
+  return Extract.getMemberChain(expr).some((member) => Check.isIdentifier(member) && isRefLikeName(member.name));
 }
 
 function isInitializedFromCall(context: RuleContext, node: TSESTree.Expression, isCall: (node: TSESTree.CallExpression) => boolean) {

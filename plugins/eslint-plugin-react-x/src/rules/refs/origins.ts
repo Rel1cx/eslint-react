@@ -15,10 +15,10 @@ type PositionedValue<T> = {
 };
 
 type BindingValue =
-  | { kind: "function"; node: TSESTreeFunction }
   | { kind: "ref" }
-  | { kind: "unknown" }
-  | { kind: "variable"; variable: Variable };
+  | { kind: "variable"; variable: Variable }
+  | { kind: "function"; node: TSESTreeFunction }
+  | { kind: "unknown" };
 
 type BindingEvent = PositionedValue<BindingValue>;
 

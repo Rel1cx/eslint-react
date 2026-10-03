@@ -13,6 +13,7 @@ const defaultLanguageOptions: {
     projectService: false;
     warnOnUnsupportedTypeScriptVersion: false;
   };
+  sourceType: "module";
 };
 ```
 
@@ -27,3 +28,4 @@ const defaultLanguageOptions: {
 | `parserOptions.project`                             | `false`                                                                                                                                   | `false`       |
 | `parserOptions.projectService`                      | `false`                                                                                                                                   | `false`       |
 | `parserOptions.warnOnUnsupportedTypeScriptVersion`  | `false`                                                                                                                                   | `false`       |
+| <a id="property-sourcetype"></a> `sourceType`       | `"module"`                                                                                                                                | `"module"`    |
