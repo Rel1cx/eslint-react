@@ -1,7 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, isHostElement, resolveAttributeValue } from "@eslint-react/jsx";
-import { P, isMatching } from "ts-pattern";
+import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-string-style-prop";
 
@@ -35,7 +35,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       if (styleProp == null) return;
 
       const styleValue = resolveAttributeValue(context, styleProp);
-      if (!isMatching(P.string, styleValue.toStatic())) return;
+      if (!isString(styleValue.toStatic())) return;
 
       context.report({
         messageId: "default",

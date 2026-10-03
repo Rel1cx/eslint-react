@@ -59,6 +59,7 @@
     "@effect/language-service": "^0.87.3",
     "@effect/platform-node": "^4.0.0",
     "@local/configs": "workspace:*",
+    "@local/eff": "workspace:*",
     "@local/testkit": "workspace:*",
     "@nubjs/nub": "^0.8.3",
     "@textlint-rule/textlint-rule-pattern": "^2.0.2",

@@ -3,7 +3,7 @@ import { Check, Compare, Extract, Traverse } from "@eslint-react/ast";
 import { getFunctionId, isUseEffectCleanupCallback, isUseEffectSetupCallback } from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { isInitializedFromReactNative, isValueEqual } from "@eslint-react/var";
-import { getOrInsertComputed } from "@local/eff";
+import { getOrInsertComputed, isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
 import { P, isMatching, match } from "ts-pattern";
@@ -128,7 +128,7 @@ function resolveCleanupCallee(context: RuleContext<MessageID, []>, node: TSESTre
         const key = Extract.unwrap(prop.key);
         const keyName = key.type === AST.Identifier
           ? key.name
-          : key.type === AST.Literal && typeof key.value === "string"
+          : key.type === AST.Literal && isString(key.value)
           ? key.value
           : null;
         if (keyName !== property.name) {

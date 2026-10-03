@@ -1,4 +1,5 @@
 import type { TSESTreeJSXElementLike } from "@eslint-react/ast";
+import { or } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { isEmptyStringExpression, isPaddingWhitespace, isWhitespaceText } from "./text";
 
@@ -45,5 +46,5 @@ export function getChildren(element: TSESTreeJSXElementLike): TSESTree.JSXChild[
  */
 export function hasChildren(element: TSESTreeJSXElementLike) {
   if (element.children.length === 0) return false;
-  return !element.children.every((child) => isWhitespaceText(child) || isEmptyStringExpression(child));
+  return !element.children.every(or(isWhitespaceText, isEmptyStringExpression));
 }

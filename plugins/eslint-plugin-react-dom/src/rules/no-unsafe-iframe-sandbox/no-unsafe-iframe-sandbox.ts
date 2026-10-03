@@ -2,7 +2,7 @@ import { createJsxElementResolver } from "@/utils/create-jsx-element-resolver";
 import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { findAttribute, resolveAttributeValue } from "@eslint-react/jsx";
-import { P, isMatching } from "ts-pattern";
+import { isString } from "@local/eff";
 
 export const RULE_NAME = "no-unsafe-iframe-sandbox";
 
@@ -43,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
       // the named property is extracted automatically
       const sandboxValue = resolveAttributeValue(context, sandboxProp, "sandbox");
       const value = sandboxValue.toStatic();
-      if (!isMatching(P.string, value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;
+      if (!isString(value) || !UNSAFE_SANDBOX_VALUES.every((a) => value.includes(a))) return;
 
       context.report({
         messageId: "default",

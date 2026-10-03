@@ -223,6 +223,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:.pkgs/eff
       '@local/testkit':
         specifier: workspace:*
         version: link:.pkgs/testkit
@@ -438,6 +441,9 @@ importers:
 
   .pkgs/testkit:
     dependencies:
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../eff
       '@typescript-eslint/parser':
         specifier: ^8.71.0
         version: 8.71.0(eslint@10.11.0(jiti@2.7.0)(supports-color@9.4.0))(supports-color@9.4.0)(typescript@6.0.3)
@@ -1380,6 +1386,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/eff':
+        specifier: workspace:*
+        version: link:../../.pkgs/eff
       '@local/testkit':
         specifier: workspace:*
         version: link:../../.pkgs/testkit

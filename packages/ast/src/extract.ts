@@ -1,3 +1,4 @@
+import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import * as Check from "./check";
 import type { TSESTreeTypeExpression } from "./types";
@@ -107,7 +108,7 @@ export function getPropertyName(property: TSESTree.Property, effort: "min" | "ma
   const key = unwrap(property.key);
   if (Check.isIdentifier(key) && !property.computed) return key.name;
   if (effort === "min") return null;
-  if (key.type === AST.Literal && typeof key.value === "string") return key.value;
+  if (key.type === AST.Literal && isString(key.value)) return key.value;
   if (key.type === AST.TemplateLiteral && key.expressions.length === 0) {
     return key.quasis[0]?.value.cooked ?? key.quasis[0]?.value.raw ?? null;
   }

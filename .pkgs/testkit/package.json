@@ -36,6 +36,7 @@
     "publish": "node --run build:docs && node --run lint:publish"
   },
   "dependencies": {
+    "@local/eff": "workspace:*",
     "@typescript-eslint/parser": "^8.71.0",
     "@typescript-eslint/rule-tester": "^8.71.0",
     "@typescript-eslint/types": "^8.71.0",

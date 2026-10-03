@@ -1,6 +1,7 @@
 import type { RuleContext } from "@eslint-react/eslint";
 import { getAttributeStaticValue, getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
+import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
 /**
@@ -50,7 +51,7 @@ export function createJsxElementResolver(context: RuleContext) {
 
       // If we have a string value, use it as the DOM element type; tag names are
       // case-insensitive in HTML, so normalize to lowercase for comparison
-      if (typeof polyPropValue === "string") {
+      if (isString(polyPropValue)) {
         return {
           ...result,
           domElementType: polyPropValue.toLowerCase(),

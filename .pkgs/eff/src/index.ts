@@ -85,7 +85,7 @@ export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
  *
  * @param predicate - The guard function to negate.
  * @returns A guard function that negates the given predicate.
- * @category guards
+ * @category combinators
  */
 export function not<T, S extends T>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
 export function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
@@ -94,12 +94,28 @@ export function not<T>(predicate: (data: T) => boolean) {
 }
 
 /**
+ * A function that takes two guard functions as predicates and returns a guard that checks if both of them are true.
+ *
+ * @param a - The first guard function.
+ * @param b - The second guard function.
+ * @returns A guard function that checks if both predicates are true.
+ * @category combinators
+ */
+export function and<T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S & U;
+export function and<T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
+export function and<T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
+export function and<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+export function and(a: (data: unknown) => boolean, b: (data: unknown) => boolean) {
+  return (data: unknown): boolean => a(data) && b(data);
+}
+
+/**
  * A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
  *
  * @param a - The first guard function.
  * @param b - The second guard function.
  * @returns A guard function that checks if either predicate is true.
- * @category guards
+ * @category combinators
  */
 export function or<T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
 export function or<T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
@@ -107,6 +123,288 @@ export function or<T, U extends T>(a: (data: T) => boolean, b: (data: T) => data
 export function or<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
 export function or(a: (data: unknown) => boolean, b: (data: unknown) => boolean) {
   return (data: unknown): boolean => a(data) || b(data);
+}
+
+/**
+ * Creates a predicate that returns `true` if exactly one of the two predicates is `true`.
+ *
+ * @param a - The first predicate.
+ * @param b - The second predicate.
+ * @returns A predicate with exclusive-or semantics.
+ * @category combinators
+ */
+export function xor<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
+  return (data: T): boolean => a(data) !== b(data);
+}
+
+/**
+ * Creates a predicate that returns `true` when both predicates agree on the result.
+ *
+ * @param a - The first predicate.
+ * @param b - The second predicate.
+ * @returns A predicate with equivalence semantics.
+ * @category combinators
+ */
+export function eqv<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
+  return (data: T): boolean => a(data) === b(data);
+}
+
+/**
+ * Creates a predicate representing logical implication: if `antecedent`, then `consequent`.
+ *
+ * @param antecedent - The precondition predicate.
+ * @param consequent - The predicate that must hold when the precondition holds.
+ * @returns A predicate that is `true` when the antecedent is `false` or the consequent is `true`.
+ * @category combinators
+ */
+export function implies<T>(antecedent: (data: T) => boolean, consequent: (data: T) => boolean): (data: T) => boolean {
+  return (data: T): boolean => !antecedent(data) || consequent(data);
+}
+
+/**
+ * Creates a predicate that returns `true` when neither predicate is `true`.
+ *
+ * @param a - The first predicate.
+ * @param b - The second predicate.
+ * @returns The negation of `or` applied to the two predicates.
+ * @category combinators
+ */
+export function nor<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
+  return (data: T): boolean => !a(data) && !b(data);
+}
+
+/**
+ * Creates a predicate that returns `true` unless both predicates are `true`.
+ *
+ * @param a - The first predicate.
+ * @param b - The second predicate.
+ * @returns The negation of `and` applied to the two predicates.
+ * @category combinators
+ */
+export function nand<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
+  return (data: T): boolean => !a(data) || !b(data);
+}
+
+/**
+ * Creates a predicate that returns `true` if all predicates in the collection return `true`.
+ *
+ * @param collection - The collection of predicates to check.
+ * @returns A predicate that short-circuits on the first `false`.
+ * @category combining
+ */
+export function every<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean {
+  return (data: T): boolean => {
+    for (const predicate of collection) {
+      if (!predicate(data)) {
+        return false;
+      }
+    }
+    return true;
+  };
+}
+
+/**
+ * Creates a predicate that returns `true` if any predicate in the collection returns `true`.
+ *
+ * @param collection - The collection of predicates to check.
+ * @returns A predicate that short-circuits on the first `true`.
+ * @category combining
+ */
+export function some<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean {
+  return (data: T): boolean => {
+    for (const predicate of collection) {
+      if (predicate(data)) {
+        return true;
+      }
+    }
+    return false;
+  };
+}
+
+/**
+ * A function that checks if the passed parameter is a string and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a string, false otherwise.
+ * @category guards
+ */
+export function isString(data: unknown): data is string {
+  return typeof data === "string";
+}
+
+/**
+ * A function that checks if the passed parameter is a number and narrows its type accordingly.
+ *
+ * Note: `NaN` and `Infinity` are considered numbers by this check.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a number, false otherwise.
+ * @category guards
+ */
+export function isNumber(data: unknown): data is number {
+  return typeof data === "number";
+}
+
+/**
+ * A function that checks if the passed parameter is a boolean and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a boolean, false otherwise.
+ * @category guards
+ */
+export function isBoolean(data: unknown): data is boolean {
+  return typeof data === "boolean";
+}
+
+/**
+ * A function that checks if the passed parameter is a bigint and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a bigint, false otherwise.
+ * @category guards
+ */
+export function isBigInt(data: unknown): data is bigint {
+  return typeof data === "bigint";
+}
+
+/**
+ * A function that checks if the passed parameter is a symbol and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a symbol, false otherwise.
+ * @category guards
+ */
+export function isSymbol(data: unknown): data is symbol {
+  return typeof data === "symbol";
+}
+
+/**
+ * A function that checks if the passed parameter is a valid property key (string, number, or symbol).
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a property key, false otherwise.
+ * @category guards
+ */
+export function isPropertyKey(data: unknown): data is PropertyKey {
+  return isString(data) || isNumber(data) || isSymbol(data);
+}
+
+/**
+ * Tests if a value is a `function`.
+ *
+ * @param input - The value to test.
+ * @returns `true` if the input is a function, `false` otherwise.
+ * @example
+ * ```ts
+ * import * as assert from "node:assert"
+ * import { isFunction } from "effect/Predicate"
+ *
+ * assert.deepStrictEqual(isFunction(isFunction), true)
+ * assert.deepStrictEqual(isFunction("function"), false)
+ * ```
+ *
+ * @since 1.0.0
+ * @category guards
+ */
+export const isFunction = (input: unknown): input is Function => typeof input === "function";
+
+/**
+ * A function that checks if the passed parameter is truthy and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is truthy, false otherwise.
+ * @category guards
+ */
+export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null | undefined> {
+  return Boolean(data);
+}
+
+/**
+ * A function that checks if the passed parameter is `undefined` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is `undefined`, false otherwise.
+ * @category guards
+ */
+export function isUndefined(data: unknown): data is undefined {
+  return data === undefined;
+}
+
+/**
+ * A refinement that checks if the passed parameter is not `undefined`, preserving other falsy values.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is not `undefined`, false otherwise.
+ * @category guards
+ */
+export function isNotUndefined<T>(data: T): data is Exclude<T, undefined> {
+  return data !== undefined;
+}
+
+/**
+ * A function that checks if the passed parameter is `null` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is `null`, false otherwise.
+ * @category guards
+ */
+export function isNull(data: unknown): data is null {
+  return data === null;
+}
+
+/**
+ * A refinement that checks if the passed parameter is not `null`, preserving other falsy values.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is not `null`, false otherwise.
+ * @category guards
+ */
+export function isNotNull<T>(data: T): data is Exclude<T, null> {
+  return data !== null;
+}
+
+/**
+ * A function that checks if the passed parameter is `null` or `undefined` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is nullish, false otherwise.
+ * @category guards
+ */
+export function isNullish<T>(data: T): data is T & (null | undefined) {
+  return data === null || data === undefined;
+}
+
+/**
+ * A refinement that checks if the passed parameter is not `null` and not `undefined`, keeping other falsy values.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is not nullish, false otherwise.
+ * @category guards
+ */
+export function isNotNullish<T>(data: T): data is NonNullable<T> {
+  return data != null;
+}
+
+/**
+ * A guard that always returns `false`.
+ *
+ * @param _ - The variable to check.
+ * @returns Always `false`.
+ * @category guards
+ */
+export function isNever(_: unknown): _ is never {
+  return false;
+}
+
+/**
+ * A guard that always returns `true`.
+ *
+ * @param _ - The variable to check.
+ * @returns Always `true`.
+ * @category guards
+ */
+export function isUnknown(_: unknown): _ is unknown {
+  return true;
 }
 
 /**
@@ -132,34 +430,137 @@ export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
 }
 
 /**
- * A function that checks if the passed parameter is truthy and narrows its type accordingly.
+ * Checks whether a value is an object or an array (any non-null object).
  *
  * @param data - The variable to check.
- * @returns True if the passed input is truthy, false otherwise.
+ * @returns True if the passed input is a non-null object (including arrays), false otherwise.
  * @category guards
  */
-export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null | undefined> {
-  return Boolean(data);
+export function isObjectOrArray(data: unknown): data is { [x: PropertyKey]: unknown } | Array<unknown> {
+  return typeof data === "object" && data !== null;
 }
 
 /**
- * Tests if a value is a `function`.
+ * Checks whether a value is an `object` in the JavaScript sense (objects, arrays, functions), excluding `null`.
  *
- * @param input - The value to test.
- * @returns `true` if the input is a function, `false` otherwise.
- * @example
- * ```ts
- * import * as assert from "node:assert"
- * import { isFunction } from "effect/Predicate"
- *
- * assert.deepStrictEqual(isFunction(isFunction), true)
- * assert.deepStrictEqual(isFunction("function"), false)
- * ```
- *
- * @since 1.0.0
+ * @param data - The variable to check.
+ * @returns True if the passed input is an object, array, or function, false otherwise.
  * @category guards
  */
-export const isFunction = (input: unknown): input is Function => typeof input === "function";
+export function isObjectKeyword(data: unknown): data is object {
+  return (typeof data === "object" && data !== null) || isFunction(data);
+}
+
+/**
+ * Checks whether a value has a given property key.
+ *
+ * @param data - The variable to check.
+ * @param property - The property key to look for.
+ * @returns True if the passed input has the property, false otherwise.
+ * @category guards
+ */
+export function hasProperty<P extends PropertyKey>(data: unknown, property: P): data is { [K in P]: unknown } {
+  return isObjectKeyword(data) && property in data;
+}
+
+/**
+ * A function that checks if the passed parameter is a `Set` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `Set`, false otherwise.
+ * @category guards
+ */
+export function isSet(data: unknown): data is Set<unknown> {
+  return data instanceof Set;
+}
+
+/**
+ * A function that checks if the passed parameter is a `Map` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `Map`, false otherwise.
+ * @category guards
+ */
+export function isMap(data: unknown): data is Map<unknown, unknown> {
+  return data instanceof Map;
+}
+
+/**
+ * A function that checks if the passed parameter is a `Date` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `Date`, false otherwise.
+ * @category guards
+ */
+export function isDate(data: unknown): data is Date {
+  return data instanceof Date;
+}
+
+/**
+ * A function that checks if the passed parameter is an `Error` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is an `Error`, false otherwise.
+ * @category guards
+ */
+export function isError(data: unknown): data is Error {
+  return data instanceof Error;
+}
+
+/**
+ * A function that checks if the passed parameter is a `RegExp` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `RegExp`, false otherwise.
+ * @category guards
+ */
+export function isRegExp(data: unknown): data is RegExp {
+  return data instanceof RegExp;
+}
+
+/**
+ * A function that checks if the passed parameter is a `Uint8Array` and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `Uint8Array`, false otherwise.
+ * @category guards
+ */
+export function isUint8Array(data: unknown): data is Uint8Array {
+  return data instanceof Uint8Array;
+}
+
+/**
+ * A function that checks if the passed parameter is iterable and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is iterable (including strings), false otherwise.
+ * @category guards
+ */
+export function isIterable(data: unknown): data is Iterable<unknown> {
+  return hasProperty(data, Symbol.iterator) || isString(data);
+}
+
+/**
+ * A function that checks if the passed parameter is a `Promise`-like object with `then` and `catch` methods.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is a `Promise`, false otherwise.
+ * @category guards
+ */
+export function isPromise(data: unknown): data is Promise<unknown> {
+  return hasProperty(data, "then") && "catch" in data && isFunction(data.then) && isFunction(data.catch);
+}
+
+/**
+ * A function that checks if the passed parameter is `PromiseLike` (has a callable `then` method).
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is `PromiseLike`, false otherwise.
+ * @category guards
+ */
+export function isPromiseLike(data: unknown): data is PromiseLike<unknown> {
+  return hasProperty(data, "then") && isFunction(data.then);
+}
 
 // #endregion
 
