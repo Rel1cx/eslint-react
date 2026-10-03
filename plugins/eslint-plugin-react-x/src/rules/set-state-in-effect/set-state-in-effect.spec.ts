@@ -1336,6 +1336,91 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "data[1]" }, messageId: "default" },
       ],
     },
+    // When the setup is an identifier, getNestedIdentifiers collects the whole
+    // useEffect call, so the identifiers in a computed/member-heavy deps array
+    // are resolved too; none of them break resolving the setup itself.
+    {
+      name: "setState via a named setup with a computed and member-heavy deps array",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ dep1, dep2 }) {
+          const [data, setData] = useState(0);
+          function namedSetup() {
+            setData(1);
+          }
+          useEffect(namedSetup, [dep1, dep2.list[0]]);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // getNestedIdentifiers never visits non-computed member properties, so a
+    // ref-looking name in property position does not make the test ref-gated.
+    {
+      name: "setState gated by a ref-looking non-computed member property",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ obj }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            if (obj.refCurrent) {
+              setData(1);
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // getNestedIdentifiers never descends into function bodies, so a ref read
+    // inside a callback nested in the test does not make the test ref-gated.
+    {
+      name: "setState gated by a test whose only ref read is inside a nested callback",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ items }) {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            if (items.every(() => ref.current > 0)) {
+              setData(1);
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // A `.current` link nested in a call argument only counts when the member
+    // chain is rooted at a ref-named identifier; `b.ref.current` is rooted at
+    // `b`, so the argument is not ref-derived.
+    {
+      name: "setState with a .current chain rooted at a non-ref identifier nested in a call",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ a, b, compute, fallback }) {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(compute(a, b.ref?.current ?? fallback));
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -2433,6 +2518,214 @@ ruleTester.run(RULE_NAME, rule, {
           additionalEffectHooks: "useWeird",
         },
       },
+    },
+    // getNestedIdentifiers traces the ref through the call's arguments and the
+    // nested logical expression, so the argument is ref-derived.
+    {
+      name: "setState with ref.current nested in a call argument with logical fallback",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ a, compute, fallback }) {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(compute(a, ref.current ?? fallback));
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The binary operand walk reaches the ref read on the right side.
+    {
+      name: "setState with ref.current nested in a binary expression argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ count }) {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(count + ref.current);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The TemplateLiteral branch of isArgumentUsingRefValue walks the
+    // interpolated expressions, so a ref read in a template is ref-derived.
+    {
+      name: "setState with ref.current inside a template literal argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState("");
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(\`\${ref.current}\`);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The TaggedTemplateExpression branch walks the quasi, so a ref read
+    // interpolated in a tagged template is ref-derived.
+    {
+      name: "setState with ref.current inside a tagged template argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ tag }) {
+          const [data, setData] = useState("");
+          const ref = useRef(0);
+          useEffect(() => {
+            setData(tag\`\${ref.current}\`);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The tag itself is checked like a call callee, so a tag stored in a ref
+    // makes the result ref-derived.
+    {
+      name: "setState with a tagged template whose tag is ref-derived",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState("");
+          const ref = useRef(String.raw);
+          useEffect(() => {
+            setData(ref.current\`\${1}\`);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The ObjectExpression branch walks property values, so a ref read nested
+    // in an object literal argument is ref-derived.
+    {
+      name: "setState with ref.current nested in an object literal argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState({ value: 0 });
+          const ref = useRef(0);
+          useEffect(() => {
+            setData({ value: ref.current });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The ArrayExpression branch walks elements (skipping holes) and unwraps
+    // spreads, so a ref read nested in an array literal argument is ref-derived.
+    {
+      name: "setState with ref.current nested in an array literal argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ rest }) {
+          const [data, setData] = useState([]);
+          const ref = useRef(0);
+          useEffect(() => {
+            setData([ref.current, , ...rest]);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The SpreadElement branch unwraps the spread argument, so spreading a
+    // ref-held object into the argument is ref-derived.
+    {
+      name: "setState with ref.current spread into an object literal argument",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState({ value: 0 });
+          const ref = useRef({ value: 1 });
+          useEffect(() => {
+            setData({ ...ref.current, extra: true });
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // isInitializedFromRef falls back to getNestedIdentifiers for non-member
+    // inits, so a local initialized from `ref.current * 2` is ref-derived.
+    {
+      name: "setState with a local initialized from ref.current through a binary expression",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(1);
+          useEffect(() => {
+            const doubled = ref.current * 2;
+            setData(doubled);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // isRefInExpression collects identifiers from the whole test, so a ref read
+    // nested under a logical operator and a comparison still gates the setState.
+    {
+      name: "setState inside a ref-gated if with a logical and comparison test",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ a, b, x }) {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            if (a && ref.current !== b.c) {
+              setData(x);
+            }
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The ref-derived value exemption also applies to a setState reached
+    // through a setup identifier passed to useEffect.
+    {
+      name: "setState with ref-derived value inside a named setup passed to useEffect",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          function namedSetup() {
+            setData(ref.current);
+          }
+          useEffect(namedSetup, []);
+          return null;
+        }
+      `,
+    },
+    // Because getNestedIdentifiers collects the deps array of a non-function
+    // setup too, a setState identifier appearing in deps is resolved but does
+    // not resolve to any reachable setState call, so nothing is reported.
+    {
+      name: "setState identifier in the deps array of a named setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ onResize }) {
+          const [data, setData] = useState(0);
+          function namedSetup() {
+            onResize();
+          }
+          useEffect(namedSetup, [setData]);
+          return null;
+        }
+      `,
     },
   ],
 });

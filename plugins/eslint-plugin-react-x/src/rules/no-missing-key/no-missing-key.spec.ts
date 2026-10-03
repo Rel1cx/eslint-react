@@ -310,6 +310,42 @@ ruleTester.run(RULE_NAME, rule, {
         { messageId: "default" },
       ],
     },
+    // --- Complex nested control flow in callback block bodies --------------------------------
+    {
+      name: "missing key in switch-case return in map callback",
+      code: tsx`[1, 2, 3].map(x => { switch (x) { case 1: return <A />; default: return <B key="b" />; } });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing keys in try and catch returns in map callback",
+      code: tsx`[1, 2, 3].map(x => { try { return <A />; } catch (e) { return <B />; } });`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      name: "missing keys in else-if chain returns in map callback",
+      code: tsx`[1, 2, 3].map(x => { if (a) return <A />; else if (b) return <B />; return <C key="c" />; });`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      name: "missing keys in returned conditional with logical branch in map callback",
+      code: tsx`[1, 2, 3].map(x => { return a ? <A /> : (b && <B />); });`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
+    {
+      name: "missing key in Array.from callback with nested block returns",
+      code: tsx`Array.from([1, 2, 3], x => { if (x) { return <A />; } return <B key="b" />; });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key in flatMap callback with if-else returns",
+      code: tsx`[1, 2, 3].flatMap(x => { if (x) return <A />; return <B key="b" />; });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "fragment in nested return branch of map callback",
+      code: tsx`[1, 2, 3].map(x => { if (a) return <></>; return <B key="b" />; });`,
+      errors: [{ messageId: "unexpected-fragment-syntax" }],
+    },
     // TODO: Fix this test case
     // {
     //   code: tsx`
@@ -694,6 +730,43 @@ ruleTester.run(RULE_NAME, rule, {
           return <div {...props}>foo</div>;
         });
       `,
+    },
+    // --- Complex nested control flow in callback block bodies --------------------------------
+    {
+      name: "keyed returns in deeply nested structure in map callback",
+      code: tsx`[1, 2, 3].map(x => { if (a) { return <A key="a" />; } return <B key="b" />; });`,
+    },
+    {
+      name: "keyed returns across switch and try-catch in map callback",
+      code: tsx`
+        [1, 2, 3].map(x => {
+          try {
+            switch (x) {
+              case 1:
+                return <A key="a" />;
+              default:
+                return <B key="b" />;
+            }
+          } catch (e) {
+            return <C key="c" />;
+          }
+        });
+      `,
+    },
+    {
+      name: "JSX returned from nested arrow in map callback is not checked",
+      // Returns of functions nested inside the callback are not collected
+      code: tsx`[1, 2, 3].map(x => { const render = () => <Inner />; return <Outer key="o" />; });`,
+    },
+    {
+      name: "JSX returned from nested function declaration in map callback is not checked",
+      code: tsx`[1, 2, 3].map(x => { function render() { return <Inner />; } return <Outer key="o" />; });`,
+    },
+    {
+      name: "JSX returned from IIFE in map callback is not checked",
+      // The callback's return argument is a CallExpression with nothing to
+      // check; the nested arrow's returns belong to a different function
+      code: tsx`[1, 2, 3].map(x => { return (() => <Inner />)(); });`,
     },
   ],
 });

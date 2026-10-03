@@ -18,9 +18,9 @@ describe("getNestedCallExpressions", () => {
     expect(getCallTexts(code, getFirstExpression(code))).toEqual(["foo()"]);
   });
 
-  it("should visit the callee after the arguments", () => {
+  it("should visit the callee before the arguments", () => {
     const code = "(foo())(bar());";
-    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["(foo())(bar())", "bar()", "foo()"]);
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["(foo())(bar())", "foo()", "bar()"]);
   });
 
   it("should visit nested calls inside-out per argument", () => {
@@ -161,6 +161,73 @@ describe("getNestedCallExpressions", () => {
     });
     expect(getCallTexts(code, node)).toEqual(["foo()"]);
   });
+
+  it("should collect deep mixed nesting outside-in, then inside-out per argument", () => {
+    const code = "foo(bar(baz(new Qux(quux()))));";
+    const node = getFirstExpression(code);
+    expect(getCallTexts(code, node)).toEqual([
+      "foo(bar(baz(new Qux(quux()))))",
+      "bar(baz(new Qux(quux())))",
+      "baz(new Qux(quux()))",
+      "quux()",
+    ]);
+    expect(getNewTexts(code, node)).toEqual(["new Qux(quux())"]);
+  });
+
+  it("should skip computed property keys but visit their values", () => {
+    const code = "({ [k()]: v() });";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["v()"]);
+  });
+
+  it("should visit the callee before the arguments in mixed computed member chains", () => {
+    const code = "a.b[c()].d(e());";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["a.b[c()].d(e())", "c()", "e()"]);
+  });
+
+  it("should visit sequence expressions in order", () => {
+    const code = "(a(), b(), c());";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["a()", "b()", "c()"]);
+  });
+
+  it("should visit logical, conditional, and nullish chains in evaluation order", () => {
+    const code = "(a && (b ? c() : d())) ?? e();";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["c()", "d()", "e()"]);
+  });
+
+  it("should unwrap nested TS as and non-null wrappers", () => {
+    const code = "((f() as A)! as B);";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["f()"]);
+  });
+
+  it("should visit a call with an instantiation expression callee inside a new callee", () => {
+    const code = "new (Foo<T>())();";
+    const node = getFirstExpression(code);
+    expect(getCallTexts(code, node)).toEqual(["Foo<T>()"]);
+    expect(getNewTexts(code, node)).toEqual(["new (Foo<T>())()"]);
+  });
+
+  it("should visit array elements, skipping holes and unwrapping spreads", () => {
+    const code = "[a(), , ...b()];";
+    expect(getCallTexts(code, getFirstExpression(code))).toEqual(["a()", "b()"]);
+  });
+
+  it("should collect calls in deeply nested alternating structures in traversal order", () => {
+    const code = "m.n(new A(`${o[p(new B())](s(t(q())))}`), r());";
+    const node = getFirstExpression(code);
+    expect(getCallTexts(code, node)).toEqual([
+      "m.n(new A(`${o[p(new B())](s(t(q())))}`), r())",
+      "o[p(new B())](s(t(q())))",
+      "p(new B())",
+      "s(t(q()))",
+      "t(q())",
+      "q()",
+      "r()",
+    ]);
+    expect(getNewTexts(code, node)).toEqual([
+      "new A(`${o[p(new B())](s(t(q())))}`)",
+      "new B()",
+    ]);
+  });
 });
 
 describe("getNestedNewExpressions", () => {
@@ -182,5 +249,22 @@ describe("getNestedNewExpressions", () => {
   it("should not collect call expressions", () => {
     const code = "foo();";
     expect(getNewTexts(code, getFirstExpression(code))).toEqual([]);
+  });
+
+  it("should collect nested new expressions but not calls inside their arguments", () => {
+    const code = "new A(new B(f()));";
+    const node = getFirstExpression(code);
+    expect(getNewTexts(code, node)).toEqual(["new A(new B(f()))", "new B(f())"]);
+    expect(getCallTexts(code, node)).toEqual(["f()"]);
+  });
+
+  it("should collect a new expression without parentheses", () => {
+    const code = "new Foo;";
+    expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new Foo"]);
+  });
+
+  it("should skip computed property keys but visit their values", () => {
+    const code = "({ [new K()]: new V() });";
+    expect(getNewTexts(code, getFirstExpression(code))).toEqual(["new V()"]);
   });
 });

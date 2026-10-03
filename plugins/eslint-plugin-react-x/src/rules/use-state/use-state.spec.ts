@@ -453,6 +453,95 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       errors: [{ messageId: "invalid-setter-name" }],
     },
+    // --- Lazy initialization: complex nested structures ---
+    // Error order below follows source position (ESLint sorts messages by line/column),
+    // not the rule's internal news-then-calls loop order.
+    {
+      name: "call and new expression in different conditional branches are both reported",
+      code: `import { useState } from "react"; useState(cond ? compute() : new Foo())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+        { type: AST.NewExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "nested calls are reported at both levels, outer call first by position",
+      code: `import { useState } from "react"; useState(outer(inner()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 44 },
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 50 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "allow-listed wrapper does not exempt calls nested inside it",
+      code: `import { useState } from "react"; useState(String(compute()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 51 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "calls in a mixed computed member chain are reported in source order",
+      code: `import { useState } from "react"; useState(a.b[getKey()].d(e()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 48 },
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 60 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "computed property keys are not visited but property values are",
+      code: `import { useState } from "react"; useState({ [getKey()]: getValue() })`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 58 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call inside a template literal in useState initial value",
+      code: 'import { useState } from "react"; useState(`hello ${greet()}`)',
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "calls inside a sequence expression are all reported",
+      code: `import { useState } from "react"; useState((a(), b()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 45 },
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 50 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call on the right of a nullish chain in useState initial value",
+      code: `import { useState } from "react"; useState(x ?? fallback())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call with a member expression callee is skipped, but calls in its arguments are reported",
+      // list.map(...) is collected by getNestedCallExpressions but skipped by the rule
+      // because its callee is a MemberExpression (no "name"); the inner fn() is reported.
+      code: `import { useState } from "react"; useState(list.map(fn()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 53 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call outside use() is reported even when a sibling operand is inside use()",
+      code: `import { useState } from "react"; useState(use(promise) ?? compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 60 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
   ],
   valid: [
     // --- Assignment / setter naming ---
@@ -665,6 +754,16 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       options: [{ enforceSetterName: false }],
     },
+    // --- Lazy initialization: complex nested structures (valid) ---
+    // A call with a member expression callee is collected by getNestedCallExpressions but
+    // skipped by the rule because its callee has no "name" property.
+    "const [mapped, setMapped] = useState(items.map(transform));",
+    // Same, and function bodies are never descended into, so transform(x) is not visited.
+    "const [doubled, setDoubled] = useState([1, 2].map((x) => transform(x)));",
+    // Everything nested inside a `use()` call is exempt, including new expressions.
+    "const [foo, setFoo] = useState(use(new Foo()));",
+    // Computed property keys are never visited, so getKey() does not report.
+    "const [state, setState] = useState({ [getKey()]: value });",
   ],
 });
 
