@@ -16,6 +16,7 @@ export const GLOB_TESTS = [
 ];
 export const GLOB_CONFIGS = ["**/*.config.{ts,tsx,cts,mts}"];
 export const GLOB_SCRIPTS = ["scripts/**/*.{ts,cts,mts}"];
+export const GLOB_PUBLISHABLE = ["packages/*/src/**/*.ts", "plugins/*/src/**/*.ts"];
 export const GLOB_IGNORES = [
     "**/node_modules",
     "**/dist",

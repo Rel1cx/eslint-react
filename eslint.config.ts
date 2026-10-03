@@ -1,5 +1,6 @@
 import {
   GLOB_CONFIGS,
+  GLOB_PUBLISHABLE,
   GLOB_SCRIPTS,
   GLOB_TESTS,
   GLOB_TS,
@@ -57,7 +58,7 @@ export default defineConfig(
     },
   },
   {
-    files: ["packages/*/src/**/*.ts", "plugins/*/src/**/*.ts"],
+    files: GLOB_PUBLISHABLE,
     rules: {
       "@typescript-eslint/no-restricted-imports": ["error", {
         patterns: [
