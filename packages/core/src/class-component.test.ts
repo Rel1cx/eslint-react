@@ -1,6 +1,5 @@
-import { parseCode } from "@local/testkit";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+import { getFirstNodeOfType } from "@local/testkit";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -37,16 +36,8 @@ describe("isClassComponent", () => {
     ["class A {}", false],
     ["class A extends SomethingElse {}", false],
   ])("isClassComponent(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ClassDeclaration) {
-          expect(isClassComponent(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(code, AST.ClassDeclaration);
+    expect(isClassComponent(node)).toBe(expected);
   });
 });
 
@@ -58,16 +49,8 @@ describe("isPureComponent", () => {
     ["class A extends React.Component {}", false],
     ["class A {}", false],
   ])("isPureComponent(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ClassDeclaration) {
-          expect(isPureComponent(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ClassDeclaration>(code, AST.ClassDeclaration);
+    expect(isPureComponent(node)).toBe(expected);
   });
 });
 
@@ -90,16 +73,8 @@ describe("lifecycle method checkers", () => {
     ["UNSAFE_componentWillUpdate", isUnsafeComponentWillUpdate],
   ])("should detect %s method", (methodName, checker) => {
     const code = `class A { ${methodName}() {} }`;
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.MethodDefinition) {
-          expect(checker(node)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
+    expect(checker(node)).toBe(true);
   });
 
   it.each([
@@ -108,31 +83,15 @@ describe("lifecycle method checkers", () => {
     ["getDerivedStateFromError", isGetDerivedStateFromError, true],
   ])("should detect static %s method", (methodName, checker, _expected) => {
     const code = `class A { static ${methodName}() {} }`;
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.MethodDefinition) {
-          expect(checker(node)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
+    expect(checker(node)).toBe(true);
   });
 
   it("should not match non-lifecycle methods", () => {
     const code = "class A { customMethod() {} }";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.MethodDefinition) {
-          expect(isRender(node)).toBe(false);
-          expect(isComponentDidMount(node)).toBe(false);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
+    expect(isRender(node)).toBe(false);
+    expect(isComponentDidMount(node)).toBe(false);
   });
 });
 
@@ -142,82 +101,44 @@ describe("isRenderMethodLike", () => {
     ["class A { renderHeader() {} }", true],
     ["class A { custom() {} }", false],
   ])("isRenderMethodLike(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.MethodDefinition) {
-          expect(isRenderMethodLike(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.MethodDefinition>(code, AST.MethodDefinition);
+    expect(isRenderMethodLike(node)).toBe(expected);
   });
 });
 
 describe("isThisSetStateCall", () => {
   it("should return true for this.setState()", () => {
     const code = "this.setState({})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    const result = isThisSetStateCall(node);
     expect(result).toBe(true);
   });
 
   it("should return true when callee is wrapped in TSAsExpression", () => {
     const code = "(this.setState as any)({})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    const result = isThisSetStateCall(node);
     expect(result).toBe(true);
   });
 
   it("should return true when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "(this.setState satisfies typeof this.setState)({})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    const result = isThisSetStateCall(node);
     expect(result).toBe(true);
   });
 
   it("should return false for unrelated calls", () => {
     const code = "this.forceUpdate()";
-    let result = true;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    const result = isThisSetStateCall(node);
     expect(result).toBe(false);
   });
 
   it("should return true when this is wrapped in TSAsExpression", () => {
     const code = "(this as any).setState({})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          result = isThisSetStateCall(node);
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    const result = isThisSetStateCall(node);
     expect(result).toBe(true);
   });
 });

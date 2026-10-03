@@ -1,4 +1,4 @@
-import { getFirstNodeOfType } from "@local/testkit";
+import { getFirstNodeOfType, getTextOf } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -14,10 +14,6 @@ function getFirstObjectExpression(code: string): TSESTree.ObjectExpression {
 
 function getFirstProperty(code: string): TSESTree.Property {
   return getFirstNodeOfType<TSESTree.Property>(code, AST.Property);
-}
-
-function makeGetText(code: string): (node: TSESTree.Node) => string {
-  return (node) => code.slice(node.range[0], node.range[1]);
 }
 
 describe("unwrap", () => {
@@ -135,55 +131,55 @@ describe("getFullyQualifiedName", () => {
   it("should return an identifier name", () => {
     const code = "foo;";
     const node = getFirstNodeOfType<TSESTree.Identifier>(code, AST.Identifier);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("foo");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo");
   });
 
   it("should return a member expression name", () => {
     const code = "foo.bar.baz;";
     const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("foo.bar.baz");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar.baz");
   });
 
   it("should unwrap type expressions", () => {
     const code = "foo.bar as unknown;";
     const node = getFirstNodeOfType<TSESTree.TSAsExpression>(code, AST.TSAsExpression);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("foo.bar");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo.bar");
   });
 
   it("should use source text for computed member expressions", () => {
     const code = 'foo["bar"];';
     const node = getFirstNodeOfType<TSESTree.MemberExpression>(code, AST.MemberExpression);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe('foo["bar"]');
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('foo["bar"]');
   });
 
   it("should return a JSX member expression name", () => {
     const code = "<Foo.Bar />;";
     const node = getFirstNodeOfType<TSESTree.JSXMemberExpression>(code, AST.JSXMemberExpression);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("Foo.Bar");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("Foo.Bar");
   });
 
   it("should return a JSX namespaced name", () => {
     const code = "<svg:path />;";
     const node = getFirstNodeOfType<TSESTree.JSXNamespacedName>(code, AST.JSXNamespacedName);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("svg:path");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("svg:path");
   });
 
   it("should return JSX text", () => {
     const code = "<div>content</div>;";
     const node = getFirstNodeOfType<TSESTree.JSXText>(code, AST.JSXText);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("content");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("content");
   });
 
   it("should return the raw literal text", () => {
     const code = '"foo";';
     const node = getFirstNodeOfType<TSESTree.Literal>(code, AST.Literal);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe('"foo"');
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe('"foo"');
   });
 
   it("should use source text for other node types", () => {
     const code = "foo();";
     const node = getFirstCallExpression(code);
-    expect(getFullyQualifiedName(node, makeGetText(code))).toBe("foo()");
+    expect(getFullyQualifiedName(node, (n) => getTextOf(code, n))).toBe("foo()");
   });
 });
 
@@ -299,7 +295,7 @@ describe("getMemberChain", () => {
 describe("getAssignmentTargets", () => {
   function getTargets(code: string): string[] {
     const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(code, AST.AssignmentExpression);
-    return getAssignmentTargets(node.left).map((target) => code.slice(target.range[0], target.range[1]));
+    return getAssignmentTargets(node.left).map((target) => getTextOf(code, target));
   }
 
   it("should return a bare identifier target", () => {

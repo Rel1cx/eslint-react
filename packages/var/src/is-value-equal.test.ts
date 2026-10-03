@@ -1,47 +1,16 @@
-import { Check } from "@eslint-react/ast";
-import { runInRule } from "@local/testkit";
+import { collectNodes, findIdentifierReferences, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { isValueEqual } from "./is-value-equal";
 import { resolve } from "./resolve";
-
-// Helper: find all nodes of a given type
-function findAll<T extends TSESTree.Node>(root: TSESTree.Node, type: AST): T[] {
-  const result: T[] = [];
-  simpleTraverse(root, {
-    enter(node) {
-      if (node.type === type) result.push(node as T);
-    },
-  }, true);
-  return result;
-}
-
-// Find identifier references (not declarations) by name
-function findIdentifierRefs(root: TSESTree.Node, name: string): TSESTree.Identifier[] {
-  const result: TSESTree.Identifier[] = [];
-  simpleTraverse(root, {
-    enter(node) {
-      if (Check.isIdentifier(node, name)) {
-        const parent = node.parent;
-        if (parent.type === AST.VariableDeclarator && parent.id === node) return;
-        if (parent.type === AST.FunctionDeclaration && parent.id === node) return;
-        if (parent.type === AST.ClassDeclaration && parent.id === node) return;
-        if (parent.type === AST.Property && parent.key === node && !parent.computed) return;
-        result.push(node);
-      }
-    },
-  }, true);
-  return result;
-}
 
 describe("isValueEqual", () => {
   describe("basic functionality", () => {
     it("should return true for the same node reference", () => {
       const code = "const x = 1;";
       const fact = runInRule(code, (context, ast) => {
-        const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         expect(literals.length).toBeGreaterThanOrEqual(1);
         const node = literals[0]!;
         return isValueEqual(context, node, node);
@@ -52,7 +21,7 @@ describe("isValueEqual", () => {
     it("should return true for literals with the same value", () => {
       const code = "const a = 42; const b = 42;";
       const fact = runInRule(code, (context, ast) => {
-        const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         expect(literals).toHaveLength(2);
         return isValueEqual(context, literals[0]!, literals[1]!);
       });
@@ -62,7 +31,7 @@ describe("isValueEqual", () => {
     it("should return false for literals with different values", () => {
       const code = "const a = 42; const b = 99;";
       const fact = runInRule(code, (context, ast) => {
-        const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         expect(literals).toHaveLength(2);
         return isValueEqual(context, literals[0]!, literals[1]!);
       });
@@ -72,7 +41,7 @@ describe("isValueEqual", () => {
     it("should return true for identifier references to the same variable", () => {
       const code = "const x = 1; foo(x); bar(x);";
       const fact = runInRule(code, (context, ast) => {
-        const refs = findIdentifierRefs(ast, "x");
+        const refs = findIdentifierReferences(ast, "x");
         expect(refs.length).toBeGreaterThanOrEqual(2);
         return isValueEqual(context, refs[0]!, refs[1]!);
       });
@@ -82,8 +51,8 @@ describe("isValueEqual", () => {
     it("should return false for identifier references to different variables", () => {
       const code = "const x = 1; const y = 2; foo(x); bar(y);";
       const fact = runInRule(code, (context, ast) => {
-        const xRefs = findIdentifierRefs(ast, "x");
-        const yRefs = findIdentifierRefs(ast, "y");
+        const xRefs = findIdentifierReferences(ast, "x");
+        const yRefs = findIdentifierReferences(ast, "y");
         expect(xRefs.length).toBeGreaterThanOrEqual(1);
         expect(yRefs.length).toBeGreaterThanOrEqual(1);
         return isValueEqual(context, xRefs[0]!, yRefs[0]!);
@@ -94,7 +63,7 @@ describe("isValueEqual", () => {
     it("should return true for simple MemberExpression equality", () => {
       const code = "const obj = {}; foo(obj.a); bar(obj.a);";
       const fact = runInRule(code, (context, ast) => {
-        const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
+        const members = collectNodes<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(members).toHaveLength(2);
         return isValueEqual(context, members[0]!, members[1]!);
       });
@@ -112,8 +81,8 @@ describe("isValueEqual", () => {
         "xs.forEach((b) => bar(b));",
       ].join("\n");
       const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierRefs(ast, "a");
-        const bRefs = findIdentifierRefs(ast, "b");
+        const aRefs = findIdentifierReferences(ast, "a");
+        const bRefs = findIdentifierReferences(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
         const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(aRef).toBeDefined();
@@ -129,8 +98,8 @@ describe("isValueEqual", () => {
         "xs.map((b) => bar(b));",
       ].join("\n");
       const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierRefs(ast, "a");
-        const bRefs = findIdentifierRefs(ast, "b");
+        const aRefs = findIdentifierReferences(ast, "a");
+        const bRefs = findIdentifierReferences(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
         const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(aRef).toBeDefined();
@@ -143,8 +112,8 @@ describe("isValueEqual", () => {
     it("should return false for different-position parameters of the same callback", () => {
       const code = "xs.forEach((a, b) => { foo(a); bar(b); });";
       const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierRefs(ast, "a");
-        const bRefs = findIdentifierRefs(ast, "b");
+        const aRefs = findIdentifierReferences(ast, "a");
+        const bRefs = findIdentifierReferences(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
         const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(aRef).toBeDefined();
@@ -160,8 +129,8 @@ describe("isValueEqual", () => {
         "function h(b) { bar(b); }",
       ].join("\n");
       const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierRefs(ast, "a");
-        const bRefs = findIdentifierRefs(ast, "b");
+        const aRefs = findIdentifierReferences(ast, "a");
+        const bRefs = findIdentifierReferences(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
         const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(aRef).toBeDefined();
@@ -187,7 +156,7 @@ describe("isValueEqual", () => {
       ].join("\n");
 
       const fact = runInRule(code, (context, ast) => {
-        const members = findAll<TSESTree.MemberExpression>(ast, AST.MemberExpression);
+        const members = collectNodes<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(members).toHaveLength(2);
         return isValueEqual(context, members[0]!, members[1]!);
       });
@@ -211,8 +180,8 @@ describe("isValueEqual", () => {
       ].join("\n");
 
       const fact = runInRule(code, (context, ast) => {
-        const aRefs = findIdentifierRefs(ast, "a");
-        const bRefs = findIdentifierRefs(ast, "b");
+        const aRefs = findIdentifierReferences(ast, "a");
+        const bRefs = findIdentifierReferences(ast, "b");
         const aRef = aRefs.find((r) => r.parent.type === AST.CallExpression);
         const bRef = bRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(aRef).toBeDefined();
@@ -241,8 +210,8 @@ describe("isValueEqual", () => {
       ].join("\n");
 
       const fact = runInRule(code, (context, ast) => {
-        const eventRefs = findIdentifierRefs(ast, "event");
-        const evtRefs = findIdentifierRefs(ast, "evt");
+        const eventRefs = findIdentifierReferences(ast, "event");
+        const evtRefs = findIdentifierReferences(ast, "evt");
         const eventRef = eventRefs.find((r) => r.parent.type === AST.CallExpression);
         const evtRef = evtRefs.find((r) => r.parent.type === AST.CallExpression);
         expect(eventRef).toBeDefined();
@@ -260,7 +229,7 @@ describe("isValueEqual", () => {
       const code = "var x = 1; var x = []; foo(x);";
 
       const fact = runInRule(code, (context, ast) => {
-        const xRefs = findIdentifierRefs(ast, "x");
+        const xRefs = findIdentifierReferences(ast, "x");
         // Get the last reference (the one in foo(x))
         const ref = xRefs[xRefs.length - 1]!;
         expect(ref).toBeDefined();

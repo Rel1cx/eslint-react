@@ -1,8 +1,7 @@
 /// <reference types="node" />
 
-import { getFirstNodeOfType, getFixturesRootDir } from "@local/testkit";
+import { fixturePath, getFirstNodeOfType } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -277,7 +276,7 @@ describe("TypeScript type guards", () => {
 
   it("isTypeExpression should return true for a TSTypeAssertion", () => {
     const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
-      filePath: path.join(getFixturesRootDir(), "estree.ts"),
+      filePath: fixturePath("estree.ts"),
       jsx: false,
     });
     expect(isTypeExpression(node)).toBe(true);
@@ -305,7 +304,7 @@ describe("TypeScript type guards", () => {
 
   it("isTypeAssertionExpression should return true for a TSTypeAssertion", () => {
     const node = getFirstNodeOfType<TSESTree.TSTypeAssertion>("const a = <number>1;", AST.TSTypeAssertion, {
-      filePath: path.join(getFixturesRootDir(), "estree.ts"),
+      filePath: fixturePath("estree.ts"),
       jsx: false,
     });
     expect(isTypeAssertionExpression(node)).toBe(true);

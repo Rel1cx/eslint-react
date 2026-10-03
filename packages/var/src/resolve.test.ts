@@ -1,43 +1,8 @@
-import { Check } from "@eslint-react/ast";
-import { runInRule } from "@local/testkit";
+import { findIdentifierReferences, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { resolve } from "./resolve";
-
-/**
- * Find all Identifier nodes with the given name that are references (not declarations).
- * A reference is an Identifier whose parent is not a VariableDeclarator with `id === node`,
- * not a FunctionDeclaration with `id === node`, not a ClassDeclaration with `id === node`,
- * not an ImportSpecifier, and not a function parameter.
- */
-function findIdentifierReferences(ast: TSESTree.Program, name: string): TSESTree.Identifier[] {
-  const refs: TSESTree.Identifier[] = [];
-  simpleTraverse(ast, {
-    enter(node, parent) {
-      if (!Check.isIdentifier(node, name)) return;
-      if (parent == null) return;
-      // Skip declaration sites
-      if (parent.type === AST.VariableDeclarator && parent.id === node) return;
-      if (parent.type === AST.FunctionDeclaration && parent.id === node) return;
-      if (parent.type === AST.ClassDeclaration && parent.id === node) return;
-      if (parent.type === AST.ImportSpecifier) return;
-      if (parent.type === AST.ImportDefaultSpecifier) return;
-      if (parent.type === AST.TSEnumDeclaration && parent.id === node) return;
-      if (parent.type === AST.TSEnumMember && parent.id === node) return;
-      if (parent.type === AST.TSModuleDeclaration && parent.id === node) return;
-      if (parent.type === AST.TSTypeAliasDeclaration && parent.id === node) return;
-      // dprint-ignore
-      // Skip function parameters (Identifier directly inside a function params array)
-      if ((parent.type === AST.FunctionDeclaration || parent.type === AST.FunctionExpression || parent.type === AST.ArrowFunctionExpression) && parent.params.some((p) => p === node)) {
-        return;
-      }
-      refs.push(node);
-    },
-  }, true);
-  return refs;
-}
 
 describe("resolve", () => {
   it("should resolve a variable definition to its initializer", () => {
@@ -204,15 +169,7 @@ describe("resolve", () => {
     const code = "const outer = 99; function inner() { outer; }";
     const facts = runInRule(code, (context, ast) => {
       // Find the `outer` reference inside the function body
-      const identifiers: TSESTree.Identifier[] = [];
-      simpleTraverse(ast, {
-        enter(node, parent) {
-          if (!Check.isIdentifier(node, "outer")) return;
-          if (parent == null) return;
-          if (parent.type === AST.VariableDeclarator && parent.id === node) return;
-          identifiers.push(node);
-        },
-      }, true);
+      const identifiers = findIdentifierReferences(ast, "outer");
       expect(identifiers.length).toBeGreaterThanOrEqual(1);
       // The reference inside the function body
       const ref = identifiers[identifiers.length - 1]!;

@@ -7,7 +7,7 @@ import { getAttributeStaticValue, getAttributeValue, resolveAttributeValue } fro
 
 function parseJsxElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
   const { context, node } = getNodeInRule<TSESTree.JSXElement>(code, "JSXElement");
-  return { context: context as never, element: node };
+  return { context, element: node };
 }
 
 function getAttribute(element: TSESTree.JSXElement, index = 0) {

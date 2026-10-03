@@ -4,7 +4,6 @@
 
 ```ts
 function getMemberChain(node: PrivateIdentifier | Expression): (
-  | Program
   | AccessorProperty
   | ArrayExpression
   | ArrayPattern
@@ -70,6 +69,7 @@ function getMemberChain(node: PrivateIdentifier | Expression): (
   | ObjectExpression
   | ObjectPattern
   | PrivateIdentifier
+  | Program
   | Property
   | PropertyDefinition
   | RestElement
@@ -182,7 +182,6 @@ Type expressions and chain expressions are unwrapped along the way.
 ## Returns
 
 (
-\| `Program`
 \| `AccessorProperty`
 \| `ArrayExpression`
 \| `ArrayPattern`
@@ -248,6 +247,7 @@ Type expressions and chain expressions are unwrapped along the way.
 \| `ObjectExpression`
 \| `ObjectPattern`
 \| `PrivateIdentifier`
+\| `Program`
 \| `Property`
 \| `PropertyDefinition`
 \| `RestElement`

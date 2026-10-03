@@ -1,6 +1,5 @@
 import { Check } from "@eslint-react/ast";
-import type { RuleContext } from "@eslint-react/eslint";
-import { parseCode } from "@local/testkit";
+import { createMockContext, getFirstNodeOfType, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
@@ -19,20 +18,6 @@ import {
   isFunctionComponentWrapperCallback,
   isFunctionWithLooseComponentName,
 } from "./function-component";
-
-function createMockContext(): RuleContext {
-  return {
-    sourceCode: {
-      getText: (node: TSESTree.Node) => {
-        if (Check.isIdentifier(node)) {
-          return node.name;
-        }
-        return "";
-      },
-      getScope: () => ({}),
-    },
-  } as unknown as RuleContext;
-}
 
 describe("isFunctionComponentName", () => {
   it.each([
@@ -63,56 +48,32 @@ describe("isFunctionComponentNameLoose", () => {
 describe("getFunctionComponentFlagFromInitPath", () => {
   it("should detect memo flag", () => {
     const code = "const Component = memo(() => {})";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          expect(initPath).not.toBeNull();
-          const flag = getFunctionComponentFlagFromInitPath(initPath);
-          expect(flag & FunctionComponentFlag.Memo).not.toBe(0n);
-          expect(flag & FunctionComponentFlag.ForwardRef).toBe(0n);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    expect(initPath).not.toBeNull();
+    const flag = getFunctionComponentFlagFromInitPath(initPath);
+    expect(flag & FunctionComponentFlag.Memo).not.toBe(0n);
+    expect(flag & FunctionComponentFlag.ForwardRef).toBe(0n);
   });
 
   it("should detect forwardRef flag", () => {
     const code = "const Component = forwardRef(() => {})";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          expect(initPath).not.toBeNull();
-          const flag = getFunctionComponentFlagFromInitPath(initPath);
-          expect(flag & FunctionComponentFlag.ForwardRef).not.toBe(0n);
-          expect(flag & FunctionComponentFlag.Memo).toBe(0n);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    expect(initPath).not.toBeNull();
+    const flag = getFunctionComponentFlagFromInitPath(initPath);
+    expect(flag & FunctionComponentFlag.ForwardRef).not.toBe(0n);
+    expect(flag & FunctionComponentFlag.Memo).toBe(0n);
   });
 
   it("should detect both memo and forwardRef flags", () => {
     const code = "const Component = memo(forwardRef(() => {}))";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          expect(initPath).not.toBeNull();
-          const flag = getFunctionComponentFlagFromInitPath(initPath);
-          expect(flag & FunctionComponentFlag.Memo).not.toBe(0n);
-          expect(flag & FunctionComponentFlag.ForwardRef).not.toBe(0n);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    expect(initPath).not.toBeNull();
+    const flag = getFunctionComponentFlagFromInitPath(initPath);
+    expect(flag & FunctionComponentFlag.Memo).not.toBe(0n);
+    expect(flag & FunctionComponentFlag.ForwardRef).not.toBe(0n);
   });
 
   it("should return None for null initPath", () => {
@@ -130,16 +91,8 @@ describe("isFunctionComponentWrapperCall", () => {
     ["React.forwardRef(() => {})", true],
     ["custom(() => {})", false],
   ])("isFunctionComponentWrapperCall(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isFunctionComponentWrapperCall(context, node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isFunctionComponentWrapperCall(context, node)).toBe(expected);
   });
 });
 
