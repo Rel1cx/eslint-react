@@ -20,9 +20,9 @@ export const INDEX_PARAM_POSITIONS = new Map<string, number>([
  */
 export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTree.ReturnStatement[] {
   const statements: TSESTree.ReturnStatement[] = [];
-  // If the node is not inside a function, boundaryNode will be null
+  // If the node is not inside a function, boundary will be null
   // and no return statements will be collected (as expected)
-  const boundaryNode = Check.isFunction(node)
+  const boundary = Check.isFunction(node)
     ? node
     : Traverse.findParent(node, Check.isFunction);
   simpleTraverse(node, {
@@ -30,7 +30,7 @@ export function getNestedReturnStatements(node: TSESTree.Node): readonly TSESTre
       if (node.type !== AST.ReturnStatement) {
         return;
       }
-      if (Traverse.findParent(node, Check.isFunction, (n) => n === boundaryNode) != null) {
+      if (Traverse.findParent(node, Check.isFunction, (n) => n === boundary) != null) {
         return;
       }
       statements.push(node);

@@ -1,6 +1,40 @@
 import { Check, Extract } from "@eslint-react/ast";
 import * as core from "@eslint-react/core";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
+import { simpleTraverse } from "@typescript-eslint/typescript-estree";
+
+const IDENTIFIER_VISITOR_KEYS = {
+  [AST.ArrayExpression]: ["elements"],
+  [AST.ArrayPattern]: ["elements"],
+  [AST.AssignmentExpression]: ["left", "right"],
+  [AST.AssignmentPattern]: ["left", "right"],
+  [AST.AwaitExpression]: ["argument"],
+  [AST.BinaryExpression]: ["left", "right"],
+  [AST.CallExpression]: ["arguments", "callee"],
+  [AST.ChainExpression]: ["expression"],
+  [AST.ConditionalExpression]: ["test", "consequent", "alternate"],
+  [AST.ForInStatement]: ["left", "right"],
+  [AST.ForOfStatement]: ["left", "right"],
+  [AST.ImportExpression]: ["source"],
+  [AST.LogicalExpression]: ["left", "right"],
+  [AST.MemberExpression]: ["object", "property"],
+  [AST.NewExpression]: ["arguments", "callee"],
+  [AST.ObjectExpression]: ["properties"],
+  [AST.ObjectPattern]: ["properties"],
+  [AST.Property]: ["value"],
+  [AST.SequenceExpression]: ["expressions"],
+  [AST.SpreadElement]: ["argument"],
+  [AST.TaggedTemplateExpression]: ["tag", "quasi"],
+  [AST.TemplateLiteral]: ["expressions"],
+  [AST.TSAsExpression]: ["expression"],
+  [AST.TSInstantiationExpression]: ["expression"],
+  [AST.TSNonNullExpression]: ["expression"],
+  [AST.TSSatisfiesExpression]: ["expression"],
+  [AST.TSTypeAssertion]: ["expression"],
+  [AST.UnaryExpression]: ["argument"],
+  [AST.UpdateExpression]: ["argument"],
+  [AST.YieldExpression]: ["argument"],
+} as const;
 
 /**
  * Get all nested identifiers in a expression like node
@@ -9,119 +43,15 @@ import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
  */
 export function getNestedIdentifiers(node: TSESTree.Node): readonly TSESTree.Identifier[] {
   const identifiers: TSESTree.Identifier[] = [];
-  // Base case: the node itself is an Identifier
-  if (Check.isIdentifier(node)) {
-    identifiers.push(node);
-  }
-  // CallExpression / NewExpression arguments: foo(a, b)
-  if ("arguments" in node) {
-    const chunk = node.arguments.flatMap(getNestedIdentifiers);
-    identifiers.push(...chunk);
-  }
-  // ArrayExpression / ArrayPattern elements: [a, b, c]
-  if ("elements" in node) {
-    const chunk = node.elements
-      .filter((x) => x != null)
-      .flatMap(getNestedIdentifiers);
-    identifiers.push(...chunk);
-  }
-  // ObjectExpression / ObjectPattern properties: { a, b, c }
-  if ("properties" in node) {
-    const chunk = node.properties.flatMap(getNestedIdentifiers);
-    identifiers.push(...chunk);
-  }
-  // SequenceExpression / TemplateLiteral expressions: (a, b) or `${a}${b}`
-  if ("expressions" in node) {
-    const chunk = node.expressions.flatMap(getNestedIdentifiers);
-    identifiers.push(...chunk);
-  }
-  // BinaryExpression / LogicalExpression / AssignmentExpression left operand
-  if ("left" in node) {
-    const chunk = getNestedIdentifiers(node.left);
-    identifiers.push(...chunk);
-  }
-  // BinaryExpression / LogicalExpression / AssignmentExpression right operand
-  if ("right" in node) {
-    const chunk = getNestedIdentifiers(node.right);
-    identifiers.push(...chunk);
-  }
-  // Property value: { key: value }
-  if (node.type === AST.Property) {
-    const chunk = getNestedIdentifiers(node.value);
-    identifiers.push(...chunk);
-  }
-  // SpreadElement argument: ...expr
-  if (node.type === AST.SpreadElement) {
-    const chunk = getNestedIdentifiers(node.argument);
-    identifiers.push(...chunk);
-  }
-  // MemberExpression: obj.prop or obj[expr]
-  if (node.type === AST.MemberExpression) {
-    identifiers.push(...getNestedIdentifiers(node.object));
-    if (node.computed) {
-      identifiers.push(...getNestedIdentifiers(node.property));
-    }
-  }
-  // UnaryExpression: !expr, typeof expr, void expr, etc.
-  if (node.type === AST.UnaryExpression) {
-    const chunk = getNestedIdentifiers(node.argument);
-    identifiers.push(...chunk);
-  }
-  // ChainExpression: obj?.prop
-  if (node.type === AST.ChainExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
-  // TSNonNullExpression: expr!
-  if (node.type === AST.TSNonNullExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
-  // TSAsExpression: expr as Type
-  if (node.type === AST.TSAsExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
-  // TSSatisfiesExpression: expr satisfies Type
-  if (node.type === AST.TSSatisfiesExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
-  // ConditionalExpression: a ? b : c
-  if (node.type === AST.ConditionalExpression) {
-    identifiers.push(...getNestedIdentifiers(node.test));
-    identifiers.push(...getNestedIdentifiers(node.consequent));
-    identifiers.push(...getNestedIdentifiers(node.alternate));
-  }
-  // AwaitExpression: await expr
-  if (node.type === AST.AwaitExpression) {
-    identifiers.push(...getNestedIdentifiers(node.argument));
-  }
-  // YieldExpression: yield expr
-  if (node.type === AST.YieldExpression && node.argument != null) {
-    identifiers.push(...getNestedIdentifiers(node.argument));
-  }
-  // UpdateExpression: ++x, x--
-  if (node.type === AST.UpdateExpression) {
-    identifiers.push(...getNestedIdentifiers(node.argument));
-  }
-  // CallExpression / NewExpression: callee(args) / new callee(args)
-  if (node.type === AST.CallExpression || node.type === AST.NewExpression) {
-    identifiers.push(...getNestedIdentifiers(node.callee));
-  }
-  // TaggedTemplateExpression: tag`...${expr}...`
-  if (node.type === AST.TaggedTemplateExpression) {
-    identifiers.push(...getNestedIdentifiers(node.tag));
-    identifiers.push(...getNestedIdentifiers(node.quasi));
-  }
-  // ImportExpression: import(source)
-  if (node.type === AST.ImportExpression) {
-    identifiers.push(...getNestedIdentifiers(node.source));
-  }
-  // TSTypeAssertion: <Type>expr
-  if (node.type === AST.TSTypeAssertion) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
-  // TSInstantiationExpression: expr<T>
-  if (node.type === AST.TSInstantiationExpression) {
-    identifiers.push(...getNestedIdentifiers(node.expression));
-  }
+  simpleTraverse(node, {
+    enter(node, parent) {
+      if (node.type !== AST.Identifier) return;
+      // Skip the property of a non-computed member access: `obj.prop` reads `obj`, not `prop`
+      if (parent?.type === AST.MemberExpression && !parent.computed && parent.property === node) return;
+      identifiers.push(node);
+    },
+    visitorKeys: IDENTIFIER_VISITOR_KEYS,
+  });
   return identifiers;
 }
 
