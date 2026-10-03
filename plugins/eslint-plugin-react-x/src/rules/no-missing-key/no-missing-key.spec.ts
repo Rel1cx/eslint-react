@@ -346,6 +346,41 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`[1, 2, 3].map(x => { if (a) return <></>; return <B key="b" />; });`,
       errors: [{ messageId: "unexpected-fragment-syntax" }],
     },
+    {
+      name: "missing key in do-while return in map callback",
+      code: tsx`[1, 2, 3].map(x => { do { return <A />; } while (c); });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key in for-of return in map callback",
+      code: tsx`[1, 2, 3].map(x => { for (const y of x) { return <A />; } });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key in labeled block return in map callback",
+      code: tsx`[1, 2, 3].map(x => { label: { return <A />; } });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key in async map callback block body",
+      code: tsx`[1, 2, 3].map(async x => { if (a) return <A />; return <B key="b" />; });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key reported once for nested map inside map callback block body",
+      code: tsx`[1, 2].map(x => { return [3, 4].map(y => <A />); });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing key reported once per element for array literal return in map callback",
+      code: tsx`[1, 2].map(x => { return [<A />, <B key="b" />]; });`,
+      errors: [{ messageId: "default" }],
+    },
+    {
+      name: "missing keys across conditional branches returning array literal and element",
+      code: tsx`[1, 2].map(x => { return a ? [<A />] : <B />; });`,
+      errors: [{ messageId: "default" }, { messageId: "default" }],
+    },
     // TODO: Fix this test case
     // {
     //   code: tsx`
@@ -767,6 +802,18 @@ ruleTester.run(RULE_NAME, rule, {
       // The callback's return argument is a CallExpression with nothing to
       // check; the nested arrow's returns belong to a different function
       code: tsx`[1, 2, 3].map(x => { return (() => <Inner />)(); });`,
+    },
+    {
+      name: "keyed returns in do-while and for-of in map callback",
+      code: tsx`[1, 2, 3].map(x => { do { return <A key="a" />; } while (c); });`,
+    },
+    {
+      name: "keyed returns in async map callback block body",
+      code: tsx`[1, 2, 3].map(async x => { if (a) return <A key="a" />; return <B key="b" />; });`,
+    },
+    {
+      name: "keyed items in nested map inside map callback block body",
+      code: tsx`[1, 2].map(x => { return [3, 4].map(y => <A key={y} />); });`,
     },
   ],
 });

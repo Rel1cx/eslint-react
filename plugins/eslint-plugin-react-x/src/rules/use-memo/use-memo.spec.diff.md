@@ -10,7 +10,10 @@
 - **React package**: `compiler/packages/babel-plugin-react-compiler`
 - **Implementation sources/tests**:
   - `use-memo.ts`
-  - `lib.ts`
+  - `collect.ts`
+  - `origins.ts`
+  - `effects.ts`
+  - `helpers.ts`
   - `use-memo.spec.ts`
 - **React sources/fixtures**:
   - `src/Validation/ValidateUseMemo.ts`

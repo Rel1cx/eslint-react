@@ -135,6 +135,46 @@ ruleTester.run(RULE_NAME, rule, {
         }],
       }],
     },
+    // Null sandbox value (not a static string)
+    {
+      code: tsx`
+        function App() {
+          return <iframe sandbox={null} />;
+        }
+      `,
+      errors: [{
+        messageId: "missing-sandbox-attribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "add-sandbox-attribute",
+          output: tsx`
+            function App() {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
+    // Template literal with a substitution is not a static string
+    {
+      code: tsx`
+        function App({ kind }) {
+          return <iframe sandbox={\`allow-\${kind}\`} />;
+        }
+      `,
+      errors: [{
+        messageId: "missing-sandbox-attribute",
+        suggestions: [{
+          data: { value: "" },
+          messageId: "add-sandbox-attribute",
+          output: tsx`
+            function App({ kind }) {
+              return <iframe sandbox="" />;
+            }
+          `,
+        }],
+      }],
+    },
     // Member expression component with a polymorphic prop (ex: motion.div)
     {
       code: tsx`<motion.div as="iframe" />;`,
@@ -155,6 +195,12 @@ ruleTester.run(RULE_NAME, rule, {
   valid: [
     '<iframe sandbox="" />;',
     '<iframe sandbox="allow-downloads" />;',
+    // Static string in an expression container counts as a static string
+    '<iframe sandbox={"allow-downloads"} />;',
+    // Statically evaluable string expression counts as a static string
+    '<iframe sandbox={"allow-downloads" + " allow-scripts"} />;',
+    // No-substitution template literal resolves to a static string
+    "<iframe sandbox={`allow-downloads`} />;",
     '<iframe sandbox="allow-downloads allow-scripts" />;',
     '<iframe sandbox="allow-downloads allow-scripts allow-forms" />;',
     "<a />;",

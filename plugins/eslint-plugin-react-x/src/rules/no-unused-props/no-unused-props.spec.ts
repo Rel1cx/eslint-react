@@ -100,6 +100,53 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       }],
     },
     {
+      // computed member access with a string literal key counts as usage of that prop only
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          return <div>{props["abc"]}</div>;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }],
+    },
+    {
+      // destructuring with a string literal key counts as usage of that prop only
+      code: tsx`
+        interface Props {
+          abc: string;
+          hello: string;
+        }
+
+        function Component(props: Props) {
+          const { "abc": abc } = props;
+          return <div>{abc}</div>;
+        }
+      `,
+      errors: [{
+        column: 3,
+        data: {
+          name: "hello",
+        },
+        endColumn: 8,
+        endLine: 3,
+        line: 3,
+        messageId: "default",
+      }],
+    },
+    {
       // inline type and direct destructuring
       code: tsx`
         function Component({ abc }: { abc: string; hello: string; }) {
@@ -919,6 +966,19 @@ ruleTesterWithTypes.run(RULE_NAME, rule, {
       function Component(props: { foo: string }) {
         const x = props || {};
         return null;
+      }
+    `,
+    // Boundary: computed member access with a string literal key counts as usage
+    tsx`
+      function Component(props: { foo: string }) {
+        return <div>{props["foo"]}</div>;
+      }
+    `,
+    // Boundary: computed member access with a numeric literal key is not a known prop key
+    // (getKeyOfExpression returns null, rule bails out — no report even though 'foo' is unused)
+    tsx`
+      function Component(props: { foo: string }) {
+        return <div>{props[0]}</div>;
       }
     `,
   ],

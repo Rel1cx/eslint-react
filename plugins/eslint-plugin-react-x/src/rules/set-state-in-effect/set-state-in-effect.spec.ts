@@ -1421,6 +1421,236 @@ ruleTester.run(RULE_NAME, rule, {
         { data: { name: "setData" }, messageId: "default" },
       ],
     },
+    // A function declared inside the setup and invoked synchronously from the
+    // setup body is resolved like a component-level helper.
+    {
+      name: "setState in a function declared inside the setup and called from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            function inner() {
+              setData(1);
+            }
+            inner();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Extract.unwrap strips the chain expression, so a helper invoked through
+    // an optional call in the setup is still resolved to its setState.
+    {
+      name: "setState behind a local function invoked via optional call in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helper = () => setData(1);
+          useEffect(() => {
+            helper?.();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // A helper invoked in a conditional expression in the setup body is still a
+    // call made directly in the setup, so its setState is reached.
+    {
+      name: "setState behind a local function invoked in a conditional expression in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond }) {
+          const [data, setData] = useState(0);
+          const helper = () => setData(1);
+          useEffect(() => {
+            cond ? helper() : null;
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // A helper invoked in a sequence expression in the setup body is still a
+    // call made directly in the setup, so its setState is reached.
+    {
+      name: "setState behind a local function invoked in a sequence expression in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ other }) {
+          const [data, setData] = useState(0);
+          const helper = () => setData(1);
+          useEffect(() => {
+            (helper(), other());
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // The ref-gating exemption does not apply to a prop-gated conditional
+    // inside a helper reached from the setup.
+    {
+      name: "setState inside a prop-gated conditional in a helper invoked from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ cond, value }) {
+          const [data, setData] = useState(0);
+          const sync = () => {
+            if (cond) {
+              setData(value);
+            }
+          };
+          useEffect(() => {
+            sync();
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Only if statements, conditional expressions, and early-return guards are
+    // ref gates; a ref read on the left of a logical-and does not exempt the
+    // setState on the right.
+    {
+      name: "setState on the right of a logical-and with a ref read on the left",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          useEffect(() => {
+            ref.current && setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // A hole in the destructured tuple does not shift the setter index.
+    {
+      name: "setState from a tuple with a hole (const [, setData] = useState())",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [, setData] = useState(0);
+          useEffect(() => {
+            setData(1);
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Loops are not analyzed; a setState in a loop body in the setup is treated
+    // like any other direct call in the setup.
+    {
+      name: "setState in a for-of loop body in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component({ items }) {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            for (const item of items) {
+              setData(item);
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // Parentheses around the setup identifier do not stop resolution.
+    {
+      name: "setState via a parenthesized setup identifier",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function setupFn() {
+            setData(1);
+          }
+          useEffect((setupFn), []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // A generator's body is not async or deferred, so driving it from the setup
+    // resolves its setState like any other local function.
+    {
+      name: "setState in a generator driven by a for-of loop in the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          function* gen() {
+            setData(1);
+          }
+          useEffect(() => {
+            for (const _ of gen()) {
+              // drive the generator
+            }
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
+    // isArgumentUsingRefValue does not trace through call boundaries, so a ref
+    // read hidden behind a local function call is not recognized as ref-derived.
+    {
+      name: "setState with an argument calling a local ref-reading function",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const ref = useRef(0);
+          const getRefValue = () => ref.current;
+          useEffect(() => {
+            setData(getRefValue());
+          }, []);
+          return null;
+        }
+      `,
+      errors: [
+        { data: { name: "setData" }, messageId: "default" },
+      ],
+    },
   ],
   valid: [
     {
@@ -2723,6 +2953,154 @@ ruleTester.run(RULE_NAME, rule, {
             onResize();
           }
           useEffect(namedSetup, [setData]);
+          return null;
+        }
+      `,
+    },
+    // The cleanup returned from the setup runs at unmount or before re-running
+    // the effect, not synchronously during the setup, so its setState is not
+    // reported.
+    {
+      name: "setState in the cleanup returned from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {
+            return () => {
+              setData(1);
+            };
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // Indirect resolution goes one level: the setup's tracked calls resolve to
+    // the setState calls recorded in the resolved function itself, not to
+    // setState calls behind functions that function invokes.
+    {
+      name: "setState behind two levels of local helpers",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helperB = () => setData(1);
+          const helperA = () => helperB();
+          useEffect(() => {
+            helperA();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A setState inside an IIFE is recorded under the IIFE, not under the
+    // helper that contains the IIFE, so resolving the helper does not reach it.
+    {
+      name: "setState inside an IIFE inside a local function invoked from the setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const helper = () => {
+            (() => {
+              setData(1);
+            })();
+          };
+          useEffect(() => {
+            helper();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // The ref-gating exemption applies to setState calls reached indirectly
+    // through a helper invoked from the setup as well.
+    {
+      name: "setState inside a ref-gated conditional in a helper invoked from the setup",
+      code: tsx`
+        import { useEffect, useRef, useState } from "react";
+
+        function Component({ value }) {
+          const [data, setData] = useState(0);
+          const prevRef = useRef(0);
+          const sync = () => {
+            if (prevRef.current !== value) {
+              setData(value);
+            }
+          };
+          useEffect(() => {
+            sync();
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A setter stored in another variable first is not resolved: the alias
+    // name does not appear in the useState destructuring pattern, so the call
+    // is not recognized as a setState call.
+    {
+      name: "setState called through an alias variable",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const s = setData;
+          useEffect(() => {
+            s(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A setup referenced through a member expression is not resolved:
+    // getNestedIdentifiers skips non-computed member properties, so only the
+    // object identifier is collected, and it does not resolve to a function.
+    {
+      name: "setState via a setup referenced through a member expression",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          const setups = {
+            main() {
+              setData(1);
+            },
+          };
+          useEffect(setups.main, []);
+          return null;
+        }
+      `,
+    },
+    // Only the literal index 1 names the setter; a negative index does not.
+    {
+      name: "data.at(-1)() is not recognized as the setter",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const data = useState(0);
+          useEffect(() => {
+            data.at(-1)(1);
+          }, []);
+          return null;
+        }
+      `,
+    },
+    // A setState call in the deps array runs during render, not in the effect
+    // setup, so this rule does not report it.
+    {
+      name: "setState call in the deps array of an inline setup",
+      code: tsx`
+        import { useEffect, useState } from "react";
+
+        function Component() {
+          const [data, setData] = useState(0);
+          useEffect(() => {}, [setData(1)]);
           return null;
         }
       `,

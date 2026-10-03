@@ -63,6 +63,13 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
    */
   function visitItemExpression(node: TSESTree.Expression): Descriptor[] {
     switch (node.type) {
+      case AST.ChainExpression:
+      case AST.TSAsExpression:
+      case AST.TSTypeAssertion:
+      case AST.TSNonNullExpression:
+      case AST.TSSatisfiesExpression:
+      case AST.TSInstantiationExpression:
+        return visitItemExpression(node.expression);
       case AST.JSXElement:
         return hasAttribute(context, node, "key")
           ? []

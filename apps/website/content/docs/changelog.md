@@ -2,43 +2,26 @@
 title: Changelog
 ---
 
-## v5.24.0-beta.2 (2026-10-04)
-
-### 🏗️ Internal
-
-- `@local/eff`: added predicate combinators (`and`, `or`, `not`, `nand`, `nor`, `xor`, `implies`, `eqv`, `every`, `some`) and type guards (`isString`, `isNumber`, `isNullish`, `isNotNullish`, `isPromise`, etc.) synced with effect; migrated call sites in `@eslint-react/ast`, `@eslint-react/jsx`, the `react-dom`, `react-web-api`, and `react-x` plugins, `@local/testkit`, and the rules check script to them. (#1989)
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.0-beta.1...v5.24.0-beta.2
-
-## v5.24.0-beta.1 (2026-10-04)
+## v5.24.0 (2026-10-04)
 
 ### 🐞 Fixes
 
 - `react-x/set-state-in-effect`: more value shapes are recognized as ref-derived `setState` arguments: interpolations in template literals (ex: ``setData(`${ref.current}`)``), tagged templates (both the quasi and a ref-derived tag), object and array literals (ex: `setData({ value: ref.current })`), and spreads (ex: `setData({ ...ref.current })`) — previously these fell through to the default case and were reported. (#1988)
 
-### 🏗️ Internal
-
-- `react-x/use-state`: aligned the `CallExpression`/`NewExpression` visitor keys of the nested-expression collectors to callee-first order, matching `eslint-visitor-keys`; no behavior change. (#1988)
-- Added complex-nesting boundary tests for the `getNested*` helpers used by `react-x/no-missing-key`, `react-x/set-state-in-effect`, `react-x/use-memo`, and `react-x/use-state`. (#1988)
-- Bumped `fumadocs-core` and `fumadocs-ui` to `16.15.18`, `fumadocs-mdx` to `15.4.6`, `lucide-react` to `1.50.0`, and `@types/node` to `26.6.4`.
-
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.0-beta.0...v5.24.0-beta.1
-
-## v5.24.0-beta.0 (2026-10-03)
-
-### 🏗️ Internal
-
-- `react-x/set-state-in-effect`: reworked the rule to the fact-based implementation pattern — `collect.ts` (call, setup-identifier, and setter-reference facts with their function-phase context), `origins.ts` (setState and ref provenance), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` is again classified as a state hook first, matching the original call-kind precedence. (#1983)
-- Renamed message ids to kebab-case across all plugins. (#1984)
-- `react-x/set-state-in-render`: reworked the rule to the fact-based implementation pattern — `collect.ts` (call and early-return facts with their function context), `origins.ts` (setState provenance), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`. (#1985)
-- `react-x/use-memo`: reworked the rule to the fact-based implementation pattern — `collect.ts` (per-call facts: unwrapped callback, result usage, own return statements, and identifier writes), `origins.ts` (outer-variable resolution for written identifiers), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`. (#1986)
-- Migrated package unit tests to the shared `@local/testkit` helpers. (#1987)
-
 ### 📝 Documentation
 
 - Added eslint-config-xo-react to the website's community presets.
 
-**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.5...v5.24.0-beta.0
+### 🏗️ Internal
+
+- `@local/eff`: added predicate combinators and type guards synced with effect, and migrated call sites across the workspace to them. (#1989)
+- `react-x/set-state-in-effect`, `react-x/set-state-in-render`, and `react-x/use-memo`: reworked to the fact-based implementation pattern — fact collection (`collect.ts`), provenance resolution (`origins.ts`), and violation inference (`effects.ts`) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; `set-state-in-effect` again classifies a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` as a state hook first. (#1983, #1985, #1986)
+- `react-x/use-state`: aligned the nested-expression collectors' visitor keys to callee-first order, matching `eslint-visitor-keys`; no behavior change. (#1988)
+- Migrated package unit tests to the shared `@local/testkit` helpers. (#1987)
+- Renamed message ids to kebab-case across all plugins. (#1984)
+- Bumped `fumadocs-core` and `fumadocs-ui` to `16.15.18`, `fumadocs-mdx` to `15.4.6`, `lucide-react` to `1.50.0`, and `@types/node` to `26.6.4`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.5...v5.24.0
 
 ## v5.23.5 (2026-10-03)
 

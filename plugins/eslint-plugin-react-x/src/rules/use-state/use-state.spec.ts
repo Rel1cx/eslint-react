@@ -542,6 +542,138 @@ ruleTester.run(RULE_NAME, rule, {
       ],
       options: [{ enforceAssignment: false }],
     },
+    {
+      name: "calls in the callee position of a nested call are reported along with argument calls",
+      // (getFactory())(...) — the outer call's callee is a CallExpression (no "name"), so it is
+      // skipped, but both getFactory() in callee position and makeArg() in argument position report.
+      code: `import { useState } from "react"; useState(getFactory()(makeArg()))`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 44 },
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 57 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call on the right of an assignment in useState initial value",
+      code: `import { useState } from "react"; useState(x = compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call inside a unary expression in useState initial value",
+      code: `import { useState } from "react"; useState(!compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call wrapped in a TS as expression in useState initial value",
+      code: `import { useState } from "react"; useState(compute() as number)`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call wrapped in a TS non-null expression in useState initial value",
+      code: `import { useState } from "react"; useState(compute()!)`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "useState with type arguments still gets the lazy initialization check",
+      code: `import { useState } from "react"; useState<number>(compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "React.useState member form with a call initial value",
+      code: `React.useState(compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "optional call on an identifier callee in useState initial value",
+      code: `import { useState } from "react"; useState(compute?.())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "new expression with a call callee is skipped, but the callee call is reported",
+      // new (getFactory())() — the new expression's callee is a CallExpression (no "name"),
+      // so only getFactory() passes the "name" in expr.callee filter.
+      code: `import { useState } from "react"; useState(new (getFactory())())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "new expression and a call in its arguments are both reported",
+      code: `import { useState } from "react"; useState(new Foo(makeArg()))`,
+      errors: [
+        { type: AST.NewExpression, messageId: "invalid-initialization", column: 44 },
+        { type: AST.CallExpression, messageId: "invalid-initialization", column: 52 },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "call behind a spread first argument in useState",
+      code: `import { useState } from "react"; useState(...compute())`,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+    },
+    {
+      name: "additional state hooks from settings also get the lazy initialization check",
+      code: tsx`
+        function Component() {
+          usePreviousState(compute());
+          return <div />;
+        }
+      `,
+      errors: [
+        { type: AST.CallExpression, messageId: "invalid-initialization" },
+      ],
+      options: [{ enforceAssignment: false }],
+      settings: {
+        "react-x": {
+          additionalStateHooks: "/^usePreviousState$/u",
+        },
+      },
+    },
+    // useState destructured with a rest element as the setter (cannot be a valid setter name)
+    {
+      code: tsx`
+        function Component() {
+          const [state, ...rest] = useState(0);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "invalid-setter-name" }],
+    },
+    // useState destructured with a hole as the value
+    {
+      code: tsx`
+        function Component() {
+          const [, setState] = useState(0);
+          return <div />;
+        }
+      `,
+      errors: [{ messageId: "invalid-assignment" }],
+    },
   ],
   valid: [
     // --- Assignment / setter naming ---
@@ -648,7 +780,7 @@ ruleTester.run(RULE_NAME, rule, {
       'const { useState } = require("react"); useState(1 == 2 ? 3 : 4)',
       'const { useState } = require("react"); useState(1 === 2 ? 3 : 4)',
     ].map((code) => ({ code, options: [{ enforceAssignment: false }] as const })),
-    // Cases with proper destructuring — use() calls must not trigger invalidInitialization
+    // Cases with proper destructuring — use() calls must not trigger invalid-initialization
     "const [id, setId] = useState(useId());",
     "const [state, setState] = useState(use(promise));",
     "const [likes, setLikes] = useState(use(getLikes()));",
@@ -688,7 +820,7 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
-    // useState result wrapped in TSAsExpression (should not report invalidAssignment)
+    // useState result wrapped in TSAsExpression (should not report invalid-assignment)
     {
       code: tsx`
         import { useState } from "react";
@@ -764,6 +896,18 @@ ruleTester.run(RULE_NAME, rule, {
     "const [foo, setFoo] = useState(use(new Foo()));",
     // Computed property keys are never visited, so getKey() does not report.
     "const [state, setState] = useState({ [getKey()]: value });",
+    // Extra destructured elements beyond the value/setter pair are ignored.
+    "const [state, setState, extra] = useState(0);",
+    // A new expression with a member expression callee is collected by getNestedNewExpressions
+    // but skipped by the rule because its callee has no "name" property.
+    {
+      code: "useState(new ns.Foo())",
+      options: [{ enforceAssignment: false }],
+    },
+    // A hole in the setter position makes `setter` null, which the rule treats like a missing
+    // setter (`const [state] = ...`) and does not report. Behavior inherited unchanged from
+    // before the v5.24.0 collector rework.
+    "const [state, , third] = useState(0);",
   ],
 });
 

@@ -994,6 +994,32 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // A numeric-literal property key does not match the member name, so the remover does not pair
+    {
+      code: tsx`
+        import { useEffect } from "react";
+
+        function Example() {
+          useEffect(() => {
+            const onResize = () => {};
+            const handlers = {
+              0: () => {
+                window.removeEventListener("resize", onResize);
+              },
+            };
+            window.addEventListener("resize", onResize);
+            return () => {
+              handlers.stop();
+            };
+          }, []);
+        }
+      `,
+      errors: [
+        {
+          messageId: "expected-remove-event-listener-in-cleanup",
+        },
+      ],
+    },
     // A remover shadowed by a same-named function does not pair when the cleanup calls the
     // outer one (the pointerup listener added by `attach` is leaked as well)
     {
@@ -1086,6 +1112,25 @@ ruleTester.run(RULE_NAME, rule, {
           const onResize = () => {};
           const handlers = {
             stop() {
+              window.removeEventListener("resize", onResize);
+            },
+          };
+          window.addEventListener("resize", onResize);
+          return () => {
+            handlers.stop();
+          };
+        }, []);
+      }
+    `,
+    // Same pattern but with a string-literal property key on the local object
+    tsx`
+      import { useEffect } from "react";
+
+      function Example() {
+        useEffect(() => {
+          const onResize = () => {};
+          const handlers = {
+            "stop": () => {
               window.removeEventListener("resize", onResize);
             },
           };

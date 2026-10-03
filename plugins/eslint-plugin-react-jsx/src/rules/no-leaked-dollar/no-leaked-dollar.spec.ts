@@ -492,6 +492,12 @@ ruleTester.run(RULE_NAME, rule, {
         return <div>\${price}{""}</div>;
       }
     `,
+    // Intentional: isolated '$' before a single expression with only a comment container sibling
+    tsx`
+      function App({ price }) {
+        return <div>\${price}{/* c */}</div>;
+      }
+    `,
     // Boundary: '$' before a spread child is not "before an expression container"
     tsx`<div>\${...items}</div>`,
     // Boundary: '$' before JSXElement, not expression

@@ -373,6 +373,44 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    {
+      name: "class with computed key componentDidCatch is not an error boundary",
+      code: tsx`
+        class ParentComponent extends React.Component {
+          ["componentDidCatch"](error, info) {}
+          render() {
+            return this.props.children;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "default",
+        },
+      ],
+    },
+    {
+      name: "class with unrelated method named like an error boundary hook is not exempt",
+      code: tsx`
+        class ParentComponent extends React.Component {
+          static componentDidCatch = (error, info) => {};
+          render() {
+            return this.props.children;
+          }
+        }
+      `,
+      errors: [
+        {
+          data: {
+            name: "ParentComponent",
+          },
+          messageId: "default",
+        },
+      ],
+    },
   ],
   valid: [
     {
@@ -1372,6 +1410,29 @@ ruleTester.run(RULE_NAME, rule, {
       code: tsx`
       class ErrorBoundary extends React.Component {
         static getDerivedStateFromError = () => {};
+        render() {
+          return this.props.children;
+        }
+      }
+    `,
+    },
+    {
+      name: "error boundary with both componentDidCatch and getDerivedStateFromError",
+      code: tsx`
+      class ErrorBoundary extends React.Component {
+        static getDerivedStateFromError(error) {}
+        componentDidCatch(error, info) {}
+        render() {
+          return this.props.children;
+        }
+      }
+    `,
+    },
+    {
+      name: "error boundary with componentDidCatch class property",
+      code: tsx`
+      class ErrorBoundary extends React.Component {
+        componentDidCatch = (error, info) => {};
         render() {
           return this.props.children;
         }

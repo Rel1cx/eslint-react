@@ -303,6 +303,125 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // setState before a nested component declaration in the same component
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Outer() {
+          const [a, setA] = useState(0);
+          setA(1);
+          function Inner() {
+            return <div />;
+          }
+          return <div>{a}<Inner /></div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // setState inside a loop body is still unconditional render-time execution
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ items }) {
+          const [a, setA] = useState(0);
+          for (const item of items) {
+            setA(item);
+          }
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // setState inside a try block
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          try {
+            setA(1);
+          } catch {
+          }
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // tuple setter accessed via .at(1)
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const data = useState(0);
+          data.at(1)(1);
+          return <div>{data[0]}</div>;
+        }
+      `,
+      errors: [{ data: { name: "data.at(1)" }, messageId: "default" }],
+    },
+    // an early return in a sibling component must not shield this component
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Other({ cond }) {
+          if (cond) return null;
+          return <div />;
+        }
+
+        function Component() {
+          const [a, setA] = useState(0);
+          setA(1);
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // PROBE: unconditional setState directly in a nested hook-like function body
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          function useHelper() {
+            setA(1);
+          }
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // arrow component with expression body calling setter in a sequence
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function useHook() {
+          const [a, setA] = useState(0);
+          const Component = () => (setA(1), <div>{a}</div>);
+          return Component;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
+    // setter from a member-expression hook call (React.useState)
+    {
+      code: tsx`
+        import React from "react";
+
+        function Component() {
+          const [a, setA] = React.useState(0);
+          setA(1);
+          return <div>{a}</div>;
+        }
+      `,
+      errors: [{ data: { name: "setA" }, messageId: "default" }],
+    },
   ],
   valid: [
     {
@@ -672,6 +791,66 @@ ruleTester.run(RULE_NAME, rule, {
           let state;
           state = useState(0);
           return <div>{state[0]}</div>;
+        }
+      `,
+    },
+    // setState after a double-nested early return is guarded by it
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ a, b }) {
+          const [x, setX] = useState(0);
+          if (a) {
+            if (b) return null;
+          }
+          setX(1);
+          return <div>{x}</div>;
+        }
+      `,
+    },
+    // setState after an early return, nested inside a bare block statement
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component({ cond }) {
+          const [a, setA] = useState(0);
+          if (cond) return null;
+          {
+            setA(1);
+          }
+          return <div>{a}</div>;
+        }
+      `,
+    },
+    // tuple value accessed via .at(0) is not a setter call
+    {
+      code: tsx`
+        import { useState } from "react";
+
+        function Component() {
+          const data = useState(() => 0);
+          data.at(0)();
+          return <div>{data[0]}</div>;
+        }
+      `,
+    },
+    // setState inside a useMemo factory (from React Compiler fixtures)
+    // NOTE: The IMPL does not flag this because the factory is a nested function.
+    // The SPEC flags it with a dedicated useMemo diagnostic because the factory
+    // executes during render.
+    {
+      code: tsx`
+        import { useMemo, useState } from "react";
+
+        function Component() {
+          const [a, setA] = useState(0);
+          const v = useMemo(() => {
+            setA(1);
+            return 1;
+          }, []);
+          return <div>{a}{v}</div>;
         }
       `,
     },

@@ -139,6 +139,24 @@ describe("getNestedReturnStatements", () => {
     expect(countReturns(node)).toBe(1);
   });
 
+  it("should exclude returns of functions nested inside a return argument", () => {
+    const code = "function f() { return () => { return 2; }; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should exclude returns of object literal setters nested in the function", () => {
+    const code = "function f() { return 0; const o = { set x(v) { return 1; } }; }";
+    const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(code, AST.FunctionDeclaration);
+    expect(countReturns(node)).toBe(1);
+  });
+
+  it("should collect returns in an async arrow function root", () => {
+    const code = "const f = async () => { if (a) { return 1; } return 2; };";
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(countReturns(node)).toBe(2);
+  });
+
   it("should collect only same-function returns in a deeply interleaved stress case", () => {
     const code = tsx`
       function f() {

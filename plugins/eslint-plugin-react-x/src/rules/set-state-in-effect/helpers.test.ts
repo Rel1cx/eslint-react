@@ -1,8 +1,8 @@
-import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType } from "@local/testkit";
+import { type ParseCodeOptions, fixturePath, getFirstExpression, getFirstNodeOfType, getTextOf } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { describe, expect, it } from "vitest";
+import { assert, describe, expect, it } from "vitest";
 
-import { getNestedIdentifiers } from "./helpers";
+import { getCallName, getNestedIdentifiers, getSetStateCallExpression, isHookDecl, isTerminatingStatement, isThenCall } from "./helpers";
 
 function getNames(node: TSESTree.Node): string[] {
   return getNestedIdentifiers(node).map((id) => id.name);
@@ -223,5 +223,106 @@ describe("getNestedIdentifiers", () => {
       "l",
       "n",
     ]);
+  });
+});
+
+describe("isThenCall", () => {
+  it("should match a member call named then", () => {
+    expect(isThenCall(getFirstNodeOfType<TSESTree.CallExpression>("promise.then(cb);", AST.CallExpression))).toBe(true);
+  });
+
+  it("should match an optional-chained member call named then", () => {
+    expect(isThenCall(getFirstNodeOfType<TSESTree.CallExpression>("promise?.then(cb);", AST.CallExpression))).toBe(true);
+  });
+
+  it("should not match a member call with another name", () => {
+    expect(isThenCall(getFirstNodeOfType<TSESTree.CallExpression>("promise.catch(cb);", AST.CallExpression))).toBe(false);
+  });
+
+  it("should not match a plain call named then", () => {
+    expect(isThenCall(getFirstNodeOfType<TSESTree.CallExpression>("then(cb);", AST.CallExpression))).toBe(false);
+  });
+});
+
+describe("isTerminatingStatement", () => {
+  it("should match return and throw statements", () => {
+    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ReturnStatement>("function f() { return 1; }", AST.ReturnStatement))).toBe(true);
+    expect(isTerminatingStatement(getFirstNodeOfType<TSESTree.ThrowStatement>("function f() { throw 1; }", AST.ThrowStatement))).toBe(true);
+  });
+
+  it("should match a block containing a terminating statement", () => {
+    const outer = getFirstNodeOfType<TSESTree.BlockStatement>("function f() { if (a) { return 1; } }", AST.BlockStatement);
+    expect(isTerminatingStatement(outer)).toBe(false);
+    const inner = getFirstNodeOfType<TSESTree.BlockStatement>("{ return 1; }", AST.BlockStatement);
+    expect(isTerminatingStatement(inner)).toBe(true);
+  });
+
+  it("should not match an if statement whose consequent returns", () => {
+    const ifStatement = getFirstNodeOfType<TSESTree.IfStatement>("function f() { if (a) return 1; }", AST.IfStatement);
+    expect(isTerminatingStatement(ifStatement)).toBe(false);
+  });
+});
+
+describe("isHookDecl", () => {
+  it("should match a declarator initialized with a hook call", () => {
+    const decl = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = useMemo(() => 1, []);", AST.VariableDeclarator);
+    expect(isHookDecl(decl)).toBe(true);
+  });
+
+  it("should not match a declarator initialized with a non-hook call", () => {
+    const decl = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = foo();", AST.VariableDeclarator);
+    expect(isHookDecl(decl)).toBe(false);
+  });
+
+  it("should not match a declarator with a non-identifier id", () => {
+    const decl = getFirstNodeOfType<TSESTree.VariableDeclarator>("const { a } = useMemo(() => ({}), []);", AST.VariableDeclarator);
+    expect(isHookDecl(decl)).toBe(false);
+  });
+
+  it("should not match a declarator without a call initializer", () => {
+    const decl = getFirstNodeOfType<TSESTree.VariableDeclarator>("const x = 1;", AST.VariableDeclarator);
+    expect(isHookDecl(decl)).toBe(false);
+  });
+});
+
+describe("getSetStateCallExpression", () => {
+  it("should return the parent call when the identifier is its callee", () => {
+    const id = getFirstNodeOfType<TSESTree.Identifier>("setState(1);", AST.Identifier);
+    const result = getSetStateCallExpression(id);
+    expect(result.type).toBe(AST.CallExpression);
+  });
+
+  it("should return the identifier itself when it is not a call callee", () => {
+    const id = getFirstExpression("setState;");
+    assert(id.type === AST.CallExpression || id.type === AST.Identifier);
+    expect(getSetStateCallExpression(id)).toBe(id);
+  });
+
+  it("should return a call expression unchanged", () => {
+    const call = getFirstNodeOfType<TSESTree.CallExpression>("setState(1);", AST.CallExpression);
+    expect(getSetStateCallExpression(call)).toBe(call);
+  });
+});
+
+describe("getCallName", () => {
+  const getTextFor = (source: string) => (node: TSESTree.Node) => getTextOf(source, node);
+
+  it("should return the fully qualified callee name of a call", () => {
+    const source = "setData(1);";
+    const call = getFirstNodeOfType<TSESTree.CallExpression>(source, AST.CallExpression);
+    expect(getCallName(call, getTextFor(source))).toBe("setData");
+  });
+
+  it("should return the source text of a computed member callee", () => {
+    const source = "data[1](1);";
+    const call = getFirstNodeOfType<TSESTree.CallExpression>(source, AST.CallExpression);
+    expect(getCallName(call, getTextFor(source))).toBe("data[1]");
+  });
+
+  it("should return the name of a bare identifier reference", () => {
+    const source = "setData;";
+    const id = getFirstExpression(source);
+    assert(id.type === AST.CallExpression || id.type === AST.Identifier);
+    expect(getCallName(id, getTextFor(source))).toBe("setData");
   });
 });

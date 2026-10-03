@@ -13,6 +13,16 @@ ruleTester.run(RULE_NAME, rule, {
         },
       ],
     },
+    // Static string in an expression container with the unsafe combination
+    {
+      code: tsx`<iframe sandbox={"allow-scripts allow-same-origin"} />;`,
+      errors: [{ messageId: "default" }],
+    },
+    // Statically evaluable expression resolving to the unsafe combination
+    {
+      code: tsx`<iframe sandbox={"allow-scripts" + " allow-same-origin"} />;`,
+      errors: [{ messageId: "default" }],
+    },
     // Different sandbox value combinations (unsafe)
     {
       code: tsx`<iframe sandbox="allow-scripts allow-same-origin allow-popups" />;`,
@@ -186,6 +196,8 @@ ruleTester.run(RULE_NAME, rule, {
     `,
     // Template literal with safe values
     tsx`<iframe sandbox={\`allow-downloads\`} />;`,
+    // Static string in an expression container with a safe combination
+    tsx`<iframe sandbox={"allow-scripts allow-popups"} />;`,
     // Spread props not containing unsafe sandbox
     tsx`
       const props = { sandbox: "allow-downloads" };

@@ -196,6 +196,21 @@ ruleTester.run(RULE_NAME, rule, {
         },
       },
     },
+    // Boundary: non-string rel value is not a safe rel, so the rule reports and replaces it
+    {
+      code: '<a href="https://react.dev" target="_blank" rel={42}></a>',
+      errors: [
+        {
+          messageId: "default",
+          suggestions: [
+            {
+              messageId: "add-rel-noreferrer-noopener",
+              output: '<a href="https://react.dev" target="_blank" rel="noreferrer noopener"></a>',
+            },
+          ],
+        },
+      ],
+    },
     // TODO: Restore Link component test when support for additionalComponents is implemented. See issue #<issue-number>.
     // },
     // {
@@ -506,5 +521,9 @@ ruleTester.run(RULE_NAME, rule, {
         }
       `,
     },
+    // Boundary: non-string href value is not an external link
+    '<a href={123} target="_blank"></a>',
+    // Boundary: non-string target value does not trigger the rule
+    '<a href="https://react.dev" target={123}></a>',
   ],
 });

@@ -90,6 +90,16 @@ ruleTester.run(RULE_NAME, testRule, {
       code: '<Box as={"a"} />;',
       errors: [{ data: { data: resolved("a", "Box") }, messageId: "default" }],
     },
+    // Uppercase string in an expression container is normalized to lowercase
+    {
+      code: '<Box as={"IFRAME"} />;',
+      errors: [{ data: { data: resolved("iframe", "Box") }, messageId: "default" }],
+    },
+    // Boundary: a non-string static value (number) falls back to the element name
+    {
+      code: "<Box as={123} />;",
+      errors: [{ data: { data: resolved("Box", "Box") }, messageId: "default" }],
+    },
     // Boolean polymorphic prop falls back to the element name
     {
       code: "<Box as />;",
