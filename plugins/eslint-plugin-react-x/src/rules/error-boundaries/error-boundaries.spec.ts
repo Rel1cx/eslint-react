@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/testing/helpers";
+import { ruleTester } from "@local/testkit";
 import rule, { RULE_NAME } from "./error-boundaries";
 
 ruleTester.run(RULE_NAME, rule, {

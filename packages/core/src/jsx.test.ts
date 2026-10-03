@@ -1,4 +1,4 @@
-import { createScopeContext, parseCode } from "@local/testkit";
+import { createScopeContext, getLastExpression, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
@@ -12,11 +12,7 @@ import { JsxDetectionHint, isJsxLike } from "./jsx";
 function parseLastExpression(code: string) {
   const parsed = parseCode(code);
   const context = createScopeContext(parsed, code);
-  const last = parsed.ast.body.at(-1);
-  if (last?.type !== AST.ExpressionStatement) {
-    throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);
-  }
-  return { context, node: last.expression };
+  return { context, node: getLastExpression(code) };
 }
 
 function run(code: string, hint?: JsxDetectionHint): boolean {

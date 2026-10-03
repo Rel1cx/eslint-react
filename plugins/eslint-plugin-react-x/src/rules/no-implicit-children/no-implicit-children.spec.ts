@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTesterWithTypes } from "#/testing/helpers";
+import { ruleTesterWithTypes } from "@local/testkit";
 import rule, { RULE_NAME } from "./no-implicit-children";
 
 ruleTesterWithTypes.run(RULE_NAME, rule, {

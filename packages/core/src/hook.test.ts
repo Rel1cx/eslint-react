@@ -1,6 +1,6 @@
 import { Check } from "@eslint-react/ast";
-import { parseCode } from "@local/testkit";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { getFirstNodeOfType, parseCode } from "@local/testkit";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
@@ -40,16 +40,8 @@ describe("isHookId", () => {
     ["user", false],
   ])("isHookId for %s === %s", (expr, expected) => {
     const code = `${expr}()`;
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isHookId(node.callee)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookId(node.callee)).toBe(expected);
   });
 });
 
@@ -128,32 +120,16 @@ describe("isHookCall", () => {
     ["useMemo(() => {}, [])", true],
     ["React.useState()", true],
   ])("should return true for hook call: %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isHookCall(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookCall(node)).toBe(expected);
   });
 
   it.each([
     ["notAHook()", false],
     ["user()", false],
   ])("should return false for non-hook call: %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isHookCall(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookCall(node)).toBe(expected);
   });
 
   it("should return false for null", () => {
@@ -162,30 +138,14 @@ describe("isHookCall", () => {
 
   it("should return true for hook call with callee wrapped in TSAsExpression", () => {
     const code = "(useState as any)()";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isHookCall(node)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookCall(node)).toBe(true);
   });
 
   it("should return true for hook call with type arguments", () => {
     const code = "useState<number>()";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isHookCall(node)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isHookCall(node)).toBe(true);
   });
 });
 
@@ -194,32 +154,16 @@ describe("isHookTag", () => {
     ["useMotionTemplate`literal`", true],
     ["Motion.useMotionTemplate`literal`", true],
   ])("should return true for hook tag: %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.TaggedTemplateExpression) {
-          expect(isHookTag(node.tag)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
+    expect(isHookTag(node.tag)).toBe(expected);
   });
 
   it.each([
     ["notAHook`literal`", false],
     ["user`literal`", false],
   ])("should return false for non-hook tag: %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.TaggedTemplateExpression) {
-          expect(isHookTag(node.tag)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.TaggedTemplateExpression>(code, AST.TaggedTemplateExpression);
+    expect(isHookTag(node.tag)).toBe(expected);
   });
 
   it("should return false for null", () => {
@@ -237,30 +181,14 @@ describe("isUseEffectLikeCall", () => {
     ["useMemo(() => {}, [])", false],
     ["customHook()", false],
   ])("isUseEffectLikeCall(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isUseEffectLikeCall(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseEffectLikeCall(node)).toBe(expected);
   });
 
   it("should support custom effect hooks via regex", () => {
     const code = "useCustomEffect(() => {})";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isUseEffectLikeCall(node, /^useCustomEffect$/u)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseEffectLikeCall(node, /^useCustomEffect$/u)).toBe(true);
   });
 
   it("should return false for null", () => {
@@ -276,30 +204,14 @@ describe("isUseStateLikeCall", () => {
     ["useEffect(() => {})", false],
     ["useReducer(() => {}, {})", false],
   ])("isUseStateLikeCall(%s) === %s", (code, expected) => {
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isUseStateLikeCall(node)).toBe(expected);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseStateLikeCall(node)).toBe(expected);
   });
 
   it("should support custom state hooks via regex", () => {
     const code = "useCustomState()";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.CallExpression) {
-          expect(isUseStateLikeCall(node, /^useCustomState$/u)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.CallExpression>(code, AST.CallExpression);
+    expect(isUseStateLikeCall(node, /^useCustomState$/u)).toBe(true);
   });
 
   it("should return false for null", () => {
@@ -310,30 +222,14 @@ describe("isUseStateLikeCall", () => {
 describe("isUseEffectSetupCallback", () => {
   it("should return true for first argument of useEffect", () => {
     const code = "useEffect(() => {})";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          expect(isUseEffectSetupCallback(node)).toBe(true);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(isUseEffectSetupCallback(node)).toBe(true);
   });
 
   it("should return false for second argument of useEffect", () => {
     const code = "useEffect(() => {}, [])";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrayExpression) {
-          expect(isUseEffectSetupCallback(node)).toBe(false);
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrayExpression>(code, AST.ArrayExpression);
+    expect(isUseEffectSetupCallback(node)).toBe(false);
   });
 
   it("should return false for null", () => {

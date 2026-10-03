@@ -4,7 +4,6 @@
 
 ```ts
 function unwrap(node: Node):
-  | Program
   | AccessorProperty
   | ArrayExpression
   | ArrayPattern
@@ -70,6 +69,7 @@ function unwrap(node: Node):
   | ObjectExpression
   | ObjectPattern
   | PrivateIdentifier
+  | Program
   | Property
   | PropertyDefinition
   | RestElement
@@ -179,7 +179,6 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 
 ## Returns
 
-\| `Program`
 \| `AccessorProperty`
 \| `ArrayExpression`
 \| `ArrayPattern`
@@ -245,6 +244,7 @@ Recursively unwrap TypeScript type expressions and chain expressions to get the 
 \| `ObjectExpression`
 \| `ObjectPattern`
 \| `PrivateIdentifier`
+\| `Program`
 \| `Property`
 \| `PropertyDefinition`
 \| `RestElement`

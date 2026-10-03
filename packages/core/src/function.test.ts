@@ -1,6 +1,6 @@
 import { Check } from "@eslint-react/ast";
-import { parseCode } from "@local/testkit";
-import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
+import { getFirstNodeOfType, parseCode } from "@local/testkit";
+import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
@@ -9,65 +9,33 @@ import { getFunctionDirectives, getFunctionId, getFunctionInitPath, isFunctionEm
 describe("isFunctionHasCallInInitPath", () => {
   it("should detect memo call when callee is wrapped in TSAsExpression", () => {
     const code = "const Component = (memo as any)(() => {})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          if (initPath != null) {
-            result = isFunctionHasCallInInitPath("memo", initPath);
-          }
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
     expect(result).toBe(true);
   });
 
   it("should detect React.memo call when callee is wrapped in TSAsExpression", () => {
     const code = "const Component = (React.memo as any)(() => {})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          if (initPath != null) {
-            result = isFunctionHasCallInInitPath("memo", initPath);
-          }
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
     expect(result).toBe(true);
   });
 
   it("should detect memo call when callee is wrapped in TSSatisfiesExpression", () => {
     const code = "const Component = (memo satisfies typeof memo)(() => {})";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          if (initPath != null) {
-            result = isFunctionHasCallInInitPath("memo", initPath);
-          }
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
     expect(result).toBe(true);
   });
 
   it("should detect memo in nested HOC init path", () => {
     const code = "const Component = memo(forwardRef(() => {}))";
-    let result = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          const initPath = getFunctionInitPath(node);
-          if (initPath != null) {
-            result = isFunctionHasCallInInitPath("memo", initPath);
-          }
-        }
-      },
-    }, true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    const initPath = getFunctionInitPath(node);
+    const result = initPath != null && isFunctionHasCallInInitPath("memo", initPath);
     expect(result).toBe(true);
   });
 });
@@ -107,16 +75,8 @@ describe("getFunctionId", () => {
 
   it("should return null for anonymous function without binding", () => {
     const code = "(() => {})()";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          expect(getFunctionId(node)).toBeNull();
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionId(node)).toBeNull();
   });
 });
 
@@ -150,16 +110,8 @@ describe("getFunctionInitPath", () => {
 
   it("should return null for unrecognized patterns", () => {
     const code = "(() => {})()";
-    let found = false;
-    simpleTraverse(parseCode(code).ast, {
-      enter(node) {
-        if (node.type === AST.ArrowFunctionExpression) {
-          expect(getFunctionInitPath(node)).toBeNull();
-          found = true;
-        }
-      },
-    }, true);
-    expect(found).toBe(true);
+    const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(code, AST.ArrowFunctionExpression);
+    expect(getFunctionInitPath(node)).toBeNull();
   });
 });
 

@@ -1,5 +1,4 @@
-import type { RuleContext } from "@eslint-react/eslint";
-import { parseCode } from "@local/testkit";
+import { createMockContext, getLastExpression, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
@@ -216,18 +215,9 @@ describe("isAPI matching logic (PR #1660 bugfix)", () => {
 });
 
 describe("isAPI (actual export)", () => {
-  function createMockContext(code: string): RuleContext {
-    return {
-      sourceCode: {
-        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
-        getScope: () => ({}),
-      },
-    } as unknown as RuleContext;
-  }
-
   function testAPI(code: string, api: string, expected: boolean) {
     const parsed = parseCode(code);
-    const context = createMockContext(code);
+    const context = createMockContext({ code });
     let result: boolean | null = null;
     simpleTraverse(parsed.ast, {
       enter(node) {
@@ -269,22 +259,8 @@ describe("isAPI (actual export)", () => {
 });
 
 describe("dual signature: curried form (context first)", () => {
-  function createMockContext(code: string): RuleContext {
-    return {
-      sourceCode: {
-        getText: (node: TSESTree.Node) => code.slice(node.range[0], node.range[1]),
-        getScope: () => ({}),
-      },
-    } as unknown as RuleContext;
-  }
-
   function parseLastExpression(code: string) {
-    const parsed = parseCode(code);
-    const last = parsed.ast.body.at(-1);
-    if (last?.type !== AST.ExpressionStatement) {
-      throw new Error(`expected last statement to be an ExpressionStatement, got ${last?.type ?? "unknown"}`);
-    }
-    return { context: createMockContext(code), node: last.expression };
+    return { context: createMockContext({ code }), node: getLastExpression(code) };
   }
 
   it("isAPI curried form agrees with the two-argument form", () => {

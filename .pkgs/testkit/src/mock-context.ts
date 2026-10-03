@@ -30,3 +30,52 @@ export function createScopeContext(parsed: ReturnType<typeof parseCode>, code?: 
     },
   } as unknown as TestRuleContext;
 }
+
+export interface MockContextOptions {
+  /**
+   * Source text used to implement `sourceCode.getText` by range slicing.
+   */
+  code?: string;
+  /**
+   * Result of `parseCode`; used to implement a real `sourceCode.getScope`.
+   */
+  parsed?: ReturnType<typeof parseCode>;
+}
+
+/**
+ * Builds a rule-context-like object. When `options.code` is given,
+ * `sourceCode.getText` slices the source text; otherwise it returns the
+ * identifier's name for Identifier nodes and an empty string for other
+ * nodes. When `options.parsed` is given, `sourceCode.getScope` resolves
+ * against the real scope manager; otherwise it returns an empty object.
+ * @param options The mock context options.
+ * @returns A rule-context-like object covering `sourceCode.getText` and
+ * `sourceCode.getScope`.
+ */
+export function createMockContext(options: MockContextOptions = {}): TestRuleContext {
+  const { code, parsed } = options;
+  const globalScope = parsed?.scopeManager.scopes[0];
+  // tsl-ignore dx/no-unsafe-as
+  return {
+    sourceCode: {
+      getScope(node: TSESTree.Node) {
+        if (globalScope == null) {
+          return {};
+        }
+        if (node.type === AST.Program) {
+          return globalScope;
+        }
+        return ASTUtils.getInnermostScope(globalScope, node);
+      },
+      getText(node: TSESTree.Node) {
+        if (code != null) {
+          return code.slice(node.range[0], node.range[1]);
+        }
+        if (node.type === AST.Identifier) {
+          return node.name;
+        }
+        return "";
+      },
+    },
+  } as unknown as TestRuleContext;
+}

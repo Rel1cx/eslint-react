@@ -1,38 +1,15 @@
-import { runInRule } from "@local/testkit";
+import { collectNodes, getFirstNodeOfType, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
-import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import { describe, expect, it } from "vitest";
 
 import { resolveObjectType } from "./resolve-object-type";
-
-// Helper: find first node of a given type
-function findFirst<T extends TSESTree.Node>(ast: TSESTree.Node, type: AST): T | undefined {
-  let found: T | undefined;
-  simpleTraverse(ast, {
-    enter(node) {
-      if (found == null && node.type === type) found = node as T;
-    },
-  }, true);
-  return found;
-}
-
-// Helper: find all nodes of a given type
-function findAll<T extends TSESTree.Node>(ast: TSESTree.Node, type: AST): T[] {
-  const result: T[] = [];
-  simpleTraverse(ast, {
-    enter(node) {
-      if (node.type === type) result.push(node as T);
-    },
-  }, true);
-  return result;
-}
 
 describe("resolveObjectType", () => {
   describe("basic type detection", () => {
     it("JSXElement → kind: 'jsx'", () => {
       const code = "const x = <div />;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.JSXElement>(ast, AST.JSXElement);
+        const node = getFirstNodeOfType<TSESTree.JSXElement>(ast, AST.JSXElement);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -43,7 +20,7 @@ describe("resolveObjectType", () => {
     it("JSXFragment → kind: 'jsx'", () => {
       const code = "const x = <></>;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.JSXFragment>(ast, AST.JSXFragment);
+        const node = getFirstNodeOfType<TSESTree.JSXFragment>(ast, AST.JSXFragment);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -54,7 +31,7 @@ describe("resolveObjectType", () => {
     it("ArrayExpression → kind: 'array'", () => {
       const code = "const x = [1, 2, 3];";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ArrayExpression>(ast, AST.ArrayExpression);
+        const node = getFirstNodeOfType<TSESTree.ArrayExpression>(ast, AST.ArrayExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -65,7 +42,7 @@ describe("resolveObjectType", () => {
     it("ObjectExpression → kind: 'plain'", () => {
       const code = "const x = { a: 1 };";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ObjectExpression>(ast, AST.ObjectExpression);
+        const node = getFirstNodeOfType<TSESTree.ObjectExpression>(ast, AST.ObjectExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -76,7 +53,7 @@ describe("resolveObjectType", () => {
     it("ClassExpression → kind: 'class'", () => {
       const code = "const x = class {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ClassExpression>(ast, AST.ClassExpression);
+        const node = getFirstNodeOfType<TSESTree.ClassExpression>(ast, AST.ClassExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -87,7 +64,7 @@ describe("resolveObjectType", () => {
     it("NewExpression → kind: 'instance'", () => {
       const code = "const x = new Foo();";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.NewExpression>(ast, AST.NewExpression);
+        const node = getFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -98,7 +75,7 @@ describe("resolveObjectType", () => {
     it("ArrowFunctionExpression → kind: 'function'", () => {
       const code = "const x = () => {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ArrowFunctionExpression>(ast, AST.ArrowFunctionExpression);
+        const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(ast, AST.ArrowFunctionExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -110,7 +87,7 @@ describe("resolveObjectType", () => {
       const code = "const x = /abc/;";
       const fact = runInRule(code, (context, ast) => {
         // The regex literal is a Literal node with a `regex` property
-        const literals = findAll<TSESTree.Literal>(ast, AST.Literal);
+        const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         const regexNode = literals.find((n) => "regex" in n);
         expect(regexNode).toBeDefined();
         return resolveObjectType(context, regexNode!);
@@ -122,7 +99,7 @@ describe("resolveObjectType", () => {
     it("CallExpression Array() → kind: 'array'", () => {
       const code = "const x = Array();";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -133,7 +110,7 @@ describe("resolveObjectType", () => {
     it("CallExpression Object() → kind: 'plain'", () => {
       const code = "const x = Object();";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -144,7 +121,7 @@ describe("resolveObjectType", () => {
     it("CallExpression RegExp() → kind: 'regexp'", () => {
       const code = 'const x = RegExp("abc");';
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -155,7 +132,7 @@ describe("resolveObjectType", () => {
     it("ConditionalExpression picks first non-null (consequent)", () => {
       const code = "const cond = true; const x = cond ? [1] : {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
+        const node = getFirstNodeOfType<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -171,7 +148,7 @@ describe("resolveObjectType", () => {
       // falling back to right — consistent with ConditionalExpression behavior.
       const code = "const arr = [1, 2]; const x = arr || {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
+        const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -185,7 +162,7 @@ describe("resolveObjectType", () => {
       // should have priority. Now correctly evaluates left first.
       const code = "const arr = [1]; const x = arr ?? {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
+        const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -198,7 +175,7 @@ describe("resolveObjectType", () => {
       // Static factory methods like Array.from() are now recognized.
       const code = "const x = Array.from([1, 2]);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -210,7 +187,7 @@ describe("resolveObjectType", () => {
       // Object.create() is now recognized as producing a plain object.
       const code = "const x = Object.create(null);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -223,7 +200,7 @@ describe("resolveObjectType", () => {
       // MemberExpression nodes always have an `object` property by the TSESTree specification.
       const code = "const a = {}; const x = a.b;";
       runInRule(code, (_context, ast) => {
-        const node = findFirst<TSESTree.MemberExpression>(ast, AST.MemberExpression);
+        const node = getFirstNodeOfType<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(node).toBeDefined();
         expect("object" in node!).toBe(true);
         expect(node!.object).toBeDefined();
@@ -236,7 +213,7 @@ describe("resolveObjectType", () => {
       // AssignmentExpression nodes always have a `right` property by the TSESTree specification.
       const code = "let x; x = 1;";
       runInRule(code, (_context, ast) => {
-        const node = findFirst<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
+        const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
         expect(node).toBeDefined();
         expect("right" in node!).toBe(true);
         expect(node!.right).toBeDefined();
@@ -247,7 +224,7 @@ describe("resolveObjectType", () => {
     it("FIXED: CallExpression callee wrapped in TSAsExpression is recognized", () => {
       const code = "const x = (Array as any)();";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -258,7 +235,7 @@ describe("resolveObjectType", () => {
     it("FIXED: CallExpression callee wrapped in TSSatisfiesExpression is recognized", () => {
       const code = "const x = (Array.from satisfies typeof Array.from)([1, 2]);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -276,7 +253,7 @@ describe("resolveObjectType", () => {
     it("non-regex Literal (string) → null", () => {
       const code = 'const x = "abc";';
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.Literal>(ast, AST.Literal);
+        const node = getFirstNodeOfType<TSESTree.Literal>(ast, AST.Literal);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -286,7 +263,7 @@ describe("resolveObjectType", () => {
     it("ThisExpression → kind: 'instance'", () => {
       const code = "class A { m() { return this; } }";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ThisExpression>(ast, AST.ThisExpression);
+        const node = getFirstNodeOfType<TSESTree.ThisExpression>(ast, AST.ThisExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -297,7 +274,7 @@ describe("resolveObjectType", () => {
     it("FunctionDeclaration → kind: 'function'", () => {
       const code = "function f() {}";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
+        const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -308,7 +285,7 @@ describe("resolveObjectType", () => {
     it("FunctionExpression → kind: 'function'", () => {
       const code = "const f = function() {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.FunctionExpression>(ast, AST.FunctionExpression);
+        const node = getFirstNodeOfType<TSESTree.FunctionExpression>(ast, AST.FunctionExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -319,7 +296,7 @@ describe("resolveObjectType", () => {
     it("Identifier resolves to the type of its initializer", () => {
       const code = "const x = {}; x;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findAll<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -330,7 +307,7 @@ describe("resolveObjectType", () => {
     it("Identifier bound to a parameter → null (externally supplied value)", () => {
       const code = "function f(props) { return props; }";
       const fact = runInRule(code, (context, ast) => {
-        const node = findAll<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "props");
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "props");
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -340,7 +317,7 @@ describe("resolveObjectType", () => {
     it("Identifier referencing an outer-scope binding → null (local-only resolution)", () => {
       const code = "const x = []; function f() { return x; }";
       const fact = runInRule(code, (context, ast) => {
-        const node = findAll<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -350,7 +327,7 @@ describe("resolveObjectType", () => {
     it("Redeclared variable resolves to the latest definition (var x = []; var x = {})", () => {
       const code = "var x = []; var x = {}; x;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findAll<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
+        const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -361,7 +338,7 @@ describe("resolveObjectType", () => {
     it("Undeclared identifier → null", () => {
       const code = "foo;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.Identifier>(ast, AST.Identifier);
+        const node = getFirstNodeOfType<TSESTree.Identifier>(ast, AST.Identifier);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -372,7 +349,7 @@ describe("resolveObjectType", () => {
       // `a.b` resolves to the type of `a` (plain object), even though `b` is an array.
       const code = "const a = { b: [] }; a.b;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.MemberExpression>(ast, AST.MemberExpression);
+        const node = getFirstNodeOfType<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -383,7 +360,7 @@ describe("resolveObjectType", () => {
     it("AssignmentExpression → type of the right-hand side", () => {
       const code = "let x; x = [1];";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
+        const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -394,7 +371,7 @@ describe("resolveObjectType", () => {
     it("AssignmentPattern (default parameter) → type of the right-hand side", () => {
       const code = "function f(a = {}) {}";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.AssignmentPattern>(ast, AST.AssignmentPattern);
+        const node = getFirstNodeOfType<TSESTree.AssignmentPattern>(ast, AST.AssignmentPattern);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -405,7 +382,7 @@ describe("resolveObjectType", () => {
     it("LogicalExpression falls back to the right side when the left side is undetectable", () => {
       const code = "const x = foo || [];";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
+        const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -416,7 +393,7 @@ describe("resolveObjectType", () => {
     it("ConditionalExpression falls back to the alternate when the consequent is undetectable", () => {
       const code = "const x = cond ? foo : {};";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
+        const node = getFirstNodeOfType<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -427,7 +404,7 @@ describe("resolveObjectType", () => {
     it("SequenceExpression → type of the last expression", () => {
       const code = "const x = (0, []);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.SequenceExpression>(ast, AST.SequenceExpression);
+        const node = getFirstNodeOfType<TSESTree.SequenceExpression>(ast, AST.SequenceExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -438,7 +415,7 @@ describe("resolveObjectType", () => {
     it("CallExpression Boolean()/String()/Number() → null (primitive wrappers are not objects)", () => {
       const code = "Boolean(x); String(x); Number(x);";
       const facts = runInRule(code, (context, ast) => {
-        const nodes = findAll<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const nodes = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(nodes).toHaveLength(3);
         return nodes.map((node) => resolveObjectType(context, node));
       });
@@ -448,7 +425,7 @@ describe("resolveObjectType", () => {
     it("CallExpression Array.of() → kind: 'array'", () => {
       const code = "const x = Array.of(1, 2);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -459,7 +436,7 @@ describe("resolveObjectType", () => {
     it("CallExpression Object.assign()/Object.fromEntries() → kind: 'plain'", () => {
       const code = "const a = Object.assign({}, x); const b = Object.fromEntries([]);";
       const facts = runInRule(code, (context, ast) => {
-        const nodes = findAll<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const nodes = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(nodes).toHaveLength(2);
         return nodes.map((node) => resolveObjectType(context, node));
       });
@@ -471,7 +448,7 @@ describe("resolveObjectType", () => {
       // Only `from`/`of` are recognized for Array; other methods are unknown.
       const code = "const x = Array.map([1], (n) => n);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findAll<TSESTree.CallExpression>(ast, AST.CallExpression)
+        const node = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression)
           .find((n) => n.callee.type === AST.MemberExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
@@ -484,7 +461,7 @@ describe("resolveObjectType", () => {
       // The factory-method check requires the callee object to be a bare Identifier.
       const code = "const x = window.Array.from([1]);";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -495,7 +472,7 @@ describe("resolveObjectType", () => {
     it("Unknown call → kind: 'unknown' with reason 'call-expression'", () => {
       const code = "const x = foo();";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.CallExpression>(ast, AST.CallExpression);
+        const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -507,7 +484,7 @@ describe("resolveObjectType", () => {
     it("TSAsExpression unwraps to the type of the inner expression", () => {
       const code = "const x = [] as const;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.TSAsExpression>(ast, AST.TSAsExpression);
+        const node = getFirstNodeOfType<TSESTree.TSAsExpression>(ast, AST.TSAsExpression);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });
@@ -518,7 +495,7 @@ describe("resolveObjectType", () => {
     it("TemplateLiteral (no `expression` property to unwrap) → null", () => {
       const code = "const x = `a${1}b`;";
       const fact = runInRule(code, (context, ast) => {
-        const node = findFirst<TSESTree.TemplateLiteral>(ast, AST.TemplateLiteral);
+        const node = getFirstNodeOfType<TSESTree.TemplateLiteral>(ast, AST.TemplateLiteral);
         expect(node).toBeDefined();
         return resolveObjectType(context, node!);
       });

@@ -1,4 +1,4 @@
-import { createRuleTesterForJsxEmit, ruleTester } from "#/testing/helpers";
+import { createRuleTesterForJsxEmit, ruleTester } from "@local/testkit";
 import tsx from "dedent";
 import { JsxEmit } from "typescript";
 import rule, { RULE_NAME } from "./no-key-after-spread";

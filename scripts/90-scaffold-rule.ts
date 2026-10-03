@@ -51,7 +51,7 @@ function generateRuleSpecTs(ruleName: string): string {
   return [
     `import tsx from "dedent";`,
     ``,
-    `import { ruleTester } from "#/testing/helpers";`,
+    `import { ruleTester } from "@local/testkit";`,
     `import rule, { RULE_NAME } from "./${ruleName}";`,
     ``,
     `ruleTester.run(RULE_NAME, rule, {`,

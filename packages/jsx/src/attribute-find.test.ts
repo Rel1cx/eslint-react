@@ -7,7 +7,7 @@ import { findAttribute, findParentAttribute, findSpreadProperty } from "./attrib
 
 function parseJsxElement(code: string): { context: RuleContext; element: TSESTree.JSXElement } {
   const { context, node } = getNodeInRule<TSESTree.JSXElement>(code, "JSXElement");
-  return { context: context as never, element: node };
+  return { context, element: node };
 }
 
 function getSpreadArgument(element: TSESTree.JSXElement, index = 0): TSESTree.Expression {

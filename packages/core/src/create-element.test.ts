@@ -1,4 +1,4 @@
-import { collectNodes, createScopeContext, getFirstNodeOfType, parseCode } from "@local/testkit";
+import { collectNodes, createScopeContext, getFirstNodeOfType, getTextOf, parseCode } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
 
@@ -32,7 +32,7 @@ function parseNode<T extends TSESTree.Node>(code: string, type: T["type"]) {
  * `createScopeContext` does not implement `sourceCode.getText`).
  */
 function textOf(code: string, node: null | TSESTree.Node): string | null {
-  return node == null ? null : code.slice(node.range[0], node.range[1]);
+  return node == null ? null : getTextOf(code, node);
 }
 
 describe("getCreateElementTypeArgument", () => {

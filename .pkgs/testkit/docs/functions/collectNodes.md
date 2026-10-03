@@ -3,8 +3,13 @@
 # Function: collectNodes()
 
 ```ts
-function collectNodes<T extends Node>(code: string, type: T["type"], options?: ParseCodeOptions): T[];
+function collectNodes<T extends Node>(input: string | Node, type: T["type"], options?: ParseCodeOptions): T[];
 ```
+
+Collects every node of the given `type` under `input`.
+When `input` is a string it is parsed with `parseCode` (`options` apply);
+when it is a node its subtree is traversed as-is (`options` are ignored)
+and existing parent pointers are left untouched.
 
 ## Type Parameters
 
@@ -14,12 +19,14 @@ function collectNodes<T extends Node>(code: string, type: T["type"], options?: P
 
 ## Parameters
 
-| Parameter | Type                                                    |
-| --------- | ------------------------------------------------------- |
-| `code`    | `string`                                                |
-| `type`    | `T`\[`"type"`\]                                         |
-| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) |
+| Parameter | Type                                                    | Description                                         |
+| --------- | ------------------------------------------------------- | --------------------------------------------------- |
+| `input`   | `string` \| `Node`                                      | Source code or an AST node to search.               |
+| `type`    | `T`\[`"type"`\]                                         | The node type to collect.                           |
+| `options` | [`ParseCodeOptions`](../interfaces/ParseCodeOptions.md) | Parser options, only used when `input` is a string. |
 
 ## Returns
 
 `T`[]
+
+The matching nodes in traversal order.

@@ -6,7 +6,7 @@ import { getHookCollector } from "./hook-collector";
 function collectHooks(code: string) {
   return runCollector(
     code,
-    (context) => getHookCollector(context as never),
+    (context) => getHookCollector(context),
     (api, program) => api.getAllHooks(program),
   );
 }

@@ -127,10 +127,10 @@ When evidence must be correlated across distant sites (provenance, multi-site re
 
 ## Tests
 
-Specs sit next to the rule as `<rule-name>.spec.ts` and use the shared tester from `#/testing/helpers`:
+Specs sit next to the rule as `<rule-name>.spec.ts` and use the shared tester from `@local/testkit`:
 
 ```ts
-import { ruleTester } from "#/testing/helpers";
+import { ruleTester } from "@local/testkit";
 import tsx from "dedent";
 import rule, { RULE_NAME } from "./no-forward-ref";
 

@@ -8,7 +8,7 @@ function collectComponents(code: string) {
   return runCollector(
     code,
     (context) =>
-      getFunctionComponentCollector(context as never, {
+      getFunctionComponentCollector(context, {
         hint: DEFAULT_COMPONENT_DETECTION_HINT,
       }),
     (api, program) => api.getAllComponents(program),
@@ -19,7 +19,7 @@ function collectComponentsWithDisplayName(code: string) {
   return runCollector(
     code,
     (context) =>
-      getFunctionComponentCollector(context as never, {
+      getFunctionComponentCollector(context, {
         hint: DEFAULT_COMPONENT_DETECTION_HINT,
         collectDisplayName: true,
       }),
