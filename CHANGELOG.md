@@ -1,5 +1,13 @@
 # Changelog
 
+## v5.24.0-beta.2 (2026-10-04)
+
+### 🏗️ Internal
+
+- `@local/eff`: added predicate combinators (`and`, `or`, `not`, `nand`, `nor`, `xor`, `implies`, `eqv`, `every`, `some`) and type guards (`isString`, `isNumber`, `isNullish`, `isNotNullish`, `isPromise`, etc.) synced with effect; migrated call sites in `@eslint-react/ast`, `@eslint-react/jsx`, the `react-dom`, `react-web-api`, and `react-x` plugins, `@local/testkit`, and the rules check script to them. (#1989)
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.0-beta.1...v5.24.0-beta.2
+
 ## v5.24.0-beta.1 (2026-10-04)
 
 ### 🐞 Fixes
