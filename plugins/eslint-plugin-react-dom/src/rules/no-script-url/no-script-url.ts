@@ -2,8 +2,8 @@ import { createRule } from "@/utils/create-rule";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { resolveAttributeValue } from "@eslint-react/jsx";
 import { RE_JAVASCRIPT_PROTOCOL } from "@eslint-react/shared";
+import { isString } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
-import { P, isMatching } from "ts-pattern";
 
 export const RULE_NAME = "no-script-url";
 
@@ -32,7 +32,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     JSXAttribute(node) {
       if (node.name.type !== AST.JSXIdentifier || node.value == null) return;
       const value = resolveAttributeValue(context, node).toStatic();
-      if (isMatching(P.string, value) && RE_JAVASCRIPT_PROTOCOL.test(value)) {
+      if (isString(value) && RE_JAVASCRIPT_PROTOCOL.test(value)) {
         context.report({
           messageId: "default",
           node: node.value,

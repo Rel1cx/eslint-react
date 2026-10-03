@@ -1,3 +1,5 @@
+import { isString } from "@local/eff";
+
 /**
  * Check if a value appears to be an external link.
  * External links typically start with http(s):// or have protocol-relative format.
@@ -5,7 +7,7 @@
  * @returns Whether the value represents an external link
  */
 export function isExternalLinkLike(value: unknown): boolean {
-  if (typeof value !== "string") return false;
+  if (!isString(value)) return false;
 
   return value.startsWith("https://") || /^(?:\w+:|\/\/)/u.test(value);
 }
@@ -17,7 +19,7 @@ export function isExternalLinkLike(value: unknown): boolean {
  * @returns Whether the rel value is considered secure
  */
 export function isSafeRel(value: unknown): boolean {
-  if (typeof value !== "string") return false;
+  if (!isString(value)) return false;
 
   return value === "noreferrer" || /\bnoreferrer\b/u.test(value);
 }

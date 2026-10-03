@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { or } from "@local/eff";
 
 export const RULE_NAME = "no-class-component";
 
@@ -33,7 +34,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
     {
       "Program:exit"(program) {
         for (const { id, name = "anonymous", node: component } of api.getAllComponents(program)) {
-          if (component.body.body.some((m) => core.isComponentDidCatch(m) || core.isGetDerivedStateFromError(m))) {
+          if (component.body.body.some(or(core.isComponentDidCatch, core.isGetDerivedStateFromError))) {
             continue;
           }
           const classToken = context.sourceCode.getFirstToken(component, { filter: (token) => token.value === "class" });

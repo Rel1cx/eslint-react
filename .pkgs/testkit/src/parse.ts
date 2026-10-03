@@ -1,5 +1,6 @@
 /// <reference types="node" />
 
+import { isString } from "@local/eff";
 import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
@@ -50,7 +51,7 @@ export function parseCode(code: string, options: ParseCodeOptions = {}): ReturnT
 export function collectNodes<T extends TSESTree.Node>(input: string | TSESTree.Node, type: T["type"], options: ParseCodeOptions = {}): T[] {
   const nodes: T[] = [];
   const isTarget = (node: TSESTree.Node): node is T => node.type === type;
-  const root = typeof input === "string" ? parseCode(input, options).ast : input;
+  const root = isString(input) ? parseCode(input, options).ast : input;
   simpleTraverse(
     root,
     {
@@ -74,7 +75,7 @@ export function collectNodes<T extends TSESTree.Node>(input: string | TSESTree.N
 export function getFirstNodeOfType<T extends TSESTree.Node>(input: string | TSESTree.Node, type: T["type"], options: ParseCodeOptions = {}): T {
   const [node] = collectNodes<T>(input, type, options);
   if (node == null) {
-    const hint = typeof input === "string" ? ` in: ${input}` : " in the given subtree";
+    const hint = isString(input) ? ` in: ${input}` : " in the given subtree";
     throw new Error(`No ${type} found${hint}`);
   }
   return node;
@@ -94,7 +95,7 @@ export function getFirstNodeOfType<T extends TSESTree.Node>(input: string | TSES
  */
 export function findIdentifierReferences(input: string | TSESTree.Node, name: string, options: ParseCodeOptions = {}): TSESTree.Identifier[] {
   const refs: TSESTree.Identifier[] = [];
-  const root = typeof input === "string" ? parseCode(input, options).ast : input;
+  const root = isString(input) ? parseCode(input, options).ast : input;
   simpleTraverse(root, {
     enter(node) {
       if (node.type !== AST.Identifier || node.name !== name) return;

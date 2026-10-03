@@ -1,5 +1,6 @@
 import { Check } from "@eslint-react/ast";
 import { type RuleContext } from "@eslint-react/eslint";
+import { isString } from "@local/eff";
 import type { Reference } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 
@@ -115,7 +116,7 @@ export function getKeyOfExpression(expr: TSESTree.Expression | TSESTree.PrivateI
       return expr.name;
     }
     case AST.Literal: {
-      if (typeof expr.value === "string") {
+      if (isString(expr.value)) {
         return expr.value;
       }
       break;
