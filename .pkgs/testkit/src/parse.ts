@@ -4,6 +4,7 @@ import { parseForESLint } from "@typescript-eslint/parser";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { simpleTraverse } from "@typescript-eslint/typescript-estree";
 import type { TSESLint } from "@typescript-eslint/utils";
+import { isFunction } from "@typescript-eslint/utils/ast-utils";
 import path from "node:path";
 
 import { getFixturesRootDir } from "./fixtures";
@@ -96,7 +97,6 @@ export function findIdentifierReferences(input: string | TSESTree.Node, name: st
     enter(node) {
       if (node.type !== AST.Identifier || node.name !== name) return;
       const parent: TSESTree.Node | undefined = node.parent;
-      if (parent == null) return;
       if (parent.type === AST.VariableDeclarator && parent.id === node) return;
       if (parent.type === AST.FunctionDeclaration && parent.id === node) return;
       if (parent.type === AST.ClassDeclaration && parent.id === node) return;
@@ -107,12 +107,7 @@ export function findIdentifierReferences(input: string | TSESTree.Node, name: st
       if (parent.type === AST.TSModuleDeclaration && parent.id === node) return;
       if (parent.type === AST.TSTypeAliasDeclaration && parent.id === node) return;
       if (parent.type === AST.Property && parent.key === node && !parent.computed) return;
-      if (
-        (parent.type === AST.FunctionDeclaration
-          || parent.type === AST.FunctionExpression
-          || parent.type === AST.ArrowFunctionExpression)
-        && parent.params.some((p) => p === node)
-      ) {
+      if (isFunction(parent) && parent.params.some((p) => p === node)) {
         return;
       }
       refs.push(node);

@@ -5,11 +5,11 @@ All notable changes to the `react-x/use-memo` rule will be documented in this fi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.24.0-beta.0] - 2026-10-03
 
 ### Changed
 
-- Reworked the rule implementation to the fact-based pipeline (collect → resolve → infer → report): `collect.ts` gathers per-call facts (unwrapped callback, result usage, own return statements, and identifier writes), `origins.ts` resolves whether a written identifier refers to an outer variable, and `effects.ts` infers violations without reporting; `lib.ts` is replaced by a pure-AST `helpers.ts`. No behavior change.
+- Reworked the rule implementation to the fact-based pipeline (collect → resolve → infer → report): `collect.ts` gathers per-call facts (unwrapped callback, result usage, own return statements, and identifier writes), `origins.ts` resolves whether a written identifier refers to an outer variable, and `effects.ts` infers violations without reporting; `lib.ts` is replaced by a pure-AST `helpers.ts`. No behavior change. (#1986)
 
 ## [5.20.6] - 2026-09-23
 

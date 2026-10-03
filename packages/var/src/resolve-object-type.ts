@@ -48,7 +48,7 @@ export type ObjectType =
  * @param node The node to resolve.
  * @returns The object type of the node, or `null` when it cannot be resolved.
  */
-export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null): ObjectType | null {
+export function resolveObjectType(context: RuleContext, node: TSESTree.Node | null | undefined): ObjectType | null {
   if (node == null) return null;
   switch (node.type) {
     case AST.JSXElement:

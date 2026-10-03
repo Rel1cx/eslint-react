@@ -5,12 +5,12 @@ All notable changes to the `react-x/set-state-in-effect` rule will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [5.24.0-beta.0] - 2026-10-03
 
 ### Changed
 
-- Reworked the rule implementation to the fact-based pipeline (collect → resolve → infer → report): `collect.ts` gathers call, setup-identifier, and setter-reference facts with their function-phase context, `origins.ts` resolves setState and ref provenance, and `effects.ts` infers violations without reporting; `lib.ts` is replaced by a pure-AST `helpers.ts`. No behavior change.
-- A hook name configured as both `additionalStateHooks` and `additionalEffectHooks` is now classified as a state hook first, matching the original call-kind precedence, so such a call is not mistaken for an effect setup.
+- Reworked the rule implementation to the fact-based pipeline (collect → resolve → infer → report): `collect.ts` gathers call, setup-identifier, and setter-reference facts with their function-phase context, `origins.ts` resolves setState and ref provenance, and `effects.ts` infers violations without reporting; `lib.ts` is replaced by a pure-AST `helpers.ts`. No behavior change. (#1983)
+- A hook name configured as both `additionalStateHooks` and `additionalEffectHooks` is now classified as a state hook first, matching the original call-kind precedence, so such a call is not mistaken for an effect setup. (#1983)
 
 ## [5.23.5] - 2026-10-03
 

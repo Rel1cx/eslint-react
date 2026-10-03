@@ -1,5 +1,21 @@
 # Changelog
 
+## v5.24.0-beta.0 (2026-10-03)
+
+### 🏗️ Internal
+
+- `react-x/set-state-in-effect`: reworked the rule to the fact-based implementation pattern — `collect.ts` (call, setup-identifier, and setter-reference facts with their function-phase context), `origins.ts` (setState and ref provenance), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`; a hook name configured as both `additionalStateHooks` and `additionalEffectHooks` is again classified as a state hook first, matching the original call-kind precedence. (#1983)
+- Renamed message ids to kebab-case across all plugins. (#1984)
+- `react-x/set-state-in-render`: reworked the rule to the fact-based implementation pattern — `collect.ts` (call and early-return facts with their function context), `origins.ts` (setState provenance), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`. (#1985)
+- `react-x/use-memo`: reworked the rule to the fact-based implementation pattern — `collect.ts` (per-call facts: unwrapped callback, result usage, own return statements, and identifier writes), `origins.ts` (outer-variable resolution for written identifiers), and `effects.ts` (violation inference) are now separate modules, with `lib.ts` replaced by a pure-AST `helpers.ts`. (#1986)
+- Migrated package unit tests to the shared `@local/testkit` helpers. (#1987)
+
+### 📝 Documentation
+
+- Added eslint-config-xo-react to the website's community presets.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.23.5...v5.24.0-beta.0
+
 ## v5.23.5 (2026-10-03)
 
 ### 🐞 Fixes

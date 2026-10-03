@@ -11,7 +11,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.JSXElement>(ast, AST.JSXElement);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("jsx");
@@ -22,7 +22,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.JSXFragment>(ast, AST.JSXFragment);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("jsx");
@@ -33,7 +33,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ArrayExpression>(ast, AST.ArrayExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -44,7 +44,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ObjectExpression>(ast, AST.ObjectExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -55,7 +55,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ClassExpression>(ast, AST.ClassExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("class");
@@ -66,7 +66,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.NewExpression>(ast, AST.NewExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("instance");
@@ -77,7 +77,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ArrowFunctionExpression>(ast, AST.ArrowFunctionExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("function");
@@ -90,7 +90,7 @@ describe("resolveObjectType", () => {
         const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
         const regexNode = literals.find((n) => "regex" in n);
         expect(regexNode).toBeDefined();
-        return resolveObjectType(context, regexNode!);
+        return resolveObjectType(context, regexNode);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("regexp");
@@ -101,7 +101,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -112,7 +112,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -123,7 +123,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("regexp");
@@ -134,7 +134,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       // consequent is [1] → array, so that wins via the ?? fallback
@@ -150,7 +150,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       // Left side `arr` is an array — now correctly returned
@@ -164,7 +164,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       // Left side `arr` is an array — now correctly returned
@@ -177,7 +177,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -189,7 +189,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -202,8 +202,8 @@ describe("resolveObjectType", () => {
       runInRule(code, (_context, ast) => {
         const node = getFirstNodeOfType<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(node).toBeDefined();
-        expect("object" in node!).toBe(true);
-        expect(node!.object).toBeDefined();
+        expect("object" in node).toBe(true);
+        expect(node.object).toBeDefined();
         return null;
       });
     });
@@ -215,8 +215,8 @@ describe("resolveObjectType", () => {
       runInRule(code, (_context, ast) => {
         const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
         expect(node).toBeDefined();
-        expect("right" in node!).toBe(true);
-        expect(node!.right).toBeDefined();
+        expect("right" in node).toBe(true);
+        expect(node.right).toBeDefined();
         return null;
       });
     });
@@ -226,7 +226,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -237,7 +237,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -255,7 +255,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.Literal>(ast, AST.Literal);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
     });
@@ -265,7 +265,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ThisExpression>(ast, AST.ThisExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("instance");
@@ -276,7 +276,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.FunctionDeclaration>(ast, AST.FunctionDeclaration);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("function");
@@ -287,7 +287,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.FunctionExpression>(ast, AST.FunctionExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("function");
@@ -298,7 +298,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -309,7 +309,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "props");
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
     });
@@ -319,7 +319,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
     });
@@ -329,7 +329,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = collectNodes<TSESTree.Identifier>(ast, AST.Identifier).findLast((n) => n.name === "x");
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -340,7 +340,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.Identifier>(ast, AST.Identifier);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
     });
@@ -351,7 +351,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -362,7 +362,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -373,7 +373,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.AssignmentPattern>(ast, AST.AssignmentPattern);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -384,7 +384,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.LogicalExpression>(ast, AST.LogicalExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -395,7 +395,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.ConditionalExpression>(ast, AST.ConditionalExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("plain");
@@ -406,7 +406,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.SequenceExpression>(ast, AST.SequenceExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -427,7 +427,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -451,7 +451,7 @@ describe("resolveObjectType", () => {
         const node = collectNodes<TSESTree.CallExpression>(ast, AST.CallExpression)
           .find((n) => n.callee.type === AST.MemberExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("unknown");
@@ -463,7 +463,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("unknown");
@@ -474,7 +474,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.CallExpression>(ast, AST.CallExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("unknown");
@@ -486,7 +486,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.TSAsExpression>(ast, AST.TSAsExpression);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).not.toBeNull();
       expect(fact!.kind).toBe("array");
@@ -497,7 +497,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         const node = getFirstNodeOfType<TSESTree.TemplateLiteral>(ast, AST.TemplateLiteral);
         expect(node).toBeDefined();
-        return resolveObjectType(context, node!);
+        return resolveObjectType(context, node);
       });
       expect(fact).toBeNull();
     });
