@@ -3,7 +3,7 @@ import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
-import { getOrInsertComputed } from "@local/eff";
+import { getOrInsertComputed, or } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -31,6 +31,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   const getText = (n: TSESTree.Node) => context.sourceCode.getText(n);
 
   const isUseEffectCall = (node: TSESTree.Node) => core.isUseEffectLikeCall(node, additionalEffectHooks);
+  const isUseStateOrThenCall = or(resolver.isUseStateCall, isThenCall);
 
   const setStateCallsByFn = new Map<TSESTreeFunction, TSESTree.CallExpression[]>();
   const setStateInHookCallbacks = new Map<TSESTree.CallExpression, TSESTree.CallExpression[]>();
@@ -40,7 +41,7 @@ export function inferViolations(context: RuleContext, facts: SetStateInEffectFac
   const violations: SetStateViolation[] = [];
 
   for (const { enclosingFunction, enclosingFunctionKind, node, setupFunction } of facts.calls) {
-    if (resolver.isUseStateCall(node) || isThenCall(node)) continue;
+    if (isUseStateOrThenCall(node)) continue;
     if (!resolver.isSetStateCall(node)) {
       // A plain call made directly in the setup body may reach a setState
       // through a local function or hook callback; track it for resolution
