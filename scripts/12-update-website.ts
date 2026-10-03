@@ -1,5 +1,5 @@
-import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as NodeServices from "@effect/platform-node/NodeServices";
+import * as NodeRtm from "@effect/platform-node/NodeRuntime";
+import * as NodeSrv from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
 import * as Effect from "effect/Effect";
 import * as FileSystem from "effect/FileSystem";
@@ -225,4 +225,4 @@ const program = Effect.gen(function*() {
   yield* Effect.log(ansis.bold.green("Documentation processing completed."));
 });
 
-program.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeSrv.layer), NodeRtm.runMain);

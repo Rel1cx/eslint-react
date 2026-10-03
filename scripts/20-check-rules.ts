@@ -1,5 +1,5 @@
-import * as NodeRuntime from "@effect/platform-node/NodeRuntime";
-import * as NodeServices from "@effect/platform-node/NodeServices";
+import * as NodeRtm from "@effect/platform-node/NodeRuntime";
+import * as NodeSrv from "@effect/platform-node/NodeServices";
 import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
@@ -599,4 +599,4 @@ const program = Effect.gen(function*() {
   }
 });
 
-program.pipe(Effect.provide(NodeServices.layer), NodeRuntime.runMain);
+program.pipe(Effect.provide(NodeSrv.layer), NodeRtm.runMain);
