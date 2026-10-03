@@ -1,6 +1,6 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/testing/helpers";
+import { ruleTester } from "@local/testkit";
 import { createJsxElementResolver } from "./create-jsx-element-resolver";
 import { createRule } from "./create-rule";
 

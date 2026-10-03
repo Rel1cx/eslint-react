@@ -1325,6 +1325,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1377,6 +1380,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1426,6 +1432,9 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../.pkgs/eff
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1475,6 +1484,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1521,6 +1533,9 @@ importers:
       '@local/configs':
         specifier: workspace:*
         version: link:../../.pkgs/configs
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1573,6 +1588,9 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../.pkgs/eff
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@types/react':
         specifier: ^19.3.0
         version: 19.3.0
@@ -1643,6 +1661,9 @@ importers:
       '@local/eff':
         specifier: workspace:*
         version: link:../../.pkgs/eff
+      '@local/testkit':
+        specifier: workspace:*
+        version: link:../../.pkgs/testkit
       '@rbxts/react':
         specifier: 17.3.7-ts.2
         version: 17.3.7-ts.2

@@ -1,5 +1,5 @@
-import { createRuleTesterForJsxEmit } from "#/testing/helpers";
 import { stringify } from "@/utils/stringify";
+import { createRuleTesterForJsxEmit } from "@local/testkit";
 import tsx from "dedent";
 import ts from "typescript";
 import rule, { RULE_NAME } from "./jsx";

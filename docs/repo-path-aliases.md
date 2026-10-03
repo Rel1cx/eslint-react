@@ -5,7 +5,7 @@ This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 | Alias | Target             | Purpose                                                                                    |
 | ----- | ------------------ | ------------------------------------------------------------------------------------------ |
 | `@/`  | `./src/*` or `./*` | Current package's source tree (`plugins/*` tsconfigs → `./src/*`; `apps/website` → `./*`). |
-| `#/`  | `../../*`          | Workspace root — test helpers and build scripts only.                                      |
+| `#/`  | `./*`              | Workspace root — declared only in the root `tsconfig.json`, used by root-level scripts.    |
 
 ## Usage
 
@@ -13,17 +13,13 @@ This monorepo uses TypeScript `paths` aliases to avoid deep relative imports.
 // Inside a plugin's src/ (packages/* do not define the `@/` alias)
 import { createRule } from "@/utils/create-rule"; // 🟢 Preferred
 import { createRule } from "../../utils/create-rule"; // 🔴 Avoid
-
-// Inside a test or script
-import { ruleTester } from "#/testing/helpers"; // 🟢 Preferred
-import { ruleTester } from "../../../../testing/helpers"; // 🔴 Avoid
 ```
 
-Test infrastructure lives in the internal `@local/testkit` package (`.pkgs/testkit`). Plugin rule tests import it through the `#/testing/helpers` re-export shim — this is the import the scaffold script generates for new rules. Package-level unit tests may import directly from `@local/testkit`:
+Test infrastructure lives in the internal `@local/testkit` package (`.pkgs/testkit`). Plugin rule tests import it directly — this is the import the scaffold script generates for new rules:
 
 ```ts
-// Inside a package's *.test.ts
-import { getFirstNodeOfType, parseCode, runInRule } from "@local/testkit"; // 🟢 Preferred
+// Inside a rule's *.spec.ts or a package's *.test.ts
+import { getFirstNodeOfType, parseCode, ruleTester, runInRule } from "@local/testkit"; // 🟢 Preferred
 ```
 
 ## Configuration
@@ -36,9 +32,7 @@ Per-plugin `tsconfig.json`:
   "compilerOptions": {
     "paths": {
       "@": ["./src"],
-      "@/*": ["./src/*"],
-      "#": ["../.."],
-      "#/*": ["../../*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]
@@ -47,11 +41,11 @@ Per-plugin `tsconfig.json`:
 
 (Other compiler options and the `exclude` array are omitted for brevity.)
 
-The workspace root `tsconfig.json` only declares `#` / `#/*` for root-level files.
+The workspace root `tsconfig.json` declares `#` / `#/*` pointing at the repo root for root-level files (e.g. `scripts/20-check-rules.ts` imports plugin configs via `#/plugins/...`). Plugin tsconfigs do not declare the `#` alias.
 
 Vitest resolves these aliases via `resolve.tsconfigPaths: true` in `vitest.config.ts`.
 
 ## Notes
 
-- Cross-package imports use real package names (e.g. `@eslint-react/ast`), not aliases.
-- Aliases are resolved and inlined by the bundler; published packages never expose `@/` or `#/` imports.
+- Cross-package imports use real package names (e.g. `@eslint-react/ast`, `@local/testkit`), not aliases.
+- Aliases are resolved and inlined by the bundler; published packages never expose `@/` imports.

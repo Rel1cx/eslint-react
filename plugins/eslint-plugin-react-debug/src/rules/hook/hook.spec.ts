@@ -1,7 +1,7 @@
 import tsx from "dedent";
 
-import { ruleTester } from "#/testing/helpers";
 import { stringify } from "@/utils/stringify";
+import { ruleTester } from "@local/testkit";
 import rule, { RULE_NAME } from "./hook";
 
 ruleTester.run(RULE_NAME, rule, {
