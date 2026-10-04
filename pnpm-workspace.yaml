@@ -89,8 +89,6 @@ overrides:
   why-is-node-running: "3.2.1"
 
 trustPolicy: "no-downgrade"
-minimumReleaseAge: 1440 # 1 day
+minimumReleaseAge: 0
 patchedDependencies:
   import-integrity-lint: patches/import-integrity-lint.patch
-minimumReleaseAgeExclude:
-  - tsl-dx@0.13.7
