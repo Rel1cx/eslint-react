@@ -2,7 +2,7 @@
 /* eslint-disable perfectionist/sort-objects */
 /// <reference types="node" />
 import type { RuleContext } from "@eslint-react/eslint";
-import { getOrInsertComputed, identity } from "@local/eff";
+import { identity, isObjectKeyword, memoize } from "@local/eff";
 import module from "node:module";
 import path from "node:path";
 import { P, match } from "ts-pattern";
@@ -192,7 +192,7 @@ export function getReactVersion(fallback: string): string {
   }
 }
 
-const cache = new Map<unknown, ESLintReactSettingsNormalized>();
+const getNormalizedSettings = memoize((settings: object) => normalizeSettings(decodeSettings(settings)));
 
 /**
  * Get the normalized ESLint React settings from the rule context.
@@ -201,11 +201,7 @@ const cache = new Map<unknown, ESLintReactSettingsNormalized>();
  */
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
   const settings = context.settings["react-x"];
-  return getOrInsertComputed(
-    cache,
-    settings,
-    () => normalizeSettings(decodeSettings(settings)),
-  );
+  return getNormalizedSettings(isObjectKeyword(settings) ? settings : DEFAULT_ESLINT_REACT_SETTINGS);
 }
 
 declare module "@typescript-eslint/utils/ts-eslint" {
