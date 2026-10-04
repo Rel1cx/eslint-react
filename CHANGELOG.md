@@ -1,5 +1,15 @@
 # Changelog
 
+## v5.24.2 (2026-10-04)
+
+### 🏗️ Internal
+
+- `@eslint-react/core`, `@eslint-react/var`, the `react-dom` plugin, and the `react-x` plugin: replaced `in` operator checks with the `hasProperty` helper from `@local/eff`.
+- `@eslint-react/shared`: documented `getNormalizedSettings`.
+- JSDoc comments are now stripped from the tsdown build output, producing smaller published packages.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.1...v5.24.2
+
 ## v5.24.1 (2026-10-04)
 
 ### 🏗️ Internal
