@@ -206,7 +206,11 @@ export const getNormalizedSettings = memoize((settings: object) => normalizeSett
  */
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
   const settings = context.settings["react-x"];
-  return getNormalizedSettings(isObjectKeyword(settings) ? settings : DEFAULT_ESLINT_REACT_SETTINGS);
+  return getNormalizedSettings(
+    isObjectKeyword(settings)
+      ? settings
+      : DEFAULT_ESLINT_REACT_SETTINGS,
+  );
 }
 
 declare module "@typescript-eslint/utils/ts-eslint" {
