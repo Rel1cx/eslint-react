@@ -177,8 +177,6 @@ export const normalizeSettings = ({
   } as const satisfies ESLintReactSettingsNormalized;
 };
 
-const cache = new Map<unknown, ESLintReactSettingsNormalized>();
-
 /**
  * Get the React version from the project's dependencies.
  * @param fallback The fallback version to return if React is not found.
@@ -193,6 +191,8 @@ export function getReactVersion(fallback: string): string {
     return fallback;
   }
 }
+
+const cache = new Map<unknown, ESLintReactSettingsNormalized>();
 
 /**
  * Get the normalized ESLint React settings from the rule context.

@@ -17,11 +17,10 @@ in the opposite order.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
 const f = (a: number) => (b: string) => a - b.length;
 
-assert.deepStrictEqual(Function.flip(f)("aaa")(2), -1);
+Function.flip(f)("aaa")(2); // => -1
 ```
 
 ## Type Parameters

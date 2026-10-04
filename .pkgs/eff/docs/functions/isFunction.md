@@ -6,30 +6,43 @@
 function isFunction(input: unknown): input is Function;
 ```
 
-Tests if a value is a `function`.
+Checks whether a value is a `function`.
+
+**When to use**
+
+Use when you need a `Predicate` guard to narrow an `unknown` value to a
+callable function.
+
+**Details**
+
+Uses `typeof input === "function"`.
+
+**Example** (Guarding functions)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = () => 1;
+
+if (Predicate.isFunction(data)) {
+  data(); // => 1
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description        |
-| --------- | --------- | ------------------ |
-| `input`   | `unknown` | The value to test. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
 `input is Function`
 
-`true` if the input is a function, `false` otherwise.
+## See
 
-## Example
-
-```ts
-import { isFunction } from "effect/Predicate";
-import * as assert from "node:assert";
-
-assert.deepStrictEqual(isFunction(isFunction), true);
-assert.deepStrictEqual(isFunction("function"), false);
-```
+[isObjectKeyword](isObjectKeyword.md)
 
 ## Since
 
-1.0.0
+2.0.0

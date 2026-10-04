@@ -3,19 +3,43 @@
 # Function: isDate()
 
 ```ts
-function isDate(data: unknown): data is Date;
+function isDate(input: unknown): input is Date;
 ```
 
-A function that checks if the passed parameter is a `Date` and narrows its type accordingly.
+Checks whether a value is a `Date`.
+
+**When to use**
+
+Use when you need a `Predicate` runtime guard for dates.
+
+**Details**
+
+Uses `instanceof Date`.
+
+**Example** (Guarding Date values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = new Date();
+
+Predicate.isDate(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is Date`
+`input is Date`
 
-True if the passed input is a `Date`, false otherwise.
+## See
+
+[isRegExp](isRegExp.md)
+
+## Since
+
+2.0.0

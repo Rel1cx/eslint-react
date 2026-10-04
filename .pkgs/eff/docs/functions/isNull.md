@@ -3,19 +3,44 @@
 # Function: isNull()
 
 ```ts
-function isNull(data: unknown): data is null;
+function isNull(input: unknown): input is null;
 ```
 
-A function that checks if the passed parameter is `null` and narrows its type accordingly.
+Checks whether a value is `null`.
+
+**When to use**
+
+Use when you need a `Predicate` guard for nullable values.
+
+**Details**
+
+Uses `input === null`.
+
+**Example** (Guarding null values)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = null;
+
+Predicate.isNull(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is null`
+`input is null`
 
-True if the passed input is `null`, false otherwise.
+## See
+
+- [isNotNull](isNotNull.md)
+- [isNullish](isNullish.md)
+
+## Since
+
+2.0.0

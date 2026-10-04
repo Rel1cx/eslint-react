@@ -16,11 +16,10 @@ Use to adapt a tuple-argument function so it accepts multiple arguments.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
 const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0]);
 
-assert.deepStrictEqual(getFirst(1, 2), 1);
+getFirst(1, 2); // => 1
 ```
 
 ## Type Parameters

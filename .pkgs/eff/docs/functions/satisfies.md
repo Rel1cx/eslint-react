@@ -18,15 +18,12 @@ type.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
-const test1 = Function.satisfies<number>()(5 as const);
+const test1 = Function.satisfies<number>()(5 as const); // => 5
 // ^? const test: 5
 // @ts-expect-error
 const test2 = Function.satisfies<string>()(5);
 // ^? Argument of type 'number' is not assignable to parameter of type 'string'
-
-assert.deepStrictEqual(Function.satisfies<number>()(5), 5);
 ```
 
 ## Type Parameters

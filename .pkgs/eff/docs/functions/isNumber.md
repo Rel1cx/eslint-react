@@ -3,21 +3,47 @@
 # Function: isNumber()
 
 ```ts
-function isNumber(data: unknown): data is number;
+function isNumber(input: unknown): input is number;
 ```
 
-A function that checks if the passed parameter is a number and narrows its type accordingly.
+Checks whether a value is a `number`.
 
-Note: `NaN` and `Infinity` are considered numbers by this check.
+**When to use**
+
+Use when you need a `Predicate` guard to narrow an `unknown` value to a
+number.
+
+**Details**
+
+Uses `typeof input === "number"` and does not exclude `NaN` or `Infinity`.
+
+**Example** (Guarding numbers)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = 42;
+
+if (Predicate.isNumber(data)) {
+  data + 1; // => 43
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is number`
+`input is number`
 
-True if the passed input is a number, false otherwise.
+## See
+
+- [isBigInt](isBigInt.md)
+- [isString](isString.md)
+
+## Since
+
+2.0.0

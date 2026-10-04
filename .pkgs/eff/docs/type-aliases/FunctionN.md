@@ -17,10 +17,9 @@ type.
 
 ```ts
 import type { Function } from "effect";
-import * as assert from "node:assert";
 
 const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b;
-assert.deepStrictEqual(sum(2, 3), 5);
+sum(2, 3); // => 5
 ```
 
 ## Type Parameters

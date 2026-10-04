@@ -17,9 +17,8 @@ meaningful return value.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(Function.constVoid(), undefined);
+Function.constVoid(); // => undefined
 ```
 
 ## Since

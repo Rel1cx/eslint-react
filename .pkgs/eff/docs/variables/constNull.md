@@ -16,9 +16,8 @@ Use when you need a thunk that returns `null` on every invocation.
 
 ```ts
 import { Function } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(Function.constNull(), null);
+Function.constNull(); // => null
 ```
 
 ## Since

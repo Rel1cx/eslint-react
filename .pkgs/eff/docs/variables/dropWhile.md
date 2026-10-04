@@ -4,80 +4,79 @@
 
 ```ts
 const dropWhile: {
-  <S>(pred: (x: S) => boolean): <T>(xs: T[]) => T[];
-  <S, T>(xs: T[], pred: (x: S) => boolean): T[];
+  <A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
+  <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
 };
 ```
 
-Drops the longest prefix of elements from an array that satisfy the given predicate.
+Drops elements from the start while the predicate holds, returning the rest.
 
-Supports both data-first and data-last (`pipe`-friendly) call styles.
+**When to use**
+
+Use to remove a leading prefix of elements that satisfy a predicate.
+
+**Details**
+
+The predicate receives `(element, index)`.
+
+**Example** (Dropping while condition holds)
+
+```ts
+import { Array } from "effect";
+
+Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4); // => [4, 5]
+```
 
 ## Call Signature
 
 ```ts
-<S>(pred: (x: S) => boolean): <T>(xs: T[]) => T[];
+<A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => A[];
 ```
 
 ### Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `S`            |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type                    |
-| --------- | ----------------------- |
-| `pred`    | (`x`: `S`) => `boolean` |
+| Parameter   | Type                                                                                                                               |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `predicate` | (`a`: [`NoInfer`](https://www.typescriptlang.org/docs/handbook/utility-types.html#noinfertype)\<`A`\>, `i`: `number`) => `boolean` |
 
 ### Returns
 
-\<`T`\>(`xs`: `T`[]) => `T`[]
+(`self`: [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\>) => `A`[]
 
 ## Call Signature
 
 ```ts
-<S, T>(xs: T[], pred: (x: S) => boolean): T[];
+<A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): A[];
 ```
 
 ### Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `S`            |
-| `T`            |
+| `A`            |
 
 ### Parameters
 
-| Parameter | Type                    |
-| --------- | ----------------------- |
-| `xs`      | `T`[]                   |
-| `pred`    | (`x`: `S`) => `boolean` |
+| Parameter   | Type                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `self`      | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<`A`\> |
+| `predicate` | (`a`: `A`, `i`: `number`) => `boolean`                                                                             |
 
 ### Returns
 
-`T`[]
+`A`[]
 
-## Param
+## See
 
-**pred**
+- [takeWhile](takeWhile.md) — keep the matching prefix instead
+- drop — drop a fixed count
 
-The predicate to test each element with.
+## Since
 
-## Returns
-
-A new array without the matching prefix.
-
-## Example
-
-```ts
-import { dropWhile, pipe } from "@local/eff";
-import * as assert from "node:assert";
-
-// data-first
-assert.deepStrictEqual(dropWhile([1, 2, 3, 2, 1], (n: number) => n < 3), [3, 2, 1]);
-
-// data-last
-assert.deepStrictEqual(pipe([1, 2, 3, 2, 1], dropWhile((n: number) => n < 3)), [3, 2, 1]);
-```
+2.0.0

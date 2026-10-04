@@ -3,25 +3,51 @@
 # Function: every()
 
 ```ts
-function every<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean;
+function every<A>(collection: Iterable<(a: A) => boolean>): (a: A) => boolean;
 ```
 
 Creates a predicate that returns `true` if all predicates in the collection return `true`.
+
+**When to use**
+
+Use when you have a dynamic list of predicates to apply.
+
+**Details**
+
+Evaluation short-circuits on the first `false`. The collection is iterated
+each time the predicate is called.
+
+**Example** (Checking all predicates)
+
+```ts
+import { Predicate } from "effect";
+
+const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0]);
+
+allChecks(2); // => true
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter    | Type                                                                                                                                      | Description                            |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| `collection` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<(`data`: `T`) => `boolean`\> | The collection of predicates to check. |
+| Parameter    | Type                                                                                                                                   |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `collection` | [`Iterable`](https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html#iterable-interface)\<(`a`: `A`) => `boolean`\> |
 
 ## Returns
 
-A predicate that short-circuits on the first `false`.
+(`a`: `A`) => `boolean`
 
-(`data`: `T`) => `boolean`
+## See
+
+- [some](some.md)
+- [and](../variables/and.md)
+
+## Since
+
+2.0.0

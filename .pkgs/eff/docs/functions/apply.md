@@ -21,9 +21,8 @@ is the value flowing through `pipe`.
 
 ```ts
 import { Function, String, pipe } from "effect";
-import * as assert from "node:assert";
 
-assert.deepStrictEqual(pipe(String.length, Function.apply("hello")), 5);
+pipe(String.length, Function.apply("hello")); // => 5
 ```
 
 ## Type Parameters

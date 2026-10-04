@@ -23,8 +23,9 @@ import { Effect } from "effect";
 const program = Effect.succeed(1).pipe(
   Effect.map((x) => x + 1),
   Effect.flatMap((x) => Effect.succeed(x * 2)),
-  Effect.tap((x) => Effect.log(`Result: ${x}`)),
 );
+
+Effect.runSync(program); // => 4
 ```
 
 ## Since

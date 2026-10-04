@@ -27,8 +27,6 @@ const buildUser = (id: number): { readonly id: number; readonly name: string } =
   id,
   name: hole<string>(),
 });
-
-console.log(typeof buildUser); // "function"
 ```
 
 ## Type Parameters

@@ -24,14 +24,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -82,14 +81,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -142,14 +140,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -209,14 +206,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -279,14 +275,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -352,14 +347,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -428,14 +422,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -507,14 +500,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters
@@ -589,14 +581,13 @@ unary.
 
 ```ts
 import { flow } from "effect";
-import * as assert from "node:assert";
 
 const len = (s: string): number => s.length;
 const double = (n: number): number => n * 2;
 
 const f = flow(len, double);
 
-assert.strictEqual(f("aaa"), 6);
+f("aaa"); // => 6
 ```
 
 ### Type Parameters

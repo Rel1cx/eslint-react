@@ -3,19 +3,48 @@
 # Function: isString()
 
 ```ts
-function isString(data: unknown): data is string;
+function isString(input: unknown): input is string;
 ```
 
-A function that checks if the passed parameter is a string and narrows its type accordingly.
+Checks whether a value is a `string`.
+
+**When to use**
+
+Use when you need a `Predicate` guard to narrow an `unknown` value to a
+string.
+
+**Details**
+
+Uses `typeof input === "string"`.
+
+**Example** (Guarding strings)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = "hi";
+
+if (Predicate.isString(data)) {
+  data.toUpperCase(); // => "HI"
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is string`
+`input is string`
 
-True if the passed input is a string, false otherwise.
+## See
+
+- [isNumber](isNumber.md)
+- [isBoolean](isBoolean.md)
+- Refinement
+
+## Since
+
+2.0.0

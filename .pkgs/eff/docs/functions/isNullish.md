@@ -3,25 +3,50 @@
 # Function: isNullish()
 
 ```ts
-function isNullish<T>(data: T): data is T & (null | undefined);
+function isNullish<A>(input: A): input is A & (null | undefined);
 ```
 
-A function that checks if the passed parameter is `null` or `undefined` and narrows its type accordingly.
+Checks whether a value is `null` or `undefined`.
+
+**When to use**
+
+Use when you need a `Predicate` guard for nullish values.
+
+**Details**
+
+Uses `input === null || input === undefined`.
+
+**Example** (Guarding nullish values)
+
+```ts
+import { Predicate } from "effect";
+
+const values = [0, null, "", undefined];
+const nullish = values.filter(Predicate.isNullish); // => [null, undefined]
+```
 
 ## Type Parameters
 
 | Type Parameter |
 | -------------- |
-| `T`            |
+| `A`            |
 
 ## Parameters
 
-| Parameter | Type | Description            |
-| --------- | ---- | ---------------------- |
-| `data`    | `T`  | The variable to check. |
+| Parameter | Type |
+| --------- | ---- |
+| `input`   | `A`  |
 
 ## Returns
 
-data is T & (null \| undefined)
+input is A & (null \| undefined)
 
-True if the passed input is nullish, false otherwise.
+## See
+
+- [isNotNullish](isNotNullish.md)
+- [isUndefined](isUndefined.md)
+- [isNull](isNull.md)
+
+## Since
+
+4.0.0

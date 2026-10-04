@@ -3,19 +3,47 @@
 # Function: isBoolean()
 
 ```ts
-function isBoolean(data: unknown): data is boolean;
+function isBoolean(input: unknown): input is boolean;
 ```
 
-A function that checks if the passed parameter is a boolean and narrows its type accordingly.
+Checks whether a value is a `boolean`.
+
+**When to use**
+
+Use when you need a `Predicate` guard to narrow an `unknown` value to a
+boolean.
+
+**Details**
+
+Uses `typeof input === "boolean"`.
+
+**Example** (Guarding booleans)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = true;
+
+if (Predicate.isBoolean(data)) {
+  data ? "yes" : "no"; // => "yes"
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is boolean`
+`input is boolean`
 
-True if the passed input is a boolean, false otherwise.
+## See
+
+- [isString](isString.md)
+- [isNumber](isNumber.md)
+
+## Since
+
+2.0.0

@@ -3,19 +3,46 @@
 # Function: isSet()
 
 ```ts
-function isSet(data: unknown): data is Set<unknown>;
+function isSet(input: unknown): input is Set<unknown>;
 ```
 
-A function that checks if the passed parameter is a `Set` and narrows its type accordingly.
+Checks whether a value is a `Set`.
+
+**When to use**
+
+Use when you need a `Predicate` runtime guard for `Set` values.
+
+**Details**
+
+Uses `instanceof Set`.
+
+**Example** (Guarding a Set)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = new Set([1, 2]);
+
+if (Predicate.isSet(data)) {
+  data.size; // => 2
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is Set<unknown>`
+`input is Set<unknown>`
 
-True if the passed input is a `Set`, false otherwise.
+## See
+
+- [isMap](isMap.md)
+- [isIterable](isIterable.md)
+
+## Since
+
+2.0.0

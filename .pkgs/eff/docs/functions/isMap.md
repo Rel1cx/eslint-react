@@ -3,19 +3,46 @@
 # Function: isMap()
 
 ```ts
-function isMap(data: unknown): data is Map<unknown, unknown>;
+function isMap(input: unknown): input is Map<unknown, unknown>;
 ```
 
-A function that checks if the passed parameter is a `Map` and narrows its type accordingly.
+Checks whether a value is a `Map`.
+
+**When to use**
+
+Use when you need a `Predicate` runtime guard for `Map` values.
+
+**Details**
+
+Uses `instanceof Map`.
+
+**Example** (Guarding a Map)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = new Map([["a", 1]]);
+
+if (Predicate.isMap(data)) {
+  data.size; // => 1
+}
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is Map<unknown, unknown>`
+`input is Map<unknown, unknown>`
 
-True if the passed input is a `Map`, false otherwise.
+## See
+
+- [isSet](isSet.md)
+- [isIterable](isIterable.md)
+
+## Since
+
+2.0.0

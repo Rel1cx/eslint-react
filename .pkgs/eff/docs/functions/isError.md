@@ -3,19 +3,43 @@
 # Function: isError()
 
 ```ts
-function isError(data: unknown): data is Error;
+function isError(input: unknown): input is Error;
 ```
 
-A function that checks if the passed parameter is an `Error` and narrows its type accordingly.
+Checks whether a value is an `Error`.
+
+**When to use**
+
+Use when you need a `Predicate` guard for errors caught from unknown sources.
+
+**Details**
+
+Uses `instanceof Error`.
+
+**Example** (Guarding errors)
+
+```ts
+import { Predicate } from "effect";
+
+const data: unknown = new Error("boom");
+
+Predicate.isError(data); // => true
+```
 
 ## Parameters
 
-| Parameter | Type      | Description            |
-| --------- | --------- | ---------------------- |
-| `data`    | `unknown` | The variable to check. |
+| Parameter | Type      |
+| --------- | --------- |
+| `input`   | `unknown` |
 
 ## Returns
 
-`data is Error`
+`input is Error`
 
-True if the passed input is an `Error`, false otherwise.
+## See
+
+[isUnknown](isUnknown.md)
+
+## Since
+
+2.0.0

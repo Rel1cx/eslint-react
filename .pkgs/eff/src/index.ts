@@ -46,6 +46,7 @@
 
 // region Directives
 
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 /* tsl-ignore dx/no-unsafe-as */
 /* tsl-ignore dx/nullish */
 
@@ -63,504 +64,6 @@ export type Pretty<T> =
     [P in keyof T]: T[P];
   }
   & {};
-
-/**
- * An extension of Extract for type predicates which falls back to the base
- * in order to narrow the `unknown` case.
- *
- * @example
- *   function isMyType<T>(data: T | MyType): data is NarrowedTo<T, MyType> { ... }
- * @category utility types
- */
-export type NarrowedTo<T, Base> = Extract<T, Base> extends never ? Base
-  : 0 extends 1 & NoInfer<T> ? Base
-  : Extract<T, Base>;
-
-// #endregion
-
-// #region Predicate
-
-/**
- * A function that takes a guard function as predicate and returns a guard that negates it.
- *
- * @param predicate - The guard function to negate.
- * @returns A guard function that negates the given predicate.
- * @category combinators
- */
-export function not<T, S extends T>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
-export function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
-export function not<T>(predicate: (data: T) => boolean) {
-  return (data: T): boolean => !predicate(data);
-}
-
-/**
- * A function that takes two guard functions as predicates and returns a guard that checks if both of them are true.
- *
- * @param a - The first guard function.
- * @param b - The second guard function.
- * @returns A guard function that checks if both predicates are true.
- * @category combinators
- */
-export function and<T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S & U;
-export function and<T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
-export function and<T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
-export function and<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
-export function and(a: (data: unknown) => boolean, b: (data: unknown) => boolean) {
-  return (data: unknown): boolean => a(data) && b(data);
-}
-
-/**
- * A function that takes two guard functions as predicates and returns a guard that checks if either of them is true.
- *
- * @param a - The first guard function.
- * @param b - The second guard function.
- * @returns A guard function that checks if either predicate is true.
- * @category combinators
- */
-export function or<T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
-export function or<T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
-export function or<T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
-export function or<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
-export function or(a: (data: unknown) => boolean, b: (data: unknown) => boolean) {
-  return (data: unknown): boolean => a(data) || b(data);
-}
-
-/**
- * Creates a predicate that returns `true` if exactly one of the two predicates is `true`.
- *
- * @param a - The first predicate.
- * @param b - The second predicate.
- * @returns A predicate with exclusive-or semantics.
- * @category combinators
- */
-export function xor<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
-  return (data: T): boolean => a(data) !== b(data);
-}
-
-/**
- * Creates a predicate that returns `true` when both predicates agree on the result.
- *
- * @param a - The first predicate.
- * @param b - The second predicate.
- * @returns A predicate with equivalence semantics.
- * @category combinators
- */
-export function eqv<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
-  return (data: T): boolean => a(data) === b(data);
-}
-
-/**
- * Creates a predicate representing logical implication: if `antecedent`, then `consequent`.
- *
- * @param antecedent - The precondition predicate.
- * @param consequent - The predicate that must hold when the precondition holds.
- * @returns A predicate that is `true` when the antecedent is `false` or the consequent is `true`.
- * @category combinators
- */
-export function implies<T>(antecedent: (data: T) => boolean, consequent: (data: T) => boolean): (data: T) => boolean {
-  return (data: T): boolean => !antecedent(data) || consequent(data);
-}
-
-/**
- * Creates a predicate that returns `true` when neither predicate is `true`.
- *
- * @param a - The first predicate.
- * @param b - The second predicate.
- * @returns The negation of `or` applied to the two predicates.
- * @category combinators
- */
-export function nor<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
-  return (data: T): boolean => !a(data) && !b(data);
-}
-
-/**
- * Creates a predicate that returns `true` unless both predicates are `true`.
- *
- * @param a - The first predicate.
- * @param b - The second predicate.
- * @returns The negation of `and` applied to the two predicates.
- * @category combinators
- */
-export function nand<T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean {
-  return (data: T): boolean => !a(data) || !b(data);
-}
-
-/**
- * Creates a predicate that returns `true` if all predicates in the collection return `true`.
- *
- * @param collection - The collection of predicates to check.
- * @returns A predicate that short-circuits on the first `false`.
- * @category combining
- */
-export function every<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean {
-  return (data: T): boolean => {
-    for (const predicate of collection) {
-      if (!predicate(data)) {
-        return false;
-      }
-    }
-    return true;
-  };
-}
-
-/**
- * Creates a predicate that returns `true` if any predicate in the collection returns `true`.
- *
- * @param collection - The collection of predicates to check.
- * @returns A predicate that short-circuits on the first `true`.
- * @category combining
- */
-export function some<T>(collection: Iterable<(data: T) => boolean>): (data: T) => boolean {
-  return (data: T): boolean => {
-    for (const predicate of collection) {
-      if (predicate(data)) {
-        return true;
-      }
-    }
-    return false;
-  };
-}
-
-/**
- * A function that checks if the passed parameter is a string and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a string, false otherwise.
- * @category guards
- */
-export function isString(data: unknown): data is string {
-  return typeof data === "string";
-}
-
-/**
- * A function that checks if the passed parameter is a number and narrows its type accordingly.
- *
- * Note: `NaN` and `Infinity` are considered numbers by this check.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a number, false otherwise.
- * @category guards
- */
-export function isNumber(data: unknown): data is number {
-  return typeof data === "number";
-}
-
-/**
- * A function that checks if the passed parameter is a boolean and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a boolean, false otherwise.
- * @category guards
- */
-export function isBoolean(data: unknown): data is boolean {
-  return typeof data === "boolean";
-}
-
-/**
- * A function that checks if the passed parameter is a bigint and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a bigint, false otherwise.
- * @category guards
- */
-export function isBigInt(data: unknown): data is bigint {
-  return typeof data === "bigint";
-}
-
-/**
- * A function that checks if the passed parameter is a symbol and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a symbol, false otherwise.
- * @category guards
- */
-export function isSymbol(data: unknown): data is symbol {
-  return typeof data === "symbol";
-}
-
-/**
- * A function that checks if the passed parameter is a valid property key (string, number, or symbol).
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a property key, false otherwise.
- * @category guards
- */
-export function isPropertyKey(data: unknown): data is PropertyKey {
-  return isString(data) || isNumber(data) || isSymbol(data);
-}
-
-/**
- * Tests if a value is a `function`.
- *
- * @param input - The value to test.
- * @returns `true` if the input is a function, `false` otherwise.
- * @example
- * ```ts
- * import * as assert from "node:assert"
- * import { isFunction } from "effect/Predicate"
- *
- * assert.deepStrictEqual(isFunction(isFunction), true)
- * assert.deepStrictEqual(isFunction("function"), false)
- * ```
- *
- * @since 1.0.0
- * @category guards
- */
-export const isFunction = (input: unknown): input is Function => typeof input === "function";
-
-/**
- * A function that checks if the passed parameter is truthy and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is truthy, false otherwise.
- * @category guards
- */
-export function isTruthy<T>(data: T): data is Exclude<T, "" | 0 | false | null | undefined> {
-  return Boolean(data);
-}
-
-/**
- * A function that checks if the passed parameter is `undefined` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is `undefined`, false otherwise.
- * @category guards
- */
-export function isUndefined(data: unknown): data is undefined {
-  return data === undefined;
-}
-
-/**
- * A refinement that checks if the passed parameter is not `undefined`, preserving other falsy values.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is not `undefined`, false otherwise.
- * @category guards
- */
-export function isNotUndefined<T>(data: T): data is Exclude<T, undefined> {
-  return data !== undefined;
-}
-
-/**
- * A function that checks if the passed parameter is `null` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is `null`, false otherwise.
- * @category guards
- */
-export function isNull(data: unknown): data is null {
-  return data === null;
-}
-
-/**
- * A refinement that checks if the passed parameter is not `null`, preserving other falsy values.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is not `null`, false otherwise.
- * @category guards
- */
-export function isNotNull<T>(data: T): data is Exclude<T, null> {
-  return data !== null;
-}
-
-/**
- * A function that checks if the passed parameter is `null` or `undefined` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is nullish, false otherwise.
- * @category guards
- */
-export function isNullish<T>(data: T): data is T & (null | undefined) {
-  return data === null || data === undefined;
-}
-
-/**
- * A refinement that checks if the passed parameter is not `null` and not `undefined`, keeping other falsy values.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is not nullish, false otherwise.
- * @category guards
- */
-export function isNotNullish<T>(data: T): data is NonNullable<T> {
-  return data != null;
-}
-
-/**
- * A guard that always returns `false`.
- *
- * @param _ - The variable to check.
- * @returns Always `false`.
- * @category guards
- */
-export function isNever(_: unknown): _ is never {
-  return false;
-}
-
-/**
- * A guard that always returns `true`.
- *
- * @param _ - The variable to check.
- * @returns Always `true`.
- * @category guards
- */
-export function isUnknown(_: unknown): _ is unknown {
-  return true;
-}
-
-/**
- * A function that checks if the passed parameter is an Array and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is an Array, false otherwise.
- * @category guards
- */
-export function isArray<T>(data: ArrayLike<unknown> | T): data is NarrowedTo<T, ReadonlyArray<unknown>> {
-  return Array.isArray(data);
-}
-
-/**
- * Checks if the given parameter is of type `"object"` via `typeof`, excluding `null`.
- *
- * @param data - The variable to be checked for being an object type.
- * @returns The input type, narrowed to only objects.
- * @category guards
- */
-export function isObject<T>(data: T | object): data is NarrowedTo<T, object> {
-  return typeof data === "object" && data !== null;
-}
-
-/**
- * Checks whether a value is an object or an array (any non-null object).
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a non-null object (including arrays), false otherwise.
- * @category guards
- */
-export function isObjectOrArray(data: unknown): data is { [x: PropertyKey]: unknown } | Array<unknown> {
-  return typeof data === "object" && data !== null;
-}
-
-/**
- * Checks whether a value is an `object` in the JavaScript sense (objects, arrays, functions), excluding `null`.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is an object, array, or function, false otherwise.
- * @category guards
- */
-export function isObjectKeyword(data: unknown): data is object {
-  return (typeof data === "object" && data !== null) || isFunction(data);
-}
-
-/**
- * Checks whether a value has a given property key.
- *
- * @param data - The variable to check.
- * @param property - The property key to look for.
- * @returns True if the passed input has the property, false otherwise.
- * @category guards
- */
-export function hasProperty<P extends PropertyKey>(data: unknown, property: P): data is { [K in P]: unknown } {
-  return isObjectKeyword(data) && property in data;
-}
-
-/**
- * A function that checks if the passed parameter is a `Set` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `Set`, false otherwise.
- * @category guards
- */
-export function isSet(data: unknown): data is Set<unknown> {
-  return data instanceof Set;
-}
-
-/**
- * A function that checks if the passed parameter is a `Map` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `Map`, false otherwise.
- * @category guards
- */
-export function isMap(data: unknown): data is Map<unknown, unknown> {
-  return data instanceof Map;
-}
-
-/**
- * A function that checks if the passed parameter is a `Date` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `Date`, false otherwise.
- * @category guards
- */
-export function isDate(data: unknown): data is Date {
-  return data instanceof Date;
-}
-
-/**
- * A function that checks if the passed parameter is an `Error` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is an `Error`, false otherwise.
- * @category guards
- */
-export function isError(data: unknown): data is Error {
-  return data instanceof Error;
-}
-
-/**
- * A function that checks if the passed parameter is a `RegExp` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `RegExp`, false otherwise.
- * @category guards
- */
-export function isRegExp(data: unknown): data is RegExp {
-  return data instanceof RegExp;
-}
-
-/**
- * A function that checks if the passed parameter is a `Uint8Array` and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `Uint8Array`, false otherwise.
- * @category guards
- */
-export function isUint8Array(data: unknown): data is Uint8Array {
-  return data instanceof Uint8Array;
-}
-
-/**
- * A function that checks if the passed parameter is iterable and narrows its type accordingly.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is iterable (including strings), false otherwise.
- * @category guards
- */
-export function isIterable(data: unknown): data is Iterable<unknown> {
-  return hasProperty(data, Symbol.iterator) || isString(data);
-}
-
-/**
- * A function that checks if the passed parameter is a `Promise`-like object with `then` and `catch` methods.
- *
- * @param data - The variable to check.
- * @returns True if the passed input is a `Promise`, false otherwise.
- * @category guards
- */
-export function isPromise(data: unknown): data is Promise<unknown> {
-  return hasProperty(data, "then") && "catch" in data && isFunction(data.then) && isFunction(data.catch);
-}
-
-/**
- * A function that checks if the passed parameter is `PromiseLike` (has a callable `then` method).
- *
- * @param data - The variable to check.
- * @returns True if the passed input is `PromiseLike`, false otherwise.
- * @category guards
- */
-export function isPromiseLike(data: unknown): data is PromiseLike<unknown> {
-  return hasProperty(data, "then") && isFunction(data.then);
-}
 
 // #endregion
 
@@ -600,9 +103,10 @@ export function isPromiseLike(data: unknown): data is PromiseLike<unknown> {
  * // The Pipeable interface allows Effect values to be chained using the pipe method
  * const program = Effect.succeed(1).pipe(
  *   Effect.map((x) => x + 1),
- *   Effect.flatMap((x) => Effect.succeed(x * 2)),
- *   Effect.tap((x) => Effect.log(`Result: ${x}`))
+ *   Effect.flatMap((x) => Effect.succeed(x * 2))
  * )
+ *
+ * Effect.runSync(program) // => 4
  * ```
  *
  * @category models
@@ -1116,7 +620,7 @@ export interface Pipeable {
  *   (n) => n + 2,
  *   (n) => n * 3
  * )
- * console.log(result) // 21
+ * result // => 21
  * ```
  *
  * @category combinators
@@ -1234,17 +738,6 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
 });
 
 /**
- * Provides small helpers for defining and reusing TypeScript functions.
- *
- * The main helpers are `pipe` and `flow` for left-to-right composition and
- * `dual` for APIs that support both direct and pipe-friendly call styles. The
- * module also contains small identity, constant, tuple, type-level, and
- * memoization helpers used across the library.
- *
- * @since 2.0.0
- */
-
-/**
  * Creates a function that can be called in data-first style or data-last
  * (`pipe`-friendly) style.
  *
@@ -1269,8 +762,8 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  *   (self: number, that: number) => number
  * >(2, (self, that) => self + that)
  *
- * console.log(sum(2, 3)) // 5
- * console.log(pipe(2, sum(3))) // 5
+ * sum(2, 3) // => 5
+ * pipe(2, sum(3)) // => 5
  * ```
  *
  * **Example** (Defining overloads with call signatures)
@@ -1283,8 +776,8 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  *   (self: number, that: number): number
  * } = Function.dual(2, (self: number, that: number): number => self + that)
  *
- * console.log(sum(2, 3)) // 5
- * console.log(pipe(2, sum(3))) // 5
+ * sum(2, 3) // => 5
+ * pipe(2, sum(3)) // => 5
  * ```
  *
  * **Example** (Selecting data-first or data-last style with a predicate)
@@ -1300,18 +793,144 @@ export const Mixin = <TBase extends new(...args: ReadonlyArray<any>) => any>(kla
  *   (self, that) => self + that
  * )
  *
- * console.log(sum(2, 3)) // 5
- * console.log(pipe(2, sum(3))) // 5
+ * sum(2, 3) // => 5
+ * pipe(2, sum(3)) // => 5
  * ```
  *
  * @category combinators
  * @since 2.0.0
  */
 export const dual: {
+  /**
+   * Creates a function that can be called in data-first style or data-last
+   * (`pipe`-friendly) style.
+   *
+   * **When to use**
+   *
+   * Use to expose one implementation through both direct and `pipe`-friendly
+   * call styles.
+   *
+   * **Details**
+   *
+   * Pass either the arity of the uncurried function or a predicate that decides
+   * whether the current call is data-first. Arity is the common case. Use a
+   * predicate when optional arguments make arity ambiguous.
+   *
+   * **Example** (Selecting data-first or data-last style by arity)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum = Function.dual<
+   *   (that: number) => (self: number) => number,
+   *   (self: number, that: number) => number
+   * >(2, (self, that) => self + that)
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * **Example** (Defining overloads with call signatures)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum: {
+   *   (that: number): (self: number) => number
+   *   (self: number, that: number): number
+   * } = Function.dual(2, (self: number, that: number): number => self + that)
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * **Example** (Selecting data-first or data-last style with a predicate)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum = Function.dual<
+   *   (that: number) => (self: number) => number,
+   *   (self: number, that: number) => number
+   * >(
+   *   (args) => args.length === 2,
+   *   (self, that) => self + that
+   * )
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * @category combinators
+   * @since 2.0.0
+   */
   <DataLast extends (...args: Array<any>) => any, DataFirst extends (...args: Array<any>) => any>(
     arity: Parameters<DataFirst>["length"],
     body: DataFirst,
   ): DataLast & DataFirst;
+  /**
+   * Creates a function that can be called in data-first style or data-last
+   * (`pipe`-friendly) style.
+   *
+   * **When to use**
+   *
+   * Use to expose one implementation through both direct and `pipe`-friendly
+   * call styles.
+   *
+   * **Details**
+   *
+   * Pass either the arity of the uncurried function or a predicate that decides
+   * whether the current call is data-first. Arity is the common case. Use a
+   * predicate when optional arguments make arity ambiguous.
+   *
+   * **Example** (Selecting data-first or data-last style by arity)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum = Function.dual<
+   *   (that: number) => (self: number) => number,
+   *   (self: number, that: number) => number
+   * >(2, (self, that) => self + that)
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * **Example** (Defining overloads with call signatures)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum: {
+   *   (that: number): (self: number) => number
+   *   (self: number, that: number): number
+   * } = Function.dual(2, (self: number, that: number): number => self + that)
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * **Example** (Selecting data-first or data-last style with a predicate)
+   *
+   * ```ts
+   * import { Function, pipe } from "effect"
+   *
+   * const sum = Function.dual<
+   *   (that: number) => (self: number) => number,
+   *   (self: number, that: number) => number
+   * >(
+   *   (args) => args.length === 2,
+   *   (self, that) => self + that
+   * )
+   *
+   * sum(2, 3) // => 5
+   * pipe(2, sum(3)) // => 5
+   * ```
+   *
+   * @category combinators
+   * @since 2.0.0
+   */
   <DataLast extends (...args: Array<any>) => any, DataFirst extends (...args: Array<any>) => any>(
     isDataFirst: (args: IArguments) => boolean,
     body: DataFirst,
@@ -1379,9 +998,8 @@ export const dual: {
  *
  * ```ts
  * import { Function, pipe, String } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(pipe(String.length, Function.apply("hello")), 5)
+ * pipe(String.length, Function.apply("hello")) // => 5
  * ```
  *
  * @see {@link pipe} for building left-to-right pipelines
@@ -1404,6 +1022,7 @@ export const apply = <A>(a: A) => <B>(self: (a: A) => B): B => self(a);
  * import { Function } from "effect"
  *
  * const constNull: Function.LazyArg<null> = Function.constant(null)
+ * constNull() // => null
  * ```
  *
  * @category models
@@ -1423,10 +1042,9 @@ export type LazyArg<A> = () => A;
  *
  * ```ts
  * import type { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const sum: Function.FunctionN<[number, number], number> = (a, b) => a + b
- * assert.deepStrictEqual(sum(2, 3), 5)
+ * sum(2, 3) // => 5
  * ```
  *
  * @category models
@@ -1445,9 +1063,8 @@ export type FunctionN<A extends ReadonlyArray<unknown>, B> = (...args: A) => B;
  *
  * ```ts
  * import { identity } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(identity(5), 5)
+ * identity(5) // => 5
  * ```
  *
  * @category combinators
@@ -1468,15 +1085,12 @@ export const identity = <A>(a: A): A => a;
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * const test1 = Function.satisfies<number>()(5 as const)
+ * const test1 = Function.satisfies<number>()(5 as const) // => 5
  * // ^? const test: 5
  * // @ts-expect-error
  * const test2 = Function.satisfies<string>()(5)
  * // ^? Argument of type 'number' is not assignable to parameter of type 'string'
- *
- * assert.deepStrictEqual(Function.satisfies<number>()(5), 5)
  * ```
  *
  * @see {@link cast} for changing only the static TypeScript type
@@ -1518,12 +1132,11 @@ export const cast: <A, B>(a: A) => B = identity as any;
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const constNull = Function.constant(null)
  *
- * assert.deepStrictEqual(constNull(), null)
- * assert.deepStrictEqual(constNull(), null)
+ * constNull() // => null
+ * constNull() // => null
  * ```
  *
  * @category constructors
@@ -1542,9 +1155,8 @@ export const constant = <A>(value: A): LazyArg<A> => () => value;
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.constTrue(), true)
+ * Function.constTrue() // => true
  * ```
  *
  * @category constants
@@ -1563,9 +1175,8 @@ export const constTrue: LazyArg<boolean> = constant(true);
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.constFalse(), false)
+ * Function.constFalse() // => false
  * ```
  *
  * @category constants
@@ -1584,9 +1195,8 @@ export const constFalse: LazyArg<boolean> = constant(false);
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.constNull(), null)
+ * Function.constNull() // => null
  * ```
  *
  * @category constants
@@ -1605,9 +1215,8 @@ export const constNull: LazyArg<null> = constant(null);
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.constUndefined(), undefined)
+ * Function.constUndefined() // => undefined
  * ```
  *
  * @category constants
@@ -1627,9 +1236,8 @@ export const constUndefined: LazyArg<undefined> = constant(undefined);
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.constVoid(), undefined)
+ * Function.constVoid() // => undefined
  * ```
  *
  * @category constants
@@ -1649,11 +1257,10 @@ export const constVoid: LazyArg<void> = constUndefined;
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const f = (a: number) => (b: string) => a - b.length
  *
- * assert.deepStrictEqual(Function.flip(f)("aaa")(2), -1)
+ * Function.flip(f)("aaa")(2) // => -1
  * ```
  *
  * @category combinators
@@ -1674,12 +1281,11 @@ export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(f: (
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const increment = (n: number) => n + 1
  * const square = (n: number) => n * n
  *
- * assert.strictEqual(Function.compose(increment, square)(2), 9)
+ * Function.compose(increment, square)(2) // => 9
  * ```
  *
  * @see {@link flow} for composing a left-to-right sequence of functions
@@ -1689,7 +1295,57 @@ export const flip = <A extends Array<unknown>, B extends Array<unknown>, C>(f: (
  * @since 2.0.0
  */
 export const compose: {
+  /**
+   * Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
+   * The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
+   *
+   * **When to use**
+   *
+   * Use to compose exactly two unary functions into a reusable unary function.
+   *
+   * **Example** (Composing two functions)
+   *
+   * ```ts
+   * import { Function } from "effect"
+   *
+   * const increment = (n: number) => n + 1
+   * const square = (n: number) => n * n
+   *
+   * Function.compose(increment, square)(2) // => 9
+   * ```
+   *
+   * @see {@link flow} for composing a left-to-right sequence of functions
+   * @see {@link pipe} for applying a value through a left-to-right sequence immediately
+   *
+   * @category combinators
+   * @since 2.0.0
+   */
   <B, C>(bc: (b: B) => C): <A>(self: (a: A) => B) => (a: A) => C;
+  /**
+   * Composes two functions, `ab` and `bc` into a single function that takes in an argument `a` of type `A` and returns a result of type `C`.
+   * The result is obtained by first applying the `ab` function to `a` and then applying the `bc` function to the result of `ab`.
+   *
+   * **When to use**
+   *
+   * Use to compose exactly two unary functions into a reusable unary function.
+   *
+   * **Example** (Composing two functions)
+   *
+   * ```ts
+   * import { Function } from "effect"
+   *
+   * const increment = (n: number) => n + 1
+   * const square = (n: number) => n * n
+   *
+   * Function.compose(increment, square)(2) // => 9
+   * ```
+   *
+   * @see {@link flow} for composing a left-to-right sequence of functions
+   * @see {@link pipe} for applying a value through a left-to-right sequence immediately
+   *
+   * @category combinators
+   * @since 2.0.0
+   */
   <A, B, C>(self: (a: A) => B, bc: (b: B) => C): (a: A) => C;
 } = dual(2, <A, B, C>(ab: (a: A) => B, bc: (b: B) => C): (a: A) => C => (a) => bc(ab(a)));
 
@@ -1735,11 +1391,10 @@ export const absurd = <A>(_: never): A => {
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const sumTupled = Function.tupled((x: number, y: number): number => x + y)
  *
- * assert.deepStrictEqual(sumTupled([1, 2]), 3)
+ * sumTupled([1, 2]) // => 3
  * ```
  *
  * @see {@link untupled} for adapting a tuple-argument function back to multiple arguments
@@ -1760,11 +1415,10 @@ export const tupled = <A extends ReadonlyArray<unknown>, B>(f: (...a: A) => B): 
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
  * const getFirst = Function.untupled(<A, B>(tuple: [A, B]): A => tuple[0])
  *
- * assert.deepStrictEqual(getFirst(1, 2), 1)
+ * getFirst(1, 2) // => 1
  * ```
  *
  * @see {@link tupled} for adapting a multi-argument function to one tuple argument
@@ -1801,26 +1455,12 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  * ```ts
  * import { pipe } from "effect"
  *
- * const result = pipe(
+ * pipe(
  *   1,
  *   (n) => n + 1,
  *   (n) => n * 2,
  *   (n) => `result: ${n}`
- * )
- *
- * console.log(result) // "result: 4"
- * ```
- *
- * **Example** (Chaining methods before conversion)
- *
- * ```ts
- * const numbers = [1, 2, 3, 4]
- * const double = (n: number) => n * 2
- * const greaterThanFour = (n: number) => n > 4
- *
- * const result = numbers.map(double).filter(greaterThanFour)
- *
- * console.log(result) // [6, 8]
+ * ) // => "result: 4"
  * ```
  *
  * **Example** (Rewriting method chains with pipe)
@@ -1834,46 +1474,11 @@ export const untupled = <A extends ReadonlyArray<unknown>, B>(f: (a: A) => B): (
  * const double = (n: number) => n * 2
  * const greaterThanFour = (n: number) => n > 4
  *
- * const result = pipe(
+ * pipe(
  *   numbers,
  *   Array.map(double),
  *   Array.filter(greaterThanFour)
- * )
- *
- * console.log(result) // [6, 8]
- * ```
- *
- * **Example** (Chaining arithmetic operations)
- *
- * ```ts
- * import { pipe } from "effect"
- *
- * // Define simple arithmetic operations
- * const increment = (x: number) => x + 1
- * const double = (x: number) => x * 2
- * const subtractTen = (x: number) => x - 10
- *
- * // Sequentially apply these operations using `pipe`
- * const result = pipe(5, increment, double, subtractTen)
- *
- * console.log(result)
- * // Output: 2
- * ```
- *
- * **Example** (Building a simple transformation pipeline)
- *
- * ```ts
- * import { pipe } from "effect"
- *
- * // Simple transformation pipeline
- * const result = pipe(
- *   5,
- *   (x) => x * 2, // 10
- *   (x) => x + 1, // 11
- *   (x) => x.toString() // "11"
- * )
- *
- * console.log(result) // "11"
+ * ) // => [6, 8]
  * ```
  *
  * @category combinators
@@ -2306,14 +1911,13 @@ export function pipe(a: unknown, ...args: Array<any>): unknown {
  *
  * ```ts
  * import { flow } from "effect"
- * import * as assert from "node:assert"
  *
  * const len = (s: string): number => s.length
  * const double = (n: number): number => n * 2
  *
  * const f = flow(len, double)
  *
- * assert.strictEqual(f("aaa"), 6)
+ * f("aaa") // => 6
  * ```
  *
  * @see {@link pipe} for applying a value through a left-to-right sequence immediately
@@ -2470,7 +2074,6 @@ export function flow(
  *   name: hole<string>()
  * })
  *
- * console.log(typeof buildUser) // "function"
  * ```
  *
  * @category utility types
@@ -2491,9 +2094,8 @@ export const hole: <T>() => T = cast(absurd);
  *
  * ```ts
  * import { Function } from "effect"
- * import * as assert from "node:assert"
  *
- * assert.deepStrictEqual(Function.SK(0, "hello"), "hello")
+ * Function.SK(0, "hello") // => "hello"
  * ```
  *
  * @category combinators
@@ -2513,10 +2115,11 @@ export const SK = <A, B>(_: A, b: B): B => b;
  * **Details**
  *
  * Each memoized wrapper owns a private `WeakMap` keyed by object identity.
- * Cached `undefined` results are still returned because the cache is checked
- * with `WeakMap.has`.
  *
  * **Gotchas**
+ *
+ * `undefined` is reserved to represent a cache miss and is therefore not
+ * supported as a return value.
  *
  * Structurally equal objects do not share cache entries. If the same object is
  * mutated after its first call, later calls still return the cached result for
@@ -2525,16 +2128,1280 @@ export const SK = <A, B>(_: A, b: B): B => b;
  * @category caching
  * @since 4.0.0
  */
-export function memoize<A extends object, O>(f: (a: A) => O): (ast: A) => O {
+export function memoize<A extends object, O extends {} | null>(f: (a: A) => O): (ast: A) => O {
   const cache = new WeakMap<object, O>();
   return (a) => {
-    if (cache.has(a)) {
-      return cache.get(a)!;
-    }
+    const cached = cache.get(a);
+    if (cached !== undefined) return cached;
     const result = f(a);
     cache.set(a, result);
     return result;
   };
+}
+
+// #endregion
+
+// #region Predicate
+
+/**
+ * Negates a predicate.
+ *
+ * **When to use**
+ *
+ * Use when you want the inverse of an existing predicate.
+ *
+ * **Details**
+ *
+ * Returns a new predicate that flips the boolean result.
+ *
+ * **Example** (Negating a predicate)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const isNotString = Predicate.not(Predicate.isString)
+ *
+ * isNotString(1) // => true
+ * ```
+ *
+ * @see {@link and}
+ * @see {@link or}
+ * @see {@link xor}
+ * @category combinators
+ * @since 2.0.0
+ */
+export function not<T, S extends T>(predicate: (data: T) => data is S): (data: T) => data is Exclude<T, S>;
+export function not<T>(predicate: (data: T) => boolean): (data: T) => boolean;
+export function not<T>(predicate: (data: T) => boolean) {
+  return (data: T): boolean => !predicate(data);
+}
+
+/**
+ * Creates a predicate that returns `true` only if both predicates are `true`.
+ *
+ * **When to use**
+ *
+ * Use when you want to combine `Predicate`s with AND, accepting values that
+ * satisfy multiple conditions, including refinements that narrow to an
+ * intersection.
+ *
+ * **Details**
+ *
+ * Evaluation short-circuits on the first `false`. For refinements, the output
+ * type is an intersection.
+ *
+ * **Example** (Checking both conditions)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const hasAAndB = Predicate.and(
+ *   Predicate.hasProperty("a"),
+ *   Predicate.hasProperty("b")
+ * )
+ *
+ * const input: unknown = JSON.parse(`{"a":1,"b":"ok"}`)
+ * if (hasAAndB(input)) {
+ *   // input has both properties at this point
+ *   const a = input.a
+ *   const b = input.b
+ *
+ *   const values = [a, b] // => [1, "ok"]
+ * }
+ * ```
+ *
+ * @see {@link or}
+ * @see {@link not}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const and: {
+  <T, U extends T>(b: (data: T) => data is U): <S extends T>(a: (data: T) => data is S) => (data: T) => data is S & U;
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S & U;
+  <T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
+  <T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => a(data) && b(data));
+
+/**
+ * Creates a predicate that returns `true` if either predicate is `true`.
+ *
+ * **When to use**
+ *
+ * Use when you want to combine `Predicate`s with OR, accepting values that
+ * satisfy at least one condition, including refinements that narrow to a union.
+ *
+ * **Details**
+ *
+ * Evaluation short-circuits on the first `true`. For refinements, the output
+ * type is a union.
+ *
+ * **Example** (Checking either condition)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const isStringOrNumber = Predicate.or(Predicate.isString, Predicate.isNumber)
+ *
+ * isStringOrNumber("a") // => true
+ * ```
+ *
+ * @see {@link and}
+ * @see {@link xor}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const or: {
+  <T, U extends T>(b: (data: T) => data is U): <S extends T>(a: (data: T) => data is S) => (data: T) => data is S | U;
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T, S extends T, U extends T>(a: (data: T) => data is S, b: (data: T) => data is U): (data: T) => data is S | U;
+  <T, S extends T>(a: (data: T) => data is S, b: (data: T) => boolean): (data: T) => data is S;
+  <T, U extends T>(a: (data: T) => boolean, b: (data: T) => data is U): (data: T) => data is U;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => a(data) || b(data));
+
+/**
+ * Creates a predicate that returns `true` if exactly one predicate is `true`.
+ *
+ * **When to use**
+ *
+ * Use when you want to combine two `Predicate`s with exclusive-or semantics.
+ *
+ * **Details**
+ *
+ * Returns `true` when results differ.
+ *
+ * **Example** (Checking exclusive-or conditions)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const isEven = (n: number) => n % 2 === 0
+ * const isPositive = (n: number) => n > 0
+ * const either = Predicate.xor(isEven, isPositive)
+ *
+ * either(-2) // => true
+ * ```
+ *
+ * @see {@link or}
+ * @see {@link and}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const xor: {
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => a(data) !== b(data));
+
+/**
+ * Creates a predicate that returns `true` when both predicates agree.
+ *
+ * **When to use**
+ *
+ * Use when you want to check equivalence of two `Predicate`s.
+ *
+ * **Details**
+ *
+ * Returns `true` when both results are equal.
+ *
+ * **Example** (Defining equivalence)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const isEven = (n: number) => n % 2 === 0
+ * const same = Predicate.eqv(isEven, isEven)
+ *
+ * same(3) // => true
+ * ```
+ *
+ * @see {@link xor}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const eqv: {
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => a(data) === b(data));
+
+/**
+ * Creates a predicate representing logical implication: if `antecedent`, then `consequent`.
+ *
+ * **When to use**
+ *
+ * Use when you need to encode logical implication between `Predicate` rules,
+ * where one rule only applies when a precondition holds.
+ *
+ * **Details**
+ *
+ * Models constraints like "if A then B" and returns `true` when the antecedent
+ * is `false`.
+ *
+ * **Example** (Checking implication)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const isAdult = (age: number) => age >= 18
+ * const canVote = (age: number) => age >= 18
+ * const implies = Predicate.implies(isAdult, canVote)
+ *
+ * implies(16) // => true
+ * ```
+ *
+ * @see {@link and}
+ * @see {@link or}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const implies: {
+  <T>(consequent: (data: T) => boolean): (antecedent: (data: T) => boolean) => (data: T) => boolean;
+  <T>(antecedent: (data: T) => boolean, consequent: (data: T) => boolean): (data: T) => boolean;
+} = dual(
+  2,
+  (antecedent: (data: unknown) => boolean, consequent: (data: unknown) => boolean) => (data: unknown): boolean => !antecedent(data) || consequent(data),
+);
+
+/**
+ * Creates a predicate that returns `true` when neither predicate is `true`.
+ *
+ * **When to use**
+ *
+ * Use when you want to combine two `Predicate`s with logical NOR semantics.
+ *
+ * **Details**
+ *
+ * Returns the negation of `or`.
+ *
+ * **Example** (Checking NOR conditions)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const neither = Predicate.nor(Predicate.isString, Predicate.isNumber)
+ *
+ * neither(true) // => true
+ * ```
+ *
+ * @see {@link or}
+ * @see {@link not}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const nor: {
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => !a(data) && !b(data));
+
+/**
+ * Creates a predicate that returns `true` unless both predicates are `true`.
+ *
+ * **When to use**
+ *
+ * Use when you want to combine two `Predicate`s with logical NAND semantics.
+ *
+ * **Details**
+ *
+ * Returns the negation of `and`.
+ *
+ * **Example** (Checking NAND conditions)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const notBoth = Predicate.nand(Predicate.isString, Predicate.isNumber)
+ *
+ * notBoth("a") // => true
+ * ```
+ *
+ * @see {@link and}
+ * @see {@link not}
+ * @category combinators
+ * @since 2.0.0
+ */
+export const nand: {
+  <T>(b: (data: T) => boolean): (a: (data: T) => boolean) => (data: T) => boolean;
+  <T>(a: (data: T) => boolean, b: (data: T) => boolean): (data: T) => boolean;
+} = dual(2, (a: (data: unknown) => boolean, b: (data: unknown) => boolean) => (data: unknown): boolean => !a(data) || !b(data));
+
+/**
+ * Creates a predicate that returns `true` if all predicates in the collection return `true`.
+ *
+ * **When to use**
+ *
+ * Use when you have a dynamic list of predicates to apply.
+ *
+ * **Details**
+ *
+ * Evaluation short-circuits on the first `false`. The collection is iterated
+ * each time the predicate is called.
+ *
+ * **Example** (Checking all predicates)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const allChecks = Predicate.every([Predicate.isNumber, (n: number) => n > 0])
+ *
+ * allChecks(2) // => true
+ * ```
+ *
+ * @see {@link some}
+ * @see {@link and}
+ * @category combining
+ * @since 2.0.0
+ */
+export function every<A>(collection: Iterable<(a: A) => boolean>): (a: A) => boolean {
+  return (a: A): boolean => {
+    for (const p of collection) {
+      if (!p(a)) {
+        return false;
+      }
+    }
+    return true;
+  };
+}
+
+/**
+ * Creates a predicate that returns `true` if any predicate in the collection returns `true`.
+ *
+ * **When to use**
+ *
+ * Use when you have a dynamic list of predicates and only need one to pass.
+ *
+ * **Details**
+ *
+ * Evaluation short-circuits on the first `true`. The collection is iterated
+ * each time the predicate is called.
+ *
+ * **Example** (Checking any predicate)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const anyCheck = Predicate.some([Predicate.isString, Predicate.isNumber])
+ *
+ * anyCheck("ok") // => true
+ * ```
+ *
+ * @see {@link every}
+ * @see {@link or}
+ * @category combining
+ * @since 2.0.0
+ */
+export function some<A>(collection: Iterable<(a: A) => boolean>): (a: A) => boolean {
+  return (a: A): boolean => {
+    for (const p of collection) {
+      if (p(a)) {
+        return true;
+      }
+    }
+    return false;
+  };
+}
+
+/**
+ * Checks whether a value is a `string`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * string.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "string"`.
+ *
+ * **Example** (Guarding strings)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = "hi"
+ *
+ * if (Predicate.isString(data)) {
+ *   data.toUpperCase() // => "HI"
+ * }
+ * ```
+ *
+ * @see {@link isNumber}
+ * @see {@link isBoolean}
+ * @see {@link Refinement}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isString(input: unknown): input is string {
+  return typeof input === "string";
+}
+
+/**
+ * Checks whether a value is a `number`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * number.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "number"` and does not exclude `NaN` or `Infinity`.
+ *
+ * **Example** (Guarding numbers)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = 42
+ *
+ * if (Predicate.isNumber(data)) {
+ *   data + 1 // => 43
+ * }
+ * ```
+ *
+ * @see {@link isBigInt}
+ * @see {@link isString}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isNumber(input: unknown): input is number {
+  return typeof input === "number";
+}
+
+/**
+ * Checks whether a value is a `boolean`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * boolean.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "boolean"`.
+ *
+ * **Example** (Guarding booleans)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = true
+ *
+ * if (Predicate.isBoolean(data)) {
+ *   data ? "yes" : "no" // => "yes"
+ * }
+ * ```
+ *
+ * @see {@link isString}
+ * @see {@link isNumber}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isBoolean(input: unknown): input is boolean {
+  return typeof input === "boolean";
+}
+
+/**
+ * Checks whether a value is a `bigint`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * bigint.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "bigint"`.
+ *
+ * **Example** (Guarding bigints)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = 1n
+ *
+ * if (Predicate.isBigInt(data)) {
+ *   data + 2n // => 3n
+ * }
+ * ```
+ *
+ * @see {@link isNumber}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isBigInt(input: unknown): input is bigint {
+  return typeof input === "bigint";
+}
+
+/**
+ * Checks whether a value is a `symbol`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * symbol.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "symbol"`.
+ *
+ * **Example** (Guarding symbols)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = Symbol.for("id")
+ *
+ * if (Predicate.isSymbol(data)) {
+ *   data.description // => "id"
+ * }
+ * ```
+ *
+ * @see {@link isPropertyKey}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isSymbol(input: unknown): input is symbol {
+  return typeof input === "symbol";
+}
+
+/**
+ * Checks whether a value is a valid `PropertyKey` (string, number, or symbol).
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for unknown property keys before
+ * indexing.
+ *
+ * **Details**
+ *
+ * Uses `isString`, `isNumber`, and `isSymbol`.
+ *
+ * **Example** (Guarding property keys)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const key: unknown = "name"
+ * const obj: Record<PropertyKey, unknown> = { name: "Ada" }
+ *
+ * if (Predicate.isPropertyKey(key) && key in obj) {
+ *   obj[key] // => "Ada"
+ * }
+ * ```
+ *
+ * @see {@link isString}
+ * @see {@link isNumber}
+ * @see {@link isSymbol}
+ * @category guards
+ * @since 4.0.0
+ */
+export function isPropertyKey(u: unknown): u is PropertyKey {
+  return isString(u) || isNumber(u) || isSymbol(u);
+}
+
+/**
+ * Checks whether a value is a `function`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard to narrow an `unknown` value to a
+ * callable function.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "function"`.
+ *
+ * **Example** (Guarding functions)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = () => 1
+ *
+ * if (Predicate.isFunction(data)) {
+ *   data() // => 1
+ * }
+ * ```
+ *
+ * @see {@link isObjectKeyword}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isFunction(input: unknown): input is Function {
+  return typeof input === "function";
+}
+
+/**
+ * Checks whether a value is truthy.
+ *
+ * **When to use**
+ *
+ * Use when you want a predicate that mirrors JavaScript truthiness and filters
+ * out falsy values like `0`, `""`, and `false`.
+ *
+ * **Details**
+ *
+ * This uses `Boolean(input)` and treats `0`, `""`, `false`, `null`, and
+ * `undefined` as false.
+ *
+ * **Example** (Filtering truthy values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const values = [0, 1, "", "ok", false]
+ * const truthy = values.filter(Predicate.isTruthy) // => [1, "ok"]
+ * ```
+ *
+ * @see {@link isNullish}
+ * @see {@link isNotNullish}
+ * @category predicates
+ * @since 2.0.0
+ */
+export function isTruthy(input: unknown): boolean {
+  return Boolean(input);
+}
+
+/**
+ * Checks whether a value is `undefined`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for values that are exactly
+ * `undefined`.
+ *
+ * **Details**
+ *
+ * Uses `input === undefined`.
+ *
+ * **Example** (Guarding undefined values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = undefined
+ *
+ * Predicate.isUndefined(data) // => true
+ * ```
+ *
+ * @see {@link isNotUndefined}
+ * @see {@link isNullish}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isUndefined(input: unknown): input is undefined {
+  return input === undefined;
+}
+
+/**
+ * Checks whether a value is not `undefined`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` refinement that filters out `undefined`
+ * while preserving other falsy values.
+ *
+ * **Details**
+ *
+ * Returns a refinement that excludes `undefined`.
+ *
+ * **Example** (Filtering undefined values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const values = [1, undefined, 2]
+ * const defined = values.filter(Predicate.isNotUndefined) // => [1, 2]
+ * ```
+ *
+ * @see {@link isUndefined}
+ * @see {@link isNotNullish}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isNotUndefined<A>(input: A): input is Exclude<A, undefined> {
+  return input !== undefined;
+}
+
+/**
+ * Checks whether a value is `null`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for nullable values.
+ *
+ * **Details**
+ *
+ * Uses `input === null`.
+ *
+ * **Example** (Guarding null values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = null
+ *
+ * Predicate.isNull(data) // => true
+ * ```
+ *
+ * @see {@link isNotNull}
+ * @see {@link isNullish}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isNull(input: unknown): input is null {
+  return input === null;
+}
+
+/**
+ * Checks whether a value is not `null`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` refinement that filters out `null` while
+ * preserving other falsy values.
+ *
+ * **Details**
+ *
+ * Returns a refinement that excludes `null`.
+ *
+ * **Example** (Filtering null values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const values = [1, null, 2]
+ * const nonNull = values.filter(Predicate.isNotNull) // => [1, 2]
+ * ```
+ *
+ * @see {@link isNull}
+ * @see {@link isNotNullish}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isNotNull<A>(input: A): input is Exclude<A, null> {
+  return input !== null;
+}
+
+/**
+ * Checks whether a value is `null` or `undefined`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for nullish values.
+ *
+ * **Details**
+ *
+ * Uses `input === null || input === undefined`.
+ *
+ * **Example** (Guarding nullish values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const values = [0, null, "", undefined]
+ * const nullish = values.filter(Predicate.isNullish) // => [null, undefined]
+ * ```
+ *
+ * @see {@link isNotNullish}
+ * @see {@link isUndefined}
+ * @see {@link isNull}
+ * @category guards
+ * @since 4.0.0
+ */
+export function isNullish<A>(input: A): input is A & (null | undefined) {
+  return input === null || input === undefined;
+}
+
+/**
+ * Checks whether a value is not `null` and not `undefined`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` refinement that filters out nullish values
+ * but keeps other falsy ones.
+ *
+ * **Details**
+ *
+ * Uses `input != null`.
+ *
+ * **Example** (Filtering non-nullish values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const values = [0, null, "", undefined]
+ * const present = values.filter(Predicate.isNotNullish) // => [0, ""]
+ * ```
+ *
+ * @see {@link isNullish}
+ * @see {@link isNotNull}
+ * @see {@link isNotUndefined}
+ * @category guards
+ * @since 4.0.0
+ */
+export function isNotNullish<A>(input: A): input is NonNullable<A> {
+  return input != null;
+}
+
+/**
+ * Type guard that always returns `false`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` that never accepts, e.g. in default branches.
+ *
+ * **Example** (Matching no values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * Predicate.isNever("anything") // => false
+ * ```
+ *
+ * @see {@link isUnknown}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isNever(_: unknown): _ is never {
+  return false;
+}
+
+/**
+ * Type guard that always returns `true`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` that always accepts, e.g. as a placeholder.
+ *
+ * **Example** (Matching every value)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * Predicate.isUnknown(123) // => true
+ * ```
+ *
+ * @see {@link isNever}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isUnknown(_: unknown): _ is unknown {
+  return true;
+}
+
+/**
+ * A function that checks if the passed parameter is an Array and narrows its type accordingly.
+ *
+ * @param data - The variable to check.
+ * @returns True if the passed input is an Array, false otherwise.
+ * @category guards
+ */
+export function isArray(data: unknown): data is Array<unknown>;
+export function isArray<T>(data: T): data is Extract<T, ReadonlyArray<any>>;
+export function isArray(data: unknown): data is Array<unknown> {
+  return Array.isArray(data);
+}
+
+/**
+ * Checks whether a value is a non-null object value that is not an array.
+ *
+ * **When to use**
+ *
+ * Use to narrow unknown input to a non-null, non-array object with a
+ * `Predicate` guard.
+ *
+ * **Details**
+ *
+ * This is a structural runtime check using `typeof input === "object"`, so it
+ * also accepts object instances such as `Date`, `Map`, class instances, and
+ * typed arrays. It excludes `null` and arrays.
+ *
+ * **Example** (Guarding objects)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * Predicate.isObject({ a: 1 }) // => true
+ * Predicate.isObject([1, 2]) // => false
+ * ```
+ *
+ * @see {@link isObjectOrArray}
+ * @see {@link isReadonlyObject}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isObject(input: unknown): input is { [x: PropertyKey]: unknown } {
+  return typeof input === "object" && input !== null && !Array.isArray(input);
+}
+
+/**
+ * Checks whether a value is an object or an array (non-null object).
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard that accepts plain objects and arrays,
+ * but not `null`.
+ *
+ * **Details**
+ *
+ * Uses `typeof input === "object" && input !== null` and includes arrays.
+ *
+ * **Example** (Checking objects or arrays)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * Predicate.isObjectOrArray([]) // => true
+ * ```
+ *
+ * @see {@link isObject}
+ * @see {@link isObjectKeyword}
+ * @category guards
+ * @since 4.0.0
+ */
+export function isObjectOrArray(input: unknown): input is { [x: PropertyKey]: unknown } | Array<unknown> {
+  return typeof input === "object" && input !== null;
+}
+
+/**
+ * Checks whether a value is an `object` in the JavaScript sense (objects, arrays, functions).
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard that accepts arrays and functions as
+ * well as objects.
+ *
+ * **Details**
+ *
+ * Returns `true` for arrays and functions, and `false` for `null`.
+ *
+ * **Example** (Checking object keywords)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * Predicate.isObjectKeyword(() => 1) // => true
+ * Predicate.isObjectKeyword(null) // => false
+ * ```
+ *
+ * @see {@link isObject}
+ * @see {@link isObjectOrArray}
+ * @category guards
+ * @since 4.0.0
+ */
+export function isObjectKeyword(input: unknown): input is object {
+  return (typeof input === "object" && input !== null) || isFunction(input);
+}
+
+/**
+ * Checks whether a value has a given property key.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for property access on `unknown`
+ * values with a simple structural object check.
+ *
+ * **Details**
+ *
+ * Uses the `in` operator and `isObjectKeyword`. This does not check property
+ * value types.
+ *
+ * **Example** (Guarding object properties)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const hasName = Predicate.hasProperty("name")
+ * const data: unknown = { name: "Ada" }
+ *
+ * if (hasName(data)) {
+ *   data.name // => "Ada"
+ * }
+ * ```
+ *
+ * @see {@link isTagged}
+ * @see {@link isObjectKeyword}
+ * @category guards
+ * @since 2.0.0
+ */
+export const hasProperty: {
+  <P extends PropertyKey>(property: P): (data: unknown) => data is { [K in P]: unknown };
+  <P extends PropertyKey>(data: unknown, property: P): data is { [K in P]: unknown };
+} = dual(
+  2,
+  <P extends PropertyKey>(data: unknown, property: P): data is { [K in P]: unknown } => isObjectKeyword(data) && property in data,
+);
+
+/**
+ * Checks whether a value is a `Set`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` runtime guard for `Set` values.
+ *
+ * **Details**
+ *
+ * Uses `instanceof Set`.
+ *
+ * **Example** (Guarding a Set)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = new Set([1, 2])
+ *
+ * if (Predicate.isSet(data)) {
+ *   data.size // => 2
+ * }
+ * ```
+ *
+ * @see {@link isMap}
+ * @see {@link isIterable}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isSet(input: unknown): input is Set<unknown> {
+  return input instanceof Set;
+}
+
+/**
+ * Checks whether a value is a `Map`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` runtime guard for `Map` values.
+ *
+ * **Details**
+ *
+ * Uses `instanceof Map`.
+ *
+ * **Example** (Guarding a Map)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = new Map([["a", 1]])
+ *
+ * if (Predicate.isMap(data)) {
+ *   data.size // => 1
+ * }
+ * ```
+ *
+ * @see {@link isSet}
+ * @see {@link isIterable}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isMap(input: unknown): input is Map<unknown, unknown> {
+  return input instanceof Map;
+}
+
+/**
+ * Checks whether a value is a `Date`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` runtime guard for dates.
+ *
+ * **Details**
+ *
+ * Uses `instanceof Date`.
+ *
+ * **Example** (Guarding Date values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = new Date()
+ *
+ * Predicate.isDate(data) // => true
+ * ```
+ *
+ * @see {@link isRegExp}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isDate(input: unknown): input is Date {
+  return input instanceof Date;
+}
+
+/**
+ * Checks whether a value is an `Error`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for errors caught from unknown sources.
+ *
+ * **Details**
+ *
+ * Uses `instanceof Error`.
+ *
+ * **Example** (Guarding errors)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = new Error("boom")
+ *
+ * Predicate.isError(data) // => true
+ * ```
+ *
+ * @see {@link isUnknown}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isError(input: unknown): input is Error {
+  return input instanceof Error;
+}
+
+/**
+ * Checks whether a value is a `RegExp`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` runtime guard for regular expressions.
+ *
+ * **Details**
+ *
+ * Uses `instanceof RegExp`.
+ *
+ * **Example** (Guarding RegExp values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = /abc/
+ *
+ * Predicate.isRegExp(data) // => true
+ * ```
+ *
+ * @see {@link isDate}
+ * @category guards
+ * @since 3.9.0
+ */
+export function isRegExp(input: unknown): input is RegExp {
+  return input instanceof RegExp;
+}
+
+/**
+ * Checks whether a value is a `Uint8Array`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` runtime guard for binary data.
+ *
+ * **Details**
+ *
+ * Uses `instanceof Uint8Array`.
+ *
+ * **Example** (Guarding Uint8Array values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = new Uint8Array([1, 2])
+ *
+ * Predicate.isUint8Array(data) // => true
+ * ```
+ *
+ * @see {@link isIterable}
+ * @see {@link isSet}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isUint8Array(input: unknown): input is Uint8Array {
+  return input instanceof Uint8Array;
+}
+
+/**
+ * Checks whether a value is iterable.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard before iterating an unknown value.
+ *
+ * **Details**
+ *
+ * Accepts strings as iterable and uses `hasProperty` for `Symbol.iterator`.
+ *
+ * **Example** (Guarding iterables)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = [1, 2, 3]
+ *
+ * Predicate.isIterable(data) // => true
+ * ```
+ *
+ * @see {@link isSet}
+ * @see {@link isMap}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isIterable(input: unknown): input is Iterable<unknown> {
+  return hasProperty(input, Symbol.iterator) || isString(input);
+}
+
+/**
+ * Checks whether a value is a `Promise`-like object with `then` and `catch`.
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for promise instances across realms.
+ *
+ * **Details**
+ *
+ * Performs a structural check for `then` and `catch` functions.
+ *
+ * **Example** (Guarding promises)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = Promise.resolve(1)
+ *
+ * Predicate.isPromise(data) // => true
+ * ```
+ *
+ * @see {@link isPromiseLike}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isPromise(input: unknown): input is Promise<unknown> {
+  return hasProperty(input, "then") && "catch" in input && isFunction(input.then) && isFunction(input.catch);
+}
+
+/**
+ * Checks whether a value is `PromiseLike` (has a `then` method).
+ *
+ * **When to use**
+ *
+ * Use when you need a `Predicate` guard for promise-like values with a
+ * callable `then` method.
+ *
+ * **Details**
+ *
+ * Performs a structural check for a callable `then`.
+ *
+ * **Example** (Guarding promise-like values)
+ *
+ * ```ts
+ * import { Predicate } from "effect"
+ *
+ * const data: unknown = { then: () => {} }
+ *
+ * Predicate.isPromiseLike(data) // => true
+ * ```
+ *
+ * @see {@link isPromise}
+ * @category guards
+ * @since 2.0.0
+ */
+export function isPromiseLike(input: unknown): input is PromiseLike<unknown> {
+  return hasProperty(input, "then") && isFunction(input.then);
 }
 
 // #endregion
@@ -2585,63 +3452,81 @@ export function getOrInsertComputed<K extends WeakKey, V>(map: WeakMap<K, V>, ke
 // #region Array
 
 /**
- * Drops the longest prefix of elements from an array that satisfy the given predicate.
+ * Drops elements from the start while the predicate holds, returning the rest.
  *
- * Supports both data-first and data-last (`pipe`-friendly) call styles.
+ * **When to use**
  *
- * @param pred - The predicate to test each element with.
- * @returns A new array without the matching prefix.
- * @example
+ * Use to remove a leading prefix of elements that satisfy a predicate.
+ *
+ * **Details**
+ *
+ * The predicate receives `(element, index)`.
+ *
+ * **Example** (Dropping while condition holds)
+ *
  * ```ts
- * import * as assert from "node:assert"
- * import { dropWhile, pipe } from "@local/eff"
+ * import { Array } from "effect"
  *
- * // data-first
- * assert.deepStrictEqual(dropWhile([1, 2, 3, 2, 1], (n: number) => n < 3), [3, 2, 1])
- *
- * // data-last
- * assert.deepStrictEqual(pipe([1, 2, 3, 2, 1], dropWhile((n: number) => n < 3)), [3, 2, 1])
+ * Array.dropWhile([1, 2, 3, 4, 5], (x) => x < 4) // => [4, 5]
  * ```
- * @category array
+ *
+ * @see {@link takeWhile} — keep the matching prefix instead
+ * @see {@link drop} — drop a fixed count
+ *
+ * @category getters
+ * @since 2.0.0
  */
 export const dropWhile: {
-  <S>(pred: (x: S) => boolean): <T extends S>(xs: T[]) => T[];
-  <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[];
-} = dual(2, <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[] => {
-  const len = xs.length;
+  <A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => Array<A>;
+  <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): Array<A>;
+} = dual(2, <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): Array<A> => {
+  const input: Array<A> = Array.isArray(self) ? self : Array.from(self);
+  const len = input.length;
   let idx = 0;
-  while (idx < len && pred(xs[idx]!)) idx++;
-  return xs.slice(idx);
+  while (idx < len && predicate(input[idx]!, idx)) idx++;
+  return input.slice(idx);
 });
 
 /**
- * Takes the longest prefix of elements from an array that satisfy the given predicate.
+ * Takes elements from the start while the predicate holds, stopping at the
+ * first element that fails.
  *
- * Supports both data-first and data-last (`pipe`-friendly) call styles.
+ * **When to use**
  *
- * @param pred - The predicate to test each element with.
- * @returns A new array containing only the matching prefix.
- * @example
+ * Use to keep the leading elements of an iterable while each element satisfies
+ * a predicate, returning the retained prefix as an array.
+ *
+ * **Details**
+ *
+ * Supports refinements for type narrowing. The predicate receives
+ * `(element, index)`.
+ *
+ * **Example** (Taking while condition holds)
+ *
  * ```ts
- * import * as assert from "node:assert"
- * import { pipe, takeWhile } from "@local/eff"
+ * import { Array } from "effect"
  *
- * // data-first
- * assert.deepStrictEqual(takeWhile([1, 2, 3, 2, 1], (n: number) => n < 3), [1, 2])
- *
- * // data-last
- * assert.deepStrictEqual(pipe([1, 2, 3, 2, 1], takeWhile((n: number) => n < 3)), [1, 2])
+ * Array.takeWhile([1, 3, 2, 4, 1, 2], (x) => x < 4) // => [1, 3, 2]
  * ```
- * @category array
+ *
+ * @see {@link take} for keeping a fixed number of leading elements
+ * @see {@link dropWhile} for removing the matching prefix and keeping the rest
+ * @see {@link span} for splitting the matching prefix from the remaining elements
+ *
+ * @category getters
+ * @since 2.0.0
  */
 export const takeWhile: {
-  <S>(pred: (x: S) => boolean): <T extends S>(xs: T[]) => T[];
-  <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[];
-} = dual(2, <S, T extends S>(xs: T[], pred: (x: S) => boolean): T[] => {
-  const len = xs.length;
+  <A, B extends A>(refinement: (a: NoInfer<A>, i: number) => a is B): (self: Iterable<A>) => Array<B>;
+  <A>(predicate: (a: NoInfer<A>, i: number) => boolean): (self: Iterable<A>) => Array<A>;
+  <A, B extends A>(self: Iterable<A>, refinement: (a: A, i: number) => a is B): Array<B>;
+  <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): Array<A>;
+} = dual(2, <A>(self: Iterable<A>, predicate: (a: A, i: number) => boolean): Array<A> => {
+  const input: Array<A> = Array.isArray(self) ? self : Array.from(self);
+  const len = input.length;
   let idx = 0;
-  while (idx < len && pred(xs[idx]!)) idx++;
-  return xs.slice(0, idx);
+  while (idx < len && predicate(input[idx]!, idx)) idx++;
+  return input.slice(0, idx);
 });
 
 // #endregion
