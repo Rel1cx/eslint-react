@@ -3,7 +3,7 @@
 # Variable: getNormalizedSettings
 
 ```ts
-const getNormalizedSettings: (ast: object) => {
+const getNormalizedSettings: (a: unknown) => {
   additionalEffectHooks: RegExpLike;
   additionalRefHooks: RegExpLike;
   additionalStateHooks: RegExpLike;
@@ -14,13 +14,13 @@ const getNormalizedSettings: (ast: object) => {
 };
 ```
 
-Get the normalized ESLint React settings, memoized by the input settings object.
+Get the normalized ESLint React settings, memoized by the input settings value.
 
 ## Parameters
 
-| Parameter | Type     |
-| --------- | -------- |
-| `ast`     | `object` |
+| Parameter | Type      |
+| --------- | --------- |
+| `a`       | `unknown` |
 
 ## Returns
 

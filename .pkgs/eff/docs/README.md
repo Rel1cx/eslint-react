@@ -2,9 +2,9 @@
 
 ## caching
 
-| Function                        | Description                                                                               |
-| ------------------------------- | ----------------------------------------------------------------------------------------- |
-| [memoize](functions/memoize.md) | Creates a memoized function whose input is an object, caching results by object identity. |
+| Function                        | Description                                                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [memoize](functions/memoize.md) | Creates a memoized function that caches the result of a synchronous, stable-output computation for any type of key. |
 
 ## combinators
 

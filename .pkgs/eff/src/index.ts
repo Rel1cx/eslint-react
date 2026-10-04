@@ -2104,38 +2104,34 @@ export const hole: <T>() => T = cast(absurd);
 export const SK = <A, B>(_: A, b: B): B => b;
 
 /**
- * Creates a memoized function whose input is an object, caching results by
- * object identity.
- *
- * **When to use**
- *
- * Use to reuse the result of a synchronous computation whose output is stable
- * for a given object reference.
+ * Creates a memoized function that caches the result of a synchronous,
+ * stable-output computation for any type of key.
  *
  * **Details**
  *
- * Each memoized wrapper owns a private `WeakMap` keyed by object identity.
+ * Object keys are cached by identity in a private `WeakMap`, so entries can
+ * be garbage collected; primitive keys are cached by value in a private
+ * `Map`.
  *
  * **Gotchas**
  *
- * `undefined` is reserved to represent a cache miss and is therefore not
- * supported as a return value.
- *
- * Structurally equal objects do not share cache entries. If the same object is
- * mutated after its first call, later calls still return the cached result for
- * that reference.
+ * - `undefined` is reserved to represent a cache miss and is not supported
+ *   as a return value.
+ * - Structurally equal objects do not share cache entries, and mutating an
+ *   object after its first call does not change the cached result for that
+ *   reference.
  *
  * @category caching
  * @since 4.0.0
  */
-export function memoize<A extends object, O extends {} | null>(f: (a: A) => O): (ast: A) => O {
-  const cache = new WeakMap<object, O>();
+export function memoize<A, O extends {} | null>(f: (a: A) => O): (a: A) => O {
+  const objects = new WeakMap<object, O>();
+  const primitives = new Map<A, O>();
   return (a) => {
-    const cached = cache.get(a);
-    if (cached !== undefined) return cached;
-    const result = f(a);
-    cache.set(a, result);
-    return result;
+    if (isObjectKeyword(a)) {
+      return getOrInsertComputed(objects, a, () => f(a));
+    }
+    return getOrInsertComputed(primitives, a, () => f(a));
   };
 }
 

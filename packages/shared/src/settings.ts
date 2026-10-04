@@ -2,7 +2,7 @@
 /* eslint-disable perfectionist/sort-objects */
 /// <reference types="node" />
 import type { RuleContext } from "@eslint-react/eslint";
-import { identity, isObjectKeyword, memoize } from "@local/eff";
+import { identity, memoize } from "@local/eff";
 import module from "node:module";
 import path from "node:path";
 import { P, match } from "ts-pattern";
@@ -193,11 +193,11 @@ export function getReactVersion(fallback: string): string {
 }
 
 /**
- * Get the normalized ESLint React settings, memoized by the input settings object.
- * @param settings The ESLint React settings to decode and normalize.
+ * Get the normalized ESLint React settings, memoized by the input settings value.
+ * @param settings The value to decode and normalize.
  * @returns The normalized ESLint React settings.
  */
-export const getNormalizedSettings = memoize((settings: object) => normalizeSettings(decodeSettings(settings)));
+export const getNormalizedSettings = memoize((settings: unknown) => normalizeSettings(decodeSettings(settings)));
 
 /**
  * Get the normalized ESLint React settings from the rule context.
@@ -205,12 +205,7 @@ export const getNormalizedSettings = memoize((settings: object) => normalizeSett
  * @returns The normalized ESLint React settings.
  */
 export function getSettingsFromContext(context: RuleContext): ESLintReactSettingsNormalized {
-  const settings = context.settings["react-x"];
-  return getNormalizedSettings(
-    isObjectKeyword(settings)
-      ? settings
-      : DEFAULT_ESLINT_REACT_SETTINGS,
-  );
+  return getNormalizedSettings(context.settings["react-x"]);
 }
 
 declare module "@typescript-eslint/utils/ts-eslint" {
