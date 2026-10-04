@@ -2,6 +2,15 @@
 title: Changelog
 ---
 
+## v5.24.3 (2026-10-05)
+
+### 🏗️ Internal
+
+- `@local/eff`: minor code optimizations.
+- `@eslint-react/shared`: minor code optimizations.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.2...v5.24.3
+
 ## v5.24.2 (2026-10-04)
 
 ### 🏗️ Internal
