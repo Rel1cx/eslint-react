@@ -19,6 +19,13 @@ export function buildConfig(cwd: string) {
     format: ["esm"],
     minify: false,
     outDir: "dist",
+    outputOptions: {
+      comments: {
+        annotation: true,
+        jsdoc: false,
+        legal: true,
+      },
+    },
     platform: "node",
     sourcemap: false,
     target: "node22",

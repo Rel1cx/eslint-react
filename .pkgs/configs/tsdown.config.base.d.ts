@@ -11,6 +11,13 @@ export declare function buildConfig(cwd: string): {
     readonly format: ["esm"];
     readonly minify: false;
     readonly outDir: "dist";
+    readonly outputOptions: {
+        readonly comments: {
+            readonly annotation: true;
+            readonly jsdoc: false;
+            readonly legal: true;
+        };
+    };
     readonly platform: "node";
     readonly sourcemap: false;
     readonly target: "node22";
