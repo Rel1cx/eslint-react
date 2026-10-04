@@ -9,7 +9,7 @@ export declare function buildConfig(cwd: string): {
     readonly entry: ["src/index.ts"];
     readonly fixedExtension: false;
     readonly format: ["esm"];
-    readonly minify: false;
+    readonly minify: "dce-only";
     readonly outDir: "dist";
     readonly outputOptions: {
         readonly comments: {
