@@ -2,6 +2,14 @@
 title: Changelog
 ---
 
+## v5.24.4 (2026-10-05)
+
+### 🏗️ Internal
+
+- Enable dead-code elimination in tsdown config, producing smaller published packages.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.3...v5.24.4
+
 ## v5.24.3 (2026-10-05)
 
 ### 🏗️ Internal
