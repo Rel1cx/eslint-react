@@ -1,6 +1,7 @@
 import { createRule } from "@/utils/create-rule";
 import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@eslint-react/eslint";
+import { hasProperty } from "@local/eff";
 
 export const RULE_NAME = "no-component-will-mount";
 
@@ -42,7 +43,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             if (core.isComponentWillMount(member)) {
               context.report({
                 fix(fixer) {
-                  if (!("key" in member)) {
+                  if (!hasProperty(member, "key")) {
                     return null;
                   }
                   return fixer.replaceText(member.key, "UNSAFE_componentWillMount");

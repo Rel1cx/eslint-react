@@ -3,6 +3,7 @@ import * as core from "@eslint-react/core";
 import type { RuleContext } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveOrigin } from "@eslint-react/var";
+import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { getStaticValue } from "@typescript-eslint/utils/ast-utils";
 
@@ -26,7 +27,7 @@ export function createSetStateResolver(context: RuleContext) {
     if (initNode.type !== AST.CallExpression) return false;
     if (!isUseStateCall(initNode)) return false;
     const variableNodeParent = initNode.parent;
-    if (!("id" in variableNodeParent) || variableNodeParent.id?.type !== AST.ArrayPattern) {
+    if (!hasProperty(variableNodeParent, "id") || variableNodeParent.id?.type !== AST.ArrayPattern) {
       return true;
     }
     return variableNodeParent
@@ -45,7 +46,7 @@ export function createSetStateResolver(context: RuleContext) {
         if (innerCallee.type !== AST.MemberExpression) {
           return false;
         }
-        if (!("name" in innerCallee.object)) {
+        if (!hasProperty(innerCallee.object, "name")) {
           return false;
         }
         const isAt = Extract.getCalleeName(callee) === "at";
@@ -65,7 +66,7 @@ export function createSetStateResolver(context: RuleContext) {
       // const data = useState();
       // data[1]();
       case AST.MemberExpression: {
-        if (!("name" in callee.object)) {
+        if (!hasProperty(callee.object, "name")) {
           return false;
         }
         const property = callee.property;

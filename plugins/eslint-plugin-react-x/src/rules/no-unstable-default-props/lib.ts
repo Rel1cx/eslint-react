@@ -1,3 +1,4 @@
+import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { delimiterCase, toLowerCase } from "string-ts";
 
@@ -14,7 +15,7 @@ export type ObjectDestructuringVariableDeclarator = TSESTree.VariableDeclarator 
 
 export function getHumanReadableKind(node: TSESTree.Node) {
   if (node.type === AST.Literal) {
-    if ("regex" in node) return "regexp literal" as const;
+    if (hasProperty(node, "regex")) return "regexp literal" as const;
     // tsl-ignore dx/nullish
     if (node.value === null) return "null literal" as const;
     return `${typeof node.value} literal` as const;

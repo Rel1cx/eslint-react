@@ -1,6 +1,6 @@
 import * as NodeRtm from "@effect/platform-node/NodeRuntime";
 import * as NodeSrv from "@effect/platform-node/NodeServices";
-import { isString } from "@local/eff";
+import { hasProperty, isString } from "@local/eff";
 import ansis from "ansis";
 import { identity } from "effect";
 import * as Effect from "effect/Effect";
@@ -232,7 +232,7 @@ const PRESETS = [
 ] as const;
 
 function getExpectedPresets(configKey: string): string[] {
-  return PRESETS.filter(({ config }) => configKey in config).map(({ name }) => name);
+  return PRESETS.filter(({ config }) => hasProperty(config, configKey)).map(({ name }) => name);
 }
 
 const RULES_INDEX_PATH = ["apps", "website", "content", "docs", "rules", "index.mdx"];

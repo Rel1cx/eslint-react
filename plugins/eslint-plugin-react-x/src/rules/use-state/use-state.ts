@@ -5,6 +5,7 @@ import * as core from "@eslint-react/core";
 import { type RuleContext, type RuleFeature, type RuleListener } from "@eslint-react/eslint";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { resolveEnclosingAssignmentTarget } from "@eslint-react/var";
+import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { JSONSchema4 } from "@typescript-eslint/utils/json-schema";
 import { snakeCase } from "string-ts";
@@ -97,7 +98,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
         if (useStateInput != null) {
           // Check for `new` expressions, e.g., `new MyClass()`
           for (const expr of getNestedNewExpressions(useStateInput)) {
-            if (!("name" in expr.callee)) continue;
+            if (!hasProperty(expr.callee, "name")) continue;
             // Ignore primitive wrappers like `new String('foo')`
             if (LAZY_INIT_ALLOW_LIST.includes(expr.callee.name)) continue;
             // Ignore if it's inside a `use()` call
@@ -106,7 +107,7 @@ export function create(context: RuleContext<MessageID, Options>): RuleListener {
           }
           // Check for function call expressions, e.g., `myFunction()`
           for (const expr of getNestedCallExpressions(useStateInput)) {
-            if (!("name" in expr.callee)) continue;
+            if (!hasProperty(expr.callee, "name")) continue;
             // Ignore other React hooks
             if (core.isHookName(expr.callee.name)) continue;
             // Ignore primitive wrappers like `String('foo')`

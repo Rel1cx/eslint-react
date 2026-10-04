@@ -1,5 +1,6 @@
 import { Check, Extract } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
+import { hasProperty } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { resolve } from "./resolve";
@@ -68,7 +69,7 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
     case AST.ArrowFunctionExpression:
       return { kind: "function", node } as const;
     case AST.Literal: {
-      if ("regex" in node) return { kind: "regexp", node } as const;
+      if (hasProperty(node, "regex")) return { kind: "regexp", node } as const;
       return null;
     }
     case AST.Identifier: {
@@ -140,7 +141,7 @@ export function resolveObjectType(context: RuleContext, node: TSESTree.Node | nu
       return { kind: "unknown", node, reason: "call-expression" } as const;
     }
     default: {
-      if (!("expression" in node) || typeof node.expression !== "object") {
+      if (!hasProperty(node, "expression") || typeof node.expression !== "object") {
         return null;
       }
       return resolveObjectType(context, node.expression);

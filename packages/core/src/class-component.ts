@@ -1,4 +1,5 @@
 import { Check, Extract, type TSESTreeClass, type TSESTreeFunction, type TSESTreeMethodOrPropertyDefinition } from "@eslint-react/ast";
+import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { SemanticNode } from "./semantic";
 
@@ -34,7 +35,7 @@ export interface ClassComponentSemanticNode extends SemanticNode {
  * @returns `true` if the node is a class component.
  */
 export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
-  if ("superClass" in node && node.superClass != null) {
+  if (hasProperty(node, "superClass") && node.superClass != null) {
     const re = /^(?:Pure)?Component$/u;
     switch (true) {
       case Check.isIdentifier(node.superClass):
@@ -54,7 +55,7 @@ export function isClassComponent(node: TSESTree.Node): node is TSESTreeClass {
  * @deprecated Class components are legacy. This function exists only to support legacy rules.
  */
 export function isPureComponent(node: TSESTree.Node) {
-  if ("superClass" in node && node.superClass != null) {
+  if (hasProperty(node, "superClass") && node.superClass != null) {
     const re = /^PureComponent$/u;
     switch (true) {
       case Check.isIdentifier(node.superClass):

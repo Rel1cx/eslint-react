@@ -5,7 +5,7 @@ import { type RuleContext, type RuleFeature, type RuleListener, merge } from "@e
 import { getElementFullType } from "@eslint-react/jsx";
 import { getSettingsFromContext } from "@eslint-react/shared";
 import { type ObjectType, resolveObjectType } from "@eslint-react/var";
-import { getOrInsertComputed } from "@local/eff";
+import { getOrInsertComputed, hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST } from "@typescript-eslint/types";
 import { compare } from "compare-versions";
 import { getHumanReadableKind, isContextName } from "./lib";
@@ -58,7 +58,7 @@ export function create(context: RuleContext<MessageID, []>): RuleListener {
             attribute.type === AST.JSXAttribute
             && attribute.name.name === "value"
           );
-        if (attribute == null || !("value" in attribute)) return;
+        if (attribute == null || !hasProperty(attribute, "value")) return;
         const value = attribute.value;
         if (value?.type !== AST.JSXExpressionContainer) return;
         const valueExpression = value.expression;

@@ -1,5 +1,6 @@
 import { Check } from "@eslint-react/ast";
 import type { RuleContext } from "@eslint-react/eslint";
+import { hasProperty } from "@local/eff";
 import { DefinitionType } from "@typescript-eslint/scope-manager";
 import type { TSESTree } from "@typescript-eslint/types";
 import { findVariable } from "@typescript-eslint/utils/ast-utils";
@@ -77,7 +78,7 @@ export function resolveOrigin(
       const { init } = def.node;
       if (init == null) return null;
       // Guard against unexpected AST shapes that could cause infinite loops
-      if ("declarations" in init) return null;
+      if (hasProperty(init, "declarations")) return null;
       return init;
     }
 

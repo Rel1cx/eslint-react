@@ -1,3 +1,4 @@
+import { hasProperty } from "@local/eff";
 import { collectNodes, getFirstNodeOfType, runInRule } from "@local/testkit";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { describe, expect, it } from "vitest";
@@ -88,7 +89,7 @@ describe("resolveObjectType", () => {
       const fact = runInRule(code, (context, ast) => {
         // The regex literal is a Literal node with a `regex` property
         const literals = collectNodes<TSESTree.Literal>(ast, AST.Literal);
-        const regexNode = literals.find((n) => "regex" in n);
+        const regexNode = literals.find((n) => hasProperty(n, "regex"));
         expect(regexNode).toBeDefined();
         return resolveObjectType(context, regexNode);
       });
@@ -202,7 +203,7 @@ describe("resolveObjectType", () => {
       runInRule(code, (_context, ast) => {
         const node = getFirstNodeOfType<TSESTree.MemberExpression>(ast, AST.MemberExpression);
         expect(node).toBeDefined();
-        expect("object" in node).toBe(true);
+        expect(hasProperty(node, "object")).toBe(true);
         expect(node.object).toBeDefined();
         return null;
       });
@@ -215,7 +216,7 @@ describe("resolveObjectType", () => {
       runInRule(code, (_context, ast) => {
         const node = getFirstNodeOfType<TSESTree.AssignmentExpression>(ast, AST.AssignmentExpression);
         expect(node).toBeDefined();
-        expect("right" in node).toBe(true);
+        expect(hasProperty(node, "right")).toBe(true);
         expect(node.right).toBeDefined();
         return null;
       });

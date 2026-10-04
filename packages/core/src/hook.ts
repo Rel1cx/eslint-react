@@ -1,6 +1,6 @@
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction, Traverse } from "@eslint-react/ast";
 import type { RegExpLike } from "@eslint-react/shared";
-import { constFalse } from "@local/eff";
+import { constFalse, hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import { type FunctionID, getFunctionId } from "./function";
 import type { SemanticNode } from "./semantic";
@@ -85,7 +85,7 @@ export function isHookId(id: TSESTree.Node): id is TSESTree.Identifier | TSESTre
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return "name" in id.property
+      return hasProperty(id.property, "name")
         && isHookName(id.property.name);
     default:
       return false;
@@ -118,7 +118,7 @@ export function isHookDefinition(node: TSESTreeFunction | null) {
     case AST.Identifier:
       return isHookName(id.name);
     case AST.MemberExpression:
-      return "name" in id.property && isHookName(id.property.name);
+      return hasProperty(id.property, "name") && isHookName(id.property.name);
     default:
       return false;
   }

@@ -1,4 +1,5 @@
 import { Check, Extract, type TSESTreeDirective, type TSESTreeFunction } from "@eslint-react/ast";
+import { hasProperty } from "@local/eff";
 import { AST_NODE_TYPES as AST, type TSESTree } from "@typescript-eslint/types";
 import type { SemanticFunc } from "./semantic";
 
@@ -120,7 +121,7 @@ export type FunctionSemanticNode = ClientFunctionSemanticNode | ServerFunctionSe
 export function getFunctionId(node: TSESTree.Expression | TSESTreeFunction) {
   switch (true) {
     // function MaybeComponent() {}
-    case "id" in node
+    case hasProperty(node, "id")
       && node.id != null:
       // const whatever = function MaybeComponent() {};
       return node.id;
@@ -228,7 +229,7 @@ export function isFunctionHasCallInInitPath(callName: string, initPath: Function
     // Check direct function calls: memo(...)
     if (Check.isIdentifier(callee)) return callee.name === callName;
     // Check member expressions: React.memo(...)
-    if (callee.type === AST.MemberExpression && "name" in callee.property) return callee.property.name === callName;
+    if (callee.type === AST.MemberExpression && hasProperty(callee.property, "name")) return callee.property.name === callName;
     return false;
   });
 }
