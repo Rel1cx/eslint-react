@@ -2,6 +2,16 @@
 title: Changelog
 ---
 
+## v5.24.1 (2026-10-04)
+
+### 🏗️ Internal
+
+- `@eslint-react/shared`: normalized settings are now cached via the `memoize` helper from `@local/eff` instead of a manual map lookup, and non-object `react-x` settings fall back to the defaults before normalization; added a settings normalization benchmark. (#1992)
+- `@local/eff`: synced the vendored utilities with Effect v4. (#1991)
+- Bumped `eslint` to `10.12.0`.
+
+**Full Changelog**: https://github.com/Rel1cx/eslint-react/compare/v5.24.0...v5.24.1
+
 ## v5.24.0 (2026-10-04)
 
 ### 🐞 Fixes
